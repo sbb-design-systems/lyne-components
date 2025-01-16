@@ -2,6 +2,7 @@ import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import {
@@ -145,8 +146,22 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
    * Listen for keyboard events on the chip elements
    **/
   private _onChipKeyDown(event: KeyboardEvent): void {
-    const eventTarget = event.target as HTMLElement;
+    const eventTarget = event.target as SbbChipElement;
     if (eventTarget.localName !== 'sbb-chip') {
+      return;
+    }
+
+    // Arrow keys allow navigation between chips focus steps
+    if (isArrowKeyPressed(event)) {
+      // Collect an array of the enabled focus steps (2 for each chip)
+      const focusSteps = this._enabledChipElements().flatMap((c) => c.getFocusSteps());
+
+      // The true event target is shadowed by web-component boundary.
+      // We have to pierce the shadowDOM to get the focused step
+      const activeStep = eventTarget.shadowRoot!.activeElement as HTMLElement;
+
+      const next = getNextElementIndex(event, focusSteps.indexOf(activeStep), focusSteps.length);
+      focusSteps[next].focus();
       return;
     }
 
@@ -176,7 +191,9 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
         }
         break;
       case 'Backspace':
-        this._focusLastChip();
+        if (!this._inputElement!.value) {
+          this._focusLastChip();
+        }
         break;
       case 'Tab':
         if (event.shiftKey && this._enabledChipElements().length === 0) {
@@ -232,7 +249,7 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-chip-group">
+      <div class="sbb-chip-group" role="grid">
         <slot @slotchange=${this._onSlotChange}></slot>
       </div>
     `;

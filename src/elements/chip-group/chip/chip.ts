@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -33,17 +33,44 @@ class SbbChipElement extends SbbDisabledMixin(LitElement) {
     this.shadowRoot!.querySelector<HTMLElement>('.sbb-chip__label')!.focus();
   }
 
+  /**
+   * Return the two focusable elements of the chip.
+   * @internal
+   */
+  public getFocusSteps(): HTMLElement[] {
+    return [this._chipLabel(), this._deleteButton()];
+  }
+
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+
+    // Remove the delete button from the tab order.
+    // SetTimeout is needed to override the button tabindex initialization
+    setTimeout(() => (this._deleteButton().tabIndex = -1));
+  }
+
+  private _chipLabel(): HTMLElement {
+    return this.shadowRoot!.querySelector('.sbb-chip__label')!;
+  }
+
+  private _deleteButton(): HTMLElement {
+    return this.shadowRoot!.querySelector('sbb-mini-button')!;
+  }
+
+  // TODO handle aria-label
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-chip">
-        <span class="sbb-chip__label" tabindex="-1">
+      <div class="sbb-chip" role="row">
+        <span class="sbb-chip__label" tabindex="-1" role="gridcell">
           <slot>${this.value}</slot>
         </span>
         <sbb-mini-button
           tabindex="-1"
           class="sbb-chip__delete"
           icon-name="cross-tiny-medium"
+          role="gridcell"
           ?disabled=${this.disabled}
+          aria-label="Remove ${this.value}"
           @click=${() => this._requestDelete.emit()}
         ></sbb-mini-button>
       </div>

@@ -19,12 +19,17 @@
   color: var(--sbb-chip-color);
   display: flex;
   align-items: center;
+
+  &:has(.sbb-chip__label:focus-visible) {
+    @include sbb.focus-outline;
+  }
 }
 
 .sbb-chip__label {
   @include sbb.text-xxs--regular;
 
   padding-inline: var(--sbb-spacing-fixed-2x);
+  outline: none;
 }
 
 .sbb-chip__delete {
