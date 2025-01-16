@@ -70,7 +70,9 @@ describe(`sbb-container`, () => {
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
-    <sbb-secondary-button style="margin-block-end: 3rem;">See more</sbb-secondary-button>
+    <sbb-secondary-button ?negative=${!!color && isDark(color)} style="margin-block-end: 3rem;"
+      >See more</sbb-secondary-button
+    >
   `;
 
   const backgroundImageContent = html`
