@@ -22,7 +22,7 @@ const containerColor: InputType = {
   table: {
     category: 'Container',
   },
-  options: ['transparent', 'white', 'milk'],
+  options: ['transparent', 'white', 'milk', 'midnight', 'charcoal'],
 };
 
 const containerExpanded: InputType = {
@@ -50,21 +50,21 @@ const color: InputType = {
   table: {
     category: 'Sticky Bar',
   },
-  options: ['unset', 'white', 'milk'],
+  options: ['unset', 'white', 'milk', 'midnight', 'charcoal'],
 };
 
 const defaultArgTypes: ArgTypes = {
+  color,
   containerColor,
   containerExpanded,
   containerBackgroundExpanded,
-  color,
 };
 
 const defaultArgs: Args = {
+  color: color.options![0],
   containerColor: containerColor.options![0],
   containerExpanded: false,
   containerBackgroundExpanded: false,
-  color: color.options![0],
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -86,8 +86,12 @@ const actionGroup = (): TemplateResult => html`
   </sbb-action-group>
 `;
 
-const containerContent = (title: string): TemplateResult => html`
-  <sbb-title level="4">${title}</sbb-title>
+function isDark(colorArg: string): boolean {
+  return colorArg === 'midnight' || colorArg === 'charcoal';
+}
+
+const containerContent = (title: string, isDark: boolean): TemplateResult => html`
+  <sbb-title level="4" ?negative=${isDark}>${title}</sbb-title>
   <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
   <p class="sbb-text-s">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -114,9 +118,10 @@ const DefaultTemplate = ({
     ?expanded=${containerExpanded}
     ?background-expanded=${containerBackgroundExpanded}
   >
-    ${containerContent('Example title')} ${containerContent('Another one')}
-    ${containerContent('And another one')} ${containerContent('And a last one')}
-
+    ${containerContent('Example title', isDark(containerColor))}
+    ${containerContent('Another one', isDark(containerColor))}
+    ${containerContent('And another one', isDark(containerColor))}
+    ${containerContent('And a last one', isDark(containerColor))}
     <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
@@ -132,7 +137,7 @@ const ShortTemplate = ({
     ?expanded=${containerExpanded}
     ?background-expanded=${containerBackgroundExpanded}
   >
-    ${containerContent('Example title')}
+    ${containerContent('Example title', isDark(containerColor))}
     <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
@@ -148,8 +153,10 @@ const WithContentAfterTemplate = ({
     ?expanded=${containerExpanded}
     ?background-expanded=${containerBackgroundExpanded}
   >
-    ${containerContent('Example title')} ${containerContent('Another one')}
-    ${containerContent('And another one')} ${containerContent('And a last one')}
+    ${containerContent('Example title', isDark(containerColor))}
+    ${containerContent('Another one', isDark(containerColor))}
+    ${containerContent('And another one', isDark(containerColor))}
+    ${containerContent('And a last one', isDark(containerColor))}
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
@@ -172,7 +179,8 @@ const WithContentAfterTemplate = ({
     ?background-expanded=${containerBackgroundExpanded}
   >
     <div style="padding-block: 4rem;">
-      ${containerContent('Content after first container')} ${containerContent('Another one')}
+      ${containerContent('Content after first container', isDark(containerColor))}
+      ${containerContent('Another one', isDark(containerColor))}
     </div>
   </sbb-container>
 `;
@@ -181,27 +189,10 @@ export const Standalone: StoryObj = {
   render: Template,
 };
 
-export const ShortContent: StoryObj = {
-  render: ShortTemplate,
-  argTypes: defaultArgTypes,
-  args: defaultArgs,
-};
-export const ShortContentMilk: StoryObj = {
-  render: ShortTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: 'milk' },
-};
-
 export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: defaultArgs,
-};
-
-export const Expanded: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerExpanded: true },
 };
 
 export const White: StoryObj = {
@@ -210,34 +201,76 @@ export const White: StoryObj = {
   args: { ...defaultArgs, color: color.options![1] },
 };
 
+export const WhiteStickyBarWithMilkContainer: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
+};
+
+export const WhiteWithContainerExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1], containerExpanded: true },
+};
+
 export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options![2] },
+  args: { ...defaultArgs, containerColor: color.options![2] },
+};
+
+export const MilkStickyBarWithWhiteContainer: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![1], color: color.options![2] },
+};
+
+export const MilkWithContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
+};
+
+export const Midnight: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![3] },
+};
+
+export const MidnightWithContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![3], containerBackgroundExpanded: true },
+};
+
+export const Charcoal: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![4] },
+};
+
+export const CharcoalWithContainerBackgroundExpanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options![4], containerBackgroundExpanded: true },
+};
+
+export const ShortContent: StoryObj = {
+  render: ShortTemplate,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+
+export const ShortContentMilk: StoryObj = {
+  render: ShortTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: containerColor.options![2] },
 };
 
 export const WithContentAfter: StoryObj = {
   render: WithContentAfterTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, containerColor: 'milk', color: 'white' },
-};
-
-export const MilkContainer: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![2] },
-};
-
-export const MilkContainerWhiteStickyBar: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![2], color: color.options![1] },
-};
-
-export const MilkContainerBackgroundExpanded: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
 };
 
 export const ControlStickyState: StoryObj = {
