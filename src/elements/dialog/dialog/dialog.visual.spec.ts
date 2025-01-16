@@ -57,7 +57,7 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-actions>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 800 }, () => {
+  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 600 }, () => {
     // Negative test
     for (const negative of negativeCases) {
       it(
@@ -69,7 +69,7 @@ describe(`sbb-dialog`, () => {
                 ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
               </sbb-dialog>
             `,
-            { minHeight: '800px' },
+            { minHeight: '600px' },
           );
           setup.withPostSetupAction(() =>
             setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
@@ -85,7 +85,7 @@ describe(`sbb-dialog`, () => {
           html`
             <sbb-dialog> ${dialogTitle(false)} ${dialogContent()} ${dialogFooter()} </sbb-dialog>
           `,
-          { minHeight: '800px' },
+          { minHeight: '600px' },
         );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
@@ -98,7 +98,7 @@ describe(`sbb-dialog`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html` <sbb-dialog> ${dialogTitle()} ${dialogContent()} </sbb-dialog> `,
-          { minHeight: '800px' },
+          { minHeight: '600px' },
         );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
@@ -113,7 +113,7 @@ describe(`sbb-dialog`, () => {
           html`
             <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
           `,
-          { minHeight: '800px' },
+          { minHeight: '600px' },
         );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
@@ -131,7 +131,7 @@ describe(`sbb-dialog`, () => {
               ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
             </sbb-dialog>
           `,
-          { minHeight: '800px' },
+          { minHeight: '600px' },
         );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
