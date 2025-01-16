@@ -1821,10 +1821,10 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.34.tgz#10964ba0dee6ac4cd462e2795b6bebd407303433"
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
-"@types/node@*", "@types/node@20.17.13", "@types/node@^16.0.0":
-  version "20.17.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.17.13.tgz#26a7d3e72724ed73bc2fd39a66a2ab17e6e19a00"
-  integrity sha512-RNf+4dEeV69PIvyp++4IKM2vnLXtmp/JovfeQm5P5+qpKb6wHoH7INywLdZ7z+gVX46kgBP/fwJJvZYaHxtdyw==
+"@types/node@*", "@types/node@20.17.14", "@types/node@^16.0.0":
+  version "20.17.14"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.17.14.tgz#579e7d75eeb5d46b75c73c98821639e64b689608"
+  integrity sha512-w6qdYetNL5KRBiSClK/KWai+2IMEJuAj+EujKCumalFOwXtvOXaEan9AuwcRID2IcOIAWSIfR495hBtgKlx2zg==
   dependencies:
     undici-types "~6.19.2"
 
