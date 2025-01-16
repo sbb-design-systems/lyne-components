@@ -86,6 +86,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
 
     // Add this dialog to the global collection
@@ -110,6 +112,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this._setHideHeaderDataAttribute(false);
     this._dialogContentElement?.scrollTo(0, 0);
     this.state = 'closed';
+    this.hidePopover?.();
+
     this.inertController.deactivate();
     setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element

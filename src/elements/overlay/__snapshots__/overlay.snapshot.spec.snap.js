@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-overlay renders DOM"] = 
-`<sbb-overlay data-state="opened">
+`<sbb-overlay
+  data-state="opened"
+  popover="manual"
+>
 </sbb-overlay>
 `;
 /* end snapshot sbb-overlay renders DOM */

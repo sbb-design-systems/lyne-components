@@ -249,6 +249,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (!this.willOpen.emit()) {
       return;
     }
+    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
 
@@ -563,6 +564,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.hidePopover?.();
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
@@ -913,7 +915,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       </div>
 
       <div class="sbb-select__gap-fix"></div>
-      <div class="sbb-select__container">
+      <div class="sbb-select__container" popover="manual">
         <div class="sbb-select__gap-fix">${overlayGapFixCorners()}</div>
         <div
           @animationend=${this._onAnimationEnd}

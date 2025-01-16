@@ -53,6 +53,7 @@ export
 @customElement('sbb-navigation')
 @hostAttributes({
   role: 'navigation',
+  popover: 'manual',
 })
 class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
@@ -128,6 +129,8 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
     this._checkActiveActions();
     this._checkActiveSection();
@@ -186,6 +189,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
     this._navigationContentElement.scrollTo(0, 0);
     setModalityOnNextFocus(this._triggerElement);
     this._inertController.deactivate();

@@ -34,7 +34,7 @@
   --sbb-navigation-height: 100dvh;
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-  display: block;
+  display: none;
   position: fixed;
   inset: var(--sbb-navigation-inset);
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
@@ -61,6 +61,10 @@
     --sbb-navigation-grid-column: 1 / 6;
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   }
+}
+
+:host([data-state]:not([data-state='closed'])) {
+  display: block;
 }
 
 :host([data-state='opened']) {

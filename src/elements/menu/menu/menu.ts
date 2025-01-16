@@ -16,7 +16,7 @@ import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
   findReferencedElement,
   isZeroAnimationDuration,
@@ -63,6 +63,9 @@ let nextId = 0;
  */
 export
 @customElement('sbb-menu')
+@hostAttributes({
+  popover: 'manual',
+})
 class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof SbbOpenCloseBaseElement
@@ -129,6 +132,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       return;
     }
 
+    this.showPopover?.();
     this.state = 'opening';
     this._setMenuPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -182,6 +186,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
+
     this._menu?.firstElementChild?.scrollTo(0, 0);
     this._inertController.deactivate();
     setModalityOnNextFocus(this._triggerElement);

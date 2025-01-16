@@ -79,6 +79,7 @@ describe(`sbb-autocomplete`, () => {
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(element).to.match(':popover-open');
 
     await sendKeys({ press: 'Escape' });
     await willCloseEventSpy.calledOnce();
@@ -86,6 +87,7 @@ describe(`sbb-autocomplete`, () => {
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(element).not.to.match(':popover-open');
 
     await sendKeys({ press: 'ArrowDown' });
     await willOpenEventSpy.calledTimes(2);
