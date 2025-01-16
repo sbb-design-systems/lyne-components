@@ -33,17 +33,25 @@ describe(`sbb-sticky-bar`, () => {
   const containerContent = (color?: string): TemplateResult => html`
     <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <sbb-secondary-button style="margin-block-end: 0.75rem;" size="m">
+    <sbb-secondary-button
+      style="margin-block-end: 0.75rem;"
+      size="m"
+      ?negative=${!!color && isDark(color)}
+    >
       See more
     </sbb-secondary-button>
   `;
 
-  const actionGroup = (): TemplateResult => html`
+  const actionGroup = (color?: string): TemplateResult => html`
     <sbb-action-group align-group="stretch" orientation="vertical" style="width:100%;">
-      <sbb-block-link align-self="start" icon-name="chevron-small-left-small">
+      <sbb-block-link
+        ?negative=${!!color && isDark(color)}
+        align-self="start"
+        icon-name="chevron-small-left-small"
+      >
         Link
       </sbb-block-link>
-      <sbb-button>Confirm</sbb-button>
+      <sbb-button ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
     </sbb-action-group>
   `;
 
@@ -91,7 +99,7 @@ describe(`sbb-sticky-bar`, () => {
           await setup.withFixture(
             html` <sbb-container .color=${color}>
               ${containerContent(color)}
-              <sbb-sticky-bar> ${actionGroup()}</sbb-sticky-bar>
+              <sbb-sticky-bar> ${actionGroup(color)}</sbb-sticky-bar>
             </sbb-container>`,
             { padding: '0' },
           );
