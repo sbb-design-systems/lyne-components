@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, slotState } from '../core/decorators.js';
+import { forceType, hostAttributes, slotState } from '../core/decorators.js';
 import { isFirefox, isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
@@ -40,6 +40,9 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export
 @customElement('sbb-toast')
+@hostAttributes({
+  popover: 'manual',
+})
 @slotState()
 class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
@@ -102,6 +105,8 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
     this._closeOtherToasts();
 
@@ -139,6 +144,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
     this.didClose.emit();
   }
 

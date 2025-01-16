@@ -58,6 +58,7 @@
         "globalAttributes": [
           "align-self",
           "inert",
+          "popover",
           "sbb-dialog-close",
           "sbb-navigation-close",
           "sbb-navigation-section-close",

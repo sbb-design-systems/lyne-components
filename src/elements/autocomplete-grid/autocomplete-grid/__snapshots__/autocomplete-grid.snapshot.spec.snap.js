@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] = 
-`<sbb-autocomplete-grid data-state="closed">
+`<sbb-autocomplete-grid
+  data-state="closed"
+  popover="manual"
+>
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-1"
     role="row"
@@ -93,6 +96,7 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
 `<sbb-autocomplete-grid
   data-state="closed"
   id="sbb-autocomplete-grid-1"
+  popover="manual"
   role="grid"
 >
   <sbb-autocomplete-grid-row

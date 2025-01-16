@@ -50,6 +50,8 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const willClose = new EventSpy(SbbSelectElement.events.willClose, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
+
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
       await willOpen.calledOnce();
@@ -60,6 +62,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(overlayContainerElement).to.match(':popover-open');
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -71,6 +74,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(overlayContainerElement).not.to.match(':popover-open');
     });
 
     it('opens and closes the select with non-zero animation duration', async () => {

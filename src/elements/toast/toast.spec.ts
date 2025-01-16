@@ -43,6 +43,7 @@ describe(`sbb-toast`, () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('opened');
+    expect(element).to.match(':popover-open');
 
     // Will wait for timeout and then close itself
 
@@ -56,6 +57,7 @@ describe(`sbb-toast`, () => {
 
     await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('closed');
+    expect(element).not.to.match(':popover-open');
   });
 
   it('closes by dismiss button click', async () => {
