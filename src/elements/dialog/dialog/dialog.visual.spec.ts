@@ -57,17 +57,20 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-actions>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 600 }, () => {
+  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 800 }, () => {
     // Negative test
     for (const negative of negativeCases) {
       it(
         `negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-dialog ?negative=${negative}>
-              ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
-            </sbb-dialog>
-          `);
+          await setup.withFixture(
+            html`
+              <sbb-dialog ?negative=${negative}>
+                ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
+              </sbb-dialog>
+            `,
+            { minHeight: '800px' },
+          );
           setup.withPostSetupAction(() =>
             setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
           );
@@ -78,9 +81,12 @@ describe(`sbb-dialog`, () => {
     it(
       `no back button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle(false)} ${dialogContent()} ${dialogFooter()} </sbb-dialog>
-        `);
+        await setup.withFixture(
+          html`
+            <sbb-dialog> ${dialogTitle(false)} ${dialogContent()} ${dialogFooter()} </sbb-dialog>
+          `,
+          { minHeight: '800px' },
+        );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
         );
@@ -90,9 +96,10 @@ describe(`sbb-dialog`, () => {
     it(
       `no footer`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle()} ${dialogContent()} </sbb-dialog>
-        `);
+        await setup.withFixture(
+          html` <sbb-dialog> ${dialogTitle()} ${dialogContent()} </sbb-dialog> `,
+          { minHeight: '800px' },
+        );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
         );
@@ -102,9 +109,12 @@ describe(`sbb-dialog`, () => {
     it(
       `long content`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
-        `);
+        await setup.withFixture(
+          html`
+            <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
+          `,
+          { minHeight: '800px' },
+        );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
         );
@@ -114,12 +124,15 @@ describe(`sbb-dialog`, () => {
     it(
       `backdrop=translucent`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <p>Other content visible in the background</p>
-          <sbb-dialog backdrop="translucent">
-            ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
-          </sbb-dialog>
-        `);
+        await setup.withFixture(
+          html`
+            <p>Other content visible in the background</p>
+            <sbb-dialog backdrop="translucent">
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+            </sbb-dialog>
+          `,
+          { minHeight: '800px' },
+        );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
         );
