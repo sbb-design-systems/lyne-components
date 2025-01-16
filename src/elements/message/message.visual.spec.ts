@@ -63,6 +63,31 @@ describe(`sbb-message`, () => {
           await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
         }),
       );
+
+      it(
+        `small image ${testCase.title}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <style>
+              [slot='image'] {
+                width: 200px;
+              }
+            </style>
+            <sbb-message title-content="Unfortunately, an error has occurred.">
+              ${testCase.imgTemplate()}
+              <p slot="subtitle">Please reload the page or try your search again later.</p>
+              <p slot="legend">Error code: 0001</p>
+              <sbb-secondary-button
+                slot="action"
+                icon-name="arrows-circle-small"
+                size="m"
+              ></sbb-secondary-button>
+            </sbb-message>
+          `);
+
+          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+        }),
+      );
     }
 
     it(

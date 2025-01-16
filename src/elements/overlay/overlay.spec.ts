@@ -20,12 +20,9 @@ async function openOverlay(element: SbbOverlayElement): Promise<void> {
 
   await willOpen.calledOnce();
   expect(willOpen.count).to.be.equal(1);
-  await waitForLitRender(element);
 
   await didOpen.calledOnce();
   expect(didOpen.count).to.be.equal(1);
-  await waitForLitRender(element);
-
   expect(element).to.have.attribute('data-state', 'opened');
 }
 
@@ -36,6 +33,9 @@ describe('sbb-overlay', () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
       <sbb-overlay id="my-overlay-1" accessibility-label="Label">
+        <p>Overlay content</p>
+        <p>Overlay content</p>
+        <p>Overlay content</p>
         <p>Overlay content</p>
       </sbb-overlay>
     `);
@@ -61,8 +61,6 @@ describe('sbb-overlay', () => {
 
     await willOpen.calledOnce();
     expect(willOpen.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(didOpen.count).to.be.equal(0);
     expect(element).to.have.attribute('data-state', 'closed');
   });
@@ -80,12 +78,9 @@ describe('sbb-overlay', () => {
 
     await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
     expect(ariaLiveRef.textContent).to.be.equal('');
   });
@@ -101,8 +96,6 @@ describe('sbb-overlay', () => {
 
     await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
@@ -119,8 +112,6 @@ describe('sbb-overlay', () => {
 
     await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(didClose.count).to.be.equal(0);
     expect(element).to.have.attribute('data-state', 'opened');
   });
@@ -137,11 +128,9 @@ describe('sbb-overlay', () => {
 
     await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
   });
@@ -186,11 +175,9 @@ describe('sbb-overlay', () => {
 
     await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
   });
@@ -220,11 +207,9 @@ describe('sbb-overlay', () => {
 
     await willOpen.calledTimes(2);
     expect(willOpen.count).to.be.equal(2);
-    await waitForLitRender(element);
 
     await didOpen.calledTimes(2);
     expect(didOpen.count).to.be.equal(2);
-    await waitForLitRender(element);
 
     expect(stackedOverlay).to.have.attribute('data-state', 'opened');
 
@@ -236,11 +221,9 @@ describe('sbb-overlay', () => {
 
     await willClose.calledOnce();
     expect(willClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(stackedOverlay).to.have.attribute('data-state', 'closed');
     expect(element).to.have.attribute('data-state', 'opened');
@@ -253,11 +236,9 @@ describe('sbb-overlay', () => {
 
     await willClose.calledTimes(2);
     expect(willClose.count).to.be.equal(2);
-    await waitForLitRender(element);
 
     await didClose.calledTimes(2);
     expect(didClose.count).to.be.equal(2);
-    await waitForLitRender(element);
 
     expect(stackedOverlay).to.have.attribute('data-state', 'closed');
     expect(element).to.have.attribute('data-state', 'closed');
@@ -295,5 +276,23 @@ describe('sbb-overlay', () => {
     );
 
     expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Overlay`);
+  });
+
+  it('does forward scroll event to document', async () => {
+    const didOpenEventSpy = new EventSpy(SbbOverlayElement.events.didOpen, element);
+
+    element.open();
+    await waitForLitRender(element);
+    await didOpenEventSpy.calledOnce();
+
+    await setViewport({ width: 320, height: 300 });
+
+    const scrollSpy = new EventSpy('scroll', document);
+    const scrollContext = element.shadowRoot!.querySelector('.sbb-overlay__content')!;
+
+    scrollContext.scrollTo(0, 400);
+
+    await scrollSpy.calledOnce();
+    expect(scrollSpy.count).to.be.equal(1);
   });
 });

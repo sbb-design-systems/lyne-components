@@ -192,13 +192,13 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this.inert = false;
     this._attachWindowEvents();
     this._setPopoverFocus();
     this._focusHandler.trap(this, {
       postFilter: (el) => el !== this._overlay,
     });
+    this.didOpen.emit();
   }
 
   // Closes the popover on "Esc" key pressed and traps focus within the popover.
@@ -317,6 +317,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     document.addEventListener('scroll', () => this._setPopoverPosition(), {
       passive: true,
       signal: this._openStateController.signal,
+      // Without capture, other scroll contexts would not bubble to this event listener.
+      // Capture allows us to react to all scroll contexts in this DOM.
+      capture: true,
     });
     window.addEventListener('resize', () => this._setPopoverPosition(), {
       passive: true,

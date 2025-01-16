@@ -70,6 +70,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
+  /** @deprecated No longer used internally. */
   protected abort = new SbbConnectedAbortController(this);
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
@@ -357,6 +358,9 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     document.addEventListener('scroll', () => this._setOverlayPosition(), {
       passive: true,
       signal: this._openPanelEventsController.signal,
+      // Without capture, other scroll contexts would not bubble to this event listener.
+      // Capture allows us to react to all scroll contexts in this DOM.
+      capture: true,
     });
     window.addEventListener('resize', () => this._setOverlayPosition(), {
       passive: true,

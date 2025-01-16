@@ -160,12 +160,10 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
       - name: Build slim image
-        uses: kitabisa/docker-slim-action@v1
+        uses: ./.github/actions/docker-slim
         with:
           target: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline'
-          tag: baseline-slim
-        env:
-          DSLIM_PRESERVE_PATH: /usr/share/nginx/html
+          tag: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-slim'
       - name: Push slim image
         run: |
           docker push $IMAGE_REPO_VISUAL_REGRESSION:baseline-slim

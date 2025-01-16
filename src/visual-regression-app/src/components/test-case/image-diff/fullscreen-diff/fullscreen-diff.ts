@@ -11,6 +11,8 @@ import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.js';
 
+export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
+
 /**
  * Displays two images in fullscreen to overlay them.
  */
@@ -21,24 +23,24 @@ class FullscreenDiff extends LitElement {
 
   @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
 
-  @property() public accessor selectedFile: 'baselineFile' | 'failedFile' | 'diffFile' =
-    'failedFile';
+  @property() public accessor selectedFile: DiffFileType = 'failedFile';
 
   public override render(): TemplateResult {
     if (!this.screenshotFiles) {
       return html``;
     }
     return html`<div class="app-labels">
-        <sbb-chip-label size="xxs" color="white"
-          >${this.screenshotFiles.browserName}</sbb-chip-label
-        >
+        <sbb-chip-label size="xxs" color="white">
+          ${this.screenshotFiles.browserName}
+        </sbb-chip-label>
         <sbb-chip-label size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip-label>
       </div>
       <sbb-radio-button-group
         class="app-radio-button-group"
         value=${this.selectedFile}
         @change=${(event: Event) =>
-          (this.selectedFile = (event.target as SbbRadioButtonGroupElement).value)}
+          (this.selectedFile = (event.currentTarget as SbbRadioButtonGroupElement)
+            .value as DiffFileType)}
       >
         ${!this.screenshotFiles.isNew
           ? html`<sbb-radio-button value="baselineFile">Baseline</sbb-radio-button>`

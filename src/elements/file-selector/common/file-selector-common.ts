@@ -9,7 +9,7 @@ import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter, forwardEventToHost } from '../../core/eventing.js';
+import { EventEmitter, forwardEvent } from '../../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorCurrentlySelected,
@@ -183,7 +183,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       if (fileInput.files) {
         this.createFileList(fileInput.files);
       }
-      forwardEventToHost(event, this);
+      forwardEvent(event, this);
     }
 
     protected createFileList(files: FileList): void {

@@ -27,7 +27,7 @@ describe(`sbb-datepicker-next-day`, () => {
         <div>
           <input id="datepicker-input" value="31-12-2022" />
           <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+          <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
         </div>
       `);
 
@@ -55,7 +55,7 @@ describe(`sbb-datepicker-next-day`, () => {
       const element = await fixture(html`
         <div>
           <input id="datepicker-input" value="01-01-2023" />
-          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+          <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
         </div>
       `);
 
@@ -74,8 +74,7 @@ describe(`sbb-datepicker-next-day`, () => {
       element.appendChild(picker);
       await waitForLitRender(element);
 
-      // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
-      expect(inputUpdated.count).to.be.equal(2);
+      expect(inputUpdated.count).to.be.equal(1);
       expect(nextButton).not.to.have.attribute('data-disabled');
     });
 
@@ -84,7 +83,7 @@ describe(`sbb-datepicker-next-day`, () => {
         <div>
           <div id="parent">
             <input id="datepicker-input" value="01-01-2023" />
-            <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+            <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
           </div>
           <div id="other"></div>
         </div>
@@ -105,9 +104,8 @@ describe(`sbb-datepicker-next-day`, () => {
       element.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
       await waitForLitRender(element);
 
-      // the datepicker is connected on a different parent, so no changes are triggered
       expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton).to.have.attribute('data-disabled');
+      expect(nextButton).not.to.have.attribute('data-disabled');
     });
   });
 

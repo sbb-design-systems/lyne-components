@@ -5,6 +5,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
+import { forwardEvent } from '../core/eventing.js';
 import { i18nMapContainerButtonLabel } from '../core/i18n.js';
 
 import style from './map-container.scss?lit&inline';
@@ -96,7 +97,7 @@ class SbbMapContainerElement extends LitElement {
         <div class="sbb-map-container__map">
           <slot name="map"></slot>
         </div>
-        <div class="sbb-map-container__sidebar">
+        <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
           <span id="intersector"></span>
 
           <slot></slot>

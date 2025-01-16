@@ -256,7 +256,7 @@ describe(`sbb-calendar`, () => {
     });
 
     it('opens month view with current date', async () => {
-      element.selected = undefined;
+      element.selected = null;
       element.now = '2022-08-15';
       element.view = 'month';
       await waitForLitRender(element);

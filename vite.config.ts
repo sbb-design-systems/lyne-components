@@ -18,7 +18,7 @@ export default defineConfig({
   },
   plugins: [
     // We apply the postcssLit plugin (which transforms .scss files to Lit
-    // css tagged templates) as this should apply in almost all cases.
+    // CSS tagged templates) as this should apply in almost all cases.
     postcssLit({ exclude: ['**/core/styles/**/*', '**/storybook/**/*'] }),
     typescriptTransform(),
   ],

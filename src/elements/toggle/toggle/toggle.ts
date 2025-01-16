@@ -10,7 +10,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -37,7 +36,7 @@ class SbbToggleElement extends LitElement {
 
   /** Whether the toggle is disabled. */
   @forceType()
-  @handleDistinctChange((e) => e._updateDisabled())
+  @handleDistinctChange((e: SbbToggleElement) => e._updateDisabled())
   @property({ reflect: true, type: Boolean })
   public accessor disabled: boolean = false;
 
@@ -92,7 +91,11 @@ class SbbToggleElement extends LitElement {
     composed: true,
   });
 
-  private _abort = new SbbConnectedAbortController(this);
+  public constructor() {
+    super();
+    this.addEventListener?.('input', () => this._handleInput(), { passive: true });
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+  }
 
   /** @internal */
   public updatePillPosition(resizing: boolean): void {
@@ -126,9 +129,6 @@ class SbbToggleElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('input', () => this._handleInput(), { signal, passive: true });
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this.options.forEach((option) => this._toggleResizeObserver.observe(option));
     this._updateToggle();
   }

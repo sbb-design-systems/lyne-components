@@ -6,13 +6,12 @@ import {
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
-  isArrowKeyPressed,
+  isArrowKeyOrPageKeysPressed,
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
-  SbbConnectedAbortController,
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
@@ -23,6 +22,7 @@ import {
   isZeroAnimationDuration,
   SbbScrollHandler,
 } from '../../core/dom.js';
+import { forwardEvent } from '../../core/eventing.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
@@ -98,7 +98,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new SbbConnectedAbortController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
@@ -111,6 +110,12 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       }
     },
   });
+
+  public constructor() {
+    super();
+    this.addEventListener?.('click', (e) => this._onClick(e));
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+  }
 
   /**
    * Opens the menu on trigger click.
@@ -168,11 +173,11 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this._inertController.activate();
     this._setMenuFocus();
     this._focusHandler.trap(this);
     this._attachWindowEvents();
+    this.didOpen.emit();
   }
 
   private _handleClosing(): void {
@@ -206,7 +211,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    if (!isArrowKeyPressed(evt)) {
+    if (!isArrowKeyOrPageKeysPressed(evt)) {
       return;
     }
     evt.preventDefault();
@@ -218,9 +223,31 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     ).filter(
       (el) => (!el.disabled || el.disabledInteractive) && interactivityChecker.isVisible(el),
     );
-
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
-    const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+
+    let nextIndex;
+    switch (evt.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+        break;
+
+      case 'PageUp':
+      case 'Home':
+        nextIndex = 0;
+        break;
+
+      case 'End':
+      case 'PageDown':
+        nextIndex = enabledActions.length - 1;
+        break;
+
+      // this should never happen since all the case allowed by `isArrowKeyOrPageKeysPressed` should be covered
+      default:
+        nextIndex = 0;
+    }
 
     (enabledActions[nextIndex] as HTMLElement).focus();
   }
@@ -249,18 +276,19 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._onClick(e), { signal });
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    const renderRoot = super.createRenderRoot();
     // Due to the fact that menu can both be a list and just a container, we need to check its
     // state before the SbbNamedSlotListMixin handles the slotchange event, in order to avoid
     // it interpreting the non list case as a list.
     this.shadowRoot?.addEventListener('slotchange', (e) => this._checkListCase(e), {
-      signal,
       capture: true,
     });
+    return renderRoot;
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
   }
@@ -319,6 +347,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     document.addEventListener('scroll', () => this._setMenuPosition(), {
       passive: true,
       signal: this._windowEventsController.signal,
+      // Without capture, other scroll contexts would not bubble to this event listener.
+      // Capture allows us to react to all scroll contexts in this DOM.
+      capture: true,
     });
     window.addEventListener('resize', () => this._setMenuPosition(), {
       passive: true,
@@ -413,6 +444,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
+            @scroll=${(e: Event) => forwardEvent(e, document)}
             class="sbb-menu__content"
           >
             ${this.listChildren.length

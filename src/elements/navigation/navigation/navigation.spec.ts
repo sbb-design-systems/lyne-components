@@ -89,12 +89,7 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
-
-    await waitForLitRender(element);
-
     expect(action2).to.have.attribute('data-action-active');
     expect(action3).to.have.attribute('data-action-active');
     expect(element.shadowRoot?.activeElement?.id).to.be.equal('sbb-navigation-close-button');
@@ -135,12 +130,7 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
-
-    await waitForLitRender(element);
-
     expect(actionActive).to.have.attribute('data-action-active');
     expect(sectionActionActive).to.have.attribute('data-action-active');
     expect(activeSection).to.have.attribute('data-state', 'opened');
@@ -177,12 +167,7 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
-
-    await waitForLitRender(element);
-
     expect(action2).to.have.attribute('data-action-active');
     expect(action3).to.have.attribute('data-action-active');
 
@@ -202,8 +187,6 @@ describe(`sbb-navigation`, () => {
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
 
     element.open();
@@ -211,12 +194,7 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledTimes(2);
     expect(didOpenEventSpy.count).to.be.equal(2);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
-
-    await waitForLitRender(element);
-
     expect(action1).not.to.have.attribute('data-action-active');
     expect(action4).not.to.have.attribute('data-action-active');
   });
@@ -230,8 +208,6 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
@@ -239,8 +215,6 @@ describe(`sbb-navigation`, () => {
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
@@ -255,8 +229,6 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
 
     closeButton.click();
@@ -264,8 +236,6 @@ describe(`sbb-navigation`, () => {
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
@@ -290,8 +260,6 @@ describe(`sbb-navigation`, () => {
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
@@ -324,8 +292,6 @@ describe(`sbb-navigation`, () => {
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
     expect(section).to.have.attribute('data-state', 'closed');
   });
@@ -341,8 +307,6 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
@@ -350,8 +314,6 @@ describe(`sbb-navigation`, () => {
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
@@ -367,8 +329,6 @@ describe(`sbb-navigation`, () => {
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'closed');
 

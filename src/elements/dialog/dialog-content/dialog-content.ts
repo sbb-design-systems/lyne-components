@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { forwardEvent } from '../../core/eventing.js';
+
 import style from './dialog-content.scss?lit&inline';
 
 /**
@@ -16,7 +18,7 @@ class SbbDialogContentElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-dialog-content">
+      <div class="sbb-dialog-content" @scroll=${(e: Event) => forwardEvent(e, document)}>
         <slot></slot>
       </div>
     `;

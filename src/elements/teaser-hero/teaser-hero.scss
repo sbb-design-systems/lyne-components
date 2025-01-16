@@ -7,7 +7,7 @@
   display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
+  // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
   @include sbb.panel-variables;
@@ -19,9 +19,13 @@
   }
 }
 
+::slotted([slot='image']) {
+  width: 100%;
+}
+
 .sbb-teaser-hero {
   position: relative;
-  display: block;
+  display: flex;
   min-height: var(--sbb-panel-height);
   text-decoration: none;
 
