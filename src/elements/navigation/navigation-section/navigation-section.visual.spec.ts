@@ -1,6 +1,7 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import type { SbbNavigationElement } from '../navigation.js';
 
 import './navigation-section.js';
 import '../navigation.js';
@@ -43,9 +44,9 @@ describe(`sbb-navigation-section`, () => {
           `,
           { padding: '0' },
         );
-        const navigation = setup.snapshotElement.querySelector('sbb-navigation')!;
-        setup.withSnapshotElement(navigation);
-        setup.withPostSetupAction(() => navigation.open());
+        setup.withPostSetupAction(() =>
+          setup.snapshotElement.querySelector<SbbNavigationElement>('sbb-navigation')!.open(),
+        );
       }),
     );
   });
