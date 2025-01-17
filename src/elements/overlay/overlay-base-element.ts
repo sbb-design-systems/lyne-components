@@ -29,6 +29,7 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
     this,
     SbbOverlayBaseElement.events.didClose,
+    { cancelable: true },
   );
 
   // The last element which had focus before the component was opened.
