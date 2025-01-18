@@ -129,6 +129,7 @@ sbb-form-field {
   height: auto;
   background-color: transparent;
   color: inherit;
+  pointer-events: none;
 }
 
 // Ensure stable breadcrumb height during hydrating
