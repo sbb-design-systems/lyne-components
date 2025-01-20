@@ -203,10 +203,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   /**
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
-  private _onSlotInputChange(event: Event): void {
-    const newInput = (event.target as HTMLSlotElement)
-      .assignedElements()
-      .find((e): e is HTMLElement => this._supportedInputElements.includes(e.localName));
+  private _onSlotInputChange(): void {
+    // Find the slotted 'supportedInputElement', even if it's nested
+    const newInput = this.querySelector(
+      `:not(slot):where(${this._supportedInputElements.join(',')}})`,
+    ) as HTMLElement | undefined;
+
     this._assignSlots();
 
     if (this._input && this._input.localName === 'input' && newInput !== this._input) {
