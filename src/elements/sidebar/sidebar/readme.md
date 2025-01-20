@@ -48,20 +48,20 @@ The `sbb-sidebar` is a component . . .
 | Name              | Attribute           | Privacy | Type                                 | Default   | Description                                                                                                            |
 | ----------------- | ------------------- | ------- | ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `color`           | `color`             | public  | `'white' \| 'milk'`                  | `'white'` |                                                                                                                        |
-| `container`       | -                   | public  | `SbbSidebarContainerElement \| null` |           | Returns the SbbSidebarContainerElement where this sidebar is contained.                                                |
+| `container`       | -                   | public  | `SbbSidebarContainerElement \| null` | `null`    | Returns the SbbSidebarContainerElement where this sidebar is contained.                                                |
 | `hideCloseButton` | `hide-close-button` | public  | `boolean`                            | `false`   | Whether the close button should be hidden.                                                                             |
 | `isOpen`          | -                   | public  | `boolean`                            |           | Whether the element is open.                                                                                           |
-| `mode`            | `mode`              | public  | `'over' \| 'side'`                   | `'side'`  | Mode of the sidebar; one of 'over' or 'side'.                                                                          |
+| `mode`            | `mode`              | public  | `'side' \| 'over'`                   | `'side'`  | Mode of the sidebar; one of 'side' or 'over'.                                                                          |
 | `opened`          | `opened`            | public  | `boolean`                            | `false`   | Whether the sidebar is opened or closed. Can be used to initially set the opened state. The animation will be skipped. |
 | `position`        | `position`          | public  | `'start' \| 'end'`                   | `'start'` | The side that the sidebar is attached to.                                                                              |
 
 ## Methods
 
-| Name     | Privacy | Description                     | Parameters | Return | Inherited From          |
-| -------- | ------- | ------------------------------- | ---------- | ------ | ----------------------- |
-| `close`  | public  | Closes the sidebar.             |            | `void` | SbbOpenCloseBaseElement |
-| `open`   | public  | Opens the sidebar.              |            | `void` | SbbOpenCloseBaseElement |
-| `toggle` | public  | Toggles the sidebar visibility. |            | `void` |                         |
+| Name     | Privacy | Description                     | Parameters | Return          | Inherited From          |
+| -------- | ------- | ------------------------------- | ---------- | --------------- | ----------------------- |
+| `close`  | public  | Closes the sidebar.             |            | `void`          | SbbOpenCloseBaseElement |
+| `open`   | public  | Opens the sidebar.              |            | `Promise<void>` | SbbOpenCloseBaseElement |
+| `toggle` | public  | Toggles the sidebar visibility. |            | `void`          |                         |
 
 ## Events
 
