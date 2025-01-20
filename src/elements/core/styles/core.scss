@@ -334,15 +334,25 @@ sbb-sidebar-container:has(> sbb-sidebar:is([data-skip-animation])) {
   --sbb-sidebar-container-animation-duration: 0s;
 }
 
-sbb-sidebar-container:has(
-    > sbb-sidebar[position='start']:is([data-state='closing'], [data-state='closed'], [mode='over'])
+sbb-sidebar-container:is(
+    :has(
+      > sbb-sidebar[position='start']:is(
+          [data-state='closing'],
+          [data-state='closed'],
+          [mode='over']
+        )
+    ),
+    :not(:has(> sbb-sidebar[position='start']))
   )
   > sbb-sidebar-content {
   --sbb-sidebar-content-margin-inline-start: 0;
 }
 
-sbb-sidebar-container:has(
-    > sbb-sidebar[position='end']:is([data-state='closing'], [data-state='closed'], [mode='over'])
+sbb-sidebar-container:is(
+    :has(
+      > sbb-sidebar[position='end']:is([data-state='closing'], [data-state='closed'], [mode='over'])
+    ),
+    :not(:has(> sbb-sidebar[position='end']))
   )
   > sbb-sidebar-content {
   --sbb-sidebar-content-margin-inline-end: 0;
