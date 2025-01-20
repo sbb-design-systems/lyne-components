@@ -2,8 +2,13 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import {
+  getFirstFocusableElement,
+  SbbFocusHandler,
+  setModalityOnNextFocus,
+} from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbInertController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
@@ -65,6 +70,9 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   private _container: SbbSidebarContainerElement | null = null;
 
   private _language = new SbbLanguageController(this);
+  private _lastFocusedElement: HTMLElement | null = null;
+  private _focusHandler = new SbbFocusHandler();
+  private _inertController = new SbbInertController(this);
 
   public constructor() {
     super();
@@ -96,6 +104,14 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
         this.close();
       }
     }
+
+    if (changedProperties.has('mode') && this.state === 'opened') {
+      if (this.mode === 'over') {
+        this._takeFocus();
+      } else {
+        this._unTrap();
+      }
+    }
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -109,6 +125,8 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     if (this.state !== 'closed' || !this.willOpen.emit()) {
       return;
     }
+
+    this._lastFocusedElement = document.activeElement as HTMLElement;
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
     const isDuringInitialization = !this.hasUpdated;
@@ -143,6 +161,11 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+
+    if (this.mode === 'over') {
+      this._takeFocus();
+    }
+
     this.didOpen.emit();
   }
 
@@ -176,7 +199,37 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+    this._unTrap();
+
+    if (
+      this._lastFocusedElement &&
+      (this.contains(document.activeElement) || this.mode === 'over')
+    ) {
+      setModalityOnNextFocus(this._lastFocusedElement);
+      this._lastFocusedElement?.focus();
+    }
+    this._lastFocusedElement = null;
+
     this.didClose.emit();
+  }
+
+  private _takeFocus(): void {
+    this._inertController.activate();
+    const firstFocusable = getFirstFocusableElement(
+      [this.shadowRoot!.querySelector('.sbb-sidebar-close-button')]
+        .concat(Array.from(this.children))
+        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+    );
+    setModalityOnNextFocus(firstFocusable);
+    firstFocusable?.focus();
+    this._focusHandler.trap(this);
+  }
+
+  private _unTrap(): void {
+    if (this._inertController.isInert()) {
+      this._inertController.deactivate();
+    }
+    this._focusHandler.disconnect();
   }
 
   /** Toggles the sidebar visibility. */

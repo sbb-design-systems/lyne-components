@@ -53,13 +53,15 @@ const Template = (args: Args): TemplateResult =>
     </sbb-header>
     <sbb-sidebar-container id="c1">
       <sbb-sidebar opened id="s1">
-        <sbb-title slot="title">Sidebar Title</sbb-title> Sidebar content
+        <sbb-title slot="title">Sidebar Title</sbb-title><button>button24</button> Sidebar content
       </sbb-sidebar>
       <sbb-sidebar-content>
         <sbb-sidebar-container id="c2">
           <sbb-sidebar opened color="milk" id="s2">
-            <sbb-title slot="title">Sidebar Title</sbb-title> Sidebar content
+            <sbb-title slot="title">Sidebar Title</sbb-title>
 
+            Sidebar content
+            <button>button34</button>
             <button
               @click=${(event: PointerEvent) =>
                 (
@@ -143,7 +145,10 @@ const Template = (args: Args): TemplateResult =>
             <p>Content</p>
           </sbb-sidebar-content>
           <sbb-sidebar ${sbbSpread(args)} id="testee" position="end">
-            <sbb-title slot="title">Sidebar Title</sbb-title> Sidebar content Sidebar content
+            <sbb-title slot="title">Sidebar Title</sbb-title>
+            <button>button44</button>
+            <button>button55</button>
+            Sidebar content Sidebar content
           </sbb-sidebar>
         </sbb-sidebar-container>
       </sbb-sidebar-content>

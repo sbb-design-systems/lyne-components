@@ -64,6 +64,11 @@ export class SbbInertController implements ReactiveController {
     }
   }
 
+  /** Whether the assigned host is currently inert */
+  public isInert(): boolean {
+    return this._inertOverlays.has(this._host);
+  }
+
   private _currentOverlay(): HTMLElement | null {
     return [...this._inertOverlays].pop() ?? null;
   }
