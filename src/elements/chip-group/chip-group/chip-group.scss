@@ -3,8 +3,12 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
+:host {
+  --sbb-chip-group-input-min-width: 100px; // TODO decide input min-width
+}
+
 ::slotted(input) {
-  flex-grow: 1;
+  flex: 1 1 var(--sbb-chip-group-input-min-width);
 }
 
 .sbb-chip-group {

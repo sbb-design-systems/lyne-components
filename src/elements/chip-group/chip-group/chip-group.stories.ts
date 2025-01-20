@@ -41,7 +41,7 @@ const Template = (args: Args): TemplateResult => html`
         <sbb-chip value="chip 1"></sbb-chip>
         <sbb-chip value="chip 2"></sbb-chip>
         <sbb-chip value="chip 3"></sbb-chip>
-        <input />
+        <input placeholder="Placeholder" />
       </sbb-chip-group>
     </sbb-form-field>
   </form>
