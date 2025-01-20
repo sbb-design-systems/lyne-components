@@ -36,6 +36,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =
     'close';
 
+  /** Backdrop density. */
+  @property({ attribute: 'backdrop', reflect: true }) public accessor backdrop:
+    | 'opaque'
+    | 'translucent' = 'opaque';
+
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
   // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
@@ -81,6 +86,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
 
     // Add this dialog to the global collection
@@ -105,6 +112,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this._setHideHeaderDataAttribute(false);
     this._dialogContentElement?.scrollTo(0, 0);
     this.state = 'closed';
+    this.hidePopover?.();
+
     this.inertController.deactivate();
     setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element

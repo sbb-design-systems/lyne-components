@@ -70,7 +70,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
 
   /** Sector in which the wagon stops. */
   @forceType()
-  @handleDistinctChange((e) => e._sectorChanged())
+  @handleDistinctChange((e: SbbTrainWagonElement) => e._sectorChanged())
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor sector: string = '';
 

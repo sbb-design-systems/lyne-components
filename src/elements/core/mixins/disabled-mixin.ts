@@ -26,7 +26,7 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
     /** Whether the component is disabled. */
     @forceType()
     @property({ reflect: true, type: Boolean })
-    @getOverride((e, v) => v || e.isDisabledExternally())
+    @getOverride((e: SbbDisabledElement, v: boolean): boolean => v || e.isDisabledExternally())
     public accessor disabled: boolean = false;
 
     /**

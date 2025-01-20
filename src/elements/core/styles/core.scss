@@ -103,12 +103,33 @@ sbb-form-field {
     sbb-navigation,
     sbb-navigation-section,
     sbb-overlay,
+    sbb-popover,
     sbb-select,
     sbb-skiplink-list,
-    sbb-toast,
-    sbb-popover
+    sbb-toast
   ):not(:defined) {
   display: none;
+}
+
+// Hide popover artifacts
+[popover]:where(
+    sbb-autocomplete,
+    sbb-autocomplete-grid,
+    sbb-dialog,
+    sbb-menu,
+    sbb-navigation,
+    sbb-overlay,
+    sbb-popover,
+    sbb-toast
+  ) {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  color: inherit;
+  pointer-events: none;
 }
 
 // Ensure stable breadcrumb height during hydrating

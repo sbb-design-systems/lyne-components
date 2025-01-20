@@ -54,7 +54,10 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 </div>
 <div class="sbb-select__gap-fix">
 </div>
-<div class="sbb-select__container">
+<div
+  class="sbb-select__container"
+  popover="manual"
+>
   <div class="sbb-select__gap-fix">
     <div class="sbb-gap-fix-wrapper">
       <div
@@ -140,7 +143,10 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 </div>
 <div class="sbb-select__gap-fix">
 </div>
-<div class="sbb-select__container">
+<div
+  class="sbb-select__container"
+  popover="manual"
+>
   <div class="sbb-select__gap-fix">
     <div class="sbb-gap-fix-wrapper">
       <div
@@ -221,7 +227,10 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
 </div>
 <div class="sbb-select__gap-fix">
 </div>
-<div class="sbb-select__container">
+<div
+  class="sbb-select__container"
+  popover="manual"
+>
   <div class="sbb-select__gap-fix">
     <div class="sbb-gap-fix-wrapper">
       <div
@@ -326,7 +335,10 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
 </div>
 <div class="sbb-select__gap-fix">
 </div>
-<div class="sbb-select__container">
+<div
+  class="sbb-select__container"
+  popover="manual"
+>
   <div class="sbb-select__gap-fix">
     <div class="sbb-gap-fix-wrapper">
       <div

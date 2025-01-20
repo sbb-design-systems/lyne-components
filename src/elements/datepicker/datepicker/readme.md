@@ -72,13 +72,14 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 ## Properties
 
-| Name          | Attribute | Privacy | Type                            | Default | Description                                                                                                          |
-| ------------- | --------- | ------- | ------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
-| `dateFilter`  | -         | public  | `(date: T \| null) => boolean`  |         | A function used to filter out dates.                                                                                 |
-| `input`       | `input`   | public  | `string \| HTMLElement \| null` | `null`  | Reference of the native input connected to the datepicker.                                                           |
-| `now`         | `now`     | public  | `T`                             |         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. |
-| `valueAsDate` | -         | public  | `T \| null`                     |         | The currently selected date as a Date or custom date provider instance.                                              |
-| `wide`        | `wide`    | public  | `boolean`                       | `false` | If set to true, two months are displayed.                                                                            |
+| Name           | Attribute | Privacy | Type                            | Default | Description                                                                                                                                                                                                                                             |
+| -------------- | --------- | ------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dateFilter`   | -         | public  | `(date: T \| null) => boolean`  |         | A function used to filter out dates.                                                                                                                                                                                                                    |
+| `input`        | `input`   | public  | `string \| HTMLElement \| null` | `null`  | Reference of the native input connected to the datepicker. If given a string, it will be treated as an id reference and an attempt is made to be resolved for the containing document fragment. If given a HTMLElement instance, it will be used as is. |
+| `inputElement` | -         | public  | `HTMLInputElement \| null`      | `null`  | The resolved associated input element, as defined by `input`.                                                                                                                                                                                           |
+| `now`          | `now`     | public  | `T`                             |         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes.                                                                                                                                    |
+| `valueAsDate`  | -         | public  | `T \| null`                     |         | The currently selected date as a Date or custom date provider instance.                                                                                                                                                                                 |
+| `wide`         | `wide`    | public  | `boolean`                       | `false` | If set to true, two months are displayed.                                                                                                                                                                                                               |
 
 ## Methods
 

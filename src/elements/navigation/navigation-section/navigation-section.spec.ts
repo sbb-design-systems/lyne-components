@@ -2,11 +2,11 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { SbbNavigationElement } from '../navigation.js';
 
 import { SbbNavigationSectionElement } from './navigation-section.js';
 
-import '../navigation.js';
 import '../navigation-list.js';
 import '../navigation-button.js';
 
@@ -14,7 +14,7 @@ describe(`sbb-navigation-section`, () => {
   let element: SbbNavigationSectionElement;
 
   beforeEach(async () => {
-    const root = await fixture(html`
+    const root: SbbNavigationElement = await fixture(html`
       <sbb-navigation>
         <sbb-navigation-section>
           <sbb-navigation-list>
@@ -27,6 +27,16 @@ describe(`sbb-navigation-section`, () => {
       </sbb-navigation>
     `);
     element = root.querySelector<SbbNavigationSectionElement>('sbb-navigation-section')!;
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, root);
+
+    // Open surrounding navigation
+    root.open();
+    await didOpenEventSpy.calledOnce();
+
+    // Start with closed navigation section for all the tests
+    element.close();
+    await waitForCondition(() => element.getAttribute('data-state') === 'closed');
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('renders', async () => {
@@ -62,7 +72,6 @@ describe(`sbb-navigation-section`, () => {
     await waitForLitRender(element);
     await waitForCondition(() => element.getAttribute('data-state') === 'opened');
     expect(element).to.have.attribute('data-state', 'opened');
-
     element.close();
     await waitForLitRender(element);
 

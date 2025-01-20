@@ -16,6 +16,10 @@
     var(--sbb-overlay-default-z-index)
   );
 
+  display: none;
+}
+
+:host([data-state]:not([data-state='closed'])) {
   display: block;
 }
 

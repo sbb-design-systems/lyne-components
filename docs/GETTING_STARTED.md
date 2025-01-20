@@ -348,11 +348,18 @@ to all contained interactive elements.
 
 ### Stacking
 
-As we can't use popover API yet, stacking of overlay context is done manually.
-However, this can interfere with the z-index of your components.
-Therefore, every overlay component provides a CSS variable to override its z-index.
-Additionally, there is the global CSS variable `--sbb-overlay-default-z-index` that has a default z-index of 1000.
-With this, developers have the chance to change the z-index either globally or on component level.
+Our overlay components internally use the Popover API to take advantage of positioning elements on the top layer.
+As of January 2025, the browser support for the Popover API is at
+[90%](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover#browser_compatibility)
+and available for all [our supported browsers](https://github.com/sbb-design-systems/lyne-components?tab=readme-ov-file#-browser-and-screen-reader-support).
+If you need to support older browsers, you can either attempt to use a polyfill or
+manually configure the stacking order of the overlays.
+Doing it manually may interfere with the z-index of your components.
+Therefore, each overlay component provides a CSS variable to override its z-index.
+Additionally, there is a global CSS variable `--sbb-overlay-default-z-index` which has a default z-index of 1000.
+This allows developers to change the z-index either globally or at component level.
+In some cases, it's not possible to break out of a particular stacking context. In this case, keep the trigger within
+your component, but moving the overlay component out of the stacking context can help.
 
 ### Fonts
 

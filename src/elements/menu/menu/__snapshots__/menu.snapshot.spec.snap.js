@@ -5,6 +5,7 @@ snapshots["sbb-menu renders DOM"] =
 `<sbb-menu
   data-state="closed"
   id="sbb-menu-0"
+  popover="manual"
   trigger="menu-trigger"
 >
   <sbb-block-link
@@ -78,6 +79,7 @@ snapshots["sbb-menu renders with list DOM"] =
 `<sbb-menu
   data-state="closed"
   id="sbb-menu-2"
+  popover="manual"
   trigger="menu-trigger"
 >
   <sbb-menu-button

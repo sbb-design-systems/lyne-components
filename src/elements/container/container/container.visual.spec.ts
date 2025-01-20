@@ -19,8 +19,12 @@ import './container.js';
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
 
+function isDark(color: string): boolean {
+  return color === 'midnight' || color === 'charcoal';
+}
+
 describe(`sbb-container`, () => {
-  const colorCases = ['transparent', 'white', 'milk'];
+  const colorCases = ['transparent', 'white', 'milk', 'midnight', 'charcoal'];
 
   const backgroundExpandedCases = [false, true];
 
@@ -57,8 +61,8 @@ describe(`sbb-container`, () => {
     },
   ];
 
-  const containerContent = (): TemplateResult => html`
-    <sbb-title level="4">Example title</sbb-title>
+  const containerContent = (color?: string): TemplateResult => html`
+    <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <p class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -66,7 +70,9 @@ describe(`sbb-container`, () => {
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
-    <sbb-secondary-button style="margin-block-end: 3rem;">See more</sbb-secondary-button>
+    <sbb-secondary-button ?negative=${!!color && isDark(color)} style="margin-block-end: 3rem;"
+      >See more</sbb-secondary-button
+    >
   `;
 
   const backgroundImageContent = html`
@@ -85,7 +91,7 @@ describe(`sbb-container`, () => {
         `color=${color}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-container color=${color}>${containerContent()}</sbb-container>`,
+            html`<sbb-container color=${color}>${containerContent(color)}</sbb-container>`,
             wrapperStyles,
           );
         }),

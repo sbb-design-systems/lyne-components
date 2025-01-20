@@ -24,6 +24,7 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-2"
+  popover="manual"
 >
   <sbb-calendar>
   </sbb-calendar>
@@ -54,6 +55,7 @@ snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-4"
+  popover="manual"
 >
   <sbb-calendar>
   </sbb-calendar>
@@ -84,6 +86,7 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-6"
+  popover="manual"
 >
   <sbb-calendar>
   </sbb-calendar>
@@ -114,6 +117,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
   data-state="closed"
   hide-close-button=""
   id="sbb-popover-8"
+  popover="manual"
 >
   <sbb-calendar wide="">
   </sbb-calendar>

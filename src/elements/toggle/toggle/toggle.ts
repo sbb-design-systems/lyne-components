@@ -36,7 +36,7 @@ class SbbToggleElement extends LitElement {
 
   /** Whether the toggle is disabled. */
   @forceType()
-  @handleDistinctChange((e) => e._updateDisabled())
+  @handleDistinctChange((e: SbbToggleElement) => e._updateDisabled())
   @property({ reflect: true, type: Boolean })
   public accessor disabled: boolean = false;
 

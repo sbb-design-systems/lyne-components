@@ -81,6 +81,16 @@
 
 .sbb-select__container {
   @include sbb.options-panel-overlay-container;
+
+  // Hide popover artifacts
+  &[popover] {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+  }
 }
 
 .sbb-select__gap-fix {
