@@ -330,18 +330,29 @@ sbb-sidebar-container:has(> sbb-sidebar:is([data-skip-animation])) > sbb-sidebar
   --sbb-sidebar-content-animation-duration: 0s;
 }
 
+sbb-sidebar-container:has(> sbb-sidebar:is([data-skip-animation])) {
+  --sbb-sidebar-container-animation-duration: 0s;
+}
+
 sbb-sidebar-container:has(
-    > sbb-sidebar[position='start']:is([data-state='closing'], [data-state='closed'])
+    > sbb-sidebar[position='start']:is([data-state='closing'], [data-state='closed'], [mode='over'])
   )
   > sbb-sidebar-content {
   --sbb-sidebar-content-margin-inline-start: 0;
 }
 
 sbb-sidebar-container:has(
-    > sbb-sidebar[position='end']:is([data-state='closing'], [data-state='closed'])
+    > sbb-sidebar[position='end']:is([data-state='closing'], [data-state='closed'], [mode='over'])
   )
   > sbb-sidebar-content {
   --sbb-sidebar-content-margin-inline-end: 0;
+}
+
+sbb-sidebar-container:has(
+    > sbb-sidebar[mode='over']:is([data-state='opening'], [data-state='opened'])
+  ) {
+  --sbb-sidebar-container-backdrop-visibility: visible;
+  --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
 
 sbb-header + sbb-sidebar-container {

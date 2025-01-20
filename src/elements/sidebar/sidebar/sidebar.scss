@@ -5,19 +5,28 @@
 
 :host {
   display: block;
-  width: 320px;
+  width: #{sbb.px-to-rem-build(320)};
 
   --sbb-sidebar-background-color: var(--sbb-color-white);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-title-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
+  --sbb-sidebar-border-radius-start: var(--sbb-border-radius-8x);
+  --sbb-sidebar-border-radius-end: 0;
+  --sbb-sidebar-margin: 0;
   --sbb-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-translate-x: -100%;
+  --sbb-sidebar-z-index: 2;
 }
 
 :host([color='milk']) {
   --sbb-sidebar-background-color: var(--sbb-color-milk);
+}
+
+:host([mode='over']) {
+  --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
+  --sbb-sidebar-border-radius-end: var(--sbb-sidebar-border-radius-start);
+  --sbb-sidebar-z-index: 3;
 }
 
 :host(:is(:dir(rtl), [position='end'])) {
@@ -38,12 +47,15 @@
     display: block;
     position: absolute;
     inset-block: 0;
-    z-index: 3; // TODO
+    z-index: var(--sbb-sidebar-z-index);
     overflow-y: auto;
     transition: width var(--sbb-sidebar-container-animation-duration)
       var(--sbb-sidebar-container-animation-easing);
-    border-start-start-radius: var(--sbb-sidebar-border-radius);
-    border-start-end-radius: var(--sbb-sidebar-border-radius);
+    border-start-start-radius: var(--sbb-sidebar-border-radius-start);
+    border-start-end-radius: var(--sbb-sidebar-border-radius-start);
+    border-end-start-radius: var(--sbb-sidebar-border-radius-end);
+    border-end-end-radius: var(--sbb-sidebar-border-radius-end);
+    margin: var(--sbb-sidebar-margin);
     margin-block-start: var(--sbb-sidebar-margin-block-start);
     animation-duration: var(--sbb-sidebar-container-animation-duration);
     animation-timing-function: var(--sbb-sidebar-container-animation-easing);

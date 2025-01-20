@@ -29,9 +29,10 @@ export
 class SbbSidebarElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Mode of the sidebar; one of 'over' or 'side'. */
+  /** Mode of the sidebar; one of 'side' or 'over'. */
+  @forceType((v) => (v === 'over' ? 'over' : 'side'))
   @property({ reflect: true })
-  public accessor mode: 'over' | 'side' = 'side';
+  public accessor mode: 'side' | 'over' = 'side';
 
   /**
    * Whether the sidebar is opened or closed.
@@ -48,6 +49,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   @property({ reflect: true })
   public accessor position: 'start' | 'end' = 'start';
 
+  @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
 
