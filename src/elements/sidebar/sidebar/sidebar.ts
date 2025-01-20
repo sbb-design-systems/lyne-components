@@ -12,6 +12,7 @@ import { SbbInertController, SbbLanguageController } from '../../core/controller
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
+import { isEventOnElement } from '../../core/overlay.js';
 import type { SbbTitleElement } from '../../title.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
@@ -73,6 +74,8 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   private _lastFocusedElement: HTMLElement | null = null;
   private _focusHandler = new SbbFocusHandler();
   private _inertController = new SbbInertController(this);
+  private _windowEventsController!: AbortController;
+  private _isPointerDownEventOnSidebar: boolean = false;
 
   public constructor() {
     super();
@@ -86,12 +89,18 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     super.connectedCallback();
     this._container = this.closest?.('sbb-sidebar-container');
     this._updateSidebarWidth();
+
+    if (this.state === 'opened' && this.mode === 'over') {
+      this._takeFocus();
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
+    this._focusHandler.disconnect();
+    this._windowEventsController?.abort();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -223,6 +232,54 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     setModalityOnNextFocus(firstFocusable);
     firstFocusable?.focus();
     this._focusHandler.trap(this);
+    this._attachWindowEvents();
+  }
+
+  private _attachWindowEvents(): void {
+    this._windowEventsController?.abort();
+    this._windowEventsController = new AbortController();
+
+    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
+      signal: this._windowEventsController.signal,
+    });
+
+    // Close sidebar on backdrop click
+    window.addEventListener('pointerdown', this._pointerDownListener, {
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('pointerup', this._closeOnBackdropClick, {
+      signal: this._windowEventsController.signal,
+    });
+  }
+
+  // Check if the pointerdown event target is triggered on the sidebar.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._isPointerDownEventOnSidebar = isEventOnElement(
+      this.shadowRoot?.firstElementChild as HTMLDivElement,
+      event,
+    );
+  };
+
+  // Close sidebar on backdrop click.
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
+    if (
+      !this._isPointerDownEventOnSidebar &&
+      !isEventOnElement(this.shadowRoot?.firstElementChild as HTMLDivElement, event)
+    ) {
+      this.close();
+    }
+  };
+
+  // Closes the sidebar on "Esc" key pressed
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+    if (this.state !== 'opened') {
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      this.close();
+      return;
+    }
   }
 
   private _unTrap(): void {
@@ -230,6 +287,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
       this._inertController.deactivate();
     }
     this._focusHandler.disconnect();
+    this._windowEventsController?.abort();
   }
 
   /** Toggles the sidebar visibility. */
