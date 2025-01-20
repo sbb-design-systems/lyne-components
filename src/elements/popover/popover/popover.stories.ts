@@ -70,6 +70,7 @@ const popover = (args: Args): TemplateResult => html`
         size="s"
         icon-name="chevron-small-right-small"
         icon-placement="end"
+        href="https://www.sbb.ch"
         sbb-popover-close
       >
         Learn More
