@@ -44,9 +44,10 @@ describe(`sbb-navigation-section`, () => {
           `,
           { padding: '0' },
         );
-        setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector<SbbNavigationElement>('sbb-navigation')!.open(),
-        );
+        const navigation =
+          setup.snapshotElement.querySelector<SbbNavigationElement>('sbb-navigation')!;
+        setup.withSnapshotElement(navigation);
+        setup.withPostSetupAction(() => navigation.open());
       }),
     );
   });

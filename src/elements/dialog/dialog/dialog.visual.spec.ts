@@ -63,17 +63,14 @@ describe(`sbb-dialog`, () => {
       it(
         `negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`
-              <sbb-dialog ?negative=${negative}>
-                ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
-              </sbb-dialog>
-            `,
-            { minHeight: '600px' },
-          );
-          setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
-          );
+          await setup.withFixture(html`
+            <sbb-dialog ?negative=${negative}>
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
+            </sbb-dialog>
+          `);
+          const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+          setup.withSnapshotElement(dialog);
+          setup.withPostSetupAction(() => dialog.open());
         }),
       );
     }
@@ -81,61 +78,51 @@ describe(`sbb-dialog`, () => {
     it(
       `no back button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            <sbb-dialog> ${dialogTitle(false)} ${dialogContent()} ${dialogFooter()} </sbb-dialog>
-          `,
-          { minHeight: '600px' },
-        );
-        setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
-        );
+        await setup.withFixture(html`
+          <sbb-dialog> ${dialogTitle(false)} ${dialogContent()} ${dialogFooter()} </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
 
     it(
       `no footer`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html` <sbb-dialog> ${dialogTitle()} ${dialogContent()} </sbb-dialog> `,
-          { minHeight: '600px' },
-        );
-        setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
-        );
+        await setup.withFixture(html`
+          <sbb-dialog> ${dialogTitle()} ${dialogContent()} </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
 
     it(
       `long content`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
-          `,
-          { minHeight: '600px' },
-        );
-        setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
-        );
+        await setup.withFixture(html`
+          <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
 
     it(
       `backdrop=translucent`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            <p>Other content visible in the background</p>
-            <sbb-dialog backdrop="translucent">
-              ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
-            </sbb-dialog>
-          `,
-          { minHeight: '600px' },
-        );
-        setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!.open(),
-        );
+        await setup.withFixture(html`
+          <p>Other content visible in the background</p>
+          <sbb-dialog backdrop="translucent">
+            ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+          </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
       }),
     );
   });
