@@ -13,6 +13,7 @@ import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { isEventOnElement } from '../../core/overlay.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 
 import style from './sidebar.scss?lit&inline';
 
@@ -73,6 +74,13 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   private _inertController = new SbbInertController(this);
   private _windowEventsController!: AbortController;
   private _isPointerDownEventOnSidebar: boolean = false;
+  private _intersector?: HTMLSpanElement;
+  private _observer = new IntersectionController(this, {
+    // Although `this` is observed, we have to postpone observing
+    // into firstUpdated() to achieve a correct initial state.
+    target: null,
+    callback: (entries) => this._detectStickyState(entries[0]),
+  });
 
   public constructor() {
     super();
@@ -96,6 +104,10 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
     if (this.state === 'opened' && this.mode === 'over') {
       this._takeFocus();
+    }
+
+    if (this._intersector) {
+      this._observer.observe(this._intersector);
     }
   }
 
@@ -131,6 +143,12 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     super.firstUpdated(changedProperties);
 
     this._updateSidebarWidth();
+
+    if (!this._intersector) {
+      this._intersector = this.shadowRoot!.querySelector('.sbb-sidebar__intersector')!;
+      this._observer.observe(this._intersector);
+    }
+    this._observer.observe(this);
   }
 
   /** Opens the sidebar. */
@@ -330,6 +348,13 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     return `--sbb-sidebar-container-${position}-width`;
   }
 
+  private _detectStickyState(entry: IntersectionObserverEntry): void {
+    const isSticky = !entry.isIntersecting && entry.boundingClientRect.top > 0;
+
+    // Toggling data-sticking has to be after data-slide-vertically (prevents background color transition)
+    this.toggleAttribute('data-sticking', isSticky);
+  }
+
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
       this._handleOpening();
@@ -340,6 +365,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar" @animationend=${this._onAnimationEnd}>
+      <div class="sbb-sidebar__intersector"></div>
       <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
       <slot></slot>
     </div>`;
