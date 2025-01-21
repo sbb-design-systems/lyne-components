@@ -1,3 +1,4 @@
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -13,7 +14,6 @@ import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { isEventOnElement } from '../../core/overlay.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
-import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 
 import style from './sidebar.scss?lit&inline';
 
