@@ -365,6 +365,11 @@ sbb-sidebar-container:has(
   --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
 
+// If there is no title, avoid reserving any space for the button
+sbb-sidebar:not(:has(sbb-sidebar-close-button)) sbb-sidebar-title {
+  --sbb-sidebar-title-close-button-placeholder: 0;
+}
+
 sbb-header + sbb-sidebar-container {
   margin-block-start: var(--sbb-sidebar-container-margin-start, var(--sbb-header-height));
 }

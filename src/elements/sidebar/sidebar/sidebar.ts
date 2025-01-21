@@ -1,5 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
@@ -8,12 +8,10 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbInertController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbInertController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
-import { i18nCloseNavigation } from '../../core/i18n.js';
 import { isEventOnElement } from '../../core/overlay.js';
-import type { SbbTitleElement } from '../../title.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';
@@ -70,7 +68,6 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   }
   private _container: SbbSidebarContainerElement | null = null;
 
-  private _language = new SbbLanguageController(this);
   private _lastFocusedElement: HTMLElement | null = null;
   private _focusHandler = new SbbFocusHandler();
   private _inertController = new SbbInertController(this);
@@ -83,10 +80,17 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
       skipInitial: true,
       callback: () => this._updateSidebarWidth(),
     });
+
+    this.addEventListener?.('click', (e) => {
+      if ((e.target as HTMLElement | undefined)?.localName === 'sbb-sidebar-close-button') {
+        this.close();
+      }
+    });
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
     this._container = this.closest?.('sbb-sidebar-container');
     this._updateSidebarWidth();
 
@@ -225,9 +229,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   private _takeFocus(): void {
     this._inertController.activate();
     const firstFocusable = getFirstFocusableElement(
-      [this.shadowRoot!.querySelector('.sbb-sidebar-close-button')]
-        .concat(Array.from(this.children))
-        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+      Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
     setModalityOnNextFocus(firstFocusable);
     firstFocusable?.focus();
@@ -336,28 +338,10 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     }
   }
 
-  private _syncTitleSize(event: Event): void {
-    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
-
-    slotNodes
-      .filter((el) => (el as HTMLElement).localName === 'sbb-title')
-      .forEach((titleElement) => ((titleElement as SbbTitleElement).visualLevel = '5'));
-  }
-
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar" @animationend=${this._onAnimationEnd}>
-      <div class="sbb-sidebar-title-container">
-        <slot name="title" @slotchange=${this._syncTitleSize}></slot>${!this.hideCloseButton
-          ? html`<sbb-secondary-button
-              icon-name="cross-small"
-              size="s"
-              class="sbb-sidebar-close-button"
-              @click=${() => this.close()}
-              aria-label=${i18nCloseNavigation[this._language.current]}
-            ></sbb-secondary-button>`
-          : nothing}
-      </div>
-      <div class="sbb-sidebar-content"><slot></slot></div>
+      <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
+      <slot></slot>
     </div>`;
   }
 }

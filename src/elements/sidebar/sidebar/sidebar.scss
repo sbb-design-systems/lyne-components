@@ -9,8 +9,7 @@
 
   --sbb-sidebar-background-color: var(--sbb-color-white);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar-title-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-sidebar-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-sidebar-border-radius-start: var(--sbb-border-radius-8x);
   --sbb-sidebar-border-radius-end: 0;
   --sbb-sidebar-margin: 0;
@@ -37,6 +36,19 @@
   --sbb-sidebar-translate-x: -100%;
 }
 
+.sbb-sidebar-title-section {
+  position: sticky;
+  inset-block-start: 0;
+  margin-inline: calc(-1 * var(--sbb-sidebar-padding-inline));
+  background-color: var(--sbb-sidebar-background-color);
+  padding-inline: var(--sbb-sidebar-padding-inline);
+}
+
+// TODO: only if sticky
+.sbb-sidebar-title-section {
+  @include sbb.shadow-level-5-soft;
+}
+
 .sbb-sidebar {
   @include sbb.scrollbar;
 
@@ -47,6 +59,7 @@
     display: block;
     position: absolute;
     inset-block: 0;
+    padding-inline: var(--sbb-sidebar-padding-inline);
     z-index: var(--sbb-sidebar-z-index);
     overflow-y: auto;
     transition: width var(--sbb-sidebar-container-animation-duration)
@@ -84,28 +97,6 @@
   :host([data-state='opened']) & {
     translate: none;
   }
-}
-
-.sbb-sidebar-title-container {
-  padding-block: var(--sbb-sidebar-title-padding-block);
-  padding-inline: var(--sbb-sidebar-title-padding-inline);
-  display: flex;
-  gap: var(--sbb-sidebar-title-gap);
-  align-items: center;
-  min-height: calc(var(--sbb-size-element-xs) + 2 * var(--sbb-sidebar-title-padding-block));
-}
-
-.sbb-sidebar-close-button {
-  align-self: start;
-  margin-inline-start: auto;
-}
-
-::slotted(sbb-title[slot='title']) {
-  margin: 0;
-}
-
-.sbb-sidebar-content {
-  padding-inline: var(--sbb-spacing-responsive-xs);
 }
 
 @keyframes open {

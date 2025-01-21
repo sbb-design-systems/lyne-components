@@ -1,0 +1,22 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-sidebar-title-close-button-placeholder: calc(
+    var(--sbb-size-element-xs) + var(--sbb-sidebar-title-gap)
+  );
+
+  display: contents;
+}
+
+.sbb-title {
+  display: flex;
+  align-items: center;
+  padding-block: var(--sbb-sidebar-title-padding-block);
+  min-height: calc(var(--sbb-size-element-xs) + 2 * var(--sbb-sidebar-title-padding-block));
+  hyphens: auto;
+
+  // Overwrite sbb-title default margin
+  margin-block: 0 !important;
+  margin-inline-end: var(--sbb-sidebar-title-close-button-placeholder, 0) !important;
+}
