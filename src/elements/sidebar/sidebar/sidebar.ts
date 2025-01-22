@@ -287,13 +287,8 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
 
   // Closes the sidebar on "Esc" key pressed
   private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
-    if (this.state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
+    if (this.state === 'opened' && event.key === 'Escape') {
       this.close();
-      return;
     }
   }
 

@@ -9,13 +9,20 @@
 
   --sbb-sidebar-background-color: var(--sbb-color-white);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-sidebar-padding-inline-start: var(--sbb-spacing-responsive-xs);
+  --sbb-sidebar-padding-inline-end: var(--sbb-sidebar-padding-inline-start);
   --sbb-sidebar-border-radius-start: var(--sbb-border-radius-8x);
   --sbb-sidebar-border-radius-end: 0;
   --sbb-sidebar-margin: 0;
   --sbb-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-translate-x: -100%;
   --sbb-sidebar-z-index: 2;
+
+  @supports (scrollbar-gutter: stable) {
+    --sbb-sidebar-padding-inline-end: calc(
+      var(--sbb-sidebar-padding-inline-start) - var(--sbb-spacing-fixed-3x)
+    );
+  }
 }
 
 :host([color='milk']) {
@@ -46,7 +53,7 @@
     display: block;
     position: absolute;
     inset-block: 0;
-    padding-inline: var(--sbb-sidebar-padding-inline);
+    padding-inline: var(--sbb-sidebar-padding-inline-start) var(--sbb-sidebar-padding-inline-end);
     z-index: var(--sbb-sidebar-z-index);
     overflow-y: auto;
     transition: width var(--sbb-sidebar-container-animation-duration)
@@ -59,6 +66,10 @@
     margin-block-start: var(--sbb-sidebar-margin-block-start);
     animation-duration: var(--sbb-sidebar-container-animation-duration);
     animation-timing-function: var(--sbb-sidebar-container-animation-easing);
+
+    @supports (scrollbar-gutter: stable) {
+      scrollbar-gutter: stable;
+    }
   }
 
   :host([position='end']) & {
@@ -89,9 +100,10 @@
 .sbb-sidebar-title-section {
   position: sticky;
   inset-block-start: 0;
-  margin-inline: calc(-1 * var(--sbb-sidebar-padding-inline));
+  margin-inline: calc(-1 * var(--sbb-sidebar-padding-inline-start))
+    calc(-1 * var(--sbb-sidebar-padding-inline-end));
   background-color: var(--sbb-sidebar-background-color);
-  padding-inline: var(--sbb-sidebar-padding-inline);
+  padding-inline: var(--sbb-sidebar-padding-inline-start) var(--sbb-sidebar-padding-inline-end);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-sidebar-container-animation-duration);
   box-shadow: none;
 
