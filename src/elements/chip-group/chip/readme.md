@@ -45,10 +45,9 @@ The `sbb-chip` is a component . . .
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type      | Default | Description                               |
-| ---------- | ---------- | ------- | --------- | ------- | ----------------------------------------- |
-| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled.        |
-| `value`    | `value`    | public  | `string`  | `''`    | The value of chip. Will be used as label. |
+| Name    | Attribute | Privacy | Type     | Default | Description                               |
+| ------- | --------- | ------- | -------- | ------- | ----------------------------------------- |
+| `value` | `value`   | public  | `string` | `''`    | The value of chip. Will be used as label. |
 
 ## Methods
 

@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 
@@ -17,7 +16,7 @@ import style from './chip.scss?lit&inline';
  */
 export
 @customElement('sbb-chip')
-class SbbChipElement extends SbbDisabledMixin(LitElement) {
+class SbbChipElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     requestDelete: 'requestDelete',
@@ -69,7 +68,6 @@ class SbbChipElement extends SbbDisabledMixin(LitElement) {
           class="sbb-chip__delete"
           icon-name="cross-tiny-medium"
           role="gridcell"
-          ?disabled=${this.disabled}
           aria-label="Remove ${this.value}"
           @click=${() => this._requestDelete.emit()}
         ></sbb-mini-button>

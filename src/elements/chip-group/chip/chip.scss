@@ -9,7 +9,7 @@
   --sbb-chip-background-color: var(--sbb-color-milk);
   --sbb-chip-color: var(--sbb-color-granite);
 
-  display: block;
+  display: inline-block;
 }
 
 .sbb-chip {
@@ -36,6 +36,12 @@
   --sbb-button-border-radius: var(--sbb-chip-border-radius);
   --sbb-button-color-active-background: var(--sbb-color-white);
   --sbb-button-color-hover-background: var(--sbb-color-white);
+  --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
+  --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
   border-left: var(--sbb-border-width-1x) solid var(--sbb-chip-border-color);
+
+  :host(:is([data-disabled], [data-readonly])) & {
+    display: none;
+  }
 }

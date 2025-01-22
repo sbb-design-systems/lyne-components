@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -74,6 +74,13 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
   /** Notifies that an option value has been selected. */
   private _input: EventEmitter = new EventEmitter(this, SbbChipGroupElement.events.input);
 
+  /**
+   * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
+   */
+  private _inputAttributeObserver = !isServer
+    ? new MutationObserver(() => this._proxyInputStateToChips())
+    : null;
+
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
 
@@ -84,8 +91,13 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
     );
 
     this.addEventListener('focus', () => this._focusLastChip());
-
     this.addEventListener('keydown', (ev) => this._onChipKeyDown(ev));
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._inputAttributeObserver?.disconnect();
+    this._inputAbortController?.abort();
   }
 
   /** @internal */
@@ -131,14 +143,21 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
     // Connect to the input
     if (input && input !== this._inputElement) {
       this._inputAbortController?.abort();
+      this._inputAttributeObserver?.disconnect();
       this._inputElement = input;
 
       this._inputAbortController = new AbortController();
       this._inputElement.addEventListener('keydown', (ev) => this._onInputKeyDown(ev), {
         signal: this._inputAbortController.signal,
       });
+
+      this._inputAttributeObserver?.observe(this._inputElement, {
+        attributes: true,
+        attributeFilter: ['readonly', 'disabled'],
+      });
     }
 
+    this._proxyInputStateToChips();
     this.updateFormValue();
   }
 
@@ -245,6 +264,13 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
       // doesn't allow enough time for the focus to escape.
       setTimeout(() => (this.tabIndex = previousTabIndex));
     }
+  }
+
+  private _proxyInputStateToChips(): void {
+    this._chipElements().forEach((c) => {
+      c.toggleAttribute('data-readonly', this._inputElement?.hasAttribute('readonly'));
+      c.toggleAttribute('data-disabled', this._inputElement?.hasAttribute('disabled'));
+    });
   }
 
   protected override render(): TemplateResult {
