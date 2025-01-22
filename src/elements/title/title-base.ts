@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
@@ -47,14 +47,10 @@ abstract class SbbTitleBase extends SbbNegativeMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    const TAGNAME = `h${this.level}`;
-
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAGNAME)} class="sbb-title" role="presentation">
+      <div class="sbb-title">
         <slot></slot>
-      </${unsafeStatic(TAGNAME)}>
+      </div>
     `;
-    /* eslint-enable lit/binding-positions */
   }
 }
