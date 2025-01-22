@@ -169,7 +169,7 @@ const Template = (args: Args): TemplateResult =>
           </sbb-sidebar>
         </sbb-sidebar-container>
       </sbb-sidebar-content>
-      <sbb-sidebar opened position="end" color="milk" hide-close-button id="s4">
+      <sbb-sidebar opened position="end" color="milk" id="s4">
         <sbb-sidebar-title>Sidebar Title</sbb-sidebar-title>
         Sidebar content Sidebar content
       </sbb-sidebar>

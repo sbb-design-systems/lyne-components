@@ -58,11 +58,6 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
 
-  /** Whether the close button should be hidden. */
-  @forceType()
-  @property({ attribute: 'hide-close-button', type: Boolean })
-  public accessor hideCloseButton: boolean = false;
-
   /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
   public get container(): SbbSidebarContainerElement | null {
     return this._container;
