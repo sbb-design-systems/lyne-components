@@ -6,6 +6,7 @@ snapshots["sbb-sidebar-title renders Light DOM"] =
   aria-level="2"
   level="2"
   role="heading"
+  slot="title-section"
   visual-level="5"
 >
   Title
@@ -14,15 +15,13 @@ snapshots["sbb-sidebar-title renders Light DOM"] =
 /* end snapshot sbb-sidebar-title renders Light DOM */
 
 snapshots["sbb-sidebar-title renders Shadow DOM"] = 
-`<div class="sbb-sidebar__header">
-  <h2
-    class="sbb-title"
-    role="presentation"
-  >
-    <slot>
-    </slot>
-  </h2>
-</div>
+`<h2
+  class="sbb-title"
+  role="presentation"
+>
+  <slot>
+  </slot>
+</h2>
 `;
 /* end snapshot sbb-sidebar-title renders Shadow DOM */
 
