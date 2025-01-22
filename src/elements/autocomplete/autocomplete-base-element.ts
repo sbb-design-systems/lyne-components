@@ -10,7 +10,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController } from '../core/controllers.js';
+import { SbbConnectedAbortController, SbbOverlayController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
@@ -82,6 +82,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _openPanelEventsController!: AbortController;
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
+  protected sbbOverlayController = new SbbOverlayController(this);
 
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract syncNegative(): void;
@@ -343,6 +344,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
+    this.sbbOverlayController.connect();
     this._attachOpenPanelEvents();
     this.triggerElement?.setAttribute('aria-expanded', 'true');
     this.didOpen.emit();
@@ -350,6 +352,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.sbbOverlayController.disconnect();
     this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
     this.resetActiveElement();
