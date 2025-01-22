@@ -9,7 +9,7 @@ describe(`sbb-chip ssr`, () => {
   let root: SbbChipElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html`<sbb-chip></sbb-chip>`, {
+    root = await ssrHydratedFixture(html`<sbb-chip value="Value"></sbb-chip>`, {
       modules: ['./chip.js'],
     });
   });

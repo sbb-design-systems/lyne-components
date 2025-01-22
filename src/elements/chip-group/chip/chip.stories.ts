@@ -1,36 +1,48 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-
-import { SbbChipElement } from './chip.js';
 import readme from './readme.md?raw';
+import './chip.js';
 
-const myProp: InputType = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const readonly: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
+  value,
+  disabled,
+  readonly,
 };
 
 const defaultArgs: Args = {
-  'my-prop': 'Label',
+  value: 'Value',
+  disabled: false,
+  readonly: false,
 };
 
-const Template = (args: Args): TemplateResult => html`<sbb-chip ${sbbSpread(args)}></sbb-chip>`;
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-chip
+    value=${args.value}
+    ?data-disabled=${args.disabled}
+    ?data-readonly=${args.readonly}
+  ></sbb-chip>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -38,14 +50,21 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+export const Readonly: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, readonly: true },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [SbbChipElement.events.myEventName],
-    },
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
