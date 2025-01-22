@@ -1,37 +1,46 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-chip-group` is a component . . .
+The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
+Generally, it is used in combination with a `sbb-form-field` to allow the input of multiple textual values.
 
 ```html
-<sbb-chip-group></sbb-chip-group>
+<sbb-form-field>
+  <label>Field label</label>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input />
+  </sbb-chip-group>
+</sbb-form-field>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+Use the unnamed slot to provide the `sbb-chip` and the `input` field
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+### Use with Autocomplete
 
-## Events
+### Use with forms
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+The `sbb-chip-group` is a form associated element and can be part of a form.
+
+**Note:** The `name` must be set on the `sbb-chip-group`, not on the `input`
+
+```html
+<form>
+  <sbb-form-field>
+    <sbb-chip-group name="field-name">
+      <sbb-chip value="Value 1"></sbb-chip>
+      ...
+      <input />
+    </sbb-chip-group>
+  </sbb-form-field>
+</form>
+```
 
 ## Keyboard interaction
 
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
+Users can move through the chips using the arrow keys
 
 | Keyboard       | Action        |
 | -------------- | ------------- |

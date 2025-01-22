@@ -1,17 +1,8 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import { SbbChipGroupElement } from './chip-group.js';
 import readme from './readme.md?raw';
@@ -19,52 +10,62 @@ import readme from './readme.md?raw';
 import '../chip.js';
 import '../../form-field/form-field.js';
 
-const myProp: InputType = {
+const disabled: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
+  },
+};
+
+const readonly: InputType = {
+  control: {
+    type: 'boolean',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
+  disabled,
+  readonly,
 };
 
 const defaultArgs: Args = {
-  'my-prop': 'Label',
+  disabled: false,
+  readonly: false,
 };
 
 const Template = (args: Args): TemplateResult => html`
   <form>
     <sbb-form-field>
       <label>Label</label>
-      <sbb-chip-group ${sbbSpread(args)} name="chip-group-1">
+      <sbb-chip-group name="chip-group-1">
         <sbb-chip value="chip 1"></sbb-chip>
         <sbb-chip value="chip 2"></sbb-chip>
         <sbb-chip value="chip 3"></sbb-chip>
-        <input placeholder="Placeholder" />
+        <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       </sbb-chip-group>
     </sbb-form-field>
   </form>
-
-  <!--<div style="height: 50px"></div>
-  <sbb-form-field>
-    <label>Label</label>
-    <sbb-chip-group>
-      <sbb-chip value="chip 1"></sbb-chip>
-      <sbb-chip value="chip 2"></sbb-chip>
-      <sbb-chip value="chip 3"></sbb-chip>
-    </sbb-chip-group>
-    <input />
-  </sbb-form-field>
-
-  <div style="height: 50px"></div>
-  <sbb-form-field>
-    <label>Label</label>
-    <input />
-  </sbb-form-field>-->
 `;
 
 export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+export const Readonly: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, readonly: true },
+};
+
+// TODO
+export const WithAutoComplete: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
@@ -76,8 +77,6 @@ const meta: Meta = {
     actions: {
       handles: [SbbChipGroupElement.events.input, SbbChipGroupElement.events.change],
     },
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
