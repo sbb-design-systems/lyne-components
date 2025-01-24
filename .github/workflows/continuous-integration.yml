@@ -70,6 +70,8 @@ jobs:
     needs: lint
     permissions:
       packages: write
+    env:
+      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
