@@ -84,11 +84,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - uses: ./.github/actions/setup-mint
-      - name: 'Container: Login to GitHub Container Repository'
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: 'Container: Build and publish release image'
         if: ${{ steps.release.outputs.release_created }}
         run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
           docker build --tag $IMAGE_REPO_STORYBOOK:$VERSION-fat .
           mint slim \
             --target $IMAGE_REPO_STORYBOOK:$VERSION-fat \
