@@ -8,6 +8,7 @@ export function pageScrollDisabled(): boolean {
  */
 export class SbbScrollHandler {
   private _height!: string;
+  private _position!: string;
   private _overflow!: string;
   private _marginInlineEnd!: string;
 
@@ -18,13 +19,15 @@ export class SbbScrollHandler {
 
     // Save any pre-existing styles to reapply them to the body when enabling the scroll again.
     this._height = document.body.style.height;
+    this._position = document.body.style.position;
     this._overflow = document.body.style.overflow;
     this._marginInlineEnd = document.body.style.marginInlineEnd;
 
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
     document.body.style.overflow = 'hidden';
-    document.body.style.height = '100%';
+    document.body.style.height = '100dvh';
+    document.body.style.position = 'relative';
     document.body.style.marginInlineEnd = `${scrollbarWidth}px`;
     document.body.style.setProperty('--sbb-scrollbar-width', `${scrollbarWidth}px`);
 
@@ -38,6 +41,7 @@ export class SbbScrollHandler {
 
     // Revert body inline styles.
     document.body.style.height = this._height || '';
+    document.body.style.position = this._position || '';
     document.body.style.overflow = this._overflow || '';
     document.body.style.marginInlineEnd = this._marginInlineEnd || '';
     document.body.style.setProperty('--sbb-scrollbar-width', '0');
