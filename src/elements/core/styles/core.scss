@@ -339,7 +339,8 @@ sbb-sidebar-container:is(
       > sbb-sidebar[position='start']:is(
           [data-state='closing'],
           [data-state='closed'],
-          [mode='over']
+          [mode='over'],
+          [data-minimum-space]
         )
     ),
     :not(:has(> sbb-sidebar[position='start']))
@@ -350,7 +351,12 @@ sbb-sidebar-container:is(
 
 sbb-sidebar-container:is(
     :has(
-      > sbb-sidebar[position='end']:is([data-state='closing'], [data-state='closed'], [mode='over'])
+      > sbb-sidebar[position='end']:is(
+          [data-state='closing'],
+          [data-state='closed'],
+          [mode='over'],
+          [data-minimum-space]
+        )
     ),
     :not(:has(> sbb-sidebar[position='end']))
   )
@@ -359,7 +365,10 @@ sbb-sidebar-container:is(
 }
 
 sbb-sidebar-container:has(
-    > sbb-sidebar[mode='over']:is([data-state='opening'], [data-state='opened'])
+    > sbb-sidebar:is([mode='over'], [data-minimum-space]):is(
+        [data-state='opening'],
+        [data-state='opened']
+      )
   ) {
   --sbb-sidebar-container-backdrop-visibility: visible;
   --sbb-sidebar-container-backdrop-opacity: 0.4;

@@ -12,6 +12,7 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbInertController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
+import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
 import { isEventOnElement } from '../../core/overlay.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
@@ -31,7 +32,7 @@ import '../../button/secondary-button.js';
  */
 export
 @customElement('sbb-sidebar')
-class SbbSidebarElement extends SbbOpenCloseBaseElement {
+class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Mode of the sidebar; one of 'side' or 'over'. */
@@ -54,6 +55,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
   @property({ reflect: true })
   public accessor position: 'start' | 'end' = 'start';
 
+  /** Background color of the sidebar. Either `white` or `milk`. **/
   @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
@@ -152,6 +154,8 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
       return;
     }
 
+    this.startAnimation();
+
     this._lastFocusedElement = document.activeElement as HTMLElement;
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
@@ -188,10 +192,12 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
 
-    if (this.mode === 'over') {
+    // If the minimum space attribute is set, the sidebar should behave like in mode over.
+    if (this.mode === 'over' || this.hasAttribute('data-minimum-space')) {
       this._takeFocus();
     }
 
+    this.stopAnimation();
     this.didOpen.emit();
   }
 
@@ -200,6 +206,8 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     if (this.state !== 'opened' || !this.willClose.emit()) {
       return;
     }
+
+    this.startAnimation();
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
 
@@ -236,6 +244,7 @@ class SbbSidebarElement extends SbbOpenCloseBaseElement {
     }
     this._lastFocusedElement = null;
 
+    this.stopAnimation();
     this.didClose.emit();
   }
 

@@ -43,6 +43,18 @@ The `sbb-sidebar-container` is a component . . .
 
 <!-- Auto Generated Below -->
 
+## Properties
+
+| Name       | Attribute | Privacy | Type                  | Default | Description          |
+| ---------- | --------- | ------- | --------------------- | ------- | -------------------- |
+| `sidebars` | -         | public  | `SbbSidebarElement[]` |         | Associated sidebars. |
+
+## Methods
+
+| Name                    | Privacy | Description                                                                                                          | Parameters | Return          | Inherited From |
+| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | -------------- |
+| `reactToAvailableSpace` | public  | Closes and opens sidebars depending on available width of the container and its parent container. TODO: method name? |            | `Promise<void>` |                |
+
 ## Slots
 
 | Name | Description                                                                   |

@@ -29,7 +29,7 @@
   --sbb-sidebar-background-color: var(--sbb-color-milk);
 }
 
-:host([mode='over']) {
+:host(:is([mode='over'], [data-minimum-space]:not([data-minimum-space-closing]))) {
   --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-border-radius-end: var(--sbb-sidebar-border-radius-start);
   --sbb-sidebar-z-index: 3;
@@ -48,7 +48,7 @@
 
   & {
     width: inherit;
-    max-width: 100%;
+    max-width: calc(100% - 2 * var(--sbb-sidebar-margin));
     background-color: var(--sbb-sidebar-background-color);
     display: block;
     position: absolute;

@@ -13,6 +13,7 @@
   // Hide the sidebars when they're closed.
   overflow: hidden;
 
+  --sbb-sidebar-container-min-visible-content-width: #{sbb.px-to-rem-build(320)};
   --sbb-sidebar-container-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
