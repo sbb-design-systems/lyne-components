@@ -161,9 +161,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _selectedDate?: T | null;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public accessor dateFilter:
-    | ((date: T | null) => boolean)
-    | null = null;
+  @property({ attribute: 'date-filter' })
+  public accessor dateFilter: ((date: T | null) => boolean) | null = null;
+
+  @property()
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -311,13 +313,19 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
     this._wide =
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointMediumAndAbove) ?? false) && this.wide;
-    this._weeks = this._createWeekRows(this._activeDate);
+    this._weeks =
+      this.orientation === 'horizontal'
+        ? this._createWeekRows(this._activeDate)
+        : this._createWeekRowsVertical(this._activeDate);
     this._years = this._createYearRows();
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
-      this._nextMonthWeeks = this._createWeekRows(nextMonthDate);
+      this._nextMonthWeeks =
+        this.orientation === 'horizontal'
+          ? this._createWeekRows(nextMonthDate)
+          : this._createWeekRowsVertical(nextMonthDate);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
     }
     this._initialized = true;
@@ -362,6 +370,31 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         i + 1,
       )!;
       weeks[weeks.length - 1].push({
+        value: this._dateAdapter.toIso8601(date),
+        dayValue: dateNames[i],
+        monthValue: String(this._dateAdapter.getMonth(date)),
+        yearValue: String(this._dateAdapter.getYear(date)),
+      });
+    }
+    return weeks;
+  }
+
+  /** Creates the rows for each week in orientation='vertical'. */
+  private _createWeekRowsVertical(value: T): Day[][] {
+    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
+    const dateNames: string[] = this._dateAdapter.getDateNames();
+    const weekOffset = this._dateAdapter.getFirstWeekOffset(value);
+    const weeks: Day[][] = Array.from({ length: DAYS_PER_ROW }, () => []);
+    for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
+      if (cell === DAYS_PER_ROW) {
+        cell = 0;
+      }
+      const date = this._dateAdapter.createDate(
+        this._dateAdapter.getYear(value),
+        this._dateAdapter.getMonth(value),
+        i + 1,
+      )!;
+      weeks[cell].push({
         value: this._dateAdapter.toIso8601(date),
         dayValue: dateNames[i],
         monthValue: String(this._dateAdapter.getMonth(date)),
@@ -875,8 +908,17 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         )}
       </div>
       <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
-        ${this._createDayTable(this._weeks)}
-        ${this._wide ? this._createDayTable(this._nextMonthWeeks) : nothing}
+        ${this.orientation === 'horizontal'
+          ? html`
+              ${this._createDayTable(this._weeks)}
+              ${this._wide ? this._createDayTable(this._nextMonthWeeks) : nothing}
+            `
+          : html`
+              ${this._createDayTableVertical(this._weeks)}
+              ${this._wide
+                ? this._createDayTableVertical(this._nextMonthWeeks, nextMonthActiveDate)
+                : nothing}
+            `}
       </div>
     `;
   }
@@ -971,6 +1013,50 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       return html`<tr>
         ${this._createDayCells(week, today)}
       </tr>`;
+    });
+  }
+
+  /* Creates the table in orientation='vertical'. */
+  private _createDayTableVertical(weeks: Day[][], nextMonthActiveDate?: T): TemplateResult {
+    return html`
+      <table
+        class="sbb-calendar__table"
+        @focusout=${(event: FocusEvent) =>
+          this._handleTableBlur(event.relatedTarget as HTMLElement)}
+        @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
+      >
+        <tbody class="sbb-calendar__table-body">
+          ${this._createDayTableBodyVertical(weeks, nextMonthActiveDate)}
+        </tbody>
+      </table>
+    `;
+  }
+
+  /** Creates the table body with the day cells in orientation='vertical', considering the possible day's offset. */
+  private _createDayTableBodyVertical(weeks: Day[][], nextMonthActiveDate?: T): TemplateResult[] {
+    const today: string = this._dateAdapter.toIso8601(this.now);
+    const weekOffset = this._dateAdapter.getFirstWeekOffset(
+      nextMonthActiveDate ?? this._activeDate,
+    );
+    return weeks.map((week: Day[], rowIndex: number) => {
+      const weekday = this._weekdays[rowIndex];
+      return html`
+        <tr>
+          ${!nextMonthActiveDate
+            ? html` <td class="sbb-calendar__table-header">
+                <sbb-screen-reader-only>${weekday.long}</sbb-screen-reader-only>
+                <span aria-hidden="true">${weekday.narrow}</span>
+              </td>`
+            : nothing}
+          ${rowIndex < weekOffset
+            ? html`<td
+                class="sbb-calendar__table-data"
+                data-day=${`0 ${week[0].monthValue} ${week[0].yearValue}`}
+              ></td>`
+            : nothing}
+          ${this._createDayCells(week, today)}
+        </tr>
+      `;
     });
   }
 
