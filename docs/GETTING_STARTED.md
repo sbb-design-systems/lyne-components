@@ -74,7 +74,7 @@ Select your technology to get started.
      ...
    ```
 
-4. In order to use web components with Angular, you have to import `CUSTOM_ELEMENT_SCHEMA` from the `@angular/core` package.
+4. In order to use web components with Angular, you have to import `CUSTOM_ELEMENTS_SCHEMA` from the `@angular/core` package.
 
 ### Example app
 
