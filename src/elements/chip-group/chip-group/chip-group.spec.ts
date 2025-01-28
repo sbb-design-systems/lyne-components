@@ -23,4 +23,19 @@ describe('sbb-chip-group', () => {
     await waitForLitRender(element);
     expect(myEventNameSpy.count).to.be.equal(1);
   });
+
+  // should add chip and empty input on enter
+  // click on delete chip
+  // click on chip
+  // readonly input
+  // disabled input
+  // disabled fieldset
+  // formData interaction
+
+  // keyboard interactions
+  //   - delete on empty input
+  //   - arrow navigation, skips disabled chips
+  //   - delete on chip / readonly chip
+  //   - tab on chip-group
+  //   - shift-tab on input
 });
