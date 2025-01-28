@@ -193,6 +193,15 @@ export abstract class DateAdapter<T = any> {
   }
 
   /**
+   * Retruns a date from ISO String.
+   * @param date The ISO String date to convert to T.
+   */
+  public fromIso8601(date: string): T {
+    const parsed: number[] = date.split('-').map((e) => Number(e));
+    return this.createDate(parsed[0], parsed[1], parsed[2]);
+  }
+
+  /**
    * Given a potential date object, returns that same date object if it is
    * a valid date, or `null` if it's not a valid date.
    * @param value The object to check.

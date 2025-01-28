@@ -158,6 +158,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="1 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-01"
             >
               1
             </button>
@@ -173,6 +174,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="2 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-02"
             >
               2
             </button>
@@ -186,6 +188,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="3 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-03"
             >
               3
             </button>
@@ -200,6 +203,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="4 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-04"
             >
               4
             </button>
@@ -213,6 +217,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="5 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-05"
             >
               5
             </button>
@@ -226,6 +231,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="6 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-06"
             >
               6
             </button>
@@ -239,6 +245,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="7 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-07"
             >
               7
             </button>
@@ -252,6 +259,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="8 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-08"
             >
               8
             </button>
@@ -267,6 +275,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="9 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-09"
             >
               9
             </button>
@@ -280,6 +289,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="10 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-10"
             >
               10
             </button>
@@ -293,6 +303,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="11 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-11"
             >
               11
             </button>
@@ -306,6 +317,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="12 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-12"
             >
               12
             </button>
@@ -319,6 +331,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="13 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-13"
             >
               13
             </button>
@@ -332,6 +345,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="14 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-14"
             >
               14
             </button>
@@ -345,6 +359,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="15 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-15"
             >
               15
             </button>
@@ -360,6 +375,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="16 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-16"
             >
               16
             </button>
@@ -373,6 +389,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="17 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-17"
             >
               17
             </button>
@@ -386,6 +403,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="18 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-18"
             >
               18
             </button>
@@ -399,6 +417,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="19 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-19"
             >
               19
             </button>
@@ -412,6 +431,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="20 1 2023"
               sbb-popover-close=""
               tabindex="0"
+              value="2023-01-20"
             >
               20
             </button>
@@ -425,6 +445,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="21 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-21"
             >
               21
             </button>
@@ -438,6 +459,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="22 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-22"
             >
               22
             </button>
@@ -453,6 +475,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="23 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-23"
             >
               23
             </button>
@@ -466,6 +489,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="24 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-24"
             >
               24
             </button>
@@ -479,6 +503,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="25 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-25"
             >
               25
             </button>
@@ -492,6 +517,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="26 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-26"
             >
               26
             </button>
@@ -505,6 +531,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="27 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-27"
             >
               27
             </button>
@@ -518,6 +545,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="28 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-28"
             >
               28
             </button>
@@ -531,6 +559,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="29 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-29"
             >
               29
             </button>
@@ -546,6 +575,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="30 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-30"
             >
               30
             </button>
@@ -559,6 +589,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               data-day="31 1 2023"
               sbb-popover-close=""
               tabindex="-1"
+              value="2023-01-31"
             >
               31
             </button>

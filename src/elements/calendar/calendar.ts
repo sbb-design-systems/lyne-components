@@ -70,11 +70,19 @@ interface CalendarKeyboardNavigationParameters {
   verticalOffset: number;
 }
 
-export interface Day {
+interface CalendarOffsets {
+  firstMonthOffset: number;
+  firstMonthLength: number;
+  secondMonthOffset: number;
+  secondMonthLength: number;
+}
+
+export interface Day<T> {
   value: string;
   dayValue: string;
   monthValue: string;
   yearValue: string;
+  dateValue: T;
 }
 
 export interface Month {
@@ -164,6 +172,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'date-filter' })
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
+  /** The orientation of days in the calendar. */
   @property()
   public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
@@ -194,11 +203,18 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _nextCalendarView: CalendarView = 'day';
 
+  private _monthsBoundariesInfo: CalendarOffsets = {
+    firstMonthOffset: 0,
+    firstMonthLength: 0,
+    secondMonthOffset: 0,
+    secondMonthLength: 0,
+  };
+
   /** A list of days, in two formats (long and single char). */
   private _weekdays!: Weekday[];
 
   /** Grid of calendar cells representing the dates of the month. */
-  private _weeks: Day[][] = [];
+  private _weeks: Day<T>[][] = [];
 
   /** Grid of calendar cells representing months. */
   private _months!: Month[][];
@@ -210,7 +226,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _nextMonthYears!: number[][];
 
   /** Grid of calendar cells representing the dates of the next month. */
-  private _nextMonthWeeks!: Day[][];
+  private _nextMonthWeeks!: Day<T>[][];
 
   /** An array containing all the month names in the current language. */
   private _monthNames: string[] = this._dateAdapter.getMonthNames('long');
@@ -313,19 +329,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
     this._wide =
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointMediumAndAbove) ?? false) && this.wide;
-    this._weeks =
-      this.orientation === 'horizontal'
-        ? this._createWeekRows(this._activeDate)
-        : this._createWeekRowsVertical(this._activeDate);
+    this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
-      this._nextMonthWeeks =
-        this.orientation === 'horizontal'
-          ? this._createWeekRows(nextMonthDate)
-          : this._createWeekRowsVertical(nextMonthDate);
+      this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
     }
     this._initialized = true;
@@ -354,11 +364,29 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the rows for each week. */
-  private _createWeekRows(value: T): Day[][] {
-    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
+  private _createWeekRows(value: T, isSecondMonthInView = false): Day<T>[][] {
     const dateNames: string[] = this._dateAdapter.getDateNames();
-    const weeks: Day[][] = [[]];
-    const weekOffset = this._dateAdapter.getFirstWeekOffset(value);
+    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
+    const weekOffset: number = this._dateAdapter.getFirstWeekOffset(value);
+    if (isSecondMonthInView) {
+      this._monthsBoundariesInfo.secondMonthLength = daysInMonth;
+      this._monthsBoundariesInfo.secondMonthOffset = weekOffset;
+    } else {
+      this._monthsBoundariesInfo.firstMonthLength = daysInMonth;
+      this._monthsBoundariesInfo.firstMonthOffset = weekOffset;
+    }
+    return this.orientation === 'horizontal'
+      ? this._createWeekRowsHorizontal(value, dateNames, daysInMonth, weekOffset)
+      : this._createWeekRowsVertical(value, dateNames, daysInMonth, weekOffset);
+  }
+
+  private _createWeekRowsHorizontal(
+    value: T,
+    dateNames: string[],
+    daysInMonth: number,
+    weekOffset: number,
+  ): Day<T>[][] {
+    const weeks: Day<T>[][] = [[]];
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === DAYS_PER_ROW) {
         weeks.push([]);
@@ -371,6 +399,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       )!;
       weeks[weeks.length - 1].push({
         value: this._dateAdapter.toIso8601(date),
+        dateValue: date,
         dayValue: dateNames[i],
         monthValue: String(this._dateAdapter.getMonth(date)),
         yearValue: String(this._dateAdapter.getYear(date)),
@@ -380,11 +409,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the rows for each week in orientation='vertical'. */
-  private _createWeekRowsVertical(value: T): Day[][] {
-    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
-    const dateNames: string[] = this._dateAdapter.getDateNames();
-    const weekOffset = this._dateAdapter.getFirstWeekOffset(value);
-    const weeks: Day[][] = Array.from({ length: DAYS_PER_ROW }, () => []);
+  private _createWeekRowsVertical(
+    value: T,
+    dateNames: string[],
+    daysInMonth: number,
+    weekOffset: number,
+  ): Day<T>[][] {
+    const weeks: Day<T>[][] = Array.from({ length: DAYS_PER_ROW }, () => []);
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === DAYS_PER_ROW) {
         cell = 0;
@@ -396,6 +427,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       )!;
       weeks[cell].push({
         value: this._dateAdapter.toIso8601(date),
+        dateValue: date,
         dayValue: dateNames[i],
         monthValue: String(this._dateAdapter.getMonth(date)),
         yearValue: String(this._dateAdapter.getYear(date)),
@@ -695,7 +727,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return (firstFocusable as HTMLButtonElement) || null;
   }
 
-  private _handleKeyboardEvent(event: KeyboardEvent, day?: Day): void {
+  private _handleKeyboardEvent(event: KeyboardEvent, day?: Day<T>): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
@@ -704,13 +736,193 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
     const cells: HTMLButtonElement[] = this._cells;
     const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
-    const nextEl: HTMLButtonElement = this._navigateByKeyboard(event, index, cells, day);
+    let nextEl: HTMLButtonElement;
+    if (day) {
+      nextEl = this._navigateByKeyboardDayView(event, index, cells, day);
+    } else {
+      nextEl = this._navigateByKeyboard(event, index, cells, day);
+    }
     const activeEl: HTMLButtonElement = this.shadowRoot!.activeElement as HTMLButtonElement;
     if (nextEl !== activeEl) {
       (nextEl as HTMLButtonElement).tabIndex = 0;
       nextEl?.focus();
       (activeEl as HTMLButtonElement).tabIndex = -1;
     }
+  }
+
+  private _navigateByKeyboardDayView(
+    evt: KeyboardEvent,
+    index: number,
+    cells: HTMLButtonElement[],
+    day: Day<T>,
+  ): HTMLButtonElement {
+    const arrowsOffset =
+      this.orientation === 'horizontal'
+        ? { leftRight: 1, upDown: DAYS_PER_ROW }
+        : { leftRight: DAYS_PER_ROW, upDown: 1 };
+    const offsetForVertical: number =
+      index < this._monthsBoundariesInfo.firstMonthLength
+        ? this._monthsBoundariesInfo.firstMonthOffset
+        : this._monthsBoundariesInfo.secondMonthOffset;
+
+    let cell: HTMLButtonElement;
+    switch (evt.key) {
+      case 'ArrowUp':
+        cell = this._findDayArrows(cells, day.dateValue, -arrowsOffset.upDown);
+        break;
+      case 'ArrowDown':
+        cell = this._findDayArrows(cells, day.dateValue, arrowsOffset.upDown);
+        break;
+      case 'ArrowLeft':
+        cell = this._findDayArrows(cells, day.dateValue, -arrowsOffset.leftRight);
+        break;
+      case 'ArrowRight':
+        cell = this._findDayArrows(cells, day.dateValue, arrowsOffset.leftRight);
+        break;
+      case 'PageUp': {
+        if (this.orientation === 'horizontal') {
+          const delta: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
+          cell = this._findDayPageUpHorizontal(cells, day, delta);
+        } else {
+          const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
+          const firstOfWeek: number = (weekNumber - 1) * DAYS_PER_ROW - offsetForVertical + 1;
+          const delta: number = firstOfWeek - +day.dayValue;
+          cell = this._findDayPageUpVertical(cells, day, delta);
+        }
+        break;
+      }
+      case 'PageDown': {
+        if (this.orientation === 'horizontal') {
+          const firstNextMonth: T = this._dateAdapter.createDate(
+            +day.yearValue,
+            +day.monthValue + 1,
+            1,
+          );
+          const lastOfMonth: number = this._dateAdapter.getDate(
+            this._dateAdapter.addCalendarDays(firstNextMonth, -1),
+          );
+          const delta: number =
+            Math.trunc((lastOfMonth - +day.dayValue!) / DAYS_PER_ROW) * DAYS_PER_ROW;
+          cell = this._findDayPageDownHorizontal(cells, day, delta);
+        } else {
+          const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
+          const lastOfWeek: number = weekNumber * DAYS_PER_ROW - offsetForVertical;
+          const delta: number = lastOfWeek - +day.dayValue;
+          cell = this._findDayPageDownVertical(cells, day, delta);
+        }
+        break;
+      }
+      case 'Home': {
+        cell = this._findDayFirst(cells, day, 1);
+        break;
+      }
+      case 'End': {
+        const firstNextMonth: T = this._dateAdapter.createDate(
+          +day.yearValue,
+          +day.monthValue + 1,
+          1,
+        );
+        cell = this._findDayLast(cells, firstNextMonth);
+        break;
+      }
+      default:
+        cell = cells[index];
+        break;
+    }
+    return cell;
+  }
+
+  private _findDayArrows(cells: HTMLButtonElement[], date: T, delta: number): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.addCalendarDays(date, delta),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayArrows(cells, this._dateAdapter.fromIso8601(newDateValue), delta);
+    }
+    return nextCell;
+  }
+
+  private _findDayPageUpHorizontal(
+    cells: HTMLButtonElement[],
+    day: Day<T>,
+    delta: number,
+  ): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.createDate(+day.yearValue, +day.monthValue, delta),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayPageUpHorizontal(cells, day, delta + 7);
+    }
+    return nextCell;
+  }
+
+  private _findDayPageUpVertical(
+    cells: HTMLButtonElement[],
+    day: Day<T>,
+    delta: number,
+  ): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.addCalendarDays(day.dateValue, delta),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayPageUpVertical(cells, day, delta + 1);
+    }
+    return nextCell;
+  }
+
+  private _findDayPageDownHorizontal(
+    cells: HTMLButtonElement[],
+    day: Day<T>,
+    delta: number,
+  ): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.addCalendarDays(day.dateValue, delta),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayPageDownHorizontal(cells, day, delta - 7);
+    }
+    return nextCell;
+  }
+
+  private _findDayPageDownVertical(
+    cells: HTMLButtonElement[],
+    day: Day<T>,
+    delta: number,
+  ): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.addCalendarDays(day.dateValue, delta),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayPageDownVertical(cells, day, delta - 1);
+    }
+    return nextCell;
+  }
+
+  private _findDayFirst(cells: HTMLButtonElement[], day: Day<T>, date: number): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayFirst(cells, day, date + 1);
+    }
+    return nextCell;
+  }
+
+  private _findDayLast(cells: HTMLButtonElement[], firstNextMonth: T): HTMLButtonElement {
+    const newDateValue = this._dateAdapter.toIso8601(
+      this._dateAdapter.addCalendarDays(firstNextMonth, -1),
+    );
+    const nextCell = cells.find((e) => e.value === newDateValue);
+    if (!nextCell || nextCell.disabled) {
+      return this._findDayLast(cells, this._dateAdapter.fromIso8601(newDateValue));
+    }
+    return nextCell;
   }
 
   /**
@@ -723,7 +935,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     evt: KeyboardEvent,
     index: number,
     cells: HTMLButtonElement[],
-    day?: Day,
+    day?: Day<T>,
   ): HTMLButtonElement {
     const {
       elementIndexForWideMode,
@@ -774,7 +986,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _calculateParametersForKeyboardNavigation(
     cells: HTMLButtonElement[],
     index: number,
-    day?: Day,
+    day?: Day<T>,
   ): CalendarKeyboardNavigationParameters {
     switch (this._calendarView) {
       case 'day': {
@@ -959,7 +1171,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the calendar table for the daily view. */
-  private _createDayTable(weeks: Day[][]): TemplateResult {
+  private _createDayTable(weeks: Day<T>[][]): TemplateResult {
     return html`
       <table
         class="sbb-calendar__table"
@@ -992,9 +1204,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the table body with the day cells. For the first row, it also considers the possible day's offset. */
-  private _createDayTableBody(weeks: Day[][]): TemplateResult[] {
+  private _createDayTableBody(weeks: Day<T>[][]): TemplateResult[] {
     const today: string = this._dateAdapter.toIso8601(this.now);
-    return weeks.map((week: Day[], rowIndex: number) => {
+    return weeks.map((week: Day<T>[], rowIndex: number) => {
       const firstRowOffset: number = DAYS_PER_ROW - week.length;
       if (rowIndex === 0 && firstRowOffset) {
         return html`
@@ -1017,7 +1229,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /* Creates the table in orientation='vertical'. */
-  private _createDayTableVertical(weeks: Day[][], nextMonthActiveDate?: T): TemplateResult {
+  private _createDayTableVertical(weeks: Day<T>[][], nextMonthActiveDate?: T): TemplateResult {
     return html`
       <table
         class="sbb-calendar__table"
@@ -1033,12 +1245,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the table body with the day cells in orientation='vertical', considering the possible day's offset. */
-  private _createDayTableBodyVertical(weeks: Day[][], nextMonthActiveDate?: T): TemplateResult[] {
+  private _createDayTableBodyVertical(
+    weeks: Day<T>[][],
+    nextMonthActiveDate?: T,
+  ): TemplateResult[] {
     const today: string = this._dateAdapter.toIso8601(this.now);
     const weekOffset = this._dateAdapter.getFirstWeekOffset(
       nextMonthActiveDate ?? this._activeDate,
     );
-    return weeks.map((week: Day[], rowIndex: number) => {
+    return weeks.map((week: Day<T>[], rowIndex: number) => {
       const weekday = this._weekdays[rowIndex];
       return html`
         <tr>
@@ -1061,8 +1276,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the cells for the daily view. */
-  private _createDayCells(week: Day[], today: string): TemplateResult[] {
-    return week.map((day: Day) => {
+  private _createDayCells(week: Day<T>[], today: string): TemplateResult[] {
+    return week.map((day: Day<T>) => {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
       const selected: boolean = !!this._selected && day.value === this._selected;
@@ -1085,6 +1300,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
             })}
             @click=${() => this._selectDate(day.value)}
             ?disabled=${isOutOfRange || isFilteredOut}
+            value=${day.value}
             aria-label=${this._dateAdapter.getAccessibilityFormatDate(day.value)}
             aria-pressed=${selected}
             aria-disabled=${isOutOfRange || isFilteredOut}
