@@ -99,7 +99,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this._container = this.closest?.('sbb-sidebar-container');
     this._updateSidebarWidth();
 
-    if (this.state === 'opened' && this.mode === 'over') {
+    if (this.state === 'opened' && this._isModeOver()) {
       this._takeFocus();
     }
 
@@ -120,9 +120,9 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('opened')) {
-      if (this.opened && this.state === 'closed') {
+      if (this.opened) {
         this.open();
-      } else if (!this.opened && this.state === 'opened') {
+      } else if (!this.opened) {
         this.close();
       }
     }
@@ -150,7 +150,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /** Opens the sidebar. */
   public async open(): Promise<void> {
-    if (this.state !== 'closed' || !this.willOpen.emit()) {
+    if (this.state === 'opening' || this.state === 'opened' || !this.willOpen.emit()) {
       return;
     }
 
@@ -192,8 +192,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
 
-    // If the minimum space attribute is set, the sidebar should behave like in mode over.
-    if (this.mode === 'over' || this.hasAttribute('data-minimum-space')) {
+    if (this._isModeOver()) {
       this._takeFocus();
     }
 
@@ -203,7 +202,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /** Closes the sidebar. */
   public close(): void {
-    if (this.state !== 'opened' || !this.willClose.emit()) {
+    if (this.state === 'closing' || this.state === 'closed' || !this.willClose.emit()) {
       return;
     }
 
@@ -235,10 +234,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
     this._unTrap();
 
-    if (
-      this._lastFocusedElement &&
-      (this.contains(document.activeElement) || this.mode === 'over')
-    ) {
+    if (this._lastFocusedElement && (this.contains(document.activeElement) || this._isModeOver())) {
       setModalityOnNextFocus(this._lastFocusedElement);
       this._lastFocusedElement?.focus();
     }
@@ -296,7 +292,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   // Closes the sidebar on "Esc" key pressed
   private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
-    if (this.state === 'opened' && event.key === 'Escape') {
+    if ((this.state === 'opening' || this.state === 'opened') && event.key === 'Escape') {
       this.close();
     }
   }
@@ -311,9 +307,9 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /** Toggles the sidebar visibility. */
   public toggle(): void {
-    if (this.state === 'opened') {
+    if (this.state === 'opening' || this.state === 'opened') {
       this.close();
-    } else if (this.state === 'closed') {
+    } else {
       this.open();
     }
   }
@@ -354,16 +350,26 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this.toggleAttribute('data-sticking', isSticky);
   }
 
-  private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this.state === 'opening') {
+  private _isModeOver(): boolean {
+    // If the minimum space attribute is set, the sidebar should behave like in mode over.
+    return this.mode === 'over' || this.hasAttribute('data-minimum-space');
+  }
+
+  private _onTransitionEnd(event: TransitionEvent): void {
+    // We ensure that we react to the fade in transition on the sbb-sidebar div
+    if (event.propertyName !== 'translate' || event.target !== event.currentTarget) {
+      return;
+    }
+
+    if (this.state === 'opening') {
       this._handleOpening();
-    } else if (event.animationName === 'close' && this.state === 'closing') {
+    } else if (this.state === 'closing') {
       this._handleClosing();
     }
   }
 
   protected override render(): TemplateResult {
-    return html`<div class="sbb-sidebar" @animationend=${this._onAnimationEnd}>
+    return html`<div class="sbb-sidebar" @transitionend=${this._onTransitionEnd}>
       <div class="sbb-sidebar__intersector"></div>
       <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
       <slot></slot>

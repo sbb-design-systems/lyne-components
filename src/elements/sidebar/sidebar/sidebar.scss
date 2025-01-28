@@ -56,16 +56,16 @@
     padding-inline: var(--sbb-sidebar-padding-inline-start) var(--sbb-sidebar-padding-inline-end);
     z-index: var(--sbb-sidebar-z-index);
     overflow-y: auto;
-    transition: width var(--sbb-sidebar-container-animation-duration)
-      var(--sbb-sidebar-container-animation-easing);
     border-start-start-radius: var(--sbb-sidebar-border-radius-start);
     border-start-end-radius: var(--sbb-sidebar-border-radius-start);
     border-end-start-radius: var(--sbb-sidebar-border-radius-end);
     border-end-end-radius: var(--sbb-sidebar-border-radius-end);
     margin: var(--sbb-sidebar-margin);
     margin-block-start: var(--sbb-sidebar-margin-block-start);
-    animation-duration: var(--sbb-sidebar-container-animation-duration);
-    animation-timing-function: var(--sbb-sidebar-container-animation-easing);
+    transition-duration: var(--sbb-sidebar-container-animation-duration);
+    transition-timing-function: var(--sbb-sidebar-container-animation-easing);
+    transition-property: width, translate;
+    translate: none;
 
     @supports (scrollbar-gutter: stable) {
       scrollbar-gutter: stable;
@@ -80,20 +80,11 @@
     // Stops the sidenav from poking out (e.g. with the box shadow) while it's off-screen.
     // We can't use `display` because it interrupts the transition and `transition-behavior`
     // isn't available in all browsers.
-    // visibility: hidden;
-    display: none;
+    visibility: hidden;
   }
 
-  :host([data-state='opening']) & {
-    animation-name: open;
-  }
-
-  :host([data-state='closing']) & {
-    animation-name: close;
-  }
-
-  :host([data-state='opened']) & {
-    translate: none;
+  :host(:is([data-state='closing'], [data-state='closed'])) & {
+    translate: var(--sbb-sidebar-translate-x) 0;
   }
 }
 
@@ -109,25 +100,5 @@
 
   :host([data-sticking]) & {
     @include sbb.shadow-level-5-soft;
-  }
-}
-
-@keyframes open {
-  from {
-    translate: var(--sbb-sidebar-translate-x) 0;
-  }
-
-  to {
-    translate: none;
-  }
-}
-
-@keyframes close {
-  from {
-    translate: none;
-  }
-
-  to {
-    translate: var(--sbb-sidebar-translate-x) 0;
   }
 }
