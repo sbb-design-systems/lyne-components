@@ -4,15 +4,29 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-chip-background-color: var(--sbb-color-milk);
   --sbb-chip-border: var(--sbb-border-width-1x) solid var(--sbb-chip-border-color);
   --sbb-chip-border-color: var(--sbb-color-cloud);
   --sbb-chip-border-radius: var(--sbb-border-radius-2x);
-  --sbb-chip-background-color: var(--sbb-color-milk);
   --sbb-chip-color: var(--sbb-color-granite);
-  --sbb-chip-color-active-background: var(--sbb-color-white);
-  --sbb-chip-color-hover-background: var(--sbb-color-white);
+  --sbb-chip-color-hover: var(--sbb-color-charcoal);
+  --sbb-chip-background-color-active: var(--sbb-color-white);
+  --sbb-chip-background-color-hover: var(--sbb-color-white);
+  --sbb-chip-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
 
   display: inline-block;
+}
+
+:host([negative]) {
+  --sbb-chip-border-color: var(--sbb-color-iron);
+  --sbb-chip-background-color: var(--sbb-color-charcoal);
+  --sbb-chip-color: var(--sbb-color-cloud);
+  --sbb-chip-color-hover: var(--sbb-color-white);
+  --sbb-chip-background-color-active: var(--sbb-color-midnight);
+  --sbb-chip-background-color-hover: var(--sbb-color-midnight);
 }
 
 :host(:is([disabled], [readonly])) {
@@ -23,6 +37,25 @@
 
   .sbb-chip__delete {
     display: none;
+  }
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:not([disabled])) {
+    .sbb-chip__label-wrapper:hover {
+      color: var(--sbb-chip-color-hover);
+      cursor: pointer;
+      background-color: var(--sbb-chip-background-color-hover);
+
+      .sbb-chip__label {
+        transition: transform var(--sbb-chip-transition-duration) var(--sbb-animation-easing);
+        transform: translateY(#{sbb.px-to-rem-build(-1)});
+      }
+    }
+
+    .sbb-chip__delete:hover {
+      --sbb-button-color-text: var(--sbb-chip-color-hover);
+    }
   }
 }
 
@@ -49,17 +82,6 @@
   align-items: center;
   padding-inline: var(--sbb-spacing-fixed-2x);
   outline: none;
-
-  @include sbb.hover-mq($hover: true) {
-    :host(:not([disabled])) &:hover {
-      cursor: pointer;
-      background-color: var(--sbb-chip-color-hover-background);
-
-      .sbb-chip__label {
-        transform: translateY(-1px);
-      }
-    }
-  }
 }
 
 .sbb-chip__label {
@@ -70,8 +92,9 @@
 
 .sbb-chip__delete {
   --sbb-button-border-radius: 0 var(--sbb-chip-border-radius) var(--sbb-chip-border-radius) 0;
-  --sbb-button-color-active-background: var(--sbb-chip-color-active-background);
-  --sbb-button-color-hover-background: var(--sbb-chip-color-hover-background);
+  --sbb-button-color-text: var(--sbb-chip-color);
+  --sbb-button-color-active-background: var(--sbb-chip-background-color-active);
+  --sbb-button-color-hover-background: var(--sbb-chip-background-color-hover);
   --sbb-icon-svg-width: calc(var(--sbb-size-icon-ui-small) - var(--sbb-border-width-1x) * 2);
   --sbb-icon-svg-height: calc(var(--sbb-size-icon-ui-small) - var(--sbb-border-width-1x) * 2);
   --sbb-focus-outline-offset: 0;

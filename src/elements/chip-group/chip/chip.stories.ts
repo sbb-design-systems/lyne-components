@@ -21,6 +21,12 @@ const disabled: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const readonly: InputType = {
   control: {
     type: 'boolean',
@@ -30,12 +36,14 @@ const readonly: InputType = {
 const defaultArgTypes: ArgTypes = {
   value,
   disabled,
+  negative,
   readonly,
 };
 
 const defaultArgs: Args = {
   value: 'Value',
   disabled: false,
+  negative: false,
   readonly: false,
 };
 

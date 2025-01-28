@@ -18,6 +18,7 @@ It is possible to provide a label via the unnamed slot. If not present, the `val
 | Name       | Attribute  | Privacy | Type      | Default | Description                               |
 | ---------- | ---------- | ------- | --------- | ------- | ----------------------------------------- |
 | `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled.        |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag.           |
 | `readonly` | `readonly` | public  | `boolean` | `false` | Whether the component is readonly         |
 | `value`    | `value`    | public  | `string`  | `''`    | The value of chip. Will be used as label. |
 

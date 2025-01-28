@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 
@@ -17,7 +17,7 @@ import style from './chip.scss?lit&inline';
  */
 export
 @customElement('sbb-chip')
-class SbbChipElement extends SbbDisabledMixin(LitElement) {
+class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     requestDelete: 'requestDelete',
@@ -28,7 +28,7 @@ class SbbChipElement extends SbbDisabledMixin(LitElement) {
 
   /** Whether the component is readonly */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   public accessor readonly: boolean = false;
 
   /** @internal */
