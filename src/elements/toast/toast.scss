@@ -18,17 +18,18 @@
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toast-border-radius: var(--sbb-border-radius-4x);
-  --sbb-toast-container-display: flex;
+  --sbb-toast-container-display: none;
   --sbb-toast-container-position: fixed;
   --sbb-toast-horizontal-position: initial;
   --sbb-toast-vertical-position: initial;
 
-  display: block;
+  display: none;
 }
 
-:host(:not([data-state])),
-:host([data-state='closed']) {
-  --sbb-toast-container-display: none;
+:host([data-state]:not([data-state='closed'])) {
+  --sbb-toast-container-display: flex;
+
+  display: block;
 }
 
 :host([position='bottom-left']),

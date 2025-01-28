@@ -17,13 +17,17 @@
   --sbb-overlay-animation-easing: ease;
   --sbb-overlay-pointer-events: none;
 
-  display: block;
+  display: none;
   position: fixed;
   inset: var(--sbb-overlay-inset);
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
 }
 
-:host(:is([data-state='opened'], [data-state='opening'])) {
+:host([data-state]:not([data-state='closed'])) {
+  display: block;
+}
+
+:host(:is([data-state='opening'], [data-state='opened'])) {
   --sbb-overlay-pointer-events: all;
 }
 

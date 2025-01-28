@@ -6,7 +6,7 @@ import {
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
-  isArrowKeyPressed,
+  isArrowKeyOrPageKeysPressed,
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
@@ -16,7 +16,7 @@ import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
   findReferencedElement,
   isZeroAnimationDuration,
@@ -63,6 +63,9 @@ let nextId = 0;
  */
 export
 @customElement('sbb-menu')
+@hostAttributes({
+  popover: 'manual',
+})
 class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof SbbOpenCloseBaseElement
@@ -129,6 +132,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       return;
     }
 
+    this.showPopover?.();
     this.state = 'opening';
     this._setMenuPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -182,6 +186,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
+
     this._menu?.firstElementChild?.scrollTo(0, 0);
     this._inertController.deactivate();
     setModalityOnNextFocus(this._triggerElement);
@@ -211,7 +217,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    if (!isArrowKeyPressed(evt)) {
+    if (!isArrowKeyOrPageKeysPressed(evt)) {
       return;
     }
     evt.preventDefault();
@@ -223,9 +229,31 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     ).filter(
       (el) => (!el.disabled || el.disabledInteractive) && interactivityChecker.isVisible(el),
     );
-
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
-    const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+
+    let nextIndex;
+    switch (evt.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+        break;
+
+      case 'PageUp':
+      case 'Home':
+        nextIndex = 0;
+        break;
+
+      case 'End':
+      case 'PageDown':
+        nextIndex = enabledActions.length - 1;
+        break;
+
+      // this should never happen since all the case allowed by `isArrowKeyOrPageKeysPressed` should be covered
+      default:
+        nextIndex = 0;
+    }
 
     (enabledActions[nextIndex] as HTMLElement).focus();
   }

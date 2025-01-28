@@ -36,23 +36,32 @@ Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-ima
 
 ## Style
 
-By default `sbb-container` uses the `page spacing` defined in the [layout documentation](/docs/styles-layout--docs). Optionally the user can use the `expanded` property (default: `false`) to switch to the `page spacing expanded` layout.
+By default `sbb-container` uses the `page spacing` defined in the [layout documentation](/docs/styles-layout--docs).
+Optionally the user can use the `expanded` property (default: `false`) to switch to the `page spacing expanded` layout.
 Spacing options are applied to all the container's content, including the `sbb-sticky-bar`.
-The component has also four color variants that can be set using the `color` property (default: `white`).
+
+The component has also five color variants that can be set using the `color` property (default: `white`).
+In `midnight` and `charcoal` variants, the slotted content text color and the focus outline color change to white,
+but it's up to the consumer to correctly set the `negative` property on slotted Lyne components, if needed.
 
 ```html
 <sbb-container expanded variant="milk"> ... </sbb-container>
+
+<sbb-container variant="midnight">
+  <sbb-title negative>Title</sbb-title>
+  <p>Text</p>
+</sbb-container>
 ```
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                                 | Default   | Description                                                                     |
-| -------------------- | --------------------- | ------- | ------------------------------------ | --------- | ------------------------------------------------------------------------------- |
-| `backgroundExpanded` | `background-expanded` | public  | `boolean`                            | `false`   | Whether the background color is shown on full container width on large screens. |
-| `color`              | `color`               | public  | `'transparent' \| 'white' \| 'milk'` | `'white'` | Color of the container, like transparent, white etc.                            |
-| `expanded`           | `expanded`            | public  | `boolean`                            | `false`   | Whether the container is expanded.                                              |
+| Name                 | Attribute             | Privacy | Type                                                             | Default   | Description                                                                     |
+| -------------------- | --------------------- | ------- | ---------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+| `backgroundExpanded` | `background-expanded` | public  | `boolean`                                                        | `false`   | Whether the background color is shown on full container width on large screens. |
+| `color`              | `color`               | public  | `'transparent' \| 'white' \| 'milk' \| 'midnight' \| 'charcoal'` | `'white'` | Color of the container, like transparent, white etc.                            |
+| `expanded`           | `expanded`            | public  | `boolean`                                                        | `false`   | Whether the container is expanded.                                              |
 
 ## Slots
 

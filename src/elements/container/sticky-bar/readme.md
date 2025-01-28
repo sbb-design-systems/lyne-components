@@ -29,15 +29,16 @@ The `sbb-sticky-bar` content is provided via an unnamed slot.
 ## Style
 
 The `sbb-sticky-bar` inherits its variant from the `sbb-container` it's placed in.
-Optionally the user can set the `color` property on the `sbb-sticky-bar` in order to override the one inherited by the `sbb-container`. The color is only applied when the sticky bar is sticking, and will become transparent once it settles on the bottom of the container.
+Optionally the user can set the `color` property on the `sbb-sticky-bar` in order to override the one inherited by the `sbb-container`.
+The color is only applied when the sticky bar is sticking, and will become transparent once it settles on the bottom of the container.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                        | Default | Description                                          |
-| ------- | --------- | ------- | --------------------------- | ------- | ---------------------------------------------------- |
-| `color` | `color`   | public  | `'white' \| 'milk' \| null` | `null`  | Color of the container, like transparent, white etc. |
+| Name    | Attribute | Privacy | Type                                                    | Default | Description                                          |
+| ------- | --------- | ------- | ------------------------------------------------------- | ------- | ---------------------------------------------------- |
+| `color` | `color`   | public  | `'white' \| 'milk' \| 'midnight' \| 'charcoal' \| null` | `null`  | Color of the container, like transparent, white etc. |
 
 ## Methods
 

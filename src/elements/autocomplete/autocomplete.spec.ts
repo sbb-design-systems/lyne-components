@@ -79,6 +79,7 @@ describe(`sbb-autocomplete`, () => {
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(element).to.match(':popover-open');
 
     await sendKeys({ press: 'Escape' });
     await willCloseEventSpy.calledOnce();
@@ -86,6 +87,7 @@ describe(`sbb-autocomplete`, () => {
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(element).not.to.match(':popover-open');
 
     await sendKeys({ press: 'ArrowDown' });
     await willOpenEventSpy.calledTimes(2);
@@ -274,5 +276,31 @@ describe(`sbb-autocomplete`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('opens when new options are slotted', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
+
+    input.focus();
+
+    await didOpenEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    // Remove all the options
+    element.querySelectorAll('sbb-option').forEach((option) => option.remove());
+
+    // Should close automatically
+    await didCloseEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
+
+    // Add a new option
+    const newOption = document.createElement('sbb-option');
+    newOption.setAttribute('value', 'value');
+    element.append(newOption);
+
+    // Should open automatically
+    await didOpenEventSpy.calledTimes(2);
+    expect(input).to.have.attribute('aria-expanded', 'true');
   });
 });

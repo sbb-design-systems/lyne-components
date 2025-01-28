@@ -30,7 +30,7 @@
     var(--sbb-dialog-animation-easing);
   --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
-  display: block;
+  display: none;
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
@@ -53,7 +53,11 @@
   }
 }
 
-:host(:is([data-state='opened'], [data-state='opening'])) {
+:host([data-state]:not([data-state='closed'])) {
+  display: block;
+}
+
+:host(:is([data-state='opening'], [data-state='opened'])) {
   --sbb-dialog-pointer-events: all;
   --sbb-dialog-backdrop-color: var(--sbb-color-milk);
 
@@ -61,6 +65,10 @@
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
   }
+}
+
+:host([backdrop='translucent']:is([data-state='opening'], [data-state='opened'])) {
+  --sbb-dialog-backdrop-color: var(--sbb-color-black-alpha-50);
 }
 
 :host([data-hide-header]) {

@@ -25,6 +25,7 @@ describe(`sbb-popover`, () => {
             <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
           </sbb-popover>
           <!-- Place the button with a spacing to the popover so that it gets clickable. -->
+          <div>Spacer</div>
           <sbb-button id="interactive-background-element" style="margin-block-start:100px">
             Other interactive element
           </sbb-button>
@@ -82,6 +83,7 @@ describe(`sbb-popover`, () => {
       await didOpenEventSpy.calledOnce();
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':popover-open');
 
       element.close();
 
@@ -91,6 +93,7 @@ describe(`sbb-popover`, () => {
       await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).not.to.match(':popover-open');
     });
 
     it('closes the popover on close button click', async () => {

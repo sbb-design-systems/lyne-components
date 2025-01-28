@@ -7,6 +7,7 @@ snapshots["sbb-toast renders Chrome-Safari DOM"] =
   data-state="closed"
   dismissible=""
   icon-name="circle-tick-small"
+  popover="manual"
   position="bottom-center"
 >
   <span>
@@ -75,6 +76,7 @@ snapshots["sbb-toast renders Firefox DOM"] =
   data-state="closed"
   dismissible=""
   icon-name="circle-tick-small"
+  popover="manual"
   position="bottom-center"
 >
   <span>
