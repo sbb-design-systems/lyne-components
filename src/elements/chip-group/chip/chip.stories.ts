@@ -4,6 +4,8 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+
 import readme from './readme.md?raw';
 import './chip.js';
 
@@ -37,12 +39,7 @@ const defaultArgs: Args = {
   readonly: false,
 };
 
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-chip
-    value=${args.value}
-    ?data-disabled=${args.disabled}
-    ?data-readonly=${args.readonly}
-  ></sbb-chip>`;
+const Template = (args: Args): TemplateResult => html`<sbb-chip ${sbbSpread(args)}></sbb-chip>`;
 
 export const Default: StoryObj = {
   render: Template,
