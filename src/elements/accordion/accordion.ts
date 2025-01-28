@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../core/controllers.js';
 import { forceType, handleDistinctChange } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { isEventPrevented } from '../core/eventing.js';
@@ -33,22 +32,22 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
    * The heading level for the sbb-expansion-panel-headers within the component.
    * @controls SbbExpansionPanelElement.titleLevel
    */
-  @handleDistinctChange((e) => e._setTitleLevelOnChildren())
+  @handleDistinctChange((e: SbbAccordionElement) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
   public accessor titleLevel: SbbTitleLevel | null = null;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @forceType()
-  @handleDistinctChange((e, newValue, oldValue) => e._resetExpansionPanels(newValue, !!oldValue))
+  @handleDistinctChange(
+    (e: SbbAccordionElement, newValue: boolean, oldValue: boolean | undefined) =>
+      e._resetExpansionPanels(newValue, !!oldValue),
+  )
   @property({ type: Boolean })
   public accessor multi: boolean = false;
 
-  private _abort = new SbbConnectedAbortController(this);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener(
+  public constructor() {
+    super();
+    this.addEventListener?.(
       'willOpen',
       async (e: CustomEvent<void>) => {
         if (!(await isEventPrevented(e))) {
@@ -56,7 +55,7 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
         }
       },
       {
-        signal,
+        // We use capture here, because willOpen does not bubble.
         capture: true,
       },
     );

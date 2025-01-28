@@ -8,6 +8,7 @@ import '../datepicker-next-day.js';
 import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
 import '../../form-field.js';
+import './datepicker.js';
 
 describe(`sbb-datepicker`, () => {
   let formField: SbbFormFieldElement;

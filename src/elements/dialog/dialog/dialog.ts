@@ -36,6 +36,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =
     'close';
 
+  /** Backdrop density. */
+  @property({ attribute: 'backdrop', reflect: true }) public accessor backdrop:
+    | 'opaque'
+    | 'translucent' = 'opaque';
+
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
   // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
@@ -56,6 +61,13 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _dialogId = `sbb-dialog-${nextId++}`;
   protected closeAttribute: string = 'sbb-dialog-close';
 
+  public constructor() {
+    super();
+    // Close dialog on backdrop click
+    this.addEventListener?.('pointerdown', this._pointerDownListener);
+    this.addEventListener?.('pointerup', this._closeOnBackdropClick);
+  }
+
   /** Opens the component. */
   public open(): void {
     if (this.state !== 'closed') {
@@ -74,6 +86,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
 
     // Add this dialog to the global collection
@@ -98,6 +112,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this._setHideHeaderDataAttribute(false);
     this._dialogContentElement?.scrollTo(0, 0);
     this.state = 'closed';
+    this.hidePopover?.();
+
     this.inertController.deactivate();
     setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element
@@ -120,7 +136,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this.inertController.activate();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
@@ -131,18 +146,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusHandler.trap(this);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Close dialog on backdrop click
-    this.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this.overlayController.signal,
-    });
-    this.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this.overlayController.signal,
-    });
+    this.didOpen.emit();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

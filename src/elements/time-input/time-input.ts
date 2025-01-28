@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { findInput } from '../core/dom.js';
-import { EventEmitter, forwardEventToHost } from '../core/eventing.js';
+import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import { i18nTimeInputChange } from '../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces.js';
 
@@ -132,11 +132,9 @@ class SbbTimeInputElement extends LitElement {
       this._inputElement.placeholder = 'HH:MM';
     }
 
-    this._inputElement.addEventListener(
-      'input',
-      (event: Event) => forwardEventToHost(event, this),
-      { signal: this._abortController.signal },
-    );
+    this._inputElement.addEventListener('input', (event: Event) => forwardEvent(event, this), {
+      signal: this._abortController.signal,
+    });
     this._inputElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._preventCharInsert(event),
@@ -196,7 +194,7 @@ class SbbTimeInputElement extends LitElement {
 
   /** Emits the change event. */
   private _emitChange(event: Event): void {
-    forwardEventToHost(event, this);
+    forwardEvent(event, this);
     this._didChange.emit();
   }
 

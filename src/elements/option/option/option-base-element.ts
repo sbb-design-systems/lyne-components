@@ -2,7 +2,6 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
@@ -23,6 +22,10 @@ const inertAriaGroups = isSafari;
 /** Configuration for the attribute to look at if component is nested in an option group */
 const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
+  attributes: true,
+  childList: true,
+  subtree: true,
+  characterData: true,
 };
 
 export
@@ -78,10 +81,11 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   @state() private accessor _inertAriaGroups = false;
 
-  private _abort = new SbbConnectedAbortController(this);
-
   public constructor() {
     super();
+    this.addEventListener?.('click', (e: MouseEvent) => this.selectByClick(e), {
+      passive: true,
+    });
 
     new MutationController(this, {
       config: optionObserverConfig,
@@ -171,11 +175,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   protected init(): void {
     this.setAttributeFromParent();
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
-      signal,
-      passive: true,
-    });
   }
 
   protected updateAriaDisabled(): void {
@@ -190,14 +189,25 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     this.setAttribute('aria-selected', `${this.selected}`);
   }
 
-  /** Observe changes on data attributes and set the appropriate values. */
+  /** @deprecated use onExternalMutation() as replacement. Will be removed with next major change. */
   protected onOptionAttributesChange(mutationsList: MutationRecord[]): void {
+    this.onExternalMutation(mutationsList);
+  }
+
+  /** Observe changes on data attributes + slotted content and set the appropriate values. */
+  protected onExternalMutation(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
         this.disabledFromGroup = this.hasAttribute('data-group-disabled');
         this.updateAriaDisabled();
       } else if (mutation.attributeName === 'data-negative') {
         this.negative = this.hasAttribute('data-negative');
+      } else {
+        /** @internal */
+        this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
+
+        // We return because there should be only one event triggered per mutationList
+        return;
       }
     }
   }
@@ -261,19 +271,13 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return nothing;
   }
 
-  private _handleSlotChange(): void {
-    this.handleHighlightState();
-    /** @internal */
-    this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-option__container">
         <div class="sbb-option">
           ${this.renderIcon()}
           <span class="sbb-option__label">
-            <slot @slotchange=${this._handleSlotChange}></slot>
+            <slot @slotchange=${this.handleHighlightState}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html` <sbb-screen-reader-only>

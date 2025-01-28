@@ -3,7 +3,6 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -73,12 +72,14 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
     bubbles: true,
   });
 
-  private _abort = new SbbConnectedAbortController(this);
+  public constructor() {
+    super();
+    this.addEventListener?.('click', () => this._handleClick());
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this._group = this.closest('sbb-tag-group') as SbbTagGroupElement;
-    this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */

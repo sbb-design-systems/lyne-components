@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -60,7 +59,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     if (!this._didLoad) {
       return;
     }
-    if (!val) {
+    if (val == null) {
       this.radioButtons.forEach((r) => (r.checked = false));
       return;
     }
@@ -112,7 +111,6 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   private _didLoad = false;
-  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * Emits whenever the `sbb-radio-group` value changes.
@@ -123,17 +121,17 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     SbbRadioButtonGroupElement.events.didChange,
   );
 
+  public constructor() {
+    super();
+    this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
     this.toggleAttribute(
       'data-has-panel',
       !!this.querySelector?.('sbb-selection-expansion-panel, sbb-radio-button-panel'),
     );
-
-    this.addEventListener('change', (e: Event) => this._onRadioChange(e), {
-      signal,
-    });
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -165,7 +163,10 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     const target = event.target! as SbbRadioButtonElement | SbbRadioButtonPanelElement;
 
     // Only filter radio-buttons event
-    if (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') {
+    if (
+      (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') ||
+      target.group !== this
+    ) {
       return;
     }
 

@@ -127,9 +127,25 @@ import '../radio-button-panel.js';
 
       describe('events', () => {
         it('dispatches event on radio change', async () => {
+          radios[0].checked = true;
           const radio = radios[1];
-          const changeSpy = new EventSpy('change');
-          const inputSpy = new EventSpy('input');
+          const changeSpy = new EventSpy('change', element);
+          const inputSpy = new EventSpy('input', element);
+
+          element.addEventListener(
+            'change',
+            () => {
+              expect(element.value).to.be.equal('Value two');
+              expect(
+                Array.from(
+                  element.querySelectorAll<SbbRadioButtonElement | SbbRadioButtonPanelElement>(
+                    selector,
+                  ),
+                ).filter((radio) => radio.checked).length,
+              ).to.be.equal(1);
+            },
+            { once: true },
+          );
 
           radio.click();
           await waitForLitRender(element);
@@ -249,6 +265,37 @@ import '../radio-button-panel.js';
         await waitForLitRender(element);
 
         expect(element.value).to.equal('42');
+      });
+    });
+
+    describe('nested groups', () => {
+      let radios: (SbbRadioButtonElement | SbbRadioButtonPanelElement)[];
+
+      beforeEach(async () => {
+        /* eslint-disable lit/binding-positions */
+        element = await fixture(html`
+          <sbb-radio-button-group>
+            <sbb-radio-button-group>
+              <${tagSingle} id="sbb-radio-1" value="Value one">Value one</${tagSingle}>
+              <${tagSingle} id="sbb-radio-2" value="Value two">Value two</${tagSingle}>
+              <${tagSingle} id="sbb-radio-3" value="Value three" disabled>Value three</${tagSingle}>
+            </sbb-radio-button-group>
+          </sbb-radio-button-group>
+        `);
+        radios = Array.from(element.querySelectorAll(selector));
+
+        await waitForLitRender(element);
+      });
+
+      it('user interaction should have priority over group value', async () => {
+        const changeSpy = new EventSpy('change', element);
+        const didChangeSpy = new EventSpy('didChange', element);
+        radios[0].click();
+
+        await waitForLitRender(element);
+
+        await changeSpy.calledOnce();
+        await didChangeSpy.calledOnce();
       });
     });
   });

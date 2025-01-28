@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
@@ -42,14 +42,12 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
 
   @state() private accessor _sectors: AggregatedSector[] = [];
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('trainSlotChange', (e) => this._readSectors(e), { signal });
-    this.addEventListener('sectorChange', (e) => this._readSectors(e), { signal });
+  public constructor() {
+    super();
+    this.addEventListener?.('trainSlotChange', (e) => this._readSectors(e));
+    this.addEventListener?.('sectorChange', (e) => this._readSectors(e));
   }
 
   private _readSectors(event?: Event): void {

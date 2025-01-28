@@ -7,11 +7,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import {
-  SbbConnectedAbortController,
-  SbbInertController,
-  SbbLanguageController,
-} from '../../core/controllers.js';
+import { SbbInertController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
   findReferencedElement,
@@ -57,6 +53,7 @@ export
 @customElement('sbb-navigation')
 @hostAttributes({
   role: 'navigation',
+  popover: 'manual',
 })
 class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
@@ -97,7 +94,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _triggerElement: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _focusHandler = new SbbFocusHandler();
@@ -111,6 +107,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   public constructor() {
     super();
+    this.addEventListener?.('click', (event) => this._handleNavigationClose(event));
+    this.addEventListener?.('pointerup', (event) => this._closeOnBackdropClick(event));
+    this.addEventListener?.('pointerdown', (event) => this._pointerDownListener(event));
 
     new MutationController(this, {
       skipInitial: true,
@@ -130,6 +129,8 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
     this._checkActiveActions();
     this._checkActiveSection();
@@ -188,6 +189,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
     this._navigationContentElement.scrollTo(0, 0);
     setModalityOnNextFocus(this._triggerElement);
     this._inertController.deactivate();
@@ -206,13 +208,13 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._focusHandler.trap(this, { filter: this._trapFocusFilter });
     this._attachWindowEvents();
     this._setNavigationFocus();
     this.completeUpdate();
+    this.didOpen.emit();
   }
 
   // Removes trigger click listener on trigger change.
@@ -363,12 +365,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-${nextId++}`;
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
-    // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
-    this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
   }
 
   public override disconnectedCallback(): void {

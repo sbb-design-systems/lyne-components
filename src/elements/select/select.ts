@@ -7,8 +7,13 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../core/controllers.js';
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import {
+  forceType,
+  getOverride,
+  handleDistinctChange,
+  hostAttributes,
+} from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
@@ -92,11 +97,23 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Whether the select allows for multiple selection. */
   @forceType()
+  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) => e._onMultipleChanged(newValue))
   @property({ reflect: true, type: Boolean })
   public accessor multiple: boolean = false;
 
+  @forceType()
+  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) =>
+    e._closeOnDisabledReadonlyChanged(newValue),
+  )
+  @property({ reflect: true, type: Boolean })
+  @getOverride((e: SbbSelectElement, v: boolean): boolean => v || e.isDisabledExternally())
+  public override accessor disabled: boolean = false;
+
   /** Whether the select is readonly. */
   @forceType()
+  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) =>
+    e._closeOnDisabledReadonlyChanged(newValue),
+  )
   @property({ type: Boolean })
   public accessor readonly: boolean = false;
 
@@ -137,7 +154,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _abort = new SbbConnectedAbortController(this);
 
   /**
    * The 'combobox' input element
@@ -160,6 +176,22 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
+    this.addEventListener?.('optionSelectionChange', (e: CustomEvent<void>) =>
+      this._onOptionChanged(e),
+    );
+    this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
+    this.addEventListener?.('click', (e: MouseEvent) => {
+      const target = e.target as SbbSelectElement | SbbOptionElement;
+      if (target.localName === 'sbb-option') {
+        // Option click
+        if (!this.multiple && !target.disabled) {
+          this.close();
+          this.focus();
+        }
+      } else {
+        this._toggleOpening();
+      }
+    });
 
     new MutationController(this, {
       config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
@@ -217,6 +249,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (!this.willOpen.emit()) {
       return;
     }
+    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
 
@@ -290,6 +323,28 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
   }
 
+  /**
+   * The `value` property should be adapted when the `multiple` property changes:
+   *   - if it changes to true, the 'value' is set to an array;
+   *   - if it changes to false, the first available option is set as 'value' otherwise it's set to null.
+   */
+  private _onMultipleChanged(newValue: boolean): void {
+    if (newValue) {
+      this.value = this.value !== null ? [this.value as string] : [];
+    } else {
+      this.value = (this.value as string[]).length ? (this.value as string[])[0] : null;
+    }
+  }
+
+  /**
+   * If the `disabled` or the `readonly` properties are set, and the panel is open, close it.
+   */
+  private _closeOnDisabledReadonlyChanged(newValue: boolean): void {
+    if (this.isOpen && newValue) {
+      this.close();
+    }
+  }
+
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
   private _onValueChanged(newValue: string | string[]): void {
     const options = this._filteredOptions;
@@ -356,7 +411,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this.id ||= this._overlayId;
     }
 
-    const signal = this._abort.signal;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
@@ -372,33 +426,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (this.value) {
       this._onValueChanged(this.value);
     }
-
-    this.addEventListener(
-      'optionSelectionChange',
-      (e: CustomEvent<void>) => this._onOptionChanged(e),
-      { signal },
-    );
-
-    this.addEventListener('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e), {
-      signal,
-    });
-
-    this.addEventListener(
-      'click',
-      (e: MouseEvent) => {
-        const target = e.target as SbbSelectElement | SbbOptionElement;
-        if (target.localName === 'sbb-option') {
-          // Option click
-          if (!this.multiple && !target.disabled) {
-            this.close();
-            this.focus();
-          }
-        } else {
-          this._toggleOpening();
-        }
-      },
-      { signal },
-    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -466,6 +493,10 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       element.toggleAttribute('data-negative', this.negative);
       element.toggleAttribute('data-multiple', this.multiple);
     });
+
+    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
+      'sbb-option, sbb-optgroup',
+    ).forEach((e) => e.requestUpdate?.());
   }
 
   private _setupSelect(): void {
@@ -533,6 +564,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.hidePopover?.();
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
@@ -577,6 +609,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     document.addEventListener('scroll', () => this._setOverlayPosition(), {
       passive: true,
       signal: this._openPanelEventsController.signal,
+      // Without capture, other scroll contexts would not bubble to this event listener.
+      // Capture allows us to react to all scroll contexts in this DOM.
+      capture: true,
     });
     window.addEventListener('resize', () => this._setOverlayPosition(), {
       passive: true,
@@ -880,7 +915,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       </div>
 
       <div class="sbb-select__gap-fix"></div>
-      <div class="sbb-select__container">
+      <div class="sbb-select__container" popover="manual">
         <div class="sbb-select__gap-fix">${overlayGapFixCorners()}</div>
         <div
           @animationend=${this._onAnimationEnd}

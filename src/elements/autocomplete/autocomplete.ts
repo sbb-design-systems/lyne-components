@@ -42,13 +42,10 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this.abort.signal;
-    this.addEventListener(
-      'optionSelectionChange',
-      (e: CustomEvent<void>) => this.onOptionSelected(e),
-      { signal },
+  public constructor() {
+    super();
+    this.addEventListener?.('optionSelectionChange', (e: CustomEvent<void>) =>
+      this.onOptionSelected(e),
     );
   }
 

@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
@@ -66,7 +66,6 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   /** Whether the card is flipped or not. */
   @state() private accessor _flipped = false;
 
-  private _abort = new SbbConnectedAbortController(this);
   private _language = new SbbLanguageController(this);
   private _cardDetailsResizeObserver = new ResizeController(this, {
     target: null,
@@ -74,20 +73,13 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     callback: () => this._setCardDetailsHeight(),
   });
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.addEventListener(
-      'click',
-      (event: Event) => {
-        if (
-          event.target === this ||
-          !(event.target as HTMLElement)?.matches?.(IS_FOCUSABLE_QUERY)
-        ) {
-          this.toggle();
-        }
-      },
-      { signal: this._abort.signal },
-    );
+  public constructor() {
+    super();
+    this.addEventListener?.('click', (event: Event) => {
+      if (event.target === this || !(event.target as HTMLElement)?.matches?.(IS_FOCUSABLE_QUERY)) {
+        this.toggle();
+      }
+    });
   }
 
   /** Toggles the state of the sbb-flip-card. */

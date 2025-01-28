@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { SbbConnectedAbortController } from '../../core/controllers.js';
 import { isLean } from '../../core/dom.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
@@ -57,28 +56,26 @@ export const SbbNavigationActionCommonElementMixin = <
       return this._navigationSection;
     }
 
-    private _abort = new SbbConnectedAbortController(this);
     private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _navigationSection: SbbNavigationSectionElement | null = null;
 
+    protected constructor(...args: any[]) {
+      super(...args);
+      this.addEventListener?.('click', () => {
+        if (
+          !this.hasAttribute('data-action-active') &&
+          this._navigationMarker &&
+          !this.connectedSection
+        ) {
+          this.marker?.select(
+            this as unknown as SbbNavigationButtonElement | SbbNavigationLinkElement,
+          );
+        }
+      });
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
-      const signal = this._abort.signal;
-      this.addEventListener(
-        'click',
-        () => {
-          if (
-            !this.hasAttribute('data-action-active') &&
-            this._navigationMarker &&
-            !this.connectedSection
-          ) {
-            this.marker?.select(
-              this as unknown as SbbNavigationButtonElement | SbbNavigationLinkElement,
-            );
-          }
-        },
-        { signal },
-      );
 
       // Check if the current element is nested inside a navigation marker.
       this._navigationMarker = this.closest('sbb-navigation-marker');

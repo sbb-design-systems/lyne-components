@@ -5,6 +5,7 @@ snapshots["sbb-navigation renders DOM"] =
 `<sbb-navigation
   data-state="closed"
   id="sbb-navigation-0"
+  popover="manual"
   role="navigation"
   trigger="nav-trigger"
 >

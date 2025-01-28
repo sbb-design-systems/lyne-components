@@ -52,12 +52,11 @@ describe(`sbb-menu`, () => {
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
 
-    await waitForLitRender(element);
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await waitForLitRender(element);
     expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':popover-open');
   });
 
   it('closes on Esc keypress', async () => {
@@ -71,12 +70,9 @@ describe(`sbb-menu`, () => {
 
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
 
     await sendKeys({ press: tabKey });
@@ -87,13 +83,69 @@ describe(`sbb-menu`, () => {
 
     await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).not.to.match(':popover-open');
+  });
+
+  it('keyboard navigation', async () => {
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+    trigger.click();
+    await waitForLitRender(element);
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(element).to.have.attribute('data-state', 'opened');
+
+    // First element focused by default.
+    expect(document.activeElement!.id).to.be.equal('menu-link');
+
+    // Pressing an invalid key would not change the focus
+    await sendKeys({ press: 'A' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-link');
+
+    // Move down with down arrow
+    await sendKeys({ press: 'ArrowDown' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move down with right arrow; menu-action-2 is disabled, so the next focusable is menu-action-3
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-3');
+
+    // Move up with left arrow
+    await sendKeys({ press: 'ArrowLeft' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move up with up arrow will go to the last element due wrap
+    await sendKeys({ press: 'ArrowUp' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
+
+    // Move to first; the sbb-block-link is not a supported element, so move to the first sbb-menu-button
+    await sendKeys({ press: 'PageUp' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move to last
+    await sendKeys({ press: 'PageDown' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
+
+    // Move to first
+    await sendKeys({ press: 'Home' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-1');
+
+    // Move to last
+    await sendKeys({ press: 'End' });
+    await waitForLitRender(element);
+    expect(document.activeElement!.id).to.be.equal('menu-action-4');
   });
 
   it('closes on menu action click', async () => {
@@ -108,11 +160,9 @@ describe(`sbb-menu`, () => {
 
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(menuAction).not.to.be.null;
@@ -122,11 +172,8 @@ describe(`sbb-menu`, () => {
     await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await waitForLitRender(element);
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-
-    await waitForLitRender(element);
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
@@ -142,11 +189,9 @@ describe(`sbb-menu`, () => {
 
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(menuLink).not.to.be.null;
@@ -156,11 +201,9 @@ describe(`sbb-menu`, () => {
 
     await willCloseEventSpy.calledOnce();
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
   });
@@ -201,11 +244,9 @@ describe(`sbb-menu`, () => {
 
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
 
@@ -236,11 +277,9 @@ describe(`sbb-menu`, () => {
 
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
 
@@ -262,15 +301,11 @@ describe(`sbb-menu`, () => {
 
     await willOpenEventSpy.calledOnce();
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(element).to.have.attribute('data-state', 'opened');
 
-    await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-link');
   });
 
@@ -292,15 +327,33 @@ describe(`sbb-menu`, () => {
     const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
 
     element.open();
-    await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
+    await didOpenEventSpy.calledOnce();
 
     element.addEventListener(SbbMenuElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
-    await willCloseEventSpy.calledOnce();
     await waitForLitRender(element);
+    await willCloseEventSpy.calledOnce();
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('does forward scroll event to document', async () => {
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+
+    element.open();
+    await waitForLitRender(element);
+    await didOpenEventSpy.calledOnce();
+
+    await setViewport({ width: 320, height: 300 });
+
+    const scrollSpy = new EventSpy('scroll', document);
+    const scrollContext = element.shadowRoot!.querySelector('.sbb-menu__content')!;
+
+    scrollContext.scrollTo(0, 400);
+
+    await scrollSpy.calledOnce();
+    expect(scrollSpy.count).to.be.equal(1);
   });
 });

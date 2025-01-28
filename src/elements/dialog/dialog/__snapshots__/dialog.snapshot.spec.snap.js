@@ -2,7 +2,11 @@
 export const snapshots = {};
 
 snapshots["sbb-dialog renders an open dialog DOM"] = 
-`<sbb-dialog data-state="opened">
+`<sbb-dialog
+  backdrop="opaque"
+  data-state="opened"
+  popover="manual"
+>
   <sbb-dialog-title
     aria-level="2"
     level="2"

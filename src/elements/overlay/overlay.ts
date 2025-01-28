@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
 import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
-import { EventEmitter } from '../core/eventing.js';
+import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../core/i18n.js';
 
 import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';
@@ -90,6 +90,8 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
 
     // Add this overlay to the global collection
@@ -111,18 +113,19 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
     this.inertController.activate();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
     this.focusHandler.trap(this);
+    this.didOpen.emit();
   }
 
   protected override handleClosing(): void {
     this._overlayContentElement?.scrollTo(0, 0);
     this.state = 'closed';
+    this.hidePopover?.();
     this.inertController.deactivate();
     setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element
@@ -201,7 +204,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
             <div class="sbb-overlay__header">
               ${this.backButton ? backButton : nothing} ${closeButton}
             </div>
-            <div class="sbb-overlay__content">
+            <div class="sbb-overlay__content" @scroll=${(e: Event) => forwardEvent(e, document)}>
               <sbb-container
                 class="sbb-overlay__content-container"
                 ?expanded=${this.expanded}

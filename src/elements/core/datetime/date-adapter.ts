@@ -68,7 +68,7 @@ export abstract class DateAdapter<T = any> {
    * Checks whether a given `date` is valid.
    * @param date
    */
-  public abstract isValid(date: T | null | undefined): boolean;
+  public abstract isValid(date: T | null | undefined): date is T;
 
   /**
    * Creates a new date by cloning the given one.

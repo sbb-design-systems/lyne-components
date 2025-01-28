@@ -102,6 +102,11 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
 
+  public constructor() {
+    super();
+    this.addEventListener?.('keydown', (event) => this._handleNavigationSectionFocus(event));
+  }
+
   /**
    * Opens the navigation section on trigger click.
    */
@@ -210,9 +215,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._navigationSectionController = new AbortController();
     this._triggerElement.connectedSection = this;
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._navigationSectionController.signal,
-    });
-    this.addEventListener('keydown', (event) => this._handleNavigationSectionFocus(event), {
       signal: this._navigationSectionController.signal,
     });
   }
