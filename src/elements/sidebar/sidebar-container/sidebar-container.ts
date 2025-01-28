@@ -118,7 +118,7 @@ class SbbSidebarContainerElement extends LitElement {
       if ((isMinimumSpace || hasForcedClosedParentContainer) && sidebar.opened) {
         // We have to close the sidebar when the remaining width is below the minimum or the parent container runs out of space.
 
-        if (sidebar.isOpen) {
+        if (sidebar.isOpen && !sidebar.hasAttribute('data-skip-animation')) {
           // If the sidebar is opened visually, add a special data attribute that controls the z-index.
           // Without this solution, when the sidebar is closed, it would appear visually as if it were in 'over' mode.
           sidebar.toggleAttribute('data-minimum-space-closing', true);
