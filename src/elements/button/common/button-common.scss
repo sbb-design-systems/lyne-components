@@ -48,7 +48,7 @@ $active: ':active, [data-active]';
   --_border-color: var(--sbb-button-color-default-border);
   --_background-color: var(--sbb-button-color-default-background);
   --_color: var(--sbb-button-color-default-text);
-  --_sbb-button-inset: 0;
+  --_button-inset: 0;
   --_outline-width: 0;
 
   // The overlap-fix closes a small visual gap between border and background color when hovered.
@@ -139,7 +139,7 @@ $active: ':active, [data-active]';
     --_border-color: var(--sbb-button-color-hover-border);
     --_color: var(--sbb-button-color-hover-text);
     --_background-color: var(--sbb-button-color-hover-background);
-    --_sbb-button-inset: calc(var(--sbb-button-border-width) * -1);
+    --_button-inset: calc(var(--sbb-button-border-width) * -1);
   }
 
   @include sbb.if-forced-colors {
@@ -211,7 +211,7 @@ $active: ':active, [data-active]';
   &::before {
     content: '';
     position: absolute;
-    inset: var(--_sbb-button-inset);
+    inset: var(--_button-inset);
     border: var(--_border);
     border-radius: var(--sbb-button-border-radius);
     pointer-events: none;
