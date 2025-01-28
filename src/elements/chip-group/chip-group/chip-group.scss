@@ -4,7 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-chip-group-input-min-width: 100px; // TODO decide input min-width
+  --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
 }
 
 ::slotted(input) {

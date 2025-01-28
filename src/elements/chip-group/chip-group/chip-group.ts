@@ -1,4 +1,4 @@
-import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -100,6 +100,14 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
     this._inputAbortController?.abort();
   }
 
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('formDisabled')) {
+      this._proxyInputStateToChips();
+    }
+  }
+
   /** @internal */
   public formResetCallback(): void {
     this.value = null;
@@ -186,8 +194,10 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
 
     switch (event.key) {
       case 'Backspace':
-        this._deleteChip(eventTarget as SbbChipElement);
-        this._focusLastChip();
+        if (!eventTarget.readonly && !eventTarget.disabled) {
+          this._deleteChip(eventTarget);
+          this._focusLastChip();
+        }
         break;
       case 'Tab':
         if (event.shiftKey) {
@@ -205,7 +215,8 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
       case 'Enter':
         event.preventDefault();
         if (this._inputElement!.value.trim()) {
-          this.value = [...this.value, this._inputElement!.value];
+          this.value = [...this.value, this._inputElement!.value.trim()];
+          this._inputElement!.value = ''; // Empty the input
           this._emitInputEvents();
         }
         break;
@@ -268,8 +279,8 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
 
   private _proxyInputStateToChips(): void {
     this._chipElements().forEach((c) => {
-      c.toggleAttribute('data-readonly', this._inputElement?.hasAttribute('readonly'));
-      c.toggleAttribute('data-disabled', this._inputElement?.hasAttribute('disabled'));
+      c.disabled = this.formDisabled || !!this._inputElement?.hasAttribute('disabled');
+      c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
     });
   }
 
