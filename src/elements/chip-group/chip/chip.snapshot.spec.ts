@@ -29,7 +29,7 @@ describe(`sbb-chip`, () => {
     let element: SbbChipElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-chip value="Value" data-disabled></sbb-chip>`);
+      element = await fixture(html`<sbb-chip value="Value" disabled></sbb-chip>`);
     });
 
     it('DOM', async () => {
