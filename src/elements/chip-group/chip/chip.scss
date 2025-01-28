@@ -9,7 +9,7 @@
   --sbb-chip-border-radius: var(--sbb-border-radius-2x);
   --sbb-chip-background-color: var(--sbb-color-milk);
   --sbb-chip-color: var(--sbb-color-granite);
-  --sbb-button-color-active-background: var(--sbb-color-white);
+  --sbb-chip-color-active-background: var(--sbb-color-white);
   --sbb-chip-color-hover-background: var(--sbb-color-white);
 
   display: inline-block;
@@ -70,7 +70,7 @@
 
 .sbb-chip__delete {
   --sbb-button-border-radius: 0 var(--sbb-chip-border-radius) var(--sbb-chip-border-radius) 0;
-  --sbb-button-color-active-background: var(--sbb-button-color-active-background);
+  --sbb-button-color-active-background: var(--sbb-chip-color-active-background);
   --sbb-button-color-hover-background: var(--sbb-chip-color-hover-background);
   --sbb-icon-svg-width: calc(var(--sbb-size-icon-ui-small) - var(--sbb-border-width-1x) * 2);
   --sbb-icon-svg-height: calc(var(--sbb-size-icon-ui-small) - var(--sbb-border-width-1x) * 2);
