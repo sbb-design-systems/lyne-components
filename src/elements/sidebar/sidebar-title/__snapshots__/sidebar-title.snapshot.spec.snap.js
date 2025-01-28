@@ -15,13 +15,10 @@ snapshots["sbb-sidebar-title renders Light DOM"] =
 /* end snapshot sbb-sidebar-title renders Light DOM */
 
 snapshots["sbb-sidebar-title renders Shadow DOM"] = 
-`<h2
-  class="sbb-title"
-  role="presentation"
->
+`<div class="sbb-title">
   <slot>
   </slot>
-</h2>
+</div>
 `;
 /* end snapshot sbb-sidebar-title renders Shadow DOM */
 

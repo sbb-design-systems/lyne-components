@@ -23,7 +23,9 @@ const sidebarContainerResizeObserver =
       .forEach((c) => c.reactToAvailableSpace());
   });
 
-sidebarContainerResizeObserver?.observe(document?.documentElement);
+if (!isServer) {
+  sidebarContainerResizeObserver?.observe(document?.documentElement);
+}
 
 /**
  * This is the parent component to one or two `<sbb-sidebar>`s that validates the state internally
@@ -157,7 +159,7 @@ class SbbSidebarContainerElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar-container-backdrop"></div>
-      <slot></slot>`;
+      <slot @slotchange=${() => this.reactToAvailableSpace()}></slot>`;
   }
 }
 
