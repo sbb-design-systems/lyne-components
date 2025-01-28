@@ -67,6 +67,12 @@ export const Readonly: StoryObj = {
   args: { ...defaultArgs, readonly: true },
 };
 
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
