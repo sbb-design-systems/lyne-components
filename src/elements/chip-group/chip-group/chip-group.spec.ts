@@ -32,6 +32,8 @@ describe('sbb-chip-group', () => {
   // disabled fieldset
   // formData interaction
 
+  // with autocomplete interactions
+
   // keyboard interactions
   //   - delete on empty input
   //   - arrow navigation, skips disabled chips

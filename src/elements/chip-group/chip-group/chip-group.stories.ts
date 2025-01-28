@@ -8,7 +8,9 @@ import { SbbChipGroupElement } from './chip-group.js';
 import readme from './readme.md?raw';
 
 import '../chip.js';
+import '../../autocomplete/autocomplete.js';
 import '../../form-field/form-field.js';
+import '../../option/option.js';
 
 const disabled: InputType = {
   control: {
@@ -22,25 +24,50 @@ const readonly: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   disabled,
   readonly,
+  negative,
 };
 
 const defaultArgs: Args = {
   disabled: false,
   readonly: false,
+  negative: false,
 };
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-form-field>
+  <sbb-form-field ?negative=${args.negative}>
     <label>Label</label>
-    <sbb-chip-group name="chip-group-1">
+    <sbb-chip-group name="chip-group-1" ?negative=${args.negative}>
       <sbb-chip value="chip 1"></sbb-chip>
       <sbb-chip value="chip 2"></sbb-chip>
       <sbb-chip value="chip 3"></sbb-chip>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
     </sbb-chip-group>
+  </sbb-form-field>
+`;
+
+const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${args.negative}>
+    <label>Label</label>
+    <sbb-chip-group name="chip-group-1" ?negative=${args.negative}>
+      <sbb-chip value="chip 1"></sbb-chip>
+      <sbb-chip value="chip 2"></sbb-chip>
+      <sbb-chip value="chip 3"></sbb-chip>
+      <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
+    </sbb-chip-group>
+    <sbb-autocomplete>
+      <sbb-option value="Option A">Option A</sbb-option>
+      <sbb-option value="Option B">Option B</sbb-option>
+      <sbb-option value="Option C">Option C</sbb-option>
+    </sbb-autocomplete>
   </sbb-form-field>
 `;
 
@@ -64,7 +91,7 @@ export const Readonly: StoryObj = {
 
 // TODO
 export const WithAutoComplete: StoryObj = {
-  render: Template,
+  render: WithAutocompleteTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };

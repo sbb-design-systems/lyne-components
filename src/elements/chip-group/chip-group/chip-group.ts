@@ -9,6 +9,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
+  SbbNegativeMixin,
 } from '../../core/mixins.js';
 import { SbbChipElement } from '../chip/chip.js';
 
@@ -26,7 +27,9 @@ export
 @hostAttributes({
   tabindex: '0',
 })
-class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement) {
+class SbbChipGroupElement extends SbbNegativeMixin(
+  SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     input: 'input',
@@ -78,7 +81,7 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
   private _inputAttributeObserver = !isServer
-    ? new MutationObserver(() => this._proxyInputStateToChips())
+    ? new MutationObserver(() => this._proxyStateToChips())
     : null;
 
   private _inputElement: HTMLInputElement | undefined;
@@ -103,8 +106,8 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
   protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('formDisabled')) {
-      this._proxyInputStateToChips();
+    if (changedProperties.has('formDisabled') || changedProperties.has('negative')) {
+      this._proxyStateToChips();
     }
   }
 
@@ -165,7 +168,7 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
       });
     }
 
-    this._proxyInputStateToChips();
+    this._proxyStateToChips();
     this.updateFormValue();
   }
 
@@ -277,10 +280,11 @@ class SbbChipGroupElement extends SbbFormAssociatedMixin<typeof LitElement, stri
     }
   }
 
-  private _proxyInputStateToChips(): void {
+  private _proxyStateToChips(): void {
     this._chipElements().forEach((c) => {
       c.disabled = this.formDisabled || !!this._inputElement?.hasAttribute('disabled');
       c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
+      c.negative = this.negative;
     });
   }
 

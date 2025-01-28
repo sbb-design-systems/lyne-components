@@ -54,11 +54,12 @@ Users can move through the chips using the arrow keys
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                      | Default | Description                                                    |
-| ------- | --------- | ------- | ------------------------- | ------- | -------------------------------------------------------------- |
-| `form`  | -         | public  | `HTMLFormElement \| null` |         | Returns the form owner of the internals of the target element. |
-| `name`  | `name`    | public  | `string`                  |         | Name of the form element. Will be read from name attribute.    |
-| `value` | `value`   | public  | `string \| null`          | `null`  | Value of the form element.                                     |
+| Name       | Attribute  | Privacy | Type                      | Default | Description                                                    |
+| ---------- | ---------- | ------- | ------------------------- | ------- | -------------------------------------------------------------- |
+| `form`     | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of the internals of the target element. |
+| `name`     | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.    |
+| `negative` | `negative` | public  | `boolean`                 | `false` | Negative coloring variant flag.                                |
+| `value`    | `value`    | public  | `string \| null`          | `null`  | Value of the form element.                                     |
 
 ## Events
 
