@@ -12,20 +12,9 @@ import type { SbbSidebarElement } from '../sidebar.js';
 
 import style from './sidebar-container.scss?lit&inline';
 
-// TODO: Discuss solution with registry
 const sidebarContainerRegistry = new Set<SbbSidebarContainerElement>();
 
-const sidebarContainerResizeObserver =
-  !isServer &&
-  new ResizeObserver(() => {
-    Array.from(sidebarContainerRegistry)
-      .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_FOLLOWING)
-      .forEach((c) => c.reactToAvailableSpace());
-  });
-
-if (!isServer) {
-  sidebarContainerResizeObserver?.observe(document?.documentElement);
-}
+let sidebarContainerResizeObserver: ResizeObserver | undefined;
 
 /**
  * This is the parent component to one or two `<sbb-sidebar>`s that validates the state internally
@@ -46,44 +35,49 @@ class SbbSidebarContainerElement extends LitElement {
   }
 
   private _forcedClosedSidebars = new WeakSet<SbbSidebarElement>();
-  private _awaitingParentAnimation = false;
-
-  public constructor() {
-    super();
-    // TODO: remove or keep
-    // new ResizeController(this, {
-    //   skipInitial: true,
-    //   callback: () => this.updateWidthState(),
-    // });
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
 
+    sidebarContainerResizeObserver ??=
+      !isServer &&
+      new ResizeObserver(() => {
+        Array.from(sidebarContainerRegistry)
+          .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_FOLLOWING)
+          .forEach((c) => c._calculateSpaceState());
+      });
+
+    if (!isServer && sidebarContainerRegistry.size === 0) {
+      sidebarContainerResizeObserver.observe(document?.documentElement);
+    }
+
     sidebarContainerRegistry.add(this);
 
-    this.reactToAvailableSpace();
+    this._calculateSpaceState();
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
 
     sidebarContainerRegistry.delete(this);
+
+    if (sidebarContainerRegistry.size === 0) {
+      sidebarContainerResizeObserver?.disconnect();
+    }
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    this.reactToAvailableSpace();
+    this._calculateSpaceState();
   }
 
   /**
    * Closes and opens sidebars depending on available width
    * of the container and its parent container.
-   * TODO: method name?
    */
-  public async reactToAvailableSpace(): Promise<void> {
-    if (this._awaitingParentAnimation) {
+  private async _calculateSpaceState(): Promise<void> {
+    if (isServer) {
       return;
     }
 
@@ -93,13 +87,11 @@ class SbbSidebarContainerElement extends LitElement {
     const parentSidebars = parentSidebarContainer?.sidebars;
 
     if (parentSidebars) {
-      this._awaitingParentAnimation = true;
       await Promise.all(
         parentSidebars.map((sidebar) =>
           sidebar.updateComplete.then(() => sidebar.animationComplete),
         ),
       );
-      this._awaitingParentAnimation = false;
     }
 
     const width = this.offsetWidth ?? 0;
@@ -107,16 +99,14 @@ class SbbSidebarContainerElement extends LitElement {
       return;
     }
 
-    // TODO: discuss where the minimum is taken from
-    const minWidth = '320px'; //getComputedStyle(this).getPropertyValue(      '--sbb-sidebar-container-min-visible-content-width',    );
-
+    const minWidth = 320;
     const sidebars = this.sidebars;
     const hasForcedClosedParentContainer =
       parentSidebars?.some((sidebar) => sidebar.hasAttribute('data-minimum-space')) ?? false;
     const sumOfAllRelevantSidebarWidths = sidebars
       .filter((sidebar) => sidebar.mode === 'side')
       .reduce((accumulator, currentValue) => accumulator + (currentValue.offsetWidth ?? 0), 0);
-    const isMinimumSpace = width - sumOfAllRelevantSidebarWidths <= (parseInt(minWidth) || 320);
+    const isMinimumSpace = width - sumOfAllRelevantSidebarWidths <= minWidth;
 
     sidebars.forEach((sidebar) => {
       sidebar.toggleAttribute('data-minimum-space', isMinimumSpace);
@@ -159,7 +149,7 @@ class SbbSidebarContainerElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar-container-backdrop"></div>
-      <slot @slotchange=${() => this.reactToAvailableSpace()}></slot>`;
+      <slot @slotchange=${() => this._calculateSpaceState()}></slot>`;
   }
 }
 
