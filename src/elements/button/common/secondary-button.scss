@@ -10,6 +10,7 @@
   --sbb-button-color-hover-text: var(--sbb-color-iron);
   --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
+  --sbb-button-border-overlap-fix: 0rem;
 }
 
 :host([negative]) {
