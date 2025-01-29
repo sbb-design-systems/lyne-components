@@ -743,11 +743,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     const active = this._selected ? this._dateAdapter.deserialize(this._selected)! : this.now;
     let firstFocusable =
       this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
-      this.shadowRoot!.querySelector(
-        `[data-day="${this._dateAdapter.getDate(active)} ${this._dateAdapter.getMonth(
-          active,
-        )} ${this._dateAdapter.getYear(active)}"]`,
-      ) ??
+      this.shadowRoot!.querySelector(`[value="${this._dateAdapter.toIso8601(active)}"]`) ??
       this.shadowRoot!.querySelector(`[data-month="${this._dateAdapter.getMonth(active)}"]`) ??
       this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
@@ -1251,11 +1247,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         return html`
           <tr>
             ${[...Array(firstRowOffset).keys()].map(
-              () =>
-                html`<td
-                  class="sbb-calendar__table-data"
-                  data-day=${`0 ${week[0].monthValue} ${week[0].yearValue}`}
-                ></td>`,
+              () => html`<td class="sbb-calendar__table-data"></td>`,
             )}
             ${this._createDayCells(week, today)}
           </tr>
@@ -1302,12 +1294,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                 <span aria-hidden="true">${weekday.narrow}</span>
               </td>`
             : nothing}
-          ${rowIndex < weekOffset
-            ? html`<td
-                class="sbb-calendar__table-data"
-                data-day=${`0 ${week[0].monthValue} ${week[0].yearValue}`}
-              ></td>`
-            : nothing}
+          ${rowIndex < weekOffset ? html`<td class="sbb-calendar__table-data"></td>` : nothing}
           ${this._createDayCells(week, today)}
         </tr>
       `;
@@ -1320,7 +1307,6 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
       const selected: boolean = !!this._selected && day.value === this._selected;
-      const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
       return html`
         <td
@@ -1344,7 +1330,6 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
             aria-pressed=${selected}
             aria-disabled=${isOutOfRange || isFilteredOut}
             aria-current=${isToday ? 'date' : nothing}
-            data-day=${dayValue || nothing}
             tabindex="-1"
             @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
             sbb-popover-close

@@ -47,13 +47,13 @@ describe(`sbb-calendar`, () => {
     });
 
     it('highlights current day', async () => {
-      const currentDayButton = element.shadowRoot!.querySelector('button[data-day="10 1 2023"]');
+      const currentDayButton = element.shadowRoot!.querySelector('button[value="2023-01-10"]');
       expect(currentDayButton).to.have.class('sbb-calendar__cell-current');
     });
 
     it('renders and navigates to next month', async () => {
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
 
       const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-next',
@@ -61,13 +61,14 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
+      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 2 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-02-01');
     });
 
     it('renders and navigates to previous month', async () => {
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
 
       const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-previous',
@@ -75,8 +76,9 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
+      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 12 2022');
+      expect(await day.getAttribute('value')).to.be.equal('2022-12-01');
     });
 
     it('sets max and next month button gets disabled', async () => {
@@ -84,7 +86,7 @@ describe(`sbb-calendar`, () => {
       await waitForLitRender(element);
 
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
 
       const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-next',
@@ -93,8 +95,9 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
+      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
     });
 
     it('sets min and previous month button gets disabled', async () => {
@@ -102,7 +105,7 @@ describe(`sbb-calendar`, () => {
       await waitForLitRender(element);
 
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
 
       const nextMonthButton = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-previous',
@@ -111,18 +114,19 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
+      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
+      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
     });
 
     it('selects a different date', async () => {
       const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
-      const selectedDate = element.shadowRoot!.querySelector('button[data-day="15 1 2023"]');
+      const selectedDate = element.shadowRoot!.querySelector('button[value="2023-01-15"]');
 
       expect(selectedDate).to.have.class('sbb-calendar__selected');
 
       const newSelectedDate = element.shadowRoot!.querySelector(
-        'button[data-day="18 1 2023"]',
+        'button[value="2023-01-18"]',
       ) as HTMLElement;
       expect(newSelectedDate).not.to.have.class('sbb-calendar__selected');
       newSelectedDate.click();
@@ -139,7 +143,7 @@ describe(`sbb-calendar`, () => {
       element.max = 1674946800;
       await waitForLitRender(element);
 
-      const day = element.shadowRoot!.querySelector('button[data-day="30 1 2023"]') as HTMLElement;
+      const day = element.shadowRoot!.querySelector('button[value="2023-01-30"]') as HTMLElement;
       expect(day).to.have.attribute('disabled');
       expect(day).not.to.have.class('sbb-calendar__selected');
       day.click();
@@ -163,23 +167,23 @@ describe(`sbb-calendar`, () => {
       )!;
       expect(yearSelection).not.to.be.null;
       expect(yearSelection).dom.to.be.equal(`
-      <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
-        2016 - 2039
-        <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
-      </button>
-    `);
+        <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
+          2016 - 2039
+          <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+        </button>
+      `);
 
       const yearCells: HTMLElement[] = Array.from(
         element.shadowRoot!.querySelectorAll('.sbb-calendar__table-year'),
       );
       expect(yearCells.length).to.be.equal(24);
       expect(yearCells[0]).dom.to.be.equal(`
-      <td class="sbb-calendar__table-data sbb-calendar__table-year">
-        <button aria-disabled="false" aria-label="2016" aria-pressed="false" class="sbb-calendar__cell sbb-calendar__pill" data-year="2016" tabindex="-1">
-          2016
-        </button>
-      </td>
-    `);
+        <td class="sbb-calendar__table-data sbb-calendar__table-year">
+          <button aria-disabled="false" aria-label="2016" aria-pressed="false" class="sbb-calendar__cell sbb-calendar__pill" data-year="2016" tabindex="-1">
+            2016
+          </button>
+        </td>
+      `);
 
       const yearButton: HTMLButtonElement =
         element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2023"]')!;
@@ -195,29 +199,29 @@ describe(`sbb-calendar`, () => {
       )!;
       expect(monthSelection).not.to.be.null;
       expect(monthSelection).dom.to.be.equal(`
-      <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
-        2023
-        <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
-      </button>
-    `);
+        <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
+          2023
+          <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+        </button>
+      `);
 
       const monthCells: HTMLElement[] = Array.from(
         element.shadowRoot!.querySelectorAll('.sbb-calendar__table-month'),
       );
       expect(monthCells.length).to.be.equal(12);
       expect(monthCells[0]).dom.to.be.equal(`
-      <td class="sbb-calendar__table-data sbb-calendar__table-month">
-        <button
-          aria-disabled="false"
-          aria-label="January 2023"
-          aria-pressed="true"
-          class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current"
-          data-month="1"
-          tabindex="0">
-          Jan
-        </button>
-      </td>
-    `);
+        <td class="sbb-calendar__table-data sbb-calendar__table-month">
+          <button
+            aria-disabled="false"
+            aria-label="January 2023"
+            aria-pressed="true"
+            class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current"
+            data-month="1"
+            tabindex="0">
+            Jan
+          </button>
+        </td>
+      `);
 
       monthCells[0].querySelector('button')!.click();
       await waitForLitRender(element);
@@ -270,113 +274,113 @@ describe(`sbb-calendar`, () => {
       it('navigates left via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'ArrowLeft' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('14 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-14');
       });
 
       it('navigates right via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'ArrowRight' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('16 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-16');
       });
 
       it('navigates up via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'ArrowUp' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('8 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-08');
       });
 
       it('navigates down via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'ArrowDown' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('22 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-22');
       });
 
       it('navigates to first day via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'Home' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('1 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-01');
       });
 
       it('navigates to last day via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'End' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('31 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-31');
       });
 
       it('navigates to column start via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'PageUp' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('1 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-01');
       });
 
       it('navigates to column end via keyboard', async () => {
         element.focus();
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('15 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'PageDown' });
         await waitForLitRender(element);
 
         expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
-        ).to.be.equal('29 1 2023');
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-29');
       });
     });
   });
@@ -399,20 +403,20 @@ describe(`sbb-calendar`, () => {
     );
     expect(buttonNextDay).to.have.attribute('disabled');
 
-    const emptyCells = page.shadowRoot!.querySelectorAll("[data-day='0 1 2023']");
+    const emptyCells = page.shadowRoot!.querySelectorAll('td:not(:has(> button))');
     expect(emptyCells.length).to.be.equal(6);
 
-    const lastDisabledMinDate = page.shadowRoot!.querySelector("[data-day='8 1 2023']");
+    const lastDisabledMinDate = page.shadowRoot!.querySelector("[value='2023-01-08']");
     expect(lastDisabledMinDate).to.have.attribute('disabled');
     expect(lastDisabledMinDate).to.have.attribute('aria-disabled', 'true');
-    const firstNotDisabledMinDate = page.shadowRoot!.querySelector("[data-day='9 1 2023']");
+    const firstNotDisabledMinDate = page.shadowRoot!.querySelector("[value='2023-01-09']");
     expect(firstNotDisabledMinDate).not.to.have.attribute('disabled');
     expect(firstNotDisabledMinDate).to.have.attribute('aria-disabled', 'false');
 
-    const lastNotDisabledMaxDate = page.shadowRoot!.querySelector("[data-day='29 1 2023']");
+    const lastNotDisabledMaxDate = page.shadowRoot!.querySelector("[value='2023-01-29']");
     expect(lastNotDisabledMaxDate).not.to.have.attribute('disabled');
     expect(lastNotDisabledMaxDate).to.have.attribute('aria-disabled', 'false');
-    const firstDisabledMaxDate = page.shadowRoot!.querySelector("[data-day='30 1 2023']");
+    const firstDisabledMaxDate = page.shadowRoot!.querySelector("[value='2023-01-30']");
     expect(firstDisabledMaxDate).to.have.attribute('disabled');
     expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
   });
