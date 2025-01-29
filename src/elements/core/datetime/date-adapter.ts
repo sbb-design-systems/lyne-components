@@ -31,6 +31,12 @@ export abstract class DateAdapter<T = any> {
   public abstract getDate(date: T): number;
 
   /**
+   * Gets the date as milliseconds since epoch.
+   * @param date
+   */
+  public abstract getTime(date: T): number;
+
+  /**
    * Get the Day of the week as a number.
    * @param date
    */

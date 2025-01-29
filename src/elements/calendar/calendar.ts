@@ -70,11 +70,12 @@ interface CalendarKeyboardNavigationParameters {
   verticalOffset: number;
 }
 
-interface CalendarOffsets {
+interface CalendarDayViewInfo {
+  firstDayInView: string | null;
+  lastDayInView: string | null;
   firstMonthOffset: number;
   firstMonthLength: number;
   secondMonthOffset: number;
-  secondMonthLength: number;
 }
 
 export interface Day<T> {
@@ -203,11 +204,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _nextCalendarView: CalendarView = 'day';
 
-  private _monthsBoundariesInfo: CalendarOffsets = {
+  private _calendarDayViewInfo: CalendarDayViewInfo = {
+    firstDayInView: null,
+    lastDayInView: null,
     firstMonthOffset: 0,
     firstMonthLength: 0,
     secondMonthOffset: 0,
-    secondMonthLength: 0,
   };
 
   /** A list of days, in two formats (long and single char). */
@@ -368,12 +370,32 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     const dateNames: string[] = this._dateAdapter.getDateNames();
     const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
     const weekOffset: number = this._dateAdapter.getFirstWeekOffset(value);
-    if (isSecondMonthInView) {
-      this._monthsBoundariesInfo.secondMonthLength = daysInMonth;
-      this._monthsBoundariesInfo.secondMonthOffset = weekOffset;
+    if (!isSecondMonthInView) {
+      this._calendarDayViewInfo.firstDayInView = this._dateAdapter.toIso8601(
+        this._dateAdapter.createDate(
+          this._dateAdapter.getYear(value),
+          this._dateAdapter.getMonth(value),
+          1,
+        ),
+      );
+      this._calendarDayViewInfo.lastDayInView = this._dateAdapter.toIso8601(
+        this._dateAdapter.createDate(
+          this._dateAdapter.getYear(value),
+          this._dateAdapter.getMonth(value),
+          daysInMonth,
+        ),
+      );
+      this._calendarDayViewInfo.firstMonthLength = daysInMonth;
+      this._calendarDayViewInfo.firstMonthOffset = weekOffset;
     } else {
-      this._monthsBoundariesInfo.firstMonthLength = daysInMonth;
-      this._monthsBoundariesInfo.firstMonthOffset = weekOffset;
+      this._calendarDayViewInfo.lastDayInView = this._dateAdapter.toIso8601(
+        this._dateAdapter.createDate(
+          this._dateAdapter.getYear(value),
+          this._dateAdapter.getMonth(value),
+          daysInMonth,
+        ),
+      );
+      this._calendarDayViewInfo.secondMonthOffset = weekOffset;
     }
     return this.orientation === 'horizontal'
       ? this._createWeekRowsHorizontal(value, dateNames, daysInMonth, weekOffset)
@@ -722,9 +744,24 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this.shadowRoot!.querySelector(`[data-month="${this._dateAdapter.getMonth(active)}"]`) ??
       this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable = this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
+      firstFocusable =
+        this.view === 'day'
+          ? this._getFirstFocusableDay()
+          : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
     }
     return (firstFocusable as HTMLButtonElement) || null;
+  }
+
+  private _getFirstFocusableDay(): HTMLButtonElement | null {
+    const daysInView: HTMLButtonElement[] = Array.from(
+      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
+    );
+    if (!daysInView || daysInView.length === 0) {
+      return null;
+    } else {
+      const firstElement = daysInView.map((e: HTMLButtonElement): string => e.value).sort()[0];
+      return this.shadowRoot!.querySelector(`.sbb-calendar__cell[value="${firstElement}"]`);
+    }
   }
 
   private _handleKeyboardEvent(event: KeyboardEvent, day?: Day<T>): void {
@@ -761,35 +798,29 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         ? { leftRight: 1, upDown: DAYS_PER_ROW }
         : { leftRight: DAYS_PER_ROW, upDown: 1 };
     const offsetForVertical: number =
-      index < this._monthsBoundariesInfo.firstMonthLength
-        ? this._monthsBoundariesInfo.firstMonthOffset
-        : this._monthsBoundariesInfo.secondMonthOffset;
+      index < this._calendarDayViewInfo.firstMonthLength
+        ? this._calendarDayViewInfo.firstMonthOffset
+        : this._calendarDayViewInfo.secondMonthOffset;
 
-    let cell: HTMLButtonElement;
     switch (evt.key) {
       case 'ArrowUp':
-        cell = this._findDayArrows(cells, day.dateValue, -arrowsOffset.upDown);
-        break;
+        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.upDown);
       case 'ArrowDown':
-        cell = this._findDayArrows(cells, day.dateValue, arrowsOffset.upDown);
-        break;
+        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.upDown);
       case 'ArrowLeft':
-        cell = this._findDayArrows(cells, day.dateValue, -arrowsOffset.leftRight);
-        break;
+        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.leftRight);
       case 'ArrowRight':
-        cell = this._findDayArrows(cells, day.dateValue, arrowsOffset.leftRight);
-        break;
+        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.leftRight);
       case 'PageUp': {
         if (this.orientation === 'horizontal') {
           const delta: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
-          cell = this._findDayPageUpHorizontal(cells, day, delta);
+          return this._findDayPageUpHorizontal(cells, index, day, delta);
         } else {
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
           const firstOfWeek: number = (weekNumber - 1) * DAYS_PER_ROW - offsetForVertical + 1;
           const delta: number = firstOfWeek - +day.dayValue;
-          cell = this._findDayPageUpVertical(cells, day, delta);
+          return this._findDayPageUpVertical(cells, index, day, delta);
         }
-        break;
       }
       case 'PageDown': {
         if (this.orientation === 'horizontal') {
@@ -803,18 +834,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           );
           const delta: number =
             Math.trunc((lastOfMonth - +day.dayValue!) / DAYS_PER_ROW) * DAYS_PER_ROW;
-          cell = this._findDayPageDownHorizontal(cells, day, delta);
+          return this._findDayPageDownHorizontal(cells, index, day, delta);
         } else {
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
           const lastOfWeek: number = weekNumber * DAYS_PER_ROW - offsetForVertical;
           const delta: number = lastOfWeek - +day.dayValue;
-          cell = this._findDayPageDownVertical(cells, day, delta);
+          return this._findDayPageDownVertical(cells, index, day, delta);
         }
-        break;
       }
       case 'Home': {
-        cell = this._findDayFirst(cells, day, 1);
-        break;
+        return this._findDayFirst(cells, index, day, 1);
       }
       case 'End': {
         const firstNextMonth: T = this._dateAdapter.createDate(
@@ -822,105 +851,148 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           +day.monthValue + 1,
           1,
         );
-        cell = this._findDayLast(cells, firstNextMonth);
-        break;
+        return this._findDayLast(cells, index, firstNextMonth);
       }
       default:
-        cell = cells[index];
-        break;
+        return cells[index];
     }
-    return cell;
   }
 
-  private _findDayArrows(cells: HTMLButtonElement[], date: T, delta: number): HTMLButtonElement {
+  private _isDayOutOfView(date: string): boolean {
+    return (
+      date < this._calendarDayViewInfo.firstDayInView! ||
+      date > this._calendarDayViewInfo.lastDayInView!
+    );
+  }
+
+  private _findDayArrows(
+    cells: HTMLButtonElement[],
+    index: number,
+    date: T,
+    delta: number,
+  ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(date, delta),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayArrows(cells, this._dateAdapter.fromIso8601(newDateValue), delta);
+      return this._findDayArrows(cells, index, this._dateAdapter.fromIso8601(newDateValue), delta);
     }
     return nextCell;
   }
 
   private _findDayPageUpHorizontal(
     cells: HTMLButtonElement[],
+    index: number,
     day: Day<T>,
     delta: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.createDate(+day.yearValue, +day.monthValue, delta),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayPageUpHorizontal(cells, day, delta + 7);
+      return this._findDayPageUpHorizontal(cells, index, day, delta + 7);
     }
     return nextCell;
   }
 
   private _findDayPageUpVertical(
     cells: HTMLButtonElement[],
+    index: number,
     day: Day<T>,
     delta: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayPageUpVertical(cells, day, delta + 1);
+      return this._findDayPageUpVertical(cells, index, day, delta + 1);
     }
     return nextCell;
   }
 
   private _findDayPageDownHorizontal(
     cells: HTMLButtonElement[],
+    index: number,
     day: Day<T>,
     delta: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayPageDownHorizontal(cells, day, delta - 7);
+      return this._findDayPageDownHorizontal(cells, index, day, delta - 7);
     }
     return nextCell;
   }
 
   private _findDayPageDownVertical(
     cells: HTMLButtonElement[],
+    index: number,
     day: Day<T>,
     delta: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayPageDownVertical(cells, day, delta - 1);
+      return this._findDayPageDownVertical(cells, index, day, delta - 1);
     }
     return nextCell;
   }
 
-  private _findDayFirst(cells: HTMLButtonElement[], day: Day<T>, date: number): HTMLButtonElement {
+  private _findDayFirst(
+    cells: HTMLButtonElement[],
+    index: number,
+    day: Day<T>,
+    date: number,
+  ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayFirst(cells, day, date + 1);
+      return this._findDayFirst(cells, index, day, date + 1);
     }
     return nextCell;
   }
 
-  private _findDayLast(cells: HTMLButtonElement[], firstNextMonth: T): HTMLButtonElement {
+  private _findDayLast(
+    cells: HTMLButtonElement[],
+    index: number,
+    firstNextMonth: T,
+  ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(firstNextMonth, -1),
     );
+    if (this._isDayOutOfView(newDateValue)) {
+      return cells[index];
+    }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayLast(cells, this._dateAdapter.fromIso8601(newDateValue));
+      return this._findDayLast(cells, index, this._dateAdapter.fromIso8601(newDateValue));
     }
     return nextCell;
   }

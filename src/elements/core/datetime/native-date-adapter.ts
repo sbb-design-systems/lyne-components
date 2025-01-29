@@ -34,6 +34,11 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return date.getDate();
   }
 
+  /** Gets the date as milliseconds since epoch. */
+  public getTime(date: Date): number {
+    return date.getTime();
+  }
+
   /** Gets the day of the week of the input date. */
   public getDayOfWeek(date: Date): number {
     return date.getDay();
