@@ -21,6 +21,7 @@ import type { DateAdapter } from '../core/datetime.js';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
+  MONTHS_PER_PAGE,
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
@@ -47,20 +48,15 @@ import '../icon.js';
 import '../screen-reader-only.js';
 
 /**
- * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
- * this is necessary because the navigation in the vertical direction using some keys is restricted to a single month for days,
- * and to a single range of 24 years for years. While the latter is easy to understand, the cell's index is the index
- * of the element in the array of all the rendered cells. In non-wide mode, there's no issue because the element index
- * is basically the cell's index plus 1 (element with index 0 displays the 1st of month, element with index 1 displays the 2nd and so on).
- * In wide mode, the cell's index can go from 0 to 47 for years (two batches of 24 years), and from 0 to a maximum of 61 for days
- * (two consecutive months of 31 days, as July-August or December-January), depending on the lengths of the rendered months;
- * the element index instead goes from 0 to a max value of 24 for years and 31 for days.
- * Moreover, in day view, the index of the first day of the second rendered month and the index of the last rendered day
- * can also vary depending on which months are rendered; for July-August they are equals to 31 and 61, while for February-March they are 28 and 58.
- * So, some additional parameters are needed, beside the cell's index, to correctly calculate the element to navigate to.
+ * Parameters needed in year and month views to correctly calculate the next element in keyboard navigation.
+ *
+ * The cell's index and the element's index in its month / year batch must be distinguished:
+ * the first is the index of the element in the array of all the rendered cells, while the second is the index of the element relative to its table.
+ * In non-wide mode, the element index is basically the cell's index plus 1;
+ * in wide mode the cell's index can go from 0 to 47 for years and from 0 to 23 for months, while the element index goes from 0 to, respectively, 23 and 11.
  */
-interface CalendarKeyboardNavigationParameters {
-  /** The element index within its month (or year range). */
+interface CalendarKeyboardNavigationMonthYearViewsParameters {
+  /** The element index within its year or month range. */
   elementIndexForWideMode: number;
   /** In wide mode, the index of the first element in the second panel, or, alternatively, the number of elements in the first panel. */
   offsetForWideMode: number;
@@ -70,11 +66,22 @@ interface CalendarKeyboardNavigationParameters {
   verticalOffset: number;
 }
 
-interface CalendarDayViewInfo {
+/**
+ * Parameters needed in day view to correctly calculate the next element in keyboard navigation.
+ *
+ * In orientation='vertical', it's not possible to rely on any index to calculate the element to navigate to,
+ * so some calculations on dates must be done, which should consider view boundaries, offsets and month's length.
+ */
+interface CalendarKeyboardNavigationDayViewParameters {
+  /** The first day rendered. */
   firstDayInView: string | null;
+  /** The last day rendered. It depends on the 'wide' value. */
   lastDayInView: string | null;
+  /** The offset from the first day of the week (Monday) of the first rendered month. */
   firstMonthOffset: number;
+  /** The number of days in the first rendered month. */
   firstMonthLength: number;
+  /** The offset from the first day of the week (Monday) of the second rendered month. If wide is false, it's equal to zero. */
   secondMonthOffset: number;
 }
 
@@ -174,8 +181,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
   /** The orientation of days in the calendar. */
-  @property()
-  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property() public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -204,7 +210,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _nextCalendarView: CalendarView = 'day';
 
-  private _calendarDayViewInfo: CalendarDayViewInfo = {
+  /** Day view information used in keyboard navigation. */
+  private _keyboardNavigationDayViewParameters: CalendarKeyboardNavigationDayViewParameters = {
     firstDayInView: null,
     lastDayInView: null,
     firstMonthOffset: 0,
@@ -365,37 +372,37 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
   }
 
-  /** Creates the rows for each week. */
+  /** Creates the rows for each week and sets the parameters used in keyboard navigation. */
   private _createWeekRows(value: T, isSecondMonthInView = false): Day<T>[][] {
     const dateNames: string[] = this._dateAdapter.getDateNames();
     const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
     const weekOffset: number = this._dateAdapter.getFirstWeekOffset(value);
     if (!isSecondMonthInView) {
-      this._calendarDayViewInfo.firstDayInView = this._dateAdapter.toIso8601(
+      this._keyboardNavigationDayViewParameters.firstMonthLength = daysInMonth;
+      this._keyboardNavigationDayViewParameters.firstMonthOffset = weekOffset;
+      this._keyboardNavigationDayViewParameters.firstDayInView = this._dateAdapter.toIso8601(
         this._dateAdapter.createDate(
           this._dateAdapter.getYear(value),
           this._dateAdapter.getMonth(value),
           1,
         ),
       );
-      this._calendarDayViewInfo.lastDayInView = this._dateAdapter.toIso8601(
+      this._keyboardNavigationDayViewParameters.lastDayInView = this._dateAdapter.toIso8601(
         this._dateAdapter.createDate(
           this._dateAdapter.getYear(value),
           this._dateAdapter.getMonth(value),
           daysInMonth,
         ),
       );
-      this._calendarDayViewInfo.firstMonthLength = daysInMonth;
-      this._calendarDayViewInfo.firstMonthOffset = weekOffset;
     } else {
-      this._calendarDayViewInfo.lastDayInView = this._dateAdapter.toIso8601(
+      this._keyboardNavigationDayViewParameters.secondMonthOffset = weekOffset;
+      this._keyboardNavigationDayViewParameters.lastDayInView = this._dateAdapter.toIso8601(
         this._dateAdapter.createDate(
           this._dateAdapter.getYear(value),
           this._dateAdapter.getMonth(value),
           daysInMonth,
         ),
       );
-      this._calendarDayViewInfo.secondMonthOffset = weekOffset;
     }
     return this.orientation === 'horizontal'
       ? this._createWeekRowsHorizontal(value, dateNames, daysInMonth, weekOffset)
@@ -777,7 +784,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     if (day) {
       nextEl = this._navigateByKeyboardDayView(event, index, cells, day);
     } else {
-      nextEl = this._navigateByKeyboard(event, index, cells, day);
+      nextEl = this._navigateByKeyboard(event, index, cells);
     }
     const activeEl: HTMLButtonElement = this.shadowRoot!.activeElement as HTMLButtonElement;
     if (nextEl !== activeEl) {
@@ -798,9 +805,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         ? { leftRight: 1, upDown: DAYS_PER_ROW }
         : { leftRight: DAYS_PER_ROW, upDown: 1 };
     const offsetForVertical: number =
-      index < this._calendarDayViewInfo.firstMonthLength
-        ? this._calendarDayViewInfo.firstMonthOffset
-        : this._calendarDayViewInfo.secondMonthOffset;
+      index < this._keyboardNavigationDayViewParameters.firstMonthLength
+        ? this._keyboardNavigationDayViewParameters.firstMonthOffset
+        : this._keyboardNavigationDayViewParameters.secondMonthOffset;
 
     switch (evt.key) {
       case 'ArrowUp':
@@ -813,7 +820,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.leftRight);
       case 'PageUp': {
         if (this.orientation === 'horizontal') {
-          const delta: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
+          const firstOfWeek: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
+          const delta: number = firstOfWeek - +day.dayValue;
           return this._findDayPageUpHorizontal(cells, index, day, delta);
         } else {
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
@@ -824,11 +832,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       }
       case 'PageDown': {
         if (this.orientation === 'horizontal') {
-          const firstNextMonth: T = this._dateAdapter.createDate(
-            +day.yearValue,
-            +day.monthValue + 1,
-            1,
-          );
+          const monthInBounds = +day.monthValue + 1 > 12 ? 1 : +day.monthValue + 1;
+          const yearInBounds = +day.monthValue + 1 > 12 ? +day.yearValue + 1 : +day.yearValue;
+          const firstNextMonth: T = this._dateAdapter.createDate(yearInBounds, monthInBounds, 1);
           const lastOfMonth: number = this._dateAdapter.getDate(
             this._dateAdapter.addCalendarDays(firstNextMonth, -1),
           );
@@ -846,11 +852,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         return this._findDayFirst(cells, index, day, 1);
       }
       case 'End': {
-        const firstNextMonth: T = this._dateAdapter.createDate(
-          +day.yearValue,
-          +day.monthValue + 1,
-          1,
-        );
+        const monthInBounds = +day.monthValue + 1 > 12 ? 1 : +day.monthValue + 1;
+        const yearInBounds = +day.monthValue + 1 > 12 ? +day.yearValue + 1 : +day.yearValue;
+        const firstNextMonth: T = this._dateAdapter.createDate(yearInBounds, monthInBounds, 1);
         return this._findDayLast(cells, index, firstNextMonth);
       }
       default:
@@ -860,8 +864,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _isDayOutOfView(date: string): boolean {
     return (
-      date < this._calendarDayViewInfo.firstDayInView! ||
-      date > this._calendarDayViewInfo.lastDayInView!
+      date < this._keyboardNavigationDayViewParameters.firstDayInView! ||
+      date > this._keyboardNavigationDayViewParameters.lastDayInView!
     );
   }
 
@@ -891,7 +895,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     delta: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.createDate(+day.yearValue, +day.monthValue, delta),
+      this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
@@ -1007,18 +1011,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     evt: KeyboardEvent,
     index: number,
     cells: HTMLButtonElement[],
-    day?: Day<T>,
   ): HTMLButtonElement {
     const {
       elementIndexForWideMode,
       offsetForWideMode,
       lastElementIndexForWideMode,
       verticalOffset,
-    }: CalendarKeyboardNavigationParameters = this._calculateParametersForKeyboardNavigation(
-      cells,
-      index,
-      day,
-    );
+    }: CalendarKeyboardNavigationMonthYearViewsParameters =
+      this._calculateParametersForKeyboardNavigation(index, this.view === 'year');
 
     switch (evt.key) {
       case 'ArrowUp':
@@ -1048,56 +1048,23 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /**
-   * Calculates the parameter needed in keyboard navigation.
-   * Since three views are now available, the function creates and returns the correct parameters for each of them
-   * by considering the number of cells per each row and the correction for the wide mode.
-   * @param cells The array of rendered table cells; they are buttons that can represent days, months or years.
+   * Calculates the parameters needed in keyboard navigation in year and month view.
    * @param index The starting element's index in the cell array.
-   * @param day (optional) Only in the day view, the day represented by the starting cell.
+   * @param isYearView Whether the displayed view is the year one.
    */
   private _calculateParametersForKeyboardNavigation(
-    cells: HTMLButtonElement[],
     index: number,
-    day?: Day<T>,
-  ): CalendarKeyboardNavigationParameters {
-    switch (this._calendarView) {
-      case 'day': {
-        const indexInView = +day!.dayValue - 1;
-        return {
-          verticalOffset: DAYS_PER_ROW,
-          elementIndexForWideMode: indexInView,
-          offsetForWideMode: index - indexInView,
-          lastElementIndexForWideMode:
-            index === indexInView
-              ? this._dateAdapter.getNumDaysInMonth(
-                  this._dateAdapter.addCalendarMonths(
-                    this._dateAdapter.deserialize(day!.value)!,
-                    -1,
-                  ),
-                )
-              : cells.length,
-        };
-      }
-      // Month view is not dependent from `wide` value, so some parameters are fixed.
-      case 'month': {
-        return {
-          verticalOffset: MONTHS_PER_ROW,
-          elementIndexForWideMode: index,
-          offsetForWideMode: 0,
-          lastElementIndexForWideMode: 12,
-        };
-      }
-      case 'year': {
-        const offset: number = Math.trunc(index / YEARS_PER_PAGE) * YEARS_PER_PAGE;
-        const indexInView: number = offset === 0 ? index : index - YEARS_PER_PAGE;
-        return {
-          verticalOffset: YEARS_PER_ROW,
-          elementIndexForWideMode: indexInView,
-          offsetForWideMode: index - indexInView,
-          lastElementIndexForWideMode: offset === 0 ? YEARS_PER_PAGE : YEARS_PER_PAGE * 2,
-        };
-      }
-    }
+    isYearView: boolean,
+  ): CalendarKeyboardNavigationMonthYearViewsParameters {
+    const elementsPerPage = isYearView ? YEARS_PER_PAGE : MONTHS_PER_PAGE;
+    const offset: number = Math.trunc(index / elementsPerPage) * elementsPerPage;
+    const indexInView: number = offset === 0 ? index : index - elementsPerPage;
+    return {
+      verticalOffset: isYearView ? YEARS_PER_ROW : MONTHS_PER_ROW,
+      elementIndexForWideMode: indexInView,
+      offsetForWideMode: index - indexInView,
+      lastElementIndexForWideMode: offset === 0 ? elementsPerPage : elementsPerPage * 2,
+    };
   }
 
   /**
