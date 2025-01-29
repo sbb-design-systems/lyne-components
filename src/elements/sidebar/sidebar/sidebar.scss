@@ -7,14 +7,12 @@
   display: block;
   width: #{sbb.px-to-rem-build(320)};
 
-  --sbb-sidebar-background-color-white: var(--sbb-color-white);
-  --sbb-sidebar-background-color-milk: var(--sbb-color-milk);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
   --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar__background-color: var(--sbb-sidebar-background-color-white);
+  --sbb-sidebar__background-color: var(--sbb-color-white);
   --sbb-sidebar__margin: 0;
   --sbb-sidebar__margin-block-start: var(--sbb-sidebar-margin);
   --sbb-sidebar__translate-x: -100%;
@@ -31,7 +29,7 @@
 }
 
 :host([color='milk']) {
-  --sbb-sidebar__background-color: var(--sbb-sidebar-background-color-milk);
+  --sbb-sidebar__background-color: var(--sbb-color-milk);
 }
 
 :host(:is([mode='over'], [data-minimum-space]:not([data-minimum-space-closing]))) {

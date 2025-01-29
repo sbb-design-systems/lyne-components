@@ -13,7 +13,6 @@ import type { SbbSidebarElement } from '../sidebar.js';
 import style from './sidebar-container.scss?lit&inline';
 
 const sidebarContainerRegistry = new Set<SbbSidebarContainerElement>();
-
 let sidebarContainerResizeObserver: ResizeObserver | undefined;
 
 /**
@@ -27,11 +26,19 @@ export
 class SbbSidebarContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /**
-   * Associated sidebars.
-   */
+  /** The sidebar children. */
   public get sidebars(): SbbSidebarElement[] {
     return Array.from(this.querySelectorAll<SbbSidebarElement>(':scope > sbb-sidebar'));
+  }
+
+  /** The sidebar child with the `start` position. */
+  public get start(): SbbSidebarElement | null {
+    return this.querySelector<SbbSidebarElement>(`:scope > sbb-sidebar:not([position='end'])`);
+  }
+
+  /** The sidebar child with the `end` position. */
+  public get end(): SbbSidebarElement | null {
+    return this.querySelector<SbbSidebarElement>(`:scope > sbb-sidebar[position='end']`);
   }
 
   private _forcedClosedSidebars = new WeakSet<SbbSidebarElement>();

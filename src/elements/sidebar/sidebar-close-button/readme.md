@@ -1,45 +1,19 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-sidebar-close-button` component extends the [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
+Use it in inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
+to display a close button in the sidebar.
 
-The `sbb-sidebar-close-button` is a component . . .
+Clicking the close button closes the parent sidebar.
 
 ```html
-<sbb-sidebar-close-button></sbb-sidebar-close-button>
+<sbb-sidebar>
+  <sbb-sidebar-close-button></sbb-sidebar-close-button>
+  Content
+</sbb-sidebar>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+An aria-label is automatically set. It's possible to override it.
 
 <!-- Auto Generated Below -->
 
@@ -56,3 +30,10 @@ The `sbb-sidebar-close-button` is a component . . .
 | `size`                | `size`                 | public  | `SbbButtonSize`           | `'s'`           | Size variant, either l, m or s.                                                                                                  |
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'`      | The type attribute to use for the button.                                                                                        |
 | `value`               | `value`                | public  | `string \| null`          | `null`          | Value of the form element.                                                                                                       |
+
+## Slots
+
+| Name   | Description                                                                                               |
+| ------ | --------------------------------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the sidebar-close-button. Not intended to be used in this context. |
+| `icon` | Slot used to display the icon, if one is set. Not intended to be used in this context.                    |

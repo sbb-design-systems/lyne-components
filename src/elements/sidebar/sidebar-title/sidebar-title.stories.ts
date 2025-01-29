@@ -21,7 +21,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'back-button': true,
+  level: undefined,
 };
 
 const Template = (args: Args): TemplateResult =>

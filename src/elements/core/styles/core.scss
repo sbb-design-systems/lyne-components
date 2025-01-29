@@ -376,7 +376,7 @@ sbb-sidebar-container:has(
 
 // If there is no title, avoid reserving any space for the button
 sbb-sidebar:not(:has(sbb-sidebar-close-button)) sbb-sidebar-title {
-  --sbb-sidebar-title-close-button-placeholder: 0;
+  --sbb-sidebar-title__close-button-placeholder: 0;
 }
 
 sbb-header + sbb-sidebar-container {

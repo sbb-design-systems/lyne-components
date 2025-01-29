@@ -13,7 +13,7 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 /**
  * It displays a title with a heading role.
  *
- * @slot - Use the unnamed slot to display the title.
+ * @slot - Use the unnamed slot to place the content of the title.
  */
 export
 @hostAttributes({

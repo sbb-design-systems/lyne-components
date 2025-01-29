@@ -45,9 +45,11 @@ The `sbb-sidebar-container` is a component . . .
 
 ## Properties
 
-| Name       | Attribute | Privacy | Type                  | Default | Description          |
-| ---------- | --------- | ------- | --------------------- | ------- | -------------------- |
-| `sidebars` | -         | public  | `SbbSidebarElement[]` |         | Associated sidebars. |
+| Name       | Attribute | Privacy | Type                        | Default | Description                                  |
+| ---------- | --------- | ------- | --------------------------- | ------- | -------------------------------------------- |
+| `end`      | -         | public  | `SbbSidebarElement \| null` |         | The sidebar child with the `end` position.   |
+| `sidebars` | -         | public  | `SbbSidebarElement[]`       |         | The sidebar children.                        |
+| `start`    | -         | public  | `SbbSidebarElement \| null` |         | The sidebar child with the `start` position. |
 
 ## Slots
 

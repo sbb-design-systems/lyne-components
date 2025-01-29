@@ -6,8 +6,14 @@
 :host {
   display: contents;
 
+  // The variables have to be set to `initial`. Otherwise, in nested containers,
+  // outer variables can bleed into the inner container / content.
   --sbb-sidebar-content-margin-inline-start: initial;
   --sbb-sidebar-content-margin-inline-end: initial;
+
+  // This variable gets overridden to 0s in the core.scss when the animation should be skipped.
+  // We need to redefine it from --sbb-sidebar-container-animation-duration here as we don't
+  // want to globally override the animation duration in core.scss
   --sbb-sidebar-content-animation-duration: var(--sbb-sidebar-container-animation-duration);
 }
 
