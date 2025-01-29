@@ -1,16 +1,11 @@
 @use '../core/styles' as sbb;
+@use 'sass:map';
 
 @mixin theme($theme) {
-  --sbb-action-group-horizontal-gap: #{sbb.try-get(
-      $theme,
-      sbb-action-group-horizontal-gap,
-      var(--sbb-spacing-fixed-4x)
-    )};
-  --sbb-action-group-vertical-gap: #{sbb.try-get(
-      $theme,
-      sbb-action-group-vertical-gap,
-      var(--sbb-spacing-fixed-2x)
-    )};
+  --sbb-action-group-horizontal-gap: #{map.get($theme, sbb-action-group-horizontal-gap) or
+    var(--sbb-spacing-fixed-4x)};
+  --sbb-action-group-vertical-gap: #{map.get($theme, sbb-action-group-vertical-gap) or
+    var(--sbb-spacing-fixed-2x)};
 }
 
 @mixin rules {

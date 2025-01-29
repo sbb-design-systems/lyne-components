@@ -5,7 +5,3 @@
   // size: value in px (no unit)
   @return ((math.div($size, 16)) * 1rem);
 }
-
-@function try-get($theme, $key, $default) {
-  @return map.get($theme, $key) or $default;
-}
