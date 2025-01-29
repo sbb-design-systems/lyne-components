@@ -818,12 +818,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         if (this.orientation === 'horizontal') {
           const firstOfWeek: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
           const delta: number = firstOfWeek - +day.dayValue;
-          return this._findDayPageUpHorizontal(cells, index, day, delta);
+          return this._findDayPageUpDown(cells, index, day, delta, arrowsOffset.upDown);
         } else {
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
           const firstOfWeek: number = (weekNumber - 1) * DAYS_PER_ROW - offsetForVertical + 1;
           const delta: number = firstOfWeek - +day.dayValue;
-          return this._findDayPageUpVertical(cells, index, day, delta);
+          return this._findDayPageUpDown(cells, index, day, delta, arrowsOffset.upDown);
         }
       }
       case 'PageDown': {
@@ -836,12 +836,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           );
           const delta: number =
             Math.trunc((lastOfMonth - +day.dayValue!) / DAYS_PER_ROW) * DAYS_PER_ROW;
-          return this._findDayPageDownHorizontal(cells, index, day, delta);
+          return this._findDayPageUpDown(cells, index, day, delta, -arrowsOffset.upDown);
         } else {
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
           const lastOfWeek: number = weekNumber * DAYS_PER_ROW - offsetForVertical;
           const delta: number = lastOfWeek - +day.dayValue;
-          return this._findDayPageDownVertical(cells, index, day, delta);
+          return this._findDayPageUpDown(cells, index, day, delta, -arrowsOffset.upDown);
         }
       }
       case 'Home': {
@@ -884,11 +884,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return nextCell;
   }
 
-  private _findDayPageUpHorizontal(
+  private _findDayPageUpDown(
     cells: HTMLButtonElement[],
     index: number,
     day: Day<T>,
     delta: number,
+    deltaIfDisabled: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
@@ -898,64 +899,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayPageUpHorizontal(cells, index, day, delta + 7);
-    }
-    return nextCell;
-  }
-
-  private _findDayPageUpVertical(
-    cells: HTMLButtonElement[],
-    index: number,
-    day: Day<T>,
-    delta: number,
-  ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue, delta),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
-    }
-    const nextCell = cells.find((e) => e.value === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayPageUpVertical(cells, index, day, delta + 1);
-    }
-    return nextCell;
-  }
-
-  private _findDayPageDownHorizontal(
-    cells: HTMLButtonElement[],
-    index: number,
-    day: Day<T>,
-    delta: number,
-  ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue, delta),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
-    }
-    const nextCell = cells.find((e) => e.value === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayPageDownHorizontal(cells, index, day, delta - 7);
-    }
-    return nextCell;
-  }
-
-  private _findDayPageDownVertical(
-    cells: HTMLButtonElement[],
-    index: number,
-    day: Day<T>,
-    delta: number,
-  ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue, delta),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
-    }
-    const nextCell = cells.find((e) => e.value === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayPageDownVertical(cells, index, day, delta - 1);
+      return this._findDayPageUpDown(cells, index, day, delta + deltaIfDisabled, deltaIfDisabled);
     }
     return nextCell;
   }

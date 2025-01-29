@@ -35,7 +35,7 @@ describe(`sbb-calendar`, () => {
     await waitForTransition();
   };
 
-  describe('basic', () => {
+  describe('horizontal', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
@@ -271,6 +271,26 @@ describe(`sbb-calendar`, () => {
     });
 
     describe('navigation', () => {
+      it('focus on the selected date is in the view', () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+      });
+
+      it('focus on the first of the month if selected date is not in the view', async () => {
+        const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+          '#sbb-calendar__controls-next',
+        )!;
+        nextMonthButton.click();
+        await waitForLitRender(element);
+
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-02-01');
+      });
+
       it('navigates left via keyboard', async () => {
         element.focus();
         expect(
@@ -381,6 +401,156 @@ describe(`sbb-calendar`, () => {
         expect(
           document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
         ).to.be.equal('2023-01-29');
+      });
+    });
+  });
+
+  describe('vertical', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-calendar
+          now="1673348400"
+          selected="1673744400"
+          orientation="vertical"
+        ></sbb-calendar>`,
+      );
+    });
+
+    it('renders', async () => {
+      assert.instanceOf(element, SbbCalendarElement);
+    });
+
+    describe('navigation', () => {
+      it('focus on the selected date is in the view', () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+      });
+
+      it('focus on the first of the month if selected date is not in the view', async () => {
+        const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+          '#sbb-calendar__controls-next',
+        )!;
+        nextMonthButton.click();
+        await waitForLitRender(element);
+
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-02-01');
+      });
+
+      it('navigates left via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-08');
+      });
+
+      it('navigates right via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-22');
+      });
+
+      it('navigates up via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-14');
+      });
+
+      it('navigates down via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-16');
+      });
+
+      it('navigates to first day via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-01');
+      });
+
+      it('navigates to last day via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-31');
+      });
+
+      it('navigates to column start via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'PageUp' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-09');
+      });
+
+      it('navigates to column end via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
+
+        await sendKeys({ press: 'PageDown' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2023-01-15');
       });
     });
   });
@@ -502,6 +672,137 @@ describe(`sbb-calendar`, () => {
       expect(
         element.shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2026"]'),
       ).not.to.have.attribute('disabled');
+    });
+  });
+
+  describe('wide vertical', () => {
+    beforeEach(async () => {
+      await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+    });
+
+    describe('navigation', () => {
+      beforeEach(async () => {
+        element = await fixture(
+          html`<sbb-calendar
+            now="1738108800"
+            selected="1738108800"
+            orientation="vertical"
+            wide
+          ></sbb-calendar>`,
+        );
+      });
+
+      it('navigates left via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-22');
+      });
+
+      it('navigates right via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-02-05');
+      });
+
+      it('navigates up via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-28');
+      });
+
+      it('navigates down via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-30');
+      });
+
+      it('navigates to first day via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-01');
+      });
+
+      it('navigates to last day via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-31');
+      });
+
+      it('navigates to column start via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'PageUp' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-27');
+      });
+
+      it('navigates to column end via keyboard', async () => {
+        element.focus();
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-01-29');
+
+        await sendKeys({ press: 'PageDown' });
+        await waitForLitRender(element);
+
+        expect(
+          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
+        ).to.be.equal('2025-02-02');
+      });
     });
   });
 
