@@ -752,7 +752,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable =
-        this.view === 'day'
+        this._calendarView === 'day'
           ? this._getFirstFocusableDay()
           : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
     }
@@ -1018,7 +1018,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       lastElementIndexForWideMode,
       verticalOffset,
     }: CalendarKeyboardNavigationMonthYearViewsParameters =
-      this._calculateParametersForKeyboardNavigation(index, this.view === 'year');
+      this._calculateParametersForKeyboardNavigation(index, this._calendarView === 'year');
 
     switch (evt.key) {
       case 'ArrowUp':
