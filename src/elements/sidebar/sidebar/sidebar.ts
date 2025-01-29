@@ -370,9 +370,11 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar" @transitionend=${this._onTransitionEnd}>
-      <div class="sbb-sidebar__intersector"></div>
       <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
-      <slot></slot>
+      <div class="sbb-sidebar-content-section">
+        <div class="sbb-sidebar__intersector"></div>
+        <slot></slot>
+      </div>
     </div>`;
   }
 }

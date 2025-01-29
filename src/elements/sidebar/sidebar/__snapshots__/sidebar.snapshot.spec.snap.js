@@ -14,14 +14,16 @@ snapshots["sbb-sidebar renders DOM"] =
 
 snapshots["sbb-sidebar renders Shadow DOM"] = 
 `<div class="sbb-sidebar">
-  <div class="sbb-sidebar__intersector">
-  </div>
   <div class="sbb-sidebar-title-section">
     <slot name="title-section">
     </slot>
   </div>
-  <slot>
-  </slot>
+  <div class="sbb-sidebar-content-section">
+    <div class="sbb-sidebar__intersector">
+    </div>
+    <slot>
+    </slot>
+  </div>
 </div>
 `;
 /* end snapshot sbb-sidebar renders Shadow DOM */
