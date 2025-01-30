@@ -45,11 +45,11 @@ The `sbb-sidebar-container` is a component . . .
 
 ## Properties
 
-| Name       | Attribute | Privacy | Type                        | Default | Description                                  |
-| ---------- | --------- | ------- | --------------------------- | ------- | -------------------------------------------- |
-| `end`      | -         | public  | `SbbSidebarElement \| null` |         | The sidebar child with the `end` position.   |
-| `sidebars` | -         | public  | `SbbSidebarElement[]`       |         | The sidebar children.                        |
-| `start`    | -         | public  | `SbbSidebarElement \| null` |         | The sidebar child with the `start` position. |
+| Name       | Attribute | Privacy | Type        | Default | Description                                  |
+| ---------- | --------- | ------- | ----------- | ------- | -------------------------------------------- |
+| `end`      | -         | public  | `T \| null` |         | The sidebar child with the `end` position.   |
+| `sidebars` | -         | public  | `T[]`       |         | The sidebar children.                        |
+| `start`    | -         | public  | `T \| null` |         | The sidebar child with the `start` position. |
 
 ## Slots
 

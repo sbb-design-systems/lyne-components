@@ -1,6 +1,7 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
+
+import { SbbSidebarContentBaseElement } from '../common.js';
 
 import style from './sidebar-content.scss?lit&inline';
 
@@ -11,12 +12,8 @@ import style from './sidebar-content.scss?lit&inline';
  */
 export
 @customElement('sbb-sidebar-content')
-class SbbSidebarContentElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
-
-  protected override render(): TemplateResult {
-    return html`<div class="sbb-sidebar-content"><slot></slot></div>`;
-  }
+class SbbSidebarContentElement extends SbbSidebarContentBaseElement {
+  public static override styles: CSSResultGroup = [SbbSidebarContentBaseElement.styles, style];
 }
 
 declare global {

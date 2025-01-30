@@ -1,13 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbSidebarContainerBaseElement } from '../common.js';
 import type { SbbSidebarElement } from '../sidebar.js';
 
 import style from './sidebar-container.scss?lit&inline';
@@ -23,23 +17,9 @@ let sidebarContainerResizeObserver: ResizeObserver | undefined;
  */
 export
 @customElement('sbb-sidebar-container')
-class SbbSidebarContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
-
-  /** The sidebar children. */
-  public get sidebars(): SbbSidebarElement[] {
-    return Array.from(this.querySelectorAll<SbbSidebarElement>(':scope > sbb-sidebar'));
-  }
-
-  /** The sidebar child with the `start` position. */
-  public get start(): SbbSidebarElement | null {
-    return this.querySelector<SbbSidebarElement>(`:scope > sbb-sidebar:not([position='end'])`);
-  }
-
-  /** The sidebar child with the `end` position. */
-  public get end(): SbbSidebarElement | null {
-    return this.querySelector<SbbSidebarElement>(`:scope > sbb-sidebar[position='end']`);
-  }
+class SbbSidebarContainerElement extends SbbSidebarContainerBaseElement<SbbSidebarElement> {
+  public static override styles: CSSResultGroup = [SbbSidebarContainerBaseElement.styles, style];
+  protected sidebarSelector = 'sbb-sidebar';
 
   private _forcedClosedSidebars = new WeakSet<SbbSidebarElement>();
 

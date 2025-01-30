@@ -1,10 +1,6 @@
 @use '../../core/styles/index' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  display: block;
   width: #{sbb.px-to-rem-build(320)};
 
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
@@ -12,7 +8,6 @@
   --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
   --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar__background-color: var(--sbb-color-white);
   --sbb-sidebar__margin: 0;
   --sbb-sidebar__margin-block-start: var(--sbb-sidebar-margin);
   --sbb-sidebar__translate-x: -100%;
@@ -26,10 +21,6 @@
       var(--sbb-sidebar-padding-inline) - var(--sbb-sidebar-scrollbar-placeholder-width)
     );
   }
-}
-
-:host([color='milk']) {
-  --sbb-sidebar__background-color: var(--sbb-color-milk);
 }
 
 :host(:is([mode='over'], [data-minimum-space]:not([data-minimum-space-closing]))) {
@@ -49,7 +40,7 @@
 .sbb-sidebar {
   width: inherit;
   max-width: calc(100% - 2 * var(--sbb-sidebar__margin));
-  background-color: var(--sbb-sidebar__background-color);
+  background-color: var(--sbb-sidebar-background-color);
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -86,7 +77,7 @@
 .sbb-sidebar-title-section {
   position: sticky;
   inset-block-start: 0;
-  background-color: var(--sbb-sidebar__background-color);
+  background-color: var(--sbb-sidebar-background-color);
   padding-inline: var(--sbb-sidebar-padding-inline);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-sidebar-container-animation-duration);
   box-shadow: none;

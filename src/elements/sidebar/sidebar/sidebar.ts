@@ -14,11 +14,10 @@ import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
 import { isEventOnElement } from '../../core/overlay.js';
+import { SbbSidebarMixin, sidebarCommonStyle } from '../common.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';
-
-import '../../button/secondary-button.js';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.
@@ -32,8 +31,10 @@ import '../../button/secondary-button.js';
  */
 export
 @customElement('sbb-sidebar')
-class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = style;
+class SbbSidebarElement extends SbbSidebarMixin(
+  SbbAnimationCompleteMixin(SbbOpenCloseBaseElement),
+) {
+  public static override styles: CSSResultGroup = [sidebarCommonStyle, style];
 
   /** Mode of the sidebar; one of 'side' or 'over'. */
   @forceType((v) => (v === 'over' ? 'over' : 'side'))
@@ -53,15 +54,10 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   @forceType((v) => (v === 'end' ? 'end' : 'start'))
   @handleDistinctChange((instance, _newValue, oldValue) => instance._updateSidebarWidth(oldValue))
   @property({ reflect: true })
-  public accessor position: 'start' | 'end' = 'start';
-
-  /** Background color of the sidebar. Either `white` or `milk`. **/
-  @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
-  @property({ reflect: true })
-  public accessor color: 'white' | 'milk' = 'white';
+  public override accessor position: 'start' | 'end' = 'start';
 
   /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
-  public get container(): SbbSidebarContainerElement | null {
+  public override get container(): SbbSidebarContainerElement | null {
     return this._container;
   }
   private _container: SbbSidebarContainerElement | null = null;
