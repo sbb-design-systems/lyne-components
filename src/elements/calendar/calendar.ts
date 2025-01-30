@@ -52,8 +52,8 @@ import '../screen-reader-only.js';
  *
  * The cell's index and the element's index in its month / year batch must be distinguished:
  * the first is the index of the element in the array of all the rendered cells, while the second is the index of the element relative to its table.
- * In non-wide mode, the element index is basically the cell's index plus 1;
- * in wide mode the cell's index can go from 0 to 47 for years and from 0 to 23 for months, while the element index goes from 0 to, respectively, 23 and 11.
+ * In non-wide mode, the wto are the same, while in wide mode the cell's index can go from 0 to 47 for years and from 0 to 23 for months,
+ * while the element index goes from 0 to, respectively, 23 and 11.
  */
 interface CalendarKeyboardNavigationMonthYearViewsParameters {
   /** The element index within its year or month range. */
@@ -69,8 +69,8 @@ interface CalendarKeyboardNavigationMonthYearViewsParameters {
 /**
  * Parameters needed in day view to correctly calculate the next element in keyboard navigation.
  *
- * In orientation='vertical', it's not possible to rely on any index to calculate the element to navigate to,
- * so some calculations on dates must be done, which should consider view boundaries, offsets and month's length.
+ * In orientation='vertical', it's not possible to rely on any array/index to calculate the element to navigate to,
+ * so calculations on dates must be done, which should consider view boundaries, offsets and month's length.
  */
 interface CalendarKeyboardNavigationDayViewParameters {
   /** The first day rendered. */
@@ -210,7 +210,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _nextCalendarView: CalendarView = 'day';
 
-  /** Day view information used in keyboard navigation. */
+  /** Information about the rendered day view; used in keyboard navigation. */
   private _keyboardNavigationDayViewParameters: CalendarKeyboardNavigationDayViewParameters = {
     firstDayInView: null,
     lastDayInView: null,
@@ -409,6 +409,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       : this._createWeekRowsVertical(value, dateNames, daysInMonth, weekOffset);
   }
 
+  /**
+   * Creates the rows for each week in orientation='horizontal'.
+   *
+   * Iterates through the days of the months, creates a Day object for each and pushes it into and array.
+   * Each seven days (considering the offset at the beginning of the month) restarts from an empty array.
+   *
+   * The result is a matrix in which every row is a week (or part of it, considering offset).
+   */
   private _createWeekRowsHorizontal(
     value: T,
     dateNames: string[],
@@ -437,7 +445,20 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return weeks;
   }
 
-  /** Creates the rows for each week in orientation='vertical'. */
+  /**
+   * Creates the rows for each week in orientation='vertical'.
+   *
+   * Creates a matrix with seven empty rows.
+   * Iterates through the days of the months, creates a Day object for each
+   * and pushes it into the correct array considering the offset at the beginning of the month.
+   * Each seven days (including offset) restarts from the first.
+   *
+   * The result is a matrix in which every row is a set of weekdays, so:
+   * - row 0: all the Mondays;
+   * - row 1: all the Tuesdays;
+   * - ...
+   * - row 7: all the Sundays.
+   */
   private _createWeekRowsVertical(
     value: T,
     dateNames: string[],
@@ -535,6 +556,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return !(isBeforeMin || isAfterMax);
   }
 
+  /** Checks if date is within the min-max range in month view. */
   private _isMonthInRange(month: number, year: number): boolean {
     if (!this.min && !this.max) {
       return true;
@@ -555,6 +577,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return !(isBeforeMin || isAfterMax);
   }
 
+  /** Checks if date is within the min-max range in year view. */
   private _isYearInRange(year: number): boolean {
     if (!this.min && !this.max) {
       return true;
@@ -692,6 +715,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return this._nextDisabled(nextMonth);
   }
 
+  /** Checks if the "previous year" button should be disabled. */
   private _previousYearDisabled(): boolean {
     const prevYear = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this._activeDate) - 1,
@@ -701,6 +725,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return this._prevDisabled(prevYear);
   }
 
+  /** Checks if the "next year" button should be disabled. */
   private _nextYearDisabled(): boolean {
     const nextYear = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this._activeDate) + (this._wide ? 2 : 1),
@@ -710,11 +735,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return this._nextDisabled(nextYear);
   }
 
+  /** Checks if the "previous year" button should be disabled in year view. */
   private _previousYearRangeDisabled(): boolean {
     const prevYear = this._dateAdapter.createDate(this._years[0][0] - 1, 12, 31);
     return this._prevDisabled(prevYear);
   }
 
+  /** Checks if the "next year" button should be disabled in year view. */
   private _nextYearRangeDisabled(): boolean {
     const years = this._wide ? this._nextMonthYears : this._years;
     const lastYearRange = years[years.length - 1];
@@ -739,6 +766,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
   }
 
+  /** Get the element in the calendar to assign focus. */
   private _getFirstFocusable(): HTMLButtonElement {
     const active = this._selected ? this._dateAdapter.deserialize(this._selected)! : this.now;
     let firstFocusable =
@@ -755,6 +783,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return (firstFocusable as HTMLButtonElement) || null;
   }
 
+  /**
+   * In `day` view in `vertical` orientation,
+   * if the first of the month is not a Monday, it is not the first rendered element is the table,
+   * so `this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])')` will return a wrong value.
+   *
+   * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
+   */
   private _getFirstFocusableDay(): HTMLButtonElement | null {
     const daysInView: HTMLButtonElement[] = Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
@@ -990,7 +1025,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /**
    * Calculates the parameters needed in keyboard navigation in year and month view.
    * @param index The starting element's index in the cell array.
-   * @param isYearView Whether the displayed view is the year one.
+   * @param isYearView Whether the displayed `view` is the year one.
    */
   private _calculateParametersForKeyboardNavigation(
     index: number,
