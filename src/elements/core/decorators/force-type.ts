@@ -21,12 +21,12 @@ export const forceType = <C extends Interface<ReactiveElement>, V>(
 
     convert ??= type;
 
-    if ((type as unknown) === String) {
+    if ((convert as unknown) === String) {
       // In case of String, we want to handle null/undefined differently
       // from the native behavior in that we want to treat these values
       // as empty strings.
       convert = (v) => (v == null ? '' : String(v)) as V;
-    } else if ((type as unknown) === Number) {
+    } else if ((convert as unknown) === Number) {
       // In case of Number, we want to handle null differently
       // from the native behavior in that we want to treat null as NaN.
       convert = (v) => (v == null ? NaN : Number(v)) as V;
