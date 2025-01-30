@@ -186,6 +186,10 @@
   :host([orientation='horizontal']) & {
     padding-block-end: var(--sbb-spacing-fixed-4x);
   }
+
+  :host([orientation='vertical']) & {
+    padding-inline-end: var(--sbb-spacing-fixed-1x);
+  }
 }
 
 .sbb-calendar__table-data {
