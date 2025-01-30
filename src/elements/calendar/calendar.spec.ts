@@ -842,7 +842,7 @@ describe(`sbb-calendar`, () => {
       element = await fixture(html`<sbb-calendar selected="1737504000"></sbb-calendar>`);
     });
 
-    it('focus the selected date if not disabled by dateFilter', async () => {
+    it('focus the first available day if the selected date is disabled by dateFilter', async () => {
       // the dateFilter function excludes even days
       element.dateFilter = (d: Date | null): boolean => !!d && d.getDate() % 2 === 1;
       await waitForLitRender(element);
@@ -850,7 +850,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementValue()).to.be.equal('2025-01-01');
     });
 
-    it('focus the first available day if the selected date is disabled by dateFilter', async () => {
+    it('focus the selected date if not disabled by dateFilter', async () => {
       // the dateFilter function excludes odd days
       element.dateFilter = (d: Date | null): boolean => !!d && d.getDate() % 2 === 0;
       await waitForLitRender(element);
