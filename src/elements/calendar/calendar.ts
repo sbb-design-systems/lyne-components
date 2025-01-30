@@ -299,7 +299,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       return;
     }
 
-    if (changedProperties.has('wide')) {
+    if (changedProperties.has('wide') || changedProperties.has('orientation')) {
       this.resetPosition();
     }
 

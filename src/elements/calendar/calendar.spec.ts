@@ -14,6 +14,11 @@ import '../button.js';
 describe(`sbb-calendar`, () => {
   let element: SbbCalendarElement;
 
+  const getActiveElementValue: () => string | null = () =>
+    document.activeElement!.shadowRoot!.activeElement!.getAttribute('value');
+  const getActiveElementText: () => string = () =>
+    (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText;
+
   const waitForTransition = async (): Promise<void> => {
     //Wait for the transition to be over
     await waitForCondition(() => !element.hasAttribute('data-transition'));
@@ -270,12 +275,10 @@ describe(`sbb-calendar`, () => {
       ).to.be.equal('2022');
     });
 
-    describe('navigation', () => {
-      it('focus on the selected date is in the view', () => {
+    describe('keyboard navigation', () => {
+      it('focus on the selected date if it is in the view', () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
       });
 
       it('focus on the first of the month if selected date is not in the view', async () => {
@@ -284,123 +287,72 @@ describe(`sbb-calendar`, () => {
         )!;
         nextMonthButton.click();
         await waitForLitRender(element);
-
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-02-01');
+        expect(getActiveElementValue()).to.be.equal('2023-02-01');
       });
 
-      it('navigates left via keyboard', async () => {
+      it('navigates left', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowLeft' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-14');
+        expect(getActiveElementValue()).to.be.equal('2023-01-14');
       });
 
-      it('navigates right via keyboard', async () => {
+      it('navigates right', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowRight' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-16');
+        expect(getActiveElementValue()).to.be.equal('2023-01-16');
       });
 
-      it('navigates up via keyboard', async () => {
+      it('navigates up', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowUp' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-08');
+        expect(getActiveElementValue()).to.be.equal('2023-01-08');
       });
 
-      it('navigates down via keyboard', async () => {
+      it('navigates down', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowDown' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-22');
+        expect(getActiveElementValue()).to.be.equal('2023-01-22');
       });
 
-      it('navigates to first day via keyboard', async () => {
+      it('navigates to first day', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'Home' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-01');
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
       });
 
-      it('navigates to last day via keyboard', async () => {
+      it('navigates to last day', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'End' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-31');
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
       });
 
-      it('navigates to column start via keyboard', async () => {
+      it('navigates to column start', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageUp' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-01');
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
       });
 
-      it('navigates to column end via keyboard', async () => {
+      it('navigates to column end', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageDown' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-29');
+        expect(getActiveElementValue()).to.be.equal('2023-01-29');
       });
     });
   });
@@ -420,12 +372,10 @@ describe(`sbb-calendar`, () => {
       assert.instanceOf(element, SbbCalendarElement);
     });
 
-    describe('navigation', () => {
-      it('focus on the selected date is in the view', () => {
+    describe('keyboard navigation', () => {
+      it('focus on the selected date if it is in the view', () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
       });
 
       it('focus on the first of the month if selected date is not in the view', async () => {
@@ -434,123 +384,74 @@ describe(`sbb-calendar`, () => {
         )!;
         nextMonthButton.click();
         await waitForLitRender(element);
-
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-02-01');
+        expect(getActiveElementValue()).to.be.equal('2023-02-01');
       });
 
-      it('navigates left via keyboard', async () => {
+      it('navigates left', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowLeft' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-08');
+        expect(getActiveElementValue()).to.be.equal('2023-01-08');
       });
 
-      it('navigates right via keyboard', async () => {
+      it('navigates right', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowRight' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-22');
+        expect(getActiveElementValue()).to.be.equal('2023-01-22');
       });
 
-      it('navigates up via keyboard', async () => {
+      it('navigates up', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowUp' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-14');
+        expect(getActiveElementValue()).to.be.equal('2023-01-14');
       });
 
-      it('navigates down via keyboard', async () => {
+      it('navigates down', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowDown' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-16');
+        expect(getActiveElementValue()).to.be.equal('2023-01-16');
       });
 
-      it('navigates to first day via keyboard', async () => {
+      it('navigates to first day', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
 
         await sendKeys({ press: 'Home' });
         await waitForLitRender(element);
 
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-01');
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
       });
 
-      it('navigates to last day via keyboard', async () => {
+      it('navigates to last day', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'End' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-31');
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
       });
 
-      it('navigates to column start via keyboard', async () => {
+      it('navigates to column start', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageUp' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-09');
+        expect(getActiveElementValue()).to.be.equal('2023-01-09');
       });
 
-      it('navigates to column end via keyboard', async () => {
+      it('navigates to column end', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
-
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageDown' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2023-01-15');
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
       });
     });
   });
@@ -591,7 +492,7 @@ describe(`sbb-calendar`, () => {
     expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
   });
 
-  describe('wide', () => {
+  describe('wide horizontal', () => {
     beforeEach(async () => {
       await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
     });
@@ -673,6 +574,78 @@ describe(`sbb-calendar`, () => {
         element.shadowRoot!.querySelector<HTMLButtonElement>('button[aria-label="December 2026"]'),
       ).not.to.have.attribute('disabled');
     });
+
+    describe('keyboard navigation', () => {
+      beforeEach(async () => {
+        element = await fixture(
+          html`<sbb-calendar now="1738281600" selected="1738281600" wide></sbb-calendar>`,
+        );
+      });
+
+      it('navigates left', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-30');
+      });
+
+      it('navigates right', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-02-01');
+      });
+
+      it('navigates up', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-24');
+      });
+
+      it('navigates down', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-02-07');
+      });
+
+      it('navigates to first day', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-01');
+      });
+
+      it('navigates to last day', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+      });
+
+      it('navigates to column start', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'PageUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-03');
+      });
+
+      it('navigates to column end', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+        await sendKeys({ press: 'PageDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+      });
+    });
   });
 
   describe('wide vertical', () => {
@@ -680,7 +653,7 @@ describe(`sbb-calendar`, () => {
       await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
     });
 
-    describe('navigation', () => {
+    describe('keyboard navigation', () => {
       beforeEach(async () => {
         element = await fixture(
           html`<sbb-calendar
@@ -692,121 +665,73 @@ describe(`sbb-calendar`, () => {
         );
       });
 
-      it('navigates left via keyboard', async () => {
+      it('navigates left', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowLeft' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-22');
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
       });
 
-      it('navigates right via keyboard', async () => {
+      it('navigates right', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowRight' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-02-05');
+        expect(getActiveElementValue()).to.be.equal('2025-02-05');
       });
 
-      it('navigates up via keyboard', async () => {
+      it('navigates up', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowUp' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-28');
+        expect(getActiveElementValue()).to.be.equal('2025-01-28');
       });
 
-      it('navigates down via keyboard', async () => {
+      it('navigates down', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowDown' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-30');
+        expect(getActiveElementValue()).to.be.equal('2025-01-30');
       });
 
-      it('navigates to first day via keyboard', async () => {
+      it('navigates to first day', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'Home' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-01');
+        expect(getActiveElementValue()).to.be.equal('2025-01-01');
       });
 
-      it('navigates to last day via keyboard', async () => {
+      it('navigates to last day', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'End' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-31');
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
       });
 
-      it('navigates to column start via keyboard', async () => {
+      it('navigates to column start', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'PageUp' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-27');
+        expect(getActiveElementValue()).to.be.equal('2025-01-27');
       });
 
-      it('navigates to column end via keyboard', async () => {
+      it('navigates to column end', async () => {
         element.focus();
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-01-29');
-
+        expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'PageDown' });
         await waitForLitRender(element);
-
-        expect(
-          document.activeElement!.shadowRoot!.activeElement!.getAttribute('value'),
-        ).to.be.equal('2025-02-02');
+        expect(getActiveElementValue()).to.be.equal('2025-02-02');
       });
     });
   });
 
-  describe('navigation for year view', () => {
+  describe('keyboard navigation for year view', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
@@ -830,116 +755,257 @@ describe(`sbb-calendar`, () => {
       selectedYear.focus();
     });
 
-    it('navigates left via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates left', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2022');
+      expect(getActiveElementText()).to.be.equal('2022');
     });
 
-    it('navigates right via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates right', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2024');
+      expect(getActiveElementText()).to.be.equal('2024');
     });
 
-    it('navigates up via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates up', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowUp' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2019');
+      expect(getActiveElementText()).to.be.equal('2019');
     });
 
-    it('navigates down via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates down', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2027');
+      expect(getActiveElementText()).to.be.equal('2027');
     });
 
-    it('navigates to first day via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates to first day', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'Home' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2016');
+      expect(getActiveElementText()).to.be.equal('2016');
     });
 
-    it('navigates to last day via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates to last day', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'End' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2039');
+      expect(getActiveElementText()).to.be.equal('2039');
     });
 
-    it('navigates to column start via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates to column start', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'PageUp' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2019');
+      expect(getActiveElementText()).to.be.equal('2019');
     });
 
-    it('navigates to column end via keyboard', async () => {
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2023');
+    it('navigates to column end', async () => {
+      expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
       await sendKeys({ press: 'PageDown' });
       await waitForLitRender(element);
 
-      expect(
-        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
-      ).to.be.equal('2039');
+      expect(getActiveElementText()).to.be.equal('2039');
+    });
+  });
+
+  describe('date filter applied', () => {
+    // selected date is 2025-01-22, Wednesday
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-calendar selected="1737504000"></sbb-calendar>`);
+    });
+
+    it('focus the selected date if not disabled by dateFilter', async () => {
+      // the dateFilter function excludes even days
+      element.dateFilter = (d: Date | null): boolean => !!d && d.getDate() % 2 === 1;
+      await waitForLitRender(element);
+      element.focus();
+      expect(getActiveElementValue()).to.be.equal('2025-01-01');
+    });
+
+    it('focus the first available day if the selected date is disabled by dateFilter', async () => {
+      // the dateFilter function excludes odd days
+      element.dateFilter = (d: Date | null): boolean => !!d && d.getDate() % 2 === 0;
+      await waitForLitRender(element);
+      element.focus();
+      expect(getActiveElementValue()).to.be.equal('2025-01-22');
+    });
+
+    describe('keyboard navigation in horizontal variant', async () => {
+      // the dateFilter removes 2 days each 5 and all the thursdays; start date is 2025-01-22, Wed
+      beforeEach(async () => {
+        element.wide = true;
+        element.orientation = 'horizontal';
+        element.dateFilter = (d: Date | null): boolean =>
+          !!d && (d.getDate() - 1) % 5 < 3 && d.getDay() !== 4;
+        await waitForLitRender(element);
+      });
+
+      it('navigates left', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-21');
+      });
+
+      it('navigates right', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-26');
+      });
+
+      it('navigates up', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-08');
+      });
+
+      it('navigates down', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-02-12');
+      });
+
+      it('navigates to first day', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-01');
+      });
+
+      it('navigates to last day', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+      });
+
+      it('navigates to column start', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'PageUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-01');
+      });
+
+      it('navigates to column end', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'PageDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+      });
+    });
+
+    describe('keyboard navigation in vertical variant', async () => {
+      // the dateFilter removes 2 days each 5 and all the thursdays; start date is 2025-01-22, Wed
+      beforeEach(async () => {
+        element.wide = true;
+        element.orientation = 'vertical';
+        element.dateFilter = (d: Date | null): boolean =>
+          !!d && (d.getDate() - 1) % 5 < 3 && d.getDay() !== 4;
+        await waitForLitRender(element);
+      });
+
+      it('navigates left', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-08');
+      });
+
+      it('navigates right', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-02-12');
+      });
+
+      it('navigates up', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-21');
+      });
+
+      it('navigates down', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-26');
+      });
+
+      it('navigates to first day', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-01');
+      });
+
+      it('navigates to last day', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-31');
+      });
+
+      it('navigates to column start', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'PageUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-21');
+      });
+
+      it('navigates to column end', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2025-01-22');
+        await sendKeys({ press: 'PageDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2025-01-26');
+      });
     });
   });
 });
