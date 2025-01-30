@@ -66,7 +66,7 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
-      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
+      // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
       expect(await day.getAttribute('value')).to.be.equal('2023-02-01');
     });
@@ -81,7 +81,7 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
-      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
+      // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
       expect(await day.getAttribute('value')).to.be.equal('2022-12-01');
     });
@@ -100,7 +100,7 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
-      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
+      // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
       expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
     });
@@ -119,7 +119,7 @@ describe(`sbb-calendar`, () => {
       nextMonthButton.click();
       await waitForLitRender(element);
 
-      // this works because the first element from querySelector is the first day of the month; it's not valid in horizontal
+      // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
       day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
       expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
     });
