@@ -45,7 +45,7 @@ const defaultArgs: Args = {
 const Template = (args: Args): TemplateResult => html`
   <sbb-form-field ?negative=${args.negative}>
     <label>Label</label>
-    <sbb-chip-group name="chip-group-1" ?negative=${args.negative}>
+    <sbb-chip-group name="chip-group-1">
       <sbb-chip value="chip 1"></sbb-chip>
       <sbb-chip value="chip 2"></sbb-chip>
       <sbb-chip value="chip 3"></sbb-chip>
