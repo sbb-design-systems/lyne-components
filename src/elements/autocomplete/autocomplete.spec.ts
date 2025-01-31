@@ -277,4 +277,30 @@ describe(`sbb-autocomplete`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
   });
+
+  it('opens when new options are slotted', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose, element);
+
+    input.focus();
+
+    await didOpenEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    // Remove all the options
+    element.querySelectorAll('sbb-option').forEach((option) => option.remove());
+
+    // Should close automatically
+    await didCloseEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
+
+    // Add a new option
+    const newOption = document.createElement('sbb-option');
+    newOption.setAttribute('value', 'value');
+    element.append(newOption);
+
+    // Should open automatically
+    await didOpenEventSpy.calledTimes(2);
+    expect(input).to.have.attribute('aria-expanded', 'true');
+  });
 });

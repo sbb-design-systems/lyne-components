@@ -15,16 +15,13 @@ $active: ':active, [data-active]';
   outline: none !important;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-button-color-disabled-background: var(--sbb-color-milk);
-  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
-  --sbb-button-color-disabled-text: var(--sbb-color-granite);
   --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
   --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
   --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
   --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
-  --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
-  --sbb-button-border-style: solid;
+  --sbb-button-color-disabled-background: var(--sbb-color-milk);
+  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
+  --sbb-button-color-disabled-text: var(--sbb-color-granite);
   --sbb-button-border-disabled-style: dashed;
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
@@ -38,14 +35,29 @@ $active: ':active, [data-active]';
   --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-button-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-button-inset: 0;
-  --sbb-button-box-shadow: transparent;
+  --sbb-button-box-shadow: transparent 0 0;
   --sbb-button-box-shadow-definition: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
       var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
       var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
       var(--sbb-button-shadow-1-color);
+
+  // Calculated and private variables
+  --_width: unset;
+  --_border-color: var(--sbb-button-color-default-border);
+  --_background-color: var(--sbb-button-color-default-background);
+  --_color: var(--sbb-button-color-default-text);
+  --_button-inset: 0;
+  --_outline-width: 0;
+
+  // The overlap-fix closes a small visual gap between border and background color when hovered.
+  // As long as the border color corresponds to the background color, we slightly increase the border width.
+  // This doesn't interfere with the content, but visually closes the small gap.
+  // The secondary button itself can override it to 0 because it doesn't need the workaround.
+  // We used px unit as it is not relative to anything.
+  --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
+    var(--_border-color);
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
@@ -64,6 +76,9 @@ $active: ':active, [data-active]';
     --sbb-button-color-default-text: CanvasText !important;
     --sbb-button-color-hover-text: CanvasText !important;
     --sbb-button-color-active-text: CanvasText !important;
+
+    // Calculated and private variables
+    --sbb-button-border-overlap-fix: 0rem;
   }
 }
 
@@ -109,16 +124,22 @@ $active: ':active, [data-active]';
 
 :host(#{$icon-only}) {
   --sbb-button-padding-inline: 0;
+  --_width: var(--sbb-button-min-height);
 }
 
 :host(:not(#{$disabled}, #{$active}):hover) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
+    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(1)};
     --sbb-button-shadow-1-offset-y: calc(
       0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
     );
     --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
     --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
+    --sbb-button-cursor: pointer;
+    --_border-color: var(--sbb-button-color-hover-border);
+    --_color: var(--sbb-button-color-hover-text);
+    --_background-color: var(--sbb-button-color-hover-background);
+    --_button-inset: calc(var(--sbb-button-border-width) * -1);
   }
 
   @include sbb.if-forced-colors {
@@ -126,116 +147,93 @@ $active: ':active, [data-active]';
   }
 }
 
+// Disabled styles
+:host(:is(#{$disabled})) {
+  --sbb-button-cursor: default;
+  --_color: var(--sbb-button-color-disabled-text);
+  --_background-color: var(--sbb-button-color-disabled-background);
+  --_border-color: var(--sbb-button-color-disabled-border);
+  --_border: var(--sbb-button-border-disabled-width) var(--sbb-button-border-disabled-style)
+    var(--_border-color);
+}
+
+// Active styles
+:host(:not(#{$disabled}):is(#{$active})) {
+  --_color: var(--sbb-button-color-active-text);
+  --_background-color: var(--sbb-button-color-active-background);
+  --_border-color: var(--sbb-button-color-active-border);
+}
+
+:host([data-focus-visible]),
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])),
+  // Handle focus on the action (link variant)
+:host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) .sbb-action-base:focus-visible {
+  --_outline-width: var(--sbb-focus-outline-width);
+}
+
 .sbb-action-base {
   @include sbb.text-xs--bold;
 
-  // Reset for link variant
-  text-decoration: none;
-  width: 100%;
-  position: relative;
-  display: flex;
+  display: inline-flex;
   gap: var(--sbb-button-gap);
   align-items: center;
   justify-content: center;
   text-align: left;
+  min-height: var(--sbb-button-min-height);
+  outline: none;
+
+  // Width is set in icon-only variant
+  width: var(--_width);
+  border-radius: var(--sbb-button-border-radius);
+  color: var(--_color);
+  cursor: var(--sbb-button-cursor);
+  user-select: none;
+  background-color: var(--_background-color);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
-  transition-property: color;
-  min-height: var(--sbb-button-min-height);
-  border-radius: var(--sbb-button-border-radius);
+  transition-property: color, padding, background-color;
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
   // The real padding displayed is larger than the defined value below.
-  padding-block: var(--sbb-button-padding-block-min);
+  padding-block: var(--sbb-button-padding-block-min)
+    calc(
+      var(--sbb-button-padding-block-min) + 2 * var(--sbb-button-translate-y-content-hover, 0rem)
+    );
   padding-inline: var(--sbb-button-padding-inline);
-  color: var(--sbb-button-color-default-text);
-  cursor: pointer;
-  user-select: none;
-  outline: none;
 
-  // Renders background and border in the background absolute to enable the hover animation
+  // Needed for support border (see below)
+  position: relative;
+
+  // Used to display border and shadow
   &::before {
-    position: absolute;
     content: '';
-    inset: var(--sbb-button-inset);
-    border: var(--sbb-button-border-width) var(--sbb-button-border-style)
-      var(--sbb-button-color-default-border);
+    position: absolute;
+    inset: var(--_button-inset);
+    border: var(--_border);
     border-radius: var(--sbb-button-border-radius);
-    background-color: var(--sbb-button-color-default-background);
+    pointer-events: none;
+    box-shadow: var(--sbb-button-box-shadow);
+    outline: var(--sbb-focus-outline-color) solid var(--_outline-width);
+    outline-offset: var(--sbb-focus-outline-offset);
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
-    transition-property: inset, background-color, border-color, box-shadow;
-    box-shadow: var(--sbb-button-box-shadow);
-
-    :host(:is(#{$disabled})) & {
-      background-color: var(--sbb-button-color-disabled-background);
-      border-width: var(--sbb-button-border-disabled-width);
-      border-color: var(--sbb-button-color-disabled-border);
-      border-style: var(--sbb-button-border-disabled-style);
-    }
-
-    :host(:not(#{$disabled}, #{$active}):hover) & {
-      @include sbb.hover-mq($hover: true) {
-        inset: calc(var(--sbb-button-border-width) * -1);
-        background-color: var(--sbb-button-color-hover-background);
-        border-color: var(--sbb-button-color-hover-border);
-      }
-    }
-
-    :host(:not(#{$disabled}):is(#{$active})) & {
-      background-color: var(--sbb-button-color-active-background);
-      border-color: var(--sbb-button-color-active-border);
-    }
+    transition-property: inset, border, box-shadow;
   }
-
-  :host(#{$icon-only}) & {
-    width: var(--sbb-button-min-height);
-    justify-content: center;
-  }
-
-  :host(:is(#{$disabled})) & {
-    color: var(--sbb-button-color-disabled-text);
-    cursor: default;
-    pointer-events: none;
-  }
-
-  :host(:not(#{$disabled}):is(#{$active})) & {
-    color: var(--sbb-button-color-active-text);
-  }
-
-  :host(:not(#{$disabled}, #{$active}):hover) & {
-    @include sbb.hover-mq($hover: true) {
-      color: var(--sbb-button-color-hover-text);
-    }
-  }
-
-  // stylelint-disable no-descending-specificity
-  :host([data-focus-visible]) &,
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  // Handle focus on the host (button variant)
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
-  // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
-    &::before {
-      @include sbb.focus-outline;
-    }
-  }
-  // stylelint-enable no-descending-specificity
 }
 
-.sbb-button__label,
-::slotted([slot='icon']),
-sbb-icon {
-  transition: transform var(--sbb-button-transition-duration)
-    var(--sbb-button-transition-easing-function);
-  transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+// TODO: keep here instead of extracting to mixin
+.sbb-action-base {
+  // Reset for link variant
+  text-decoration: none;
+  display: flex;
+  white-space: nowrap;
 }
 
 .sbb-button__label {
   @include sbb.ellipsis;
-
-  display: block;
 
   :host(#{$icon-only}) & {
     display: none;

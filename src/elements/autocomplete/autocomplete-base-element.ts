@@ -214,6 +214,20 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+    this._openOnNewOptions();
+  }
+
+  /**
+   * If the 'input' is focused and there's a change in the number of options, open the autocomplete
+   */
+  private _openOnNewOptions(): void {
+    if (document?.activeElement === this.triggerElement) {
+      if (this.options.length > 0) {
+        this.open();
+      } else {
+        this.close();
+      }
+    }
   }
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
