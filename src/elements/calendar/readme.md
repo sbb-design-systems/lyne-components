@@ -34,8 +34,8 @@ By default, the component takes, in order of priority,
 the `dateSelected` property, the `now` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
-It's also possible to set a specific date by clicking on the month label between the buttons:
-this action opens a list of twenty-four selectable years, and, after the year selection, the month list of that year.
+It's also possible to select a specific date by clicking on the month label between the buttons:
+this action opens a list of twenty-four selectable years, and, after the year selection, the list of months of that year.
 Clicking on an element will set the month and restore the first view, allowing to select the desired day.
 
 The `sbb-calendar` can be directly displayed in one of these modalities using the `view` property (default: `day`).
@@ -46,8 +46,9 @@ The `sbb-calendar` can be directly displayed in one of these modalities using th
 <sbb-calendar selected="1585699200" view="year"></sbb-calendar>
 ```
 
-It's also possible to filter out unwanted date using the `dateFilter` property.
+Unwanted dates can be filtered out using the `dateFilter` property.
 Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+The `dateFilter` is applied in all the views, so if some months or years are not allowed they will be displayed as disabled in the corresponding view.
 
 ```ts
 /** Returns only working days (Mon-Fri). */
@@ -60,17 +61,18 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 
 ## Style
 
-The component displays a single month / list of years / list of months by default;
-setting the `wide` property to `true` it's possible to show, respectively, two consecutive months or
+The component displays by default a single month in the `day` view, or a list of twenty-four years in the `year` view,
+or a list of months in the `month` view;
+however, setting the `wide` property to `true` it's possible to duplicate the view, showing, respectively, two consecutive months or
 two sets of twenty-four years or the list of the twelve months for two consecutive years.
 
 ```html
-<sbb-calendar wide="true" selected="1650000000"></sbb-calendar>
+<sbb-calendar wide="true" selected="1699920000"></sbb-calendar>
 ```
 
 It's also possible to change the orientation of dates by setting the `orientation` property to `vertical`.
 In this variant, the weekdays are displayed on the left side of the component and the days progress along the vertical direction.
-This change is applied only to the day view.
+This visual change is applied only to the day view.
 
 ```html
 <sbb-calendar orientation="vertical"></sbb-calendar>
