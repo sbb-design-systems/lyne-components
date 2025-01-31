@@ -26,6 +26,7 @@ It is possible to provide a label via the unnamed slot. If not present, the `val
 
 | Name    | Privacy | Description | Parameters | Return | Inherited From |
 | ------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `click` | public  |             |            | `void` |                |
 | `focus` | public  |             |            | `void` |                |
 
 ## Slots

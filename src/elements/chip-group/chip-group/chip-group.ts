@@ -8,6 +8,7 @@ import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
+  SbbDisabledMixin,
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
@@ -27,8 +28,8 @@ export
 @hostAttributes({
   tabindex: '0',
 })
-class SbbChipGroupElement extends SbbNegativeMixin(
-  SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement),
+class SbbChipGroupElement extends SbbDisabledMixin(
+  SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement)),
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
@@ -81,7 +82,7 @@ class SbbChipGroupElement extends SbbNegativeMixin(
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
   private _inputAttributeObserver = !isServer
-    ? new MutationObserver(() => this._proxyStateToChips())
+    ? new MutationObserver(() => this._reactToInputChanges())
     : null;
 
   private _inputElement: HTMLInputElement | undefined;
@@ -106,7 +107,11 @@ class SbbChipGroupElement extends SbbNegativeMixin(
   protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('formDisabled') || changedProperties.has('negative')) {
+    if (
+      changedProperties.has('disabled') ||
+      changedProperties.has('formDisabled') ||
+      changedProperties.has('negative')
+    ) {
       this._proxyStateToChips();
     }
   }
@@ -131,8 +136,6 @@ class SbbChipGroupElement extends SbbNegativeMixin(
   }
 
   protected updateFormValue(): void {
-    console.log('update form value', this.value);
-
     const data = new FormData();
     this.value.forEach((el) => data.append(this.name, el));
     this.internals.setFormValue(data);
@@ -280,9 +283,14 @@ class SbbChipGroupElement extends SbbNegativeMixin(
     }
   }
 
+  private _reactToInputChanges(): void {
+    this.disabled = this._inputElement!.disabled;
+    this._proxyStateToChips();
+  }
+
   private _proxyStateToChips(): void {
     this._chipElements().forEach((c) => {
-      c.disabled = this.formDisabled || !!this._inputElement?.hasAttribute('disabled');
+      c.disabled = this.disabled || this.formDisabled;
       c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
       c.negative = this.negative;
     });

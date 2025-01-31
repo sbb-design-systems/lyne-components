@@ -56,6 +56,7 @@ Users can move through the chips using the arrow keys
 
 | Name       | Attribute  | Privacy | Type                      | Default | Description                                                    |
 | ---------- | ---------- | ------- | ------------------------- | ------- | -------------------------------------------------------------- |
+| `disabled` | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                             |
 | `form`     | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of the internals of the target element. |
 | `name`     | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.    |
 | `negative` | `negative` | public  | `boolean`                 | `false` | Negative coloring variant flag.                                |
