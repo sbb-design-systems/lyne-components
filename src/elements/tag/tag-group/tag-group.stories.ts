@@ -6,12 +6,13 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbTagElement } from '../tag.js';
+import type { SbbTagElement, SbbTagGroupElement } from '../../tag.js';
 
 import readme from './readme.md?raw';
 import './tag-group.js';
 import '../tag.js';
-import type { SbbTagGroupElement } from './tag-group.js';
+import '../../button.js';
+import '../../card.js';
 
 const uncheckAllTag = (event: Event): void => {
   const tagGroup = (event.currentTarget as SbbTagElement).closest(
@@ -86,8 +87,8 @@ const defaultArgs: Args = {
   size: size.options![1],
 };
 
-const tagTemplate = (label: string, checked = false): TemplateResult => html`
-  <sbb-tag ?checked=${checked} value=${label} amount="123" icon-name="pie-small">
+const tagTemplate = (label: string, checked = false, name = 'name'): TemplateResult => html`
+  <sbb-tag name="${name}" ?checked=${checked} value=${label} amount="123" icon-name="pie-small">
     ${label}
   </sbb-tag>
 `;
@@ -135,6 +136,33 @@ const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): Temp
   </div>
 `;
 
+const TemplateWithForm = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
+  <form
+    @submit=${(e: SubmitEvent) => {
+      e.preventDefault();
+      const form = (e.target as HTMLFormElement)!;
+      form.querySelector('#form-data')!.innerHTML = JSON.stringify(
+        Object.fromEntries(new FormData(form)),
+      );
+    }}
+  >
+    <sbb-tag-group ${sbbSpread(args)} style="margin-block-end: 2rem;">
+      ${repeat(new Array(numberOfTagsInGroup), (_e, i) =>
+        tagTemplate(`Label ${i + 1}`, i <= 2, `tag${i + 1}`),
+      )}
+    </sbb-tag-group>
+
+    <sbb-tag-group disabled> ${tagTemplate('Disabled tag', false)}</sbb-tag-group>
+
+    <div style="margin-block: var(--sbb-spacing-responsive-s)">
+      <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
+      <sbb-button type="submit">Submit</sbb-button>
+    </div>
+    <p class="sbb-text-s">Form-Data after click submit:</p>
+    <sbb-card color="milk" id="form-data"></sbb-card>
+  </form>
+`;
+
 export const tagGroup: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
@@ -164,6 +192,12 @@ export const exclusiveTagGroup: StoryObj = {
 
 export const allChoiceTagGroup: StoryObj = {
   render: AllChoiceTagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const withForm: StoryObj = {
+  render: TemplateWithForm,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };

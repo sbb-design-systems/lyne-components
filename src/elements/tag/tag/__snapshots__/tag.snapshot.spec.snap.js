@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-tag renders unchecked DOM"] = 
 `<sbb-tag
   aria-label="Check to remove filters"
-  aria-pressed="false"
   data-action=""
   data-button=""
   data-slot-names="unnamed"
@@ -72,7 +71,6 @@ snapshots["sbb-tag renders checked Shadow DOM"] =
 snapshots["sbb-tag renders disabled with icon and amount DOM"] = 
 `<sbb-tag
   amount="123"
-  aria-pressed="false"
   data-action=""
   data-button=""
   data-slot-names="unnamed"
@@ -114,7 +112,6 @@ snapshots["sbb-tag renders disabled with icon and amount Shadow DOM"] =
 
 snapshots["sbb-tag renders slotted icon and amount DOM"] = 
 `<sbb-tag
-  aria-pressed="false"
   data-action=""
   data-button=""
   data-slot-names="amount icon unnamed"
@@ -164,8 +161,7 @@ snapshots["sbb-tag A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "Label",
-      "pressed": false
+      "name": "Label"
     }
   ]
 }
@@ -180,7 +176,7 @@ snapshots["sbb-tag A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "toggle button",
+      "role": "button",
       "name": "Label"
     }
   ]
