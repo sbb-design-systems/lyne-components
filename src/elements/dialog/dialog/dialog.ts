@@ -69,7 +69,9 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   /** Opens the component. */
-  public open(): void {
+  public override open(): void {
+    super.open();
+
     if (this.state !== 'closed') {
       return;
     }
@@ -115,7 +117,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.hidePopover?.();
 
     this.inertController.deactivate();
-    this.sbbOverlayController.disconnect();
     setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element
     this.lastFocusedElement?.focus();
@@ -138,7 +139,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.sbbOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
     // Use timeout to read label after focused element

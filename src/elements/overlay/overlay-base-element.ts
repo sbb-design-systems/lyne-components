@@ -2,12 +2,8 @@ import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../core/a11y.js';
-import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import {
-  SbbInertController,
-  SbbLanguageController,
-  SbbOverlayController,
-} from '../core/controllers.js';
+import { type SbbButtonBaseElement, SbbOpenCloseEscapableElement } from '../core/base-elements.js';
+import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
@@ -23,7 +19,7 @@ export
 @hostAttributes({
   popover: 'manual',
 })
-abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseEscapableElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
   @forceType()
   @property({ attribute: 'accessibility-label' })
@@ -49,7 +45,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   protected ariaLiveRef!: SbbScreenReaderOnlyElement;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
-  protected sbbOverlayController = new SbbOverlayController(this);
 
   protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
@@ -58,7 +53,9 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   protected abstract isZeroAnimationDuration(): boolean;
 
   /** Closes the component. */
-  public close(result?: any, target?: HTMLElement): any {
+  public override close(result?: any, target?: HTMLElement): any {
+    super.close();
+
     if (this.state !== 'opened') {
       return;
     }

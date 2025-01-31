@@ -77,7 +77,8 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   private _overlayContentElement: HTMLElement | null = null;
 
   /** Opens the component. */
-  public open(): void {
+  public override open(): void {
+    super.open();
     if (this.state !== 'closed') {
       return;
     }
