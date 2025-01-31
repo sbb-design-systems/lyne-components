@@ -206,7 +206,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   private _onSlotInputChange(): void {
     // Find the slotted 'supportedInputElement', even if it's nested
     const newInput = this.querySelector(
-      `:not(slot):where(${this._supportedInputElements.join(',')}})`,
+      `:not(slot):where(${this._supportedInputElements.join(',')})`,
     ) as HTMLElement | undefined;
 
     this._assignSlots();
@@ -496,7 +496,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid',
+      'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 

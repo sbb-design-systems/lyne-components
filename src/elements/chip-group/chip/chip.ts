@@ -34,6 +34,13 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
 
+  public override click(): void {
+    if (this.disabled) {
+      return;
+    }
+    this._chipLabel().click();
+  }
+
   public override focus(): void {
     if (this.disabled) {
       return;
