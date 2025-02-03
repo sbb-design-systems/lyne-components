@@ -2,6 +2,7 @@ import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult 
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
@@ -9,6 +10,8 @@ import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import '../../button/mini-button.js';
 
 import style from './chip.scss?lit&inline';
+
+import { i18nChipDelete } from '@sbb-esta/lyne-elements/core/i18n/i18n';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -33,6 +36,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
 
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
+  private _language = new SbbLanguageController(this);
 
   public override click(): void {
     if (this.disabled) {
@@ -72,7 +76,6 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
     return this.shadowRoot!.querySelector('sbb-mini-button')!;
   }
 
-  // TODO handle aria-label
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip" role="row">
@@ -91,7 +94,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
             tabindex=${!this.disabled ? '-1' : nothing}
             class="sbb-chip__delete"
             icon-name="cross-tiny-medium"
-            aria-label="Remove ${this.value}"
+            aria-label=${`${i18nChipDelete[this._language.current]} ${this.value}`}
             @click=${() => this._requestDelete.emit()}
           ></sbb-mini-button>
         </div>
