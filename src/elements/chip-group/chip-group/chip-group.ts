@@ -2,7 +2,7 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbAutocompleteBaseElement } from '../../autocomplete/autocomplete-base-element.js';
+import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -13,7 +13,7 @@ import {
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
-import { SbbChipElement } from '../chip/chip.js';
+import { SbbChipElement } from '../chip.js';
 
 import style from './chip-group.scss?lit&inline';
 
@@ -167,7 +167,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
         signal: this._inputAbortController.signal,
       });
       this._inputElement.addEventListener(
-        SbbAutocompleteBaseElement.inputAutocompleteEvent,
+        inputAutocompleteEvent,
         () => this._createChipFromInput(),
         {
           signal: this._inputAbortController.signal,
