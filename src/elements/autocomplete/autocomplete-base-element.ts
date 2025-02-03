@@ -36,6 +36,11 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   public static override styles: CSSResultGroup = style;
 
   /**
+   * Custom event emitted on the input when an option is selected
+   */
+  public static readonly inputAutocompleteEvent = 'inputAutocomplete';
+
+  /**
    * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
    * If not set, it will search for the first 'sbb-form-field' ancestor.
    */
@@ -200,6 +205,11 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+
+      // Custom input event emitted when input value changes after an option is selected
+      this.triggerElement.dispatchEvent(
+        new Event(SbbAutocompleteBaseElement.inputAutocompleteEvent),
+      );
       this.triggerElement.focus();
     }
 
@@ -380,6 +390,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       'keydown',
       (event: KeyboardEvent) => this.openedPanelKeyboardInteraction(event),
       {
+        capture: true,
         signal: this._openPanelEventsController.signal,
       },
     );

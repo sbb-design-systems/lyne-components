@@ -2,14 +2,19 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { SbbAutocompleteBaseElement } from '../../autocomplete/autocomplete-base-element.js';
+import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
+import type { SbbOptionElement } from '../../option.js';
 import type { SbbChipElement } from '../chip.js';
 
 import { SbbChipGroupElement } from './chip-group.js';
 import '../chip.js';
+import '../../autocomplete.js';
 import '../../form-field.js';
+import '../../option.js';
 
 describe('sbb-chip-group', () => {
   let element: SbbChipGroupElement;
@@ -316,5 +321,78 @@ describe('sbb-chip-group', () => {
     });
   });
 
-  // with autocomplete interactions
+  describe.only('with autocomplete', () => {
+    let autocomplete: SbbAutocompleteElement;
+    let options: SbbOptionElement[];
+
+    beforeEach(async () => {
+      await fixture(html`
+        <sbb-form-field>
+          <label>Label</label>
+          <sbb-chip-group name="chip-group-1">
+            <sbb-chip value="chip 1"></sbb-chip>
+            <input placeholder="Placeholder" />
+          </sbb-chip-group>
+          <sbb-autocomplete>
+            <sbb-option value="Option A">Option A</sbb-option>
+            <sbb-option value="Option B">Option B</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+      element = document.querySelector('sbb-chip-group')!;
+      chips = Array.from(document.querySelectorAll('sbb-chip'));
+      formField = document.querySelector('sbb-form-field')!;
+      input = document.querySelector('input')!;
+      autocomplete = document.querySelector('sbb-autocomplete')!;
+      options = Array.from(document.querySelectorAll('sbb-option'));
+
+      await waitForLitRender(formField);
+    });
+
+    it('should create chip when option is selected', async () => {
+      const inputAutocompleteEventSpy = new EventSpy(
+        SbbAutocompleteBaseElement.inputAutocompleteEvent,
+        input,
+      );
+
+      input.focus();
+      await waitForLitRender(formField);
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(formField);
+
+      expect(inputAutocompleteEventSpy.count).to.be.equal(1);
+      expect(element.value).to.contain(options[0].value);
+
+      autocomplete.open();
+      options[1].click();
+      await waitForLitRender(formField);
+
+      expect(inputAutocompleteEventSpy.count).to.be.equal(2);
+      expect(element.value).to.contain(options[1].value);
+    });
+
+    /**
+     * This test cover the case where the input has a value and an option is selected.
+     * What should happen is that
+     * - autocomplete overwrites the input value with the clicked option
+     * - the chip-group creates the chip with the new input value
+     */
+    it('should ignore the input value when an option is selected', async () => {
+      const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
+
+      input.focus();
+      await sendKeys({ type: 'aa' });
+      await waitForLitRender(formField);
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(formField);
+
+      expect(inputAutocompleteEventSpy.count).to.be.equal(1);
+      expect(element.value).to.contain(options[0].value);
+      expect(element.value).not.to.contain('aa');
+    });
+  });
 });

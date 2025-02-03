@@ -2,6 +2,7 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbAutocompleteBaseElement } from '../../autocomplete/autocomplete-base-element.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -165,6 +166,13 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       this._inputElement.addEventListener('keydown', (ev) => this._onInputKeyDown(ev), {
         signal: this._inputAbortController.signal,
       });
+      this._inputElement.addEventListener(
+        SbbAutocompleteBaseElement.inputAutocompleteEvent,
+        () => this._createChipFromInput(),
+        {
+          signal: this._inputAbortController.signal,
+        },
+      );
 
       this._inputAttributeObserver?.observe(this._inputElement, {
         attributes: true,
@@ -221,11 +229,9 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   private _onInputKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Enter':
-        event.preventDefault();
-        if (this._inputElement!.value.trim()) {
-          this.value = [...this.value, this._inputElement!.value.trim()];
-          this._inputElement!.value = ''; // Empty the input
-          this._emitInputEvents();
+        if (!event.defaultPrevented) {
+          event.preventDefault();
+          this._createChipFromInput();
         }
         break;
       case 'Backspace':
@@ -238,6 +244,17 @@ class SbbChipGroupElement extends SbbDisabledMixin(
           this._allowFocusEscape();
         }
         break;
+    }
+  }
+
+  /**
+   * If the input is not empty, create a chip with its value
+   */
+  private _createChipFromInput(): void {
+    if (this._inputElement!.value.trim()) {
+      this.value = [...this.value, this._inputElement!.value.trim()];
+      this._inputElement!.value = ''; // Empty the input
+      this._emitInputEvents();
     }
   }
 
