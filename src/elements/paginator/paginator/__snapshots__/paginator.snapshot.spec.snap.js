@@ -893,6 +893,10 @@ snapshots["sbb-paginator renders with options A11y tree Firefox"] =
       "value": "10"
     },
     {
+      "role": "text container",
+      "name": "Items per page"
+    },
+    {
       "role": "text leaf",
       "name": "Page 1 selected."
     }

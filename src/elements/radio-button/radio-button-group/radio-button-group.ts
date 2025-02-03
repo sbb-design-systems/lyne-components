@@ -163,7 +163,10 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     const target = event.target! as SbbRadioButtonElement | SbbRadioButtonPanelElement;
 
     // Only filter radio-buttons event
-    if (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') {
+    if (
+      (target.localName !== 'sbb-radio-button' && target.localName !== 'sbb-radio-button-panel') ||
+      target.group !== this
+    ) {
       return;
     }
 

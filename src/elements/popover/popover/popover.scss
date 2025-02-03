@@ -26,15 +26,17 @@
   // to default color for cases where the popover is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
+  display: none;
+}
+
+:host([data-state]:not([data-state='closed'])) {
   display: block;
+
+  --sbb-popover-inset: 0;
 }
 
 :host([data-position='above']) {
   --sbb-popover-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
-}
-
-:host(:not([data-state='closed'])) {
-  --sbb-popover-inset: 0;
 }
 
 // Popover arrow and arrow top cover

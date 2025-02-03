@@ -61,6 +61,14 @@ $intersector-overlapping: 1px;
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
 }
 
+:host([data-sticking]:not([data-state='unsticky'])[color='midnight']) {
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-midnight);
+}
+
+:host([data-sticking]:not([data-state='unsticky'])[color='charcoal']) {
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-charcoal);
+}
+
 :host(
   :is(
     [data-sticking]:is([data-slide-vertically], [data-state='sticking'], [data-state='unsticking']),

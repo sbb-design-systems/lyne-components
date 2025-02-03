@@ -5,6 +5,7 @@ snapshots["sbb-popover renders DOM"] =
 `<sbb-popover
   data-state="closed"
   id="sbb-popover-1"
+  popover="manual"
 >
 </sbb-popover>
 `;

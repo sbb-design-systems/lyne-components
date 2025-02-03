@@ -30,6 +30,7 @@ async function openDialog(element: SbbDialogElement): Promise<void> {
   await waitForLitRender(element);
 
   expect(element).to.have.attribute('data-state', 'opened');
+  expect(element).to.match(':popover-open');
 }
 
 describe('sbb-dialog', () => {
@@ -92,6 +93,7 @@ describe('sbb-dialog', () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).not.to.match(':popover-open');
     expect(ariaLiveRef.textContent).to.be.equal('');
   });
 

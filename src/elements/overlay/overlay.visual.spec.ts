@@ -38,6 +38,7 @@ describe(`sbb-overlay`, () => {
 
   const openOverlay = (setup: VisualDiffSetupBuilder): void => {
     const overlay: SbbOverlayElement = setup.snapshotElement.querySelector('sbb-overlay')!;
+    setup.withSnapshotElement(overlay);
     setup.withPostSetupAction(() => overlay.open());
   };
 
@@ -46,7 +47,7 @@ describe(`sbb-overlay`, () => {
       it(
         `negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative }), { minHeight: '600px' });
+          await setup.withFixture(template({ ...defaultArgs, negative }));
           openOverlay(setup);
         }),
       );
@@ -54,9 +55,7 @@ describe(`sbb-overlay`, () => {
       it(
         `negative=${negative} backButton`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, backButton: true }), {
-            minHeight: '600px',
-          });
+          await setup.withFixture(template({ ...defaultArgs, negative, backButton: true }));
           openOverlay(setup);
         }),
       );
@@ -64,9 +63,7 @@ describe(`sbb-overlay`, () => {
       it(
         `negative=${negative} expanded`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, expanded: true }), {
-            minHeight: '600px',
-          });
+          await setup.withFixture(template({ ...defaultArgs, negative, expanded: true }));
           openOverlay(setup);
         }),
       );
@@ -74,9 +71,7 @@ describe(`sbb-overlay`, () => {
       it(
         `negative=${negative} long content`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, numberOfBlocks: 7 }), {
-            minHeight: '600px',
-          });
+          await setup.withFixture(template({ ...defaultArgs, negative, numberOfBlocks: 7 }));
           openOverlay(setup);
         }),
       );

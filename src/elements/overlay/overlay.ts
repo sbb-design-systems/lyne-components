@@ -90,6 +90,8 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     if (!this.willOpen.emit()) {
       return;
     }
+
+    this.showPopover?.();
     this.state = 'opening';
 
     // Add this overlay to the global collection
@@ -123,6 +125,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   protected override handleClosing(): void {
     this._overlayContentElement?.scrollTo(0, 0);
     this.state = 'closed';
+    this.hidePopover?.();
     this.inertController.deactivate();
     setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element

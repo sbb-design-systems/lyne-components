@@ -11,7 +11,7 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
@@ -51,6 +51,7 @@ const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).
  */
 export
 @customElement('sbb-popover')
+@hostAttributes({ popover: 'manual' })
 class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -132,6 +133,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       }
     }
 
+    this.showPopover?.();
     this.state = 'opening';
     this.inert = true;
     this._setPopoverPosition();
@@ -174,6 +176,8 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
+
     this._overlay?.firstElementChild?.scrollTo(0, 0);
     this._overlay?.removeAttribute('tabindex');
 

@@ -14,13 +14,10 @@ snapshots["sbb-title renders DOM"] =
 /* end snapshot sbb-title renders DOM */
 
 snapshots["sbb-title renders Shadow DOM"] = 
-`<h1
-  class="sbb-title"
-  role="presentation"
->
+`<div class="sbb-title">
   <slot>
   </slot>
-</h1>
+</div>
 `;
 /* end snapshot sbb-title renders Shadow DOM */
 

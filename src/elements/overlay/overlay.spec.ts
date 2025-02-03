@@ -24,6 +24,7 @@ async function openOverlay(element: SbbOverlayElement): Promise<void> {
   await didOpen.calledOnce();
   expect(didOpen.count).to.be.equal(1);
   expect(element).to.have.attribute('data-state', 'opened');
+  expect(element).to.match(':popover-open');
 }
 
 describe('sbb-overlay', () => {
@@ -82,6 +83,7 @@ describe('sbb-overlay', () => {
     await didClose.calledOnce();
     expect(didClose.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).not.to.match(':popover-open');
     expect(ariaLiveRef.textContent).to.be.equal('');
   });
 

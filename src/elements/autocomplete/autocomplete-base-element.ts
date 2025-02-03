@@ -11,7 +11,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
-import { forceType } from '../core/decorators.js';
+import { forceType, hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
 import {
@@ -35,7 +35,11 @@ const ariaRoleOnHost = isSafari;
  */
 export const inputAutocompleteEvent = 'inputAutocomplete';
 
-export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
+export
+@hostAttributes({
+  popover: 'manual',
+})
+abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -106,6 +110,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
+    this.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
 
@@ -216,6 +221,20 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+    this._openOnNewOptions();
+  }
+
+  /**
+   * If the 'input' is focused and there's a change in the number of options, open the autocomplete
+   */
+  private _openOnNewOptions(): void {
+    if (document?.activeElement === this.triggerElement) {
+      if (this.options.length > 0) {
+        this.open();
+      } else {
+        this.close();
+      }
+    }
   }
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
@@ -353,6 +372,7 @@ export abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
