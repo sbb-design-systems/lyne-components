@@ -1,6 +1,8 @@
 @use '../../core/styles/index' as sbb;
 
 :host {
+  display: block;
+
   // Hide the sidebars when they're closed.
   overflow: hidden;
 

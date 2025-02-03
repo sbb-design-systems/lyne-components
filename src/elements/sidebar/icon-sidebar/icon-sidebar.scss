@@ -1,0 +1,27 @@
+@use '../../core/styles/index' as sbb;
+
+:host {
+  width: var(--sbb-size-element-m);
+
+  --sbb-icon-sidebar-top-spacing: #{sbb.px-to-rem-build(64)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-icon-sidebar-top-spacing: #{sbb.px-to-rem-build(80)};
+  }
+}
+
+.sbb-icon-sidebar {
+  @include sbb.scrollbar;
+
+  & {
+    width: inherit;
+    padding-block-start: var(--sbb-icon-sidebar-top-spacing);
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: var(--sbb-sidebar-background-color);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    inset-block: 0;
+  }
+}

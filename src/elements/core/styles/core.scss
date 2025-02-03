@@ -379,6 +379,6 @@ sbb-sidebar:not(:has(sbb-sidebar-close-button)) sbb-sidebar-title {
   --sbb-sidebar-title__close-button-placeholder: 0;
 }
 
-sbb-header + sbb-sidebar-container {
+sbb-header + :is(sbb-sidebar-container, sbb-icon-sidebar-container) {
   margin-block-start: var(--sbb-sidebar-container-margin-start, var(--sbb-header-height));
 }
