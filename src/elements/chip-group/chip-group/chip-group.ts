@@ -22,6 +22,7 @@ import style from './chip-group.scss?lit&inline';
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that the component's value has changed.
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
+ * @overrideType value - string[] | null
  */
 export
 @customElement('sbb-chip-group')

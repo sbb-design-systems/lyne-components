@@ -1,5 +1,7 @@
 The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
-Generally, it is used in combination with a `sbb-form-field` to allow the input of multiple textual values.
+Generally, it is used in combination with a `sbb-form-field` to allow the input of multiple string values.
+
+The `value` property is synced with the slotted chips. Adding a `sbb-chip` to the slot will update the `value` property (and vice versa).
 
 ```html
 <sbb-form-field>
@@ -16,13 +18,39 @@ Generally, it is used in combination with a `sbb-form-field` to allow the input 
 
 Use the unnamed slot to provide the `sbb-chip` and the `input` field
 
-## Interactions
+## States
 
-### Use with Autocomplete
+The `sbb-chip-group` has a `disabled` and a `readonly` state that is automatically synced to the respective `input` property.
 
-### Use with forms
+```html
+<sbb-form-field>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input disabled />
+    <!-- Or -->
+    <input readonly />
+  </sbb-chip-group>
+</sbb-form-field>
+```
 
-The `sbb-chip-group` is a form associated element and can be part of a form.
+The `sbb-chip-group` has a `negative` variant. If within a `sbb-form-field`, the properties automatically sync.
+
+```html
+<sbb-form-field negative>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input />
+  </sbb-chip-group>
+</sbb-form-field>
+```
+
+## Usage
+
+### Use within forms
+
+The `sbb-chip-group` is a form associated element and can be part of a form. Its value is an array of strings.
 
 **Note:** The `name` must be set on the `sbb-chip-group`, not on the `input`
 
@@ -38,17 +66,25 @@ The `sbb-chip-group` is a form associated element and can be part of a form.
 </form>
 ```
 
+### Use with Autocomplete
+
+> TODO
+
 ## Keyboard interaction
 
-Users can move through the chips using the arrow keys
+At any time, only a single chip (usually, the last one) is focusable and part of the tab order. Users can move between them using the arrow keys.
 
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+| Keyboard                    | Action                                                    |
+| --------------------------- | --------------------------------------------------------- |
+| <kbd>Enter</kbd>            | When the `input` is focused, add a new chip.              |
+| <kbd>Backspace</kbd>        | When the `input` is empty & focused, focus the last chip. |
+| <kbd>Backspace</kbd>        | When the `sbb-chip` focused, delete it.                   |
+| <kbd>Left/Up Arrow</kbd>    | Move the next `sbb-chip`.                                 |
+| <kbd>Right/Down Arrow</kbd> | Move the previous `sbb-chip`.                             |
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The `sbb-chip-group` follows the `grid` pattern;
 
 <!-- Auto Generated Below -->
 
@@ -60,7 +96,7 @@ Users can move through the chips using the arrow keys
 | `form`     | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of the internals of the target element. |
 | `name`     | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.    |
 | `negative` | `negative` | public  | `boolean`                 | `false` | Negative coloring variant flag.                                |
-| `value`    | `value`    | public  | `string \| null`          | `null`  | Value of the form element.                                     |
+| `value`    | `value`    | public  | `string[] \| null`        | `null`  | Value of the form element.                                     |
 
 ## Events
 
