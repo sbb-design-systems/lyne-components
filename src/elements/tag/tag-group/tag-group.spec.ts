@@ -596,4 +596,67 @@ describe(`sbb-tag-group`, () => {
       });
     });
   });
+
+  describe('slotted in native form', () => {
+    let form: HTMLFormElement;
+    let element: SbbTagGroupElement;
+    let tag3: SbbTagElement;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" name="tag1" value="Label 1" checked>Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" name="tag2" value="Label 2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" name="tag3" value="Label 3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        </form>
+      `);
+
+      element = form.querySelector('sbb-tag-group') as SbbTagGroupElement;
+      tag3 = element.querySelector('#sbb-tag-3') as SbbTagElement;
+    });
+
+    it('updates form value on click', async () => {
+      tag3.click();
+      expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
+        `{"tag1":"Label 1","tag3":"Label 3"}`,
+      );
+    });
+
+    it('updates form value on property set', async () => {
+      tag3.checked = true;
+
+      expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
+        `{"tag1":"Label 1","tag3":"Label 3"}`,
+      );
+    });
+
+    it('updates form in exlusive mode', async () => {
+      element.multiple = false;
+      await waitForLitRender(element);
+
+      tag3.click();
+      await waitForLitRender(element);
+      expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
+        `{"tag3":"Label 3"}`,
+      );
+    });
+
+    it('restores value on form reset', async () => {
+      element.multiple = false;
+      await waitForLitRender(element);
+
+      tag3.click();
+      await waitForLitRender(element);
+      expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
+        `{"tag3":"Label 3"}`,
+      );
+
+      form.reset();
+      expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
+        `{"tag1":"Label 1"}`,
+      );
+    });
+  });
 });
