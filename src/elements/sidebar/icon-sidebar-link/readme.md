@@ -1,0 +1,42 @@
+The `sbb-icon-sidebar-link` component provides the same functionality as a native `<a>`,
+enhanced with the design of the sidebar button.
+
+```html
+<sbb-icon-sidebar-link
+  icon-name="glass-cocktail-small"
+  href="https://www.sbb.ch"
+  accessibility-label="Go to the party"
+></sbb-icon-sidebar-link>
+```
+
+As an alternative, the icon can be slotted:
+
+```html
+<sbb-icon-sidebar-link accessibility-label="Go to the party">
+  <sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>
+</sbb-icon-sidebar-link>
+```
+
+## Accessibility
+
+The definition of a meaningful `accessibility-label` (forwarded as `aria-label` to the inner `<a>` element)
+is mandatory as only an icon is displayed.
+
+<!-- Auto Generated Below -->
+
+## Properties
+
+| Name                 | Attribute             | Privacy | Type                       | Default | Description                                                                                                                      |
+| -------------------- | --------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `download`           | `download`            | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`               | `href`                | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`           | `icon-name`           | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                | `rel`                 | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`             | `target`              | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+
+## Slots
+
+| Name   | Description                    |
+| ------ | ------------------------------ |
+| `icon` | Slot used to display the icon. |

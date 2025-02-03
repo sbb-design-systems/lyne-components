@@ -58,6 +58,7 @@ const preloadIconList = [
   'face-smiling-small',
   'folder-open-medium',
   'folder-open-small',
+  'glass-cocktail-small',
   'globe-small',
   'hamburger-menu-small',
   'heart-medium',

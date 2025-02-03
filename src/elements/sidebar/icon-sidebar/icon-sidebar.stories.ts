@@ -23,7 +23,24 @@ const Template = (args: Args): TemplateResult =>
       </a>
     </sbb-header>
     <sbb-icon-sidebar-container id="c1">
-      <sbb-icon-sidebar id="s1"> <button>button24</button> Sidebar content </sbb-icon-sidebar>
+      <sbb-icon-sidebar id="s1">
+        <sbb-icon-sidebar-link
+          accessibility-label="Go to the party"
+          icon-name="glass-cocktail-small"
+          href="#"
+        ></sbb-icon-sidebar-link>
+        <sbb-icon-sidebar-link
+          accessibility-label="Buy a ticket"
+          icon-name="tickets-class-small"
+          href="#"
+          class="sbb-active"
+        ></sbb-icon-sidebar-link>
+        <sbb-icon-sidebar-button
+          aria-label="Exchange money"
+          icon-name="money-exchange-small"
+          href="#"
+        ></sbb-icon-sidebar-button>
+      </sbb-icon-sidebar>
       <sbb-icon-sidebar-content>
         <sbb-sidebar-container id="c2">
           <sbb-sidebar opened color="milk" id="s2">
@@ -88,7 +105,22 @@ const Template = (args: Args): TemplateResult =>
         </sbb-sidebar-container>
       </sbb-icon-sidebar-content>
       <sbb-icon-sidebar position="end" color="milk" id="s4">
-        Sidebar content Sidebar content
+        <sbb-icon-sidebar-link
+          accessibility-label="Go to the party"
+          icon-name="glass-cocktail-small"
+          href="#"
+        ></sbb-icon-sidebar-link>
+        <sbb-icon-sidebar-link
+          accessibility-label="Buy a ticket"
+          icon-name="tickets-class-small"
+          href="#"
+          class="sbb-active"
+        ></sbb-icon-sidebar-link>
+        <sbb-icon-sidebar-button
+          aria-label="Exchange money"
+          icon-name="money-exchange-small"
+          href="#"
+        ></sbb-icon-sidebar-button>
       </sbb-icon-sidebar>
     </sbb-icon-sidebar-container>`;
 
