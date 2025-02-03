@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing.js';
 
 import { SbbFileSelectorElement } from './file-selector.js';
 
-describe(`sbb-file-selector-dropzone`, () => {
+describe(`sbb-file-selector`, () => {
   let form: HTMLFormElement;
   let element: SbbFileSelectorElement;
 
