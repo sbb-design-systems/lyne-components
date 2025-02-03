@@ -7,10 +7,10 @@ export const IS_FOCUSABLE_QUERY = [
   'select',
   'textarea',
   'details',
-  'summary:not(:disabled)',
+  'summary',
   '[tabindex]',
 ]
-  .map((selector) => `${selector}:not([disabled],[tabindex="-1"],[inert])`)
+  .map((selector) => `${selector}:not([disabled],:disabled,[tabindex="-1"],[inert])`)
   .join(',');
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
