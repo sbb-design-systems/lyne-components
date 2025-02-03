@@ -3,6 +3,105 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
-$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
-$disabled: '[disabled], :disabled, [disabled-interactive]';
 $active: ':active, [data-active]';
+
+:host {
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
+
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-button-border-width: var(--sbb-border-width-2x);
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-min-height: var(--sbb-size-element-m);
+  --sbb-button-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+
+  // Calculated and private variables
+  --_width: unset;
+  --_color: var(--sbb-button-color-default-text);
+
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+  }
+}
+
+:host([data-button]) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: ButtonText !important;
+    --sbb-button-color-hover-text: ButtonText !important;
+    --sbb-button-color-active-text: ButtonText !important;
+  }
+}
+
+:host([data-link]) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: LinkText !important;
+    --sbb-button-color-hover-text: LinkText !important;
+    --sbb-button-color-active-text: LinkText !important;
+  }
+}
+
+:host(:not(#{$active}):hover) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(1)};
+    --sbb-button-cursor: pointer;
+    --_color: var(--sbb-button-color-hover-text);
+  }
+}
+
+// Active styles
+:host(#{$active}) {
+  --_color: var(--sbb-button-color-active-text);
+  --_background-color: var(--sbb-button-color-active-background);
+  --_border-color: var(--sbb-button-color-active-border);
+}
+
+:host([data-focus-visible]),
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  // Handle focus on the host (button variant)
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])),
+  // Handle focus on the action (link variant)
+:host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) .sbb-action-base:focus-visible {
+  --_outline-width: var(--sbb-focus-outline-width);
+}
+
+.sbb-action-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sbb-button-min-height);
+  height: var(--sbb-button-min-height);
+  outline: none;
+  color: var(--_color);
+  cursor: var(--sbb-button-cursor);
+  user-select: none;
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-property: color, padding;
+
+  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // Positioning of the content is made by flexbox vertical centering.
+  // The real padding displayed is larger than the defined value below.
+  padding-block: 0 calc(2 * var(--sbb-button-translate-y-content-hover, 0rem));
+  padding-inline: var(--sbb-button-padding-inline);
+}
+
+// TODO: keep here instead of extracting to mixin
+.sbb-action-base {
+  // Reset for link variant
+  text-decoration: none;
+  display: flex;
+  white-space: nowrap;
+}
