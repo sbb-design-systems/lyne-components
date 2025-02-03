@@ -38,7 +38,6 @@ const Template = (args: Args): TemplateResult =>
         <sbb-icon-sidebar-button
           aria-label="Exchange money"
           icon-name="money-exchange-small"
-          href="#"
         ></sbb-icon-sidebar-button>
       </sbb-icon-sidebar>
       <sbb-icon-sidebar-content>
@@ -119,7 +118,6 @@ const Template = (args: Args): TemplateResult =>
         <sbb-icon-sidebar-button
           aria-label="Exchange money"
           icon-name="money-exchange-small"
-          href="#"
         ></sbb-icon-sidebar-button>
       </sbb-icon-sidebar>
     </sbb-icon-sidebar-container>`;
