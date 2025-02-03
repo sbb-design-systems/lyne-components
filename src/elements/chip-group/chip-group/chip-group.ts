@@ -201,6 +201,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
     switch (event.key) {
       case 'Backspace':
         if (!eventTarget.readonly && !eventTarget.disabled) {
+          event.preventDefault();
           this._deleteChip(eventTarget);
           this._focusLastChip();
         }

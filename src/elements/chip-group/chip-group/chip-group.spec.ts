@@ -256,8 +256,65 @@ describe('sbb-chip-group', () => {
     });
   });
 
-  // disabled fieldset
-  // formData interaction
+  describe('within form', () => {
+    let form: HTMLFormElement;
+    let fieldset: HTMLFieldSetElement;
+
+    beforeEach(async () => {
+      await fixture(html`
+        <form>
+          <fieldset>
+            <sbb-form-field>
+              <label>Label</label>
+              <sbb-chip-group name="chip-group-1">
+                <sbb-chip value="chip 1"></sbb-chip>
+                <sbb-chip value="chip 2"></sbb-chip>
+                <sbb-chip value="chip 3"></sbb-chip>
+                <input placeholder="Placeholder" />
+              </sbb-chip-group>
+            </sbb-form-field>
+          </fieldset>
+        </form>
+      `);
+      element = document.querySelector('sbb-chip-group')!;
+      chips = Array.from(document.querySelectorAll('sbb-chip'));
+      formField = document.querySelector('sbb-form-field')!;
+      input = document.querySelector('input')!;
+      form = document.querySelector('form')!;
+      fieldset = document.querySelector('fieldset')!;
+
+      await waitForLitRender(formField);
+    });
+
+    it('should update form value', async () => {
+      let formData = new FormData(form);
+
+      expect(formData.getAll('chip-group-1')).to.be.eql(element.value);
+      input.focus();
+      await sendKeys({ type: 'chip-4' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(formField);
+
+      formData = new FormData(form);
+      expect(formData.getAll('chip-group-1')).to.be.eql(element.value);
+
+      chips[0].remove();
+      await waitForLitRender(formField);
+
+      formData = new FormData(form);
+      expect(formData.getAll('chip-group-1')).to.be.eql(element.value);
+    });
+
+    it('should react when fieldset is disabled', async () => {
+      fieldset.disabled = true;
+      await waitForLitRender(formField);
+
+      const formData = new FormData(form);
+
+      expect(element).to.match(':disabled');
+      expect(formData.getAll('chip-group-1')).to.be.eql([]);
+    });
+  });
 
   // with autocomplete interactions
 });
