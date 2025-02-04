@@ -11,18 +11,21 @@ export abstract class SbbOpenCloseEscapableElement extends SbbOpenCloseBaseEleme
 
   /** Opens the component. */
   public open(): void {
-    overlayStack.push(this);
+    this._cleanStack();
     this._abortController = new AbortController();
-    window.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.key === 'Escape' && !event.defaultPrevented) {
-          event.preventDefault();
-          overlayStack.at(-1)?.close();
-        }
-      },
-      { signal: this._abortController.signal },
-    );
+    if (!overlayStack.length) {
+      window.addEventListener(
+        'keydown',
+        (event: KeyboardEvent) => {
+          if (event.key === 'Escape' && !event.defaultPrevented) {
+            event.preventDefault();
+            overlayStack.at(-1)?.close();
+          }
+        },
+        { signal: this._abortController.signal },
+      );
+    }
+    overlayStack.push(this);
   }
 
   /** Closes the component. */
@@ -31,5 +34,15 @@ export abstract class SbbOpenCloseEscapableElement extends SbbOpenCloseBaseEleme
       overlayStack.pop();
       this._abortController.abort();
     }
+  }
+
+  private _cleanStack(): void {
+    overlayStack
+      .map((overlay: SbbOpenCloseEscapableElement) => overlay.id)
+      .forEach((overlayId: string, index: number) => {
+        if (!document.getElementById(overlayId)) {
+          overlayStack.splice(index, 1);
+        }
+      });
   }
 }
