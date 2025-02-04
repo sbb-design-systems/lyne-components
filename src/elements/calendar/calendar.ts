@@ -1186,6 +1186,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** Creates the calendar table for the daily view. */
   private _createDayTable(weeks: Day<T>[][]): TemplateResult {
+    const today: string = this._dateAdapter.toIso8601(this.now);
     return html`
       <table
         class="sbb-calendar__table"
@@ -1195,51 +1196,44 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       >
         <thead class="sbb-calendar__table-header">
           <tr class="sbb-calendar__table-header-row">
-            ${this._createDayTableHeader()}
+            ${this._weekdays.map(
+              (day: Weekday) => html`
+                <th class="sbb-calendar__table-header">
+                  <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
+                  <span aria-hidden="true">${day.narrow}</span>
+                </th>
+              `,
+            )}
           </tr>
         </thead>
         <tbody class="sbb-calendar__table-body">
-          ${this._createDayTableBody(weeks)}
+          ${weeks.map((week: Day<T>[], rowIndex: number) => {
+            const firstRowOffset: number = DAYS_PER_ROW - week.length;
+            if (rowIndex === 0 && firstRowOffset) {
+              return html`
+                <tr>
+                  ${[...Array(firstRowOffset).keys()].map(
+                    () => html`<td class="sbb-calendar__table-data"></td>`,
+                  )}
+                  ${this._createDayCells(week, today)}
+                </tr>
+              `;
+            }
+            return html`<tr>
+              ${this._createDayCells(week, today)}
+            </tr>`;
+          })}
         </tbody>
       </table>
     `;
   }
 
-  /** Creates the table header with the month header cells. */
-  private _createDayTableHeader(): TemplateResult[] {
-    return this._weekdays.map(
-      (day: Weekday) => html`
-        <th class="sbb-calendar__table-header">
-          <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
-          <span aria-hidden="true">${day.narrow}</span>
-        </th>
-      `,
-    );
-  }
-
-  /** Creates the table body with the day cells. For the first row, it also considers the possible day's offset. */
-  private _createDayTableBody(weeks: Day<T>[][]): TemplateResult[] {
-    const today: string = this._dateAdapter.toIso8601(this.now);
-    return weeks.map((week: Day<T>[], rowIndex: number) => {
-      const firstRowOffset: number = DAYS_PER_ROW - week.length;
-      if (rowIndex === 0 && firstRowOffset) {
-        return html`
-          <tr>
-            ${[...Array(firstRowOffset).keys()].map(
-              () => html`<td class="sbb-calendar__table-data"></td>`,
-            )}
-            ${this._createDayCells(week, today)}
-          </tr>
-        `;
-      }
-      return html`<tr>
-        ${this._createDayCells(week, today)}
-      </tr>`;
-    });
-  }
-
   /* Creates the table in orientation='vertical'. */
   private _createDayTableVertical(weeks: Day<T>[][], nextMonthActiveDate?: T): TemplateResult {
+    const today: string = this._dateAdapter.toIso8601(this.now);
+    const weekOffset = this._dateAdapter.getFirstWeekOffset(
+      nextMonthActiveDate ?? this._activeDate,
+    );
     return html`
       <table
         class="sbb-calendar__table"
@@ -1248,36 +1242,26 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
       >
         <tbody class="sbb-calendar__table-body">
-          ${this._createDayTableBodyVertical(weeks, nextMonthActiveDate)}
+          ${weeks.map((week: Day<T>[], rowIndex: number) => {
+            const weekday = this._weekdays[rowIndex];
+            return html`
+              <tr>
+                ${!nextMonthActiveDate
+                  ? html` <td class="sbb-calendar__table-header">
+                      <sbb-screen-reader-only>${weekday.long}</sbb-screen-reader-only>
+                      <span aria-hidden="true">${weekday.narrow}</span>
+                    </td>`
+                  : nothing}
+                ${rowIndex < weekOffset
+                  ? html`<td class="sbb-calendar__table-data"></td>`
+                  : nothing}
+                ${this._createDayCells(week, today)}
+              </tr>
+            `;
+          })}
         </tbody>
       </table>
     `;
-  }
-
-  /** Creates the table body with the day cells in orientation='vertical', considering the possible day's offset. */
-  private _createDayTableBodyVertical(
-    weeks: Day<T>[][],
-    nextMonthActiveDate?: T,
-  ): TemplateResult[] {
-    const today: string = this._dateAdapter.toIso8601(this.now);
-    const weekOffset = this._dateAdapter.getFirstWeekOffset(
-      nextMonthActiveDate ?? this._activeDate,
-    );
-    return weeks.map((week: Day<T>[], rowIndex: number) => {
-      const weekday = this._weekdays[rowIndex];
-      return html`
-        <tr>
-          ${!nextMonthActiveDate
-            ? html` <td class="sbb-calendar__table-header">
-                <sbb-screen-reader-only>${weekday.long}</sbb-screen-reader-only>
-                <span aria-hidden="true">${weekday.narrow}</span>
-              </td>`
-            : nothing}
-          ${rowIndex < weekOffset ? html`<td class="sbb-calendar__table-data"></td>` : nothing}
-          ${this._createDayCells(week, today)}
-        </tr>
-      `;
-    });
   }
 
   /** Creates the cells for the daily view. */
@@ -1305,6 +1289,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
             @click=${() => this._selectDate(day.value)}
             ?disabled=${isOutOfRange || isFilteredOut}
             value=${day.value}
+            type="button"
             aria-label=${this._dateAdapter.getAccessibilityFormatDate(day.value)}
             aria-pressed=${selected}
             aria-disabled=${isOutOfRange || isFilteredOut}
