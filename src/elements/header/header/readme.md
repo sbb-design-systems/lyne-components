@@ -52,7 +52,8 @@ For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is 
 To indicate an active state of the `sbb-header-link` or `sbb-header-button`,
 the CSS class `sbb-active` should be set on the corresponding element.
 
-From accessibility perspective `aria-current="page"` should be set whenever the CSS class `sbb-active` is set.
+From accessibility perspective `accessibility-current="page"` (or `aria-current="page"` for buttons)
+should be set whenever the CSS class `sbb-active` is set.
 
 ```html
 <sbb-header size="s">
@@ -60,7 +61,7 @@ From accessibility perspective `aria-current="page"` should be set whenever the 
     icon-name="magnifying-glass-small"
     href="https://sbb.ch/somewhere"
     class="sbb-active"
-    aria-current="page"
+    accessibility-current="page"
   >
     Overview
   </sbb-header-link>

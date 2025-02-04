@@ -43,6 +43,11 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
 
+  /** This will be forwarded as aria-current to the inner anchor element. */
+  @forceType()
+  @property({ attribute: 'accessibility-current' })
+  public accessor accessibilityCurrent: string = '';
+
   protected language = new SbbLanguageController(this);
 
   public constructor() {
@@ -85,6 +90,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
         aria-label=${this.accessibilityLabel || nothing}
+        aria-current=${this.accessibilityCurrent || nothing}
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}
         aria-disabled=${this.maybeDisabled ? 'true' : nothing}
       >

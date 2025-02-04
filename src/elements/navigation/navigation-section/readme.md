@@ -9,7 +9,7 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 ```html
 <sbb-navigation-section trigger="nav1" titleContent="Title 1">
   <sbb-navigation-list label="Label 1.1">
-    <sbb-navigation-link aria-current="page" href="...">Label 1.1.1</sbb-navigation-link>
+    <sbb-navigation-link accessibility-current="page" href="...">Label 1.1.1</sbb-navigation-link>
     <sbb-navigation-link href="...">Label 1.1.2</sbb-navigation-link>
     ...
   </sbb-navigation-list>
@@ -19,8 +19,11 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 
 ## Accessibility
 
-When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action.
-Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
+When a navigation action is marked to indicate the user is currently on that page,
+`accessibility-current="page"` (for `sbb-navigation-link`s) or `aria-current="page"` (for `sbb-navigation-button`s)
+should be set on that action.
+Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
+`aria-pressed` should be set on that action.
 
 <!-- Auto Generated Below -->
 
