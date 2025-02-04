@@ -115,9 +115,9 @@ class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   private _syncBreadcrumbs(): void {
     this.listChildren
       .slice(0, -1)
-      .filter((c) => c.hasAttribute('aria-current'))
-      .forEach((c) => c.removeAttribute('aria-current'));
-    this.listChildren[this.listChildren.length - 1]?.setAttribute('aria-current', 'page');
+      .filter((c) => c.hasAttribute('accessibility-current'))
+      .forEach((c) => c.removeAttribute('accessibility-current'));
+    this.listChildren[this.listChildren.length - 1]?.setAttribute('accessibility-current', 'page');
 
     // If it is not expandable, reset state
     if (this.listChildren.length < MIN_BREADCRUMBS_TO_COLLAPSE) {
