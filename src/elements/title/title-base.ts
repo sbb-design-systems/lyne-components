@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './title-common.scss?lit&inline';
 
@@ -19,7 +18,7 @@ export
 @hostAttributes({
   role: 'heading',
 })
-abstract class SbbTitleBase extends SbbNegativeMixin(LitElement) {
+abstract class SbbTitleBase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Title level */

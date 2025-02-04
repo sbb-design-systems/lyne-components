@@ -7,7 +7,7 @@ import { SbbTitleBase } from '../../title.js';
 import style from './sidebar-title.scss?lit&inline';
 
 /**
- * It displays a title inside a sidebar.
+ * It displays the title of the sidebar. It has to be placed inside an `sbb-sidebar` element.
  */
 export
 @customElement('sbb-sidebar-title')

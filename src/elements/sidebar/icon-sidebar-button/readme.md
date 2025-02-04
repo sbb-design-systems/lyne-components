@@ -17,9 +17,25 @@ As an alternative, the icon can be slotted:
 </sbb-icon-sidebar-button>
 ```
 
+## Active / current state
+
+Use `sbb-active` CSS class to visually indicate whether the icon sidebar button is currently selected.
+
+```html
+<sbb-icon-sidebar-button
+  icon-name="glass-cocktail-small"
+  aria-label="Go to the party"
+  class="sbb-active"
+  aria-current="page"
+></sbb-icon-sidebar-button>
+```
+
 ## Accessibility
 
 The definition of a meaningful `aria-label` is mandatory as only an icon is displayed.
+To show the user which entry is active, `accessibility-current='page'`
+(or `aria-current="page"` for `sbb-icon-sidebar-button`s) should be set whenever `sbb-active` class is set.
+See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more information.
 
 <!-- Auto Generated Below -->
 

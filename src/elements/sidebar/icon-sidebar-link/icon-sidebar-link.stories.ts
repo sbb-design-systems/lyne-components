@@ -12,7 +12,7 @@ const Template = ({ currentPage, ...args }: Args): TemplateResult => {
   return html`<sbb-icon-sidebar-link
     ${sbbSpread(args)}
     class=${currentPage ? 'sbb-active' : nothing}
-    aria-current=${currentPage ? 'page' : nothing}
+    accessibility-current=${currentPage ? 'page' : nothing}
   ></sbb-icon-sidebar-link>`;
 };
 
