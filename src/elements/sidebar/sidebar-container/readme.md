@@ -1,7 +1,9 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+Topics: margin-top
+
+> > Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
+> > If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
+> > For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
+> > The following list of paragraphs is only suggested; remove, create and adapt as needed.
 
 The `sbb-sidebar-container` is a component . . .
 

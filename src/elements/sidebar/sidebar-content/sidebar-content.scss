@@ -1,11 +1,6 @@
 @use '../../core/styles/index' as sbb;
 
 :host {
-  // This variable gets overridden to 0s in the core.scss when the animation should be skipped.
-  // We need to redefine it from --sbb-sidebar-container-animation-duration here as we don't
-  // want to globally override the animation duration in core.scss
-  --sbb-sidebar-content__animation-duration: var(--sbb-sidebar-container-animation-duration);
-
   // The variables have to be set to `initial`. Otherwise, in nested containers,
   // outer variables can bleed into the inner container / content.
   --sbb-sidebar-content__margin-inline-start: initial;
@@ -22,6 +17,6 @@
       var(--sbb-sidebar-container__start-width, 0)
     )
     var(--sbb-sidebar-content__margin-inline-end, var(--sbb-sidebar-container__end-width, 0));
-  transition: margin var(--sbb-sidebar-content__animation-duration)
+  transition: margin var(--sbb-sidebar-container-animation-duration)
     var(--sbb-sidebar-container-animation-easing);
 }

@@ -10,18 +10,18 @@
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
-  --sbb-icon-sidebar-button-dimension: var(--sbb-size-element-m);
-  --sbb-icon-sidebar-button-color: var(--sbb-color-granite);
-  --sbb-icon-sidebar-button-current-color: var(--sbb-color-charcoal);
-  --sbb-icon-sidebar-button-current-border-width: var(--sbb-border-width-3x);
-  --sbb-icon-sidebar-button-current-border-inset-block: var(--sbb-spacing-fixed-2x);
-  --sbb-icon-sidebar-button-current-border-inset-inline-start: 0;
-  --sbb-icon-sidebar-button-border-radius: var(--sbb-border-radius-4x);
   --sbb-icon-sidebar-button-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-icon-sidebar-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-icon-sidebar-button-dimension: var(--sbb-size-element-m);
+  --sbb-icon-sidebar-button-border-radius: var(--sbb-border-radius-4x);
+  --sbb-icon-sidebar-button-color: var(--sbb-color-granite);
+  --sbb-icon-sidebar-button-current-color: var(--sbb-color-charcoal);
+  --sbb-icon-sidebar-button-current-border-width: var(--sbb-border-width-3x);
+  --sbb-icon-sidebar-button-current-border-inset-block: var(--sbb-spacing-fixed-2x);
+  --sbb-icon-sidebar-button__current-border-inset-inline-start: 0;
   --sbb-icon-sidebar-button__color: var(--sbb-icon-sidebar-button-color);
   --sbb-icon-sidebar-button__outline-width: 0;
 
@@ -32,13 +32,13 @@
 
 :host([data-button]) {
   @include sbb.if-forced-colors {
-    --sbb-icon-sidebar-button-color: ButtonText;
+    --sbb-icon-sidebar-button-color: ButtonText !important;
   }
 }
 
 :host([data-link]) {
   @include sbb.if-forced-colors {
-    --sbb-icon-sidebar-button-color: LinkText;
+    --sbb-icon-sidebar-button-color: LinkText !important;
   }
 }
 
@@ -79,12 +79,13 @@
   :host(.sbb-active) & {
     color: var(--sbb-icon-sidebar-button-current-color);
 
+    // Visual border which shows the current active entry, displayed at the start or end of the button.
     &::before {
       content: '';
       display: block;
       position: absolute;
       inset-block: var(--sbb-icon-sidebar-button-current-border-inset-block);
-      inset-inline: var(--sbb-icon-sidebar-button-current-border-inset-inline-start) 0;
+      inset-inline: var(--sbb-icon-sidebar-button__current-border-inset-inline-start) 0;
       border-inline-start: var(--sbb-icon-sidebar-button-current-border-width) solid currentcolor;
     }
   }
