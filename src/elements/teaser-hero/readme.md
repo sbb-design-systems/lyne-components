@@ -43,14 +43,15 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                       | Default | Description                                                       |
-| -------------------- | --------------------- | ------- | -------------------------- | ------- | ----------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element. |
-| `download`           | `download`            | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.       |
-| `href`               | `href`                | public  | `string`                   | `''`    | The href value you want to link to.                               |
-| `linkContent`        | `link-content`        | public  | `string`                   | `''`    | Panel link text.                                                  |
-| `rel`                | `rel`                 | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types. |
-| `target`             | `target`              | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                  |
+| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                         |
+| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | ------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element. |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.   |
+| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.         |
+| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                 |
+| `linkContent`          | `link-content`          | public  | `string`                   | `''`    | Panel link text.                                                    |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.   |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                    |
 
 ## Slots
 
