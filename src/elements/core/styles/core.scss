@@ -374,6 +374,11 @@ sbb-sidebar-container:has(
   --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
 
+// Move the current-page-border to the right side when the sidebar has position end
+sbb-icon-sidebar[position='end'] :is(sbb-icon-sidebar-link, sbb-icon-sidebar-button) {
+  --sbb-icon-sidebar-button-current-border-inset-inline-start: auto;
+}
+
 // If there is no title, avoid reserving any space for the button
 sbb-sidebar:not(:has(sbb-sidebar-close-button)) sbb-sidebar-title {
   --sbb-sidebar-title__close-button-placeholder: 0;

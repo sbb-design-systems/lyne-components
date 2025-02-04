@@ -1,8 +1,9 @@
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { iconSidebarButtonCommonStyle, SbbIconSidebarButtonCommonElementMixin } from '../common.js';
+import { SbbIconNameMixin } from '../../icon.js';
+import { iconSidebarButtonCommonStyle } from '../common.js';
 
 /**
  * Link to be placed inside `sbb-icon-sidebar`.
@@ -11,8 +12,12 @@ import { iconSidebarButtonCommonStyle, SbbIconSidebarButtonCommonElementMixin } 
  */
 export
 @customElement('sbb-icon-sidebar-link')
-class SbbIconSidebarLinkElement extends SbbIconSidebarButtonCommonElementMixin(SbbLinkBaseElement) {
+class SbbIconSidebarLinkElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   public static override styles: CSSResultGroup = [iconSidebarButtonCommonStyle];
+
+  protected override renderTemplate(): TemplateResult {
+    return super.renderIconSlot();
+  }
 }
 
 declare global {

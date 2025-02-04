@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -13,27 +13,28 @@ import './icon-sidebar-link.js';
 describe(`sbb-icon-sidebar-link`, () => {
   let root: HTMLElement;
 
-  const cases = { slottedIcon: [false, true], forcedColors: [false, true] };
+  const cases = {
+    slottedIcon: [false, true],
+    forcedColors: [false, true],
+    currentPage: [false, true],
+  };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    describeEach(cases, ({ slottedIcon, forcedColors }) => {
+    describeEach(cases, ({ slottedIcon, forcedColors, currentPage }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
-          slottedIcon
-            ? html`
-                <sbb-icon-sidebar-link href="#">
-                  <sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>
-                </sbb-icon-sidebar-link>
-              `
-            : html`
-                <sbb-icon-sidebar-link
-                  href="#"
-                  icon-name="glass-cocktail-small"
-                ></sbb-icon-sidebar-link>
-              `,
-          {
-            forcedColors: forcedColors,
-          },
+          html`
+            <sbb-icon-sidebar-link
+              href="#"
+              icon-name=${!slottedIcon ? 'glass-cocktail-small' : nothing}
+              class=${currentPage ? 'sbb-active' : nothing}
+            >
+              ${slottedIcon
+                ? html`<sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>`
+                : nothing}
+            </sbb-icon-sidebar-link>
+          `,
+          { forcedColors, maxWidth: 'var(--sbb-size-element-m)' },
         );
       });
 

@@ -3,69 +3,50 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
-$active: ':active, [data-active]';
-
 :host {
-  display: inline-block;
+  display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
-  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-button-border-width: var(--sbb-border-width-2x);
-  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-button-min-height: var(--sbb-size-element-m);
-  --sbb-button-transition-duration: var(
+  --sbb-icon-sidebar-button-dimension: var(--sbb-size-element-m);
+  --sbb-icon-sidebar-button-color: var(--sbb-color-granite);
+  --sbb-icon-sidebar-button-current-color: var(--sbb-color-charcoal);
+  --sbb-icon-sidebar-button-current-border-width: var(--sbb-border-width-3x);
+  --sbb-icon-sidebar-button-current-border-inset-block: var(--sbb-spacing-fixed-2x);
+  --sbb-icon-sidebar-button-current-border-inset-inline-start: 0;
+  --sbb-icon-sidebar-button-border-radius: var(--sbb-border-radius-4x);
+  --sbb-icon-sidebar-button-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
-  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
-
-  // Calculated and private variables
-  --_width: unset;
-  --_color: var(--sbb-button-color-default-text);
+  --sbb-icon-sidebar-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-icon-sidebar-button__color: var(--sbb-icon-sidebar-button-color);
+  --sbb-icon-sidebar-button__outline-width: 0;
 
   @include sbb.if-forced-colors {
-    --sbb-button-color-default-border: CanvasText !important;
-    --sbb-button-color-active-border: Highlight !important;
-    --sbb-button-color-default-background: Canvas !important;
-    --sbb-button-color-hover-background: Canvas !important;
-    --sbb-button-color-active-background: Canvas !important;
+    --sbb-icon-sidebar-button-current-color: Highlight;
   }
 }
 
 :host([data-button]) {
   @include sbb.if-forced-colors {
-    --sbb-button-color-default-text: ButtonText !important;
-    --sbb-button-color-hover-text: ButtonText !important;
-    --sbb-button-color-active-text: ButtonText !important;
+    --sbb-icon-sidebar-button-color: ButtonText;
   }
 }
 
 :host([data-link]) {
   @include sbb.if-forced-colors {
-    --sbb-button-color-default-text: LinkText !important;
-    --sbb-button-color-hover-text: LinkText !important;
-    --sbb-button-color-active-text: LinkText !important;
+    --sbb-icon-sidebar-button-color: LinkText;
   }
 }
 
-:host(:not(#{$active}):hover) {
+:host(:not(:active, [data-active]):hover) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(1)};
-    --sbb-button-cursor: pointer;
-    --_color: var(--sbb-button-color-hover-text);
+    --sbb-icon-sidebar-button__hover-shift: #{sbb.px-to-rem-build(1)};
+    --sbb-icon-sidebar-button__cursor: pointer;
   }
-}
-
-// Active styles
-:host(#{$active}) {
-  --_color: var(--sbb-button-color-active-text);
-  --_background-color: var(--sbb-button-color-active-background);
-  --_border-color: var(--sbb-button-color-active-border);
 }
 
 :host([data-focus-visible]),
@@ -74,34 +55,37 @@ $active: ':active, [data-active]';
 :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])),
   // Handle focus on the action (link variant)
 :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) .sbb-action-base:focus-visible {
-  --_outline-width: var(--sbb-focus-outline-width);
+  --sbb-icon-sidebar-button__outline-width: var(--sbb-focus-outline-width);
 }
 
 .sbb-action-base {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--sbb-button-min-height);
-  height: var(--sbb-button-min-height);
-  outline: none;
-  color: var(--_color);
-  cursor: var(--sbb-button-cursor);
+  width: 100%;
+  height: var(--sbb-icon-sidebar-button-dimension);
+  padding-block: 0 calc(2 * var(--sbb-icon-sidebar-button__hover-shift, 0rem));
+  color: var(--sbb-icon-sidebar-button__color);
+  border-radius: var(--sbb-icon-sidebar-button-border-radius);
+  outline: var(--sbb-focus-outline-color) solid var(--sbb-icon-sidebar-button__outline-width);
+  outline-offset: calc(-1 * var(--sbb-icon-sidebar-button__outline-width));
+  cursor: var(--sbb-icon-sidebar-button__cursor);
   user-select: none;
-  transition-duration: var(--sbb-button-transition-duration);
-  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-duration: var(--sbb-icon-sidebar-button-transition-duration);
+  transition-timing-function: var(--sbb-icon-sidebar-button-transition-easing-function);
   transition-property: color, padding;
 
-  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
-  // Positioning of the content is made by flexbox vertical centering.
-  // The real padding displayed is larger than the defined value below.
-  padding-block: 0 calc(2 * var(--sbb-button-translate-y-content-hover, 0rem));
-  padding-inline: var(--sbb-button-padding-inline);
-}
+  :host(.sbb-active) & {
+    color: var(--sbb-icon-sidebar-button-current-color);
 
-// TODO: keep here instead of extracting to mixin
-.sbb-action-base {
-  // Reset for link variant
-  text-decoration: none;
-  display: flex;
-  white-space: nowrap;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: var(--sbb-icon-sidebar-button-current-border-inset-block) 0;
+      inset-inline-start: var(--sbb-icon-sidebar-button-current-border-inset-inline-start);
+      border-inline-start: var(--sbb-icon-sidebar-button-current-border-width) solid currentcolor;
+    }
+  }
 }

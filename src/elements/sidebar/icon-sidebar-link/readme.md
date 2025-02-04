@@ -1,5 +1,6 @@
-The `sbb-icon-sidebar-link` component provides the same functionality as a native `<a>`,
-enhanced with the design of the sidebar button.
+The `<sbb-icon-sidebar-link>` component provides the same functionality as a native `<a>`,
+enhanced with the design of the icon sidebar link.
+The `<sbb-icon-sidebar-link>` is intended to be used inside `<sbb-icon-sidebar>`.
 
 ```html
 <sbb-icon-sidebar-link
@@ -12,7 +13,7 @@ enhanced with the design of the sidebar button.
 As an alternative, the icon can be slotted:
 
 ```html
-<sbb-icon-sidebar-link accessibility-label="Go to the party">
+<sbb-icon-sidebar-link accessibility-label="Go to the party" href="https://www.sbb.ch">
   <sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>
 </sbb-icon-sidebar-link>
 ```

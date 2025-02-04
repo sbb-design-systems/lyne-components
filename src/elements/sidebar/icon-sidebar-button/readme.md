@@ -1,5 +1,6 @@
-The `sbb-icon-sidebar-button` component provides the same functionality as a native `<button>`
-enhanced with the design of the sidebar button.
+The `<sbb-icon-sidebar-button>` component provides the same functionality as a native `<button>`
+enhanced with the design of the icon sidebar button.
+The `<sbb-icon-sidebar-button>` is intended to be used inside `<sbb-icon-sidebar>`.
 
 ```html
 <sbb-icon-sidebar-button

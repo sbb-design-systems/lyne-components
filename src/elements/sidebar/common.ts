@@ -1,4 +1,3 @@
-export * from './common/icon-sidebar-button-common.js';
 export * from './common/sidebar-common.js';
 export * from './common/sidebar-content-base-element.js';
 
