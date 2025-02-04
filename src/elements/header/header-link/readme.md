@@ -22,10 +22,15 @@ from which the label is displayed; below that, only the icon is visible.
 
 To indicate an active state, the CSS class `sbb-active` should be set.
 
-From accessibility perspective `aria-current="page"` should be set whenever the CSS class `sbb-active` is set.
+From accessibility perspective `accessibility-current="page"` should be set whenever the CSS class `sbb-active` is set.
 
 ```html
-<sbb-header-link icon-name="magnifying-glass-small" href="#" class="sbb-active" aria-current="page">
+<sbb-header-link
+  icon-name="magnifying-glass-small"
+  href="#"
+  class="sbb-active"
+  accessibility-current="page"
+>
   Overview
 </sbb-header-link>
 ```
@@ -43,15 +48,16 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                       | Default    | Description                                                                                                                                                                              |
-| -------------------- | --------------------- | ------- | -------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                   | `''`       | This will be forwarded as aria-label to the inner anchor element.                                                                                                                        |
-| `download`           | `download`            | public  | `boolean`                  | `false`    | Whether the browser will show the download dialog on click.                                                                                                                              |
-| `expandFrom`         | `expand-from`         | public  | `SbbHorizontalFrom`        | `'medium'` | Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others. |
-| `href`               | `href`                | public  | `string`                   | `''`       | The href value you want to link to.                                                                                                                                                      |
-| `iconName`           | `icon-name`           | public  | `string`                   | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                         |
-| `rel`                | `rel`                 | public  | `string`                   | `''`       | The relationship of the linked URL as space-separated link types.                                                                                                                        |
-| `target`             | `target`              | public  | `LinkTargetType \| string` | `''`       | Where to display the linked URL.                                                                                                                                                         |
+| Name                   | Attribute               | Privacy | Type                       | Default    | Description                                                                                                                                                                              |
+| ---------------------- | ----------------------- | ------- | -------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`       | This will be forwarded as aria-current to the inner anchor element.                                                                                                                      |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`       | This will be forwarded as aria-label to the inner anchor element.                                                                                                                        |
+| `download`             | `download`              | public  | `boolean`                  | `false`    | Whether the browser will show the download dialog on click.                                                                                                                              |
+| `expandFrom`           | `expand-from`           | public  | `SbbHorizontalFrom`        | `'medium'` | Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others. |
+| `href`                 | `href`                  | public  | `string`                   | `''`       | The href value you want to link to.                                                                                                                                                      |
+| `iconName`             | `icon-name`             | public  | `string`                   | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                         |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`       | The relationship of the linked URL as space-separated link types.                                                                                                                        |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`       | Where to display the linked URL.                                                                                                                                                         |
 
 ## Slots
 
