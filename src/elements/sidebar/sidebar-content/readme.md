@@ -11,6 +11,6 @@ The sbb-sidebar-content is a container which should be used inside a `sbb-sideba
 
 ## Slots
 
-| Name | Description                                       |
-| ---- | ------------------------------------------------- |
-|      | Use the unnamed slot to add any content elements. |
+| Name | Description                                                                                    |
+| ---- | ---------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add any content elements. Further sbb-sidebar-container` are possible. |

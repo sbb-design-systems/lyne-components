@@ -327,7 +327,7 @@ sbb-train-formation[view='top'] sbb-train-wagon {
 }
 
 sbb-sidebar-container:has(> sbb-sidebar:is([data-skip-animation])) > sbb-sidebar-content {
-  --sbb-sidebar-content-animation-duration: 0s;
+  --sbb-sidebar-content__animation-duration: 0s;
 }
 
 sbb-sidebar-container:has(> sbb-sidebar:is([data-skip-animation])) {
@@ -346,7 +346,7 @@ sbb-sidebar-container:is(
     :not(:has(> sbb-sidebar[position='start']))
   )
   > sbb-sidebar-content {
-  --sbb-sidebar-content-margin-inline-start: 0;
+  --sbb-sidebar-content__margin-inline-start: 0;
 }
 
 sbb-sidebar-container:is(
@@ -361,7 +361,7 @@ sbb-sidebar-container:is(
     :not(:has(> sbb-sidebar[position='end']))
   )
   > sbb-sidebar-content {
-  --sbb-sidebar-content-margin-inline-end: 0;
+  --sbb-sidebar-content__margin-inline-end: 0;
 }
 
 sbb-sidebar-container:has(

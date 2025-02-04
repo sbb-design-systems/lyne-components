@@ -336,7 +336,7 @@ class SbbSidebarElement extends SbbSidebarMixin(
   }
 
   private _buildCssWidthVar(position = this.position): string {
-    return `--sbb-sidebar-container-${position}-width`;
+    return `--sbb-sidebar-container__${position}-width`;
   }
 
   private _detectStickyState(entry: IntersectionObserverEntry): void {

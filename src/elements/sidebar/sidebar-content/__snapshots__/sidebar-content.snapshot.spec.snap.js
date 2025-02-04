@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-sidebar-content renders DOM"] = 
 `<sbb-sidebar-content>
+  Some content
 </sbb-sidebar-content>
 `;
 /* end snapshot sbb-sidebar-content renders DOM */
@@ -19,7 +20,13 @@ snapshots["sbb-sidebar-content renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Some content"
+    }
+  ]
 }
 </p>
 `;
@@ -29,7 +36,13 @@ snapshots["sbb-sidebar-content renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Some content"
+    }
+  ]
 }
 </p>
 `;
