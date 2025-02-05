@@ -10,7 +10,7 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseEscapableElement } from '../../core/base-elements.js';
 import {
   SbbInertController,
   SbbMediaMatcherController,
@@ -68,8 +68,8 @@ export
 })
 class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
-  typeof SbbOpenCloseBaseElement
->(SbbOpenCloseBaseElement) {
+  typeof SbbOpenCloseEscapableElement
+>(SbbOpenCloseEscapableElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
@@ -123,7 +123,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * Opens the menu on trigger click.
    */
-  public open(): void {
+  public override open(): void {
+    super.open();
+
     if (this.state === 'closing' || !this._menu) {
       return;
     }
@@ -152,7 +154,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * Closes the menu.
    */
-  public close(): void {
+  public override close(): void {
+    super.close();
+
     if (this.state === 'opening') {
       return;
     }
@@ -258,18 +262,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     (enabledActions[nextIndex] as HTMLElement).focus();
   }
 
-  // Closes the menu on "Esc" key pressed and traps focus within the menu.
-  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
-    if (this.state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
-      this.close();
-      return;
-    }
-  }
-
   // Removes trigger click listener on trigger change.
   private _removeTriggerClickListener(
     newValue: string | HTMLElement | null,
@@ -361,10 +353,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       passive: true,
       signal: this._windowEventsController.signal,
     });
-    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-      signal: this._windowEventsController.signal,
-    });
-
     // Close menu on backdrop click
     window.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._windowEventsController.signal,

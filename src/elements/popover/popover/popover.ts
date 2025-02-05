@@ -9,7 +9,7 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseEscapableElement } from '../../core/base-elements.js';
 import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, isZeroAnimationDuration } from '../../core/dom.js';
@@ -52,7 +52,7 @@ const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).
 export
 @customElement('sbb-popover')
 @hostAttributes({ popover: 'manual' })
-class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
+class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -116,7 +116,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _language = new SbbLanguageController(this);
 
   /** Opens the popover on trigger click. */
-  public open(): void {
+  public override open(): void {
+    super.open();
+
     if ((this.state !== 'closed' && this.state !== 'closing') || !this._overlay) {
       return;
     }
@@ -149,7 +151,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   }
 
   /** Closes the popover. */
-  public close(target?: HTMLElement): void {
+  public override close(target?: HTMLElement): void {
+    super.close();
+
     if (this.state !== 'opened' && this.state !== 'opening') {
       return;
     }
@@ -203,18 +207,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       postFilter: (el) => el !== this._overlay,
     });
     this.didOpen.emit();
-  }
-
-  // Closes the popover on "Esc" key pressed and traps focus within the popover.
-  private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
-      this.close();
-      return;
-    }
   }
 
   public override connectedCallback(): void {
@@ -329,10 +321,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       passive: true,
       signal: this._openStateController.signal,
     });
-    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-      signal: this._openStateController.signal,
-    });
-
     // Close popover on backdrop click
     window.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._openStateController.signal,

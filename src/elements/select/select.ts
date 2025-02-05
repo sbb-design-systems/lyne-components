@@ -6,7 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { SbbOpenCloseEscapableElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import {
   forceType,
@@ -69,8 +69,8 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
-            SbbOpenCloseBaseElement,
+          SbbFormAssociatedMixin<typeof SbbOpenCloseEscapableElement, string | string[]>(
+            SbbOpenCloseEscapableElement,
           ),
         ),
       ),
@@ -235,7 +235,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /** Opens the selection panel. */
-  public open(): void {
+  public override open(): void {
+    super.open();
+
     if (
       this.state !== 'closed' ||
       !this._overlay ||
@@ -261,7 +263,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /** Closes the selection panel. */
-  public close(): void {
+  public override close(): void {
+    super.close();
+
     if (this.state !== 'opened') {
       return;
     }
@@ -665,7 +669,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
 
     switch (event.key) {
-      case 'Escape':
       case 'Tab':
         this.close();
         break;
