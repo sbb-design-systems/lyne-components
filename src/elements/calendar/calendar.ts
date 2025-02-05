@@ -181,7 +181,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
   /** The orientation of days in the calendar. */
-  @property() public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
+    'horizontal';
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
