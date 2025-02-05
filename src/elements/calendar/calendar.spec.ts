@@ -291,6 +291,59 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-02-01');
       });
 
+      it('no navigation for unmapped keys', async () => {
+        element.focus();
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
+        await sendKeys({ press: 'a' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
+        await sendKeys({ press: '1' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
+      });
+
+      it('no further navigation if out of bound', async () => {
+        element.focus();
+        // go to upper bound
+        expect(getActiveElementValue()).to.be.equal('2023-01-15');
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
+        // no navigation before
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
+        await sendKeys({ press: 'Home' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
+        await sendKeys({ press: 'PageUp' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-01');
+        // go to lower bound
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
+        // no navigation after
+        await sendKeys({ press: 'End' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
+        await sendKeys({ press: 'PageDown' });
+        await waitForLitRender(element);
+        expect(getActiveElementValue()).to.be.equal('2023-01-31');
+      });
+
       it('navigates left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
@@ -753,6 +806,21 @@ describe(`sbb-calendar`, () => {
       ) as HTMLElement;
       await waitForLitRender(element);
       selectedYear.focus();
+    });
+
+    it('focus on the selected year if it is in the view', () => {
+      element.focus();
+      expect(getActiveElementText()).to.be.equal('2023');
+    });
+
+    it('focus on the first year if selected year is not in the view', async () => {
+      const nextYearButton: HTMLElement = element.shadowRoot!.querySelector(
+        '#sbb-calendar__controls-next',
+      )!;
+      nextYearButton.click();
+      await waitForLitRender(element);
+      element.focus();
+      expect(getActiveElementText()).to.be.equal('2040');
     });
 
     it('navigates left', async () => {
