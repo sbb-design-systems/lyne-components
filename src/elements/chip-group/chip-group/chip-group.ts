@@ -145,12 +145,12 @@ class SbbChipGroupElement extends SbbDisabledMixin(
 
   /** Return the list of chip elements **/
   private _chipElements(): SbbChipElement[] {
-    return Array.from(this.querySelectorAll('sbb-chip'));
+    return Array.from(this.querySelectorAll?.('sbb-chip') ?? []);
   }
 
   /** Return the list of enabled chip elements **/
   private _enabledChipElements(): SbbChipElement[] {
-    return Array.from(this.querySelectorAll('sbb-chip:not([disabled])'));
+    return Array.from(this.querySelectorAll?.('sbb-chip:not([disabled])') ?? []);
   }
 
   private _onSlotChange(): void {

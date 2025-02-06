@@ -2,13 +2,15 @@ import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
+import type { SbbFormFieldElement } from '../../form-field.js';
 
 import { SbbChipGroupElement } from './chip-group.js';
 import '../chip.js';
 import '../../form-field.js';
 
 describe(`sbb-chip-group ssr`, () => {
-  let root: SbbChipGroupElement;
+  let root: SbbFormFieldElement;
+  let element: SbbChipGroupElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
@@ -22,9 +24,10 @@ describe(`sbb-chip-group ssr`, () => {
         modules: ['./chip-group.js', '../chip.js', '../../form-field.js'],
       },
     );
+    element = root.querySelector('sbb-chip-group')!;
   });
 
   it('renders', () => {
-    assert.instanceOf(root, SbbChipGroupElement);
+    assert.instanceOf(element, SbbChipGroupElement);
   });
 });
