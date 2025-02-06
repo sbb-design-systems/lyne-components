@@ -20,7 +20,7 @@ interface RadioButtonAccessibilitySnapshot {
   required: boolean;
 }
 
-describe(`radio-button common behaviors`, () => {
+describe(`sbb-radio-button-common`, () => {
   ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {
     const tagSingle = unsafeStatic(selector);
 
