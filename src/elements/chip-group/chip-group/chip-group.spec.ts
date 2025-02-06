@@ -320,7 +320,7 @@ describe('sbb-chip-group', () => {
     });
   });
 
-  describe.only('with autocomplete', () => {
+  describe('with autocomplete', () => {
     let autocomplete: SbbAutocompleteElement;
     let options: SbbOptionElement[];
 
