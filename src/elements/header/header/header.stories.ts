@@ -1,8 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -52,7 +51,7 @@ const HeaderBasicTemplate = (
       target="_blank"
       icon-name="magnifying-glass-small"
       class="sbb-active"
-      aria-current="page"
+      accessibility-current="page"
     >
       Search
     </sbb-header-link>
