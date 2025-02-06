@@ -91,8 +91,7 @@ export const Readonly: StoryObj = {
   args: { ...defaultArgs, readonly: true },
 };
 
-// TODO
-export const WithAutoComplete: StoryObj = {
+export const WithAutocomplete: StoryObj = {
   render: WithAutocompleteTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },

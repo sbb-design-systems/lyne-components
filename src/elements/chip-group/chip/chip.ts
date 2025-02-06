@@ -13,7 +13,7 @@ import '../../button/mini-button.js';
 import style from './chip.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * It displays a chip. Usually used in combination with `sbb-chip-group`.
  *
  * @slot - Use the unnamed slot to add the display value. If not provided, the 'value' will be used.
  */

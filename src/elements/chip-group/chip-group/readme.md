@@ -34,6 +34,8 @@ The `sbb-chip-group` has a `disabled` and a `readonly` state that is automatical
 </sbb-form-field>
 ```
 
+## Style
+
 The `sbb-chip-group` has a `negative` variant. If within a `sbb-form-field`, the properties automatically sync.
 
 ```html
@@ -100,7 +102,7 @@ At any time, only a single chip (usually, the last one) is focusable and part of
 
 ## Accessibility
 
-The `sbb-chip-group` follows the `grid` pattern;
+The `sbb-chip-group` follows the `grid` aria pattern.
 
 <!-- Auto Generated Below -->
 

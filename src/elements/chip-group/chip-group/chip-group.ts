@@ -18,7 +18,7 @@ import { SbbChipElement } from '../chip.js';
 import style from './chip-group.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
  *
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that the component's value has changed.
