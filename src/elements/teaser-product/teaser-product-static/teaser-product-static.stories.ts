@@ -89,8 +89,8 @@ const footer = (): TemplateResult => html`
 const Template = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
   <sbb-teaser-product-static ${sbbSpread(args)}>
     ${slottedImg
-      ? html`<img slot="image" src=${sampleImages[4]} alt="" />`
-      : html`<sbb-image slot="image" image-src=${sampleImages[4]}></sbb-image>`}
+      ? html`<img slot="image" src=${sampleImages[1]} alt="" />`
+      : html`<sbb-image slot="image" image-src=${sampleImages[1]}></sbb-image>`}
     ${content()} ${withFooter ? footer() : nothing}
   </sbb-teaser-product-static>
 `;
@@ -99,8 +99,8 @@ const WithChipTemplate = ({ withFooter, slottedImg, ...args }: Args): TemplateRe
   <sbb-teaser-product-static ${sbbSpread(args)}>
     <figure slot="image" class="sbb-figure">
       ${slottedImg
-        ? html`<img src=${sampleImages[4]} alt="" />`
-        : html`<sbb-image image-src=${sampleImages[4]}></sbb-image>`}
+        ? html`<img src=${sampleImages[1]} alt="" />`
+        : html`<sbb-image image-src=${sampleImages[1]}></sbb-image>`}
 
       <sbb-chip-label
         class=${args['image-alignment'] === 'after'

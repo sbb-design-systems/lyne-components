@@ -91,7 +91,7 @@ describe(`sbb-image`, () => {
     it(
       'transparent image from img cdn',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-image image-src=${sampleImages[9]}></sbb-image>`);
+        await setup.withFixture(html`<sbb-image image-src=${sampleImages[8]}></sbb-image>`);
 
         await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
