@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 
 import { SbbCheckboxElement } from './checkbox.js';
 
-describe(`sbb-checkbox with`, () => {
+describe(`sbb-checkbox`, () => {
   describe('general', () => {
     let element: SbbCheckboxElement;
 

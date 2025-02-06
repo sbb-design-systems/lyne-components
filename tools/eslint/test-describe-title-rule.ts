@@ -9,7 +9,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         const fileName = context.getFilename();
         const expression = node.parent as TSESTree.CallExpression;
         const expressionArguments = expression.arguments;
-        const componentName = fileName.match(/\/([^/]+)\/?.spec.ts$/)?.[1]?.match(/^(.*)\./)?.[1];
+        const componentName = fileName.match(/.*\/([^.]+).*\.spec\.ts$/)?.[1];
 
         if (!componentName || !expressionArguments.length) {
           return;
