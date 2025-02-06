@@ -54,12 +54,11 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseEscapa
 
   /** Closes the component. */
   public override close(result?: any, target?: HTMLElement): any {
-    super.close();
-
     if (this.state !== 'opened') {
       return;
     }
 
+    super.close();
     this.returnValue = result;
     this.overlayCloseElement = target;
     const eventData: SbbOverlayCloseEventDetails = {

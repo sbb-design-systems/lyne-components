@@ -70,8 +70,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   /** Opens the component. */
   public override open(): void {
-    super.open();
-
     if (this.state !== 'closed') {
       return;
     }
@@ -89,6 +87,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       return;
     }
 
+    super.open();
     this.showPopover?.();
     this.state = 'opening';
 

@@ -124,16 +124,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Opens the menu on trigger click.
    */
   public override open(): void {
-    super.open();
-
     if (this.state === 'closing' || !this._menu) {
       return;
     }
-
     if (!this.willOpen.emit()) {
       return;
     }
 
+    super.open();
     this.showPopover?.();
     this.state = 'opening';
     this._setMenuPosition();
@@ -155,8 +153,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes the menu.
    */
   public override close(): void {
-    super.close();
-
     if (this.state === 'opening') {
       return;
     }
@@ -165,6 +161,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       return;
     }
 
+    super.close();
     this.state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
 

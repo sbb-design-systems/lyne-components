@@ -236,8 +236,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Opens the selection panel. */
   public override open(): void {
-    super.open();
-
     if (
       this.state !== 'closed' ||
       !this._overlay ||
@@ -251,6 +249,8 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (!this.willOpen.emit()) {
       return;
     }
+
+    super.open();
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
@@ -264,15 +264,14 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Closes the selection panel. */
   public override close(): void {
-    super.close();
-
     if (this.state !== 'opened') {
       return;
     }
-
     if (!this.willClose.emit()) {
       return;
     }
+
+    super.close();
     this.state = 'closing';
     this._openPanelEventsController.abort();
 

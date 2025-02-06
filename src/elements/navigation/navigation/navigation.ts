@@ -122,16 +122,14 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseEscapable
    * Opens the navigation.
    */
   public override open(): void {
-    super.open();
-
     if (this.state !== 'closed' || !this._navigation) {
       return;
     }
-
     if (!this.willOpen.emit()) {
       return;
     }
 
+    super.open();
     this.showPopover?.();
     this.state = 'opening';
     this._checkActiveActions();
@@ -167,15 +165,14 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseEscapable
    * Closes the navigation.
    */
   public override close(): void {
-    super.close();
-
     if (this.state !== 'opened') {
       return;
     }
-
     if (!this.willClose.emit()) {
       return;
     }
+
+    super.close();
     this.state = 'closing';
     this.startUpdate();
     this._triggerElement?.setAttribute('aria-expanded', 'false');

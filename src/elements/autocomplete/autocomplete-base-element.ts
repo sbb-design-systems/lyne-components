@@ -93,8 +93,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** Opens the autocomplete. */
   public override open(): void {
-    super.open();
-
     if (
       this.state !== 'closed' ||
       !this._overlay ||
@@ -107,6 +105,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
+    super.open();
     this.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
@@ -120,8 +119,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** Closes the autocomplete. */
   public override close(): void {
-    super.close();
-
     if (this.state !== 'opened') {
       return;
     }
@@ -129,6 +126,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
+    super.close();
     this.state = 'closing';
     this._openPanelEventsController.abort();
 

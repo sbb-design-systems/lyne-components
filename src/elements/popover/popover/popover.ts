@@ -117,8 +117,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
 
   /** Opens the popover on trigger click. */
   public override open(): void {
-    super.open();
-
     if ((this.state !== 'closed' && this.state !== 'closing') || !this._overlay) {
       return;
     }
@@ -126,6 +124,8 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
     if (!this.willOpen.emit()) {
       return;
     }
+
+    super.open();
 
     // Close the other popovers
     for (const popover of Array.from(popoversRef)) {
@@ -152,8 +152,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
 
   /** Closes the popover. */
   public override close(target?: HTMLElement): void {
-    super.close();
-
     if (this.state !== 'opened' && this.state !== 'opening') {
       return;
     }
@@ -163,6 +161,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
       return;
     }
 
+    super.close();
     this.state = 'closing';
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
