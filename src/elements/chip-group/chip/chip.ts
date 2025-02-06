@@ -5,13 +5,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
+import { i18nChipDelete } from '../../core/i18n.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 
 import style from './chip.scss?lit&inline';
-
-import { i18nChipDelete } from '@sbb-esta/lyne-elements/core/i18n/i18n';
 
 /**
  * Describe the purpose of the component with a single short sentence.
