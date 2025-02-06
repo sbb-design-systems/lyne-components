@@ -411,7 +411,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         signal: this._openPanelEventsController.signal,
         // We need key event to run before any other subscription to guarantee a correct
         // interaction with other components (necessary for the 'sbb-chip-group' use case).
-        capture: false,
+        capture: true,
       },
     );
   }
