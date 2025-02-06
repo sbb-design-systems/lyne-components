@@ -14,7 +14,6 @@ import {
   playwrightLauncher,
   type PlaywrightLauncher,
 } from '@web/test-runner-playwright';
-import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 import { initCompiler } from 'sass';
 
@@ -91,14 +90,7 @@ const browsers =
       ? [playwrightLauncher({ product: 'firefox', ...launchOptions })]
       : cliArgs.webkit
         ? [playwrightLauncher({ product: 'webkit', ...launchOptions })]
-        : cliArgs.debug
-          ? [
-              puppeteerLauncher({
-                launchOptions: { headless: false, devtools: true },
-                ...concurrency,
-              }),
-            ]
-          : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
+        : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const preloadedIcons = await preloadIcons();
 const preloadedFonts = await preloadFonts();
