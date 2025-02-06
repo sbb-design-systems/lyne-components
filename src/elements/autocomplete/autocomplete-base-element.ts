@@ -335,7 +335,12 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.triggerElement?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
-      { signal: this._triggerEventsController.signal },
+      {
+        signal: this._triggerEventsController.signal,
+        // We need key event to run before any other subscription to guarantee a correct
+        // interaction with other components (necessary for the 'sbb-chip-group' use case).
+        capture: true,
+      },
     );
   }
 
