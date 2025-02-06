@@ -28,6 +28,8 @@ describe(`sbb-autocomplete`, () => {
     `);
     input = formField.querySelector<HTMLInputElement>('input')!;
     element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+
+    await waitForLitRender(formField);
   });
 
   describeIf(isSafari, 'Safari', async () => {
@@ -179,7 +181,6 @@ describe(`sbb-autocomplete`, () => {
     const keydownSpy = new EventSpy('keydown', input);
 
     input.focus();
-
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
