@@ -1,50 +1,50 @@
-import { html } from 'lit';
+import { html, type TemplateResult } from 'lit';
 
-import {
-  describeViewports,
-  describeEach,
-  visualDiffDefault,
-  visualDiffStandardStates,
-} from '../../core/testing/private.js';
+import { describeViewports, describeEach, visualDiffDefault } from '../../core/testing/private.js';
 
 import './chip-group.js';
+import '../chip.js';
+import '../../form-field.js';
+
+const cases = {
+  negative: [true, false],
+};
+
+const template = (
+  args: Partial<{ negative: boolean; disabled: boolean; readonly: boolean }> = {},
+): TemplateResult => html`
+  <sbb-form-field ?negative=${args.negative}>
+    <label>Label</label>
+    <sbb-chip-group name="chip-group-1">
+      <sbb-chip value="chip 1"></sbb-chip>
+      <sbb-chip value="chip 2"></sbb-chip>
+      <sbb-chip value="chip 3"></sbb-chip>
+      <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
+    </sbb-chip-group>
+  </sbb-form-field>
+`;
 
 describe('sbb-chip-group', () => {
-  /**
-   * Add the `viewports` param to test only specific viewport;
-   * add the `viewportHeight` param to set a fixed height for the browser.
-   */
-  describeViewports(() => {
-    // Create visual tests considering the implemented states (default, hover, active, focus)
-    for (const state of visualDiffStandardStates) {
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+    describeEach(cases, ({ negative }) => {
       it(
-        `${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`<sbb-chip-group></sbb-chip-group>`);
+        `${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ negative }));
         }),
       );
-    }
 
-    /**
-     * Create visual tests combining the values of the provided object;
-     * useful when testing combinations of disabled, negative, visual variants, etc.
-     * eg.
-     *  1. one=true two={ name: 'A', value: 1 }
-     *  2. one=true two={ name: 'B', value: 2 }
-     *  3. one=false two={ name: 'A', value: 1 }
-     *  4. one=false two={ name: 'B', value: 2 }
-     */
-    const example = {
-      two: [
-        { name: 'A', value: 1 },
-        { name: 'B', value: 2 },
-      ],
-    };
-    describeEach(example, ({ two }) => {
       it(
-        visualDiffDefault.name,
+        'disabled',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html` <sbb-chip-group> ${two.name} </sbb-chip-group> `);
+          await setup.withFixture(template({ negative, disabled: true }));
+        }),
+      );
+
+      it(
+        'readonly',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ negative, readonly: true }));
         }),
       );
     });
