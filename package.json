@@ -125,7 +125,7 @@
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "npm-run-all2": "7.0.2",
-    "octokit": "4.1.0",
+    "octokit": "4.1.1",
     "playwright": "1.50.1",
     "postcss": "8.5.1",
     "prettier": "3.4.2",
