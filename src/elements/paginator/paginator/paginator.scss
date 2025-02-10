@@ -63,6 +63,14 @@
   gap: var(--sbb-spacing-fixed-2x);
   white-space: nowrap;
   color: var(--sbb-paginator-page-color);
+
+  // Reapply part of the global form-field css that does not pierce the shadow DOM.
+  sbb-select {
+    @include sbb.text-m--regular;
+
+    color: var(--sbb-form-field-text-color);
+    padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+  }
 }
 
 .sbb-paginator__pages {
