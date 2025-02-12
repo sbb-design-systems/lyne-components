@@ -632,7 +632,7 @@ describe(`sbb-tag-group`, () => {
       );
     });
 
-    it('updates form in exlusive mode', async () => {
+    it('updates form in exclusive mode', async () => {
       element.multiple = false;
       await waitForLitRender(element);
 
