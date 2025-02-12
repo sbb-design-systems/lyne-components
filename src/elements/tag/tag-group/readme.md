@@ -79,6 +79,10 @@ const uncheckTags = () => {
 </sbb-tag-group>
 ```
 
+## States
+
+The component can disable all slotted `sbb-tag`s by setting the `disabled` property to `true`.
+
 ## Accessibility
 
 The property `listAccessibilityLabel` is forwarded as `aria-label` to the inner list that the component uses to display the tags,
