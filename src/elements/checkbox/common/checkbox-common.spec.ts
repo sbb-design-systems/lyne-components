@@ -20,7 +20,7 @@ interface CheckboxAccessibilitySnapshot {
   required: boolean;
 }
 
-describe(`checkbox common behaviors`, () => {
+describe(`sbb-checkbox-common`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
     const tagSingle = unsafeStatic(selector);
 

@@ -28,8 +28,8 @@
   transition-duration: var(--sbb-flip-card-details-transition-duration);
 
   :host([data-flipped]) & {
-    transition-delay: var(--sbb-flip-card-details-transition-delay),
-      var(--sbb-flip-card-details-transition-delay);
+    transition-delay:
+      var(--sbb-flip-card-details-transition-delay), var(--sbb-flip-card-details-transition-delay);
   }
 }
 

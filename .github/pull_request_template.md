@@ -17,7 +17,7 @@ Please check if your PR fulfills the following requirements:
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
 
-See [Review Guidelines](../docs/REVIEW.md) for more information what is checked during review process.
+See [Review Guidelines](../docs/REVIEW.md) for more information on what is checked during the review process.
 
 ## Changes
 
