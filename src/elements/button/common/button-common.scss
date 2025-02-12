@@ -130,7 +130,7 @@ $active: ':active, [data-active]';
 
 :host(:not(#{$disabled}, #{$active}):hover) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(1)};
+    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-button-shadow-1-offset-y: calc(
       0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
     );
@@ -177,7 +177,7 @@ $active: ':active, [data-active]';
 .sbb-action-base {
   @include sbb.text-xs--bold;
 
-  display: inline-flex;
+  display: flex;
   gap: var(--sbb-button-gap);
   align-items: center;
   justify-content: center;
@@ -194,15 +194,12 @@ $active: ':active, [data-active]';
   background-color: var(--_background-color);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
-  transition-property: color, padding, background-color;
+  transition-property: color, background-color;
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
   // The real padding displayed is larger than the defined value below.
-  padding-block: var(--sbb-button-padding-block-min)
-    calc(
-      var(--sbb-button-padding-block-min) + 2 * var(--sbb-button-translate-y-content-hover, 0rem)
-    );
+  padding-block: var(--sbb-button-padding-block-min);
   padding-inline: var(--sbb-button-padding-inline);
 
   // Needed for support border (see below)
@@ -229,7 +226,6 @@ $active: ':active, [data-active]';
 .sbb-action-base {
   // Reset for link variant
   text-decoration: none;
-  display: flex;
   white-space: nowrap;
 }
 
@@ -239,4 +235,12 @@ $active: ':active, [data-active]';
   :host(#{$icon-only}) & {
     display: none;
   }
+}
+
+.sbb-button__label,
+::slotted([slot='icon']),
+sbb-icon {
+  transition: translate var(--sbb-button-transition-duration)
+    var(--sbb-button-transition-easing-function);
+  translate: 0 var(--sbb-button-translate-y-content-hover, 0);
 }
