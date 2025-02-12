@@ -69,7 +69,9 @@
   color: var(--sbb-icon-sidebar-button__color);
   border-radius: var(--sbb-icon-sidebar-button-border-radius);
   outline: var(--sbb-focus-outline-color) solid var(--sbb-icon-sidebar-button__outline-width);
-  outline-offset: calc(-1 * var(--sbb-icon-sidebar-button__outline-width));
+  outline-offset: calc(
+    -1 * var(--sbb-icon-sidebar-button__outline-width) - #{sbb.px-to-rem-build(5)}
+  );
   cursor: var(--sbb-icon-sidebar-button__cursor);
   user-select: none;
   transition-duration: var(--sbb-icon-sidebar-button-transition-duration);
