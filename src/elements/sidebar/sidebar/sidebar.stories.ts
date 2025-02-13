@@ -39,6 +39,19 @@ const defaultArgs: Args = {
   mode: 'side',
 };
 
+const Template2 = () =>
+  html`<sbb-sidebar-container id="c1">
+    <sbb-sidebar id="s1" opened>Sidebar 1 start</sbb-sidebar>
+    <sbb-sidebar-content>
+      <sbb-sidebar-container id="c2">
+        <sbb-sidebar id="s3" opened>Sidebar 3 start</sbb-sidebar>
+        <sbb-sidebar-content>Content</sbb-sidebar-content>
+        <sbb-sidebar id="s4" position="end" mode="over" opened>Sidebar 4 end</sbb-sidebar>
+      </sbb-sidebar-container>
+    </sbb-sidebar-content>
+    <sbb-sidebar id="s2" position="end" opened>Sidebar 2 end</sbb-sidebar>
+  </sbb-sidebar-container>`;
+
 const Template = (args: Args): TemplateResult =>
   html`<sbb-header expanded>
       <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
@@ -177,6 +190,12 @@ const Template = (args: Args): TemplateResult =>
 
 export const Default: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const Default2: StoryObj = {
+  render: Template2,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };

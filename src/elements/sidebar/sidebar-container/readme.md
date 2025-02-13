@@ -2,16 +2,21 @@ The `sbb-sidebar-container` is a component that holds together the `sbb-sidebar-
 and one or two `sbb-sidebar` elements. The container is responsible for orchestrating opening and closing of the sidebars
 depending on available space.
 
+Inside the `sbb-sidebar-content` another `sbb-sidebar-container` can be placed
+to achieve multiple nested icon sidebars.
+
 ```html
 <sbb-sidebar-container>
   <sbb-sidebar>
     <sbb-sidebar-title>Start</sbb-sidebar-title>
     <sbb-sidebar-close-button></sbb-sidebar-close-button>
+    Sidebar content
   </sbb-sidebar>
   <sbb-sidebar-content>Content</sbb-sidebar-content>
   <sbb-sidebar position="end">
     <sbb-sidebar-title>End</sbb-sidebar-title>
     <sbb-sidebar-close-button></sbb-sidebar-close-button>
+    Sidebar content
   </sbb-sidebar>
 </sbb-sidebar-container>
 ```

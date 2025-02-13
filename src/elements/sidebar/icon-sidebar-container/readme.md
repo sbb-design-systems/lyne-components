@@ -1,45 +1,33 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-icon-sidebar-container` is a component that holds together the `sbb-icon-sidebar-content`
+and one or two `sbb-icon-sidebar` elements.
 
-The `sbb-icon-sidebar-container` is a component . . .
+Inside the `sbb-icon-sidebar-content` another `sbb-icon-sidebar-container` can be placed
+to achieve multiple nested icon sidebars.
 
 ```html
-<sbb-icon-sidebar-container></sbb-icon-sidebar-container>
+<sbb-icon-sidebar-container>
+  <sbb-icon-sidebar>
+    <sbb-icon-sidebar-link
+      accessibility-label="Go to the party"
+      icon-name="glass-cocktail-small"
+      href="#"
+    ></sbb-icon-sidebar-link>
+  </sbb-icon-sidebar>
+  <sbb-icon-sidebar-content>Content</sbb-sidebar-content>
+  <sbb-icon-sidebar position="end">
+    <sbb-icon-sidebar-link
+      accessibility-label="Go to the party"
+      icon-name="glass-cocktail-small"
+      href="#"
+    ></sbb-icon-sidebar-link>
+  </sbb-icon-sidebar>
+</sbb-icon-sidebar-container>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+When the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
+In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
 
 <!-- Auto Generated Below -->
 

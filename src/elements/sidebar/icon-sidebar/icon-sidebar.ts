@@ -7,7 +7,7 @@ import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.j
 import style from './icon-sidebar.scss?lit&inline';
 
 /**
- * This component corresponds to a icon-sidebar that can be opened on the icon sidebar container.
+ * Icon sidebar, can be placed inside a `sbb-icon-sidebar-container` element.
  *
  * @slot - Use the unnamed slot to slot any content into the icon-sidebar.
  */
