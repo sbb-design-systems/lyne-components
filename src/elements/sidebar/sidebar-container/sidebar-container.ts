@@ -115,13 +115,14 @@ class SbbSidebarContainerElement extends LitElement {
     const isMinimumSpace = width - sumOfAllRelevantSidebarWidths < MIN_WIDTH_BEFORE_COLLAPSE;
 
     sidebars.forEach((sidebar) => {
+      const wasMinimum = sidebar.hasAttribute('data-minimum-space');
       sidebar.toggleAttribute('data-minimum-space', isMinimumSpace);
 
       if (sidebar.mode !== 'side') {
         return;
       }
 
-      if ((isMinimumSpace || hasForcedClosedParentContainer) && sidebar.opened) {
+      if ((isMinimumSpace || hasForcedClosedParentContainer) && sidebar.opened && !wasMinimum) {
         // We have to close the sidebar when the remaining width is below the minimum or the parent container runs out of space.
 
         if (sidebar.isOpen && !sidebar.hasAttribute('data-skip-animation')) {

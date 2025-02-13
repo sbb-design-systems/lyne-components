@@ -145,14 +145,14 @@ class SbbSidebarElement extends SbbSidebarMixin(
   }
 
   /** Opens the sidebar. */
-  public async open(): Promise<void> {
+  public open(): void {
     if (this.state === 'opening' || this.state === 'opened' || !this.willOpen.emit()) {
       return;
     }
 
     this.startAnimation();
-
     this._lastFocusedElement = document.activeElement as HTMLElement;
+    this.opened = true;
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
     const isDuringInitialization = !this.hasUpdated;
@@ -161,19 +161,16 @@ class SbbSidebarElement extends SbbSidebarMixin(
       this.toggleAttribute('data-skip-animation', true);
     } else {
       this.state = 'opening';
+      return;
     }
 
+    // We have to wait for the first update to be completed
+    // in order to have the size of the sidebar ready for the animation.
     if (isDuringInitialization) {
-      // We have to wait for the first update to be completed
-      // in order to have the size of the sidebar ready for the animation.
-      await this.updateComplete;
-    }
-
-    this.opened = true;
-
-    // If the animation duration is zero, the animationend event is not always fired reliably.
-    // In this case we directly set the `opened` state.
-    if (isDuringInitialization || isZeroAnimationDuration) {
+      this.updateComplete.then(() => this._handleOpening());
+    } else {
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `opened` state.
       this._handleOpening();
     }
   }

@@ -76,6 +76,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, initially').to.be.true;
 
     await setViewportWidth(1279);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, after reduction').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, after reduction').to.be.true;
@@ -85,6 +86,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar3).not.to.have.attribute('data-minimum-space-closing');
 
     await setViewportWidth(320);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, zero').to.be.false;
     expect(sidebar2.isOpen, 'sidebar 2, zero').to.be.false;
@@ -92,6 +94,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, zero').to.be.true;
 
     await setViewportWidth(1179);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, after increasing').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, after increasing').to.be.true;
@@ -99,6 +102,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, after increasing').to.be.true;
 
     await setViewportWidth(1280);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, after max resolution').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, after max resolution').to.be.true;
@@ -165,5 +169,20 @@ describe('sbb-sidebar-container', () => {
     // Should stay stable during other resize
     await setViewportWidth(930);
     expect(sidebar3.isOpen).to.be.false;
+  });
+
+  it('should not close manually opened sidebar', async () => {
+    // We close over mode sidebar to not interfere with other sidebar
+    sidebar4.close();
+
+    // We shrink to a size where sidebar2 gets closed
+    await setViewportWidth(900);
+    expect(sidebar2.isOpen, 'initially').to.be.false;
+
+    sidebar2.open();
+    expect(sidebar2.isOpen, 'after calling open').to.be.true;
+
+    await setViewportWidth(901);
+    expect(sidebar2.isOpen, 'after increase viewport').to.be.true;
   });
 });
