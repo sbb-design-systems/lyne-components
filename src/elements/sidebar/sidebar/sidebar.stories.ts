@@ -39,7 +39,7 @@ const defaultArgs: Args = {
   mode: 'side',
 };
 
-const Template2 = () =>
+const Template2 = (): TemplateResult =>
   html`<sbb-sidebar-container id="c1">
     <sbb-sidebar id="s1" opened>Sidebar 1 start</sbb-sidebar>
     <sbb-sidebar-content>
