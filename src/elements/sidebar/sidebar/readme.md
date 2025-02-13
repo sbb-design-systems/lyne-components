@@ -58,11 +58,11 @@ The `sbb-sidebar` is a component . . .
 
 ## Methods
 
-| Name     | Privacy | Description                     | Parameters | Return          | Inherited From          |
-| -------- | ------- | ------------------------------- | ---------- | --------------- | ----------------------- |
-| `close`  | public  | Closes the sidebar.             |            | `void`          | SbbOpenCloseBaseElement |
-| `open`   | public  | Opens the sidebar.              |            | `Promise<void>` | SbbOpenCloseBaseElement |
-| `toggle` | public  | Toggles the sidebar visibility. |            | `void`          |                         |
+| Name     | Privacy | Description                     | Parameters | Return | Inherited From          |
+| -------- | ------- | ------------------------------- | ---------- | ------ | ----------------------- |
+| `close`  | public  | Closes the sidebar.             |            | `void` | SbbOpenCloseBaseElement |
+| `open`   | public  | Opens the sidebar.              |            | `void` | SbbOpenCloseBaseElement |
+| `toggle` | public  | Toggles the sidebar visibility. |            | `void` |                         |
 
 ## Events
 
