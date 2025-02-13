@@ -5,7 +5,6 @@ import { html } from 'lit';
 import readme from './readme.md?raw';
 
 import '../../card.js';
-import './sidebar-content.js';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk"> See 'sbb-sidebar' examples to see it in action. </sbb-card>

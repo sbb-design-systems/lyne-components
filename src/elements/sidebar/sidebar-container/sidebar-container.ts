@@ -95,14 +95,10 @@ class SbbSidebarContainerElement extends LitElement {
     const parentSidebarContainer =
       this.parentElement?.closest<SbbSidebarContainerElement>('sbb-sidebar-container');
 
-    const parentSidebars = parentSidebarContainer?.sidebars;
+    const parentSidebars = parentSidebarContainer?.sidebars ?? [];
 
-    if (parentSidebars) {
-      await Promise.all(
-        parentSidebars.map((sidebar) =>
-          sidebar.updateComplete.then(() => sidebar.animationComplete),
-        ),
-      );
+    for (const sidebar of parentSidebars) {
+      await sidebar.updateComplete.then(() => sidebar.animationComplete);
     }
 
     const width = this.offsetWidth ?? 0;
@@ -112,7 +108,7 @@ class SbbSidebarContainerElement extends LitElement {
 
     const sidebars = this.sidebars;
     const hasForcedClosedParentContainer =
-      parentSidebars?.some((sidebar) => sidebar.hasAttribute('data-minimum-space')) ?? false;
+      parentSidebars.some((sidebar) => sidebar.hasAttribute('data-minimum-space')) ?? false;
     const sumOfAllRelevantSidebarWidths = sidebars
       .filter((sidebar) => sidebar.mode === 'side')
       .reduce((accumulator, currentValue) => accumulator + (currentValue.offsetWidth ?? 0), 0);
