@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { readConfig } from '../core/config.js';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.js';
+import { dateConverter } from '../core/decorators.js';
 import {
   SbbFormAssociatedInputMixin,
   type FormRestoreReason,
@@ -57,6 +58,12 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     return this._valueAsDate ?? null;
   }
   private _valueAsDate?: T | null;
+
+  @property({ converter: dateConverter, reflect: true, type: Object })
+  public accessor min: T | null = null;
+
+  @property({ converter: dateConverter, reflect: true, type: Object })
+  public accessor max: T | null = null;
 
   @property({ attribute: 'weekday-style' })
   public accessor weekdayStyle: 'long' | 'short' | 'narrow' | 'none' = 'short';
