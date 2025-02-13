@@ -52,6 +52,15 @@ export const SbbAnimationCompleteMixin = <T extends AbstractConstructor<LitEleme
 
     private async _enqueueAnimation(): Promise<void> {
       this.isAnimating = true;
+      const stopAnimation = this.stopAnimation;
+
+      const result = new Promise<void>((r) => {
+        this.stopAnimation = () => {
+          stopAnimation();
+          this.isAnimating = false;
+          r();
+        };
+      });
       try {
         // Ensure any previous update has resolved before updating.
         await this._animationPromise;
@@ -62,12 +71,7 @@ export const SbbAnimationCompleteMixin = <T extends AbstractConstructor<LitEleme
         // `window.onunhandledrejection`.
         Promise.reject(e);
       }
-      return new Promise((r) => {
-        this.stopAnimation = () => {
-          this.isAnimating = false;
-          r();
-        };
-      });
+      return result;
     }
   }
 

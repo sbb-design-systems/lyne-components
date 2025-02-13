@@ -184,6 +184,7 @@ class SbbSidebarElement extends SbbSidebarMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
+
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));

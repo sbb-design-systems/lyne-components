@@ -16,6 +16,8 @@ import style from './sidebar-container.scss?lit&inline';
 const sidebarContainerRegistry = new Set<SbbSidebarContainerElement>();
 let sidebarContainerResizeObserver: ResizeObserver | undefined;
 
+const MIN_WIDTH_BEFORE_COLLAPSE = 320;
+
 /**
  * This is the parent component to one or two `<sbb-sidebar>`s that validates the state internally
  * and coordinates the backdrop and content styling.
@@ -48,12 +50,7 @@ class SbbSidebarContainerElement extends LitElement {
     super.connectedCallback();
 
     sidebarContainerResizeObserver ??=
-      !isServer &&
-      new ResizeObserver(() => {
-        Array.from(sidebarContainerRegistry)
-          .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_FOLLOWING)
-          .forEach((c) => c._calculateSpaceState());
-      });
+      !isServer && new ResizeObserver(() => this._handleWidthChange());
 
     if (!isServer && sidebarContainerRegistry.size === 0) {
       sidebarContainerResizeObserver.observe(document?.documentElement);
@@ -61,7 +58,7 @@ class SbbSidebarContainerElement extends LitElement {
 
     sidebarContainerRegistry.add(this);
 
-    this._calculateSpaceState();
+    this._handleWidthChange();
   }
 
   public override disconnectedCallback(): void {
@@ -77,7 +74,13 @@ class SbbSidebarContainerElement extends LitElement {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    this._calculateSpaceState();
+    this._handleWidthChange();
+  }
+
+  private _handleWidthChange(): void {
+    Array.from(sidebarContainerRegistry)
+      .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_FOLLOWING)
+      .forEach((c) => c._calculateSpaceState());
   }
 
   /**
@@ -107,14 +110,13 @@ class SbbSidebarContainerElement extends LitElement {
       return;
     }
 
-    const minWidth = 320;
     const sidebars = this.sidebars;
     const hasForcedClosedParentContainer =
       parentSidebars?.some((sidebar) => sidebar.hasAttribute('data-minimum-space')) ?? false;
     const sumOfAllRelevantSidebarWidths = sidebars
       .filter((sidebar) => sidebar.mode === 'side')
       .reduce((accumulator, currentValue) => accumulator + (currentValue.offsetWidth ?? 0), 0);
-    const isMinimumSpace = width - sumOfAllRelevantSidebarWidths <= minWidth;
+    const isMinimumSpace = width - sumOfAllRelevantSidebarWidths < MIN_WIDTH_BEFORE_COLLAPSE;
 
     sidebars.forEach((sidebar) => {
       sidebar.toggleAttribute('data-minimum-space', isMinimumSpace);
@@ -157,7 +159,7 @@ class SbbSidebarContainerElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar-container-backdrop"></div>
-      <slot @slotchange=${() => this._calculateSpaceState()}></slot>`;
+      <slot @slotchange=${() => this._handleWidthChange()}></slot>`;
   }
 }
 
