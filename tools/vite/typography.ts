@@ -1,4 +1,5 @@
-import { join } from 'path';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import * as sass from 'sass';
 import type { PluginOption, ResolvedConfig } from 'vite';
@@ -30,7 +31,7 @@ export function typography(): PluginOption {
         { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
       ].forEach((entry) => {
         const compiled = sass.compile(join(viteConfig.root, entry.inputName), {
-          loadPaths: [root.pathname, join(root.pathname, '/node_modules/')],
+          loadPaths: [fileURLToPath(root), join(fileURLToPath(root), '/node_modules/')],
         });
         this.emitFile({
           type: 'asset',

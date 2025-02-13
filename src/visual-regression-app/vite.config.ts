@@ -1,6 +1,7 @@
-import { createHash } from 'crypto';
-import { existsSync, readdirSync, readFileSync } from 'fs';
-import { relative } from 'path';
+import { createHash } from 'node:crypto';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import {
   defineConfig,
@@ -253,10 +254,10 @@ function prepareScreenshots(): PluginOption {
 
 export default defineConfig(() =>
   mergeConfig(rootConfig, <UserConfig>{
-    root: packageRoot.pathname,
+    root: fileURLToPath(packageRoot),
     plugins: [prepareScreenshots()],
     build: {
-      outDir: new URL(`./visual-regression-app/`, distDir).pathname,
+      outDir: fileURLToPath(new URL(`./visual-regression-app/`, distDir)),
       emptyOutDir: true,
     },
     esbuild: {
