@@ -6,7 +6,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbRadioButtonPanelElement } from './radio-button-panel.js';
 
-describe(`sbb-radio-button`, () => {
+describe(`sbb-radio-button-panel`, () => {
   let element: SbbRadioButtonPanelElement;
 
   beforeEach(async () => {

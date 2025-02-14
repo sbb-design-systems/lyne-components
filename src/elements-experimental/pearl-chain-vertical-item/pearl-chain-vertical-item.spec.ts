@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item.js';
 
-describe(`sbb-pearl-chain`, () => {
+describe(`sbb-pearl-chain-vertical-item`, () => {
   let element: SbbPearlChainVerticalItemElement;
 
   it('renders', async () => {
