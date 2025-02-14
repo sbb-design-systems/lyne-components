@@ -719,19 +719,3 @@ export const i18nSelectedPage = (pageNumber: number): Record<string, string> => 
   fr: `Page ${pageNumber} sélectionnée.`,
   it: `Pagina ${pageNumber} selezionata.`,
 });
-
-export const checkboxRequired: Record<string, string> = {
-  de: 'Muss gesetzt sein.',
-  en: 'Must be checked.',
-  fr: 'Doit être défini.',
-  it: 'Deve essere impostato.',
-};
-
-export const radioButtonRequired: Record<string, string> = {
-  de: 'Auswahl erforderlich.',
-  en: 'Selection required.',
-  fr: 'Sélection requise.',
-  it: 'Selezione necessaria.',
-};
-
-export const selectRequired: Record<string, string> = radioButtonRequired;

@@ -1,24 +1,23 @@
-import { defaultConverter, type LitElement, type PropertyDeclaration } from 'lit';
+import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
 import { preventScrollOnSpacebarPress } from '../eventing.js';
-import { checkboxRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
-import type { FormRestoreReason, FormRestoreState } from './form-associated-mixin.js';
 import {
-  SbbFormAssociatedValidationMixin,
-  type SbbFormAssociatedValidationMixinType,
-} from './form-associated-validation-mixin.js';
+  type FormRestoreReason,
+  type FormRestoreState,
+  SbbFormAssociatedMixin,
+  type SbbFormAssociatedMixinType,
+} from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
 
 export declare abstract class SbbFormAssociatedCheckboxMixinType
-  extends SbbFormAssociatedValidationMixinType
+  extends SbbFormAssociatedMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public get checked(): boolean;
@@ -52,11 +51,10 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedValidationMixin(superClass)))
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     private _attributeMutationBlocked = false;
-    private _languageController = new SbbLanguageController(this);
 
     /** Whether the checkbox is checked. */
     @property({
@@ -144,24 +142,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     ): void {
       if (state) {
         this.checked = state === 'true';
-      }
-    }
-
-    public override requestUpdate(
-      name?: PropertyKey,
-      oldValue?: unknown,
-      options?: PropertyDeclaration,
-    ): void {
-      super.requestUpdate(name, oldValue, options);
-      if (name === 'checked' || name === 'required' || !name) {
-        if (this.required && !this.checked) {
-          this.setValidity(
-            { valueMissing: true },
-            checkboxRequired[this._languageController.current],
-          );
-        } else {
-          this.setValidity();
-        }
       }
     }
 

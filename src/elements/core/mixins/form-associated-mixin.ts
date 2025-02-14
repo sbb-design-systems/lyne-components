@@ -9,8 +9,15 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
   public get type(): string;
   public accessor value: V | null;
 
+  public get validity(): ValidityState;
+  public get validationMessage(): string;
+  public get willValidate(): boolean;
+
   protected formDisabled: boolean;
   protected readonly internals: ElementInternals;
+
+  public checkValidity(): boolean;
+  public reportValidity(): boolean;
 
   public formAssociatedCallback?(form: HTMLFormElement | null): void;
   public formDisabledCallback(disabled: boolean): void;
@@ -76,19 +83,40 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     }
     private _value: V | null = null;
 
+    /**
+     * Returns the ValidityState object for internals target element.
+     *
+     * @internal
+     */
+    public get validity(): ValidityState {
+      return this.internals.validity;
+    }
+
+    /**
+     * Returns the error message that would be shown to the user
+     * if internals target element was to be checked for validity.
+     *
+     * @internal
+     */
+    public get validationMessage(): string {
+      return this.internals.validationMessage;
+    }
+
+    /**
+     * Returns true if internals target element will be validated
+     * when the form is submitted; false otherwise.
+     *
+     * @internal
+     */
+    public get willValidate(): boolean {
+      return this.internals.willValidate;
+    }
+
     /** @internal */
     protected readonly internals: ElementInternals = this.attachInternals();
 
     /** Whenever a surrounding form or fieldset is changing its disabled state. */
     @state() protected accessor formDisabled: boolean = false;
-
-    public constructor(...args: any[]) {
-      super(...args);
-      // We want to prevent the native browser validation message popover
-      // to be shown. This also prevents a bug in WebKit, which would not
-      // allow host as the validity anchor: https://bugs.webkit.org/show_bug.cgi?id=269832
-      this.addEventListener?.('invalid', (e) => e.preventDefault());
-    }
 
     public override attributeChangedCallback(
       name: string,
@@ -98,6 +126,27 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       if (name !== 'name' || old !== value) {
         super.attributeChangedCallback(name, old, value);
       }
+    }
+
+    /**
+     * Returns true if internals target element has no validity problems; false otherwise.
+     * Fires an invalid event at the element in the latter case.
+     *
+     * @internal
+     */
+    public checkValidity(): boolean {
+      return this.internals.checkValidity();
+    }
+
+    /**
+     * Returns true if internals target element has no validity problems; otherwise,
+     * returns false, fires an invalid event at the element,
+     * and (if the event isn't canceled) reports the problem to the user.
+     *
+     * @internal
+     */
+    public reportValidity(): boolean {
+      return this.internals.reportValidity();
     }
 
     /**

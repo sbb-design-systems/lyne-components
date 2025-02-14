@@ -286,15 +286,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       signal: this._inputAbortController.signal,
     });
 
-    // We want to prevent the native browser validation message popover
-    // to be shown. This also prevents a bug in WebKit, which would not
-    // allow host as the validity anchor: https://bugs.webkit.org/show_bug.cgi?id=269832
-    // This is duplicated from the form associated mixin for the native
-    // input controls (e.g. <input> or <select>).
-    this._input.addEventListener('invalid', (e) => e.preventDefault(), {
-      signal: this._inputAbortController.signal,
-    });
-
     let inputFocusElement = this._input;
 
     if (this._input.localName === 'input') {

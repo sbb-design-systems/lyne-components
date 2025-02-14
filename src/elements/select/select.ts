@@ -1,6 +1,6 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
@@ -16,12 +16,11 @@ import {
 } from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
-import { selectRequired } from '../core/i18n.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbFormAssociatedValidationMixin,
+  SbbFormAssociatedMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
@@ -70,7 +69,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedValidationMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
+          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
             SbbOpenCloseBaseElement,
           ),
         ),
@@ -155,7 +154,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _languageController = new SbbLanguageController(this);
 
   /**
    * The 'combobox' input element
@@ -199,10 +197,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
       callback: () => this._syncAriaLabels(),
     });
+
+    new SbbLanguageController(this).withHandler(() => setTimeout(() => this._syncAriaLabels()));
   }
 
   private _syncAriaLabels(): void {
-    if (!this._triggerElement || isServer) {
+    if (!this._triggerElement) {
       return;
     }
 
@@ -425,25 +425,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
     if (this.value) {
       this._onValueChanged(this.value);
-    }
-  }
-
-  public override requestUpdate(
-    name?: PropertyKey,
-    oldValue?: unknown,
-    options?: PropertyDeclaration,
-  ): void {
-    super.requestUpdate(name, oldValue, options);
-    if (!name && this.hasUpdated) {
-      setTimeout(() => this._syncAriaLabels());
-    }
-
-    if (name === 'value' || name === 'required' || !name) {
-      if (this.required && this._options.every((o) => !o.selected)) {
-        this.setValidity({ valueMissing: true }, selectRequired[this._languageController.current]);
-      } else {
-        this.setValidity();
-      }
     }
   }
 
