@@ -139,27 +139,33 @@ Opened panel:
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type                         | Default                          | Description                                                    |
-| ------------- | ------------- | ------- | ---------------------------- | -------------------------------- | -------------------------------------------------------------- |
-| `disabled`    | `disabled`    | public  | `boolean`                    | `false`                          | Whether the component is disabled.                             |
-| `form`        | -             | public  | `HTMLFormElement \| null`    |                                  | Returns the form owner of the internals of the target element. |
-| `isOpen`      | -             | public  | `boolean`                    |                                  | Whether the element is open.                                   |
-| `multiple`    | `multiple`    | public  | `boolean`                    | `false`                          | Whether the select allows for multiple selection.              |
-| `name`        | `name`        | public  | `string`                     |                                  | Name of the form element. Will be read from name attribute.    |
-| `negative`    | `negative`    | public  | `boolean`                    | `false`                          | Negative coloring variant flag.                                |
-| `placeholder` | `placeholder` | public  | `string`                     | `''`                             | The placeholder used if no value has been selected.            |
-| `readonly`    | `readonly`    | public  | `boolean`                    | `false`                          | Whether the select is readonly.                                |
-| `required`    | `required`    | public  | `boolean`                    | `false`                          | Whether the component is required.                             |
-| `type`        | -             | public  | `string`                     | `'select-one / select-multiple'` | Form type of element.                                          |
-| `value`       | `value`       | public  | `string \| string[] \| null` | `null`                           | Value of the form element.                                     |
+| Name                | Attribute     | Privacy | Type                         | Default                          | Description                                                                                                           |
+| ------------------- | ------------- | ------- | ---------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled`    | public  | `boolean`                    | `false`                          | Whether the component is disabled.                                                                                    |
+| `form`              | -             | public  | `HTMLFormElement \| null`    |                                  | Returns the form owner of the internals of the target element.                                                        |
+| `isOpen`            | -             | public  | `boolean`                    |                                  | Whether the element is open.                                                                                          |
+| `multiple`          | `multiple`    | public  | `boolean`                    | `false`                          | Whether the select allows for multiple selection.                                                                     |
+| `name`              | `name`        | public  | `string`                     |                                  | Name of the form element. Will be read from name attribute.                                                           |
+| `negative`          | `negative`    | public  | `boolean`                    | `false`                          | Negative coloring variant flag.                                                                                       |
+| `placeholder`       | `placeholder` | public  | `string`                     | `''`                             | The placeholder used if no value has been selected.                                                                   |
+| `readonly`          | `readonly`    | public  | `boolean`                    | `false`                          | Whether the select is readonly.                                                                                       |
+| `required`          | `required`    | public  | `boolean`                    | `false`                          | Whether the component is required.                                                                                    |
+| `type`              | -             | public  | `string`                     | `'select-one / select-multiple'` | Form type of element.                                                                                                 |
+| `validationMessage` | -             | public  | `string`                     |                                  | Returns the error message that would be shown to the user if internals target element was to be checked for validity. |
+| `validity`          | -             | public  | `stringalidityState`         |                                  | Returns the ValidityState object for internals target element.                                                        |
+| `value`             | `value`       | public  | `string \| string[] \| null` | `null`                           | Value of the form element.                                                                                            |
+| `willValidate`      | -             | public  | `boolean`                    |                                  | Returns true if internals target element will be validated when the form is submitted; false otherwise.               |
 
 ## Methods
 
-| Name              | Privacy | Description                       | Parameters | Return   | Inherited From          |
-| ----------------- | ------- | --------------------------------- | ---------- | -------- | ----------------------- |
-| `close`           | public  | Closes the selection panel.       |            | `void`   | SbbOpenCloseBaseElement |
-| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                         |
-| `open`            | public  | Opens the selection panel.        |            | `void`   | SbbOpenCloseBaseElement |
+| Name              | Privacy | Description                                                                                                                                                                                                                                                                                            | Parameters                                        | Return    | Inherited From                   |
+| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | --------- | -------------------------------- |
+| `checkValidity`   | public  | Returns true if internals target element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                                                                                                                          |                                                   | `boolean` | SbbFormAssociatedValidationMixin |
+| `close`           | public  | Closes the selection panel.                                                                                                                                                                                                                                                                            |                                                   | `void`    | SbbOpenCloseBaseElement          |
+| `getDisplayValue` | public  | Gets the current displayed value.                                                                                                                                                                                                                                                                      |                                                   | `string`  |                                  |
+| `open`            | public  | Opens the selection panel.                                                                                                                                                                                                                                                                             |                                                   | `void`    | SbbOpenCloseBaseElement          |
+| `reportValidity`  | public  | Returns true if internals target element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user.                                                                                                 |                                                   | `boolean` | SbbFormAssociatedValidationMixin |
+| `setValidity`     | public  | Marks this element as suffering from the constraints indicated by the flags argument, and sets the element's validation message to message. To set/define custom validity state flags, you need to extend the ValidityState prototype and both the ValidityState and the ValidityStateFlags interface. | `flags: stringalidityStateFlags, message: string` | `void`    | SbbFormAssociatedValidationMixin |
 
 ## Events
 

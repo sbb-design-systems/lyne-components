@@ -78,6 +78,17 @@ describe(`sbb-radio-button-common`, () => {
         expect(root.scrollTop).to.be.equal(0);
       });
 
+      it('should update validity with required true', async () => {
+        expect(element.validationMessage).to.equal('');
+        expect(element.validity.valueMissing).to.be.false;
+
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
       it('should reflect aria-required false', async () => {
         const snapshot = (await a11ySnapshot({
           selector: selector,

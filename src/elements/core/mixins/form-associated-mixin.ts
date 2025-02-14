@@ -118,6 +118,14 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     /** Whenever a surrounding form or fieldset is changing its disabled state. */
     @state() protected accessor formDisabled: boolean = false;
 
+    public constructor(...args: any[]) {
+      super(...args);
+      // We want to prevent the native browser validation message popover
+      // to be shown. This also prevents a bug in WebKit, which would not
+      // allow host as the validity anchor: https://bugs.webkit.org/show_bug.cgi?id=269832
+      this.addEventListener?.('invalid', (e) => e.preventDefault());
+    }
+
     public override attributeChangedCallback(
       name: string,
       old: string | null,

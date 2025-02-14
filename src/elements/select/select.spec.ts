@@ -755,6 +755,18 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('2');
       compareToNative();
     });
+
+    it('should update validity with required true', async () => {
+      element.value = '';
+      expect(element.validationMessage).to.equal('');
+      expect(element.validity.valueMissing).to.be.false;
+
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
+
+      expect(element.validationMessage.length).to.be.greaterThan(0);
+      expect(element.validity.valueMissing).to.be.true;
+    });
   });
 
   describe('label handling', () => {

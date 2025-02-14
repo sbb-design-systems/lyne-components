@@ -75,20 +75,31 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Properties
 
-| Name            | Attribute       | Privacy | Type                              | Default            | Description                                                    |
-| --------------- | --------------- | ------- | --------------------------------- | ------------------ | -------------------------------------------------------------- |
-| `borderless`    | `borderless`    | public  | `boolean`                         | `false`            | Whether the unselected panel has a border.                     |
-| `checked`       | `checked`       | public  | `boolean`                         | `false`            | Whether the checkbox is checked.                               |
-| `color`         | `color`         | public  | `'white' \| 'milk'`               | `'white'`          | The background color of the panel.                             |
-| `disabled`      | `disabled`      | public  | `boolean`                         | `false`            | Whether the component is disabled.                             |
-| `form`          | -               | public  | `HTMLFormElement \| null`         |                    | Returns the form owner of the internals of the target element. |
-| `group`         | -               | public  | `SbbCheckboxGroupElement \| null` | `null`             | Reference to the connected checkbox group.                     |
-| `indeterminate` | `indeterminate` | public  | `boolean`                         | `false`            | Whether the checkbox is indeterminate.                         |
-| `name`          | `name`          | public  | `string`                          |                    | Name of the form element. Will be read from name attribute.    |
-| `required`      | `required`      | public  | `boolean`                         | `false`            | Whether the component is required.                             |
-| `size`          | `size`          | public  | `SbbPanelSize`                    | `'m' / 's' (lean)` | Size variant, either m or s.                                   |
-| `type`          | -               | public  | `string`                          | `'checkbox'`       | Form type of element.                                          |
-| `value`         | `value`         | public  | `string \| null`                  | `null`             | Value of the form element.                                     |
+| Name                | Attribute       | Privacy | Type                              | Default            | Description                                                                                                           |
+| ------------------- | --------------- | ------- | --------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `borderless`        | `borderless`    | public  | `boolean`                         | `false`            | Whether the unselected panel has a border.                                                                            |
+| `checked`           | `checked`       | public  | `boolean`                         | `false`            | Whether the checkbox is checked.                                                                                      |
+| `color`             | `color`         | public  | `'white' \| 'milk'`               | `'white'`          | The background color of the panel.                                                                                    |
+| `disabled`          | `disabled`      | public  | `boolean`                         | `false`            | Whether the component is disabled.                                                                                    |
+| `form`              | -               | public  | `HTMLFormElement \| null`         |                    | Returns the form owner of the internals of the target element.                                                        |
+| `group`             | -               | public  | `SbbCheckboxGroupElement \| null` | `null`             | Reference to the connected checkbox group.                                                                            |
+| `indeterminate`     | `indeterminate` | public  | `boolean`                         | `false`            | Whether the checkbox is indeterminate.                                                                                |
+| `name`              | `name`          | public  | `string`                          |                    | Name of the form element. Will be read from name attribute.                                                           |
+| `required`          | `required`      | public  | `boolean`                         | `false`            | Whether the component is required.                                                                                    |
+| `size`              | `size`          | public  | `SbbPanelSize`                    | `'m' / 's' (lean)` | Size variant, either m or s.                                                                                          |
+| `type`              | -               | public  | `string`                          | `'checkbox'`       | Form type of element.                                                                                                 |
+| `validationMessage` | -               | public  | `string`                          |                    | Returns the error message that would be shown to the user if internals target element was to be checked for validity. |
+| `validity`          | -               | public  | `stringalidityState`              |                    | Returns the ValidityState object for internals target element.                                                        |
+| `value`             | `value`         | public  | `string \| null`                  | `null`             | Value of the form element.                                                                                            |
+| `willValidate`      | -               | public  | `boolean`                         |                    | Returns true if internals target element will be validated when the form is submitted; false otherwise.               |
+
+## Methods
+
+| Name             | Privacy | Description                                                                                                                                                                                                                                                                                            | Parameters                                        | Return    | Inherited From                   |
+| ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | --------- | -------------------------------- |
+| `checkValidity`  | public  | Returns true if internals target element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                                                                                                                          |                                                   | `boolean` | SbbFormAssociatedValidationMixin |
+| `reportValidity` | public  | Returns true if internals target element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user.                                                                                                 |                                                   | `boolean` | SbbFormAssociatedValidationMixin |
+| `setValidity`    | public  | Marks this element as suffering from the constraints indicated by the flags argument, and sets the element's validation message to message. To set/define custom validity state flags, you need to extend the ValidityState prototype and both the ValidityState and the ValidityStateFlags interface. | `flags: stringalidityStateFlags, message: string` | `void`    | SbbFormAssociatedValidationMixin |
 
 ## Events
 

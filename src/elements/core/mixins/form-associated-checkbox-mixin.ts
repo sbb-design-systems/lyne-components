@@ -1,23 +1,29 @@
-import { defaultConverter, type LitElement } from 'lit';
+import {
+  defaultConverter,
+  type LitElement,
+  type PropertyDeclaration,
+  type PropertyValues,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
 import { preventScrollOnSpacebarPress } from '../eventing.js';
+import { checkboxRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
+import type { FormRestoreReason, FormRestoreState } from './form-associated-mixin.js';
 import {
-  type FormRestoreReason,
-  type FormRestoreState,
-  SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
-} from './form-associated-mixin.js';
+  SbbFormAssociatedValidationMixin,
+  type SbbFormAssociatedValidationMixinType,
+} from './form-associated-validation-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
 
 export declare abstract class SbbFormAssociatedCheckboxMixinType
-  extends SbbFormAssociatedMixinType
+  extends SbbFormAssociatedValidationMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public get checked(): boolean;
@@ -51,10 +57,11 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedValidationMixin(superClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     private _attributeMutationBlocked = false;
+    private _languageController = new SbbLanguageController(this);
 
     /** Whether the checkbox is checked. */
     @property({
@@ -145,6 +152,22 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       }
     }
 
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (this.hasUpdated && (name === 'checked' || name === 'required' || !name)) {
+        this._setValidity();
+      }
+    }
+
+    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+      super.firstUpdated(changedProperties);
+      this._setValidity();
+    }
+
     /**
      * Additional logic which is being executed when user
      * interaction happens and state is not disabled.
@@ -178,6 +201,17 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       this.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
       this.dispatchEvent(new Event('change', { bubbles: true }));
     };
+
+    private _setValidity(): void {
+      if (this.required && !this.checked) {
+        this.setValidity(
+          { valueMissing: true },
+          checkboxRequired[this._languageController.current],
+        );
+      } else {
+        this.setValidity();
+      }
+    }
   }
 
   return SbbFormAssociatedCheckboxElement as unknown as Constructor<SbbFormAssociatedCheckboxMixinType> &
