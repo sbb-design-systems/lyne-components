@@ -660,10 +660,10 @@
   dependencies:
     buffer "^6.0.3"
 
-"@lit-labs/observers@2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@lit-labs/observers/-/observers-2.0.4.tgz#eb4251007464a31426d8d914eb4aa6dc837cc80c"
-  integrity sha512-x95jhDPGb+HtYU3hEdqkcLxb6v2JBP3tcajaiOijs1F/ZmOgRT0pRPn0v+jhhk8mAAbEO12SZJjPCmuysunssQ==
+"@lit-labs/observers@2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@lit-labs/observers/-/observers-2.0.5.tgz#fd23bb4a8fa3e72bf56a7f4aa5e2071188c888bb"
+  integrity sha512-DYHc3XhNgfl9RoDFMz99OvnElWIU7ncNga1tYd/9Wez4NOsMDRXsSD6LjFfpHCVfzZic6MdlVfB7+iIuWXl5Ng==
   dependencies:
     "@lit/reactive-element" "^1.0.0 || ^2.0.0"
     lit-html "^3.2.0"
