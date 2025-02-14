@@ -69,6 +69,7 @@
     @include sbb.text-m--regular;
 
     color: var(--sbb-form-field-text-color);
+    font-size: var(--sbb-form-field-input-text-size);
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
