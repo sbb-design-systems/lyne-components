@@ -79,7 +79,7 @@
     "@eslint/js": "9.20.0",
     "@lit-labs/observers": "2.0.5",
     "@lit-labs/router": "0.1.4",
-    "@lit-labs/testing": "0.2.6",
+    "@lit-labs/testing": "0.2.7",
     "@lit/react": "1.0.7",
     "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
