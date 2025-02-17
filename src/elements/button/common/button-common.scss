@@ -92,8 +92,6 @@ $active: ':active, [data-active]';
 }
 
 :host([data-link]) {
-  text-decoration: none;
-
   @include sbb.if-forced-colors {
     --sbb-button-color-default-text: LinkText !important;
     --sbb-button-color-hover-text: LinkText !important;
@@ -185,6 +183,7 @@ $active: ':active, [data-active]';
   justify-content: center;
   text-align: left;
   white-space: nowrap;
+  text-decoration: none;
   min-height: var(--sbb-button-min-height);
   outline: none;
 
