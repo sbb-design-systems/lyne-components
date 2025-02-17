@@ -2,7 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -87,8 +87,14 @@ const defaultArgs: Args = {
   size: size.options![1],
 };
 
-const tagTemplate = (label: string, checked = false, name = 'name'): TemplateResult => html`
-  <sbb-tag name="${name}" ?checked=${checked} value=${label} amount="123" icon-name="pie-small">
+const tagTemplate = (label: string, checked = false, name?: string): TemplateResult => html`
+  <sbb-tag
+    name="${name || nothing}"
+    ?checked=${checked}
+    value=${label}
+    amount="123"
+    icon-name="pie-small"
+  >
     ${label}
   </sbb-tag>
 `;

@@ -3,7 +3,13 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import {
+  forceType,
+  getOverride,
+  hostAttributes,
+  omitEmptyConverter,
+  slotState,
+} from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import {
@@ -31,6 +37,9 @@ export type SbbTagSize = 's' | 'm';
 export
 @customElement('sbb-tag')
 @slotState()
+@hostAttributes({
+  'aria-pressed': 'false',
+})
 class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -120,6 +129,7 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
 
     if (changedProperties.has('checked')) {
       this.setAttribute('aria-pressed', `${this.checked}`);
+      this.toggleAttribute('data-checked', this.checked);
     }
 
     const tagGroup = this.closest?.('sbb-tag-group');

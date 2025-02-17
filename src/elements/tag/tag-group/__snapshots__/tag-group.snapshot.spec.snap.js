@@ -7,6 +7,7 @@ snapshots["sbb-tag-group renders DOM"] =
   size="m"
 >
   <sbb-tag
+    aria-pressed="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"
@@ -18,6 +19,7 @@ snapshots["sbb-tag-group renders DOM"] =
     First tag
   </sbb-tag>
   <sbb-tag
+    aria-pressed="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"
@@ -31,6 +33,7 @@ snapshots["sbb-tag-group renders DOM"] =
   <div slot="li-2">
   </div>
   <sbb-tag
+    aria-pressed="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"
@@ -81,15 +84,18 @@ snapshots["sbb-tag-group renders A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "First tag"
+      "name": "First tag",
+      "pressed": false
     },
     {
       "role": "button",
-      "name": "Second tag"
+      "name": "Second tag",
+      "pressed": false
     },
     {
       "role": "button",
-      "name": "Third tag"
+      "name": "Third tag",
+      "pressed": false
     }
   ]
 }
@@ -104,15 +110,15 @@ snapshots["sbb-tag-group renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "button",
+      "role": "toggle button",
       "name": "First tag"
     },
     {
-      "role": "button",
+      "role": "toggle button",
       "name": "Second tag"
     },
     {
-      "role": "button",
+      "role": "toggle button",
       "name": "Third tag"
     }
   ]
