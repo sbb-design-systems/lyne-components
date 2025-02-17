@@ -3,15 +3,16 @@ import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
-import { radioButtonRequired } from '../i18n.js';
+import { i18nSelectionRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
-import type { FormRestoreReason, FormRestoreState } from './form-associated-mixin.js';
 import {
-  SbbFormAssociatedValidationMixin,
-  type SbbFormAssociatedValidationMixinType,
-} from './form-associated-validation-mixin.js';
+  SbbFormAssociatedMixin,
+  type FormRestoreReason,
+  type FormRestoreState,
+  type SbbFormAssociatedMixinType,
+} from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
 /**
@@ -27,7 +28,7 @@ export const radioButtonRegistry = new WeakMap<
 >();
 
 export declare class SbbFormAssociatedRadioButtonMixinType
-  extends SbbFormAssociatedValidationMixinType
+  extends SbbFormAssociatedMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public accessor checked: boolean;
@@ -58,7 +59,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
   superClass: T,
 ): Constructor<SbbFormAssociatedRadioButtonMixinType> & T => {
   class SbbFormAssociatedRadioButtonElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedValidationMixin(superClass)))
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
     /**
@@ -321,13 +322,13 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       if (required && !checked) {
         this.associatedRadioButtons.forEach((r) =>
-          r.setValidity(
-            { valueMissing: true },
-            radioButtonRequired[this._languageController.current],
+          r.setValidityFlag(
+            'valueMissing',
+            i18nSelectionRequired[this._languageController.current],
           ),
         );
       } else {
-        this.associatedRadioButtons.forEach((r) => r.setValidity());
+        this.associatedRadioButtons.forEach((r) => r.removeValidityFlag('valueMissing'));
       }
     }
 

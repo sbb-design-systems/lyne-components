@@ -28,6 +28,7 @@ describe(`sbb-checkbox-common`, () => {
       let element: SbbCheckboxElement | SbbCheckboxPanelElement;
 
       beforeEach(async () => {
+        document.documentElement.removeAttribute('lang');
         /* eslint-disable lit/binding-positions */
         element = await fixture(html`<${tagSingle} name="name" value="value">Label</${tagSingle}>`);
       });
@@ -86,6 +87,84 @@ describe(`sbb-checkbox-common`, () => {
 
         expect(element.validationMessage.length).to.be.greaterThan(0);
         expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should update validity with required true and checked', async () => {
+        element.toggleAttribute('required', true);
+        element.checked = true;
+        await waitForLitRender(element);
+
+        expect(element.validationMessage).to.equal('');
+        expect(element.validity.valueMissing).to.be.false;
+      });
+
+      it('should update validity message language', async () => {
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        const original = element.validationMessage;
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+
+        document.documentElement.setAttribute('lang', 'de');
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validationMessage).not.to.equal(original);
+      });
+
+      it('should keep custom validity', async () => {
+        element.setCustomValidity('my error');
+        expect(element.validationMessage).to.equal('my error');
+        expect(element.validity.customError).to.be.true;
+
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage).to.equal('my error');
+        expect(element.validity.customError).to.be.true;
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should not unset required validity', async () => {
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        const checkedMessage = element.validationMessage;
+        expect(checkedMessage.length).to.be.greaterThan(
+          0,
+          'required validation message must not be empty',
+        );
+
+        element.setCustomValidity('my error');
+        expect(element.validationMessage).to.equal('my error', 'With custom error');
+        expect(element.validity.customError).to.be.true;
+        expect(element.validity.valueMissing).to.be.true;
+
+        element.setCustomValidity('');
+
+        expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
+        expect(element.validity.customError).to.be.false;
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should set valididty correctly on initialization', async () => {
+        element = await fixture(html`<${tagSingle} name="testvalidation" required></${tagSingle}>`);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should match :invalid with required true', async () => {
+        expect(element).to.match(':valid');
+        expect(element).not.to.match(':invalid');
+
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element).not.to.match(':valid');
+        expect(element).to.match(':invalid');
       });
 
       it('should reflect aria-required false', async () => {

@@ -28,6 +28,7 @@ describe(`sbb-radio-button-common`, () => {
       let element: SbbRadioButtonElement | SbbRadioButtonPanelElement;
 
       beforeEach(async () => {
+        document.documentElement.removeAttribute('lang');
         /* eslint-disable lit/binding-positions */
         element = await fixture(html`<${tagSingle} name="name" value="value">Label</${tagSingle}>`);
         await waitForLitRender(element);
@@ -89,9 +90,87 @@ describe(`sbb-radio-button-common`, () => {
         expect(element.validity.valueMissing).to.be.true;
       });
 
+      it('should update validity with required true and checked', async () => {
+        element.toggleAttribute('required', true);
+        element.checked = true;
+        await waitForLitRender(element);
+
+        expect(element.validationMessage).to.equal('');
+        expect(element.validity.valueMissing).to.be.false;
+      });
+
+      it('should update validity message language', async () => {
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        const original = element.validationMessage;
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+
+        document.documentElement.setAttribute('lang', 'de');
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validationMessage).not.to.equal(original);
+      });
+
+      it('should keep custom validity', async () => {
+        element.setCustomValidity('my error');
+        expect(element.validationMessage).to.equal('my error');
+        expect(element.validity.customError).to.be.true;
+
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage).to.equal('my error');
+        expect(element.validity.customError).to.be.true;
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should not unset required validity', async () => {
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        const checkedMessage = element.validationMessage;
+        expect(checkedMessage.length).to.be.greaterThan(
+          0,
+          'required validation message must not be empty',
+        );
+
+        element.setCustomValidity('my error');
+        expect(element.validationMessage).to.equal('my error', 'With custom error');
+        expect(element.validity.customError).to.be.true;
+        expect(element.validity.valueMissing).to.be.true;
+
+        element.setCustomValidity('');
+
+        expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
+        expect(element.validity.customError).to.be.false;
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should set valididty correctly on initialization', async () => {
+        element = await fixture(html`<${tagSingle} name="testvalidation" required></${tagSingle}>`);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+      });
+
+      it('should match :invalid with required true', async () => {
+        expect(element).to.match(':valid');
+        expect(element).not.to.match(':invalid');
+
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element).not.to.match(':valid');
+        expect(element).to.match(':invalid');
+      });
+
       it('should reflect aria-required false', async () => {
         const snapshot = (await a11ySnapshot({
-          selector: selector,
+          selector,
         })) as unknown as RadioButtonAccessibilitySnapshot;
 
         expect(snapshot.required).to.be.undefined;
@@ -105,7 +184,7 @@ describe(`sbb-radio-button-common`, () => {
         await waitForLitRender(element);
 
         const snapshot = (await a11ySnapshot({
-          selector: selector,
+          selector,
         })) as unknown as RadioButtonAccessibilitySnapshot;
 
         // TODO: Recheck if it is working in Chromium
@@ -125,7 +204,7 @@ describe(`sbb-radio-button-common`, () => {
         await waitForLitRender(element);
 
         const snapshot = (await a11ySnapshot({
-          selector: selector,
+          selector,
         })) as unknown as RadioButtonAccessibilitySnapshot;
 
         expect(snapshot.required).not.to.be.ok;
@@ -139,7 +218,7 @@ describe(`sbb-radio-button-common`, () => {
         await waitForLitRender(element);
 
         const snapshot = (await a11ySnapshot({
-          selector: selector,
+          selector,
         })) as unknown as RadioButtonAccessibilitySnapshot;
 
         // TODO: Recheck if it is working in Chromium
@@ -159,7 +238,7 @@ describe(`sbb-radio-button-common`, () => {
         await waitForLitRender(element);
 
         const snapshot = (await a11ySnapshot({
-          selector: selector,
+          selector,
         })) as unknown as RadioButtonAccessibilitySnapshot;
 
         expect(snapshot.required).not.to.be.ok;
@@ -305,6 +384,101 @@ describe(`sbb-radio-button-common`, () => {
             expect(elements[0].tabIndex).to.be.equal(-1);
             expect(elements[1].tabIndex).to.be.equal(0);
             await compareToNative();
+          });
+
+          it('should update validity for associated radio buttons with required true', async () => {
+            for (const radioButtons of [elements, nativeElements]) {
+              for (const element of radioButtons) {
+                expect(element.validationMessage).to.equal('');
+                expect(element.validity.valueMissing).to.be.false;
+              }
+            }
+
+            nativeElements[0].toggleAttribute('required', true);
+            elements[0].toggleAttribute('required', true);
+            await waitForLitRender(elements[0]);
+
+            for (const radioButtons of [elements, nativeElements]) {
+              for (const element of radioButtons) {
+                if (element.name === radioButtons[0].name) {
+                  expect(element.validationMessage.length).to.be.greaterThan(
+                    0,
+                    'Required group validation message',
+                  );
+                  expect(element.validity.valueMissing).to.be.true;
+                } else {
+                  expect(element.validationMessage).to.equal(
+                    '',
+                    'Non-required group validation message',
+                  );
+                  expect(element.validity.valueMissing).to.be.false;
+                }
+              }
+            }
+          });
+
+          it('should update validity with required true and checked for associated radio buttons', async () => {
+            elements[0].toggleAttribute('required', true);
+            elements[0].checked = true;
+            await waitForLitRender(elements[0]);
+
+            expect(elements[1].validationMessage).to.equal('');
+            expect(elements[1].validity.valueMissing).to.be.false;
+          });
+
+          it('should update validity for associated radio buttons on disconnect', async () => {
+            elements[0].toggleAttribute('required', true);
+            await waitForLitRender(elements[0]);
+
+            const observedElements = elements.filter((e) => e.name === elements[0].name);
+            for (const element of observedElements) {
+              expect(element.validationMessage.length).to.be.greaterThan(
+                0,
+                'Required group validation message',
+              );
+              expect(element.validity.valueMissing).to.be.true;
+            }
+
+            observedElements[0].remove();
+            expect(observedElements[1].validationMessage).to.equal('');
+            expect(observedElements[1].validity.valueMissing).to.be.false;
+          });
+
+          it('should update validity for associated radio buttons on connect', async () => {
+            elements[0].toggleAttribute('required', true);
+            await waitForLitRender(elements[0]);
+
+            const observedElements = elements.filter((e) => e.name !== elements[0].name);
+            for (const element of observedElements) {
+              expect(element.validationMessage).to.be.equal('');
+              expect(element.validity.valueMissing).to.be.false;
+            }
+
+            elements[0].name = observedElements[0].name;
+            for (const element of observedElements) {
+              expect(element.validationMessage.length).to.be.greaterThan(
+                0,
+                'Required group validation message',
+              );
+              expect(element.validity.valueMissing).to.be.true;
+            }
+          });
+
+          it('should update validity after a rename', async () => {
+            elements[0].toggleAttribute('required', true);
+            await waitForLitRender(elements[0]);
+
+            const element = elements[1];
+            expect(element.validationMessage.length).to.be.greaterThan(
+              0,
+              'Required group validation message',
+            );
+            expect(element.validity.valueMissing).to.be.true;
+
+            element.name = 'my-test';
+
+            expect(element.validationMessage).to.be.equal('');
+            expect(element.validity.valueMissing).to.be.false;
           });
 
           it('should reset on form reset', async () => {

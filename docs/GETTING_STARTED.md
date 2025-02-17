@@ -384,3 +384,53 @@ p {
   @include sbb.text-s--bold;
 }
 ```
+
+## Form Support
+
+Our form elements implement native form support:
+https://web.dev/articles/more-capable-form-controls
+This means our form elements can be used with `<form>` elements, emit `input`
+events and integrate native form validation.
+
+### Validation API
+
+All of our form elements provide properties and methods for validation and
+some implement specific validation functionality
+(e.g. `<sbb-checkbox required>`, `<sbb-radio-button required>`).
+
+#### `readonly form: HTMLFormElement | null`
+
+The `form` readonly property returns the current reference to the associated
+`<form>` instance, if available.
+
+#### `readonly validity: ValidityState`
+
+https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
+
+The `validity` property return the current validity state of an element.
+
+#### `readonly validationMessage: string`
+
+The `validationMessage` propert returns the currently applicable validation
+message. Please note that only one message is returned at a time (e.g. if
+multiple validity states are invalid, only the chronologically first one is
+returned until it is fixed, at which point the next message might be returned,
+if it is still applicable). Also a custom validity message (see below) has
+precedence over native validation messages.
+
+#### `readonly willValidate: boolean`
+
+The `willValidate` returns true if the element will be validated
+when the form is submitted; false otherwise
+
+#### `checkValidity(): boolean`
+
+The `checkValidity()` method returns true if the element has no validity
+problems; false otherwise. Fires an invalid event at the element in the
+latter case.
+
+#### `setCustomValidity(message: string): void`
+
+The `setCustomValidity(message: string)` method sets the custom validity
+message for the element. Use the empty string to indicate that the element
+does not have a custom validity error.

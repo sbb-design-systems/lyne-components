@@ -16,12 +16,12 @@ import {
 } from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
-import { selectRequired } from '../core/i18n.js';
+import { i18nSelectionRequired } from '../core/i18n.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbFormAssociatedValidationMixin,
+  SbbFormAssociatedMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
@@ -70,7 +70,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedValidationMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
+          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
             SbbOpenCloseBaseElement,
           ),
         ),
@@ -517,9 +517,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   private _setValidity(): void {
     if (this.required && this._options.every((o) => o.value !== this.value)) {
-      this.setValidity({ valueMissing: true }, selectRequired[this._languageController.current]);
+      this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
     } else {
-      this.setValidity();
+      this.removeValidityFlag('valueMissing');
     }
   }
 

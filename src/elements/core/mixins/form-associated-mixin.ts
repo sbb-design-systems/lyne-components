@@ -3,6 +3,19 @@ import { property, state } from 'lit/decorators.js';
 
 import type { AbstractConstructor } from './constructor.js';
 
+const validityKeys: Required<ValidityStateFlags> = {
+  badInput: false,
+  customError: false,
+  patternMismatch: false,
+  rangeOverflow: false,
+  rangeUnderflow: false,
+  stepMismatch: false,
+  tooLong: false,
+  tooShort: false,
+  typeMismatch: false,
+  valueMissing: false,
+};
+
 export declare abstract class SbbFormAssociatedMixinType<V = string> {
   public get form(): HTMLFormElement | null;
   public accessor name: string;
@@ -18,6 +31,7 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
 
   public checkValidity(): boolean;
   public reportValidity(): boolean;
+  public setCustomValidity(message: string): void;
 
   public formAssociatedCallback?(form: HTMLFormElement | null): void;
   public formDisabledCallback(disabled: boolean): void;
@@ -28,6 +42,12 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
   ): void;
 
   protected abstract updateFormValue(): void;
+  protected setValidityFlag<T extends keyof ValidityStateFlags>(
+    flag: T,
+    message: string,
+    flagValue?: ValidityStateFlags[T],
+  ): void;
+  protected removeValidityFlag<T extends keyof ValidityStateFlags>(flag: T): void;
 }
 
 /**
@@ -44,7 +64,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     public static formAssociated = true;
 
     /**
-     * Returns the form owner of the internals of the target element.
+     * Returns the form owner of this element.
      */
     public get form(): HTMLFormElement | null {
       return this.internals.form;
@@ -84,29 +104,28 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     private _value: V | null = null;
 
     /**
-     * Returns the ValidityState object for internals target element.
-     *
-     * @internal
+     * Returns the ValidityState object for this element.
      */
     public get validity(): ValidityState {
       return this.internals.validity;
     }
 
     /**
-     * Returns the error message that would be shown to the user
-     * if internals target element was to be checked for validity.
-     *
-     * @internal
+     * Returns the current error message, if available, which corresponds
+     * to the current validation state.
+     * Please note that only one message is returned at a time (e.g. if
+     * multiple validity states are invalid, only the chronologically first one
+     * is returned until it is fixed, at which point the next message might be
+     * returned, if it is still applicable). Also a custom validity message
+     * (see below) has precedence over native validation messages.
      */
     public get validationMessage(): string {
       return this.internals.validationMessage;
     }
 
     /**
-     * Returns true if internals target element will be validated
+     * Returns true if this element will be validated
      * when the form is submitted; false otherwise.
-     *
-     * @internal
      */
     public get willValidate(): boolean {
       return this.internals.willValidate;
@@ -114,6 +133,11 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
 
     /** @internal */
     protected readonly internals: ElementInternals = this.attachInternals();
+
+    private _validityStates = new Map<
+      keyof ValidityStateFlags,
+      { flagValue: unknown; message: string }
+    >();
 
     /** Whenever a surrounding form or fieldset is changing its disabled state. */
     @state() protected accessor formDisabled: boolean = false;
@@ -137,24 +161,32 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     }
 
     /**
-     * Returns true if internals target element has no validity problems; false otherwise.
+     * Returns true if this element has no validity problems; false otherwise.
      * Fires an invalid event at the element in the latter case.
-     *
-     * @internal
      */
     public checkValidity(): boolean {
       return this.internals.checkValidity();
     }
 
     /**
-     * Returns true if internals target element has no validity problems; otherwise,
+     * Returns true if this element has no validity problems; otherwise,
      * returns false, fires an invalid event at the element,
      * and (if the event isn't canceled) reports the problem to the user.
-     *
-     * @internal
      */
     public reportValidity(): boolean {
       return this.internals.reportValidity();
+    }
+
+    /**
+     * Sets the custom validity message for this element. Use the empty string
+     * to indicate that the element does not have a custom validity error.
+     */
+    public setCustomValidity(message: string): void {
+      if (message) {
+        this.setValidityFlag('customError', message);
+      } else {
+        this.removeValidityFlag('customError');
+      }
     }
 
     /**
@@ -207,6 +239,77 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
      * https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/setFormValue
      */
     protected abstract updateFormValue(): void;
+
+    /**
+     * Marks this element as suffering from the constraint indicated by the
+     * flag argument and associates the given message to it.
+     * Note that only one message is displayed at a time and custom messages by
+     * consumers are always displayed before internal messages and internal
+     * messages are displayed in the order they were added.
+     * To set/define custom validity state flags, you need to extend the
+     * ValidityState prototype and both the ValidityState and the
+     * ValidityStateFlags interface.
+     *
+     * @example
+     *
+     *   // The type of the custom validity state does not need to be boolean.
+     *   Object.assign(ValidityState.prototype, {
+     *     get myError(): boolean {
+     *       return false;
+     *     },
+     *   });
+     *
+     *   declare global {
+     *     interface ValidityState {
+     *       myError: boolean;
+     *     }
+     *     interface ValidityState {
+     *       myError?: boolean;
+     *     }
+     *   }
+     */
+    protected setValidityFlag<T extends keyof ValidityStateFlags>(
+      flag: T,
+      message: string,
+      flagValue?: ValidityStateFlags[T],
+    ): void {
+      flagValue ??= true;
+      this._validityStates.set(flag, { flagValue, message });
+      this._setInternalValidity();
+    }
+
+    protected removeValidityFlag<T extends keyof ValidityStateFlags>(flag: T): void {
+      this._validityStates.delete(flag);
+      this._setInternalValidity();
+    }
+
+    private _setInternalValidity(): void {
+      if (this._validityStates.size) {
+        let outputMessage = this._validityStates.get('customError')?.message;
+        const flags: ValidityStateFlags = {};
+        this._validityStates.forEach(({ flagValue, message }, flag) => {
+          flags[flag] = flagValue as any;
+          outputMessage ||= message;
+        });
+
+        const customFlags = Object.keys(ValidityState.prototype).filter(
+          (f) => !(f in validityKeys) && f !== 'valid',
+        );
+        for (const flag of customFlags) {
+          const value = flag in flags ? flags[flag as keyof ValidityStateFlags] : false;
+          Object.defineProperty(this.internals.validity, flag, { value, configurable: true });
+          if (value) {
+            // If any custom errors are provided, we need to set customError to true,
+            // as this is the only custom error property browsers accept.
+            flags.customError = true;
+          }
+        }
+
+        this.internals.setValidity(flags, outputMessage);
+      } else {
+        this.internals.setValidity({});
+      }
+    }
   }
   return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType<V>> &
     T;

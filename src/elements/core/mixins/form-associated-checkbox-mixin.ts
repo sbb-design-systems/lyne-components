@@ -9,21 +9,22 @@ import { property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
 import { preventScrollOnSpacebarPress } from '../eventing.js';
-import { checkboxRequired } from '../i18n.js';
+import { i18nCheckboxRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
-import type { FormRestoreReason, FormRestoreState } from './form-associated-mixin.js';
 import {
-  SbbFormAssociatedValidationMixin,
-  type SbbFormAssociatedValidationMixinType,
-} from './form-associated-validation-mixin.js';
+  SbbFormAssociatedMixin,
+  type FormRestoreReason,
+  type FormRestoreState,
+  type SbbFormAssociatedMixinType,
+} from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
 
 export declare abstract class SbbFormAssociatedCheckboxMixinType
-  extends SbbFormAssociatedValidationMixinType
+  extends SbbFormAssociatedMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
   public get checked(): boolean;
@@ -57,7 +58,7 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedValidationMixin(superClass)))
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     private _attributeMutationBlocked = false;
@@ -204,12 +205,12 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     private _setValidity(): void {
       if (this.required && !this.checked) {
-        this.setValidity(
-          { valueMissing: true },
-          checkboxRequired[this._languageController.current],
+        this.setValidityFlag(
+          'valueMissing',
+          i18nCheckboxRequired[this._languageController.current],
         );
       } else {
-        this.setValidity();
+        this.removeValidityFlag('valueMissing');
       }
     }
   }
