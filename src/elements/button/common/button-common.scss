@@ -92,6 +92,8 @@ $active: ':active, [data-active]';
 }
 
 :host([data-link]) {
+  text-decoration: none;
+
   @include sbb.if-forced-colors {
     --sbb-button-color-default-text: LinkText !important;
     --sbb-button-color-hover-text: LinkText !important;
@@ -182,6 +184,7 @@ $active: ':active, [data-active]';
   align-items: center;
   justify-content: center;
   text-align: left;
+  white-space: nowrap;
   min-height: var(--sbb-button-min-height);
   outline: none;
 
@@ -220,13 +223,6 @@ $active: ':active, [data-active]';
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, border, box-shadow;
   }
-}
-
-// TODO: keep here instead of extracting to mixin
-.sbb-action-base {
-  // Reset for link variant
-  text-decoration: none;
-  white-space: nowrap;
 }
 
 .sbb-button__label {
