@@ -289,7 +289,7 @@ describe(`sbb-tag-group`, () => {
         const inputSpy = new EventSpy('input');
         const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
-        expect(tag1).not.to.have.attribute('aria-pressed');
+        expect(tag1).to.have.attribute('aria-pressed', 'false');
         expect(tag1.checked).to.be.equal(false);
 
         tag1.click();

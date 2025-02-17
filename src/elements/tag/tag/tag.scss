@@ -42,7 +42,7 @@ $active: ':active, [data-active]';
 }
 
 // Active state
-:host([aria-pressed='true']) {
+:host([data-checked]) {
   --sbb-tag-border-color: var(--sbb-color-charcoal);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
@@ -65,7 +65,7 @@ $active: ':active, [data-active]';
   }
 }
 
-:host([aria-pressed='true']:is(#{$disabled})) {
+:host([data-checked]:is(#{$disabled})) {
   --sbb-tag-border-color: var(--sbb-color-metal);
 }
 
