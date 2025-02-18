@@ -61,7 +61,7 @@ export default [
     },
   },
   {
-    files: ['src/storybook/**/*.ts'],
+    files: ['src/storybook/**/*.ts', 'src/**/core/**/*.ts'],
     rules: {
       'lyne/test-describe-title-rule': 'off',
     },

@@ -20,3 +20,13 @@
 sbb-icon {
   color: var(--sbb-color-graphite);
 }
+
+// Hide popover artifacts
+sbb-popover {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+}

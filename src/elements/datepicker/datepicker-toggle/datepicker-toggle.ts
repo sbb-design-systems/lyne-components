@@ -7,7 +7,6 @@ import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import type { CalendarView, SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbPopoverElement } from '../../popover/popover.js';
@@ -25,9 +24,6 @@ import '../../button/mini-button.js';
  */
 export
 @customElement('sbb-datepicker-toggle')
-@hostAttributes({
-  slot: 'prefix',
-})
 class SbbDatepickerToggleElement<T = Date>
   extends SbbNegativeMixin(SbbHydrationMixin(LitElement))
   implements SbbDatepickerControl<T>
@@ -107,6 +103,7 @@ class SbbDatepickerToggleElement<T = Date>
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.slot ||= 'prefix';
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       this.negative = formField.hasAttribute('negative');

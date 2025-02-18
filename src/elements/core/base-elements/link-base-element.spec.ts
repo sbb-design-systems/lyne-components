@@ -36,8 +36,23 @@ describe(`SbbLinkBaseElement`, () => {
     });
 
     it('check host attributes and content', () => {
-      expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-link')).to.be.true;
+      const a = element.shadowRoot!.firstElementChild!;
+
+      expect(a.classList.contains('generic-link')).to.be.true;
+      expect(a.ariaLabel).to.be.null;
+      expect(a.ariaCurrent).to.be.null;
       expect(element.shadowRoot!.textContent!.trim()).to.be.equal('Link');
+    });
+
+    it('should forward accessibility labels', async () => {
+      const a = element.shadowRoot!.firstElementChild!;
+
+      element.accessibilityLabel = 'label';
+      element.accessibilityCurrent = 'page';
+      await waitForLitRender(element);
+
+      expect(a.ariaLabel).to.be.equal('label');
+      expect(a.ariaCurrent).to.be.equal('page');
     });
   });
 

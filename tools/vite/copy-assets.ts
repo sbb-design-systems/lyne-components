@@ -7,7 +7,7 @@ import type { PluginOption, ResolvedConfig } from 'vite';
 export function copyAssets(includes: string[]): PluginOption {
   let viteConfig: ResolvedConfig;
   return {
-    name: 'package-json-templating',
+    name: 'copy-assets',
     configResolved(config) {
       viteConfig = config;
     },
@@ -17,7 +17,7 @@ export function copyAssets(includes: string[]): PluginOption {
       }
       for (const file of glob.sync(includes, { cwd: viteConfig.root })) {
         // Remove relative file path if file is on a more upper layer than cwd.
-        const fileName = file.replace(/^(\.\.\/)*/, '');
+        const fileName = file.replace(/^(\.\.[/\\])*/, '');
         this.emitFile({
           type: 'asset',
           fileName: fileName,
