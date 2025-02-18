@@ -62,22 +62,21 @@ jobs:
               environment_url: `https://${context.repo.repo}-${environment}.app.sbb.ch`,
             });
 
+      - uses: ./.github/actions/setup-mint
       - name: 'Container: Build and preview image'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER .
+          docker build --tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-fat .
+          mint slim \
+            --target $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-fat \
+            --tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER \
+            --preserve-path /usr/share/nginx/html
           docker push $IMAGE_REPO_PREVIEW:pr$PR_NUMBER
-        env:
-          DOCKER_BUILDKIT: 1
-      - name: Build slim image
-        uses: ./.github/actions/docker-slim
-        with:
-          target: '${{ env.IMAGE_REPO_PREVIEW }}:pr${{ env.PR_NUMBER }}'
-          tag: '${{ env.IMAGE_REPO_PREVIEW }}:pr${{ env.PR_NUMBER }}-slim'
-      - name: Push slim image
-        run: |
+          docker tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-slim
           docker push $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-slim
           docker image list
+        env:
+          DOCKER_BUILDKIT: 1
 
       - name: "Add 'preview-available' label"
         # This label is used for filtering deployments in ArgoCD
@@ -179,26 +178,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: ./.github/actions/setup-mint
       - name: Create visual regression container
-        if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
           docker build \
             --file tools/visual-regression-testing/Dockerfile \
-            --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER \
+            --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER-fat \
             .
+          mint slim \
+            --target $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER-fat \
+            --tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER \
+            --preserve-path /usr/share/nginx/html
           docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER
-        env:
-          DOCKER_BUILDKIT: 1
-      - name: Build slim image
-        uses: ./.github/actions/docker-slim
-        with:
-          target: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr${{ env.PR_NUMBER }}'
-          tag: '${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr${{ env.PR_NUMBER }}-slim'
-      - name: Push slim image
-        run: |
+          docker tag $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER-slim
           docker push $IMAGE_REPO_VISUAL_REGRESSION:pr$PR_NUMBER-slim
           docker image list
+        env:
+          DOCKER_BUILDKIT: 1
 
       - name: Apply labels
         if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'

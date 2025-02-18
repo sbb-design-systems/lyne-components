@@ -21,7 +21,7 @@ Clicking on this `sbb-breadcrumb` will make the ellipsis disappear and will rest
 It is strongly recommended to place an `aria-label` attribute on the `sbb-breadcrumb-group`, as in the example above,
 to describe what context the breadcrumbs have.
 Whenever the `sbb-breadcrumb` list within the component is loaded or updated,
-the last element of the list receives the attribute `aria-current="page"`.
+the last element of the list receives the attribute `accessibility-current="page"`.
 
 <!-- Auto Generated Below -->
 

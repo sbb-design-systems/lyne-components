@@ -74,7 +74,9 @@ Select your technology to get started.
      ...
    ```
 
-4. In order to use web components with Angular, you have to import `CUSTOM_ELEMENT_SCHEMA` from the `@angular/core` package.
+4. In order to use web components with Angular, you have to import `CUSTOM_ELEMENTS_SCHEMA` from the `@angular/core` package.
+
+5. In each component, import the lyne components, which you want to use, in the typescript file: e.g. `import '@sbb-esta/lyne-elements/button.js';`
 
 ### Example app
 

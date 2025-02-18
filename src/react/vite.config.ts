@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+
 import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
 import {
@@ -12,7 +14,7 @@ import rootConfig from '../../vite.config.js';
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
-    root: new URL('.', import.meta.url).pathname,
+    root: fileURLToPath(new URL('.', import.meta.url)),
     plugins: [
       generateReactWrappers('@sbb-esta/lyne-elements', './elements/custom-elements.json'),
       ...(config.command === 'build' ? [dts()] : []),
@@ -25,7 +27,9 @@ export default defineConfig((config) =>
         formats: ['es'],
       },
       minify: isProdBuild(config),
-      outDir: new URL(`./react/${isProdBuild(config) ? '' : 'development/'}`, distDir).pathname,
+      outDir: fileURLToPath(
+        new URL(`./react/${isProdBuild(config) ? '' : 'development/'}`, distDir),
+      ),
       emptyOutDir: true,
       rollupOptions: {
         external: [
