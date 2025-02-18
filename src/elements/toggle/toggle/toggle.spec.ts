@@ -303,7 +303,7 @@ describe(`sbb-toggle`, () => {
       form = await fixture(html`
         <form>
           <fieldset>
-            <sbb-toggle name="sbb-toggle-1">
+            <sbb-toggle name="sbb-toggle-1" value="Value one">
               <sbb-toggle-option id="sbb-toggle-option-1" value="Value one"
                 >Value one</sbb-toggle-option
               >
@@ -344,6 +344,26 @@ describe(`sbb-toggle`, () => {
       await waitForLitRender(element);
 
       expect(element).not.to.match(':disabled');
+    });
+
+    it('should reset on form reset', async () => {
+      secondOption.click();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('Value two');
+
+      form.reset();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('Value one');
+    });
+
+    it('should restore form state on formStateRestoreCallback()', async () => {
+      // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
+      element.formStateRestoreCallback('Value two', 'restore');
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('Value two');
     });
   });
 });
