@@ -28,8 +28,6 @@ describe(`sbb-autocomplete`, () => {
     `);
     input = formField.querySelector<HTMLInputElement>('input')!;
     element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
-
-    await waitForLitRender(formField);
   });
 
   describeIf(isSafari, 'Safari', async () => {

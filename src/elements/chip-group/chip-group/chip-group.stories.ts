@@ -1,6 +1,13 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -97,12 +104,20 @@ export const WithAutocomplete: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const WithAutocompleteNegative: StoryObj = {
+  render: WithAutocompleteTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbChipGroupElement.events.input, SbbChipGroupElement.events.change],
     },
+    backgroundColor: (context: StoryContext) =>
+      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

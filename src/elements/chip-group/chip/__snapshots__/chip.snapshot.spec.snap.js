@@ -29,7 +29,7 @@ snapshots["sbb-chip renders Shadow DOM"] =
       class="sbb-chip__delete"
       data-action=""
       data-button=""
-      icon-name="cross-tiny-medium"
+      icon-name="cross-tiny-small"
       tabindex="0"
     >
     </sbb-mini-button>
@@ -68,7 +68,7 @@ snapshots["sbb-chip renders disabled Shadow DOM"] =
       class="sbb-chip__delete"
       data-action=""
       data-button=""
-      icon-name="cross-tiny-medium"
+      icon-name="cross-tiny-small"
       tabindex="0"
     >
     </sbb-mini-button>

@@ -205,9 +205,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
    */
   private _onSlotInputChange(): void {
     // Find the slotted 'supportedInputElement', even if it's nested
-    const newInput = this.querySelector(
-      `:not(slot):where(${this._supportedInputElements.join(',')})`,
-    ) as HTMLElement | undefined;
+    const newInput = this.querySelector(`:where(${this._supportedInputElements.join(',')})`) as
+      | HTMLElement
+      | undefined;
 
     this._assignSlots();
 

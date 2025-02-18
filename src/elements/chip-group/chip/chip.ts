@@ -92,7 +92,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           <sbb-mini-button
             tabindex=${!this.disabled ? '-1' : nothing}
             class="sbb-chip__delete"
-            icon-name="cross-tiny-medium"
+            icon-name="cross-tiny-small"
             aria-label=${`${i18nChipDelete[this._language.current]} ${this.value}`}
             @click=${() => this._requestDelete.emit()}
           ></sbb-mini-button>

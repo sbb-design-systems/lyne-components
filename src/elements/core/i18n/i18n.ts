@@ -722,8 +722,8 @@ export const i18nSelectedPage = (pageNumber: number): Record<string, string> => 
 
 // Usage example is "Remove ${chip label}“
 export const i18nChipDelete: Record<string, string> = {
-  de: 'TODO',
+  de: 'Lösche',
   en: 'Remove',
-  fr: 'TODO',
+  fr: 'Retire',
   it: 'Rimuovi',
 };
