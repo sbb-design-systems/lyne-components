@@ -113,7 +113,7 @@ const DefaultTemplate = ({
   ariaLabel,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-toggle name="field-1" ${sbbSpread(args)}>
+  <sbb-toggle ${sbbSpread(args)}>
     <sbb-toggle-option icon-name=${iconName} aria-label=${ariaLabel} value="Value 1">
       ${label}
     </sbb-toggle-option>
