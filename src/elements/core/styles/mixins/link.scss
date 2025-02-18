@@ -38,6 +38,7 @@
 @mixin link-base {
   color: var(--sbb-link-color-normal);
   text-decoration: var(--sbb-link-text-decoration, underline);
+  text-underline-offset: 0.3125em;
   user-select: none;
 
   @include a11y.if-forced-colors {
