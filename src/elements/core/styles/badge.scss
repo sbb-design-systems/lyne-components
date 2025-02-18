@@ -10,7 +10,6 @@
 
     content: attr(sbb-badge);
     position: absolute;
-    inset: var(--sbb-badge-position-block-start);
     inset-block-start: var(--sbb-badge-position-offset);
   }
 

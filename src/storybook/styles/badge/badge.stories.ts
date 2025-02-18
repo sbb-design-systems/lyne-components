@@ -5,7 +5,6 @@ import { html } from 'lit';
 
 import '../../../elements/header.js';
 import '../../../elements/icon.js';
-import '../../../elements/link.js';
 
 import readme from './readme.md?raw';
 
@@ -17,7 +16,7 @@ const badgeContent: InputType = {
 
 const badgePosition: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
   options: ['before', 'middle', 'after'],
 };
@@ -52,12 +51,6 @@ const BadgeOnHeaderButtonTemplate = ({ badgeContent, badgePosition }: Args): Tem
   </sbb-header-button>
 `;
 
-const BadgeOnLinkTemplate = ({ badgeContent, badgePosition }: Args): TemplateResult => html`
-  <sbb-link href="https://www.sbb.ch" sbb-badge=${badgeContent} sbb-badge-position=${badgePosition}>
-    Link
-  </sbb-link>
-`;
-
 export const BadgeOnIcon: StoryObj = {
   render: BadgeOnIconTemplate,
   argTypes: defaultArgTypes,
@@ -80,18 +73,6 @@ export const BadgeOnHeaderButton: StoryObj = {
   render: BadgeOnHeaderButtonTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-};
-
-export const BadgeOnLink: StoryObj = {
-  render: BadgeOnLinkTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const BadgeOnIconLong: StoryObj = {
-  render: BadgeOnIconTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, badgeContent: '99' },
 };
 
 const meta: Meta = {
