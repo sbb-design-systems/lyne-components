@@ -110,7 +110,7 @@ const testRunnerHtml = (
         (type) => `
     <link
       rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-${type}.woff2"
+      href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-${type}.woff2"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
