@@ -3,10 +3,10 @@ import { html } from 'lit';
 import {
   describeEach,
   describeViewports,
-  visualDiffStandardStates,
-  visualRegressionFixture,
   visualDiffDefault,
   visualDiffHover,
+  visualDiffStandardStates,
+  visualRegressionFixture,
 } from '../../core/testing/private.js';
 
 import './button.js';
@@ -178,6 +178,13 @@ describe(`sbb-button`, () => {
             ></sbb-icon>
           </sbb-button>
         `);
+      }),
+    );
+
+    it(
+      'hover with other content',
+      visualDiffHover.with(async (setup) => {
+        await setup.withFixture(html`<sbb-button>Button</sbb-button>Other content`);
       }),
     );
   });
