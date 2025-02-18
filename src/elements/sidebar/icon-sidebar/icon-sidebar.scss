@@ -2,6 +2,7 @@
 
 :host {
   width: var(--sbb-size-element-m);
+  flex-shrink: 0;
 
   --sbb-icon-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
   --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);

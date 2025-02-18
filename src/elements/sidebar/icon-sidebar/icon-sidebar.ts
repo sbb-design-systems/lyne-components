@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { hostAttributes } from '../../core/decorators.js';
 import { SbbSidebarMixin, sidebarCommonStyle } from '../common.js';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.js';
 
@@ -13,6 +14,7 @@ import style from './icon-sidebar.scss?lit&inline';
  */
 export
 @customElement('sbb-icon-sidebar')
+@hostAttributes({ role: 'navigation' })
 class SbbIconSidebarElement extends SbbSidebarMixin(LitElement) {
   public static override styles: CSSResultGroup = [sidebarCommonStyle, style];
 

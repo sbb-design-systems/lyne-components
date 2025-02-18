@@ -15,5 +15,9 @@
     display: block;
     height: 100%;
     overflow: auto;
+
+    // Scrollable content can get focus if there is no focusable element inside.
+    // We avoid graphical artifacts by removing the outline.
+    outline: none;
   }
 }
