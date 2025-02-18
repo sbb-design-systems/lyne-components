@@ -10,10 +10,16 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType, handleDistinctChange, hostAttributes } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
-import type { SbbToggleOptionElement } from '../toggle-option.js';
+import {
+  type FormRestoreReason,
+  type FormRestoreState,
+  SbbDisabledMixin,
+  SbbFormAssociatedMixin,
+} from '../../core/mixins.js';
+import { type SbbToggleOptionElement } from '../toggle-option.js';
 
 import style from './toggle.scss?lit&inline';
 
@@ -28,17 +34,11 @@ export
 @hostAttributes({
   role: 'radiogroup',
 })
-class SbbToggleElement extends LitElement {
+class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     change: 'change',
   } as const;
-
-  /** Whether the toggle is disabled. */
-  @forceType()
-  @handleDistinctChange((e: SbbToggleElement) => e._updateDisabled())
-  @property({ reflect: true, type: Boolean })
-  public accessor disabled: boolean = false;
 
   /**
    * If true, set the width of the component fixed; if false,
@@ -59,14 +59,14 @@ class SbbToggleElement extends LitElement {
    * a new option is selected (see the `onToggleOptionSelect()` method).
    */
   @property()
-  public set value(value: string) {
+  public override set value(value: string | null) {
     if (isServer) {
       this._value = value;
     } else {
       this._valueChanged(value);
     }
   }
-  public get value(): string {
+  public override get value(): string {
     return isServer
       ? (this._value ?? '')
       : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? '');
@@ -82,7 +82,7 @@ class SbbToggleElement extends LitElement {
   private _toggleResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => this.updatePillPosition(true),
+    callback: () => this._updatePillPosition(true),
   });
 
   /** Emits whenever the toggle value changes. */
@@ -97,8 +97,55 @@ class SbbToggleElement extends LitElement {
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
-  /** @internal */
-  public updatePillPosition(resizing: boolean): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.options.forEach((option) => this._toggleResizeObserver.observe(option));
+    this._updateToggle();
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('disabled') || changedProperties.has('formDisabled')) {
+      this._updateDisabled();
+    }
+  }
+
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+
+    await this.updateComplete;
+    this._loaded = true;
+    this.statusChanged();
+  }
+
+  /**
+   * Called whenever the value changes, both programmatically or by user interaction.
+   * @internal
+   */
+  public statusChanged(): void {
+    this.updateFormValue();
+    this._updatePillPosition();
+  }
+
+  /**
+   * Reset to the init value if present. Select the first option, otherwise.
+   */
+  public formResetCallback(): void {
+    this.value = this.getAttribute('value');
+  }
+
+  public formStateRestoreCallback(
+    state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {
+    this.value = state as string;
+  }
+
+  protected updateFormValue(): void {
+    this.internals.setFormValue(this.value);
+  }
+
+  private _updatePillPosition(resizing = false): void {
     if (!this._loaded) {
       return;
     }
@@ -127,26 +174,12 @@ class SbbToggleElement extends LitElement {
     this.style?.setProperty('--sbb-toggle-option-right', pillRight);
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.options.forEach((option) => this._toggleResizeObserver.observe(option));
-    this._updateToggle();
-  }
-
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
-    super.firstUpdated(changedProperties);
-
-    await this.updateComplete;
-    this._loaded = true;
-    this.updatePillPosition(false);
-  }
-
   private _updateToggle(): void {
     this._valueChanged(this.value);
     this._updateDisabled();
   }
 
-  private _valueChanged(value: any | undefined): void {
+  private _valueChanged(value: string | null): void {
     const options = this.options;
     // If options are not yet defined web components, we can check if attribute is already set as a fallback.
     // We do this by checking whether value property is available (defined component).
@@ -166,17 +199,20 @@ class SbbToggleElement extends LitElement {
     if (!selectedOption.checked) {
       selectedOption.checked = true;
     }
-    this.updatePillPosition(false);
+    this.statusChanged();
   }
 
   private _updateDisabled(): void {
     for (const toggleOption of this.options) {
-      toggleOption.disabled = this.disabled;
+      toggleOption.disabled = this.disabled || this.formDisabled;
     }
   }
 
+  /**
+   * Called on user interaction (click or keyboard)
+   */
   private _handleInput(): void {
-    this.updatePillPosition(false);
+    this.statusChanged();
     this._change.emit();
   }
 

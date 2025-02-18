@@ -36,11 +36,20 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 
 | Name       | Attribute  | Privacy | Type                       | Default            | Description                                                                                                                                      |
 | ---------- | ---------- | ------- | -------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `disabled` | `disabled` | public  | `boolean`                  | `false`            | Whether the toggle is disabled.                                                                                                                  |
+| `disabled` | `disabled` | public  | `boolean`                  | `false`            | Whether the component is disabled.                                                                                                               |
 | `even`     | `even`     | public  | `boolean`                  | `false`            | If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.                       |
+| `form`     | -          | public  | `HTMLFormElement \| null`  |                    | Returns the form owner of the internals of the target element.                                                                                   |
+| `name`     | `name`     | public  | `string`                   |                    | Name of the form element. Will be read from name attribute.                                                                                      |
 | `options`  | -          | public  | `SbbToggleOptionElement[]` |                    | The child instances of sbb-toggle-option as an array.                                                                                            |
 | `size`     | `size`     | public  | `'s' \| 'm'`               | `'m' / 's' (lean)` | Size variant, either m or s.                                                                                                                     |
-| `value`    | `value`    | public  | `string`                   | `null`             | The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method). |
+| `value`    | `value`    | public  | `string \| null`           | `null`             | The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method). |
+
+## Methods
+
+| Name                       | Privacy | Description                                                             | Parameters                                                    | Return | Inherited From |
+| -------------------------- | ------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- | ------ | -------------- |
+| `formResetCallback`        | public  | Reset to the init value if present. Select the first option, otherwise. |                                                               | `void` |                |
+| `formStateRestoreCallback` | public  |                                                                         | `state: FormRestoreState \| null, _reason: FormRestoreReason` | `void` |                |
 
 ## Events
 

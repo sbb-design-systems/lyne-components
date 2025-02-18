@@ -113,14 +113,18 @@ const DefaultTemplate = ({
   ariaLabel,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-toggle ${sbbSpread(args)}>
-    <sbb-toggle-option icon-name=${iconName} aria-label=${ariaLabel} value="Value 1">
-      ${label}
-    </sbb-toggle-option>
-    <sbb-toggle-option icon-name=${iconName && 'arrows-right-left-small'} value="Value 2">
-      ${labelTwo}
-    </sbb-toggle-option>
-  </sbb-toggle>
+  <form>
+    <fieldset>
+      <sbb-toggle name="field-1" ${sbbSpread(args)}>
+        <sbb-toggle-option icon-name=${iconName} aria-label=${ariaLabel} value="Value 1">
+          ${label}
+        </sbb-toggle-option>
+        <sbb-toggle-option icon-name=${iconName && 'arrows-right-left-small'} value="Value 2">
+          ${labelTwo}
+        </sbb-toggle-option>
+      </sbb-toggle>
+    </fieldset>
+  </form>
 `;
 
 const SlottedIconTemplate = ({
