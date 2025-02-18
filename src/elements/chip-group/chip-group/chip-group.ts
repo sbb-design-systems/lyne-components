@@ -303,7 +303,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   }
 
   private _reactToInputChanges(): void {
-    this.disabled = this._inputElement!.disabled;
+    this.disabled = this._inputElement?.disabled ?? false;
     this._proxyStateToChips();
   }
 
