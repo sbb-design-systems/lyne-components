@@ -3,11 +3,15 @@
 :host {
   width: var(--sbb-size-element-m);
 
-  --sbb-icon-sidebar-top-spacing: #{sbb.px-to-rem-build(64)};
+  --sbb-icon-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
+  --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);
+  --sbb-icon-sidebar__border-radius-end: var(--sbb-icon-sidebar-border-radius);
+  --sbb-icon-sidebar__border-radius-start: 0;
+}
 
-  @include sbb.mq($from: medium) {
-    --sbb-icon-sidebar-top-spacing: #{sbb.px-to-rem-build(80)};
-  }
+:host([position='end']) {
+  --sbb-icon-sidebar__border-radius-end: 0;
+  --sbb-icon-sidebar__border-radius-start: var(--sbb-icon-sidebar-border-radius);
 }
 
 .sbb-icon-sidebar {
@@ -15,7 +19,6 @@
 
   & {
     width: inherit;
-    padding-block-start: var(--sbb-icon-sidebar-top-spacing);
     overflow: hidden;
     overflow-y: auto;
     background-color: var(--sbb-sidebar-background-color);
@@ -23,5 +26,8 @@
     flex-direction: column;
     position: absolute;
     inset-block: 0;
+    margin-block-start: var(--sbb-icon-sidebar-margin-block-start);
+    border-start-end-radius: var(--sbb-icon-sidebar__border-radius-end);
+    border-start-start-radius: var(--sbb-icon-sidebar__border-radius-start);
   }
 }

@@ -30,14 +30,14 @@ const Template = (args: Args): TemplateResult =>
           href="#"
         ></sbb-icon-sidebar-link>
         <sbb-icon-sidebar-link
-          accessibility-label="Buy a ticket"
-          icon-name="tickets-class-small"
+          accessibility-label="Be a unicorn"
+          icon-name="unicorn-small"
           href="#"
           class="sbb-active"
         ></sbb-icon-sidebar-link>
         <sbb-icon-sidebar-button
-          aria-label="Exchange money"
-          icon-name="money-exchange-small"
+          aria-label="Be happy"
+          icon-name="face-grinning-small"
         ></sbb-icon-sidebar-button>
       </sbb-icon-sidebar>
       <sbb-icon-sidebar-content>
@@ -110,14 +110,14 @@ const Template = (args: Args): TemplateResult =>
           href="#"
         ></sbb-icon-sidebar-link>
         <sbb-icon-sidebar-link
-          accessibility-label="Buy a ticket"
-          icon-name="tickets-class-small"
+          accessibility-label="Be a unicorn"
+          icon-name="unicorn-small"
           href="#"
           class="sbb-active"
         ></sbb-icon-sidebar-link>
         <sbb-icon-sidebar-button
-          aria-label="Exchange money"
-          icon-name="money-exchange-small"
+          aria-label="Be happy"
+          icon-name="face-grinning-small"
         ></sbb-icon-sidebar-button>
       </sbb-icon-sidebar>
     </sbb-icon-sidebar-container>`;
