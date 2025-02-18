@@ -180,7 +180,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       });
     }
 
-    this._proxyStateToChips();
+    this._reactToInputChanges();
     this.updateFormValue();
   }
 
