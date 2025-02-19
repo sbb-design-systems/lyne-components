@@ -10,7 +10,6 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -43,7 +42,7 @@ const BaseTemplate = (args: Args, picker: string | undefined = undefined): Templ
 const StandaloneTemplate = (args: Args): TemplateResult => html` ${BaseTemplate(args)} `;
 
 const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
-  <div style=${styleMap({ display: 'flex', gap: '1em' })}>
+  <div style="display: flex; gap: 1em;">
     ${BaseTemplate(args, 'datepicker')}
     <input value="15.02.2023" id="datepicker-input" />
     <sbb-datepicker
