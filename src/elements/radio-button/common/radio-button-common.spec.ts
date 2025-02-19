@@ -123,8 +123,8 @@ describe(`sbb-radio-button-common`, () => {
         await waitForLitRender(element);
 
         expect(element.validationMessage).to.equal('my error');
-        expect(element.validity.customError).to.be.true;
-        expect(element.validity.valueMissing).to.be.true;
+        expect(element.validity.customError, 'customError').to.be.true;
+        expect(element.validity.valueMissing, 'valueMissing').to.be.true;
       });
 
       it('should not unset required validity', async () => {
@@ -139,14 +139,14 @@ describe(`sbb-radio-button-common`, () => {
 
         element.setCustomValidity('my error');
         expect(element.validationMessage).to.equal('my error', 'With custom error');
-        expect(element.validity.customError).to.be.true;
-        expect(element.validity.valueMissing).to.be.true;
+        expect(element.validity.customError, 'customError').to.be.true;
+        expect(element.validity.valueMissing, 'valueMissing').to.be.true;
 
         element.setCustomValidity('');
 
         expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
-        expect(element.validity.customError).to.be.false;
-        expect(element.validity.valueMissing).to.be.true;
+        expect(element.validity.customError, 'customError').to.be.false;
+        expect(element.validity.valueMissing, 'valueMissing').to.be.true;
       });
 
       it('should set valididty correctly on initialization', async () => {

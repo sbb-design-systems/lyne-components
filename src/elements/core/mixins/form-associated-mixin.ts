@@ -1,6 +1,8 @@
 import type { LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import { isWebkit } from '../dom.js';
+
 import type { AbstractConstructor } from './constructor.js';
 
 const validityKeys: Required<ValidityStateFlags> = {
@@ -306,6 +308,15 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
         }
 
         this.internals.setValidity(flags, outputMessage);
+
+        // WebKit seems to always set customError to true, if any error is active.
+        // Due to this we patch the customError value manually.
+        if (isWebkit) {
+          Object.defineProperty(this.internals.validity, 'customError', {
+            value: this._validityStates.has('customError') || !!flags.customError,
+            configurable: true,
+          });
+        }
       } else {
         this.internals.setValidity({});
       }
