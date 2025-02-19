@@ -374,7 +374,8 @@ snapshots["sbb-radio-button-panel renders required - A11y tree Chrome"] =
     {
       "role": "radio",
       "name": "",
-      "checked": false
+      "checked": false,
+      "invalid": "true"
     }
   ]
 }
@@ -391,7 +392,8 @@ snapshots["sbb-radio-button-panel renders required - A11y tree Firefox"] =
     {
       "role": "radio",
       "name": "",
-      "required": true
+      "required": true,
+      "invalid": "true"
     }
   ]
 }
