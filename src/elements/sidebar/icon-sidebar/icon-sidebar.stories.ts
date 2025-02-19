@@ -41,12 +41,15 @@ const defaultArgs: Args = {
 
 const header = html`<sbb-header expanded>
   <sbb-header-button
+    id="menu-toggle-button"
     icon-name="hamburger-menu-small"
     @click=${(event: PointerEvent) =>
       (event.currentTarget as HTMLElement)?.parentElement?.parentElement
         ?.querySelector<SbbSidebarElement>('sbb-sidebar')
         ?.toggle()}
     aria-label="Toggle menu"
+    aria-controls="sidebar"
+    aria-expanded="true"
   >
     Menu
   </sbb-header-button>
@@ -78,7 +81,23 @@ const iconSidebar = (args: Args): TemplateResult =>
 
 const sidebar = (args: Args): TemplateResult =>
   html`<!-- We take the contrary color to visually distinguish the icon sidebar and the sidebar -->
-    <sbb-sidebar opened color=${args.color === 'milk' ? 'white' : 'milk'} position=${args.position}>
+    <sbb-sidebar
+      color=${args.color === 'milk' ? 'white' : 'milk'}
+      opened
+      position=${args.position}
+      id="sidebar"
+      role="navigation"
+      @didOpen=${(event: CustomEvent) =>
+        (event.currentTarget as HTMLElement)
+          .closest('sbb-icon-sidebar-container')
+          ?.parentElement?.querySelector('#menu-toggle-button')
+          ?.setAttribute('aria-expanded', 'true')}
+      @didClose=${(event: CustomEvent) =>
+        (event.currentTarget as HTMLElement)
+          .closest('sbb-icon-sidebar-container')
+          ?.parentElement?.querySelector('#menu-toggle-button')
+          ?.setAttribute('aria-expanded', 'false')}
+    >
       <sbb-sidebar-title>Be a unicorn</sbb-sidebar-title>
       <sbb-sidebar-close-button></sbb-sidebar-close-button>
 

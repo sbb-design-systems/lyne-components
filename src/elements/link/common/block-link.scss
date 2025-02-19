@@ -15,6 +15,7 @@
 // TODO: improve, also for negative, use mixins, discuss design
 :host(.sbb-active) {
   --sbb-link-color-normal: var(--sbb-color-black);
+  --sbb-link-text-decoration: underline;
 }
 
 .sbb-action-base {

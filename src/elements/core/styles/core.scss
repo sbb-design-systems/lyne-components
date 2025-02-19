@@ -386,9 +386,14 @@ sbb-icon-sidebar[position='end'] :is(sbb-icon-sidebar-link, sbb-icon-sidebar-but
   --sbb-icon-sidebar-button__current-border-inset-inline-start: auto;
 }
 
-// If there is no title, avoid reserving any space for the button
+// If there is no close button, avoid reserving any space for the button in the sidebar title
 sbb-sidebar:not(:has(sbb-sidebar-close-button)) sbb-sidebar-title {
   --sbb-sidebar-title__close-button-placeholder: 0;
+}
+
+// If there is a title, remove top spacing for the content
+sbb-sidebar:has(sbb-sidebar-title) {
+  --sbb-sidebar__padding-block-start: 0;
 }
 
 // Move container below header

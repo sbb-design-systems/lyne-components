@@ -3,8 +3,9 @@
 :host {
   width: #{sbb.px-to-rem-build(320)};
 
+  --sbb-link-text-decoration: none;
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-sidebar-padding: var(--sbb-spacing-responsive-xs);
   --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
   --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
@@ -12,13 +13,14 @@
   --sbb-sidebar__margin-block-start: var(--sbb-sidebar-margin);
   --sbb-sidebar__translate-x: -100%;
   --sbb-sidebar__z-index: 2;
-  --sbb-sidebar__padding-inline-end: var(--sbb-sidebar-padding-inline);
+  --sbb-sidebar__padding-inline-end: var(--sbb-sidebar-padding);
+  --sbb-sidebar__padding-block-start: var(--sbb-sidebar-padding);
   --sbb-sidebar__border-radius-start: var(--sbb-sidebar-border-radius);
   --sbb-sidebar__border-radius-end: 0;
 
   @supports (scrollbar-gutter: stable) {
     --sbb-sidebar__padding-inline-end: calc(
-      var(--sbb-sidebar-padding-inline) - var(--sbb-sidebar-scrollbar-placeholder-width)
+      var(--sbb-sidebar-padding) - var(--sbb-sidebar-scrollbar-placeholder-width)
     );
   }
 }
@@ -78,7 +80,7 @@
   position: sticky;
   inset-block-start: 0;
   background-color: var(--sbb-sidebar-background-color);
-  padding-inline: var(--sbb-sidebar-padding-inline);
+  padding-inline: var(--sbb-sidebar-padding);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-sidebar-container-animation-duration);
   box-shadow: none;
 
@@ -91,7 +93,8 @@
   @include sbb.scrollbar;
 
   & {
-    padding-inline: var(--sbb-sidebar-padding-inline) var(--sbb-sidebar__padding-inline-end);
+    padding-block-start: var(--sbb-sidebar__padding-block-start);
+    padding-inline: var(--sbb-sidebar-padding) var(--sbb-sidebar__padding-inline-end);
     overflow-y: auto;
 
     @supports (scrollbar-gutter: stable) {
