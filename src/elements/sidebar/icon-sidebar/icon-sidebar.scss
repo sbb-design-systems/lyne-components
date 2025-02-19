@@ -5,6 +5,7 @@
   flex-shrink: 0;
 
   --sbb-icon-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
+  --sbb-icon-sidebar-padding-block-start: var(--sbb-spacing-fixed-1x);
   --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);
   --sbb-icon-sidebar__border-radius-end: var(--sbb-icon-sidebar-border-radius);
   --sbb-icon-sidebar__border-radius-start: 0;
@@ -28,6 +29,7 @@
     position: absolute;
     inset-block: 0;
     margin-block-start: var(--sbb-icon-sidebar-margin-block-start);
+    padding-block-start: var(--sbb-icon-sidebar-padding-block-start);
     border-start-end-radius: var(--sbb-icon-sidebar__border-radius-end);
     border-start-start-radius: var(--sbb-icon-sidebar__border-radius-start);
   }
