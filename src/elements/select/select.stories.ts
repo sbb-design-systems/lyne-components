@@ -208,12 +208,7 @@ const codeStyle: Readonly<StyleInfo> = {
 
 const aboveDecorator: Decorator = (story) => html`
   <div
-    style=${styleMap({
-      'inset-block-end': '2rem',
-      'inset-inline-start': '2rem',
-      position: 'absolute',
-      'max-width': 'calc(100% - 4rem)',
-    })}
+    style="inset-block-end: 2rem; inset-inline-start: 2rem; position: absolute; max-width: calc(100% - 4rem);"
   >
     ${story()}
   </div>

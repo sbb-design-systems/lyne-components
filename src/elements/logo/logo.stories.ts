@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -71,7 +70,7 @@ export const Negative: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html`<div style=${styleMap({ 'max-width': '300px' })}>${story()}</div>`],
+  decorators: [(story) => html`<div style="max-width: 300px;">${story()}</div>`],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
