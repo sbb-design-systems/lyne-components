@@ -411,7 +411,7 @@ The `validity` property return the current validity state of an element.
 
 #### `readonly validationMessage: string`
 
-The `validationMessage` propert returns the currently applicable validation
+The `validationMessage` property returns the currently applicable validation
 message. Please note that only one message is returned at a time (e.g. if
 multiple validity states are invalid, only the chronologically first one is
 returned until it is fixed, at which point the next message might be returned,
@@ -431,6 +431,7 @@ latter case.
 
 #### `setCustomValidity(message: string): void`
 
-The `setCustomValidity(message: string)` method sets the custom validity
-message for the element. Use the empty string to indicate that the element
+By using `setCustomValidity(message: string)` it's possible to define a custom validation
+message which is set on the element. Use the empty string to indicate that the element
 does not have a custom validity error.
+With this method, the validation state of the element can be controlled from outside.
