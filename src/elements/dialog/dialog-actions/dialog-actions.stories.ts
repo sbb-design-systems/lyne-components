@@ -8,7 +8,7 @@ import readme from './readme.md?raw';
 
 import '../../button/button.js';
 import '../../button/secondary-button.js';
-import '../../link.js';
+import '../../link/block-link/block-link.js';
 
 const Template = (): TemplateResult =>
   html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">

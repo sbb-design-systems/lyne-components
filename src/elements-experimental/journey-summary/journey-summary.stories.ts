@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import {
@@ -97,14 +96,7 @@ const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => htm
     now=${now ? now / 1000 : nothing}
     ${sbbSpread(args)}
   >
-    <div
-      style=${styleMap({
-        display: 'flex',
-        paddingTop: '24px',
-        justifyContent: 'space-between',
-      })}
-      slot="content"
-    >
+    <div style="display: flex; padding-top: 24px; justify-content: space-between;" slot="content">
       <sbb-secondary-button icon-name="context-menu-small"></sbb-secondary-button>
       <sbb-button>Button label</sbb-button>
     </div>

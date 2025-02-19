@@ -150,7 +150,7 @@ const IndeterminateGroupTemplate = ({
   label,
   ...args
 }: Args): TemplateResult => html`
-  <div style=${styleMap({ 'margin-block-end': '1rem' })}>
+  <div style="margin-block-end: 1rem;">
     <div>Check/uncheck all the children checkboxes and the parent will be checked/unchecked.</div>
     <div>Check a single child and the parent will be indeterminate.</div>
   </div>
@@ -174,7 +174,7 @@ const IndeterminateGroupTemplate = ({
       icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       ?disabled=${disabledSingle}
-      style=${styleMap({ 'margin-inline-start': '2rem' })}
+      style="margin-inline-start: 2rem;"
     >
       ${label} option 1
     </sbb-checkbox>
@@ -185,7 +185,7 @@ const IndeterminateGroupTemplate = ({
       @change=${(event: Event) => childCheck(event)}
       icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
-      style=${styleMap({ 'margin-inline-start': '2rem' })}
+      style="margin-inline-start: 2rem;"
     >
       ${label} option 2
     </sbb-checkbox>
