@@ -1,6 +1,7 @@
 export const DAYS_PER_ROW: number = 7;
 export const MONTHS_PER_ROW: number = 4;
 export const YEARS_PER_ROW: number = 4;
+export const MONTHS_PER_PAGE: number = 12;
 export const YEARS_PER_PAGE: number = 24;
 export const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
@@ -29,6 +30,12 @@ export abstract class DateAdapter<T = any> {
    * @param date
    */
   public abstract getDate(date: T): number;
+
+  /**
+   * Gets the date as milliseconds since epoch.
+   * @param date
+   */
+  public abstract getTime(date: T): number;
 
   /**
    * Get the Day of the week as a number.
@@ -190,6 +197,15 @@ export abstract class DateAdapter<T = any> {
   public toIso8601(date: T): string {
     const pad = (value: number, length = 2): string => `${value}`.padStart(length, '0');
     return `${pad(this.getYear(date), 4)}-${pad(this.getMonth(date))}-${pad(this.getDate(date))}`;
+  }
+
+  /**
+   * Retruns a date from ISO String.
+   * @param date The ISO String date to convert to T.
+   */
+  public fromIso8601(date: string): T {
+    const parsed: number[] = date.split('-').map((e) => Number(e));
+    return this.createDate(parsed[0], parsed[1], parsed[2]);
   }
 
   /**
