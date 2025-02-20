@@ -11,10 +11,21 @@ at the component start using the `iconName` property or via custom content using
 <sbb-menu-button icon-name="pie-small">Another text</sbb-menu-button>
 ```
 
-An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property.
+## Badge
+
+A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
+It's recommended to hide the badge when the menu button is disabled.
+It's mandatory to provide the badge information for screen readers either with an `aria-label`
+or a hidden text (`<sbb-screen-reader-only>` for example).
 
 ```html
-<sbb-menu-button amount="123">Amount text</sbb-menu-button>
+<sbb-menu-button
+  sbb-badge="2"
+  aria-label="Show messages, 2 new messages available"
+  icon-name="pie-small"
+>
+  Messages
+</sbb-menu-button>
 ```
 
 ## Button properties
@@ -47,7 +58,6 @@ guard against such cases in your component.
 
 | Name                  | Attribute              | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | --------------------- | ---------------------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `amount`              | `amount`               | public  | `string`                  | `''`       | Value shown as badge at component end.                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `disabled`            | `disabled`             | public  | `boolean`                 | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                       |
 | `form`                | `form`                 | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                     |

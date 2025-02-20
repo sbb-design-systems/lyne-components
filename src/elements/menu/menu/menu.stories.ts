@@ -1,8 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbMenuElement } from './menu.js';
@@ -23,7 +22,7 @@ const iconName: InputType = {
   },
 };
 
-const amount: InputType = {
+const badge: InputType = {
   control: {
     type: 'text',
   },
@@ -43,13 +42,13 @@ const disabled: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
-  amount,
+  badge,
   disabled,
 };
 
 const defaultArgs: Args = {
   'icon-name': 'link-small',
-  amount: '123',
+  badge: '2',
   disabled: false,
 };
 
@@ -74,10 +73,21 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+    <sbb-menu-button
+      icon-name="pen-small"
+      sbb-badge=${!args.disabled ? '16' : nothing}
+      aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
+      ?disabled=${args.disabled}
+    >
       Edit
     </sbb-menu-button>
-    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-button>
+    <sbb-menu-button
+      icon-name="swisspass-small"
+      sbb-badge=${args.badge}
+      aria-label="Details, ${args.badge} items"
+    >
+      Details
+    </sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
@@ -89,10 +99,21 @@ const ListTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+    <sbb-menu-button
+      icon-name="pen-small"
+      sbb-badge=${!args.disabled ? '16' : nothing}
+      aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
+      ?disabled=${args.disabled}
+    >
       Edit
     </sbb-menu-button>
-    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-button>
+    <sbb-menu-button
+      icon-name="swisspass-small"
+      sbb-badge=${args.badge}
+      aria-label="Details, ${args.badge} items"
+    >
+      Details
+    </sbb-menu-button>
     <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
 `;
@@ -110,7 +131,13 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-button icon-name="tickets-class-small" ?disabled=${args.disabled}>
       Tickets
     </sbb-menu-button>
-    <sbb-menu-button icon-name="shopping-cart-small" amount=${args.amount}> Cart </sbb-menu-button>
+    <sbb-menu-button
+      icon-name="shopping-cart-small"
+      sbb-badge=${args.badge}
+      aria-label="Cart, containing ${args.badge} items"
+    >
+      Cart
+    </sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="exit-small">Log Out</sbb-menu-button>
   </sbb-menu>
@@ -122,7 +149,8 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-button
       icon-name=${args['icon-name']}
       ?disabled=${args.disabled}
-      amount=${args.amount}
+      sbb-badge=${!args.disabled ? args.badge : nothing}
+      aria-label=${!args.disabled ? `English, ${args.badge} items` : nothing}
     >
       English
     </sbb-menu-button>
@@ -164,7 +192,11 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
       View
     </sbb-menu-link>
     <sbb-menu-button icon-name="pen-small" ?disabled=${args.disabled}> Edit </sbb-menu-button>
-    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}>
+    <sbb-menu-button
+      icon-name="swisspass-small"
+      sbb-badge=${args.badge}
+      aria-label="Very long label contains ${args.badge} items"
+    >
       Very long label that exceeds the maximum width of the menu, very long label that exceeds the
       maximum width of the menu, very long label that exceeds the maximum width of the menu
     </sbb-menu-button>
@@ -188,13 +220,13 @@ export const List: StoryObj = {
 export const CustomContent: StoryObj = {
   render: CustomContentTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, amount: '2' },
+  args: { ...defaultArgs, badge: '2' },
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined },
+  args: { ...defaultArgs, 'icon-name': 'tick-small', badge: undefined },
 };
 
 export const Ellipsis: StoryObj = {
