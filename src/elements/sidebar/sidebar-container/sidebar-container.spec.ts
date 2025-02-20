@@ -25,8 +25,8 @@ describe('sbb-sidebar-container', () => {
       await waitForLitRender(element);
     }
 
-    // We need to ensure that the collapsed state is really rendered
-    await aTimeout(50);
+    // In Safari it takes a little bit longer to render everything
+    await aTimeout(100);
   }
 
   beforeEach(async () => {
