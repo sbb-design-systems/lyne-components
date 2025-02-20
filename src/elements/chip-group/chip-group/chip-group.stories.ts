@@ -37,21 +37,60 @@ const negative: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm', 'l'],
+  table: {
+    category: 'Form field',
+  },
+};
+
+const hiddenLabel: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
+const floatingLabel: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   disabled,
   readonly,
   negative,
+  size,
+  hiddenLabel,
+  floatingLabel,
 };
 
 const defaultArgs: Args = {
   disabled: false,
   readonly: false,
   negative: false,
+  size: size.options![1],
+  hiddenLabel: false,
+  floatingLabel: false,
 };
 
 const Template = (args: Args): TemplateResult => html`
   <form>
-    <sbb-form-field ?negative=${args.negative}>
+    <sbb-form-field
+      ?negative=${args.negative}
+      size=${args.size}
+      ?hidden-label=${args.hiddenLabel}
+      ?floating-label=${args.floatingLabel}
+    >
       <label>Label</label>
       <sbb-chip-group name="chip-group-1">
         <sbb-chip value="chip 1"></sbb-chip>
@@ -64,7 +103,12 @@ const Template = (args: Args): TemplateResult => html`
 `;
 
 const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative}>
+  <sbb-form-field
+    ?negative=${args.negative}
+    size=${args.size}
+    ?hidden-label=${args.hiddenLabel}
+    ?floating-label=${args.floatingLabel}
+  >
     <label>Label</label>
     <sbb-chip-group name="chip-group-1" ?negative=${args.negative}>
       <sbb-chip value="chip 1"></sbb-chip>
