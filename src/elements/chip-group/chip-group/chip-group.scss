@@ -6,7 +6,7 @@
 :host {
   --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
 
-  display: contents;
+  max-width: 100%; // Needed for the ellipsis on chips to work
 }
 
 ::slotted(input) {
