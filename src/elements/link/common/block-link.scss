@@ -12,10 +12,12 @@
   @include sbb.block-link-variables--negative;
 }
 
-// TODO: improve, also for negative, use mixins, discuss design
 :host(.sbb-active) {
-  --sbb-link-color-normal: var(--sbb-color-black);
-  --sbb-link-text-decoration: underline;
+  @include sbb.block-link-variables--active;
+}
+
+:host(.sbb-active[negative]) {
+  @include sbb.block-link-variables--active-negative;
 }
 
 .sbb-action-base {
