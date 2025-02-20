@@ -3,29 +3,44 @@
 @use '../core/mediaqueries';
 @use '../core/functions';
 
-@mixin block-link-variables {
-  --sbb-link-color-normal: var(--sbb-color-granite);
+@mixin link-common-variables {
   --sbb-link-color-hover: var(--sbb-color-red125);
   --sbb-link-color-active: var(--sbb-color-red150);
+  --sbb-link-text-decoration-color: color-mix(in srgb, currentcolor 80%, white);
+  --sbb-link-text-decoration-color-hover: currentcolor;
+}
+
+@mixin link-common-variables--negative {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-link-text-decoration-color: color-mix(in srgb, currentcolor 80%, black);
+  --sbb-link-text-decoration-color-hover: currentcolor;
+}
+
+@mixin block-link-variables {
+  @include link-common-variables;
+
+  --sbb-link-color-normal: var(--sbb-color-granite);
 }
 
 @mixin block-link-variables--negative {
+  @include link-common-variables--negative;
+
   --sbb-link-color-normal: var(--sbb-color-white);
   --sbb-link-color-hover: var(--sbb-color-cloud);
   --sbb-link-color-active: var(--sbb-color-silver);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 @mixin link-variables {
+  @include link-common-variables;
+
   --sbb-link-color-normal: inherit;
-  --sbb-link-color-hover: var(--sbb-color-red125);
-  --sbb-link-color-active: var(--sbb-color-red150);
 }
 
 @mixin link-variables--negative {
+  @include link-common-variables--negative;
+
   --sbb-link-color-hover: var(--sbb-color-graphite);
   --sbb-link-color-active: var(--sbb-color-metal);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 @mixin link-variables--button {
@@ -38,10 +53,11 @@
 
 @mixin link-base {
   color: var(--sbb-link-color-normal);
-  text-decoration: var(
-    --sbb-link-text-decoration,
-    color-mix(in srgb, currentcolor 80%, transparent) underline #{functions.px-to-rem-build(1)}
-  );
+
+  // TODO: rename --sbb-link-text-decoration variable to --sbb-link-text-decoration-line
+  text-decoration-line: var(--sbb-link-text-decoration, underline);
+  text-decoration-color: var(--sbb-link-text-decoration-color);
+  text-decoration-thickness: #{functions.px-to-rem-build(1)};
   text-underline-offset: 0.3125em; // 5px
   user-select: none;
 
@@ -62,10 +78,10 @@
 @mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
-    text-decoration: var(
-      --sbb-link-hover-text-decoration,
-      currentColor underline #{functions.px-to-rem-build(1)}
-    );
+
+    // TODO: rename --sbb-link-hover-text-decoration variable to --sbb-link-text-decoration-line-hover
+    text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
+    text-decoration-color: var(--sbb-link-text-decoration-color-hover);
   }
 }
 
