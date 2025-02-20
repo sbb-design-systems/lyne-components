@@ -9,6 +9,7 @@
   --sbb-chip-border-color: var(--sbb-color-cloud);
   --sbb-chip-border-radius: var(--sbb-border-radius-2x);
   --sbb-chip-color: var(--sbb-color-granite);
+  --sbb-chip-color-active: var(--sbb-color-charcoal);
   --sbb-chip-color-hover: var(--sbb-color-charcoal);
   --sbb-chip-background-color-active: var(--sbb-color-white);
   --sbb-chip-background-color-hover: var(--sbb-color-white);
@@ -24,6 +25,7 @@
   --sbb-chip-border-color: var(--sbb-color-iron);
   --sbb-chip-background-color: var(--sbb-color-charcoal);
   --sbb-chip-color: var(--sbb-color-cloud);
+  --sbb-chip-color-active: var(--sbb-color-white);
   --sbb-chip-color-hover: var(--sbb-color-white);
   --sbb-chip-background-color-active: var(--sbb-color-midnight);
   --sbb-chip-background-color-hover: var(--sbb-color-midnight);
@@ -42,13 +44,12 @@
 
 @include sbb.hover-mq($hover: true) {
   :host(:not([disabled])) {
-    .sbb-chip__label-wrapper:hover {
+    .sbb-chip__label-wrapper:hover:not(:active) {
       color: var(--sbb-chip-color-hover);
       cursor: pointer;
       background-color: var(--sbb-chip-background-color-hover);
 
       .sbb-chip__label {
-        transition: transform var(--sbb-chip-transition-duration) var(--sbb-animation-easing);
         transform: translateY(#{sbb.px-to-rem-build(-1)});
       }
     }
@@ -57,6 +58,12 @@
       --sbb-button-color-text: var(--sbb-chip-color-hover);
     }
   }
+}
+
+:host(:not([disabled])) .sbb-chip__label-wrapper:active {
+  color: var(--sbb-chip-color-hover);
+  cursor: pointer;
+  background-color: var(--sbb-chip-background-color-hover);
 }
 
 .sbb-chip {
@@ -82,12 +89,19 @@
   align-items: center;
   padding-inline: var(--sbb-spacing-fixed-2x);
   outline: none;
+
+  :host(:not([disabled])) &:active {
+    color: var(--sbb-chip-color-active);
+    cursor: pointer;
+    background-color: var(--sbb-chip-background-color-active);
+  }
 }
 
 .sbb-chip__label {
   @include sbb.text-xxs--regular;
 
   display: inline-block;
+  transition: transform var(--sbb-chip-transition-duration) var(--sbb-animation-easing);
 }
 
 .sbb-chip__delete {
