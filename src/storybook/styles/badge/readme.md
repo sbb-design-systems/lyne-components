@@ -13,14 +13,14 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 
 ### Usage
 
-#### standard / after
+#### Position default/after
 
 ```html
 <sbb-icon icon-name="controls-small" sbb-badge="2"></sbb-icon>
 <sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
 ```
 
-#### before
+#### Position before
 
 ```html
 <sbb-icon icon-name="controls-small" sbb-badge="2" sbb-badge-position="before"></sbb-icon>
@@ -30,7 +30,8 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 ### Accessibility
 
 For screen readers it's important to output the meaning of the badge. This attribute itself doesn't
-output anything to screen readers. Setting an `aria-label`s or the `<sbb-screen-reader-only>` element can be helpful.
+output anything to screen readers. Setting an `aria-label` attribute on the same element or adding
+`<sbb-screen-reader-only>` inside the element can be used to provide the relevant information.
 
 ## Using the mixin
 
