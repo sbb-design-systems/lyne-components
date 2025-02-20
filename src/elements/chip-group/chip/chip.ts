@@ -52,11 +52,13 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   }
 
   /**
-   * Return the two focusable elements of the chip.
+   * Return the focusable elements of the chip.
    * @internal
    */
   public getFocusSteps(): HTMLElement[] {
-    return [this._chipLabel(), this._deleteButton()];
+    return this.readonly || this.disabled
+      ? [this._chipLabel()]
+      : [this._chipLabel(), this._deleteButton()];
   }
 
   protected override firstUpdated(_changedProperties: PropertyValues): void {

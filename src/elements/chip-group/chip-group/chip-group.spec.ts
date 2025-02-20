@@ -64,7 +64,7 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(element);
     });
 
-    it('should delete chip delete button click', async () => {
+    it('should delete chip on delete button click', async () => {
       const toDelete = chips[0];
       const toDeleteValue = toDelete.value;
       const inputEventSpy = new EventSpy(SbbChipGroupElement.events.input, element);
@@ -217,8 +217,27 @@ describe('sbb-chip-group', () => {
         expect(document.activeElement!.localName).to.be.equal('input');
       });
 
+      it('should prevent delete on readonly chip', async () => {
+        chips.at(-1)!.readonly = true;
+        input.focus();
+
+        await sendKeys({ press: 'Backspace' });
+
+        // Should focus the last enabled chip (even if readonly)
+        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
+        const focusedChipValue = (document.activeElement as SbbChipElement).value;
+
+        // Should remove the focused chip
+        await sendKeys({ press: 'Backspace' });
+        await waitForLitRender(element);
+
+        expect(element.value).to.contain(focusedChipValue);
+      });
+
       it('should handle arrow navigation', async () => {
         chips[1].disabled = true;
+        chips[2].readonly = true;
         await waitForLitRender(element);
 
         chips[0].focus();
@@ -235,12 +254,11 @@ describe('sbb-chip-group', () => {
         await sendKeys({ press: 'ArrowDown' });
 
         // Should skip the disabled chip and focus the last one
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[2].value);
         expect(document.activeElement!.shadowRoot!.activeElement!).to.have.class(
           'sbb-chip__label-wrapper',
         );
 
-        await sendKeys({ press: 'ArrowRight' });
         await sendKeys({ press: 'ArrowRight' });
 
         // Should wrap and go back to the first chip
@@ -250,9 +268,8 @@ describe('sbb-chip-group', () => {
         );
 
         await sendKeys({ press: 'ArrowLeft' });
-        await sendKeys({ press: 'ArrowUp' });
 
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[2].value);
         expect(document.activeElement!.shadowRoot!.activeElement!).to.have.class(
           'sbb-chip__label-wrapper',
         );
