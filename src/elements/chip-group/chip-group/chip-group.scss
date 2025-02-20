@@ -5,13 +5,20 @@
 
 :host {
   --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
+
+  display: contents;
 }
 
 ::slotted(input) {
   flex: 1 1 var(--sbb-chip-group-input-min-width);
 }
 
+::slotted(sbb-chip) {
+  max-width: 100%;
+}
+
 .sbb-chip-group {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-1x);

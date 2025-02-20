@@ -89,6 +89,7 @@
   align-items: center;
   padding-inline: var(--sbb-spacing-fixed-2x);
   outline: none;
+  overflow: hidden;
 
   :host(:not([disabled])) &:active {
     color: var(--sbb-chip-color-active);
@@ -99,6 +100,7 @@
 
 .sbb-chip__label {
   @include sbb.text-xxs--regular;
+  @include sbb.ellipsis;
 
   display: inline-block;
   transition: transform var(--sbb-chip-transition-duration) var(--sbb-animation-easing);
