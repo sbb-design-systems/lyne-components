@@ -1,15 +1,22 @@
-import { defaultConverter, type LitElement } from 'lit';
+import {
+  defaultConverter,
+  type LitElement,
+  type PropertyDeclaration,
+  type PropertyValues,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
 import { preventScrollOnSpacebarPress } from '../eventing.js';
+import { i18nCheckboxRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
 import {
+  SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-  SbbFormAssociatedMixin,
   type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
@@ -55,6 +62,7 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     private _attributeMutationBlocked = false;
+    private _languageController = new SbbLanguageController(this);
 
     /** Whether the checkbox is checked. */
     @property({
@@ -145,6 +153,22 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       }
     }
 
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (this.hasUpdated && (name === 'checked' || name === 'required' || !name)) {
+        this._setValidity();
+      }
+    }
+
+    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+      super.firstUpdated(changedProperties);
+      this._setValidity();
+    }
+
     /**
      * Additional logic which is being executed when user
      * interaction happens and state is not disabled.
@@ -178,6 +202,17 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       this.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
       this.dispatchEvent(new Event('change', { bubbles: true }));
     };
+
+    private _setValidity(): void {
+      if (this.required && !this.checked) {
+        this.setValidityFlag(
+          'valueMissing',
+          i18nCheckboxRequired[this._languageController.current],
+        );
+      } else {
+        this.removeValidityFlag('valueMissing');
+      }
+    }
   }
 
   return SbbFormAssociatedCheckboxElement as unknown as Constructor<SbbFormAssociatedCheckboxMixinType> &
