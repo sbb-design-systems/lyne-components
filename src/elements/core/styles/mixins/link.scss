@@ -15,6 +15,16 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
+@mixin block-link-variables--active {
+  --sbb-link-color-normal: var(--sbb-color-black);
+  --sbb-link-text-decoration: underline;
+}
+
+@mixin block-link-variables--active-negative {
+  --sbb-link-color-normal: var(--sbb-color-cement);
+  --sbb-link-text-decoration: underline;
+}
+
 @mixin link-variables {
   --sbb-link-color-normal: inherit;
   --sbb-link-color-hover: var(--sbb-color-red125);
