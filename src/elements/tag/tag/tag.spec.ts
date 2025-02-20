@@ -30,7 +30,7 @@ describe(`sbb-tag`, () => {
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
     expect(element.checked).to.be.equal(true);
-    expect(element).to.have.attribute('aria-pressed');
+    expect(element).to.have.attribute('aria-pressed', 'true');
   });
 
   it('should not be checked after click when disabled', async () => {
