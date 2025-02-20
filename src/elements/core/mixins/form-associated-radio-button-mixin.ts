@@ -1,15 +1,16 @@
-import { isServer, type LitElement, type PropertyValues } from 'lit';
+import { isServer, type LitElement, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
-import { SbbConnectedAbortController } from '../controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
+import { i18nSelectionRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
 import {
+  SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-  SbbFormAssociatedMixin,
   type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
@@ -107,6 +108,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonElement>;
     private _radioButtonGroupsMap?: Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>;
     private _didLoad: boolean = false;
+    private _languageController = new SbbLanguageController(this);
 
     protected constructor() {
       super();
@@ -149,6 +151,17 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
     }
 
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (this.hasUpdated && (name === 'checked' || name === 'required' || !name)) {
+        this._setValidity();
+      }
+    }
+
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);
 
@@ -161,6 +174,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       super.firstUpdated(changedProperties);
       this._didLoad = true;
       this.updateFocusableRadios();
+      this._setValidity();
     }
 
     /**
@@ -270,6 +284,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       // Repopulate the Set
       entries.forEach((r) => this.associatedRadioButtons!.add(r));
+
+      this._setValidity();
     }
 
     /**
@@ -280,10 +296,40 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       if (this.associatedRadioButtons?.size === 0) {
         this._radioButtonGroupsMap?.delete(this.name);
+      } else {
+        this._setValidity();
       }
 
       this.associatedRadioButtons = undefined;
       this._radioButtonGroupsMap = undefined;
+    }
+
+    /**
+     * Sets the validity of all associated radio buttons.
+     * If any radio button is required, all associated are required as well.
+     */
+    private _setValidity(): void {
+      if (!this.associatedRadioButtons) {
+        return;
+      }
+
+      let required = false;
+      let checked = false;
+      for (const radio of this.associatedRadioButtons) {
+        required ||= radio.required;
+        checked ||= radio.checked;
+      }
+
+      if (required && !checked) {
+        this.associatedRadioButtons.forEach((r) =>
+          r.setValidityFlag(
+            'valueMissing',
+            i18nSelectionRequired[this._languageController.current],
+          ),
+        );
+      } else {
+        this.associatedRadioButtons.forEach((r) => r.removeValidityFlag('valueMissing'));
+      }
     }
 
     /**

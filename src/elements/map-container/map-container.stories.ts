@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -30,8 +29,8 @@ const defaultArgs: Args = {
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-map-container ${sbbSpread(args)}>
-    <div style=${styleMap({ padding: 'var(--sbb-spacing-fixed-4x)' })}>
-      <sbb-form-field style=${styleMap({ width: '100%' })}>
+    <div style="padding: var(--sbb-spacing-fixed-4x);">
+      <sbb-form-field style="width: 100%;">
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
         <input minlength=${2} name="keyword" autocomplete="off" placeholder="Search" />
         <sbb-form-field-clear></sbb-form-field-clear>
@@ -40,15 +39,15 @@ const Template = (args: Args): TemplateResult => html`
       ${[...Array(10).keys()].map(
         (value) => html`
           <div
-            style=${styleMap({
-              'background-color': 'var(--sbb-color-milk)',
-              height: '116px',
-              display: 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'border-radius': 'var(--sbb-border-radius-4x)',
-              'margin-block-end': 'var(--sbb-spacing-fixed-4x)',
-            })}
+            style="
+              background-color: var(--sbb-color-milk);
+              height: 116px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: var(--sbb-border-radius-4x);
+              margin-block-end: var(--sbb-spacing-fixed-4x);
+            "
           >
             <p>Situation ${value}</p>
           </div>
@@ -56,15 +55,9 @@ const Template = (args: Args): TemplateResult => html`
       )}
     </div>
 
-    <div slot="map" style=${styleMap({ height: '100%' })}>
+    <div slot="map" style="height: 100%;">
       <div
-        style=${styleMap({
-          'background-color': 'grey',
-          height: '100%',
-          display: 'flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-        })}
+        style="background-color: grey; height: 100%; display: flex; align-items: center; justify-content: center;"
       >
         map
       </div>

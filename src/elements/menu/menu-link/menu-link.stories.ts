@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -188,7 +187,7 @@ export const menuLinkButtonEllipsis: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html`<div style=${styleMap({ width: '256px' })}>${story()}</div>`,
+    (story) => html`<div style="width: 256px;">${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
