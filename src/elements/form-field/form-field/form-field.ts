@@ -205,9 +205,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
    */
   private _onSlotInputChange(): void {
     // Find the slotted 'supportedInputElement', even if it's nested
-    const newInput = this.querySelector(`:where(${this._supportedInputElements.join(',')})`) as
-      | HTMLElement
-      | undefined;
+    const newInput = this.querySelector<HTMLElement>(
+      `:where(${this._supportedInputElements.join(',')})`,
+    );
 
     this._assignSlots();
 
@@ -215,12 +215,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       this._unpatchInputValue();
     }
 
-    this._input = newInput;
-
-    if (!this._input) {
+    if (!newInput) {
+      this._input = undefined;
       return;
     }
 
+    this._input = newInput;
     this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
     this._applyAriaDescribedby();
     this._readInputState();
