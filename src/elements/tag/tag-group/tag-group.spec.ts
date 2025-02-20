@@ -80,6 +80,21 @@ describe(`sbb-tag-group`, () => {
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
       });
+
+      it('should disable slotted tags when setting disabled property', async () => {
+        const changeSpy = new EventSpy('change');
+        const inputSpy = new EventSpy('input');
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
+
+        element.setAttribute('disabled', 'true');
+        await waitForLitRender(element);
+        tag1.click();
+
+        expect(tag1).to.have.attribute('aria-pressed', 'false');
+        expect(tag1.checked).to.be.equal(false);
+        expect(inputSpy.count).not.to.be.greaterThan(0);
+        expect(changeSpy.count).not.to.be.greaterThan(0);
+      });
     });
 
     describe('one initialized checked tag', () => {
@@ -619,6 +634,8 @@ describe(`sbb-tag-group`, () => {
 
     it('updates form value on click', async () => {
       tag3.click();
+      await waitForLitRender(element);
+
       expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
         `{"tag1":"Label 1","tag3":"Label 3"}`,
       );
@@ -626,6 +643,7 @@ describe(`sbb-tag-group`, () => {
 
     it('updates form value on property set', async () => {
       tag3.checked = true;
+      await waitForLitRender(element);
 
       expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
         `{"tag1":"Label 1","tag3":"Label 3"}`,
@@ -654,6 +672,8 @@ describe(`sbb-tag-group`, () => {
       );
 
       form.reset();
+      await waitForLitRender(element);
+
       expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
         `{"tag1":"Label 1"}`,
       );

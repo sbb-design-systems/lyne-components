@@ -23,6 +23,7 @@ $active: ':active, [data-active]';
   --sbb-tag-amount-color: var(--sbb-color-metal);
   --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
+  --sbb-tag-cursor: pointer;
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -57,6 +58,8 @@ $active: ':active, [data-active]';
   --sbb-tag-background-color: var(--sbb-color-milk);
   --sbb-tag-border-color: var(--sbb-color-cement);
   --sbb-tag-border-style: dashed;
+  --sbb-tag-cursor: unset;
+  --sbb-tag-pointer-events: none;
 
   @include sbb.if-forced-colors {
     --sbb-tag-text-color: GrayText;
@@ -109,12 +112,13 @@ $active: ':active, [data-active]';
   max-width: 100%;
   gap: var(--sbb-tag-gap);
   padding-inline: var(--sbb-tag-padding-inline);
-  cursor: pointer;
+  cursor: var(--sbb-tag-cursor);
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  pointer-events: var(--sbb-tag-pointer-events, unset);
 
   &::before {
     content: '';
@@ -131,11 +135,6 @@ $active: ':active, [data-active]';
     :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
       @include sbb.focus-outline;
     }
-  }
-
-  :host(#{$disabled}) & {
-    cursor: unset;
-    pointer-events: none;
   }
 }
 

@@ -109,6 +109,10 @@ class SbbTagGroupElement extends SbbDisabledMixin(
       this.tags.forEach((t) => t.requestUpdate?.('size'));
     }
 
+    if (changedProperties.has('disabled')) {
+      this.tags.forEach((r) => r.requestUpdate?.('disabled'));
+    }
+
     if (
       (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
       !this.multiple

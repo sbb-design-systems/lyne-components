@@ -38,6 +38,12 @@ const multiple: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const value: InputType = {
   control: {
     type: 'text',
@@ -71,6 +77,7 @@ const size: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   multiple,
+  disabled,
   value,
   'list-accessibility-label': listAccessibilityLabel,
   'aria-label': ariaLabel,
@@ -80,6 +87,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   multiple: true,
+  disabled: false,
   value: undefined,
   'list-accessibility-label': 'Select your desired filter',
   'aria-label': undefined,
@@ -173,6 +181,11 @@ export const tagGroup: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+export const disabledGroup: StoryObj = {
+  render: TagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const tagGroupSizeS: StoryObj = {
