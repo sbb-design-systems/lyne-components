@@ -131,6 +131,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 .sbb-menu-action__amount {
   @include sbb.badge;
 
+  flex-shrink: 0;
   margin-inline-start: auto;
 
   @include sbb.if-forced-colors {
