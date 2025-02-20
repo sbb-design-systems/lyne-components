@@ -96,7 +96,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       this._deleteChip(ev.target as SbbChipElement),
     );
 
-    this.addEventListener('focus', () => this._focusLastChip());
+    this.addEventListener('focus', () => this._focusChip());
     this.addEventListener('keydown', (ev) => this._onChipKeyDown(ev));
   }
 
@@ -212,7 +212,6 @@ class SbbChipGroupElement extends SbbDisabledMixin(
         if (!eventTarget.readonly && !eventTarget.disabled) {
           event.preventDefault();
           this._deleteChip(eventTarget);
-          this._focusLastChip();
         }
         break;
       case 'Tab':
@@ -236,7 +235,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
         break;
       case 'Backspace':
         if (!this._inputElement!.value) {
-          this._focusLastChip();
+          this._focusChip();
         }
         break;
       case 'Tab':
@@ -259,20 +258,30 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   }
 
   private _deleteChip(chip: SbbChipElement): void {
+    const chips = this._enabledChipElements();
     chip.remove();
     this._emitInputEvents();
+    this._focusChip(chips.indexOf(chip)); // Focus the next chip
   }
 
   /**
-   * Focus the last enabled chip. If none are present, focus the input
+   * Focus an enabled chip. If none are present, focus the input
+   * @param index The index of the enabled chip. If null, focus the last one.
    */
-  private _focusLastChip(): void {
+  private _focusChip(index?: number): void {
     const enabledChips = this._enabledChipElements();
+
+    if (index !== undefined && enabledChips[index]) {
+      enabledChips[index].focus();
+      return;
+    }
+
     if (enabledChips.length > 0) {
       enabledChips[enabledChips.length - 1].focus();
-    } else {
-      this._inputElement?.focus();
+      return;
     }
+
+    this._inputElement?.focus();
   }
 
   private _emitInputEvents(): void {

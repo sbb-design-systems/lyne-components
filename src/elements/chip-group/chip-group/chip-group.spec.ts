@@ -70,14 +70,18 @@ describe('sbb-chip-group', () => {
       const inputEventSpy = new EventSpy(SbbChipGroupElement.events.input, element);
       const changeEventSpy = new EventSpy(SbbChipGroupElement.events.change, element);
 
+      // Click the delete button
       (toDelete.shadowRoot!.querySelector('.sbb-chip__delete') as HTMLElement).click();
       await waitForLitRender(element);
 
-      // Expect the chip label to be focused
+      // Expect the chip label to be removed
       expect(element.value).not.to.include(toDeleteValue);
       expect(element.querySelector(`sbb-chip[value="${toDeleteValue}"]`)).not.to.exist;
       expect(inputEventSpy.count).to.be.equal(1);
       expect(changeEventSpy.count).to.be.equal(1);
+
+      // Except the new last chip to be focused
+      expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[1]!.value);
     });
 
     it('should react when input is disabled', async () => {
@@ -195,6 +199,11 @@ describe('sbb-chip-group', () => {
 
       it('should remove chip on delete key', async () => {
         input.focus();
+        await sendKeys({ type: 'a' });
+        await sendKeys({ press: 'Backspace' });
+
+        // If the input is not empty, it should not move the focus to the chip
+        expect(document.activeElement!.localName).to.be.equal('input');
 
         await sendKeys({ press: 'Backspace' });
 
@@ -203,17 +212,20 @@ describe('sbb-chip-group', () => {
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
         const focusedChipValue = (document.activeElement as SbbChipElement).value;
 
-        // Should remove the focused chip
         await sendKeys({ press: 'Backspace' });
         await waitForLitRender(element);
 
+        // Should remove the focused chip and focus the last one
         expect(element.value).not.to.contain(focusedChipValue);
+        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-2)!.value);
 
-        input.focus();
-        await sendKeys({ type: 'a' });
+        // Delete all chips
         await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await waitForLitRender(element);
 
-        // If the input is not empty, it should not move the focus to the chip
+        // Expect the input to be focused
         expect(document.activeElement!.localName).to.be.equal('input');
       });
 
