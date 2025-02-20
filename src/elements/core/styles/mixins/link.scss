@@ -1,6 +1,7 @@
 @use './typo';
 @use './a11y';
 @use '../core/mediaqueries';
+@use '../core/functions';
 
 @mixin block-link-variables {
   --sbb-link-color-normal: var(--sbb-color-granite);
@@ -37,8 +38,11 @@
 
 @mixin link-base {
   color: var(--sbb-link-color-normal);
-  text-decoration: var(--sbb-link-text-decoration, underline);
-  text-underline-offset: 0.3125em;
+  text-decoration: var(
+    --sbb-link-text-decoration,
+    color-mix(in srgb, currentcolor 80%, transparent) underline #{functions.px-to-rem-build(1)}
+  );
+  text-underline-offset: 0.3125em; // 5px
   user-select: none;
 
   @include a11y.if-forced-colors {
@@ -58,7 +62,10 @@
 @mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
-    text-decoration: var(--sbb-link-hover-text-decoration, underline);
+    text-decoration: var(
+      --sbb-link-hover-text-decoration,
+      currentColor underline #{functions.px-to-rem-build(1)}
+    );
   }
 }
 
