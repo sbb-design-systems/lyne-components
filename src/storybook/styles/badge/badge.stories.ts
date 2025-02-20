@@ -18,7 +18,7 @@ const badgePosition: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['before', 'middle', 'after'],
+  options: ['before', 'after'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -61,12 +61,6 @@ export const BadgeOnIconBefore: StoryObj = {
   render: BadgeOnIconTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, badgePosition: 'before' },
-};
-
-export const BadgeOnIconMiddle: StoryObj = {
-  render: BadgeOnIconTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, badgePosition: 'middle' },
 };
 
 export const BadgeOnHeaderButton: StoryObj = {

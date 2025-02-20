@@ -35,8 +35,12 @@ describe(`sbb-menu`, () => {
               <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">
                 View
               </sbb-menu-link>
-              <sbb-menu-button icon-name="pen-small" amount="16" disabled> Edit </sbb-menu-button>
-              <sbb-menu-button icon-name="swisspass-small" amount="123"> Details</sbb-menu-button>
+              <sbb-menu-button icon-name="pen-small" sbb-badge="16" disabled>
+                Edit
+              </sbb-menu-button>
+              <sbb-menu-button icon-name="swisspass-small" sbb-badge="123">
+                Details</sbb-menu-button
+              >
               <sbb-divider></sbb-divider>
               <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
             </sbb-menu>

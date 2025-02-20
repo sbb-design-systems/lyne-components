@@ -13,3 +13,27 @@
   min-width: var(--sbb-spacing-fixed-4x);
   max-height: var(--sbb-spacing-fixed-4x);
 }
+
+@mixin badge-attribute {
+  [sbb-badge] {
+    --sbb-badge-position-offset: calc(var(--sbb-spacing-fixed-2x) * -1);
+
+    position: relative;
+
+    &::after {
+      @include badge;
+
+      content: attr(sbb-badge);
+      position: absolute;
+      inset-block-start: var(--sbb-badge-position-offset);
+    }
+
+    &:where([sbb-badge-position='before'])::after {
+      inset-inline-start: var(--sbb-badge-position-offset);
+    }
+
+    &:where(:not([sbb-badge-position]), [sbb-badge-position='after'])::after {
+      inset-inline-end: var(--sbb-badge-position-offset);
+    }
+  }
+}

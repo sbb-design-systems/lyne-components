@@ -12,7 +12,7 @@ import '../../../elements/icon.js';
 describe(`badge`, () => {
   const cases = {
     badgeContent: ['9', '99'],
-    badgePosition: [undefined, 'before', 'middle', 'after'],
+    badgePosition: [undefined, 'before', 'after'],
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
