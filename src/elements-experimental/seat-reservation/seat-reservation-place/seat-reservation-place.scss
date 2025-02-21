@@ -1,0 +1,96 @@
+.sbb-seat-reservation {
+  color: var(--sbb-seat-reservation-some-color-var);
+}
+
+.place-seat {
+  $root: &;
+
+  --offsetX: 0;
+  --offsetY: 0;
+  --rotation: 0deg;
+
+  cursor: pointer;
+
+  &:not(&--unavailable, &--not-bookable) {
+    transition: transform 0.25s ease-in-out;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &--right {
+    --offsetX: -4%;
+  }
+
+  &--bottom {
+    --offsetY: -6%;
+    --rotation: 90deg;
+  }
+
+  &--left {
+    --offsetX: 4%;
+    --rotation: 180deg;
+  }
+
+  &--top {
+    --offsetY: 6%;
+    --rotation: 270deg;
+  }
+
+  &__shape {
+    transform-origin: center;
+    transform: rotate(var(--rotation));
+  }
+
+  &__background {
+    fill: var(--sbb-color-white);
+  }
+
+  &__text {
+    font-size: 0.75rem;
+    font-weight: lighter;
+    letter-spacing: -0.01rem;
+  }
+
+  &__checkmark {
+    display: none;
+    transform: translate(var(--offsetX), var(--offsetY));
+  }
+
+  &__cross {
+    display: none;
+    transform: translate(var(--offsetX), var(--offsetY));
+  }
+
+  &--selected {
+    color: var(--sbb-color-red150);
+    #{$root}__background {
+      fill: var(--sbb-color-red);
+    }
+    #{$root}__text {
+      display: none;
+    }
+    #{$root}__checkmark {
+      display: block;
+    }
+  }
+
+  &--unavailable,
+  &--not-bookable {
+    color: var(--sbb-color-smoke);
+    cursor: not-allowed;
+    #{$root}__background {
+      fill: var(--sbb-color-milk);
+    }
+  }
+
+  &--not-bookable {
+    #{$root}__text {
+      display: none;
+    }
+    #{$root}__cross {
+      display: block;
+    }
+  }
+}

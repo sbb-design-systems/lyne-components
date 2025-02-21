@@ -1,0 +1,12 @@
+.story-image {
+  &__hint {
+    font-style: italic;
+  }
+
+  &__preview--tmp {
+    background-color: var(--sbb-color-milk);
+    padding: 2rem;
+    max-width: 100%;
+    border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+  }
+}
