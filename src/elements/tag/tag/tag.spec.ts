@@ -29,11 +29,12 @@ describe(`sbb-tag`, () => {
 
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
-    expect(element).to.have.attribute('checked');
+    expect(element.checked).to.be.equal(true);
+    expect(element).to.have.attribute('aria-pressed', 'true');
   });
 
   it('should not be checked after click when disabled', async () => {
-    expect(element).not.to.have.attribute('checked');
+    expect(element.checked).to.be.equal(false);
     element.toggleAttribute('disabled', true);
     await waitForLitRender(element);
 
@@ -45,11 +46,11 @@ describe(`sbb-tag`, () => {
 
     expect(changeSpy.count).not.to.be.greaterThan(0);
     expect(inputSpy.count).not.to.be.greaterThan(0);
-    expect(element).not.to.have.attribute('checked');
+    expect(element?.checked).to.be.equal(false);
   });
 
   it('should be checked after "Space" keypress', async () => {
-    expect(element).not.to.have.attribute('checked');
+    expect(element.checked).to.be.equal(false);
     const changeSpy = new EventSpy('change');
     const inputSpy = new EventSpy('input');
 
@@ -59,7 +60,7 @@ describe(`sbb-tag`, () => {
     await waitForLitRender(element);
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
-    expect(element).to.have.attribute('checked');
+    expect(element.checked).to.be.equal(true);
   });
 
   it('should be unchecked after "Space" keypress', async () => {
@@ -74,6 +75,7 @@ describe(`sbb-tag`, () => {
     await waitForLitRender(element);
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
-    expect(element).not.to.have.attribute('checked');
+    expect(element.checked).to.be.equal(false);
+    expect(element).to.have.attribute('checked');
   });
 });
