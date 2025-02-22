@@ -129,7 +129,7 @@
     "octokit": "4.1.2",
     "playwright": "1.50.1",
     "postcss": "8.5.3",
-    "prettier": "3.5.1",
+    "prettier": "3.5.2",
     "react": "19.0.0",
     "rollup-plugin-postcss-lit": "2.1.0",
     "sass": "1.85.0",
@@ -154,7 +154,7 @@
     "jackspeak": "2.1.1",
     "lit": "3.2.1",
     "playwright": "1.50.1",
-    "prettier": "3.5.1"
+    "prettier": "3.5.2"
   },
   "prettier": {
     "singleQuote": true,
