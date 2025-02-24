@@ -227,6 +227,7 @@ However, if you like to more specifically pick what you need, consider the follo
 | `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).         |
 |                                 |                                                                                     |
 | `a11y.css`                      | Provides accessibility related CSS classes.                                         |
+| `badge.css`                     | Provides badge styling.                                                             |
 | `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing).                       |
 | `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
 | `lists.css`                     | Provides CSS classes to style lists.                                                |
@@ -386,3 +387,54 @@ p {
   @include sbb.text-s--bold;
 }
 ```
+
+## Form Support
+
+Our form elements implement native form support:
+https://web.dev/articles/more-capable-form-controls
+This means our form elements can be used with `<form>` elements, emit `input`
+events and integrate native form validation.
+
+### Validation API
+
+All of our form elements provide properties and methods for validation and
+some implement specific validation functionality
+(e.g. `<sbb-checkbox required>`, `<sbb-radio-button required>`).
+
+#### `readonly form: HTMLFormElement | null`
+
+The `form` readonly property returns the current reference to the associated
+`<form>` instance, if available.
+
+#### `readonly validity: ValidityState`
+
+https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
+
+The `validity` property return the current validity state of an element.
+
+#### `readonly validationMessage: string`
+
+The `validationMessage` property returns the currently applicable validation
+message. Please note that only one message is returned at a time (e.g. if
+multiple validity states are invalid, only the chronologically first one is
+returned until it is fixed, at which point the next message might be returned,
+if it is still applicable). Also a custom validity message (see below) has
+precedence over native validation messages.
+
+#### `readonly willValidate: boolean`
+
+The `willValidate` returns true if the element will be validated
+when the form is submitted; false otherwise
+
+#### `checkValidity(): boolean`
+
+The `checkValidity()` method returns true if the element has no validity
+problems; false otherwise. Fires an invalid event at the element in the
+latter case.
+
+#### `setCustomValidity(message: string): void`
+
+By using `setCustomValidity(message: string)` it's possible to define a custom validation
+message which is set on the element. Use the empty string to indicate that the element
+does not have a custom validity error.
+With this method, the validation state of the element can be controlled from outside.

@@ -32,6 +32,7 @@ const iconNameArg: InputType = {
     type: 'text',
   },
 };
+
 const errorTextArg: InputType = {
   control: {
     type: 'text',

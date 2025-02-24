@@ -112,21 +112,25 @@ const borderDecorator: Decorator = (story) => html`
   </div>
 `;
 
-const createOptions = (args: Args): TemplateResult[] =>
+const createOptions = (args: Args, groupId: string): TemplateResult[] =>
   new Array(args.numberOfOptions).fill(null).map((_, i) => {
     return html`
       <sbb-option
-        value=${`${args.value} ${i + 1}`}
+        value="${args.value} ${groupId} - ${i + 1}"
         ?disabled=${args.disabledSingle && i === 0}
         icon-name=${args['icon-name'] || nothing}
-        >${`${args.value} ${i + 1}`}</sbb-option
+        >${args.value} ${groupId} - ${i + 1}</sbb-option
       >
     `;
   });
 
 const Template = ({ label, disabled, ...args }: Args): TemplateResult => html`
-  <sbb-optgroup label=${label + ' 1'} ?disabled=${disabled}> ${createOptions(args)} </sbb-optgroup>
-  <sbb-optgroup label=${label + ' 2'} ?disabled=${disabled}> ${createOptions(args)} </sbb-optgroup>
+  <sbb-optgroup label=${label + ' 1'} ?disabled=${disabled}>
+    ${createOptions(args, '1')}
+  </sbb-optgroup>
+  <sbb-optgroup label=${label + ' 2'} ?disabled=${disabled}>
+    ${createOptions(args, '2')}
+  </sbb-optgroup>
 `;
 
 const TemplateAutocomplete = (args: Args): TemplateResult => {
