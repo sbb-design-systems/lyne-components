@@ -1,14 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
+import type { Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import type { TemplateResult } from 'lit';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
+import './seat-reservation-navigation.js';
+
 import readme from './readme.md?raw';
-import { assetsTemplate } from './seat-reservation-assets.js';
-import './seat-reservation.js';
 
 const alignVerticalType: InputType = {
   control: 'boolean',
@@ -23,9 +23,9 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation ${sbbSpread(args)}></sbb-seat-reservation>`;
+  html`<sbb-seat-reservation-navigation ${sbbSpread(args)}></sbb-seat-reservation-navigation>`;
 
-export const Default: StoryObj = {
+export const Navigation: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -33,22 +33,17 @@ export const Default: StoryObj = {
   },
 };
 
-export const Assets: StoryObj = {
-  render: () => assetsTemplate,
-};
-
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      //handles: [SbbSeatReservationElement.events.myEventName],
       handles: [],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation',
+  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-navigation',
 };
 
 export default meta;
