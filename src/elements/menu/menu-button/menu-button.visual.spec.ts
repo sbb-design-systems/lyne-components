@@ -14,8 +14,8 @@ import './menu-button.js';
 
 describe(`sbb-menu-button`, () => {
   const defaultArgs = {
-    amount: 123 as number | undefined,
-    iconName: 'tick-small',
+    badge: 123 as number | undefined,
+    iconName: 'tick-small' as string | undefined,
     label: 'Button',
     disabled: false,
     disabledInteractive: false,
@@ -23,7 +23,7 @@ describe(`sbb-menu-button`, () => {
   };
 
   const template = ({
-    amount,
+    badge,
     iconName,
     label,
     disabled,
@@ -33,8 +33,13 @@ describe(`sbb-menu-button`, () => {
     ${repeat(
       new Array(3),
       (_, index) => html`
+        <!--
+          TODO: remove amount property usage.
+          Until we remove the amount property completely we keep both ways of displaying the badge in the same test.
+        -->
         <sbb-menu-button
-          amount=${amount || nothing}
+          amount=${badge || nothing}
+          sbb-badge=${badge && !disabled && !disabledInteractive ? badge : nothing}
           icon-name=${iconName || nothing}
           ?disabled=${disabled}
           ?disabled-interactive=${disabledInteractive}
@@ -49,8 +54,9 @@ describe(`sbb-menu-button`, () => {
   `;
 
   const state = {
-    amount: [undefined, 123],
+    badge: [undefined, 123],
     slottedIcon: [false, true],
+    iconName: ['tick-small', undefined],
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
@@ -98,11 +104,14 @@ describe(`sbb-menu-button`, () => {
       );
     }
 
-    describeEach(state, ({ amount, slottedIcon }) => {
+    describeEach(state, ({ badge, slottedIcon, iconName }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, amount, slottedIcon }), wrapperStyles);
+          await setup.withFixture(
+            template({ ...defaultArgs, badge, slottedIcon, iconName }),
+            wrapperStyles,
+          );
         }),
       );
     });
