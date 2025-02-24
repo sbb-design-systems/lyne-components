@@ -1,0 +1,381 @@
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+import {
+  getFirstFocusableElement,
+  SbbFocusHandler,
+  setModalityOnNextFocus,
+} from '../../core/a11y.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbInertController } from '../../core/controllers.js';
+import { forceType, handleDistinctChange } from '../../core/decorators.js';
+import { isZeroAnimationDuration } from '../../core/dom.js';
+import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
+import { isEventOnElement } from '../../core/overlay.js';
+import { SbbSidebarMixin, sidebarCommonStyle } from '../common.js';
+import type { SbbSidebarContainerElement } from '../sidebar-container.js';
+
+import style from './sidebar.scss?lit&inline';
+
+/**
+ * This component corresponds to a sidebar that can be opened on the sidebar container.
+ *
+ * @slot - Use the unnamed slot to slot any content into the sidebar.
+ * @slot title - Use the title slot to add an <sbb-title>.
+ * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ */
+export
+@customElement('sbb-sidebar')
+class SbbSidebarElement extends SbbSidebarMixin(
+  SbbAnimationCompleteMixin(SbbOpenCloseBaseElement),
+) {
+  public static override styles: CSSResultGroup = [sidebarCommonStyle, style];
+
+  /** Mode of the sidebar; one of 'side' or 'over'. */
+  @forceType((v) => (v === 'over' ? 'over' : 'side'))
+  @property({ reflect: true })
+  public accessor mode: 'side' | 'over' = 'side';
+
+  /**
+   * Whether the sidebar is opened or closed.
+   * Can be used to initially set the opened state.
+   * The animation will be skipped.
+   */
+  @forceType()
+  @property({ type: Boolean, reflect: true })
+  public accessor opened: boolean = false;
+
+  /** The side that the sidebar is attached to. */
+  @forceType((v) => (v === 'end' ? 'end' : 'start'))
+  @handleDistinctChange((instance, _newValue, oldValue) => instance._updateSidebarWidth(oldValue))
+  @property({ reflect: true })
+  public override accessor position: 'start' | 'end' = 'start';
+
+  /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
+  public override get container(): SbbSidebarContainerElement | null {
+    return this._container;
+  }
+  private _container: SbbSidebarContainerElement | null = null;
+
+  private _lastFocusedElement: HTMLElement | null = null;
+  private _focusHandler = new SbbFocusHandler();
+  private _inertController = new SbbInertController(this);
+  private _windowEventsController!: AbortController;
+  private _isPointerDownEventOnSidebar: boolean = false;
+  private _intersector?: HTMLSpanElement;
+  private _observer = new IntersectionController(this, {
+    // Although `this` is observed, we have to postpone observing
+    // into firstUpdated() to achieve a correct initial state.
+    target: null,
+    callback: (entries) => this._detectStickyState(entries[0]),
+  });
+
+  public constructor() {
+    super();
+    new ResizeController(this, {
+      skipInitial: true,
+      callback: () => this._updateSidebarWidth(),
+    });
+
+    this.addEventListener?.('click', (e) => {
+      if ((e.target as HTMLElement | undefined)?.localName === 'sbb-sidebar-close-button') {
+        this.close();
+      }
+    });
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this._container = this.closest?.('sbb-sidebar-container');
+    this._updateSidebarWidth();
+
+    if (this.state === 'opened' && this._isModeOver()) {
+      this._takeFocus();
+    }
+
+    if (this._intersector) {
+      this._observer.observe(this._intersector);
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.container?.style.removeProperty(this._buildCssWidthVar());
+    this._container = null;
+    this._focusHandler.disconnect();
+    this._windowEventsController?.abort();
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('opened')) {
+      if (this.opened) {
+        this.open();
+      } else if (!this.opened) {
+        this.close();
+      }
+    }
+
+    if (changedProperties.has('mode') && this.state === 'opened') {
+      if (this.mode === 'over') {
+        this._takeFocus();
+      } else {
+        this._unTrap();
+      }
+    }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this._updateSidebarWidth();
+
+    if (!this._intersector) {
+      this._intersector = this.shadowRoot!.querySelector('.sbb-sidebar__intersector')!;
+      this._observer.observe(this._intersector);
+    }
+    this._observer.observe(this);
+  }
+
+  /** Opens the sidebar. */
+  public open(): void {
+    if (this.state === 'opening' || this.state === 'opened' || !this.willOpen.emit()) {
+      return;
+    }
+
+    this.startAnimation();
+    this._lastFocusedElement = document.activeElement as HTMLElement;
+    this.opened = true;
+
+    const isZeroAnimationDuration = this._isZeroAnimationDuration();
+    const isDuringInitialization = !this.hasUpdated;
+
+    if (isDuringInitialization || isZeroAnimationDuration) {
+      this.toggleAttribute('data-skip-animation', true);
+    } else {
+      this.state = 'opening';
+      return;
+    }
+
+    // We have to wait for the first update to be completed
+    // in order to have the size of the sidebar ready for the animation.
+    if (isDuringInitialization) {
+      this.updateComplete.then(() => this._handleOpening());
+    } else {
+      // If the animation duration is zero, the animationend event is not always fired reliably.
+      // In this case we directly set the `opened` state.
+      this._handleOpening();
+    }
+  }
+
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-sidebar-container-animation-duration');
+  }
+
+  private _handleOpening(): void {
+    this.state = 'opened';
+
+    // We have to ensure that removing the animation skip instruction is done a tick later.
+    // Otherwise, it's removed too early and it doesn't have any effect.
+    setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+
+    if (this._isModeOver()) {
+      this._takeFocus();
+    }
+
+    this.stopAnimation();
+    this.didOpen.emit();
+  }
+
+  /** Closes the sidebar. */
+  public close(): void {
+    if (this.state === 'closing' || this.state === 'closed' || !this.willClose.emit()) {
+      return;
+    }
+
+    this.startAnimation();
+
+    const isZeroAnimationDuration = this._isZeroAnimationDuration();
+
+    if (!this.hasUpdated || isZeroAnimationDuration) {
+      // We have to ensure that removing the animation skip instruction is done a tick later.
+      // Otherwise, it's removed too early and it doesn't have any effect.
+      this.toggleAttribute('data-skip-animation', true);
+    } else {
+      this.state = 'closing';
+    }
+
+    this.opened = false;
+
+    // If the animation duration is zero, the animationend event is not always fired reliably.
+    // In this case we directly set the `opened` state.
+    if (!this.hasUpdated || isZeroAnimationDuration) {
+      this._handleClosing();
+    }
+  }
+
+  private _handleClosing(): void {
+    this.state = 'closed';
+    // We have to ensure that removing the animation skip instruction is done a tick later.
+    // Otherwise, it's removed too early and it doesn't have any effect.
+    setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+    this._unTrap();
+
+    if (this._lastFocusedElement && (this.contains(document.activeElement) || this._isModeOver())) {
+      setModalityOnNextFocus(this._lastFocusedElement);
+      this._lastFocusedElement?.focus();
+    }
+    this._lastFocusedElement = null;
+
+    this.stopAnimation();
+    this.didClose.emit();
+  }
+
+  private _takeFocus(): void {
+    this._inertController.activate();
+    const firstFocusable = getFirstFocusableElement(
+      Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+    );
+    setModalityOnNextFocus(firstFocusable);
+    firstFocusable?.focus();
+    this._focusHandler.trap(this);
+    this._attachWindowEvents();
+  }
+
+  private _attachWindowEvents(): void {
+    this._windowEventsController?.abort();
+    this._windowEventsController = new AbortController();
+
+    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
+      signal: this._windowEventsController.signal,
+    });
+
+    // Close sidebar on backdrop click
+    window.addEventListener('pointerdown', this._pointerDownListener, {
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('pointerup', this._closeOnBackdropClick, {
+      signal: this._windowEventsController.signal,
+    });
+  }
+
+  // Check if the pointerdown event target is triggered on the sidebar.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._isPointerDownEventOnSidebar = isEventOnElement(
+      this.shadowRoot?.firstElementChild as HTMLDivElement,
+      event,
+    );
+  };
+
+  // Close sidebar on backdrop click.
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
+    if (
+      !this._isPointerDownEventOnSidebar &&
+      !isEventOnElement(this.shadowRoot?.firstElementChild as HTMLDivElement, event)
+    ) {
+      this.close();
+    }
+  };
+
+  // Closes the sidebar on "Esc" key pressed
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+    if ((this.state === 'opening' || this.state === 'opened') && event.key === 'Escape') {
+      this.close();
+    }
+  }
+
+  private _unTrap(): void {
+    if (this._inertController.isInert()) {
+      this._inertController.deactivate();
+    }
+    this._focusHandler.disconnect();
+    this._windowEventsController?.abort();
+  }
+
+  /** Toggles the sidebar visibility. */
+  public toggle(): void {
+    if (this.state === 'opening' || this.state === 'opened') {
+      this.close();
+    } else {
+      this.open();
+    }
+  }
+
+  private _updateSidebarWidth(oldPosition?: 'start' | 'end'): void {
+    const container = this.container;
+    if (!container) {
+      return;
+    }
+
+    if (oldPosition) {
+      container.style.removeProperty(this._buildCssWidthVar(oldPosition));
+    }
+
+    const width = this.offsetWidth ?? 0;
+    if (width === 0) {
+      return;
+    }
+
+    const newValue = `${width}px`;
+    const actualValue = container.style.getPropertyValue(this._buildCssWidthVar());
+
+    if (actualValue === newValue) {
+      return;
+    }
+
+    container.style.setProperty(this._buildCssWidthVar(), newValue);
+  }
+
+  private _buildCssWidthVar(position = this.position): string {
+    return `--sbb-sidebar-container__${position}-width`;
+  }
+
+  private _detectStickyState(entry: IntersectionObserverEntry): void {
+    const isSticky = !entry.isIntersecting && entry.boundingClientRect.top > 0;
+
+    // Toggling data-sticking has to be after data-slide-vertically (prevents background color transition)
+    this.toggleAttribute('data-sticking', isSticky);
+  }
+
+  private _isModeOver(): boolean {
+    // If the minimum space attribute is set, the sidebar should behave like in mode over.
+    return this.mode === 'over' || this.hasAttribute('data-minimum-space');
+  }
+
+  private _onTransitionEnd(event: TransitionEvent): void {
+    // We ensure that we react to the fade in transition on the sbb-sidebar div
+    if (event.propertyName !== 'translate' || event.target !== event.currentTarget) {
+      return;
+    }
+
+    if (this.state === 'opening') {
+      this._handleOpening();
+    } else if (this.state === 'closing') {
+      this._handleClosing();
+    }
+  }
+
+  protected override render(): TemplateResult {
+    return html`<div class="sbb-sidebar" @transitionend=${this._onTransitionEnd}>
+      <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
+      <div class="sbb-sidebar-content-section">
+        <div class="sbb-sidebar__intersector"></div>
+        <slot></slot>
+      </div>
+    </div>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-sidebar': SbbSidebarElement;
+  }
+}
