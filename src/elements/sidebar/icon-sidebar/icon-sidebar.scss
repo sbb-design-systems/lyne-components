@@ -1,36 +1,21 @@
 @use '../../core/styles/index' as sbb;
 
 :host {
-  width: var(--sbb-size-element-m);
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
+  width: var(--sbb-size-element-m);
+  overflow-y: auto;
+  background-color: var(--sbb-sidebar-background-color);
+  margin-block-start: var(--sbb-spacing-fixed-3x);
+  padding-block-start: var(--sbb-spacing-fixed-1x);
+  border-start-end-radius: var(--sbb-icon-sidebar-border-radius);
+  border-start-start-radius: 0;
 
-  --sbb-icon-sidebar-margin-block-start: var(--sbb-spacing-fixed-3x);
-  --sbb-icon-sidebar-padding-block-start: var(--sbb-spacing-fixed-1x);
   --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);
-  --sbb-icon-sidebar__border-radius-end: var(--sbb-icon-sidebar-border-radius);
-  --sbb-icon-sidebar__border-radius-start: 0;
 }
 
 :host([position='end']) {
-  --sbb-icon-sidebar__border-radius-end: 0;
-  --sbb-icon-sidebar__border-radius-start: var(--sbb-icon-sidebar-border-radius);
-}
-
-.sbb-icon-sidebar {
-  @include sbb.scrollbar;
-
-  & {
-    width: inherit;
-    overflow: hidden;
-    overflow-y: auto;
-    background-color: var(--sbb-sidebar-background-color);
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    inset-block: 0;
-    margin-block-start: var(--sbb-icon-sidebar-margin-block-start);
-    padding-block-start: var(--sbb-icon-sidebar-padding-block-start);
-    border-start-end-radius: var(--sbb-icon-sidebar__border-radius-end);
-    border-start-start-radius: var(--sbb-icon-sidebar__border-radius-start);
-  }
+  border-start-end-radius: 0;
+  border-start-start-radius: var(--sbb-icon-sidebar-border-radius);
 }

@@ -96,6 +96,7 @@
     padding-block-start: var(--sbb-sidebar__padding-block-start);
     padding-inline: var(--sbb-sidebar-padding) var(--sbb-sidebar__padding-inline-end);
     overflow-y: auto;
+    flex-grow: 1;
 
     @supports (scrollbar-gutter: stable) {
       scrollbar-gutter: stable;

@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-icon-sidebar renders DOM"] = 
 `<sbb-icon-sidebar
+  class="sbb-scrollbar"
   color="white"
   position="start"
   role="navigation"
@@ -12,10 +13,8 @@ snapshots["sbb-icon-sidebar renders DOM"] =
 /* end snapshot sbb-icon-sidebar renders DOM */
 
 snapshots["sbb-icon-sidebar renders Shadow DOM"] = 
-`<div class="sbb-icon-sidebar">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-icon-sidebar renders Shadow DOM */
 
