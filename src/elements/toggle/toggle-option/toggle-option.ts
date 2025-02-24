@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
 
@@ -21,7 +22,7 @@ export
   role: 'radio',
 })
 @slotState()
-class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
+class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the toggle-option is checked. */
@@ -29,20 +30,10 @@ class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor checked: boolean = false;
 
-  /** Whether the toggle option is disabled. */
-  @forceType()
-  @property({ reflect: true, type: Boolean })
-  public accessor disabled: boolean = false;
-
   /** Value of toggle-option. */
+  @forceType()
   @property()
-  public set value(value: string) {
-    this._value = `${value}`;
-  }
-  public get value(): string {
-    return this._value;
-  }
-  private _value: string = '';
+  public accessor value: string = '';
 
   private _toggle?: SbbToggleElement;
 
@@ -79,19 +70,10 @@ class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
 
   private _uncheckOtherOptions(): void {
     this._toggle?.options.filter((o) => o !== this).forEach((o) => (o.checked = false));
-    this._toggle?.updatePillPosition(false);
+    this._toggle?.statusChanged();
   }
 
   private _handleDisabledChange(): void {
-    // Enforce disabled state from parent.
-    if (!this._toggle) {
-      // Ignore illegal state. Our expectation  is that a sbb-toggle-option
-      // always has a parent sbb-toggle.
-    } else if (this._toggle.disabled && !this.disabled) {
-      this.disabled = true;
-    } else if (!this._toggle.disabled && this.disabled) {
-      this.disabled = false;
-    }
     setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? `true` : null);
     this._verifyTabindex();
   }
