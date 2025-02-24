@@ -3,7 +3,6 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import sampleImages from '../../core/images.js';
 
@@ -126,13 +125,13 @@ const LongContentTemplate = (args: Args): TemplateResult =>
 
 const GridTemplate = (args: Args): TemplateResult =>
   html`<div
-    style=${styleMap({
-      display: 'grid',
-      gridTemplateRows: 'minmax(20rem, 1fr)',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gridColumnGap: '1rem',
-      gridRowGap: '1rem',
-    })}
+    style="
+    display: grid;
+    grid-template-rows: minmax(20rem, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+  "
   >
     <sbb-flip-card accessibility-label=${args['accessibility-label']}>
       ${cardSummary(args.label, args.imageAlignment, true)} ${cardDetails()}
