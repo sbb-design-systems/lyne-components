@@ -401,7 +401,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   }
 
   private _isInputEmpty(): boolean {
-    if (this._input instanceof HTMLInputElement) {
+    if (this.querySelector('sbb-chip-group')) {
+      return this._isInputValueEmpty() && this.querySelector('sbb-chip-group')!.value.length === 0;
+    } else if (this._input instanceof HTMLInputElement) {
       return (
         this._floatingLabelSupportedInputTypes.includes(this._input.type) &&
         this._isInputValueEmpty()

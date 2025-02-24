@@ -20,12 +20,14 @@ const template = (
     readonly: boolean;
     longLabel: boolean;
     hiddenLabel: boolean;
+    floatingLabel: boolean;
     size: string;
   }> = {},
 ): TemplateResult => html`
   <sbb-form-field
     ?negative=${args.negative}
     ?hidden-label=${args.hiddenLabel}
+    ?floating-label=${args.floatingLabel}
     size=${args.size ?? 'm'}
   >
     <label>Label</label>
@@ -63,14 +65,14 @@ describe('sbb-chip-group', () => {
       );
     });
 
-    it(
-      'long chip',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ longLabel: true }), { maxWidth: '300px' });
-      }),
-    );
-
     for (const size of ['l', 'm', 's']) {
+      it(
+        `size=${size}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ size: size }));
+        }),
+      );
+
       it(
         `size=${size} empty`,
         visualDiffDefault.with(async (setup) => {
@@ -82,19 +84,38 @@ describe('sbb-chip-group', () => {
           });
         }),
       );
-
-      it(
-        `size=${size}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ size: size }));
-        }),
-      );
     }
+
+    it(
+      'long chip',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ longLabel: true }), { maxWidth: '300px' });
+      }),
+    );
 
     it(
       'hidden label',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ hiddenLabel: true }));
+      }),
+    );
+
+    it(
+      `floating-label=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ floatingLabel: true }));
+      }),
+    );
+
+    it(
+      `floating-label=true empty`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ floatingLabel: true }));
+
+        setup.withPostSetupAction(async () => {
+          setup.snapshotElement.querySelector('sbb-chip-group')!.value = null;
+          await waitForLitRender(setup.snapshotElement);
+        });
       }),
     );
   });
