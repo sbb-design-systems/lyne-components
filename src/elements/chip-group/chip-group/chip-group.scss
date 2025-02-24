@@ -9,6 +9,14 @@
   max-width: 100%; // Needed for the ellipsis on chips to work
 }
 
+:host([data-size='s']:not([data-empty])) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(1)};
+  }
+}
+
 ::slotted(input) {
   flex: 1 1 var(--sbb-chip-group-input-min-width);
 }
@@ -22,4 +30,5 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-1x);
+  margin-block: var(--sbb-chip-group-margin-block);
 }

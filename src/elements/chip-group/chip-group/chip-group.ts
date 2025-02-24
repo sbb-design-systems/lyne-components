@@ -100,6 +100,11 @@ class SbbChipGroupElement extends SbbDisabledMixin(
     this.addEventListener('keydown', (ev) => this._onChipKeyDown(ev));
   }
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? 'm');
+  }
+
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._inputAttributeObserver?.disconnect();
@@ -180,6 +185,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       });
     }
 
+    this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
     this.updateFormValue();
   }
