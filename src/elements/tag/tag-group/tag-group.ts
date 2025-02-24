@@ -10,7 +10,11 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
 import { isLean, setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core/mixins.js';
 import type { SbbTagElement, SbbTagSize } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
@@ -22,8 +26,8 @@ import style from './tag-group.scss?lit&inline';
  */
 export
 @customElement('sbb-tag-group')
-class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(
-  LitElement,
+class SbbTagGroupElement extends SbbDisabledMixin(
+  SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
   // DIV is added here due to special requirements from sbb.ch.
@@ -103,6 +107,10 @@ class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof Lit
 
     if (changedProperties.has('size')) {
       this.tags.forEach((t) => t.requestUpdate?.('size'));
+    }
+
+    if (changedProperties.has('disabled')) {
+      this.tags.forEach((r) => r.requestUpdate?.('disabled'));
     }
 
     if (

@@ -6,7 +6,11 @@ import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import {
+  type FormRestoreReason,
+  type FormRestoreState,
+  SbbDisabledTabIndexActionMixin,
+} from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTagGroupElement } from '../tag-group.js';
 
@@ -42,7 +46,7 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
 
   /** Whether the tag is checked. */
   @forceType()
-  @property({ reflect: true, type: Boolean })
+  @property({ reflect: false, type: Boolean })
   public accessor checked: boolean = false;
 
   /**
@@ -82,6 +86,10 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
     this._group = this.closest('sbb-tag-group') as SbbTagGroupElement;
   }
 
+  protected override isDisabledExternally(): boolean {
+    return this._group?.disabled ?? false;
+  }
+
   /** Method triggered on button click. Inverts the checked value and emits events. */
   private _handleClick(): void {
     if (this.disabled) {
@@ -104,11 +112,40 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
 
     if (changedProperties.has('checked')) {
       this.setAttribute('aria-pressed', `${this.checked}`);
+      this.toggleAttribute('data-checked', this.checked);
+      this.updateFormValue();
     }
 
     const tagGroup = this.closest?.('sbb-tag-group');
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
       tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
+    }
+  }
+
+  /**
+   * @internal
+   */
+  public override formResetCallback(): void {
+    this.checked = this.hasAttribute('checked');
+  }
+
+  /**
+   * @internal
+   */
+  public override formStateRestoreCallback(
+    state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {
+    if (state) {
+      this.checked = state === 'true';
+    }
+  }
+
+  protected override updateFormValue(): void {
+    if (this.checked) {
+      this.internals.setFormValue(this.value, `${this.checked}`);
+    } else {
+      this.internals.setFormValue(null);
     }
   }
 
