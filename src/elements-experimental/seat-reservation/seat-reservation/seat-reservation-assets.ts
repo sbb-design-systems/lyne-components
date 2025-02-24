@@ -23,6 +23,7 @@ import interiorPlaceSeatDefault from '../assets/interior-place-seat-default.svg'
 import interiorPlaceSeatNotBookable from '../assets/interior-place-seat-not-bookable.svg';
 import interiorPlaceSeatSelected from '../assets/interior-place-seat-selected.svg';
 import interiorPlaceSeatUnavailable from '../assets/interior-place-seat-unavailable.svg';
+import interiorTableTest from '../assets/interior-table.svg';
 import interiorTmpTable from '../assets/interior-tmp-table.svg';
 import layoutEntrance from '../assets/layout-entrance.svg';
 import layoutSki from '../assets/layout-ski.svg';
@@ -43,6 +44,44 @@ import serviceToilet from '../assets/service-toilet.svg';
 import serviceWheelchair from '../assets/service-wheelchair.svg';
 import serviceWifi from '../assets/service-wifi.svg';
 
+/**
+ * Map Object from OSDM Code to SVG
+ */
+const mapCodeToSvg: Record<string, string> = {
+  BISTRO: serviceBistro,
+  BUSINESS: serviceBusiness,
+  COMPARTMENT_PASSAGE: chassisPassageCompartmentMiddle,
+  COMPARTMENT_PASSAGE_HIGH: chassisPassageCompartmentLeftTop,
+  COMPARTMENT_PASSAGE_LOW: chassisPassageCompartmentRightBottom,
+  COACH_PASSAGE: chassisPassageWaggonTopLeft,
+  DRIVER_AREA: chassisDriverTrainStart,
+  EASY_ACCESS_AREA: servicePrm,
+  LUGGAGE_AREA: serviceLuggage,
+  MULTI_FUNCTION_AREA: serviceMultifunction,
+  PRAM_AREA: servicePram,
+  PRAM_ICON: servicePram,
+  PLACE_SEAT_FREE: interiorPlaceSeatDefault,
+  PLACE_SEAT_SELECTED: interiorPlaceSeatSelected,
+  PLACE_SEAT_RESTRICTED: interiorPlaceSeatNotBookable,
+  PLACE_SEAT_ALLOCATED: interiorPlaceSeatUnavailable,
+  PLACE_BIKE_FREE: interiorPlaceSeatDefault,
+  PLACE_BIKE_SELECTED: interiorPlaceBikeSelected,
+  PLACE_BIKE_RESTRICTED: interiorPlaceBikeUnavailableNotBookable,
+  PLACE_BIKE_ALLOCATED: interiorPlaceBikeUnavailableNotBookable,
+  PLAYGROUND_ICON: serviceFamily,
+  PLAYGROUND_AREA: serviceFamily,
+  TABLE: interiorTableTest,
+  TOILET_AREA: serviceToilet,
+  SKI_AREA: layoutSki,
+  SKI_ICON: layoutSki,
+  SILENCE_AREA_ICON: serviceSilence,
+  STAIR_AREA: layoutStair,
+  RESTAURANT_ICON: serviceRestaurant,
+  WHEELCHAIR: serviceWheelchair,
+  WHEELCHAIR_TOILET_AREA: serviceToiletPrm,
+  WIFI: serviceWifi,
+};
+
 const svgImage = (src: string, alt = '', title = ''): TemplateResult => {
   return html`
     <div class="story-image">
@@ -60,6 +99,21 @@ const svgTmpImage = (src: string): TemplateResult => {
   `;
 };
 
+/**
+ * svgImageByOSDMCode Function returns the corresponding svg image by OSDM Code
+ * @param osdmCode
+ * @param alt
+ * @param title
+ * @returns The SVG Image as TemplateResult if it matches the OSDM code, or null if its not found.
+ */
+export const svgImageByOSDMCode = (
+  osdmCode: string,
+  alt = '',
+  title = '',
+): TemplateResult | null => {
+  return mapCodeToSvg[osdmCode] ? svgImage(mapCodeToSvg[osdmCode], alt, title) : null;
+};
+
 const chassisTable = html`
   <table class="sbb-table-m">
     <thead>
@@ -71,7 +125,7 @@ const chassisTable = html`
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(chassisDriverTrainStart)}</td>
+        <td>${svgImageByOSDMCode('DRIVER_AREA')}</td>
         <td>Driver: Train</td>
         <td>DRIVER_AREA</td>
       </tr>
@@ -119,6 +173,11 @@ const chassisTable = html`
         <td>${svgImage(chassisSeparator)}</td>
         <td>Separator</td>
         <td></td>
+      </tr>
+      <tr>
+        <td>${svgImageByOSDMCode('TABLE')}</td>
+        <td>Table</td>
+        <td>TABLE</td>
       </tr>
     </tbody>
   </table>
