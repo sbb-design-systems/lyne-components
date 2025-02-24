@@ -5,10 +5,42 @@
 
 :host {
   --sbb-seat-reservation-some-color-var: var(--color-black);
+  --sbb-seat-reservation-wrapper-width: 600px;
 
   display: block;
 }
 
 .sbb-seat-reservation {
   color: var(--sbb-seat-reservation-some-color-var);
+}
+
+.sbb-seat-reservation__wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: #efefef;
+
+  &.sbb-seat-reservation__wrapper--vertical {
+    position: relative;
+    left: 100px;
+    transform: rotate(90deg);
+    transform-origin: top left;
+  }
+
+  .sbb-seat-reservation__list-coaches {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    margin: 0;
+    list-style: none;
+    overflow-x: scroll;
+
+    .sbb-seat-reservation__item-coach {
+      background-color: #fff;
+      width: var(--sbb-seat-reservation-wrapper-width);
+      min-width: var(--sbb-seat-reservation-wrapper-width);
+      height: 64px;
+      box-shadow: 0 0 4px 0 #ccc;
+      border-radius: 4px;
+    }
+  }
 }
