@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-chip-group renders DOM"] = 
-`<sbb-chip-group tabindex="0">
+`<sbb-chip-group
+  data-size="m"
+  tabindex="0"
+>
   <sbb-chip value="Value 1">
   </sbb-chip>
 </sbb-chip-group>
@@ -22,7 +25,6 @@ snapshots["sbb-chip-group renders Shadow DOM"] =
 
 snapshots["sbb-chip-group renders with form-field DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
   data-input-type="input"
   data-slot-names="label unnamed"
   error-space="none"
@@ -36,6 +38,7 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
     Field label
   </label>
   <sbb-chip-group
+    data-size="m"
     name="field-1"
     tabindex="0"
   >
