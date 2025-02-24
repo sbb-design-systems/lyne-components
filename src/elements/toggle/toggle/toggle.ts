@@ -82,7 +82,7 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   private _toggleResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => this._updatePillPosition(true),
+    callback: () => this.updatePillPosition(true),
   });
 
   /** Emits whenever the toggle value changes. */
@@ -124,7 +124,7 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    */
   public statusChanged(): void {
     this.updateFormValue();
-    this._updatePillPosition();
+    this.updatePillPosition();
   }
 
   /**
@@ -141,11 +141,11 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     this.value = state as string;
   }
 
-  protected updateFormValue(): void {
-    this.internals.setFormValue(this.value);
-  }
-
-  private _updatePillPosition(resizing = false): void {
+  /**
+   * @deprecated Will be made 'private' in the next major version
+   * @internal
+   */
+  public updatePillPosition(resizing = false): void {
     if (!this._loaded) {
       return;
     }
@@ -172,6 +172,10 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     this.style?.setProperty('--sbb-toggle-option-left', pillLeft);
     this.style?.setProperty('--sbb-toggle-option-right', pillRight);
+  }
+
+  protected updateFormValue(): void {
+    this.internals.setFormValue(this.value);
   }
 
   private _updateToggle(): void {
