@@ -1,4 +1,4 @@
-TODO: order of sidebar in container is important
+TODO: order of sidebar in container is important, how to connect header
 
 > > Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
 > > If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>

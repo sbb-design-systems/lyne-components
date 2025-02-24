@@ -39,7 +39,7 @@ const defaultArgs: Args = {
   color: 'white',
 };
 
-const header = html`<sbb-header expanded>
+const header = html`<sbb-header expanded scroll-origin="content" size="s">
   <sbb-header-button
     id="menu-toggle-button"
     icon-name="hamburger-menu-small"
@@ -198,7 +198,7 @@ const Template = (args: Args): TemplateResult =>
   html`${header}
     <sbb-icon-sidebar-container>
       ${args.position === 'start' ? iconSidebar(args) : nothing}
-      <sbb-icon-sidebar-content>${content}</sbb-icon-sidebar-content>
+      <sbb-icon-sidebar-content id="content">${content}</sbb-icon-sidebar-content>
       ${args.position === 'end' ? iconSidebar(args) : nothing}
     </sbb-icon-sidebar-container>`;
 
@@ -209,7 +209,7 @@ const NestedTemplate = (args: Args): TemplateResult =>
       <sbb-icon-sidebar-content>
         <sbb-sidebar-container>
           ${args.position === 'start' ? sidebar(args) : nothing}
-          <sbb-sidebar-content>${content}</sbb-sidebar-content>
+          <sbb-sidebar-content id="content">${content}</sbb-sidebar-content>
           ${args.position === 'end' ? sidebar(args) : nothing}
         </sbb-sidebar-container>
       </sbb-icon-sidebar-content>

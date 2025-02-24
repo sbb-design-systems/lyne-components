@@ -53,7 +53,7 @@ const Template2 = (): TemplateResult =>
   </sbb-sidebar-container>`;
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-header expanded>
+  html`<sbb-header expanded size="s">
       <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
         Menu
       </sbb-header-link>
