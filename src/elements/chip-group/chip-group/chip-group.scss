@@ -30,5 +30,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-1x);
+  align-items: center;
   margin-block: var(--sbb-chip-group-margin-block);
 }
