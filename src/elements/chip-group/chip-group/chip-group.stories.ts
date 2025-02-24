@@ -78,7 +78,7 @@ const defaultArgs: Args = {
   disabled: false,
   readonly: false,
   negative: false,
-  size: size.options![1],
+  size: 'm',
   hiddenLabel: false,
   floatingLabel: false,
 };
@@ -140,6 +140,18 @@ export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 's' },
+};
+
+export const SizeL: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 'l' },
 };
 
 export const WithAutocomplete: StoryObj = {
