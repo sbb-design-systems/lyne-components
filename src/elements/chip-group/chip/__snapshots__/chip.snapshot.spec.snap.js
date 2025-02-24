@@ -2,16 +2,16 @@
 export const snapshots = {};
 
 snapshots["sbb-chip renders DOM"] = 
-`<sbb-chip value="Value">
+`<sbb-chip
+  role="row"
+  value="Value"
+>
 </sbb-chip>
 `;
 /* end snapshot sbb-chip renders DOM */
 
 snapshots["sbb-chip renders Shadow DOM"] = 
-`<div
-  class="sbb-chip"
-  role="row"
->
+`<div class="sbb-chip">
   <div
     class="sbb-chip__label-wrapper"
     role="gridcell"
@@ -41,6 +41,7 @@ snapshots["sbb-chip renders Shadow DOM"] =
 snapshots["sbb-chip renders disabled DOM"] = 
 `<sbb-chip
   disabled=""
+  role="row"
   value="Value"
 >
 </sbb-chip>
@@ -48,10 +49,7 @@ snapshots["sbb-chip renders disabled DOM"] =
 /* end snapshot sbb-chip renders disabled DOM */
 
 snapshots["sbb-chip renders disabled Shadow DOM"] = 
-`<div
-  class="sbb-chip"
-  role="row"
->
+`<div class="sbb-chip">
   <div
     class="sbb-chip__label-wrapper"
     role="gridcell"

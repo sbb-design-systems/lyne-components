@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipDelete } from '../../core/i18n.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
@@ -19,6 +19,9 @@ import style from './chip.scss?lit&inline';
  */
 export
 @customElement('sbb-chip')
+@hostAttributes({
+  role: 'row',
+})
 class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -79,7 +82,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-chip" role="row">
+      <div class="sbb-chip">
         <div
           class="sbb-chip__label-wrapper"
           role="gridcell"

@@ -29,6 +29,7 @@ export
 @customElement('sbb-chip-group')
 @hostAttributes({
   tabindex: '0',
+  role: 'grid',
 })
 class SbbChipGroupElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement)),
@@ -332,7 +333,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-chip-group" role="grid">
+      <div class="sbb-chip-group">
         <slot @slotchange=${this._onSlotChange}></slot>
       </div>
     `;
