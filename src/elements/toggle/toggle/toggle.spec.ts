@@ -144,29 +144,8 @@ describe(`sbb-toggle`, () => {
         `);
         const options = Array.from(element.querySelectorAll('sbb-toggle-option'));
 
+        expect(element).to.match(':disabled');
         options.forEach((option) => expect(option).to.have.attribute('disabled'));
-      });
-
-      it('should prevent disabled option from unsetting disabled', async () => {
-        element = await fixture(html`
-          <sbb-toggle disabled>
-            <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
-            <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
-          </sbb-toggle>
-        `);
-        firstOption = element.querySelectorAll('sbb-toggle-option')[0];
-        firstOption.disabled = false;
-
-        await waitForLitRender(element);
-
-        expect(firstOption).to.have.attribute('disabled');
-      });
-
-      it('should prevent enabled option from setting disabled', async () => {
-        firstOption.disabled = true;
-        await waitForLitRender(element);
-
-        expect(firstOption).not.to.have.attribute('disabled');
       });
     });
   });
@@ -313,6 +292,78 @@ describe(`sbb-toggle`, () => {
       await waitForLitRender(firstOption);
 
       expect(firstOption).to.have.attribute('checked');
+    });
+  });
+
+  describe('form association', () => {
+    let form: HTMLFormElement;
+    let fieldSet: HTMLFieldSetElement;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <fieldset>
+            <sbb-toggle name="sbb-toggle-1" value="Value one">
+              <sbb-toggle-option id="sbb-toggle-option-1" value="Value one"
+                >Value one</sbb-toggle-option
+              >
+              <sbb-toggle-option id="sbb-toggle-option-2" value="Value two"
+                >Value two</sbb-toggle-option
+              >
+            </sbb-toggle>
+          </fieldset>
+        </form>
+      `);
+      element = form.querySelector('sbb-toggle')!;
+      firstOption = element.querySelector<SbbToggleOptionElement>('#sbb-toggle-option-1')!;
+      secondOption = element.querySelector<SbbToggleOptionElement>('#sbb-toggle-option-2')!;
+      fieldSet = form.querySelector('fieldset')!;
+      await waitForLitRender(element);
+    });
+
+    it('should update formValue', async () => {
+      let formData = new FormData(form);
+      expect(element.value).to.be.equal('Value one');
+      expect(formData.get('sbb-toggle-1')).to.be.equal('Value one');
+
+      secondOption.click();
+      await waitForLitRender(element);
+      formData = new FormData(form);
+
+      expect(element.value).to.be.equal('Value two');
+      expect(formData.get('sbb-toggle-1')).to.be.equal('Value two');
+    });
+
+    it('should result :disabled if a fieldSet is', async () => {
+      fieldSet.disabled = true;
+      await waitForLitRender(form);
+
+      expect(element).to.match(':disabled');
+
+      fieldSet.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element).not.to.match(':disabled');
+    });
+
+    it('should reset on form reset', async () => {
+      secondOption.click();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('Value two');
+
+      form.reset();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('Value one');
+    });
+
+    it('should restore form state on formStateRestoreCallback()', async () => {
+      // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
+      element.formStateRestoreCallback('Value two', 'restore');
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('Value two');
     });
   });
 });
