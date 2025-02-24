@@ -2,16 +2,14 @@
 export const snapshots = {};
 
 snapshots["sbb-icon-sidebar-content renders DOM"] = 
-`<sbb-icon-sidebar-content>
+`<sbb-icon-sidebar-content class="sbb-scrollbar">
 </sbb-icon-sidebar-content>
 `;
 /* end snapshot sbb-icon-sidebar-content renders DOM */
 
 snapshots["sbb-icon-sidebar-content renders Shadow DOM"] = 
-`<div class="sbb-sidebar-content">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-icon-sidebar-content renders Shadow DOM */
 

@@ -1,5 +1,5 @@
 @use '../../core/styles/index' as sbb;
 
-.sbb-sidebar-content {
+:host {
   flex-grow: 1;
 }

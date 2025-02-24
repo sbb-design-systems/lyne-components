@@ -1,7 +1,7 @@
-import type { CSSResultGroup } from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbSidebarContentBaseElement } from '../common.js';
+import { sidebarContentCommonStyle } from '../common.js';
 
 import style from './sidebar-content.scss?lit&inline';
 
@@ -13,8 +13,21 @@ import style from './sidebar-content.scss?lit&inline';
  */
 export
 @customElement('sbb-sidebar-content')
-class SbbSidebarContentElement extends SbbSidebarContentBaseElement {
-  public static override styles: CSSResultGroup = [SbbSidebarContentBaseElement.styles, style];
+class SbbSidebarContentElement extends LitElement {
+  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // As we can't include the scrollbar mixin on the host and to minimize
+    // payload, we decided to add the scrollbar class here.
+    // This is an exception as we normally don't alter the classList of the host.
+    this.classList.add('sbb-scrollbar');
+  }
+
+  protected override render(): TemplateResult {
+    return html`<slot></slot>`;
+  }
 }
 
 declare global {

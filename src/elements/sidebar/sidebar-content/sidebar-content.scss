@@ -5,9 +5,7 @@
   // outer variables can bleed into the inner container / content.
   --sbb-sidebar-content__margin-inline-start: initial;
   --sbb-sidebar-content__margin-inline-end: initial;
-}
 
-.sbb-sidebar-content {
   // The margin must be equal to the width of the sidebar
   // either at the start (--sbb-sidebar-container__start-width) or at the end (--sbb-sidebar-content__margin-inline-end).
   // However, in over mode, or if there is not enough space, the margin must be overridden to 0.

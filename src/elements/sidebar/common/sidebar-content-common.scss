@@ -4,20 +4,12 @@
 @include sbb.box-sizing;
 
 :host {
-  display: contents;
-}
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: auto;
 
-.sbb-sidebar-content {
-  @include sbb.scrollbar;
-
-  & {
-    position: relative;
-    display: block;
-    height: 100%;
-    overflow: auto;
-
-    // Scrollable content can get focus if there is no focusable element inside.
-    // We avoid graphical artifacts by removing the outline.
-    outline: none;
-  }
+  // Scrollable content can get focus if there is no focusable element inside.
+  // We avoid graphical artifacts by removing the outline.
+  outline: none;
 }
