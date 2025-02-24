@@ -1,100 +1,26 @@
 import { html, type TemplateResult } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+
+import * as assets from '../assets.js';
+import { mapCodeToSvg } from '../helper.js';
 
 import './seat-reservation-assets.scss';
 
-import chassisDriverBusEnd from '../assets/chassis-driver-bus-end.svg';
-import chassisDriverBusStart from '../assets/chassis-driver-bus-start.svg';
-import chassisDriverTrainEnd from '../assets/chassis-driver-train-end.svg';
-import chassisDriverTrainStart from '../assets/chassis-driver-train-start.svg';
-import chassisPassageCompartmentLeftTop from '../assets/chassis-passage-compartment-left-top.svg';
-import chassisPassageCompartmentMiddle from '../assets/chassis-passage-compartment-middle.svg';
-import chassisPassageCompartmentRightBottom from '../assets/chassis-passage-compartment-right-bottom.svg';
-import chassisPassageWaggonBottomRight from '../assets/chassis-passage-waggon-bottom-right.svg';
-import chassisPassageWaggonTopLeft from '../assets/chassis-passage-waggon-top-left.svg';
-import chassisSeparator from '../assets/chassis-separator.svg';
-import chassisTmpRowEmpty from '../assets/chassis-tmp-row-empty.svg';
-import helperTmpNoteDefault from '../assets/helper-tmp-note-default.svg';
-import helperTmpNotePostIt from '../assets/helper-tmp-note-post-it.svg';
-import helperTmpPlaceholder from '../assets/helper-tmp-placeholder.svg';
-import interiorPlaceBikeDefault from '../assets/interior-place-bike-default.svg';
-import interiorPlaceBikeSelected from '../assets/interior-place-bike-selected.svg';
-import interiorPlaceBikeUnavailableNotBookable from '../assets/interior-place-bike-unavailable-not-bookable.svg';
-import interiorPlaceSeatDefault from '../assets/interior-place-seat-default.svg';
-import interiorPlaceSeatNotBookable from '../assets/interior-place-seat-not-bookable.svg';
-import interiorPlaceSeatSelected from '../assets/interior-place-seat-selected.svg';
-import interiorPlaceSeatUnavailable from '../assets/interior-place-seat-unavailable.svg';
-import interiorTableTest from '../assets/interior-table.svg';
-import interiorTmpTable from '../assets/interior-tmp-table.svg';
-import layoutEntrance from '../assets/layout-entrance.svg';
-import layoutSki from '../assets/layout-ski.svg';
-import layoutStair from '../assets/layout-stair.svg';
-import layoutTmpGenericSpace from '../assets/layout-tmp-generic-space.svg';
-import layoutWardrobe from '../assets/layout-wardrobe.svg';
-import serviceBistro from '../assets/service-bistro.svg';
-import serviceBusiness from '../assets/service-business.svg';
-import serviceFamily from '../assets/service-family.svg';
-import serviceLuggage from '../assets/service-luggage.svg';
-import serviceMultifunction from '../assets/service-multifunction.svg';
-import servicePram from '../assets/service-pram.svg';
-import servicePrm from '../assets/service-prm.svg';
-import serviceRestaurant from '../assets/service-restaurant.svg';
-import serviceSilence from '../assets/service-silence.svg';
-import serviceToiletPrm from '../assets/service-toilet-prm.svg';
-import serviceToilet from '../assets/service-toilet.svg';
-import serviceWheelchair from '../assets/service-wheelchair.svg';
-import serviceWifi from '../assets/service-wifi.svg';
-
-/**
- * Map Object from OSDM Code to SVG
- */
-const mapCodeToSvg: Record<string, string> = {
-  BISTRO: serviceBistro,
-  BUSINESS: serviceBusiness,
-  COMPARTMENT_PASSAGE: chassisPassageCompartmentMiddle,
-  COMPARTMENT_PASSAGE_HIGH: chassisPassageCompartmentLeftTop,
-  COMPARTMENT_PASSAGE_LOW: chassisPassageCompartmentRightBottom,
-  COACH_PASSAGE: chassisPassageWaggonTopLeft,
-  DRIVER_AREA: chassisDriverTrainStart,
-  EASY_ACCESS_AREA: servicePrm,
-  LUGGAGE_AREA: serviceLuggage,
-  MULTI_FUNCTION_AREA: serviceMultifunction,
-  PRAM_AREA: servicePram,
-  PRAM_ICON: servicePram,
-  PLACE_SEAT_FREE: interiorPlaceSeatDefault,
-  PLACE_SEAT_SELECTED: interiorPlaceSeatSelected,
-  PLACE_SEAT_RESTRICTED: interiorPlaceSeatNotBookable,
-  PLACE_SEAT_ALLOCATED: interiorPlaceSeatUnavailable,
-  PLACE_BIKE_FREE: interiorPlaceSeatDefault,
-  PLACE_BIKE_SELECTED: interiorPlaceBikeSelected,
-  PLACE_BIKE_RESTRICTED: interiorPlaceBikeUnavailableNotBookable,
-  PLACE_BIKE_ALLOCATED: interiorPlaceBikeUnavailableNotBookable,
-  PLAYGROUND_ICON: serviceFamily,
-  PLAYGROUND_AREA: serviceFamily,
-  TABLE: interiorTableTest,
-  TOILET_AREA: serviceToilet,
-  SKI_AREA: layoutSki,
-  SKI_ICON: layoutSki,
-  SILENCE_AREA_ICON: serviceSilence,
-  STAIR_AREA: layoutStair,
-  RESTAURANT_ICON: serviceRestaurant,
-  WHEELCHAIR: serviceWheelchair,
-  WHEELCHAIR_TOILET_AREA: serviceToiletPrm,
-  WIFI: serviceWifi,
-};
-
-const svgImage = (src: string, alt = '', title = ''): TemplateResult => {
+const svgImage = (src: string): TemplateResult => {
   return html`
-    <div class="story-image">
-      <img class="story-image__preview" src="${src}" alt="${alt}" title="${title}" />
+    <div class="story-asset">
+      <span class="story-asset__preview">${unsafeHTML(src)}</span>
     </div>
   `;
 };
 
-const svgTmpImage = (src: string): TemplateResult => {
+const svgTmpImage = (src: string, variant: 'light' | 'dark' = 'light'): TemplateResult => {
   return html`
-    <div class="story-image">
-      <p class="story-image__hint">temporäre Ansicht ... per CSS erstellen</p>
-      <img class="story-image__preview story-image__preview--tmp" src="${src}" alt="" title="" />
+    <div class="story-asset">
+      <p class="story-asset__hint">temporäre Ansicht ... per CSS erstellen</p>
+      <span class="story-asset__preview story-asset__preview--tmp story-asset__preview--${variant}"
+        >${unsafeHTML(src)}</span
+      >
     </div>
   `;
 };
@@ -106,12 +32,8 @@ const svgTmpImage = (src: string): TemplateResult => {
  * @param title
  * @returns The SVG Image as TemplateResult if it matches the OSDM code, or null if its not found.
  */
-export const svgImageByOSDMCode = (
-  osdmCode: string,
-  alt = '',
-  title = '',
-): TemplateResult | null => {
-  return mapCodeToSvg[osdmCode] ? svgImage(mapCodeToSvg[osdmCode], alt, title) : null;
+export const svgImageByOSDMCode = (osdmCode: string): TemplateResult | null => {
+  return mapCodeToSvg[osdmCode] ? svgImage(mapCodeToSvg[osdmCode]) : null;
 };
 
 const chassisTable = html`
@@ -130,47 +52,37 @@ const chassisTable = html`
         <td>DRIVER_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisDriverTrainEnd)}</td>
-        <td>Driver: Train</td>
-        <td>DRIVER_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImage(chassisDriverBusStart)}</td>
+        <td>${svgImage(assets.chassisDriverBus)}</td>
         <td>Driver: Bus</td>
         <td>DRIVER_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisDriverBusEnd)}</td>
-        <td>Driver: Bus</td>
-        <td>DRIVER_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImage(chassisPassageCompartmentLeftTop)}</td>
+        <td>${svgImage(assets.chassisPassageCompartmentLeftTop)}</td>
         <td>Passage-Compartment: Top</td>
         <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_HIGH</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisPassageCompartmentMiddle)}</td>
+        <td>${svgImage(assets.chassisPassageCompartmentMiddle)}</td>
         <td>Passage-Compartment: Middle</td>
         <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_MIDDLE</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisPassageCompartmentRightBottom)}</td>
+        <td>${svgImage(assets.chassisPassageCompartmentRightBottom)}</td>
         <td>Passage-Compartment: Bottom</td>
         <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_LOW</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisPassageWaggonTopLeft)}</td>
+        <td>${svgImage(assets.chassisPassageWaggonTopLeft)}</td>
         <td>Passage-Waggon Type: Left</td>
         <td>COACH_PASSAGE</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisPassageWaggonBottomRight)}</td>
+        <td>${svgImage(assets.chassisPassageWaggonBottomRight)}</td>
         <td>Passage-Waggon Type: Right</td>
         <td>COACH_PASSAGE</td>
       </tr>
       <tr>
-        <td>${svgImage(chassisSeparator)}</td>
+        <td>${svgImage(assets.chassisSeparator)}</td>
         <td>Separator</td>
         <td></td>
       </tr>
@@ -194,37 +106,37 @@ const interiorTable = html`
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(interiorPlaceBikeDefault)}</td>
+        <td>${svgImage(assets.interiorPlaceBikeDefault)}</td>
         <td>Place-Bike: Available</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(interiorPlaceBikeSelected)}</td>
+        <td>${svgImage(assets.interiorPlaceBikeSelected)}</td>
         <td>Place-Bike: Selected</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(interiorPlaceBikeUnavailableNotBookable)}</td>
+        <td>${svgImage(assets.interiorPlaceBikeUnavailableNotBookable)}</td>
         <td>Place-Bike: Unavailable / Not bookable</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(interiorPlaceSeatDefault)}</td>
+        <td>${svgImage(assets.interiorPlaceSeatDefault)}</td>
         <td>Place-Seat: Available</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(interiorPlaceSeatSelected)}</td>
+        <td>${svgImage(assets.interiorPlaceSeatSelected)}</td>
         <td>Place-Seat: Selected</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(interiorPlaceSeatUnavailable)}</td>
+        <td>${svgImage(assets.interiorPlaceSeatUnavailable)}</td>
         <td>Place-Seat: Unavailable</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(interiorPlaceSeatNotBookable)}</td>
+        <td>${svgImage(assets.interiorPlaceSeatNotBookable)}</td>
         <td>Place-Seat: Not bookable</td>
         <td></td>
       </tr>
@@ -242,47 +154,47 @@ const layoutItemsTable = html`
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(layoutEntrance)}</td>
+        <td>${svgImage(assets.layoutEntrance)}</td>
         <td>Entrance</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceLuggage)}</td>
+        <td>${svgImage(assets.serviceLuggage)}</td>
         <td>Luggage</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceFamily)}</td>
+        <td>${svgImage(assets.serviceFamily)}</td>
         <td>Playground</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(servicePram)}</td>
+        <td>${svgImage(assets.servicePram)}</td>
         <td>Pram</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(layoutSki)}</td>
+        <td>${svgImage(assets.layoutSki)}</td>
         <td>Ski</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(layoutStair)}</td>
+        <td>${svgImage(assets.layoutStair)}</td>
         <td>Stair</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceToilet)}</td>
+        <td>${svgImage(assets.serviceToilet)}</td>
         <td>Toilet</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceToiletPrm)}</td>
+        <td>${svgImage(assets.serviceToiletPrm)}</td>
         <td>Toilet-Handicap</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(layoutWardrobe)}</td>
+        <td>${svgImage(assets.layoutWardrobe)}</td>
         <td>Wardrobe</td>
         <td></td>
       </tr>
@@ -302,79 +214,79 @@ const serviceIconTable = html`
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(serviceBistro)}</td>
+        <td>${svgImage(assets.serviceBistro)}</td>
         <td>Bistro</td>
         <td>BISTRO</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceBusiness)}</td>
+        <td>${svgImage(assets.serviceBusiness)}</td>
         <td>Business</td>
         <td>BUSINESS</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceFamily)}</td>
+        <td>${svgImage(assets.serviceFamily)}</td>
         <td>Family</td>
         <td>PLAYGROUND_AREA</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceLuggage)}</td>
+        <td>${svgImage(assets.serviceLuggage)}</td>
         <td>Luggage</td>
         <td>LUGGAGE_AREA</td>
         <td>109</td>
       </tr>
       <tr>
-        <td>${svgImage(serviceMultifunction)}</td>
+        <td>${svgImage(assets.serviceMultifunction)}</td>
         <td>Multifunction</td>
         <td>MULTI_FUNCTION_AREA</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(servicePram)}</td>
+        <td>${svgImage(assets.servicePram)}</td>
         <td>Pram</td>
         <td>PRAM_ICON</td>
         <td>112</td>
       </tr>
       <tr>
-        <td>${svgImage(servicePrm)}</td>
+        <td>${svgImage(assets.servicePrm)}</td>
         <td>PRM</td>
         <td>EASY_ACCESS</td>
         <td>105</td>
       </tr>
       <tr>
-        <td>${svgImage(serviceRestaurant)}</td>
+        <td>${svgImage(assets.serviceRestaurant)}</td>
         <td>Restaurant</td>
         <td>RESTAURANT_ICON</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceSilence)}</td>
+        <td>${svgImage(assets.serviceSilence)}</td>
         <td>Silence</td>
         <td>SILENCE</td>
         <td>116</td>
       </tr>
       <tr>
-        <td>${svgImage(serviceToilet)}</td>
+        <td>${svgImage(assets.serviceToilet)}</td>
         <td>Toilet</td>
         <td>TOILET_AREA</td>
         <td>115</td>
       </tr>
       <tr>
-        <td>${svgImage(serviceToiletPrm)}</td>
+        <td>${svgImage(assets.serviceToiletPrm)}</td>
         <td>Toilet-PRM</td>
         <td>WHEELCHAIR_TOILET_AREA</td>
         <td>131</td>
       </tr>
       <tr>
-        <td>${svgImage(serviceWheelchair)}</td>
+        <td>${svgImage(assets.serviceWheelchair)}</td>
         <td>Wheelchair</td>
         <td>WHEELCHAIR</td>
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(serviceWifi)}</td>
+        <td>${svgImage(assets.serviceWifi)}</td>
         <td>Wifi</td>
         <td>WIFI</td>
         <td>130</td>
@@ -388,20 +300,20 @@ export const assetsTemplate: TemplateResult = html`
   <h2>Chassis</h2>
   ${chassisTable}
   <h3>Row-Empty</h3>
-  ${svgTmpImage(chassisTmpRowEmpty)}
+  ${svgTmpImage(assets.chassisTmpRowEmpty, 'dark')}
   <h2>Helper</h2>
   <h3>Note</h3>
-  ${svgTmpImage(helperTmpNoteDefault)} ${svgTmpImage(helperTmpNotePostIt)}
+  ${svgTmpImage(assets.helperTmpNoteDefault)} ${svgTmpImage(assets.helperTmpNotePostIt)}
   <h3>Placeholder</h3>
-  ${svgTmpImage(helperTmpPlaceholder)}
+  ${svgTmpImage(assets.helperTmpPlaceholder)}
   <h2>Interior</h2>
   ${interiorTable}
   <h3>Table</h3>
-  ${svgTmpImage(interiorTmpTable)}
+  ${svgTmpImage(assets.interiorTmpTable)}
   <h2>Layout</h2>
   ${layoutItemsTable}
   <h3>Generic-Space</h3>
-  ${svgTmpImage(layoutTmpGenericSpace)}
+  ${svgTmpImage(assets.layoutTmpGenericSpace)}
   <h2>Service Icons</h2>
   ${serviceIconTable}
 `;
