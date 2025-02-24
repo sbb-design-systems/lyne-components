@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.2.0...v2.3.0) (2025-02-24)
+
+
+### Features
+
+* implement native validation for form elements ([#3404](https://github.com/sbb-design-systems/lyne-components/issues/3404)) ([3f4f24b](https://github.com/sbb-design-systems/lyne-components/commit/3f4f24b670415380d4ee4f5b2ac36bb05571aff6))
+* include updated SBB fonts ([#3312](https://github.com/sbb-design-systems/lyne-components/issues/3312)) ([23311ba](https://github.com/sbb-design-systems/lyne-components/commit/23311ba1d7223d9fff5821e932255e16f6788657))
+* **sbb-badge:** provide badge styling via attribute ([#2639](https://github.com/sbb-design-systems/lyne-components/issues/2639)) ([42816d7](https://github.com/sbb-design-systems/lyne-components/commit/42816d7cdf8e8628e70c43925fcfd9f37046034f))
+* **sbb-toggle:** implement form association ([#3409](https://github.com/sbb-design-systems/lyne-components/issues/3409)) ([98d00cf](https://github.com/sbb-design-systems/lyne-components/commit/98d00cf802b691258be82934ccd45b16326f745c))
+* visually improve link underline styles ([#3408](https://github.com/sbb-design-systems/lyne-components/issues/3408)) ([83b55c4](https://github.com/sbb-design-systems/lyne-components/commit/83b55c4a02a0e23ad7515051fd0428c19fa15f3f))
+
+
+### Bug Fixes
+
+* **buttons:** avoid moving surrounding context on hover ([#3394](https://github.com/sbb-design-systems/lyne-components/issues/3394)) ([18a01ea](https://github.com/sbb-design-systems/lyne-components/commit/18a01eafb37cae684a2bc7d256ee6fc9780d92cf))
+
+
+### Documentation
+
+* add hint about necessary import in type-script file ([#3399](https://github.com/sbb-design-systems/lyne-components/issues/3399)) ([335101d](https://github.com/sbb-design-systems/lyne-components/commit/335101d8f7e58632a6a3cfb10c458c0ddee7ab7d))
+
 ## [2.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.1.0...v2.2.0) (2025-02-06)
 
 
