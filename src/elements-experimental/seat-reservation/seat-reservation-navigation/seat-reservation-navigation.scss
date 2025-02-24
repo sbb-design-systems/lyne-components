@@ -1,0 +1,22 @@
+.sbb-seat-reservation-navigation__wrapper {
+  &.sbb-seat-reservation-navigation__wrapper--vertical
+    .sbb-seat-reservation-navigation__list-coaches {
+    justify-content: initial;
+  }
+}
+
+.sbb-seat-reservation-navigation__list-coaches {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  list-style: none;
+}
+
+.sbb-seat-reservation-navigation__item-coache {
+  box-shadow: 0 0 4px 0 #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
