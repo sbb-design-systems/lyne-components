@@ -9,7 +9,7 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { SbbOpenCloseEscapableElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
@@ -35,7 +35,7 @@ export
   popover: 'manual',
 })
 abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
-  SbbHydrationMixin(SbbOpenCloseBaseElement),
+  SbbHydrationMixin(SbbOpenCloseEscapableElement),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -92,7 +92,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected abstract resetActiveElement(): void;
 
   /** Opens the autocomplete. */
-  public open(): void {
+  public override open(): void {
     if (
       this.state !== 'closed' ||
       !this._overlay ||
@@ -105,6 +105,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
+    super.open();
     this.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
@@ -117,7 +118,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   /** Closes the autocomplete. */
-  public close(): void {
+  public override close(): void {
     if (this.state !== 'opened') {
       return;
     }
@@ -125,6 +126,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
+    super.close();
     this.state = 'closing';
     this._openPanelEventsController.abort();
 

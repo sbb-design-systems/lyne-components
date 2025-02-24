@@ -6,7 +6,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbOpenCloseEscapableElement } from '../../core/base-elements.js';
 import { SbbInertController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
@@ -55,7 +55,7 @@ export
   role: 'navigation',
   popover: 'manual',
 })
-class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseEscapableElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -121,15 +121,15 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   /**
    * Opens the navigation.
    */
-  public open(): void {
+  public override open(): void {
     if (this.state !== 'closed' || !this._navigation) {
       return;
     }
-
     if (!this.willOpen.emit()) {
       return;
     }
 
+    super.open();
     this.showPopover?.();
     this.state = 'opening';
     this._checkActiveActions();
@@ -164,14 +164,15 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   /**
    * Closes the navigation.
    */
-  public close(): void {
+  public override close(): void {
     if (this.state !== 'opened') {
       return;
     }
-
     if (!this.willClose.emit()) {
       return;
     }
+
+    super.close();
     this.state = 'closing';
     this.startUpdate();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
@@ -211,7 +212,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._focusHandler.trap(this, { filter: this._trapFocusFilter });
-    this._attachWindowEvents();
     this._setNavigationFocus();
     this.completeUpdate();
     this.didOpen.emit();
@@ -274,13 +274,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     activeActions?.forEach((action) => action.marker?.reset());
   }
 
-  private _attachWindowEvents(): void {
-    this._windowEventsController = new AbortController();
-    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-      signal: this._windowEventsController.signal,
-    });
-  }
-
   private _handleNavigationClose(event: Event): void {
     const composedPathElements = event
       .composedPath()
@@ -295,13 +288,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       element.nodeName === 'A' ||
       (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
     );
-  }
-
-  // Closes the navigation on "Esc" key pressed.
-  private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this.state === 'opened' && event.key === 'Escape') {
-      this.close();
-    }
   }
 
   // Set focus on the first focusable element.

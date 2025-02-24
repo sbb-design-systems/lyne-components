@@ -6,7 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { SbbOpenCloseEscapableElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import {
   forceType,
@@ -70,8 +70,8 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
-            SbbOpenCloseBaseElement,
+          SbbFormAssociatedMixin<typeof SbbOpenCloseEscapableElement, string | string[]>(
+            SbbOpenCloseEscapableElement,
           ),
         ),
       ),
@@ -235,7 +235,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /** Opens the selection panel. */
-  public open(): void {
+  public override open(): void {
     if (
       this.state !== 'closed' ||
       !this._overlay ||
@@ -249,6 +249,8 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (!this.willOpen.emit()) {
       return;
     }
+
+    super.open();
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
@@ -261,14 +263,15 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /** Closes the selection panel. */
-  public close(): void {
+  public override close(): void {
     if (this.state !== 'opened') {
       return;
     }
-
     if (!this.willClose.emit()) {
       return;
     }
+
+    super.close();
     this.state = 'closing';
     this._openPanelEventsController.abort();
 
@@ -689,7 +692,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
 
     switch (event.key) {
-      case 'Escape':
       case 'Tab':
         this.close();
         break;

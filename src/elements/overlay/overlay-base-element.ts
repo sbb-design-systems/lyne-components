@@ -2,7 +2,7 @@ import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusHandler } from '../core/a11y.js';
-import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { type SbbButtonBaseElement, SbbOpenCloseEscapableElement } from '../core/base-elements.js';
 import { SbbInertController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
@@ -19,7 +19,7 @@ export
 @hostAttributes({
   popover: 'manual',
 })
-abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseEscapableElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
   @forceType()
   @property({ attribute: 'accessibility-label' })
@@ -53,11 +53,12 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   protected abstract isZeroAnimationDuration(): boolean;
 
   /** Closes the component. */
-  public close(result?: any, target?: HTMLElement): any {
+  public override close(result?: any, target?: HTMLElement): any {
     if (this.state !== 'opened') {
       return;
     }
 
+    super.close();
     this.returnValue = result;
     this.overlayCloseElement = target;
     const eventData: SbbOverlayCloseEventDetails = {
@@ -105,9 +106,8 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     // Remove overlay label as soon as it is not needed any more to prevent accessing it with browse mode.
     window.addEventListener(
       'keydown',
-      (event: KeyboardEvent) => {
+      () => {
         this.removeAriaLiveRefContent();
-        this.onKeydownEvent(event);
       },
       {
         signal: this.openOverlayController.signal,
@@ -116,17 +116,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     window.addEventListener('click', () => this.removeAriaLiveRefContent(), {
       signal: this.openOverlayController.signal,
     });
-  }
-
-  protected onKeydownEvent(event: KeyboardEvent): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
-      overlayRefs[overlayRefs.length - 1].close();
-      return;
-    }
   }
 
   protected removeInstanceFromGlobalCollection(): void {
