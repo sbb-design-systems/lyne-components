@@ -79,7 +79,11 @@ describe('sbb-chip', () => {
             const deleteStateElement = setup.snapshotElement
               .querySelector('sbb-chip')!
               .getFocusSteps()[1];
+
             setup.withStateElement(deleteStateElement);
+            setup.withPostSetupAction(() => {
+              deleteStateElement.tabIndex = 0; // We force the tab index on the delete button for test purposes
+            });
           }),
         );
       }
