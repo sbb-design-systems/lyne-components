@@ -59,14 +59,21 @@ describe('sbb-sidebar-container', () => {
   it('should return sidebars', async () => {
     expect(element.sidebars[0]).to.be.equal(sidebar1);
     expect(element.sidebars[1]).to.be.equal(sidebar2);
-  });
 
-  it('should return start sidebar', async () => {
     expect(element.start).to.be.equal(sidebar1);
+    expect(element.end).to.be.equal(sidebar2);
   });
 
-  it('should return end sidebar', async () => {
+  it('should return start sidebar if no end is present', async () => {
+    sidebar2.remove();
+    expect(element.start).to.be.equal(sidebar1);
+    expect(element.end).to.be.equal(null);
+  });
+
+  it('should return end sidebar if no start is present', async () => {
+    sidebar1.remove();
     expect(element.end).to.be.equal(sidebar2);
+    expect(element.start).to.be.equal(null);
   });
 
   async function testResizing(): Promise<void> {
