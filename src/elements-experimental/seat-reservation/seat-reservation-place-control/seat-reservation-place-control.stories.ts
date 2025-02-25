@@ -9,7 +9,6 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import { controlIcons } from './seat-reservation-place-control.js';
 
-
 const name: InputType = {
   control: {
     type: 'select',

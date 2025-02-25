@@ -3,7 +3,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import '../seat-reservation-navigation/seat-reservation-navigation.js';
+import '../seat-reservation-navigation.js';
 import '../seat-reservation-place-control.js';
 
 import style from './seat-reservation.scss?lit&inline';

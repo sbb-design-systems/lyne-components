@@ -116,8 +116,13 @@ const interiorTable = html`
         <td></td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceBikeUnavailableNotBookable)}</td>
-        <td>Place-Bike: Unavailable / Not bookable</td>
+        <td>${svgImage(assets.interiorPlaceBikeUnavailable)}</td>
+        <td>Place-Bike: Unavailable</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>${svgImage(assets.interiorPlaceBikeNotBookable)}</td>
+        <td>Place-Bike: Not bookable</td>
         <td></td>
       </tr>
       <tr>
