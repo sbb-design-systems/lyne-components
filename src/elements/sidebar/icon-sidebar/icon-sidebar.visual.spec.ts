@@ -118,6 +118,11 @@ describe('sbb-icon-sidebar', () => {
             </sbb-icon-sidebar-container>`,
           { minHeight: '400px' },
         );
+
+        setup.withPostSetupAction(() => {
+          const sidebar = setup.snapshotElement.querySelector('sbb-sidebar')!;
+          sidebar.open();
+        });
       }),
     );
   });
@@ -136,8 +141,8 @@ describe('sbb-icon-sidebar', () => {
 
         // Scroll
         setup.withPostSetupAction(() => {
-          const content = setup.snapshotElement.querySelector('sbb-icon-sidebar')!;
-          content.scrollTo(0, content.scrollHeight);
+          const iconSidebar = setup.snapshotElement.querySelector('sbb-icon-sidebar')!;
+          iconSidebar.scrollTo(0, iconSidebar.scrollHeight);
         });
       }),
     );
