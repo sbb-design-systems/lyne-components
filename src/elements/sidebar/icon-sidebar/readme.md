@@ -79,7 +79,7 @@ a label to the action elements. It's also described how to set the current icon 
 
 ## Use with `sbb-header`
 
-Check [sbb-icon-container](/docs/elements-sbb-sidebar-sbb-icon-sidebar-container--docs) on how to
+Check [sbb-icon-sidebar-container](/docs/elements-sbb-sidebar-sbb-icon-sidebar-container--docs) on how to
 position and connect the `sbb-header` with the icon sidebar.
 
 <!-- Auto Generated Below -->

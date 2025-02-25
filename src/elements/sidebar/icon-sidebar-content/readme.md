@@ -7,6 +7,11 @@ The sbb-icon-sidebar-content is a container which should be used inside a `sbb-i
 </sbb-icon-sidebar-container>
 ```
 
+## Use with `sbb-header`
+
+Check [sbb-icon-sidebar-container](/docs/elements-sbb-sidebar-sbb-icon-sidebar-container--docs) on how to
+position and connect the `sbb-header` with the `sbb-icon-sidebar-content`.
+
 <!-- Auto Generated Below -->
 
 ## Slots

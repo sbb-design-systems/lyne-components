@@ -7,6 +7,11 @@ The sbb-sidebar-content is a container which should be used inside a `sbb-sideba
 </sbb-sidebar-container>
 ```
 
+## Use with `sbb-header`
+
+Check [sbb-sidebar-container](/docs/elements-sbb-sidebar-sbb-sidebar-container--docs) on how to
+position and connect the `sbb-header` with the `sbb-sidebar-content`.
+
 <!-- Auto Generated Below -->
 
 ## Slots
