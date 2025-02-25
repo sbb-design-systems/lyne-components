@@ -25,7 +25,6 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.getMonth(date)).to.be.equal(1);
     expect(nativeDateAdapter.getDate(date)).to.be.equal(1);
     expect(nativeDateAdapter.getDayOfWeek(date)).to.be.equal(0);
-    expect(nativeDateAdapter.getTime(date)).to.be.equal(1672531200000);
   });
 
   it('getMonthNames, getDateNames and getDayOfWeekNames should return the correct arrays', () => {

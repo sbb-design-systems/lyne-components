@@ -276,12 +276,12 @@ describe(`sbb-calendar`, () => {
     });
 
     describe('keyboard navigation', () => {
-      it('focus on the selected date if it is in the view', () => {
+      it('it should focus on the selected date if it is in the view', () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
       });
 
-      it('focus on the first of the month if selected date is not in the view', async () => {
+      it('it should focus on the first of the month if selected date is not in the view', async () => {
         const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
           '#sbb-calendar__controls-next',
         )!;
@@ -291,7 +291,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-02-01');
       });
 
-      it('no navigation for unmapped keys', async () => {
+      it('it should not navigate when unmapped keys are pressed', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'a' });
@@ -302,7 +302,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
       });
 
-      it('no further navigation if out of bound', async () => {
+      it('it should not navigate out of bounds', async () => {
         element.focus();
         // go to upper bound
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
@@ -344,7 +344,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-31');
       });
 
-      it('navigates left', async () => {
+      it('it should navigate left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowLeft' });
@@ -352,7 +352,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-14');
       });
 
-      it('navigates right', async () => {
+      it('it should navigate right', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowRight' });
@@ -360,7 +360,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-16');
       });
 
-      it('navigates up', async () => {
+      it('it should navigate up', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowUp' });
@@ -368,7 +368,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-08');
       });
 
-      it('navigates down', async () => {
+      it('it should navigate down', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowDown' });
@@ -376,7 +376,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-22');
       });
 
-      it('navigates to first day', async () => {
+      it('it should navigate to first day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'Home' });
@@ -384,7 +384,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-01');
       });
 
-      it('navigates to last day', async () => {
+      it('it should navigate to last day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'End' });
@@ -392,7 +392,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-31');
       });
 
-      it('navigates to column start', async () => {
+      it('it should navigate to column start', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageUp' });
@@ -400,7 +400,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-01');
       });
 
-      it('navigates to column end', async () => {
+      it('it should navigate to column end', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageDown' });
@@ -426,12 +426,12 @@ describe(`sbb-calendar`, () => {
     });
 
     describe('keyboard navigation', () => {
-      it('focus on the selected date if it is in the view', () => {
+      it('it should focus on the selected date if it is in the view', () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
       });
 
-      it('focus on the first of the month if selected date is not in the view', async () => {
+      it('it should focus on the first of the month if selected date is not in the view', async () => {
         const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
           '#sbb-calendar__controls-next',
         )!;
@@ -441,7 +441,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-02-01');
       });
 
-      it('navigates left', async () => {
+      it('it should navigate left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowLeft' });
@@ -449,7 +449,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-08');
       });
 
-      it('navigates right', async () => {
+      it('it should navigate right', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowRight' });
@@ -457,7 +457,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-22');
       });
 
-      it('navigates up', async () => {
+      it('it should navigate up', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowUp' });
@@ -465,7 +465,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-14');
       });
 
-      it('navigates down', async () => {
+      it('it should navigate down', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'ArrowDown' });
@@ -473,7 +473,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-16');
       });
 
-      it('navigates to first day', async () => {
+      it('it should navigate to first day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
 
@@ -483,7 +483,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-01');
       });
 
-      it('navigates to last day', async () => {
+      it('it should navigate to last day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'End' });
@@ -491,7 +491,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-31');
       });
 
-      it('navigates to column start', async () => {
+      it('it should navigate to column start', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageUp' });
@@ -499,7 +499,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2023-01-09');
       });
 
-      it('navigates to column end', async () => {
+      it('it should navigate to column end', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2023-01-15');
         await sendKeys({ press: 'PageDown' });
@@ -635,7 +635,7 @@ describe(`sbb-calendar`, () => {
         );
       });
 
-      it('navigates left', async () => {
+      it('it should navigate left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'ArrowLeft' });
@@ -643,7 +643,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-30');
       });
 
-      it('navigates right', async () => {
+      it('it should navigate right', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'ArrowRight' });
@@ -651,7 +651,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-02-01');
       });
 
-      it('navigates up', async () => {
+      it('it should navigate up', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'ArrowUp' });
@@ -659,7 +659,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-24');
       });
 
-      it('navigates down', async () => {
+      it('it should navigate down', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'ArrowDown' });
@@ -667,7 +667,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-02-07');
       });
 
-      it('navigates to first day', async () => {
+      it('it should navigate to first day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'Home' });
@@ -675,7 +675,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-01');
       });
 
-      it('navigates to last day', async () => {
+      it('it should navigate to last day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'End' });
@@ -683,7 +683,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
       });
 
-      it('navigates to column start', async () => {
+      it('it should navigate to column start', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'PageUp' });
@@ -691,7 +691,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-03');
       });
 
-      it('navigates to column end', async () => {
+      it('it should navigate to column end', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
         await sendKeys({ press: 'PageDown' });
@@ -718,7 +718,7 @@ describe(`sbb-calendar`, () => {
         );
       });
 
-      it('navigates left', async () => {
+      it('it should navigate left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowLeft' });
@@ -726,7 +726,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
       });
 
-      it('navigates right', async () => {
+      it('it should navigate right', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowRight' });
@@ -734,7 +734,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-02-05');
       });
 
-      it('navigates up', async () => {
+      it('it should navigate up', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowUp' });
@@ -742,7 +742,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-28');
       });
 
-      it('navigates down', async () => {
+      it('it should navigate down', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'ArrowDown' });
@@ -750,7 +750,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-30');
       });
 
-      it('navigates to first day', async () => {
+      it('it should navigate to first day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'Home' });
@@ -758,7 +758,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-01');
       });
 
-      it('navigates to last day', async () => {
+      it('it should navigate to last day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'End' });
@@ -766,7 +766,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
       });
 
-      it('navigates to column start', async () => {
+      it('it should navigate to column start', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'PageUp' });
@@ -774,7 +774,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-27');
       });
 
-      it('navigates to column end', async () => {
+      it('it should navigate to column end', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-29');
         await sendKeys({ press: 'PageDown' });
@@ -808,12 +808,12 @@ describe(`sbb-calendar`, () => {
       selectedYear.focus();
     });
 
-    it('focus on the selected year if it is in the view', () => {
+    it('it should focus on the selected year if it is in the view', () => {
       element.focus();
       expect(getActiveElementText()).to.be.equal('2023');
     });
 
-    it('focus on the first year if selected year is not in the view', async () => {
+    it('it should focus on the first year if selected year is not in the view', async () => {
       const nextYearButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-next',
       )!;
@@ -823,7 +823,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2040');
     });
 
-    it('navigates left', async () => {
+    it('it should navigate left', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -833,7 +833,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2022');
     });
 
-    it('navigates right', async () => {
+    it('it should navigate right', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -843,7 +843,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2024');
     });
 
-    it('navigates up', async () => {
+    it('it should navigate up', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -853,7 +853,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2019');
     });
 
-    it('navigates down', async () => {
+    it('it should navigate down', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -863,7 +863,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2027');
     });
 
-    it('navigates to first day', async () => {
+    it('it should navigate to first day', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -873,7 +873,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2016');
     });
 
-    it('navigates to last day', async () => {
+    it('it should navigate to last day', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -883,7 +883,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2039');
     });
 
-    it('navigates to column start', async () => {
+    it('it should navigate to column start', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -893,7 +893,7 @@ describe(`sbb-calendar`, () => {
       expect(getActiveElementText()).to.be.equal('2019');
     });
 
-    it('navigates to column end', async () => {
+    it('it should navigate to column end', async () => {
       expect(getActiveElementText()).to.be.equal('2023');
 
       element.focus();
@@ -936,7 +936,7 @@ describe(`sbb-calendar`, () => {
         await waitForLitRender(element);
       });
 
-      it('navigates left', async () => {
+      it('it should navigate left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowLeft' });
@@ -944,7 +944,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-21');
       });
 
-      it('navigates right', async () => {
+      it('it should navigate right', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowRight' });
@@ -952,7 +952,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-26');
       });
 
-      it('navigates up', async () => {
+      it('it should navigate up', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowUp' });
@@ -960,7 +960,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-08');
       });
 
-      it('navigates down', async () => {
+      it('it should navigate down', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowDown' });
@@ -968,7 +968,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-02-12');
       });
 
-      it('navigates to first day', async () => {
+      it('it should navigate to first day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'Home' });
@@ -976,7 +976,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-01');
       });
 
-      it('navigates to last day', async () => {
+      it('it should navigate to last day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'End' });
@@ -984,7 +984,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
       });
 
-      it('navigates to column start', async () => {
+      it('it should navigate to column start', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'PageUp' });
@@ -992,7 +992,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-01');
       });
 
-      it('navigates to column end', async () => {
+      it('it should navigate to column end', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'PageDown' });
@@ -1011,7 +1011,7 @@ describe(`sbb-calendar`, () => {
         await waitForLitRender(element);
       });
 
-      it('navigates left', async () => {
+      it('it should navigate left', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowLeft' });
@@ -1019,7 +1019,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-08');
       });
 
-      it('navigates right', async () => {
+      it('it should navigate right', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowRight' });
@@ -1027,7 +1027,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-02-12');
       });
 
-      it('navigates up', async () => {
+      it('it should navigate up', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowUp' });
@@ -1035,7 +1035,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-21');
       });
 
-      it('navigates down', async () => {
+      it('it should navigate down', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'ArrowDown' });
@@ -1043,7 +1043,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-26');
       });
 
-      it('navigates to first day', async () => {
+      it('it should navigate to first day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'Home' });
@@ -1051,7 +1051,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-01');
       });
 
-      it('navigates to last day', async () => {
+      it('it should navigate to last day', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'End' });
@@ -1059,7 +1059,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-31');
       });
 
-      it('navigates to column start', async () => {
+      it('it should navigate to column start', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'PageUp' });
@@ -1067,7 +1067,7 @@ describe(`sbb-calendar`, () => {
         expect(getActiveElementValue()).to.be.equal('2025-01-21');
       });
 
-      it('navigates to column end', async () => {
+      it('it should navigate to column end', async () => {
         element.focus();
         expect(getActiveElementValue()).to.be.equal('2025-01-22');
         await sendKeys({ press: 'PageDown' });

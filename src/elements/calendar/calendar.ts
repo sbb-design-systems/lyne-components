@@ -786,7 +786,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /**
    * In `day` view in `vertical` orientation,
-   * if the first of the month is not a Monday, it is not the first rendered element is the table,
+   * if the first of the month is not a Monday, it is not the first rendered element in the table,
    * so `this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])')` will return a wrong value.
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
@@ -915,7 +915,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayArrows(cells, index, this._dateAdapter.fromIso8601(newDateValue), delta);
+      return this._findDayArrows(cells, index, this._dateAdapter.deserialize(newDateValue)!, delta);
     }
     return nextCell;
   }
@@ -972,7 +972,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayLast(cells, index, this._dateAdapter.fromIso8601(newDateValue));
+      return this._findDayLast(cells, index, this._dateAdapter.deserialize(newDateValue)!);
     }
     return nextCell;
   }
