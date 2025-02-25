@@ -57,7 +57,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   /** Text Prop */
   @forceType()
   @property({ attribute: 'text' })
-  public accessor text: string = null;
+  public accessor text: string = '';
 
   /** TextRotation Prop */
   @forceType()
