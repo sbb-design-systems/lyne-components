@@ -3,11 +3,13 @@
   --reservation-graphic-height: var(--graphic-height-from-host);
   --reservation-graphic-rotation: var(--graphic-rotation-from-host, 0);
 
-  display: inline-block;
+  display: block;
 }
 
-.sbb-reservation-graphic {
+.sbb-seat-reservation-graphic {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: calc(var(--reservation-graphic-width) * 1rem);
   height: calc(var(--reservation-graphic-height) * 1rem);
   transform-origin: center;

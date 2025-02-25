@@ -11,8 +11,9 @@ import helperTmpNoteDefault from './helper-tmp-note-default.svg?raw';
 import helperTmpNotePostIt from './helper-tmp-note-post-it.svg?raw';
 import helperTmpPlaceholder from './helper-tmp-placeholder.svg?raw';
 import interiorPlaceBikeDefault from './interior-place-bike-default.svg?raw';
+import interiorPlaceBikeNotBookable from './interior-place-bike-not-bookable.svg?raw';
 import interiorPlaceBikeSelected from './interior-place-bike-selected.svg?raw';
-import interiorPlaceBikeUnavailableNotBookable from './interior-place-bike-unavailable-not-bookable.svg?raw';
+import interiorPlaceBikeUnavailable from './interior-place-bike-unavailable.svg?raw';
 import interiorPlaceSeatDefault from './interior-place-seat-default.svg?raw';
 import interiorPlaceSeatNotBookable from './interior-place-seat-not-bookable.svg?raw';
 import interiorPlaceSeatSelected from './interior-place-seat-selected.svg?raw';
@@ -52,8 +53,9 @@ export {
   helperTmpNotePostIt,
   helperTmpPlaceholder,
   interiorPlaceBikeDefault,
+  interiorPlaceBikeNotBookable,
   interiorPlaceBikeSelected,
-  interiorPlaceBikeUnavailableNotBookable,
+  interiorPlaceBikeUnavailable,
   interiorPlaceSeatDefault,
   interiorPlaceSeatNotBookable,
   interiorPlaceSeatSelected,
