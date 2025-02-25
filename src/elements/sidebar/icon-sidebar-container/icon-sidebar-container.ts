@@ -21,18 +21,18 @@ class SbbIconSidebarContainerElement extends LitElement {
     return Array.from(this.querySelectorAll<SbbIconSidebarElement>(`:scope > sbb-icon-sidebar`));
   }
 
-  /** The icon-sidebar child with the `start` position. */
+  /** The icon-sidebar child at the start position. */
   public get start(): SbbIconSidebarElement | null {
-    return this.querySelector<SbbIconSidebarElement>(
-      `:scope > sbb-icon-sidebar:has(+ sbb-icon-sidebar-content)`,
-    );
+    return this.firstElementChild?.localName === 'sbb-icon-sidebar'
+      ? (this.firstElementChild as SbbIconSidebarElement)
+      : null;
   }
 
-  /** The icon-sidebar child with the `end` position. */
+  /** The icon-sidebar child at the end position. */
   public get end(): SbbIconSidebarElement | null {
-    return this.querySelector<SbbIconSidebarElement>(
-      `:scope > sbb-icon-sidebar-content + sbb-icon-sidebar`,
-    );
+    return this.lastElementChild?.localName === 'sbb-icon-sidebar'
+      ? (this.lastElementChild as SbbIconSidebarElement)
+      : null;
   }
 
   protected override render(): TemplateResult {

@@ -45,11 +45,11 @@ property when the navigation changes.
 
 ## Properties
 
-| Name       | Attribute | Privacy | Type                            | Default | Description                                       |
-| ---------- | --------- | ------- | ------------------------------- | ------- | ------------------------------------------------- |
-| `end`      | -         | public  | `SbbIconSidebarElement \| null` |         | The icon-sidebar child with the `end` position.   |
-| `sidebars` | -         | public  | `SbbIconSidebarElement[]`       |         | The icon-sidebar children.                        |
-| `start`    | -         | public  | `SbbIconSidebarElement \| null` |         | The icon-sidebar child with the `start` position. |
+| Name       | Attribute | Privacy | Type                            | Default | Description                                   |
+| ---------- | --------- | ------- | ------------------------------- | ------- | --------------------------------------------- |
+| `end`      | -         | public  | `SbbIconSidebarElement \| null` |         | The icon-sidebar child at the end position.   |
+| `sidebars` | -         | public  | `SbbIconSidebarElement[]`       |         | The icon-sidebar children.                    |
+| `start`    | -         | public  | `SbbIconSidebarElement \| null` |         | The icon-sidebar child at the start position. |
 
 ## Slots
 
