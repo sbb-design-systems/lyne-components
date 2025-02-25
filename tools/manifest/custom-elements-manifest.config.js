@@ -21,6 +21,9 @@ export function createManifestConfig(library = '') {
     plugins: [
       {
         analyzePhase({ ts, node, moduleDoc }) {
+          /* Replace the typeName with the provided typeValue, matching only the word,
+           * in a way that 'V | null' could be replaced with 'string | null', but 'ValidityState' is not changed.
+           */
           function replace(typeObj, typeName, typeValue) {
             if (typeObj && typeObj.text) {
               typeObj.text = typeObj.text.replace(new RegExp(`\\b${typeName}\\b`, 'g'), typeValue);
