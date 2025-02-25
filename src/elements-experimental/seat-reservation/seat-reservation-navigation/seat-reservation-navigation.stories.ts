@@ -12,6 +12,9 @@ import readme from './readme.md?raw';
 
 const alignVerticalType: InputType = {
   control: 'boolean',
+  table: {
+    disable: true,
+  },
 };
 
 const defaultArgTypes: ArgTypes = {
