@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, hostAttributes } from '../../core/decorators.js';
-import { sidebarCommonStyle } from '../common.js';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.js';
 
 import style from './icon-sidebar.scss?lit&inline';
@@ -16,7 +15,7 @@ export
 @customElement('sbb-icon-sidebar')
 @hostAttributes({ role: 'navigation' })
 class SbbIconSidebarElement extends LitElement {
-  public static override styles: CSSResultGroup = [sidebarCommonStyle, style];
+  public static override styles: CSSResultGroup = style;
 
   /** Background color of the icon sidebar. Either `white` or `milk`. **/
   @forceType((v) => (v === 'milk' ? 'milk' : 'white'))

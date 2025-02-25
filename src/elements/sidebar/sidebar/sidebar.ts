@@ -14,7 +14,6 @@ import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
 import { isEventOnElement } from '../../core/overlay.js';
-import { sidebarCommonStyle } from '../common.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';
@@ -32,7 +31,7 @@ import style from './sidebar.scss?lit&inline';
 export
 @customElement('sbb-sidebar')
 class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = [sidebarCommonStyle, style];
+  public static override styles: CSSResultGroup = style;
 
   /** Background color of the sidebar. Either `white` or `milk`. **/
   @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
