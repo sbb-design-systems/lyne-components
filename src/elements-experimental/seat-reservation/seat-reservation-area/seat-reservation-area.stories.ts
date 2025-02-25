@@ -5,18 +5,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { mapCodeToSvg } from '../helper.js';
+import { elementMountingOptions } from '../seat-reservation.js';
 
 import readme from './readme.md?raw';
 
-import './seat-reservation-graphic.js';
-
-const name: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: Object.keys(mapCodeToSvg),
-};
+import './seat-reservation-area.js';
 
 const width: InputType = {
   control: {
@@ -36,22 +29,38 @@ const rotation: InputType = {
   },
 };
 
+const mounting: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: elementMountingOptions,
+};
+
+const background: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['light', 'dark'],
+};
+
 const defaultArgTypes: ArgTypes = {
-  name: name,
   width,
   height,
   rotation,
+  mounting,
+  background,
 };
 
 const defaultArgs: Args = {
-  name: 'BISTRO',
-  width: 4,
-  height: 4,
+  width: 6,
+  height: 6,
   rotation: 0,
+  background: 'dark',
+  mounting: elementMountingOptions[0],
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-graphic ${sbbSpread(args)}></sbb-seat-reservation-graphic>`;
+  html`<sbb-seat-reservation-area ${sbbSpread(args)}></sbb-seat-reservation-area>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -69,7 +78,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-graphic',
+  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-area',
 };
 
 export default meta;

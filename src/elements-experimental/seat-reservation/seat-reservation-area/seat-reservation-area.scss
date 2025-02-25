@@ -1,0 +1,43 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+:host {
+  --reservation-area-width: var(--area-width-from-host);
+  --reservation-area-height: var(--area-height-from-host);
+  --reservation-area-rotation: var(--area-rotation-from-host, 0);
+  --reservation-area-border-radius: #{sbb.px-to-rem-build(2)};
+
+  display: inline-block;
+}
+
+.sbb-seat-reservation-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(var(--reservation-area-width) * 1rem);
+  height: calc(var(--reservation-area-height) * 1rem);
+  transform-origin: center;
+  transform: rotate(calc(var(--reservation-area-rotation) * 1deg));
+  border: #{sbb.px-to-rem-build(2)} solid var(--sbb-color-graphite);
+  background-color: var(--sbb-color-white);
+  border-radius: var(--reservation-area-border-radius);
+
+  :host([background='dark']) & {
+    background-color: var(--sbb-color-milk);
+  }
+
+  :host([mounting='UPPER_BORDER']) & {
+    border-top: none;
+    border-radius: 0 0 var(--reservation-area-border-radius) var(--reservation-area-border-radius);
+  }
+
+  :host([mounting='LOWER_BORDER']) & {
+    border-bottom: none;
+    border-radius: var(--reservation-area-border-radius) var(--reservation-area-border-radius) 0 0;
+  }
+
+  :host([mounting='UPPER_TO_LOWER_BORDER']) & {
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
+  }
+}

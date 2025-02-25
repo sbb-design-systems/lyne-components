@@ -2,15 +2,10 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import { mapCodeToSvg } from '../helper.js';
+import { type ElementMounting } from '../seat-reservation.js';
 
-import style from './seat-reservation-graphic.scss?lit&inline';
-
-const getSVG = (code: string): string => {
-  return mapCodeToSvg[code] || '<svg></svg>';
-};
+import style from './seat-reservation-area.scss?lit&inline';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -18,14 +13,9 @@ const getSVG = (code: string): string => {
  * @slot - Use the unnamed slot to add elements.
  */
 export
-@customElement('sbb-seat-reservation-graphic')
-class SbbSeatReservationGraphicElement extends LitElement {
+@customElement('sbb-seat-reservation-area')
+class SbbSeatReservationAreaElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-
-  /** Name Prop */
-  @forceType()
-  @property({ attribute: 'name' })
-  public accessor name: string = 'BISTRO';
 
   /** Rotation Prop */
   @forceType()
@@ -35,15 +25,24 @@ class SbbSeatReservationGraphicElement extends LitElement {
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width' })
-  public accessor width: number = 2;
+  public accessor width: number = 6;
 
   /** Height Prop */
   @forceType()
   @property({ attribute: 'height' })
-  public accessor height: number = 2;
+  public accessor height: number = 6;
+
+  /** Mounting Prop */
+  @forceType()
+  @property({ attribute: 'mounting' })
+  public accessor mounting: ElementMounting = 'FREE';
+
+  /** Background Prop */
+  @forceType()
+  @property({ attribute: 'background' })
+  public accessor background: 'light' | 'dark' = 'light';
 
   protected override render(): TemplateResult {
-    const name: string = this.name;
     const width: number = this.width;
     const height: number = this.height;
     const rotation: number = this.rotation;
@@ -51,12 +50,12 @@ class SbbSeatReservationGraphicElement extends LitElement {
     return html`
       <style>
         :host {
-          --graphic-rotation-from-host: ${unsafeCSS(rotation)};
-          --graphic-width-from-host: ${unsafeCSS(width)};
-          --graphic-height-from-host: ${unsafeCSS(height)};
+          --area-width-from-host: ${unsafeCSS(width)};
+          --area-height-from-host: ${unsafeCSS(height)};
+          --area-rotation-from-host: ${unsafeCSS(rotation)};
         }
       </style>
-      <span class="sbb-seat-reservation-graphic">${unsafeHTML(getSVG(name))}</span>
+      <span class="sbb-seat-reservation-area"></span>
     `;
   }
 }
@@ -64,6 +63,6 @@ class SbbSeatReservationGraphicElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-seat-reservation-graphic': SbbSeatReservationGraphicElement;
+    'sbb-seat-reservation-area': SbbSeatReservationAreaElement;
   }
 }
