@@ -3,6 +3,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import type { SeatReservationLayout } from '../seat-reservation.js';
+
 import style from './seat-reservation-navigation.scss?lit&inline';
 
 /**
@@ -14,6 +16,10 @@ export
 @customElement('sbb-seat-reservation-navigation')
 class SbbSeatReservationNavigationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
+  @forceType()
+  @property({ attribute: 'seat-reservation-layout', type: Object })
+  public accessor seatReservationLayout: SeatReservationLayout = null!;
 
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })

@@ -8,12 +8,9 @@ describe(`sbb-seat-reservation ssr`, () => {
   let root: SbbSeatReservationElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(
-      html`<sbb-seat-reservation my-prop="Label"></sbb-seat-reservation>`,
-      {
-        modules: ['./seat-reservation.js'],
-      },
-    );
+    root = await ssrHydratedFixture(html`<sbb-seat-reservation></sbb-seat-reservation>`, {
+      modules: ['./seat-reservation.js'],
+    });
   });
 
   it('renders', () => {

@@ -10,7 +10,7 @@ describe(`sbb-seat-reservation`, () => {
     let element: SbbSeatReservationElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-seat-reservation my-prop="Label"></sbb-seat-reservation>`);
+      element = await fixture(html`<sbb-seat-reservation></sbb-seat-reservation>`);
     });
 
     it('DOM', async () => {

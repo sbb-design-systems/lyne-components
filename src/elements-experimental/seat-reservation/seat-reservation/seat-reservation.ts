@@ -3,10 +3,12 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import '../seat-reservation-navigation.js';
-import '../seat-reservation-place-control.js';
+import type { SeatReservationLayout } from '../seat-reservation.js';
 
 import style from './seat-reservation.scss?lit&inline';
+
+import '../seat-reservation-navigation.js';
+import '../seat-reservation-place-control.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -18,10 +20,25 @@ export
 class SbbSeatReservationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** example Prop */
+  /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
+  @forceType()
+  @property({ attribute: 'seat-reservation-layout', type: Object })
+  public accessor seatReservationLayout: SeatReservationLayout = null!;
+
+  /** Maximal number of possible clickable seats*/
+  @forceType()
+  @property({ attribute: 'max-reservations', type: Number })
+  public accessor maxReservations: number = null!;
+
+  /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
   public accessor alignVertical: boolean = false;
+
+  /** Any click functionality is prevented*/
+  @forceType()
+  @property({ attribute: 'disable', type: Boolean })
+  public accessor disable: boolean = false;
 
   protected override render(): TemplateResult {
     const classAlignVertical = this.alignVertical
