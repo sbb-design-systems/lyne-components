@@ -3,11 +3,13 @@ export const snapshots = {};
 
 snapshots["sbb-selection-expansion-panel renders DOM"] = 
 `<sbb-selection-expansion-panel
+  color="white"
   data-size="m"
   data-slot-names="content unnamed"
   data-state="closed"
 >
   <sbb-checkbox-panel
+    color="white"
     data-has-card-badge=""
     data-slot-names="badge subtext suffix unnamed"
     size="m"

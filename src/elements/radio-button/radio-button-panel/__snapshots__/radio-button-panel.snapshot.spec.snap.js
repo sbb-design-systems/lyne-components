@@ -185,6 +185,7 @@ snapshots["sbb-radio-button-panel Disabled - A11y tree Firefox"] =
 
 snapshots["sbb-radio-button-panel renders DOM"] = 
 `<sbb-radio-button-panel
+  color="white"
   data-slot-names="subtext suffix unnamed"
   name="radio"
   size="m"
@@ -225,6 +226,7 @@ snapshots["sbb-radio-button-panel renders Shadow DOM"] =
 snapshots["sbb-radio-button-panel renders checked DOM"] = 
 `<sbb-radio-button-panel
   checked=""
+  color="white"
   data-checked=""
   data-slot-names="subtext suffix unnamed"
   name="radio"
