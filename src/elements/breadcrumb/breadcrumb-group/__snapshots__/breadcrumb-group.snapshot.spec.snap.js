@@ -23,7 +23,7 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
     One
   </sbb-breadcrumb>
   <sbb-breadcrumb
-    aria-current="page"
+    accessibility-current="page"
     data-action=""
     data-link=""
     href="https://example.com/one"

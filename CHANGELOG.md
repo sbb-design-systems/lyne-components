@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.2.0...v2.3.0) (2025-02-24)
+
+
+### Features
+
+* implement native validation for form elements ([#3404](https://github.com/sbb-design-systems/lyne-components/issues/3404)) ([3f4f24b](https://github.com/sbb-design-systems/lyne-components/commit/3f4f24b670415380d4ee4f5b2ac36bb05571aff6))
+* include updated SBB fonts ([#3312](https://github.com/sbb-design-systems/lyne-components/issues/3312)) ([23311ba](https://github.com/sbb-design-systems/lyne-components/commit/23311ba1d7223d9fff5821e932255e16f6788657))
+* **sbb-badge:** provide badge styling via attribute ([#2639](https://github.com/sbb-design-systems/lyne-components/issues/2639)) ([42816d7](https://github.com/sbb-design-systems/lyne-components/commit/42816d7cdf8e8628e70c43925fcfd9f37046034f))
+* **sbb-toggle:** implement form association ([#3409](https://github.com/sbb-design-systems/lyne-components/issues/3409)) ([98d00cf](https://github.com/sbb-design-systems/lyne-components/commit/98d00cf802b691258be82934ccd45b16326f745c))
+* visually improve link underline styles ([#3408](https://github.com/sbb-design-systems/lyne-components/issues/3408)) ([83b55c4](https://github.com/sbb-design-systems/lyne-components/commit/83b55c4a02a0e23ad7515051fd0428c19fa15f3f))
+
+
+### Bug Fixes
+
+* **buttons:** avoid moving surrounding context on hover ([#3394](https://github.com/sbb-design-systems/lyne-components/issues/3394)) ([18a01ea](https://github.com/sbb-design-systems/lyne-components/commit/18a01eafb37cae684a2bc7d256ee6fc9780d92cf))
+
+
+### Documentation
+
+* add hint about necessary import in type-script file ([#3399](https://github.com/sbb-design-systems/lyne-components/issues/3399)) ([335101d](https://github.com/sbb-design-systems/lyne-components/commit/335101d8f7e58632a6a3cfb10c458c0ddee7ab7d))
+
+## [2.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.1.0...v2.2.0) (2025-02-06)
+
+
+### Features
+
+* **sbb-autocomplete:** opens automatically on new options ([#3365](https://github.com/sbb-design-systems/lyne-components/issues/3365)) ([8ca33ef](https://github.com/sbb-design-systems/lyne-components/commit/8ca33efa135ae933842161bcd820538815fe9d0a))
+
+
+### Bug Fixes
+
+* avoid moving content when blocking scrolling ([#3369](https://github.com/sbb-design-systems/lyne-components/issues/3369)) ([f7b84ad](https://github.com/sbb-design-systems/lyne-components/commit/f7b84ade77ac07de95f5e87d608b8f694d7d449f))
+* display non bubbling events in storybook actions ([#3355](https://github.com/sbb-design-systems/lyne-components/issues/3355)) ([fdf9899](https://github.com/sbb-design-systems/lyne-components/commit/fdf9899f58e9ace31b93a8d073c5f61fd984c59d)), closes [#3354](https://github.com/sbb-design-systems/lyne-components/issues/3354)
+* provide `accessibility-current` property for link elements ([#3384](https://github.com/sbb-design-systems/lyne-components/issues/3384)) ([5a3168e](https://github.com/sbb-design-systems/lyne-components/commit/5a3168eccbf927d3ab891a5a09105979ecefc081))
+* **sbb-datepicker-toggle:** allow defining slot attribute ([#3376](https://github.com/sbb-design-systems/lyne-components/issues/3376)) ([87c97ba](https://github.com/sbb-design-systems/lyne-components/commit/87c97ba35c332ef355192ce0a51454c044b4d16b)), closes [#3375](https://github.com/sbb-design-systems/lyne-components/issues/3375)
+* **sbb-datepicker-toggle:** reset popover style ([#3386](https://github.com/sbb-design-systems/lyne-components/issues/3386)) ([789f0a5](https://github.com/sbb-design-systems/lyne-components/commit/789f0a5fb45f83110f5e6ce5b3dadd12199916f6))
+* **sbb-radio-button-group:** prevent didChange emit from nested group ([#3371](https://github.com/sbb-design-systems/lyne-components/issues/3371)) ([3fca755](https://github.com/sbb-design-systems/lyne-components/commit/3fca755b5d68b686eb60ab510cabd466c97207f4))
+
+
+### Documentation
+
+* fix typo in GETTING_STARTED.md ([#3372](https://github.com/sbb-design-systems/lyne-components/issues/3372)) ([d8b48ce](https://github.com/sbb-design-systems/lyne-components/commit/d8b48cef135e690b95b218632aebb736555bcaf6))
+* **sbb-popover:** enable focusing link in storybook ([#3359](https://github.com/sbb-design-systems/lyne-components/issues/3359)) ([6c23eeb](https://github.com/sbb-design-systems/lyne-components/commit/6c23eeb6f49a003cbf6a97f86731c854928648e9))
+
+
+### Code Refactoring
+
+* prepare standalone usage of buttons ([#3326](https://github.com/sbb-design-systems/lyne-components/issues/3326)) ([154370b](https://github.com/sbb-design-systems/lyne-components/commit/154370baeffcdd4126813dd4df3ea3798fa461d0))
+* **sbb-title, sbb-dialog-title:** remove obsolete h1-h6 tags ([#3363](https://github.com/sbb-design-systems/lyne-components/issues/3363)) ([a64ea72](https://github.com/sbb-design-systems/lyne-components/commit/a64ea7279f765c46fe7e96b8a02de7cd7a5515c0))
+
 ## [2.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.3...v2.1.0) (2025-01-16)
 
 

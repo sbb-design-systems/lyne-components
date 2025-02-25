@@ -50,7 +50,7 @@ function addFiles(
   nativeInput.dispatchEvent(new Event('change'));
 }
 
-describe('sbb-file-selector common', () => {
+describe(`sbb-file-selector-common`, () => {
   ['sbb-file-selector', 'sbb-file-selector-dropzone'].forEach((selector) => {
     const tagSingle = unsafeStatic(selector);
 

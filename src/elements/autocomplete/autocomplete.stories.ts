@@ -162,27 +162,14 @@ const withGroupsDefaultArgs: Args = {
 
 const aboveDecorator: Decorator = (story) => html`
   <div
-    style=${styleMap({
-      'inset-block-end': '2rem',
-      'inset-inline-start': '2rem',
-      position: 'absolute',
-      'max-width': 'calc(100% - 4rem)',
-    })}
+    style="inset-block-end: 2rem; inset-inline-start: 2rem; position: absolute; max-width: calc(100% - 4rem)"
   >
     ${story()}
   </div>
 `;
 
 const scrollDecorator: Decorator = (story) => html`
-  <div
-    style=${styleMap({
-      height: '175vh',
-      display: 'flex',
-      'align-items': 'center',
-    })}
-  >
-    ${story()}
-  </div>
+  <div style="height: 175vh; display: flex; align-items: center;">${story()}</div>
 `;
 
 const createOptionGroup1 = (iconName: string, disableOption: boolean): TemplateResult => {
@@ -284,7 +271,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
           <sbb-icon
             slot="icon"
             name=${args.iconName}
-            style=${styleMap({ color: 'var(--sbb-color-sky)' })}
+            style="color: var(--sbb-color-sky)"
           ></sbb-icon>
           Option Value
         </sbb-option>

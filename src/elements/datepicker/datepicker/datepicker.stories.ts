@@ -9,7 +9,6 @@ import type {
   StoryObj,
 } from '@storybook/web-components';
 import { html, nothing, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -240,7 +239,7 @@ const changeEventHandler = async (event: Event): Promise<void> => {
 
 const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateResult => {
   return html`
-    <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
+    <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
       <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
       <input
@@ -259,10 +258,7 @@ const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateR
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
     </div>
-    <div
-      id="container-value"
-      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke)' })}
-    >
+    <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:
     </div>
   `;
@@ -305,10 +301,7 @@ const TemplateFormField = ({
         now=${convertMillisecondsToSeconds(now)}
       ></sbb-datepicker>
     </sbb-form-field>
-    <div
-      id="container-value"
-      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke)' })}
-    >
+    <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:
     </div>
   `;
