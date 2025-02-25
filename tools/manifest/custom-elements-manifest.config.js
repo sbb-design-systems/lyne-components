@@ -23,7 +23,7 @@ export function createManifestConfig(library = '') {
         analyzePhase({ ts, node, moduleDoc }) {
           function replace(typeObj, typeName, typeValue) {
             if (typeObj && typeObj.text) {
-              typeObj.text = typeObj.text.replace(typeName, typeValue);
+              typeObj.text = typeObj.text.replace(new RegExp(`\\b${typeName}\\b`, 'g'), typeValue);
             }
           }
 
