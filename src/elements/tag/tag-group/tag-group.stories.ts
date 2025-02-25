@@ -11,6 +11,7 @@ import type { SbbTagElement, SbbTagGroupElement } from '../../tag.js';
 import readme from './readme.md?raw';
 import './tag-group.js';
 import '../tag.js';
+import '../../action-group.js';
 import '../../button.js';
 import '../../card.js';
 
@@ -168,10 +169,10 @@ const TemplateWithForm = ({ numberOfTagsInGroup, ...args }: Args): TemplateResul
 
     <sbb-tag-group disabled> ${tagTemplate('Disabled tag', false)}</sbb-tag-group>
 
-    <div style="margin-block: var(--sbb-spacing-responsive-s)">
+    <sbb-action-group style="margin-block: var(--sbb-spacing-responsive-s)">
       <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
       <sbb-button type="submit">Submit</sbb-button>
-    </div>
+    </sbb-action-group>
     <p class="sbb-text-s">Form-Data after click submit:</p>
     <sbb-card color="milk" id="form-data"></sbb-card>
   </form>
