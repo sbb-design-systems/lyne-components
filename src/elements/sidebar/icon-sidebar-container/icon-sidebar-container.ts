@@ -24,13 +24,15 @@ class SbbIconSidebarContainerElement extends LitElement {
   /** The icon-sidebar child with the `start` position. */
   public get start(): SbbIconSidebarElement | null {
     return this.querySelector<SbbIconSidebarElement>(
-      `:scope > sbb-icon-sidebar:not([position='end'])`,
+      `:scope > sbb-icon-sidebar:has(+ sbb-icon-sidebar-content)`,
     );
   }
 
   /** The icon-sidebar child with the `end` position. */
   public get end(): SbbIconSidebarElement | null {
-    return this.querySelector<SbbIconSidebarElement>(`:scope > sbb-icon-sidebar[position='end']`);
+    return this.querySelector<SbbIconSidebarElement>(
+      `:scope > sbb-icon-sidebar-content + sbb-icon-sidebar`,
+    );
   }
 
   protected override render(): TemplateResult {

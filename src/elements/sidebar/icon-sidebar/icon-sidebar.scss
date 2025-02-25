@@ -14,8 +14,3 @@
 
   --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);
 }
-
-:host([position='end']) {
-  border-start-end-radius: 0;
-  border-start-start-radius: var(--sbb-icon-sidebar-border-radius);
-}

@@ -381,9 +381,15 @@ sbb-sidebar-container:has(
   --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
 
-// Move the current-page-border to the right side when the sidebar has position end
-sbb-icon-sidebar[position='end'] :is(sbb-icon-sidebar-link, sbb-icon-sidebar-button) {
+// Move the current-page-border to the right side if the sidebar is right positioned
+sbb-icon-sidebar-content + sbb-icon-sidebar :is(sbb-icon-sidebar-link, sbb-icon-sidebar-button) {
   --sbb-icon-sidebar-button__current-border-inset-inline-start: auto;
+}
+
+// Set the border radius at the left top side if the sidebar is right positioned
+sbb-icon-sidebar-content + sbb-icon-sidebar {
+  border-start-end-radius: 0;
+  border-start-start-radius: var(--sbb-icon-sidebar-border-radius);
 }
 
 // If there is no close button, avoid reserving any space for the button in the sidebar title

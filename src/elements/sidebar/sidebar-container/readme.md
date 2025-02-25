@@ -23,15 +23,27 @@ to achieve multiple nested icon sidebars.
 
 ## Style
 
-When the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
+If the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
 In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
 
-In order to correctly display the shadow of the header when scrolled, setting the `scrollOrigin`
-property of the `<sbb-header>` is needed. The value should be either the id of the `<sbb-sidebar-content>`
-or the element reference itself. Note that when using nested sidebars, it's mandatory to
-constantly update the `scrollOrigin` property with the currently active `<sbb-sidebar-content>`. Also, depending
-on how e.g. a routerOutlet (Angular) is used, it may also be necessary to update the `scrollOrigin`
+## Use with `sbb-header`
+
+In order to correctly display the shadow of the header when scrolled,
+you need to set the `scrollOrigin` property of the `<sbb-header>`.
+The value should be either the id of the `<sbb-sidebar-content>`
+or the element reference itself. Note that when using nested sidebars, it's required to
+continuously update the `scrollOrigin` property with the id/reference of the
+currently active `<sbb-sidebar-content>`. Also, depending
+on how e.g. a RouterOutlet (Angular) is used, it may also be necessary to update the `scrollOrigin`
 property when the navigation changes.
+
+```html
+<sbb-header scroll-origin="content">...</sbb-header>
+<sbb-sidebar-container>
+  <sbb-sidebar>...</sbb-sidebar>
+  <sbb-sidebar-content id="content">Content</sbb-sidebar-content>
+</sbb-sidebar-container>
+```
 
 <!-- Auto Generated Below -->
 

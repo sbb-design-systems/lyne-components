@@ -32,41 +32,6 @@ describe('sbb-icon-sidebar', () => {
     expect(element.container).to.be.equal(container);
   });
 
-  it('should coerce position property', async () => {
-    expect(element.position, 'default position').to.be.equal('start');
-
-    element.position = 'end';
-    await waitForLitRender(element);
-
-    expect(element.position, 'end position').to.be.equal('end');
-    expect(element).to.have.attribute('position', 'end');
-
-    element.position = 'inexisting' as 'start';
-    await waitForLitRender(element);
-
-    expect(element.position, 'fallback to default').to.be.equal('start');
-    expect(element).to.have.attribute('position', 'start');
-
-    element.position = null as unknown as 'start';
-    await waitForLitRender(element);
-
-    expect(element.position, 'fallback null to default').to.be.equal('start');
-    expect(element).to.have.attribute('position', 'start');
-  });
-
-  it('should coerce position attribute', () => {
-    expect(element.position, 'default position').to.be.equal('start');
-
-    element.setAttribute('position', 'end');
-    expect(element.position, 'end position').to.be.equal('end');
-
-    element.setAttribute('position', 'inexisting');
-    expect(element.position, 'fallback to default').to.be.equal('start');
-
-    element.setAttribute('position', '');
-    expect(element.position, 'fallback null to default').to.be.equal('start');
-  });
-
   it('should coerce color property', async () => {
     expect(element.color, 'default color').to.be.equal('white');
 

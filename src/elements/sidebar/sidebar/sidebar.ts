@@ -14,7 +14,7 @@ import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
 import { isEventOnElement } from '../../core/overlay.js';
-import { SbbSidebarMixin, sidebarCommonStyle } from '../common.js';
+import { sidebarCommonStyle } from '../common.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';
@@ -31,10 +31,13 @@ import style from './sidebar.scss?lit&inline';
  */
 export
 @customElement('sbb-sidebar')
-class SbbSidebarElement extends SbbSidebarMixin(
-  SbbAnimationCompleteMixin(SbbOpenCloseBaseElement),
-) {
+class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = [sidebarCommonStyle, style];
+
+  /** Background color of the sidebar. Either `white` or `milk`. **/
+  @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
+  @property({ reflect: true })
+  public accessor color: 'white' | 'milk' = 'white';
 
   /** Mode of the sidebar; one of 'side' or 'over'. */
   @forceType((v) => (v === 'over' ? 'over' : 'side'))
@@ -54,10 +57,10 @@ class SbbSidebarElement extends SbbSidebarMixin(
   @forceType((v) => (v === 'end' ? 'end' : 'start'))
   @handleDistinctChange((instance, _newValue, oldValue) => instance._updateSidebarWidth(oldValue))
   @property({ reflect: true })
-  public override accessor position: 'start' | 'end' = 'start';
+  public accessor position: 'start' | 'end' = 'start';
 
   /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
-  public override get container(): SbbSidebarContainerElement | null {
+  public get container(): SbbSidebarContainerElement | null {
     return this._container;
   }
   private _container: SbbSidebarContainerElement | null = null;

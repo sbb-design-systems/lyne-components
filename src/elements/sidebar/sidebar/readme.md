@@ -47,16 +47,16 @@ The `sbb-sidebar` is a component . . .
 
 ## Properties
 
-| Name                | Attribute  | Privacy | Type                  | Default   | Description                                                                                                            |
-| ------------------- | ---------- | ------- | --------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `animationComplete` | -          | public  | `Promise<void>`       |           | Returns a promise which completes whenever an animation ends. When a new animation starts, a new Promise is returned.  |
-| `color`             | `color`    | public  | `'white' \| 'milk'`   | `'white'` | Background color of the sidebar. Either `white` or `milk`. \*                                                          |
-| `container`         | -          | public  | `HTMLElement \| null` | `null`    | Returns the SbbSidebarContainerElement where this sidebar is contained.                                                |
-| `isAnimating`       | -          | public  | `boolean`             | `false`   | Whether the component is currently animating.                                                                          |
-| `isOpen`            | -          | public  | `boolean`             |           | Whether the element is open.                                                                                           |
-| `mode`              | `mode`     | public  | `'side' \| 'over'`    | `'side'`  | Mode of the sidebar; one of 'side' or 'over'.                                                                          |
-| `opened`            | `opened`   | public  | `boolean`             | `false`   | Whether the sidebar is opened or closed. Can be used to initially set the opened state. The animation will be skipped. |
-| `position`          | `position` | public  | `'start' \| 'end'`    | `'start'` | The side that the sidebar is attached to.                                                                              |
+| Name                | Attribute  | Privacy | Type                                 | Default   | Description                                                                                                            |
+| ------------------- | ---------- | ------- | ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `animationComplete` | -          | public  | `Promise<void>`                      |           | Returns a promise which completes whenever an animation ends. When a new animation starts, a new Promise is returned.  |
+| `color`             | `color`    | public  | `'white' \| 'milk'`                  | `'white'` | Background color of the sidebar. Either `white` or `milk`. \*                                                          |
+| `container`         | -          | public  | `SbbSidebarContainerElement \| null` | `null`    | Returns the SbbSidebarContainerElement where this sidebar is contained.                                                |
+| `isAnimating`       | -          | public  | `boolean`                            | `false`   | Whether the component is currently animating.                                                                          |
+| `isOpen`            | -          | public  | `boolean`                            |           | Whether the element is open.                                                                                           |
+| `mode`              | `mode`     | public  | `'side' \| 'over'`                   | `'side'`  | Mode of the sidebar; one of 'side' or 'over'.                                                                          |
+| `opened`            | `opened`   | public  | `boolean`                            | `false`   | Whether the sidebar is opened or closed. Can be used to initially set the opened state. The animation will be skipped. |
+| `position`          | `position` | public  | `'start' \| 'end'`                   | `'start'` | The side that the sidebar is attached to.                                                                              |
 
 ## Methods
 

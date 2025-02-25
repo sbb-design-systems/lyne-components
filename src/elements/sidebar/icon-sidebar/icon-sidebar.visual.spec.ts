@@ -19,8 +19,8 @@ describe('sbb-icon-sidebar', () => {
     </a>
   </sbb-header>`;
 
-  const iconSidebar = (color: 'white' | 'milk', position: 'start' | 'end'): TemplateResult =>
-    html`<sbb-icon-sidebar color=${color} position=${position}>
+  const iconSidebar = (color: 'white' | 'milk'): TemplateResult =>
+    html`<sbb-icon-sidebar color=${color}>
       <sbb-icon-sidebar-link
         accessibility-label="Go to the party"
         icon-name="glass-cocktail-small"
@@ -40,7 +40,7 @@ describe('sbb-icon-sidebar', () => {
     </sbb-icon-sidebar>`;
 
   const content = html`
-    <div style="padding: var(--sbb-spacing-fixed-4x)">
+    <p style="padding: var(--sbb-spacing-fixed-4x); margin: 0">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
       invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
       justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
@@ -56,7 +56,7 @@ describe('sbb-icon-sidebar', () => {
       zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
       consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
       aliquam erat volutpat.
-    </div>
+    </p>
   `;
 
   const sidebar = (color: 'white' | 'milk', position: 'start' | 'end'): TemplateResult =>
@@ -83,9 +83,9 @@ describe('sbb-icon-sidebar', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`${header}<sbb-icon-sidebar-container>
-                ${position === 'start' ? iconSidebar(color, position) : nothing}
+                ${position === 'start' ? iconSidebar(color) : nothing}
                 <sbb-icon-sidebar-content id="content">${content}</sbb-icon-sidebar-content>
-                ${position === 'end' ? iconSidebar(color, position) : nothing}
+                ${position === 'end' ? iconSidebar(color) : nothing}
               </sbb-icon-sidebar-container>`,
             {
               backgroundColor: color === 'white' ? 'var(--sbb-color-milk)' : undefined,
@@ -108,7 +108,7 @@ describe('sbb-icon-sidebar', () => {
         await setup.withFixture(
           html`${header}
             <sbb-icon-sidebar-container>
-              ${iconSidebar('white', 'start')}
+              ${iconSidebar('white')}
               <sbb-icon-sidebar-content>
                 <sbb-sidebar-container>
                   ${sidebar('white', 'start')}
@@ -133,7 +133,7 @@ describe('sbb-icon-sidebar', () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`${header}<sbb-icon-sidebar-container>
-              ${iconSidebar('milk', 'start')}
+              ${iconSidebar('milk')}
               <sbb-icon-sidebar-content id="content">${content}</sbb-icon-sidebar-content>
             </sbb-icon-sidebar-container>`,
           { minHeight: '200px' },
