@@ -130,7 +130,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
       if (this.mode === 'over') {
         this._takeFocus();
       } else {
-        this._unTrap();
+        this.unTrap();
       }
     }
   }
@@ -229,7 +229,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
-    this._unTrap();
+    this.unTrap();
 
     if (this._lastFocusedElement && (this.contains(document.activeElement) || this._isModeOver())) {
       setModalityOnNextFocus(this._lastFocusedElement);
@@ -294,7 +294,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
   }
 
-  private _unTrap(): void {
+  /** @internal */
+  public unTrap(): void {
     if (this._inertController.isInert()) {
       this._inertController.deactivate();
     }

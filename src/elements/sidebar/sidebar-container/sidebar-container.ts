@@ -147,8 +147,11 @@ class SbbSidebarContainerElement extends LitElement {
         !hasForcedClosedParentContainer &&
         this._forcedClosedSidebars.has(sidebar)
       ) {
+        // If the sidebar was manually opened (in forced over mode)
+        // and the sidebar becomes enough space available, it stays open, but we need to ensure that
+        // the focus trap and inert mechanism is reset.
+        sidebar.unTrap();
         sidebar.opened = true;
-
         this._forcedClosedSidebars.delete(sidebar);
       }
     });

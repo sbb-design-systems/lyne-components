@@ -185,4 +185,28 @@ describe('sbb-sidebar-container', () => {
     await setViewportWidth(901);
     expect(sidebar2.isOpen, 'after increase viewport').to.be.true;
   });
+
+  it('should remove inert mechanism (and focus trap) if opened on small viewport and space becomes available', async () => {
+    // We close over mode sidebar to not interfere with other sidebar
+    sidebar4.close();
+
+    await setViewportWidth(320);
+    await aTimeout(1);
+
+    // Should be forced closed because little space available
+    expect(sidebar1.opened).to.be.false;
+
+    // Open sidebar 1 in forced over mode
+    sidebar1.open();
+    await waitForLitRender(element);
+    expect(sidebar1.opened).to.be.true;
+    expect(sidebar2).to.have.attribute('inert');
+
+    // Resize to bigger viewport
+    await setViewportWidth(1600);
+    await aTimeout(1);
+
+    expect(sidebar1.opened).to.be.true;
+    expect(sidebar2).not.to.have.attribute('inert');
+  });
 });
