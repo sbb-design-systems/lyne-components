@@ -1,0 +1,52 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+:host {
+  --reservation-place-control-rotation: var(--place-control-rotation-from-host, 0);
+  --reservation-place-control-text-rotation: var(--place-control-text-rotation-from-host, 0);
+  --reservation-place-control-text-scale: var(--place-control-text-scale-from-host, 1);
+
+  display: inline-block;
+}
+
+.sbb-seat-reservation-place-control {
+  position: relative;
+  transform-origin: center;
+  transform: rotate(calc(var(--reservation-place-control-rotation) * 1deg));
+
+  &__button {
+    @include sbb.button-reset;
+
+    display: block;
+    font-size: calc(var(--reservation-place-control-text-scale) * 10px);
+    transition: transform 0.25s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &__text {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    font-size: 0.5em;
+    line-height: 1;
+    font-weight: lighter;
+    letter-spacing: -0.05em;
+    text-align: center;
+    transform-origin: center center;
+    transform: translateY(-50%) rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
+
+    :host([name^='PLACE_BIKE_']) & {
+      top: 65%;
+    }
+
+    :host([name$='_ALLOCATED']) &,
+    :host([name$='_RESTRICTED']) & {
+      color: var(--sbb-color-smoke);
+    }
+  }
+}
