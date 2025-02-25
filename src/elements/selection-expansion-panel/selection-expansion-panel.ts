@@ -46,7 +46,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   } as const;
 
   /** The background color of the panel. */
-  @property() public accessor color: 'white' | 'milk' = 'white';
+  @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
 
   /** Whether the content section is always visible. */
   @forceType()
