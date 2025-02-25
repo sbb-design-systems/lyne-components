@@ -3,10 +3,10 @@
 > For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
 > The following list of paragraphs is only suggested; remove, create and adapt as needed.
 
-The `sbb-seat-reservation-place` is a component . . .
+The `seat-reservation-place-control` is a component . . .
 
 ```html
-<sbb-seat-reservation-place></sbb-seat-reservation-place>
+<seat-reservation-place-control></seat-reservation-place-control>
 ```
 
 ## Slots
