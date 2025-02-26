@@ -9,6 +9,8 @@
 }
 
 .sbb-seat-reservation-place-control {
+  $root: &;
+
   position: relative;
   transform-origin: center;
   transform: rotate(calc(var(--reservation-place-control-rotation) * 1deg));
@@ -19,15 +21,24 @@
     display: block;
     font-size: calc(var(--reservation-place-control-text-scale) * 10px);
     transition: transform 0.25s ease-in-out;
-    cursor: pointer;
 
-    &:hover {
-      transform: scale(1.2);
+    #{$root}--state-free &,
+    #{$root}--state-selected & {
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    #{$root}--state-allocated &,
+    #{$root}--state-restricted & {
+      cursor: not-allowed;
     }
   }
 
   &__text {
-    display: block;
+    display: none;
     position: absolute;
     top: 50%;
     left: 0;
@@ -40,12 +51,22 @@
     transform-origin: center center;
     transform: translateY(-50%) rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
 
-    :host([name^='PLACE_BIKE_']) & {
+    #{$root}--state-free &,
+    #{$root}--state-allocated & {
+      display: block;
+    }
+
+    .sbb-seat-reservation-place-control--type-bike.sbb-seat-reservation-place-control--state-restricted
+      & {
+      display: block;
+    }
+
+    #{$root}--type-bike & {
       top: 65%;
     }
 
-    :host([name$='_ALLOCATED']) &,
-    :host([name$='_RESTRICTED']) & {
+    #{$root}--state-allocated &,
+    #{$root}--state-restricted & {
       color: var(--sbb-color-smoke);
     }
   }
