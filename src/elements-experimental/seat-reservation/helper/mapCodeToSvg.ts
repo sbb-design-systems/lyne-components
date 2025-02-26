@@ -15,6 +15,7 @@ export const mapCodeToSvg: Record<string, string> = {
   DRIVER_AREA: assets.chassisDriverTrain,
   DRIVER_AREA_FULL: assets.chassisDriverTrainFull,
   EASY_ACCESS_AREA: assets.servicePrm,
+  ENTRY_EXIT: assets.layoutEntrance,
   LUGGAGE_AREA: assets.serviceLuggage,
   MULTI_FUNCTION_AREA: assets.serviceMultifunction,
   PRAM_AREA: assets.servicePram,
