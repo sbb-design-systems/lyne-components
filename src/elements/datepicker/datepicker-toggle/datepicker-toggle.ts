@@ -67,9 +67,9 @@ class SbbDatepickerToggleElement<T = Date>
 
   @state() private accessor _disabled = false;
 
-  @state() private accessor _min: string | number | null | undefined = null;
+  @state() private accessor _min: T | string | number | null | undefined = null;
 
-  @state() private accessor _max: string | number | null | undefined = null;
+  @state() private accessor _max: T | string | number | null | undefined = null;
 
   @state() private accessor _renderCalendar = false;
 
@@ -189,7 +189,7 @@ class SbbDatepickerToggleElement<T = Date>
               .max=${this._max}
               .now=${this._nowOrNull()}
               ?wide=${this.datepicker?.wide}
-              .dateFilter=${this.datepicker?.dateFilter}
+              .dateFilter=${this.datepicker?.dateFilter ?? null}
               @dateSelected=${(d: CustomEvent<T>) => {
                 this._calendarElement.selected = d.detail;
                 if (this.datepicker) {
