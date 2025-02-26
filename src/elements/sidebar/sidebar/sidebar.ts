@@ -33,7 +33,7 @@ export
 class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
-  /** Background color of the sidebar. Either `white` or `milk`. **/
+  /** Background color of the sidebar. Either `white` or `milk`. */
   @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
