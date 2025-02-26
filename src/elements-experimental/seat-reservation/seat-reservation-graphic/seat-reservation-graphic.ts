@@ -1,6 +1,6 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, unsafeCSS } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
@@ -42,22 +42,23 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'height' })
   public accessor height: number = 2;
 
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('width')) {
+      this.style?.setProperty('--graphic-width-from-host', `${this.width}`);
+    }
+    if (changedProperties.has('height')) {
+      this.style?.setProperty('--graphic-height-from-host', `${this.height}`);
+    }
+    if (changedProperties.has('rotation')) {
+      this.style?.setProperty('--graphic-rotation-from-host', `${this.rotation}`);
+    }
+  }
+
   protected override render(): TemplateResult {
     const name: string = this.name;
-    const width: number = this.width;
-    const height: number = this.height;
-    const rotation: number = this.rotation;
 
-    return html`
-      <style>
-        :host {
-          --graphic-rotation-from-host: ${unsafeCSS(rotation)};
-          --graphic-width-from-host: ${unsafeCSS(width)};
-          --graphic-height-from-host: ${unsafeCSS(height)};
-        }
-      </style>
-      <span class="sbb-seat-reservation-graphic">${unsafeHTML(getSVG(name))}</span>
-    `;
+    return html` <span class="sbb-seat-reservation-graphic">${unsafeHTML(getSVG(name))}</span> `;
   }
 }
 
