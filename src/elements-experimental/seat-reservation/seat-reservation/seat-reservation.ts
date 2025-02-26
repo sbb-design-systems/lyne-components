@@ -57,24 +57,28 @@ class SbbSeatReservationElement extends LitElement {
               <li class="sbb-seat-reservation__item-coach">
                 Coach 0
                 <sbb-seat-reservation-place-control
-                  name="PLACE_SEAT_FREE"
+                  type="SEAT"
+                  state="FREE"
                   width="2"
                   height="2"
                   text="123"
                   text-rotation="${placeRotation}"
                 ></sbb-seat-reservation-place-control>
                 <sbb-seat-reservation-place-control
-                  name="PLACE_SEAT_SELECTED"
+                  type="SEAT"
+                  state="SELECTED"
                   width="2"
                   height="2"
                 ></sbb-seat-reservation-place-control>
                 <sbb-seat-reservation-place-control
-                  name="PLACE_SEAT_RESTRICTED"
+                  type="SEAT"
+                  state="RESTRICTED"
                   width="2"
                   height="2"
                 ></sbb-seat-reservation-place-control>
                 <sbb-seat-reservation-place-control
-                  name="PLACE_SEAT_ALLOCATED"
+                  type="SEAT"
+                  state="ALLOCATED"
                   width="2"
                   height="2"
                   text="123"
@@ -84,27 +88,31 @@ class SbbSeatReservationElement extends LitElement {
               <li class="sbb-seat-reservation__item-coach">
                 Coach 1
                 <sbb-seat-reservation-place-control
-                  name="PLACE_BIKE_FREE"
+                  type="BIKE"
+                  state="FREE"
                   width="2"
                   height="2"
                   rotation="${placeRotation}"
                   text="123"
                 ></sbb-seat-reservation-place-control>
                 <sbb-seat-reservation-place-control
-                  name="PLACE_BIKE_SELECTED"
+                  type="BIKE"
+                  state="SELECTED"
                   width="2"
                   height="2"
                   rotation="${placeRotation}"
                 ></sbb-seat-reservation-place-control>
                 <sbb-seat-reservation-place-control
-                  name="PLACE_BIKE_RESTRICTED"
+                  type="BIKE"
+                  state="RESTRICTED"
                   width="2"
                   height="2"
                   rotation="${placeRotation}"
                   text="123"
                 ></sbb-seat-reservation-place-control>
                 <sbb-seat-reservation-place-control
-                  name="PLACE_BIKE_ALLOCATED"
+                  type="BIKE"
+                  state="ALLOCATED"
                   width="2"
                   height="2"
                   rotation="${placeRotation}"
