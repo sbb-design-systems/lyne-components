@@ -1,6 +1,5 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { html, LitElement, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import '../seat-reservation-graphic.js';
@@ -69,18 +68,9 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     const text: string | null = this.text;
     const width: number = this.width;
     const height: number = this.height;
-    const rotation: number = this.rotation;
     const graphicRotation: number = this.graphicRotation | 0;
-    const textRotation: number = this.textRotation | 0;
 
     return html`
-      <style>
-        :host {
-          --place-control-rotation-from-host: ${unsafeCSS(rotation)};
-          --place-control-text-rotation-from-host: ${unsafeCSS(textRotation)};
-          --place-control-text-scale-from-host: ${unsafeCSS(Math.min(width, height))};
-        }
-      </style>
       <div class="sbb-seat-reservation-place-control">
         <button class="sbb-seat-reservation-place-control__button">
           <sbb-seat-reservation-graphic

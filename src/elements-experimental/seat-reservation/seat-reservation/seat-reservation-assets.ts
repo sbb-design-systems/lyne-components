@@ -52,6 +52,11 @@ const chassisTable = html`
         <td>DRIVER_AREA</td>
       </tr>
       <tr>
+        <td>${svgImageByOSDMCode('DRIVER_AREA_FULL')}</td>
+        <td>Driver: Train (Test)</td>
+        <td>DRIVER_AREA</td>
+      </tr>
+      <tr>
         <td>${svgImage(assets.chassisDriverBus)}</td>
         <td>Driver: Bus</td>
         <td>DRIVER_AREA</td>
@@ -80,6 +85,16 @@ const chassisTable = html`
         <td>${svgImage(assets.chassisPassageWaggonBottomRight)}</td>
         <td>Passage-Waggon Type: Right</td>
         <td>COACH_PASSAGE</td>
+      </tr>
+      <tr>
+        <td>${svgImage(assets.chassisRowOuter)}</td>
+        <td>Row-Empty: Top/Left</td>
+        <td>COACH_BORDER_OUTER</td>
+      </tr>
+      <tr>
+        <td>${svgImage(assets.chassisRowMiddle)}</td>
+        <td>Row-Empty: Middle</td>
+        <td>COACH_BORDER_MIDDLE</td>
       </tr>
       <tr>
         <td>${svgImage(assets.chassisSeparator)}</td>
@@ -287,7 +302,7 @@ const serviceIconTable = html`
       <tr>
         <td>${svgImage(assets.serviceWheelchair)}</td>
         <td>Wheelchair</td>
-        <td>WHEELCHAIR</td>
+        <td>WHEELCHAIR_ICON</td>
         <td></td>
       </tr>
       <tr>
