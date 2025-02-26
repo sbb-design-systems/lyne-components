@@ -1,10 +1,13 @@
 import chassisDriverBus from './chassis-driver-bus.svg?raw';
+import chassisDriverTrainFull from './chassis-driver-train-full.svg?raw';
 import chassisDriverTrain from './chassis-driver-train.svg?raw';
 import chassisPassageCompartmentLeftTop from './chassis-passage-compartment-left-top.svg?raw';
 import chassisPassageCompartmentMiddle from './chassis-passage-compartment-middle.svg?raw';
 import chassisPassageCompartmentRightBottom from './chassis-passage-compartment-right-bottom.svg?raw';
 import chassisPassageWaggonBottomRight from './chassis-passage-waggon-bottom-right.svg?raw';
 import chassisPassageWaggonTopLeft from './chassis-passage-waggon-top-left.svg?raw';
+import chassisRowMiddle from './chassis-row-middle.svg?raw';
+import chassisRowOuter from './chassis-row-outer.svg?raw';
 import chassisSeparator from './chassis-separator.svg?raw';
 import chassisTmpRowEmpty from './chassis-tmp-row-empty.svg?raw';
 import helperTmpNoteDefault from './helper-tmp-note-default.svg?raw';
@@ -42,11 +45,14 @@ import serviceWifi from './service-wifi.svg?raw';
 export {
   chassisDriverBus,
   chassisDriverTrain,
+  chassisDriverTrainFull,
   chassisPassageCompartmentLeftTop,
   chassisPassageCompartmentMiddle,
   chassisPassageCompartmentRightBottom,
   chassisPassageWaggonBottomRight,
   chassisPassageWaggonTopLeft,
+  chassisRowOuter,
+  chassisRowMiddle,
   chassisSeparator,
   chassisTmpRowEmpty,
   helperTmpNoteDefault,
