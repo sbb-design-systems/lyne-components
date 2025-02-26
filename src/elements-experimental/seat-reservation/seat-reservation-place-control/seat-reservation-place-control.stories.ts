@@ -7,13 +7,23 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { controlIcons } from './seat-reservation-place-control.js';
+import {
+  controlPlaceTypeOptions,
+  controlPlaceStateOptions,
+} from './seat-reservation-place-control.js';
 
-const name: InputType = {
+const type: InputType = {
   control: {
     type: 'select',
   },
-  options: controlIcons,
+  options: controlPlaceTypeOptions,
+};
+
+const state: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: controlPlaceStateOptions,
 };
 
 const width: InputType = {
@@ -53,7 +63,8 @@ const textRotation: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  name,
+  type,
+  state,
   width,
   height,
   rotation,
@@ -63,7 +74,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  name: controlIcons[0],
+  type: controlPlaceTypeOptions[0],
+  state: controlPlaceStateOptions[0],
   width: 3,
   height: 3,
   rotation: 0,
@@ -86,49 +98,49 @@ export const DEFAULT: StoryObj = {
 export const PLACE_SEAT_FREE: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '888', name: 'PLACE_SEAT_FREE' },
+  args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'FREE' },
 };
 
 export const PLACE_SEAT_SELECTED: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, name: 'PLACE_SEAT_SELECTED' },
+  args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'SELECTED' },
 };
 
 export const PLACE_SEAT_RESTRICTED: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, name: 'PLACE_SEAT_RESTRICTED' },
+  args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'RESTRICTED' },
 };
 
 export const PLACE_SEAT_ALLOCATED: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '888', name: 'PLACE_SEAT_ALLOCATED' },
+  args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'ALLOCATED' },
 };
 
 export const PLACE_BIKE_AVAILABLE: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '888', name: 'PLACE_BIKE_FREE' },
+  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'FREE' },
 };
 
 export const PLACE_BIKE_SELECTED: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, name: 'PLACE_BIKE_SELECTED' },
+  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'SELECTED' },
 };
 
 export const PLACE_BIKE_RESTRICTED: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '888', name: 'PLACE_BIKE_RESTRICTED' },
+  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'RESTRICTED' },
 };
 
 export const PLACE_BIKE_ALLOCATED: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '888', name: 'PLACE_BIKE_ALLOCATED' },
+  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'ALLOCATED' },
 };
 
 const meta: Meta = {

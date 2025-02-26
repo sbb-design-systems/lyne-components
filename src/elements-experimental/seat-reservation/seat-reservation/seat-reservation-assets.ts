@@ -176,7 +176,7 @@ const layoutItemsTable = html`
       <tr>
         <td>${svgImage(assets.layoutEntrance)}</td>
         <td>Entrance</td>
-        <td></td>
+        <td>ENTRY_EXIT</td>
       </tr>
       <tr>
         <td>${svgImage(assets.serviceLuggage)}</td>
