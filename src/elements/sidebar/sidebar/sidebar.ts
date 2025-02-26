@@ -51,8 +51,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /**
    * Whether the sidebar is opened or closed.
-   * Can be used to initially set the opened state.
-   * The animation will be skipped.
+   * Can be used to initially set the opened state, where
+   * the animation will be skipped.
    */
   @forceType()
   @property({ type: Boolean, reflect: true })
