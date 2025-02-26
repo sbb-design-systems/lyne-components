@@ -85,12 +85,12 @@ interface CalendarKeyboardNavigationDayViewParameters {
   secondMonthOffset: number;
 }
 
-export interface Day<T> {
+export interface Day<T = Date> {
   value: string;
   dayValue: string;
   monthValue: string;
   yearValue: string;
-  dateValue: T;
+  dateValue?: T;
 }
 
 export interface Month {
@@ -843,13 +843,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
     switch (evt.key) {
       case 'ArrowUp':
-        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.upDown);
+        return this._findDayArrows(cells, index, day.dateValue!, -arrowsOffset.upDown);
       case 'ArrowDown':
-        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.upDown);
+        return this._findDayArrows(cells, index, day.dateValue!, arrowsOffset.upDown);
       case 'ArrowLeft':
-        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.leftRight);
+        return this._findDayArrows(cells, index, day.dateValue!, -arrowsOffset.leftRight);
       case 'ArrowRight':
-        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.leftRight);
+        return this._findDayArrows(cells, index, day.dateValue!, arrowsOffset.leftRight);
       case 'PageUp': {
         if (this.orientation === 'horizontal') {
           const firstOfWeek: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
@@ -928,7 +928,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     deltaIfDisabled: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue, delta),
+      this._dateAdapter.addCalendarDays(day.dateValue!, delta),
     );
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
