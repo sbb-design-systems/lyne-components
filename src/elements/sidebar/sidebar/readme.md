@@ -42,6 +42,11 @@ Listening to the `didOpen` and `didClose` events allows to react after transitio
 If for a certain reason the opening or closing should be prevented,
 it's possible to call `preventDefault()` on the `willOpen` or `willClose` events.
 
+**It is strongly recommended to use a button to toggle the sidebar.**
+Even with `mode="side"` and an opened sidebar at larger sizes, the sidebar will collapse if there is not enough space.
+In this case a toggle button is strongly recommended, otherwise the user will not be able to open the sidebar.
+Ideally the button can be placed in the `<sbb-header>`.
+
 ### Close button
 
 By slotting a `<sbb-sidebar-close-button>` into the `<sbb-sidebar>`, a close button will be shown.
@@ -75,7 +80,7 @@ The `<sbb-sidebar>` can render in one of two different ways based on the `mode` 
 If no `mode` is specified, `side` is used by default. The `over` sidebar mode shows a backdrop,
 while the `side` mode does not.
 
-If there is too less space available and the mode is `side`, the sidebar collapses and automatically
+If there is not enough space available and the mode is `side`, the sidebar collapses and automatically
 changes to a forced `over` mode (the mode property itself will not change).
 Whenever there is enough space available, the `<sbb-sidebar>` changes back to mode `side`.
 

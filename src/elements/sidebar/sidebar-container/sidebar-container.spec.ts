@@ -162,7 +162,7 @@ describe('sbb-sidebar-container', () => {
 
     // Reduce width
     await setViewportWidth(320);
-    expect(sidebar1.isOpen, 'sidebar 1, too less space').to.be.false;
+    expect(sidebar1.isOpen, 'sidebar 1, not enough space').to.be.false;
 
     // Maximize width
     await setViewportWidth(1280);
