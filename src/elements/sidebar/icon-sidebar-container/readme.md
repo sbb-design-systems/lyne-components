@@ -13,7 +13,7 @@ to achieve multiple nested icon sidebars.
       href="#"
     ></sbb-icon-sidebar-link>
   </sbb-icon-sidebar>
-  <sbb-icon-sidebar-content>Content</sbb-sidebar-content>
+  <sbb-icon-sidebar-content role="main">Content</sbb-sidebar-content>
 </sbb-icon-sidebar-container>
 ```
 
@@ -37,7 +37,7 @@ property when the navigation changes.
 <sbb-header scroll-origin="content">...</sbb-header>
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar>...</sbb-icon-sidebar>
-  <sbb-icon-sidebar-content id="content">Content</sbb-sidebar-content>
+  <sbb-icon-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
 </sbb-icon-sidebar-container>
 ```
 

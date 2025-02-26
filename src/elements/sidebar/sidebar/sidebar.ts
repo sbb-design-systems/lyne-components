@@ -23,7 +23,7 @@ import style from './sidebar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to slot any content into the sidebar.
  * @slot title - Use the title slot to add an <sbb-title>.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
@@ -43,6 +43,12 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   @property({ reflect: true })
   public accessor mode: 'side' | 'over' = 'side';
 
+  /** The side that the sidebar is attached to. */
+  @forceType((v) => (v === 'end' ? 'end' : 'start'))
+  @handleDistinctChange((instance, _newValue, oldValue) => instance._updateSidebarWidth(oldValue))
+  @property({ reflect: true })
+  public accessor position: 'start' | 'end' = 'start';
+
   /**
    * Whether the sidebar is opened or closed.
    * Can be used to initially set the opened state.
@@ -51,12 +57,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   @forceType()
   @property({ type: Boolean, reflect: true })
   public accessor opened: boolean = false;
-
-  /** The side that the sidebar is attached to. */
-  @forceType((v) => (v === 'end' ? 'end' : 'start'))
-  @handleDistinctChange((instance, _newValue, oldValue) => instance._updateSidebarWidth(oldValue))
-  @property({ reflect: true })
-  public accessor position: 'start' | 'end' = 'start';
 
   /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
   public get container(): SbbSidebarContainerElement | null {

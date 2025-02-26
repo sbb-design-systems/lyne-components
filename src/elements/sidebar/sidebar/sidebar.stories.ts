@@ -41,15 +41,17 @@ const defaultArgs: Args = {
 
 const Template2 = (): TemplateResult =>
   html`<sbb-sidebar-container id="c1">
-    <sbb-sidebar id="s1" opened>Sidebar 1 start</sbb-sidebar>
+    <sbb-sidebar id="s1" opened role="navigation">Sidebar 1 start</sbb-sidebar>
     <sbb-sidebar-content>
       <sbb-sidebar-container id="c2">
-        <sbb-sidebar id="s3" opened>Sidebar 3 start</sbb-sidebar>
-        <sbb-sidebar-content>Content</sbb-sidebar-content>
-        <sbb-sidebar id="s4" position="end" mode="over" opened>Sidebar 4 end</sbb-sidebar>
+        <sbb-sidebar id="s3" opened role="navigation">Sidebar 3 start</sbb-sidebar>
+        <sbb-sidebar-content role="main">Content</sbb-sidebar-content>
+        <sbb-sidebar id="s4" position="end" mode="over" opened role="navigation"
+          >Sidebar 4 end</sbb-sidebar
+        >
       </sbb-sidebar-container>
     </sbb-sidebar-content>
-    <sbb-sidebar id="s2" position="end" opened>Sidebar 2 end</sbb-sidebar>
+    <sbb-sidebar id="s2" position="end" opened role="navigation">Sidebar 2 end</sbb-sidebar>
   </sbb-sidebar-container>`;
 
 const Template = (args: Args): TemplateResult =>
@@ -65,14 +67,14 @@ const Template = (args: Args): TemplateResult =>
       </a>
     </sbb-header>
     <sbb-sidebar-container id="c1">
-      <sbb-sidebar opened id="s1">
+      <sbb-sidebar opened id="s1" role="navigation">
         <sbb-sidebar-title> Sidebar Title </sbb-sidebar-title>
         <sbb-sidebar-close-button></sbb-sidebar-close-button>
         <button>button24</button> Sidebar content
       </sbb-sidebar>
       <sbb-sidebar-content>
         <sbb-sidebar-container id="c2">
-          <sbb-sidebar opened color="milk" id="s2">
+          <sbb-sidebar opened color="milk" id="s2" role="navigation">
             <sbb-sidebar-title> Sidebar Title </sbb-sidebar-title>
             <sbb-sidebar-close-button></sbb-sidebar-close-button>
 
@@ -113,7 +115,7 @@ const Template = (args: Args): TemplateResult =>
             Sidebar content Sidebar content Sidebar content Sidebar content Sidebar content Sidebar
             content Sidebar content
           </sbb-sidebar>
-          <sbb-sidebar-content>
+          <sbb-sidebar-content role="main">
             <button @click=${() => document.getElementById('testee')!.toggleAttribute('opened')}>
               Toggle opened
             </button>
@@ -160,7 +162,7 @@ const Template = (args: Args): TemplateResult =>
             <p>Content</p>
             <p>Content</p>
           </sbb-sidebar-content>
-          <sbb-sidebar ${sbbSpread(args)} id="testee" position="end">
+          <sbb-sidebar ${sbbSpread(args)} id="testee" position="end" role="navigation">
             <sbb-sidebar-close-button></sbb-sidebar-close-button>
             <button>button44</button>
             <button>button55</button>
@@ -182,7 +184,7 @@ const Template = (args: Args): TemplateResult =>
           </sbb-sidebar>
         </sbb-sidebar-container>
       </sbb-sidebar-content>
-      <sbb-sidebar opened position="end" color="milk" id="s4">
+      <sbb-sidebar opened position="end" color="milk" id="s4" role="navigation">
         <sbb-sidebar-title>Sidebar Title</sbb-sidebar-title>
         Sidebar content Sidebar content
       </sbb-sidebar>

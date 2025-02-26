@@ -12,7 +12,9 @@ describe(`sbb-icon-sidebar-content`, () => {
     let element: SbbIconSidebarContentElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-icon-sidebar-content></sbb-icon-sidebar-content>`);
+      element = await fixture(
+        html`<sbb-icon-sidebar-content role="main"></sbb-icon-sidebar-content>`,
+      );
     });
 
     it('DOM', async () => {

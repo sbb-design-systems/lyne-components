@@ -2,10 +2,16 @@ The sbb-sidebar-content is a container which should be used inside a `sbb-sideba
 
 ```html
 <sbb-sidebar-container>
-  <sbb-sidebar>Sidebar Content</sbb-sidebar>
-  <sbb-sidebar-content></sbb-sidebar-content>
+  <sbb-sidebar role="navigation">Sidebar Content</sbb-sidebar>
+  <sbb-sidebar-content role="main"></sbb-sidebar-content>
 </sbb-sidebar-container>
 ```
+
+## Accessibility
+
+The `<sbb-sidebar-content>` should be given a role based on what it contains. If it
+represents the primary content of the page, it may make sense to mark it `role="main"`. If no more
+specific role makes sense, `role="region"` is a good fallback.
 
 ## Use with `sbb-header`
 
@@ -16,6 +22,6 @@ position and connect the `sbb-header` with the `sbb-sidebar-content`.
 
 ## Slots
 
-| Name | Description                                                                                    |
-| ---- | ---------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add any content elements. Further sbb-sidebar-container` are possible. |
+| Name | Description                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add any content elements. Further `sbb-sidebar-container`s are possible. |

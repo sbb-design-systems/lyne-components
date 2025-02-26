@@ -12,7 +12,7 @@ describe(`sbb-sidebar`, () => {
     let element: SbbSidebarElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-sidebar></sbb-sidebar>`);
+      element = await fixture(html`<sbb-sidebar role="navigation"></sbb-sidebar>`);
     });
 
     it('DOM', async () => {

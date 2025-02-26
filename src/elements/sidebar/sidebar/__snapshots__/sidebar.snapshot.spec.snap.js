@@ -7,6 +7,7 @@ snapshots["sbb-sidebar renders DOM"] =
   data-state="closed"
   mode="side"
   position="start"
+  role="navigation"
 >
 </sbb-sidebar>
 `;

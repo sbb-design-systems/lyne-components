@@ -5,7 +5,7 @@ to display a close button in the sidebar.
 Clicking the close button closes the parent sidebar.
 
 ```html
-<sbb-sidebar>
+<sbb-sidebar role="navigation">
   <sbb-sidebar-close-button></sbb-sidebar-close-button>
   Content
 </sbb-sidebar>

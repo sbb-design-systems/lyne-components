@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-sidebar-content renders DOM"] = 
-`<sbb-sidebar-content class="sbb-scrollbar">
+`<sbb-sidebar-content
+  class="sbb-scrollbar"
+  role="main"
+>
   Some content
 </sbb-sidebar-content>
 `;

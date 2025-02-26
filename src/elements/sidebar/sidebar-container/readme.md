@@ -7,13 +7,13 @@ to achieve multiple nested icon sidebars.
 
 ```html
 <sbb-sidebar-container>
-  <sbb-sidebar>
+  <sbb-sidebar role="navigation">
     <sbb-sidebar-title>Start</sbb-sidebar-title>
     <sbb-sidebar-close-button></sbb-sidebar-close-button>
     Sidebar content
   </sbb-sidebar>
-  <sbb-sidebar-content>Content</sbb-sidebar-content>
-  <sbb-sidebar position="end">
+  <sbb-sidebar-content role="main">Content</sbb-sidebar-content>
+  <sbb-sidebar position="end" role="navigation">
     <sbb-sidebar-title>End</sbb-sidebar-title>
     <sbb-sidebar-close-button></sbb-sidebar-close-button>
     Sidebar content
@@ -40,8 +40,8 @@ property when the navigation changes.
 ```html
 <sbb-header scroll-origin="content">...</sbb-header>
 <sbb-sidebar-container>
-  <sbb-sidebar>...</sbb-sidebar>
-  <sbb-sidebar-content id="content">Content</sbb-sidebar-content>
+  <sbb-sidebar role="navigation">...</sbb-sidebar>
+  <sbb-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
 </sbb-sidebar-container>
 ```
 

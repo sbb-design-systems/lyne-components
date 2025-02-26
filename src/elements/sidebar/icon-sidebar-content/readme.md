@@ -3,9 +3,15 @@ The sbb-icon-sidebar-content is a container which should be used inside a `sbb-i
 ```html
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar>Sidebar Content</sbb-icon-sidebar>
-  <sbb-icon-sidebar-content></sbb-icon-sidebar-content>
+  <sbb-icon-sidebar-content role="main">Content</sbb-icon-sidebar-content>
 </sbb-icon-sidebar-container>
 ```
+
+## Accessibility
+
+The `<sbb-icon-sidebar-content>` should be given a role based on what it contains. If it
+represents the primary content of the page, it may make sense to mark it `role="main"`. If no more
+specific role makes sense, `role="region"` is a good fallback.
 
 ## Use with `sbb-header`
 

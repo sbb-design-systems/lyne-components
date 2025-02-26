@@ -3,7 +3,7 @@ Use it in inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
 to display a header in the sidebar with a title.
 
 ```html
-<sbb-sidebar>
+<sbb-sidebar role="navigation">
   <sbb-sidebar-title>A describing title of the sidebar</sbb-sidebar-title>
 </sbb-sidebar>
 ```

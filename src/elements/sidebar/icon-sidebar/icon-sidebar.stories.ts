@@ -41,7 +41,7 @@ const defaultArgs: Args = {
 
 const header = html`<sbb-header expanded scroll-origin="content" size="s">
   <sbb-header-button
-    id="menu-toggle-button"
+    id="toggle-button"
     icon-name="hamburger-menu-small"
     @click=${(event: PointerEvent) =>
       (event.currentTarget as HTMLElement)?.parentElement?.parentElement
@@ -90,12 +90,12 @@ const sidebar = (position: 'start' | 'end', args: Args): TemplateResult =>
       @didOpen=${(event: CustomEvent) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
-          ?.parentElement?.querySelector('#menu-toggle-button')
+          ?.parentElement?.querySelector('#toggle-button')
           ?.setAttribute('aria-expanded', 'true')}
       @didClose=${(event: CustomEvent) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
-          ?.parentElement?.querySelector('#menu-toggle-button')
+          ?.parentElement?.querySelector('#toggle-button')
           ?.setAttribute('aria-expanded', 'false')}
     >
       <sbb-sidebar-title>Be a unicorn</sbb-sidebar-title>
@@ -195,7 +195,11 @@ const Template = ({ position, ...args }: Args): TemplateResult =>
   html`${header}
     <sbb-icon-sidebar-container>
       ${position === 'start' ? iconSidebar(args) : nothing}
-      <sbb-icon-sidebar-content id="content" style="padding: var(--sbb-spacing-fixed-4x)">
+      <sbb-icon-sidebar-content
+        id="content"
+        role="main"
+        style="padding: var(--sbb-spacing-fixed-4x)"
+      >
         ${content}
       </sbb-icon-sidebar-content>
       ${position === 'end' ? iconSidebar(args) : nothing}
@@ -208,7 +212,11 @@ const NestedTemplate = ({ position, ...args }: Args): TemplateResult =>
       <sbb-icon-sidebar-content>
         <sbb-sidebar-container>
           ${position === 'start' ? sidebar(position, args) : nothing}
-          <sbb-sidebar-content id="content" style="padding: var(--sbb-spacing-fixed-4x)">
+          <sbb-sidebar-content
+            id="content"
+            style="padding: var(--sbb-spacing-fixed-4x)"
+            role="main"
+          >
             ${content}
           </sbb-sidebar-content>
           ${position === 'end' ? sidebar(position, args) : nothing}

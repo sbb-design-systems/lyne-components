@@ -11,7 +11,9 @@ describe(`sbb-sidebar-content`, () => {
     let element: SbbSidebarContentElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-sidebar-content>Some content</sbb-sidebar-content>`);
+      element = await fixture(
+        html`<sbb-sidebar-content role="main">Some content</sbb-sidebar-content>`,
+      );
     });
 
     it('DOM', async () => {

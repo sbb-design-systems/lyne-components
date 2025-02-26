@@ -6,7 +6,7 @@ import { sidebarContentCommonStyle } from '../common.js';
 import style from './icon-sidebar-content.scss?lit&inline';
 
 /**
- * Container for the icon-sidebar content.
+ * Container for the icon sidebar content. Intended to be placed inside an `sbb-icon-sidebar-container` element.
  *
  * @slot - Use the unnamed slot to add any content elements.
  */
