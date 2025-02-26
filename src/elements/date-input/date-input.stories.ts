@@ -17,6 +17,7 @@ import { defaultDateAdapter } from '../core/datetime.js';
 import { SbbDateInputElement } from './date-input.js';
 import readme from './readme.md?raw';
 
+import '../form-error.js';
 import '../form-field.js';
 import '../title.js';
 
@@ -47,6 +48,15 @@ const readonly: InputType = {
   },
 };
 
+const required: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Date Input',
+  },
+};
+
 const value: InputType = {
   control: {
     type: 'text',
@@ -60,6 +70,7 @@ const defaultArgTypes: ArgTypes = {
   negative,
   disabled,
   readonly,
+  required,
   value,
 };
 
@@ -67,16 +78,18 @@ const defaultArgs: Args = {
   negative: false,
   disabled: false,
   readonly: false,
+  required: false,
   value: '2024-12-11',
 };
 
-const Template = ({ value, disabled, readonly }: Args): TemplateResult =>
+const Template = ({ value, disabled, readonly, required }: Args): TemplateResult =>
   html` <sbb-form-field>
       <label>Label</label>
       <sbb-date-input
         .value=${value}
         ?disabled=${disabled}
         ?readonly=${readonly}
+        ?required=${required}
         ${ref((dateInput) => {
           if (!dateInput || !(dateInput instanceof SbbDateInputElement)) {
             return;
@@ -92,8 +105,24 @@ const Template = ({ value, disabled, readonly }: Args): TemplateResult =>
               ? defaultDateAdapter.toIso8601(dateInput.valueAsDate)
               : 'null';
           };
+          const updateError = (): void => {
+            let error = dateInput.nextElementSibling;
+            if (dateInput.validity.valid) {
+              error?.remove();
+            } else if (error) {
+              error.textContent = dateInput.validationMessage;
+            } else {
+              error = document.createElement('sbb-form-error');
+              error.textContent = dateInput.validationMessage;
+              dateInput.after(error);
+            }
+          };
+
           updateOutputs();
-          dateInput.addEventListener('input', updateOutputs);
+          dateInput.addEventListener('input', () => {
+            updateOutputs();
+            updateError();
+          });
         })}
       ></sbb-date-input>
     </sbb-form-field>

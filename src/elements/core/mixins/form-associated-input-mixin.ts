@@ -2,7 +2,9 @@ import { html, isServer, type LitElement } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
+import { SbbLanguageController } from '../controllers.js';
 import { isFirefox, isWebkit } from '../dom.js';
+import { i18nInputRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import {
@@ -26,11 +28,15 @@ export declare abstract class SbbFormAssociatedInputMixinType
   public set required(value: boolean);
   public get required(): boolean;
 
+  public set placeholder(value: string);
+  public get placeholder(): string;
+
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
+  protected language: SbbLanguageController;
 }
 
 /**
@@ -66,6 +72,8 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
      */
     private _shouldTriggerSubmit = false;
 
+    protected language = new SbbLanguageController(this);
+
     /**
      * Form type of element.
      * @default 'text'
@@ -78,7 +86,9 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
      * The text value of the input element.
      */
     public override set value(value: string) {
+      const oldValue = this.textContent;
       this.textContent = this._cleanText(value);
+      this.requestUpdate('value', oldValue);
     }
     public override get value(): string {
       return this.textContent ?? '';
@@ -114,6 +124,19 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       return this.hasAttribute('disabled');
     }
 
+    @property({ attribute: false })
+    public set placeholder(value: string) {
+      if (value) {
+        this.setAttribute('placeholder', value);
+      } else {
+        this.removeAttribute('placeholder');
+      }
+      this.internals.ariaPlaceholder = value ? value : null;
+    }
+    public get placeholder(): string {
+      return this.getAttribute('placeholder') ?? '';
+    }
+
     protected constructor() {
       super();
       /** @internal */
@@ -126,6 +149,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
           this._interacted = true;
           this._shouldEmitChange = true;
           this.updateFormValue();
+          this.validate();
         },
         { capture: true },
       );
@@ -231,6 +255,10 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       super.connectedCallback();
       this.internals.ariaMultiLine = 'false';
       this._updateContenteditable();
+      if (!this.hasUpdated) {
+        this.value = this.getAttribute('value') ?? '';
+      }
+
       // We want to replace any content by just the text content.
       this.innerHTML = this.value;
     }
@@ -275,6 +303,19 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
 
     protected override updateFormValue(): void {
       this.internals.setFormValue(this.value, this.value);
+    }
+
+    protected override shouldValidate(name: PropertyKey | undefined): boolean {
+      return super.shouldValidate(name) || name === 'value' || name === 'required';
+    }
+
+    protected override validate(): void {
+      super.validate();
+      if (this.required && !this.value) {
+        this.setValidityFlag('valueMissing', i18nInputRequired[this.language.current]);
+      } else {
+        this.removeValidityFlag('valueMissing');
+      }
     }
 
     private _cleanText(value: string): string {
