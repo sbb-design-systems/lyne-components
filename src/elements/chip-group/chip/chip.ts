@@ -92,7 +92,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           class="sbb-chip__label-wrapper"
           role="gridcell"
           tabindex=${!this.disabled ? '-1' : nothing}
-          aria-label=${this.accessibilityLabel ?? nothing}
+          aria-label=${this.accessibilityLabel || nothing}
           @click=${() => this._chipLabel().focus()}
         >
           <span class="sbb-chip__label">
