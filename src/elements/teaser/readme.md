@@ -75,17 +75,18 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                                     | Default            | Description                                                               |
-| -------------------- | --------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                                 | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
-| `alignment`          | `alignment`           | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `chipContent`        | `chip-content`        | public  | `string`                                 | `''`               | Content of chip label.                                                    |
-| `download`           | `download`            | public  | `boolean`                                | `false`            | Whether the browser will show the download dialog on click.               |
-| `href`               | `href`                | public  | `string`                                 | `''`               | The href value you want to link to.                                       |
-| `rel`                | `rel`                 | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
-| `target`             | `target`              | public  | `LinkTargetType \| string`               | `''`               | Where to display the linked URL.                                          |
-| `titleContent`       | `title-content`       | public  | `string`                                 | `''`               | Content of title.                                                         |
-| `titleLevel`         | `title-level`         | public  | `SbbTitleLevel`                          | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
+| Name                   | Attribute               | Privacy | Type                                     | Default            | Description                                                               |
+| ---------------------- | ----------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                 | `''`               | This will be forwarded as aria-current to the inner anchor element.       |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                 | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
+| `alignment`            | `alignment`             | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
+| `chipContent`          | `chip-content`          | public  | `string`                                 | `''`               | Content of chip label.                                                    |
+| `download`             | `download`              | public  | `boolean`                                | `false`            | Whether the browser will show the download dialog on click.               |
+| `href`                 | `href`                  | public  | `string`                                 | `''`               | The href value you want to link to.                                       |
+| `rel`                  | `rel`                   | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
+| `target`               | `target`                | public  | `LinkTargetType \| string`               | `''`               | Where to display the linked URL.                                          |
+| `titleContent`         | `title-content`         | public  | `string`                                 | `''`               | Content of title.                                                         |
+| `titleLevel`           | `title-level`           | public  | `SbbTitleLevel`                          | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
 
 ## Slots
 

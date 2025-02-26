@@ -226,12 +226,7 @@ const DefaultTemplate = ({
     <sbb-dialog-content>
       <p
         id="dialog-content-1"
-        style=${styleMap({
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--sbb-spacing-fixed-1x)',
-          margin: '0',
-        })}
+        style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;"
       >
         Dialog content
         <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
@@ -263,7 +258,7 @@ const LongContentTemplate = ({
       to Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and
       pierced his heart.
       <sbb-image
-        style=${styleMap({ 'margin-block': '1rem' })}
+        style="margin-block: 1rem;"
         image-src=${sampleImages[1]}
         alt="Natural landscape"
       ></sbb-image>
@@ -305,7 +300,7 @@ const FormTemplate = ({
   >
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x);">
         Submit the form below to close the dialog box using the
         <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
         method and returning the form values to update the details.
@@ -342,7 +337,7 @@ const NoFooterTemplate = ({
   <sbb-dialog id="my-dialog-4" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <p id="dialog-content-5" style=${styleMap({ margin: '0' })}>
+      <p id="dialog-content-5" style="margin: 0;">
         “What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher

@@ -1,4 +1,5 @@
-import { join } from 'path';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 
@@ -21,7 +22,7 @@ const packageRoot = new URL('.', import.meta.url);
 // Include all directories containing an index.ts
 const entryPoints = resolveEntryPoints(packageRoot, ['core', 'core/styles/**/']);
 const barrelExports = Object.keys(entryPoints)
-  .map((e) => join(packageRoot.pathname, e))
+  .map((e) => join(fileURLToPath(packageRoot), e))
   .sort()
   .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
   .map((e) => `${e}.ts`);
@@ -40,7 +41,7 @@ const buildStyleExports = (fileNames: string[]): Record<string, { style: string 
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
-    root: packageRoot.pathname,
+    root: fileURLToPath(packageRoot),
     plugins: [
       ...(config.command === 'build' ? [dts()] : []),
       ...(isProdBuild(config)
@@ -61,6 +62,7 @@ export default defineConfig((config) =>
                 ...buildStyleExports([
                   'a11y.css',
                   'animation.css',
+                  'badge.css',
                   'core.css',
                   'font-characters-extension.css',
                   'layout.css',
@@ -87,7 +89,9 @@ export default defineConfig((config) =>
         formats: ['es'],
       },
       minify: isProdBuild(config),
-      outDir: new URL(`./elements/${isProdBuild(config) ? '' : 'development/'}`, distDir).pathname,
+      outDir: fileURLToPath(
+        new URL(`./elements/${isProdBuild(config) ? '' : 'development/'}`, distDir),
+      ),
       emptyOutDir: true,
       sourcemap: isProdBuild(config) ? false : 'inline',
       rollupOptions: {

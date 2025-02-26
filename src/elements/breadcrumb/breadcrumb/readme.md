@@ -30,23 +30,24 @@ It's possible to set all the link related properties (`download`, `href`, `rel` 
 
 ## Accessibility
 
-The `aria-current` property should be used to make the breadcrumb read correctly by screen-readers when the component
+The `accessibility-current` property should be used to make the breadcrumb read correctly by screen-readers when the component
 is used in the `sbb-breadcrumb-group`.
 
-By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on the last slotted `sbb-breadcrumb`.
+By default, the `sbb-breadcrumb-group` component sets `accessibility-current="page"` on the last slotted `sbb-breadcrumb`.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                       | Default | Description                                                                                                                      |
-| -------------------- | --------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
-| `download`           | `download`            | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
-| `href`               | `href`                | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
-| `iconName`           | `icon-name`           | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `rel`                | `rel`                 | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
-| `target`             | `target`              | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
 
 ## Slots
 

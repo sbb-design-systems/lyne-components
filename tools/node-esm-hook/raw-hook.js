@@ -17,7 +17,7 @@ const root = new URL('../../', import.meta.url).href;
  */
 export function load(url, context, nextLoad) {
   if (url.startsWith(root) && url.includes('?raw')) {
-    const content = readFileSync(new URL(url).pathname, 'utf8');
+    const content = readFileSync(new URL(url), 'utf8');
     return Promise.resolve({
       format: 'module',
       shortCircuit: true,

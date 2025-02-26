@@ -11,10 +11,22 @@ at the component start using the `iconName` property or via custom content using
 <sbb-menu-link href="#" icon-name="pie-small">Another text</sbb-menu-link>
 ```
 
-An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property.
+## Badge
+
+A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
+It's recommended to hide the badge when the menu link is disabled.
+It's mandatory to provide the badge information for screen readers either with the `accessibility-label` attribute
+or a hidden text (`<sbb-screen-reader-only>` for example).
 
 ```html
-<sbb-menu-link href="#" amount="123">Amount text</sbb-menu-link>
+<sbb-menu-link
+  href="#"
+  sbb-badge="2"
+  accessibility-label="Show messages, 2 new messages available"
+  icon-name="pie-small"
+>
+  Messages
+</sbb-menu-link>
 ```
 
 ## Link properties
@@ -30,17 +42,17 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ## Properties
 
-| Name                  | Attribute              | Privacy | Type                       | Default | Description                                                                                                                      |
-| --------------------- | ---------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel`  | `accessibility-label`  | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
-| `amount`              | `amount`               | public  | `string`                   | `''`    | Value shown as badge at component end.                                                                                           |
-| `disabled`            | `disabled`             | public  | `boolean`                  | `false` | Whether the component is disabled.                                                                                               |
-| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                  | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
-| `download`            | `download`             | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
-| `href`                | `href`                 | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
-| `iconName`            | `icon-name`            | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `rel`                 | `rel`                  | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
-| `target`              | `target`               | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `disabled`             | `disabled`              | public  | `boolean`                  | `false` | Whether the component is disabled.                                                                                               |
+| `disabledInteractive`  | `disabled-interactive`  | public  | `boolean`                  | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
+| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
 
 ## CSS Properties
 
