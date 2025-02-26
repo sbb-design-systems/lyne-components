@@ -20,6 +20,7 @@
   border: #{sbb.px-to-rem-build(2)} solid var(--sbb-color-graphite);
   background-color: var(--sbb-color-white);
   border-radius: var(--reservation-area-border-radius);
+  box-sizing: border-box;
 
   :host([background='dark']) & {
     background-color: var(--sbb-color-milk);
