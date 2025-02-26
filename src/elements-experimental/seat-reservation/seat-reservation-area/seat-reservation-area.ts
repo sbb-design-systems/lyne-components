@@ -1,5 +1,5 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -41,6 +41,19 @@ class SbbSeatReservationAreaElement extends LitElement {
   @forceType()
   @property({ attribute: 'background' })
   public accessor background: 'light' | 'dark' = 'light';
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('width')) {
+      this.style?.setProperty('--area-width-from-host', `${this.width}`);
+    }
+    if (changedProperties.has('height')) {
+      this.style?.setProperty('--area-height-from-host', `${this.height}`);
+    }
+    if (changedProperties.has('rotation')) {
+      this.style?.setProperty('--area-rotation-from-host', `${this.rotation}`);
+    }
+  }
 
   protected override render(): TemplateResult {
     const width: number = this.width;
