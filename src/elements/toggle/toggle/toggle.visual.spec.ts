@@ -107,5 +107,16 @@ describe(`sbb-toggle`, () => {
         );
       }),
     );
+
+    it(
+      'fieldset disabled',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html` <fieldset disabled>
+            <sbb-toggle name="sbb-toggle-1"> ${options(true)} </sbb-toggle>
+          </fieldset>`,
+        );
+      }),
+    );
   });
 });
