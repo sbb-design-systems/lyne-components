@@ -36,6 +36,11 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   @property({ type: Boolean, reflect: true })
   public accessor readonly: boolean = false;
 
+  /** This will be forwarded as aria-label to the inner anchor element. */
+  @forceType()
+  @property({ attribute: 'accessibility-label' })
+  public accessor accessibilityLabel: string = '';
+
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
   private _language = new SbbLanguageController(this);
@@ -87,6 +92,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           class="sbb-chip__label-wrapper"
           role="gridcell"
           tabindex=${!this.disabled ? '-1' : nothing}
+          aria-label=${this.accessibilityLabel ?? nothing}
           @click=${() => this._chipLabel().focus()}
         >
           <span class="sbb-chip__label">

@@ -40,11 +40,18 @@ const readonly: InputType = {
   },
 };
 
+const accessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   disabled,
   negative,
   readonly,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
@@ -52,6 +59,7 @@ const defaultArgs: Args = {
   disabled: false,
   negative: false,
   readonly: false,
+  'accessibility-label': undefined,
 };
 
 const Template = (args: Args): TemplateResult => html`<sbb-chip ${sbbSpread(args)}></sbb-chip>`;
