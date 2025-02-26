@@ -311,7 +311,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
   }
 
-  private _updateSidebarWidth(oldPosition?: 'start' | 'end'): void {
+  private _updateSidebarWidth(oldPosition?: this['position']): void {
     const container = this.container;
     if (!container) {
       return;

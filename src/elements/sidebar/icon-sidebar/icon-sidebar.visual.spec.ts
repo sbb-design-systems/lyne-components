@@ -1,8 +1,7 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-
-import './icon-sidebar.js';
+import type { SbbIconSidebarElement, SbbSidebarElement } from '../../sidebar.js';
 
 import '../../header.js';
 import '../../link/block-link.js';
@@ -19,7 +18,7 @@ describe('sbb-icon-sidebar', () => {
     </a>
   </sbb-header>`;
 
-  const iconSidebar = (color: 'white' | 'milk'): TemplateResult =>
+  const iconSidebar = (color: SbbIconSidebarElement['color']): TemplateResult =>
     html`<sbb-icon-sidebar color=${color}>
       <sbb-icon-sidebar-link
         accessibility-label="Go to the party"
@@ -59,7 +58,10 @@ describe('sbb-icon-sidebar', () => {
     </p>
   `;
 
-  const sidebar = (color: 'white' | 'milk', position: 'start' | 'end'): TemplateResult =>
+  const sidebar = (
+    color: SbbSidebarElement['color'],
+    position: SbbSidebarElement['position'],
+  ): TemplateResult =>
     html`<!-- We take the contrary color to visually distinguish the icon sidebar and the sidebar -->
       <sbb-sidebar color=${color === 'milk' ? 'white' : 'milk'} opened position=${position}>
         <sbb-sidebar-title>Title</sbb-sidebar-title>
@@ -72,7 +74,7 @@ describe('sbb-icon-sidebar', () => {
       </sbb-sidebar>`;
 
   describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
-    const cases: { color: ('white' | 'milk')[]; position: ('start' | 'end')[] } = {
+    const cases: { color: SbbIconSidebarElement['color'][]; position: ('start' | 'end')[] } = {
       color: ['white', 'milk'],
       position: ['start', 'end'],
     };

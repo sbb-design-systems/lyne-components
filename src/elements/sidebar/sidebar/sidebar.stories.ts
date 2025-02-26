@@ -4,6 +4,7 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import type { SbbIconSidebarElement } from '../../sidebar.js';
 import { SbbSidebarElement } from '../sidebar.js';
 
 import readme from './readme.md?raw';
@@ -114,7 +115,7 @@ const header = (twoButtons = false): TemplateResult =>
     </a>
   </sbb-header>`;
 
-const iconSidebar = (color: 'white' | 'milk'): TemplateResult =>
+const iconSidebar = (color: SbbIconSidebarElement['color']): TemplateResult =>
   html`<!-- We take the contrary color to visually distinguish the icon sidebar and the sidebar -->
     <sbb-icon-sidebar color=${color === 'milk' ? 'white' : 'milk'}>
       <sbb-icon-sidebar-link

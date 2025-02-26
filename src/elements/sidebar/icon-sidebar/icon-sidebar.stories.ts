@@ -79,7 +79,7 @@ const iconSidebar = (args: Args): TemplateResult =>
     ></sbb-icon-sidebar-button>
   </sbb-icon-sidebar>`;
 
-const sidebar = (position: 'start' | 'end', args: Args): TemplateResult =>
+const sidebar = (position: SbbSidebarElement['position'], args: Args): TemplateResult =>
   html`<!-- We take the contrary color to visually distinguish the icon sidebar and the sidebar -->
     <sbb-sidebar
       color=${args.color === 'milk' ? 'white' : 'milk'}
