@@ -1,7 +1,7 @@
-The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
-Generally, it is used in combination with a `sbb-form-field` to allow the input of multiple string values.
+The `sbb-chip-group` component is a container for one or multiple `sbb-chip`.
+Generally, it is used in combination with an `sbb-form-field` to allow the input of multiple string values.
 
-The `value` property is synced with the slotted chips. Adding a `sbb-chip` to the slot will update the `value` property (and vice versa).
+The `value` property reflects the list of slotted chips. Adding or removing an `sbb-chip` updates the value property, and vice versa.
 
 ```html
 <sbb-form-field>
@@ -16,11 +16,12 @@ The `value` property is synced with the slotted chips. Adding a `sbb-chip` to th
 
 ## Slots
 
-Use the unnamed slot to provide the `sbb-chip` and the `input` field
+Use the unnamed slot to provide the `sbb-chip` and the `input` field.
 
 ## States
 
-The `sbb-chip-group` has a `disabled` and a `readonly` state that is automatically synced to the respective `input` property.
+The `sbb-chip-group` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
+The `disabled`/`readonly` property is proxied to the slotted `sbb-chip`.
 
 ```html
 <sbb-form-field>
@@ -36,7 +37,7 @@ The `sbb-chip-group` has a `disabled` and a `readonly` state that is automatical
 
 ## Style
 
-The `sbb-chip-group` has a `negative` variant. If within a `sbb-form-field`, the properties automatically sync.
+The `sbb-chip-group` has a `negative` variant. If within an `sbb-form-field`, the properties automatically sync.
 
 ```html
 <sbb-form-field negative>
@@ -52,7 +53,7 @@ The `sbb-chip-group` has a `negative` variant. If within a `sbb-form-field`, the
 
 ### Use within forms
 
-The `sbb-chip-group` is a form associated element and can be part of a form. Its value is an array of strings.
+The `sbb-chip-group` is a form-associated element that can be part of a form. Its value is an array of strings.
 
 **Note:** The `name` must be set on the `sbb-chip-group`, not on the `input`
 
@@ -72,7 +73,7 @@ The `sbb-chip-group` is a form associated element and can be part of a form. Its
 
 It is possible to combine the functionalities of `chip-group` and the [sbb-autocomplete](/docs/elements-sbb-autocomplete--docs).
 
-In this scenario, selecting an option will create a new chip with the option value.
+In this scenario, selecting an option will create a new chip using the option value.
 
 ```html
 <sbb-form-field>
@@ -96,7 +97,7 @@ At any time, only a single chip (usually, the last one) is focusable and part of
 | --------------------------- | --------------------------------------------------------- |
 | <kbd>Enter</kbd>            | When the `input` is focused, add a new chip.              |
 | <kbd>Backspace</kbd>        | When the `input` is empty & focused, focus the last chip. |
-| <kbd>Backspace</kbd>        | When the `sbb-chip` focused, delete it.                   |
+| <kbd>Backspace</kbd>        | When the `sbb-chip` is focused, delete it.                |
 | <kbd>Left/Up Arrow</kbd>    | Move the next `sbb-chip`.                                 |
 | <kbd>Right/Down Arrow</kbd> | Move the previous `sbb-chip`.                             |
 
