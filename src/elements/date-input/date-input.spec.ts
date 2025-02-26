@@ -26,6 +26,16 @@ describe('sbb-date-input', () => {
     expect(element.childElementCount).to.equal(0);
   });
 
+  it('should parse min', async () => {
+    element = await fixture(html`<sbb-date-input min="2024-12-24"></sbb-date-input>`);
+    expect(element.min?.toJSON()).to.be.equal(defaultDateAdapter.createDate(2024, 12, 24).toJSON());
+  });
+
+  it('should parse max', async () => {
+    element = await fixture(html`<sbb-date-input max="2024-12-24"></sbb-date-input>`);
+    expect(element.max?.toJSON()).to.be.equal(defaultDateAdapter.createDate(2024, 12, 24).toJSON());
+  });
+
   describe('with no value', () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-date-input></sbb-date-input>`);
@@ -44,24 +54,24 @@ describe('sbb-date-input', () => {
     });
 
     it('should update value when changing valueAsDate', () => {
-      element.valueAsDate = new Date(2024, 11, 12);
-      expect(element.value).to.be.equal('Th, 12.12.2024');
+      element.valueAsDate = new Date(2024, 11, 24);
+      expect(element.value).to.be.equal('Tu, 24.12.2024');
     });
 
     it('should update value and valueAsDate when changing value with ISO value', () => {
-      element.value = '2024-12-12';
+      element.value = '2024-12-24';
       expect(element.valueAsDate?.toJSON()).to.be.equal(
-        defaultDateAdapter.createDate(2024, 12, 12).toJSON(),
+        defaultDateAdapter.createDate(2024, 12, 24).toJSON(),
       );
-      expect(element.value).to.be.equal('Th, 12.12.2024');
+      expect(element.value).to.be.equal('Tu, 24.12.2024');
     });
 
     it('should update valueAsDate when changing value with parseable value', () => {
-      element.value = 'Th, 12.12.2024';
+      element.value = 'Tu, 24.12.2024';
       expect(element.valueAsDate?.toJSON()).to.be.equal(
-        defaultDateAdapter.createDate(2024, 12, 12).toJSON(),
+        defaultDateAdapter.createDate(2024, 12, 24).toJSON(),
       );
-      expect(element.value).to.be.equal('Th, 12.12.2024');
+      expect(element.value).to.be.equal('Tu, 24.12.2024');
     });
 
     it('renders and emit event on value change', async () => {
@@ -82,16 +92,16 @@ describe('sbb-date-input', () => {
 
   describe('with initial ISO value', () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-date-input value="2024-12-12"></sbb-date-input>`);
+      element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
     });
 
     it('value should be formatted value', () => {
-      expect(element.value).to.be.equal('Th, 12.12.2024');
+      expect(element.value).to.be.equal('Tu, 24.12.2024');
     });
 
     it('valueAsDate should be correct date', () => {
       expect(element.valueAsDate?.toJSON()).to.be.equal(
-        defaultDateAdapter.createDate(2024, 12, 12).toJSON(),
+        defaultDateAdapter.createDate(2024, 12, 24).toJSON(),
       );
     });
 

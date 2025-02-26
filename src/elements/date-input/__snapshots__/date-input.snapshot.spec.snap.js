@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-date-input renders Chrome-Safari DOM"] = 
 `<sbb-date-input
   contenteditable="plaintext-only"
+  placeholder="DD.MM.YYYY"
   value="2024-12-11"
 >
   We, 11.12.2024
@@ -20,6 +21,7 @@ snapshots["sbb-date-input renders Chrome-Safari Shadow DOM"] =
 snapshots["sbb-date-input renders Firefox DOM"] = 
 `<sbb-date-input
   contenteditable="true"
+  placeholder="DD.MM.YYYY"
   value="2024-12-11"
 >
   We, 11.12.2024
@@ -41,7 +43,7 @@ snapshots["sbb-date-input renders A11y tree Chrome"] =
   "children": [
     {
       "role": "textbox",
-      "name": "",
+      "name": "DD.MM.YYYY",
       "value": "We, 11.12.2024"
     }
   ]

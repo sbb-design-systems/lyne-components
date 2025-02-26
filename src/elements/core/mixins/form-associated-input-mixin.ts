@@ -40,9 +40,7 @@ export declare abstract class SbbFormAssociatedInputMixinType
 }
 
 /**
- * The FormAssociatedCheckboxMixin enables native form support for checkbox controls.
- *
- * Inherited classes MUST implement the ariaChecked state (ElementInternals) themselves.
+ * The SbbFormAssociatedInputMixin enables native form support for text input controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(

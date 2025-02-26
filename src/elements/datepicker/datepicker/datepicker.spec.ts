@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { findInput } from '../../core/dom.js';
+import { findInput, isFirefox } from '../../core/dom.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
@@ -97,8 +97,11 @@ describe(`sbb-datepicker`, () => {
 
           it('renders', async () => {
             assert.instanceOf(element, SbbDatepickerElement);
+            const dateInputDetails = dateInput
+              ? `sbb-date-input contenteditable="${isFirefox ? 'true' : 'plaintext-only'}"`
+              : 'input type="text"';
             expect(input).dom.to.be.equal(
-              `<${dateInput ? 'sbb-date-input contenteditable="plaintext-only"' : 'input type="text"'} id="datepicker-input" placeholder="DD.MM.YYYY">`,
+              `<${dateInputDetails} id="datepicker-input" placeholder="DD.MM.YYYY">`,
             );
           });
 

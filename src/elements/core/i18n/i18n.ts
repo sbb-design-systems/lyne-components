@@ -755,9 +755,9 @@ export const i18nDateMin = (min: string): Record<string, string> => ({
   it: `La data non deve essere anteriore al ${min}.`,
 });
 
-export const i18nDateMax = (min: string): Record<string, string> => ({
-  de: `Datum darf nicht nach ${min} sein.`,
-  en: `Date must not be after ${min}.`,
-  fr: `La date ne doit pas être postérieure au ${min}.`,
-  it: `La data non deve essere successiva al ${min}.`,
+export const i18nDateMax = (max: string): Record<string, string> => ({
+  de: `Datum darf nicht nach ${max} sein.`,
+  en: `Date must not be after ${max}.`,
+  fr: `La date ne doit pas être postérieure au ${max}.`,
+  it: `La data non deve essere successiva al ${max}.`,
 });
