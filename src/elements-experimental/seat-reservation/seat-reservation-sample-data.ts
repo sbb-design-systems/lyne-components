@@ -360,6 +360,19 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
           rotation: 90,
         },
         {
+          icon: 'ENTRY_EXIT',
+          position: {
+            x: 55,
+            y: 9,
+            z: 0,
+          },
+          dimension: {
+            w: 4,
+            h: 1,
+          },
+          rotation: 90,
+        },
+        {
           icon: 'DRIVER_AREA_FULL',
           dimension: {
             w: 12,
@@ -389,6 +402,17 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
         {
           position: {
             x: 20,
+            y: 9,
+            z: 0,
+          },
+          dimension: {
+            w: 4,
+            h: 1,
+          },
+        },
+        {
+          position: {
+            x: 55,
             y: 9,
             z: 0,
           },
@@ -817,8 +841,8 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
       ],
     },
     {
-      id: 'coach-layout-1',
-      number: '2',
+      id: 'coach-layout-2',
+      number: '3',
       dimension: {
         w: 64,
         h: 10,
