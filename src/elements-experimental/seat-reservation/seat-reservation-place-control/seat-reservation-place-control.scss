@@ -3,7 +3,7 @@
 :host {
   --reservation-place-control-rotation: var(--place-control-rotation-from-host, 0);
   --reservation-place-control-text-rotation: var(--place-control-text-rotation-from-host, 0);
-  --reservation-place-control-text-scale: var(--place-control-text-scale-from-host, 1);
+  --reservation-place-control-text-size: calc(var(--place-control-text-scale-from-host, 1) * 0.5);
 
   display: inline-block;
 }
@@ -19,7 +19,7 @@
     @include sbb.button-reset;
 
     display: block;
-    font-size: calc(var(--reservation-place-control-text-scale) * 10px);
+    font-size: calc(var(--reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
     #{$root}--state-free &,
@@ -43,11 +43,12 @@
     top: 50%;
     left: 0;
     right: 0;
-    font-size: 0.5em;
+    font-size: 0.75em;
     line-height: 1;
     font-weight: lighter;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.0625em;
     text-align: center;
+    text-indent: calc(sin(var(--reservation-place-control-text-rotation) * 1deg) * 0.5em);
     transform-origin: center center;
     transform: translateY(-50%) rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
 
@@ -56,12 +57,11 @@
       display: block;
     }
 
-    .sbb-seat-reservation-place-control--type-bike.sbb-seat-reservation-place-control--state-restricted
-      & {
+    #{$root}--state-restricted#{$root}--type-bicycle & {
       display: block;
     }
 
-    #{$root}--type-bike & {
+    #{$root}--type-bicycle & {
       top: 65%;
     }
 

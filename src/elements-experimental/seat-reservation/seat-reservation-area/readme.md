@@ -1,17 +1,8 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `seat-reservation-area` is a component . . .
+The component `sbb-seat-reservation-area` represents a gray or white background area within a wagon and is currently integrated directly into [sbb-seat-reservation](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation--docs). It is still unclear whether areas will be defined in the data once, and an icon will then be automatically included, or if the data for an icon will need to be passed separately and drawn independently. In the first scenario, it would be useful to be able to include an sbb-seat-reservation-graphic through a slot or by passing an icon code within the [sbb-seat-reservation-area](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphic--docs).
 
 ```html
 <seat-reservation-area></seat-reservation-area>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
 
 ## States
 
@@ -24,21 +15,5 @@ The `seat-reservation-area` is a component . . .
 ## Interactions
 
 > Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
