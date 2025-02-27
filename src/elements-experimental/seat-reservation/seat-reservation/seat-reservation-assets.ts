@@ -28,8 +28,6 @@ const svgTmpImage = (src: string, variant: 'light' | 'dark' = 'light'): Template
 /**
  * svgImageByOSDMCode Function returns the corresponding svg image by OSDM Code
  * @param osdmCode
- * @param alt
- * @param title
  * @returns The SVG Image as TemplateResult if it matches the OSDM code, or null if its not found.
  */
 export const svgImageByOSDMCode = (osdmCode: string): TemplateResult | null => {
@@ -59,47 +57,47 @@ const chassisTable = html`
       <tr>
         <td>${svgImage(assets.chassisDriverBus)}</td>
         <td>Driver: Bus</td>
-        <td>DRIVER_AREA</td>
+        <td>???</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisPassageCompartmentLeftTop)}</td>
+        <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_HIGH')}</td>
         <td>Passage-Compartment: Top</td>
         <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_HIGH</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisPassageCompartmentMiddle)}</td>
+        <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE')}</td>
         <td>Passage-Compartment: Middle</td>
         <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_MIDDLE</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisPassageCompartmentRightBottom)}</td>
+        <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_LOW')}</td>
         <td>Passage-Compartment: Bottom</td>
         <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_LOW</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisPassageWaggonTopLeft)}</td>
+        <td>${svgImageByOSDMCode('COACH_PASSAGE')}</td>
         <td>Passage-Waggon Type: Left</td>
         <td>COACH_PASSAGE</td>
       </tr>
       <tr>
         <td>${svgImage(assets.chassisPassageWaggonBottomRight)}</td>
         <td>Passage-Waggon Type: Right</td>
-        <td>COACH_PASSAGE</td>
+        <td>???</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisRowOuter)}</td>
+        <td>${svgImageByOSDMCode('COACH_BORDER_OUTER')}</td>
         <td>Row-Empty: Top/Left</td>
         <td>COACH_BORDER_OUTER</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisRowMiddle)}</td>
+        <td>${svgImageByOSDMCode('COACH_BORDER_MIDDLE')}</td>
         <td>Row-Empty: Middle</td>
         <td>COACH_BORDER_MIDDLE</td>
       </tr>
       <tr>
         <td>${svgImage(assets.chassisSeparator)}</td>
         <td>Separator</td>
-        <td></td>
+        <td>???</td>
       </tr>
       <tr>
         <td>${svgImageByOSDMCode('TABLE')}</td>
@@ -121,44 +119,44 @@ const interiorTable = html`
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(assets.interiorPlaceBikeDefault)}</td>
+        <td>${svgImageByOSDMCode('PLACE_BIKE_FREE')}</td>
         <td>Place-Bike: Available</td>
-        <td></td>
+        <td>PLACE_BIKE_FREE</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceBikeSelected)}</td>
+        <td>${svgImageByOSDMCode('PLACE_BIKE_SELECTED')}</td>
         <td>Place-Bike: Selected</td>
-        <td></td>
+        <td>PLACE_BIKE_SELECTED</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceBikeUnavailable)}</td>
+        <td>${svgImageByOSDMCode('PLACE_BIKE_ALLOCATED')}</td>
         <td>Place-Bike: Unavailable</td>
-        <td></td>
+        <td>PLACE_BIKE_ALLOCATED</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceBikeNotBookable)}</td>
+        <td>${svgImageByOSDMCode('PLACE_BIKE_RESTRICTED')}</td>
         <td>Place-Bike: Not bookable</td>
-        <td></td>
+        <td>PLACE_BIKE_RESTRICTED</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceSeatDefault)}</td>
+        <td>${svgImageByOSDMCode('PLACE_SEAT_FREE')}</td>
         <td>Place-Seat: Available</td>
-        <td></td>
+        <td>PLACE_SEAT_FREE</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceSeatSelected)}</td>
+        <td>${svgImageByOSDMCode('PLACE_SEAT_SELECTED')}</td>
         <td>Place-Seat: Selected</td>
-        <td></td>
+        <td>PLACE_SEAT_SELECTED</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceSeatUnavailable)}</td>
+        <td>${svgImageByOSDMCode('PLACE_SEAT_ALLOCATED')}</td>
         <td>Place-Seat: Unavailable</td>
-        <td></td>
+        <td>PLACE_SEAT_ALLOCATED</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.interiorPlaceSeatNotBookable)}</td>
+        <td>${svgImageByOSDMCode('PLACE_SEAT_RESTRICTED')}</td>
         <td>Place-Seat: Not bookable</td>
-        <td></td>
+        <td>PLACE_SEAT_RESTRICTED</td>
       </tr>
     </tbody>
   </table>
@@ -174,49 +172,49 @@ const layoutItemsTable = html`
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(assets.layoutEntrance)}</td>
+        <td>${svgImageByOSDMCode('ENTRY_EXIT')}</td>
         <td>Entrance</td>
         <td>ENTRY_EXIT</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceLuggage)}</td>
+        <td>${svgImageByOSDMCode('LUGGAGE_AREA')}</td>
         <td>Luggage</td>
-        <td></td>
+        <td>LUGGAGE_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceFamily)}</td>
+        <td>${svgImageByOSDMCode('PLAYGROUND_AREA')}</td>
         <td>Playground</td>
-        <td></td>
+        <td>PLAYGROUND_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.servicePram)}</td>
+        <td>${svgImageByOSDMCode('PRAM_AREA')}</td>
         <td>Pram</td>
-        <td></td>
+        <td>PRAM_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.layoutSki)}</td>
+        <td>${svgImageByOSDMCode('SKI_AREA')}</td>
         <td>Ski</td>
-        <td></td>
+        <td>SKI_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.layoutStair)}</td>
+        <td>${svgImageByOSDMCode('STAIR_AREA')}</td>
         <td>Stair</td>
-        <td></td>
+        <td>STAIR_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceToilet)}</td>
+        <td>${svgImageByOSDMCode('TOILET_AREA')}</td>
         <td>Toilet</td>
-        <td></td>
+        <td>TOILET_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceToiletPrm)}</td>
+        <td>${svgImageByOSDMCode('WHEELCHAIR_TOILET_AREA')}</td>
         <td>Toilet-Handicap</td>
-        <td></td>
+        <td>WHEELCHAIR_TOILET_AREA</td>
       </tr>
       <tr>
         <td>${svgImage(assets.layoutWardrobe)}</td>
         <td>Wardrobe</td>
-        <td></td>
+        <td>???</td>
       </tr>
     </tbody>
   </table>
@@ -229,87 +227,73 @@ const serviceIconTable = html`
         <th scope="col">SVG</th>
         <th scope="col">Figma</th>
         <th scope="col">OSDM Code</th>
-        <th scope="col">OSDM Icon Code</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>${svgImage(assets.serviceBistro)}</td>
+        <td>${svgImageByOSDMCode('BISTRO')}</td>
         <td>Bistro</td>
         <td>BISTRO</td>
-        <td></td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceBusiness)}</td>
+        <td>${svgImageByOSDMCode('BUSINESS')}</td>
         <td>Business</td>
         <td>BUSINESS</td>
-        <td></td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceFamily)}</td>
+        <td>${svgImageByOSDMCode('PLAYGROUND_ICON')}</td>
         <td>Family</td>
-        <td>PLAYGROUND_AREA</td>
-        <td></td>
+        <td>PLAYGROUND_ICON</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceLuggage)}</td>
+        <td>${svgImageByOSDMCode('LUGGAGE_AREA')}</td>
         <td>Luggage</td>
         <td>LUGGAGE_AREA</td>
-        <td>109</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceMultifunction)}</td>
+        <td>${svgImageByOSDMCode('MULTI_FUNCTION_AREA')}</td>
         <td>Multifunction</td>
         <td>MULTI_FUNCTION_AREA</td>
-        <td></td>
       </tr>
       <tr>
-        <td>${svgImage(assets.servicePram)}</td>
+        <td>${svgImageByOSDMCode('PRAM_ICON')}</td>
         <td>Pram</td>
         <td>PRAM_ICON</td>
-        <td>112</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.servicePrm)}</td>
+        <td>${svgImageByOSDMCode('EASY_ACCESS_AREA')}</td>
         <td>PRM</td>
-        <td>EASY_ACCESS</td>
-        <td>105</td>
+        <td>EASY_ACCESS_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceRestaurant)}</td>
+        <td>${svgImageByOSDMCode('RESTAURANT_ICON')}</td>
         <td>Restaurant</td>
         <td>RESTAURANT_ICON</td>
-        <td></td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceSilence)}</td>
+        <td>${svgImageByOSDMCode('SILENCE_AREA_ICON')}</td>
         <td>Silence</td>
-        <td>SILENCE</td>
-        <td>116</td>
+        <td>SILENCE_AREA_ICON</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceToilet)}</td>
+        <td>${svgImageByOSDMCode('TOILET_AREA')}</td>
         <td>Toilet</td>
         <td>TOILET_AREA</td>
-        <td>115</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceToiletPrm)}</td>
+        <td>${svgImageByOSDMCode('WHEELCHAIR_TOILET_AREA')}</td>
         <td>Toilet-PRM</td>
         <td>WHEELCHAIR_TOILET_AREA</td>
-        <td>131</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceWheelchair)}</td>
+        <td>${svgImageByOSDMCode('WHEELCHAIR_ICON')}</td>
         <td>Wheelchair</td>
         <td>WHEELCHAIR_ICON</td>
-        <td></td>
       </tr>
       <tr>
-        <td>${svgImage(assets.serviceWifi)}</td>
+        <td>${svgImageByOSDMCode('WIFI')}</td>
         <td>Wifi</td>
         <td>WIFI</td>
-        <td>130</td>
       </tr>
     </tbody>
   </table>
