@@ -68,7 +68,22 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Assets: StoryObj = {
+export const pramAreaWidth2Height2: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, name: 'PRAM_AREA', width: 2, height: 2 },
+};
+
+export const StairAreaWidth2Height2Rotation315: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, name: 'STAIR_AREA', width: 2, height: 2, rotation: 315 },
+};
+
+export const coachBorderMiddleWidth20Height4Stretch: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, name: 'COACH_BORDER_MIDDLE', stretch: true, width: 20, height: 4 },
+};
+
+export const availableAssets: StoryObj = {
   render: () => assetsTemplate,
 };
 
