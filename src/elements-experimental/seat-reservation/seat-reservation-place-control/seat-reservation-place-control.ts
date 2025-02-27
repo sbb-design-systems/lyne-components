@@ -171,10 +171,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
           aria-label=${this._getAriaPlaceLabel()}
         >
           <sbb-seat-reservation-graphic
-            name="${name}"
-            width="${width}"
-            height="${height}"
-            rotation="${graphicRotation}"
+            .name=${name}
+            .width=${width}
+            .height=${height}
+            .rotation=${graphicRotation}
           ></sbb-seat-reservation-graphic>
           <span ${this.text ?? nothing} class="sbb-seat-reservation-place-control__text"
             >${text}</span
