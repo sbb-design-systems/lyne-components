@@ -532,7 +532,7 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
         {
           icon: 'string',
           number: '1',
-          type: 'BIKE',
+          type: 'BICYCLE',
           propertyIds: ['WINDOW'],
           state: 'RESTRICTED',
           travelClass: 'ANY_CLASS',
@@ -550,7 +550,7 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
         {
           icon: 'string',
           number: '2',
-          type: 'BIKE',
+          type: 'BICYCLE',
           propertyIds: ['WINDOW'],
           state: 'RESTRICTED',
           travelClass: 'ANY_CLASS',
@@ -851,7 +851,7 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
         {
           icon: 'string',
           number: '1',
-          type: 'BIKE',
+          type: 'BICYCLE',
           propertyIds: ['WINDOW'],
           state: 'RESTRICTED',
           travelClass: 'ANY_CLASS',
@@ -869,7 +869,7 @@ export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
         {
           icon: 'string',
           number: '2',
-          type: 'BIKE',
+          type: 'BICYCLE',
           propertyIds: ['WINDOW'],
           state: 'RESTRICTED',
           travelClass: 'ANY_CLASS',
