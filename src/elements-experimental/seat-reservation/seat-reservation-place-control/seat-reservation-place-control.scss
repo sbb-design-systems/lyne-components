@@ -4,6 +4,9 @@
   --reservation-place-control-rotation: var(--place-control-rotation-from-host, 0);
   --reservation-place-control-text-rotation: var(--place-control-text-rotation-from-host, 0);
   --reservation-place-control-text-size: calc(var(--place-control-text-scale-from-host, 1) * 0.5);
+  --reservation-place-control-seat-text-offset-horizontal: calc(
+    cos(var(--reservation-place-control-text-rotation) * 1deg) * 3%
+  );
 
   display: inline-block;
 }
@@ -41,16 +44,16 @@
     display: none;
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
+    left: 50%;
     font-size: 0.75em;
     line-height: 1;
     font-weight: lighter;
     letter-spacing: -0.0625em;
     text-align: center;
-    text-indent: calc(sin(var(--reservation-place-control-text-rotation) * 1deg) * 0.5em);
+    text-indent: calc(cos(var(--reservation-place-control-text-rotation) * 1deg) * -10%);
     transform-origin: center center;
-    transform: translateY(-50%) rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
+    transform: translate(-50%, -50%)
+      rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
 
     #{$root}--state-free &,
     #{$root}--state-allocated & {
@@ -59,6 +62,10 @@
 
     #{$root}--state-restricted#{$root}--type-bicycle & {
       display: block;
+    }
+
+    #{$root}--type-seat & {
+      left: calc(50% - var(--reservation-place-control-seat-text-offset-horizontal));
     }
 
     #{$root}--type-bicycle & {

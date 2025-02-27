@@ -92,12 +92,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   /** Type Prop */
   @forceType()
-  @property({ attribute: 'type', type: controlPlaceTypeOptions })
+  @property({ attribute: 'type' })
   public accessor type: ControlPlaceType = controlPlaceTypeOptions[0];
 
   /** State Prop */
   @forceType()
-  @property({ attribute: 'state', type: controlPlaceStateOptions })
+  @property({ attribute: 'state' })
   public accessor state: PlaceState = controlPlaceStateOptions[0];
 
   /** Rotation Prop */
@@ -163,7 +163,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     return html`
       <div
-        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type}  sbb-seat-reservation-place-control--state-${state}"
+        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
       >
         <button
           class="sbb-seat-reservation-place-control__button"
