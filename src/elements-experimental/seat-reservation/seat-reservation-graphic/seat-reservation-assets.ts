@@ -2,7 +2,7 @@ import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import * as assets from '../assets.js';
-import { mapCodeToSvg } from '../helper.js';
+import { mapCodeToSvg } from '../common.js';
 
 import './seat-reservation-assets.scss';
 
@@ -57,7 +57,7 @@ const chassisTable = html`
       <tr>
         <td>${svgImage(assets.chassisDriverBus)}</td>
         <td>Driver: Bus</td>
-        <td>???</td>
+        <td>DRIVER_AREA</td>
       </tr>
       <tr>
         <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_HIGH')}</td>
@@ -97,7 +97,7 @@ const chassisTable = html`
       <tr>
         <td>${svgImage(assets.chassisSeparator)}</td>
         <td>Separator</td>
-        <td>???</td>
+        <td>obsolete?</td>
       </tr>
       <tr>
         <td>${svgImageByOSDMCode('TABLE')}</td>
@@ -114,29 +114,29 @@ const interiorTable = html`
       <tr>
         <th scope="col">SVG</th>
         <th scope="col">Figma</th>
-        <th scope="col">OSDM Code</th>
+        <th scope="col">Code</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>${svgImageByOSDMCode('PLACE_BIKE_FREE')}</td>
+        <td>${svgImageByOSDMCode('PLACE_BICYCLE_FREE')}</td>
         <td>Place-Bike: Available</td>
-        <td>PLACE_BIKE_FREE</td>
+        <td>PLACE_BICYCLE_FREE</td>
       </tr>
       <tr>
-        <td>${svgImageByOSDMCode('PLACE_BIKE_SELECTED')}</td>
+        <td>${svgImageByOSDMCode('PLACE_BICYCLE_SELECTED')}</td>
         <td>Place-Bike: Selected</td>
-        <td>PLACE_BIKE_SELECTED</td>
+        <td>PLACE_BICYCLE_SELECTED</td>
       </tr>
       <tr>
-        <td>${svgImageByOSDMCode('PLACE_BIKE_ALLOCATED')}</td>
+        <td>${svgImageByOSDMCode('PLACE_BICYCLE_ALLOCATED')}</td>
         <td>Place-Bike: Unavailable</td>
-        <td>PLACE_BIKE_ALLOCATED</td>
+        <td>PLACE_BICYCLE_ALLOCATED</td>
       </tr>
       <tr>
-        <td>${svgImageByOSDMCode('PLACE_BIKE_RESTRICTED')}</td>
+        <td>${svgImageByOSDMCode('PLACE_BICYCLE_RESTRICTED')}</td>
         <td>Place-Bike: Not bookable</td>
-        <td>PLACE_BIKE_RESTRICTED</td>
+        <td>PLACE_BICYCLE_RESTRICTED</td>
       </tr>
       <tr>
         <td>${svgImageByOSDMCode('PLACE_SEAT_FREE')}</td>
@@ -305,11 +305,6 @@ export const assetsTemplate: TemplateResult = html`
   ${chassisTable}
   <h3>Row-Empty</h3>
   ${svgTmpImage(assets.chassisTmpRowEmpty, 'dark')}
-  <h2>Helper</h2>
-  <h3>Note</h3>
-  ${svgTmpImage(assets.helperTmpNoteDefault)} ${svgTmpImage(assets.helperTmpNotePostIt)}
-  <h3>Placeholder</h3>
-  ${svgTmpImage(assets.helperTmpPlaceholder)}
   <h2>Interior</h2>
   ${interiorTable}
   <h3>Table</h3>
