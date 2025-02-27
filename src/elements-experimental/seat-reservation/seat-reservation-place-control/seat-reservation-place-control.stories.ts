@@ -10,6 +10,7 @@ import readme from './readme.md?raw';
 import {
   controlPlaceTypeOptions,
   controlPlaceStateOptions,
+  SbbSeatReservationPlaceControlElement,
 } from './seat-reservation-place-control.js';
 
 const type: InputType = {
@@ -147,7 +148,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [],
+      handles: [SbbSeatReservationPlaceControlElement.events.selectPlace],
     },
     docs: {
       extractComponentDescription: () => readme,
