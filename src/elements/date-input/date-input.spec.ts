@@ -1,4 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { defaultDateAdapter } from '../core/datetime.js';
@@ -18,11 +19,13 @@ describe('sbb-date-input', () => {
   it('should not consider content between tag and end tag', async () => {
     element = await fixture(html`<sbb-date-input> </sbb-date-input>`);
     expect(element.value).to.be.equal('');
+    expect(element.textContent).to.be.equal('');
   });
 
   it('should remove nested elements', async () => {
     element = await fixture(html`<sbb-date-input> <span>test</span> </sbb-date-input>`);
     expect(element.value).to.be.equal('');
+    expect(element.textContent).to.be.equal('');
     expect(element.childElementCount).to.equal(0);
   });
 
@@ -36,6 +39,25 @@ describe('sbb-date-input', () => {
     expect(element.max?.toJSON()).to.be.equal(defaultDateAdapter.createDate(2024, 12, 24).toJSON());
   });
 
+  it('should not clear the text content on backspace', async () => {
+    element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
+    element.focus();
+    const value = element.value;
+    await sendKeys({ press: 'Backspace' });
+    expect(element.value).to.equal(value.substring(0, value.length - 1));
+    expect(element.textContent).to.equal(value.substring(0, value.length - 1));
+  });
+
+  it('should not clear the text content on delete', async () => {
+    element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
+    element.focus();
+    const value = element.value;
+    await sendKeys({ press: 'Home' });
+    await sendKeys({ press: 'Delete' });
+    expect(element.value).to.equal(value.substring(1));
+    expect(element.textContent).to.equal(value.substring(1));
+  });
+
   describe('with no value', () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-date-input></sbb-date-input>`);
@@ -47,6 +69,7 @@ describe('sbb-date-input', () => {
 
     it('value should be empty', () => {
       expect(element.value).to.be.equal('');
+      expect(element.textContent).to.be.equal('');
     });
 
     it('valueAsDate should be empty', () => {
@@ -56,6 +79,7 @@ describe('sbb-date-input', () => {
     it('should update value when changing valueAsDate', () => {
       element.valueAsDate = new Date(2024, 11, 24);
       expect(element.value).to.be.equal('Tu, 24.12.2024');
+      expect(element.textContent).to.be.equal('Tu, 24.12.2024');
     });
 
     it('should update value and valueAsDate when changing value with ISO value', () => {
@@ -64,6 +88,7 @@ describe('sbb-date-input', () => {
         defaultDateAdapter.createDate(2024, 12, 24).toJSON(),
       );
       expect(element.value).to.be.equal('Tu, 24.12.2024');
+      expect(element.textContent).to.be.equal('Tu, 24.12.2024');
     });
 
     it('should update valueAsDate when changing value with parseable value', () => {
@@ -72,6 +97,7 @@ describe('sbb-date-input', () => {
         defaultDateAdapter.createDate(2024, 12, 24).toJSON(),
       );
       expect(element.value).to.be.equal('Tu, 24.12.2024');
+      expect(element.textContent).to.be.equal('Tu, 24.12.2024');
     });
 
     it('renders and emit event on value change', async () => {
@@ -97,6 +123,7 @@ describe('sbb-date-input', () => {
 
     it('value should be formatted value', () => {
       expect(element.value).to.be.equal('Tu, 24.12.2024');
+      expect(element.textContent).to.be.equal('Tu, 24.12.2024');
     });
 
     it('valueAsDate should be correct date', () => {
@@ -108,6 +135,7 @@ describe('sbb-date-input', () => {
     it('should update value when changing valueAsDate to null', () => {
       element.valueAsDate = null;
       expect(element.value).to.be.equal('');
+      expect(element.textContent).to.be.equal('');
     });
 
     it('should update value and valueAsDate when changing value to empty string', () => {

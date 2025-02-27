@@ -84,12 +84,13 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
      * The text value of the input element.
      */
     public override set value(value: string) {
-      const oldValue = this.textContent;
-      this.textContent = this._cleanText(value);
-      this.requestUpdate('value', oldValue);
+      super.value = this._cleanText(value);
+      if (this.hasUpdated) {
+        this.innerHTML = super.value;
+      }
     }
     public override get value(): string {
-      return this.textContent ?? '';
+      return super.value ?? '';
     }
 
     /**
@@ -144,10 +145,9 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       this.addEventListener?.(
         'input',
         () => {
+          super.value = this._cleanText(this.textContent ?? '');
           this._interacted = true;
           this._shouldEmitChange = true;
-          this.updateFormValue();
-          this.validate();
         },
         { capture: true },
       );
@@ -175,7 +175,6 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
             }
 
             const selectedRange = window.getSelection()?.getRangeAt(0);
-
             if (!selectedRange) {
               return;
             }
@@ -253,12 +252,34 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       super.connectedCallback();
       this.internals.ariaMultiLine = 'false';
       this._updateContenteditable();
-      if (!this.hasUpdated) {
-        this.value = this.getAttribute('value') ?? '';
-      }
 
       // We want to replace any content by just the text content.
       this.innerHTML = this.value;
+    }
+
+    public override focus(options?: FocusOptions): void {
+      super.focus(options);
+      // By default, when calling focus on an input element, the cursor is placed
+      // at the end of the input text. However, with contenteditable, the cursor
+      // is placed at the beginning, so we move it to the end, if that is the case.
+      if (!isServer && !this.disabled && !this.readOnly && this.value) {
+        const selection = window.getSelection();
+        if (!selection) {
+          return;
+        }
+        let range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+        if (range && range.startOffset !== 0) {
+          return;
+        }
+
+        range = document.createRange();
+        range.selectNode(this);
+        range.setStart(this, 0);
+        range.setEnd(this, 1);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
     }
 
     public override attributeChangedCallback(

@@ -170,7 +170,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   }
 
   private _handleWrapperClick(event: Event): void {
-    if (this._isButtonOrPopup(event)) {
+    if (this._isElementFocusExcluded(event)) {
       return;
     }
 
@@ -185,12 +185,13 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     }
   }
 
-  private _isButtonOrPopup(event: Event): boolean {
+  private _isElementFocusExcluded(event: Event): boolean {
     return event
       .composedPath()
       .some(
         (el) =>
-          (el instanceof window.HTMLElement && el.getAttribute('tabindex') === '0') ||
+          (el instanceof window.HTMLElement &&
+            (el.getAttribute('tabindex') === '0' || el.hasAttribute('contenteditable'))) ||
           this._excludedFocusElements.includes((el as HTMLElement).localName),
       );
   }
