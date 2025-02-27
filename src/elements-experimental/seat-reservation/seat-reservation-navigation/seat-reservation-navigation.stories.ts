@@ -6,9 +6,8 @@ import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import './seat-reservation-navigation.js';
-
 import readme from './readme.md?raw';
+import { SbbSeatReservationNavigationElement } from './seat-reservation-navigation.js';
 
 const alignVerticalType: InputType = {
   control: 'boolean',
@@ -40,7 +39,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [],
+      handles: [SbbSeatReservationNavigationElement.events.selectCoach],
     },
     docs: {
       extractComponentDescription: () => readme,
