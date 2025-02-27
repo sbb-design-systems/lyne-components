@@ -72,9 +72,8 @@ export type PlaceSelection = {
 };
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Output the graphic of a seat or a bicycle place as a control element.
  *
- * @slot - Use the unnamed slot to add elements.
  * @event {CustomEvent<PlaceSelection>} selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
  */
 export
@@ -92,12 +91,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   /** Type Prop */
   @forceType()
-  @property({ attribute: 'type' })
+  @property({ attribute: 'type', type: String })
   public accessor type: ControlPlaceType = controlPlaceTypeOptions[0];
 
   /** State Prop */
   @forceType()
-  @property({ attribute: 'state' })
+  @property({ attribute: 'state', type: String })
   public accessor state: PlaceState = controlPlaceStateOptions[0];
 
   /** Rotation Prop */

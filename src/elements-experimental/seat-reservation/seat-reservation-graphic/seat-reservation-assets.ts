@@ -300,7 +300,7 @@ const serviceIconTable = html`
 `;
 
 export const assetsTemplate: TemplateResult = html`
-  <h1>Assets</h1>
+  <h1>List of all currently available assets (some may be temporary).</h1>
   <h2>Chassis</h2>
   ${chassisTable}
   <h3>Row-Empty</h3>

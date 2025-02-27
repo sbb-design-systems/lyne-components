@@ -4,16 +4,4 @@ The component `sbb-seat-reservation-area` represents a gray or white background 
 <seat-reservation-area></seat-reservation-area>
 ```
 
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
 <!-- Auto Generated Below -->
