@@ -18,6 +18,12 @@ const name: InputType = {
   options: Object.keys(mapCodeToSvg),
 };
 
+const stretch: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const width: InputType = {
   control: {
     type: 'number',
@@ -38,6 +44,7 @@ const rotation: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   name: name,
+  stretch,
   width,
   height,
   rotation,
@@ -45,6 +52,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   name: 'BISTRO',
+  stretch: false,
   width: 4,
   height: 4,
   rotation: 0,
