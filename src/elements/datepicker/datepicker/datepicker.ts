@@ -137,16 +137,13 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       this.inputElement.valueAsDate = this._dateAdapter.getValidDateOrNull(
         this._dateAdapter.deserialize(value),
       );
-      /* Emit blur event when value is changed programmatically to notify
-      frameworks that rely on that event to update form status. */
-      this.inputElement!.dispatchEvent(new Event('blur', { composed: true }));
       return;
     }
 
     this._valueAsDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     if (this._tryApplyFormatToInput()) {
-      /* Emit blur event when value is changed programmatically to notify
-      frameworks that rely on that event to update form status. */
+      // Emit blur event when value is changed programmatically to notify
+      // frameworks that rely on that event to update form status.
       this.inputElement!.dispatchEvent(new Event('blur', { composed: true }));
     }
   }

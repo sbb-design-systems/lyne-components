@@ -68,7 +68,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       this.value = '';
     } else if (
       !this._dateAdapter.isDateInstance(this._valueAsDate) ||
-      !this._dateAdapter.compareDate(this._valueAsDate!, value!)
+      this._dateAdapter.compareDate(this._valueAsDate!, value!) !== 0
     ) {
       // Align with the native date input, as it copies the value of
       // the given date and does not retain the original instance.

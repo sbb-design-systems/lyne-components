@@ -151,6 +151,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         },
         { capture: true },
       );
+      this.addEventListener?.('change', () => (this._shouldEmitChange = false), { capture: true });
       this.addEventListener?.(
         'keydown',
         (event) => {
