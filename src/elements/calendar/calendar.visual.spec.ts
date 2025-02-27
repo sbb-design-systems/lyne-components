@@ -2,7 +2,6 @@ import { html, nothing } from 'lit';
 
 import { defaultDateAdapter } from '../core/datetime.js';
 import {
-  describeEach,
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
@@ -13,10 +12,14 @@ import './calendar.js';
 describe('sbb-calendar', () => {
   let root: HTMLElement;
 
-  const cases = {
-    min: [undefined, new Date(2023, 0, 9)],
-    max: [undefined, new Date(2023, 0, 29)],
-  };
+  const minArray = [
+    { label: 'unset', value: undefined },
+    { label: '09.01.2023', value: new Date(2023, 0, 9) },
+  ];
+  const maxArray = [
+    { label: 'unset', value: undefined },
+    { label: '29.01.2023', value: new Date(2023, 0, 9) },
+  ];
 
   const filterFunctions = [
     {
@@ -29,26 +32,28 @@ describe('sbb-calendar', () => {
   for (const orientation of ['horizontal', 'vertical']) {
     describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
       describe(`orientation=${orientation}`, () => {
-        describeEach(cases, ({ min, max }) => {
-          beforeEach(async function () {
-            root = await visualRegressionFixture(html`
-              <sbb-calendar
-                orientation=${orientation}
-                .selected=${new Date(2023, 0, 20)}
-                .now=${new Date(2023, 0, 12, 0, 0, 0)}
-                .min=${min ? defaultDateAdapter.toIso8601(min) : nothing}
-                .max=${max ? defaultDateAdapter.toIso8601(max) : nothing}
-              ></sbb-calendar>
-            `);
-          });
+        for (const min of minArray) {
+          for (const max of maxArray) {
+            beforeEach(async function () {
+              root = await visualRegressionFixture(html`
+                <sbb-calendar
+                  orientation=${orientation}
+                  .selected=${new Date(2023, 0, 20)}
+                  .now=${new Date(2023, 0, 12, 0, 0, 0)}
+                  .min=${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}
+                  .max=${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}
+                ></sbb-calendar>
+              `);
+            });
 
-          it(
-            ``,
-            visualDiffDefault.with((setup) => {
-              setup.withSnapshotElement(root);
-            }),
-          );
-        });
+            it(
+              `min=${min.label} max=${max.label}`,
+              visualDiffDefault.with((setup) => {
+                setup.withSnapshotElement(root);
+              }),
+            );
+          }
+        }
       });
 
       for (const wide of [false, true]) {
