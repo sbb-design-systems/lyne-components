@@ -129,7 +129,6 @@ describe('sbb-sidebar', () => {
         );
 
         setup.withPostSetupAction(async () => {
-          console.error(setup.snapshotElement.offsetWidth);
           const sidebarElement = setup.snapshotElement.querySelector('sbb-sidebar')!;
           if (setup.snapshotElement.offsetWidth === 320) {
             // Some resize triggers can kick in too late. We have to wait until the small space was detected.
