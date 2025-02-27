@@ -1,8 +1,9 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
+import type { PlaceSelection } from '../seat-reservation-place-control.js';
 import type {
   CoachItem,
   Place,
@@ -54,11 +55,13 @@ class SbbSeatReservationElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
+  @state() private accessor _placeCollection: Record<string, Place[]> = {};
   private _maxHeight = 128;
   private _gridSize = 8;
   private _sizeFactor = this._maxHeight / this._gridSize;
 
   protected override render(): TemplateResult {
+    console.log('RENDER SEATS');
     const classAlignVertical = this.alignVertical
       ? 'sbb-seat-reservation__wrapper sbb-seat-reservation__wrapper--vertical'
       : 'sbb-seat-reservation__wrapper';
@@ -96,6 +99,11 @@ class SbbSeatReservationElement extends LitElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
+
+    if (!this._placeCollection[coachItem.id] && coachItem.places) {
+      this._placeCollection[coachItem.id] = coachItem.places;
+    }
+
     return html`
       <div style="width:${calculatedCoachDimension.w}px; height:${calculatedCoachDimension.h}px;">
         ${this._getRenderedCoachBorders(coachItem, index)}
@@ -103,7 +111,7 @@ class SbbSeatReservationElement extends LitElement {
         ${this._getRenderedInternalElements(coachItem.internals)}
         ${this._getRenderedSignElements(coachItem.signs)}
         ${this._getRenderedCompoartmentNumberElements(coachItem.compartmentNumbers)}
-        ${this._getRenderedPlaces(coachItem.places)}
+        ${this._getRenderedPlaces(coachItem.id)}
       </div>
     `;
   }
@@ -131,12 +139,8 @@ class SbbSeatReservationElement extends LitElement {
     `;
   }
 
-  private _getRenderedPlaces(places?: Place[]): TemplateResult[] | null {
-    if (!places) {
-      return null;
-    }
-
-    return places?.map((place: Place) => {
+  private _getRenderedPlaces(coachId: string): TemplateResult[] | null {
+    return this._placeCollection[coachId]?.map((place: Place) => {
       const calculatedInternalDimension = this._getCalculatedDimension(place.dimension);
       const calculatedInternalPosition = this._getCalculatedPosition(place.position);
       const textRotation = place.rotation ? place.rotation * -1 : 0;
@@ -147,6 +151,8 @@ class SbbSeatReservationElement extends LitElement {
           style="position:absolute; top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px;"
         >
           <sbb-seat-reservation-place-control
+            @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
+            id=${coachId}
             text=${place.number}
             type=${place.type}
             state=${place.state}
@@ -158,6 +164,11 @@ class SbbSeatReservationElement extends LitElement {
         </div>
       `;
     });
+  }
+
+  private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
+    const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
+    console.log(selectedPlace);
   }
 
   private _getRenderedInternalElements(internals?: InternalElement[]): TemplateResult[] | null {
