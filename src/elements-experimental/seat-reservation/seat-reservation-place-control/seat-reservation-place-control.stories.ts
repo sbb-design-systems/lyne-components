@@ -102,6 +102,19 @@ export const placeSeatFree: StoryObj = {
   args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'FREE' },
 };
 
+export const placeSeatFreeRotation90TextRotationMinus90: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    text: '123',
+    type: 'SEAT',
+    state: 'FREE',
+    rotation: 90,
+    'text-rotation': -90,
+  },
+};
+
 export const placeSeatSelected: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
