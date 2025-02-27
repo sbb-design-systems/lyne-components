@@ -9,6 +9,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { EventEmitter } from '../../core/eventing.js';
+import type { PlaceState } from '../seat-reservation.js';
+
 import '../seat-reservation-graphic.js';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
@@ -17,7 +20,6 @@ export const controlPlaceTypeOptions = <const>['SEAT', 'BIKE'];
 export type ControlPlaceType = (typeof controlPlaceTypeOptions)[number];
 
 export const controlPlaceStateOptions = <const>['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'];
-export type ControlPlaceState = (typeof controlPlaceStateOptions)[number];
 
 export const controlIconNames = <const>[
   'PLACE_SEAT_FREE',
@@ -31,8 +33,7 @@ export const controlIconNames = <const>[
 ];
 export type ControlIconNames = (typeof controlIconNames)[number];
 
-const getSvgName = (type: ControlPlaceType, state: ControlPlaceState): ControlIconNames | '' => {
-  console.log(type, state);
+const getSvgName = (type: ControlPlaceType, state: PlaceState): ControlIconNames | '' => {
   switch (type) {
     case 'SEAT':
       switch (state) {
@@ -65,15 +66,29 @@ const getSvgName = (type: ControlPlaceType, state: ControlPlaceState): ControlIc
   }
 };
 
+export type PlaceSelection = {
+  id: string;
+  state: PlaceState;
+};
+
 /**
  * Describe the purpose of the component with a single short sentence.
  *
  * @slot - Use the unnamed slot to add elements.
+ * @event {CustomEvent<PlaceSelection>} selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
  */
 export
 @customElement('sbb-seat-reservation-place-control')
 class SbbSeatReservationPlaceControlElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+  public static readonly events = {
+    selectPlace: 'selectPlace',
+  } as const;
+
+  /** Id Prop */
+  @forceType()
+  @property({ attribute: 'id' })
+  public accessor coachId: string = null!;
 
   /** Type Prop */
   @forceType()
@@ -83,7 +98,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   /** State Prop */
   @forceType()
   @property({ attribute: 'state' })
-  public accessor state: ControlPlaceState = controlPlaceStateOptions[0];
+  public accessor state: PlaceState = controlPlaceStateOptions[0];
 
   /** Rotation Prop */
   @forceType()
@@ -115,6 +130,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'text-rotation' })
   public accessor textRotation: number = 0;
 
+  /** Emits when an place was selected by user. */
+  protected placeSelected: EventEmitter = new EventEmitter(
+    this,
+    SbbSeatReservationPlaceControlElement.events.selectPlace,
+  );
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('width') || changedProperties.has('height')) {
@@ -144,7 +165,11 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
       <div
         class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type}  sbb-seat-reservation-place-control--state-${state}"
       >
-        <button class="sbb-seat-reservation-place-control__button">
+        <button
+          class="sbb-seat-reservation-place-control__button"
+          @click=${() => this._selectPlace()}
+          aria-label=${this._getAriaPlaceLabel()}
+        >
           <sbb-seat-reservation-graphic
             name="${name}"
             width="${width}"
@@ -157,6 +182,33 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
         </button>
       </div>
     `;
+  }
+
+  private _getAriaPlaceLabel(): string {
+    if (this.state === 'FREE' || this.state === 'SELECTED') {
+      if (this.type === 'SEAT') {
+        return this.state === 'SELECTED'
+          ? `Seat number ${this.text} is selected`
+          : `Seat number ${this.text} is free`;
+      }
+      return this.state === 'SELECTED'
+        ? `Bike place number ${this.text} is selected`
+        : `Bike place number ${this.text} is free`;
+    } else {
+      return this.type === 'SEAT' ? `Seat not available` : `Bike place not available`;
+    }
+  }
+
+  /** If the place selectable, we emit the placeSelection object which contains infos to the place state */
+  private _selectPlace(): void {
+    const selectable = this.state === 'FREE' || this.state === 'SELECTED';
+
+    if (selectable) {
+      this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
+
+      const placeSelection: PlaceSelection = { id: this.id, state: this.state };
+      this.placeSelected.emit(placeSelection);
+    }
   }
 }
 
