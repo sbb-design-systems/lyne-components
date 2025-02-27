@@ -2,6 +2,9 @@
   --reservation-graphic-width: var(--graphic-width-from-host);
   --reservation-graphic-height: var(--graphic-height-from-host);
   --reservation-graphic-rotation: var(--graphic-rotation-from-host, 0);
+  --reservation-graphic-contents-rotation: calc(
+    var(--place-control-text-rotation-from-host, 0) - var(--reservation-graphic-rotation)
+  );
 
   display: block;
 }
@@ -23,7 +26,7 @@
 
     .fix-rotation-inverse {
       transform-origin: center;
-      transform: rotate(calc(var(--reservation-graphic-rotation) * -1deg));
+      transform: rotate(calc(var(--reservation-graphic-contents-rotation) * 1deg));
     }
   }
 }
