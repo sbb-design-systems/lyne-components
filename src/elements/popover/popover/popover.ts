@@ -9,8 +9,12 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbOpenCloseEscapableElement } from '../../core/base-elements.js';
-import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../../core/controllers.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import {
+  SbbLanguageController,
+  SbbMediaQueryPointerCoarse,
+  SbbOverlayController,
+} from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
@@ -52,7 +56,7 @@ const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).
 export
 @customElement('sbb-popover')
 @hostAttributes({ popover: 'manual' })
-class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) {
+class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -109,6 +113,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
   private _isPointerDownEventOnPopover?: boolean;
   private _popoverController!: AbortController;
   private _openStateController!: AbortController;
+  private _sbbOverlayController = new SbbOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
@@ -116,7 +121,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
   private _language = new SbbLanguageController(this);
 
   /** Opens the popover on trigger click. */
-  public override open(): void {
+  public open(): void {
     if ((this.state !== 'closed' && this.state !== 'closing') || !this._overlay) {
       return;
     }
@@ -124,8 +129,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
     if (!this.willOpen.emit()) {
       return;
     }
-
-    super.open();
 
     // Close the other popovers
     for (const popover of Array.from(popoversRef)) {
@@ -151,7 +154,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
   }
 
   /** Closes the popover. */
-  public override close(target?: HTMLElement): void {
+  public close(target?: HTMLElement): void {
     if (this.state !== 'opened' && this.state !== 'opening') {
       return;
     }
@@ -161,7 +164,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
       return;
     }
 
-    super.close();
     this.state = 'closing';
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
@@ -192,6 +194,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
       elementToFocus?.focus();
     }
 
+    this._sbbOverlayController.disconnect();
     this.didClose.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
     this._focusHandler.disconnect();
@@ -205,6 +208,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseEscapableElement) 
     this._focusHandler.trap(this, {
       postFilter: (el) => el !== this._overlay,
     });
+    this._sbbOverlayController.connect();
     this.didOpen.emit();
   }
 

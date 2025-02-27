@@ -6,8 +6,8 @@ import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { SbbOpenCloseEscapableElement } from '../core/base-elements.js';
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { SbbLanguageController, SbbOverlayController } from '../core/controllers.js';
 import {
   forceType,
   getOverride,
@@ -70,8 +70,8 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedMixin<typeof SbbOpenCloseEscapableElement, string | string[]>(
-            SbbOpenCloseEscapableElement,
+          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
+            SbbOpenCloseBaseElement,
           ),
         ),
       ),
@@ -149,6 +149,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _originElement!: HTMLElement;
   private _triggerElement!: HTMLElement;
   private _openPanelEventsController!: AbortController;
+  private _sbbOverlayController = new SbbOverlayController(this);
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
@@ -235,7 +236,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /** Opens the selection panel. */
-  public override open(): void {
+  public open(): void {
     if (
       this.state !== 'closed' ||
       !this._overlay ||
@@ -250,7 +251,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    super.open();
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
     this._setOverlayPosition();
@@ -263,7 +263,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   /** Closes the selection panel. */
-  public override close(): void {
+  public close(): void {
     if (this.state !== 'opened') {
       return;
     }
@@ -271,7 +271,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    super.close();
     this.state = 'closing';
     this._openPanelEventsController.abort();
 
@@ -585,7 +584,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
-
+    this._sbbOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -595,6 +594,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
+    this._sbbOverlayController.disconnect();
     this.didClose.emit();
   }
 

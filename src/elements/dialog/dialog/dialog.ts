@@ -69,7 +69,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   /** Opens the component. */
-  public override open(): void {
+  public open(): void {
     if (this.state !== 'closed') {
       return;
     }
@@ -87,7 +87,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       return;
     }
 
-    super.open();
     this.showPopover?.();
     this.state = 'opening';
 
@@ -129,6 +128,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (!overlayRefs.length) {
       this.scrollHandler.enableScroll();
     }
+    this.sbbOverlayController.disconnect();
     this.didClose.emit({
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
@@ -147,6 +147,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusHandler.trap(this);
+    this.sbbOverlayController.connect();
     this.didOpen.emit();
   }
 

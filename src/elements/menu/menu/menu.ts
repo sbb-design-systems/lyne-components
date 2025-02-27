@@ -10,11 +10,12 @@ import {
   SbbFocusHandler,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbOpenCloseEscapableElement } from '../../core/base-elements.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
+  SbbOverlayController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
@@ -68,8 +69,8 @@ export
 })
 class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
-  typeof SbbOpenCloseEscapableElement
->(SbbOpenCloseEscapableElement) {
+  typeof SbbOpenCloseBaseElement
+>(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
@@ -101,6 +102,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
+  private _sbbOverlayController = new SbbOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
@@ -123,7 +125,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * Opens the menu on trigger click.
    */
-  public override open(): void {
+  public open(): void {
     if (this.state === 'closing' || !this._menu) {
       return;
     }
@@ -131,7 +133,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       return;
     }
 
-    super.open();
     this.showPopover?.();
     this.state = 'opening';
     this._setMenuPosition();
@@ -152,7 +153,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * Closes the menu.
    */
-  public override close(): void {
+  public close(): void {
     if (this.state === 'opening') {
       return;
     }
@@ -161,7 +162,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       return;
     }
 
-    super.close();
     this.state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
 
@@ -182,6 +182,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._setMenuFocus();
     this._focusHandler.trap(this);
     this._attachWindowEvents();
+    this._sbbOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -199,6 +200,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         this._triggerElement.localName === 'sbb-header-button' ||
         this._triggerElement.localName === 'sbb-header-link',
     });
+    this._sbbOverlayController.disconnect();
     this.didClose.emit();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();

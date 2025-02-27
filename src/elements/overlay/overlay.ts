@@ -77,7 +77,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   private _overlayContentElement: HTMLElement | null = null;
 
   /** Opens the component. */
-  public override open(): void {
+  public open(): void {
     if (this.state !== 'closed') {
       return;
     }
@@ -91,7 +91,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
       return;
     }
 
-    super.open();
     this.showPopover?.();
     this.state = 'opening';
 
@@ -120,6 +119,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
     this.focusHandler.trap(this);
+    this.sbbOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -138,6 +138,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     if (!overlayRefs.length) {
       this.scrollHandler.enableScroll();
     }
+    this.sbbOverlayController.disconnect();
     this.didClose.emit({
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
