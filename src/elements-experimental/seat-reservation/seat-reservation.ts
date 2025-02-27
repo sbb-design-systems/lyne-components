@@ -1,6 +1,6 @@
 export * from './seat-reservation/seat-reservation.js';
 
-/** SeatReservationLayout defines all coache information inside a vehicle */
+/** SeatReservationLayout defines all coach information inside a vehicle */
 export type SeatReservationLayout = {
   coachItems: CoachItem[];
 };
@@ -75,7 +75,7 @@ export const elementMountingOptions = <const>[
 ];
 export type ElementMounting = (typeof elementMountingOptions)[number];
 export type ElementDirection = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
-export type PlaceType = 'SEAT' | 'BIKE';
+export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH ' | 'TRAIN_HEAD';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
