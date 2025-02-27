@@ -341,10 +341,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   }
 
   private _detectStickyState(entry: IntersectionObserverEntry): void {
-    const isSticky = !entry.isIntersecting && entry.boundingClientRect.top > 0;
-
-    // Toggling data-sticking has to be after data-slide-vertically (prevents background color transition)
-    this.toggleAttribute('data-sticking', isSticky);
+    this.toggleAttribute('data-sticking', !entry.isIntersecting);
   }
 
   private _isModeOver(): boolean {
