@@ -8,7 +8,7 @@
 .sbb-seat-reservation-navigation__list-coaches {
   display: flex;
   justify-content: center;
-  gap: 4px;
+  gap: 8px;
   padding: 0;
   margin: 0;
   height: 40px;
@@ -16,7 +16,26 @@
 }
 
 .sbb-seat-reservation-navigation__item-coache {
+  position: relative;
+  padding: 12px 48px;
+  border: 1px solid #888;
   border-radius: 4px;
   background-color: #fff;
-  border: 1px solid #888;
+
+  &--selected {
+    color: #fff;
+    background-color: #999;
+  }
+}
+
+.sbb-seat-reservation-navigation__item-coache button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
 }
