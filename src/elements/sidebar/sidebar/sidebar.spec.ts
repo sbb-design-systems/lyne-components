@@ -101,4 +101,57 @@ describe('sbb-sidebar', () => {
     element.setAttribute('color', '');
     expect(element.color, 'fallback null to default').to.be.equal('white');
   });
+
+  it('should coerce mode property', async () => {
+    expect(element.mode, 'default mode').to.be.equal('side');
+
+    element.mode = 'over';
+    await waitForLitRender(element);
+
+    expect(element.mode, 'over mode').to.be.equal('over');
+    expect(element).to.have.attribute('mode', 'over');
+
+    element.mode = 'inexisting' as 'side';
+    await waitForLitRender(element);
+
+    expect(element.mode, 'fallback to default').to.be.equal('side');
+    expect(element).to.have.attribute('mode', 'side');
+
+    element.mode = null as unknown as 'side';
+    await waitForLitRender(element);
+
+    expect(element.mode, 'fallback null to default').to.be.equal('side');
+    expect(element).to.have.attribute('mode', 'side');
+  });
+
+  it('should coerce mode attribute', () => {
+    expect(element.mode, 'default mode').to.be.equal('side');
+
+    element.setAttribute('mode', 'over');
+    expect(element.mode, 'over mode').to.be.equal('over');
+
+    element.setAttribute('mode', 'inexisting');
+    expect(element.mode, 'fallback to default').to.be.equal('side');
+
+    element.setAttribute('mode', '');
+    expect(element.mode, 'fallback null to default').to.be.equal('side');
+  });
+
+  it('should update sidebar width when changing position', () => {
+    expect(
+      getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+    ).to.be.equal('320px');
+    expect(
+      getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
+    ).to.be.equal('');
+
+    element.position = 'end';
+
+    expect(
+      getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+    ).to.be.equal('');
+    expect(
+      getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
+    ).to.be.equal('320px');
+  });
 });
