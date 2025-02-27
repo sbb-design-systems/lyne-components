@@ -8,9 +8,7 @@ import { mapCodeToSvg } from '../common.js';
 import style from './seat-reservation-graphic.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
- *
- * @slot - Use the unnamed slot to add elements.
+ * Output one of the SVG graphics based on its code.
  */
 export
 @customElement('sbb-seat-reservation-graphic')
@@ -71,14 +69,6 @@ class SbbSeatReservationGraphicElement extends LitElement {
     if (stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
       svgElm.setAttribute('preserveAspectRatio', 'none');
     }
-    // if (svgElm?.nodeName.toLowerCase() === 'svg') {
-    //   if (this.width) {
-    //     svgElm.setAttribute('width', this.width.toString());
-    //   }
-    //   if (this.height) {
-    //     svgElm.setAttribute('height', this.height.toString());
-    //   }
-    // }
     return svgElm;
   }
 }
