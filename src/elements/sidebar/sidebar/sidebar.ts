@@ -1,6 +1,6 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
@@ -153,7 +153,11 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
 
     this.startAnimation();
-    this._lastFocusedElement = document.activeElement as HTMLElement;
+
+    if (!isServer) {
+      this._lastFocusedElement = document.activeElement as HTMLElement;
+    }
+
     this.opened = true;
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
@@ -230,7 +234,11 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
     this.unTrap();
 
-    if (this._lastFocusedElement && (this.contains(document.activeElement) || this._isModeOver())) {
+    if (
+      this._lastFocusedElement &&
+      !isServer &&
+      (this.contains(document.activeElement) || this._isModeOver())
+    ) {
       setModalityOnNextFocus(this._lastFocusedElement);
       this._lastFocusedElement?.focus();
     }
