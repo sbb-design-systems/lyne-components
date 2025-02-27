@@ -113,7 +113,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     return html`
       <div
-        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type}  sbb-seat-reservation-place-control--state-${state}"
+        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
       >
         <button
           class="sbb-seat-reservation-place-control__button"
