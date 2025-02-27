@@ -77,8 +77,8 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   type: controlPlaceTypeOptions[0],
   state: controlPlaceStateOptions[0],
-  width: 3,
-  height: 3,
+  width: 2,
+  height: 2,
   rotation: 0,
   'graphic-rotation': 0,
   text: '',
@@ -96,52 +96,52 @@ export const DEFAULT: StoryObj = {
   args: defaultArgs,
 };
 
-export const PLACE_SEAT_FREE: StoryObj = {
+export const placeSeatFree: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'FREE' },
 };
 
-export const PLACE_SEAT_SELECTED: StoryObj = {
+export const placeSeatSelected: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'SELECTED' },
 };
 
-export const PLACE_SEAT_RESTRICTED: StoryObj = {
+export const placeSeatRestricted: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'RESTRICTED' },
 };
 
-export const PLACE_SEAT_ALLOCATED: StoryObj = {
+export const placeSeatAllocated: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, text: '123', type: 'SEAT', state: 'ALLOCATED' },
 };
 
-export const PLACE_BIKE_AVAILABLE: StoryObj = {
+export const placeBicycleAvailable: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'FREE' },
+  args: { ...defaultArgs, text: '123', type: 'BICYCLE', state: 'FREE' },
 };
 
-export const PLACE_BIKE_SELECTED: StoryObj = {
+export const placeBicycleSelected: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'SELECTED' },
+  args: { ...defaultArgs, text: '123', type: 'BICYCLE', state: 'SELECTED' },
 };
 
-export const PLACE_BIKE_RESTRICTED: StoryObj = {
+export const placeBicycleRestricted: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'RESTRICTED' },
+  args: { ...defaultArgs, text: '123', type: 'BICYCLE', state: 'RESTRICTED' },
 };
 
-export const PLACE_BIKE_ALLOCATED: StoryObj = {
+export const placeBicycleAllocated: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, text: '123', type: 'BIKE', state: 'ALLOCATED' },
+  args: { ...defaultArgs, text: '123', type: 'BICYCLE', state: 'ALLOCATED' },
 };
 
 const meta: Meta = {
