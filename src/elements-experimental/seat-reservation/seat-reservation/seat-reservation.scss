@@ -6,6 +6,8 @@
 :host {
   --sbb-seat-reservation-some-color-var: var(--color-black);
   --sbb-seat-reservation-wrapper-width: 600px;
+  --sbb-seat-reservation-compartment-number-background-first: #a57e0c;
+  --sbb-seat-reservation-compartment-number-background-second: #126a12;
 
   display: block;
 }
@@ -46,6 +48,21 @@
   }
 }
 
-.sbb-seat-reservation__item-coach .seat-reservation__compartment-number {
-  text-align: center;
+.sbb-seat-reservation__graphical-element {
+  position: absolute;
+}
+
+.sbb-seat-reservation__compartment-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+
+  &--first-class {
+    background-color: var(--sbb-seat-reservation-compartment-number-background-first);
+  }
+
+  &--second-class {
+    background-color: var(--sbb-seat-reservation-compartment-number-background-second);
+  }
 }
