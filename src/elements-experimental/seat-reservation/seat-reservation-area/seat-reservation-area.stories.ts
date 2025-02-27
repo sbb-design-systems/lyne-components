@@ -68,6 +68,48 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const width2Height2: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, width: 2, height: 2 },
+};
+
+export const width10Height4: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, width: 10, height: 4 },
+};
+
+export const width4Height4Rotation45Deg: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, width: 4, height: 4, rotation: 45 },
+};
+
+export const backgroundLight: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, background: 'light' },
+};
+
+export const mountingUPPER_BORDER: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, mounting: 'UPPER_BORDER' },
+};
+
+export const mountingLOWER_BORDER: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, mounting: 'LOWER_BORDER' },
+};
+
+export const mountingUPPER_TO_LOWER_BORDER: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, mounting: 'UPPER_TO_LOWER_BORDER' },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {

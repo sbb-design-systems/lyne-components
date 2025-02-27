@@ -5,9 +5,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { mapCodeToSvg } from '../helper.js';
+import { mapCodeToSvg } from '../common.js';
 
 import readme from './readme.md?raw';
+import { assetsTemplate } from './seat-reservation-assets.js';
 
 import './seat-reservation-graphic.js';
 
@@ -65,6 +66,10 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Assets: StoryObj = {
+  render: () => assetsTemplate,
 };
 
 const meta: Meta = {

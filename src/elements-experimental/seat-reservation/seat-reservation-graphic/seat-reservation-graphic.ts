@@ -3,7 +3,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { mapCodeToSvg } from '../helper.js';
+import { mapCodeToSvg } from '../common.js';
 
 import style from './seat-reservation-graphic.scss?lit&inline';
 
@@ -42,16 +42,6 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'height', type: Number })
   public accessor height: number = 2;
 
-  private _getSvgElement(code: string, stretch: boolean): Element | null {
-    const parser = new DOMParser();
-    const svgString = mapCodeToSvg[code] || '<svg></svg>';
-    const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
-    if (stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
-      svgElm.setAttribute('preserveAspectRatio', 'none');
-    }
-    return svgElm;
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('width')) {
@@ -72,6 +62,24 @@ class SbbSeatReservationGraphicElement extends LitElement {
     return html`
       <span class="sbb-seat-reservation-graphic">${this._getSvgElement(name, stretch)}</span>
     `;
+  }
+
+  private _getSvgElement(code: string, stretch: boolean): Element | null {
+    const parser = new DOMParser();
+    const svgString = mapCodeToSvg[code] || '<svg></svg>';
+    const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
+    if (stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
+      svgElm.setAttribute('preserveAspectRatio', 'none');
+    }
+    // if (svgElm?.nodeName.toLowerCase() === 'svg') {
+    //   if (this.width) {
+    //     svgElm.setAttribute('width', this.width.toString());
+    //   }
+    //   if (this.height) {
+    //     svgElm.setAttribute('height', this.height.toString());
+    //   }
+    // }
+    return svgElm;
   }
 }
 

@@ -10,9 +10,6 @@ import chassisRowMiddle from './chassis-row-middle.svg?raw';
 import chassisRowOuter from './chassis-row-outer.svg?raw';
 import chassisSeparator from './chassis-separator.svg?raw';
 import chassisTmpRowEmpty from './chassis-tmp-row-empty.svg?raw';
-import helperTmpNoteDefault from './helper-tmp-note-default.svg?raw';
-import helperTmpNotePostIt from './helper-tmp-note-post-it.svg?raw';
-import helperTmpPlaceholder from './helper-tmp-placeholder.svg?raw';
 import interiorPlaceBikeDefault from './interior-place-bike-default.svg?raw';
 import interiorPlaceBikeNotBookable from './interior-place-bike-not-bookable.svg?raw';
 import interiorPlaceBikeSelected from './interior-place-bike-selected.svg?raw';
@@ -55,9 +52,6 @@ export {
   chassisRowMiddle,
   chassisSeparator,
   chassisTmpRowEmpty,
-  helperTmpNoteDefault,
-  helperTmpNotePostIt,
-  helperTmpPlaceholder,
   interiorPlaceBikeDefault,
   interiorPlaceBikeNotBookable,
   interiorPlaceBikeSelected,

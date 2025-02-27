@@ -16,7 +16,7 @@ import '../seat-reservation-graphic.js';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
 
-export const controlPlaceTypeOptions = <const>['SEAT', 'BIKE'];
+export const controlPlaceTypeOptions = <const>['SEAT', 'BICYCLE'];
 export type ControlPlaceType = (typeof controlPlaceTypeOptions)[number];
 
 export const controlPlaceStateOptions = <const>['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'];
@@ -26,10 +26,10 @@ export const controlIconNames = <const>[
   'PLACE_SEAT_SELECTED',
   'PLACE_SEAT_RESTRICTED',
   'PLACE_SEAT_ALLOCATED',
-  'PLACE_BIKE_FREE',
-  'PLACE_BIKE_SELECTED',
-  'PLACE_BIKE_RESTRICTED',
-  'PLACE_BIKE_ALLOCATED',
+  'PLACE_BICYCLE_FREE',
+  'PLACE_BICYCLE_SELECTED',
+  'PLACE_BICYCLE_RESTRICTED',
+  'PLACE_BICYCLE_ALLOCATED',
 ];
 export type ControlIconNames = (typeof controlIconNames)[number];
 
@@ -48,16 +48,16 @@ const getSvgName = (type: ControlPlaceType, state: PlaceState): ControlIconNames
         default:
           return '';
       }
-    case 'BIKE':
+    case 'BICYCLE':
       switch (state) {
         case 'FREE':
-          return 'PLACE_BIKE_FREE';
+          return 'PLACE_BICYCLE_FREE';
         case 'SELECTED':
-          return 'PLACE_BIKE_SELECTED';
+          return 'PLACE_BICYCLE_SELECTED';
         case 'RESTRICTED':
-          return 'PLACE_BIKE_RESTRICTED';
+          return 'PLACE_BICYCLE_RESTRICTED';
         case 'ALLOCATED':
-          return 'PLACE_BIKE_ALLOCATED';
+          return 'PLACE_BICYCLE_ALLOCATED';
         default:
           return '';
       }
@@ -87,42 +87,42 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   /** Id Prop */
   @forceType()
-  @property({ attribute: 'id' })
+  @property({ attribute: 'id', type: String })
   public accessor coachId: string = null!;
 
   /** Type Prop */
   @forceType()
-  @property({ attribute: 'type' })
+  @property({ attribute: 'type', type: controlPlaceTypeOptions })
   public accessor type: ControlPlaceType = controlPlaceTypeOptions[0];
 
   /** State Prop */
   @forceType()
-  @property({ attribute: 'state' })
+  @property({ attribute: 'state', type: controlPlaceStateOptions })
   public accessor state: PlaceState = controlPlaceStateOptions[0];
 
   /** Rotation Prop */
   @forceType()
-  @property({ attribute: 'rotation' })
+  @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
   /** Graphic Rotation Prop */
   @forceType()
-  @property({ attribute: 'graphic-rotation' })
+  @property({ attribute: 'graphic-rotation', type: Number })
   public accessor graphicRotation: number = 0;
 
   /** Width Prop */
   @forceType()
-  @property({ attribute: 'width' })
+  @property({ attribute: 'width', type: Number })
   public accessor width: number = 3;
 
   /** Height Prop */
   @forceType()
-  @property({ attribute: 'height' })
+  @property({ attribute: 'height', type: Number })
   public accessor height: number = 3;
 
   /** Text Prop */
   @forceType()
-  @property({ attribute: 'text' })
+  @property({ attribute: 'text', type: String })
   public accessor text: string = '';
 
   /** TextRotation Prop */

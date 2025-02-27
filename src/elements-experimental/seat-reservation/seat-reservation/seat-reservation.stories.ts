@@ -8,7 +8,6 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { MOCK_SEAT_RESERVATION_LAYOUT_0 } from '../seat-reservation-sample-data.js';
 
 import readme from './readme.md?raw';
-import { assetsTemplate } from './seat-reservation-assets.js';
 
 import './seat-reservation.js';
 
@@ -60,10 +59,6 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: defaultArgs,
-};
-
-export const Assets: StoryObj = {
-  render: () => assetsTemplate,
 };
 
 const meta: Meta = {
