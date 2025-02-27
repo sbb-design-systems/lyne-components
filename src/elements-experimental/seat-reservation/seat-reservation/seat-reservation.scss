@@ -16,31 +16,36 @@
 
 .sbb-seat-reservation__wrapper {
   display: flex;
+  gap: 48px;
   flex-direction: column;
-  background-color: #efefef;
 
   &.sbb-seat-reservation__wrapper--vertical {
     position: relative;
-    left: 100px;
+    left: 330px;
     transform: rotate(90deg);
     transform-origin: top left;
   }
 
+  &.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
+    width: 100vh;
+  }
+
   .sbb-seat-reservation__list-coaches {
+    overflow: scroll hidden;
     display: flex;
     gap: 4px;
-    padding: 8px;
+    padding: 48px 0;
     margin: 0;
     list-style: none;
-    overflow-x: scroll;
 
     .sbb-seat-reservation__item-coach {
-      background-color: #fff;
-      width: var(--sbb-seat-reservation-wrapper-width);
-      min-width: var(--sbb-seat-reservation-wrapper-width);
-      height: 64px;
-      box-shadow: 0 0 4px 0 #ccc;
-      border-radius: 4px;
+      padding: 0;
+      margin: 0;
+      position: relative;
     }
   }
+}
+
+.sbb-seat-reservation__item-coach .seat-reservation__compartment-number {
+  text-align: center;
 }
