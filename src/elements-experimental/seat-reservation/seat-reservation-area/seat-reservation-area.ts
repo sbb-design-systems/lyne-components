@@ -1,4 +1,4 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';

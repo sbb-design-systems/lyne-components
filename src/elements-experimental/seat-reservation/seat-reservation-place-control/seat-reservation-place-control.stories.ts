@@ -7,24 +7,20 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import {
-  controlPlaceTypeOptions,
-  controlPlaceStateOptions,
-  SbbSeatReservationPlaceControlElement,
-} from './seat-reservation-place-control.js';
+import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.js';
 
 const type: InputType = {
   control: {
     type: 'select',
   },
-  options: controlPlaceTypeOptions,
+  options: ['SEAT', 'BICYCLE'],
 };
 
 const state: InputType = {
   control: {
     type: 'select',
   },
-  options: controlPlaceStateOptions,
+  options: ['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'],
 };
 
 const width: InputType = {
@@ -75,8 +71,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  type: controlPlaceTypeOptions[0],
-  state: controlPlaceStateOptions[0],
+  type: 'SEAT',
+  state: 'FREE',
   width: 2,
   height: 2,
   rotation: 0,

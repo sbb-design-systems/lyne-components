@@ -1,4 +1,4 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -69,7 +69,7 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const coachItems = this.seatReservationLayout.coachItems;
+    const coachItems = this.seatReservationLayout?.coachItems;
     const classAlignVertical = this.alignVertical
       ? 'sbb-seat-reservation__wrapper sbb-seat-reservation__wrapper--vertical'
       : 'sbb-seat-reservation__wrapper';
@@ -112,7 +112,10 @@ class SbbSeatReservationElement extends LitElement {
    * @param coaches
    * @returns
    */
-  private _renderCoaches(coaches: CoachItem[]): TemplateResult[] {
+  private _renderCoaches(coaches?: CoachItem[]): TemplateResult[] | null {
+    if (!coaches) {
+      return null;
+    }
     return coaches.map((coachItem: CoachItem, index: number) => {
       return html`
         <li class="sbb-seat-reservation__item-coach">

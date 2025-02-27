@@ -9,10 +9,6 @@ The `sbb-seat-reservation` is a component . . .
 <sbb-seat-reservation></sbb-seat-reservation>
 ```
 
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
 ## States
 
 > Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
@@ -28,14 +24,6 @@ The `sbb-seat-reservation` is a component . . .
 ## Events
 
 > Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
 
 ## Accessibility
 
