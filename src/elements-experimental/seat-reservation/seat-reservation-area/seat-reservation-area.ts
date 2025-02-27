@@ -1,6 +1,6 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, unsafeCSS } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { type ElementMounting } from '../seat-reservation.js';
@@ -56,20 +56,7 @@ class SbbSeatReservationAreaElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const width: number = this.width;
-    const height: number = this.height;
-    const rotation: number = this.rotation;
-
-    return html`
-      <style>
-        :host {
-          --area-width-from-host: ${unsafeCSS(width)};
-          --area-height-from-host: ${unsafeCSS(height)};
-          --area-rotation-from-host: ${unsafeCSS(rotation)};
-        }
-      </style>
-      <span class="sbb-seat-reservation-area"></span>
-    `;
+    return html` <span class="sbb-seat-reservation-area"></span> `;
   }
 }
 

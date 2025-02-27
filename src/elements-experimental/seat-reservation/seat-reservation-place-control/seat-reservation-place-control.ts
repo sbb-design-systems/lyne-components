@@ -146,10 +146,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
       >
         <button class="sbb-seat-reservation-place-control__button">
           <sbb-seat-reservation-graphic
-            name="${name}"
-            width="${width}"
-            height="${height}"
-            rotation="${graphicRotation}"
+            .name=${name}
+            .width=${width}
+            .height=${height}
+            .rotation=${graphicRotation}
           ></sbb-seat-reservation-graphic>
           <span ${this.text ?? nothing} class="sbb-seat-reservation-place-control__text"
             >${text}</span

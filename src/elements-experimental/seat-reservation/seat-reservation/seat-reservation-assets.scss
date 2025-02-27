@@ -5,13 +5,17 @@
     font-style: italic;
   }
 
-  &__preview--tmp {
-    padding: 2rem;
-    max-width: 100%;
-    border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
-  }
+  &__preview {
+    display: block;
 
-  &__preview--dark {
-    background-color: var(--sbb-color-milk);
+    &--tmp {
+      padding: 2rem;
+      max-width: 100%;
+      border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+    }
+
+    &--dark {
+      background-color: var(--sbb-color-milk);
+    }
   }
 }
