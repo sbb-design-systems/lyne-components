@@ -62,6 +62,11 @@ export type ElementPosition = {
   z: number;
 };
 
+export type SelectedPlace = {
+  coachId: string;
+  placeNumber: string;
+};
+
 export const elementMountingOptions = <const>[
   'FREE',
   'UPPER_BORDER',
@@ -69,9 +74,8 @@ export const elementMountingOptions = <const>[
   'UPPER_TO_LOWER_BORDER',
 ];
 export type ElementMounting = (typeof elementMountingOptions)[number];
-
 export type ElementDirection = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
 export type PlaceType = 'SEAT' | 'BIKE';
 export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH ' | 'TRAIN_HEAD';
-export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED';
+export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
