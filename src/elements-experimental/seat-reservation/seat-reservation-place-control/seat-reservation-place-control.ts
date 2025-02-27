@@ -1,4 +1,5 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import {
   type CSSResultGroup,
   html,
@@ -9,62 +10,11 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { EventEmitter } from '../../core/eventing.js';
-import type { PlaceState } from '../seat-reservation.js';
+import type { PlaceState, PlaceType } from '../seat-reservation.js';
 
 import '../seat-reservation-graphic.js';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
-
-export const controlPlaceTypeOptions = <const>['SEAT', 'BICYCLE'];
-export type ControlPlaceType = (typeof controlPlaceTypeOptions)[number];
-
-export const controlPlaceStateOptions = <const>['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'];
-
-export const controlIconNames = <const>[
-  'PLACE_SEAT_FREE',
-  'PLACE_SEAT_SELECTED',
-  'PLACE_SEAT_RESTRICTED',
-  'PLACE_SEAT_ALLOCATED',
-  'PLACE_BICYCLE_FREE',
-  'PLACE_BICYCLE_SELECTED',
-  'PLACE_BICYCLE_RESTRICTED',
-  'PLACE_BICYCLE_ALLOCATED',
-];
-export type ControlIconNames = (typeof controlIconNames)[number];
-
-const getSvgName = (type: ControlPlaceType, state: PlaceState): ControlIconNames | '' => {
-  switch (type) {
-    case 'SEAT':
-      switch (state) {
-        case 'FREE':
-          return 'PLACE_SEAT_FREE';
-        case 'SELECTED':
-          return 'PLACE_SEAT_SELECTED';
-        case 'RESTRICTED':
-          return 'PLACE_SEAT_RESTRICTED';
-        case 'ALLOCATED':
-          return 'PLACE_SEAT_ALLOCATED';
-        default:
-          return '';
-      }
-    case 'BICYCLE':
-      switch (state) {
-        case 'FREE':
-          return 'PLACE_BICYCLE_FREE';
-        case 'SELECTED':
-          return 'PLACE_BICYCLE_SELECTED';
-        case 'RESTRICTED':
-          return 'PLACE_BICYCLE_RESTRICTED';
-        case 'ALLOCATED':
-          return 'PLACE_BICYCLE_ALLOCATED';
-        default:
-          return '';
-      }
-    default:
-      return '';
-  }
-};
 
 export type PlaceSelection = {
   id: string;
@@ -88,17 +38,17 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   /** Id Prop */
   @forceType()
   @property({ attribute: 'id', type: String })
-  public accessor coachId: string = null!;
+  public accessor coachId: string = '';
 
   /** Type Prop */
   @forceType()
-  @property({ attribute: 'type', type: controlPlaceTypeOptions })
-  public accessor type: ControlPlaceType = controlPlaceTypeOptions[0];
+  @property({ attribute: 'type' })
+  public accessor type: PlaceType = null!;
 
   /** State Prop */
   @forceType()
-  @property({ attribute: 'state', type: controlPlaceStateOptions })
-  public accessor state: PlaceState = controlPlaceStateOptions[0];
+  @property({ attribute: 'state' })
+  public accessor state: PlaceState = null!;
 
   /** Rotation Prop */
   @forceType()
@@ -153,7 +103,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const name: string = getSvgName(this.type, this.state);
+    const name: string = this._getPlaceSvg(this.type, this.state); //getSvgName(this.type, this.state);
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
@@ -182,6 +132,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
         </button>
       </div>
     `;
+  }
+
+  private _getPlaceSvg(type: PlaceType, state: PlaceState): string {
+    const typeString = type as string;
+    const stateString = state as string;
+    return `PLACE_${typeString}_${stateString}`;
   }
 
   private _getAriaPlaceLabel(): string {
