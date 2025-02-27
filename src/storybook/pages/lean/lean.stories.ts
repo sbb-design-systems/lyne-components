@@ -72,9 +72,11 @@ const leanExampleTemplate = (): TemplateResult => html`
         <sbb-table-wrapper>
           <table class="sbb-table sbb-table--striped">
             <thead>
-              <th>Station</th>
-              <th>Departure</th>
-              <th>Arrival</th>
+              <tr>
+                <th>Station</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
