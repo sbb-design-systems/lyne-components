@@ -8,9 +8,7 @@ import { type ElementMounting } from '../seat-reservation.js';
 import style from './seat-reservation-area.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
- *
- * @slot - Use the unnamed slot to add elements.
+ * Visualize an area with a special meaning within a wagon.
  */
 export
 @customElement('sbb-seat-reservation-area')
@@ -19,27 +17,27 @@ class SbbSeatReservationAreaElement extends LitElement {
 
   /** Rotation Prop */
   @forceType()
-  @property({ attribute: 'rotation' })
+  @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
   /** Width Prop */
   @forceType()
-  @property({ attribute: 'width' })
+  @property({ attribute: 'width', type: Number })
   public accessor width: number = 6;
 
   /** Height Prop */
   @forceType()
-  @property({ attribute: 'height' })
+  @property({ attribute: 'height', type: Number })
   public accessor height: number = 6;
 
   /** Mounting Prop */
   @forceType()
-  @property({ attribute: 'mounting' })
+  @property({ attribute: 'mounting', type: String })
   public accessor mounting: ElementMounting = 'FREE';
 
   /** Background Prop */
   @forceType()
-  @property({ attribute: 'background' })
+  @property({ attribute: 'background', type: String })
   public accessor background: 'light' | 'dark' = 'light';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
