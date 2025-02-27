@@ -1,4 +1,4 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -20,8 +20,8 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'name', type: String })
   public accessor name: string = 'BISTRO';
 
-  /** Stretch Prop */
   @forceType()
+  /** Stretch Prop */
   @property({ attribute: 'stretch', type: Boolean })
   public accessor stretch: boolean = false;
 
