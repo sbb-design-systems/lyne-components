@@ -43,12 +43,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   /** Type Prop */
   @forceType()
   @property({ attribute: 'type' })
-  public accessor type: PlaceType = null!;
+  public accessor type: PlaceType = 'SEAT';
 
   /** State Prop */
   @forceType()
   @property({ attribute: 'state' })
-  public accessor state: PlaceState = null!;
+  public accessor state: PlaceState = 'FREE';
 
   /** Rotation Prop */
   @forceType()
