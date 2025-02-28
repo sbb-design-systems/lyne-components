@@ -6,6 +6,6 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 
 ## Events
 
-> @event {CustomEvent<PlaceSelection>} selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
+> @event selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
 
 <!-- Auto Generated Below -->

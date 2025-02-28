@@ -103,6 +103,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   protected override render(): TemplateResult {
     const name: string = this._getPlaceSvg(this.type, this.state); //getSvgName(this.type, this.state);
+    const buttonDisabled: boolean = !(this.state === 'FREE' || this.state === 'SELECTED');
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
@@ -118,6 +119,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
           class="sbb-seat-reservation-place-control__button"
           @click=${() => this._selectPlace()}
           aria-label=${this._getAriaPlaceLabel()}
+          ?disabled=${buttonDisabled || nothing}
         >
           <sbb-seat-reservation-graphic
             .name=${name}
