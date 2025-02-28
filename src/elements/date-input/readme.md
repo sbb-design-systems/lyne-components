@@ -72,6 +72,7 @@ and focus related events.
 
 ## Events
 
-| Name     | Type    | Description | Inherited From              |
-| -------- | ------- | ----------- | --------------------------- |
-| `change` | `Event` |             | SbbFormAssociatedInputMixin |
+| Name     | Type         | Description | Inherited From              |
+| -------- | ------------ | ----------- | --------------------------- |
+| `change` | `Event`      |             | SbbFormAssociatedInputMixin |
+| `input`  | `InputEvent` |             | SbbFormAssociatedInputMixin |
