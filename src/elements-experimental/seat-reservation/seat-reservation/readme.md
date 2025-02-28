@@ -1,32 +1,122 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-seat-reservation` is a visualized seat/bicycle parking space reservation component, with which the user can view the position of a seat as well as its status (FREE, SELECTED, ALLOCATED, RESTRICTED) within a means of transport/wagon and select it accordingly.
+Currently, these components are available for all wagons of a means of transport, but only represent one level of it.
+For the entire presentation, navigation and functionality of such a seat reservation, this main component includes the following child components:
 
-The `sbb-seat-reservation` is a component . . .
+> [sbb-seat-reservation-navigation](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-navigation--docs) => Enables quick navigation between individual wagons
+
+> [sbb-seat-reservation-place-control](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-place-control--docs) => Representation of a seat
+
+> [sbb-seat-reservation-area](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-area--docs) => For the representation of certain areas within a wagon
+
+> [sbb-seat-reservation-graphics](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphics--docs) => Contains various graphics that are required to render a wagon
 
 ```html
-<sbb-seat-reservation></sbb-seat-reservation>
+<sbb-seat-reservation layout=${layout<SeatReservationLayout>}></sbb-seat-reservation>
 ```
 
-## States
+## Data structure of SeatReservationLayout
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+#### SeatReservationLayout
 
-## Style
+```html
+<SeatReservationLayout>{ coachItms: <CoachItem>[]; }</CoachItem></SeatReservationLayout>
+```
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+#### CoachItem
 
-## Interactions
+```html
+<CoachItem
+  >[{ id:
+  <string
+    >; number:
+    <string
+      >; dimension:
+      <ElementDimension
+        >; type?:
+        <CoachType
+          >; places?:
+          <Place
+            >[]; signs?:
+            <SignElement
+              >[]; internals?:
+              <InternalElement
+                >[]; directedInternals?:
+                <DirectedInternalElement
+                  >[]; compartmentNumbers?:
+                  <CompartmentNumberElement
+                    >[]; }]</CompartmentNumberElement
+                  ></DirectedInternalElement
+                ></InternalElement
+              ></SignElement
+            ></Place
+          ></CoachType
+        ></ElementDimension
+      ></string
+    ></string
+  ></CoachItem
+>
+```
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+#### Place
 
-## Events
+```html
+<Place extends BaseElement
+  >{ number:
+  <string
+    >; state: PlaceState<'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED'>; type: PlaceType<'SEAT' |
+    'BICYCLE'>; rotation?:
+    <number
+      >; travelClass?: PlaceTravelClass<'FIRST' | 'SECOND' | 'ANY_CLASS'>; remarkId?: string;
+      propertyIds?: <string>[]; selected?: boolean; }</string></number
+    ></string
+  ></Place
+>
+```
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+#### SignElement
 
-## Accessibility
+```html
+<SignElement>{ direction?: ElementDirection<'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT'>; }</SignElement>
+```
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+#### InternalElement
+
+```html
+<InternalElement
+  >{ mounting?: ElementMounting<'FREE' | 'UPPER_BORDER' | 'LOWER_BORDER' | 'UPPER_TO_LOWER_BORDER'>
+  }</InternalElement
+>
+```
+
+#### DirectedInternalElement
+
+```html
+<DirectedInternalElement
+  >{ direction?: ElementDirection<'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT'>; }</DirectedInternalElement
+>
+```
+
+#### CompartmentNumberElement
+
+```html
+<CompartmentNumberElement>{ number:<string> }</string></CompartmentNumberElement>
+```
+
+#### BaseElement
+
+```html
+<BaseElement
+  >{ icon?:
+  <string
+    >; rotation?:
+    <number
+      >; position:
+      <ElementPosition
+        >; dimension: <ElementDimension>; }</ElementDimension></ElementPosition
+      ></number
+    ></string
+  ></BaseElement
+>
+```
 
 <!-- Auto Generated Below -->
