@@ -1,31 +1,30 @@
-.sbb-seat-reservation-navigation__wrapper {
-  &.sbb-seat-reservation-navigation__wrapper--vertical
-    .sbb-seat-reservation-navigation__list-coaches {
-    justify-content: initial;
-  }
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+.sbb-seat-reservation-navigation__wrapper.sbb-seat-reservation-navigation__wrapper--vertical
+  .sbb-seat-reservation-navigation__list-coaches {
+  justify-content: initial;
 }
 
 .sbb-seat-reservation-navigation__list-coaches {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: #{sbb.px-to-rem-build(8)};
   padding: 0;
   margin: 0;
-  height: 40px;
   list-style: none;
 }
 
 .sbb-seat-reservation-navigation__item-coache {
   position: relative;
-  padding: 12px 48px;
-  border: 1px solid #888;
-  border-radius: 4px;
+  padding: #{sbb.px-to-rem-build(12)} #{sbb.px-to-rem-build(48)};
+  border: #{sbb.px-to-rem-build(1)} solid #888;
+  border-radius: #{sbb.px-to-rem-build(4)};
   background-color: #fff;
+}
 
-  &--selected {
-    color: #fff;
-    background-color: #999;
-  }
+.sbb-seat-reservation-navigation__item-coache--selected {
+  color: #fff;
+  background-color: #999;
 }
 
 .sbb-seat-reservation-navigation__item-coache button {
