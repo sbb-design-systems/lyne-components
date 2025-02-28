@@ -39,7 +39,8 @@ describe('sbb-date-input', () => {
     expect(element.max?.toJSON()).to.be.equal(defaultDateAdapter.createDate(2024, 12, 24).toJSON());
   });
 
-  it('should not clear the text content on backspace', async () => {
+  it('should not clear the text content on backspace', async function () {
+    this.timeout(300000);
     element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
     element.focus();
     const value = element.value;

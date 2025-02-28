@@ -162,14 +162,16 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
             event.stopImmediatePropagation();
             this._shouldTriggerSubmit = this.dispatchEvent(new KeyboardEvent('keydown', event));
           } else if (
-            (event.key === 'Backspace' || event.key === 'Delete') &&
             isWebkit &&
+            this.value &&
+            (event.key === 'Backspace' || event.key === 'Delete') &&
             event.isTrusted
           ) {
             // In Webkit pressing Backspace or Delete completely removes all the content
             // if contenteditable is set on a web component host.
             // We have to replicate the normal delete behavior.
             event.preventDefault();
+            event.stopImmediatePropagation();
 
             if (!this.dispatchEvent(new KeyboardEvent('keydown', event))) {
               return;
@@ -183,16 +185,19 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
             if (selectedRange.startOffset !== selectedRange.endOffset) {
               // If a text range is selected, then delete this range
               selectedRange.deleteContents();
+              this._dispatchInputEvent();
             } else if (event.key === 'Backspace' && selectedRange.startOffset > 0) {
               // When pressing Backspace, we select the previous character from
               // the current cursor position and delete it.
               selectedRange.setStart(selectedRange.startContainer, selectedRange.startOffset - 1);
               selectedRange.deleteContents();
+              this._dispatchInputEvent();
             } else if (event.key === 'Delete' && selectedRange.endOffset < this.value.length) {
               // When pressing Delete, we select the next character from
               // the current cursor position and delete it.
               selectedRange.setEnd(selectedRange.endContainer, selectedRange.endOffset + 1);
               selectedRange.deleteContents();
+              this._dispatchInputEvent();
             }
           }
         },
@@ -227,7 +232,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         selectedRange.deleteContents();
         selectedRange.insertNode(document.createTextNode(text));
         selectedRange.setStart(selectedRange.endContainer, selectedRange.endOffset);
-        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+        this._dispatchInputEvent();
       });
       // When focusing a text input via keyboard, the text content should be selected.
       this.addEventListener?.('focus', () => {
@@ -274,10 +279,8 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         }
 
         range = document.createRange();
-        range.selectNode(this);
-        range.setStart(this, 0);
-        range.setEnd(this, 1);
-        range.collapse(false);
+        range.setStart(this.firstChild!, this.textContent!.length);
+        range.collapse(true);
         selection.removeAllRanges();
         selection.addRange(range);
       }
@@ -341,6 +344,10 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     private _cleanText(value: string): string {
       // The native text input removes all newline characters if passed to the value property
       return `${value}`.replace(/[\n\r]+/g, '');
+    }
+
+    private _dispatchInputEvent(): void {
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
 
     @eventOptions({ passive: true })
