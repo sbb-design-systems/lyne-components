@@ -1,7 +1,8 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit-html/directives/style-map.js';
 
 import type { PlaceSelection } from '../seat-reservation-place-control.js';
 import type {
@@ -10,7 +11,7 @@ import type {
   ElementDimension,
   ElementPosition,
   InternalElement,
-  SeatReservationLayout,
+  SeatReservation,
   DirectedInternalElement,
   CompartmentNumberElement,
   SignElement,
@@ -23,7 +24,6 @@ import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-navigation.js';
 import '../seat-reservation-place-control.js';
-
 /**
  * Describe the purpose of the component with a single short sentence.
  *
@@ -34,11 +34,10 @@ export
 class SbbSeatReservationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
-
+  /** seat reservation*/
   @forceType()
-  @property({ attribute: 'layout', type: Object })
-  public accessor seatReservationLayout: SeatReservationLayout = null!;
+  @property({ attribute: 'seat-reservation', type: Object })
+  public accessor seatReservation: SeatReservation = null!;
 
   /** Maximal number of possible clickable seats*/
   @forceType()
@@ -58,26 +57,26 @@ class SbbSeatReservationElement extends LitElement {
   @state() private accessor _selectedCoachIndex: number = 0;
 
   @state() private accessor _placeCollection: Record<string, Place[]> = {};
+
   private _maxHeight = 128;
   private _gridSize = 8;
   private _gridSizeFactor = this._maxHeight / this._gridSize;
   private _triggerCoachPositionsCollection: number[][] = [];
   private _coachScrollArea: HTMLElement = null!;
+
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
     this._componentSetup();
   }
 
   protected override render(): TemplateResult {
-    const coachItems = this.seatReservationLayout?.coachItems;
-    const classAlignVertical = this.alignVertical
-      ? 'sbb-seat-reservation__wrapper sbb-seat-reservation__wrapper--vertical'
-      : 'sbb-seat-reservation__wrapper';
+    const coachItems = this.seatReservation?.coachItems;
+    const classAlignVertical = this.alignVertical ? 'sbb-seat-reservation__wrapper--vertical' : '';
     return html`
       <div class="sbb-seat-reservation">
-        <div class="${classAlignVertical}">
+        <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
           <sbb-seat-reservation-navigation
-            .coachItems=${coachItems}
+            .seatReservation=${this.seatReservation}
             .alignVertical=${this.alignVertical}
             .selectedCoachIndex=${this._selectedCoachIndex}
             @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
@@ -90,17 +89,6 @@ class SbbSeatReservationElement extends LitElement {
         </div>
       </div>
     `;
-  }
-
-  private _onSelectNavCoach(event: CustomEvent): void {
-    const selectedNavCoachIndex = event.detail as number;
-    const scrollToCoachPosX = this._triggerCoachPositionsCollection[selectedNavCoachIndex][0];
-
-    this._coachScrollArea.scrollTo({
-      top: 0,
-      left: scrollToCoachPosX,
-      behavior: 'smooth',
-    });
   }
 
   private _componentSetup(): void {
@@ -144,6 +132,9 @@ class SbbSeatReservationElement extends LitElement {
     `;
   }
 
+  /*
+   */
+
   private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
     const allElements = coachItem.directedInternals?.concat(coachItem.internals || []);
     const driverArea = allElements?.find(
@@ -163,6 +154,7 @@ class SbbSeatReservationElement extends LitElement {
           name="COACH_BORDER_MIDDLE"
           width=${borderWidth}
           height=${coachItem.dimension.h}
+          ?stretch=${true}
         ></sbb-seat-reservation-graphic>
       </div>
     `;
@@ -173,13 +165,16 @@ class SbbSeatReservationElement extends LitElement {
       const calculatedInternalDimension = this._getCalculatedDimension(place.dimension);
       const calculatedInternalPosition = this._getCalculatedPosition(place.position);
       const textRotation = place.rotation ? place.rotation * -1 : 0;
+      const elementStyle = {
+        top: calculatedInternalPosition.y + 'px',
+        left: calculatedInternalPosition.x + 'px',
+        width: calculatedInternalDimension.w + 'px',
+        height: calculatedInternalDimension.h + 'px',
+        zIndex: place.position.z,
+      };
 
       return html`
-        <div
-          class="coach-background"
-          style="position:absolute; top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${place
-            .position.z};"
-        >
+        <div class="sbb-seat-reservation__graphical-element" style=${styleMap(elementStyle)}>
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
             id=${coachId}
@@ -196,12 +191,6 @@ class SbbSeatReservationElement extends LitElement {
     });
   }
 
-  private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
-    const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
-    console.log(selectedPlace);
-    //TODO place select handling -> output emitter
-  }
-
   private _getRenderedInternalElements(internals?: InternalElement[]): TemplateResult[] | null {
     if (!internals) {
       return null;
@@ -214,7 +203,7 @@ class SbbSeatReservationElement extends LitElement {
       return html`
         <div
           class="sbb-seat-reservation__graphical-element"
-          style="position:absolute; top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${internal
+          style="top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${internal
             .position.z};"
         >
           <sbb-seat-reservation-graphic
@@ -320,7 +309,7 @@ class SbbSeatReservationElement extends LitElement {
       const coachScrollWidth = this._coachScrollArea.getBoundingClientRect().width;
 
       //Generate calulated trigger point array depends from coach width
-      this._triggerCoachPositionsCollection = this.seatReservationLayout.coachItems.map((coach) => {
+      this._triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const fromPos = currCalcTriggerPos;
         currCalcTriggerPos += this._getCalculatedDimension(coach.dimension).w;
         return [fromPos, currCalcTriggerPos];
@@ -339,6 +328,23 @@ class SbbSeatReservationElement extends LitElement {
         }
       });
     }
+  }
+
+  private _onSelectNavCoach(event: CustomEvent): void {
+    const selectedNavCoachIndex = event.detail as number;
+    const scrollToCoachPosX = this._triggerCoachPositionsCollection[selectedNavCoachIndex][0];
+
+    this._coachScrollArea.scrollTo({
+      top: 0,
+      left: scrollToCoachPosX,
+      behavior: 'smooth',
+    });
+  }
+
+  private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
+    const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
+    console.log(selectedPlace);
+    //TODO place select handling -> output emitter
   }
 
   private _getCalculatedDimension(elementDimension: ElementDimension): ElementDimension {
