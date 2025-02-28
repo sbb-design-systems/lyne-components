@@ -5,7 +5,7 @@
   --reservation-place-control-text-rotation: var(--place-control-text-rotation-from-host, 0);
   --reservation-place-control-text-size: calc(var(--place-control-text-scale-from-host, 1) * 0.5);
   --reservation-place-control-seat-text-offset-horizontal: calc(
-    cos(var(--reservation-place-control-text-rotation) * 1deg) * 3%
+    cos(var(--reservation-place-control-text-rotation) * 1deg) * -18%
   );
 
   display: inline-block;
@@ -32,6 +32,11 @@
       &:hover {
         transform: scale(1.2);
       }
+
+      &:focus-visible {
+        --sbb-focus-outline-offset: 0;
+        @include sbb.focus-outline;
+      }
     }
 
     #{$root}--state-allocated &,
@@ -50,22 +55,18 @@
     font-weight: lighter;
     letter-spacing: -0.0625em;
     text-align: center;
-    text-indent: calc(cos(var(--reservation-place-control-text-rotation) * 1deg) * -10%);
     transform-origin: center center;
     transform: translate(-50%, -50%)
       rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
 
     #{$root}--state-free &,
-    #{$root}--state-allocated & {
-      display: block;
-    }
-
+    #{$root}--state-allocated &,
     #{$root}--state-restricted#{$root}--type-bicycle & {
       display: block;
     }
 
     #{$root}--type-seat & {
-      left: calc(50% - var(--reservation-place-control-seat-text-offset-horizontal));
+      text-indent: var(--reservation-place-control-seat-text-offset-horizontal);
     }
 
     #{$root}--type-bicycle & {
