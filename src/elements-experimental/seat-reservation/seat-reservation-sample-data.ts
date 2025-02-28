@@ -1,6 +1,8 @@
-import type { SeatReservationLayout } from './seat-reservation.js';
+import type { SeatReservation } from './seat-reservation.js';
 
-export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservationLayout = {
+export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservation = {
+  vehicleType: 'TRAIN',
+  deckCoachIndex: 0,
   coachItems: [
     {
       id: 'coach-layout-0',
