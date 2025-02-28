@@ -11,7 +11,9 @@ describe(`sbb-seat-reservation ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
-      html`<sbb-seat-reservation layout=${MOCK_SEAT_RESERVATION_LAYOUT_0}></sbb-seat-reservation>`,
+      html`<sbb-seat-reservation
+        .seatReservation=${MOCK_SEAT_RESERVATION_LAYOUT_0}
+      ></sbb-seat-reservation>`,
       {
         modules: ['./seat-reservation.js'],
       },

@@ -4,8 +4,6 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-seat-reservation-some-color-var: var(--color-black);
-  --sbb-seat-reservation-wrapper-width: 600px;
   --sbb-seat-reservation-compartment-number-background-first: #a57e0c;
   --sbb-seat-reservation-compartment-number-background-second: #126a12;
 
@@ -18,34 +16,34 @@
 
 .sbb-seat-reservation__wrapper {
   display: flex;
-  gap: 48px;
   flex-direction: column;
+  gap: 48px;
+}
 
-  &.sbb-seat-reservation__wrapper--vertical {
-    position: relative;
-    left: 330px;
-    transform: rotate(90deg);
-    transform-origin: top left;
-  }
+.sbb-seat-reservation__wrapper--vertical {
+  position: relative;
+  left: 330px;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
 
-  &.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
-    width: 100vh;
-  }
+.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
+  width: 100vh;
+}
 
-  .sbb-seat-reservation__list-coaches {
-    overflow: scroll hidden;
-    display: flex;
-    gap: 4px;
-    padding: 48px 0;
-    margin: 0;
-    list-style: none;
+.sbb-seat-reservation__list-coaches {
+  overflow: scroll hidden;
+  display: flex;
+  gap: 4px;
+  padding: 48px 0;
+  margin: 0;
+  list-style: none;
+}
 
-    .sbb-seat-reservation__item-coach {
-      padding: 0;
-      margin: 0;
-      position: relative;
-    }
-  }
+.sbb-seat-reservation__list-coaches .sbb-seat-reservation__item-coach {
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
 .sbb-seat-reservation__graphical-element {
@@ -57,12 +55,12 @@
   justify-content: center;
   align-items: center;
   color: #fff;
+}
 
-  &--first-class {
-    background-color: var(--sbb-seat-reservation-compartment-number-background-first);
-  }
+.sbb-seat-reservation__compartment-number--first-class {
+  background-color: var(--sbb-seat-reservation-compartment-number-background-first);
+}
 
-  &--second-class {
-    background-color: var(--sbb-seat-reservation-compartment-number-background-second);
-  }
+.sbb-seat-reservation__compartment-number--first-class {
+  background-color: var(--sbb-seat-reservation-compartment-number-background-second);
 }

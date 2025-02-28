@@ -1,7 +1,9 @@
 export * from './seat-reservation/seat-reservation.js';
 
-/** SeatReservationLayout defines all coach information inside a vehicle */
-export type SeatReservationLayout = {
+/** SeatReservation defines all information about a vehicle and the wagons it contains */
+export type SeatReservation = {
+  vehicleType: VehicleType;
+  deckCoachIndex: number;
   coachItems: CoachItem[];
 };
 
@@ -79,3 +81,4 @@ export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH ' | 'TRAIN_HEAD';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
+export type VehicleType = 'TRAIN' | 'BUS';

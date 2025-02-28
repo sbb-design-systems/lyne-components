@@ -11,112 +11,65 @@ For the entire presentation, navigation and functionality of such a seat reserva
 > [sbb-seat-reservation-graphics](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphics--docs) => Contains various graphics that are required to render a wagon
 
 ```html
-<sbb-seat-reservation layout=${layout<SeatReservationLayout>}></sbb-seat-reservation>
+<sbb-seat-reservation seatReservation="seatReservationObj<SeatReservation>"></sbb-seat-reservation>
 ```
 
-## Data structure of SeatReservationLayout
+## Data structure of SeatReservation
 
-#### SeatReservationLayout
+#### SeatReservation
 
 ```html
-<SeatReservationLayout>{ coachItms: <CoachItem>[]; }</CoachItem></SeatReservationLayout>
+SeatReservation { vehicleType: VehicleType; deckCoachIndex: number; coachItems: CoachItem[]; }
 ```
 
 #### CoachItem
 
 ```html
-<CoachItem
-  >[{ id:
-  <string
-    >; number:
-    <string
-      >; dimension:
-      <ElementDimension
-        >; type?:
-        <CoachType
-          >; places?:
-          <Place
-            >[]; signs?:
-            <SignElement
-              >[]; internals?:
-              <InternalElement
-                >[]; directedInternals?:
-                <DirectedInternalElement
-                  >[]; compartmentNumbers?:
-                  <CompartmentNumberElement
-                    >[]; }]</CompartmentNumberElement
-                  ></DirectedInternalElement
-                ></InternalElement
-              ></SignElement
-            ></Place
-          ></CoachType
-        ></ElementDimension
-      ></string
-    ></string
-  ></CoachItem
->
+CoachItem { id: string; number: string; dimension: ElementDimension; type?: CoachType; places?:
+Place[]; signs?: SignElement[]; internals?: InternalElement[]; directedInternals?:
+DirectedInternalElement[]; compartmentNumbers?: CompartmentNumberElement[]; }
 ```
 
 #### Place
 
 ```html
-<Place extends BaseElement
-  >{ number:
-  <string
-    >; state: PlaceState<'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED'>; type: PlaceType<'SEAT' |
-    'BICYCLE'>; rotation?:
-    <number
-      >; travelClass?: PlaceTravelClass<'FIRST' | 'SECOND' | 'ANY_CLASS'>; remarkId?: string;
-      propertyIds?: <string>[]; selected?: boolean; }</string></number
-    ></string
-  ></Place
->
+Place extends BaseElement { number: string; state: PlaceState<'FREE' | 'ALLOCATED' | 'RESTRICTED'>;
+type: PlaceType<'SEAT' | 'BICYCLE'>; rotation?: number; travelClass?: PlaceTravelClass<'FIRST' |
+'SECOND' | 'ANY_CLASS'>; remarkId?: string; propertyIds?: string[]; selected?: boolean; }
 ```
 
 #### SignElement
 
 ```html
-<SignElement>{ direction?: ElementDirection<'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT'>; }</SignElement>
+SignElement extends BaseElement { direction?: ElementDirection <'TOP' | 'RIGHT' | 'BOTTOM' |
+'LEFT'>; }
 ```
 
 #### InternalElement
 
 ```html
-<InternalElement
-  >{ mounting?: ElementMounting<'FREE' | 'UPPER_BORDER' | 'LOWER_BORDER' | 'UPPER_TO_LOWER_BORDER'>
-  }</InternalElement
->
+InternalElement extends BaseElement { mounting?: ElementMounting<'FREE' | 'UPPER_BORDER' |
+'LOWER_BORDER' | 'UPPER_TO_LOWER_BORDER'>; }
 ```
 
 #### DirectedInternalElement
 
 ```html
-<DirectedInternalElement
-  >{ direction?: ElementDirection<'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT'>; }</DirectedInternalElement
->
+DirectedInternalElement extends BaseElement { direction?: ElementDirection<'TOP' | 'RIGHT' |
+'BOTTOM' | 'LEFT'>; }
 ```
 
 #### CompartmentNumberElement
 
 ```html
-<CompartmentNumberElement>{ number:<string> }</string></CompartmentNumberElement>
+CompartmentNumberElement extends BaseElement { number: string; }
 ```
 
 #### BaseElement
 
 ```html
-<BaseElement
-  >{ icon?:
-  <string
-    >; rotation?:
-    <number
-      >; position:
-      <ElementPosition
-        >; dimension: <ElementDimension>; }</ElementDimension></ElementPosition
-      ></number
-    ></string
-  ></BaseElement
->
+BaseElement { icon?: string; rotation?: number; position: ElementPosition; dimension:
+ElementDimension; };
 ```
 
 <!-- Auto Generated Below -->
