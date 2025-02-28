@@ -11,12 +11,12 @@ import readme from './readme.md?raw';
 
 import './seat-reservation.js';
 
-const seatReservationLayoutType: InputType = {
+const seatReservationType: InputType = {
   control: { type: 'object' },
   table: {
     disable: false,
   },
-  description: 'Seat reservation layout Object',
+  description: 'Seat reservation Object',
 };
 
 const maxReservationType: InputType = {
@@ -36,22 +36,22 @@ const disabledType: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  layout: seatReservationLayoutType,
+  seatReservation: seatReservationType,
   'max-reservations': maxReservationType,
   'align-vertical': alignVerticalType,
   disable: disabledType,
 };
 
 const defaultArgs: Args = {
-  layout: MOCK_SEAT_RESERVATION_LAYOUT_0,
+  seatReservation: MOCK_SEAT_RESERVATION_LAYOUT_0,
   'max-reservations': 4,
   'align-vertical': false,
   disable: false,
 };
 
-const Template = ({ layout, ...args }: Args): TemplateResult =>
+const Template = ({ seatReservation, ...args }: Args): TemplateResult =>
   html`<sbb-seat-reservation
-    layout=${JSON.stringify(layout)}
+    .seatReservation=${seatReservation}
     ${sbbSpread(args)}
   ></sbb-seat-reservation>`;
 
@@ -65,7 +65,6 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      //handles: [SbbSeatReservationElement.events.myEventName],
       handles: [],
     },
     docs: {
