@@ -4,7 +4,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { CoachItem } from '../seat-reservation.js';
+import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
 import style from './seat-reservation-navigation.scss?lit&inline';
 
@@ -23,8 +23,8 @@ class SbbSeatReservationNavigationElement extends LitElement {
   } as const;
 
   @forceType()
-  @property({ attribute: 'coach-items', type: Object })
-  public accessor coachItems: CoachItem[] = null!;
+  @property({ attribute: 'seat-reservatio', type: Object })
+  public accessor seatReservation: SeatReservation = null!;
 
   @forceType()
   @property({ attribute: 'selected-coach-index', type: Number })
@@ -46,7 +46,7 @@ class SbbSeatReservationNavigationElement extends LitElement {
       : 'sbb-seat-reservation-navigation__wrapper';
     return html` <div class="${classAlignVertical}">
       <ul class="sbb-seat-reservation-navigation__list-coaches">
-        ${this._getRenderedNavCoachs(this.coachItems)}
+        ${this._getRenderedNavCoachs(this.seatReservation.coachItems)}
       </ul>
     </div>`;
   }
