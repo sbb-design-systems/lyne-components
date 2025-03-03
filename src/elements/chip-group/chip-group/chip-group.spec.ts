@@ -62,6 +62,8 @@ describe('sbb-chip-group', () => {
       // If the input is empty, it does not create a chip
       await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
+
+      expect(element.querySelectorAll('sbb-chip').length).to.be.equal(4);
     });
 
     it('should customize new chip value and label', async () => {
@@ -145,6 +147,23 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(chips.every((c) => c.readonly)).to.be.false;
+    });
+
+    it('should react when input is readonly', async () => {
+      const tokenEndEventSpy = new EventSpy(SbbChipGroupElement.events.chipInputTokenEnd, element);
+      element.separatorKeys = ',.;';
+
+      input.focus();
+      await sendKeys({ type: 'chip 4, chip 5. chip 6; ' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+
+      expect(element.value).to.include('chip 4');
+      expect(element.value).to.include('chip 5');
+      expect(element.value).to.include('chip 6');
+      expect(element.querySelectorAll('sbb-chip').length).to.be.equal(6);
+      expect(input.value).to.be.empty; // The input should be emptied
+      expect(tokenEndEventSpy.count).to.be.equal(3);
     });
 
     /** Verify whether the sync between slotted chip and the value works properly **/

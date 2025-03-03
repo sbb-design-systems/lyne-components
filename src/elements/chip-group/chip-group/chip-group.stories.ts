@@ -8,7 +8,7 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { SbbChipGroupElement } from './chip-group.js';
@@ -34,6 +34,12 @@ const readonly: InputType = {
 const negative: InputType = {
   control: {
     type: 'boolean',
+  },
+};
+
+const separatorKeys: InputType = {
+  control: {
+    type: 'text',
   },
 };
 
@@ -69,6 +75,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   readonly,
   negative,
+  'separator-keys': separatorKeys,
   size,
   hiddenLabel,
   floatingLabel,
@@ -78,6 +85,7 @@ const defaultArgs: Args = {
   disabled: false,
   readonly: false,
   negative: false,
+  'separator-keys': undefined,
   size: 'm',
   hiddenLabel: false,
   floatingLabel: false,
@@ -92,7 +100,7 @@ const Template = (args: Args): TemplateResult => html`
       ?floating-label=${args.floatingLabel}
     >
       <label>Label</label>
-      <sbb-chip-group name="chip-group-1">
+      <sbb-chip-group name="chip-group-1" separator-keys=${args['separator-keys'] || nothing}>
         <sbb-chip value="chip 1"></sbb-chip>
         <sbb-chip value="chip 2"></sbb-chip>
         <sbb-chip value="chip 3"></sbb-chip>
@@ -110,7 +118,11 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
     ?floating-label=${args.floatingLabel}
   >
     <label>Label</label>
-    <sbb-chip-group name="chip-group-1" ?negative=${args.negative}>
+    <sbb-chip-group
+      name="chip-group-1"
+      ?negative=${args.negative}
+      separator-keys=${args['separator-keys'] || nothing}
+    >
       <sbb-chip value="chip 1"></sbb-chip>
       <sbb-chip value="chip 2"></sbb-chip>
       <sbb-chip value="chip 3"></sbb-chip>
@@ -122,6 +134,12 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
       <sbb-option value="Option C">Option C</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>
+`;
+
+const SeparatorKeysTemplate = (args: Args): TemplateResult => html`
+  ${Template(args)}
+  <br />
+  <span>Type something separated by ',' and press Enter</span>
 `;
 
 export const Default: StoryObj = {
@@ -164,6 +182,12 @@ export const WithAutocompleteNegative: StoryObj = {
   render: WithAutocompleteTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
+};
+
+export const WithSeparatorKeys: StoryObj = {
+  render: SeparatorKeysTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'separator-keys': ',' },
 };
 
 const meta: Meta = {
