@@ -104,6 +104,7 @@ jobs:
           docker image list
         env:
           DOCKER_BUILDKIT: 1
+          VERSION: ${{ steps.release.outputs.version }}
 
       - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
