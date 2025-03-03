@@ -7,6 +7,8 @@ import type { SbbRadioButtonGroupElement } from './radio-button-group.js';
 
 import './radio-button-group.js';
 import '../radio-button.js';
+import '../radio-button-panel.js';
+import '../../selection-expansion-panel.js';
 
 describe(`sbb-radio-button-group`, () => {
   let element: SbbRadioButtonGroupElement;
@@ -31,5 +33,47 @@ describe(`sbb-radio-button-group`, () => {
     });
 
     testA11yTreeSnapshot();
+  });
+
+  describe('renders with panel', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-radio-button-group>
+          <sbb-radio-button-panel value="checkbox-1">Label 1</sbb-radio-button-panel>
+          <sbb-radio-button-panel value="checkbox-2">Label 2</sbb-radio-button-panel>
+          <sbb-radio-button-panel value="checkbox-3">Label 3</sbb-radio-button-panel>
+        </sbb-radio-button-group>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders with selection-expansion-panel', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-radio-button-group>
+          <sbb-selection-expansion-panel>
+            <sbb-radio-button-panel value="checkbox-1">Label 1</sbb-radio-button-panel>
+            <sbb-radio-button-panel value="checkbox-2">Label 2</sbb-radio-button-panel>
+            <sbb-radio-button-panel value="checkbox-3">Label 3</sbb-radio-button-panel>
+          </sbb-selection-expansion-panel>
+        </sbb-radio-button-group>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 });

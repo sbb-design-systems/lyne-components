@@ -100,3 +100,108 @@ snapshots["sbb-checkbox-group renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-checkbox-group renders A11y tree Firefox */
 
+snapshots["sbb-checkbox-group renders with panel DOM"] = 
+`<sbb-checkbox-group
+  data-has-panel=""
+  data-slot-names="unnamed"
+  orientation="horizontal"
+>
+  <sbb-checkbox-panel
+    color="white"
+    data-slot-names="unnamed"
+    size="m"
+    tabindex="0"
+    value="checkbox-1"
+  >
+    Label 1
+  </sbb-checkbox-panel>
+  <sbb-checkbox-panel
+    color="white"
+    data-slot-names="unnamed"
+    size="m"
+    tabindex="0"
+    value="checkbox-2"
+  >
+    Label 2
+  </sbb-checkbox-panel>
+  <sbb-checkbox-panel
+    color="white"
+    data-slot-names="unnamed"
+    size="m"
+    tabindex="0"
+    value="checkbox-3"
+  >
+    Label 3
+  </sbb-checkbox-panel>
+</sbb-checkbox-group>
+`;
+/* end snapshot sbb-checkbox-group renders with panel DOM */
+
+snapshots["sbb-checkbox-group renders with panel Shadow DOM"] = 
+`<div class="sbb-checkbox-group">
+  <slot>
+  </slot>
+</div>
+<div class="sbb-checkbox-group__error">
+  <slot name="error">
+  </slot>
+</div>
+`;
+/* end snapshot sbb-checkbox-group renders with panel Shadow DOM */
+
+snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] = 
+`<sbb-checkbox-group
+  data-has-panel=""
+  data-slot-names="unnamed"
+  orientation="horizontal"
+>
+  <sbb-selection-expansion-panel
+    color="white"
+    data-size="m"
+    data-slot-names="unnamed"
+    data-state="closed"
+  >
+    <sbb-checkbox-panel
+      color="white"
+      data-slot-names="unnamed"
+      size="m"
+      tabindex="0"
+      value="checkbox-1"
+    >
+      Label 1
+    </sbb-checkbox-panel>
+    <sbb-checkbox-panel
+      color="white"
+      data-slot-names="unnamed"
+      size="m"
+      tabindex="0"
+      value="checkbox-2"
+    >
+      Label 2
+    </sbb-checkbox-panel>
+    <sbb-checkbox-panel
+      color="white"
+      data-slot-names="unnamed"
+      size="m"
+      tabindex="0"
+      value="checkbox-3"
+    >
+      Label 3
+    </sbb-checkbox-panel>
+  </sbb-selection-expansion-panel>
+</sbb-checkbox-group>
+`;
+/* end snapshot sbb-checkbox-group renders with selection-expansion-panel DOM */
+
+snapshots["sbb-checkbox-group renders with selection-expansion-panel Shadow DOM"] = 
+`<div class="sbb-checkbox-group">
+  <slot>
+  </slot>
+</div>
+<div class="sbb-checkbox-group__error">
+  <slot name="error">
+  </slot>
+</div>
+`;
+/* end snapshot sbb-checkbox-group renders with selection-expansion-panel Shadow DOM */
+
