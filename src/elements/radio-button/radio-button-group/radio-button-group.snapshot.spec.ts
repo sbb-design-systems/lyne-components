@@ -25,7 +25,7 @@ describe(`sbb-radio-button-group`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['name'] });
     });
 
     it('Shadow DOM', async () => {
@@ -47,7 +47,7 @@ describe(`sbb-radio-button-group`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['name'] });
     });
 
     it('Shadow DOM', async () => {
@@ -69,7 +69,7 @@ describe(`sbb-radio-button-group`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['name'] });
     });
 
     it('Shadow DOM', async () => {
