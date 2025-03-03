@@ -380,7 +380,7 @@ const NestedTemplate = ({
           deserunt mollit anim id est laborum.
         </p>
         <sbb-form-field>
-          <label>Testing 'Escape' keydown with multiple overlay</label>
+          <label>Pressing 'Escape' keydown with multiple overlay</label>
           <input />
           <sbb-autocomplete>
             <sbb-option value="1">1</sbb-option>
