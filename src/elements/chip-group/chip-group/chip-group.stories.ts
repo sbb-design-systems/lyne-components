@@ -170,7 +170,11 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbChipGroupElement.events.input, SbbChipGroupElement.events.change],
+      handles: [
+        SbbChipGroupElement.events.input,
+        SbbChipGroupElement.events.change,
+        SbbChipGroupElement.events.chipInputTokenEnd,
+      ],
     },
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

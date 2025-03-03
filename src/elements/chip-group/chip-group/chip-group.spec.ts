@@ -10,7 +10,7 @@ import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbOptionElement } from '../../option.js';
 import type { SbbChipElement } from '../chip.js';
 
-import { SbbChipGroupElement } from './chip-group.js';
+import { SbbChipGroupElement, type SbbChipInputTokenEndEventDetails } from './chip-group.js';
 import '../chip.js';
 import '../../form-field.js';
 import '../../option.js';
@@ -62,6 +62,43 @@ describe('sbb-chip-group', () => {
       // If the input is empty, it does not create a chip
       await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
+    });
+
+    it('should customize new chip value and label', async () => {
+      element.addEventListener(SbbChipGroupElement.events.chipInputTokenEnd, (ev: Event) => {
+        const detail: SbbChipInputTokenEndEventDetails = (ev as CustomEvent).detail;
+
+        expect(detail.origin).to.be.equal('input');
+        expect(detail.value).to.be.equal('chip 4');
+
+        detail.setValue('chip 5');
+        detail.setLabel('chip Custom');
+      });
+
+      input.focus();
+      await sendKeys({ type: 'chip 4' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+
+      expect(element.value).to.include('chip 5');
+      expect(element.querySelector('sbb-chip[value="chip 5"]')).to.exist;
+      expect(
+        element.querySelector<SbbChipElement>('sbb-chip[value="chip 5"]')!.innerText,
+      ).to.be.equal('chip Custom');
+      expect(input.value).to.be.empty; // The input should be emptied
+    });
+
+    it('should prevent chip creation', async () => {
+      element.addEventListener(SbbChipGroupElement.events.chipInputTokenEnd, (ev: Event) =>
+        ev.preventDefault(),
+      );
+
+      input.focus();
+      await sendKeys({ type: 'chip 4' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+
+      expect(element.value).not.to.include('chip 4');
     });
 
     it('should delete chip on delete button click', async () => {
@@ -379,6 +416,10 @@ describe('sbb-chip-group', () => {
 
     it('should create chip when option is selected', async () => {
       const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
+      const tokenEndEventSpy = new EventSpy<CustomEvent>(
+        SbbChipGroupElement.events.chipInputTokenEnd,
+        element,
+      );
 
       input.focus();
       await waitForLitRender(formField);
@@ -388,6 +429,8 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(1);
+      expect(tokenEndEventSpy.count).to.be.equal(1);
+      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
       expect(element.value).to.contain(options[0].value);
 
       autocomplete.open();
@@ -395,6 +438,8 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(2);
+      expect(tokenEndEventSpy.count).to.be.equal(2);
+      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
       expect(element.value).to.contain(options[1].value);
     });
 

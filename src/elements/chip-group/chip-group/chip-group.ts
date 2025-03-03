@@ -17,11 +17,24 @@ import { SbbChipElement } from '../chip.js';
 
 import style from './chip-group.scss?lit&inline';
 
+export interface SbbChipInputTokenEndEventDetails {
+  /** The element that triggered the chip creation */
+  origin: 'input' | 'autocomplete';
+  /** The value of the new chip. Either the input or the option value depending on the origin */
+  value: string;
+  label?: string;
+  /** Set a new value for the chip that will be created */
+  setValue(value: string): void;
+  /** Set a label for the chip that will be created */
+  setLabel(value: string): void;
+}
+
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
  *
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that the component's value has changed.
+ * @event {CustomEvent<SbbChipInputTokenEndEventDetails>} chipInputTokenEnd - Notifies that a chip is about to be created. Can be prevented.
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
  * @overrideType value - string[] | null
  */
@@ -38,6 +51,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   public static readonly events: Record<string, string> = {
     input: 'input',
     change: 'change',
+    chipInputTokenEnd: 'chipInputTokenEnd',
   } as const;
 
   /** Value of the form element. */
@@ -78,8 +92,14 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   /** Notifies that the component's value has changed. */
   private _change: EventEmitter = new EventEmitter(this, SbbChipGroupElement.events.change);
 
-  /** Notifies that an option value has been selected. */
+  /** Notifies that the component's value has changed. */
   private _input: EventEmitter = new EventEmitter(this, SbbChipGroupElement.events.input);
+
+  /** Notifies that a chip is about to be created. Can be prevented. */
+  private _chipInputTokenEnd = new EventEmitter<SbbChipInputTokenEndEventDetails>(
+    this,
+    SbbChipGroupElement.events.chipInputTokenEnd,
+  );
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -174,7 +194,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       });
       this._inputElement.addEventListener(
         inputAutocompleteEvent,
-        () => this._createChipFromInput(),
+        () => this._createChipFromInput('autocomplete'),
         {
           signal: this._inputAbortController.signal,
         },
@@ -237,7 +257,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       case 'Enter':
         if (!event.defaultPrevented) {
           event.preventDefault();
-          this._createChipFromInput();
+          this._createChipFromInput('input');
         }
         break;
       case 'Backspace':
@@ -256,12 +276,27 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   /**
    * If the input is not empty, create a chip with its value
    */
-  private _createChipFromInput(): void {
-    if (this._inputElement!.value.trim()) {
-      this.value = [...this.value, this._inputElement!.value.trim()];
-      this._inputElement!.value = ''; // Empty the input
-      this._emitInputEvents();
+  private _createChipFromInput(origin: 'input' | 'autocomplete' = 'input'): void {
+    const inputValue = this._inputElement!.value.trim();
+    if (!inputValue) {
+      return;
     }
+
+    const eventDetail: SbbChipInputTokenEndEventDetails = {
+      origin: origin,
+      value: inputValue,
+      label: undefined,
+      setValue: (value: string) => (eventDetail.value = value),
+      setLabel: (label: string) => (eventDetail.label = label),
+    };
+
+    if (!this._chipInputTokenEnd.emit(eventDetail)) {
+      return; // event prevented; do nothing (the consumer has to create the chip)
+    }
+
+    this._createChipElement(eventDetail.value, eventDetail.label);
+    this._inputElement!.value = ''; // Empty the input
+    this._emitInputEvents();
   }
 
   private _deleteChip(chip: SbbChipElement): void {
@@ -296,9 +331,10 @@ class SbbChipGroupElement extends SbbDisabledMixin(
     this._change.emit();
   }
 
-  private _createChipElement(value: string): void {
+  private _createChipElement(value: string, label?: string): void {
     const newChip = document.createElement('sbb-chip');
     newChip.setAttribute('value', value);
+    newChip.innerText = label ?? '';
     this.insertBefore(newChip, this._inputElement!);
   }
 

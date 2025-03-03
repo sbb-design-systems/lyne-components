@@ -51,6 +51,31 @@ The `sbb-chip-group` has a `negative` variant. If within an `sbb-form-field`, th
 
 ## Usage
 
+By default, when the user presses `Enter`, the `sbb-chip-group` will create a new `sbb-chip` and add it to the slotted elements.
+
+Consumers can customize or prevent this behavior by listening to the `chipInputTokenEnd` event.
+
+```html
+<!-- Preventing the event will stop the chip-group from converting the input value into a chip -->
+<sbb-chip-group name="field-name" @chipInputTokenEnd="${(ev)" ="">
+  ev.preventDefault()}> ...
+  <input />
+</sbb-chip-group>
+```
+
+```html
+<!-- Use the event.detail object to override the default behavior -->
+<sbb-chip-group
+  name="field-name"
+  @chipInputTokenEnd=${(ev: CustomEvent<SbbChipInputTokenEndEventDetails>) => {
+    ev.detail.setValue(transformedValue);
+    ev.detail.setLabel('Custom label');
+  }}>
+  ...
+  <input />
+</sbb-chip-group>
+```
+
 ### Use within forms
 
 The `sbb-chip-group` is a form-associated element that can be part of a form. Its value is an array of strings.
@@ -130,10 +155,11 @@ The `sbb-chip-group` follows the `grid` aria pattern.
 
 ## Events
 
-| Name     | Type                | Description                                      | Inherited From |
-| -------- | ------------------- | ------------------------------------------------ | -------------- |
-| `change` | `CustomEvent<void>` | Notifies that the component's value has changed. |                |
-| `input`  | `CustomEvent<void>` | Notifies that the component's value has changed. |                |
+| Name                | Type                                            | Description                                                    | Inherited From |
+| ------------------- | ----------------------------------------------- | -------------------------------------------------------------- | -------------- |
+| `change`            | `CustomEvent<void>`                             | Notifies that the component's value has changed.               |                |
+| `chipInputTokenEnd` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be prevented. |                |
+| `input`             | `CustomEvent<void>`                             | Notifies that the component's value has changed.               |                |
 
 ## Slots
 
