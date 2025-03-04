@@ -10,16 +10,11 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { PlaceState, PlaceType } from '../seat-reservation.js';
+import type { PlaceSelection, PlaceState, PlaceType } from '../seat-reservation.js';
 
 import '../seat-reservation-graphic.js';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
-
-export type PlaceSelection = {
-  id: string;
-  state: PlaceState;
-};
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -34,11 +29,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   public static readonly events = {
     selectPlace: 'selectPlace',
   } as const;
-
-  /** Id Prop */
-  @forceType()
-  @property({ attribute: 'id', type: String })
-  public accessor coachId: string = '';
 
   /** Type Prop */
   @forceType()
@@ -80,6 +70,11 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'text-rotation' })
   public accessor textRotation: number = 0;
 
+  /** Coach Index Prop to identifer the right place to coach */
+  @forceType()
+  @property({ attribute: 'coach-index', type: Number })
+  public accessor coachIndex: number = null!;
+
   /** Emits when an place was selected by user. */
   protected placeSelected: EventEmitter = new EventEmitter(
     this,
@@ -88,6 +83,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+
     if (changedProperties.has('width') || changedProperties.has('height')) {
       this.style?.setProperty(
         '--place-control-text-scale-from-host',
@@ -103,7 +99,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const name: string = this._getPlaceSvg(this.type, this.state); //getSvgName(this.type, this.state);
+    const name: string = this._getPlaceSvg(this.type, this.state);
     const buttonDisabled: boolean = !(this.state === 'FREE' || this.state === 'SELECTED');
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
@@ -163,8 +159,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     if (selectable) {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
-
-      const placeSelection: PlaceSelection = { id: this.id, state: this.state };
+      const placeSelection: PlaceSelection = {
+        id: this.id,
+        coachIndex: this.coachIndex,
+        number: this.text,
+        state: this.state,
+      };
       this.placeSelected.emit(placeSelection);
     }
   }
