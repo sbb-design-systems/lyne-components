@@ -1,1 +1,1 @@
-export * from './common/mapCodeToSvg.js';
+export * from './common/index.js';
