@@ -5,7 +5,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { MOCK_SEAT_RESERVATION_LAYOUT_0 } from '../seat-reservation-sample-data.js';
+import { mapRawDataToSeatReservation } from '../common.js';
 
 import readme from './readme.md?raw';
 
@@ -42,8 +42,9 @@ const defaultArgTypes: ArgTypes = {
   disable: disabledType,
 };
 
+const mapedSeatReservation = mapRawDataToSeatReservation();
 const defaultArgs: Args = {
-  seatReservation: MOCK_SEAT_RESERVATION_LAYOUT_0,
+  seatReservation: mapedSeatReservation,
   'max-reservations': 4,
   'align-vertical': false,
   disable: false,
