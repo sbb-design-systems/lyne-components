@@ -1,1697 +1,3359 @@
-import type { SeatReservation } from './seat-reservation.js';
-
-export const MOCK_SEAT_RESERVATION_LAYOUT_0: SeatReservation = {
-  vehicleType: 'TRAIN',
-  deckCoachIndex: 0,
-  coachItems: [
-    {
-      id: 'coach-layout-0',
-      number: '1',
+//Capre Sample Data - CoachDeckLayout
+export const MOCK_COACHES_RAW_0 = [
+  {
+    warnings: null,
+    coachDeckLayout: {
+      id: '32801',
+      name: 'B10(501) - not touch',
       dimension: {
-        w: 64,
-        h: 10,
+        width: 58,
+        height: 10,
+        borderRadius: null,
       },
-      places: [
+      lowFloorEntry: false,
+      deckLevel: 'LOWER_DECK',
+      placeGroups: [
         {
-          icon: 'string',
-          number: '21',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 31,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '22',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 37,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '41',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 39,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '42',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 45,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '61',
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'FREE',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 47,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '62',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'FREE',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 53,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '13',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 31,
-            y: 6,
-            z: 0,
-          },
+          accommodationSubType: 'BICYCLE',
+          places: [
+            {
+              number: '153',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+            {
+              number: '151',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+            {
+              number: '154',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'string',
-          number: '14',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 37,
-            y: 6,
-            z: 0,
-          },
-        },
-
-        {
-          icon: 'string',
-          number: '11',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 31,
-            y: 8,
-            z: 0,
-          },
+          accommodationSubType: 'BICYCLE',
+          places: [
+            {
+              number: '152',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'string',
-          number: '12',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 37,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '33',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 39,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '34',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 45,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '31',
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'ALLOCATED',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 39,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '32',
-          rotation: 180,
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'RESTRICTED',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 45,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '53',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 47,
-            y: 6,
-            z: 0,
-          },
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '48',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '42',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'string',
-          number: '51',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 47,
-            y: 8,
-            z: 0,
-          },
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '35',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '37',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '36',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '34',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '51',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '53',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '52',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '58',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '71',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '73',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '72',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '78',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '31',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '33',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '32',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '38',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '55',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '57',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '56',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '54',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '45',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '47',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '46',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '44',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '65',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '67',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '66',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '64',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '61',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '63',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '62',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '68',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '75',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '77',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '76',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '74',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
       ],
-      signs: [
+      graphicElements: [
         {
-          icon: 'WHEELCHAIR',
-          dimension: {
-            w: 2,
-            h: 2,
+          rectangle: {
+            position: {
+              x: 0,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 14,
+              height: 10,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 36,
-            y: 0,
-            z: 0,
-          },
+          orientation: 0,
+          type: 'DRIVER_AREA_FULL',
         },
         {
-          icon: 'RESTAURANT_ICON',
-          dimension: {
-            w: 2,
-            h: 2,
+          rectangle: {
+            position: {
+              x: 33,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 1,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 32,
-            y: 3,
-            z: 0,
-          },
+          orientation: 90,
+          type: 'ENTRY_EXIT',
         },
         {
-          icon: 'RESTAURANT_ICON',
-          dimension: {
-            w: 2,
-            h: 2,
+          rectangle: {
+            position: {
+              x: 22,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 20,
-            y: 3,
-            z: 0,
-          },
-        },
-      ],
-      internals: [
-        {
-          icon: 'ENTRY_EXIT',
-          position: {
-            x: 20,
-            y: 9,
-            z: 0,
-          },
-          dimension: {
-            w: 4,
-            h: 1,
-          },
-          rotation: 90,
+          orientation: 0,
+          type: 'LUGGAGE_AREA',
         },
         {
-          icon: 'ENTRY_EXIT',
-          position: {
-            x: 55,
-            y: 9,
-            z: 0,
+          rectangle: {
+            position: {
+              x: 33,
+              y: 9,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 1,
+              borderRadius: null,
+            },
           },
-          dimension: {
-            w: 4,
-            h: 1,
-          },
-          rotation: 90,
+          orientation: 90,
+          type: 'ENTRY_EXIT',
         },
         {
-          icon: 'DRIVER_AREA_FULL',
-          dimension: {
-            w: 12,
-            h: 10,
+          rectangle: {
+            position: {
+              x: 31,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
+          orientation: 0,
+          type: 'COMPARTMENT_PASSAGE',
         },
         {
-          icon: 'COACH_PASSAGE',
-          dimension: {
-            w: 1,
-            h: 10,
+          rectangle: {
+            position: {
+              x: 37,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 63,
-            y: 0,
-            z: 0,
-          },
-          rotation: 180,
-        },
-      ],
-      directedInternals: [
-        {
-          position: {
-            x: 20,
-            y: 9,
-            z: 0,
-          },
-          dimension: {
-            w: 4,
-            h: 1,
-          },
+          orientation: 0,
+          type: 'COMPARTMENT_PASSAGE',
         },
         {
-          position: {
-            x: 55,
-            y: 9,
-            z: 0,
+          rectangle: {
+            position: {
+              x: 57,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
           },
-          dimension: {
-            w: 4,
-            h: 1,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 50,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 42,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 50,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 34,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 34,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 42,
-            y: 0,
-            z: 0,
-          },
+          orientation: 180,
+          type: 'COACH_PASSAGE',
         },
       ],
-      compartmentNumbers: [
+      serviceIcons: [
         {
-          number: '2',
-          dimension: {
-            w: 2,
-            h: 2,
+          rectangle: {
+            position: {
+              x: 40,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 26,
-            y: 3,
-            z: 0,
-          },
+          type: 'WHEELCHAIR_ICON',
         },
         {
-          number: '1',
-          dimension: {
-            w: 2,
-            h: 2,
+          rectangle: {
+            position: {
+              x: 28,
+              y: 7,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
           },
-          position: {
-            x: 40,
-            y: 3,
-            z: 0,
+          type: 'BICYCLE_LOW_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
           },
+          type: 'WHEELCHAIR_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'BICYCLE_LOW_ICON',
         },
       ],
     },
-    {
-      id: 'coach-layout-1',
-      number: '2',
+  },
+  {
+    warnings: null,
+    coachDeckLayout: {
+      id: '32802',
+      name: 'B10(501) - not touch',
       dimension: {
-        w: 64,
-        h: 10,
+        width: 58,
+        height: 10,
+        borderRadius: null,
       },
-      places: [
+      lowFloorEntry: false,
+      deckLevel: 'LOWER_DECK',
+      placeGroups: [
         {
-          icon: 'string',
-          number: '1',
-          type: 'BICYCLE',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 10,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '2',
-          type: 'BICYCLE',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 14,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '3',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 18,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '4',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 22,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '5',
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'ALLOCATED',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 10,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '6',
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'ALLOCATED',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 14,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '7',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 18,
-            y: 8,
-            z: 0,
-          },
+          accommodationSubType: 'BICYCLE',
+          places: [
+            {
+              number: '153',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+            {
+              number: '151',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+            {
+              number: '154',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'string',
-          number: '8',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 22,
-            y: 8,
-            z: 0,
-          },
-        },
-      ],
-      signs: [
-        {
-          icon: 'WHEELCHAIR',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 36,
-            y: 0,
-            z: 0,
-          },
+          accommodationSubType: 'BICYCLE',
+          places: [
+            {
+              number: '152',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'RESTAURANT_ICON',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 32,
-            y: 3,
-            z: 0,
-          },
-        },
-        {
-          icon: 'RESTAURANT_ICON',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 46,
-            y: 3,
-            z: 0,
-          },
-        },
-      ],
-      internals: [
-        {
-          icon: 'COACH_PASSAGE',
-          dimension: {
-            w: 1,
-            h: 10,
-          },
-          position: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'COACH_PASSAGE',
-          dimension: {
-            w: 1,
-            h: 10,
-          },
-          position: {
-            x: 63,
-            y: 0,
-            z: 0,
-          },
-          rotation: 180,
-        },
-      ],
-      directedInternals: [
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 42,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 50,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 34,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 34,
-            y: 6,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 42,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 50,
-            y: 6,
-            z: 0,
-          },
-        },
-      ],
-      compartmentNumbers: [
-        {
-          number: '2',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 10,
-            y: 4,
-            z: 0,
-          },
-        },
-        {
-          number: '1',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 40,
-            y: 3,
-            z: 0,
-          },
-        },
-      ],
-    },
-    {
-      id: 'coach-layout-2',
-      number: '3',
-      dimension: {
-        w: 64,
-        h: 10,
-      },
-      places: [
-        {
-          icon: 'string',
-          number: '1',
-          type: 'BICYCLE',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 10,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '2',
-          type: 'BICYCLE',
-          propertyIds: ['WINDOW'],
-          state: 'RESTRICTED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 14,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '3',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 18,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '4',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'ALLOCATED',
-          travelClass: 'ANY_CLASS',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 22,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '5',
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'ALLOCATED',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 10,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '6',
-          type: 'SEAT',
-          propertyIds: ['WINDOW', 'POWER'],
-          state: 'ALLOCATED',
-          travelClass: 'FIRST',
-          remarkId: 'First class seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 14,
-            y: 8,
-            z: 0,
-          },
-        },
-        {
-          icon: 'string',
-          number: '7',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 18,
-            y: 8,
-            z: 0,
-          },
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '48',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '42',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'string',
-          number: '8',
-          type: 'SEAT',
-          propertyIds: ['WINDOW'],
-          state: 'FREE',
           travelClass: 'SECOND',
-          remarkId: 'Hint for seat',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 22,
-            y: 8,
-            z: 0,
-          },
-        },
-      ],
-      signs: [
-        {
-          icon: 'WHEELCHAIR',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 36,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'RESTAURANT_ICON',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 32,
-            y: 3,
-            z: 0,
-          },
-        },
-        {
-          icon: 'RESTAURANT_ICON',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 46,
-            y: 3,
-            z: 0,
-          },
-        },
-      ],
-      internals: [
-        {
-          icon: 'DRIVER_AREA_FULL',
-          rotation: 180,
-          dimension: {
-            w: 12,
-            h: 10,
-          },
-          position: {
-            x: 52,
-            y: 0,
-            z: 0,
-          },
-        },
-        {
-          icon: 'COACH_PASSAGE',
-          dimension: {
-            w: 1,
-            h: 10,
-          },
-          position: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
-        },
-      ],
-      directedInternals: [
-        {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 42,
-            y: 6,
-            z: 0,
-          },
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '15',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '17',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '16',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '14',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 34,
-            y: 0,
-            z: 0,
-          },
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '11',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '13',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '12',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '18',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 4,
-          },
-          position: {
-            x: 34,
-            y: 6,
-            z: 0,
-          },
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '25',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '27',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '26',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '24',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          icon: 'TABLE_RESTAURANT',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 42,
-            y: 0,
-            z: 0,
-          },
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '21',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '23',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '22',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '28',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
-      ],
-      compartmentNumbers: [
         {
-          number: '2',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 10,
-            y: 4,
-            z: 0,
-          },
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '35',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '37',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '36',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '34',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
         {
-          number: '1',
-          dimension: {
-            w: 2,
-            h: 2,
-          },
-          position: {
-            x: 40,
-            y: 3,
-            z: 0,
-          },
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '51',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '53',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '52',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '58',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
-      ],
-    },
-  ],
-};
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '71',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '73',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '72',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '78',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '31',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '33',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '32',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '38',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '55',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '57',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '56',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '54',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '45',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '47',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '46',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '44',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '65',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '67',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '66',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '64',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '61',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '63',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '62',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '68',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '75',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '77',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
 
-/*
-{
-    "warnings": null,
-    "coachDeckLayout": {
-        "id": "32801",
-        "name": "WR6(501) - not touch",
-        "dimension": {
-            "width": 58,
-            "height": 10,
-            "borderRadius": null
+            {
+              number: '74',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
         },
-        "lowFloorEntry": false,
-        "deckLevel": "LOWER_DECK",
-        "placeGroups": [
-            {
-                "travelClass": "SECOND",
-                "accommodationSubType": "RESTAURANT",
-                "places": [
-                    {
-                        "number": "21",
-                        "rectangle": {
-                            "position": {
-                                "x": 31,
-                                "y": 0,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "22",
-                        "rectangle": {
-                            "position": {
-                                "x": 37,
-                                "y": 0,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    }
-                ]
+      ],
+      graphicElements: [
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 0,
+              z: 0,
             },
-            {
-                "travelClass": "SECOND",
-                "accommodationSubType": "RESTAURANT",
-                "places": [
-                    {
-                        "number": "41",
-                        "rectangle": {
-                            "position": {
-                                "x": 39,
-                                "y": 0,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "42",
-                        "rectangle": {
-                            "position": {
-                                "x": 45,
-                                "y": 0,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    }
-                ]
+            dimension: {
+              width: 4,
+              height: 1,
+              borderRadius: null,
             },
-            {
-                "travelClass": "SECOND",
-                "accommodationSubType": "RESTAURANT",
-                "places": [
-                    {
-                        "number": "61",
-                        "rectangle": {
-                            "position": {
-                                "x": 47,
-                                "y": 0,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "62",
-                        "rectangle": {
-                            "position": {
-                                "x": 53,
-                                "y": 0,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    }
-                ]
+          },
+          orientation: 90,
+          type: 'ENTRY_EXIT',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 22,
+              y: 8,
+              z: 0,
             },
-            {
-                "travelClass": "SECOND",
-                "accommodationSubType": "RESTAURANT",
-                "places": [
-                    {
-                        "number": "13",
-                        "rectangle": {
-                            "position": {
-                                "x": 31,
-                                "y": 6,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "AISLE"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "14",
-                        "rectangle": {
-                            "position": {
-                                "x": 37,
-                                "y": 6,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "AISLE"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "11",
-                        "rectangle": {
-                            "position": {
-                                "x": 31,
-                                "y": 8,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "12",
-                        "rectangle": {
-                            "position": {
-                                "x": 37,
-                                "y": 8,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    }
-                ]
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
             },
-            {
-                "travelClass": "SECOND",
-                "accommodationSubType": "RESTAURANT",
-                "places": [
-                    {
-                        "number": "33",
-                        "rectangle": {
-                            "position": {
-                                "x": 39,
-                                "y": 6,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "AISLE"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "34",
-                        "rectangle": {
-                            "position": {
-                                "x": 45,
-                                "y": 6,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "AISLE"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "31",
-                        "rectangle": {
-                            "position": {
-                                "x": 39,
-                                "y": 8,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "32",
-                        "rectangle": {
-                            "position": {
-                                "x": 45,
-                                "y": 8,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    }
-                ]
+          },
+          orientation: 0,
+          type: 'LUGGAGE_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 0,
+              y: 0,
+              z: 0,
             },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'COACH_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 9,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 1,
+              borderRadius: null,
+            },
+          },
+          orientation: 90,
+          type: 'ENTRY_EXIT',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 31,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'COMPARTMENT_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 37,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'COMPARTMENT_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 57,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 180,
+          type: 'COACH_PASSAGE',
+        },
+      ],
+      serviceIcons: [
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'WHEELCHAIR_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 7,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'BICYCLE_LOW_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'WHEELCHAIR_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'BICYCLE_LOW_ICON',
+        },
+      ],
+    },
+  },
+  {
+    warnings: null,
+    coachDeckLayout: {
+      id: '32803',
+      name: 'B10(501) - not touch',
+      dimension: {
+        width: 58,
+        height: 10,
+        borderRadius: null,
+      },
+      lowFloorEntry: false,
+      deckLevel: 'LOWER_DECK',
+      placeGroups: [
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
             {
-                "travelClass": "SECOND",
-                "accommodationSubType": "RESTAURANT",
-                "places": [
-                    {
-                        "number": "53",
-                        "rectangle": {
-                            "position": {
-                                "x": 47,
-                                "y": 6,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "AISLE"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "51",
-                        "rectangle": {
-                            "position": {
-                                "x": 47,
-                                "y": 8,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 0,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    },
-                    {
-                        "number": "52",
-                        "rectangle": {
-                            "position": {
-                                "x": 53,
-                                "y": 8,
-                                "z": 0
-                            },
-                            "dimension": {
-                                "width": 2,
-                                "height": 2,
-                                "borderRadius": null
-                            }
-                        },
-                        "orientation": 180,
-                        "placeLocations": [
-                            "WINDOW"
-                        ],
-                        "placeProperties": []
-                    }
-                ]
-            }
-        ],
-        "graphicElements": [
-            {
-                "rectangle": {
-                    "position": {
-                        "x": 57,
-                        "y": 3,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 1,
-                        "height": 4,
-                        "borderRadius": null
-                    }
+              number: '15',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 0,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "COACH_PASSAGE"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 42,
-                        "y": 6,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 4,
-                        "borderRadius": null
-                    }
+              number: '17',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 2,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "TABLE_RESTAURANT"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 50,
-                        "y": 0,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 2,
-                        "borderRadius": null
-                    }
+              number: '16',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 0,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "TABLE_RESTAURANT"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 34,
-                        "y": 0,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 2,
-                        "borderRadius": null
-                    }
+              number: '14',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 2,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "TABLE_RESTAURANT"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '11',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 34,
-                        "y": 6,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 4,
-                        "borderRadius": null
-                    }
+              number: '13',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 6,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "TABLE_RESTAURANT"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 42,
-                        "y": 0,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 2,
-                        "borderRadius": null
-                    }
+              number: '12',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 8,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "TABLE_RESTAURANT"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 0,
-                        "y": 3,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 1,
-                        "height": 4,
-                        "borderRadius": null
-                    }
+              number: '18',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 6,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "COACH_PASSAGE"
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '25',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 50,
-                        "y": 6,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 4,
-                        "borderRadius": null
-                    }
+              number: '27',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 2,
+                  z: 0,
                 },
-                "orientation": 0,
-                "type": "TABLE_RESTAURANT"
-            }
-        ],
-        "serviceIcons": [
-            {
-                "rectangle": {
-                    "position": {
-                        "x": 32,
-                        "y": 3,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 2,
-                        "borderRadius": null
-                    }
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
                 },
-                "type": "RESTAURANT_ICON"
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
             },
             {
-                "rectangle": {
-                    "position": {
-                        "x": 46,
-                        "y": 3,
-                        "z": 0
-                    },
-                    "dimension": {
-                        "width": 2,
-                        "height": 2,
-                        "borderRadius": null
-                    }
+              number: '26',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 0,
+                  z: 0,
                 },
-                "type": "RESTAURANT_ICON"
-            }
-        ]
-    }
-}*/
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '24',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '21',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '23',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '22',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '28',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'BICYCLE',
+          places: [
+            {
+              number: '153',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+            {
+              number: '151',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+            {
+              number: '154',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'BICYCLE',
+          places: [
+            {
+              number: '152',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '48',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '42',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '35',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '37',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '36',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '34',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '51',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '53',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '52',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '58',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '31',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '33',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '32',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '38',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '55',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '57',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '56',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '54',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+        {
+          travelClass: 'SECOND',
+          accommodationSubType: 'ANY_SEAT',
+          places: [
+            {
+              number: '45',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '47',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+            {
+              number: '46',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['WINDOW'],
+              placeProperties: [],
+            },
+            {
+              number: '44',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 180,
+              placeLocations: ['AISLE'],
+              placeProperties: [],
+            },
+          ],
+        },
+      ],
+      graphicElements: [
+        {
+          rectangle: {
+            position: {
+              x: 44,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 14,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 180,
+          type: 'DRIVER_AREA_FULL',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 1,
+              borderRadius: null,
+            },
+          },
+          orientation: 90,
+          type: 'ENTRY_EXIT',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 22,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'LUGGAGE_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 9,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 1,
+              borderRadius: null,
+            },
+          },
+          orientation: 90,
+          type: 'ENTRY_EXIT',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 31,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'COMPARTMENT_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 37,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'COMPARTMENT_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 0,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'COACH_PASSAGE',
+        },
+      ],
+      serviceIcons: [
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'WHEELCHAIR_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 7,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'BICYCLE_LOW_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'WHEELCHAIR_ICON',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          type: 'BICYCLE_LOW_ICON',
+        },
+      ],
+    },
+  },
+];
