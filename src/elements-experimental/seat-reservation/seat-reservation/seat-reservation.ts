@@ -1,10 +1,10 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { html, LitElement, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit-html/directives/style-map.js';
 
-import type { PlaceSelection } from '../seat-reservation-place-control.js';
 import type {
   CoachItem,
   Place,
@@ -14,6 +14,8 @@ import type {
   CompartmentNumberElement,
   SignElement,
   BaseElement,
+  PlaceSelection,
+  SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
 import style from './seat-reservation.scss?lit&inline';
@@ -26,12 +28,15 @@ import '../seat-reservation-place-control.js';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * @slot - Use the unnamed slot to add elements.
+ * @event {CustomEvent<Place[]>} selectedPlaces - Emits when select a place and returns a Place array with all selected places
  */
 export
 @customElement('sbb-seat-reservation')
 class SbbSeatReservationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+  public static readonly events = {
+    selectedPlaces: 'selectedPlaces',
+  } as const;
 
   /** seat reservation*/
   @forceType()
@@ -53,13 +58,18 @@ class SbbSeatReservationElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
-  @state() private accessor _selectedCoachIndex: number = 0;
+  /** Emits when an place was selected by user. */
+  protected selectedPlaces: EventEmitter = new EventEmitter(
+    this,
+    SbbSeatReservationElement.events.selectedPlaces,
+  );
 
-  @state() private accessor _placeCollection: Record<string, Place[]> = {};
+  @state() private accessor _selectedCoachIndex: number = 0;
 
   private _maxHeight = 128;
   private _gridSize = 8;
   private _gridSizeFactor = this._maxHeight / this._gridSize;
+  private _selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
   private _triggerCoachPositionsCollection: number[][] = [];
   private _coachScrollArea: HTMLElement = null!;
   private _notAreaElements = [
@@ -124,9 +134,6 @@ class SbbSeatReservationElement extends LitElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
-    if (!this._placeCollection[coachItem.id] && coachItem.places) {
-      this._placeCollection[coachItem.id] = coachItem.places;
-    }
 
     return html`
       <div style="width:${calculatedCoachDimension.w}px; height:${calculatedCoachDimension.h}px;">
@@ -134,7 +141,7 @@ class SbbSeatReservationElement extends LitElement {
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedSignElements(coachItem.signs)}
         ${this._getRenderedCompartmentNumberElements(coachItem.compartmentNumbers)}
-        ${this._getRenderedPlaces(coachItem.id)}
+        ${this._getRenderedPlaces(coachItem, index)}
       </div>
     `;
   }
@@ -164,8 +171,12 @@ class SbbSeatReservationElement extends LitElement {
     `;
   }
 
-  private _getRenderedPlaces(coachId: string): TemplateResult[] | null {
-    return this._placeCollection[coachId]?.map((place: Place) => {
+  private _getRenderedPlaces(coach: CoachItem, coachIndex: number): TemplateResult[] | null {
+    if (!coach.places) {
+      return null;
+    }
+
+    return coach.places?.map((place: Place) => {
       const calculatedInternalDimension = this._getCalculatedDimension(place.dimension);
       const calculatedInternalPosition = this._getCalculatedPosition(place.position);
       const textRotation = place.rotation ? place.rotation * -1 : 0;
@@ -181,7 +192,7 @@ class SbbSeatReservationElement extends LitElement {
         <div class="sbb-seat-reservation__graphical-element" style=${styleMap(elementStyle)}>
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
-            id=${coachId}
+            id="${coachIndex}_${place.number}"
             text=${place.number}
             type=${place.type}
             state=${place.state}
@@ -189,6 +200,7 @@ class SbbSeatReservationElement extends LitElement {
             height=${place.dimension.h}
             rotation=${place.rotation ?? nothing}
             text-rotation=${textRotation}
+            coach-index=${coachIndex}
           ></sbb-seat-reservation-place-control>
         </div>
       `;
@@ -268,14 +280,14 @@ class SbbSeatReservationElement extends LitElement {
 
   private _getRenderElementWithoutArea(
     graphicalElement: BaseElement,
-    calculatedInternalPosition: ElementPosition,
-    calculatedInternalDimension: ElementDimension,
+    calculatedPosition: ElementPosition,
+    calculatedDimension: ElementDimension,
     rotation: number,
   ): TemplateResult {
     return html`
       <div
         class="sbb-seat-reservation__graphical-element"
-        style="top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${graphicalElement
+        style="top:${calculatedPosition.y}px; left:${calculatedPosition.x}px; width:${calculatedDimension.w}px; height:${calculatedDimension.h}px; z-index:${graphicalElement
           .position.z};"
       >
         <sbb-seat-reservation-graphic
@@ -335,7 +347,7 @@ class SbbSeatReservationElement extends LitElement {
       return html`
         <div
           class="sbb-seat-reservation__graphical-element sbb-seat-reservation__compartment-number sbb-seat-reservation__compartment-number--${colorClass}"
-          style="position:absolute; top:${calculatedcCmpartmentNumberPosition.y}px; left:${calculatedcCmpartmentNumberPosition.x}px; width:${calculatedcCmpartmentNumberDimension.w}px; height:${calculatedcCmpartmentNumberDimension.h}px;"
+          style="top:${calculatedcCmpartmentNumberPosition.y}px; left:${calculatedcCmpartmentNumberPosition.x}px; width:${calculatedcCmpartmentNumberDimension.w}px; height:${calculatedcCmpartmentNumberDimension.h}px;"
           aria-label=${ariaCompartmentLabel}
         >
           ${compartmentNumber.number}
@@ -351,7 +363,7 @@ class SbbSeatReservationElement extends LitElement {
       let currCalcTriggerPos = 0;
       const coachScrollWidth = this._coachScrollArea.getBoundingClientRect().width;
 
-      //Generate calulated trigger point array depends from coach width
+      //Generate calculated trigger point array depends from coach width
       this._triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const fromPos = currCalcTriggerPos;
         currCalcTriggerPos += this._getCalculatedDimension(coach.dimension).w;
@@ -384,10 +396,77 @@ class SbbSeatReservationElement extends LitElement {
     });
   }
 
+  /**
+   * Manages the selected place event triggered from the place
+   * Each selection emits an array of all selected places
+   * @param selectPlaceEvent
+   */
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
-    const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
-    console.log(selectedPlace);
-    //TODO place select handling -> output emitter
+    const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
+
+    if (currSelectedPlace.state === 'SELECTED') {
+      const seatReservationSelection = this._getSeatReservationPlaceSelection(currSelectedPlace);
+      if (seatReservationSelection) {
+        this._selectedSeatReservationPlaces.push(seatReservationSelection);
+      }
+    }
+    //Remove selected place from selectedSeatReservationPlaces
+    else {
+      this._selectedSeatReservationPlaces = this._selectedSeatReservationPlaces.filter(
+        (_selectedPlace) => _selectedPlace.id !== currSelectedPlace.id,
+      );
+    }
+
+    //Checks whether maxReservation is activated and the maximum number of selected places is reached
+    if (this.maxReservations && this._selectedSeatReservationPlaces.length > this.maxReservations) {
+      this._resetAllPlaceSelections(currSelectedPlace);
+    }
+
+    //Emits the seat reservation place selection
+    this.selectedPlaces.emit(this._selectedSeatReservationPlaces);
+  }
+
+  private _getSeatReservationPlaceSelection(
+    currSelectedPlace: PlaceSelection,
+  ): SeatReservationPlaceSelection | null {
+    const coach = this.seatReservation.coachItems[currSelectedPlace.coachIndex];
+    const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
+
+    if (!place) {
+      return null;
+    }
+
+    return {
+      id: currSelectedPlace.id,
+      coachId: coach.id,
+      coachNumber: coach.number,
+      coachIndex: currSelectedPlace.coachIndex,
+      placeNumber: place.number,
+      placeType: place.type,
+      placeTravelClass: place.travelClass || 'ANY_CLASS',
+      propertyIds: place.propertyIds || [],
+    };
+  }
+
+  /**
+   * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
+   * @param currSelectedPlace
+   */
+  private _resetAllPlaceSelections(currSelectedPlace?: PlaceSelection): void {
+    //Find all places to be needed unselect
+
+    for (const placeSelection of this._selectedSeatReservationPlaces) {
+      if (!currSelectedPlace || currSelectedPlace.id !== placeSelection.id) {
+        const placeElement = this.shadowRoot?.getElementById(placeSelection.id) as HTMLElement;
+        placeElement.setAttribute('state', 'FREE');
+      }
+    }
+    //Removes all selected places except the currently selected place
+    this._selectedSeatReservationPlaces = currSelectedPlace
+      ? this._selectedSeatReservationPlaces.filter(
+          (_selectedPlace) => _selectedPlace.id === currSelectedPlace.id,
+        )
+      : [];
   }
 
   private _getCalculatedDimension(elementDimension: ElementDimension): ElementDimension {
