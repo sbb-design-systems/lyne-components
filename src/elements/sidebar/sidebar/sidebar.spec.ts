@@ -1,11 +1,12 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
+import type { SbbSidebarContentElement } from '../sidebar-content.js';
 
 import { SbbSidebarElement } from './sidebar.js';
 
@@ -17,6 +18,7 @@ import '../sidebar-title.js';
 describe('sbb-sidebar', () => {
   let container: SbbSidebarContainerElement,
     element: SbbSidebarElement,
+    content: SbbSidebarContentElement,
     closeButton: SbbSidebarCloseButtonElement,
     scrollContext: HTMLDivElement;
 
@@ -41,7 +43,11 @@ describe('sbb-sidebar', () => {
       </sbb-sidebar-container>`,
     );
 
+    // We run the tests in a defined size where we have enough space to open the sidebar in mode side.
+    await setViewport({ width: 800, height: 600 });
+
     element = container.querySelector('sbb-sidebar')!;
+    content = container.querySelector('sbb-sidebar-content')!;
     closeButton = container.querySelector('sbb-sidebar-close-button')!;
     scrollContext = element.shadowRoot!.querySelector('.sbb-sidebar-content-section')!;
   });
@@ -235,6 +241,21 @@ describe('sbb-sidebar', () => {
   });
 
   describe('opening and closing', () => {
+    it('should toggle the sidebar', async () => {
+      const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
+      const didCloseEventSpy = new EventSpy(SbbSidebarElement.events.didClose, element);
+
+      element.toggle();
+
+      await didOpenEventSpy.calledOnce();
+      expect(element.isOpen).to.be.true;
+
+      element.toggle();
+
+      await didCloseEventSpy.calledOnce();
+      expect(element.isOpen).to.be.false;
+    });
+
     it('should open programmatically', async () => {
       const willOpenEventSpy = new EventSpy(SbbSidebarElement.events.willOpen, element);
       const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
@@ -251,6 +272,85 @@ describe('sbb-sidebar', () => {
 
       await aTimeout(0);
       expect(element).not.to.have.attribute('data-skip-animation');
+    });
+
+    it('should abort opening when defaultPrevented', async () => {
+      element.addEventListener(SbbSidebarElement.events.willOpen, (ev) => ev.preventDefault());
+
+      element.open();
+
+      expect(element.isOpen).to.be.false;
+    });
+
+    it('should take focus when opening in mode over', async () => {
+      element.mode = 'over';
+      await waitForLitRender(container);
+
+      element.open();
+      expect(element.isOpen).to.be.true;
+
+      await sendKeys({ press: tabKey });
+
+      expect(document.activeElement).to.be.equal(closeButton);
+      expect(content).to.have.attribute('inert');
+    });
+
+    it('should release focus when closing in mode over', async () => {
+      element.mode = 'over';
+      await waitForLitRender(container);
+
+      element.open();
+      expect(element.isOpen).to.be.true;
+
+      await waitForLitRender(container);
+
+      element.close();
+      expect(element.isOpen).to.be.false;
+      await waitForLitRender(container);
+      expect(document.activeElement!.localName).to.be.equal('body');
+      expect(content).not.to.have.attribute('inert');
+
+      // With the following test we ensure that the previously registered escape listener
+      // doesn't run anymore (proofs that we called _windowEventsController?.abort()).
+      element.mode = 'side';
+      element.opened = true;
+      await waitForLitRender(element);
+
+      await sendKeys({ press: 'Escape' });
+      await waitForLitRender(element);
+      expect(element.isOpen).to.be.true;
+    });
+
+    it('should release focus when closing in mode side', async () => {
+      container.querySelector<HTMLButtonElement>('#b1')!.focus();
+      element.open();
+      expect(element.isOpen).to.be.true;
+
+      closeButton.focus();
+
+      element.close();
+      expect(document.activeElement!.id).to.be.equal('b1');
+    });
+
+    it('should release focus when closing in mode side and no previous focused element', async () => {
+      element.open();
+      expect(element.isOpen).to.be.true;
+
+      closeButton.focus();
+
+      element.close();
+      expect(document.activeElement!.localName).to.be.equal('body');
+    });
+
+    it('should be inert when opening in forced mode over', async () => {
+      await setViewport({ width: 400, height: 400 });
+
+      // Wait for resizeObserver of container to be triggered
+      await aTimeout(30);
+
+      element.open();
+      expect(element.isOpen).to.be.true;
+      expect(content).to.have.attribute('inert');
     });
 
     it('should close programmatically', async () => {
@@ -282,6 +382,32 @@ describe('sbb-sidebar', () => {
       expect(document.activeElement!.id).to.be.equal('b1');
     });
 
+    it('should abort closing when defaultPrevented', async () => {
+      element.open();
+      element.addEventListener(SbbSidebarElement.events.willClose, (ev) => ev.preventDefault());
+
+      element.close();
+
+      expect(element.isOpen).to.be.true;
+    });
+
+    it('opens and closes with non-zero animation duration', async () => {
+      container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+      const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
+      const didCloseEventSpy = new EventSpy(SbbSidebarElement.events.didClose, element);
+
+      element.open();
+      await didOpenEventSpy.calledOnce();
+      await element.animationComplete;
+
+      element.close();
+      await didCloseEventSpy.calledOnce();
+      await element.animationComplete;
+
+      expect(didOpenEventSpy.count).to.be.equal(1);
+      expect(didCloseEventSpy.count).to.be.equal(1);
+    });
+
     it('should close on close button click', async () => {
       element.opened = true;
       await waitForLitRender(element);
@@ -304,6 +430,186 @@ describe('sbb-sidebar', () => {
         expect(element.opened).to.be.false;
       });
     }
+
+    it('should close on backdrop click', async () => {
+      element.mode = 'over';
+      element.opened = true;
+      await waitForLitRender(element);
+
+      window.dispatchEvent(new CustomEvent('pointerdown'));
+      window.dispatchEvent(new CustomEvent('pointerup'));
+      await waitForLitRender(element);
+
+      expect(element.opened).to.be.false;
+    });
+
+    it('should not close on backdrop click when releasing on sidebar', async () => {
+      element.mode = 'over';
+      element.opened = true;
+      await waitForLitRender(element);
+
+      const positionRect = element.shadowRoot!.firstElementChild!.getBoundingClientRect();
+
+      await sendMouse({
+        type: 'move',
+        position: [0, 0],
+      });
+
+      await sendMouse({ type: 'down' });
+
+      await sendMouse({
+        type: 'move',
+        position: [
+          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
+          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+        ],
+      });
+
+      await sendMouse({ type: 'up' });
+
+      await waitForLitRender(element);
+
+      expect(element.opened).to.be.true;
+    });
+
+    it('should not close on backdrop click when starting on sidebar', async () => {
+      element.mode = 'over';
+      element.opened = true;
+      await waitForLitRender(element);
+
+      const positionRect = element.shadowRoot!.firstElementChild!.getBoundingClientRect();
+
+      await sendMouse({
+        type: 'move',
+        position: [
+          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
+          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+        ],
+      });
+
+      await sendMouse({ type: 'down' });
+
+      await sendMouse({
+        type: 'move',
+        position: [0, 0],
+      });
+
+      await sendMouse({ type: 'up' });
+
+      await waitForLitRender(element);
+
+      expect(element.opened).to.be.true;
+    });
+
+    it('should close on Escape key press', async () => {
+      element.mode = 'over';
+      element.opened = true;
+      await waitForLitRender(element);
+
+      await sendKeys({ press: 'Escape' });
+      await waitForLitRender(element);
+
+      expect(element.opened).to.be.false;
+    });
+
+    it('should handle initial opened state', async () => {
+      container = await fixture(
+        html`<sbb-sidebar-container>
+          <sbb-sidebar opened>Content</sbb-sidebar>
+          <sbb-sidebar-content>Content</sbb-sidebar-content>
+        </sbb-sidebar-container>`,
+      );
+
+      element = container.querySelector('sbb-sidebar')!;
+
+      expect(element).to.have.attribute('data-skip-animation');
+
+      await waitForCondition(() => !element.hasAttribute('data-skip-animation'));
+    });
+
+    it('should handle initial opened state with non-zero animation time', async () => {
+      container = await fixture(
+        html`<sbb-sidebar-container style="--sbb-sidebar-container-animation-duration: 1ms">
+          <sbb-sidebar opened>Content</sbb-sidebar>
+          <sbb-sidebar-content>Content</sbb-sidebar-content>
+        </sbb-sidebar-container>`,
+      );
+
+      element = container.querySelector('sbb-sidebar')!;
+
+      expect(element).to.have.attribute('data-skip-animation');
+
+      await waitForCondition(() => !element.hasAttribute('data-skip-animation'));
+    });
+
+    describe('status change during animation', () => {
+      beforeEach(() => {
+        container.style.setProperty('--sbb-sidebar-container-animation-duration', '10ms');
+      });
+
+      it('should allow closing during opening', async () => {
+        element.open();
+        expect(element).to.have.attribute('data-state', 'opening');
+        expect(element.opened).to.be.true;
+
+        element.close();
+        expect(element.opened).to.be.false;
+        expect(element).to.have.attribute('data-state', 'closing');
+      });
+
+      it('should allow opening during closing', async () => {
+        const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
+
+        element.open();
+        await didOpenEventSpy.calledOnce();
+
+        element.close();
+        expect(element).to.have.attribute('data-state', 'closing');
+        expect(element.opened).to.be.false;
+
+        element.open();
+        expect(element.opened).to.be.true;
+        expect(element).to.have.attribute('data-state', 'opening');
+      });
+
+      it('should allow toggling during opening', async () => {
+        element.open();
+        expect(element).to.have.attribute('data-state', 'opening');
+        expect(element.opened).to.be.true;
+
+        element.close();
+        expect(element.opened).to.be.false;
+        expect(element).to.have.attribute('data-state', 'closing');
+      });
+
+      it('should prevent double open() call', async () => {
+        const willOpenEventSpy = new EventSpy(SbbSidebarElement.events.willOpen, element);
+
+        element.open();
+        await aTimeout(2);
+        element.open();
+
+        await willOpenEventSpy.calledOnce();
+        expect(element.opened).to.be.true;
+        expect(willOpenEventSpy.count).to.be.equal(1);
+      });
+
+      it('should prevent double close() call', async () => {
+        const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
+        const willCloseEventSpy = new EventSpy(SbbSidebarElement.events.willClose, element);
+
+        element.open();
+        await didOpenEventSpy.calledOnce();
+
+        element.close();
+        await aTimeout(2);
+        element.close();
+
+        await willCloseEventSpy.calledOnce();
+        expect(element.opened).to.be.false;
+        expect(willCloseEventSpy.count).to.be.equal(1);
+      });
+    });
   });
 
   describe('reacting to environment', () => {

@@ -128,6 +128,15 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this._updateSidebarWidth();
   }
 
+  /** Toggles the sidebar visibility. */
+  public toggle(): void {
+    if (this.state === 'opening' || this.state === 'opened') {
+      this.close();
+    } else {
+      this.open();
+    }
+  }
+
   /** Opens the sidebar. */
   public open(): void {
     if (this.state === 'opening' || this.state === 'opened' || !this.willOpen.emit()) {
@@ -136,7 +145,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     this.startAnimation();
 
-    if (!isServer) {
+    if (!isServer && document.activeElement?.localName !== 'body') {
       this._lastFocusedElement = document.activeElement as HTMLElement;
     }
 
@@ -214,13 +223,14 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
     this.unTrap();
 
-    if (
-      this._lastFocusedElement &&
-      !isServer &&
-      (this.contains(document.activeElement) || this._isModeOver())
-    ) {
-      setModalityOnNextFocus(this._lastFocusedElement);
-      this._lastFocusedElement?.focus();
+    if (!isServer && (this.contains(document.activeElement) || this._isModeOver())) {
+      if (this._lastFocusedElement) {
+        setModalityOnNextFocus(this._lastFocusedElement);
+        this._lastFocusedElement?.focus();
+      } else {
+        // We don't know where to set the focus, but have to remove it, so we call blur
+        (document.activeElement as HTMLElement).blur();
+      }
     }
     this._lastFocusedElement = null;
 
@@ -256,7 +266,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     });
   }
 
-  // Check if the pointerdown event target is triggered on the sidebar.
+  // Check whether the pointerdown event target is triggered on the sidebar.
   private _pointerDownListener = (event: PointerEvent): void => {
     this._isPointerDownEventOnSidebar = isEventOnElement(
       this.shadowRoot?.firstElementChild as HTMLDivElement,
@@ -275,8 +285,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   };
 
   // Closes the sidebar on "Esc" key pressed
-  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
-    if ((this.state === 'opening' || this.state === 'opened') && event.key === 'Escape') {
+  private _onKeydownEvent(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
       this.close();
     }
   }
@@ -288,15 +298,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
     this._focusHandler.disconnect();
     this._windowEventsController?.abort();
-  }
-
-  /** Toggles the sidebar visibility. */
-  public toggle(): void {
-    if (this.state === 'opening' || this.state === 'opened') {
-      this.close();
-    } else {
-      this.open();
-    }
   }
 
   private _updateSidebarWidth(oldPosition?: this['position']): void {
