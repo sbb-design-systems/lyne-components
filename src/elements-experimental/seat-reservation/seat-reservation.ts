@@ -14,16 +14,15 @@ export type CoachItem = {
   type?: CoachType;
   places?: Place[];
   signs?: SignElement[];
-  internals?: InternalElement[];
-  directedInternals?: DirectedInternalElement[];
+  graphicElements?: BaseElement[];
   compartmentNumbers?: CompartmentNumberElement[];
+  travelClass: PlaceTravelClass[];
 };
 
 export interface Place extends BaseElement {
   number: string;
   state: PlaceState;
   type: PlaceType;
-  rotation?: number;
   travelClass?: PlaceTravelClass;
   remarkId?: string;
   propertyIds?: string[];
@@ -31,14 +30,6 @@ export interface Place extends BaseElement {
 }
 
 export interface SignElement extends BaseElement {
-  direction?: ElementDirection | null;
-}
-
-export interface InternalElement extends BaseElement {
-  mounting?: ElementMounting | null;
-}
-
-export interface DirectedInternalElement extends BaseElement {
   direction?: ElementDirection | null;
 }
 

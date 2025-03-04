@@ -54,7 +54,7 @@ class SbbSeatReservationAreaElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html` <span class="sbb-seat-reservation-area"></span> `;
+    return html` <span class="sbb-seat-reservation-area"><slot></slot></span>`;
   }
 }
 
