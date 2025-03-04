@@ -44,6 +44,9 @@ export const mapCodeToSvg: Record<string, string> = {
   WIFI: assets.serviceWifi,
 };
 
+/**
+ * Map function that converts the RAW OSDM mock data into SeatReservation
+ */
 export const mapRawDataToSeatReservation = (): SeatReservation => {
   const coachsArr = MOCK_COACHES_RAW_0.map((coachDeckLayout) => {
     const choachLayout = coachDeckLayout?.coachDeckLayout;
@@ -59,7 +62,7 @@ export const mapRawDataToSeatReservation = (): SeatReservation => {
           return {
             number: place?.number,
             state: 'FREE',
-            type: placeGroup.accommodationSubType.indexOf('SEAT') > -1 ? 'SEAT' : 'BICYCLE',
+            type: placeGroup.accommodationSubType.indexOf('BICYCLE') === -1 ? 'SEAT' : 'BICYCLE',
             dimension: { w: place.rectangle.dimension.width, h: place.rectangle.dimension.height },
             position: {
               x: place.rectangle.position.x,
@@ -69,7 +72,7 @@ export const mapRawDataToSeatReservation = (): SeatReservation => {
             rotation: place?.orientation || 0,
             travelClass: placeGroup?.travelClass,
             remarkId: '',
-            propertyIds: place?.propertyIds,
+            propertyIds: place.placeProperties || [],
             selected: false,
           };
         });

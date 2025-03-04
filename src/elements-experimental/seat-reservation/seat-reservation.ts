@@ -55,9 +55,22 @@ export type ElementPosition = {
   z: number;
 };
 
-export type SelectedPlace = {
+export type PlaceSelection = {
+  id: string;
+  number: string;
+  coachIndex: number;
+  state: PlaceState;
+};
+
+export type SeatReservationPlaceSelection = {
+  id: string;
   coachId: string;
+  coachNumber: string;
+  coachIndex: number;
   placeNumber: string;
+  placeType: PlaceType;
+  placeTravelClass: PlaceTravelClass;
+  propertyIds: string[];
 };
 
 export const elementMountingOptions = <const>[
