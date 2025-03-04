@@ -142,7 +142,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     this.opened = true;
 
-    const isZeroAnimationDuration = this._isZeroAnimationDuration();
+    const isZeroAnimationDuration = this._isZeroAnimationDuration() || !this.isConnected;
     const isDuringInitialization = !this.hasUpdated;
 
     if (isDuringInitialization || isZeroAnimationDuration) {
@@ -193,8 +193,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
 
     if (!this.hasUpdated || isZeroAnimationDuration) {
-      // We have to ensure that removing the animation skip instruction is done a tick later.
-      // Otherwise, it's removed too early and it doesn't have any effect.
       this.toggleAttribute('data-skip-animation', true);
     } else {
       this.state = 'closing';

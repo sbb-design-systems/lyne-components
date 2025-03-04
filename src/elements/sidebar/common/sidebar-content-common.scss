@@ -9,7 +9,7 @@
   height: 100%;
   overflow: auto;
 
-  // Scrollable content can get focus if there is no focusable element inside.
-  // We avoid graphical artifacts by removing the outline.
-  outline: none;
+  // If the element is scrollable but has no focusable content, the it gets focused.
+  // To adapt to lyne styles we colorize it
+  outline-color: var(--sbb-focus-outline-color);
 }

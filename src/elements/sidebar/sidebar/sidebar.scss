@@ -105,6 +105,10 @@
     overflow-y: auto;
     flex-grow: 1;
 
+    // If the element is scrollable but has no focusable content, it gets focused.
+    // To adapt to lyne styles we colorize it
+    outline-color: var(--sbb-focus-outline-color);
+
     @supports (scrollbar-gutter: stable) {
       scrollbar-gutter: stable;
     }
