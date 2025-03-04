@@ -41,6 +41,7 @@ snapshots["sbb-tag renders checked DOM"] =
   checked=""
   data-action=""
   data-button=""
+  data-checked=""
   data-slot-names="unnamed"
   size="m"
   tabindex="0"
