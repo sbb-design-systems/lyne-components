@@ -26,8 +26,8 @@ SeatReservation { vehicleType: VehicleType; deckCoachIndex: number; coachItems: 
 
 ```html
 CoachItem { id: string; number: string; dimension: ElementDimension; type?: CoachType; places?:
-Place[]; signs?: SignElement[]; internals?: InternalElement[]; directedInternals?:
-DirectedInternalElement[]; compartmentNumbers?: CompartmentNumberElement[]; }
+Place[]; signs?: SignElement[]; graphicalElements?: BaseElement[]; compartmentNumbers?:
+CompartmentNumberElement[]; }
 ```
 
 #### Place

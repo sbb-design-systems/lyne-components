@@ -10,9 +10,7 @@ import type {
   Place,
   ElementDimension,
   ElementPosition,
-  InternalElement,
   SeatReservation,
-  DirectedInternalElement,
   CompartmentNumberElement,
   SignElement,
   BaseElement,
@@ -24,6 +22,7 @@ import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-navigation.js';
 import '../seat-reservation-place-control.js';
+
 /**
  * Describe the purpose of the component with a single short sentence.
  *
@@ -63,6 +62,14 @@ class SbbSeatReservationElement extends LitElement {
   private _gridSizeFactor = this._maxHeight / this._gridSize;
   private _triggerCoachPositionsCollection: number[][] = [];
   private _coachScrollArea: HTMLElement = null!;
+  private _notAreaElements = [
+    'DRIVER_AREA_FULL',
+    'COACH_PASSAGE',
+    'COMPARTMENT_PASSAGE',
+    'COMPARTMENT_PASSAGE_HIGH',
+    'COMPARTMENT_PASSAGE_MIDDLE',
+    'COMPARTMENT_PASSAGE_LOW',
+  ];
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -72,6 +79,7 @@ class SbbSeatReservationElement extends LitElement {
   protected override render(): TemplateResult {
     const coachItems = this.seatReservation?.coachItems;
     const classAlignVertical = this.alignVertical ? 'sbb-seat-reservation__wrapper--vertical' : '';
+
     return html`
       <div class="sbb-seat-reservation">
         <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
@@ -104,6 +112,7 @@ class SbbSeatReservationElement extends LitElement {
     if (!coaches) {
       return null;
     }
+
     return coaches.map((coachItem: CoachItem, index: number) => {
       return html`
         <li class="sbb-seat-reservation__item-coach">
@@ -115,7 +124,6 @@ class SbbSeatReservationElement extends LitElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
-
     if (!this._placeCollection[coachItem.id] && coachItem.places) {
       this._placeCollection[coachItem.id] = coachItem.places;
     }
@@ -123,8 +131,7 @@ class SbbSeatReservationElement extends LitElement {
     return html`
       <div style="width:${calculatedCoachDimension.w}px; height:${calculatedCoachDimension.h}px;">
         ${this._getRenderedCoachBorders(coachItem, index)}
-        ${this._getRenderedDirectedInternalElements(coachItem.directedInternals)}
-        ${this._getRenderedInternalElements(coachItem.internals)}
+        ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedSignElements(coachItem.signs)}
         ${this._getRenderedCompartmentNumberElements(coachItem.compartmentNumbers)}
         ${this._getRenderedPlaces(coachItem.id)}
@@ -132,11 +139,8 @@ class SbbSeatReservationElement extends LitElement {
     `;
   }
 
-  /*
-   */
-
   private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
-    const allElements = coachItem.directedInternals?.concat(coachItem.internals || []);
+    const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find(
       (element: BaseElement) => element.icon === 'DRIVER_AREA_FULL',
     );
@@ -191,58 +195,97 @@ class SbbSeatReservationElement extends LitElement {
     });
   }
 
-  private _getRenderedInternalElements(internals?: InternalElement[]): TemplateResult[] | null {
-    if (!internals) {
+  private _getRenderedGraphicalElements(
+    graphicalElements: BaseElement[],
+    coachDimension: ElementDimension,
+  ): TemplateResult[] | null {
+    if (!graphicalElements) {
       return null;
     }
 
-    return internals?.map((internal: InternalElement) => {
-      const calculatedInternalDimension = this._getCalculatedDimension(internal.dimension);
-      const calculatedInternalPosition = this._getCalculatedPosition(internal.position);
-      const rotation = internal.rotation ?? 0;
-      return html`
-        <div
-          class="sbb-seat-reservation__graphical-element"
-          style="top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${internal
-            .position.z};"
-        >
-          <sbb-seat-reservation-graphic
-            name=${internal.icon ?? nothing}
-            width=${internal.dimension.w}
-            height=${internal.dimension.h}
-            rotation=${rotation}
-          ></sbb-seat-reservation-graphic>
-        </div>
-      `;
+    return graphicalElements?.map((graphicalElement: BaseElement) => {
+      const calculatedInternalDimension = this._getCalculatedDimension(graphicalElement.dimension);
+      const calculatedInternalPosition = this._getCalculatedPosition(graphicalElement.position);
+      const icon = graphicalElement.icon ?? '';
+      const rotation = graphicalElement.rotation ?? 0;
+
+      //check if the current element is not an area element, since this element is drawn without an area component
+      if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
+        return this._getRenderElementWithoutArea(
+          graphicalElement,
+          calculatedInternalPosition,
+          calculatedInternalDimension,
+          rotation,
+        );
+      }
+
+      return this._getRenderElementWithArea(
+        graphicalElement,
+        calculatedInternalPosition,
+        calculatedInternalDimension,
+        rotation,
+        coachDimension,
+      );
     });
   }
 
-  private _getRenderedDirectedInternalElements(
-    directedInternals?: InternalElement[],
-  ): TemplateResult[] | null {
-    if (!directedInternals) {
-      return null;
+  private _getRenderElementWithArea(
+    graphicalElement: BaseElement,
+    calculatedInternalPosition: ElementPosition,
+    calculatedInternalDimension: ElementDimension,
+    rotation: number,
+    coachDimension: ElementDimension,
+  ): TemplateResult {
+    let elementMounting = 'FREE';
+    if (graphicalElement.position.y === 0) {
+      elementMounting = 'UPPER_BORDER';
+    } else if (graphicalElement.position.y + graphicalElement.dimension.h === coachDimension.h) {
+      elementMounting = 'LOWER_BORDER';
     }
 
-    return directedInternals?.map((directedInternal: DirectedInternalElement) => {
-      const calculatedInternalDimension = this._getCalculatedDimension(directedInternal.dimension);
-      const calculatedInternalPosition = this._getCalculatedPosition(directedInternal.position);
-      const elementMounting = directedInternal.direction ?? 'FREE';
-
-      return html`
-        <div
-          class="sbb-seat-reservation__graphical-element"
-          style="position:absolute; top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${directedInternal
-            .position.z};"
+    return html`
+      <div
+        class="sbb-seat-reservation__graphical-element"
+        style="top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${graphicalElement
+          .position.z};"
+      >
+        <sbb-seat-reservation-area
+          width=${graphicalElement.dimension.w}
+          height=${graphicalElement.dimension.h}
+          mounting=${elementMounting}
+          background="dark"
         >
-          <sbb-seat-reservation-area
-            width=${directedInternal.dimension.w}
-            height=${directedInternal.dimension.h}
-            mounting=${elementMounting}
-          ></sbb-seat-reservation-area>
-        </div>
-      `;
-    });
+          <sbb-seat-reservation-graphic
+            name=${graphicalElement.icon ?? nothing}
+            rotation=${rotation}
+            width="1"
+            height="1"
+          ></sbb-seat-reservation-graphic>
+        </sbb-seat-reservation-area>
+      </div>
+    `;
+  }
+
+  private _getRenderElementWithoutArea(
+    graphicalElement: BaseElement,
+    calculatedInternalPosition: ElementPosition,
+    calculatedInternalDimension: ElementDimension,
+    rotation: number,
+  ): TemplateResult {
+    return html`
+      <div
+        class="sbb-seat-reservation__graphical-element"
+        style="top:${calculatedInternalPosition.y}px; left:${calculatedInternalPosition.x}px; width:${calculatedInternalDimension.w}px; height:${calculatedInternalDimension.h}px; z-index:${graphicalElement
+          .position.z};"
+      >
+        <sbb-seat-reservation-graphic
+          name=${graphicalElement.icon ?? nothing}
+          width=${graphicalElement.dimension.w}
+          height=${graphicalElement.dimension.h}
+          rotation=${rotation}
+        ></sbb-seat-reservation-graphic>
+      </div>
+    `;
   }
 
   private _getRenderedSignElements(signs?: SignElement[]): TemplateResult[] | null {
