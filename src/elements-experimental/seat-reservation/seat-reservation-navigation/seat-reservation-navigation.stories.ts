@@ -5,7 +5,7 @@ import type { TemplateResult } from 'lit';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { MOCK_SEAT_RESERVATION_LAYOUT_0 } from '../seat-reservation-sample-data.js';
+import { mapRawDataToSeatReservation } from '../common.js';
 
 import readme from './readme.md?raw';
 import { SbbSeatReservationNavigationElement } from './seat-reservation-navigation.js';
@@ -29,8 +29,9 @@ const defaultArgTypes: ArgTypes = {
   'align-vertical': alignVerticalType,
 };
 
+const mapedSeatReservation = mapRawDataToSeatReservation();
 const defaultArgs: Args = {
-  seatReservation: MOCK_SEAT_RESERVATION_LAYOUT_0,
+  seatReservation: mapedSeatReservation,
   'align-vertical': false,
 };
 
