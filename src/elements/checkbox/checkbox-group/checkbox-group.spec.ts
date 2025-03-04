@@ -8,6 +8,8 @@ import { SbbCheckboxElement } from '../checkbox.js';
 
 import { SbbCheckboxGroupElement } from './checkbox-group.js';
 
+import '../checkbox-panel.js';
+
 describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;
   let checkboxOne: SbbCheckboxElement,
@@ -91,5 +93,14 @@ describe(`sbb-checkbox-group`, () => {
     await waitForLitRender(element);
     await sendKeys({ press: 'ArrowLeft' });
     expect(document.activeElement!.textContent).to.equal('Label 2');
+  });
+
+  it('recognizes panel when added later', async () => {
+    element = await fixture(html`<sbb-checkbox-group> </sbb-checkbox-group>`);
+
+    const panel = document.createElement('sbb-checkbox-panel');
+    element.appendChild(panel);
+
+    expect(element).to.have.attribute('data-has-panel');
   });
 });
