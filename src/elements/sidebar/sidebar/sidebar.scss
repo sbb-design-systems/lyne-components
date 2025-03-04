@@ -86,14 +86,12 @@
 }
 
 .sbb-sidebar-title-section {
-  position: sticky;
-  inset-block-start: 0;
   background-color: var(--sbb-sidebar-background-color);
   padding-inline: var(--sbb-sidebar-padding);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-sidebar-container-animation-duration);
   box-shadow: none;
 
-  :host([data-sticking]) & {
+  :host([data-scrolled]) & {
     @include sbb.shadow-level-5-soft;
   }
 }

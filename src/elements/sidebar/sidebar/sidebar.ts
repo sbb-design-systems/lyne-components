@@ -1,7 +1,6 @@
-import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import {
   getFirstFocusableElement,
@@ -69,13 +68,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   private _inertController = new SbbInertController(this);
   private _windowEventsController!: AbortController;
   private _isPointerDownEventOnSidebar: boolean = false;
-  private _intersector?: HTMLSpanElement;
-  private _observer = new IntersectionController(this, {
-    // Although `this` is observed, we have to postpone observing
-    // into firstUpdated() to achieve a correct initial state.
-    target: null,
-    callback: (entries) => this._detectStickyState(entries[0]),
-  });
 
   public constructor() {
     super();
@@ -97,12 +89,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this._container = this.closest?.('sbb-sidebar-container');
     this._updateSidebarWidth();
 
-    if (this.state === 'opened' && this._isModeOver()) {
+    if (this.isOpen && this._isModeOver()) {
       this._takeFocus();
-    }
-
-    if (this._intersector) {
-      this._observer.observe(this._intersector);
     }
   }
 
@@ -138,12 +126,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     super.firstUpdated(changedProperties);
 
     this._updateSidebarWidth();
-
-    if (!this._intersector) {
-      this._intersector = this.shadowRoot!.querySelector('.sbb-sidebar__intersector')!;
-      this._observer.observe(this._intersector);
-    }
-    this._observer.observe(this);
   }
 
   /** Opens the sidebar. */
@@ -348,10 +330,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     return `--sbb-sidebar-container__${position}-width`;
   }
 
-  private _detectStickyState(entry: IntersectionObserverEntry): void {
-    this.toggleAttribute('data-sticking', !entry.isIntersecting);
-  }
-
   private _isModeOver(): boolean {
     // If the minimum space attribute is set, the sidebar should behave like in mode over.
     return this.mode === 'over' || this.hasAttribute('data-minimum-space');
@@ -370,11 +348,18 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
   }
 
+  @eventOptions({ passive: true })
+  private _detectScrolledState(): void {
+    this.toggleAttribute(
+      'data-scrolled',
+      (this.shadowRoot?.querySelector('.sbb-sidebar-content-section')?.scrollTop ?? 0) > 0,
+    );
+  }
+
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar" @transitionend=${this._onTransitionEnd}>
       <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
-      <div class="sbb-sidebar-content-section">
-        <div class="sbb-sidebar__intersector"></div>
+      <div class="sbb-sidebar-content-section" @scroll=${() => this._detectScrolledState()}>
         <slot></slot>
       </div>
     </div>`;

@@ -1,27 +1,49 @@
 import { assert, expect } from '@open-wc/testing';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
+import { waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import { SbbSidebarElement } from './sidebar.js';
 
+import '../sidebar-close-button.js';
 import '../sidebar-container.js';
 import '../sidebar-content.js';
+import '../sidebar-title.js';
 
 describe('sbb-sidebar', () => {
-  let container: SbbSidebarContainerElement, element: SbbSidebarElement;
+  let container: SbbSidebarContainerElement,
+    element: SbbSidebarElement,
+    closeButton: SbbSidebarCloseButtonElement,
+    scrollContext: HTMLDivElement;
 
   beforeEach(async () => {
     container = await fixture(
       html`<sbb-sidebar-container>
-        <sbb-sidebar></sbb-sidebar>
-        <sbb-sidebar-content>Content</sbb-sidebar-content>
+        <sbb-sidebar>
+          <sbb-sidebar-title>Title</sbb-sidebar-title>
+          <sbb-sidebar-close-button></sbb-sidebar-close-button>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+        </sbb-sidebar>
+        <sbb-sidebar-content>
+          Content
+          <button id="b1">Focusable element</button>
+          <button id="b2">Focusable element 2</button>
+        </sbb-sidebar-content>
       </sbb-sidebar-container>`,
     );
 
     element = container.querySelector('sbb-sidebar')!;
+    closeButton = container.querySelector('sbb-sidebar-close-button')!;
+    scrollContext = element.shadowRoot!.querySelector('.sbb-sidebar-content-section')!;
   });
 
   it('renders', async () => {
@@ -153,5 +175,71 @@ describe('sbb-sidebar', () => {
     expect(
       getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
     ).to.be.equal('320px');
+  });
+
+  it('should toggle sidebar with opened property', async () => {
+    element.opened = true;
+    await waitForLitRender(element);
+
+    expect(element.isOpen).to.be.true;
+    expect(element.opened).to.be.true;
+    expect(element).to.have.attribute('opened', '');
+
+    element.opened = false;
+    await waitForLitRender(element);
+
+    expect(element.isOpen).to.be.false;
+    expect(element.opened).to.be.false;
+    expect(element).not.to.have.attribute('opened');
+  });
+
+  it('should manage focus when mode changes', async () => {
+    element.opened = true;
+
+    await waitForLitRender(element);
+    expect(element.isOpen).to.be.true;
+    closeButton.focus();
+    await sendKeys({ press: tabKey });
+    // Expect that focus is not trapped as it is in side mode
+    expect(document.activeElement?.localName).to.be.equal('button');
+
+    element.mode = 'over';
+    await waitForLitRender(element);
+    await sendKeys({ press: tabKey });
+
+    // Expect that focus is trapped as it is in over mode
+    expect(document.activeElement).to.be.equal(closeButton);
+
+    element.mode = 'side';
+    await waitForLitRender(element);
+    await sendKeys({ press: tabKey });
+
+    // Expect that focus is not trapped as it is in side mode
+    expect(document.activeElement?.localName).to.be.equal('button');
+  });
+
+  it('should ignore focus trap when mode changes and sidebar is closed', async () => {
+    element.mode = 'over';
+    await waitForLitRender(element);
+
+    container.querySelector<HTMLButtonElement>('#b1')!.focus();
+    await sendKeys({ press: tabKey });
+
+    // Expect that focus is trapped as it is in over mode
+    expect(document.activeElement!.id).to.be.equal('b2');
+  });
+
+  it('should detect scrolled state', async () => {
+    element.opened = true;
+
+    await setViewport({ width: 800, height: 200 });
+    await waitForLitRender(element);
+    expect(element).not.to.have.attribute('data-scrolled');
+
+    scrollContext.scrollTo({ top: 1, behavior: 'instant' });
+
+    // It takes around 30ms to get the scrolled event parsed
+    await waitForCondition(() => element.hasAttribute('data-scrolled'));
+    expect(element).to.have.attribute('data-scrolled');
   });
 });
