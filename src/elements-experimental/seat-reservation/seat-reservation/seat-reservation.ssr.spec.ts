@@ -6,7 +6,7 @@ import { mapRawDataToSeatReservation } from '../common.js';
 
 import { SbbSeatReservationElement } from './seat-reservation.js';
 
-const mapedSeatReservation = mapRawDataToSeatReservation();
+const mapedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 
 describe(`sbb-seat-reservation ssr`, () => {
   let root: SbbSeatReservationElement;
