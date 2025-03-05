@@ -2,7 +2,7 @@ import { isServer, type ReactiveController, type ReactiveControllerHost } from '
 
 import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
 
-const overlayStack = new Array<SbbOpenCloseBaseElement>();
+export const overlayStack = new Array<SbbOpenCloseBaseElement>();
 
 if (!isServer) {
   window.addEventListener('keydown', (event: KeyboardEvent) => {
