@@ -41,9 +41,9 @@ const defaultArgTypes: ArgTypes = {
   disable: disabledType,
 };
 
-const mapedSeatReservation = mapRawDataToSeatReservation();
+const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
-  seatReservation: mapedSeatReservation,
+  seatReservation: mappedSeatReservationTrainh,
   'max-reservations': 4,
   'align-vertical': false,
   disable: false,
@@ -55,10 +55,24 @@ const Template = ({ seatReservation, ...args }: Args): TemplateResult =>
     ${sbbSpread(args)}
   ></sbb-seat-reservation>`;
 
-export const Default: StoryObj = {
+export const Train: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: defaultArgs,
+};
+
+const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');
+const busArgs: Args = {
+  seatReservation: mappedSeatReservationBus,
+  'max-reservations': 4,
+  'align-vertical': false,
+  disable: false,
+};
+
+export const Bus: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: busArgs,
 };
 
 const meta: Meta = {

@@ -1,6 +1,11 @@
 import * as assets from '../assets/index.js';
-import { MOCK_COACHES_RAW_0 } from '../seat-reservation-sample-data.js';
-import type { CoachItem, PlaceTravelClass, SeatReservation } from '../seat-reservation.js';
+import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from '../seat-reservation-sample-data.js';
+import type {
+  CoachItem,
+  PlaceTravelClass,
+  SeatReservation,
+  VehicleType,
+} from '../seat-reservation.js';
 
 /**
  * Map Object from OSDM Code to SVG
@@ -15,7 +20,8 @@ export const mapCodeToSvg: Record<string, string> = {
   COACH_BORDER_MIDDLE: assets.chassisRowMiddle,
   COACH_PASSAGE: assets.chassisPassageWaggonTopLeft,
   DRIVER_AREA: assets.chassisDriverTrain,
-  DRIVER_AREA_FULL: assets.chassisDriverTrainFull,
+  DRIVER_AREA_FULL_TRAIN: assets.chassisDriverTrainFull,
+  DRIVER_AREA_FULL_BUS: assets.chassisDriverBus,
   EASY_ACCESS_AREA: assets.servicePrm,
   ENTRY_EXIT: assets.layoutEntrance,
   LUGGAGE_AREA: assets.serviceLuggage,
@@ -47,8 +53,9 @@ export const mapCodeToSvg: Record<string, string> = {
 /**
  * Map function that converts the RAW OSDM mock data into SeatReservation
  */
-export const mapRawDataToSeatReservation = (): SeatReservation => {
-  const coachsArr = MOCK_COACHES_RAW_0.map((coachDeckLayout) => {
+export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReservation => {
+  const MOCK_DATA = vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_0 : MOCK_COACHES_RAW_1;
+  const coachsArr = MOCK_DATA.map((coachDeckLayout) => {
     const choachLayout = coachDeckLayout?.coachDeckLayout;
     const coachTravelClasses: PlaceTravelClass[] = [];
     const places = choachLayout.placeGroups
@@ -119,7 +126,7 @@ export const mapRawDataToSeatReservation = (): SeatReservation => {
   });
 
   return {
-    vehicleType: 'TRAIN',
+    vehicleType: vehicleType,
     deckCoachIndex: 0,
     coachItems: coachsArr,
   };
