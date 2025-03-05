@@ -128,7 +128,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (!overlayRefs.length) {
       this.scrollHandler.enableScroll();
     }
-    this.sbbOverlayController.disconnect();
+    this.sbbEscapableOverlayController.disconnect();
     this.didClose.emit({
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
@@ -138,7 +138,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.sbbOverlayController.connect();
+    this.sbbEscapableOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
     // Use timeout to read label after focused element

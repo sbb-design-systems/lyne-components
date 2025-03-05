@@ -15,7 +15,7 @@ import {
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  SbbOverlayEscapeClosableController,
+  SbbEscapableOverlayController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
@@ -102,7 +102,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
+  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
@@ -179,7 +179,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _handleOpening(): void {
     this.state = 'opened';
     this._inertController.activate();
-    this._sbbOverlayController.connect();
+    this._sbbEscapableOverlayController.connect();
     this._setMenuFocus();
     this._focusHandler.trap(this);
     this._attachWindowEvents();
@@ -200,7 +200,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         this._triggerElement.localName === 'sbb-header-button' ||
         this._triggerElement.localName === 'sbb-header-link',
     });
-    this._sbbOverlayController.disconnect();
+    this._sbbEscapableOverlayController.disconnect();
     this.didClose.emit();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();

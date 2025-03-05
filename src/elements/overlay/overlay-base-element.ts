@@ -6,7 +6,7 @@ import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base
 import {
   SbbInertController,
   SbbLanguageController,
-  SbbOverlayEscapeClosableController,
+  SbbEscapableOverlayController,
 } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
@@ -49,7 +49,7 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   protected ariaLiveRef!: SbbScreenReaderOnlyElement;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
-  protected sbbOverlayController = new SbbOverlayEscapeClosableController(this);
+  protected sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
 
   protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;

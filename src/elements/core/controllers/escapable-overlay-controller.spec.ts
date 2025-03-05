@@ -10,10 +10,7 @@ import '../../autocomplete.js';
 import '../../dialog.js';
 import '../../menu.js';
 
-import {
-  overlayStack,
-  SbbOverlayEscapeClosableController,
-} from './overlay-escape-closable-controller.js';
+import { overlayStack, SbbEscapableOverlayController } from './escapable-overlay-controller.js';
 
 describe('SbbOverlayEscapeClosableController', () => {
   it('should correctly manage the stack', async () => {
@@ -29,9 +26,9 @@ describe('SbbOverlayEscapeClosableController', () => {
     const elementTwo: SbbMenuElement = element.querySelector('#el-2')!;
     const elementThree: SbbAutocompleteElement = element.querySelector('#el-3')!;
 
-    const controllerOne = new SbbOverlayEscapeClosableController(elementOne);
-    const controllerTwo = new SbbOverlayEscapeClosableController(elementTwo);
-    const controllerThree = new SbbOverlayEscapeClosableController(elementThree);
+    const controllerOne = new SbbEscapableOverlayController(elementOne);
+    const controllerTwo = new SbbEscapableOverlayController(elementTwo);
+    const controllerThree = new SbbEscapableOverlayController(elementThree);
 
     controllerOne.connect();
     expect(overlayStack.length).to.equal(1);

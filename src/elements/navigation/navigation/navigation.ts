@@ -10,7 +10,7 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbInertController,
   SbbLanguageController,
-  SbbOverlayEscapeClosableController,
+  SbbEscapableOverlayController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
@@ -99,7 +99,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _navigationController!: AbortController;
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
-  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
+  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
@@ -198,7 +198,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._inertController.deactivate();
     // To enable focusing other element than the trigger, we need to call focus() a second time.
     this._triggerElement?.focus();
-    this._sbbOverlayController.disconnect();
+    this._sbbEscapableOverlayController.disconnect();
     this.didClose.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
@@ -213,7 +213,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.state = 'opened';
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
-    this._sbbOverlayController.connect();
+    this._sbbEscapableOverlayController.connect();
     this._focusHandler.trap(this, { filter: this._trapFocusFilter });
     this._setNavigationFocus();
     this.completeUpdate();
