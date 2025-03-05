@@ -62,6 +62,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(element).to.have.attribute('data-expanded');
       expect(overlayContainerElement).to.match(':popover-open');
 
       element.dispatchEvent(new CustomEvent('click'));
@@ -74,6 +75,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(element).not.to.have.attribute('data-expanded');
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
 
