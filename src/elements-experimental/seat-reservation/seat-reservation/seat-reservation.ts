@@ -284,6 +284,11 @@ class SbbSeatReservationElement extends LitElement {
     calculatedDimension: ElementDimension,
     rotation: number,
   ): TemplateResult {
+    let icon = graphicalElement.icon;
+    if (icon && icon.indexOf('DRIVER_AREA') > -1) {
+      icon = icon.concat('_', this.seatReservation.vehicleType);
+    }
+
     return html`
       <div
         class="sbb-seat-reservation__graphical-element"
@@ -291,7 +296,7 @@ class SbbSeatReservationElement extends LitElement {
           .position.z};"
       >
         <sbb-seat-reservation-graphic
-          name=${graphicalElement.icon ?? nothing}
+          name=${icon ?? nothing}
           width=${graphicalElement.dimension.w}
           height=${graphicalElement.dimension.h}
           rotation=${rotation}
