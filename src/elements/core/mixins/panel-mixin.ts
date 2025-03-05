@@ -27,7 +27,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
     } as const;
 
     /** The background color of the panel. */
-    @property() public accessor color: 'white' | 'milk' = 'white';
+    @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
 
     /** Whether the unselected panel has a border. */
     @forceType()
@@ -53,6 +53,11 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
       super.connectedCallback();
 
       this._panelConnected.emit();
+
+      this.closest?.('sbb-radio-button-group, sbb-checkbox-group')?.toggleAttribute(
+        'data-has-panel',
+        true,
+      );
     }
   }
 
