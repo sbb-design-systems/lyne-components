@@ -138,6 +138,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
+    this.sbbOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
     // Use timeout to read label after focused element
@@ -147,7 +148,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusHandler.trap(this);
-    this.sbbOverlayController.connect();
     this.didOpen.emit();
   }
 

@@ -10,7 +10,7 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbInertController,
   SbbLanguageController,
-  SbbOverlayController,
+  SbbOverlayEscapeClosableController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
@@ -97,10 +97,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
   private _navigationController!: AbortController;
-  private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
-  private _sbbOverlayController = new SbbOverlayController(this);
+  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
@@ -203,7 +202,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.didClose.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
-    this._windowEventsController?.abort();
     this._focusHandler.disconnect();
 
     // Enable scrolling for content below the navigation
@@ -215,10 +213,10 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.state = 'opened';
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
+    this._sbbOverlayController.connect();
     this._focusHandler.trap(this, { filter: this._trapFocusFilter });
     this._setNavigationFocus();
     this.completeUpdate();
-    this._sbbOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -229,7 +227,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   ): void {
     if (newValue !== oldValue) {
       this._navigationController?.abort();
-      this._windowEventsController?.abort();
       this._configure(this.trigger);
     }
   }
@@ -362,7 +359,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._navigationController?.abort();
-    this._windowEventsController?.abort();
     this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
   }

@@ -15,7 +15,7 @@ import {
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  SbbOverlayController,
+  SbbOverlayEscapeClosableController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import {
@@ -102,7 +102,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
-  private _sbbOverlayController = new SbbOverlayController(this);
+  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
@@ -179,10 +179,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _handleOpening(): void {
     this.state = 'opened';
     this._inertController.activate();
+    this._sbbOverlayController.connect();
     this._setMenuFocus();
     this._focusHandler.trap(this);
     this._attachWindowEvents();
-    this._sbbOverlayController.connect();
     this.didOpen.emit();
   }
 

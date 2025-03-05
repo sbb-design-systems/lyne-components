@@ -13,7 +13,7 @@ if (!isServer) {
   });
 }
 
-export class SbbOverlayController implements ReactiveController {
+export class SbbOverlayEscapeClosableController implements ReactiveController {
   public constructor(private _host: ReactiveControllerHost & SbbOpenCloseBaseElement) {
     this._host.addController?.(this);
   }

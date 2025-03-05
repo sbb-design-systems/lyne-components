@@ -7,7 +7,7 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController, SbbOverlayController } from '../core/controllers.js';
+import { SbbLanguageController, SbbOverlayEscapeClosableController } from '../core/controllers.js';
 import {
   forceType,
   getOverride,
@@ -149,7 +149,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _originElement!: HTMLElement;
   private _triggerElement!: HTMLElement;
   private _openPanelEventsController!: AbortController;
-  private _sbbOverlayController = new SbbOverlayController(this);
+  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;

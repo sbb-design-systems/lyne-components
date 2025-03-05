@@ -114,12 +114,12 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   private _handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
+    this.sbbOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.setOverlayFocus();
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
     this.focusHandler.trap(this);
-    this.sbbOverlayController.connect();
     this.didOpen.emit();
   }
 

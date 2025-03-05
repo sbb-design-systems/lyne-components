@@ -13,7 +13,7 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
-  SbbOverlayController,
+  SbbOverlayEscapeClosableController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import { findReferencedElement, isZeroAnimationDuration } from '../../core/dom.js';
@@ -113,7 +113,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _isPointerDownEventOnPopover?: boolean;
   private _popoverController!: AbortController;
   private _openStateController!: AbortController;
-  private _sbbOverlayController = new SbbOverlayController(this);
+  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
   private _focusHandler = new SbbFocusHandler();
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
@@ -204,11 +204,11 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this.state = 'opened';
     this.inert = false;
     this._attachWindowEvents();
+    this._sbbOverlayController.connect();
     this._setPopoverFocus();
     this._focusHandler.trap(this, {
       postFilter: (el) => el !== this._overlay,
     });
-    this._sbbOverlayController.connect();
     this.didOpen.emit();
   }
 

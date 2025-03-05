@@ -10,7 +10,10 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController, SbbOverlayController } from '../core/controllers.js';
+import {
+  SbbConnectedAbortController,
+  SbbOverlayEscapeClosableController,
+} from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
@@ -82,7 +85,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _openPanelEventsController!: AbortController;
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _sbbOverlayController = new SbbOverlayController(this);
+  private _sbbOverlayController = new SbbOverlayEscapeClosableController(this);
 
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract syncNegative(): void;
