@@ -201,6 +201,7 @@ class SbbSeatReservationElement extends LitElement {
             rotation=${place.rotation ?? nothing}
             text-rotation=${textRotation}
             coach-index=${coachIndex}
+            ?disable=${this.disable}
           ></sbb-seat-reservation-place-control>
         </div>
       `;
@@ -407,28 +408,33 @@ class SbbSeatReservationElement extends LitElement {
    * @param selectPlaceEvent
    */
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
-    const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
+    if (!this.disable) {
+      const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
 
-    if (currSelectedPlace.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(currSelectedPlace);
-      if (seatReservationSelection) {
-        this._selectedSeatReservationPlaces.push(seatReservationSelection);
+      if (currSelectedPlace.state === 'SELECTED') {
+        const seatReservationSelection = this._getSeatReservationPlaceSelection(currSelectedPlace);
+        if (seatReservationSelection) {
+          this._selectedSeatReservationPlaces.push(seatReservationSelection);
+        }
       }
-    }
-    //Remove selected place from selectedSeatReservationPlaces
-    else {
-      this._selectedSeatReservationPlaces = this._selectedSeatReservationPlaces.filter(
-        (_selectedPlace) => _selectedPlace.id !== currSelectedPlace.id,
-      );
-    }
+      //Remove selected place from selectedSeatReservationPlaces
+      else {
+        this._selectedSeatReservationPlaces = this._selectedSeatReservationPlaces.filter(
+          (_selectedPlace) => _selectedPlace.id !== currSelectedPlace.id,
+        );
+      }
 
-    //Checks whether maxReservation is activated and the maximum number of selected places is reached
-    if (this.maxReservations && this._selectedSeatReservationPlaces.length > this.maxReservations) {
-      this._resetAllPlaceSelections(currSelectedPlace);
-    }
+      //Checks whether maxReservation is activated and the maximum number of selected places is reached
+      if (
+        this.maxReservations &&
+        this._selectedSeatReservationPlaces.length > this.maxReservations
+      ) {
+        this._resetAllPlaceSelections(currSelectedPlace);
+      }
 
-    //Emits the seat reservation place selection
-    this.selectedPlaces.emit(this._selectedSeatReservationPlaces);
+      //Emits the seat reservation place selection
+      this.selectedPlaces.emit(this._selectedSeatReservationPlaces);
+    }
   }
 
   private _getSeatReservationPlaceSelection(

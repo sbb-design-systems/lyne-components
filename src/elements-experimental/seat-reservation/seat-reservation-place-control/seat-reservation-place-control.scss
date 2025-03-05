@@ -25,8 +25,8 @@
     font-size: calc(var(--reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
-    #{$root}--state-free &,
-    #{$root}--state-selected & {
+    #{$root}--state-free &:not([disabled]),
+    #{$root}--state-selected &:not([disabled]) {
       cursor: pointer;
 
       &:hover {

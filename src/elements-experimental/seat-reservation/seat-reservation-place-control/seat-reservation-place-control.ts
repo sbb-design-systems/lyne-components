@@ -74,6 +74,11 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'coach-index', type: Number })
   public accessor coachIndex: number = null!;
 
+  /** Disable prop to prevent any seat action */
+  @forceType()
+  @property({ attribute: 'disable', type: Boolean })
+  public accessor disable: boolean = false;
+
   /** Emits when an place was selected by user. */
   protected placeSelected: EventEmitter = new EventEmitter(
     this,
@@ -99,7 +104,8 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   protected override render(): TemplateResult {
     const name: string = this._getPlaceSvg(this.type, this.state);
-    const buttonDisabled: boolean = !(this.state === 'FREE' || this.state === 'SELECTED');
+    const buttonDisabled: boolean =
+      this.disable || !(this.state === 'FREE' || this.state === 'SELECTED');
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
