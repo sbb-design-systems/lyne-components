@@ -29,7 +29,7 @@ const defaultArgTypes: ArgTypes = {
   'align-vertical': alignVerticalType,
 };
 
-const mapedSeatReservation = mapRawDataToSeatReservation();
+const mapedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
   seatReservation: mapedSeatReservation,
   'align-vertical': false,
