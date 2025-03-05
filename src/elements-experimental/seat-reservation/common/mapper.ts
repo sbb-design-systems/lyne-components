@@ -58,11 +58,17 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
   const coachsArr = MOCK_DATA.map((coachDeckLayout) => {
     const choachLayout = coachDeckLayout?.coachDeckLayout;
     const coachTravelClasses: PlaceTravelClass[] = [];
+    const coachPropertyIds: string[] = [];
     const places = choachLayout.placeGroups
       .map((placeGroup: any) => {
         //Collect unique travel classes for coach
         if (coachTravelClasses.indexOf(placeGroup.travelClass) === -1) {
           coachTravelClasses.push(placeGroup.travelClass);
+        }
+
+        //Collect unique properties for coach
+        if (coachPropertyIds.indexOf(placeGroup.accommodationSubType) === -1) {
+          coachPropertyIds.push(placeGroup.accommodationSubType);
         }
 
         return placeGroup.places?.map((place: any) => {
@@ -122,6 +128,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       signs: signs,
       graphicElements: graphicalElements,
       travelClass: coachTravelClasses,
+      propertyIds: coachPropertyIds,
     } as CoachItem;
   });
 
