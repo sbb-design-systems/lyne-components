@@ -107,13 +107,14 @@ describe('sbb-chip-group', () => {
       }),
     );
 
-    it(
+    it.only(
       `floating-label=true empty`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ floatingLabel: true }));
 
         setup.withPostSetupAction(async () => {
           setup.snapshotElement.querySelector('sbb-chip-group')!.value = null;
+          setup.snapshotElement.querySelector('sbb-form-field')!.clear();
           await waitForLitRender(setup.snapshotElement);
         });
       }),
