@@ -1,24 +1,18 @@
 import { html, nothing } from 'lit';
 
 import { defaultDateAdapter } from '../core/datetime.js';
-import {
-  describeViewports,
-  visualDiffDefault,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './calendar.js';
 
 describe('sbb-calendar', () => {
-  let root: HTMLElement;
-
   const minArray = [
-    { label: 'unset', value: undefined },
-    { label: '09.01.2023', value: new Date(2023, 0, 9) },
+    { label: 'unset', value: null },
+    { label: '07012023', value: new Date(2023, 0, 7) },
   ];
   const maxArray = [
-    { label: 'unset', value: undefined },
-    { label: '29.01.2023', value: new Date(2023, 0, 9) },
+    { label: 'unset', value: null },
+    { label: '24012023', value: new Date(2023, 0, 24) },
   ];
 
   const filterFunctions = [
@@ -34,22 +28,18 @@ describe('sbb-calendar', () => {
       describe(`orientation=${orientation}`, () => {
         for (const min of minArray) {
           for (const max of maxArray) {
-            beforeEach(async function () {
-              root = await visualRegressionFixture(html`
-                <sbb-calendar
-                  orientation=${orientation}
-                  .selected=${new Date(2023, 0, 20)}
-                  .now=${new Date(2023, 0, 12, 0, 0, 0)}
-                  .min=${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}
-                  .max=${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}
-                ></sbb-calendar>
-              `);
-            });
-
             it(
               `min=${min.label} max=${max.label}`,
-              visualDiffDefault.with((setup) => {
-                setup.withSnapshotElement(root);
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(html`
+                  <sbb-calendar
+                    orientation="${orientation}"
+                    .selected="${new Date(2023, 0, 20)}"
+                    .now="${new Date(2023, 0, 12, 0, 0, 0)}"
+                    .min="${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}"
+                    .max="${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}"
+                  ></sbb-calendar>
+                `);
               }),
             );
           }
