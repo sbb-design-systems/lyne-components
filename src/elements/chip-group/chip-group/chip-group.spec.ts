@@ -483,5 +483,23 @@ describe('sbb-chip-group', () => {
       expect(element.value).to.contain(options[0].value);
       expect(element.value).not.to.contain('aa');
     });
+
+    it('should allow creating chips from input', async () => {
+      const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
+      const tokenEndEventSpy = new EventSpy<CustomEvent>(
+        SbbChipGroupElement.events.chipInputTokenEnd,
+        element,
+      );
+
+      input.focus();
+      await sendKeys({ type: 'new chip' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(formField);
+
+      expect(inputAutocompleteEventSpy.count).to.be.equal(0);
+      expect(tokenEndEventSpy.count).to.be.equal(1);
+      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('input');
+      expect(element.value).to.contain('new chip');
+    });
   });
 });

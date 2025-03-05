@@ -260,10 +260,8 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   private _onInputKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Enter':
-        if (!event.defaultPrevented) {
-          event.preventDefault();
-          this._createChipFromInput('input');
-        }
+        event.preventDefault(); // Prevents the form submit
+        this._createChipFromInput('input');
         break;
       case 'Backspace':
         if (!this._inputElement!.value) {
