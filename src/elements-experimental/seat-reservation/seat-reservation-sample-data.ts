@@ -3365,7 +3365,7 @@ export const MOCK_COACHES_RAW_1 = [
       id: '32801',
       name: 'WR6(501) - not touch',
       dimension: {
-        width: 58,
+        width: 56,
         height: 10,
         borderRadius: null,
       },
@@ -3719,7 +3719,23 @@ export const MOCK_COACHES_RAW_1 = [
         {
           rectangle: {
             position: {
-              x: 57,
+              x: 0,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 8,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'DRIVER_AREA_FULL',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 55,
               y: 0,
               z: 0,
             },
@@ -3811,22 +3827,6 @@ export const MOCK_COACHES_RAW_1 = [
           },
           orientation: 0,
           type: 'TABLE_RESTAURANT',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 0,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 10,
-              borderRadius: null,
-            },
-          },
-          orientation: 0,
-          type: 'COACH_PASSAGE',
         },
         {
           rectangle: {
