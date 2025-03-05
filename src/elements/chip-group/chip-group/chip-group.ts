@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -89,10 +89,9 @@ class SbbChipGroupElement extends SbbDisabledMixin(
     return this._chipElements().map((c) => c.value);
   }
 
-  /** The keys that will be used to split the token when the user creates a new chip (e.g. ',;.') */
-  @forceType()
-  @property({ attribute: 'separator-keys' })
-  public accessor separatorKeys: string = null!;
+  /** The array of keys that will trigger a `chipInputTokenEnd` event. Default `['Enter']` */
+  @property({ attribute: 'separator-keys', type: Array })
+  public accessor separatorKeys: string[] = ['Enter'];
 
   /** Notifies that the component's value has changed. */
   private _change: EventEmitter = new EventEmitter(this, SbbChipGroupElement.events.change);
@@ -259,10 +258,6 @@ class SbbChipGroupElement extends SbbDisabledMixin(
    **/
   private _onInputKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Enter':
-        event.preventDefault(); // Prevents the form submit
-        this._createChipFromInput('input');
-        break;
       case 'Backspace':
         if (!this._inputElement!.value) {
           this._focusChip();
@@ -273,6 +268,15 @@ class SbbChipGroupElement extends SbbDisabledMixin(
           this._allowFocusEscape();
         }
         break;
+      case 'Enter':
+        event.preventDefault(); // Prevents the form submit
+        break;
+    }
+
+    // if the user typed one of the separator keys, trigger a chipInputTokenEnd event
+    if (this.separatorKeys.includes(event.key)) {
+      event.preventDefault(); // prevent typing the separator key into the input
+      this._createChipFromInput('input');
     }
   }
 
@@ -285,38 +289,21 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       return;
     }
 
-    // Split the input value by each separator key
-    const tokens = this.separatorKeys
-      ? inputValue
-          .split(
-            new RegExp(
-              this.separatorKeys
-                .split('')
-                .map((k) => `\\${k}`)
-                .join('|'),
-            ),
-          )
-          .map((t) => t.trim())
-          .filter((t) => !!t)
-      : [inputValue];
+    const eventDetail: SbbChipInputTokenEndEventDetails = {
+      origin: origin,
+      value: inputValue,
+      label: undefined,
+      setValue: (value: string) => (eventDetail.value = value),
+      setLabel: (label: string) => (eventDetail.label = label),
+    };
 
-    for (const token of tokens) {
-      const eventDetail: SbbChipInputTokenEndEventDetails = {
-        origin: origin,
-        value: token,
-        label: undefined,
-        setValue: (value: string) => (eventDetail.value = value),
-        setLabel: (label: string) => (eventDetail.label = label),
-      };
-
-      if (!this._chipInputTokenEnd.emit(eventDetail)) {
-        return; // event prevented; do nothing (the consumer has to create the chip)
-      }
-
-      this._createChipElement(eventDetail.value, eventDetail.label);
-      this._inputElement!.value = ''; // Empty the input
-      this._emitInputEvents();
+    if (!this._chipInputTokenEnd.emit(eventDetail)) {
+      return; // event prevented; do nothing (the consumer has to create the chip)
     }
+
+    this._createChipElement(eventDetail.value, eventDetail.label);
+    this._inputElement!.value = ''; // Empty the input
+    this._emitInputEvents();
   }
 
   private _deleteChip(chip: SbbChipElement): void {

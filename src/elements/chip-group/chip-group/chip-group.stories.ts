@@ -39,7 +39,7 @@ const negative: InputType = {
 
 const separatorKeys: InputType = {
   control: {
-    type: 'text',
+    type: 'object',
   },
 };
 
@@ -75,7 +75,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   readonly,
   negative,
-  'separator-keys': separatorKeys,
+  separatorKeys,
   size,
   hiddenLabel,
   floatingLabel,
@@ -85,7 +85,7 @@ const defaultArgs: Args = {
   disabled: false,
   readonly: false,
   negative: false,
-  'separator-keys': undefined,
+  separatorKeys: undefined,
   size: 'm',
   hiddenLabel: false,
   floatingLabel: false,
@@ -100,7 +100,7 @@ const Template = (args: Args): TemplateResult => html`
       ?floating-label=${args.floatingLabel}
     >
       <label>Label</label>
-      <sbb-chip-group name="chip-group-1" separator-keys=${args['separator-keys'] || nothing}>
+      <sbb-chip-group name="chip-group-1" .separatorKeys=${args.separatorKeys || nothing}>
         <sbb-chip value="chip 1"></sbb-chip>
         <sbb-chip value="chip 2"></sbb-chip>
         <sbb-chip value="chip 3"></sbb-chip>
@@ -121,7 +121,7 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
     <sbb-chip-group
       name="chip-group-1"
       ?negative=${args.negative}
-      separator-keys=${args['separator-keys'] || nothing}
+      .separatorKeys=${args.separatorKeys || nothing}
     >
       <sbb-chip value="chip 1"></sbb-chip>
       <sbb-chip value="chip 2"></sbb-chip>
@@ -139,7 +139,7 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
 const SeparatorKeysTemplate = (args: Args): TemplateResult => html`
   ${Template(args)}
   <br />
-  <span>Type something separated by ',' and press Enter</span>
+  <span>In this example, the <b>comma</b> will trigger the chip creation</span>
 `;
 
 export const Default: StoryObj = {
@@ -187,7 +187,7 @@ export const WithAutocompleteNegative: StoryObj = {
 export const WithSeparatorKeys: StoryObj = {
   render: SeparatorKeysTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'separator-keys': ',' },
+  args: { ...defaultArgs, separatorKeys: [','] },
 };
 
 const meta: Meta = {

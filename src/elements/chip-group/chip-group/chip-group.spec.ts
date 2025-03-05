@@ -149,21 +149,26 @@ describe('sbb-chip-group', () => {
       expect(chips.every((c) => c.readonly)).to.be.false;
     });
 
-    it('should react when input is readonly', async () => {
+    it('should handle different separator keys', async () => {
       const tokenEndEventSpy = new EventSpy(SbbChipGroupElement.events.chipInputTokenEnd, element);
-      element.separatorKeys = ',.;';
+      element.separatorKeys = [',', '.'];
 
       input.focus();
-      await sendKeys({ type: 'chip 4, chip 5. chip 6; ' });
-      await sendKeys({ press: 'Enter' });
+      await sendKeys({ type: 'chip 4, chip 5.' });
       await waitForLitRender(element);
 
       expect(element.value).to.include('chip 4');
       expect(element.value).to.include('chip 5');
-      expect(element.value).to.include('chip 6');
-      expect(element.querySelectorAll('sbb-chip').length).to.be.equal(6);
+      expect(tokenEndEventSpy.count).to.be.equal(2);
       expect(input.value).to.be.empty; // The input should be emptied
-      expect(tokenEndEventSpy.count).to.be.equal(3);
+
+      await sendKeys({ type: 'chip 6' });
+      await sendKeys({ press: 'Enter' }); // Does nothing on 'Enter'
+      await waitForLitRender(element);
+
+      expect(element.value).not.to.include('chip 6');
+      expect(tokenEndEventSpy.count).to.be.equal(2);
+      expect(input.value).not.to.be.empty; // The input should be emptied
     });
 
     /** Verify whether the sync between slotted chip and the value works properly **/
