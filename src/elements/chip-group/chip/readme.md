@@ -1,4 +1,4 @@
-The `sbb-chip` is a component meant to be used in combination with the [sbb-chip-group](/docs/elements-sbb-chip-group-sbb-chip-group--docs)
+The `sbb-chip` is a component meant to be used in combination with the [sbb-chip-group](/docs/elements-sbb-chip-group-sbb-chip-group--docs) to display a list of string user inputs.
 
 ```html
 <sbb-chip-group>
@@ -10,6 +10,14 @@ The `sbb-chip` is a component meant to be used in combination with the [sbb-chip
 ## Slots
 
 It is possible to provide a label via the unnamed slot. If not present, the `value` will be used.
+
+## States
+
+The `disabled`/`readonly` properties are controlled by the `sbb-chip-group`.
+
+## Accessibility
+
+Use the `accessibility-label` property to add info on the chip content.
 
 <!-- Auto Generated Below -->
 

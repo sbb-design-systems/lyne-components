@@ -21,7 +21,7 @@ Use the unnamed slot to provide the `sbb-chip` and the `input` field.
 ## States
 
 The `sbb-chip-group` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
-The `disabled`/`readonly` property is proxied to the slotted `sbb-chip`.
+The `disabled`/`readonly` properties are proxied to the slotted `sbb-chip`s.
 
 ```html
 <sbb-form-field>

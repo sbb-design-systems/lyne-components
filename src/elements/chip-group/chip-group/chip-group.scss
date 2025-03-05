@@ -13,7 +13,7 @@
   --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)};
 
   @include sbb.mq($from: medium) {
-    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(1)};
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(3)};
   }
 }
 
