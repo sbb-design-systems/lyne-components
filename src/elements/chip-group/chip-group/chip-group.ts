@@ -48,7 +48,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement)),
 ) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
+  public static readonly events = {
     input: 'input',
     change: 'change',
     chipInputTokenEnd: 'chipInputTokenEnd',
