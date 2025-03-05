@@ -53,6 +53,11 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
       super.connectedCallback();
 
       this._panelConnected.emit();
+
+      this.closest?.('sbb-radio-button-group, sbb-checkbox-group')?.toggleAttribute(
+        'data-has-panel',
+        true,
+      );
     }
   }
 
