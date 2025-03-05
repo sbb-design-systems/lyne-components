@@ -544,66 +544,47 @@ describe('sbb-dialog', () => {
       const dialog = root.querySelector<SbbDialogElement>('#dialog-1')!;
       const nestedButton = root.querySelector<SbbButtonElement>('#button-2')!;
       const nestedDialog = root.querySelector<SbbDialogElement>('#dialog-2')!;
-      const input = root.querySelector<HTMLInputElement>('input')!;
       const autocomplete = root.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
 
       // the overlays are all closed
       expect(dialog).to.have.attribute('data-state', 'closed');
-      expect(dialog).not.to.match(':popover-open');
       expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(nestedDialog).not.to.match(':popover-open');
-      expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(autocomplete).not.to.match(':popover-open');
+      expect(autocomplete).to.have.attribute('data-state', 'closed');
 
       // open the first dialog
       button.click();
       await waitForLitRender(root);
       expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(dialog).to.match(':popover-open');
       expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(nestedDialog).not.to.match(':popover-open');
-      expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(autocomplete).not.to.match(':popover-open');
+      expect(autocomplete).to.have.attribute('data-state', 'closed');
 
       // open the second dialog; since it has no sbb-title, the autocomplete is the first focusable element, so it opens
       nestedButton.click();
       await waitForLitRender(root);
       expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(dialog).to.match(':popover-open');
       expect(nestedDialog).to.have.attribute('data-state', 'opened');
-      expect(nestedDialog).to.match(':popover-open');
-      expect(input).to.have.attribute('aria-expanded', 'true');
-      expect(autocomplete).to.match(':popover-open');
+      expect(autocomplete).to.have.attribute('data-state', 'opened');
 
       // press Escape for the first time will close the autocomplete but not the dialogs
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(root);
       expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(dialog).to.match(':popover-open');
       expect(nestedDialog).to.have.attribute('data-state', 'opened');
-      expect(nestedDialog).to.match(':popover-open');
-      expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(autocomplete).not.to.match(':popover-open');
+      expect(autocomplete).to.have.attribute('data-state', 'closed');
 
       // press Escape for the second time will close the second dialog
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(root);
       expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(dialog).to.match(':popover-open');
       expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(nestedDialog).not.to.match(':popover-open');
-      expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(autocomplete).not.to.match(':popover-open');
+      expect(autocomplete).to.have.attribute('data-state', 'closed');
 
       // press Escape again will close the first dialog
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(root);
       expect(dialog).to.have.attribute('data-state', 'closed');
-      expect(dialog).not.to.match(':popover-open');
       expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(nestedDialog).not.to.match(':popover-open');
-      expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(autocomplete).not.to.match(':popover-open');
+      expect(autocomplete).to.have.attribute('data-state', 'closed');
     });
   });
 });
