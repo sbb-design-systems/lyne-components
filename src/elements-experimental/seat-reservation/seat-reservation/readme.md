@@ -18,58 +18,70 @@ For the entire presentation, navigation and functionality of such a seat reserva
 
 #### SeatReservation
 
-```html
-SeatReservation { vehicleType: VehicleType; deckCoachIndex: number; coachItems: CoachItem[]; }
+```json
+SeatReservation {
+  vehicleType: VehicleType;
+  deckCoachIndex: number;
+  coachItems: CoachItem[];
+}
 ```
 
 #### CoachItem
 
-```html
-CoachItem { id: string; number: string; dimension: ElementDimension; type?: CoachType; places?:
-Place[]; signs?: SignElement[]; graphicalElements?: BaseElement[]; compartmentNumbers?:
-CompartmentNumberElement[]; }
+```json
+CoachItem {
+  id: string;
+  number: string;
+  dimension: ElementDimension;
+  type?: CoachType;
+  places?: Place[];
+  signs?: SignElement[];
+  graphicElements?: BaseElement[];
+  compartmentNumbers?: CompartmentNumberElement[];
+  travelClass: PlaceTravelClass[];
+  propertyIds?: string[];
+}
 ```
 
 #### Place
 
-```html
-Place extends BaseElement { number: string; state: PlaceState<'FREE' | 'ALLOCATED' | 'RESTRICTED'>;
-type: PlaceType<'SEAT' | 'BICYCLE'>; rotation?: number; travelClass?: PlaceTravelClass<'FIRST' |
-'SECOND' | 'ANY_CLASS'>; remarkId?: string; propertyIds?: string[]; selected?: boolean; }
+```json
+Place extends BaseElement {
+  number: string;
+  state: PlaceState;
+  type: PlaceType;
+  travelClass?: PlaceTravelClass;
+  remarkId?: string;
+  propertyIds?: string[];
+  selected?: boolean;
+}
 ```
 
 #### SignElement
 
-```html
-SignElement extends BaseElement { direction?: ElementDirection <'TOP' | 'RIGHT' | 'BOTTOM' |
-'LEFT'>; }
-```
-
-#### InternalElement
-
-```html
-InternalElement extends BaseElement { mounting?: ElementMounting<'FREE' | 'UPPER_BORDER' |
-'LOWER_BORDER' | 'UPPER_TO_LOWER_BORDER'>; }
-```
-
-#### DirectedInternalElement
-
-```html
-DirectedInternalElement extends BaseElement { direction?: ElementDirection<'TOP' | 'RIGHT' |
-'BOTTOM' | 'LEFT'>; }
+```json
+SignElement extends BaseElement {
+  direction?: ElementDirection | null;
+}
 ```
 
 #### CompartmentNumberElement
 
-```html
-CompartmentNumberElement extends BaseElement { number: string; }
+```json
+CompartmentNumberElement extends BaseElement {
+  number: string;
+}
 ```
 
 #### BaseElement
 
-```html
-BaseElement { icon?: string; rotation?: number; position: ElementPosition; dimension:
-ElementDimension; };
+```json
+BaseElement {
+  icon?: string | null;
+  rotation?: number;
+  position: ElementPosition;
+  dimension: ElementDimension;
+};
 ```
 
 <!-- Auto Generated Below -->

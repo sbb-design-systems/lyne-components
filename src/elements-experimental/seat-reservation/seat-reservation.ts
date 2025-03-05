@@ -17,6 +17,7 @@ export type CoachItem = {
   graphicElements?: BaseElement[];
   compartmentNumbers?: CompartmentNumberElement[];
   travelClass: PlaceTravelClass[];
+  propertyIds?: string[];
 };
 
 export interface Place extends BaseElement {
