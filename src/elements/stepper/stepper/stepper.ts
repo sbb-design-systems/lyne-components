@@ -32,7 +32,8 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   /**
    * If the sbb-stepper is used in a sbb-dialog, the marker on the selected element will not appear,
-   * because the calculations are done when the dialog is closed, so the marker has a width of 0.
+   * because the calculations are done when the dialog is closed, so the marker has a width of 0;
+   * the same happens for the stepper height.
    * We need to recalculate it when the element becomes visible.
    */
   private _observer = new IntersectionController(this, {
@@ -40,6 +41,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     callback: (entries) => {
       entries.forEach((e) => {
         if (e.intersectionRatio === 1) {
+          this._setStepperHeight(this.selected!);
           this._setMarkerSize();
         }
       });
@@ -176,6 +178,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     current?.deselect();
     step!.select();
     this._setMarkerSize();
+    this._setStepperHeight(step!);
     this._configureLinearMode();
     // In case the focus is currently inside the stepper, we focus the selected step label.
     if (document.activeElement?.closest('sbb-stepper') === this) {
@@ -198,6 +201,19 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
         : this._calculateLabelOffsetTop();
 
     this.style.setProperty('--sbb-stepper-marker-size', `${offset}px`);
+  }
+
+  /**
+   * Sets the stepper height based on the height of the provided step.
+   */
+  private _setStepperHeight(step: SbbStepElement): void {
+    const innerElement = getComputedStyle(step!.shadowRoot!.querySelector('.sbb-step')!);
+    if (innerElement) {
+      this.style?.setProperty(
+        '--sbb-stepper-content-height',
+        innerElement.getPropertyValue('height'),
+      );
+    }
   }
 
   private _calculateLabelOffsetTop(): number | undefined {
@@ -252,6 +268,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   private _onStepperResize = (): void => {
     this._checkOrientation();
+    this._setStepperHeight(this.selected!);
     clearTimeout(this._resizeObserverTimeout!);
     this.toggleAttribute('data-disable-animation', true);
 
