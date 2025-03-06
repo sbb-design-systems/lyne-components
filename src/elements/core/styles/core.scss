@@ -85,6 +85,16 @@ sbb-form-field {
     }
   }
 
+  &[floating-label] sbb-date-input::after {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+
+    @include a11y.if-forced-colors {
+      color: Canvas !important;
+      -webkit-text-fill-color: Canvas !important;
+    }
+  }
+
   textarea {
     @include scrollbar.scrollbar;
   }

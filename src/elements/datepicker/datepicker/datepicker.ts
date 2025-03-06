@@ -60,6 +60,7 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
   });
 
 let nextId = 0;
+let warningLogged = false;
 const isDateInput = <T>(
   element: HTMLInputElement | SbbDateInputElement<T> | null,
 ): element is SbbDateInputElement<T> => element?.localName === 'sbb-date-input';
@@ -287,7 +288,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       this._inputObserver?.disconnect();
     }
     const isNativeInput = !isDateInput(input);
-    if (isNativeInput && import.meta.env.DEV) {
+    if (isNativeInput && import.meta.env.DEV && !warningLogged) {
+      warningLogged = true;
       console.warn(
         'Using <sbb-datepicker> with a native <input> is deprecated. Use a <sbb-date-input> instead of <input>.',
       );

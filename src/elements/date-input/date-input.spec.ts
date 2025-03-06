@@ -29,6 +29,12 @@ describe('sbb-date-input', () => {
     expect(element.childElementCount).to.equal(0);
   });
 
+  it('should do nothing with invalid value', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.valueAsDate = defaultDateAdapter.invalid();
+    expect(element.valueAsDate).to.be.null;
+  });
+
   it('should parse min', async () => {
     element = await fixture(html`<sbb-date-input min="2024-12-24"></sbb-date-input>`);
     expect(element.min?.toJSON()).to.be.equal(defaultDateAdapter.createDate(2024, 12, 24).toJSON());
@@ -57,6 +63,14 @@ describe('sbb-date-input', () => {
     await sendKeys({ press: 'Delete' });
     expect(element.value).to.equal(value.substring(1));
     expect(element.textContent).to.equal(value.substring(1));
+  });
+
+  it('should not render the day with weekday-style=none', async () => {
+    element = await fixture(
+      html`<sbb-date-input value="2024-12-24" weekday-style="none"></sbb-date-input>`,
+    );
+    expect(element.value).to.equal('24.12.2024');
+    expect(element.textContent).to.equal('24.12.2024');
   });
 
   describe('with no value', () => {
@@ -142,6 +156,26 @@ describe('sbb-date-input', () => {
     it('should update value and valueAsDate when changing value to empty string', () => {
       element.value = '';
       expect(element.valueAsDate).to.be.null;
+    });
+  });
+
+  describe('form data', () => {
+    let form: HTMLFormElement;
+
+    beforeEach(async () => {
+      form = await fixture(html`<form><sbb-date-input name="my-date"></sbb-date-input></form>`);
+      element = form.querySelector('sbb-date-input')!;
+    });
+
+    it('should have correct form data with an empty value', async () => {
+      const formData = new FormData(form);
+      expect(formData.get('my-date')).to.be.null;
+    });
+
+    it('should have correct form data with a defined value', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      const formData = new FormData(form);
+      expect(formData.get('my-date')).to.be.equal('2024-12-24');
     });
   });
 
@@ -255,6 +289,45 @@ describe('sbb-date-input', () => {
       expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
       expect(element.validity.customError, 'customError').to.be.false;
       expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+    });
+  });
+
+  describe('paste', () => {
+    const clipboardData = (value: string): ClipboardEventInit => {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.getData = (format) => {
+        if (format !== 'text/plain') {
+          throw new Error('Unexpected format in current test');
+        }
+        return value;
+      };
+      return { clipboardData: dataTransfer };
+    };
+
+    it('should insert content from a paste', async () => {
+      element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+      element.focus();
+      element.dispatchEvent(new ClipboardEvent('paste', clipboardData('test\ntest2')));
+      expect(element.value).to.equal('testtest2');
+      expect(element.textContent).to.equal('testtest2');
+    });
+
+    it('should parse value from a paste', async () => {
+      element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+      element.focus();
+      element.dispatchEvent(new ClipboardEvent('paste', clipboardData('20.2.2024')));
+      expect(element.valueAsDate).to.not.be.null;
+      expect(defaultDateAdapter.toIso8601(element.valueAsDate!)).to.equal('2024-02-20');
+    });
+
+    it('should insert content from a paste at the right position', async () => {
+      element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+      element.value = 'test';
+      element.focus();
+      await sendKeys({ press: 'ArrowLeft' });
+      element.dispatchEvent(new ClipboardEvent('paste', clipboardData('value')));
+      expect(element.value).to.equal('tesvaluet');
+      expect(element.textContent).to.equal('tesvaluet');
     });
   });
 });

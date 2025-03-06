@@ -138,8 +138,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     /**
      *  Called when the browser is trying to restore element’s state to state in which case
-     *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
-     *  user in which case reason is “autocomplete”.
+     *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
+     *  user in which case reason is "autocomplete".
      * @internal
      */
     public override formStateRestoreCallback(

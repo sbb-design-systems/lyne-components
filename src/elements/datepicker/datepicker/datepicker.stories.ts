@@ -285,7 +285,6 @@ const TemplateFormField = ({
       ?negative=${negative}
       ?optional=${optional}
       ?borderless=${borderless}
-      width="collapse"
     >
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
