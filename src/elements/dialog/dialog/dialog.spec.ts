@@ -2,6 +2,7 @@ import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { isSafari } from '../../core/dom.js';
 import { i18nDialog } from '../../core/i18n.js';
 import { tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
@@ -532,10 +533,12 @@ describe('sbb-dialog', () => {
       );
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
-      ).to.be.equal('fit-content');
+      ).to.be.equal(isSafari ? '' : 'fit-content');
+
       await openDialog(root);
       await waitForLitRender(root);
       expect(root).to.have.attribute('data-state', 'opened');
+
       // Need to wait for the intersector to kick in
       await aTimeout(500);
       expect(
@@ -543,7 +546,7 @@ describe('sbb-dialog', () => {
       ).not.to.be.equal('0');
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
-      ).not.to.be.equal('fit-content');
+      ).not.to.be.equal(isSafari ? '' : 'fit-content');
     });
   });
 });
