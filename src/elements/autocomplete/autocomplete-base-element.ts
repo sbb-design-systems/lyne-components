@@ -107,6 +107,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     this.showPopover?.();
     this.state = 'opening';
+    this._triggerElement?.toggleAttribute('data-expanded', true);
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -126,6 +127,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
 
     this.state = 'closing';
+    this._triggerElement?.toggleAttribute('data-expanded', false);
     this._openPanelEventsController.abort();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
