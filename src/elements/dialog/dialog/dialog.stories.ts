@@ -396,7 +396,7 @@ const StepperTemplate = ({
       <sbb-stepper linear orientation="horizontal" size="m">
         ${['First', 'Second', 'Third', 'Fourth'].map(
           (element, index, arr) => html`
-            <sbb-step-label>${element} step</sbb-step-label></sbb-step-label>
+            <sbb-step-label>${element} step</sbb-step-label>
             <sbb-step>
               <div
                 tabindex="0"
@@ -405,18 +405,14 @@ const StepperTemplate = ({
               >
                 ${element} step content
               </div>
-              ${
-                index !== 0
-                  ? html`<sbb-secondary-button size="m" sbb-stepper-previous
-                      >Back</sbb-secondary-button
-                    >`
-                  : nothing
-              }
-              ${
-                index !== arr.length - 1
-                  ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
-                  : html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`
-              }
+              ${index !== 0
+                ? html`<sbb-secondary-button size="m" sbb-stepper-previous
+                    >Back</sbb-secondary-button
+                  >`
+                : nothing}
+              ${index !== arr.length - 1
+                ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
+                : html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`}
             </sbb-step>
           `,
         )}
