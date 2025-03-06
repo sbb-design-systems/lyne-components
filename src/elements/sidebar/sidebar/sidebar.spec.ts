@@ -346,7 +346,7 @@ describe('sbb-sidebar', () => {
       await setViewport({ width: 400, height: 400 });
 
       // Wait for resizeObserver of container to be triggered
-      await aTimeout(30);
+      await waitForCondition(() => element.hasAttribute('data-minimum-space'));
 
       element.open();
       expect(element.isOpen).to.be.true;
