@@ -75,23 +75,14 @@ sbb-form-field {
     -webkit-text-fill-color: var(--sbb-color-granite);
   }
 
-  &[floating-label] :where(input, textarea)::placeholder {
+  &[floating-label] :where(input, textarea)::placeholder,
+  &[floating-label] sbb-date-input::after {
     color: transparent;
     -webkit-text-fill-color: transparent;
 
     @include a11y.if-forced-colors {
       color: Canvas;
       -webkit-text-fill-color: Canvas;
-    }
-  }
-
-  &[floating-label] sbb-date-input::after {
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
-
-    @include a11y.if-forced-colors {
-      color: Canvas !important;
-      -webkit-text-fill-color: Canvas !important;
     }
   }
 
