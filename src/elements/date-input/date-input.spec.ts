@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { defaultDateAdapter } from '../core/datetime.js';
+import { isFirefox } from '../core/dom.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
@@ -293,39 +294,44 @@ describe('sbb-date-input', () => {
   });
 
   describe('paste', () => {
-    const clipboardData = (value: string): ClipboardEventInit => {
-      const dataTransfer = new DataTransfer();
-      dataTransfer.getData = (format) => {
-        if (format !== 'text/plain') {
-          throw new Error('Unexpected format in current test');
-        }
-        return value;
-      };
-      return { clipboardData: dataTransfer };
+    const pasteEvent = (value: string): Event => {
+      // Firefox does not support mutating the DataTransfer instance.
+      // Due to this we mock both DataTransfer and the ClipboardEvent for Firefox.
+      const clipboardData = {
+        getData(format) {
+          if (format !== 'text/plain') {
+            throw new Error('Only text/plain is supported in this mock!');
+          }
+          return value;
+        },
+      } satisfies Partial<DataTransfer> as DataTransfer;
+      return isFirefox
+        ? Object.assign(new Event('paste'), { clipboardData })
+        : new ClipboardEvent('paste', { clipboardData });
     };
 
-    it('should insert content from a paste', async () => {
+    beforeEach(async () => {
       element = await fixture(html`<sbb-date-input></sbb-date-input>`);
       element.focus();
-      element.dispatchEvent(new ClipboardEvent('paste', clipboardData('test\ntest2')));
+    });
+
+    it('should insert content from a paste', async () => {
+      element.dispatchEvent(pasteEvent('test\ntest2'));
       expect(element.value).to.equal('testtest2');
       expect(element.textContent).to.equal('testtest2');
     });
 
     it('should parse value from a paste', async () => {
-      element = await fixture(html`<sbb-date-input></sbb-date-input>`);
-      element.focus();
-      element.dispatchEvent(new ClipboardEvent('paste', clipboardData('20.2.2024')));
+      element.dispatchEvent(pasteEvent('20.2.2024'));
       expect(element.valueAsDate).to.not.be.null;
       expect(defaultDateAdapter.toIso8601(element.valueAsDate!)).to.equal('2024-02-20');
     });
 
     it('should insert content from a paste at the right position', async () => {
-      element = await fixture(html`<sbb-date-input></sbb-date-input>`);
       element.value = 'test';
       element.focus();
       await sendKeys({ press: 'ArrowLeft' });
-      element.dispatchEvent(new ClipboardEvent('paste', clipboardData('value')));
+      element.dispatchEvent(pasteEvent('value'));
       expect(element.value).to.equal('tesvaluet');
       expect(element.textContent).to.equal('tesvaluet');
     });
