@@ -25,6 +25,16 @@ export function typescriptTransform(): PluginOption {
       try {
         const compilerOptions = prepareCompilerOptions(cache, file);
         const transpileResult = ts.transpileModule(code, { compilerOptions, fileName: file });
+        if (transpileResult.sourceMapText) {
+          // istanbul (code coverage) tries to resolve the path to the source
+          // which is wrongly generated with the above configuration.
+          // We fix this by reducing the relative path to the basename.
+          // TODO: Figure our if the configuration above can be fixed.
+          const sourceMap = JSON.parse(transpileResult.sourceMapText);
+          const basename = sourceMap.sources[0].split('/').at(-1);
+          sourceMap.sources[0] = `./${basename}`;
+          transpileResult.sourceMapText = JSON.stringify(sourceMap);
+        }
 
         return {
           code: transpileResult.outputText,
