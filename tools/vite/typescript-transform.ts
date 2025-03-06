@@ -29,7 +29,7 @@ export function typescriptTransform(): PluginOption {
           // istanbul (code coverage) tries to resolve the path to the source
           // which is wrongly generated with the above configuration.
           // We fix this by reducing the relative path to the basename.
-          // TODO: Figure our if the configuration above can be fixed.
+          // TODO: Figure out if the configuration above can be fixed.
           const sourceMap = JSON.parse(transpileResult.sourceMapText);
           const basename = sourceMap.sources[0].split('/').at(-1);
           sourceMap.sources[0] = `./${basename}`;
