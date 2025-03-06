@@ -84,16 +84,15 @@ const header = (twoButtons = false): TemplateResult =>
   html`<sbb-header expanded scroll-origin="content" size="s">
     <sbb-header-button
       id="toggle-button-1"
-      icon-name="hamburger-menu-small"
+      icon-name="arrows-right-left-small"
       @click=${(event: PointerEvent) =>
         (event.currentTarget as HTMLElement)?.parentElement?.parentElement
           ?.querySelector<SbbSidebarElement>('#sidebar-1')
           ?.toggle()}
-      aria-label="Toggle menu"
       aria-controls="sidebar-1"
       aria-expanded="true"
     >
-      Menu
+      Toggle sidebar
     </sbb-header-button>
     ${twoButtons
       ? html`<sbb-header-button

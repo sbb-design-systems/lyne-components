@@ -172,13 +172,12 @@ accessibility information on the trigger button should be set.
 <sbb-header expanded scroll-origin="content" size="s">
   <sbb-header-button
     id="toggle-button"
-    icon-name="hamburger-menu-small"
-    aria-label="Toggle menu"
+    icon-name="arrows-right-left-small"
     aria-controls="sidebar"
     aria-expanded="true"
     @click="${() => document.querySelector('#sidebar')?.toggle() }"
   >
-    Menu
+    Toggle sidebar
   </sbb-header-button>
 </sbb-header>
 <sbb-sidebar-container>

@@ -39,25 +39,28 @@ const defaultArgs: Args = {
   color: 'white',
 };
 
-const header = html`<sbb-header expanded scroll-origin="content" size="s">
-  <sbb-header-button
-    id="toggle-button"
-    icon-name="hamburger-menu-small"
-    @click=${(event: PointerEvent) =>
-      (event.currentTarget as HTMLElement)?.parentElement?.parentElement
-        ?.querySelector<SbbSidebarElement>('sbb-sidebar')
-        ?.toggle()}
-    aria-label="Toggle menu"
-    aria-controls="sidebar"
-    aria-expanded="true"
-  >
-    Menu
-  </sbb-header-button>
-  <div style="flex-grow: 1"></div>
-  <a aria-label="Homepage" href="/" class="sbb-header-logo">
-    <sbb-logo protective-room="none"></sbb-logo>
-  </a>
-</sbb-header>`;
+const header = (toggleButton = false) =>
+  html`<sbb-header expanded scroll-origin="content" size="s">
+    ${toggleButton
+      ? html` <sbb-header-button
+          id="toggle-button"
+          icon-name="arrows-right-left-small"
+          @click=${(event: PointerEvent) =>
+            (event.currentTarget as HTMLElement)?.parentElement?.parentElement
+              ?.querySelector<SbbSidebarElement>('sbb-sidebar')
+              ?.toggle()}
+          aria-controls="sidebar"
+          aria-expanded="true"
+        >
+          Toggle sidebar
+        </sbb-header-button>`
+      : html`<sbb-header-button icon-name="hamburger-menu-small">Menu</sbb-header-button>`}
+
+    <div style="flex-grow: 1"></div>
+    <a aria-label="Homepage" href="/" class="sbb-header-logo">
+      <sbb-logo protective-room="none"></sbb-logo>
+    </a>
+  </sbb-header>`;
 
 const iconSidebar = (args: Args): TemplateResult =>
   html`<sbb-icon-sidebar ${sbbSpread(args)}>
@@ -192,7 +195,7 @@ const content = html`
 `;
 
 const Template = ({ position, ...args }: Args): TemplateResult =>
-  html`${header}
+  html`${header()}
     <sbb-icon-sidebar-container>
       ${position === 'start' ? iconSidebar(args) : nothing}
       <sbb-icon-sidebar-content
@@ -206,7 +209,7 @@ const Template = ({ position, ...args }: Args): TemplateResult =>
     </sbb-icon-sidebar-container>`;
 
 const NestedTemplate = ({ position, ...args }: Args): TemplateResult =>
-  html`${header}
+  html`${header(true)}
     <sbb-icon-sidebar-container>
       ${position === 'start' ? iconSidebar(args) : nothing}
       <sbb-icon-sidebar-content>
