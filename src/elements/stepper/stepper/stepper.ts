@@ -207,12 +207,14 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
    * Sets the stepper height based on the height of the provided step.
    */
   private _setStepperHeight(step: SbbStepElement): void {
-    const innerElement = getComputedStyle(step!.shadowRoot!.querySelector('.sbb-step')!);
-    if (innerElement) {
-      this.style?.setProperty(
-        '--sbb-stepper-content-height',
-        innerElement.getPropertyValue('height'),
-      );
+    if (step && step.shadowRoot) {
+      const innerElement = step.shadowRoot.querySelector('.sbb-step');
+      if (innerElement) {
+        this.style?.setProperty(
+          '--sbb-stepper-content-height',
+          getComputedStyle(innerElement).getPropertyValue('height'),
+        );
+      }
     }
   }
 
