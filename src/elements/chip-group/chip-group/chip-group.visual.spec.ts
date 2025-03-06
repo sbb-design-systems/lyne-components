@@ -107,7 +107,7 @@ describe('sbb-chip-group', () => {
       }),
     );
 
-    it.only(
+    it(
       `floating-label=true empty`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ floatingLabel: true }));

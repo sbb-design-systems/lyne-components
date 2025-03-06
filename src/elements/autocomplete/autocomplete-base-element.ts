@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -81,6 +82,15 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected abstract panelRole: string;
   /** @deprecated No longer used internally. */
   protected abort = new SbbConnectedAbortController(this);
+  private _originResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => {
+      if (this.state === 'opened') {
+        this._setOverlayPosition();
+      }
+    },
+  });
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerEventsController!: AbortController;
@@ -248,6 +258,9 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
+    if (this._originElement) {
+      this._originResizeObserver.unobserve(this._originElement);
+    }
 
     this._originElement = undefined;
     this.toggleAttribute(
@@ -256,6 +269,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     );
 
     this._bindTo(this._getTriggerElement());
+    this._originResizeObserver.observe(this.originElement);
   }
 
   /**
