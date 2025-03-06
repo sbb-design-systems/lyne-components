@@ -39,8 +39,9 @@ Select your technology to get started.
 <details>
   <summary>Angular</summary>
 
-> ⓘ We will soonish provide a Lyne Angular Wrapper which helps to use lyne components in Angular.
-> However, it's already possible to use Lyne Components in Angular.
+> ⓘ We provide a Lyne Angular wrapper which helps to use lyne components in Angular. It's currently in beta state, see
+> https://github.com/sbb-design-systems/lyne-angular for more information.
+> However, it's possible to use Lyne Components in Angular without the wrapper:.
 
 1. Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
 2. Install the `@sbb-esta/lyne-elements` package:
