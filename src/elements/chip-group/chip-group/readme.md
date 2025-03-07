@@ -156,11 +156,11 @@ The `sbb-chip-group` follows the `grid` aria pattern.
 
 ## Events
 
-| Name                | Type                                            | Description                                                    | Inherited From |
-| ------------------- | ----------------------------------------------- | -------------------------------------------------------------- | -------------- |
-| `change`            | `CustomEvent<void>`                             | Notifies that the component's value has changed.               |                |
-| `chipInputTokenEnd` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be prevented. |                |
-| `input`             | `CustomEvent<void>`                             | Notifies that the component's value has changed.               |                |
+| Name                | Type                                            | Description                                                                                                      | Inherited From |
+| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`            | `CustomEvent<void>`                             | Notifies that the component's value has changed.                                                                 |                |
+| `chipInputTokenEnd` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented. |                |
+| `input`             | `CustomEvent<void>`                             | Notifies that the component's value has changed.                                                                 |                |
 
 ## Slots
 

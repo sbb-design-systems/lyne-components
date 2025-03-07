@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { hostAttributes } from '../../core/decorators.js';
+import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
@@ -34,7 +35,7 @@ export interface SbbChipInputTokenEndEventDetails {
  *
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that the component's value has changed.
- * @event {CustomEvent<SbbChipInputTokenEndEventDetails>} chipInputTokenEnd - Notifies that a chip is about to be created. Can be prevented.
+ * @event {CustomEvent<SbbChipInputTokenEndEventDetails>} chipInputTokenEnd - Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented.
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
  * @overrideType value - string[] | null
  */
@@ -127,7 +128,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? 'm');
+    this.setAttribute('data-size', (this.closest('sbb-form-field')?.size ?? isLean()) ? 's' : 'm');
   }
 
   public override disconnectedCallback(): void {

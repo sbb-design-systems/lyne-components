@@ -28,7 +28,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
     requestDelete: 'requestDelete',
   } as const;
 
-  /** The value of chip. Will be used as label. */
+  /** The value of chip. Will be used as label if nothing is slotted. */
   @forceType() @property() public accessor value: string = '';
 
   /** Whether the component is readonly */
@@ -36,7 +36,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   @property({ type: Boolean, reflect: true })
   public accessor readonly: boolean = false;
 
-  /** This will be forwarded as aria-label to the inner anchor element. */
+  /** This will be forwarded as aria-label to the inner label element. */
   @forceType()
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
@@ -93,7 +93,6 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           role="gridcell"
           tabindex=${!this.disabled ? '-1' : nothing}
           aria-label=${this.accessibilityLabel || nothing}
-          @click=${() => this._chipLabel().focus()}
         >
           <span class="sbb-chip__label">
             <slot>${this.value}</slot>

@@ -25,6 +25,24 @@ describe(`sbb-chip`, () => {
     testA11yTreeSnapshot();
   });
 
+  describe('renders with label', () => {
+    let element: SbbChipElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-chip value="Value">Value label</sbb-chip>`);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+
   describe('renders disabled', () => {
     let element: SbbChipElement;
 

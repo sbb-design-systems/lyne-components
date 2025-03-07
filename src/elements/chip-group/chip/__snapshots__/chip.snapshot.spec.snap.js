@@ -153,3 +153,87 @@ snapshots["sbb-chip renders disabled A11y tree Firefox"] =
 `;
 /* end snapshot sbb-chip renders disabled A11y tree Firefox */
 
+snapshots["sbb-chip renders with label DOM"] = 
+`<sbb-chip
+  role="row"
+  value="Value"
+>
+  Value label
+</sbb-chip>
+`;
+/* end snapshot sbb-chip renders with label DOM */
+
+snapshots["sbb-chip renders with label Shadow DOM"] = 
+`<div class="sbb-chip">
+  <div
+    class="sbb-chip__label-wrapper"
+    role="gridcell"
+    tabindex="-1"
+  >
+    <span class="sbb-chip__label">
+      <slot>
+        Value
+      </slot>
+    </span>
+  </div>
+  <div role="gridcell">
+    <sbb-mini-button
+      aria-label="Remove Value"
+      class="sbb-chip__delete"
+      data-action=""
+      data-button=""
+      icon-name="cross-tiny-small"
+      tabindex="0"
+    >
+    </sbb-mini-button>
+  </div>
+</div>
+`;
+/* end snapshot sbb-chip renders with label Shadow DOM */
+
+snapshots["sbb-chip renders with label A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "gridcell",
+      "name": "Value label"
+    },
+    {
+      "role": "button",
+      "name": "Remove Value"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-chip renders with label A11y tree Chrome */
+
+snapshots["sbb-chip renders with label A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "section",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Value label"
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Remove Value"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-chip renders with label A11y tree Firefox */
+

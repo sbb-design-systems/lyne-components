@@ -2,6 +2,7 @@ import { html, type TemplateResult } from 'lit';
 
 import { describeViewports, describeEach, visualDiffDefault } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
+import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.js';
 
 import './chip-group.js';
 import '../chip.js';
@@ -21,7 +22,7 @@ const template = (
     longLabel: boolean;
     hiddenLabel: boolean;
     floatingLabel: boolean;
-    size: string;
+    size: SbbFormFieldElement['size'];
   }> = {},
 ): TemplateResult => html`
   <sbb-form-field
@@ -69,14 +70,14 @@ describe('sbb-chip-group', () => {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ size: size }));
+          await setup.withFixture(template({ size: size as SbbFormFieldElement['size'] }));
         }),
       );
 
       it(
         `size=${size} empty`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ size: size }));
+          await setup.withFixture(template({ size: size as SbbFormFieldElement['size'] }));
 
           setup.withPostSetupAction(async () => {
             setup.snapshotElement.querySelector('sbb-chip-group')!.value = null;

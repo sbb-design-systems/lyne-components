@@ -23,13 +23,13 @@ Use the `accessibility-label` property to add info on the chip content.
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type      | Default | Description                                                       |
-| -------------------- | --------------------- | ------- | --------- | ------- | ----------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`  | `''`    | This will be forwarded as aria-label to the inner anchor element. |
-| `disabled`           | `disabled`            | public  | `boolean` | `false` | Whether the component is disabled.                                |
-| `negative`           | `negative`            | public  | `boolean` | `false` | Negative coloring variant flag.                                   |
-| `readonly`           | `readonly`            | public  | `boolean` | `false` | Whether the component is readonly                                 |
-| `value`              | `value`               | public  | `string`  | `''`    | The value of chip. Will be used as label.                         |
+| Name                 | Attribute             | Privacy | Type      | Default | Description                                                      |
+| -------------------- | --------------------- | ------- | --------- | ------- | ---------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`  | `''`    | This will be forwarded as aria-label to the inner label element. |
+| `disabled`           | `disabled`            | public  | `boolean` | `false` | Whether the component is disabled.                               |
+| `negative`           | `negative`            | public  | `boolean` | `false` | Negative coloring variant flag.                                  |
+| `readonly`           | `readonly`            | public  | `boolean` | `false` | Whether the component is readonly                                |
+| `value`              | `value`               | public  | `string`  | `''`    | The value of chip. Will be used as label if nothing is slotted.  |
 
 ## Methods
 

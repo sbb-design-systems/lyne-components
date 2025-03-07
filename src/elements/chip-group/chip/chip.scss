@@ -13,6 +13,8 @@
   --sbb-chip-color-hover: var(--sbb-color-charcoal);
   --sbb-chip-background-color-active: var(--sbb-color-white);
   --sbb-chip-background-color-hover: var(--sbb-color-white);
+  --sbb-chip-height: #{sbb.px-to-rem-build(24)};
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-chip-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
@@ -38,7 +40,7 @@
   color: var(--sbb-chip-color);
   display: flex;
   align-items: stretch;
-  height: #{sbb.px-to-rem-build(24)};
+  height: var(--sbb-chip-height);
 
   &:has(.sbb-chip__label-wrapper:focus) {
     @include sbb.focus-outline;
@@ -49,11 +51,11 @@
 
 .sbb-chip__label-wrapper {
   border: var(--sbb-chip-border);
-  border-right: none;
+  border-inline-end: none;
   border-radius: var(--sbb-chip-border-radius) 0 0 var(--sbb-chip-border-radius);
   display: flex;
   align-items: center;
-  padding-inline: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-chip-label-padding-inline);
   outline: none;
   overflow: hidden;
 
