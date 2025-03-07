@@ -1,7 +1,7 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
-  --sbb-seat-reservation-navigation-travelclass-spacing: #{sbb.px-to-rem-build(12)};
+  --sbb-seat-reservation-navigation-travelclass-spacing: #{sbb.px-to-rem-build(14)};
   --sbb-seat-reservation-navigation-btn-border-color: var(--sbb-color-granite);
   --sbb-seat-reservation-navigation-btn-border-width: var(--sbb-border-width-1x);
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-white);
@@ -94,10 +94,6 @@
   .sbb-seat-reservation-navigation__item-coach-number {
     color: var(--sbb-color-charcoal);
   }
-
-  .sbb-seat-reservation-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-charcoal);
-  }
 }
 
 .sbb-seat-reservation-navigation__additional-information {
@@ -120,14 +116,12 @@
 
 // graphical orientation of FIRST class
 .sbb-seat-reservation-navigation--first-class {
+  height: #{sbb.px-to-rem-build(2)};
   width: calc(100% - #{sbb.px-to-rem-build(4)});
-
-  // use border instead of height to support force-color modes
-  border: var(--sbb-border-width-1x) solid transparent;
   border-radius: var(--sbb-border-radius-1x);
   margin: auto;
   background-color: var(--sbb-color-lemon);
-  transform: translateY(#{sbb.px-to-rem-build(1)});
+  transform: translateY(#{sbb.px-to-rem-build(2)});
 }
 
 // textual orientation of travel class
