@@ -18,12 +18,20 @@
   transform-origin: center;
   transform: rotate(calc(var(--reservation-place-control-rotation) * 1deg));
 
+  .sbb-seat-reservation-place-control--state-focused {
+    background-color: black;
+  }
+
   &__button {
     @include sbb.button-reset;
 
     display: block;
     font-size: calc(var(--reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
+
+    #{$root}--state-focused {
+      background-color: black;
+    }
 
     #{$root}--state-free &:not([disabled]),
     #{$root}--state-selected &:not([disabled]) {
