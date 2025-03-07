@@ -3,7 +3,6 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { defaultDateAdapter } from '../core/datetime.js';
-import { isFirefox } from '../core/dom.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
@@ -296,7 +295,7 @@ describe('sbb-date-input', () => {
   describe('paste', () => {
     const pasteEvent = (value: string): Event => {
       // Firefox does not support mutating the DataTransfer instance.
-      // Due to this we mock both DataTransfer and the ClipboardEvent for Firefox.
+      // Due to this we mock both DataTransfer and the ClipboardEvent.
       const clipboardData = {
         getData(format) {
           if (format !== 'text/plain') {
@@ -305,9 +304,7 @@ describe('sbb-date-input', () => {
           return value;
         },
       } satisfies Partial<DataTransfer> as DataTransfer;
-      return isFirefox
-        ? Object.assign(new Event('paste'), { clipboardData })
-        : new ClipboardEvent('paste', { clipboardData });
+      return Object.assign(new Event('paste'), { clipboardData });
     };
 
     beforeEach(async () => {
