@@ -10,10 +10,13 @@ import '../../autocomplete.js';
 import '../../dialog.js';
 import '../../menu.js';
 
-import { overlayStack, SbbEscapableOverlayController } from './escapable-overlay-controller.js';
+import { SbbEscapableOverlayController } from './escapable-overlay-controller.js';
+
+import type { SbbOpenCloseBaseElement } from '@sbb-esta/lyne-elements/core/base-elements/open-close-base-element';
 
 describe('SbbOverlayEscapeClosableController', () => {
   it('should correctly manage the stack', async () => {
+    const overlayStack = new Array<SbbOpenCloseBaseElement>();
     const element = await fixture(html`
       <div>
         <sbb-dialog id="el-1"></sbb-dialog>
@@ -26,9 +29,9 @@ describe('SbbOverlayEscapeClosableController', () => {
     const elementTwo: SbbMenuElement = element.querySelector('#el-2')!;
     const elementThree: SbbAutocompleteElement = element.querySelector('#el-3')!;
 
-    const controllerOne = new SbbEscapableOverlayController(elementOne);
-    const controllerTwo = new SbbEscapableOverlayController(elementTwo);
-    const controllerThree = new SbbEscapableOverlayController(elementThree);
+    const controllerOne = new SbbEscapableOverlayController(elementOne, overlayStack);
+    const controllerTwo = new SbbEscapableOverlayController(elementTwo, overlayStack);
+    const controllerThree = new SbbEscapableOverlayController(elementThree, overlayStack);
 
     controllerOne.connect();
     expect(overlayStack.length).to.equal(1);

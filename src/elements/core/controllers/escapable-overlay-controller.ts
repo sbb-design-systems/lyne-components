@@ -2,7 +2,7 @@ import { isServer, type ReactiveController, type ReactiveControllerHost } from '
 
 import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
 
-export const overlayStack = new Array<SbbOpenCloseBaseElement>();
+const overlayStack = new Array<SbbOpenCloseBaseElement>();
 
 if (!isServer) {
   window.addEventListener('keydown', (event: KeyboardEvent) => {
@@ -14,7 +14,10 @@ if (!isServer) {
 }
 
 export class SbbEscapableOverlayController implements ReactiveController {
-  public constructor(private _host: ReactiveControllerHost & SbbOpenCloseBaseElement) {
+  public constructor(
+    private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
+    private _overlayStack: SbbOpenCloseBaseElement[] = overlayStack,
+  ) {
     this._host.addController?.(this);
   }
 
@@ -24,15 +27,15 @@ export class SbbEscapableOverlayController implements ReactiveController {
 
   // This must be called when the overlay is opened
   public connect(): void {
-    overlayStack.push(this._host);
+    this._overlayStack.push(this._host);
   }
 
   // This must be called when the overlay is closed
   public disconnect(): void {
-    if (overlayStack.length) {
-      const findElIndex = overlayStack.findIndex((e) => e === this._host);
+    if (this._overlayStack.length) {
+      const findElIndex = this._overlayStack.findIndex((e) => e === this._host);
       if (findElIndex !== -1) {
-        overlayStack.splice(findElIndex, 1);
+        this._overlayStack.splice(findElIndex, 1);
       }
     }
   }
