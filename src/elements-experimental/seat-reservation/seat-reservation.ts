@@ -13,9 +13,8 @@ export type CoachItem = {
   dimension: ElementDimension;
   type?: CoachType;
   places?: Place[];
-  signs?: SignElement[];
   graphicElements?: BaseElement[];
-  compartmentNumbers?: CompartmentNumberElement[];
+  serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
 };
@@ -28,14 +27,6 @@ export interface Place extends BaseElement {
   remarkId?: string;
   propertyIds?: string[];
   selected?: boolean;
-}
-
-export interface SignElement extends BaseElement {
-  direction?: ElementDirection | null;
-}
-
-export interface CompartmentNumberElement extends BaseElement {
-  number: string;
 }
 
 export type BaseElement = {

@@ -79,6 +79,11 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
+  /** Disable prop to prevent any seat action */
+  @forceType()
+  @property({ attribute: 'keyfocus', type: Boolean })
+  public accessor keyfocus: boolean = false;
+
   /** Emits when an place was selected by user. */
   protected placeSelected: EventEmitter = new EventEmitter(
     this,
@@ -99,6 +104,18 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     }
     if (changedProperties.has('rotation')) {
       this.style?.setProperty('--place-control-rotation-from-host', `${this.rotation}`);
+    }
+
+    if (changedProperties.has('keyfocus')) {
+      if (this.keyfocus) {
+        this.shadowRoot
+          ?.querySelector('button')
+          ?.classList.add('sbb-seat-reservation-place-control--state-focused');
+      } else {
+        this.shadowRoot
+          ?.querySelector('button')
+          ?.classList.remove('sbb-seat-reservation-place-control--state-focused');
+      }
     }
   }
 
@@ -128,8 +145,13 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
             .width=${width}
             .height=${height}
             .rotation=${graphicRotation}
+            role="img"
+            aria-hidden="true"
           ></sbb-seat-reservation-graphic>
-          <span ${this.text ?? nothing} class="sbb-seat-reservation-place-control__text"
+          <span
+            ${this.text ?? nothing}
+            class="sbb-seat-reservation-place-control__text"
+            aria-hidden="true"
             >${text}</span
           >
         </button>

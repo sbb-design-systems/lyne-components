@@ -157,7 +157,7 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 0,
+              orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
             },
@@ -165,8 +165,8 @@ export const MOCK_COACHES_RAW_0 = [
               number: '37',
               rectangle: {
                 position: {
-                  x: 13,
-                  y: 2,
+                  x: 15,
+                  y: 0,
                   z: 0,
                 },
                 dimension: {
@@ -175,8 +175,8 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 0,
-              placeLocations: ['AISLE'],
+              orientation: 90,
+              placeLocations: ['WINDOW'],
               placeProperties: [],
             },
             {
@@ -193,26 +193,8 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 90,
               placeLocations: ['WINDOW'],
-              placeProperties: [],
-            },
-            {
-              number: '34',
-              rectangle: {
-                position: {
-                  x: 17,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                  borderRadius: null,
-                },
-              },
-              orientation: 180,
-              placeLocations: ['AISLE'],
               placeProperties: [],
             },
           ],
@@ -547,7 +529,7 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 0,
+              orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
             },
@@ -555,8 +537,8 @@ export const MOCK_COACHES_RAW_0 = [
               number: '47',
               rectangle: {
                 position: {
-                  x: 19,
-                  y: 2,
+                  x: 21,
+                  y: 0,
                   z: 0,
                 },
                 dimension: {
@@ -565,8 +547,8 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 0,
-              placeLocations: ['AISLE'],
+              orientation: 90,
+              placeLocations: ['WINDOW'],
               placeProperties: [],
             },
             {
@@ -583,26 +565,8 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 90,
               placeLocations: ['WINDOW'],
-              placeProperties: [],
-            },
-            {
-              number: '44',
-              rectangle: {
-                position: {
-                  x: 23,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                  borderRadius: null,
-                },
-              },
-              orientation: 180,
-              placeLocations: ['AISLE'],
               placeProperties: [],
             },
           ],
@@ -851,7 +815,7 @@ export const MOCK_COACHES_RAW_0 = [
               z: 0,
             },
             dimension: {
-              width: 14,
+              width: 12,
               height: 10,
               borderRadius: null,
             },
@@ -3182,12 +3146,12 @@ export const MOCK_COACHES_RAW_0 = [
         {
           rectangle: {
             position: {
-              x: 44,
+              x: 46,
               y: 0,
               z: 0,
             },
             dimension: {
-              width: 14,
+              width: 12,
               height: 10,
               borderRadius: null,
             },
@@ -3724,7 +3688,7 @@ export const MOCK_COACHES_RAW_1 = [
               z: 0,
             },
             dimension: {
-              width: 8,
+              width: 6,
               height: 10,
               borderRadius: null,
             },
