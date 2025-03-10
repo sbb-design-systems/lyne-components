@@ -640,7 +640,6 @@ describe('sbb-dialog', () => {
               .replaceAll('px', ''),
           ) > 0,
       );
-      console.log(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size'));
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size'),
       ).not.to.be.equal('0');
