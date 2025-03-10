@@ -41,7 +41,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     callback: (entries) => {
       entries.forEach((e) => {
         if (e.intersectionRatio > 0) {
-          this._setStepperHeight(this.selected!);
+          this._setStepperHeight(this.selected);
           this._setMarkerSize();
         }
       });
@@ -178,7 +178,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     current?.deselect();
     step!.select();
     this._setMarkerSize();
-    this._setStepperHeight(step!);
+    this._setStepperHeight(step);
     this._configureLinearMode();
     // In case the focus is currently inside the stepper, we focus the selected step label.
     if (document.activeElement?.closest('sbb-stepper') === this) {
@@ -206,7 +206,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   /**
    * Sets the stepper height based on the height of the provided step.
    */
-  private _setStepperHeight(step: SbbStepElement): void {
+  private _setStepperHeight(step: SbbStepElement | null): void {
     if (step && step.shadowRoot) {
       const innerElement = step.shadowRoot.querySelector('.sbb-step');
       if (innerElement) {
@@ -270,7 +270,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   private _onStepperResize = (): void => {
     this._checkOrientation();
-    this._setStepperHeight(this.selected!);
+    this._setStepperHeight(this.selected);
     clearTimeout(this._resizeObserverTimeout!);
     this.toggleAttribute('data-disable-animation', true);
 
