@@ -8,7 +8,7 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbInertController } from '../../core/controllers.js';
+import { SbbEscapableOverlayController, SbbInertController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
@@ -66,6 +66,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   private _lastFocusedElement: HTMLElement | null = null;
   private _focusHandler = new SbbFocusHandler();
   private _inertController = new SbbInertController(this);
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _windowEventsController!: AbortController;
   private _isPointerDownEventOnSidebar: boolean = false;
 
@@ -113,8 +114,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
       }
     }
 
-    if (changedProperties.has('mode') && this.state === 'opened') {
-      if (this.mode === 'over') {
+    if (changedProperties.has('mode')) {
+      if (this.mode === 'over' && this.state === 'opened') {
         this._takeFocus();
       } else {
         this.unTrap();
@@ -239,7 +240,12 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   }
 
   private _takeFocus(): void {
+    // We prevent calling the focus stuff when not needed
+    if (this._inertController.isInert() || !this.isConnected) {
+      return;
+    }
     this._inertController.activate();
+    this._escapableOverlayController.connect();
     const firstFocusable = getFirstFocusableElement(
       Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
@@ -252,10 +258,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   private _attachWindowEvents(): void {
     this._windowEventsController?.abort();
     this._windowEventsController = new AbortController();
-
-    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-      signal: this._windowEventsController.signal,
-    });
 
     // Close sidebar on backdrop click
     window.addEventListener('pointerdown', this._pointerDownListener, {
@@ -284,19 +286,13 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
   };
 
-  // Closes the sidebar on "Esc" key pressed
-  private _onKeydownEvent(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      this.close();
-    }
-  }
-
   /** @internal */
   public unTrap(): void {
     if (this._inertController.isInert()) {
       this._inertController.deactivate();
     }
     this._focusHandler.disconnect();
+    this._escapableOverlayController.disconnect();
     this._windowEventsController?.abort();
   }
 
