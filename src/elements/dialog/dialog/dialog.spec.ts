@@ -11,10 +11,11 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 import { SbbDialogElement } from './dialog.js';
 
 import '../../autocomplete.js';
-import '../../form-field.js';
 import '../../button.js';
+import '../../form-field.js';
 import '../../icon.js';
 import '../../option.js';
+import '../../stepper.js';
 import '../dialog-title.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
@@ -585,6 +586,65 @@ describe('sbb-dialog', () => {
       expect(dialog).to.have.attribute('data-state', 'closed');
       expect(nestedDialog).to.have.attribute('data-state', 'closed');
       expect(autocomplete).to.have.attribute('data-state', 'closed');
+    });
+  });
+
+  describe('with stepper', () => {
+    let root: SbbDialogElement;
+
+    beforeEach(async () => {
+      await setViewport({ width: 900, height: 600 });
+      root = await fixture(html`
+        <sbb-dialog>
+          <sbb-dialog-title>Title</sbb-dialog-title>
+          <sbb-dialog-content>
+            <sbb-stepper linear orientation="horizontal" size="m">
+              <sbb-step-label>First step</sbb-step-label>
+              <sbb-step>
+                First content
+                <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+              </sbb-step>
+              <sbb-step-label>Second step</sbb-step-label>
+              <sbb-step>
+                Second content
+                <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+                <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+              </sbb-step>
+            </sbb-stepper>
+          </sbb-dialog-content>
+          <sbb-dialog-actions>Action group</sbb-dialog-actions>
+        </sbb-dialog>
+      `);
+    });
+
+    it('should open the dialog and the stepper should appear with the correct style', async () => {
+      const stepper = root.querySelector('sbb-stepper')!;
+      expect(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')).to.be.equal(
+        '0',
+      );
+      expect(
+        getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
+      ).to.be.equal('0px');
+
+      await openDialog(root);
+      await waitForLitRender(root);
+      expect(root).to.have.attribute('data-state', 'opened');
+
+      // Need to wait for the intersector to kick in; the value is set in px, so we have to remove the unit
+      await waitForCondition(
+        () =>
+          Number(
+            getComputedStyle(stepper)
+              .getPropertyValue('--sbb-stepper-marker-size')
+              .replaceAll('px', ''),
+          ) > 0,
+      );
+      expect(
+        getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size'),
+      ).not.to.be.equal('0');
+      expect(
+        getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
+      ).not.to.be.equal('0px');
     });
   });
 });
