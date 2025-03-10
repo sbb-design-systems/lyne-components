@@ -140,7 +140,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('data-size', (this.closest('sbb-form-field')?.size ?? isLean()) ? 's' : 'm');
+    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
   }
 
   public override disconnectedCallback(): void {
