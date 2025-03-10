@@ -1,18 +1,27 @@
-import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  isServer,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
+import { i18nSelectionRequired } from '../../core/i18n.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
+  SbbRequiredMixin,
 } from '../../core/mixins.js';
 import { SbbChipElement } from '../chip.js';
 
@@ -45,8 +54,10 @@ export
   tabindex: '0',
   role: 'grid',
 })
-class SbbChipGroupElement extends SbbDisabledMixin(
-  SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement)),
+class SbbChipGroupElement extends SbbRequiredMixin(
+  SbbDisabledMixin(
+    SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement)),
+  ),
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -115,6 +126,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
 
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
+  private _languageController = new SbbLanguageController(this);
 
   public constructor() {
     super();
@@ -146,6 +158,18 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       changedProperties.has('negative')
     ) {
       this._proxyStateToChips();
+    }
+  }
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (this.hasUpdated && (name === 'required' || !name)) {
+      this._setValidity();
     }
   }
 
@@ -214,6 +238,7 @@ class SbbChipGroupElement extends SbbDisabledMixin(
     this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
     this.updateFormValue();
+    this._setValidity();
   }
 
   /**
@@ -373,6 +398,14 @@ class SbbChipGroupElement extends SbbDisabledMixin(
       c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
       c.negative = this.negative;
     });
+  }
+
+  private _setValidity(): void {
+    if (this.required && this.value.length === 0) {
+      this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
+    } else {
+      this.removeValidityFlag('valueMissing');
+    }
   }
 
   protected override render(): TemplateResult {

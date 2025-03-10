@@ -408,6 +408,49 @@ describe('sbb-chip-group', () => {
       expect(element).to.match(':disabled');
       expect(formData.getAll('chip-group-1')).to.be.eql([]);
     });
+
+    describe('required behavior', () => {
+      it('should update validity with required true', async () => {
+        element.value = null;
+        expect(element.validationMessage).to.equal('');
+        expect(element.validity.valueMissing).to.be.false;
+        expect(element).to.match(':valid');
+        expect(element).not.to.match(':invalid');
+
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+        expect(element).not.to.match(':valid');
+        expect(element).to.match(':invalid');
+      });
+
+      it('should update validity with required true with selection', async () => {
+        expect(element.value).to.not.be.empty;
+        element.toggleAttribute('required', true);
+        await waitForLitRender(element);
+
+        expect(element.validationMessage).to.equal('');
+        expect(element.validity.valueMissing).to.be.false;
+      });
+
+      it('should update validity message language', async () => {
+        element.toggleAttribute('required', true);
+        element.value = null;
+        await waitForLitRender(element);
+
+        const original = element.validationMessage;
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validity.valueMissing).to.be.true;
+
+        document.documentElement.setAttribute('lang', 'de');
+        await waitForLitRender(element);
+
+        expect(element.validationMessage.length).to.be.greaterThan(0);
+        expect(element.validationMessage).not.to.equal(original);
+      });
+    });
   });
 
   describe('with autocomplete', () => {
