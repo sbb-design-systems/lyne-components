@@ -53,8 +53,8 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
       return;
     }
     const chipLabel = this._chipLabel();
-    chipLabel.click();
     chipLabel.focus();
+    chipLabel.click();
   }
 
   public override focus(): void {

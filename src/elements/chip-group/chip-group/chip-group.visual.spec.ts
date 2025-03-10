@@ -66,18 +66,18 @@ describe('sbb-chip-group', () => {
       );
     });
 
-    for (const size of ['l', 'm', 's']) {
+    for (const size of ['l', 'm', 's'] as SbbFormFieldElement['size'][]) {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ size: size as SbbFormFieldElement['size'] }));
+          await setup.withFixture(template({ size: size }));
         }),
       );
 
       it(
         `size=${size} empty`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ size: size as SbbFormFieldElement['size'] }));
+          await setup.withFixture(template({ size: size }));
 
           setup.withPostSetupAction(async () => {
             setup.snapshotElement.querySelector('sbb-chip-group')!.value = null;

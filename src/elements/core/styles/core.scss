@@ -70,7 +70,7 @@ html {
 }
 
 sbb-form-field {
-  :where(input, select, textarea, sbb-select) {
+  :where(input, select, textarea, sbb-select, sbb-date-input) {
     @include typo.text-m--regular;
     @include helpers.ellipsis;
     @include inputs.input-reset;

@@ -1,10 +1,4 @@
-import {
-  type CSSResultGroup,
-  isServer,
-  type PropertyDeclaration,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -161,18 +155,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     }
   }
 
-  public override requestUpdate(
-    name?: PropertyKey,
-    oldValue?: unknown,
-    options?: PropertyDeclaration,
-  ): void {
-    super.requestUpdate(name, oldValue, options);
-
-    if (this.hasUpdated && (name === 'required' || !name)) {
-      this._setValidity();
-    }
-  }
-
   /** @internal */
   public formResetCallback(): void {
     this.value = null;
@@ -196,6 +178,19 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     const data = new FormData();
     this.value.forEach((el) => data.append(this.name, el));
     this.internals.setFormValue(data);
+  }
+
+  protected override shouldValidate(name: PropertyKey | undefined): boolean {
+    return super.shouldValidate(name) || name === 'required';
+  }
+
+  protected override validate(): void {
+    super.validate();
+    if (this.required && this.value.length === 0) {
+      this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
+    } else {
+      this.removeValidityFlag('valueMissing');
+    }
   }
 
   /** Return the list of chip elements **/
@@ -238,7 +233,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
     this.updateFormValue();
-    this._setValidity();
+    this.validate();
   }
 
   /**
@@ -398,14 +393,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
       c.negative = this.negative;
     });
-  }
-
-  private _setValidity(): void {
-    if (this.required && this.value.length === 0) {
-      this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
-    } else {
-      this.removeValidityFlag('valueMissing');
-    }
   }
 
   protected override render(): TemplateResult {
