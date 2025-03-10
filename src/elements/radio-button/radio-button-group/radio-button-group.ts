@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
@@ -128,10 +128,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute(
-      'data-has-panel',
-      !!this.querySelector?.('sbb-selection-expansion-panel, sbb-radio-button-panel'),
-    );
+    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {

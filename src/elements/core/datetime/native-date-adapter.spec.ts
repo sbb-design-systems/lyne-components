@@ -20,7 +20,7 @@ describe('NativeDateAdapter', () => {
   });
 
   it('should return the right value for year month, date and weekday', () => {
-    const date: Date = new Date(2023, 0, 1);
+    const date: Date = new Date('2023-01-01T00:00:00.000Z');
     expect(nativeDateAdapter.getYear(date)).to.be.equal(2023);
     expect(nativeDateAdapter.getMonth(date)).to.be.equal(1);
     expect(nativeDateAdapter.getDate(date)).to.be.equal(1);
@@ -197,15 +197,12 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.parse(null, now)).to.be.null;
     expect(nativeDateAdapter.parse('Test', now)).to.be.null;
     expect(nativeDateAdapter.parse('1.1', now)).to.be.null;
-    let formattedDate = nativeDateAdapter.parse('1/1/2000', now)!;
-    expect(formattedDate.getFullYear()).to.be.equal(2000);
-    expect(formattedDate.getMonth()).to.be.equal(0);
-    expect(formattedDate.getDate()).to.be.equal(1);
-
-    formattedDate = nativeDateAdapter.parse('1.1.2000', now)!;
-    expect(formattedDate.getFullYear()).to.be.equal(2000);
-    expect(formattedDate.getMonth()).to.be.equal(0);
-    expect(formattedDate.getDate()).to.be.equal(1);
+    for (const dateString of ['1/1/2000', '1.1.2000', '2000-01-01']) {
+      const date = nativeDateAdapter.parse(dateString, now)!;
+      expect(date.getFullYear()).to.be.equal(2000);
+      expect(date.getMonth()).to.be.equal(0);
+      expect(date.getDate()).to.be.equal(1);
+    }
   });
 
   it('format should return the correct string', function () {

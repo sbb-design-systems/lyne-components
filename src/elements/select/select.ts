@@ -7,7 +7,7 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController, SbbEscapableOverlayController } from '../core/controllers.js';
 import {
   forceType,
   getOverride,
@@ -149,6 +149,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _originElement!: HTMLElement;
   private _triggerElement!: HTMLElement;
   private _openPanelEventsController!: AbortController;
+  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
@@ -249,8 +250,10 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (!this.willOpen.emit()) {
       return;
     }
+
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
+    this.toggleAttribute('data-expanded', true);
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -265,11 +268,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (this.state !== 'opened') {
       return;
     }
-
     if (!this.willClose.emit()) {
       return;
     }
+
     this.state = 'closing';
+    this.toggleAttribute('data-expanded', false);
     this._openPanelEventsController.abort();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -373,7 +377,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    this._setValidity();
 
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
@@ -437,10 +440,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     super.requestUpdate(name, oldValue, options);
     if (!name && this.hasUpdated) {
       setTimeout(() => this._syncAriaLabels());
-    }
-
-    if (this.hasUpdated && (name === 'value' || name === 'required' || !name)) {
-      this._setValidity();
     }
   }
 
@@ -515,7 +514,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     ).forEach((e) => e.requestUpdate?.());
   }
 
-  private _setValidity(): void {
+  protected override shouldValidate(name: PropertyKey | undefined): boolean {
+    return super.shouldValidate(name) || name === 'value' || name === 'required';
+  }
+
+  protected override validate(): void {
+    super.validate();
     if (this.required && this._options.every((o) => o.value !== this.value)) {
       this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
     } else {
@@ -582,7 +586,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
-
+    this._sbbEscapableOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -592,6 +596,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
+    this._sbbEscapableOverlayController.disconnect();
     this.didClose.emit();
   }
 
@@ -689,7 +694,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
 
     switch (event.key) {
-      case 'Escape':
       case 'Tab':
         this.close();
         break;

@@ -99,7 +99,9 @@ sbb-form-field {
     }
   }
 
-  &[floating-label] :where(input, select, textarea, sbb-select)::placeholder {
+  &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
+  // This covers the placeholder of the sbb-date-input
+  &[floating-label] sbb-date-input::after {
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
 
@@ -109,6 +111,7 @@ sbb-form-field {
     }
   }
 
+  // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
   &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
     color: var(--sbb-color-granite);
     -webkit-text-fill-color: var(--sbb-color-granite);

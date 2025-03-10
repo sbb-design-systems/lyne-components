@@ -80,6 +80,7 @@ describe(`sbb-autocomplete`, () => {
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(input).to.have.attribute('data-expanded');
     expect(element).to.match(':popover-open');
 
     await sendKeys({ press: 'Escape' });
@@ -88,6 +89,7 @@ describe(`sbb-autocomplete`, () => {
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(input).not.to.have.attribute('data-expanded');
     expect(element).not.to.match(':popover-open');
 
     await sendKeys({ press: 'ArrowDown' });
@@ -96,6 +98,7 @@ describe(`sbb-autocomplete`, () => {
     await didOpenEventSpy.calledTimes(2);
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(input).to.have.attribute('data-expanded');
 
     await sendKeys({ press: tabKey });
     await willCloseEventSpy.calledTimes(2);
@@ -103,6 +106,7 @@ describe(`sbb-autocomplete`, () => {
     await didCloseEventSpy.calledTimes(2);
     expect(didCloseEventSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(input).not.to.have.attribute('data-expanded');
 
     input.click();
     await willOpenEventSpy.calledTimes(3);
@@ -110,6 +114,7 @@ describe(`sbb-autocomplete`, () => {
     await didOpenEventSpy.calledTimes(3);
     expect(didOpenEventSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(input).to.have.attribute('data-expanded');
 
     // Simulate backdrop click
     await sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
@@ -119,6 +124,7 @@ describe(`sbb-autocomplete`, () => {
     await didCloseEventSpy.calledTimes(3);
     expect(didCloseEventSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(element).not.to.have.attribute('data-expanded');
   });
 
   it('opens and closes with non-zero animation duration', async () => {
