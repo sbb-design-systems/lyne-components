@@ -114,6 +114,16 @@ In this scenario, selecting an option will create a new chip using the option va
 </sbb-form-field>
 ```
 
+### Custom 'separator-keys'
+
+By default, the `sbb-chip-group` create a new chip on `Enter` key press.
+
+Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values) that will trigger the chip creation by using the `SeparatorKeys` property.
+
+```html
+<sbb-chip-group name="field-name" separator-keys='["Enter", "Space"]'> ... </sbb-chip-group>
+```
+
 ## Keyboard interaction
 
 At any time, only a single chip (usually, the last one) is focusable and part of the tab order. Users can move between them using the arrow keys.
