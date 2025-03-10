@@ -251,6 +251,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     }
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
+    this.toggleAttribute('data-expanded', true);
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -270,6 +271,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       return;
     }
     this.state = 'closing';
+    this.toggleAttribute('data-expanded', false);
     this._openPanelEventsController.abort();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
