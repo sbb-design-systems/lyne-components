@@ -25,6 +25,13 @@ import '../../stepper.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
 
+const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+  deserunt mollit anim id est laborum.`;
+
 const level: InputType = {
   control: {
     type: 'inline-radio',
@@ -372,14 +379,7 @@ const NestedTemplate = ({
         accessibilityBackLabel,
       )}
       <sbb-dialog-content>
-        <p>
-          Nested dialog content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-          deserunt mollit anim id est laborum.
-        </p>
+        <p>Nested dialog content. ${loremIpsum}</p>
         <sbb-form-field>
           <label>Pressing 'Escape' keydown with multiple overlay</label>
           <input />
@@ -416,11 +416,7 @@ const StepperTemplate = ({
                 class="sbb-focus-outline"
                 style="margin-block-end: var(--sbb-spacing-fixed-4x)"
               >
-                ${element} step content
-                ${index === 0 || index === 2
-                  ? `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`
-                  : nothing}
+                ${element} step content ${index === 0 || index === 2 ? loremIpsum : nothing}
               </div>
               ${index !== 0
                 ? html`<sbb-secondary-button size="m" sbb-stepper-previous

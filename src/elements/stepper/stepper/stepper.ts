@@ -208,12 +208,9 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
    */
   private _setStepperHeight(step: SbbStepElement | null): void {
     if (step && step.shadowRoot) {
-      const innerElement = step.shadowRoot.querySelector('.sbb-step');
+      const innerElement: SbbStepElement | null = step.shadowRoot.querySelector('.sbb-step');
       if (innerElement) {
-        this.style?.setProperty(
-          '--sbb-stepper-content-height',
-          getComputedStyle(innerElement).getPropertyValue('height'),
-        );
+        this.style?.setProperty('--sbb-stepper-content-height', `${innerElement.offsetHeight}px`);
       }
     }
   }
