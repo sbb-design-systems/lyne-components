@@ -40,7 +40,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     target: null,
     callback: (entries) => {
       entries.forEach((e) => {
-        if (e.intersectionRatio === 1) {
+        if (e.intersectionRatio > 0) {
           this._setStepperHeight(this.selected!);
           this._setMarkerSize();
         }
