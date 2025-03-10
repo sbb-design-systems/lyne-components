@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.js';
 import type { SbbButtonElement } from '../../button.js';
-import { isSafari } from '../../core/dom.js';
 import { i18nDialog } from '../../core/i18n.js';
 import { tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
@@ -625,7 +624,7 @@ describe('sbb-dialog', () => {
       );
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
-      ).to.be.equal(isSafari ? '' : 'fit-content');
+      ).to.be.equal('0px');
 
       await openDialog(root);
       await waitForLitRender(root);
@@ -645,7 +644,7 @@ describe('sbb-dialog', () => {
       ).not.to.be.equal('0');
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
-      ).not.to.be.equal(isSafari ? '' : 'fit-content');
+      ).not.to.be.equal('0px');
     });
   });
 });
