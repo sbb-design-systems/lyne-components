@@ -1,6 +1,7 @@
 The `sbb-sidebar-close-button` component extends the [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
 Use it in inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
 to display a close button in the sidebar.
+The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
 
 Clicking the close button closes the parent sidebar.
 

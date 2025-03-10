@@ -310,8 +310,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
       container.style.removeProperty(this._buildCssWidthVar(oldPosition));
     }
 
-    const width = this.offsetWidth ?? 0;
-    if (width === 0) {
+    const width = this.offsetWidth;
+    if (!width) {
       return;
     }
 

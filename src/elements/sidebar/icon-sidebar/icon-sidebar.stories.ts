@@ -39,7 +39,7 @@ const defaultArgs: Args = {
   color: 'white',
 };
 
-const header = (toggleButton = false) =>
+const header = (toggleButton = false): TemplateResult =>
   html`<sbb-header expanded scroll-origin="content" size="s">
     ${toggleButton
       ? html` <sbb-header-button

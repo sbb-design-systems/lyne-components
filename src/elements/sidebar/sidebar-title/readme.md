@@ -1,6 +1,7 @@
 The `sbb-sidebar-title` component extends the [sbb-title](/docs/elements-sbb-title--docs) component.
 Use it in inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
 to display a header in the sidebar with a title.
+The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
 
 ```html
 <sbb-sidebar role="navigation">
