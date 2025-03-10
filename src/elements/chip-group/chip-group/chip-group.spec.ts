@@ -550,4 +550,66 @@ describe('sbb-chip-group', () => {
       expect(element.value).to.contain('new chip');
     });
   });
+
+  describe('non-standard initialization cases', () => {
+    it('init without input', async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <label>Label</label>
+          <sbb-chip-group name="chip-group-1">
+            <sbb-chip value="chip 1"></sbb-chip>
+          </sbb-chip-group>
+        </sbb-form-field>
+      `);
+      element = formField.querySelector('sbb-chip-group')!;
+
+      input = document.createElement('input');
+      element.append(input);
+      await waitForLitRender(element);
+
+      input.focus();
+      await sendKeys({ type: 'new chip' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+
+      expect(element.value).to.include('new chip');
+      expect(element.querySelector('sbb-chip[value="new chip"]')).to.exist;
+      expect(input.value).to.be.empty; // The input should be emptied
+    });
+
+    it('init without formfield', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-form-field size="l">
+            <label>Label</label>
+          </sbb-form-field>
+          <sbb-chip-group name="chip-group-1">
+            <sbb-chip value="chip 1"></sbb-chip>
+            <input />
+          </sbb-chip-group>
+        </div>
+      `);
+
+      formField = root.querySelector('sbb-form-field')!;
+      element = root.querySelector('sbb-chip-group')!;
+      input = root.querySelector('input')!;
+
+      expect(element).to.have.attribute('data-size', 'm');
+
+      formField.append(element);
+      await waitForLitRender(root);
+
+      expect(formField).to.have.attribute('data-input-type', 'input');
+      expect(element).to.have.attribute('data-size', 'l');
+
+      input.focus();
+      await sendKeys({ type: 'new chip' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+
+      expect(element.value).to.include('new chip');
+      expect(element.querySelector('sbb-chip[value="new chip"]')).to.exist;
+      expect(input.value).to.be.empty; // The input should be emptied
+    });
+  });
 });

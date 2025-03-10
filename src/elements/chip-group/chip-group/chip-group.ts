@@ -134,13 +134,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._inputAttributeObserver?.disconnect();
-    this._inputAbortController?.abort();
+    this._setupComponent();
   }
 
   protected override willUpdate(changedProperties: PropertyValues): void {
@@ -203,7 +197,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     return Array.from(this.querySelectorAll?.('sbb-chip:not([disabled])') ?? []);
   }
 
-  private _onSlotChange(): void {
+  private _setupComponent(): void {
     const input = this.querySelector('input');
 
     // Connect to the input
@@ -230,6 +224,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       });
     }
 
+    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
     this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
     this.updateFormValue();
@@ -398,7 +393,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip-group">
-        <slot @slotchange=${this._onSlotChange}></slot>
+        <slot @slotchange=${this._setupComponent}></slot>
       </div>
     `;
   }
