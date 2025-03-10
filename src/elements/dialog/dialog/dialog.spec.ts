@@ -1,4 +1,4 @@
-import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -539,8 +539,16 @@ describe('sbb-dialog', () => {
       await waitForLitRender(root);
       expect(root).to.have.attribute('data-state', 'opened');
 
-      // Need to wait for the intersector to kick in
-      await aTimeout(500);
+      // Need to wait for the intersector to kick in; the value is set in px, so we have to remove the unit
+      await waitForCondition(
+        () =>
+          Number(
+            getComputedStyle(stepper)
+              .getPropertyValue('--sbb-stepper-marker-size')
+              .replaceAll('px', ''),
+          ) > 0,
+      );
+      console.log(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size'));
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size'),
       ).not.to.be.equal('0');
