@@ -8,13 +8,17 @@ import { SbbChipElement } from './chip.js';
 describe(`sbb-chip ssr`, () => {
   let root: SbbChipElement;
 
-  beforeEach(async () => {
+  it('renders', async () => {
     root = await ssrHydratedFixture(html`<sbb-chip value="Value"></sbb-chip>`, {
       modules: ['./chip.js'],
     });
+    assert.instanceOf(root, SbbChipElement);
   });
 
-  it('renders', () => {
+  it('renders with label', async () => {
+    root = await ssrHydratedFixture(html`<sbb-chip value="Value">Label</sbb-chip>`, {
+      modules: ['./chip.js'],
+    });
     assert.instanceOf(root, SbbChipElement);
   });
 });

@@ -178,7 +178,7 @@ snapshots["sbb-chip renders with label Shadow DOM"] =
   </div>
   <div role="gridcell">
     <sbb-mini-button
-      aria-label="Remove Value"
+      aria-label="Remove Value label"
       class="sbb-chip__delete"
       data-action=""
       data-button=""
@@ -203,7 +203,7 @@ snapshots["sbb-chip renders with label A11y tree Chrome"] =
     },
     {
       "role": "button",
-      "name": "Remove Value"
+      "name": "Remove Value label"
     }
   ]
 }
@@ -229,7 +229,7 @@ snapshots["sbb-chip renders with label A11y tree Firefox"] =
     },
     {
       "role": "button",
-      "name": "Remove Value"
+      "name": "Remove Value label"
     }
   ]
 }

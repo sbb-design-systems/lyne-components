@@ -1,6 +1,6 @@
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
@@ -40,6 +40,9 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   @forceType()
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
+
+  @state()
+  private accessor _slottedLabel = '';
 
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
@@ -85,6 +88,10 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
     return this.shadowRoot!.querySelector('sbb-mini-button')!;
   }
 
+  private _onSlotChange(): void {
+    this._slottedLabel = this.textContent ?? '';
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip">
@@ -95,7 +102,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           aria-label=${this.accessibilityLabel || nothing}
         >
           <span class="sbb-chip__label">
-            <slot>${this.value}</slot>
+            <slot @slotchange=${this._onSlotChange}>${this.value}</slot>
           </span>
         </div>
         <div role="gridcell">
@@ -103,7 +110,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
             tabindex=${!this.disabled ? '-1' : nothing}
             class="sbb-chip__delete"
             icon-name="cross-tiny-small"
-            aria-label=${`${i18nChipDelete[this._language.current]} ${this.value}`}
+            aria-label=${`${i18nChipDelete[this._language.current]} ${this._slottedLabel || this.value}`}
             @click=${() => this._requestDelete.emit()}
           ></sbb-mini-button>
         </div>
