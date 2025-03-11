@@ -406,7 +406,7 @@ const StepperTemplate = ({
   <sbb-dialog id="stepper" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <sbb-stepper linear orientation="horizontal" size="m">
+      <sbb-stepper orientation="horizontal" size="m">
         ${['First', 'Second', 'Third', 'Fourth'].map(
           (element, index, arr) => html`
             <sbb-step-label>${element} step</sbb-step-label>
