@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.4.0...v2.4.1) (2025-03-11)
+
+
+### Miscellaneous Chores
+
+* release 2.4.1 ([9085282](https://github.com/sbb-design-systems/lyne-components/commit/908528269209c906c4bd8c5521af563fd55c81e1))
+
 ## [2.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.3.0...v2.4.0) (2025-03-10)
 
 
