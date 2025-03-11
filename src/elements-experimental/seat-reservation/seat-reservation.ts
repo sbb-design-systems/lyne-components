@@ -8,6 +8,7 @@ export type SeatReservation = {
 };
 
 export type CoachItem = {
+  //id - Abteilnummer, max 3-stellig; CH-weit eher 2-stellig
   id: string;
   number: string;
   dimension: ElementDimension;

@@ -3,7 +3,7 @@ export const MOCK_COACHES_RAW_0 = [
   {
     warnings: null,
     coachDeckLayout: {
-      id: '32801',
+      id: '80',
       name: 'B10(501) - not touch',
       dimension: {
         width: 58,
@@ -987,7 +987,7 @@ export const MOCK_COACHES_RAW_0 = [
   {
     warnings: null,
     coachDeckLayout: {
-      id: '32',
+      id: '81',
       name: 'B10(501) - not touch',
       dimension: {
         width: 58,
@@ -2302,7 +2302,7 @@ export const MOCK_COACHES_RAW_0 = [
   {
     warnings: null,
     coachDeckLayout: {
-      id: '32803',
+      id: '82',
       name: 'B10(501) - not touch',
       dimension: {
         width: 58,
@@ -2314,7 +2314,7 @@ export const MOCK_COACHES_RAW_0 = [
       placeGroups: [
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'ANY_SEAT',
+          accommodationSubType: 'BISTRO',
           places: [
             {
               number: '15',
@@ -2392,7 +2392,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'ANY_SEAT',
+          accommodationSubType: 'FAMILY',
           places: [
             {
               number: '11',
@@ -2470,7 +2470,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'ANY_SEAT',
+          accommodationSubType: 'BICYCLE_LOW',
           places: [
             {
               number: '25',
@@ -2548,7 +2548,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'ANY_SEAT',
+          accommodationSubType: 'WHEELCHAIR_NO_SEAT',
           places: [
             {
               number: '21',
@@ -3340,7 +3340,7 @@ export const MOCK_COACHES_RAW_0 = [
   {
     warnings: null,
     coachDeckLayout: {
-      id: 'Head',
+      id: '86',
       name: 'B10(501) - not touch',
       dimension: {
         width: 58,
@@ -3451,7 +3451,7 @@ export const MOCK_COACHES_RAW_0 = [
   {
     warnings: null,
     coachDeckLayout: {
-      id: '32803',
+      id: '843',
       name: 'B10(501) - not touch',
       dimension: {
         width: 58,
