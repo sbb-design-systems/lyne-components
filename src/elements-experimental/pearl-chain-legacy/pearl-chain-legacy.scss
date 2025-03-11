@@ -164,13 +164,13 @@
 
 .sbb-pearl-chain__stop--departure-skipped {
   @include sbb.pearl-chain-bullet-stop;
-  @include sbb.pearl-chain-bullet-skipped;
+  @include sbb.pearl-chain-bullet-skipped-legacy;
 }
 
 .sbb-pearl-chain--arrival-skipped,
 .sbb-pearl-chain--departure-skipped {
   @include sbb.pearl-chain-bullet-start-end;
-  @include sbb.pearl-chain-bullet-skipped;
+  @include sbb.pearl-chain-bullet-skipped-legacy;
 }
 
 // line on leg

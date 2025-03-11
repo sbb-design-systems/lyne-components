@@ -70,6 +70,27 @@
   }
 }
 
+@mixin pearl-chain-bullet-skipped-legacy {
+  border: var(--sbb-pearl-chain-bullet-border-width) solid currentcolor;
+  background: Canvas;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-block-start: var(--sbb-pearl-chain-bullet-crossed-border-width) solid canvas;
+    background: var(--sbb-pearl-chain-bullet-color-disruption);
+    height: var(--sbb-pearl-chain-bullet-crossed-height);
+    width: var(--sbb-pearl-chain-bullet-crossed-width);
+
+    @include a11y.if-forced-colors {
+      background: Highlight;
+    }
+  }
+}
+
 @mixin pearl-chain-bullet-skipped {
   &::before {
     content: '';
