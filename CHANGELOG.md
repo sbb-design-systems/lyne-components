@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.4.0...v2.4.1) (2025-03-11)
+
+
+### Miscellaneous Chores
+
+* release 2.4.1 ([9085282](https://github.com/sbb-design-systems/lyne-components/commit/908528269209c906c4bd8c5521af563fd55c81e1))
+
+## [2.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.3.0...v2.4.0) (2025-03-10)
+
+
+### Features
+
+* **sbb-calendar:** vertical orientation ([#3378](https://github.com/sbb-design-systems/lyne-components/issues/3378)) ([71e6100](https://github.com/sbb-design-systems/lyne-components/commit/71e6100c5e3766c71f660fea9e7f095f75897789))
+* **sbb-date-input:** create sbb-date-input as a native text input ([#3296](https://github.com/sbb-design-systems/lyne-components/issues/3296)) ([8dbfeb6](https://github.com/sbb-design-systems/lyne-components/commit/8dbfeb6c5ab287eb6c0025539f45882fd72c7133))
+* **sbb-tag, sbb-tag-group:** implement native form support ([#3379](https://github.com/sbb-design-systems/lyne-components/issues/3379)) ([b51ba18](https://github.com/sbb-design-systems/lyne-components/commit/b51ba181791d98d95eecb7b335a71f4d9a702f1b))
+
+
+### Bug Fixes
+
+* close overlay stack with Escape key ([#3385](https://github.com/sbb-design-systems/lyne-components/issues/3385)) ([298de4c](https://github.com/sbb-design-systems/lyne-components/commit/298de4ca8d0634bfbd1b01d4a5130828beb63d2d))
+* **panels:** reflect colors ([#3423](https://github.com/sbb-design-systems/lyne-components/issues/3423)) ([943c2e6](https://github.com/sbb-design-systems/lyne-components/commit/943c2e6b61121b0440d9a5446c7c51abfda05cd2)), closes [#3418](https://github.com/sbb-design-systems/lyne-components/issues/3418)
+* regex for generic type substitution ([#3422](https://github.com/sbb-design-systems/lyne-components/issues/3422)) ([18c6c8d](https://github.com/sbb-design-systems/lyne-components/commit/18c6c8d9fee81fb68e016feb47c2edd8d5f4db43))
+* **sbb-autocomplete:** fix floating label flickering ([#3430](https://github.com/sbb-design-systems/lyne-components/issues/3430)) ([654788f](https://github.com/sbb-design-systems/lyne-components/commit/654788fe41b88fe632435c6ac4a36c1872fc8889))
+* **sbb-checkbox-group, sbb-radio-button-group:** fix panel detection and styling ([#3427](https://github.com/sbb-design-systems/lyne-components/issues/3427)) ([8240168](https://github.com/sbb-design-systems/lyne-components/commit/82401685ab4346ab78fddd0d35d58fc3fe725d14)), closes [#3426](https://github.com/sbb-design-systems/lyne-components/issues/3426)
+* **sbb-stepper:** marker not visible in stepper ([#3429](https://github.com/sbb-design-systems/lyne-components/issues/3429)) ([758fb11](https://github.com/sbb-design-systems/lyne-components/commit/758fb11863fdddf8b72cfe01511021543bce680b))
+
+
+### Documentation
+
+* link to Angular wrapper ([#3433](https://github.com/sbb-design-systems/lyne-components/issues/3433)) ([49760ee](https://github.com/sbb-design-systems/lyne-components/commit/49760ee39ec33ca9b6b15b2e11536471c5bc116c))
+
 ## [2.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.2.0...v2.3.0) (2025-02-24)
 
 
