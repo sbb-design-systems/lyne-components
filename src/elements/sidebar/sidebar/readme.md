@@ -1,5 +1,5 @@
 The `<sbb-sidebar>` is a component that can display items on the left or right side of the viewport.
-Every slotted content will be displayed, but it's designed to use for navigation.
+Every slotted content will be displayed, but it's designed to be used for navigation.
 
 The sidebar components are designed to add side content to a fullscreen app.
 To set up a sidebar we use three components: `<sbb-sidebar-container>` which acts as a structural container for
@@ -70,7 +70,7 @@ We recommend to give the sidebar a title by using the `<sbb-sidebar-title>` elem
 
 ## Mode
 
-The `<sbb-sidebar>` can render in one of two different ways based on the `mode` property.
+The `<sbb-sidebar>` can be rendered in one of two different ways based on the `mode` property.
 
 | Mode   | Description                                                                                                           |
 | ------ | --------------------------------------------------------------------------------------------------------------------- |
