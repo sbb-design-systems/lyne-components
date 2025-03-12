@@ -3,7 +3,7 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { mapNavigationIconToSvg } from '../common.js';
+import { getAriaLabel, mapNavigationIconToSvg } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
 import style from './seat-reservation-navigation.scss?lit&inline';
@@ -42,14 +42,18 @@ class SbbSeatReservationNavigationElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <ul role="navigation" class="sbb-seat-reservation-navigation__list-coaches">
-        ${this._getRenderedNavCoachs(this.seatReservation.coachItems)}
+      <ul
+        role="navigation"
+        aria-label="${getAriaLabel('SEAT_RESERVATION_NAVIGATION')}"
+        class="sbb-seat-reservation-navigation__list-coaches"
+      >
+        ${this._getRenderedNavCoachs(this.seatReservation?.coachItems)}
       </ul>
     `;
   }
 
   private _getRenderedNavCoachs(coaches: CoachItem[]): TemplateResult[] {
-    return coaches.map((coachItem: CoachItem, index: number) => {
+    return coaches?.map((coachItem: CoachItem, index: number) => {
       const coachSelectedClass =
         this.selectedCoachIndex === index
           ? 'sbb-seat-reservation-navigation__item-coach--selected'

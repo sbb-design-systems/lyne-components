@@ -3269,7 +3269,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA',
+          type: 'DRIVER_AREA_FULL',
         },
       ],
       serviceIcons: [
@@ -3354,8 +3354,8 @@ export const MOCK_COACHES_RAW_0 = [
         {
           rectangle: {
             position: {
-              x: 0,
-              y: 1,
+              x: 46,
+              y: 0,
               z: 0,
             },
             dimension: {
@@ -3365,87 +3365,26 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 180,
-          type: 'DRIVER_AREA',
+          type: 'DRIVER_AREA_FULL',
         },
         {
           rectangle: {
             position: {
               x: 0,
-              y: 1,
+              y: 0,
               z: 0,
             },
             dimension: {
-              width: 13,
-              height: 8,
+              width: 12,
+              height: 10,
               borderRadius: null,
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA',
+          type: 'DRIVER_AREA_FULL',
         },
       ],
-      serviceIcons: [
-        {
-          rectangle: {
-            position: {
-              x: 40,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-              borderRadius: null,
-            },
-          },
-          type: 'WHEELCHAIR_ICON',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 28,
-              y: 7,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-              borderRadius: null,
-            },
-          },
-          type: 'BICYCLE_LOW_ICON',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 40,
-              y: 2,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-              borderRadius: null,
-            },
-          },
-          type: 'WHEELCHAIR_ICON',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 28,
-              y: 1,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-              borderRadius: null,
-            },
-          },
-          type: 'BICYCLE_LOW_ICON',
-        },
-      ],
+      serviceIcons: [],
     },
   },
   {
@@ -4418,7 +4357,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA',
+          type: 'DRIVER_AREA_FULL',
         },
       ],
       serviceIcons: [
@@ -4514,7 +4453,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 180,
-          type: 'DRIVER_AREA',
+          type: 'DRIVER_AREA_FULL',
         },
         {
           rectangle: {
@@ -4530,7 +4469,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA',
+          type: 'DRIVER_AREA_FULL',
         },
       ],
       serviceIcons: [
