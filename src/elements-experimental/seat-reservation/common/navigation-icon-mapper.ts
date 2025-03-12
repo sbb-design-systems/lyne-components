@@ -2,23 +2,26 @@
  * Map Object from OSDM Code to SVG icon name represented in svg-icon
  * component regarding the namespace "fpl".
  */
-// TODO ggf. erweitern um aria-label Description?
+export type NavigationIcon = {
+  svgName: string;
+  ariaLabel: string;
+};
 
-export const mapNavigationIconToSvg: Record<string, string> = {
-  BICYCLE: 'sa-vo',
-  BICYCLE_LOW: 'sa-vo',
-  BICYCLE_MIDDLE: 'sa-vo',
-  BICYCLE_HIGH: 'sa-vo',
-  BISTRO: 'sa-wr',
-  BUSINESS: 'sa-bz',
-  BUSINESS_COMFORT: 'sa-bz',
-  FAMILY: 'sa-fa',
-  PRAM: 'sa-abteilkinderwagen',
-  RESTAURANT: 'sa-wr',
-  SILENCE: 'sa-rz',
-  WHEELCHAIR: 'sa-rs',
-  WHEELCHAIR_AND_SEAT: 'sa-rs',
-  WHEELCHAIR_NO_SEAT: 'sa-rs',
+export const mapNavigationIconToSvg: Record<string, NavigationIcon> = {
+  BICYCLE: { svgName: 'sa-vo', ariaLabel: 'Bicycle area' },
+  BICYCLE_LOW: { svgName: 'sa-vo', ariaLabel: 'Bicycle area' },
+  BICYCLE_MIDDLE: { svgName: 'sa-vo', ariaLabel: 'Bicycle area' },
+  BICYCLE_HIGH: { svgName: 'sa-vo', ariaLabel: 'Bicycle area' },
+  BISTRO: { svgName: 'sa-wr', ariaLabel: 'Bistro area' },
+  BUSINESS: { svgName: 'sa-bz', ariaLabel: 'Business area' },
+  BUSINESS_COMFORT: { svgName: 'sa-bz', ariaLabel: 'Business area' },
+  FAMILY: { svgName: 'sa-fa', ariaLabel: 'Family area' },
+  PRAM: { svgName: 'sa-abteilkinderwagen', ariaLabel: 'Pram area' },
+  RESTAURANT: { svgName: 'sa-wr', ariaLabel: 'Restaurant area' },
+  SILENCE: { svgName: 'sa-rz', ariaLabel: 'Silence area' },
+  WHEELCHAIR: { svgName: 'sa-rs', ariaLabel: 'Wheelchair area' },
+  WHEELCHAIR_AND_SEAT: { svgName: 'sa-rs', ariaLabel: 'Wheelchair area' },
+  WHEELCHAIR_NO_SEAT: { svgName: 'sa-rs', ariaLabel: 'Wheelchair area' },
 };
 
 /**

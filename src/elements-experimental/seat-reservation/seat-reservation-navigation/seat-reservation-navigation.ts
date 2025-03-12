@@ -134,14 +134,14 @@ class SbbSeatReservationNavigationElement extends LitElement {
         return null;
       }
 
-      const svgName = mapNavigationIconToSvg[sign];
+      const svgObj = mapNavigationIconToSvg[sign];
 
       return html`
-        ${svgName
+        ${svgObj
           ? html`<sbb-icon
-              name="${svgName}"
+              name="${svgObj.svgName}"
               aria-hidden="false"
-              aria-label="todo: Coach desc"
+              aria-label="${svgObj.ariaLabel}"
             ></sbb-icon>`
           : nothing}
       `;
