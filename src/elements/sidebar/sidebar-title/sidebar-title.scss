@@ -1,30 +1,24 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-sidebar-title__close-button-size: var(--sbb-size-element-xs);
-  --sbb-sidebar-title__close-button-placeholder: calc(
-    var(--sbb-sidebar-title__close-button-size) + var(--sbb-sidebar-title-gap)
-  );
-
-  display: contents;
+  display: block;
 }
 
 .sbb-title {
   display: flex;
-  align-items: center;
-
-  // Variable inherited from sbb-sidebar
-  padding-block: var(--sbb-sidebar-title-padding-block);
-  min-height: calc(
-    var(--sbb-sidebar-title__close-button-size) + 2 * var(--sbb-sidebar-title-padding-block)
-  );
   hyphens: auto;
+
+  // The close button is taller than the title. We need to align the text to the close button
+  // but can't use align-items: center because with centering, multiline titles are wrongly positioned.
+  padding-block-start: calc(
+    0.5 *
+      (
+        var(--sbb-sidebar__close-button-size) - var(--sbb-title-font-size) *
+          var(--sbb-title-line-height)
+      )
+  );
+  min-height: var(--sbb-sidebar__close-button-size);
 
   // Overwrite sbb-title default margin
   margin-block: 0 !important;
-
-  // Reserve space to the right to avoid colliding with the close button.
-  // --sbb-sidebar-title__close-button-placeholder is toggled in core.scss depending on presence of the close button
-  margin-inline-end: var(--sbb-sidebar-title__close-button-placeholder, 0) !important;
 }

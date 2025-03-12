@@ -14,6 +14,7 @@
   --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
   --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
+  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
   --sbb-sidebar__margin: 0;
   --sbb-sidebar__margin-block-start: var(--sbb-sidebar-margin);
   --sbb-sidebar__translate-x: -100%;
@@ -22,6 +23,7 @@
   --sbb-sidebar__padding-block-start: var(--sbb-sidebar-padding);
   --sbb-sidebar__border-radius-start: var(--sbb-sidebar-border-radius);
   --sbb-sidebar__border-radius-end: 0;
+  --sbb-sidebar__close-button-size: var(--sbb-size-element-xs);
 
   @supports (scrollbar-gutter: stable) {
     --sbb-sidebar__padding-inline-end: calc(
@@ -86,6 +88,9 @@
 }
 
 .sbb-sidebar-title-section {
+  display: flex;
+  width: 100%;
+  gap: var(--sbb-sidebar-title-gap);
   background-color: var(--sbb-sidebar-background-color);
   padding-inline: var(--sbb-sidebar-padding);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-sidebar-container-animation-duration);
@@ -113,4 +118,20 @@
       scrollbar-gutter: stable;
     }
   }
+}
+
+::slotted(sbb-sidebar-title) {
+  flex-grow: 1;
+  padding-block: var(--sbb-sidebar-title-padding-block);
+}
+
+::slotted(sbb-sidebar-close-button) {
+  order: 1;
+
+  // Due to design needs, we have to translate the close button to the right
+  margin-inline-end: calc(
+    -1 * (var(--sbb-sidebar-padding) - var(--sbb-sidebar-title-padding-block))
+  );
+  margin-block: var(--sbb-sidebar-title-padding-block);
+  inset-inline-end: var(--sbb-sidebar-padding);
 }

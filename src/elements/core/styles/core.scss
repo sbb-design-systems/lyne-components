@@ -395,8 +395,8 @@ sbb-icon-sidebar-content + sbb-icon-sidebar {
 }
 
 // If there is no close button, avoid reserving any space for the button in the sidebar title
-sbb-sidebar:not(:has(sbb-sidebar-close-button)) sbb-sidebar-title {
-  --sbb-sidebar-title__close-button-placeholder: 0;
+sbb-sidebar:not(:has(sbb-sidebar-title)) sbb-sidebar-close-button {
+  position: absolute;
 }
 
 // If there is a title, remove top spacing for the content

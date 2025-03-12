@@ -5,7 +5,5 @@
 
 :host {
   display: block;
-  position: absolute;
-  inset-block-start: var(--sbb-sidebar-title-padding-block);
-  inset-inline-end: var(--sbb-sidebar-title-padding-block);
+  height: fit-content;
 }
