@@ -111,6 +111,72 @@ describe(`SbbButtonBaseElement`, () => {
     let submittedCount: number = 0;
     let formDataEventSpyPromise: Promise<FormDataEntry>;
 
+    const onInputEnterPressTests = (): void => {
+      describe('on enter press in input', () => {
+        for (const inputCount of ['one input', 'two inputs']) {
+          describe(`with ${inputCount}`, () => {
+            if (inputCount === 'two inputs') {
+              beforeEach(() => {
+                form.appendChild(document.createElement('input'));
+              });
+            }
+
+            it('should submit form', async () => {
+              input.focus();
+              await sendKeys({ press: 'Enter' });
+
+              const submitFormData = await submitEventSpyPromise;
+
+              expect(submitFormData).to.be.deep.equal({
+                'submit-button': 'submit',
+                test: 'test',
+              });
+
+              expect(submittedCount).to.be.equal(1);
+            });
+
+            it('should not submit when submitButton is disabled', async () => {
+              submitButton.disabled = true;
+              await waitForLitRender(form);
+
+              input.focus();
+              await sendKeys({ press: 'Enter' });
+
+              await aTimeout(10);
+              expect(submittedCount).to.be.equal(0);
+            });
+          });
+        }
+
+        it('should not submit when submitButton was removed with two inputs', async () => {
+          form.appendChild(document.createElement('input'));
+
+          submitButton.remove();
+          await waitForLitRender(form);
+
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+
+          await aTimeout(10);
+          expect(submittedCount).to.be.equal(0);
+        });
+
+        it('should submit when submitButton was removed with one input', async () => {
+          submitButton.remove();
+          await waitForLitRender(form);
+
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+
+          const submitFormData = await submitEventSpyPromise;
+
+          expect(submitFormData).to.be.deep.equal({
+            test: 'test',
+          });
+        });
+      });
+    };
+
     for (const entry of [
       {
         selector: 'generic-button',
@@ -267,60 +333,7 @@ describe(`SbbButtonBaseElement`, () => {
             });
           });
 
-          it('should submit form on Enter press in input', async () => {
-            input.focus();
-            await sendKeys({ press: 'Enter' });
-
-            const submitFormData = await submitEventSpyPromise;
-
-            expect(submitFormData).to.be.deep.equal({
-              'submit-button': 'submit',
-              test: 'test',
-            });
-
-            expect(submittedCount).to.be.equal(1);
-          });
-
-          it('should submit form on Enter press in input with two inputs', async () => {
-            form.appendChild(document.createElement('input'));
-
-            input.focus();
-            await sendKeys({ press: 'Enter' });
-
-            const submitFormData = await submitEventSpyPromise;
-
-            expect(submitFormData).to.be.deep.equal({
-              'submit-button': 'submit',
-              test: 'test',
-            });
-          });
-
-          it('should not submit when submitButton was removed with two inputs', async () => {
-            form.appendChild(document.createElement('input'));
-
-            submitButton.remove();
-            await waitForLitRender(form);
-
-            input.focus();
-            await sendKeys({ press: 'Enter' });
-
-            await aTimeout(10);
-            expect(submittedCount).to.be.equal(0);
-          });
-
-          it('should submit when submitButton was removed with one input', async () => {
-            submitButton.remove();
-            await waitForLitRender(form);
-
-            input.focus();
-            await sendKeys({ press: 'Enter' });
-
-            const submitFormData = await submitEventSpyPromise;
-
-            expect(submitFormData).to.be.deep.equal({
-              test: 'test',
-            });
-          });
+          onInputEnterPressTests();
         });
 
         describe('outside a form', () => {
@@ -391,32 +404,7 @@ describe(`SbbButtonBaseElement`, () => {
             expect(submitButton.value).to.be.equal('changed-value');
           });
 
-          it('should submit form on Enter press in input', async () => {
-            input.focus();
-            await sendKeys({ press: 'Enter' });
-
-            const submitFormData = await submitEventSpyPromise;
-
-            expect(submitFormData).to.be.deep.equal({
-              'submit-button': 'submit',
-              test: 'test',
-            });
-            expect(submittedCount).to.be.equal(1);
-          });
-
-          it('should submit form on Enter press in input with two inputs', async () => {
-            form.appendChild(document.createElement('input'));
-
-            input.focus();
-            await sendKeys({ press: 'Enter' });
-
-            const submitFormData = await submitEventSpyPromise;
-
-            expect(submitFormData).to.be.deep.equal({
-              'submit-button': 'submit',
-              test: 'test',
-            });
-          });
+          onInputEnterPressTests();
         });
       });
     }

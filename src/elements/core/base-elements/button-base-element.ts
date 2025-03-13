@@ -156,8 +156,12 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
       supportedSubmitElementNames.includes((event.target as HTMLElement)?.localName)
     ) {
       // We prevent submitting twice because we control it ourselves
+      // We also prevent when disabled, otherwise it would trigger a submit
       event.preventDefault();
-      this._requestSubmit(form);
+
+      if (!this.matches(':disabled')) {
+        this._requestSubmit(form);
+      }
     }
   };
 
