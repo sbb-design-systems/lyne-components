@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -95,9 +95,6 @@ class SbbTimeInputElement extends LitElement {
     super.connectedCallback();
 
     this._findInputElement();
-    if (this._inputElement) {
-      this._updateValue(this._inputElement.value);
-    }
   }
 
   public override disconnectedCallback(): void {
@@ -105,13 +102,21 @@ class SbbTimeInputElement extends LitElement {
     this._abortController?.abort();
   }
 
+  public override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+
+    this._findInputElement();
+  }
+
   private _findInputElement(): void {
     const oldInput = this._inputElement;
-    this._inputElement = findInput(this, this.input);
-
-    if (oldInput !== this._inputElement) {
-      this._registerInputElement();
+    const newInput = findInput(this, this.input);
+    if (!newInput || oldInput === newInput) {
+      return;
     }
+    this._inputElement = newInput;
+    this._registerInputElement();
+    this._updateValue(this._inputElement.value);
   }
 
   private _registerInputElement(): void {

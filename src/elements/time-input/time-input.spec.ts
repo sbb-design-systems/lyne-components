@@ -280,4 +280,22 @@ describe(`sbb-time-input`, () => {
 
     expect(input.value).to.be.equal('15:00');
   });
+
+  it('should format the value when connects to a different input', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input id="time-input" input="input-3"></sbb-time-input>
+        <input id="input-3" value="111" />
+        <input id="input-4" value="23" />
+      </div>
+    `);
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    const input1 = root.querySelector<HTMLInputElement>('#input-3')!;
+    const input2 = root.querySelector<HTMLInputElement>('#input-4')!;
+    await waitForLitRender(element);
+    expect(input1.value).to.be.equal('01:11');
+    element.input = 'input-4';
+    await waitForLitRender(element);
+    expect(input2.value).to.be.equal('23:00');
+  });
 });
