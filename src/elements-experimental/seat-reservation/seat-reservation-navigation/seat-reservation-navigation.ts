@@ -42,13 +42,15 @@ class SbbSeatReservationNavigationElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <ul
-        role="navigation"
-        aria-label="${getAriaLabel('SEAT_RESERVATION_NAVIGATION')}"
-        class="sbb-seat-reservation-navigation__list-coaches"
-      >
-        ${this._getRenderedNavCoachs(this.seatReservation?.coachItems)}
-      </ul>
+      <nav>
+        <ul
+          role="navigation"
+          aria-label="${getAriaLabel('SEAT_RESERVATION_NAVIGATION')}"
+          class="sbb-seat-reservation-navigation__list-coaches"
+        >
+          ${this._getRenderedNavCoachs(this.seatReservation?.coachItems)}
+        </ul>
+      </nav>
     `;
   }
 
