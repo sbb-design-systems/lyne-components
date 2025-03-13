@@ -4425,56 +4425,56 @@ export const MOCK_COACHES_RAW_0 = [
     },
   },
   // noch ein CoachDeckLayout einer DRIVER_AREA diesmal am Ende/Anfang des Zuges
-  // {
-  //   warnings: null,
-  //   coachDeckLayout: {
-  //     id: '86',
-  //     name: 'B10(501) - not touch',
-  //     dimension: {
-  //       width: 58,
-  //       height: 10,
-  //       borderRadius: null,
-  //     },
-  //     lowFloorEntry: false,
-  //     deckLevel: 'LOWER_DECK',
-  //     placeGroups: [],
-  //     graphicElements: [
-  //       {
-  //         rectangle: {
-  //           position: {
-  //             x: 46,
-  //             y: 0,
-  //             z: 0,
-  //           },
-  //           dimension: {
-  //             width: 12,
-  //             height: 10,
-  //             borderRadius: null,
-  //           },
-  //         },
-  //         orientation: 180,
-  //         type: 'DRIVER_AREA_FULL',
-  //       },
-  //       {
-  //         rectangle: {
-  //           position: {
-  //             x: 0,
-  //             y: 0,
-  //             z: 0,
-  //           },
-  //           dimension: {
-  //             width: 12,
-  //             height: 10,
-  //             borderRadius: null,
-  //           },
-  //         },
-  //         orientation: 0,
-  //         type: 'DRIVER_AREA_FULL',
-  //       },
-  //     ],
-  //     serviceIcons: [],
-  //   },
-  // },
+  {
+    warnings: null,
+    coachDeckLayout: {
+      id: '86',
+      name: 'B10(501) - not touch',
+      dimension: {
+        width: 58,
+        height: 10,
+        borderRadius: null,
+      },
+      lowFloorEntry: false,
+      deckLevel: 'LOWER_DECK',
+      placeGroups: [],
+      graphicElements: [
+        {
+          rectangle: {
+            position: {
+              x: 46,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 12,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 180,
+          type: 'DRIVER_AREA_FULL',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 0,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 12,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'DRIVER_AREA_FULL',
+        },
+      ],
+      serviceIcons: [],
+    },
+  },
 ];
 
 export const MOCK_COACHES_RAW_1 = [
