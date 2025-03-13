@@ -298,4 +298,29 @@ describe(`sbb-time-input`, () => {
     await waitForLitRender(element);
     expect(input2.value).to.be.equal('23:00');
   });
+
+  it('should detach listeners on time-input when input is disconnected', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input id="time-input" input="input-4"></sbb-time-input>
+        <input id="input-4" value="111" />
+      </div>
+    `);
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    const input = root.querySelector<HTMLInputElement>('#input-4')!;
+    await waitForLitRender(element);
+    expect(input.value).to.be.equal('01:11');
+
+    const changeSpy = new EventSpy('change', element);
+    const inputSpy = new EventSpy('input', element);
+    element.input = null;
+    await waitForLitRender(element);
+    input.focus();
+    typeInElement(input, '1V');
+    input.blur();
+    await waitForLitRender(element);
+
+    expect(changeSpy.count, 'sbb-time-input change event').to.be.equal(0);
+    expect(inputSpy.count, 'sbb-time-input input event').to.be.equal(0);
+  });
 });

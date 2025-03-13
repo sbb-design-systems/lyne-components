@@ -109,9 +109,14 @@ class SbbTimeInputElement extends LitElement {
   }
 
   private _findInputElement(): void {
-    const oldInput = this._inputElement;
     const newInput = findInput(this, this.input);
-    if (!newInput || oldInput === newInput) {
+    if (!newInput) {
+      this._abortController?.abort();
+      return;
+    }
+
+    const oldInput = this._inputElement;
+    if (oldInput === newInput) {
       return;
     }
     this._inputElement = newInput;
