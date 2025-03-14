@@ -171,6 +171,15 @@ describe('sbb-chip-group', () => {
       expect(input.value).not.to.be.empty; // The input should be emptied
     });
 
+    it('should inherit size from form-field', async () => {
+      expect(element).to.have.attribute('data-size', 'm');
+
+      formField.size = 's';
+      await waitForLitRender(formField);
+
+      expect(element).to.have.attribute('data-size', 's');
+    });
+
     /** Verify whether the sync between slotted chip and the value works properly **/
     describe('slotted chips sync', () => {
       it('should sync slotted chips when setting value', async () => {

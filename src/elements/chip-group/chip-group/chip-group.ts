@@ -118,6 +118,13 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     ? new MutationObserver(() => this._reactToInputChanges())
     : null;
 
+  /**
+   * Listens to the 'size' changes on the `sbb-form-field`.
+   */
+  private _formFieldAttributeObserver = !isServer
+    ? new MutationObserver(() => this._inheritSize())
+    : null;
+
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
   private _languageController = new SbbLanguageController(this);
@@ -224,7 +231,17 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       });
     }
 
-    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
+    // Inherit size from the form-field and observe for changes
+    this._inheritSize();
+    this._formFieldAttributeObserver?.disconnect();
+    const formField = this.closest('sbb-form-field');
+    if (formField) {
+      this._formFieldAttributeObserver?.observe(formField, {
+        attributes: true,
+        attributeFilter: ['size'],
+      });
+    }
+
     this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
     this.updateFormValue();
@@ -388,6 +405,10 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
       c.negative = this.negative;
     });
+  }
+
+  private _inheritSize(): void {
+    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
   }
 
   protected override render(): TemplateResult {
