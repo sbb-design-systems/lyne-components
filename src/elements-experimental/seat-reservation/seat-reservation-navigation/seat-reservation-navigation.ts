@@ -3,7 +3,7 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { mapNavigationIconToSvg } from '../common.js';
+import { getAriaLabel, mapNavigationIconToSvg } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
 import style from './seat-reservation-navigation.scss?lit&inline';
@@ -42,14 +42,19 @@ class SbbSeatReservationNavigationElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <ul class="sbb-seat-reservation-navigation__list-coaches">
-        ${this._getRenderedNavCoachs(this.seatReservation.coachItems)}
-      </ul>
+      <nav>
+        <ul
+          aria-label="${getAriaLabel('SEAT_RESERVATION_NAVIGATION')}"
+          class="sbb-seat-reservation-navigation__list-coaches"
+        >
+          ${this._getRenderedNavCoachs(this.seatReservation?.coachItems)}
+        </ul>
+      </nav>
     `;
   }
 
   private _getRenderedNavCoachs(coaches: CoachItem[]): TemplateResult[] {
-    return coaches.map((coachItem: CoachItem, index: number) => {
+    return coaches?.map((coachItem: CoachItem, index: number) => {
       const coachSelectedClass =
         this.selectedCoachIndex === index
           ? 'sbb-seat-reservation-navigation__item-coach--selected'
@@ -57,9 +62,11 @@ class SbbSeatReservationNavigationElement extends LitElement {
       return html`
         <li class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass}">
           ${this._getNavigationButton(index, coachItem)}
-          <div class="sbb-seat-reservation-navigation__signs">
-            ${this._getRenderedNavCoachSigns(coachItem.propertyIds)}
-          </div>
+          ${coachItem.places?.length
+            ? html` <div class="sbb-seat-reservation-navigation__signs">
+                ${this._getRenderedNavCoachSigns(coachItem.propertyIds)}
+              </div>`
+            : nothing}
         </li>
       `;
     });
@@ -71,13 +78,25 @@ class SbbSeatReservationNavigationElement extends LitElement {
     }
 
     return html`
-      <button
-        class="sbb-seat-reservation-navigation-control__button"
-        @click=${() => this._selectNavCoach(index)}
-      >
-        ${this._getAdditionalCoachInformation(coachItem)}
-      </button>
+      ${coachItem.places?.length
+        ? html` <button
+            type="button"
+            class="sbb-seat-reservation-navigation-control__button"
+            title="Navigiere zu Zugabteil ${coachItem.id}"
+            @click=${() => this._selectNavCoach(index)}
+            @keydown="${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, index)}"
+          >
+            ${this._getAdditionalCoachInformation(coachItem)}
+          </button>`
+        : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
     `;
+  }
+
+  // handle navigation done with enter.
+  private _handleKeyboardEvent(evt: KeyboardEvent, index: number): void {
+    if (evt.code === 'Enter') {
+      this._selectNavCoach(index);
+    }
   }
 
   private _getAdditionalCoachInformation(coachItem: CoachItem): TemplateResult | null {
@@ -89,16 +108,20 @@ class SbbSeatReservationNavigationElement extends LitElement {
       ${coachItem.travelClass.includes('FIRST')
         ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
         : nothing}
-      <span class="sbb-seat-reservation-navigation__additional-information">
-        <span class="sbb-seat-reservation-navigation__item-coach-number">${coachItem.number}</span>
-        <span class="sbb-seat-reservation-navigation__item-coach-travelclass">
-          ${coachItem.travelClass.includes('FIRST')
-            ? 1
-            : coachItem.travelClass.includes('SECOND')
-              ? 2
-              : nothing}
-        </span>
-      </span>
+      ${coachItem.places?.length
+        ? html`
+            <div class="sbb-seat-reservation-navigation__additional-information">
+              <div class="sbb-seat-reservation-navigation__item-coach-number">${coachItem.id}</div>
+              <div class="sbb-seat-reservation-navigation__item-coach-travelclass">
+                ${coachItem.travelClass.includes('FIRST')
+                  ? 1
+                  : coachItem.travelClass.includes('SECOND')
+                    ? 2
+                    : nothing}
+              </div>
+            </div>
+          `
+        : nothing}
     `;
   }
 
@@ -112,14 +135,14 @@ class SbbSeatReservationNavigationElement extends LitElement {
         return null;
       }
 
-      const svgName = mapNavigationIconToSvg[sign];
+      const svgObj = mapNavigationIconToSvg[sign];
 
       return html`
-        ${svgName
+        ${svgObj
           ? html`<sbb-icon
-              name="${svgName}"
+              name="${svgObj.svgName}"
               aria-hidden="false"
-              aria-label="todo: Coach desc"
+              aria-label="${svgObj.ariaLabel}"
             ></sbb-icon>`
           : nothing}
       `;
