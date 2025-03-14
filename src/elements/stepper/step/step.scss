@@ -8,6 +8,7 @@
   --sbb-step-inset-block-start: unset;
   --sbb-step-opacity: 0;
   --sbb-step-visibility: hidden;
+  --sbb-step-display: none;
   --sbb-step-height: 0;
   --sbb-step-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -22,6 +23,7 @@
 :host([data-selected]) {
   --sbb-step-opacity: 1;
   --sbb-step-visibility: visible;
+  --sbb-step-display: block;
   --sbb-step-height: fit-content;
   --sbb-step-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-step-animation-delay: var(--sbb-step-animation-duration);
@@ -59,6 +61,7 @@
   width: 100%;
   inset-block-start: var(--sbb-step-inset-block-start);
   opacity: var(--sbb-step-opacity);
+  display: var(--sbb-step-display);
   visibility: var(--sbb-step-visibility);
   height: var(--sbb-step-height);
   color: var(--sbb-step-color);
