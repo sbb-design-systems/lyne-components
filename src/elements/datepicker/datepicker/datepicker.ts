@@ -88,7 +88,14 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   /** If set to true, two months are displayed. */
   @forceType()
   @property({ type: Boolean })
-  public accessor wide: boolean = false;
+  public set wide(value: boolean) {
+    this._wide = value;
+    this._associationController.updateControls();
+  }
+  public get wide(): boolean {
+    return this._wide;
+  }
+  private _wide: boolean = false;
 
   /**
    * A function used to filter out dates.
@@ -97,6 +104,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   @property({ attribute: false })
   public set dateFilter(value: (date: T | null) => boolean) {
     this._dateFilter = value;
+    this._associationController.updateControls();
   }
   public get dateFilter(): (date: T | null) => boolean {
     return (

@@ -1,5 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
@@ -321,6 +321,52 @@ describe(`sbb-datepicker-toggle`, () => {
             .shadowRoot!.querySelector('.sbb-calendar__controls-change-date')!
             .textContent!.trim(),
         ).to.be.equal('2020');
+      });
+
+      it.only('renders correctly the calendar when wide is set', async () => {
+        await setViewport({ width: 900, height: 600 });
+        const element: SbbFormFieldElement = await fixture(
+          html`<sbb-form-field>
+            <sbb-datepicker-toggle></sbb-datepicker-toggle>
+            <sbb-datepicker now="2022-04-01"></sbb-datepicker>
+            ${dateInput ? html`<sbb-date-input></sbb-date-input>` : html`<input />`}
+          </sbb-form-field>`,
+        );
+
+        const datepickerToggle =
+          element.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
+        const datepicker = element.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+        const didOpenEventSpy = new EventSpy(
+          SbbPopoverElement.events.didOpen,
+          datepickerToggle.shadowRoot!.querySelector('sbb-popover'),
+        );
+
+        // Open calendar
+        datepickerToggle.open();
+        await didOpenEventSpy.calledOnce();
+
+        // We have to wait another tick
+        await aTimeout(0);
+
+        const calendar = datepickerToggle.shadowRoot!.querySelector('sbb-calendar')!;
+        expect(calendar.wide).to.be.false;
+        expect(
+          calendar.shadowRoot!.querySelectorAll('.sbb-calendar__controls-change-date')!.length,
+        ).to.be.equal(1);
+
+        datepicker.wide = true;
+        await waitForLitRender(element);
+        expect(calendar.wide).to.be.true;
+        expect(
+          calendar.shadowRoot!.querySelectorAll('.sbb-calendar__controls-change-date')!.length,
+        ).to.be.equal(2);
+
+        datepicker.dateFilter = (d) => d?.getFullYear() !== 2022;
+        await waitForLitRender(element);
+        const buttons = calendar.shadowRoot!.querySelectorAll('.sbb-calendar__day')!;
+        buttons.forEach((e) => {
+          expect(e.classList.contains('sbb-calendar__crossed-out')).to.be.true;
+        });
       });
     });
   }
