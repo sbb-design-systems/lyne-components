@@ -28,9 +28,9 @@ const defaultArgTypes: ArgTypes = {
   selectedCoachIndex: selectedCoachIndex,
 };
 
-const mapedSeatReservation = mapRawDataToSeatReservation('TRAIN');
+const mappedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
-  seatReservation: mapedSeatReservation,
+  seatReservation: mappedSeatReservation,
 };
 
 const Template = ({ seatReservation, ...args }: Args): TemplateResult =>
