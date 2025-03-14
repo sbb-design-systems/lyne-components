@@ -36,8 +36,8 @@
 
   &:first-of-type {
     .sbb-seat-reservation-navigation-control__button {
-      border-radius: var(--sbb-border-radius-8x) var(--sbb-border-radius-2x)
-        var(--sbb-border-radius-2x) var(--sbb-border-radius-8x);
+      border-start-start-radius: var(--sbb-border-radius-8x);
+      border-end-start-radius: var(--sbb-border-radius-8x);
     }
 
     .sbb-seat-reservation-navigation--first-class {
@@ -47,8 +47,8 @@
 
   &:last-of-type {
     .sbb-seat-reservation-navigation-control__button {
-      border-radius: var(--sbb-border-radius-2x) var(--sbb-border-radius-8x)
-        var(--sbb-border-radius-8x) var(--sbb-border-radius-2x);
+      border-start-end-radius: var(--sbb-border-radius-8x);
+      border-end-end-radius: var(--sbb-border-radius-8x);
     }
 
     .sbb-seat-reservation-navigation__additional-information {

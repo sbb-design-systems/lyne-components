@@ -1,3 +1,4 @@
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { html, LitElement, nothing } from 'lit';
@@ -5,7 +6,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit-html/directives/style-map.js';
 
-import { getAriaLabel } from '../common/aria-label.js';
 import type {
   CoachItem,
   Place,
@@ -23,6 +23,7 @@ import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-navigation.js';
 import '../seat-reservation-place-control.js';
+import { getI18nSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/i18n/i18n';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -56,6 +57,8 @@ class SbbSeatReservationElement extends LitElement {
   @forceType()
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
+
+  private _language = new SbbLanguageController(this);
 
   /** Emits when an place was selected by user. */
   protected selectedPlaces: EventEmitter = new EventEmitter(
@@ -117,7 +120,7 @@ class SbbSeatReservationElement extends LitElement {
             <ul
               id="sbb-seat-reservation__list-coach-area"
               class="sbb-seat-reservation__list-coaches"
-              aria-label=${getAriaLabel('LIST_ALL_COACHES')}
+              aria-label="${getI18nSeatReservation('LIST_ALL_COACHES', this._language.current)}"
             >
               ${this._renderCoaches(coachItems)}
             </ul>
@@ -264,7 +267,7 @@ class SbbSeatReservationElement extends LitElement {
       coachDimension,
       true,
     );
-    const ariaLabel = getAriaLabel(graphicalElement.icon || '');
+    const ariaLabel = getI18nSeatReservation(graphicalElement.icon || '', this._language.current);
     let elementMounting = 'FREE';
     if (graphicalElement.position.y === this._coachBorderPaddingUnit * -1) {
       elementMounting = 'UPPER_BORDER';
@@ -326,7 +329,7 @@ class SbbSeatReservationElement extends LitElement {
     }
 
     if (icon && icon.indexOf('COACH_PASSAGE') > -1) {
-      ariaLabel = getAriaLabel('COACH_PASSAGE');
+      ariaLabel = getI18nSeatReservation('COACH_PASSAGE', this._language.current);
     }
 
     return html`
@@ -370,7 +373,10 @@ class SbbSeatReservationElement extends LitElement {
           style="position:absolute; top:${calculatedcCmpartmentNumberPosition.y}px; left:${calculatedcCmpartmentNumberPosition.x}px; width:${calculatedcCmpartmentNumberDimension.w}px; height:${calculatedcCmpartmentNumberDimension.h}px; z-index:${serviceElement
             .position.z};"
           role="note"
-          aria-label=${getAriaLabel('SERVICE_' + serviceElement.icon || '') || nothing}
+          aria-label="${getI18nSeatReservation(
+            'SERVICE_' + serviceElement.icon || '',
+            this._language.current,
+          ) || nothing}"
         >
           <sbb-seat-reservation-graphic
             name=${serviceElement.icon ?? nothing}

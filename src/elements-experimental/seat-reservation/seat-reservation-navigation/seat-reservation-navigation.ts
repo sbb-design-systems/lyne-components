@@ -1,15 +1,17 @@
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getAriaLabel, mapNavigationIconToSvg } from '../common.js';
+import { mapNavigationIconToSvg } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
 import style from './seat-reservation-navigation.scss?lit&inline';
 
 import '../seat-reservation-graphic.js';
 import '@sbb-esta/lyne-elements/icon/icon.js';
+import { getI18nSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/i18n/i18n';
 
 /**
  * It will display the navigation for Seat reservation.
@@ -34,6 +36,8 @@ class SbbSeatReservationNavigationElement extends LitElement {
   @property({ attribute: 'selected-coach-index', type: Number })
   public accessor selectedCoachIndex: number = 0;
 
+  private _language = new SbbLanguageController(this);
+
   /** Emits when a coach within the navigation was selected */
   protected selectNavCoach: EventEmitter = new EventEmitter(
     this,
@@ -44,7 +48,10 @@ class SbbSeatReservationNavigationElement extends LitElement {
     return html`
       <nav>
         <ul
-          aria-label="${getAriaLabel('SEAT_RESERVATION_NAVIGATION')}"
+          aria-label="${getI18nSeatReservation(
+            'SEAT_RESERVATION_NAVIGATION',
+            this._language.current,
+          )}"
           class="sbb-seat-reservation-navigation__list-coaches"
         >
           ${this._getRenderedNavCoachs(this.seatReservation?.coachItems)}
@@ -142,7 +149,7 @@ class SbbSeatReservationNavigationElement extends LitElement {
           ? html`<sbb-icon
               name="${svgObj.svgName}"
               aria-hidden="false"
-              aria-label="${svgObj.ariaLabel}"
+              aria-label="${getI18nSeatReservation(sign, this._language.current)}"
             ></sbb-icon>`
           : nothing}
       `;
