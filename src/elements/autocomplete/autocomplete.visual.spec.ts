@@ -4,6 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing/wait-for-render.js';
 
 import '../form-field.js';
 import '../form-error.js';
@@ -289,5 +290,24 @@ describe('sbb-autocomplete', () => {
         });
       });
     }
+
+    /**
+     * Test whether the overlay reposition itself if the origin element changes in size
+     */
+    it(
+      `open reacts to size change`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), { minHeight: '450px' });
+
+        setup.withPostSetupAction(async () => {
+          const autocomplete = setup.snapshotElement.querySelector('sbb-autocomplete')!;
+          autocomplete.open();
+          await waitForLitRender(autocomplete);
+
+          setup.snapshotElement.querySelector('input')!.style.height = '60px';
+          await waitForLitRender(autocomplete);
+        });
+      }),
+    );
   });
 });
