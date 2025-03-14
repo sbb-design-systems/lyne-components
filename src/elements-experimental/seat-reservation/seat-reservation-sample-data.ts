@@ -5000,10 +5000,2352 @@ export const MOCK_COACHES_RAW_1 = [
   },
 ];
 
-// export const MOCK_COACHES_RAW_MULTIPLE_HEADS = [
-//   {
-//     [
-//       {warnings:null, coachDeckLayout: {}}
-//     ]
-//   }
-// ];
+/**
+ * taken from json provided by VAKE;
+ * Attention: <b>all the type information does not reflect our assumptions</b> and the data was
+ * manuelly adjusted.
+ */
+export const MOCK_COACHES_RAW_REAL_DATA = [
+  {
+    dataReleaseID: '17044',
+    dataUnitType: 'RESERVATION_LAYOUT',
+    dataReleaseTimestamp: '2025-03-12T13:08:24.722+01:00',
+    latestVersionDate: '9999-01-01',
+    status: 'TEST',
+    coachDeckLayout: {
+      versionID: '123456784',
+      objectID: 'RSL-CODELA-123456788',
+      entityVersionID: 123456784,
+      validFrom: '2023-06-01',
+      validThrough: '9999-01-01',
+      id: '32802',
+      name: '66000',
+      dimension: {
+        width: 58,
+        height: 10,
+      },
+      lowFloorEntry: true,
+      deckLevel: 'LOWER_DECK',
+      placeGroups: [
+        {
+          rectangle: {
+            position: {
+              x: 1,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '15',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '16',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '17',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '14',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 1,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '13',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '18',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '11',
+              rectangle: {
+                position: {
+                  x: 1,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '12',
+              rectangle: {
+                position: {
+                  x: 5,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 7,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '25',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '26',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '27',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '24',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 7,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '23',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '28',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '21',
+              rectangle: {
+                position: {
+                  x: 7,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '22',
+              rectangle: {
+                position: {
+                  x: 11,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 13,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '35',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '36',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '37',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '34',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 13,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '33',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '38',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '31',
+              rectangle: {
+                position: {
+                  x: 13,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '32',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 19,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '45',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '46',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '47',
+              rectangle: {
+                position: {
+                  x: 19,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '44',
+              rectangle: {
+                position: {
+                  x: 23,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 20,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '48',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '42',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 26,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '154',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293010',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 26,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '153',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293010',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 26,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '152',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293010',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 26,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '151',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293010',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 38,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 7,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '55',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '56',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '57',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '54',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 38,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 7,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '53',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '58',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '51',
+              rectangle: {
+                position: {
+                  x: 38,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '52',
+              rectangle: {
+                position: {
+                  x: 43,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 45,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '65',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '66',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '67',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '64',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 45,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '63',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '68',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '61',
+              rectangle: {
+                position: {
+                  x: 45,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '62',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 51,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '75',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '76',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '77',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '74',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 51,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'SECOND',
+          places: [
+            {
+              number: '73',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '78',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '71',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '72',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+      ],
+      graphicElements: [
+        {
+          rectangle: {
+            position: {
+              x: 22,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134672172839',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 32,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 3,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 32,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 3,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 37,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 3,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 37,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 3,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+      ],
+      serviceIcons: [
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134677199932',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134677199932',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134677199932',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134677199932',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 41,
+              y: 3,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134777172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 41,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134777172832',
+        },
+      ],
+    },
+  },
+  {
+    versionID: '123456789',
+    objectID: 'RSL-CODELA-123456789',
+    entityVersionID: 123456789,
+    validFrom: '2023-06-01',
+    validThrough: '9999-01-01',
+    id: '30802',
+    name: '65200',
+    dimension: {
+      width: 64,
+      height: 10,
+    },
+    coachDeckLayout: {
+      lowFloorEntry: true,
+      deckLevel: 'LOWER_DECK',
+      placeGroups: [
+        {
+          rectangle: {
+            position: {
+              x: 14,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '15',
+              rectangle: {
+                position: {
+                  x: 14,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 14,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '11',
+              rectangle: {
+                position: {
+                  x: 14,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 17,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '16',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '14',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 17,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '12',
+              rectangle: {
+                position: {
+                  x: 17,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 20,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '25',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '26',
+              rectangle: {
+                position: {
+                  x: 24,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '23',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '24',
+              rectangle: {
+                position: {
+                  x: 24,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 20,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '21',
+              rectangle: {
+                position: {
+                  x: 20,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '22',
+              rectangle: {
+                position: {
+                  x: 24,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 27,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '35',
+              rectangle: {
+                position: {
+                  x: 27,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '33',
+              rectangle: {
+                position: {
+                  x: 27,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 27,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '31',
+              rectangle: {
+                position: {
+                  x: 27,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 30,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '36',
+              rectangle: {
+                position: {
+                  x: 30,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '34',
+              rectangle: {
+                position: {
+                  x: 30,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 30,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '32',
+              rectangle: {
+                position: {
+                  x: 30,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '46',
+              rectangle: {
+                position: {
+                  x: 33,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '44',
+              rectangle: {
+                position: {
+                  x: 33,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '42',
+              rectangle: {
+                position: {
+                  x: 33,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 44,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 7,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '55',
+              rectangle: {
+                position: {
+                  x: 44,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '56',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '53',
+              rectangle: {
+                position: {
+                  x: 44,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '54',
+              rectangle: {
+                position: {
+                  x: 49,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 48,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '52',
+              rectangle: {
+                position: {
+                  x: 48,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 51,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 4,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '65',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '66',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+            {
+              number: '63',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 2,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 51,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '61',
+              rectangle: {
+                position: {
+                  x: 51,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '62',
+              rectangle: {
+                position: {
+                  x: 55,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 57,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '75',
+              rectangle: {
+                position: {
+                  x: 57,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '76',
+              rectangle: {
+                position: {
+                  x: 61,
+                  y: 0,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 57,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 2,
+            },
+          },
+          travelClass: 'FIRST',
+          places: [
+            {
+              number: '71',
+              rectangle: {
+                position: {
+                  x: 57,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 0,
+            },
+            {
+              number: '72',
+              rectangle: {
+                position: {
+                  x: 61,
+                  y: 8,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                },
+              },
+              orientation: 180,
+            },
+          ],
+          accommodationSubType: 'REI-ACCSUB-131543293020',
+        },
+      ],
+      graphicElements: [
+        {
+          rectangle: {
+            position: {
+              x: 0,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 13,
+              height: 8,
+              borderRadius: {
+                topLeft: 3,
+                topRight: 0,
+                bottomRight: 0,
+                bottomLeft: 3,
+              },
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134679172839',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 36,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 2,
+              height: 4,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134672172839',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 44,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 2,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134672172839',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 39,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 4,
+              height: 1,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134679172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 38,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 4,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 38,
+              y: 7,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 2,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 43,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 4,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 43,
+              y: 7,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 2,
+            },
+          },
+          orientation: 0,
+          type: 'RSL-GRELTY-134677172832',
+        },
+      ],
+      serviceIcons: [
+        {
+          rectangle: {
+            position: {
+              x: 47,
+              y: 4,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 1,
+            },
+          },
+          type: 'RSL-SRVICT-134777172832',
+        },
+      ],
+    },
+  },
+];
