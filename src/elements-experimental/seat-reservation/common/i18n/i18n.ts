@@ -30,10 +30,10 @@ const i18nObjects: Record<string, Record<string, string>> = {
     it: 'Uscita / Ingresso',
   },
   COACH_PASSAGE: {
-    de: '[TODO:translate]',
+    de: 'Wagenübergang',
     en: 'Coach passage',
-    fr: '[TODO:translate]',
-    it: '[TODO:translate]',
+    fr: 'Passage de voiture',
+    it: 'Passaggio carrozza',
   },
   SERVICE_WHEELCHAIR_ICON: {
     de: 'Rollstuhl',
