@@ -92,7 +92,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       })
       .flat();
 
-    const serviceElements = choachLayout.serviceIcons.map((serviceIcon) => {
+    const signs = choachLayout.serviceIcons.map((serviceIcon) => {
       return {
         icon: serviceIcon.type,
         position: {
@@ -125,7 +125,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       number: choachLayout?.name,
       dimension: { w: choachLayout.dimension?.width, h: choachLayout.dimension?.height },
       places: places,
-      serviceElements: serviceElements,
+      signs: signs,
       graphicElements: graphicalElements,
       travelClass: coachTravelClasses,
       propertyIds: coachPropertyIds,
