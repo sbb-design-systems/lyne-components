@@ -44,7 +44,6 @@ class SbbSeatReservationNavigationElement extends LitElement {
     return html`
       <nav>
         <ul
-          role="navigation"
           aria-label="${getAriaLabel('SEAT_RESERVATION_NAVIGATION')}"
           class="sbb-seat-reservation-navigation__list-coaches"
         >
