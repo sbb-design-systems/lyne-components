@@ -5,10 +5,12 @@ const ARIA_LABELS: Record<string, string> = {
   ENTRY_EXIT: 'Exit/Entrance area',
   COACH_PASSAGE: 'Coach passage',
   SERVICE_WHEELCHAIR_ICON: 'Service info, Wheelchair place',
+  // Navigation from here
+  SEAT_RESERVATION_NAVIGATION: 'Seat Navigation reservation',
 };
 
 /**
- * Map function that converts the RAW OSDM mock data into SeatReservation
+ * get aria-label with a key
  */
 export const getAriaLabel = (ariaLabelKey: string): string => {
   return ARIA_LABELS[ariaLabelKey] ?? null;
