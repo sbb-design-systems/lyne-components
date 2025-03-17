@@ -289,6 +289,7 @@ describe('sbb-sidebar', () => {
       element.open();
       expect(element.isOpen).to.be.true;
 
+      // We simulate a tab key press to test focus trapping
       await sendKeys({ press: tabKey });
 
       expect(document.activeElement).to.be.equal(closeButton);
@@ -319,6 +320,17 @@ describe('sbb-sidebar', () => {
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(element);
       expect(element.isOpen).to.be.true;
+    });
+
+    it('should take focus with focusOnOpen=true', async () => {
+      element.focusOnOpen = true;
+      await waitForLitRender(element);
+
+      element.open();
+      expect(element.isOpen).to.be.true;
+
+      expect(document.activeElement).to.be.equal(closeButton);
+      expect(content).not.to.have.attribute('inert');
     });
 
     it('should release focus when closing in mode side', async () => {

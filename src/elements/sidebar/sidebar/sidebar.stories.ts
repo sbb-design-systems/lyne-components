@@ -44,6 +44,12 @@ const opened: InputType = {
   },
 };
 
+const focusOnOpen: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const showTitle: InputType = {
   control: {
     type: 'boolean',
@@ -65,8 +71,9 @@ const showCloseButton: InputType = {
 const defaultArgTypes: ArgTypes = {
   position,
   color,
-  opened,
   mode,
+  opened,
+  'focus-on-open': focusOnOpen,
   showTitle,
   showCloseButton,
 };
@@ -74,8 +81,9 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   position: 'start',
   color: 'white',
-  opened: true,
   mode: 'side',
+  opened: true,
+  'focus-on-open': true,
   showTitle: true,
   showCloseButton: true,
 };

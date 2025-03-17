@@ -57,6 +57,15 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   @property({ type: Boolean, reflect: true })
   public accessor opened: boolean = false;
 
+  /**
+   * Whether the sidebar should focus the first focusable element automatically when opened.
+   * Defaults to false in when mode is set to `side`, otherwise defaults to true.
+   * If explicitly enabled, focus will be moved into the sidebar in `side` mode as well.
+   */
+  @forceType()
+  @property({ type: Boolean, attribute: 'focus-on-open' })
+  public accessor focusOnOpen: boolean = false;
+
   /** Returns the SbbSidebarContainerElement where this sidebar is contained. */
   public get container(): SbbSidebarContainerElement | null {
     return this._container;
@@ -115,7 +124,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
 
     if (changedProperties.has('mode')) {
-      if (this.mode === 'over' && this.state === 'opened') {
+      if (this.mode === 'over' && this.isOpen) {
         this._takeFocus();
       } else {
         this.unTrap();
@@ -184,10 +193,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
 
-    if (this._isModeOver()) {
-      this._takeFocus();
-    }
-
+    this._takeFocus();
     this.stopAnimation();
     this.didOpen.emit();
   }
@@ -244,15 +250,25 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     if (this._inertController.isInert() || !this.isConnected) {
       return;
     }
-    this._inertController.activate();
-    this._escapableOverlayController.connect();
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
-    setModalityOnNextFocus(firstFocusable);
-    firstFocusable?.focus();
-    this._focusHandler.trap(this);
-    this._attachWindowEvents();
+    const isModeOver = this._isModeOver();
+
+    if (isModeOver) {
+      this._inertController.activate();
+      this._escapableOverlayController.connect();
+    }
+
+    if (isModeOver || this.focusOnOpen) {
+      const firstFocusable = getFirstFocusableElement(
+        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+      );
+      setModalityOnNextFocus(firstFocusable);
+      firstFocusable?.focus();
+    }
+
+    if (isModeOver) {
+      this._focusHandler.trap(this);
+      this._attachWindowEvents();
+    }
   }
 
   private _attachWindowEvents(): void {
