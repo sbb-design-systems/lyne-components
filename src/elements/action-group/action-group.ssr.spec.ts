@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbActionGroupElement } from './action-group.js';
+import { SbbActionGroupElement } from './action-group.component.js';
 
 import '../button.js';
 import '../link.js';
@@ -25,7 +25,7 @@ describe(`sbb-action-group ssr`, () => {
           </sbb-block-link>
         </sbb-action-group>
       `,
-      { modules: ['./action-group.js', '../button.js', '../link.js'] },
+      { modules: ['./action-group.component.js', '../button.js', '../link.js'] },
     );
   });
 

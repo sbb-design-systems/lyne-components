@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import type { SbbTrainBlockedPassageElement } from './train-blocked-passage.js';
+import type { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.js';
 
-import './train-blocked-passage.js';
+import './train-blocked-passage.component.js';
 
 describe(`sbb-train-blocked-passage`, () => {
   let element: SbbTrainBlockedPassageElement;

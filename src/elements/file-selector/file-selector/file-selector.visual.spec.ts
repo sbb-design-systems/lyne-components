@@ -9,8 +9,8 @@ import {
 } from '../../core/testing/private.js';
 
 import '../../form-error.js';
-import './file-selector.js';
-import type { SbbFileSelectorElement } from './file-selector.js';
+import './file-selector.component.js';
+import type { SbbFileSelectorElement } from './file-selector.component.js';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {

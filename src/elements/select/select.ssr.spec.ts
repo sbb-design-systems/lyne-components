@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbSelectElement } from './select.js';
+import { SbbSelectElement } from './select.component.js';
 import '../option.js';
 
 describe(`sbb-select ssr`, () => {
@@ -18,7 +18,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['./select.js', '../option.js'] },
+      { modules: ['./select.component.js', '../option.js'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);
@@ -33,7 +33,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['./select.js', '../option.js'] },
+      { modules: ['./select.component.js', '../option.js'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);

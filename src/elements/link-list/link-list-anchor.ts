@@ -1,1 +1,1 @@
-export * from './link-list-anchor/link-list-anchor.js';
+export * from './link-list-anchor/link-list-anchor.component.js';

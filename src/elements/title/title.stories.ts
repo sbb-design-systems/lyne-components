@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './title.js';
+import './title.component.js';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
 const Template = ({ text, ...args }: Args): TemplateResult =>

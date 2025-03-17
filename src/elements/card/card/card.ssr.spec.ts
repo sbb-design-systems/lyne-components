@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbCardElement } from './card.js';
+import { SbbCardElement } from './card.component.js';
 
 describe(`sbb-card ssr`, () => {
   let root: SbbCardElement;
@@ -12,7 +12,7 @@ describe(`sbb-card ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`,
       {
-        modules: ['./card.js'],
+        modules: ['./card.component.js'],
       },
     );
   });

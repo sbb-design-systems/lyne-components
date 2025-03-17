@@ -4,12 +4,12 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.js';
+import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.js';
 import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';
-import './autocomplete-grid-button.js';
+import './autocomplete-grid-button.component.js';
 
 describe('sbb-autocomplete-grid-button', () => {
   describe('renders', () => {

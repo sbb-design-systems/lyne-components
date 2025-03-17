@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbButtonStaticElement } from './button-static.js';
+import { SbbButtonStaticElement } from './button-static.component.js';
 
 describe(`sbb-button-static ssr`, () => {
   let root: SbbButtonStaticElement;
@@ -12,7 +12,7 @@ describe(`sbb-button-static ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-button-static>I am a static button</sbb-button-static>`,
       {
-        modules: ['./button-static.js'],
+        modules: ['./button-static.component.js'],
       },
     );
   });

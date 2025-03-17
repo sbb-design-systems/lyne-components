@@ -8,7 +8,7 @@ import { waitForLitRender, EventSpy } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbOptGroupElement } from '../optgroup.js';
 
-import { SbbOptionElement } from './option.js';
+import { SbbOptionElement } from './option.component.js';
 
 import '../../autocomplete.js';
 import '../../form-field.js';

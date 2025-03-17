@@ -15,7 +15,7 @@ import {
   redirectedOnArrivalLeg,
 } from './pearl-chain.sample-data.js';
 import readme from './readme.md?raw';
-import './pearl-chain.js';
+import './pearl-chain.component.js';
 
 const disableAnimation: InputType = {
   control: {

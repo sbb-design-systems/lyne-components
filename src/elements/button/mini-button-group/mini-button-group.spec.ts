@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing/wait-for-render.js';
 
-import { SbbMiniButtonGroupElement } from './mini-button-group.js';
+import { SbbMiniButtonGroupElement } from './mini-button-group.component.js';
 import '../mini-button.js';
-import '../../divider/divider.js';
+import '../../divider/divider.component.js';
 
 describe('sbb-mini-button-group', () => {
   let element: SbbMiniButtonGroupElement;

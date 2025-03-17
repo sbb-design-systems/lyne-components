@@ -9,7 +9,7 @@ import '../link/block-link.js';
 import '../link/link.js';
 import '../notification.js';
 import '../title.js';
-import './lead-container.js';
+import './lead-container.component.js';
 
 import images from '../core/images.js';
 

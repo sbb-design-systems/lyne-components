@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbDialogTitleElement } from './dialog-title.js';
+import type { SbbDialogTitleElement } from './dialog-title.component.js';
 
-import './dialog-title.js';
+import './dialog-title.component.js';
 
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;

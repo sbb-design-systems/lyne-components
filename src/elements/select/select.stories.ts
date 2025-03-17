@@ -18,7 +18,7 @@ import type { SbbFormErrorElement } from '../form-error.js';
 import { SbbOptionElement } from '../option.js';
 
 import readme from './readme.md?raw';
-import { SbbSelectElement } from './select.js';
+import { SbbSelectElement } from './select.component.js';
 import '../form-error.js';
 import '../form-field.js';
 

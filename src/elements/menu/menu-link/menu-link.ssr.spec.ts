@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbMenuLinkElement } from './menu-link.js';
+import { SbbMenuLinkElement } from './menu-link.component.js';
 
 describe(`sbb-menu-link ssr`, () => {
   let root: SbbMenuLinkElement;
@@ -12,7 +12,7 @@ describe(`sbb-menu-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-menu-link href="#" id="focus-id">Menu Action</sbb-menu-link>`,
       {
-        modules: ['./menu-link.js'],
+        modules: ['./menu-link.component.js'],
       },
     );
   });

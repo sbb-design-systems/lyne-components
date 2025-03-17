@@ -1,1 +1,1 @@
-export * from './journey-header/journey-header.js';
+export * from './journey-header/journey-header.component.js';

@@ -4,7 +4,7 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import { SbbStickyBarElement } from './sticky-bar.js';
+import { SbbStickyBarElement } from './sticky-bar.component.js';
 
 import '../../action-group.js';
 import '../../button/button.js';

@@ -1,1 +1,1 @@
-export * from './navigation/navigation.js';
+export * from './navigation/navigation.component.js';

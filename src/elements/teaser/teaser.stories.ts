@@ -12,7 +12,7 @@ import placeholderImage from './assets/placeholder.png';
 import readme from './readme.md?raw';
 import '../chip-label.js';
 import '../image.js';
-import './teaser.js';
+import './teaser.component.js';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea

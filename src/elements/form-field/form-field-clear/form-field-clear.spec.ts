@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
 
-import { SbbFormFieldClearElement } from './form-field-clear.js';
+import { SbbFormFieldClearElement } from './form-field-clear.component.js';
 
 describe(`sbb-form-field-clear`, () => {
   let element: SbbFormFieldClearElement;

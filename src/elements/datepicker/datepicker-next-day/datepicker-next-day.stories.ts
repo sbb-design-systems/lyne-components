@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './datepicker-next-day.js';
+import './datepicker-next-day.component.js';
 import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker.js';

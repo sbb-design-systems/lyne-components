@@ -13,7 +13,7 @@ import {
 
 import readme from './readme.md?raw';
 
-import './journey-summary.js';
+import './journey-summary.component.js';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 

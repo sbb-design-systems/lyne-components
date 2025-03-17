@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTabLabelElement } from './tab-label.js';
-import './tab-label.js';
+import type { SbbTabLabelElement } from './tab-label.component.js';
+import './tab-label.component.js';
 
 describe(`sbb-tab-label`, () => {
   describe(`renders`, () => {

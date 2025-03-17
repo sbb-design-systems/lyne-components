@@ -6,7 +6,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 
 import '../../form-field.js';
 import '../../autocomplete-grid.js';
-import './autocomplete-grid-option.js';
+import './autocomplete-grid-option.component.js';
 
 describe(`sbb-autocomplete-grid-option`, () => {
   const defaultArgs = {

@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbScreenReaderOnlyElement } from './screen-reader-only.js';
+import { SbbScreenReaderOnlyElement } from './screen-reader-only.component.js';
 
 describe(`sbb-screen-reader-only`, () => {
   let element: SbbScreenReaderOnlyElement;

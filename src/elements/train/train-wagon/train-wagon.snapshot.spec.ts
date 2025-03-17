@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTrainWagonElement } from './train-wagon.js';
+import type { SbbTrainWagonElement } from './train-wagon.component.js';
 
-import './train-wagon.js';
+import './train-wagon.component.js';
 import '../../icon.js';
 import '../../timetable-occupancy-icon.js';
 

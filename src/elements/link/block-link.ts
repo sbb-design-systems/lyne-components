@@ -1,1 +1,1 @@
-export * from './block-link/block-link.js';
+export * from './block-link/block-link.component.js';

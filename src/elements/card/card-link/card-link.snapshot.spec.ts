@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import type { SbbCardElement } from '../card.js';
 
 import '../card.js';
-import './card-link.js';
+import './card-link.component.js';
 
 describe(`sbb-card-link`, () => {
   let element: SbbCardElement;

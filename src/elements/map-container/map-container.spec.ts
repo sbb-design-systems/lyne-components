@@ -6,7 +6,7 @@ import type { SbbAccentButtonElement } from '../button.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition } from '../core/testing.js';
 
-import { SbbMapContainerElement } from './map-container.js';
+import { SbbMapContainerElement } from './map-container.component.js';
 
 import '../title.js';
 

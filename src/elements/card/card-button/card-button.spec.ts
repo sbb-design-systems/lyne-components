@@ -6,10 +6,10 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbCardElement } from '../card.js';
 
-import type { SbbCardButtonElement } from './card-button.js';
+import type { SbbCardButtonElement } from './card-button.component.js';
 
 import '../card.js';
-import './card-button.js';
+import './card-button.component.js';
 
 describe(`sbb-card-button`, () => {
   let element: SbbCardElement;

@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbNavigationLinkElement } from './navigation-link.js';
+import { SbbNavigationLinkElement } from './navigation-link.component.js';
 
 describe(`sbb-navigation-link`, () => {
   let element: SbbNavigationLinkElement;

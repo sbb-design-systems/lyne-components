@@ -1,1 +1,1 @@
-export * from './transparent-button/transparent-button.js';
+export * from './transparent-button/transparent-button.component.js';

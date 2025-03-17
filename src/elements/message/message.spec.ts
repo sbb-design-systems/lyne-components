@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbMessageElement } from './message.js';
+import { SbbMessageElement } from './message.component.js';
 
 describe(`sbb-message`, () => {
   let element: SbbMessageElement;

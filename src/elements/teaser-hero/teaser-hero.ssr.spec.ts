@@ -4,7 +4,7 @@ import { html } from 'lit';
 import images from '../core/images.js';
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbTeaserHeroElement } from './teaser-hero.js';
+import { SbbTeaserHeroElement } from './teaser-hero.component.js';
 import '../chip-label.js';
 import '../image.js';
 
@@ -19,7 +19,7 @@ describe(`sbb-teaser-hero ssr`, () => {
           <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
         </figure>
       </sbb-teaser-hero>`,
-      { modules: ['./teaser-hero.js', '../image.js', '../chip-label.js'] },
+      { modules: ['./teaser-hero.component.js', '../image.js', '../chip-label.js'] },
     );
   });
 

@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.js';
+import { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.js';
 
 describe(`sbb-autocomplete-grid-row ssr`, () => {
   let element: SbbAutocompleteGridRowElement;

@@ -5,8 +5,8 @@ import { isFirefox } from '../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { describeIf } from '../core/testing.js';
 
-import type { SbbDateInputElement } from './date-input.js';
-import './date-input.js';
+import type { SbbDateInputElement } from './date-input.component.js';
+import './date-input.component.js';
 
 describe(`sbb-date-input`, () => {
   describe('renders', () => {

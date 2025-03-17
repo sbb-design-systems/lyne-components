@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbNotificationElement } from './notification.js';
+import { SbbNotificationElement } from './notification.component.js';
 
 import '../link/link.js';
 
@@ -18,7 +18,7 @@ describe(`sbb-notification ssr`, () => {
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,
-      { modules: ['./notification.js', '../link.js'] },
+      { modules: ['./notification.component.js', '../link.js'] },
     );
   });
 

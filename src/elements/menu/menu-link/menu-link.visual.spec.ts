@@ -10,7 +10,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './menu-link.js';
+import './menu-link.component.js';
 
 describe(`sbb-menu-link`, () => {
   const defaultArgs = {

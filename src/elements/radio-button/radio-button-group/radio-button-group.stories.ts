@@ -8,9 +8,9 @@ import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
 
-import type { SbbRadioButtonGroupElement } from './radio-button-group.js';
+import type { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
 import readme from './readme.md?raw';
-import './radio-button-group.js';
+import './radio-button-group.component.js';
 import '../radio-button.js';
 import '../radio-button-panel.js';
 import '../../form-error.js';

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
+import { SbbExpansionPanelContentElement } from './expansion-panel-content.component.js';
 
 describe(`sbb-expansion-panel-content ssr`, () => {
   let root: SbbExpansionPanelContentElement;
@@ -12,7 +12,7 @@ describe(`sbb-expansion-panel-content ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
       {
-        modules: ['./expansion-panel-content.js'],
+        modules: ['./expansion-panel-content.component.js'],
       },
     );
   });

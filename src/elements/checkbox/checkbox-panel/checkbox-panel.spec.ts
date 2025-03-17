@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbCheckboxPanelElement } from './checkbox-panel.js';
+import { SbbCheckboxPanelElement } from './checkbox-panel.component.js';
 
 describe(`sbb-checkbox-panel`, () => {
   describe('general', () => {

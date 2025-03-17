@@ -6,7 +6,7 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.js';
 
-import './link-button.js';
+import './link-button.component.js';
 
 describe(`sbb-link-button`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

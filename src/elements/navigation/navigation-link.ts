@@ -1,1 +1,1 @@
-export * from './navigation-link/navigation-link.js';
+export * from './navigation-link/navigation-link.component.js';

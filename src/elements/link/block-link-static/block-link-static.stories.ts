@@ -26,7 +26,7 @@ import {
 } from '../common/link-common-stories.js';
 
 import readme from './readme.md?raw';
-import './block-link-static.js';
+import './block-link-static.component.js';
 
 const defaultArgTypes: ArgTypes = {
   ...blockLinkCommonDefaultArgTypes,

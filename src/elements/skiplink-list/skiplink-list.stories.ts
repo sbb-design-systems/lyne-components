@@ -7,7 +7,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './skiplink-list.js';
+import './skiplink-list.component.js';
 import '../link/block-link.js';
 import '../title.js';
 

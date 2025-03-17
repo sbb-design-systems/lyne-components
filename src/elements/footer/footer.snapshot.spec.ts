@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbFooterElement } from './footer.js';
-import './footer.js';
+import type { SbbFooterElement } from './footer.component.js';
+import './footer.component.js';
 
 describe(`sbb-footer`, () => {
   describe('renders', () => {

@@ -9,7 +9,7 @@ import {
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
-import './teaser-product.js';
+import './teaser-product.component.js';
 import '../../button/button-static.js';
 import '../../chip-label.js';
 import '../../image.js';

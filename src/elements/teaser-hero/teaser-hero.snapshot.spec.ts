@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import type { SbbTeaserHeroElement } from './teaser-hero.js';
-import './teaser-hero.js';
+import type { SbbTeaserHeroElement } from './teaser-hero.component.js';
+import './teaser-hero.component.js';
 import '../image.js';
 import '../chip-label.js';
 

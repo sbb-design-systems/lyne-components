@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbToggleOptionElement } from './toggle-option.js';
+import { SbbToggleOptionElement } from './toggle-option.component.js';
 
 describe(`sbb-toggle-option ssr`, () => {
   let root: SbbToggleOptionElement;
@@ -12,7 +12,7 @@ describe(`sbb-toggle-option ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`,
       {
-        modules: ['./toggle-option.js'],
+        modules: ['./toggle-option.component.js'],
       },
     );
   });

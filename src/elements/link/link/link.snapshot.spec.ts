@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbLinkElement } from './link.js';
+import type { SbbLinkElement } from './link.component.js';
 
-import './link.js';
+import './link.component.js';
 
 describe(`sbb-link`, () => {
   let element: SbbLinkElement;

@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 import type { SbbNavigationElement } from '../navigation.js';
 
-import './navigation-section.js';
+import './navigation-section.component.js';
 import '../navigation.js';
 import '../navigation-marker.js';
 import '../navigation-list.js';

@@ -1,1 +1,1 @@
-export * from './form-error/form-error.js';
+export * from './form-error/form-error.component.js';

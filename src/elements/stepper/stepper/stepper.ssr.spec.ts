@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbStepperElement } from './stepper.js';
+import { SbbStepperElement } from './stepper.component.js';
 
 import '../step.js';
 import '../step-label.js';
@@ -24,7 +24,7 @@ describe(`sbb-stepper ssr`, () => {
           <sbb-step-label>Test step label 4</sbb-step-label>
         </sbb-stepper>
       `,
-      { modules: ['./stepper.js', '../step.js', '../step-label.js'] },
+      { modules: ['./stepper.component.js', '../step.js', '../step-label.js'] },
     );
   });
 

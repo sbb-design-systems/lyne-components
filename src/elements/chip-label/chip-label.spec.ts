@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbChipLabelElement } from './chip-label.js';
+import { SbbChipLabelElement } from './chip-label.component.js';
 
 describe(`sbb-chip-label`, () => {
   it('renders', async () => {

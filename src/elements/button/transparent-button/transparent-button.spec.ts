@@ -5,7 +5,7 @@ import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
 } from '../common/button-test-utils.js';
-import './transparent-button.js';
+import './transparent-button.component.js';
 
 describe(`sbb-transparent-button`, () => {
   it('should detect icon in sbb-transparent-button', async () => {

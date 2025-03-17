@@ -5,8 +5,8 @@ import { isSafari } from '../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { describeIf } from '../core/testing.js';
 
-import type { SbbSelectElement } from './select.js';
-import './select.js';
+import type { SbbSelectElement } from './select.component.js';
+import './select.component.js';
 import '../option.js';
 
 describe(`sbb-select`, () => {

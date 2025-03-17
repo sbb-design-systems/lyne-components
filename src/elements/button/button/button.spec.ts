@@ -9,7 +9,7 @@ import {
   buttonSpaceIconTestTemplate,
 } from '../common/button-test-utils.js';
 
-import { SbbButtonElement } from './button.js';
+import { SbbButtonElement } from './button.component.js';
 
 describe(`sbb-button`, () => {
   let element: SbbButtonElement;

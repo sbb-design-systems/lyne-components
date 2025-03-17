@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbNavigationButtonElement } from './navigation-button.js';
+import type { SbbNavigationButtonElement } from './navigation-button.component.js';
 
-import './navigation-button.js';
+import './navigation-button.component.js';
 
 describe(`sbb-navigation-button`, () => {
   let element: SbbNavigationButtonElement;

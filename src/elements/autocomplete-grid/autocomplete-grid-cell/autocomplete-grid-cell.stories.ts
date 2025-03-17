@@ -15,7 +15,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import '../autocomplete-grid-row.js';
-import './autocomplete-grid-cell.js';
+import './autocomplete-grid-cell.component.js';
 import '../autocomplete-grid-button.js';
 
 const numberOfButtons: InputType = {

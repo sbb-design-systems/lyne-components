@@ -3,7 +3,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import './autocomplete-grid-row.js';
+import './autocomplete-grid-row.component.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-button.js';

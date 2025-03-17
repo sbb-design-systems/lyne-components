@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTagElement } from './tag.js';
+import type { SbbTagElement } from './tag.component.js';
 
-import './tag.js';
+import './tag.component.js';
 import '../../icon.js';
 
 describe(`sbb-tag`, () => {

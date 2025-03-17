@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbContainerElement } from '../container.js';
 
-import { SbbStickyBarElement } from './sticky-bar.js';
+import { SbbStickyBarElement } from './sticky-bar.component.js';
 
 import '../container.js';
 
@@ -30,7 +30,7 @@ describe(`sbb-sticky-bar ssr`, () => {
           <sbb-sticky-bar></sbb-sticky-bar>
         </sbb-container>
       `,
-      { modules: ['../container.js', './sticky-bar.js'] },
+      { modules: ['../container.js', './sticky-bar.component.js'] },
     );
   });
 

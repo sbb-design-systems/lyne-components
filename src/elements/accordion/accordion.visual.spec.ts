@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './accordion.js';
+import './accordion.component.js';
 import '../expansion-panel.js';
 
 describe(`sbb-accordion`, () => {

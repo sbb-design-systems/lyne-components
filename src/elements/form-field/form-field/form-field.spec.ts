@@ -7,7 +7,7 @@ import { waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbOptionElement } from '../../option.js';
 import { SbbSelectElement } from '../../select.js';
 
-import { SbbFormFieldElement } from './form-field.js';
+import { SbbFormFieldElement } from './form-field.component.js';
 
 describe(`sbb-form-field`, () => {
   describe('with input', () => {

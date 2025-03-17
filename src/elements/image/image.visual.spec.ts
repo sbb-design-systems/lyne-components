@@ -4,7 +4,7 @@ import sampleImages from '../core/images.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import './image.js';
+import './image.component.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 

@@ -1,1 +1,1 @@
-export * from './secondary-button/secondary-button.js';
+export * from './secondary-button/secondary-button.component.js';

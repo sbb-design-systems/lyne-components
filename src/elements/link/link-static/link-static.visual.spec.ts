@@ -7,7 +7,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './link-static.js';
+import './link-static.component.js';
 
 describe(`sbb-link-static`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

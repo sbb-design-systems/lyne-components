@@ -3,9 +3,9 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbButtonStaticElement } from './button-static.js';
+import type { SbbButtonStaticElement } from './button-static.component.js';
 
-import './button-static.js';
+import './button-static.component.js';
 
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;

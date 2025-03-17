@@ -8,7 +8,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import images from '../core/images.js';
 
-import { SbbImageElement } from './image.js';
+import { SbbImageElement } from './image.component.js';
 import readme from './readme.md?raw';
 import '../chip-label.js';
 

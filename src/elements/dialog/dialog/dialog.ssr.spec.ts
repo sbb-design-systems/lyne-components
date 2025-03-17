@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbDialogElement } from './dialog.js';
+import { SbbDialogElement } from './dialog.component.js';
 
 import '../dialog-actions.js';
 import '../dialog-content.js';
@@ -23,7 +23,7 @@ describe(`sbb-dialog ssr`, () => {
       `,
       {
         modules: [
-          './dialog.js',
+          './dialog.component.js',
           '../dialog-actions.js',
           '../dialog-content.js',
           '../dialog-title.js',

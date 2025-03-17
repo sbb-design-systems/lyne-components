@@ -1,1 +1,1 @@
-export * from './sticky-bar/sticky-bar.js';
+export * from './sticky-bar/sticky-bar.component.js';

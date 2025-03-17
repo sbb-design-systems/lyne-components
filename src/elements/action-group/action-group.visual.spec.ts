@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './action-group.js';
+import './action-group.component.js';
 import '../button/button.js';
 import '../button/secondary-button.js';
 import '../link/block-link.js';

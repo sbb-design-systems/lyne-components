@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './divider.js';
+import './divider.component.js';
 
 describe(`sbb-divider`, () => {
   let root: HTMLElement;

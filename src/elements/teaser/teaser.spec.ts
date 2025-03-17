@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbTeaserElement } from './teaser.js';
+import { SbbTeaserElement } from './teaser.component.js';
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;

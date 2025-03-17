@@ -8,7 +8,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './form-field.js';
+import './form-field.component.js';
 import '../../button/mini-button.js';
 import '../../form-error.js';
 import '../../popover.js';

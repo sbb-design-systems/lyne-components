@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbTimetableOccupancyElement } from './timetable-occupancy.js';
+import { SbbTimetableOccupancyElement } from './timetable-occupancy.component.js';
 
 describe(`sbb-timetable-occupancy`, () => {
   let element: SbbTimetableOccupancyElement;

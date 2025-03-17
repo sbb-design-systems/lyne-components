@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './clock.js';
+import './clock.component.js';
 
 describe(`sbb-clock`, () => {
   const timeCases = [

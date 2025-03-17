@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
-import './expansion-panel-content.js';
+import type { SbbExpansionPanelContentElement } from './expansion-panel-content.component.js';
+import './expansion-panel-content.component.js';
 
 describe(`sbb-expansion-panel-content`, () => {
   describe('renders', () => {

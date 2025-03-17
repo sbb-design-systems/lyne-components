@@ -1,1 +1,1 @@
-export * from './train-wagon/train-wagon.js';
+export * from './train-wagon/train-wagon.component.js';

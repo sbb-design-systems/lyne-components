@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbBreadcrumbElement } from './breadcrumb.js';
+import { SbbBreadcrumbElement } from './breadcrumb.component.js';
 
 describe(`sbb-breadcrumb`, () => {
   let element: SbbBreadcrumbElement;

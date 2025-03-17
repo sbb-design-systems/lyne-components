@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './timetable-occupancy.js';
+import './timetable-occupancy.component.js';
 
 describe(`sbb-timetable-occupancy`, () => {
   const cases = {

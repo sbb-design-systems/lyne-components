@@ -24,7 +24,7 @@ import {
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import './transparent-button.js';
+import './transparent-button.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
 

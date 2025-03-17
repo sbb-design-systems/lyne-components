@@ -7,7 +7,7 @@ import { EventSpy, mockScrollTo, waitForLitRender } from '../../core/testing.js'
 import { SbbMenuElement } from '../../menu.js';
 import type { SbbHeaderButtonElement } from '../header-button.js';
 
-import { SbbHeaderElement } from './header.js';
+import { SbbHeaderElement } from './header.component.js';
 import '../header-button.js';
 
 describe(`sbb-header`, () => {

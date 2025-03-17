@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../../link/link.js';
-import './alert.js';
+import './alert.component.js';
 
 describe(`sbb-alert`, () => {
   const defaultArgs = {

@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbOverlayElement } from './overlay.js';
-import './overlay.js';
+import type { SbbOverlayElement } from './overlay.component.js';
+import './overlay.component.js';
 
 describe('sbb-overlay', () => {
   describe('renders', () => {

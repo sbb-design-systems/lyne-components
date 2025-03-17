@@ -13,7 +13,7 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbPaginatorElement } from './paginator.js';
+import { SbbPaginatorElement } from './paginator.component.js';
 import readme from './readme.md?raw';
 
 const length: InputType = {

@@ -1,1 +1,1 @@
-export * from './status/status.js';
+export * from './status/status.component.js';

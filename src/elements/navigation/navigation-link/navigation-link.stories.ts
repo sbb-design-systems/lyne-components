@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './navigation-link.js';
+import './navigation-link.component.js';
 
 const size: InputType = {
   control: {

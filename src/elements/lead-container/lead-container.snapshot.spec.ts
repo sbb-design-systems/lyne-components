@@ -4,13 +4,13 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import type { SbbLeadContainerElement } from './lead-container.js';
+import type { SbbLeadContainerElement } from './lead-container.component.js';
 
 import '../breadcrumb.js';
 import '../image.js';
-import '../link/block-link/block-link.js';
+import '../link/block-link/block-link.component.js';
 import '../title.js';
-import './lead-container.js';
+import './lead-container.component.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

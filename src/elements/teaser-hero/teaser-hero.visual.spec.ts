@@ -7,7 +7,7 @@ import {
   visualDiffHover,
 } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
-import './teaser-hero.js';
+import './teaser-hero.component.js';
 import '../image.js';
 import '../chip-label.js';
 

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbLinkListElement } from './link-list.js';
+import { SbbLinkListElement } from './link-list.component.js';
 
 import '../../link.js';
 
@@ -37,7 +37,7 @@ describe(`sbb-link-list ssr`, () => {
           >
         </sbb-link-list>
       `,
-      { modules: ['./link-list.js', '../../link.js'] },
+      { modules: ['./link-list.component.js', '../../link.js'] },
     );
   });
 

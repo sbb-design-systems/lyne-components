@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './timetable-occupancy-icon.js';
+import './timetable-occupancy-icon.component.js';
 
 const negative: InputType = {
   control: {

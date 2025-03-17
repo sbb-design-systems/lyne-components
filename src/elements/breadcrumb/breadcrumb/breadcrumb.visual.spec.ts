@@ -6,7 +6,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './breadcrumb.js';
+import './breadcrumb.component.js';
 
 describe('sbb-breadcrumb', () => {
   let root: HTMLElement;

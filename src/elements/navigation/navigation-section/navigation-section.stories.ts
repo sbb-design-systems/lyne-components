@@ -12,7 +12,7 @@ import '../navigation-button.js';
 import '../navigation-link.js';
 import '../navigation-marker.js';
 import '../navigation.js';
-import './navigation-section.js';
+import './navigation-section.component.js';
 
 const accessibilityLabel: InputType = {
   control: {

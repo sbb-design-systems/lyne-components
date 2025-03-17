@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbSecondaryButtonElement } from '../button.js';
 
-import { SbbNotificationElement } from './notification.js';
+import { SbbNotificationElement } from './notification.component.js';
 import readme from './readme.md?raw';
 import '../button/secondary-button.js';
 import '../link/link.js';

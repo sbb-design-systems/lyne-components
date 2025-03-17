@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbNavigationElement } from '../navigation.js';
 
-import { SbbNavigationSectionElement } from './navigation-section.js';
+import { SbbNavigationSectionElement } from './navigation-section.component.js';
 
 import '../navigation-list.js';
 import '../navigation-button.js';

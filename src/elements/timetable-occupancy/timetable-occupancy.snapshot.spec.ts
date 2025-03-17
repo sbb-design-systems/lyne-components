@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbTimetableOccupancyElement } from './timetable-occupancy.js';
+import type { SbbTimetableOccupancyElement } from './timetable-occupancy.component.js';
 
-import './timetable-occupancy.js';
+import './timetable-occupancy.component.js';
 
 describe(`sbb-timetable-occupancy`, () => {
   let element: SbbTimetableOccupancyElement;

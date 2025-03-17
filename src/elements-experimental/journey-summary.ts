@@ -1,1 +1,1 @@
-export * from './journey-summary/journey-summary.js';
+export * from './journey-summary/journey-summary.component.js';

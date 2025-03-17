@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbTimeInputElement } from './time-input.js';
-import './time-input.js';
+import type { SbbTimeInputElement } from './time-input.component.js';
+import './time-input.component.js';
 
 describe(`sbb-time-input`, () => {
   describe('renders', () => {

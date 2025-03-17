@@ -5,7 +5,7 @@ import {
 import { html, nothing } from 'lit';
 
 import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.js';
-import './pearl-chain-time.js';
+import './pearl-chain-time.component.js';
 
 describe(`sbb-pearl-chain-time`, () => {
   const cases = [

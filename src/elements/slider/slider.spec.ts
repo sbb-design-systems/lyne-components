@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbSliderElement } from './slider.js';
+import { SbbSliderElement } from './slider.component.js';
 
 const keyboardPressTimes = async (element: HTMLElement, key: string, times = 1): Promise<void> => {
   element.focus();

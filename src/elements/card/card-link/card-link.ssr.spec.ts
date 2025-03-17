@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbCardElement } from '../card.js';
 
-import { SbbCardLinkElement } from './card-link.js';
+import { SbbCardLinkElement } from './card-link.component.js';
 
 import '../card.js';
 
@@ -23,7 +23,7 @@ describe(`sbb-card-link ssr`, () => {
           Content text
         </sbb-card>
       `,
-      { modules: ['../card.js', './card-link.js'] },
+      { modules: ['../card.js', './card-link.component.js'] },
     );
   });
 

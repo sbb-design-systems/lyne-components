@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTeaserProductElement } from './teaser-product.js';
-import './teaser-product.js';
+import type { SbbTeaserProductElement } from './teaser-product.component.js';
+import './teaser-product.component.js';
 import '../../image.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');

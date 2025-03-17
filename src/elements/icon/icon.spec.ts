@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbIconElement } from './icon.js';
+import { SbbIconElement } from './icon.component.js';
 
 describe(`sbb-icon`, () => {
   let element: SbbIconElement;

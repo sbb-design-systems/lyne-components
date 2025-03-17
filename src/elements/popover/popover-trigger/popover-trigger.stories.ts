@@ -9,7 +9,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import '../../link.js';
 import '../popover.js';
-import './popover-trigger.js';
+import './popover-trigger.component.js';
 import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

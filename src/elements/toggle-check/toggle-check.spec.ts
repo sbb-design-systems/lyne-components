@@ -7,7 +7,7 @@ import { isChromium, isFirefox } from '../core/dom.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToggleCheckElement } from './toggle-check.js';
+import { SbbToggleCheckElement } from './toggle-check.component.js';
 
 interface ToggleCheckAccessibilitySnapshot {
   checked: boolean;

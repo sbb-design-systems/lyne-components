@@ -5,7 +5,7 @@ import {
 import { html } from 'lit';
 
 import sampleData from './timetable-duration.sample-data.js';
-import './timetable-duration.js';
+import './timetable-duration.component.js';
 
 describe(`sbb-timetable-duration`, () => {
   const cases = [

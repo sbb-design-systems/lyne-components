@@ -4,10 +4,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../step/step.js';
+import { SbbStepElement } from '../step/step.component.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 
-import { SbbStepperElement } from './stepper.js';
+import { SbbStepperElement } from './stepper.component.js';
 import '../step-label.js';
 import '../step.js';
 

@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbAccordionElement } from './accordion.js';
-import './accordion.js';
+import type { SbbAccordionElement } from './accordion.component.js';
+import './accordion.component.js';
 import '../expansion-panel.js';
 
 describe(`sbb-accordion`, () => {

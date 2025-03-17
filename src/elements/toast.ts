@@ -1,1 +1,1 @@
-export * from './toast/toast.js';
+export * from './toast/toast.component.js';

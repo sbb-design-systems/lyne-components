@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './journey-header.js';
+import './journey-header.component.js';
 
 const origin: InputType = {
   control: {

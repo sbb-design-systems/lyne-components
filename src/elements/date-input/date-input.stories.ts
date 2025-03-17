@@ -15,7 +15,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { defaultDateAdapter } from '../core/datetime.js';
 
-import { SbbDateInputElement } from './date-input.js';
+import { SbbDateInputElement } from './date-input.component.js';
 import readme from './readme.md?raw';
 
 import '../form-error.js';

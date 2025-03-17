@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbMapContainerElement } from './map-container.js';
+import type { SbbMapContainerElement } from './map-container.component.js';
 
-import './map-container.js';
+import './map-container.component.js';
 
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;

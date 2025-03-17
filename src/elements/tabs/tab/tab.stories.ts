@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import './tab.js';
+import './tab.component.js';
 
 const Template = (): TemplateResult => html` <sbb-tab> Content </sbb-tab> `;
 

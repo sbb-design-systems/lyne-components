@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbOptGroupElement } from './optgroup.js';
+import { SbbOptGroupElement } from './optgroup.component.js';
 import '../option.js';
 
 describe(`sbb-optgroup ssr`, () => {
@@ -18,7 +18,7 @@ describe(`sbb-optgroup ssr`, () => {
           <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
         </sbb-optgroup>
       `,
-      { modules: ['./optgroup.js', '../option.js'] },
+      { modules: ['./optgroup.component.js', '../option.js'] },
     );
   });
 

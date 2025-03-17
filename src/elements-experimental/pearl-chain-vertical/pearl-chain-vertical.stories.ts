@@ -4,7 +4,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import './pearl-chain-vertical.js';
+import './pearl-chain-vertical.component.js';
 import '../pearl-chain-vertical-item.js';
 import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';

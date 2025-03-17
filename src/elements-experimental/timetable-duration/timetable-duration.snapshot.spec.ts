@@ -2,10 +2,10 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTimetableDurationElement } from './timetable-duration.js';
+import type { SbbTimetableDurationElement } from './timetable-duration.component.js';
 import sampleData from './timetable-duration.sample-data.js';
 
-import './timetable-duration.js';
+import './timetable-duration.component.js';
 
 const config = JSON.stringify(sampleData[2]);
 

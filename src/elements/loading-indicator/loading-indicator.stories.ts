@@ -5,10 +5,10 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
+import type { SbbLoadingIndicatorElement } from './loading-indicator.component.js';
 import readme from './readme.md?raw';
 
-import './loading-indicator.js';
+import './loading-indicator.component.js';
 import '../button/button.js';
 import '../card.js';
 

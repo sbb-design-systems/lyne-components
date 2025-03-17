@@ -8,7 +8,7 @@ import {
   type SbbExpansionPanelHeaderElement,
 } from '../expansion-panel.js';
 
-import { SbbAccordionElement } from './accordion.js';
+import { SbbAccordionElement } from './accordion.component.js';
 
 describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;

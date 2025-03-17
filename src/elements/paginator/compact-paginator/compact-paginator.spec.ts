@@ -6,7 +6,7 @@ import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbCompactPaginatorElement } from './compact-paginator.js';
+import { SbbCompactPaginatorElement } from './compact-paginator.component.js';
 
 describe('sbb-compact-paginator', () => {
   let element: SbbCompactPaginatorElement;

@@ -10,7 +10,7 @@ import { SbbStepElement } from '../step.js';
 
 import readme from './readme.md?raw';
 
-import './stepper.js';
+import './stepper.component.js';
 import '../step-label.js';
 import '../../link/block-link-button.js';
 import '../../button/button.js';

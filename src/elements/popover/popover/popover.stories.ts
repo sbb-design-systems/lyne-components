@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbPopoverElement } from './popover.js';
+import { SbbPopoverElement } from './popover.component.js';
 import readme from './readme.md?raw';
 import '../../link.js';
 import '../../title.js';

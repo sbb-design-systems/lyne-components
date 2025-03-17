@@ -7,7 +7,7 @@ import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbCalendarElement } from './calendar.js';
+import { SbbCalendarElement } from './calendar.component.js';
 
 import '../button.js';
 

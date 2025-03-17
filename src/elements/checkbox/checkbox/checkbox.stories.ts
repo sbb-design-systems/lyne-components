@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './checkbox.js';
+import './checkbox.component.js';
 import '../../card.js';
 import '../../button/button.js';
 import '../../button/secondary-button.js';

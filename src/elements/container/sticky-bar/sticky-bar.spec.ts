@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbContainerElement } from '../container.js';
 
-import { SbbStickyBarElement } from './sticky-bar.js';
+import { SbbStickyBarElement } from './sticky-bar.component.js';
 
 import '../container.js';
 

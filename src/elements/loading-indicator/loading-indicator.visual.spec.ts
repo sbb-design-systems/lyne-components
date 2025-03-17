@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './loading-indicator.js';
+import './loading-indicator.component.js';
 
 describe(`sbb-loading-indicator`, () => {
   const cases = {

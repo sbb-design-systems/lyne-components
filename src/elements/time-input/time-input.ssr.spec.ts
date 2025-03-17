@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbTimeInputElement } from './time-input.js';
+import { SbbTimeInputElement } from './time-input.component.js';
 
 describe(`sbb-time-input ssr`, () => {
   let root: SbbTimeInputElement;
@@ -14,7 +14,7 @@ describe(`sbb-time-input ssr`, () => {
         <sbb-time-input input="input-1"></sbb-time-input>
         <input id="input-1" />
       `,
-      { modules: ['./time-input.js'] },
+      { modules: ['./time-input.component.js'] },
     );
   });
 

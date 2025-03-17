@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbTrainBlockedPassageElement } from './train-blocked-passage.js';
+import { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.js';
 
 describe(`sbb-train-blocked-passage`, () => {
   let element: SbbTrainBlockedPassageElement;

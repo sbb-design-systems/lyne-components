@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
-import './expansion-panel-header.js';
+import type { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.js';
+import './expansion-panel-header.component.js';
 import '../../icon.js';
 
 describe(`sbb-expansion-panel-header`, () => {

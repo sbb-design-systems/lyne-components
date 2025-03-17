@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbDialogTitleElement } from './dialog-title.js';
+import { SbbDialogTitleElement } from './dialog-title.component.js';
 
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;

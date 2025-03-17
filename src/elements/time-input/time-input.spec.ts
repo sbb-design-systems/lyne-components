@@ -8,7 +8,7 @@ import type { SbbValidationChangeEvent } from '../core/interfaces.js';
 import { clearElement, fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbTimeInputElement } from './time-input.js';
+import { SbbTimeInputElement } from './time-input.component.js';
 
 import '../form-field/form-field.js';
 

@@ -7,8 +7,8 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import type { SbbSliderElement } from './slider.js';
-import './slider.js';
+import type { SbbSliderElement } from './slider.component.js';
+import './slider.component.js';
 import '../form-field.js';
 import '../icon.js';
 

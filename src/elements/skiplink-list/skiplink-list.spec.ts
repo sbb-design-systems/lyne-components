@@ -5,7 +5,7 @@ import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 import type { SbbBlockLinkElement } from '../link.js';
 
-import { SbbSkiplinkListElement } from './skiplink-list.js';
+import { SbbSkiplinkListElement } from './skiplink-list.component.js';
 
 import '../link/block-link.js';
 

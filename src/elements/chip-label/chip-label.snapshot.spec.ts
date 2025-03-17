@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbChipLabelElement } from './chip-label.js';
+import type { SbbChipLabelElement } from './chip-label.component.js';
 
-import './chip-label.js';
+import './chip-label.component.js';
 
 describe(`sbb-chip-label`, () => {
   let element: SbbChipLabelElement;

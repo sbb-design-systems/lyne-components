@@ -24,7 +24,7 @@ import {
 } from '../common/common-stories.js';
 
 import readme from './readme.md?raw';
-import './secondary-button.js';
+import './secondary-button.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
 

@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
-import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
 
 import '../breadcrumb.js';
 

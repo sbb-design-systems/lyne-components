@@ -1,1 +1,1 @@
-export * from './pearl-chain-time/pearl-chain-time.js';
+export * from './pearl-chain-time/pearl-chain-time.component.js';

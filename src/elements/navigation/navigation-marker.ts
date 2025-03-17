@@ -1,1 +1,1 @@
-export * from './navigation-marker/navigation-marker.js';
+export * from './navigation-marker/navigation-marker.component.js';

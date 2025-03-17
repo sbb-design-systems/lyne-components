@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
-import { SbbDividerElement } from './divider.js';
+import { SbbDividerElement } from './divider.component.js';
 
 describe(`sbb-divider`, () => {
   it('renders', async () => {

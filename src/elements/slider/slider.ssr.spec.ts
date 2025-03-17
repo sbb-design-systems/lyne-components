@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbSliderElement } from './slider.js';
+import { SbbSliderElement } from './slider.component.js';
 
 describe(`sbb-slider ssr`, () => {
   let root: SbbSliderElement;
@@ -19,7 +19,7 @@ describe(`sbb-slider ssr`, () => {
           value="400"
         ></sbb-slider>
       `,
-      { modules: ['./slider.js'] },
+      { modules: ['./slider.component.js'] },
     );
   });
 

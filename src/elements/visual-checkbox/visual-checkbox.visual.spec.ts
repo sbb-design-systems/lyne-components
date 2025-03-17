@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './visual-checkbox.js';
+import './visual-checkbox.component.js';
 
 describe(`sbb-visual-checkbox`, () => {
   const states = [

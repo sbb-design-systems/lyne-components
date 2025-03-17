@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbTitleElement } from './title.js';
+import type { SbbTitleElement } from './title.component.js';
 
-import './title.js';
+import './title.component.js';
 
 describe(`sbb-title`, () => {
   describe('renders', async () => {

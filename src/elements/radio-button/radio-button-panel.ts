@@ -1,1 +1,1 @@
-export * from './radio-button-panel/radio-button-panel.js';
+export * from './radio-button-panel/radio-button-panel.component.js';

@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './train-wagon.js';
+import './train-wagon.component.js';
 import '../train-formation.js';
 import '../train.js';
 

@@ -1,1 +1,1 @@
-export * from './timetable-occupancy-icon/timetable-occupancy-icon.js';
+export * from './timetable-occupancy-icon/timetable-occupancy-icon.component.js';

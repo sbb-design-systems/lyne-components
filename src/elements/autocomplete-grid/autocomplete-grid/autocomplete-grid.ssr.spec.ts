@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { SbbFormFieldElement } from '../../form-field.js';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';

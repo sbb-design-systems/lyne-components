@@ -5,7 +5,7 @@ import type { SbbTransparentButtonElement } from '../button.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbToastElement } from './toast.js';
+import { SbbToastElement } from './toast.component.js';
 
 import '../button/transparent-button.js';
 import '../link/link-button.js';

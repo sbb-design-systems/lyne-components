@@ -5,10 +5,10 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.js';
+import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.js';
 import readme from './readme.md?raw';
 
-import './loading-indicator-circle.js';
+import './loading-indicator-circle.component.js';
 import '../button/button.js';
 import '../title.js';
 import '../card.js';

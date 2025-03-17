@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import './visual-checkbox.js';
+import './visual-checkbox.component.js';
 
 describe(`sbb-visual-checkbox`, () => {
   it('renders unchecked', async () => {

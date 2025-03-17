@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbCheckboxElement } from './checkbox.js';
+import { SbbCheckboxElement } from './checkbox.component.js';
 
 describe(`sbb-checkbox ssr`, () => {
   let root: SbbCheckboxElement;
@@ -12,7 +12,7 @@ describe(`sbb-checkbox ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`,
       {
-        modules: ['./checkbox.js'],
+        modules: ['./checkbox.component.js'],
       },
     );
   });

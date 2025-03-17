@@ -3,9 +3,9 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbTransparentButtonStaticElement } from './transparent-button-static.js';
+import type { SbbTransparentButtonStaticElement } from './transparent-button-static.component.js';
 
-import './transparent-button-static.js';
+import './transparent-button-static.component.js';
 
 describe(`sbb-transparent-button-static`, () => {
   let element: SbbTransparentButtonStaticElement;

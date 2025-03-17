@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbMenuLinkElement } from './menu-link.js';
+import type { SbbMenuLinkElement } from './menu-link.component.js';
 
-import './menu-link.js';
+import './menu-link.component.js';
 
 describe(`sbb-menu-link`, () => {
   describe('renders', () => {

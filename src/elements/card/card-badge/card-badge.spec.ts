@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbCardBadgeElement } from './card-badge.js';
+import { SbbCardBadgeElement } from './card-badge.component.js';
 
 describe(`sbb-card-badge`, () => {
   let element: SbbCardBadgeElement;

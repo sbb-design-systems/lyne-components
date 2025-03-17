@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbNavigationButtonElement } from './navigation-button.js';
+import { SbbNavigationButtonElement } from './navigation-button.component.js';
 
 describe(`sbb-navigation-button`, () => {
   let element: SbbNavigationButtonElement;

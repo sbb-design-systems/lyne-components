@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbTrainBlockedPassageElement } from './train-blocked-passage.js';
+import { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.js';
 
 describe(`sbb-train-blocked-passage ssr`, () => {
   let root: SbbTrainBlockedPassageElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`, {
-      modules: ['./train-blocked-passage.js'],
+      modules: ['./train-blocked-passage.component.js'],
     });
   });
 

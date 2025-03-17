@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.js';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.component.js';
 
 describe(`sbb-radio-button-panel`, () => {
   let element: SbbRadioButtonPanelElement;

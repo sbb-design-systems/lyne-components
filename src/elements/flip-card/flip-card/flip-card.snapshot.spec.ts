@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbFlipCardElement } from './flip-card.js';
+import type { SbbFlipCardElement } from './flip-card.component.js';
 
-import './flip-card.js';
+import './flip-card.component.js';
 import '../flip-card-details.js';
 import '../flip-card-summary.js';
 import '../../title.js';

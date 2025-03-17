@@ -3,7 +3,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './map-container.js';
+import './map-container.component.js';
 import '../header.js';
 import '../title.js';
 import '../logo.js';

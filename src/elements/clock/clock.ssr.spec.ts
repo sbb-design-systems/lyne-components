@@ -3,19 +3,19 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbClockElement } from './clock.js';
+import { SbbClockElement } from './clock.component.js';
 
 describe(`sbb-clock ssr`, () => {
   it('renders', async () => {
     const root = await ssrHydratedFixture(html`<sbb-clock></sbb-clock>`, {
-      modules: ['./clock.js'],
+      modules: ['./clock.component.js'],
     });
     assert.instanceOf(root, SbbClockElement);
   });
 
   it('renders with specific time', async () => {
     const root = await ssrHydratedFixture(html`<sbb-clock now="12:00:00"></sbb-clock>`, {
-      modules: ['./clock.js'],
+      modules: ['./clock.component.js'],
     });
     assert.instanceOf(root, SbbClockElement);
   });

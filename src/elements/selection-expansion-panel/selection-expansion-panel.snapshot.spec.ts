@@ -3,11 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
+import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
 
 import '../card/card-badge.js';
 import '../checkbox/checkbox-panel.js';
-import './selection-expansion-panel.js';
+import './selection-expansion-panel.component.js';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let element: SbbSelectionExpansionPanelElement;

@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbContainerElement } from './container.js';
+import { SbbContainerElement } from './container.component.js';
 
 describe(`sbb-container`, () => {
   let element: SbbContainerElement;

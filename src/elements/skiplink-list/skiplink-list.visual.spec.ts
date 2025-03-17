@@ -2,7 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
 
-import './skiplink-list.js';
+import './skiplink-list.component.js';
 import '../link/block-link.js';
 
 const template = (title?: string): TemplateResult => html`

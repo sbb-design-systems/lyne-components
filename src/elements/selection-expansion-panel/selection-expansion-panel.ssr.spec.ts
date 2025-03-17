@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
 
 import '../checkbox.js';
 
@@ -16,7 +16,7 @@ describe(`sbb-selection-expansion-panel ssr`, () => {
         <sbb-checkbox-panel>Value</sbb-checkbox-panel>
       </sbb-selection-expansion-panel>`,
       {
-        modules: ['./selection-expansion-panel.js', '../checkbox.js'],
+        modules: ['./selection-expansion-panel.component.js', '../checkbox.js'],
       },
     );
   });

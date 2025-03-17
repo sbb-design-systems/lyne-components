@@ -5,7 +5,7 @@ import { spy } from 'sinon';
 import { fixture } from '../core/testing/private.js';
 import { waitForCondition } from '../core/testing.js';
 
-import './image.js';
+import './image.component.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
