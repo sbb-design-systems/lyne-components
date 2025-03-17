@@ -7,7 +7,6 @@
   --sbb-step-position: initial;
   --sbb-step-inset-block-start: unset;
   --sbb-step-opacity: 0;
-  --sbb-step-visibility: hidden;
   --sbb-step-display: none;
   --sbb-step-height: 0;
   --sbb-step-animation-duration: var(
@@ -22,7 +21,6 @@
 
 :host([data-selected]) {
   --sbb-step-opacity: 1;
-  --sbb-step-visibility: visible;
   --sbb-step-display: block;
   --sbb-step-height: fit-content;
   --sbb-step-animation-duration: var(--sbb-animation-duration-4x);
@@ -62,13 +60,20 @@
   inset-block-start: var(--sbb-step-inset-block-start);
   opacity: var(--sbb-step-opacity);
   display: var(--sbb-step-display);
-  visibility: var(--sbb-step-visibility);
   height: var(--sbb-step-height);
   color: var(--sbb-step-color);
   transition: {
-    property: opacity, visibility;
+    property: display, opacity;
     duration: var(--sbb-step-animation-duration);
     delay: var(--sbb-step-animation-delay);
     timing-function: var(--sbb-animation-easing);
+  }
+
+  transition-behavior: allow-discrete;
+}
+
+@starting-style {
+  .sbb-step {
+    --sbb-step-opacity: 0;
   }
 }
