@@ -84,6 +84,7 @@ class SbbSeatReservationElement extends LitElement {
     'COMPARTMENT_PASSAGE_HIGH',
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
+    'COACH_BORDER_OUTER',
   ];
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -110,6 +111,7 @@ class SbbSeatReservationElement extends LitElement {
         <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
           <sbb-seat-reservation-navigation
             .seatReservation=${this.seatReservation}
+            .alignVertical=${this.alignVertical}
             .selectedCoachIndex=${this._selectedCoachIndex}
             @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
           ></sbb-seat-reservation-navigation>
