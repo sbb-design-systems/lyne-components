@@ -39,7 +39,7 @@ class SbbTimeInputElement extends LitElement {
   @property()
   public set input(value: string | HTMLElement | null) {
     this._input = value;
-    this._findInputElement();
+    this._setupInputElement();
   }
   public get input(): string | HTMLElement | null {
     return this._input;
@@ -94,7 +94,7 @@ class SbbTimeInputElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._findInputElement();
+    this._setupInputElement();
   }
 
   public override disconnectedCallback(): void {
@@ -105,10 +105,10 @@ class SbbTimeInputElement extends LitElement {
   public override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
 
-    this._findInputElement();
+    this._setupInputElement();
   }
 
-  private _findInputElement(): void {
+  private _setupInputElement(): void {
     const newInput = findInput(this, this.input);
     if (!newInput) {
       this._abortController?.abort();
