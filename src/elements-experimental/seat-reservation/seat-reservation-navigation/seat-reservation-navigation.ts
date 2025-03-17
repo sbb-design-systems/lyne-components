@@ -89,7 +89,9 @@ class SbbSeatReservationNavigationElement extends LitElement {
         ? html` <button
             type="button"
             class="sbb-seat-reservation-navigation-control__button"
-            title="Navigiere zu Zugabteil ${coachItem.id}"
+            title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
+              coachItem.id,
+            ])}"
             @click=${() => this._selectNavCoach(index)}
             @keydown="${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, index)}"
           >

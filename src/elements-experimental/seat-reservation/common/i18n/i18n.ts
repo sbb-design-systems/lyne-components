@@ -7,7 +7,7 @@
  *
  * @Usage:
  * const labelStr = getI18nSeatReservation('KEY_FOR_NAVIGATION_LABEL', this._language.current); or
- * const labelStr = getI18nSeatReservation('KEY_FOR_NAVIGATION_LABEL', this._language.current, ['param1', 334]);*/
+ * const labelStr = getI18nSeatReservation('KEY_FOR_NAVIGATION_LABEL', this._language.current, ['real text', 334]);*/
 
 const i18nObjects: Record<string, Record<string, string>> = {
   //BASICS
@@ -47,6 +47,12 @@ const i18nObjects: Record<string, Record<string, string>> = {
     en: 'Seat reservation Navigation',
     fr: 'Navigation pour la réservation de sièges',
     it: 'Navigazione per la prenotazione dei posti',
+  },
+  NAVIGATE_TO_COACH: {
+    de: 'Navigiere zu Zugabteil _param0_',
+    en: 'Navigate to train compartment _param0_',
+    fr: 'Naviguer vers le compartiment de train _param0_',
+    it: 'Naviga verso il compartimento del treno _param0_',
   },
   //NAVIGATION ICONS
   BICYCLE: {
