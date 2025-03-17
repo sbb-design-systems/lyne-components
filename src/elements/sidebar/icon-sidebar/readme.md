@@ -71,6 +71,9 @@ Like described in [sbb-icon-sidebar-link](/docs/elements-sbb-sidebar-sbb-icon-si
 [sbb-icon-sidebar-button](/docs/elements-sbb-sidebar-sbb-icon-sidebar-button--docs) it's important to set
 a label to the action elements. It's also described how to set the current icon as active (aria-current).
 
+> ⓘ When the `sbb-tooltip` component is available, we strongly recommend to append a tooltip to
+> every item to describe the icon for all users.
+
 ## Combine with `sbb-sidebar`
 
 It's possible the combine the `<sbb-icon-sidebar>` with the `<sbb-sidebar>` as following:

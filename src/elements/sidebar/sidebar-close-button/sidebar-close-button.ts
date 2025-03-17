@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
-import { i18nCloseNavigation } from '../../core/i18n.js';
+import { i18nCloseSidebar } from '../../core/i18n.js';
 
 import style from './sidebar-close-button.scss?lit&inline';
 
@@ -36,10 +36,9 @@ class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
     if (this._language !== this._languageController.current) {
       if (
         !this.hasAttribute('aria-label') ||
-        (!!this._language &&
-          this.getAttribute('aria-label') === i18nCloseNavigation[this._language])
+        (!!this._language && this.getAttribute('aria-label') === i18nCloseSidebar[this._language])
       ) {
-        this.setAttribute('aria-label', i18nCloseNavigation[this._languageController.current]);
+        this.setAttribute('aria-label', i18nCloseSidebar[this._languageController.current]);
       }
       this._language = this._languageController.current;
     }

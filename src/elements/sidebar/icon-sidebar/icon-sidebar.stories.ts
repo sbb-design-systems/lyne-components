@@ -90,6 +90,7 @@ const sidebar = (position: SbbSidebarElement['position'], args: Args): TemplateR
       position=${position}
       id="sidebar"
       role="navigation"
+      focus-on-open
       @didOpen=${(event: CustomEvent) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
