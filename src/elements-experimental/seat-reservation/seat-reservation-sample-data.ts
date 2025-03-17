@@ -3226,7 +3226,7 @@ export const MOCK_COACHES_RAW_0 = [
         {
           rectangle: {
             position: {
-              x: 57,
+              x: 45,
               y: 0,
               z: 0,
             },
@@ -3239,38 +3239,6 @@ export const MOCK_COACHES_RAW_0 = [
           orientation: 180,
           type: 'COACH_BORDER_OUTER',
         },
-        // {
-        //   rectangle: {
-        //     position: {
-        //       x: 37,
-        //       y: 0,
-        //       z: 0,
-        //     },
-        //     dimension: {
-        //       width: 1,
-        //       height: 10,
-        //       borderRadius: null,
-        //     },
-        //   },
-        //   orientation: 0,
-        //   type: 'COMPARTMENT_PASSAGE',
-        // },
-        // {
-        //   rectangle: {
-        //     position: {
-        //       x: 0,
-        //       y: 1,
-        //       z: 0,
-        //     },
-        //     dimension: {
-        //       width: 13,
-        //       height: 8,
-        //       borderRadius: null,
-        //     },
-        //   },
-        //   orientation: 0,
-        //   type: 'DRIVER_AREA_FULL',
-        // },
       ],
       serviceIcons: [
         {
@@ -3343,7 +3311,7 @@ export const MOCK_COACHES_RAW_0 = [
       id: '86',
       name: 'B10(501) - not touch',
       dimension: {
-        width: 58,
+        width: 32,
         height: 10,
         borderRadius: null,
       },
@@ -3359,29 +3327,29 @@ export const MOCK_COACHES_RAW_0 = [
               z: 0,
             },
             dimension: {
-              width: 12,
-              height: 10,
-              borderRadius: null,
-            },
-          },
-          orientation: 180,
-          type: 'DRIVER_AREA_FULL',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 46,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 12,
+              width: 1,
               height: 10,
               borderRadius: null,
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA_FULL',
+          type: 'COACH_BORDER_OUTER',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 31,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 10,
+              borderRadius: null,
+            },
+          },
+          orientation: 180,
+          type: 'COACH_BORDER_OUTER',
         },
       ],
       serviceIcons: [],
@@ -3393,7 +3361,7 @@ export const MOCK_COACHES_RAW_0 = [
       id: '843',
       name: 'B10(501) - not touch',
       dimension: {
-        width: 58,
+        width: 46,
         height: 10,
         borderRadius: null,
       },
@@ -4234,22 +4202,6 @@ export const MOCK_COACHES_RAW_0 = [
         {
           rectangle: {
             position: {
-              x: 46,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 12,
-              height: 10,
-              borderRadius: null,
-            },
-          },
-          orientation: 180,
-          type: 'DRIVER_AREA_FULL',
-        },
-        {
-          rectangle: {
-            position: {
               x: 33,
               y: 0,
               z: 0,
@@ -4341,23 +4293,23 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'COACH_PASSAGE',
+          type: 'COACH_BORDER_OUTER',
         },
         {
           rectangle: {
             position: {
-              x: 0,
-              y: 1,
+              x: 45,
+              y: 0,
               z: 0,
             },
             dimension: {
-              width: 13,
-              height: 8,
+              width: 1,
+              height: 10,
               borderRadius: null,
             },
           },
-          orientation: 0,
-          type: 'DRIVER_AREA_FULL',
+          orientation: 180,
+          type: 'COACH_BORDER_OUTER',
         },
       ],
       serviceIcons: [
@@ -4431,7 +4383,7 @@ export const MOCK_COACHES_RAW_0 = [
       id: '86',
       name: 'B10(501) - not touch',
       dimension: {
-        width: 58,
+        width: 40,
         height: 10,
         borderRadius: null,
       },
@@ -4442,7 +4394,7 @@ export const MOCK_COACHES_RAW_0 = [
         {
           rectangle: {
             position: {
-              x: 46,
+              x: 28,
               y: 0,
               z: 0,
             },
@@ -4463,13 +4415,13 @@ export const MOCK_COACHES_RAW_0 = [
               z: 0,
             },
             dimension: {
-              width: 12,
+              width: 1,
               height: 10,
               borderRadius: null,
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA_FULL',
+          type: 'COACH_BORDER_OUTER',
         },
       ],
       serviceIcons: [],
