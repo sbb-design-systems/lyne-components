@@ -34,11 +34,17 @@ const disabledType: InputType = {
   description: 'Any click functionality is prevented',
 };
 
+const scaleType: InputType = {
+  control: { type: 'number' },
+  description: 'Scale factor to resize seat reservation',
+};
+
 const defaultArgTypes: ArgTypes = {
   seatReservation: seatReservationType,
   'max-reservations': maxReservationType,
   'align-vertical': alignVerticalType,
   disable: disabledType,
+  scale: scaleType,
 };
 
 const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
@@ -47,6 +53,7 @@ const defaultArgs: Args = {
   'max-reservations': 4,
   'align-vertical': false,
   disable: false,
+  scale: 1,
 };
 
 const Template = ({ seatReservation, ...args }: Args): TemplateResult =>
