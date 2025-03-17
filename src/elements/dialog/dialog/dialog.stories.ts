@@ -400,13 +400,15 @@ const StepperTemplate = ({
   hideOnScroll,
   accessibilityCloseLabel,
   accessibilityBackLabel,
+  orientation,
+  linear,
   ...args
 }: Args): TemplateResult => html`
   ${triggerButton('stepper')}
   <sbb-dialog id="stepper" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <sbb-stepper orientation="horizontal" size="m">
+      <sbb-stepper orientation="${orientation}" ?linear=${linear} size="m">
         ${['First', 'Second', 'Third', 'Fourth'].map(
           (element, index, arr) => html`
             <sbb-step-label>${element} step</sbb-step-label>
@@ -506,8 +508,23 @@ export const Nested: StoryObj = {
 
 export const Stepper: StoryObj = {
   render: StepperTemplate,
-  argTypes: basicArgTypes,
-  args: basicArgs,
+  argTypes: {
+    ...basicArgTypes,
+    orientation: {
+      control: { type: 'inline-radio' },
+      options: ['horizontal', 'vertical'],
+      table: { category: 'Stepper' },
+    },
+    linear: {
+      control: { type: 'boolean' },
+      table: { category: 'Stepper' },
+    },
+  },
+  args: {
+    ...basicArgs,
+    orientation: 'horizontal',
+    linear: false,
+  },
 };
 
 const meta: Meta = {

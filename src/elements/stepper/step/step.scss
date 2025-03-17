@@ -38,17 +38,25 @@
     opacity: 0;
     height: 0;
     transition:
+      display var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
+
+    // Experimental property, but supported in every major browser.
+    transition-behavior: allow-discrete;
   }
 
   :host([data-selected][data-orientation='vertical']) & {
     opacity: 1;
     height: var(--sbb-stepper-content-height);
     transition:
+      display var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
         var(--sbb-animation-easing);
+
+    // Experimental property, but supported in every major browser.
+    transition-behavior: allow-discrete;
   }
 }
 
@@ -69,11 +77,11 @@
     timing-function: var(--sbb-animation-easing);
   }
 
+  // Experimental property, but supported in every major browser.
   transition-behavior: allow-discrete;
-}
 
-@starting-style {
-  .sbb-step {
+  // Experimental property, currently supported in every major browser except Firefox.
+  @starting-style {
     --sbb-step-opacity: 0;
   }
 }
