@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbNavigationElement } from './navigation.js';
+import { SbbNavigationElement } from './navigation.component.js';
 
 import '../navigation-button.js';
 import '../navigation-marker.js';
@@ -35,7 +35,7 @@ describe(`sbb-navigation ssr`, () => {
       `,
       {
         modules: [
-          './navigation.js',
+          './navigation.component.js',
           '../navigation-button.js',
           '../navigation-marker.js',
           '../navigation-section.js',

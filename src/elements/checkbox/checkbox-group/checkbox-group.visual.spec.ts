@@ -12,7 +12,7 @@ import '../../form-error.js';
 import '../../icon.js';
 import '../checkbox.js';
 import '../checkbox-panel.js';
-import './checkbox-group.js';
+import './checkbox-group.component.js';
 
 describe('sbb-checkbox-group', () => {
   const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt

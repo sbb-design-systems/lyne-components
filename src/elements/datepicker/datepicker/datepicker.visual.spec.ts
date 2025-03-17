@@ -10,7 +10,7 @@ import {
 import '../datepicker-previous-day.js';
 import '../datepicker-next-day.js';
 import '../datepicker-toggle.js';
-import './datepicker.js';
+import './datepicker.component.js';
 import '../../form-field.js';
 
 describe(`sbb-datepicker`, () => {

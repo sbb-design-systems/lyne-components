@@ -2,7 +2,7 @@ import { html, nothing } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './loading-indicator-circle.js';
+import './loading-indicator-circle.component.js';
 
 describe(`sbb-loading-indicator-circle`, () => {
   const cases = {

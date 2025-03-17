@@ -2,7 +2,7 @@ import { html, nothing } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import './toggle-option.js';
+import './toggle-option.component.js';
 
 describe(`sbb-toggle-option`, () => {
   describeViewports({ viewports: ['zero'] }, () => {

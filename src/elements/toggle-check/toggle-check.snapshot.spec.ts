@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbToggleCheckElement } from './toggle-check.js';
+import type { SbbToggleCheckElement } from './toggle-check.component.js';
 
-import './toggle-check.js';
+import './toggle-check.component.js';
 
 describe(`sbb-toggle-check`, () => {
   describe('renders', async () => {

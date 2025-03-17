@@ -10,9 +10,9 @@ import {
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
-import type { SbbFlipCardElement } from './flip-card.js';
+import type { SbbFlipCardElement } from './flip-card.component.js';
 
-import './flip-card.js';
+import './flip-card.component.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
 import '../../chip-label.js';

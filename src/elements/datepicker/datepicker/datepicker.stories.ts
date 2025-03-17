@@ -13,7 +13,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 
-import { SbbDatepickerElement } from './datepicker.js';
+import { SbbDatepickerElement } from './datepicker.component.js';
 import readme from './readme.md?raw';
 
 import '../datepicker-next-day.js';

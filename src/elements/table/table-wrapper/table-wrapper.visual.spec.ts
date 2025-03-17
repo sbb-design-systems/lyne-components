@@ -9,7 +9,7 @@ import {
 } from '../../core/testing/private.js';
 import { waitForCondition } from '../../core/testing/wait-for-condition.js';
 
-import './table-wrapper.js';
+import './table-wrapper.component.js';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;

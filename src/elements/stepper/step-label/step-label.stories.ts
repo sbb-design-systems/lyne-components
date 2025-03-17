@@ -5,7 +5,7 @@ import { html, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './step-label.js';
+import './step-label.component.js';
 
 const iconName: InputType = {
   control: {

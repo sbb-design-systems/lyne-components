@@ -18,7 +18,7 @@ import readme from './readme.md?raw';
 import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker.js';
-import './datepicker-toggle.js';
+import './datepicker-toggle.component.js';
 
 const negative: InputType = {
   control: {

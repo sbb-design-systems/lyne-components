@@ -7,7 +7,7 @@ import type { SbbFormErrorElement } from '../../form-error.js';
 
 import readme from './readme.md?raw';
 
-import './form-field.js';
+import './form-field.component.js';
 import '../form-field-clear.js';
 import '../../button/mini-button.js';
 import '../../form-error.js';

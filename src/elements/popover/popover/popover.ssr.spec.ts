@@ -4,7 +4,7 @@ import { html } from 'lit';
 import type { SbbButtonElement } from '../../button.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbPopoverElement } from './popover.js';
+import { SbbPopoverElement } from './popover.component.js';
 
 import '../../button.js';
 import '../../link.js';
@@ -27,7 +27,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../../button.js', './popover.js', '../../link.js'] },
+        { modules: ['../../button.js', './popover.component.js', '../../link.js'] },
       );
     });
 
@@ -58,7 +58,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../../button.js', './popover.js', '../../link.js'] },
+        { modules: ['../../button.js', './popover.component.js', '../../link.js'] },
       );
     });
 

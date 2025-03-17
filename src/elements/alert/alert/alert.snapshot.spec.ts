@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAlertElement } from './alert.js';
+import type { SbbAlertElement } from './alert.component.js';
 
-import './alert.js';
+import './alert.component.js';
 import '../../link/link.js';
 
 describe(`sbb-alert`, () => {

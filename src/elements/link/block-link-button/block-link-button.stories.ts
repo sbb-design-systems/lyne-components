@@ -26,7 +26,7 @@ import {
 } from '../common/link-common-stories.js';
 
 import readme from './readme.md?raw';
-import './block-link-button.js';
+import './block-link-button.component.js';
 
 const defaultArgTypes: ArgTypes = {
   ...blockLinkCommonDefaultArgTypes,

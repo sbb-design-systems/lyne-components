@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbOptionElement } from './option.js';
+import type { SbbOptionElement } from './option.component.js';
 
 import '../../autocomplete.js';
-import './option.js';
+import './option.component.js';
 
 describe(`sbb-option`, () => {
   describe('autocomplete', () => {

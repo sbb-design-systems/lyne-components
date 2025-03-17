@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './signet.js';
+import './signet.component.js';
 
 describe(`sbb-signet`, () => {
   const cases = {

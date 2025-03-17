@@ -14,9 +14,9 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './mini-button-group.js';
+import './mini-button-group.component.js';
 import '../mini-button.js';
-import '../../divider/divider.js';
+import '../../divider/divider.component.js';
 
 const size: InputType = {
   control: {

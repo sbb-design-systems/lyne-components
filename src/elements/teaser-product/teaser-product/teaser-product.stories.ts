@@ -15,7 +15,7 @@ import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
 
-import './teaser-product.js';
+import './teaser-product.component.js';
 import '../../button/button-static.js';
 import '../../chip-label.js';
 import '../../image.js';

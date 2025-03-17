@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.js';
-import './file-selector-dropzone.js';
+import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
+import './file-selector-dropzone.component.js';
 
 describe(`sbb-file-selector-dropzone`, () => {
   describe('renders', () => {

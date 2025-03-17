@@ -7,7 +7,7 @@ import '../../form-field.js';
 import '../../autocomplete.js';
 import '../../select.js';
 import '../option.js';
-import './optgroup.js';
+import './optgroup.component.js';
 
 describe(`sbb-optgroup`, () => {
   const defaultArgs = {

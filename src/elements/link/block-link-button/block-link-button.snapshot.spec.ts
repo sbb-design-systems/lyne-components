@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbBlockLinkButtonElement } from './block-link-button.js';
+import type { SbbBlockLinkButtonElement } from './block-link-button.component.js';
 
 import '../../icon.js';
-import './block-link-button.js';
+import './block-link-button.component.js';
 
 describe(`sbb-block-link-button`, () => {
   let element: SbbBlockLinkButtonElement;

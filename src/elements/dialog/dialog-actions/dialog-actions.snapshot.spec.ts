@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbDialogActionsElement } from './dialog-actions.js';
-import './dialog-actions.js';
+import type { SbbDialogActionsElement } from './dialog-actions.component.js';
+import './dialog-actions.component.js';
 
 describe('sbb-dialog-actions', () => {
   describe('renders', async () => {

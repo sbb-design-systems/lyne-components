@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.js';
+import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
 
 describe(`sbb-file-selector-dropzone ssr`, () => {
   let root: SbbFileSelectorDropzoneElement;
@@ -12,7 +12,7 @@ describe(`sbb-file-selector-dropzone ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-file-selector-dropzone></sbb-file-selector-dropzone>`,
       {
-        modules: ['./file-selector-dropzone.js'],
+        modules: ['./file-selector-dropzone.component.js'],
       },
     );
   });

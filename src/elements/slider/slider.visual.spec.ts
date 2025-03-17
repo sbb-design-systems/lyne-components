@@ -8,7 +8,7 @@ import {
 } from '../core/testing/private.js';
 
 import '../form-field.js';
-import './slider.js';
+import './slider.component.js';
 
 describe('sbb-slider', () => {
   const defaultArgs = {

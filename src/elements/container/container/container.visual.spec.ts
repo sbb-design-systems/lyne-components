@@ -14,7 +14,7 @@ import '../../card.js';
 import '../../chip-label.js';
 import '../../image.js';
 import '../../title.js';
-import './container.js';
+import './container.component.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);

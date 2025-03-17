@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbBlockLinkStaticElement } from './block-link-static.js';
+import { SbbBlockLinkStaticElement } from './block-link-static.component.js';
 
 describe(`sbb-block-link-static ssr`, () => {
   let root: SbbBlockLinkStaticElement;
@@ -20,7 +20,7 @@ describe(`sbb-block-link-static ssr`, () => {
         ></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-block-link-static>`,
-      { modules: ['./block-link-static.js'] },
+      { modules: ['./block-link-static.component.js'] },
     );
   });
 

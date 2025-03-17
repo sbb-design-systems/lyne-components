@@ -7,7 +7,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './navigation-link.js';
+import './navigation-link.component.js';
 
 describe(`sbb-navigation-link`, () => {
   const sizeCases = ['s', 'm', 'l'];

@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './toggle-check.js';
+import './toggle-check.component.js';
 import '../button/button.js';
 import '../button/secondary-button.js';
 import '../card.js';

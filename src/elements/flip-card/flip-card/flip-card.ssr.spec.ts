@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbFlipCardElement } from './flip-card.js';
+import { SbbFlipCardElement } from './flip-card.component.js';
 
 import '../flip-card-details.js';
 import '../flip-card-summary.js';
@@ -34,7 +34,7 @@ describe(`sbb-flip-card ssr`, () => {
       `,
       {
         modules: [
-          './flip-card.js',
+          './flip-card.component.js',
           '../flip-card-summary.js',
           '../flip-card-details.js',
           '../../title.js',

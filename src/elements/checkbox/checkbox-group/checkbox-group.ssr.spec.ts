@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbCheckboxGroupElement } from './checkbox-group.js';
+import { SbbCheckboxGroupElement } from './checkbox-group.component.js';
 
 import '../checkbox.js';
 
@@ -19,7 +19,7 @@ describe(`sbb-checkbox-group ssr`, () => {
           <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
         </sbb-checkbox-group>
       `,
-      { modules: ['./checkbox-group.js', '../checkbox.js'] },
+      { modules: ['./checkbox-group.component.js', '../checkbox.js'] },
     );
   });
 

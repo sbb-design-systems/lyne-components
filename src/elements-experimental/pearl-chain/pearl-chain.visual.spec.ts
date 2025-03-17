@@ -13,7 +13,7 @@ import {
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
 } from './pearl-chain.sample-data.js';
-import './pearl-chain.js';
+import './pearl-chain.component.js';
 
 describe(`sbb-pearl-chain`, () => {
   const cases = [

@@ -10,7 +10,7 @@ import '../../icon.js';
 import '../train.js';
 import '../train-wagon.js';
 import '../train-blocked-passage.js';
-import './train-formation.js';
+import './train-formation.component.js';
 
 const MountedFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation ${sbbSpread(args)}>

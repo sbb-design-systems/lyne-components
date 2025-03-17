@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.js';
+import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.js';
 
 describe(`sbb-autocomplete-grid-button`, () => {
   let element: SbbAutocompleteGridButtonElement;

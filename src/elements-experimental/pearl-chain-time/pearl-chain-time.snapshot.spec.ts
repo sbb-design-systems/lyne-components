@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import type { PtRideLeg } from '../core/timetable.js';
 
-import type { SbbPearlChainTimeElement } from './pearl-chain-time.js';
-import './pearl-chain-time.js';
+import type { SbbPearlChainTimeElement } from './pearl-chain-time.component.js';
+import './pearl-chain-time.component.js';
 
 const now = '2022-08-16T15:00:00Z';
 

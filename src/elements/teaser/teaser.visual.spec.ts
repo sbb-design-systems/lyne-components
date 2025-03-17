@@ -11,7 +11,7 @@ import {
 } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import './teaser.js';
+import './teaser.component.js';
 import '../chip-label.js';
 import '../container.js';
 import '../image.js';

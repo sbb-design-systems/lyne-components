@@ -2,7 +2,7 @@ import { html, nothing } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './toast.js';
+import './toast.component.js';
 import '../button.js';
 import '../link.js';
 

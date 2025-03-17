@@ -3,9 +3,9 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
 
-import type { SbbAccentButtonStaticElement } from './accent-button-static.js';
+import type { SbbAccentButtonStaticElement } from './accent-button-static.component.js';
 
-import './accent-button-static.js';
+import './accent-button-static.component.js';
 
 describe(`sbb-accent-button-static`, () => {
   let element: SbbAccentButtonStaticElement;

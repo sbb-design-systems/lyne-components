@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbTeaserProductStaticElement } from './teaser-product-static.js';
+import { SbbTeaserProductStaticElement } from './teaser-product-static.component.js';
 
 import '../../image.js';
 

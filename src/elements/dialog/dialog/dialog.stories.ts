@@ -11,7 +11,7 @@ import sampleImages from '../../core/images.js';
 import type { SbbTitleLevel } from '../../title.js';
 import { SbbDialogTitleElement } from '../dialog-title.js';
 
-import { SbbDialogElement } from './dialog.js';
+import { SbbDialogElement } from './dialog.component.js';
 import readme from './readme.md?raw';
 
 import '../../autocomplete.js';

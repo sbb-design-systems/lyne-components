@@ -7,7 +7,7 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.js';
 
-import './block-link-button.js';
+import './block-link-button.component.js';
 
 describe(`sbb-block-link-button`, () => {
   const iconState = {

@@ -5,11 +5,11 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
 import readme from './readme.md?raw';
 
 import '../../button/secondary-button.js';
-import './breadcrumb-group.js';
+import './breadcrumb-group.component.js';
 import '../breadcrumb.js';
 
 const addBreadcrumb = (event: Event): void => {

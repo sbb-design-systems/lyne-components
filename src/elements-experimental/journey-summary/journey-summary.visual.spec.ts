@@ -11,7 +11,7 @@ import {
   progressLeg,
 } from '../pearl-chain/pearl-chain.sample-data.js';
 
-import './journey-summary.js';
+import './journey-summary.component.js';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 

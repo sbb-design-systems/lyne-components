@@ -1,1 +1,1 @@
-export * from './timetable-row/timetable-row.js';
+export * from './timetable-row/timetable-row.component.js';

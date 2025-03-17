@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbStatusElement } from './status.js';
+import type { SbbStatusElement } from './status.component.js';
 
-import './status.js';
+import './status.component.js';
 
 describe(`sbb-status`, () => {
   let element: SbbStatusElement;

@@ -2,9 +2,9 @@ import { html, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import type { SbbNavigationElement } from './navigation.js';
+import type { SbbNavigationElement } from './navigation.component.js';
 
-import './navigation.js';
+import './navigation.component.js';
 import '../navigation-marker.js';
 import '../navigation-button.js';
 import '../navigation-link.js';

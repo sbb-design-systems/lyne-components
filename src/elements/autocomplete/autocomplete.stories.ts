@@ -15,7 +15,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 import { SbbOptionElement } from '../option.js';
 
-import { SbbAutocompleteElement } from './autocomplete.js';
+import { SbbAutocompleteElement } from './autocomplete.component.js';
 import readme from './readme.md?raw';
 
 import '../form-field.js';

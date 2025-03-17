@@ -4,7 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../tag.js';
-import './tag-group.js';
+import './tag-group.component.js';
 
 describe(`sbb-tag-group`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

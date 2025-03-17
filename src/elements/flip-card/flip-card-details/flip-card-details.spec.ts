@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing/wait-for-render.js';
 
-import { SbbFlipCardDetailsElement } from './flip-card-details.js';
+import { SbbFlipCardDetailsElement } from './flip-card-details.component.js';
 
 describe('sbb-flip-card-details', () => {
   let element: SbbFlipCardDetailsElement;

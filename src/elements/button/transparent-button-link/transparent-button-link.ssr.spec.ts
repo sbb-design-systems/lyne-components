@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbTransparentButtonLinkElement } from './transparent-button-link.js';
+import { SbbTransparentButtonLinkElement } from './transparent-button-link.component.js';
 
 describe(`sbb-transparent-button-link ssr`, () => {
   let root: SbbTransparentButtonLinkElement;
@@ -12,7 +12,7 @@ describe(`sbb-transparent-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-transparent-button-link>Button</sbb-transparent-button-link>`,
       {
-        modules: ['./transparent-button-link.js'],
+        modules: ['./transparent-button-link.component.js'],
       },
     );
   });

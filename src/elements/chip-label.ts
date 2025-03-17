@@ -1,1 +1,1 @@
-export * from './chip-label/chip-label.js';
+export * from './chip-label/chip-label.component.js';

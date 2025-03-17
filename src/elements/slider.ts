@@ -1,1 +1,1 @@
-export * from './slider/slider.js';
+export * from './slider/slider.component.js';

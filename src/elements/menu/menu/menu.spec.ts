@@ -7,7 +7,7 @@ import { isWebkit } from '../../core/dom.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbMenuElement } from './menu.js';
+import { SbbMenuElement } from './menu.component.js';
 
 import '../../button/button.js';
 import '../../link.js';

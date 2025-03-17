@@ -1,1 +1,1 @@
-export * from './teaser-product/teaser-product.js';
+export * from './teaser-product/teaser-product.component.js';

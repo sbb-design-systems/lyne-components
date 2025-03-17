@@ -6,13 +6,13 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { describeIf } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 
-import type { SbbAutocompleteGridElement } from './autocomplete-grid.js';
-import './autocomplete-grid.js';
+import type { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
+import './autocomplete-grid.component.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
-import '../../form-field/form-field/form-field.js';
+import '../../form-field/form-field/form-field.component.js';
 
 describe('sbb-autocomplete-grid', () => {
   let root: SbbFormFieldElement;

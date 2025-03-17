@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbSecondaryButtonLinkElement } from './secondary-button-link.js';
+import { SbbSecondaryButtonLinkElement } from './secondary-button-link.component.js';
 
 describe(`sbb-secondary-button-link ssr`, () => {
   let root: SbbSecondaryButtonLinkElement;
@@ -12,7 +12,7 @@ describe(`sbb-secondary-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-secondary-button-link>Button</sbb-secondary-button-link>`,
       {
-        modules: ['./secondary-button-link.js'],
+        modules: ['./secondary-button-link.component.js'],
       },
     );
   });

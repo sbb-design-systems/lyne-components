@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffStandardStates } from '../../core/testing/private.js';
 
-import './link.js';
+import './link.component.js';
 
 describe(`sbb-link`, () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

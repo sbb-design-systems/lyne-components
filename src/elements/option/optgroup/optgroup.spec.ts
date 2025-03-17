@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing.js';
 import type { SbbOptionElement } from '../option.js';
 import '../option.js';
 
-import { SbbOptGroupElement } from './optgroup.js';
+import { SbbOptGroupElement } from './optgroup.component.js';
 
 describe(`sbb-optgroup`, () => {
   let element: SbbOptGroupElement;

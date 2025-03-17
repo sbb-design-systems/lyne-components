@@ -10,7 +10,7 @@ import '../../divider.js';
 import '../../link.js';
 import '../menu-link.js';
 import '../menu-button.js';
-import './menu.js';
+import './menu.component.js';
 
 describe(`sbb-menu`, () => {
   const userNameStyle = {

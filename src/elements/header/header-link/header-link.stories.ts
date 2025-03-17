@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './header-link.js';
+import './header-link.component.js';
 
 const TemplateSingle = ({ active, text, ...args }: Args): TemplateResult => html`
   <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>

@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbSecondaryButtonElement } from './secondary-button.js';
+import { SbbSecondaryButtonElement } from './secondary-button.component.js';
 
 describe(`sbb-secondary-button ssr`, () => {
   let root: SbbSecondaryButtonElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-secondary-button>Button</sbb-secondary-button>`, {
-      modules: ['./secondary-button.js'],
+      modules: ['./secondary-button.component.js'],
     });
   });
 

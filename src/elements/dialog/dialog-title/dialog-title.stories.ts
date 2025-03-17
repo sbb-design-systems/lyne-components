@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { breakpoints } from '../../core/dom.js';
 
-import { SbbDialogTitleElement } from './dialog-title.js';
+import { SbbDialogTitleElement } from './dialog-title.component.js';
 import readme from './readme.md?raw';
 
 const level: InputType = {

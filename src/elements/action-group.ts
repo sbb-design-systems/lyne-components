@@ -1,1 +1,1 @@
-export * from './action-group/action-group.js';
+export * from './action-group/action-group.component.js';

@@ -7,7 +7,7 @@ import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbLinkElement } from '../../link.js';
 
-import { SbbPopoverElement } from './popover.js';
+import { SbbPopoverElement } from './popover.component.js';
 
 import '../../button/button.js';
 import '../../link.js';

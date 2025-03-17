@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import { SbbFileSelectorElement } from './file-selector.js';
+import { SbbFileSelectorElement } from './file-selector.component.js';
 
 describe(`sbb-file-selector`, () => {
   let form: HTMLFormElement;

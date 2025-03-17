@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbNavigationButtonElement } from './navigation-button.js';
+import { SbbNavigationButtonElement } from './navigation-button.component.js';
 
 describe(`sbb-navigation-button ssr`, () => {
   let root: SbbNavigationButtonElement;
@@ -11,7 +11,7 @@ describe(`sbb-navigation-button ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-navigation-button id="focus-id">Navigation Action</sbb-navigation-button>`,
-      { modules: ['./navigation-button.js'] },
+      { modules: ['./navigation-button.component.js'] },
     );
   });
 

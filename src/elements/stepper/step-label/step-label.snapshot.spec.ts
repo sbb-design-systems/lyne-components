@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbStepLabelElement } from './step-label.js';
+import type { SbbStepLabelElement } from './step-label.component.js';
 
-import './step-label.js';
+import './step-label.component.js';
 
 describe('sbb-step-label', () => {
   let root: SbbStepLabelElement;

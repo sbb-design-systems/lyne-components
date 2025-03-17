@@ -1,1 +1,1 @@
-export * from './skiplink-list/skiplink-list.js';
+export * from './skiplink-list/skiplink-list.component.js';

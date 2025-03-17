@@ -7,7 +7,7 @@ import {
 } from '../../core/testing/private.js';
 
 import '../breadcrumb.js';
-import './breadcrumb-group.js';
+import './breadcrumb-group.component.js';
 
 describe('sbb-breadcrumb-group', () => {
   const variants = [

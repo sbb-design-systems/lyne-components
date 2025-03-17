@@ -7,7 +7,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import '../../form-field.js';
 import '../../select.js';
 import '../../autocomplete.js';
-import './option.js';
+import './option.component.js';
 
 describe(`sbb-option`, () => {
   const defaultArgs = {

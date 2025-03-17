@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTrainFormationElement } from './train-formation.js';
+import type { SbbTrainFormationElement } from './train-formation.component.js';
 
-import './train-formation.js';
+import './train-formation.component.js';
 import '../train.js';
 import '../train-wagon.js';
 

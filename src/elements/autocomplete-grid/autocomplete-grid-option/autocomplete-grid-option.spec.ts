@@ -8,7 +8,7 @@ import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.js';
 import type { SbbAutocompleteGridElement } from '../autocomplete-grid.js';
 
-import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.js';
 import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-optgroup.js';

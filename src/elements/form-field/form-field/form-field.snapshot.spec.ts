@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import './form-field.js';
+import './form-field.component.js';
 import '../../form-error.js';
-import type { SbbFormFieldElement } from './form-field.js';
+import type { SbbFormFieldElement } from './form-field.component.js';
 
 describe(`sbb-form-field`, () => {
   describe('renders input', () => {

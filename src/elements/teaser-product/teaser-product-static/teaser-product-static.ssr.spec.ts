@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbTeaserProductStaticElement } from './teaser-product-static.js';
+import { SbbTeaserProductStaticElement } from './teaser-product-static.component.js';
 import '../../image.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
@@ -24,7 +24,7 @@ describe(`sbb-teaser-product-static ssr`, () => {
           </sbb-teaser-product-static>
         `,
         {
-          modules: ['./teaser-product-static.js', '../../image.js'],
+          modules: ['./teaser-product-static.component.js', '../../image.js'],
         },
       );
     });

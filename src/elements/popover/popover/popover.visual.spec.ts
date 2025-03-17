@@ -3,7 +3,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import './popover.js';
+import './popover.component.js';
 import '../popover-trigger.js';
 import '../../link/block-link.js';
 import '../../title.js';

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.js';
 
 import '../expansion-panel-header.js';
 import '../expansion-panel-content.js';
@@ -21,7 +21,7 @@ describe(`sbb-expansion-panel ssr`, () => {
       `,
       {
         modules: [
-          './expansion-panel.js',
+          './expansion-panel.component.js',
           '../expansion-panel-header.js',
           '../expansion-panel-content.js',
         ],

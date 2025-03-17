@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import { SbbNavigationMarkerElement } from './navigation-marker.js';
+import { SbbNavigationMarkerElement } from './navigation-marker.component.js';
 
 import '../navigation-button.js';
 

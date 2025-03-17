@@ -9,7 +9,7 @@ import {
 
 import '../../title.js';
 import '../card-badge.js';
-import './card.js';
+import './card.component.js';
 
 describe(`sbb-card`, () => {
   let root: HTMLElement;

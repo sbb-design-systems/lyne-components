@@ -1,1 +1,1 @@
-export * from './map-container/map-container.js';
+export * from './map-container/map-container.component.js';

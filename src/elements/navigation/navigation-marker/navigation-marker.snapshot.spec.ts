@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import type { SbbNavigationMarkerElement } from './navigation-marker.js';
+import type { SbbNavigationMarkerElement } from './navigation-marker.component.js';
 
-import './navigation-marker.js';
+import './navigation-marker.component.js';
 
 describe(`sbb-navigation-marker`, () => {
   let element: SbbNavigationMarkerElement;

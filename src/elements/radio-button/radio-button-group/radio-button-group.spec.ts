@@ -6,7 +6,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
-import { SbbRadioButtonGroupElement } from './radio-button-group.js';
+import { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
 
 import '../radio-button.js';
 import '../radio-button-panel.js';

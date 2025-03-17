@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbCardElement } from './card.js';
+import type { SbbCardElement } from './card.component.js';
 
-import './card.js';
+import './card.component.js';
 import '../card-badge.js';
 
 describe(`sbb-card`, () => {

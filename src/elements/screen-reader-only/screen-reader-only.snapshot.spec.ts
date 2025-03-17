@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbScreenReaderOnlyElement } from './screen-reader-only.js';
+import type { SbbScreenReaderOnlyElement } from './screen-reader-only.component.js';
 
-import './screen-reader-only.js';
+import './screen-reader-only.component.js';
 
 describe(`sbb-screen-reader-only`, () => {
   describe('renders', async () => {

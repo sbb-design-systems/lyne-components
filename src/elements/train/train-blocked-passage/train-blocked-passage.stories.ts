@@ -5,7 +5,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './train-blocked-passage.js';
+import './train-blocked-passage.component.js';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-train-blocked-passage ${sbbSpread(args)}></sbb-train-blocked-passage>

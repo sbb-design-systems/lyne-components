@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbTagElement } from './tag.js';
+import { SbbTagElement } from './tag.component.js';
 import '../../icon.js';
 
 describe(`sbb-tag`, () => {

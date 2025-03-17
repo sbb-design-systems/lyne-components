@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import type { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
+import type { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.js';
 
-import './timetable-occupancy-icon.js';
+import './timetable-occupancy-icon.component.js';
 
 describe(`sbb-timetable-occupancy-icon`, () => {
   let element: SbbTimetableOccupancyIconElement;

@@ -5,9 +5,9 @@ import { isSafari } from '../../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { describeIf } from '../../core/testing.js';
 
-import type { SbbPaginatorElement } from './paginator.js';
+import type { SbbPaginatorElement } from './paginator.component.js';
 
-import './paginator.js';
+import './paginator.component.js';
 
 describe(`sbb-paginator`, () => {
   describe('renders', () => {

@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbExpansionPanelElement } from './expansion-panel.js';
+import type { SbbExpansionPanelElement } from './expansion-panel.component.js';
 
-import './expansion-panel.js';
+import './expansion-panel.component.js';
 import '../expansion-panel-header.js';
 import '../expansion-panel-content.js';
 

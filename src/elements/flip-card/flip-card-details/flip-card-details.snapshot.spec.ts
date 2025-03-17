@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbFlipCardDetailsElement } from './flip-card-details.js';
-import './flip-card-details.js';
+import type { SbbFlipCardDetailsElement } from './flip-card-details.component.js';
+import './flip-card-details.component.js';
 
 describe(`sbb-flip-card-details`, () => {
   let element: SbbFlipCardDetailsElement;

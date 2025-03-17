@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbDividerElement } from './divider.js';
-import './divider.js';
+import type { SbbDividerElement } from './divider.component.js';
+import './divider.component.js';
 
 describe(`sbb-divider`, () => {
   describe('renders', () => {

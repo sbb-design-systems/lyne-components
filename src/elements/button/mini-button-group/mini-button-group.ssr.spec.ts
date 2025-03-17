@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbMiniButtonGroupElement } from './mini-button-group.js';
+import { SbbMiniButtonGroupElement } from './mini-button-group.component.js';
 import '../mini-button.js';
-import '../../divider/divider.js';
+import '../../divider/divider.component.js';
 
 describe(`sbb-mini-button-group ssr`, () => {
   let root: SbbMiniButtonGroupElement;
@@ -18,7 +18,11 @@ describe(`sbb-mini-button-group ssr`, () => {
         <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
       </sbb-mini-button-group>`,
       {
-        modules: ['./mini-button-group.js', '../../divider/divider.js', '../mini-button.js'],
+        modules: [
+          './mini-button-group.component.js',
+          '../../divider/divider.component.js',
+          '../mini-button.js',
+        ],
       },
     );
   });

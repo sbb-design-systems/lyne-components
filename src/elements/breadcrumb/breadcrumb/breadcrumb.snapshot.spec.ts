@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbBreadcrumbElement } from './breadcrumb.js';
-import './breadcrumb.js';
+import type { SbbBreadcrumbElement } from './breadcrumb.component.js';
+import './breadcrumb.component.js';
 
 describe(`sbb-breadcrumb`, () => {
   describe('renders with text', () => {

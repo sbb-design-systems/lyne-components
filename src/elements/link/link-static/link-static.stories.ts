@@ -16,7 +16,7 @@ import {
 } from '../common/link-common-stories.js';
 
 import readme from './readme.md?raw';
-import './link-static.js';
+import './link-static.component.js';
 
 const defaultArgTypes: ArgTypes = {
   ...linkCommonDefaultArgTypes,

@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../autocomplete-grid-button.js';
-import './autocomplete-grid-cell.js';
+import './autocomplete-grid-cell.component.js';
 
 describe('sbb-autocomplete-grid-cell', () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

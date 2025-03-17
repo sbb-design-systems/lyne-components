@@ -7,7 +7,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './datepicker-next-day.js';
+import './datepicker-next-day.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field.js';

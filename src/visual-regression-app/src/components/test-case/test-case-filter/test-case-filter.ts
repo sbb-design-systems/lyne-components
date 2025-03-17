@@ -5,7 +5,7 @@ import { type ScreenshotTestCase } from '../../../screenshots.js';
 
 import style from './test-case-filter.scss?lit&inline';
 
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.js';
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.component.js';
 import '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/tag.js';
 

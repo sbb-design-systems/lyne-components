@@ -4,7 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import '../link/link.js';
-import './notification.js';
+import './notification.component.js';
 
 describe(`sbb-notification`, () => {
   const defaultArgs = {

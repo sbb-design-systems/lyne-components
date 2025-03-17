@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbToggleElement } from './toggle.js';
+import { SbbToggleElement } from './toggle.component.js';
 
 import '../toggle-option.js';
 
@@ -22,7 +22,7 @@ describe(`sbb-toggle ssr`, () => {
           </sbb-toggle-option>
         </sbb-toggle>
       `,
-      { modules: ['./toggle.js', '../toggle-option.js'] },
+      { modules: ['./toggle.component.js', '../toggle-option.js'] },
     );
   });
 

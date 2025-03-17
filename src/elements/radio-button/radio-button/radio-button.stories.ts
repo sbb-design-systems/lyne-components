@@ -8,7 +8,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './radio-button.js';
+import './radio-button.component.js';
 import '../../title.js';
 
 const longLabel: string =

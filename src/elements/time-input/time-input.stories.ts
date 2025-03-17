@@ -16,7 +16,7 @@ import type { SbbFormErrorElement } from '../form-error.js';
 import type { SbbFormFieldElement } from '../form-field.js';
 
 import readme from './readme.md?raw';
-import { SbbTimeInputElement } from './time-input.js';
+import { SbbTimeInputElement } from './time-input.component.js';
 import '../button/secondary-button.js';
 import '../form-field.js';
 import '../form-error.js';

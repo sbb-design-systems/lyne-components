@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbToggleOptionElement } from './toggle-option.js';
+import { SbbToggleOptionElement } from './toggle-option.component.js';
 
 describe(`sbb-toggle-option`, () => {
   let element: SbbToggleOptionElement;

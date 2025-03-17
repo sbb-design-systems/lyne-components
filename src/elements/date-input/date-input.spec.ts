@@ -6,7 +6,7 @@ import { defaultDateAdapter } from '../core/datetime.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbDateInputElement } from './date-input.js';
+import { SbbDateInputElement } from './date-input.component.js';
 
 describe('sbb-date-input', () => {
   let element: SbbDateInputElement;

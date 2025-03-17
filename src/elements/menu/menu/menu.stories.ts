@@ -4,7 +4,7 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { SbbMenuElement } from './menu.js';
+import { SbbMenuElement } from './menu.component.js';
 import readme from './readme.md?raw';
 
 import '../../button/button.js';

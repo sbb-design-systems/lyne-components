@@ -14,7 +14,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbOptionElement } from './option.js';
+import { SbbOptionElement } from './option.component.js';
 import readme from './readme.md?raw';
 
 import '../../form-field.js';

@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbTableWrapperElement } from './table-wrapper.js';
-import './table-wrapper.js';
+import type { SbbTableWrapperElement } from './table-wrapper.component.js';
+import './table-wrapper.component.js';
 
 describe(`sbb-table-wrapper`, () => {
   describe('renders', () => {

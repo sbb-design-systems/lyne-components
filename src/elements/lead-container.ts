@@ -1,1 +1,1 @@
-export * from './lead-container/lead-container.js';
+export * from './lead-container/lead-container.component.js';

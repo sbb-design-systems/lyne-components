@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbBlockLinkStaticElement } from './block-link-static.js';
-import './block-link-static.js';
+import type { SbbBlockLinkStaticElement } from './block-link-static.component.js';
+import './block-link-static.component.js';
 import '../../icon.js';
 
 describe(`sbb-block-link-static`, () => {

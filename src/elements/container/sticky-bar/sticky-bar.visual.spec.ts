@@ -10,9 +10,9 @@ import {
 } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import type { SbbStickyBarElement } from './sticky-bar.js';
+import type { SbbStickyBarElement } from './sticky-bar.component.js';
 
-import './sticky-bar.js';
+import './sticky-bar.component.js';
 import '../container.js';
 import '../../action-group.js';
 import '../../button.js';

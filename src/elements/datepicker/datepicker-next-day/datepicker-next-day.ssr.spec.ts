@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
+import { SbbDatepickerNextDayElement } from './datepicker-next-day.component.js';
 
 describe(`sbb-datepicker-next-day ssr`, () => {
   let root: SbbDatepickerNextDayElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`, {
-      modules: ['./datepicker-next-day.js'],
+      modules: ['./datepicker-next-day.component.js'],
     });
   });
 

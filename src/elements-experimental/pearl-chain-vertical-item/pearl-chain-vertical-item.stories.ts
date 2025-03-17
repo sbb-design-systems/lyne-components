@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 import '../pearl-chain-vertical.js';
-import './pearl-chain-vertical-item.js';
+import './pearl-chain-vertical-item.component.js';
 
 const Template = (args: Args): TemplateResult => {
   return html`

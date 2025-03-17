@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbStepElement } from './step.js';
-import './step.js';
+import type { SbbStepElement } from './step.component.js';
+import './step.component.js';
 
 describe('sbb-step', () => {
   describe('renders', () => {

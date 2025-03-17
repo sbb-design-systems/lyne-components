@@ -1,1 +1,1 @@
-export * from './stepper/stepper.js';
+export * from './stepper/stepper.component.js';

@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbCheckboxGroupElement } from './checkbox-group.js';
+import type { SbbCheckboxGroupElement } from './checkbox-group.component.js';
 
-import './checkbox-group.js';
+import './checkbox-group.component.js';
 import '../checkbox.js';
 import '../checkbox-panel.js';
 import '../../selection-expansion-panel.js';

@@ -10,7 +10,7 @@ import {
 
 import '../icon.js';
 import '../title.js';
-import './toggle-check.js';
+import './toggle-check.component.js';
 
 describe(`sbb-toggle-check`, () => {
   let root: HTMLElement;

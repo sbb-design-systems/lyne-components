@@ -12,7 +12,7 @@ import { html, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 
-import './autocomplete-grid-row.js';
+import './autocomplete-grid-row.component.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-button.js';

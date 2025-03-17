@@ -8,8 +8,8 @@ import { html, type TemplateResult } from 'lit';
 
 import type { ITripItem } from '../core/timetable/timetable-properties.js';
 
-import type { Boarding, Price } from './timetable-row.js';
-import './timetable-row.js';
+import type { Boarding, Price } from './timetable-row.component.js';
+import './timetable-row.component.js';
 import {
   busTrip,
   cancelledTrip,

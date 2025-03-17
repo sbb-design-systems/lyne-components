@@ -1,1 +1,1 @@
-export * from './dialog-actions/dialog-actions.js';
+export * from './dialog-actions/dialog-actions.component.js';

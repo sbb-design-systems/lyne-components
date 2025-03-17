@@ -1,1 +1,1 @@
-export * from './step/step.js';
+export * from './step/step.component.js';

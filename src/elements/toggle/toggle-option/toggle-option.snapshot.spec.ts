@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbToggleOptionElement } from './toggle-option.js';
+import type { SbbToggleOptionElement } from './toggle-option.component.js';
 
-import './toggle-option.js';
+import './toggle-option.component.js';
 
 describe(`sbb-toggle-option`, () => {
   let element: SbbToggleOptionElement;

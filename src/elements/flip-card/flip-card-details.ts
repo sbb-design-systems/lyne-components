@@ -1,1 +1,1 @@
-export * from './flip-card-details/flip-card-details.js';
+export * from './flip-card-details/flip-card-details.component.js';

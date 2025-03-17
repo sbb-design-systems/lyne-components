@@ -7,9 +7,10 @@ import type { ScreenshotFiles } from '../../../../interfaces.js';
 
 import style from './fullscreen-diff.scss?lit&inline';
 
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.component.js';
+
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.js';
 
 export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 

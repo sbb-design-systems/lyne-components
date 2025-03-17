@@ -5,7 +5,7 @@ import type { SbbSecondaryButtonElement } from '../button.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { SbbNotificationElement } from './notification.js';
+import { SbbNotificationElement } from './notification.component.js';
 
 import '../link/link.js';
 

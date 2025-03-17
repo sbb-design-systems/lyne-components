@@ -2,9 +2,9 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import type { SbbDialogElement } from './dialog.js';
+import type { SbbDialogElement } from './dialog.component.js';
 
-import './dialog.js';
+import './dialog.component.js';
 import '../dialog-actions.js';
 import '../dialog-content.js';
 import '../dialog-title.js';

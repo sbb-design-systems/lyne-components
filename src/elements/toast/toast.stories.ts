@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbButtonElement } from '../button.js';
 
 import readme from './readme.md?raw';
-import { SbbToastElement } from './toast.js';
+import { SbbToastElement } from './toast.component.js';
 import '../button/button.js';
 import '../button/transparent-button.js';
 import '../link/link.js';

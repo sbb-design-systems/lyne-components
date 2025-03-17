@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbHeaderButtonElement } from './header-button.js';
+import { SbbHeaderButtonElement } from './header-button.component.js';
 
 describe(`sbb-header-button`, () => {
   let element: SbbHeaderButtonElement;

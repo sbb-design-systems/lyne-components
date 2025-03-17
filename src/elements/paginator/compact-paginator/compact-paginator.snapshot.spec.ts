@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbCompactPaginatorElement } from './compact-paginator.js';
-import './compact-paginator.js';
+import type { SbbCompactPaginatorElement } from './compact-paginator.component.js';
+import './compact-paginator.component.js';
 
 describe(`sbb-compact-paginator`, () => {
   describe('renders', () => {

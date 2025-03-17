@@ -6,7 +6,7 @@ import { html, nothing } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbNavigationElement } from './navigation.js';
+import { SbbNavigationElement } from './navigation.component.js';
 import readme from './readme.md?raw';
 import '../navigation-section.js';
 import '../navigation-marker.js';

@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbTabLabelElement } from './tab-label.js';
+import { SbbTabLabelElement } from './tab-label.component.js';
 
 describe(`sbb-tab-label`, () => {
   let element: SbbTabLabelElement;

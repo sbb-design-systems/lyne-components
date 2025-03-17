@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbStepperElement } from './stepper.js';
-import './stepper.js';
+import type { SbbStepperElement } from './stepper.component.js';
+import './stepper.component.js';
 import '../step.js';
 import '../step-label.js';
 

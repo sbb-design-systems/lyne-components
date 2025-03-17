@@ -6,10 +6,10 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { describeIf } from '../core/testing.js';
 import type { SbbFormFieldElement } from '../form-field.js';
 
-import type { SbbAutocompleteElement } from './autocomplete.js';
+import type { SbbAutocompleteElement } from './autocomplete.component.js';
 import '../form-field.js';
 import '../option.js';
-import './autocomplete.js';
+import './autocomplete.component.js';
 
 describe(`sbb-autocomplete`, () => {
   describe('renders standalone', async () => {

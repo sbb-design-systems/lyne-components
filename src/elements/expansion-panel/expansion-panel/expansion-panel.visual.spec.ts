@@ -9,7 +9,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './expansion-panel.js';
+import './expansion-panel.component.js';
 import '../expansion-panel-header.js';
 import '../expansion-panel-content.js';
 import '../../icon.js';

@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbClockElement } from './clock.js';
-import './clock.js';
+import type { SbbClockElement } from './clock.component.js';
+import './clock.component.js';
 
 describe(`sbb-clock`, () => {
   let element: SbbClockElement;

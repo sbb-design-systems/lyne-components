@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbFormErrorElement } from './form-error.js';
+import { SbbFormErrorElement } from './form-error.component.js';
 
 describe(`sbb-form-error ssr`, () => {
   let root: SbbFormErrorElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-form-error></sbb-form-error>`, {
-      modules: ['./form-error.js'],
+      modules: ['./form-error.component.js'],
     });
   });
 

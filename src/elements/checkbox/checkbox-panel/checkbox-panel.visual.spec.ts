@@ -8,7 +8,7 @@ import {
 
 import '../../card.js';
 import '../../icon.js';
-import './checkbox-panel.js';
+import './checkbox-panel.component.js';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {

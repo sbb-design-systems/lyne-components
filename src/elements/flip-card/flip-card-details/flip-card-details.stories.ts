@@ -6,7 +6,7 @@ import { html } from 'lit';
 import readme from './readme.md?raw';
 
 import '../../link.js';
-import './flip-card-details.js';
+import './flip-card-details.component.js';
 
 const Template = (): TemplateResult =>
   html`<sbb-flip-card-details style="--sbb-flip-card-details-opacity: 1">

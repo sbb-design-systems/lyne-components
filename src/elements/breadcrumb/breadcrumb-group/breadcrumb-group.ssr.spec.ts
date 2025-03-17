@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
 
 import '../breadcrumb.js';
 
@@ -19,7 +19,7 @@ describe(`sbb-breadcrumb-group ssr`, () => {
           <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `,
-      { modules: ['./breadcrumb-group.js', '../breadcrumb.js'] },
+      { modules: ['./breadcrumb-group.component.js', '../breadcrumb.js'] },
     );
   });
 

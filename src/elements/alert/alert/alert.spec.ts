@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy } from '../../core/testing.js';
 
-import { SbbAlertElement } from './alert.js';
+import { SbbAlertElement } from './alert.component.js';
 
 describe(`sbb-alert`, () => {
   let alert: SbbAlertElement;

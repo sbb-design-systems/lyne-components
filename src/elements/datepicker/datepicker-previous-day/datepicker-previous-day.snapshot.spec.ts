@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.js';
+import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.js';
 
-import './datepicker-previous-day.js';
+import './datepicker-previous-day.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field.js';

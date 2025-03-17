@@ -1,1 +1,1 @@
-export * from './accordion/accordion.js';
+export * from './accordion/accordion.component.js';

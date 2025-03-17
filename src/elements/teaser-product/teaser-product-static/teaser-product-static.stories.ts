@@ -15,7 +15,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
-import './teaser-product-static.js';
+import './teaser-product-static.component.js';
 import '../../action-group.js';
 import '../../button/button.js';
 import '../../button/secondary-button.js';

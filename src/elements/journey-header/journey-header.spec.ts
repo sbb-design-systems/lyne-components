@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbJourneyHeaderElement } from './journey-header.js';
+import { SbbJourneyHeaderElement } from './journey-header.component.js';
 
 describe(`sbb-journey-header`, () => {
   let element: SbbJourneyHeaderElement;

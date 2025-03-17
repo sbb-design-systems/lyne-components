@@ -12,7 +12,7 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.js';
 import readme from './readme.md?raw';
 
 import '../../form-field.js';

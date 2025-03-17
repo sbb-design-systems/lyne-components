@@ -6,7 +6,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import { EventSpy, waitForCondition } from '../../core/testing.js';
 import { SbbAlertElement } from '../alert.js';
 
-import './alert-group.js';
+import './alert-group.component.js';
 
 describe(`sbb-alert-group`, () => {
   const alert = html`<sbb-alert title-content="Interruption between Berne and Olten">

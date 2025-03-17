@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbAccordionElement } from './accordion.js';
+import { SbbAccordionElement } from './accordion.component.js';
 
 import '../expansion-panel.js';
 
@@ -28,7 +28,7 @@ describe(`sbb-accordion ssr`, () => {
           </sbb-expansion-panel>
         </sbb-accordion>
       `,
-      { modules: ['./accordion.js', '../expansion-panel.js'] },
+      { modules: ['./accordion.component.js', '../expansion-panel.js'] },
     );
   });
 

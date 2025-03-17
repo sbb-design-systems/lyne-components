@@ -1,1 +1,1 @@
-export * from './loading-indicator-circle/loading-indicator-circle.js';
+export * from './loading-indicator-circle/loading-indicator-circle.component.js';

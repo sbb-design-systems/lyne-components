@@ -3,9 +3,9 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbAlertGroupElement } from './alert-group.js';
+import { SbbAlertGroupElement } from './alert-group.component.js';
 
-import '../alert/alert.js';
+import '../alert/alert.component.js';
 
 describe(`sbb-alert-group ssr`, () => {
   let root: SbbAlertGroupElement;
@@ -18,7 +18,7 @@ describe(`sbb-alert-group ssr`, () => {
           <sbb-alert title-content="Interruption">Second</sbb-alert>
         </sbb-alert-group>
       `,
-      { modules: ['./alert-group.js', '../alert.js'] },
+      { modules: ['./alert-group.component.js', '../alert.component.js'] },
     );
   });
 

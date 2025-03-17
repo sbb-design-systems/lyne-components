@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbSkiplinkListElement } from './skiplink-list.js';
+import { SbbSkiplinkListElement } from './skiplink-list.component.js';
 
 import '../link/block-link.js';
 
@@ -20,7 +20,7 @@ describe(`sbb-skiplink-list ssr`, () => {
         </sbb-skiplink-list>
         <button id="button">Focus me</button>
       `,
-      { modules: ['./skiplink-list.js', '../link.js'] },
+      { modules: ['./skiplink-list.component.js', '../link.js'] },
     );
   });
 

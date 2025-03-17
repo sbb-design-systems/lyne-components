@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbMenuElement } from './menu.js';
+import type { SbbMenuElement } from './menu.component.js';
 
-import './menu.js';
+import './menu.component.js';
 import '../menu-button.js';
 import '../../button.js';
 import '../../divider.js';

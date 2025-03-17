@@ -1,1 +1,1 @@
-export * from './calendar/calendar.js';
+export * from './calendar/calendar.component.js';

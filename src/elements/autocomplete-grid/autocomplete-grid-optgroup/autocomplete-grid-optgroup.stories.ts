@@ -4,7 +4,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import '../../form-field.js';
-import './autocomplete-grid-optgroup.js';
+import './autocomplete-grid-optgroup.component.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';

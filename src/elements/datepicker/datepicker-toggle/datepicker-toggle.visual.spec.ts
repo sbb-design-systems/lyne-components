@@ -7,9 +7,9 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import type { SbbDatepickerToggleElement } from './datepicker-toggle.js';
+import type { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
 
-import './datepicker-toggle.js';
+import './datepicker-toggle.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field.js';

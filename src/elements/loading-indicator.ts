@@ -1,1 +1,1 @@
-export * from './loading-indicator/loading-indicator.js';
+export * from './loading-indicator/loading-indicator.component.js';

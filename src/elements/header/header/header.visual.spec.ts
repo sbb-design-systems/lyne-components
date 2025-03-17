@@ -6,7 +6,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './header.js';
+import './header.component.js';
 import '../header-link.js';
 import '../header-button.js';
 import '../../menu.js';

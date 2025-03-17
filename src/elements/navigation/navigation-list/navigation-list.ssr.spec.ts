@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbNavigationListElement } from './navigation-list.js';
+import { SbbNavigationListElement } from './navigation-list.component.js';
 
 import '../navigation-button.js';
 
@@ -18,7 +18,7 @@ describe(`sbb-navigation-list ssr`, () => {
           <sbb-navigation-button>Label 2</sbb-navigation-button>
         </sbb-navigation-list>
       `,
-      { modules: ['./navigation-list.js', '../navigation-button.js'] },
+      { modules: ['./navigation-list.component.js', '../navigation-button.js'] },
     );
   });
 

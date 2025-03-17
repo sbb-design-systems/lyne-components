@@ -24,7 +24,7 @@ import {
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './transparent-button-link.js';
+import './transparent-button-link.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonLinkDefaultArgTypes };
 

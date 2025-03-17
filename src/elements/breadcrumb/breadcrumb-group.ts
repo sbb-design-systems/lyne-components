@@ -1,1 +1,1 @@
-export * from './breadcrumb-group/breadcrumb-group.js';
+export * from './breadcrumb-group/breadcrumb-group.component.js';

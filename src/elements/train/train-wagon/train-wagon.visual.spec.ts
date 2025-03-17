@@ -2,7 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import './train-wagon.js';
+import './train-wagon.component.js';
 import '../train-formation.js';
 import '../train.js';
 

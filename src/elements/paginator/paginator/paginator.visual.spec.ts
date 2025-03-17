@@ -8,7 +8,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './paginator.js';
+import './paginator.component.js';
 
 describe('sbb-paginator', () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

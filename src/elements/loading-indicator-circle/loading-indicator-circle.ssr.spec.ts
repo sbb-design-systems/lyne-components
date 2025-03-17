@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.js';
+import { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.js';
 
 describe(`sbb-loading-indicator-circle ssr`, () => {
   let root: SbbLoadingIndicatorCircleElement;
@@ -12,7 +12,7 @@ describe(`sbb-loading-indicator-circle ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-loading-indicator-circle></sbb-loading-indicator-circle>`,
       {
-        modules: ['./loading-indicator-circle.js'],
+        modules: ['./loading-indicator-circle.component.js'],
       },
     );
   });

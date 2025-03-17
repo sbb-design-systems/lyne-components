@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbFileSelectorElement } from './file-selector.js';
-import './file-selector.js';
+import type { SbbFileSelectorElement } from './file-selector.component.js';
+import './file-selector.component.js';
 
 describe(`sbb-file-selector`, () => {
   describe('renders', () => {

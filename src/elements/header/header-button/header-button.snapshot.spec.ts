@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbHeaderButtonElement } from './header-button.js';
-import './header-button.js';
+import type { SbbHeaderButtonElement } from './header-button.component.js';
+import './header-button.component.js';
 
 describe(`sbb-header-button`, () => {
   describe('renders', () => {

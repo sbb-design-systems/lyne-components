@@ -7,7 +7,7 @@ import { fixture } from '../../core/testing/private.js';
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
 import { SbbAlertElement } from '../alert.js';
 
-import { SbbAlertGroupElement } from './alert-group.js';
+import { SbbAlertGroupElement } from './alert-group.component.js';
 
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;

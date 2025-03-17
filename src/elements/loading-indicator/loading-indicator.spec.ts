@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbLoadingIndicatorElement } from './loading-indicator.js';
+import { SbbLoadingIndicatorElement } from './loading-indicator.component.js';
 
 describe(`sbb-loading-indicator`, () => {
   let element: SbbLoadingIndicatorElement;

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbHeaderLinkElement } from './header-link.js';
+import { SbbHeaderLinkElement } from './header-link.component.js';
 
 describe(`sbb-header-link ssr`, () => {
   let root: SbbHeaderLinkElement;
@@ -12,7 +12,7 @@ describe(`sbb-header-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-header-link id="focus-id" href="#">Action</sbb-header-link>`,
       {
-        modules: ['./header-link.js'],
+        modules: ['./header-link.component.js'],
       },
     );
   });

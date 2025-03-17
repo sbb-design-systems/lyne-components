@@ -1,1 +1,1 @@
-export * from './expansion-panel-header/expansion-panel-header.js';
+export * from './expansion-panel-header/expansion-panel-header.component.js';

@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbAccentButtonLinkElement } from './accent-button-link.js';
+import { SbbAccentButtonLinkElement } from './accent-button-link.component.js';
 
 describe(`sbb-accent-button-link ssr`, () => {
   let root: SbbAccentButtonLinkElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-accent-button-link>Button</sbb-accent-button-link>`, {
-      modules: ['./accent-button-link.js'],
+      modules: ['./accent-button-link.component.js'],
     });
   });
 

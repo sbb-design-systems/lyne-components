@@ -24,7 +24,7 @@ import {
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './accent-button-link.js';
+import './accent-button-link.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonLinkDefaultArgTypes };
 

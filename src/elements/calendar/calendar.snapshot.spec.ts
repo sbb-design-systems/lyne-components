@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import './calendar.js';
-import type { SbbCalendarElement } from './calendar.js';
+import './calendar.component.js';
+import type { SbbCalendarElement } from './calendar.component.js';
 
 describe(`sbb-calendar`, () => {
   describe('renders', () => {

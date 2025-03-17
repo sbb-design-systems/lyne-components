@@ -12,7 +12,7 @@ import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbDatepickerNextDayElement } from '../datepicker-next-day.js';
 import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day.js';
 
-import { getDatePicker, SbbDatepickerElement } from './datepicker.js';
+import { getDatePicker, SbbDatepickerElement } from './datepicker.component.js';
 
 import '../../date-input.js';
 import '../../form-field.js';
