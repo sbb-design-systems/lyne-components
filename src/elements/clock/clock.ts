@@ -160,10 +160,10 @@ class SbbClockElement extends LitElement {
         this._setHandsStartingPosition();
 
         this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
+        this._state = 'running';
         resolve();
       }, INITIAL_TIMEOUT_DURATION),
     );
-    this._state = 'running';
   }
 
   /** Stops the clock by removing all the animations. */
