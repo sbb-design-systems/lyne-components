@@ -31,13 +31,18 @@
   width: 100vh;
 }
 
-.sbb-seat-reservation__list-coaches {
+.sbb-seat-reservation__parent {
   overflow: scroll hidden;
+  padding: 48px 0;
+}
+
+.sbb-seat-reservation__list-coaches {
   display: flex;
   gap: 4px;
-  padding: 48px 0;
+  padding: 0;
   margin: 0;
   list-style: none;
+  transform-origin: 0 0;
 }
 
 .sbb-seat-reservation__list-coaches .sbb-seat-reservation__item-coach {
