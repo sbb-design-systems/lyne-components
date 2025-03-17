@@ -1,4 +1,4 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { html, LitElement, nothing } from 'lit';
@@ -6,6 +6,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit-html/directives/style-map.js';
 
+import { getI18nSeatReservation } from '../common/i18n/i18n.js';
 import type {
   CoachItem,
   Place,
@@ -23,7 +24,6 @@ import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-navigation.js';
 import '../seat-reservation-place-control.js';
-import { getI18nSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/i18n/i18n';
 
 /**
  * Describe the purpose of the component with a single short sentence.
