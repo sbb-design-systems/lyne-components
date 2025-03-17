@@ -41,6 +41,9 @@ const SECONDS_IN_A_MINUTE = 60;
 /** Number of seconds in an hour. */
 const SECONDS_IN_AN_HOUR = 3600;
 
+/** As a fallback measure, reset the clock every half an hour */
+const RESET_INTERVAL = SECONDS_IN_AN_HOUR / 2;
+
 const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
   once: true,
   passive: true,
@@ -59,6 +62,9 @@ class SbbClockElement extends LitElement {
    * @param value HH:MM:ss
    */
   @property() public accessor now: SbbTime | null = null;
+
+  /** Whether the clock is ticking or not */
+  private _state: 'running' | 'paused' = 'paused';
 
   /** Reference to the hour hand. */
   private _clockHandHours!: HTMLElement;
@@ -81,11 +87,19 @@ class SbbClockElement extends LitElement {
   /** Move the minutes hand every minute. */
   private _handMovement?: ReturnType<typeof setInterval>;
 
+  private _resetIntervalID?: ReturnType<typeof setInterval>;
+
   /** Callback function for hours hand. */
   private _moveHoursHandFn = (): void => this._moveHoursHand();
 
   /** Callback function for minutes hand. */
   private _moveMinutesHandFn = (): void => this._moveMinutesHand();
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this._resetIntervalID = setInterval(() => this._resetClock(), RESET_INTERVAL * 1000);
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -107,6 +121,7 @@ class SbbClockElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._removeEventListeners();
+    clearInterval(this._resetIntervalID);
   }
 
   private _handlePageVisibilityChange = async (): Promise<void> => {
@@ -148,6 +163,7 @@ class SbbClockElement extends LitElement {
         resolve();
       }, INITIAL_TIMEOUT_DURATION),
     );
+    this._state = 'running';
   }
 
   /** Stops the clock by removing all the animations. */
@@ -163,6 +179,18 @@ class SbbClockElement extends LitElement {
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
     this.style?.setProperty('--sbb-clock-animation-play-state', 'paused');
+    this._state = 'paused';
+  }
+
+  /**
+   * As a fallback measure to prevent de-sync, reset the clock to the system time.
+   */
+  private async _resetClock(): Promise<void> {
+    if (this._state !== 'running') {
+      return;
+    }
+    await this._stopClock();
+    await this._startClock();
   }
 
   /** Set the starting position for the three hands on the clock face. */
