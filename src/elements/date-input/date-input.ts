@@ -15,7 +15,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
 } from '../core/mixins.js';
-import { type SbbDatepickerElement } from '../datepicker/datepicker/datepicker.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
 import style from './date-input.scss?lit&inline';
 
