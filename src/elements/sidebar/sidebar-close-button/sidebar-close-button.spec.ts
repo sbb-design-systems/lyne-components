@@ -1,7 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { i18nCloseNavigation } from '../../core/i18n.js';
+import { i18nCloseSidebar } from '../../core/i18n.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
@@ -21,12 +21,12 @@ describe('sbb-sidebar-close-button', () => {
   });
 
   it('should update the aria-label when language changes', async () => {
-    expect(element).to.have.attribute('aria-label', i18nCloseNavigation['en']);
+    expect(element).to.have.attribute('aria-label', i18nCloseSidebar['en']);
 
     document.documentElement.setAttribute('lang', 'de');
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('aria-label', i18nCloseNavigation['de']);
+    expect(element).to.have.attribute('aria-label', i18nCloseSidebar['de']);
   });
 
   it('should not update the aria-label when language changes and aria-label is customized', async () => {

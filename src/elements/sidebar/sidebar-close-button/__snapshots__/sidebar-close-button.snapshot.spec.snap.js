@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-sidebar-close-button renders DOM"] = 
 `<sbb-sidebar-close-button
-  aria-label="Close navigation"
+  aria-label="Close sidebar"
   data-action=""
   data-button=""
   data-sbb-button=""
@@ -39,7 +39,7 @@ snapshots["sbb-sidebar-close-button renders A11y tree Firefox"] =
   "children": [
     {
       "role": "button",
-      "name": "Close navigation"
+      "name": "Close sidebar"
     }
   ]
 }
@@ -55,7 +55,7 @@ snapshots["sbb-sidebar-close-button renders A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "Close navigation"
+      "name": "Close sidebar"
     }
   ]
 }
