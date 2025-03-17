@@ -323,7 +323,7 @@ describe(`sbb-datepicker-toggle`, () => {
         ).to.be.equal('2020');
       });
 
-      it.only('renders correctly the calendar when wide is set', async () => {
+      it('renders correctly the calendar when wide is set', async () => {
         await setViewport({ width: 900, height: 600 });
         const element: SbbFormFieldElement = await fixture(
           html`<sbb-form-field>
