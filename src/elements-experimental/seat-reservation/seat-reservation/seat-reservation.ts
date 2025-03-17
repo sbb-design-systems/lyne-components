@@ -57,6 +57,10 @@ class SbbSeatReservationElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
+  @forceType()
+  @property({ attribute: 'scale', type: Number })
+  public accessor scale: number = 1;
+
   /** Emits when an place was selected by user. */
   protected selectedPlaces: EventEmitter = new EventEmitter(
     this,
@@ -115,9 +119,9 @@ class SbbSeatReservationElement extends LitElement {
             .selectedCoachIndex=${this._selectedCoachIndex}
             @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
           ></sbb-seat-reservation-navigation>
-          <div class="sbb-seat-reservation__parent">
+          <div id="sbb-seat-reservation__parent-area" class="sbb-seat-reservation__parent">
             <ul
-              id="sbb-seat-reservation__list-coach-area"
+              style="transform:scale(${this.scale})"
               class="sbb-seat-reservation__list-coaches"
               aria-label=${getAriaLabel('LIST_ALL_COACHES')}
             >
@@ -150,7 +154,10 @@ class SbbSeatReservationElement extends LitElement {
     const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
 
     return html`
-      <div style="width:${calculatedCoachDimension.w}px; height:${calculatedCoachDimension.h}px;">
+      <div
+        style="width:${calculatedCoachDimension.w}px; height:${calculatedCoachDimension.h *
+        this.scale}px;"
+      >
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedServiceElements(coachItem.serviceElements)}
@@ -388,7 +395,7 @@ class SbbSeatReservationElement extends LitElement {
 
   private _initNavigationSelectionByScrollEvent(): void {
     this._coachScrollArea = this.shadowRoot?.getElementById(
-      'sbb-seat-reservation__list-coach-area',
+      'sbb-seat-reservation__parent-area',
     ) as HTMLElement;
 
     if (this._coachScrollArea) {
@@ -398,7 +405,7 @@ class SbbSeatReservationElement extends LitElement {
       //Generate calculated trigger point array depends from coach width
       this._triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const fromPos = currCalcTriggerPos;
-        currCalcTriggerPos += this._getCalculatedDimension(coach.dimension).w;
+        currCalcTriggerPos += this._getCalculatedDimension(coach.dimension).w * this.scale;
         return [fromPos, currCalcTriggerPos];
       });
 
