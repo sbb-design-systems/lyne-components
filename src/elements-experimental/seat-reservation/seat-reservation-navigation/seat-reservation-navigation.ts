@@ -1,9 +1,10 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { getI18nSeatReservation } from '../common/i18n/i18n.js';
 import { mapNavigationIconToSvg } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
@@ -11,8 +12,6 @@ import style from './seat-reservation-navigation.scss?lit&inline';
 
 import '../seat-reservation-graphic.js';
 import '@sbb-esta/lyne-elements/icon/icon.js';
-import { getI18nSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/i18n/i18n';
-
 /**
  * It will display the navigation for Seat reservation.
  *
