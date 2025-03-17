@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -39,7 +39,7 @@ class SbbTimeInputElement extends LitElement {
   @property()
   public set input(value: string | HTMLElement | null) {
     this._input = value;
-    this._findInputElement();
+    this._setupInputElement();
   }
   public get input(): string | HTMLElement | null {
     return this._input;
@@ -94,10 +94,7 @@ class SbbTimeInputElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._findInputElement();
-    if (this._inputElement) {
-      this._updateValue(this._inputElement.value);
-    }
+    this._setupInputElement();
   }
 
   public override disconnectedCallback(): void {
@@ -105,13 +102,26 @@ class SbbTimeInputElement extends LitElement {
     this._abortController?.abort();
   }
 
-  private _findInputElement(): void {
-    const oldInput = this._inputElement;
-    this._inputElement = findInput(this, this.input);
+  public override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
 
-    if (oldInput !== this._inputElement) {
-      this._registerInputElement();
+    this._setupInputElement();
+  }
+
+  private _setupInputElement(): void {
+    const newInput = findInput(this, this.input);
+    if (!newInput) {
+      this._abortController?.abort();
+      return;
     }
+
+    const oldInput = this._inputElement;
+    if (oldInput === newInput) {
+      return;
+    }
+    this._inputElement = newInput;
+    this._registerInputElement();
+    this._updateValue(this._inputElement.value);
   }
 
   private _registerInputElement(): void {
