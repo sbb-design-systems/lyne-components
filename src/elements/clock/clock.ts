@@ -87,7 +87,7 @@ class SbbClockElement extends LitElement {
   /** Move the minutes hand every minute. */
   private _handMovement?: ReturnType<typeof setInterval>;
 
-  private _resetIntervalID?: ReturnType<typeof setInterval>;
+  private _resetIntervalId?: ReturnType<typeof setInterval>;
 
   /** Callback function for hours hand. */
   private _moveHoursHandFn = (): void => this._moveHoursHand();
@@ -98,7 +98,7 @@ class SbbClockElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._resetIntervalID = setInterval(() => this._resetClock(), RESET_INTERVAL * 1000);
+    this._resetIntervalId = setInterval(() => this._resetClock(), RESET_INTERVAL * 1000);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -121,7 +121,7 @@ class SbbClockElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._removeEventListeners();
-    clearInterval(this._resetIntervalID);
+    clearInterval(this._resetIntervalId);
   }
 
   private _handlePageVisibilityChange = async (): Promise<void> => {
