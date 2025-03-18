@@ -4,7 +4,6 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { html, LitElement, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit-html/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common/i18n/i18n.js';
 import type {
@@ -118,13 +117,12 @@ class SbbSeatReservationElement extends LitElement {
         <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
           <sbb-seat-reservation-navigation
             .seatReservation=${this.seatReservation}
-            .alignVertical=${this.alignVertical}
             .selectedCoachIndex=${this._selectedCoachIndex}
             @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
           ></sbb-seat-reservation-navigation>
-          <div id="sbb-seat-reservation__parent-area" class="sbb-seat-reservation__parent">
+          <div class="sbb-seat-reservation__parent">
             <ul
-              style="transform:scale(${this.scale})"
+              id="sbb-seat-reservation__list-coach-area"
               class="sbb-seat-reservation__list-coaches"
               aria-label="${getI18nSeatReservation('LIST_ALL_COACHES', this._language.current)}"
             >
@@ -157,9 +155,15 @@ class SbbSeatReservationElement extends LitElement {
     const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
 
     return html`
+      <style>
+        .coach-wrapper[data-coach-id='${coachItem.id}-${calculatedCoachDimension.w}-${calculatedCoachDimension.h}'] {
+          width: ${calculatedCoachDimension.w}px;
+          height: ${calculatedCoachDimension.h * this.scale}px;
+        }
+      </style>
       <div
-        style="width:${calculatedCoachDimension.w}px; height:${calculatedCoachDimension.h *
-        this.scale}px;"
+        data-coach-id="${coachItem.id}-${calculatedCoachDimension.w}-${calculatedCoachDimension.h}"
+        class="coach-wrapper"
       >
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
@@ -183,19 +187,25 @@ class SbbSeatReservationElement extends LitElement {
         ? driverArea?.dimension.w * this._gridSizeFactor
         : this._gridSizeFactor;
 
-    return html`<div
-      class="coach-border"
-      style="position:absolute; left:${borderOffsetX}px; top: ${this._coachBorderPadding *
-      -1}px; z-index:0;"
-    >
-      <sbb-seat-reservation-graphic
-        name="COACH_BORDER_MIDDLE"
-        width=${borderWidth}
-        height=${coachItem.dimension.h + this._coachBorderPaddingUnit * 2}
-        ?stretch=${true}
-        aria-hidden="true"
-      ></sbb-seat-reservation-graphic>
-    </div> `;
+    return html`
+      <style>
+        .coach-border[data-coach-border-id='${coachItem.id}'] {
+          position: absolute;
+          left: ${borderOffsetX}px;
+          top: ${this._coachBorderPadding * -1}px;
+          z-index: 0;
+        }
+      </style>
+      <div data-coach-border-id="${coachItem.id}" class="coach-border">
+        <sbb-seat-reservation-graphic
+          name="COACH_BORDER_MIDDLE"
+          width=${borderWidth}
+          height=${coachItem.dimension.h + this._coachBorderPaddingUnit * 2}
+          ?stretch=${true}
+          aria-hidden="true"
+        ></sbb-seat-reservation-graphic>
+      </div>
+    `;
   }
 
   private _getRenderedPlaces(coach: CoachItem, coachIndex: number): TemplateResult[] | null {
@@ -207,16 +217,21 @@ class SbbSeatReservationElement extends LitElement {
       const calculatedInternalDimension = this._getCalculatedDimension(place.dimension);
       const calculatedInternalPosition = this._getCalculatedPosition(place.position);
       const textRotation = place.rotation ? place.rotation * -1 : 0;
-      const elementStyle = {
-        top: calculatedInternalPosition.y + 'px',
-        left: calculatedInternalPosition.x + 'px',
-        width: calculatedInternalDimension.w + 'px',
-        height: calculatedInternalDimension.h + 'px',
-        zIndex: place.position.z,
-      };
 
       return html`
-        <div class="sbb-seat-reservation__graphical-element" style=${styleMap(elementStyle)}>
+        <style>
+          .sbb-seat-reservation__graphical-element[data-graphical-element-id='${coachIndex}-${place.number}'] {
+            top: ${calculatedInternalPosition.y}px;
+            left: ${calculatedInternalPosition.x}px;
+            width: ${calculatedInternalDimension.w}px;
+            height: ${calculatedInternalDimension.h}px;
+            z-index: ${place.position.z};
+          }
+        </style>
+        <div
+          data-graphical-element-id="${coachIndex}-${place.number}"
+          class="sbb-seat-reservation__graphical-element"
+        >
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
             id="seat-reservation__place-button-${coachIndex}-${place.number}"
@@ -288,10 +303,18 @@ class SbbSeatReservationElement extends LitElement {
     }
 
     return html`
+      <style>
+        .sbb-seat-reservation__graphical-element[data-id='graph-el-with-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}'] {
+          top: ${calculatedPosition.y}px;
+          left: ${calculatedPosition.x}px;
+          width: ${calculatedDimension.w}px;
+          height: ${calculatedDimension.h}px;
+          z-index: ${graphicalElement.position.z};
+        }
+      </style>
       <div
+        data-id="graph-el-with-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}"
         class="sbb-seat-reservation__graphical-element"
-        style="top:${calculatedPosition.y}px; left:${calculatedPosition.x}px; width:${calculatedDimension.w}px; height:${calculatedDimension.h}px; z-index:${graphicalElement
-          .position.z};"
       >
         <sbb-seat-reservation-area
           width=${graphicalElement.dimension.w}
@@ -342,10 +365,18 @@ class SbbSeatReservationElement extends LitElement {
     }
 
     return html`
+      <style>
+        .sbb-seat-reservation__graphical-element[data-id='graph-el-w/o-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}'] {
+          top: ${calculatedPosition.y}px;
+          left: ${calculatedPosition.x}px;
+          width: ${calculatedDimension.w}px;
+          height: ${calculatedDimension.h}px;
+          z-index: ${graphicalElement.position.z};
+        }
+      </style>
       <div
+        data-id="graph-el-w/o-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}"
         class="sbb-seat-reservation__graphical-element"
-        style="top:${calculatedPosition.y}px; left:${calculatedPosition.x}px; width:${calculatedDimension.w}px; height:${calculatedDimension.h}px; z-index:${graphicalElement
-          .position.z};"
         title=${ariaLabel || nothing}
         aria-label=${ariaLabel || nothing}
         role=${ariaLabel ? 'figure' : nothing}
@@ -377,10 +408,18 @@ class SbbSeatReservationElement extends LitElement {
         serviceElement.position,
       );
       return html`
+        <style>
+          .sbb-seat-reservation__graphical-element[data-id='graph-service-el-${calculatedcCmpartmentNumberPosition.y}-${calculatedcCmpartmentNumberPosition.x}-${calculatedcCmpartmentNumberDimension.w}-${calculatedcCmpartmentNumberDimension.h}'] {
+            top: ${calculatedcCmpartmentNumberPosition.y}px;
+            left: ${calculatedcCmpartmentNumberPosition.x}px;
+            width: ${calculatedcCmpartmentNumberDimension.w}px;
+            height: ${calculatedcCmpartmentNumberDimension.h}px;
+            z-index: ${serviceElement.position.z};
+          }
+        </style>
         <div
+          data-id="graph-service-el-${calculatedcCmpartmentNumberPosition.y}-${calculatedcCmpartmentNumberPosition.x}-${calculatedcCmpartmentNumberDimension.w}-${calculatedcCmpartmentNumberDimension.h}"
           class="sbb-seat-reservation__graphical-element"
-          style="position:absolute; top:${calculatedcCmpartmentNumberPosition.y}px; left:${calculatedcCmpartmentNumberPosition.x}px; width:${calculatedcCmpartmentNumberDimension.w}px; height:${calculatedcCmpartmentNumberDimension.h}px; z-index:${serviceElement
-            .position.z};"
           role="note"
           aria-label="${getI18nSeatReservation(
             'SERVICE_' + serviceElement.icon || '',
