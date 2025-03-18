@@ -233,38 +233,15 @@ describe('sbb-chip-group', () => {
 
         await sendKeys({ press: tabKey });
 
-        // Should focus the last enabled chip
-        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
-
-        await sendKeys({ press: tabKey });
-
+        // Should skip the chips and focus the input
         expect(document.activeElement!.localName).to.be.equal('input');
 
         await sendKeys({ down: 'Shift' });
         await sendKeys({ press: tabKey });
         await sendKeys({ up: 'Shift' });
 
-        // Should focus the last enabled chip
-        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
-
-        await sendKeys({ down: 'Shift' });
-        await sendKeys({ press: tabKey });
-        await sendKeys({ up: 'Shift' });
-
-        // Should not trap the focus and let the previous element to be focused
+        // Should skip the chips and focus the previous element
         expect(document.activeElement!.localName).to.be.equal(focusStep.localName);
-
-        // Should skip the last disabled chip and focus the second to last
-        chips.at(-1)!.disabled = true;
-        chips.at(-2)!.readonly = true;
-        await waitForLitRender(element);
-
-        await sendKeys({ press: tabKey });
-
-        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-2)!.value);
       });
 
       it('should remove chip on delete key', async () => {
@@ -326,35 +303,19 @@ describe('sbb-chip-group', () => {
 
         await sendKeys({ press: 'ArrowRight' });
 
-        // Should focus the delete button of the first chip
-        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[0].value);
-        expect(document.activeElement!.shadowRoot!.activeElement!).to.have.class(
-          'sbb-chip__delete',
-        );
+        // Should skip the disabled chip and focus the last one
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[2].value);
 
         await sendKeys({ press: 'ArrowDown' });
 
-        // Should skip the disabled chip and focus the last one
-        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[2].value);
-        expect(document.activeElement!.shadowRoot!.activeElement!).to.have.class(
-          'sbb-chip__label-wrapper',
-        );
-
-        await sendKeys({ press: 'ArrowRight' });
-
         // Should wrap and go back to the first chip
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[0].value);
-        expect(document.activeElement!.shadowRoot!.activeElement!).to.have.class(
-          'sbb-chip__label-wrapper',
-        );
 
         await sendKeys({ press: 'ArrowLeft' });
-
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[2].value);
-        expect(document.activeElement!.shadowRoot!.activeElement!).to.have.class(
-          'sbb-chip__label-wrapper',
-        );
+
+        await sendKeys({ press: 'ArrowUp' });
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[0].value);
       });
     });
   });

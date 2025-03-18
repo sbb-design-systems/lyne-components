@@ -45,7 +45,6 @@ export interface SbbChipInputTokenEndEventDetails {
 export
 @customElement('sbb-chip-group')
 @hostAttributes({
-  tabindex: '0',
   role: 'grid',
 })
 class SbbChipGroupElement extends SbbRequiredMixin(
@@ -135,7 +134,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       this._deleteChip(ev.target as SbbChipElement),
     );
 
-    this.addEventListener('focus', () => this._focusChip());
     this.addEventListener('keydown', (ev) => this._onChipKeyDown(ev));
   }
 
@@ -278,11 +276,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
           this._deleteChip(eventTarget);
         }
         break;
-      case 'Tab':
-        if (event.shiftKey) {
-          this._allowFocusEscape();
-        }
-        break;
     }
   }
 
@@ -294,11 +287,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       case 'Backspace':
         if (!this._inputElement!.value) {
           this._focusChip();
-        }
-        break;
-      case 'Tab':
-        if (event.shiftKey && this._enabledChipElements().length === 0) {
-          this._allowFocusEscape();
         }
         break;
       case 'Enter':
@@ -376,22 +364,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     newChip.setAttribute('value', value);
     newChip.innerText = label ?? '';
     this.insertBefore(newChip, this._inputElement!);
-  }
-
-  /**
-   * Removes the `tabindex` from the chip-group and resets it back afterward, allowing the
-   * user to tab out of it. This prevents the set from capturing focus and redirecting
-   * it back to the last chip, creating a focus trap, if the user tries to tab away.
-   */
-  private _allowFocusEscape(): void {
-    if (this.tabIndex !== -1) {
-      const previousTabIndex = this.tabIndex;
-      this.tabIndex = -1;
-
-      // Note that this needs to be a `setTimeout`, because a `Promise.resolve`
-      // doesn't allow enough time for the focus to escape.
-      setTimeout(() => (this.tabIndex = previousTabIndex));
-    }
   }
 
   private _reactToInputChanges(): void {

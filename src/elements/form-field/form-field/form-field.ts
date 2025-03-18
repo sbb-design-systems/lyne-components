@@ -55,7 +55,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     'sbb-slider',
   ];
   // List of elements that should not focus input on click
-  private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option'];
+  private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];
 
   private readonly _floatingLabelSupportedInputElements = [
     'input',
