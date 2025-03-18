@@ -13,10 +13,31 @@ describe(`sbb-link`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html` <sbb-link size="m" href="https://sbb.ch" target="_blank">
+        html`<sbb-link size="m" href="https://sbb.ch" target="_blank">
           Travelcards &amp; tickets.
         </sbb-link>`,
       );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+
+  describe('reflects properties', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-link size="m"> Travelcards &amp; tickets. </sbb-link>`);
+
+      element.href = 'https://sbb.ch/';
+      element.rel = 'nofollow';
+      element.target = '_blank';
+      element.download = true;
     });
 
     it('DOM', async () => {
