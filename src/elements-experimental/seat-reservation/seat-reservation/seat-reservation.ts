@@ -120,9 +120,8 @@ class SbbSeatReservationElement extends LitElement {
             .selectedCoachIndex=${this._selectedCoachIndex}
             @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
           ></sbb-seat-reservation-navigation>
-          <div class="sbb-seat-reservation__parent">
+          <div id="sbb-seat-reservation__parent-area" class="sbb-seat-reservation__parent">
             <ul
-              id="sbb-seat-reservation__list-coach-area"
               class="sbb-seat-reservation__list-coaches"
               aria-label="${getI18nSeatReservation('LIST_ALL_COACHES', this._language.current)}"
             >
