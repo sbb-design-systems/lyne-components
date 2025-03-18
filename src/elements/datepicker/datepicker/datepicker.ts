@@ -90,7 +90,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   @property({ type: Boolean })
   public set wide(value: boolean) {
     this._wide = value;
-    this._associationController.updateControls();
   }
   public get wide(): boolean {
     return this._wide;
@@ -104,7 +103,6 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   @property({ attribute: false })
   public set dateFilter(value: (date: T | null) => boolean) {
     this._dateFilter = value;
-    this._associationController.updateControls();
   }
   public get dateFilter(): (date: T | null) => boolean {
     return (
@@ -261,6 +259,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       changedProperties.has('dateFilter') ||
       changedProperties.has('now')
     ) {
+      this._associationController.updateControls();
       this._datePickerUpdated.emit();
     }
     if (changedProperties.has('valueAsDate')) {

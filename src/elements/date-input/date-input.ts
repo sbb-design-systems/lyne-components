@@ -116,7 +116,14 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   private _valueCache?: [string, T | null];
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _placeholderMutable = false;
-  private _datepicker?: SbbDatepickerElement<T> | null;
+
+  /**
+   * Gets the associated datepicker, if any.
+   * The date-input and the datepicker are assumed to be in the same parent container.
+   */
+  private get _datepicker(): SbbDatepickerElement<T> | null {
+    return this.parentElement!.querySelector<SbbDatepickerElement<T>>('sbb-datepicker');
+  }
 
   public constructor() {
     super();
@@ -131,8 +138,6 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       this._placeholderMutable = true;
       this.placeholder = i18nDatePickerPlaceholder[this.language.current];
     }
-    this._datepicker =
-      this.closest?.('sbb-form-field')?.querySelector<SbbDatepickerElement<T>>('sbb-datepicker');
   }
 
   public override requestUpdate(
