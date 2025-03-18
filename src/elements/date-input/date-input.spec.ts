@@ -9,9 +9,8 @@ import type { SbbDatepickerElement } from '../datepicker/datepicker.js';
 
 import { SbbDateInputElement } from './date-input.js';
 
-import '../form-field/form-field/form-field.js';
-import '../datepicker/datepicker-toggle/datepicker-toggle.js';
-import '../datepicker/datepicker/datepicker.js';
+import '../form-field.js';
+import '../datepicker.js';
 
 describe('sbb-date-input', () => {
   let element: SbbDateInputElement;
