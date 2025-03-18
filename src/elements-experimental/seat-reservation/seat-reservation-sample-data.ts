@@ -4817,7 +4817,7 @@ export const MOCK_COACHES_RAW_1 = [
             },
           },
           orientation: 180,
-          type: 'COACH_PASSAGE',
+          type: 'COACH_BORDER_OUTER',
         },
         {
           rectangle: {

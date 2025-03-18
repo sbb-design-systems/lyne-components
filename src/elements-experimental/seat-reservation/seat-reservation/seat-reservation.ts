@@ -80,7 +80,7 @@ class SbbSeatReservationElement extends LitElement {
   private _selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
   private _triggerCoachPositionsCollection: number[][] = [];
   private _coachScrollArea: HTMLElement = null!;
-  private _currSelectedPlaceIndex: number | null = null;
+  private _currSelectedPlace: Place | null = null;
   private _currSelectedPlaceElementId: string | null = null;
   private _currSelectedCoachIndex: number = 0;
   private _coachesHtmlTemplate?: TemplateResult;
@@ -93,6 +93,14 @@ class SbbSeatReservationElement extends LitElement {
     'COMPARTMENT_PASSAGE_LOW',
     'COACH_BORDER_OUTER',
   ];
+  private _keyboardNavigationEvents = {
+    ArrowLeft: 'ArrowLeft',
+    ArrowRight: 'ArrowRight',
+    ArrowUp: 'ArrowUp',
+    ArrowDown: 'ArrowDown',
+    Tab: 'Tab',
+    Enter: 'Enter',
+  } as const;
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -118,7 +126,6 @@ class SbbSeatReservationElement extends LitElement {
         <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
           <sbb-seat-reservation-navigation
             .seatReservation=${this.seatReservation}
-            .alignVertical=${this.alignVertical}
             .selectedCoachIndex=${this._selectedCoachIndex}
             @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
           ></sbb-seat-reservation-navigation>
@@ -426,90 +433,65 @@ class SbbSeatReservationElement extends LitElement {
         if (selectedCoachIndex !== this._selectedCoachIndex) {
           this._selectedCoachIndex = selectedCoachIndex;
           this._currSelectedPlaceElementId = null;
-          this._currSelectedPlaceIndex = null;
+          this._currSelectedPlace = null;
         }
       });
     }
   }
 
+  /**
+   * Initialisation of Keyboard event handling to navigation between each places inside a selected coach by using [arrow] keys.
+   * The [Enter] key allows the user to select or deselect a focused place.
+   * With the [TAB] key the user navigation goes to the next coach navigation element and the currently selected place is automatically reset.
+   */
   private _initSeatReservationSeatKeyNavigationEvent(): void {
     this.addEventListener('keydown', (e) => {
-      switch (e.code) {
-        case 'Numpad4':
-          this._keyHandlingNavigateSeat('PREV');
+      const pressedKey = e.code;
+      switch (pressedKey) {
+        case this._keyboardNavigationEvents.Tab:
+          this._resetKeyNavigateSeat();
           break;
-        case 'Numpad6':
-          this._keyHandlingNavigateSeat('NEXT');
+        case this._keyboardNavigationEvents.Enter:
+          this._keyHandlingTogglePlaceSelectionState();
           break;
-        case 'Space':
-          this._keyHandlingToggleSeatState();
+        case this._keyboardNavigationEvents.ArrowLeft:
+          this._navigateToPlaceByKey(pressedKey);
+          break;
+        case this._keyboardNavigationEvents.ArrowRight:
+          this._navigateToPlaceByKey(pressedKey);
+          break;
+        case this._keyboardNavigationEvents.ArrowUp:
+          this._navigateToPlaceByKey(pressedKey);
+          break;
+        case this._keyboardNavigationEvents.ArrowDown:
+          this._navigateToPlaceByKey(pressedKey);
           break;
         default:
-          this._currSelectedPlaceIndex = null;
           break;
       }
     });
   }
 
-  private _keyHandlingNavigateSeat(keytype: string): void {
-    if (!this._currSelectedPlaceIndex) {
-      this._currSelectedPlaceIndex = 0;
-    }
-
-    if (this.seatReservation?.coachItems[this._currSelectedCoachIndex].places?.length) {
-      const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
-      if (coach.places) {
-        const place = coach.places[this._currSelectedPlaceIndex];
-        const placeId =
-          'seat-reservation__place-button-' + this._currSelectedCoachIndex + '-' + place.number;
-        const placeElement = this.shadowRoot?.getElementById(placeId) as HTMLElement;
-
-        if (this._currSelectedPlaceElementId) {
-          const replaceElement = this.shadowRoot?.getElementById(
-            this._currSelectedPlaceElementId,
-          ) as HTMLElement;
-          replaceElement.setAttribute('keyfocus', 'false');
-        }
-
-        if (placeElement) {
-          placeElement.setAttribute('keyfocus', 'true');
-          this._currSelectedPlaceElementId = placeId;
-        }
-
-        //Update selected place index
-        if (keytype === 'NEXT') {
-          this._currSelectedPlaceIndex++;
-        } else if (keytype === 'PREV') {
-          this._currSelectedPlaceIndex--;
-        }
-
-        if (this._currSelectedPlaceIndex === coach.places.length - 1) {
-          this._currSelectedPlaceIndex = 0;
-        }
-
-        if (this._currSelectedPlaceIndex < 0) {
-          this._currSelectedPlaceIndex = coach.places.length - 1;
-        }
-      }
-    }
+  private _resetKeyNavigateSeat(): void {
+    this._setFocusPlaceElement(false);
+    this._currSelectedPlaceElementId = null;
+    this._currSelectedPlace = null;
   }
 
-  private _keyHandlingToggleSeatState(): void {
+  private _keyHandlingTogglePlaceSelectionState(): void {
     if (this._currSelectedPlaceElementId) {
       const place = this.shadowRoot?.getElementById(
         this._currSelectedPlaceElementId,
       ) as HTMLElement;
+      const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
       const currState = place.getAttribute('state') === 'FREE' ? 'SELECTED' : 'FREE';
 
       place.setAttribute('state', currState);
 
-      const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
-
-      if (coach.places && this._currSelectedPlaceIndex) {
-        const place = coach.places[this._currSelectedPlaceIndex];
+      if (coach.places && this._currSelectedPlace) {
         const placeSelection = {
           id: this._currSelectedPlaceElementId,
-          number: place.number,
+          number: this._currSelectedPlace.number,
           coachIndex: this._currSelectedCoachIndex,
           state: currState,
         } as PlaceSelection;
@@ -518,14 +500,112 @@ class SbbSeatReservationElement extends LitElement {
     }
   }
 
+  private _navigateToPlaceByKey(pressedKey: string): void {
+    if (this.seatReservation?.coachItems[this._currSelectedCoachIndex].places?.length) {
+      const findClosestPlace = this._getClosestPlaceByKeyDirection(pressedKey);
+
+      if (findClosestPlace) {
+        this._setFocusPlaceElement(false);
+        this._currSelectedPlaceElementId =
+          'seat-reservation__place-button-' +
+          this._currSelectedCoachIndex +
+          '-' +
+          findClosestPlace.number;
+        this._currSelectedPlace = findClosestPlace;
+        this._setFocusPlaceElement(true);
+      }
+    }
+  }
+
+  private _setFocusPlaceElement(hasFocus: boolean): void {
+    if (this._currSelectedPlaceElementId) {
+      const focusType = hasFocus ? 'focus' : 'unfocus';
+      const selectedPlace = this.shadowRoot?.getElementById(
+        this._currSelectedPlaceElementId,
+      ) as HTMLElement;
+      selectedPlace.setAttribute('keyfocus', focusType);
+    }
+  }
+
+  /**
+   * To geht the correct closest place of current pressed key and the current selected place,
+   * we have to investigate the coordinates of each place to find the closest place of the _currSelectedPlaceElementId.
+   * @param pressedKey
+   * @returns Place or null
+   */
+  private _getClosestPlaceByKeyDirection(pressedKey: string): Place | null {
+    const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
+    let closestPlace = null;
+
+    if (coach.places) {
+      for (const place of coach.places) {
+        // If no place currently selected, then we find the first place in the coach
+        if (!this._currSelectedPlaceElementId) {
+          if (!closestPlace) {
+            closestPlace = place;
+          }
+          //Check the first place in the top-left corner of the coach
+          if (
+            closestPlace.number !== place.number &&
+            closestPlace.position.x > place.position.x &&
+            closestPlace.position.y > place.position.y
+          ) {
+            closestPlace = place;
+          }
+        } else {
+          if (place.number !== this._currSelectedPlace?.number) {
+            //Key [Right] navigation, we check the place coordinates of the x-axis to get the smallest larger x place coordinate of the currently selected place
+            if (
+              pressedKey === this._keyboardNavigationEvents.ArrowRight &&
+              place.position.y === this._currSelectedPlace?.position.y &&
+              place.position.x > this._currSelectedPlace?.position.x &&
+              (!closestPlace || place.position.x < closestPlace.position.x)
+            ) {
+              closestPlace = place;
+            }
+            //Key [Down] navigation, we check the place coordinates of the y-axis to get the smallest larger y place coordinate of the currently selected place
+            else if (
+              pressedKey === this._keyboardNavigationEvents.ArrowDown &&
+              place.position.x === this._currSelectedPlace?.position.x &&
+              place.position.y > this._currSelectedPlace?.position.y &&
+              (!closestPlace || place.position.y < closestPlace.position.y)
+            ) {
+              closestPlace = place;
+            }
+            //Key [Left] navigation, we check the place coordinates of the x-axis to get the greatest smaller x place coordinate of the currently selected place
+            else if (
+              pressedKey === this._keyboardNavigationEvents.ArrowLeft &&
+              place.position.y === this._currSelectedPlace?.position.y &&
+              place.position.x < this._currSelectedPlace?.position.x &&
+              (!closestPlace || place.position.x > closestPlace.position.x)
+            ) {
+              closestPlace = place;
+            }
+            //Key [Up] navigation, we check the place coordinates of the y-axis to get the greatest smaller y place coordinate of the currently selected place
+            else if (
+              pressedKey === this._keyboardNavigationEvents.ArrowUp &&
+              place.position.x === this._currSelectedPlace?.position.x &&
+              place.position.y < this._currSelectedPlace?.position.y &&
+              (!closestPlace || place.position.y > closestPlace.position.y)
+            ) {
+              closestPlace = place;
+            }
+          }
+        }
+      }
+    }
+    return closestPlace;
+  }
+
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
     const scrollToCoachPosX = this._triggerCoachPositionsCollection[selectedNavCoachIndex][0];
 
-    if (selectedNavCoachIndex) {
+    if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this._currSelectedCoachIndex) {
+      this._setFocusPlaceElement(false);
       this._currSelectedCoachIndex = selectedNavCoachIndex;
       this._currSelectedPlaceElementId = null;
-      this._currSelectedPlaceIndex = null;
+      this._currSelectedPlace = null;
     }
 
     this._coachScrollArea.scrollTo({
@@ -543,7 +623,6 @@ class SbbSeatReservationElement extends LitElement {
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
     if (!this.disable) {
       const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
-
       this._addSelectedPlace(currSelectedPlace);
     }
   }
@@ -599,7 +678,6 @@ class SbbSeatReservationElement extends LitElement {
    */
   private _resetAllPlaceSelections(currSelectedPlace?: PlaceSelection): void {
     //Find all places to be needed unselect
-
     for (const placeSelection of this._selectedSeatReservationPlaces) {
       if (!currSelectedPlace || currSelectedPlace.id !== placeSelection.id) {
         const placeElement = this.shadowRoot?.getElementById(placeSelection.id) as HTMLElement;
