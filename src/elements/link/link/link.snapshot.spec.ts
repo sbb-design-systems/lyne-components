@@ -34,7 +34,7 @@ describe(`sbb-link`, () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-link size="m"> Travelcards &amp; tickets. </sbb-link>`);
 
-      element.href = '#';
+      element.href = 'https://sbb.ch/';
       element.rel = 'nofollow';
       element.target = '_blank';
       element.download = true;
