@@ -46,6 +46,7 @@ $active: ':active, [data-active]';
 
   // Calculated and private variables
   --_width: unset;
+  --_min-height-modifier: 0rem;
   --_border-color: var(--sbb-button-color-default-border);
   --_background-color: var(--sbb-button-color-default-background);
   --_color: var(--sbb-button-color-default-text);
@@ -125,10 +126,10 @@ $active: ':active, [data-active]';
 
 :host(#{$icon-only}) {
   --sbb-button-padding-inline: 0;
-  --_width: var(--sbb-button-min-height);
+  --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
 }
 
-:host(:not(#{$disabled}, #{$active}):hover) {
+:host(:not(#{$disabled}, #{$active}, [loading]):hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-button-shadow-1-offset-y: calc(
@@ -159,7 +160,7 @@ $active: ':active, [data-active]';
 }
 
 // Active styles
-:host(:not(#{$disabled}):is(#{$active})) {
+:host(:not(#{$disabled}, [loading]):is(#{$active})) {
   --_color: var(--sbb-button-color-active-text);
   --_background-color: var(--sbb-button-color-active-background);
   --_border-color: var(--sbb-button-color-active-border);
@@ -174,6 +175,45 @@ $active: ':active, [data-active]';
   --_outline-width: var(--sbb-focus-outline-width);
 }
 
+:host([loading]:not(#{$disabled})) {
+  --_min-height-modifier: -6px;
+
+  .sbb-action-base {
+    margin: 3px;
+    padding-inline: calc(var(--sbb-button-padding-inline) - 3px);
+  }
+}
+
+.sbb-button-loading-border {
+  position: absolute;
+  inset: calc(0.5 * var(--_min-height-modifier));
+  clip-path: border-box;
+  border-radius: var(--sbb-button-border-radius);
+  background: var(--_background-color);
+  z-index: -1;
+  container-type: inline-size;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.sbb-button-loading-trail {
+  width: 64cqmin;
+  max-height: var(--sbb-button-min-height);
+  aspect-ratio: 2 / 1;
+  position: absolute;
+  background: radial-gradient(100% 100% at right, var(--_color), transparent 50%);
+  offset-path: border-box;
+  offset-anchor: 100% 50%;
+  animation: journey 3s infinite linear;
+  transform-style: preserve-3d;
+}
+
+@keyframes journey {
+  to {
+    offset-distance: 100%;
+  }
+}
+
 .sbb-action-base {
   @include sbb.text-xs--bold;
 
@@ -184,7 +224,7 @@ $active: ':active, [data-active]';
   text-align: left;
   white-space: nowrap;
   text-decoration: none;
-  min-height: var(--sbb-button-min-height);
+  min-height: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
   outline: none;
 
   // Width is set in icon-only variant
