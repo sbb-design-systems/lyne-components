@@ -4172,10 +4172,10 @@ eslint-import-resolver-typescript@4.2.1:
     stable-hash "^0.0.5"
     tinyglobby "^0.2.12"
 
-eslint-plugin-import-x@4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.8.1.tgz#d65c5794ed9b2df2dab227c89ca33ff01aa4ad59"
-  integrity sha512-Jyr0mGWYia2gRl4XvbMVZ4OvpJe3+Gu/X0c4zHhHItjsHb4gkHkSPUPHWxZPyzWXnsClAZu41LMJDY4lfJnP3g==
+eslint-plugin-import-x@4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.9.0.tgz#50983dc52903bba525e7e970e438a214b97e8783"
+  integrity sha512-qdrsei0heLV8z9QpY2/PHF/r/3fF15w3JeVXqWlLzPMiiwYx0VAwIjxN6SzdaPVuGeIMAbQHHS1Wwdn1/bsCgw==
   dependencies:
     "@types/doctrine" "^0.0.9"
     "@typescript-eslint/utils" "^8.26.1"
