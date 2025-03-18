@@ -93,8 +93,8 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   @property({ attribute: false })
   public set dateFilter(value: (date: T | null) => boolean) {
     this._dateFilter = value;
-    if (this._datepicker) {
-      this._datepicker.dateFilter = value;
+    if (this.datepicker) {
+      this.datepicker.dateFilter = value;
     }
   }
   public get dateFilter(): (date: T | null) => boolean {
@@ -119,9 +119,9 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
 
   /**
    * Gets the associated datepicker, if any.
-   * The date-input and the datepicker are assumed to be in the same parent container.
+   * The sbb-date-input and the sbb-datepicker are assumed to be in the same parent container.
    */
-  private get _datepicker(): SbbDatepickerElement<T> | null {
+  public get datepicker(): SbbDatepickerElement<T> | null {
     return this.parentElement!.querySelector<SbbDatepickerElement<T>>('sbb-datepicker');
   }
 
