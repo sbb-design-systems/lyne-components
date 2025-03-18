@@ -23,7 +23,10 @@
   --sbb-step-opacity: 1;
   --sbb-step-display: block;
   --sbb-step-height: fit-content;
-  --sbb-step-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-step-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-step-animation-delay: var(--sbb-step-animation-duration);
 }
 
@@ -38,7 +41,7 @@
     opacity: 0;
     height: 0;
     transition:
-      display var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
       height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
 
@@ -50,7 +53,7 @@
     opacity: 1;
     height: var(--sbb-stepper-content-height);
     transition:
-      display var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+      display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
       height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
         var(--sbb-animation-easing);
