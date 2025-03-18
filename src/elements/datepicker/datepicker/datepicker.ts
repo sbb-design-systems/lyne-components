@@ -88,13 +88,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   /** If set to true, two months are displayed. */
   @forceType()
   @property({ type: Boolean })
-  public set wide(value: boolean) {
-    this._wide = value;
-  }
-  public get wide(): boolean {
-    return this._wide;
-  }
-  private _wide: boolean = false;
+  public accessor wide: boolean = false;
 
   /**
    * A function used to filter out dates.
