@@ -13,17 +13,17 @@
 }
 
 :host([negative]) {
-  --sbb-button-color-active-background: var(--sbb-color-cloud);
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-red150);
-  --sbb-button-color-default-background: var(--sbb-color-white);
-  --sbb-button-color-default-border: var(--sbb-color-white);
-  --sbb-button-color-default-text: var(--sbb-color-red);
-  --sbb-button-color-hover-background: var(--sbb-color-milk);
-  --sbb-button-color-hover-border: var(--sbb-color-milk);
-  --sbb-button-color-hover-text: var(--sbb-color-red125);
-  --sbb-button-shadow-1-color: var(--sbb-color-smoke-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-metal-alpha-20);
+  --sbb-button-color-active-background: var(--sbb-color-red150);
+  --sbb-button-color-active-border: var(--sbb-color-red150);
+  --sbb-button-color-active-text: var(--sbb-color-cloud);
+  --sbb-button-color-default-background: var(--sbb-color-red);
+  --sbb-button-color-default-border: var(--sbb-color-red);
+  --sbb-button-color-default-text: var(--sbb-color-white);
+  --sbb-button-color-hover-background: var(--sbb-color-red125);
+  --sbb-button-color-hover-border: var(--sbb-color-red125);
+  --sbb-button-color-hover-text: var(--sbb-color-milk);
+  --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-60);
+  --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-60);
 }
 
 :host(:not([disabled], :disabled, [disabled-interactive], :active, [data-active])) {
