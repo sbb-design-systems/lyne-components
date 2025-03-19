@@ -4,18 +4,18 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getI18nSeatReservation } from '../common/i18n/i18n.js';
-import { mapNavigationIconToSvg } from '../common.js';
+import { getI18nSeatReservation, mapNavigationIconToSvg } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
 import style from './seat-reservation-navigation.scss?lit&inline';
 
 import '../seat-reservation-graphic.js';
-import '@sbb-esta/lyne-elements/icon/icon.js';
+import '@sbb-esta/lyne-elements/icon/icon.component.js';
 /**
  * It will display the navigation for Seat reservation.
  *
- * @event {CustomEvent<number>} selectCoach - Emits when select a coach navigation element and returns the clicked coach nav index
+ * event {CustomEvent<number>} selectCoach - Emits when select a coach navigation element and returns the clicked coach nav index
+ * @event {CustomEvent<void>} selectCoach - Emits when a coach within the navigation was selected
  */
 export
 @customElement('sbb-seat-reservation-navigation')
