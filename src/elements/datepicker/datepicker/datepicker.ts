@@ -253,6 +253,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       changedProperties.has('dateFilter') ||
       changedProperties.has('now')
     ) {
+      this._associationController.updateControls();
       this._datePickerUpdated.emit();
     }
     if (changedProperties.has('valueAsDate')) {
