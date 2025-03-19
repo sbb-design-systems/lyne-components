@@ -5,7 +5,7 @@
 
 $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
 $disabled: '[disabled], :disabled, [disabled-interactive]';
-$active: ':active, [data-active]';
+$active: ':active, [data-active], [loading]';
 
 :host {
   display: inline-block;
@@ -129,7 +129,7 @@ $active: ':active, [data-active]';
   --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
 }
 
-:host(:not(#{$disabled}, #{$active}, [loading]):hover) {
+:host(:not(#{$disabled}, #{$active}):hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-button-shadow-1-offset-y: calc(
@@ -160,7 +160,7 @@ $active: ':active, [data-active]';
 }
 
 // Active styles
-:host(:not(#{$disabled}, [loading]):is(#{$active})) {
+:host(:not(#{$disabled}):is(#{$active})) {
   --_color: var(--sbb-button-color-active-text);
   --_background-color: var(--sbb-button-color-active-background);
   --_border-color: var(--sbb-button-color-active-border);
@@ -177,10 +177,12 @@ $active: ':active, [data-active]';
 
 :host([loading]:not(#{$disabled})) {
   --_min-height-modifier: -6px;
+  --_border: none;
 
   .sbb-action-base {
     margin: 3px;
     padding-inline: calc(var(--sbb-button-padding-inline) - 3px);
+    transition-property: none;
   }
 }
 
@@ -189,7 +191,7 @@ $active: ':active, [data-active]';
   inset: calc(0.5 * var(--_min-height-modifier));
   clip-path: border-box;
   border-radius: var(--sbb-button-border-radius);
-  background: var(--_background-color);
+  background: var(--sbb-button-color-active-background);
   z-index: -1;
   container-type: inline-size;
   overflow: hidden;
@@ -198,10 +200,16 @@ $active: ':active, [data-active]';
 
 .sbb-button-loading-trail {
   width: 64cqmin;
+
+  // This avoids displaying the trail on the other side when button labels are very wide.
   max-height: var(--sbb-button-min-height);
   aspect-ratio: 2 / 1;
   position: absolute;
-  background: radial-gradient(100% 100% at right, var(--_color), transparent 50%);
+  background: radial-gradient(
+    100% 100% at right,
+    var(--sbb-button-color-active-text),
+    transparent 50%
+  );
   offset-path: border-box;
   offset-anchor: 100% 50%;
   animation: journey 3s infinite linear;
