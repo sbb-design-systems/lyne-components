@@ -102,8 +102,11 @@
     color: var(--sbb-color-charcoal);
 
     @include sbb.if-forced-colors {
+    @include sbb.if-forced-colors {
       color: inherit;
     }
+
+    color: var(--sbb-color-charcoal);
   }
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
