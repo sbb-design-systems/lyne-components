@@ -1,3 +1,5 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
 :host {
   --reservation-graphic-width: var(--graphic-width-from-host);
   --reservation-graphic-height: var(--graphic-height-from-host);
@@ -17,6 +19,14 @@
   height: calc(var(--reservation-graphic-height) * 1rem);
   transform-origin: center;
   transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
+
+  @include sbb.if-forced-colors {
+    svg:not(.color-immutable) {
+      [fill]:not([fill='none']) {
+        fill: currentcolor;
+      }
+    }
+  }
 
   svg {
     width: 100%;

@@ -100,6 +100,10 @@
 
   .sbb-seat-reservation-navigation__item-coach-number {
     color: var(--sbb-color-charcoal);
+
+    @include sbb.if-forced-colors {
+      color: inherit;
+    }
   }
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
@@ -117,6 +121,10 @@
   font-family: var(--sbb-typo-font-family), sans-serif;
   font-weight: 700;
   color: var(--sbb-color-granite);
+
+  @include sbb.if-forced-colors {
+    color: var(--sbb-color-milk);
+  }
 }
 
 // graphical orientation of FIRST class
