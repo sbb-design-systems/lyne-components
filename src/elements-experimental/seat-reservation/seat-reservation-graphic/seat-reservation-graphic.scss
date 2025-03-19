@@ -12,14 +12,6 @@
 }
 
 .sbb-seat-reservation-graphic {
-  @include sbb.if-forced-colors {
-    svg:not(.color-immutable) {
-      [fill]:not([fill='none']) {
-        fill: currentcolor;
-      }
-    }
-  }
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,6 +19,14 @@
   height: calc(var(--reservation-graphic-height) * 1rem);
   transform-origin: center;
   transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
+
+  @include sbb.if-forced-colors {
+    svg:not(.color-immutable) {
+      [fill]:not([fill='none']) {
+        fill: currentcolor;
+      }
+    }
+  }
 
   svg {
     width: 100%;
