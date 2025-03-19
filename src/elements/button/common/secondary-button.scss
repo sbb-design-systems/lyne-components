@@ -14,13 +14,13 @@
 }
 
 :host([negative]) {
-  --sbb-button-color-active-background: transparent;
+  --sbb-button-color-active-background: var(--sbb-color-charcoal);
   --sbb-button-color-active-border: var(--sbb-color-cloud);
   --sbb-button-color-active-text: var(--sbb-color-cloud);
-  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-background: var(--sbb-color-midnight);
   --sbb-button-color-default-border: var(--sbb-color-white);
   --sbb-button-color-default-text: var(--sbb-color-white);
-  --sbb-button-color-hover-background: transparent;
+  --sbb-button-color-hover-background: var(--sbb-color-midnight);
   --sbb-button-color-hover-border: var(--sbb-color-milk);
   --sbb-button-color-hover-text: var(--sbb-color-milk);
 }
