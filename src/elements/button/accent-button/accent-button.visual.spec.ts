@@ -33,7 +33,7 @@ describe(`sbb-accent-button`, () => {
             </sbb-accent-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },
