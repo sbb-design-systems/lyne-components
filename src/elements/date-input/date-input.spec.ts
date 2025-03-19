@@ -5,8 +5,12 @@ import { html } from 'lit/static-html.js';
 import { defaultDateAdapter } from '../core/datetime.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbDatepickerElement } from '../datepicker/datepicker.js';
 
 import { SbbDateInputElement } from './date-input.js';
+
+import '../form-field.js';
+import '../datepicker.js';
 
 describe('sbb-date-input', () => {
   let element: SbbDateInputElement;
@@ -331,6 +335,33 @@ describe('sbb-date-input', () => {
       element.dispatchEvent(pasteEvent('value'));
       expect(element.value).to.equal('tesvaluet');
       expect(element.textContent).to.equal('tesvaluet');
+    });
+  });
+
+  describe('with datepicker', () => {
+    it('should update datepicker dateFilter when dateFilter is set', async () => {
+      element = await fixture(html`
+        <sbb-form-field>
+          <sbb-datepicker-toggle></sbb-datepicker-toggle>
+          <sbb-datepicker now="2022-01-01"></sbb-datepicker>
+          <sbb-date-input></sbb-date-input>
+        </sbb-form-field>
+      `);
+
+      // expect no dateFilter applied
+      const dateInput = element.querySelector<SbbDateInputElement>('sbb-date-input')!;
+      expect(dateInput.dateFilter.toString()).to.be.equal('() => true');
+      expect(dateInput.dateFilter(new Date(1, 0, 2022))).to.be.true;
+
+      // accept only odd years
+      dateInput.dateFilter = (d) => !!d && d?.getFullYear() % 2 === 1;
+      await waitForLitRender(element);
+      expect(dateInput.dateFilter.toString()).not.to.be.equal('() => true');
+      expect(dateInput.dateFilter(new Date(1, 0, 2022))).to.be.equal(false);
+
+      // expect dateFilter is proxied to sbb-datepicker
+      const datePicker = element.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+      expect(datePicker.dateFilter(new Date(1, 0, 2022))).to.be.equal(false);
     });
   });
 });
