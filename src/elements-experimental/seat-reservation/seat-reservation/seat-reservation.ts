@@ -5,7 +5,7 @@ import { html, LitElement, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { getI18nSeatReservation } from '../common/i18n/i18n.js';
+import { getI18nSeatReservation } from '../common.js';
 import type {
   CoachItem,
   Place,
@@ -27,7 +27,8 @@ import '../seat-reservation-place-control.js';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * @event {CustomEvent<Place[]>} selectedPlaces - Emits when select a place and returns a Place array with all selected places
+ * event {CustomEvent<Place[]>} selectedPlaces - Emits when select a place and returns a Place array with all selected places
+ * @event {CustomEvent<void>} selectedPlaces - Emits when an place was selected by user.
  */
 export
 @customElement('sbb-seat-reservation')

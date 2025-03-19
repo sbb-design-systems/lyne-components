@@ -19,7 +19,8 @@ import style from './seat-reservation-place-control.scss?lit&inline';
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
  *
- * @event {CustomEvent<PlaceSelection>} selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
+ * event {CustomEvent<PlaceSelection>} selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
+ * @event {CustomEvent<void>} selectPlace - Emits when an place was selected by user.
  */
 export
 @customElement('sbb-seat-reservation-place-control')
