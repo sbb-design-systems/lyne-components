@@ -1,3 +1,5 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
 :host {
   --reservation-graphic-width: var(--graphic-width-from-host);
   --reservation-graphic-height: var(--graphic-height-from-host);
@@ -10,6 +12,14 @@
 }
 
 .sbb-seat-reservation-graphic {
+  @include sbb.if-forced-colors {
+    svg:not(.color-immutable) {
+      [fill]:not([fill='none']) {
+        fill: currentcolor;
+      }
+    }
+  }
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,16 +37,6 @@
     .fix-rotation-inverse {
       transform-origin: center;
       transform: rotate(calc(var(--reservation-graphic-contents-rotation) * 1deg));
-    }
-  }
-}
-
-@media (forced-colors: active) {
-  .sbb-seat-reservation-graphic {
-    svg:not(.color-immutable) {
-      [fill]:not([fill='none']) {
-        fill: currentcolor;
-      }
     }
   }
 }

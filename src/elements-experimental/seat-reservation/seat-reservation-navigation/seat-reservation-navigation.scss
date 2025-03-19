@@ -99,11 +99,11 @@
   );
 
   .sbb-seat-reservation-navigation__item-coach-number {
-    color: var(--sbb-color-charcoal);
-
-    @media (forced-colors: active) {
+    @include sbb.if-forced-colors {
       color: inherit;
     }
+
+    color: var(--sbb-color-charcoal);
   }
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
@@ -112,6 +112,10 @@
 }
 
 .sbb-seat-reservation-navigation__additional-information {
+  @include sbb.if-forced-colors {
+    color: var(--sbb-color-milk);
+  }
+
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -121,10 +125,6 @@
   font-family: var(--sbb-typo-font-family), sans-serif;
   font-weight: 700;
   color: var(--sbb-color-granite);
-
-  @media (forced-colors: active) {
-    color: var(--sbb-color-milk);
-  }
 }
 
 // graphical orientation of FIRST class
