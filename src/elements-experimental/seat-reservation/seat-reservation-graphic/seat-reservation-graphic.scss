@@ -20,6 +20,14 @@
   transform-origin: center;
   transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
 
+  @include sbb.if-forced-colors {
+    svg:not(.color-immutable) {
+      [fill]:not([fill='none']) {
+        fill: currentcolor;
+      }
+    }
+  }
+
   svg {
     width: clamp(100%, 100%, 100%);
     height: clamp(100%, 100%, 100%);

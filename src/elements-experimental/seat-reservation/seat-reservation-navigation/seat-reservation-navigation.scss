@@ -108,6 +108,10 @@
     }
 
     color: var(--sbb-color-charcoal);
+
+    @include sbb.if-forced-colors {
+      color: inherit;
+    }
   }
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
