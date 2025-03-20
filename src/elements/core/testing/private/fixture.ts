@@ -34,10 +34,6 @@ const internalFixture = async <T extends HTMLElement>(
   options: FixtureOptions = { modules: [] },
 ): Promise<T> => {
   options.base ??= tryFindBase(new Error().stack!);
-  if (type !== 'csrFixture') {
-    options.modules.unshift('/src/elements/core/testing/test-setup-ssr.ts');
-  }
-
   const fixtures = await import('@lit-labs/testing/fixtures.js');
   return await waitForLitRender(fixtures[type]<T>(template, options));
 };
