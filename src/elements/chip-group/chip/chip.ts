@@ -2,8 +2,10 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'l
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
+import { i18nChipDelete } from '../../core/i18n.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
@@ -37,6 +39,8 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
 
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
+
+  private _language = new SbbLanguageController(this);
 
   public override click(): void {
     if (this.disabled) {
@@ -86,11 +90,13 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           </span>
         </div>
         <sbb-mini-button
+          aria-hidden="true"
           class="sbb-chip__delete"
           icon-name="cross-tiny-small"
           @click=${() => this._requestDelete.emit()}
         >
         </sbb-mini-button>
+        <sbb-screen-reader-only>${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
       </div>
     `;
   }
