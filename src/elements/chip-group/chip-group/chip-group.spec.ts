@@ -267,9 +267,9 @@ describe('sbb-chip-group', () => {
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-2)!.value);
 
-        // Delete all chips
+        // Deletes the two remaining chips
         await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Delete' });
         await waitForLitRender(element);
 
         // Expect the input to be focused

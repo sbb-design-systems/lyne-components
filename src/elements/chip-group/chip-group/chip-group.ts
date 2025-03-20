@@ -271,6 +271,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
     switch (event.key) {
       case 'Backspace':
+      case 'Delete':
         if (!eventTarget.readonly && !eventTarget.disabled) {
           event.preventDefault();
           this._deleteChip(eventTarget);
