@@ -36,7 +36,7 @@
   --sbb-sidebar-background-color: var(--sbb-color-milk);
 }
 
-:host(:is([mode='over'], [data-minimum-space]:not([data-minimum-space-closing]))) {
+:host(:is([mode='over'], [data-mode-over-forced]:not([data-mode-over-forced-closing]))) {
   --sbb-sidebar__margin: var(--sbb-sidebar-margin);
   --sbb-sidebar__border-radius-end: var(--sbb-sidebar-border-radius);
   --sbb-sidebar__z-index: 3;

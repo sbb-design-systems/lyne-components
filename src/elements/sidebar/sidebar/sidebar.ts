@@ -33,7 +33,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   public static override styles: CSSResultGroup = style;
 
   /** Background color of the sidebar. Either `white` or `milk`. */
-  @forceType((v) => (v === 'milk' ? 'milk' : 'white'))
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
 
@@ -127,7 +126,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
       if (this.mode === 'over' && this.isOpen) {
         this._takeFocus();
       } else {
-        this.unTrap();
+        this.cedeFocus();
       }
     }
   }
@@ -228,7 +227,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
     setTimeout(() => this.toggleAttribute('data-skip-animation', false));
-    this.unTrap();
+    this.cedeFocus();
 
     if (!isServer && (this.contains(document.activeElement) || this._isModeOver())) {
       if (this._lastFocusedElement) {
@@ -302,8 +301,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
   };
 
-  /** @internal */
-  public unTrap(): void {
+  protected cedeFocus(): void {
     if (this._inertController.isInert()) {
       this._inertController.deactivate();
     }
@@ -343,7 +341,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _isModeOver(): boolean {
     // If the minimum space attribute is set, the sidebar should behave like in mode over.
-    return this.mode === 'over' || this.hasAttribute('data-minimum-space');
+    return this.mode === 'over' || this.hasAttribute('data-mode-over-forced');
   }
 
   private _onTransitionEnd(event: TransitionEvent): void {

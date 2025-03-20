@@ -18,7 +18,9 @@ class SbbIconSidebarContainerElement extends LitElement {
 
   /** The icon-sidebar children. */
   public get sidebars(): SbbIconSidebarElement[] {
-    return Array.from(this.querySelectorAll<SbbIconSidebarElement>(`:scope > sbb-icon-sidebar`));
+    return Array.from(
+      this.querySelectorAll?.<SbbIconSidebarElement>(`:scope > sbb-icon-sidebar`) ?? [],
+    );
   }
 
   /** The icon-sidebar child at the start position. */

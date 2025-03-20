@@ -5,7 +5,6 @@ snapshots["sbb-icon-sidebar renders DOM"] =
 `<sbb-icon-sidebar
   class="sbb-scrollbar"
   color="white"
-  role="navigation"
 >
 </sbb-icon-sidebar>
 `;

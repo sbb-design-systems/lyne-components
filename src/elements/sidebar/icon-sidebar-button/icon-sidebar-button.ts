@@ -13,7 +13,7 @@ import { iconSidebarButtonCommonStyle } from '../common.js';
 export
 @customElement('sbb-icon-sidebar-button')
 class SbbIconSidebarButtonElement extends SbbIconNameMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = [iconSidebarButtonCommonStyle];
+  public static override styles: CSSResultGroup = iconSidebarButtonCommonStyle;
 
   protected override renderTemplate(): TemplateResult {
     return super.renderIconSlot();

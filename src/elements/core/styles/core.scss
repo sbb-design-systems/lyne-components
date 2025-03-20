@@ -344,7 +344,7 @@ sbb-sidebar-container:is(
           [data-state='closing'],
           [data-state='closed'],
           [mode='over'],
-          [data-minimum-space]
+          [data-mode-over-forced]
         )
     ),
     :not(:has(> sbb-sidebar:not([position='end'])))
@@ -363,7 +363,7 @@ sbb-sidebar-container:is(
           [data-state='closing'],
           [data-state='closed'],
           [mode='over'],
-          [data-minimum-space]
+          [data-mode-over-forced]
         )
     ),
     :not(:has(> sbb-sidebar[position='end']))
@@ -374,7 +374,7 @@ sbb-sidebar-container:is(
 
 // Toggles visibility of backdrop if there is an affected sidebar inside the container.
 sbb-sidebar-container:has(
-    > sbb-sidebar:is([mode='over'], [data-minimum-space]):is(
+    > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
         [data-state='opening'],
         [data-state='opened']
       )

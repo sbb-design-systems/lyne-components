@@ -96,7 +96,7 @@ describe('sbb-sidebar', () => {
       expect(element.position, 'fallback null to default').to.be.equal('start');
     });
 
-    it('should coerce color property', async () => {
+    it('should change color property', async () => {
       expect(element.color, 'default color').to.be.equal('white');
 
       element.color = 'milk';
@@ -104,31 +104,13 @@ describe('sbb-sidebar', () => {
 
       expect(element.color, 'milk color').to.be.equal('milk');
       expect(element).to.have.attribute('color', 'milk');
-
-      element.color = 'inexisting' as 'white';
-      await waitForLitRender(element);
-
-      expect(element.color, 'fallback to default').to.be.equal('white');
-      expect(element).to.have.attribute('color', 'white');
-
-      element.color = null as unknown as 'white';
-      await waitForLitRender(element);
-
-      expect(element.color, 'fallback null to default').to.be.equal('white');
-      expect(element).to.have.attribute('color', 'white');
     });
 
-    it('should coerce color attribute', () => {
+    it('should change color attribute', () => {
       expect(element.color, 'default color').to.be.equal('white');
 
       element.setAttribute('color', 'milk');
       expect(element.color, 'milk color').to.be.equal('milk');
-
-      element.setAttribute('color', 'inexisting');
-      expect(element.color, 'fallback to default').to.be.equal('white');
-
-      element.setAttribute('color', '');
-      expect(element.color, 'fallback null to default').to.be.equal('white');
     });
 
     it('should coerce mode property', async () => {
@@ -358,7 +340,7 @@ describe('sbb-sidebar', () => {
       await setViewport({ width: 400, height: 400 });
 
       // Wait for resizeObserver of container to be triggered
-      await waitForCondition(() => element.hasAttribute('data-minimum-space'));
+      await waitForCondition(() => element.hasAttribute('data-mode-over-forced'));
 
       element.open();
       expect(element.isOpen).to.be.true;

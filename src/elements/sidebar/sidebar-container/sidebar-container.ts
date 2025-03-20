@@ -31,17 +31,17 @@ class SbbSidebarContainerElement extends LitElement {
 
   /** The sidebar children. */
   public get sidebars(): SbbSidebarElement[] {
-    return Array.from(this.querySelectorAll<SbbSidebarElement>(`:scope > sbb-sidebar`));
+    return Array.from(this.querySelectorAll?.<SbbSidebarElement>(`:scope > sbb-sidebar`) ?? []);
   }
 
   /** The sidebar child with the `start` position. */
   public get start(): SbbSidebarElement | null {
-    return this.querySelector<SbbSidebarElement>(`:scope > sbb-sidebar:not([position='end'])`);
+    return this.querySelector?.<SbbSidebarElement>(`:scope > sbb-sidebar:not([position='end'])`);
   }
 
   /** The sidebar child with the `end` position. */
   public get end(): SbbSidebarElement | null {
-    return this.querySelector<SbbSidebarElement>(`:scope > sbb-sidebar[position='end']`);
+    return this.querySelector?.<SbbSidebarElement>(`:scope > sbb-sidebar[position='end']`);
   }
 
   private _forcedClosedSidebars = new WeakSet<SbbSidebarElement>();
@@ -93,11 +93,12 @@ class SbbSidebarContainerElement extends LitElement {
     }
 
     const parentSidebarContainer =
-      this.parentElement?.closest<SbbSidebarContainerElement>('sbb-sidebar-container');
+      this.parentElement?.closest?.<SbbSidebarContainerElement>('sbb-sidebar-container');
 
     const parentSidebars = parentSidebarContainer?.sidebars ?? [];
 
     for (const sidebar of parentSidebars) {
+      // Using Promise.all did create some confusing problems, so we decided to await it sequentially.
       await sidebar.updateComplete.then(() => sidebar.animationComplete);
     }
 
@@ -108,18 +109,18 @@ class SbbSidebarContainerElement extends LitElement {
 
     const sidebars = this.sidebars;
     const hasForcedClosedParentContainer =
-      parentSidebars.some((sidebar) => sidebar.hasAttribute('data-minimum-space')) ?? false;
+      parentSidebars.some((sidebar) => sidebar.hasAttribute('data-mode-over-forced')) ?? false;
     const sumOfAllRelevantSidebarWidths = sidebars
       .filter((sidebar) => sidebar.mode === 'side')
       .reduce((accumulator, currentValue) => accumulator + (currentValue.offsetWidth ?? 0), 0);
     const isMinimumSpace = width - sumOfAllRelevantSidebarWidths < MIN_WIDTH_BEFORE_COLLAPSE;
 
-    sidebars.forEach((sidebar) => {
-      const wasMinimum = sidebar.hasAttribute('data-minimum-space');
-      sidebar.toggleAttribute('data-minimum-space', isMinimumSpace);
+    for (const sidebar of sidebars) {
+      const wasMinimum = sidebar.hasAttribute('data-mode-over-forced');
+      sidebar.toggleAttribute('data-mode-over-forced', isMinimumSpace);
 
       if (sidebar.mode !== 'side') {
-        return;
+        continue;
       }
 
       if ((isMinimumSpace || hasForcedClosedParentContainer) && sidebar.opened && !wasMinimum) {
@@ -128,16 +129,16 @@ class SbbSidebarContainerElement extends LitElement {
         if (sidebar.isOpen && !sidebar.hasAttribute('data-skip-animation')) {
           // If the sidebar is opened visually, add a special data attribute that controls the z-index.
           // Without this solution, when the sidebar is closed, it would appear visually as if it were in 'over' mode.
-          sidebar.toggleAttribute('data-minimum-space-closing', true);
+          sidebar.toggleAttribute('data-mode-over-forced-closing', true);
         }
 
         sidebar.opened = false;
         this._forcedClosedSidebars.add(sidebar);
 
-        if (sidebar.hasAttribute('data-minimum-space-closing')) {
+        if (sidebar.hasAttribute('data-mode-over-forced-closing')) {
           sidebar.updateComplete
             .then(() => sidebar.animationComplete)
-            .then(() => sidebar.removeAttribute('data-minimum-space-closing'));
+            .then(() => sidebar.removeAttribute('data-mode-over-forced-closing'));
         }
       } else if (
         // We have to open the sidebar when the remaining width of the sidebar and the parent container
@@ -150,11 +151,11 @@ class SbbSidebarContainerElement extends LitElement {
         // If the sidebar was manually opened (in forced over mode)
         // and the sidebar becomes enough space available, it stays open, but we need to ensure that
         // the focus trap and inert mechanism is reset.
-        sidebar.unTrap();
+        sidebar['cedeFocus']();
         sidebar.opened = true;
         this._forcedClosedSidebars.delete(sidebar);
       }
-    });
+    }
   }
 
   protected override render(): TemplateResult {

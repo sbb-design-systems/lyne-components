@@ -89,8 +89,8 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar2.isOpen, 'sidebar 2, after reduction').to.be.true;
     expect(sidebar3.isOpen, 'sidebar 3, after reduction').to.be.false;
     expect(sidebar4.isOpen, 'sidebar 4, after reduction').to.be.true;
-    expect(sidebar3).to.have.attribute('data-minimum-space');
-    expect(sidebar3).not.to.have.attribute('data-minimum-space-closing');
+    expect(sidebar3).to.have.attribute('data-mode-over-forced');
+    expect(sidebar3).not.to.have.attribute('data-mode-over-forced-closing');
 
     await setViewportWidth(320);
     await aTimeout(1);

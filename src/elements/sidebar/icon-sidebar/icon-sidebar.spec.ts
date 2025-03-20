@@ -32,7 +32,7 @@ describe('sbb-icon-sidebar', () => {
     expect(element.container).to.be.equal(container);
   });
 
-  it('should coerce color property', async () => {
+  it('should change color property', async () => {
     expect(element.color, 'default color').to.be.equal('white');
 
     element.color = 'milk';
@@ -40,30 +40,12 @@ describe('sbb-icon-sidebar', () => {
 
     expect(element.color, 'milk color').to.be.equal('milk');
     expect(element).to.have.attribute('color', 'milk');
-
-    element.color = 'inexisting' as 'white';
-    await waitForLitRender(element);
-
-    expect(element.color, 'fallback to default').to.be.equal('white');
-    expect(element).to.have.attribute('color', 'white');
-
-    element.color = null as unknown as 'white';
-    await waitForLitRender(element);
-
-    expect(element.color, 'fallback null to default').to.be.equal('white');
-    expect(element).to.have.attribute('color', 'white');
   });
 
-  it('should coerce color attribute', () => {
+  it('should change color attribute', () => {
     expect(element.color, 'default color').to.be.equal('white');
 
     element.setAttribute('color', 'milk');
     expect(element.color, 'milk color').to.be.equal('milk');
-
-    element.setAttribute('color', 'inexisting');
-    expect(element.color, 'fallback to default').to.be.equal('white');
-
-    element.setAttribute('color', '');
-    expect(element.color, 'fallback null to default').to.be.equal('white');
   });
 });

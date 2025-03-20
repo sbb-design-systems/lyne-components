@@ -1,8 +1,8 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
-import { SbbTitleBase } from '../../title.js';
+import { SbbTitleBase, type SbbTitleLevel } from '../../title.js';
 
 import style from './sidebar-title.scss?lit&inline';
 
@@ -15,10 +15,12 @@ export
 class SbbSidebarTitleElement extends SbbTitleBase {
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
+  /** Title level */
+  @property({ reflect: true }) public override accessor level: SbbTitleLevel = '2';
+
   public constructor() {
     super();
-    this.level = '2';
-    this.visualLevel = '5';
+    this.visualLevel ??= '5';
   }
 }
 
