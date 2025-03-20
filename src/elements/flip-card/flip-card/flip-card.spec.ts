@@ -134,4 +134,20 @@ describe('sbb-flip-card', () => {
 
     expect(element.isFlipped).to.be.true;
   });
+
+  it('should detect link when href set as attribute', async () => {
+    const link = element.querySelector('sbb-link')!;
+
+    expect(link).to.have.attribute('data-card-focusable');
+  });
+
+  it('should detect link when href set as property', async () => {
+    const link = element.querySelector('sbb-link')!;
+    link.removeAttribute('href');
+    link.removeAttribute('data-card-focusable');
+    link.href = '#';
+    await waitForLitRender(element);
+
+    expect(link).to.have.attribute('data-card-focusable');
+  });
 });
