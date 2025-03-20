@@ -74,7 +74,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
 
     // Remove the delete button from the tab order.
     // SetTimeout is needed to override the button tabindex initialization
-    setTimeout(() => (this._deleteButton().tabIndex = -1));
+    setTimeout(() => this._deleteButton().removeAttribute('tabindex'));
   }
 
   private _deleteButton(): HTMLElement {
