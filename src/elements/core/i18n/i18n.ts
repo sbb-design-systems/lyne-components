@@ -768,3 +768,17 @@ export const i18nDateMax = (max: string): Record<string, string> => ({
   fr: `La date ne doit pas être postérieure au ${max}.`,
   it: `La data non deve essere successiva al ${max}.`,
 });
+
+export const i18nChipDelete: Record<string, string> = {
+  de: 'TODO',
+  en: "Press the 'Delete' button to remove the chip",
+  fr: 'TODO',
+  it: "Premi il tasto 'Canc' per rimuovere questa chip",
+};
+
+export const i18nChipGroupInputDescription: Record<string, string> = {
+  de: 'TODO',
+  en: 'Selected elements:',
+  fr: 'TODO',
+  it: 'Elementi selezionati:',
+};
