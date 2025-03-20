@@ -8,7 +8,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { i18nSelectionRequired } from '../../core/i18n.js';
+import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -126,7 +126,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
-  private _languageController = new SbbLanguageController(this);
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
@@ -177,6 +177,8 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     const data = new FormData();
     this.value.forEach((el) => data.append(this.name, el));
     this.internals.setFormValue(data);
+    this.validate();
+    this._updateInputDescription();
   }
 
   protected override shouldValidate(name: PropertyKey | undefined): boolean {
@@ -186,7 +188,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
   protected override validate(): void {
     super.validate();
     if (this.required && this.value.length === 0) {
-      this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
+      this.setValidityFlag('valueMissing', i18nSelectionRequired[this._language.current]);
     } else {
       this.removeValidityFlag('valueMissing');
     }
@@ -243,7 +245,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
     this.updateFormValue();
-    this.validate();
   }
 
   /**
@@ -378,6 +379,16 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
   private _inheritSize(): void {
     this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
+  }
+
+  private _updateInputDescription(): void {
+    if (!this._inputElement) {
+      return;
+    }
+    this._inputElement.setAttribute(
+      'aria-description',
+      `${i18nChipGroupInputDescription[this._language.current]} ${this.value.length}`,
+    );
   }
 
   protected override render(): TemplateResult {

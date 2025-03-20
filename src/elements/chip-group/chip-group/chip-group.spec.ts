@@ -47,6 +47,7 @@ describe('sbb-chip-group', () => {
 
     it('renders', async () => {
       assert.instanceOf(element, SbbChipGroupElement);
+      expect(input).to.have.attribute('aria-description', 'Selected elements: 3');
     });
 
     it('should add chip on enter', async () => {

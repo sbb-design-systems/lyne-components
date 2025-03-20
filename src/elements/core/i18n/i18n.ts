@@ -768,3 +768,10 @@ export const i18nChipDelete: Record<string, string> = {
   fr: 'TODO',
   it: "Premi il tasto 'Canc' per rimuovere questa chip",
 };
+
+export const i18nChipGroupInputDescription: Record<string, string> = {
+  de: 'TODO',
+  en: 'Selected elements:',
+  fr: 'TODO',
+  it: 'Elementi selezionati:',
+};
