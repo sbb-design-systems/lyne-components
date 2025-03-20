@@ -21,6 +21,8 @@ export
   'data-button': '',
 })
 abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+  private readonly _elementsOnWhichEnterPressTriggersSubmit = ['input', 'sbb-date-input'];
+
   /**
    * The type attribute to use for the button.
    * @default 'button'
@@ -37,7 +39,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   @property()
   public override set form(value: string) {
     this._formId = value;
-    this.form?.addEventListener('keypress', this._formKeyPress);
+    this.form?.addEventListener('keypress', this._formKeyPress, { capture: true });
   }
   public override get form(): HTMLFormElement | null {
     // Use querySelector with form and id selector, as the form property must
@@ -77,13 +79,13 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.form?.addEventListener('keypress', this._formKeyPress);
+    this.form?.addEventListener('keypress', this._formKeyPress, { capture: true });
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    this.form?.removeEventListener('keypress', this._formKeyPress);
+    this.form?.removeEventListener('keypress', this._formKeyPress, { capture: true });
   }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
@@ -147,19 +149,31 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   };
 
   private _formKeyPress = (event: KeyboardEvent): void => {
-    const supportedSubmitElementNames = ['input', 'sbb-date-input'];
     const form = this.form;
     if (
       this.type === 'submit' &&
       form &&
       (event.key === 'Enter' || event.key === '\n') &&
-      supportedSubmitElementNames.includes((event.target as HTMLElement)?.localName)
+      this._elementsOnWhichEnterPressTriggersSubmit.includes(
+        (event.target as HTMLElement)?.localName,
+      ) &&
+      event.isTrusted
     ) {
-      // We prevent submitting twice because we control it ourselves
-      // We also prevent when disabled, otherwise it would trigger a submit
+      // In the case where there is only one form element, an enter press submits the form.
+      // In the case where we only have one input and this button as a submit button,
+      // we need to prevent the default functionality of submitting the form because
+      // while this button should be recognized as a submit element, that is not natively the case
+      // and therefore we manually handle this case here.
+      // If this button is not disabled we will then request a submit further down below.
+      event.stopImmediatePropagation();
       event.preventDefault();
 
-      if (!this.matches(':disabled')) {
+      const eventOrigin = event.composedPath()[0];
+
+      if (
+        eventOrigin.dispatchEvent(new KeyboardEvent(event.type, event)) &&
+        !this.matches(':disabled')
+      ) {
         this._requestSubmit(form);
       }
     }
