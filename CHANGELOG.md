@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.4.1...v2.5.0) (2025-03-20)
+
+
+### Features
+
+* **sbb-sidebar:** initial implementation ([#3335](https://github.com/sbb-design-systems/lyne-components/issues/3335)) ([fd99dfa](https://github.com/sbb-design-systems/lyne-components/commit/fd99dfa4fbabc61568a94c8c1e2cd70205e8c6b2))
+
+
+### Bug Fixes
+
+* **buttons:** fix various colors ([#3472](https://github.com/sbb-design-systems/lyne-components/issues/3472)) ([fd44317](https://github.com/sbb-design-systems/lyne-components/commit/fd44317f82a8cdce50e436ef2c8abea79e40874c))
+* **links:** reflect link properties to allow focusing ([#3466](https://github.com/sbb-design-systems/lyne-components/issues/3466)) ([083fec9](https://github.com/sbb-design-systems/lyne-components/commit/083fec9ae10d19a9bda8dbada0e7ca38e4bcbf6b)), closes [#3464](https://github.com/sbb-design-systems/lyne-components/issues/3464)
+* **sbb-clock:** fix de-sync on long-running use cases ([#3458](https://github.com/sbb-design-systems/lyne-components/issues/3458)) ([53c35d4](https://github.com/sbb-design-systems/lyne-components/commit/53c35d49ab27948bbb55bcb8dbab8ee2f321b0eb))
+* **sbb-datepicker:** update datepicker-toggle's calendar when wide/dateFilter/now are updated ([#3457](https://github.com/sbb-design-systems/lyne-components/issues/3457)) ([85f0e1d](https://github.com/sbb-design-systems/lyne-components/commit/85f0e1d8ff4fae13c5e53c026d1a10bafb011e2d))
+* **sbb-stepper:** wrong stepper height ([#3442](https://github.com/sbb-design-systems/lyne-components/issues/3442)) ([649001d](https://github.com/sbb-design-systems/lyne-components/commit/649001d6cbdcc5ae68bc9119a1362f8e74414641))
+* **sbb-time-input:** connect input ([#3448](https://github.com/sbb-design-systems/lyne-components/issues/3448)) ([70be33f](https://github.com/sbb-design-systems/lyne-components/commit/70be33fd95bc8fc27902f50982867bec62d62ff9))
+
 ## [2.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.4.0...v2.4.1) (2025-03-11)
 
 
