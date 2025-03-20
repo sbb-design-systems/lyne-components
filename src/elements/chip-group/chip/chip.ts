@@ -9,7 +9,7 @@ import { i18nChipDelete } from '../../core/i18n.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
-import '../../screen-reader-only/screen-reader-only.js';
+import '../../screen-reader-only.js';
 
 import style from './chip.scss?lit&inline';
 
