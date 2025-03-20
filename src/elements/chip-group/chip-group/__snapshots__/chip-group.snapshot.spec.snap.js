@@ -4,11 +4,11 @@ export const snapshots = {};
 snapshots["sbb-chip-group renders DOM"] = 
 `<sbb-chip-group
   data-size="m"
-  role="grid"
-  tabindex="0"
+  role="listbox"
 >
   <sbb-chip
-    role="row"
+    role="option"
+    tabindex="-1"
     value="Value 1"
   >
   </sbb-chip>
@@ -41,16 +41,17 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
   <sbb-chip-group
     data-size="m"
     name="field-1"
-    role="grid"
-    tabindex="0"
+    role="listbox"
   >
     <sbb-chip
-      role="row"
+      role="option"
+      tabindex="-1"
       value="Value 1"
     >
     </sbb-chip>
     <sbb-chip
-      role="row"
+      role="option"
+      tabindex="-1"
       value="Value 2"
     >
     </sbb-chip>
@@ -111,24 +112,28 @@ snapshots["sbb-chip-group renders with form-field A11y tree Firefox"] =
       "name": "Field label"
     },
     {
-      "role": "grid",
+      "role": "listbox",
       "name": "",
       "children": [
         {
-          "role": "gridcell",
-          "name": "Value 1"
+          "role": "option",
+          "name": "Value 1",
+          "children": [
+            {
+              "role": "button",
+              "name": ""
+            }
+          ]
         },
         {
-          "role": "button",
-          "name": "Remove Value 1"
-        },
-        {
-          "role": "gridcell",
-          "name": "Value 2"
-        },
-        {
-          "role": "button",
-          "name": "Remove Value 2"
+          "role": "option",
+          "name": "Value 2",
+          "children": [
+            {
+              "role": "button",
+              "name": ""
+            }
+          ]
         }
       ]
     },
@@ -157,24 +162,29 @@ snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] =
       "name": "Field label"
     },
     {
-      "role": "grid",
+      "role": "listbox",
       "name": "",
+      "orientation": "vertical",
       "children": [
         {
-          "role": "gridcell",
-          "name": "Value 1"
+          "role": "option",
+          "name": "Value 1",
+          "children": [
+            {
+              "role": "button",
+              "name": ""
+            }
+          ]
         },
         {
-          "role": "button",
-          "name": "Remove Value 1"
-        },
-        {
-          "role": "gridcell",
-          "name": "Value 2"
-        },
-        {
-          "role": "button",
-          "name": "Remove Value 2"
+          "role": "option",
+          "name": "Value 2",
+          "children": [
+            {
+              "role": "button",
+              "name": ""
+            }
+          ]
         }
       ]
     },

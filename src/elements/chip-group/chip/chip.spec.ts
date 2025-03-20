@@ -23,21 +23,18 @@ describe('sbb-chip', () => {
     element.focus();
 
     expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-    expect(element.shadowRoot!.activeElement).to.have.class('sbb-chip__label-wrapper');
   });
 
   it('should focus the chip label on click', async () => {
     element.click();
 
     expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-    expect(element.shadowRoot!.activeElement).to.have.class('sbb-chip__label-wrapper');
 
     await sendKeys({ press: tabKey }); // reset the focus
     await sendMouse({ type: 'click', position: [element.offsetTop + 10, element.offsetLeft + 10] });
     await waitForLitRender(element);
 
     expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-    expect(element.shadowRoot!.activeElement).to.have.class('sbb-chip__label-wrapper');
   });
 
   it('should ignore click when disabled', async () => {
@@ -54,6 +51,5 @@ describe('sbb-chip', () => {
     element.click();
 
     expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-    expect(element.shadowRoot!.activeElement).to.have.class('sbb-chip__label-wrapper');
   });
 });

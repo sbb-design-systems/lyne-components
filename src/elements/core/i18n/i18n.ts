@@ -761,11 +761,3 @@ export const i18nDateMax = (max: string): Record<string, string> => ({
   fr: `La date ne doit pas être postérieure au ${max}.`,
   it: `La data non deve essere successiva al ${max}.`,
 });
-
-// Usage example is "Remove ${chip label}“
-export const i18nChipDelete: Record<string, string> = {
-  de: 'Lösche',
-  en: 'Remove',
-  fr: 'Retire',
-  it: 'Rimuovi',
-};

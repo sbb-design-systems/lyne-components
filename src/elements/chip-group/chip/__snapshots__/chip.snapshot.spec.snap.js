@@ -3,7 +3,8 @@ export const snapshots = {};
 
 snapshots["sbb-chip renders DOM"] = 
 `<sbb-chip
-  role="row"
+  role="option"
+  tabindex="-1"
   value="Value"
 >
 </sbb-chip>
@@ -12,28 +13,21 @@ snapshots["sbb-chip renders DOM"] =
 
 snapshots["sbb-chip renders Shadow DOM"] = 
 `<div class="sbb-chip">
-  <div
-    class="sbb-chip__label-wrapper"
-    role="gridcell"
-    tabindex="-1"
-  >
+  <div class="sbb-chip__label-wrapper">
     <span class="sbb-chip__label">
       <slot>
         Value
       </slot>
     </span>
   </div>
-  <div role="gridcell">
-    <sbb-mini-button
-      aria-label="Remove Value"
-      class="sbb-chip__delete"
-      data-action=""
-      data-button=""
-      icon-name="cross-tiny-small"
-      tabindex="0"
-    >
-    </sbb-mini-button>
-  </div>
+  <sbb-mini-button
+    class="sbb-chip__delete"
+    data-action=""
+    data-button=""
+    icon-name="cross-tiny-small"
+    tabindex="0"
+  >
+  </sbb-mini-button>
 </div>
 `;
 /* end snapshot sbb-chip renders Shadow DOM */
@@ -41,7 +35,7 @@ snapshots["sbb-chip renders Shadow DOM"] =
 snapshots["sbb-chip renders disabled DOM"] = 
 `<sbb-chip
   disabled=""
-  role="row"
+  role="option"
   value="Value"
 >
 </sbb-chip>
@@ -50,27 +44,21 @@ snapshots["sbb-chip renders disabled DOM"] =
 
 snapshots["sbb-chip renders disabled Shadow DOM"] = 
 `<div class="sbb-chip">
-  <div
-    class="sbb-chip__label-wrapper"
-    role="gridcell"
-  >
+  <div class="sbb-chip__label-wrapper">
     <span class="sbb-chip__label">
       <slot>
         Value
       </slot>
     </span>
   </div>
-  <div role="gridcell">
-    <sbb-mini-button
-      aria-label="Remove Value"
-      class="sbb-chip__delete"
-      data-action=""
-      data-button=""
-      icon-name="cross-tiny-small"
-      tabindex="0"
-    >
-    </sbb-mini-button>
-  </div>
+  <sbb-mini-button
+    class="sbb-chip__delete"
+    data-action=""
+    data-button=""
+    icon-name="cross-tiny-small"
+    tabindex="0"
+  >
+  </sbb-mini-button>
 </div>
 `;
 /* end snapshot sbb-chip renders disabled Shadow DOM */
@@ -82,12 +70,18 @@ snapshots["sbb-chip renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "gridcell",
-      "name": "Value"
-    },
-    {
-      "role": "button",
-      "name": "Remove Value"
+      "role": "option",
+      "name": "Value",
+      "children": [
+        {
+          "role": "text",
+          "name": "Value"
+        },
+        {
+          "role": "button",
+          "name": ""
+        }
+      ]
     }
   ]
 }
@@ -102,18 +96,18 @@ snapshots["sbb-chip renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "section",
+      "role": "text container",
       "name": "",
       "children": [
         {
           "role": "text leaf",
           "name": "Value"
+        },
+        {
+          "role": "button",
+          "name": ""
         }
       ]
-    },
-    {
-      "role": "button",
-      "name": "Remove Value"
     }
   ]
 }
@@ -155,7 +149,8 @@ snapshots["sbb-chip renders disabled A11y tree Firefox"] =
 
 snapshots["sbb-chip renders with label DOM"] = 
 `<sbb-chip
-  role="row"
+  role="option"
+  tabindex="-1"
   value="Value"
 >
   Value label
@@ -165,28 +160,21 @@ snapshots["sbb-chip renders with label DOM"] =
 
 snapshots["sbb-chip renders with label Shadow DOM"] = 
 `<div class="sbb-chip">
-  <div
-    class="sbb-chip__label-wrapper"
-    role="gridcell"
-    tabindex="-1"
-  >
+  <div class="sbb-chip__label-wrapper">
     <span class="sbb-chip__label">
       <slot>
         Value
       </slot>
     </span>
   </div>
-  <div role="gridcell">
-    <sbb-mini-button
-      aria-label="Remove Value label"
-      class="sbb-chip__delete"
-      data-action=""
-      data-button=""
-      icon-name="cross-tiny-small"
-      tabindex="0"
-    >
-    </sbb-mini-button>
-  </div>
+  <sbb-mini-button
+    class="sbb-chip__delete"
+    data-action=""
+    data-button=""
+    icon-name="cross-tiny-small"
+    tabindex="0"
+  >
+  </sbb-mini-button>
 </div>
 `;
 /* end snapshot sbb-chip renders with label Shadow DOM */
@@ -198,12 +186,18 @@ snapshots["sbb-chip renders with label A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "gridcell",
-      "name": "Value label"
-    },
-    {
-      "role": "button",
-      "name": "Remove Value label"
+      "role": "option",
+      "name": "Value label",
+      "children": [
+        {
+          "role": "text",
+          "name": "Value label"
+        },
+        {
+          "role": "button",
+          "name": ""
+        }
+      ]
     }
   ]
 }
@@ -218,18 +212,18 @@ snapshots["sbb-chip renders with label A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "section",
+      "role": "text container",
       "name": "",
       "children": [
         {
           "role": "text leaf",
           "name": "Value label"
+        },
+        {
+          "role": "button",
+          "name": ""
         }
       ]
-    },
-    {
-      "role": "button",
-      "name": "Remove Value label"
     }
   ]
 }

@@ -18,12 +18,16 @@ const cases = {
 describe('sbb-chip', () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ negative }) => {
-      it(
-        `${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`);
-        }),
-      );
+      for (const state of [visualDiffDefault, visualDiffFocus]) {
+        it(
+          `${state.name}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`,
+            );
+          }),
+        );
+      }
 
       it(
         'slotted label',
@@ -52,7 +56,7 @@ describe('sbb-chip', () => {
         }),
       );
 
-      for (const state of [visualDiffActive, visualDiffFocus, visualDiffHover]) {
+      for (const state of [visualDiffActive, visualDiffHover]) {
         // Focus on chip
         it(
           `${state.name}`,
@@ -63,7 +67,7 @@ describe('sbb-chip', () => {
 
             const chipStateElement = setup.snapshotElement
               .querySelector('sbb-chip')!
-              .getFocusSteps()[0];
+              .shadowRoot!.querySelector<HTMLElement>('.sbb-chip__label-wrapper')!;
             setup.withStateElement(chipStateElement);
           }),
         );
@@ -78,7 +82,7 @@ describe('sbb-chip', () => {
 
             const deleteStateElement = setup.snapshotElement
               .querySelector('sbb-chip')!
-              .getFocusSteps()[1];
+              .shadowRoot!.querySelector<HTMLElement>('.sbb-chip__delete')!;
 
             setup.withStateElement(deleteStateElement);
             setup.withPostSetupAction(() => {

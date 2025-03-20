@@ -1,14 +1,13 @@
-import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
-import { i18nChipDelete } from '../../core/i18n.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
+import '../../screen-reader-only/screen-reader-only.js';
 
 import style from './chip.scss?lit&inline';
 
@@ -20,7 +19,7 @@ import style from './chip.scss?lit&inline';
 export
 @customElement('sbb-chip')
 @hostAttributes({
-  role: 'row',
+  role: 'option',
 })
 class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -36,42 +35,34 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   @property({ type: Boolean, reflect: true })
   public accessor readonly: boolean = false;
 
-  /** This will be forwarded as aria-label to the inner label element. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = '';
-
-  @state()
-  private accessor _slottedLabel = '';
-
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
-  private _language = new SbbLanguageController(this);
 
   public override click(): void {
     if (this.disabled) {
       return;
     }
-    const chipLabel = this._chipLabel();
-    chipLabel.focus();
-    chipLabel.click();
+    this.focus();
+    super.click();
   }
 
   public override focus(): void {
     if (this.disabled) {
       return;
     }
-    this._chipLabel().focus();
+    super.focus();
   }
 
-  /**
-   * Return the focusable elements of the chip.
-   * @internal
-   */
-  public getFocusSteps(): HTMLElement[] {
-    return this.readonly || this.disabled
-      ? [this._chipLabel()]
-      : [this._chipLabel(), this._deleteButton()];
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('disabled')) {
+      if (this.disabled) {
+        this.removeAttribute('tabindex');
+      } else {
+        this.setAttribute('tabindex', '-1');
+      }
+    }
   }
 
   protected override firstUpdated(_changedProperties: PropertyValues): void {
@@ -82,40 +73,24 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
     setTimeout(() => (this._deleteButton().tabIndex = -1));
   }
 
-  private _chipLabel(): HTMLElement {
-    return this.shadowRoot!.querySelector('.sbb-chip__label-wrapper')!;
-  }
-
   private _deleteButton(): HTMLElement {
     return this.shadowRoot!.querySelector('sbb-mini-button')!;
-  }
-
-  private _onSlotChange(): void {
-    this._slottedLabel = this.textContent ?? '';
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip">
-        <div
-          class="sbb-chip__label-wrapper"
-          role="gridcell"
-          tabindex=${!this.disabled ? '-1' : nothing}
-          aria-label=${this.accessibilityLabel || nothing}
-        >
+        <div class="sbb-chip__label-wrapper">
           <span class="sbb-chip__label">
-            <slot @slotchange=${this._onSlotChange}>${this.value}</slot>
+            <slot>${this.value}</slot>
           </span>
         </div>
-        <div role="gridcell">
-          <sbb-mini-button
-            tabindex=${!this.disabled ? '-1' : nothing}
-            class="sbb-chip__delete"
-            icon-name="cross-tiny-small"
-            aria-label=${`${i18nChipDelete[this._language.current]} ${this._slottedLabel || this.value}`}
-            @click=${() => this._requestDelete.emit()}
-          ></sbb-mini-button>
-        </div>
+        <sbb-mini-button
+          class="sbb-chip__delete"
+          icon-name="cross-tiny-small"
+          @click=${() => this._requestDelete.emit()}
+        >
+        </sbb-mini-button>
       </div>
     `;
   }

@@ -45,7 +45,7 @@ export interface SbbChipInputTokenEndEventDetails {
 export
 @customElement('sbb-chip-group')
 @hostAttributes({
-  role: 'grid',
+  role: 'listbox',
 })
 class SbbChipGroupElement extends SbbRequiredMixin(
   SbbDisabledMixin(
@@ -257,12 +257,8 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
     // Arrow keys allow navigation between chips focus steps
     if (isArrowKeyPressed(event)) {
-      // Collect an array of the enabled focus steps (2 for each chip)
-      const focusSteps = this._enabledChipElements().flatMap((c) => c.getFocusSteps());
-
-      // The true event target is shadowed by web-component boundary.
-      // We have to pierce the shadowDOM to get the focused step
-      const activeStep = eventTarget.shadowRoot!.activeElement as HTMLElement;
+      const focusSteps = this._enabledChipElements();
+      const activeStep = eventTarget as SbbChipElement;
 
       const next = getNextElementIndex(event, focusSteps.indexOf(activeStep), focusSteps.length);
       focusSteps[next].focus();
