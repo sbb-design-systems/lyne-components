@@ -444,6 +444,13 @@ export const i18nCloseNavigation: Record<string, string> = {
   it: 'Chiudere la navigazione',
 };
 
+export const i18nCloseSidebar: Record<string, string> = {
+  de: 'Seitenleiste schliessen',
+  en: 'Close sidebar',
+  fr: 'Fermer la barre latérale',
+  it: 'Chiudere la barra laterale',
+};
+
 export const i18nClosePopover: Record<string, string> = {
   de: 'Hinweis schliessen',
   en: 'Close note',
