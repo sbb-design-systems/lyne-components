@@ -301,6 +301,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
   };
 
+  // Internal method that we use externally. `protected` preserves type information for type safe access.
   protected cedeFocus(): void {
     if (this._inertController.isInert()) {
       this._inertController.deactivate();
