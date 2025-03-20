@@ -198,7 +198,12 @@ export default {
   concurrentBrowsers: 3,
   plugins: [
     a11ySnapshotPlugin(),
-    litSsrPlugin(),
+    litSsrPlugin({
+      workerInitModules: [
+        './tools/node-esm-hook/register-hooks.js',
+        './src/elements/core/testing/test-setup-ssr.ts',
+      ],
+    }),
     vitePlugin(),
     visualRegressionPlugin({
       ...visualRegressionConfig,

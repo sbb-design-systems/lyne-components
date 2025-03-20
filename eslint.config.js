@@ -1,19 +1,15 @@
 // @ts-check
 import './tools/node-esm-hook/register-hooks.js';
 
-import { FlatCompat } from '@eslint/eslintrc';
-
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginImportX from 'eslint-plugin-import-x';
+import * as eslintPluginLit from 'eslint-plugin-lit';
 import eslintPluginYml from 'eslint-plugin-yml';
 import eslint from '@eslint/js';
 
 const eslintPluginLyne = await import('./tools/eslint/index.ts');
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.resolve('.'),
-});
 
 const ignores = [
   'dist/**/*',
@@ -46,13 +42,9 @@ export default [
   ...tseslint.configs.recommended,
   ...eslintPluginYml.configs['flat/standard'],
   ...eslintPluginYml.configs['flat/prettier'],
-  ...compat.extends(
-    'plugin:lit/recommended',
-    'plugin:import-x/recommended',
-    'plugin:import-x/typescript',
-  ),
-  // @ts-expect-error The returned config will exist.
-  eslintPluginLyne.default.configs.recommended,
+  eslintPluginImportX.flatConfigs.recommended,
+  eslintPluginLit.configs['flat/recommended'],
+  eslintPluginLyne.configs.recommended,
   {
     files: ['src/visual-regression-app/**/*.ts'],
     rules: {
