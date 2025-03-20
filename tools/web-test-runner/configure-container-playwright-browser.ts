@@ -29,7 +29,6 @@ export function configureRemotePlaywrightBrowser(browser: PlaywrightLauncher): v
 
     if (!this.browser || !this.browser?.isConnected()) {
       this.__connectBrowserPromise = (async () => {
-        // eslint-disable-next-line import-x/namespace
         const browser = await playwright[this.product].connect(playwrightWebsocketAddress, {
           headers: { 'x-playwright-launch-options': JSON.stringify(this.launchOptions) },
         });
