@@ -21,6 +21,7 @@ snapshots["sbb-chip renders Shadow DOM"] =
     </span>
   </div>
   <sbb-mini-button
+    aria-hidden="true"
     class="sbb-chip__delete"
     data-action=""
     data-button=""
@@ -28,6 +29,9 @@ snapshots["sbb-chip renders Shadow DOM"] =
     tabindex="0"
   >
   </sbb-mini-button>
+  <sbb-screen-reader-only>
+    Press the 'Delete' button to remove the chip
+  </sbb-screen-reader-only>
 </div>
 `;
 /* end snapshot sbb-chip renders Shadow DOM */
@@ -52,6 +56,7 @@ snapshots["sbb-chip renders disabled Shadow DOM"] =
     </span>
   </div>
   <sbb-mini-button
+    aria-hidden="true"
     class="sbb-chip__delete"
     data-action=""
     data-button=""
@@ -59,6 +64,9 @@ snapshots["sbb-chip renders disabled Shadow DOM"] =
     tabindex="0"
   >
   </sbb-mini-button>
+  <sbb-screen-reader-only>
+    Press the 'Delete' button to remove the chip
+  </sbb-screen-reader-only>
 </div>
 `;
 /* end snapshot sbb-chip renders disabled Shadow DOM */
@@ -71,17 +79,7 @@ snapshots["sbb-chip renders A11y tree Chrome"] =
   "children": [
     {
       "role": "option",
-      "name": "Value",
-      "children": [
-        {
-          "role": "text",
-          "name": "Value"
-        },
-        {
-          "role": "button",
-          "name": ""
-        }
-      ]
+      "name": "Value Press the 'Delete' button to remove the chip"
     }
   ]
 }
@@ -104,8 +102,8 @@ snapshots["sbb-chip renders A11y tree Firefox"] =
           "name": "Value"
         },
         {
-          "role": "button",
-          "name": ""
+          "role": "text leaf",
+          "name": "Press the 'Delete' button to remove the chip"
         }
       ]
     }
@@ -124,6 +122,10 @@ snapshots["sbb-chip renders disabled A11y tree Chrome"] =
     {
       "role": "text",
       "name": "Value"
+    },
+    {
+      "role": "text",
+      "name": "Press the 'Delete' button to remove the chip"
     }
   ]
 }
@@ -140,6 +142,10 @@ snapshots["sbb-chip renders disabled A11y tree Firefox"] =
     {
       "role": "text leaf",
       "name": "Value"
+    },
+    {
+      "role": "text leaf",
+      "name": "Press the 'Delete' button to remove the chip"
     }
   ]
 }
@@ -168,6 +174,7 @@ snapshots["sbb-chip renders with label Shadow DOM"] =
     </span>
   </div>
   <sbb-mini-button
+    aria-hidden="true"
     class="sbb-chip__delete"
     data-action=""
     data-button=""
@@ -175,6 +182,9 @@ snapshots["sbb-chip renders with label Shadow DOM"] =
     tabindex="0"
   >
   </sbb-mini-button>
+  <sbb-screen-reader-only>
+    Press the 'Delete' button to remove the chip
+  </sbb-screen-reader-only>
 </div>
 `;
 /* end snapshot sbb-chip renders with label Shadow DOM */
@@ -187,17 +197,7 @@ snapshots["sbb-chip renders with label A11y tree Chrome"] =
   "children": [
     {
       "role": "option",
-      "name": "Value label",
-      "children": [
-        {
-          "role": "text",
-          "name": "Value label"
-        },
-        {
-          "role": "button",
-          "name": ""
-        }
-      ]
+      "name": "Value label Press the 'Delete' button to remove the chip"
     }
   ]
 }
@@ -220,8 +220,8 @@ snapshots["sbb-chip renders with label A11y tree Firefox"] =
           "name": "Value label"
         },
         {
-          "role": "button",
-          "name": ""
+          "role": "text leaf",
+          "name": "Press the 'Delete' button to remove the chip"
         }
       ]
     }

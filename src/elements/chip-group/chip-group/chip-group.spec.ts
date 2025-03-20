@@ -258,8 +258,15 @@ describe('sbb-chip-group', () => {
         // Should focus the last enabled chip
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
-        const focusedChipValue = (document.activeElement as SbbChipElement).value;
 
+        input.focus();
+        await sendKeys({ press: 'ArrowLeft' });
+
+        // Should focus the last enabled chip
+        expect(document.activeElement!.localName).to.be.equal('sbb-chip');
+        expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
+
+        const focusedChipValue = (document.activeElement as SbbChipElement).value;
         await sendKeys({ press: 'Backspace' });
         await waitForLitRender(element);
 

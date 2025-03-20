@@ -283,6 +283,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
   private _onInputKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Backspace':
+      case 'ArrowLeft':
         if (!this._inputElement!.value) {
           this._focusChip();
         }
