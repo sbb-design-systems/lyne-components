@@ -74,7 +74,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
         return placeGroup.places?.map((place: any) => {
           return {
             number: place?.number,
-            state: 'FREE',
+            state: place?.state,
             type: placeGroup.accommodationSubType.indexOf('BICYCLE') === -1 ? 'SEAT' : 'BICYCLE',
             dimension: { w: place.rectangle.dimension.width, h: place.rectangle.dimension.height },
             position: {

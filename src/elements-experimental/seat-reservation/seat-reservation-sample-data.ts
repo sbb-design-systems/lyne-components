@@ -34,6 +34,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '151',
@@ -52,6 +53,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '154',
@@ -70,6 +72,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -94,6 +97,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -118,6 +122,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '42',
@@ -136,6 +141,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -160,6 +166,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '37',
@@ -178,6 +185,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '36',
@@ -196,6 +204,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -220,6 +229,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '53',
@@ -238,6 +248,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '52',
@@ -256,6 +267,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '58',
@@ -274,6 +286,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -298,6 +311,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '73',
@@ -316,6 +330,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '72',
@@ -334,6 +349,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '78',
@@ -352,9 +368,11 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
+        //SPECIAL TEST SET FOR EVERY POSSIBILITY
         {
           travelClass: 'SECOND',
           accommodationSubType: 'ANY_SEAT',
@@ -376,6 +394,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'ALLOCATED',
             },
             {
               number: '33',
@@ -392,8 +411,9 @@ export const MOCK_COACHES_RAW_0 = [
                 },
               },
               orientation: 0,
-              placeLocations: ['AISLE'],
+              placeLocations: ['TABLE'],
               placeProperties: [],
+              state: 'RESTRICTED',
             },
             {
               number: '32',
@@ -410,8 +430,9 @@ export const MOCK_COACHES_RAW_0 = [
                 },
               },
               orientation: 180,
-              placeLocations: ['WINDOW'],
+              placeLocations: [],
               placeProperties: [],
+              state: 'SELECTED',
             },
             {
               number: '38',
@@ -430,6 +451,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -454,6 +476,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '57',
@@ -472,6 +495,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '56',
@@ -490,6 +514,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '54',
@@ -508,6 +533,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -532,6 +558,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '47',
@@ -550,6 +577,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '46',
@@ -568,6 +596,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 90,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -592,6 +621,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '67',
@@ -610,6 +640,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '66',
@@ -628,6 +659,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '64',
@@ -646,6 +678,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -670,6 +703,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '63',
@@ -688,6 +722,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '62',
@@ -706,6 +741,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '68',
@@ -724,6 +760,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -748,6 +785,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '77',
@@ -766,6 +804,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '76',
@@ -784,6 +823,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '74',
@@ -802,6 +842,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -822,6 +863,38 @@ export const MOCK_COACHES_RAW_0 = [
           },
           orientation: 0,
           type: 'DRIVER_AREA_FULL',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 7,
+              y: 4,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'STAIR_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 7,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'WIFI',
         },
         {
           rectangle: {
@@ -854,6 +927,22 @@ export const MOCK_COACHES_RAW_0 = [
           },
           orientation: 0,
           type: 'LUGGAGE_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 8,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'TOILET_AREA',
         },
         {
           rectangle: {
@@ -918,6 +1007,102 @@ export const MOCK_COACHES_RAW_0 = [
           },
           orientation: 180,
           type: 'COACH_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 4,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'PLAYGROUND_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 28,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'WHEELCHAIR_TOILET_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 13,
+              y: 3,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'SKI_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 18,
+              y: 3,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'MULTI_FUNCTION_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 22,
+              y: 3,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'EASY_ACCESS_AREA',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 33,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'PRAM_AREA',
         },
       ],
       serviceIcons: [
@@ -1018,6 +1203,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '151',
@@ -1036,6 +1222,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '154',
@@ -1054,6 +1241,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1078,6 +1266,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1102,6 +1291,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '42',
@@ -1120,6 +1310,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1144,6 +1335,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '17',
@@ -1162,6 +1354,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '16',
@@ -1180,6 +1373,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '14',
@@ -1198,6 +1392,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1222,6 +1417,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '13',
@@ -1240,6 +1436,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '12',
@@ -1258,6 +1455,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '18',
@@ -1276,6 +1474,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1300,6 +1499,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '27',
@@ -1318,6 +1518,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '26',
@@ -1333,9 +1534,10 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '24',
@@ -1351,9 +1553,10 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1378,6 +1581,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '23',
@@ -1396,6 +1600,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '22',
@@ -1414,6 +1619,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '28',
@@ -1432,6 +1638,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1456,6 +1663,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '37',
@@ -1474,6 +1682,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '36',
@@ -1492,6 +1701,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '34',
@@ -1510,6 +1720,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1534,6 +1745,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '53',
@@ -1552,6 +1764,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '52',
@@ -1570,6 +1783,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '58',
@@ -1588,6 +1802,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1612,6 +1827,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '73',
@@ -1630,6 +1846,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '72',
@@ -1648,6 +1865,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '78',
@@ -1666,6 +1884,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1690,6 +1909,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '33',
@@ -1708,6 +1928,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '32',
@@ -1726,6 +1947,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '38',
@@ -1744,6 +1966,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1768,6 +1991,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '57',
@@ -1786,6 +2010,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '56',
@@ -1804,6 +2029,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '54',
@@ -1822,6 +2048,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1846,6 +2073,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '47',
@@ -1864,6 +2092,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '46',
@@ -1882,6 +2111,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '44',
@@ -1900,6 +2130,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -1924,6 +2155,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '67',
@@ -1942,6 +2174,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '66',
@@ -1960,6 +2193,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '64',
@@ -1978,6 +2212,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2002,6 +2237,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '63',
@@ -2020,6 +2256,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '62',
@@ -2038,6 +2275,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '68',
@@ -2056,6 +2294,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2080,6 +2319,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '77',
@@ -2098,6 +2338,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
 
             {
@@ -2117,6 +2358,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2142,7 +2384,7 @@ export const MOCK_COACHES_RAW_0 = [
           rectangle: {
             position: {
               x: 22,
-              y: 8,
+              y: 6,
               z: 0,
             },
             dimension: {
@@ -2152,7 +2394,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'LUGGAGE_AREA',
+          type: 'SILENCE_AREA_ICON',
         },
         {
           rectangle: {
@@ -2233,6 +2475,54 @@ export const MOCK_COACHES_RAW_0 = [
           },
           orientation: 180,
           type: 'COACH_PASSAGE',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 34,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'BUSINESS',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 34,
+              y: 6,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'BISTRO',
+        },
+        {
+          rectangle: {
+            position: {
+              x: 40,
+              y: 4,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'RESTAURANT_ICON',
         },
       ],
       serviceIcons: [
@@ -2333,6 +2623,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '17',
@@ -2351,6 +2642,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '16',
@@ -2369,6 +2661,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '14',
@@ -2387,6 +2680,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2411,6 +2705,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '13',
@@ -2429,6 +2724,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '12',
@@ -2447,6 +2743,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '18',
@@ -2465,6 +2762,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2489,6 +2787,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '27',
@@ -2507,6 +2806,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '26',
@@ -2522,9 +2822,10 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '24',
@@ -2540,9 +2841,10 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2567,6 +2869,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '23',
@@ -2585,6 +2888,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '22',
@@ -2603,6 +2907,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '28',
@@ -2621,6 +2926,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2645,6 +2951,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'ALLOCATED',
             },
             {
               number: '151',
@@ -2663,6 +2970,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '154',
@@ -2681,6 +2989,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'RESTRICTED',
             },
           ],
         },
@@ -2705,6 +3014,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'SELECTED',
             },
           ],
         },
@@ -2729,6 +3039,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '42',
@@ -2747,6 +3058,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2771,6 +3083,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '37',
@@ -2789,6 +3102,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '36',
@@ -2807,6 +3121,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '34',
@@ -2825,6 +3140,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2849,6 +3165,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '53',
@@ -2867,6 +3184,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '52',
@@ -2885,6 +3203,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '58',
@@ -2903,6 +3222,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -2928,6 +3248,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '33',
@@ -2946,6 +3267,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '32',
@@ -2964,6 +3286,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '38',
@@ -2982,6 +3305,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3006,6 +3330,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '57',
@@ -3024,6 +3349,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '56',
@@ -3042,6 +3368,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '54',
@@ -3060,6 +3387,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3084,6 +3412,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '47',
@@ -3102,6 +3431,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '46',
@@ -3120,6 +3450,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '44',
@@ -3138,6 +3469,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3389,6 +3721,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '17',
@@ -3407,6 +3740,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '16',
@@ -3425,6 +3759,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '14',
@@ -3443,6 +3778,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3467,6 +3803,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '13',
@@ -3485,6 +3822,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '12',
@@ -3503,6 +3841,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '18',
@@ -3521,6 +3860,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3545,6 +3885,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '27',
@@ -3563,6 +3904,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '26',
@@ -3578,9 +3920,10 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '24',
@@ -3596,9 +3939,10 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3623,6 +3967,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '23',
@@ -3641,6 +3986,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '22',
@@ -3659,6 +4005,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '28',
@@ -3677,6 +4024,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3701,6 +4049,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '151',
@@ -3719,6 +4068,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '154',
@@ -3737,6 +4087,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3761,6 +4112,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3785,6 +4137,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '42',
@@ -3803,6 +4156,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3827,6 +4181,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '37',
@@ -3845,6 +4200,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '36',
@@ -3863,6 +4219,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '34',
@@ -3881,6 +4238,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3905,6 +4263,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '53',
@@ -3923,6 +4282,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '52',
@@ -3941,6 +4301,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '58',
@@ -3959,6 +4320,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -3984,6 +4346,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '33',
@@ -4002,6 +4365,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '32',
@@ -4020,6 +4384,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '38',
@@ -4038,6 +4403,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4062,6 +4428,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '57',
@@ -4080,6 +4447,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '56',
@@ -4098,6 +4466,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '54',
@@ -4116,6 +4485,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4140,6 +4510,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '47',
@@ -4158,6 +4529,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '46',
@@ -4176,6 +4548,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '44',
@@ -4194,6 +4567,7 @@ export const MOCK_COACHES_RAW_0 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4464,6 +4838,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '22',
@@ -4506,6 +4881,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '42',
@@ -4524,6 +4900,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4548,6 +4925,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '62',
@@ -4566,6 +4944,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4590,6 +4969,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '14',
@@ -4608,6 +4988,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '11',
@@ -4626,6 +5007,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '12',
@@ -4644,6 +5026,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4668,6 +5051,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '34',
@@ -4686,6 +5070,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '31',
@@ -4704,6 +5089,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '32',
@@ -4722,6 +5108,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4746,6 +5133,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '51',
@@ -4764,6 +5152,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 0,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
             {
               number: '52',
@@ -4782,6 +5171,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: [],
+              state: 'FREE',
             },
           ],
         },
@@ -4959,1397 +5349,20 @@ export const MOCK_COACHES_RAW_1 = [
  */
 export const MOCK_COACHES_RAW_REAL_DATA = [
   {
-    dataReleaseID: '17044',
-    dataUnitType: 'RESERVATION_LAYOUT',
-    dataReleaseTimestamp: '2025-03-12T13:08:24.722+01:00',
-    latestVersionDate: '9999-01-01',
-    status: 'TEST',
+    notifications: [],
     coachDeckLayout: {
-      versionID: '123456784',
-      objectID: 'RSL-CODELA-123456788',
-      entityVersionID: 123456784,
-      validFrom: '2023-06-01',
-      validThrough: '9999-01-01',
-      id: '32802',
-      name: '66000',
+      name: '65200',
       dimension: {
-        width: 58,
+        width: 64,
         height: 10,
       },
       lowFloorEntry: true,
+      id: '30802',
       deckLevel: 'LOWER_DECK',
       placeGroups: [
         {
-          rectangle: {
-            position: {
-              x: 1,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '15',
-              rectangle: {
-                position: {
-                  x: 1,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '16',
-              rectangle: {
-                position: {
-                  x: 5,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '17',
-              rectangle: {
-                position: {
-                  x: 1,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '14',
-              rectangle: {
-                position: {
-                  x: 5,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 1,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '13',
-              rectangle: {
-                position: {
-                  x: 1,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '18',
-              rectangle: {
-                position: {
-                  x: 5,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '11',
-              rectangle: {
-                position: {
-                  x: 1,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '12',
-              rectangle: {
-                position: {
-                  x: 5,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 7,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '25',
-              rectangle: {
-                position: {
-                  x: 7,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '26',
-              rectangle: {
-                position: {
-                  x: 11,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '27',
-              rectangle: {
-                position: {
-                  x: 7,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '24',
-              rectangle: {
-                position: {
-                  x: 11,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 7,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '23',
-              rectangle: {
-                position: {
-                  x: 7,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '28',
-              rectangle: {
-                position: {
-                  x: 11,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '21',
-              rectangle: {
-                position: {
-                  x: 7,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '22',
-              rectangle: {
-                position: {
-                  x: 11,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 13,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '35',
-              rectangle: {
-                position: {
-                  x: 13,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '36',
-              rectangle: {
-                position: {
-                  x: 17,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '37',
-              rectangle: {
-                position: {
-                  x: 13,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '34',
-              rectangle: {
-                position: {
-                  x: 17,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 13,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '33',
-              rectangle: {
-                position: {
-                  x: 13,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '38',
-              rectangle: {
-                position: {
-                  x: 17,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '31',
-              rectangle: {
-                position: {
-                  x: 13,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '32',
-              rectangle: {
-                position: {
-                  x: 17,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 19,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '45',
-              rectangle: {
-                position: {
-                  x: 19,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '46',
-              rectangle: {
-                position: {
-                  x: 23,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '47',
-              rectangle: {
-                position: {
-                  x: 19,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '44',
-              rectangle: {
-                position: {
-                  x: 23,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 20,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '48',
-              rectangle: {
-                position: {
-                  x: 20,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '42',
-              rectangle: {
-                position: {
-                  x: 20,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 26,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '154',
-              rectangle: {
-                position: {
-                  x: 26,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293010',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 26,
-              y: 2,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '153',
-              rectangle: {
-                position: {
-                  x: 26,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293010',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 26,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '152',
-              rectangle: {
-                position: {
-                  x: 26,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293010',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 26,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '151',
-              rectangle: {
-                position: {
-                  x: 26,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293010',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 38,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 7,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '55',
-              rectangle: {
-                position: {
-                  x: 38,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '56',
-              rectangle: {
-                position: {
-                  x: 43,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '57',
-              rectangle: {
-                position: {
-                  x: 38,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '54',
-              rectangle: {
-                position: {
-                  x: 43,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 38,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 7,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '53',
-              rectangle: {
-                position: {
-                  x: 38,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '58',
-              rectangle: {
-                position: {
-                  x: 43,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '51',
-              rectangle: {
-                position: {
-                  x: 38,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '52',
-              rectangle: {
-                position: {
-                  x: 43,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 45,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '65',
-              rectangle: {
-                position: {
-                  x: 45,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '66',
-              rectangle: {
-                position: {
-                  x: 49,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '67',
-              rectangle: {
-                position: {
-                  x: 45,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '64',
-              rectangle: {
-                position: {
-                  x: 49,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 45,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '63',
-              rectangle: {
-                position: {
-                  x: 45,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '68',
-              rectangle: {
-                position: {
-                  x: 49,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '61',
-              rectangle: {
-                position: {
-                  x: 45,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '62',
-              rectangle: {
-                position: {
-                  x: 49,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 51,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '75',
-              rectangle: {
-                position: {
-                  x: 51,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '76',
-              rectangle: {
-                position: {
-                  x: 55,
-                  y: 0,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '77',
-              rectangle: {
-                position: {
-                  x: 51,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '74',
-              rectangle: {
-                position: {
-                  x: 55,
-                  y: 2,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 51,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'SECOND',
-          places: [
-            {
-              number: '73',
-              rectangle: {
-                position: {
-                  x: 51,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '78',
-              rectangle: {
-                position: {
-                  x: 55,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-            {
-              number: '71',
-              rectangle: {
-                position: {
-                  x: 51,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 0,
-            },
-            {
-              number: '72',
-              rectangle: {
-                position: {
-                  x: 55,
-                  y: 8,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                },
-              },
-              orientation: 180,
-            },
-          ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
-        },
-      ],
-      graphicElements: [
-        {
-          rectangle: {
-            position: {
-              x: 22,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 3,
-              height: 2,
-            },
-          },
-          orientation: 0,
-          type: 'RSL-GRELTY-134672172839',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 32,
-              y: 1,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 3,
-            },
-          },
-          orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 32,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 3,
-            },
-          },
-          orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 37,
-              y: 1,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 3,
-            },
-          },
-          orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 37,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 3,
-            },
-          },
-          orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
-        },
-      ],
-      serviceIcons: [
-        {
-          rectangle: {
-            position: {
-              x: 28,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 1,
-            },
-          },
-          type: 'RSL-SRVICT-134677199932',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 28,
-              y: 2,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 1,
-            },
-          },
-          type: 'RSL-SRVICT-134677199932',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 28,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 1,
-            },
-          },
-          type: 'RSL-SRVICT-134677199932',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 28,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 1,
-            },
-          },
-          type: 'RSL-SRVICT-134677199932',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 41,
-              y: 3,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 1,
-            },
-          },
-          type: 'RSL-SRVICT-134777172832',
-        },
-        {
-          rectangle: {
-            position: {
-              x: 41,
-              y: 6,
-              z: 0,
-            },
-            dimension: {
-              width: 1,
-              height: 1,
-            },
-          },
-          type: 'RSL-SRVICT-134777172832',
-        },
-      ],
-    },
-  },
-  {
-    versionID: '123456789',
-    objectID: 'RSL-CODELA-123456789',
-    entityVersionID: 123456789,
-    validFrom: '2023-06-01',
-    validThrough: '9999-01-01',
-    id: '30802',
-    name: '65200',
-    dimension: {
-      width: 64,
-      height: 10,
-    },
-    coachDeckLayout: {
-      lowFloorEntry: true,
-      deckLevel: 'LOWER_DECK',
-      placeGroups: [
-        {
-          rectangle: {
-            position: {
-              x: 14,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '15',
@@ -6365,23 +5378,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 14,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '11',
@@ -6397,23 +5400,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 17,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '16',
@@ -6429,6 +5422,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '14',
@@ -6444,23 +5438,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 17,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '12',
@@ -6476,23 +5460,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 20,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '25',
@@ -6508,6 +5482,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '26',
@@ -6523,6 +5498,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
             {
               number: '23',
@@ -6538,6 +5514,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '24',
@@ -6552,24 +5529,14 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                   height: 2,
                 },
               },
-              orientation: 180,
+              orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 20,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '21',
@@ -6585,6 +5552,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '22',
@@ -6600,23 +5568,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 27,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '35',
@@ -6632,6 +5590,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
             {
               number: '33',
@@ -6647,23 +5606,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 27,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '31',
@@ -6679,23 +5628,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 30,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '36',
@@ -6711,6 +5650,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
             {
               number: '34',
@@ -6726,23 +5666,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 30,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '32',
@@ -6758,23 +5688,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 33,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '46',
@@ -6790,6 +5710,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
             {
               number: '44',
@@ -6805,23 +5726,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 33,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '42',
@@ -6837,23 +5748,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 44,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 7,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '55',
@@ -6869,6 +5770,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '56',
@@ -6884,6 +5786,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
             {
               number: '53',
@@ -6899,6 +5802,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '54',
@@ -6914,23 +5818,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 48,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 2,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '52',
@@ -6946,23 +5840,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 51,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 4,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '65',
@@ -6978,6 +5862,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '66',
@@ -6993,6 +5878,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
             {
               number: '63',
@@ -7008,23 +5894,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 51,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '61',
@@ -7040,6 +5916,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '62',
@@ -7055,23 +5932,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 57,
-              y: 0,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '75',
@@ -7087,6 +5954,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '76',
@@ -7102,23 +5970,13 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
         {
-          rectangle: {
-            position: {
-              x: 57,
-              y: 8,
-              z: 0,
-            },
-            dimension: {
-              width: 6,
-              height: 2,
-            },
-          },
-          travelClass: 'FIRST',
+          serviceClass: 'HIGH',
+          accommodationSubType: 'OPEN_SPACE',
           places: [
             {
               number: '71',
@@ -7134,6 +5992,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 0,
+              placeProperties: [],
             },
             {
               number: '72',
@@ -7149,9 +6008,9 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
                 },
               },
               orientation: 180,
+              placeProperties: [],
             },
           ],
-          accommodationSubType: 'REI-ACCSUB-131543293020',
         },
       ],
       graphicElements: [
@@ -7174,7 +6033,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134679172839',
+          type: 'DRIVER_AREA',
         },
         {
           rectangle: {
@@ -7189,7 +6048,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134672172839',
+          type: 'LUGGAGE_AREA',
         },
         {
           rectangle: {
@@ -7204,7 +6063,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134672172839',
+          type: 'LUGGAGE_AREA',
         },
         {
           rectangle: {
@@ -7219,7 +6078,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134679172832',
+          type: 'ENTRANCE',
         },
         {
           rectangle: {
@@ -7234,7 +6093,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
+          type: 'WALL',
         },
         {
           rectangle: {
@@ -7249,7 +6108,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
+          type: 'WALL',
         },
         {
           rectangle: {
@@ -7264,7 +6123,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
+          type: 'WALL',
         },
         {
           rectangle: {
@@ -7279,7 +6138,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
             },
           },
           orientation: 0,
-          type: 'RSL-GRELTY-134677172832',
+          type: 'WALL',
         },
       ],
       serviceIcons: [
@@ -7295,7 +6154,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
               height: 1,
             },
           },
-          type: 'RSL-SRVICT-134777172832',
+          type: 'WHEELCHAIR_ICON',
         },
       ],
     },
