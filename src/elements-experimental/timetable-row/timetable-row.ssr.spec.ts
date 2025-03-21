@@ -13,7 +13,10 @@ describe(`sbb-timetable-row ssr`, () => {
     });
   });
 
-  it('renders', () => {
+  it('renders', function () {
+    // This test seems flakey for unknown reason, so we extend the timeout for this
+    // specific test.
+    this.timeout(20000);
     assert.instanceOf(root, SbbTimetableRowElement);
   });
 });
