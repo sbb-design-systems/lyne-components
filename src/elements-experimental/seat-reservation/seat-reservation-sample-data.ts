@@ -883,6 +883,22 @@ export const MOCK_COACHES_RAW_0 = [
         {
           rectangle: {
             position: {
+              x: 7,
+              y: 1,
+              z: 0,
+            },
+            dimension: {
+              width: 3,
+              height: 2,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'WIFI',
+        },
+        {
+          rectangle: {
+            position: {
               x: 33,
               y: 0,
               z: 0,
