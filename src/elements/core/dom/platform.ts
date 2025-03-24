@@ -66,3 +66,6 @@ export const isChromium = isBlink;
 
 /** Whether the application is being rendered in a Next.js environment. */
 export const isNextjs = (): boolean => !!(globalThis as { next?: object }).next;
+
+/** Whether the device is a mac like device */
+export const isMacLike = /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent);

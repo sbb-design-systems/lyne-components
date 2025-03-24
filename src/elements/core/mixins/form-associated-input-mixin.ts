@@ -1,4 +1,4 @@
-import { html, isServer, type LitElement } from 'lit';
+import { html, isServer, type LitElement, type PropertyValues } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
@@ -321,6 +321,16 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     ): void {
       if (state && typeof state === 'string') {
         this.value = state;
+      }
+    }
+
+    protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+      super.firstUpdated(changedProperties);
+
+      // If the value was assigned before firstUpdate, we have to
+      // write it the document to be visually seen
+      if (this.value && !this.innerHTML.length) {
+        this.innerHTML = this.value;
       }
     }
 
