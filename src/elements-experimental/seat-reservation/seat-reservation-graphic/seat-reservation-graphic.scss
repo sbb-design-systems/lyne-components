@@ -18,6 +18,10 @@
         fill: currentcolor;
       }
     }
+
+    .no-bg {
+      fill: transparent;
+    }
   }
 
   display: flex;
