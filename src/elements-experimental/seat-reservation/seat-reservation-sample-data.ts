@@ -416,6 +416,24 @@ export const MOCK_COACHES_RAW_0 = [
               state: 'RESTRICTED',
             },
             {
+              number: 'T',
+              rectangle: {
+                position: {
+                  x: 0,
+                  y: 4,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 4,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              type: 'TABLE_RESTAURANT',
+            },
+
+            {
               number: '32',
               rectangle: {
                 position: {
@@ -435,7 +453,7 @@ export const MOCK_COACHES_RAW_0 = [
               state: 'SELECTED',
             },
             {
-              number: '38',
+              number: '34',
               rectangle: {
                 position: {
                   x: 17,
