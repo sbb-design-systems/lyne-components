@@ -25,6 +25,10 @@ describe('sbb-chip', () => {
             await setup.withFixture(
               html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`,
             );
+
+            setup.withPostSetupAction(() => {
+              setup.snapshotElement.querySelector('sbb-chip')!.tabIndex = 0; // We force the tab index for the focus test case
+            });
           }),
         );
       }
