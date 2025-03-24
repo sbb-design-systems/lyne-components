@@ -8,6 +8,7 @@ import '../../link/block-link.js';
 import '../../link-list.js';
 import '../../logo.js';
 import '../../sidebar.js';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing/wait-for-render';
 
 describe('sbb-icon-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">
@@ -121,9 +122,10 @@ describe('sbb-icon-sidebar', () => {
           { minHeight: '400px' },
         );
 
-        setup.withPostSetupAction(() => {
+        setup.withPostSetupAction(async () => {
           const sidebar = setup.snapshotElement.querySelector('sbb-sidebar')!;
           sidebar.open();
+          await waitForLitRender(sidebar);
         });
       }),
     );
