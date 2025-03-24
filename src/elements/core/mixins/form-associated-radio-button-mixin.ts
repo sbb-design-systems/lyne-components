@@ -8,10 +8,10 @@ import { i18nSelectionRequired } from '../i18n.js';
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
 import {
-  SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-  type SbbFormAssociatedMixinType,
+  SbbFormAssociatedMixin,
+  type SbbFormAssociatedMixinType
 } from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
@@ -107,7 +107,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonElement>;
     private _radioButtonGroupsMap?: Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>;
-    private _didLoad: boolean = false;
     private _languageController = new SbbLanguageController(this);
 
     protected constructor() {
@@ -161,7 +160,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     protected override firstUpdated(changedProperties: PropertyValues<this>): void {
       super.firstUpdated(changedProperties);
-      this._didLoad = true;
       this.updateFocusableRadios();
     }
 
@@ -216,7 +214,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * - the first non-disabled radio in DOM order;
      */
     protected updateFocusableRadios(): void {
-      if (!this._didLoad) {
+      if (!this.hasUpdated) {
         return;
       }
       const radios = this._interactableGroupedRadios();
