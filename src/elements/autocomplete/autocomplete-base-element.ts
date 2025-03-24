@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, isServer, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -11,7 +18,7 @@ import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
-  setOverlayPosition
+  setOverlayPosition,
 } from '../core/overlay.js';
 import type { SbbOptionBaseElement } from '../option.js';
 

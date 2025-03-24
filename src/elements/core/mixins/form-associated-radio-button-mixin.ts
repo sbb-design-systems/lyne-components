@@ -11,7 +11,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType
+  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
 
