@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.js';
 import { inputAutocompleteEvent } from '../../autocomplete.js';
+import { i18nChipGroupInputDescription } from '../../core/i18n.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -21,6 +22,7 @@ describe('sbb-chip-group', () => {
   let formField: SbbFormFieldElement;
   let input: HTMLInputElement;
   let focusStep: HTMLInputElement;
+  let a11yDescription: HTMLElement;
 
   describe('basic interactions', () => {
     beforeEach(async () => {
@@ -41,13 +43,13 @@ describe('sbb-chip-group', () => {
       formField = document.querySelector('sbb-form-field')!;
       input = document.querySelector('input')!;
       focusStep = document.querySelector('#focusable')!;
-
-      await waitForLitRender(formField);
+      a11yDescription = element.querySelector('[id^="sbb-chip-group-description-"]')!;
     });
 
     it('renders', async () => {
       assert.instanceOf(element, SbbChipGroupElement);
-      expect(input).to.have.attribute('aria-description', 'Selected elements: 3');
+      expect(a11yDescription).to.exist;
+      expect(input).to.have.attribute('aria-describedby', a11yDescription.id);
     });
 
     it('should add chip on enter', async () => {
@@ -65,6 +67,7 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(element);
 
       expect(element.querySelectorAll('sbb-chip').length).to.be.equal(4);
+      expect(a11yDescription).to.have.trimmed.text(`${i18nChipGroupInputDescription['en']} 4`);
     });
 
     it('should customize new chip value and label', async () => {
@@ -214,6 +217,7 @@ describe('sbb-chip-group', () => {
         element.value = null;
         await waitForLitRender(element);
         expect(element.querySelectorAll('sbb-chip').length).to.be.equal(0);
+        expect(a11yDescription).to.have.trimmed.text(`${i18nChipGroupInputDescription['en']} 0`);
       });
 
       it('should sync value when slotting chips', async () => {

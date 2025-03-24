@@ -12,6 +12,12 @@ snapshots["sbb-chip-group renders DOM"] =
     value="Value 1"
   >
   </sbb-chip>
+  <span
+    class="sbb-screen-reader-only"
+    id="sbb-chip-group-description-1"
+  >
+    Selected elements: 1
+  </span>
 </sbb-chip-group>
 `;
 /* end snapshot sbb-chip-group renders DOM */
@@ -55,6 +61,12 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
       value="Value 2"
     >
     </sbb-chip>
+    <span
+      class="sbb-screen-reader-only"
+      id="sbb-chip-group-description-3"
+    >
+      Selected elements: 2
+    </span>
   </sbb-chip-group>
   <input id="sbb-form-field-input-0">
 </sbb-form-field>
