@@ -84,7 +84,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   public static override readonly events = {
     change: 'change',
     input: 'input',
-    stateChange: 'stateChange',
+    displayValueChange: 'displayValueChange',
     willOpen: 'willOpen',
     didOpen: 'didOpen',
     willClose: 'willClose',
@@ -136,9 +136,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _input: EventEmitter = new EventEmitter(this, SbbSelectElement.events.input);
 
   /** @internal */
-  private _stateChange: EventEmitter<SelectChange> = new EventEmitter(
+  private _displayValueChanged: EventEmitter<SelectChange> = new EventEmitter(
     this,
-    SbbSelectElement.events.stateChange,
+    SbbSelectElement.events.displayValueChange,
     {
       composed: false,
     },
@@ -325,6 +325,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     } else {
       this._displayValue = null;
     }
+    this._displayValueChanged.emit();
   }
 
   /**
@@ -372,7 +373,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       selectedElements.forEach((o) => (o.selected = true));
       this._updateDisplayValue(selectedElements);
     }
-    this._stateChange.emit({ type: 'value', value: newValue });
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
