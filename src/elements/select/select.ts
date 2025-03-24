@@ -7,7 +7,7 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController, SbbEscapableOverlayController } from '../core/controllers.js';
+import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.js';
 import {
   forceType,
   getOverride,
@@ -869,6 +869,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     } else if (selected) {
       this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selected);
       this.value = selected.value;
+    } else if (this.value) {
+      // If no option is selected, check if current value matches one option
+      this._onValueChanged(this.value);
     }
   }
 
