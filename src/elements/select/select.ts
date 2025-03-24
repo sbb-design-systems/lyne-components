@@ -7,7 +7,7 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController, SbbEscapableOverlayController } from '../core/controllers.js';
+import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.js';
 import {
   forceType,
   getOverride,
@@ -40,6 +40,9 @@ const ariaRoleOnHost = isSafari;
 
 let nextId = 0;
 
+/**
+ * @deprecated will be removed with next major version
+ */
 export interface SelectChange {
   type: 'value';
   value: string | string[];
@@ -84,7 +87,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   public static override readonly events = {
     change: 'change',
     input: 'input',
-    stateChange: 'stateChange',
+    displayValueChange: 'displayValueChange',
     willOpen: 'willOpen',
     didOpen: 'didOpen',
     willClose: 'willClose',
@@ -136,9 +139,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _input: EventEmitter = new EventEmitter(this, SbbSelectElement.events.input);
 
   /** @internal */
-  private _stateChange: EventEmitter<SelectChange> = new EventEmitter(
+  private _displayValueChanged: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectElement.events.stateChange,
+    SbbSelectElement.events.displayValueChange,
     {
       composed: false,
     },
@@ -325,6 +328,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     } else {
       this._displayValue = null;
     }
+    this._displayValueChanged.emit();
   }
 
   /**
@@ -372,7 +376,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       selectedElements.forEach((o) => (o.selected = true));
       this._updateDisplayValue(selectedElements);
     }
-    this._stateChange.emit({ type: 'value', value: newValue });
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -869,6 +872,11 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     } else if (selected) {
       this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selected);
       this.value = selected.value;
+    } else if (this.value) {
+      // If we arrive here without any options being selected,
+      // we should try to check the current value against the available options
+      // (and select it if any match is found).
+      this._onValueChanged(this.value);
     }
   }
 
