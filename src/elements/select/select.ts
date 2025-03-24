@@ -40,6 +40,9 @@ const ariaRoleOnHost = isSafari;
 
 let nextId = 0;
 
+/**
+ * @deprecated will be removed with next major version
+ */
 export interface SelectChange {
   type: 'value';
   value: string | string[];
@@ -136,7 +139,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _input: EventEmitter = new EventEmitter(this, SbbSelectElement.events.input);
 
   /** @internal */
-  private _displayValueChanged: EventEmitter<SelectChange> = new EventEmitter(
+  private _displayValueChanged: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectElement.events.displayValueChange,
     {
@@ -870,7 +873,9 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selected);
       this.value = selected.value;
     } else if (this.value) {
-      // If no option is selected, check if current value matches one option
+      // If we arrive here without any options being selected,
+      // we should try to check the current value against the available options
+      // (and select it if any match is found).
       this._onValueChanged(this.value);
     }
   }
