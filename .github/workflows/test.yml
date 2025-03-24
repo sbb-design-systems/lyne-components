@@ -1,0 +1,139 @@
+name: Test
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+env:
+  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/${{ github.repository }}/visual-regression
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      test-modules: ${{ steps.test-modules.outputs.result }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run eslint
+        run: yarn lint:tsc
+
+      - name: Find test modules
+        uses: actions/github-script@v7
+        id: test-modules
+        with:
+          script: |
+            const path = require('path');
+            const globber = await glob.create('src/**/*.spec.ts');
+            const files = await globber.glob();
+            const result = files
+              .map((p) => path.relative(process.cwd(), p).split('/').slice(1, 3).join('/'))
+              .filter((v, i, a) => a.indexOf(v) === i)
+              .sort();
+
+            console.log(result);
+            return JSON.stringify(result);
+          result-encoding: string
+
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    services:
+      visual-regression:
+        image: ghcr.io/${{ github.repository }}/visual-regression:baseline
+        ports:
+          - 8050:8080
+    strategy:
+      matrix:
+        test-module: ${{ fromJSON(needs.setup.outputs.test-modules) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+      - name: Install browser dependencies
+        run: yarn playwright install-deps
+      - name: Run tests
+        run: yarn test --module=${{ matrix.test-module }}
+        env:
+          NODE_ENV: production
+      - name: Assert no new snapshots (run `yarn test --ci` if this fails)
+        run: git diff --exit-code
+      - name: Rename coverage
+        run: mv coverage/coverage-final.json coverage/coverage-${TEST_MODULE//\//-}.json
+        env:
+          TEST_MODULE: ${{ matrix.test-module }}
+      - name: Store coverage
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-coverage-${{ matrix.test-module }}
+          path: coverage/
+
+        # This step must not fail, so we define a fallback, which will succeed, even if
+        # the visual regression tests failed. This will be evaluated in the secure workflow.
+      - name: Run visual regression tests
+        run: yarn test:visual-regression --module=${{ matrix.test-module }} || true
+        env:
+          NODE_ENV: production
+          RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Prepare failed screenshot artifacts
+        run: yarn ts-hooks tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
+      - name: Store visual regression output
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-visual-regression-screenshots-${{ matrix.test-module }}
+          path: dist/screenshots-artifact/
+
+  collect-test-results:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs:
+      - setup
+      - test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+      - uses: actions/download-artifact@v4
+
+      - name: Assemble code coverage
+        run: |
+          mv coverage coverage-matrix
+          yarn nyc report \
+            --temp-dir coverage-matrix \
+            --report-dir coverage \
+            --reporter lcov
+          rm -rf coverage-matrix
+      - name: Store coverage
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+      - uses: codecov/codecov-action@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Store visual regression output
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-screenshots
+          path: dist/screenshots-artifact/

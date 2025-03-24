@@ -1,3 +1,4 @@
+import { globSync } from 'node:fs';
 import { platform } from 'node:os';
 import { parseArgs } from 'node:util';
 
@@ -32,6 +33,7 @@ const { values: cliArgs } = parseArgs({
   strict: false,
   options: {
     file: { type: 'string' },
+    module: { type: 'string' },
     ci: { type: 'boolean', default: !!process.env.CI },
     debug: { type: 'boolean' },
     'all-browsers': { type: 'boolean', short: 'a' },
@@ -161,15 +163,20 @@ const suppressedLogs = [
 ];
 
 const testFile = typeof cliArgs.file === 'string' && cliArgs.file ? cliArgs.file : undefined;
-const groups: TestRunnerGroupConfig[] = [
-  { name: 'ssr', files: testFile ?? 'src/**/*.ssr.spec.ts', testRunnerHtml },
-];
+const testModule =
+  typeof cliArgs.module === 'string' && cliArgs.module
+    ? globSync(`src/**/${cliArgs.module}/**/*.spec.ts`)
+    : undefined;
+const groups: TestRunnerGroupConfig[] = [];
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (cliArgs.group === 'visual-regression') {
   groups.push({
     name: 'visual-regression',
-    files: testFile ?? 'src/**/*.visual.spec.ts',
+    files:
+      testFile ??
+      testModule?.filter((m) => m.endsWith('.visual.spec.ts')) ??
+      'src/**/*.visual.spec.ts',
     testRunnerHtml,
   });
   if (!cliArgs.local && platform() !== 'linux') {
@@ -187,7 +194,11 @@ if (cliArgs.container) {
 }
 
 export default {
-  files: testFile ?? ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
+  files: testFile ??
+    testModule?.filter((m) => !m.endsWith('.visual.spec.ts')) ?? [
+      'src/**/*.spec.ts',
+      '!**/*.visual.spec.ts',
+    ],
   groups,
   nodeResolve: true,
   reporters:
@@ -220,6 +231,7 @@ export default {
   },
   coverageConfig: {
     exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
+    reporters: cliArgs.ci ? ['json'] : undefined,
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,

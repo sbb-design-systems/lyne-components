@@ -40,38 +40,6 @@ jobs:
       - name: 'Integrity: Assert no changes (run `yarn integrity` if this fails)'
         run: git diff --exit-code
 
-  test:
-    runs-on: ubuntu-latest
-    needs: lint
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
-      - name: Install browser dependencies
-        run: yarn playwright install-deps
-      - name: Run tests
-        run: yarn test
-        env:
-          NODE_ENV: production
-      - name: Assert no new snapshots (run `yarn test --ci` if this fails)
-        run: git diff --exit-code
-      - name: Store coverage
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
-      - uses: codecov/codecov-action@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
-          fail_ci_if_error: true
-          verbose: true
-
   build:
     runs-on: ubuntu-latest
     needs: lint
@@ -113,40 +81,6 @@ jobs:
           docker image list
         env:
           DOCKER_BUILDKIT: 1
-
-  visual-regression:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    needs: lint
-    services:
-      visual-regression:
-        image: ghcr.io/${{ github.repository }}/visual-regression:baseline
-        ports:
-          - 8050:8080
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
-
-      - name: Install browser dependencies
-        run: yarn playwright install-deps
-        # This step must not fail, so we define a fallback, which will succeed, even if
-        # the visual regression tests failed. This will be evaluated in the secure workflow.
-      - name: Run visual regression tests
-        run: yarn test:visual-regression || true
-        env:
-          NODE_ENV: production
-          RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Prepare failed screenshot artifacts
-        run: yarn ts-hooks tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
-      - name: Store visual regression output
-        uses: actions/upload-artifact@v4
-        with:
-          name: visual-regression-screenshots
-          path: dist/screenshots-artifact/
 
   visual-regression-baseline:
     runs-on: ubuntu-latest
