@@ -4,7 +4,17 @@ description: Setup https://github.com/mintoolkit/mint
 runs:
   using: composite
   steps:
+    - name: Create $HOME/.local/bin
+      run: mkdir -p "$HOME/.local/bin"
+      shell: bash
+    - name: Cache mint
+      id: cache-mint
+      uses: actions/cache@v4
+      with:
+        path: /home/runner/.local/bin
+        key: ${{ runner.os }}-mint
     - name: Setup mint
+      if: steps.cache-mint.outputs.cache-hit != 'true'
       run: |
         mkdir -p "$HOME/.local/bin"
         cd "$HOME/.local/bin"
