@@ -1,11 +1,12 @@
-import * as assets from '../assets/index.js';
-import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from '../seat-reservation-sample-data.js';
 import type {
   CoachItem,
   PlaceTravelClass,
   SeatReservation,
   VehicleType,
 } from '../seat-reservation.js';
+
+import { assets } from './assets.js';
+import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sample-data.js';
 
 /**
  * Map Object from OSDM Code to SVG

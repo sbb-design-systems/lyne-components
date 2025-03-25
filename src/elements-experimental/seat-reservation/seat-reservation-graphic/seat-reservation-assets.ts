@@ -1,8 +1,7 @@
 import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import * as assets from '../assets.js';
-import { mapCodeToSvg } from '../common.js';
+import { assets, mapCodeToSvg } from '../common.js';
 
 import './seat-reservation-assets.scss';
 
