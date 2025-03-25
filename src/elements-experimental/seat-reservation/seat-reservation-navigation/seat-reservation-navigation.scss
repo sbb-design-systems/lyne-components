@@ -97,13 +97,17 @@
   --sbb-seat-reservation-navigation-btn-background-color: var(
     --sbb-seat-reservation-navigation-btn-background-color-hover
   );
+}
 
-  .sbb-seat-reservation-navigation__item-coach-number {
-    color: var(--sbb-color-charcoal);
+.sbb-seat-reservation-navigation__item-coach-number {
+  color: var(--sbb-color-charcoal);
 
+  @include sbb.if-forced-colors {
     @include sbb.if-forced-colors {
       color: inherit;
     }
+
+    color: var(--sbb-color-charcoal);
   }
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
