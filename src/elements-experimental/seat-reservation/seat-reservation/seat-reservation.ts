@@ -114,6 +114,11 @@ class SbbSeatReservationElement extends LitElement {
     const classAlignVertical = this.alignVertical ? 'sbb-seat-reservation__wrapper--vertical' : '';
 
     this._coachesHtmlTemplate = html`
+      <style>
+        .sbb-seat-reservation__list-coaches {
+          transform: scale(${this.scale});
+        }
+      </style>
       <div class="sbb-seat-reservation">
         <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
           <sbb-seat-reservation-navigation
