@@ -12,6 +12,24 @@
 }
 
 .sbb-seat-reservation-graphic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(var(--reservation-graphic-width) * 1rem);
+  height: calc(var(--reservation-graphic-height) * 1rem);
+  transform-origin: center;
+  transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
+
+  svg {
+    width: clamp(100%, 100%, 100%);
+    height: clamp(100%, 100%, 100%);
+
+    .fix-rotation-inverse {
+      transform-origin: center;
+      transform: rotate(calc(var(--reservation-graphic-contents-rotation) * 1deg));
+    }
+  }
+
   @include sbb.if-forced-colors {
     svg:not(.color-immutable) {
       [fill]:not([fill='none']) {
@@ -21,32 +39,6 @@
 
     .no-bg {
       fill: transparent;
-    }
-  }
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: calc(var(--reservation-graphic-width) * 1rem);
-  height: calc(var(--reservation-graphic-height) * 1rem);
-  transform-origin: center;
-  transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
-
-  @include sbb.if-forced-colors {
-    svg:not(.color-immutable) {
-      [fill]:not([fill='none']) {
-        fill: currentcolor;
-      }
-    }
-  }
-
-  svg {
-    width: clamp(100%, 100%, 100%);
-    height: clamp(100%, 100%, 100%);
-
-    .fix-rotation-inverse {
-      transform-origin: center;
-      transform: rotate(calc(var(--reservation-graphic-contents-rotation) * 1deg));
     }
   }
 }
