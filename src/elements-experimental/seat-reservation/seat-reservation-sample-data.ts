@@ -435,7 +435,7 @@ export const MOCK_COACHES_RAW_0 = [
               state: 'SELECTED',
             },
             {
-              number: '38',
+              number: '34',
               rectangle: {
                 position: {
                   x: 17,
