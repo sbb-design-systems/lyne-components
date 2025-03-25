@@ -209,7 +209,7 @@ describe(`sbb-select`, () => {
       expect(thirdOption).not.to.have.attribute('selected');
     });
 
-    it('display selected sbb-option if no value is set, then handles selection', async () => {
+    it('displays selected sbb-option if no value is set, then handles selection', async () => {
       const root = await fixture(html`
         <div id="parent2">
           <sbb-select>
@@ -265,6 +265,26 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal('2');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('displays initially selected option', async () => {
+      const root = await fixture(html`
+        <div id="parent3">
+          <sbb-select value=${'3'}> </sbb-select>
+        </div>
+      `);
+      element = root.querySelector<SbbSelectElement>('sbb-select')!;
+
+      const opt3 = document.createElement('sbb-option');
+      opt3.textContent = 'Third';
+      opt3.value = '3';
+      element.appendChild(opt3);
+
+      await waitForLitRender(root);
+
+      expect(element.value).to.be.equal('3');
+      const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
+      expect(displayValue).to.have.trimmed.text('Third');
     });
 
     it('handles selection in multiple', async () => {

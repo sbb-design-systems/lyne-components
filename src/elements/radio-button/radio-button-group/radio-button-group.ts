@@ -56,7 +56,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   @property()
   public set value(val: string | null) {
     this._fallbackValue = val;
-    if (!this._didLoad) {
+    if (!this.hasUpdated) {
       return;
     }
     if (val == null) {
@@ -110,8 +110,6 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
-  private _didLoad = false;
-
   /**
    * Emits whenever the `sbb-radio-group` value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -150,7 +148,6 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changedProperties);
-    this._didLoad = true;
 
     await this.updateComplete;
     this._updateRadioState();
