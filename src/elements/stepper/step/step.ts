@@ -1,10 +1,4 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
@@ -47,7 +41,6 @@ class SbbStepElement extends LitElement {
     SbbStepElement.events.validate,
   );
 
-  private _loaded: boolean = false;
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
 
@@ -66,7 +59,7 @@ class SbbStepElement extends LitElement {
    * @internal
    */
   public select(): void {
-    if (!this._loaded || !this.label) {
+    if (!this.hasUpdated || !this.label) {
       return;
     }
     this.toggleAttribute('data-selected', true);
@@ -139,11 +132,6 @@ class SbbStepElement extends LitElement {
     this.id = this.id || `sbb-step-${nextId++}`;
     this._stepper = this.closest('sbb-stepper');
     this._label = this._getStepLabel();
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    this._loaded = true;
   }
 
   protected override render(): TemplateResult {
