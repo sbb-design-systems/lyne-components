@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.5.0...v2.5.1) (2025-03-25)
+
+
+### Bug Fixes
+
+* **buttons:** allow pressing Enter in input fields to submit form ([#3447](https://github.com/sbb-design-systems/lyne-components/issues/3447)) ([ca1667f](https://github.com/sbb-design-systems/lyne-components/commit/ca1667f5444474323d932f05af042a5426fe0013)), closes [#3446](https://github.com/sbb-design-systems/lyne-components/issues/3446)
+* **sbb-date-input:** display initially set value ([#3490](https://github.com/sbb-design-systems/lyne-components/issues/3490)) ([5a478ad](https://github.com/sbb-design-systems/lyne-components/commit/5a478ad11df0e561d9fa909c523baebc91adc804))
+* **sbb-select:** update displayed value on option slot change ([#3487](https://github.com/sbb-design-systems/lyne-components/issues/3487)) ([98d0c7c](https://github.com/sbb-design-systems/lyne-components/commit/98d0c7cb02bf26ac973ca9e0af9d4f3fba9c74f9))
+
+
+### Code Refactoring
+
+* use hasUpdated where possible ([#3492](https://github.com/sbb-design-systems/lyne-components/issues/3492)) ([f2d6e8d](https://github.com/sbb-design-systems/lyne-components/commit/f2d6e8d8a1de1a9ccb3e2df90a73463273436b50))
+
 ## [2.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.4.1...v2.5.0) (2025-03-20)
 
 
