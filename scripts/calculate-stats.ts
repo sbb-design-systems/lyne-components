@@ -1,8 +1,13 @@
-import { globSync, readFileSync, writeFileSync } from 'node:fs';
+import { globSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
+import { brotliCompress, gzip } from 'node:zlib';
 
 import ts from 'typescript';
+
+const gzipAsync = promisify(gzip);
+const brotliAsync = promisify(brotliCompress);
 
 function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   yield node;
@@ -15,29 +20,58 @@ function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   }
 }
 
+async function calculateGzipSize(content: string): Promise<number> {
+  return (await gzipAsync(content)).length;
+}
+
+async function calculateBrotliSize(content: string): Promise<number> {
+  return (await brotliAsync(content)).length;
+}
+
 const dist = fileURLToPath(import.meta.resolve('../dist/'));
 const stats = {
-  size: 0,
+  jsSize: 0,
+  jsBrotliSize: 0,
+  jsGzipSize: 0,
+  jsCssSize: 0,
   cssSize: 0,
-  files: {} as Record<string, { size: number; cssSize?: number }>,
+  cssBrotliSize: 0,
+  cssGzipSize: 0,
+  cssFiles: {} as Record<string, { size: number; gzipSize: number; brotliSize: number }>,
+  jsFiles: {} as Record<
+    string,
+    { size: number; cssSize?: number; gzipSize: number; brotliSize: number }
+  >,
 };
-const themePath = 'elements/standard-theme.css';
-const theme = readFileSync(join(dist, themePath), 'utf8');
-stats.size += theme.length;
-stats.cssSize += theme.length;
-stats.files[themePath] = { size: theme.length, cssSize: theme.length };
-
 for (const dir of ['elements', 'elements-experimental'].map((d) =>
   fileURLToPath(import.meta.resolve(`../dist/${d}/`)),
 )) {
-  for (const file of globSync('**/*.js', { cwd: dir })
-    .filter((f) => !f.includes('/development/'))
+  for (const file of globSync('**/*.css', { cwd: dir })
     .map((f) => join(dir, f))
     .sort()) {
     const key = file.substring(dist.length);
     const content = readFileSync(file, 'utf8');
-    stats.size += content.length;
-    stats.files[key] = { size: content.length };
+    const size = content.length;
+    const brotliSize = await calculateBrotliSize(content);
+    const gzipSize = await calculateGzipSize(content);
+    stats.cssSize += size;
+    stats.cssBrotliSize += brotliSize;
+    stats.cssGzipSize += gzipSize;
+    stats.cssFiles[key] = { size, brotliSize, gzipSize };
+  }
+  for (const file of globSync('**/*.js', { cwd: dir })
+    .filter((f) => !f.startsWith('development/'))
+    .map((f) => join(dir, f))
+    .sort()) {
+    const key = file.substring(dist.length);
+    const content = readFileSync(file, 'utf8');
+    const size = content.length;
+    const brotliSize = await calculateBrotliSize(content);
+    const gzipSize = await calculateGzipSize(content);
+    stats.jsSize += size;
+    stats.jsBrotliSize += brotliSize;
+    stats.jsGzipSize += gzipSize;
+    stats.jsFiles[key] = { size, brotliSize, gzipSize };
     const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
 
     let cssTaggedName = '';
@@ -63,12 +97,13 @@ for (const dir of ['elements', 'elements-experimental'].map((d) =>
     }
 
     if (cssSize) {
-      stats.cssSize += cssSize;
-      stats.files[key].cssSize = cssSize;
+      stats.jsCssSize += cssSize;
+      stats.jsFiles[key].cssSize = cssSize;
     }
   }
 }
 
+mkdirSync(new URL(import.meta.resolve('../dist/storybook/')), { recursive: true });
 writeFileSync(
   new URL(import.meta.resolve('../dist/storybook/lyne-stats.json')),
   JSON.stringify(stats, null, 2),
