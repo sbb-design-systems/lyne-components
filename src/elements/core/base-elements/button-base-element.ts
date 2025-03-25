@@ -39,7 +39,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   @property()
   public override set form(value: string) {
     this._formId = value;
-    this.form?.addEventListener('keypress', this._formKeyPress, { capture: true });
+    this.form?.addEventListener('keydown', this._formKeyDown, { capture: true });
   }
   public override get form(): HTMLFormElement | null {
     // Use querySelector with form and id selector, as the form property must
@@ -79,13 +79,13 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.form?.addEventListener('keypress', this._formKeyPress, { capture: true });
+    this.form?.addEventListener('keydown', this._formKeyDown, { capture: true });
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    this.form?.removeEventListener('keypress', this._formKeyPress, { capture: true });
+    this.form?.removeEventListener('keydown', this._formKeyDown, { capture: true });
   }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
@@ -148,7 +148,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     }
   };
 
-  private _formKeyPress = (event: KeyboardEvent): void => {
+  private _formKeyDown = (event: KeyboardEvent): void => {
     const form = this.form;
     if (
       this.type === 'submit' &&
