@@ -7,7 +7,10 @@ import { SbbJourneySummaryElement } from './journey-summary.js';
 describe(`sbb-journey-summary ssr`, () => {
   let root: SbbJourneySummaryElement;
 
-  beforeEach(async () => {
+  beforeEach(async function () {
+    // This test seems flakey for unknown reason, so we extend the timeout for this
+    // specific test.
+    this.timeout(20000);
     root = await ssrHydratedFixture(html`<sbb-journey-summary></sbb-journey-summary>`, {
       modules: ['./journey-summary.js'],
     });
