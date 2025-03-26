@@ -108,10 +108,15 @@ jobs:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
 
+      - name: Generate artifact key
+        id: artifact-key
+        run: echo "artifact-key=${TEST_MODULE//\//_}" >> $GITHUB_OUTPUT
+        env:
+          TEST_MODULE: ${{ matrix.test-module }}
       - name: Store visual regression output
         uses: actions/upload-artifact@v4
         with:
-          name: matrix-screenshots-${{ hashFiles(matrix.test-module) }}
+          name: matrix-screenshots-${{ steps.artifact-key.outputs.artifact-key }}
           path: dist/screenshots/
           retention-days: 1
 

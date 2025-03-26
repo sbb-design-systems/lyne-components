@@ -78,14 +78,19 @@ jobs:
       - name: Assert no new snapshots (run `yarn test --ci` if this fails)
         run: git diff --exit-code
       - name: Rename coverage
-        run: mv coverage/coverage-final.json coverage/coverage-${TEST_MODULE//\//-}.json
+        run: mv coverage/coverage-final.json coverage/coverage-${TEST_MODULE//\//_}.json
+        env:
+          TEST_MODULE: ${{ matrix.test-module }}
+      - name: Generate artifact key
+        id: artifact-key
+        run: echo "artifact-key=${TEST_MODULE//\//_}" >> $GITHUB_OUTPUT
         env:
           TEST_MODULE: ${{ matrix.test-module }}
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: matrix-coverage-${{ hashFiles(matrix.test-module) }}
+          name: matrix-coverage-${{ steps.artifact-key.outputs.artifact-key }}
           path: coverage/
           retention-days: 1
 
