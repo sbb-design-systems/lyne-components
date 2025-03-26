@@ -87,6 +87,7 @@
 
     #{$root}--state-allocated &,
     #{$root}--state-restricted & {
+      background-color: transparent;
       color: var(--sbb-color-smoke);
     }
   }
