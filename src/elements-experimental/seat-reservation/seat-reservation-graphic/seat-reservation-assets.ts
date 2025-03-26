@@ -1,7 +1,7 @@
 import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import { assets, mapCodeToSvg } from '../common.js';
+import { svgs, mapCodeToSvg } from '../common.js';
 
 import './seat-reservation-assets.scss';
 
@@ -54,7 +54,7 @@ const chassisTable = html`
         <td>DRIVER_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisDriverBus)}</td>
+        <td>${svgImage(svgs.chassisDriverBus)}</td>
         <td>Driver: Bus</td>
         <td>DRIVER_AREA</td>
       </tr>
@@ -79,7 +79,7 @@ const chassisTable = html`
         <td>COACH_PASSAGE</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisPassageWaggonBottomRight)}</td>
+        <td>${svgImage(svgs.chassisPassageWaggonBottomRight)}</td>
         <td>Passage-Waggon Type: Right</td>
         <td>???</td>
       </tr>
@@ -94,7 +94,7 @@ const chassisTable = html`
         <td>COACH_BORDER_MIDDLE</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.chassisSeparator)}</td>
+        <td>${svgImage(svgs.chassisSeparator)}</td>
         <td>Separator</td>
         <td>obsolete?</td>
       </tr>
@@ -211,7 +211,7 @@ const layoutItemsTable = html`
         <td>WHEELCHAIR_TOILET_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(assets.layoutWardrobe)}</td>
+        <td>${svgImage(svgs.layoutWardrobe)}</td>
         <td>Wardrobe</td>
         <td>???</td>
       </tr>
@@ -303,15 +303,15 @@ export const assetsTemplate: TemplateResult = html`
   <h2>Chassis</h2>
   ${chassisTable}
   <h3>Row-Empty</h3>
-  ${svgTmpImage(assets.chassisTmpRowEmpty, 'dark')}
+  ${svgTmpImage(svgs.chassisTmpRowEmpty, 'dark')}
   <h2>Interior</h2>
   ${interiorTable}
   <h3>Table</h3>
-  ${svgTmpImage(assets.interiorTmpTable)}
+  ${svgTmpImage(svgs.interiorTmpTable)}
   <h2>Layout</h2>
   ${layoutItemsTable}
   <h3>Generic-Space</h3>
-  ${svgTmpImage(assets.layoutTmpGenericSpace)}
+  ${svgTmpImage(svgs.layoutTmpGenericSpace)}
   <h2>Service Icons</h2>
   ${serviceIconTable}
 `;
