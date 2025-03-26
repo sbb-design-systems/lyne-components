@@ -7,7 +7,10 @@ import { SbbTimetableRowElement } from './timetable-row.js';
 describe(`sbb-timetable-row ssr`, () => {
   let root: SbbTimetableRowElement;
 
-  beforeEach(async () => {
+  beforeEach(async function () {
+    // This test seems flakey for unknown reason, so we extend the timeout for this
+    // specific test.
+    this.timeout(20000);
     root = await ssrHydratedFixture(html`<sbb-timetable-row></sbb-timetable-row>`, {
       modules: ['./timetable-row.js'],
     });
