@@ -29,8 +29,6 @@ jobs:
 
   setup:
     runs-on: ubuntu-latest
-    outputs:
-      test-modules: ${{ steps.test-modules.outputs.result }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -51,22 +49,6 @@ jobs:
           name: test-artifacts
           path: node_modules/.cache/lyne-cdn/
 
-      - name: Find test modules
-        uses: actions/github-script@v7
-        id: test-modules
-        with:
-          script: |
-            const path = require('path');
-            const globber = await glob.create('src/**/*.visual.spec.ts');
-            const files = await globber.glob();
-            const result = files
-              .map((p) => path.relative(process.cwd(), p).split('/').slice(1, 3).join('/'))
-              .filter((v, i, a) => a.indexOf(v) === i)
-              .sort();
-
-            return JSON.stringify(result);
-          result-encoding: string
-
   test:
     runs-on: ubuntu-latest
     needs: setup
@@ -75,10 +57,12 @@ jobs:
         image: ${{ vars.IMAGE_REPO_VISUAL_REGRESSION }}:baseline
         ports:
           - 8050:8080
+    env:
+      max-segment: 5
     strategy:
       fail-fast: false
       matrix:
-        test-module: ${{ fromJSON(needs.setup.outputs.test-modules) }}
+        segment: [1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -108,15 +92,10 @@ jobs:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
 
-      - name: Generate artifact key
-        id: artifact-key
-        run: echo "artifact-key=${TEST_MODULE//\//_}" >> $GITHUB_OUTPUT
-        env:
-          TEST_MODULE: ${{ matrix.test-module }}
       - name: Store visual regression output
         uses: actions/upload-artifact@v4
         with:
-          name: matrix-screenshots-${{ steps.artifact-key.outputs.artifact-key }}
+          name: matrix-screenshots-${{ matrix.segment }}
           path: dist/screenshots/
           retention-days: 1
 
@@ -133,6 +112,12 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
       - uses: actions/download-artifact@v4
+      - name: Assemble screenshots
+        run: |
+          mkdir -p dist/screenshots
+          for file in matrix-screenshots-*/; do
+            cp -RT "$file" "dist/screenshots/"
+          done
 
       - name: Prepare failed screenshot artifacts
         if: github.event_name == 'pull_request'

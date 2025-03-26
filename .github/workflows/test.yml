@@ -10,8 +10,6 @@ permissions: read-all
 jobs:
   setup:
     runs-on: ubuntu-latest
-    outputs:
-      test-modules: ${{ steps.test-modules.outputs.result }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,30 +31,15 @@ jobs:
           path: node_modules/.cache/lyne-cdn/
           retention-days: 1
 
-      - name: Find test modules
-        uses: actions/github-script@v7
-        id: test-modules
-        with:
-          script: |
-            const path = require('path');
-            const patterns = ['src/**/*.spec.ts', '!src/**/*.visual.spec.ts'];
-            const globber = await glob.create(patterns.join('\n'));
-            const files = await globber.glob();
-            const result = files
-              .map((p) => path.relative(process.cwd(), p).split('/').slice(1, 3).join('/'))
-              .filter((v, i, a) => a.indexOf(v) === i)
-              .sort();
-
-            return JSON.stringify(result);
-          result-encoding: string
-
   test:
     runs-on: ubuntu-latest
     needs: setup
+    env:
+      max-segment: 5
     strategy:
       fail-fast: false
       matrix:
-        test-module: ${{ fromJSON(needs.setup.outputs.test-modules) }}
+        segment: [1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -72,25 +55,16 @@ jobs:
           name: test-artifacts
 
       - name: Run tests
-        run: yarn test --module=${{ matrix.test-module }}
+        run: yarn test --segment=${{ matrix.segment }}/${{ env.max-segment }}
         env:
           NODE_ENV: production
       - name: Assert no new snapshots (run `yarn test --ci` if this fails)
         run: git diff --exit-code
-      - name: Rename coverage
-        run: mv coverage/coverage-final.json coverage/coverage-${TEST_MODULE//\//_}.json
-        env:
-          TEST_MODULE: ${{ matrix.test-module }}
-      - name: Generate artifact key
-        id: artifact-key
-        run: echo "artifact-key=${TEST_MODULE//\//_}" >> $GITHUB_OUTPUT
-        env:
-          TEST_MODULE: ${{ matrix.test-module }}
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: matrix-coverage-${{ steps.artifact-key.outputs.artifact-key }}
+          name: matrix-coverage-${{ matrix.segment }}
           path: coverage/
           retention-days: 1
 
@@ -109,7 +83,11 @@ jobs:
 
       - name: Assemble code coverage
         run: |
-          mv coverage coverage-matrix
+          mkdir coverage-matrix
+          for file in */coverage-final.json; do
+            mv "$file" "coverage-matrix/$(basename $(dirname $file)).json"
+          done
+
           yarn nyc report \
             --temp-dir coverage-matrix \
             --report-dir coverage \

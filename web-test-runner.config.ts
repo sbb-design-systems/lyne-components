@@ -45,6 +45,7 @@ const { values: cliArgs } = parseArgs({
     ssr: { type: 'boolean' },
     container: { type: 'boolean' },
     local: { type: 'boolean' },
+    segment: { type: 'string' },
   },
 });
 
@@ -162,21 +163,36 @@ const suppressedLogs = [
   'Using <sbb-datepicker> with a native <input> is deprecated. Use a <sbb-date-input> instead of <input>.',
 ];
 
-const testFile = typeof cliArgs.file === 'string' && cliArgs.file ? cliArgs.file : undefined;
-const testModule =
-  typeof cliArgs.module === 'string' && cliArgs.module
-    ? globSync(`src/**/${cliArgs.module}/**/*.spec.ts`)
-    : undefined;
+let testFiles = globSync(`src/**/*.spec.ts`);
+testFiles =
+  cliArgs.group === 'visual-regression'
+    ? testFiles.filter((f) => f.endsWith('.visual.spec.ts'))
+    : testFiles.filter((f) => !f.endsWith('.visual.spec.ts'));
+if (typeof cliArgs.file === 'string' && cliArgs.file) {
+  testFiles = testFiles.filter((f) => f === cliArgs.file);
+} else if (typeof cliArgs.module === 'string' && cliArgs.module) {
+  testFiles = testFiles.filter((f) => f.includes(cliArgs.module as string));
+} else if (typeof cliArgs.segment === 'string' && cliArgs.segment) {
+  const match = cliArgs.segment.match(/^(\d+)\/(\d+)$/);
+  if (!match) {
+    throw new Error(
+      `--segment parameter must be in the format index/total (e.g. 1/5), but received ${cliArgs.segment}`,
+    );
+  }
+
+  const total = +match[2];
+  const index = +match[1];
+  const fileAmount = Math.ceil(testFiles.length / total);
+  testFiles = testFiles.slice(fileAmount * (index - 1), fileAmount * index);
+}
+
 const groups: TestRunnerGroupConfig[] = [];
 
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
 if (cliArgs.group === 'visual-regression') {
   groups.push({
     name: 'visual-regression',
-    files:
-      testFile ??
-      testModule?.filter((m) => m.endsWith('.visual.spec.ts')) ??
-      'src/**/*.visual.spec.ts',
+    files: testFiles,
     testRunnerHtml,
   });
   if (!cliArgs.local && platform() !== 'linux') {
@@ -194,11 +210,7 @@ if (cliArgs.container) {
 }
 
 export default {
-  files: testFile ??
-    testModule?.filter((m) => !m.endsWith('.visual.spec.ts')) ?? [
-      'src/**/*.spec.ts',
-      '!**/*.visual.spec.ts',
-    ],
+  files: testFiles,
   groups,
   nodeResolve: true,
   reporters:
