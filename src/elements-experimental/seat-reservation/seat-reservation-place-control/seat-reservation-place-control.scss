@@ -23,9 +23,12 @@
   }
 
   &__button {
-    @include sbb.button-reset;
-
     display: block;
+
+    // instead of sbb.button-reset mixin, we use our own reset for padding, border and background
+    padding: 0;
+    border: none;
+    background: none;
     font-size: calc(var(--reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
@@ -66,7 +69,7 @@
     transform: translate(-50%, -50%)
       rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
     font-size: 0.75em;
-    background-color: var(--sbb-color-milk);
+    background-color: var(--sbb-color-white);
 
     #{$root}--state-free &,
     #{$root}--state-allocated &,
