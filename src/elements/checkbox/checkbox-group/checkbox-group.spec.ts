@@ -10,6 +10,8 @@ import { SbbCheckboxGroupElement } from './checkbox-group.component.js';
 
 import '../checkbox-panel.js';
 
+import '../checkbox-panel.js';
+
 describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;
   let checkboxOne: SbbCheckboxElement,
