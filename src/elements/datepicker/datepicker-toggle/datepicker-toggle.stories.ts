@@ -10,12 +10,12 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
+import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker.js';
 import './datepicker-toggle.js';
@@ -51,16 +51,16 @@ const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html
 `;
 
 const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
-  <div style=${styleMap({ display: 'flex', gap: '1em' })}>
+  <div style="display: flex; gap: 1em;">
     ${StandaloneTemplate(args, 'datepicker')}
     <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-    <input id="datepicker-input" />
+    <sbb-date-input id="datepicker-input"></sbb-date-input>
   </div>
 `;
 
 const FormFieldTemplate = ({ negative, ...args }: Args): TemplateResult => html`
   <sbb-form-field ?negative=${negative}>
-    <input />
+    <sbb-date-input></sbb-date-input>
     <sbb-datepicker></sbb-datepicker>
     ${StandaloneTemplate(args)}
   </sbb-form-field>

@@ -34,7 +34,7 @@ The component can be displayed in `checked` or `disabled` states using the self-
 | Name       | Attribute   | Privacy | Type      | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `checked`  | `checked`   | public  | `boolean` | `false` | Whether the toggle-option is checked.                                                                                            |
-| `disabled` | `disabled`  | public  | `boolean` | `false` | Whether the toggle option is disabled.                                                                                           |
+| `disabled` | `disabled`  | public  | `boolean` | `false` | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string`  | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `value`    | `value`     | public  | `string`  | `''`    | Value of toggle-option.                                                                                                          |
 

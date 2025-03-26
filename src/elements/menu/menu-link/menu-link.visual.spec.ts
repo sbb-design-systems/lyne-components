@@ -14,8 +14,8 @@ import './menu-link.js';
 
 describe(`sbb-menu-link`, () => {
   const defaultArgs = {
-    amount: 123 as number | undefined,
-    iconName: 'tick-small',
+    badge: 123 as number | undefined,
+    iconName: 'tick-small' as string | undefined,
     label: 'Link',
     disabled: false,
     disabledInteractive: false,
@@ -23,19 +23,24 @@ describe(`sbb-menu-link`, () => {
   };
 
   const template = ({
-    amount,
+    badge,
     iconName,
     label,
     disabled,
     disabledInteractive,
     slottedIcon,
-  }: typeof defaultArgs): TemplateResult =>
-    html` ${repeat(
+  }: typeof defaultArgs): TemplateResult => html`
+    ${repeat(
       new Array(3),
       (_, index) => html`
+        <!--
+          TODO: remove amount property usage.
+          Until we remove the amount property completely we keep both ways of displaying the badge in the same test.
+        -->
         <sbb-menu-link
           href="#"
-          amount=${amount || nothing}
+          amount=${badge || nothing}
+          sbb-badge=${badge && !disabled && !disabledInteractive ? badge : nothing}
           icon-name=${iconName || nothing}
           ?disabled=${disabled}
           ?disabled-interactive=${disabledInteractive}
@@ -46,11 +51,13 @@ describe(`sbb-menu-link`, () => {
             : nothing}
         </sbb-menu-link>
       `,
-    )}`;
+    )}
+  `;
 
   const state = {
-    amount: [undefined, 123],
+    badge: [undefined, 123],
     slottedIcon: [false, true],
+    iconName: ['tick-small', undefined],
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
@@ -98,11 +105,14 @@ describe(`sbb-menu-link`, () => {
       );
     }
 
-    describeEach(state, ({ amount, slottedIcon }) => {
+    describeEach(state, ({ badge, slottedIcon, iconName }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, amount, slottedIcon }), wrapperStyles);
+          await setup.withFixture(
+            template({ ...defaultArgs, badge, slottedIcon, iconName }),
+            wrapperStyles,
+          );
         }),
       );
     });

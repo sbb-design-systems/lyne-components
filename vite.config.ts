@@ -6,6 +6,7 @@ import { defineConfig } from 'vite';
 import { typescriptTransform } from './tools/vite/index.js';
 
 export default defineConfig({
+  server: { allowedHosts: ['host.containers.internal'] },
   css: {
     preprocessorOptions: {
       scss: {

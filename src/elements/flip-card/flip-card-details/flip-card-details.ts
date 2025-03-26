@@ -28,6 +28,7 @@ class SbbFlipCardDetailsElement extends LitElement {
       config: {
         childList: true,
         subtree: true,
+        attributes: true,
       },
       callback: () => this._checkForSlottedActions(),
     });
@@ -36,9 +37,9 @@ class SbbFlipCardDetailsElement extends LitElement {
   private _checkForSlottedActions(): void {
     const cardFocusableAttributeName = 'data-card-focusable';
 
-    Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
-      .filter((el) => !el.hasAttribute(cardFocusableAttributeName))
-      .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
+    Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? []).forEach((el: Element) =>
+      el.toggleAttribute(cardFocusableAttributeName, true),
+    );
   }
 
   protected override render(): TemplateResult {

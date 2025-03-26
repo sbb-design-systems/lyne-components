@@ -56,27 +56,14 @@ const textBlock = (): TemplateResult => html`
 
 const aboveDecorator: Decorator = (story) => html`
   <div
-    style=${styleMap({
-      'inset-block-end': '2rem',
-      'inset-inline-start': '2rem',
-      position: 'absolute',
-      'max-width': 'calc(100% - 4rem)',
-    })}
+    style="inset-block-end: 2rem; inset-inline-start: 2rem; position: absolute; max-width: calc(100% - 4rem);"
   >
     ${story()}
   </div>
 `;
 
 const scrollDecorator: Decorator = (story) => html`
-  <div
-    style=${styleMap({
-      height: '175vh',
-      display: 'flex',
-      'align-items': 'center',
-    })}
-  >
-    ${story()}
-  </div>
+  <div style="height: 175vh; display: flex; align-items: center;">${story()}</div>
 `;
 
 const negative: InputType = {

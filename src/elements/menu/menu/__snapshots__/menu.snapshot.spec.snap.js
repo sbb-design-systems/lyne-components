@@ -22,25 +22,28 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     icon-name="tick-small"
     tabindex="0"
   >
     View
   </sbb-menu-button>
   <sbb-menu-button
-    amount="1"
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
+    sbb-badge="1"
   >
     Edit
   </sbb-menu-button>
   <sbb-menu-button
-    amount="2"
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     icon-name="swisspass-small"
+    sbb-badge="2"
     tabindex="0"
   >
     Details
@@ -54,6 +57,7 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     icon-name="cross-small"
     tabindex="0"
   >
@@ -85,6 +89,7 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     icon-name="tick-small"
     slot="li-0"
     tabindex="0"
@@ -92,20 +97,22 @@ snapshots["sbb-menu renders with list DOM"] =
     View
   </sbb-menu-button>
   <sbb-menu-button
-    amount="1"
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
+    sbb-badge="1"
     slot="li-1"
   >
     Edit
   </sbb-menu-button>
   <sbb-menu-button
-    amount="2"
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     icon-name="swisspass-small"
+    sbb-badge="2"
     slot="li-2"
     tabindex="0"
   >
@@ -114,6 +121,7 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
+    data-slot-names="unnamed"
     icon-name="cross-small"
     slot="li-3"
     tabindex="0"

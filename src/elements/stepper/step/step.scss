@@ -7,7 +7,7 @@
   --sbb-step-position: initial;
   --sbb-step-inset-block-start: unset;
   --sbb-step-opacity: 0;
-  --sbb-step-visibility: hidden;
+  --sbb-step-display: none;
   --sbb-step-height: 0;
   --sbb-step-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -21,9 +21,12 @@
 
 :host([data-selected]) {
   --sbb-step-opacity: 1;
-  --sbb-step-visibility: visible;
+  --sbb-step-display: block;
   --sbb-step-height: fit-content;
-  --sbb-step-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-step-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-step-animation-delay: var(--sbb-step-animation-duration);
 }
 
@@ -38,17 +41,25 @@
     opacity: 0;
     height: 0;
     transition:
+      display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
       height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
+
+    // Experimental property, but supported in every major browser.
+    transition-behavior: allow-discrete;
   }
 
   :host([data-selected][data-orientation='vertical']) & {
     opacity: 1;
     height: var(--sbb-stepper-content-height);
     transition:
+      display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
       height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
         var(--sbb-animation-easing);
+
+    // Experimental property, but supported in every major browser.
+    transition-behavior: allow-discrete;
   }
 }
 
@@ -59,13 +70,21 @@
   width: 100%;
   inset-block-start: var(--sbb-step-inset-block-start);
   opacity: var(--sbb-step-opacity);
-  visibility: var(--sbb-step-visibility);
+  display: var(--sbb-step-display);
   height: var(--sbb-step-height);
   color: var(--sbb-step-color);
   transition: {
-    property: opacity, visibility;
+    property: display, opacity;
     duration: var(--sbb-step-animation-duration);
     delay: var(--sbb-step-animation-delay);
     timing-function: var(--sbb-animation-easing);
+  }
+
+  // Experimental property, but supported in every major browser.
+  transition-behavior: allow-discrete;
+
+  // Experimental property, currently supported in every major browser except Firefox.
+  @starting-style {
+    --sbb-step-opacity: 0;
   }
 }

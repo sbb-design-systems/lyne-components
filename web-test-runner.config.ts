@@ -110,7 +110,7 @@ const testRunnerHtml = (
         (type) => `
     <link
       rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-${type}.woff2"
+      href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-${type}.woff2"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
@@ -156,6 +156,8 @@ const suppressedLogs = [
   'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
   '[vite] connecting...',
   '[vite] connected.',
+  // TODO(major): Verify if still needed
+  'Using <sbb-datepicker> with a native <input> is deprecated. Use a <sbb-date-input> instead of <input>.',
 ];
 
 const testFile = typeof cliArgs.file === 'string' && cliArgs.file ? cliArgs.file : undefined;
@@ -196,7 +198,12 @@ export default {
   concurrentBrowsers: 3,
   plugins: [
     a11ySnapshotPlugin(),
-    litSsrPlugin(),
+    litSsrPlugin({
+      workerInitModules: [
+        './tools/node-esm-hook/register-hooks.js',
+        './src/elements/core/testing/test-setup-ssr.ts',
+      ],
+    }),
     vitePlugin(),
     visualRegressionPlugin({
       ...visualRegressionConfig,

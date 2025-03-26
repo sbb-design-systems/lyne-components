@@ -4,6 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
   --sbb-flip-card-details-transition-delay: var(

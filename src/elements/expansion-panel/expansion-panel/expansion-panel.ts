@@ -40,7 +40,7 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel | null = null;
 
   /** The background color of the panel. */
-  @property() public accessor color: 'white' | 'milk' = 'white';
+  @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
 
   /** Whether the panel is expanded. */
   @property({ reflect: true, type: Boolean })

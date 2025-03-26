@@ -18,7 +18,7 @@ describe(`sbb-menu-link`, () => {
           target="_blank"
           accessibility-label="a11y label"
         >
-          <span>Action</span>
+          Action
         </sbb-menu-link>
       `);
     });
@@ -44,7 +44,7 @@ describe(`sbb-menu-link`, () => {
           target="_blank"
           accessibility-label="a11y label"
         >
-          <span>Action</span>
+          Action
         </sbb-menu-link>
       `);
     });

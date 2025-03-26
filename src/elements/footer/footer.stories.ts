@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -171,11 +170,11 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
           level="2"
           visual-level="5"
           ?negative=${args.negative}
-          style=${styleMap({ margin: '0 0 var(--sbb-spacing-fixed-3x)' })}
+          style="margin: 0 0 var(--sbb-spacing-fixed-3x);"
         >
           Newsletter.
         </sbb-title>
-        <p style=${styleMap({ margin: '0' })}>
+        <p style="margin: 0;">
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>

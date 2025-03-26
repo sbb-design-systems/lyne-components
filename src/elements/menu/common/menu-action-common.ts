@@ -3,10 +3,10 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 import {
-  SbbDisabledMixin,
   type AbstractConstructor,
+  SbbDisabledMixin,
   type SbbDisabledMixinType,
 } from '../../core/mixins.js';
 import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
@@ -17,6 +17,9 @@ export declare class SbbMenuActionCommonElementMixinType
   extends SbbDisabledMixinType
   implements Partial<SbbIconNameMixinType>
 {
+  /**
+   * @deprecated Will be removed with next major version. Use the sbb-badge attribute on a sbb-icon as alternative.
+   */
   public accessor amount: string;
   public accessor iconName: string;
 }
@@ -27,13 +30,18 @@ export const SbbMenuActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbMenuActionCommonElementMixinType> & T => {
+  @slotState()
   abstract class SbbMenuActionCommonElement
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbMenuActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
-    /** Value shown as badge at component end. */
+    /**
+     * Value shown as badge at component end.
+     * @deprecated Will be removed with next major version. Use the sbb-badge attribute on a sbb-icon as alternative.
+     * @internal
+     */
     @forceType()
     @property()
     public accessor amount: string = '';

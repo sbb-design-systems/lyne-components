@@ -14,13 +14,23 @@ import { SbbDialogTitleElement } from '../dialog-title.js';
 import { SbbDialogElement } from './dialog.js';
 import readme from './readme.md?raw';
 
+import '../../autocomplete.js';
+import '../../option.js';
 import '../../button.js';
 import '../../link.js';
 import '../../form-field.js';
 import '../../image.js';
 import '../../popover.js';
+import '../../stepper.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
+
+const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+  deserunt mollit anim id est laborum.`;
 
 const level: InputType = {
   control: {
@@ -224,12 +234,7 @@ const DefaultTemplate = ({
     <sbb-dialog-content>
       <p
         id="dialog-content-1"
-        style=${styleMap({
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--sbb-spacing-fixed-1x)',
-          margin: '0',
-        })}
+        style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;"
       >
         Dialog content
         <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
@@ -261,7 +266,7 @@ const LongContentTemplate = ({
       to Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and
       pierced his heart.
       <sbb-image
-        style=${styleMap({ 'margin-block': '1rem' })}
+        style="margin-block: 1rem;"
         image-src=${sampleImages[1]}
         alt="Natural landscape"
       ></sbb-image>
@@ -303,7 +308,7 @@ const FormTemplate = ({
   >
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x);">
         Submit the form below to close the dialog box using the
         <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
         method and returning the form values to update the details.
@@ -340,7 +345,7 @@ const NoFooterTemplate = ({
   <sbb-dialog id="my-dialog-4" ${sbbSpread(args)}>
     ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
     <sbb-dialog-content>
-      <p id="dialog-content-5" style=${styleMap({ margin: '0' })}>
+      <p id="dialog-content-5" style="margin: 0;">
         “What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher
@@ -373,15 +378,61 @@ const NestedTemplate = ({
         accessibilityCloseLabel,
         accessibilityBackLabel,
       )}
-      <sbb-dialog-content
-        >Nested dialog content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum.</sbb-dialog-content
-      >
+      <sbb-dialog-content>
+        <p>Nested dialog content. ${loremIpsum}</p>
+        <sbb-form-field>
+          <label>Pressing 'Escape' keydown with multiple overlay</label>
+          <input />
+          <sbb-autocomplete>
+            <sbb-option value="1">1</sbb-option>
+            <sbb-option value="2">2</sbb-option>
+            <sbb-option value="3">3</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      </sbb-dialog-content>
     </sbb-dialog>
+  </sbb-dialog>
+`;
+
+const StepperTemplate = ({
+  level,
+  backButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
+  orientation,
+  linear,
+  ...args
+}: Args): TemplateResult => html`
+  ${triggerButton('stepper')}
+  <sbb-dialog id="stepper" ${sbbSpread(args)}>
+    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
+    <sbb-dialog-content>
+      <sbb-stepper orientation="${orientation}" ?linear=${linear} size="m">
+        ${['First', 'Second', 'Third', 'Fourth'].map(
+          (element, index, arr) => html`
+            <sbb-step-label>${element} step</sbb-step-label>
+            <sbb-step>
+              <div
+                tabindex="0"
+                class="sbb-focus-outline"
+                style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+              >
+                ${element} step content ${index === 0 || index === 2 ? loremIpsum : nothing}
+              </div>
+              ${index !== 0
+                ? html`<sbb-secondary-button size="m" sbb-stepper-previous
+                    >Back</sbb-secondary-button
+                  >`
+                : nothing}
+              ${index !== arr.length - 1
+                ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
+                : html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`}
+            </sbb-step>
+          `,
+        )}
+      </sbb-stepper>
+    </sbb-dialog-content>
   </sbb-dialog>
 `;
 
@@ -453,6 +504,27 @@ export const Nested: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
+};
+
+export const Stepper: StoryObj = {
+  render: StepperTemplate,
+  argTypes: {
+    ...basicArgTypes,
+    orientation: {
+      control: { type: 'inline-radio' },
+      options: ['horizontal', 'vertical'],
+      table: { category: 'Stepper' },
+    },
+    linear: {
+      control: { type: 'boolean' },
+      table: { category: 'Stepper' },
+    },
+  },
+  args: {
+    ...basicArgs,
+    orientation: 'horizontal',
+    linear: false,
+  },
 };
 
 const meta: Meta = {

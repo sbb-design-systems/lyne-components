@@ -125,6 +125,17 @@ import '../radio-button-panel.js';
         expect(disabledRadio.disabled).to.be.true;
       });
 
+      if (selector === 'sbb-radio-button-panel') {
+        it('recognizes panel when added later', async () => {
+          element = await fixture(html`<sbb-radio-button-group></sbb-radio-button-group>`);
+
+          const panel = document.createElement('sbb-radio-button-panel');
+          element.appendChild(panel);
+
+          expect(element).to.have.attribute('data-has-panel');
+        });
+      }
+
       describe('events', () => {
         it('dispatches event on radio change', async () => {
           radios[0].checked = true;

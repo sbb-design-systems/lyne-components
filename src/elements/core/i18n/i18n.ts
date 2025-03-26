@@ -444,6 +444,13 @@ export const i18nCloseNavigation: Record<string, string> = {
   it: 'Chiudere la navigazione',
 };
 
+export const i18nCloseSidebar: Record<string, string> = {
+  de: 'Seitenleiste schliessen',
+  en: 'Close sidebar',
+  fr: 'Fermer la barre latérale',
+  it: 'Chiudere la barra laterale',
+};
+
 export const i18nClosePopover: Record<string, string> = {
   de: 'Hinweis schliessen',
   en: 'Close note',
@@ -718,4 +725,46 @@ export const i18nSelectedPage = (pageNumber: number): Record<string, string> => 
   en: `Page ${pageNumber} selected.`,
   fr: `Page ${pageNumber} sélectionnée.`,
   it: `Pagina ${pageNumber} selezionata.`,
+});
+
+export const i18nCheckboxRequired: Record<string, string> = {
+  de: 'Muss gesetzt sein.',
+  en: 'Must be checked.',
+  fr: 'Doit être défini.',
+  it: 'Deve essere impostato.',
+};
+
+export const i18nSelectionRequired: Record<string, string> = {
+  de: 'Auswahl erforderlich.',
+  en: 'Selection required.',
+  fr: 'Sélection requise.',
+  it: 'Selezione necessaria.',
+};
+
+export const i18nInputRequired: Record<string, string> = {
+  de: 'Eingabe erforderlich.',
+  en: 'Input required.',
+  fr: 'Entrée obligatoire.',
+  it: 'Inserimento necessario.',
+};
+
+export const i18nDateInvalid: Record<string, string> = {
+  de: 'Bitte gültiges Datum eingeben.',
+  en: 'Please provide a valid date.',
+  fr: 'Veuillez saisir une date valide.',
+  it: 'Inserire una data valida.',
+};
+
+export const i18nDateMin = (min: string): Record<string, string> => ({
+  de: `Datum darf nicht vor ${min} sein.`,
+  en: `Date must not be before ${min}.`,
+  fr: `La date ne doit pas être antérieure au ${min}.`,
+  it: `La data non deve essere anteriore al ${min}.`,
+});
+
+export const i18nDateMax = (max: string): Record<string, string> => ({
+  de: `Datum darf nicht nach ${max} sein.`,
+  en: `Date must not be after ${max}.`,
+  fr: `La date ne doit pas être postérieure au ${max}.`,
+  it: `La data non deve essere successiva al ${max}.`,
 });

@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-accordion renders DOM"] = 
 `<sbb-accordion size="l">
   <sbb-expansion-panel
+    color="white"
     data-accordion=""
     data-accordion-first=""
     size="l"
@@ -33,6 +34,7 @@ snapshots["sbb-accordion renders DOM"] =
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
   <sbb-expansion-panel
+    color="white"
     data-accordion=""
     data-accordion-last=""
     size="l"

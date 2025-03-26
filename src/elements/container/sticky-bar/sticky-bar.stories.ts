@@ -2,7 +2,6 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
 import { SbbStickyBarElement } from './sticky-bar.js';
@@ -280,15 +279,15 @@ export const ControlStickyState: StoryObj = {
   decorators: [
     (story) =>
       html`<div
-          style=${styleMap({
-            position: 'fixed',
-            'inset-block-start': 0,
-            'background-color': 'var(--sbb-color-white)',
-            padding: 'var(--sbb-spacing-responsive-xs)',
-            'z-index': 1,
-            'border-block-end': 'var(--sbb-border-width-1x) solid var(--sbb-color-black)',
-            'border-inline-end': 'var(--sbb-border-width-1x) solid var(--sbb-color-black)',
-          })}
+          style="
+            position: fixed;
+            inset-block-start: 0;
+            background-color: var(--sbb-color-white);
+            padding: var(--sbb-spacing-responsive-xs);
+            z-index: 1;
+            border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-black);
+            border-inline-end: var(--sbb-border-width-1x) solid var(--sbb-color-black);
+          "
         >
           Control whether the sticky bar has \`position: sticky\`.
           <sbb-secondary-button

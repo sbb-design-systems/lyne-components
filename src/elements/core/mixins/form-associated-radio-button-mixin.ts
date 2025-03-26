@@ -2,7 +2,8 @@ import { isServer, type LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
-import { SbbConnectedAbortController } from '../controllers.js';
+import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
+import { i18nSelectionRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
@@ -106,7 +107,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonElement>;
     private _radioButtonGroupsMap?: Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>;
-    private _didLoad: boolean = false;
+    private _languageController = new SbbLanguageController(this);
 
     protected constructor() {
       super();
@@ -136,8 +137,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     /**
      *  Called when the browser is trying to restore element’s state to state in which case
-     *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
-     *  user in which case reason is “autocomplete”.
+     *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
+     *  user in which case reason is "autocomplete".
      * @internal
      */
     public override formStateRestoreCallback(
@@ -159,7 +160,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     protected override firstUpdated(changedProperties: PropertyValues<this>): void {
       super.firstUpdated(changedProperties);
-      this._didLoad = true;
       this.updateFocusableRadios();
     }
 
@@ -175,13 +175,46 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       }
     }
 
+    protected override shouldValidate(name: PropertyKey | undefined): boolean {
+      return super.shouldValidate(name) || name === 'checked' || name === 'required';
+    }
+
+    /**
+     * Sets the validity of all associated radio buttons.
+     * If any radio button is required, all associated are required as well.
+     */
+    protected override validate(): void {
+      super.validate();
+      if (!this.associatedRadioButtons) {
+        return;
+      }
+
+      let required = false;
+      let checked = false;
+      for (const radio of this.associatedRadioButtons) {
+        required ||= radio.required;
+        checked ||= radio.checked;
+      }
+
+      if (required && !checked) {
+        this.associatedRadioButtons.forEach((r) =>
+          r.setValidityFlag(
+            'valueMissing',
+            i18nSelectionRequired[this._languageController.current],
+          ),
+        );
+      } else {
+        this.associatedRadioButtons.forEach((r) => r.removeValidityFlag('valueMissing'));
+      }
+    }
+
     /**
      * Only a single radio should be focusable in the group. Defined as:
      * - the checked radio;
      * - the first non-disabled radio in DOM order;
      */
     protected updateFocusableRadios(): void {
-      if (!this._didLoad) {
+      if (!this.hasUpdated) {
         return;
       }
       const radios = this._interactableGroupedRadios();
@@ -270,6 +303,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       // Repopulate the Set
       entries.forEach((r) => this.associatedRadioButtons!.add(r));
+
+      this.validate();
     }
 
     /**
@@ -280,6 +315,8 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
       if (this.associatedRadioButtons?.size === 0) {
         this._radioButtonGroupsMap?.delete(this.name);
+      } else {
+        this.validate();
       }
 
       this.associatedRadioButtons = undefined;

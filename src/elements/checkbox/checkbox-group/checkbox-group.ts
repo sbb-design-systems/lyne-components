@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
@@ -60,10 +60,7 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute(
-      'data-has-panel',
-      !!this.querySelector?.('sbb-selection-expansion-panel, sbb-checkbox-panel'),
-    );
+    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-checkbox-panel'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

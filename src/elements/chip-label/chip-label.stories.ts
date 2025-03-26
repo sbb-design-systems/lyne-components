@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -47,9 +46,7 @@ const Template = ({ label, ...args }: Args): TemplateResult => html`
 `;
 
 const TemplateFixedWidth = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-chip-label ${sbbSpread(args)} style=${styleMap({ width: '10rem' })}>
-    ${label}
-  </sbb-chip-label>
+  <sbb-chip-label ${sbbSpread(args)} style="width: 10rem;"> ${label} </sbb-chip-label>
 `;
 
 export const MilkXXS: StoryObj = {

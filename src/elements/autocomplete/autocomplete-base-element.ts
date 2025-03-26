@@ -10,10 +10,10 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController } from '../core/controllers.js';
+import { SbbConnectedAbortController, SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
-import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -80,8 +80,8 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _optionContainer!: HTMLElement;
   private _triggerEventsController!: AbortController;
   private _openPanelEventsController!: AbortController;
-  private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
+  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
 
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract syncNegative(): void;
@@ -107,6 +107,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     this.showPopover?.();
     this.state = 'opening';
+    this._triggerElement?.toggleAttribute('data-expanded', true);
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -126,6 +127,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
 
     this.state = 'closing';
+    this._triggerElement?.toggleAttribute('data-expanded', false);
     this._openPanelEventsController.abort();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -150,7 +152,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       this.negative = formField.hasAttribute('negative');
     }
 
-    if (this._didLoad) {
+    if (this.hasUpdated) {
       this._componentSetup();
     }
     this.syncNegative();
@@ -174,7 +176,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     super.firstUpdated(changedProperties);
 
     this._componentSetup();
-    this._didLoad = true;
   }
 
   public override disconnectedCallback(): void {
@@ -359,6 +360,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this.triggerElement?.setAttribute('aria-expanded', 'true');
+    this._sbbEscapableOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -368,6 +370,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.triggerElement?.setAttribute('aria-expanded', 'false');
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
+    this._sbbEscapableOverlayController.disconnect();
     this.didClose.emit();
   }
 

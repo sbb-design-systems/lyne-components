@@ -39,7 +39,7 @@
   }
 }
 
-:host([disabled]) {
+:host(:disabled) {
   --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite);
   --sbb-toggle-border-style: dashed;
 

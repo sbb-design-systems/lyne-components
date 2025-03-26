@@ -62,6 +62,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(element).to.have.attribute('data-expanded');
       expect(overlayContainerElement).to.match(':popover-open');
 
       element.dispatchEvent(new CustomEvent('click'));
@@ -74,6 +75,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(element).not.to.have.attribute('data-expanded');
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
 
@@ -207,7 +209,7 @@ describe(`sbb-select`, () => {
       expect(thirdOption).not.to.have.attribute('selected');
     });
 
-    it('display selected sbb-option if no value is set, then handles selection', async () => {
+    it('displays selected sbb-option if no value is set, then handles selection', async () => {
       const root = await fixture(html`
         <div id="parent2">
           <sbb-select>
@@ -263,6 +265,26 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal('2');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('displays initially selected option', async () => {
+      const root = await fixture(html`
+        <div id="parent3">
+          <sbb-select value=${'3'}> </sbb-select>
+        </div>
+      `);
+      element = root.querySelector<SbbSelectElement>('sbb-select')!;
+
+      const opt3 = document.createElement('sbb-option');
+      opt3.textContent = 'Third';
+      opt3.value = '3';
+      element.appendChild(opt3);
+
+      await waitForLitRender(root);
+
+      expect(element.value).to.be.equal('3');
+      const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
+      expect(displayValue).to.have.trimmed.text('Third');
     });
 
     it('handles selection in multiple', async () => {
@@ -614,6 +636,7 @@ describe(`sbb-select`, () => {
       nativeInputEvent: EventSpy<Event>;
 
     beforeEach(async () => {
+      document.documentElement.removeAttribute('lang');
       form = await fixture(html`
         <form>
           <fieldset>
@@ -754,6 +777,102 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal('2');
       compareToNative();
+    });
+
+    it('should update validity with required true', async () => {
+      element.value = '';
+      expect(element.validationMessage).to.equal('');
+      expect(element.validity.valueMissing).to.be.false;
+
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
+
+      expect(element.validationMessage.length).to.be.greaterThan(0);
+      expect(element.validity.valueMissing).to.be.true;
+    });
+
+    it('should update validity with required true with selection', async () => {
+      expect(element.value).to.not.be.empty;
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('');
+      expect(element.validity.valueMissing).to.be.false;
+    });
+
+    it('should update validity message language', async () => {
+      element.toggleAttribute('required', true);
+      element.value = '';
+      await waitForLitRender(element);
+
+      const original = element.validationMessage;
+      expect(element.validationMessage.length).to.be.greaterThan(0);
+      expect(element.validity.valueMissing).to.be.true;
+
+      document.documentElement.setAttribute('lang', 'de');
+      await waitForLitRender(element);
+
+      expect(element.validationMessage.length).to.be.greaterThan(0);
+      expect(element.validationMessage).not.to.equal(original);
+    });
+
+    it('should keep custom validity', async () => {
+      element.value = '';
+      element.setCustomValidity('my error');
+      expect(element.validationMessage).to.equal('my error');
+      expect(element.validity.customError).to.be.true;
+
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('my error');
+      expect(element.validity.customError, 'customError').to.be.true;
+      expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+    });
+
+    it('should not unset required validity', async () => {
+      element.value = '';
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
+
+      const checkedMessage = element.validationMessage;
+      expect(checkedMessage.length).to.be.greaterThan(
+        0,
+        'required validation message must not be empty',
+      );
+
+      element.setCustomValidity('my error');
+      expect(element.validationMessage).to.equal('my error', 'With custom error');
+      expect(element.validity.customError, 'customError').to.be.true;
+      expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+
+      element.setCustomValidity('');
+
+      expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
+      expect(element.validity.customError, 'customError').to.be.false;
+      expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+    });
+
+    it('should set valididty correctly on initialization', async () => {
+      element = await fixture(
+        html`<sbb-select name="testvalidation" required><sbb-option>Test</sbb-option></sbb-select>`,
+      );
+      await waitForLitRender(element);
+
+      expect(element.validationMessage.length).to.be.greaterThan(0);
+      expect(element.validity.valueMissing).to.be.true;
+    });
+
+    it('should match :invalid with required true', async () => {
+      element.value = '';
+      expect(element).to.match(':valid');
+      expect(element).not.to.match(':invalid');
+
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
+
+      expect(element).not.to.match(':valid');
+      expect(element).to.match(':invalid');
     });
   });
 

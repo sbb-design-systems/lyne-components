@@ -42,7 +42,7 @@ describe(`sbb-button`, () => {
             </sbb-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
             focusOutlineDark: negative,
           },
         );
@@ -79,7 +79,7 @@ describe(`sbb-button`, () => {
                 await setup.withFixture(
                   html`<sbb-button disabled-interactive ?negative=${negative}>Button</sbb-button>`,
                   {
-                    backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+                    backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
                     focusOutlineDark: negative,
                   },
                 );
@@ -100,7 +100,7 @@ describe(`sbb-button`, () => {
               </sbb-button>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
               focusOutlineDark: negative,
               forcedColors: true,
             },

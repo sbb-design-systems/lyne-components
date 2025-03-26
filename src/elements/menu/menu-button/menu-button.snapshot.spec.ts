@@ -14,7 +14,7 @@ describe(`sbb-menu-button`, () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-menu-button form="formid" name="name" type="submit" aria-label="a11y label">
-          <span>Action</span>
+          Action
         </sbb-menu-button>
       `);
     });
@@ -33,9 +33,7 @@ describe(`sbb-menu-button`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-menu-button icon-name="menu-small" amount="123456">
-          <span>Action</span>
-        </sbb-menu-button>
+        <sbb-menu-button icon-name="menu-small" amount="123456"> Action </sbb-menu-button>
       `);
     });
 

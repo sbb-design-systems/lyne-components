@@ -10,7 +10,6 @@ import type {
 } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -79,7 +78,7 @@ const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): Tem
 `;
 
 const TemplateCardActionMultipleCards = (args: Args): TemplateResult => html`
-  <div style=${styleMap({ display: 'flex', gap: '1rem' })}>
+  <div style="display: flex; gap: 1rem;">
     ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge({ ...args, active: true })}
     ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge(args)}
   </div>

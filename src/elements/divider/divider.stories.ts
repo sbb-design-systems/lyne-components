@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -10,7 +9,7 @@ import readme from './readme.md?raw';
 import './divider.js';
 
 const Template = (args: Args): TemplateResult => html`
-  <div style=${styleMap({ height: '340px', padding: '20px' })}>
+  <div style="height: 340px; padding: 20px;">
     <sbb-divider ${sbbSpread(args)}></sbb-divider>
   </div>
 `;

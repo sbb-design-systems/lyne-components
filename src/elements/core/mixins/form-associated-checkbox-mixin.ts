@@ -1,15 +1,17 @@
 import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
 import { preventScrollOnSpacebarPress } from '../eventing.js';
+import { i18nCheckboxRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
 import {
+  SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-  SbbFormAssociatedMixin,
   type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
@@ -55,6 +57,7 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     private _attributeMutationBlocked = false;
+    private _languageController = new SbbLanguageController(this);
 
     /** Whether the checkbox is checked. */
     @property({
@@ -129,9 +132,9 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     /**
      *  Called when the browser is trying to restore element’s state to state in which case
-     *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
-     *  user in which case reason is “autocomplete”.
-     *  In the case of “restore”, state is a string, File, or FormData object
+     *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
+     *  user in which case reason is "autocomplete".
+     *  In the case of "restore", state is a string, File, or FormData object
      *  previously set as the second argument to setFormValue.
      *
      * @internal
@@ -156,6 +159,22 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
         this.internals.setFormValue(this.value, `${this.checked}`);
       } else {
         this.internals.setFormValue(null);
+      }
+    }
+
+    protected override shouldValidate(name: PropertyKey | undefined): boolean {
+      return super.shouldValidate(name) || name === 'checked' || name === 'required';
+    }
+
+    protected override validate(): void {
+      super.validate();
+      if (this.required && !this.checked) {
+        this.setValidityFlag(
+          'valueMissing',
+          i18nCheckboxRequired[this._languageController.current],
+        );
+      } else {
+        this.removeValidityFlag('valueMissing');
       }
     }
 

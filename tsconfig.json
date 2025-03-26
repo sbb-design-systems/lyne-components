@@ -59,6 +59,8 @@
           "align-self",
           "inert",
           "popover",
+          "sbb-badge",
+          "sbb-badge-position",
           "sbb-dialog-close",
           "sbb-navigation-close",
           "sbb-navigation-section-close",
