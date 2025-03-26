@@ -35,7 +35,12 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public set scrollOrigin(value: string | HTMLElement | Document) {
     const oldValue = this._scrollOrigin;
     this._scrollOrigin = value;
-    this._updateScrollOrigin(this._scrollOrigin, oldValue);
+    if (this._scrollOrigin !== oldValue) {
+      this._setListenerOnScrollElement(this._scrollOrigin);
+      const currentScroll = this._getCurrentScrollProperty('scrollTop');
+      // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
+      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+    }
   }
   public get scrollOrigin(): string | HTMLElement | Document {
     return this._scrollOrigin;
@@ -59,19 +64,6 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   private _scrollEventsController!: AbortController;
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
-
-  private _updateScrollOrigin(
-    newValue: string | HTMLElement | Document,
-    oldValue: string | HTMLElement | Document,
-  ): void {
-    if (newValue !== oldValue) {
-      this._setListenerOnScrollElement(newValue);
-      const currentScroll = this._getCurrentScrollProperty('scrollTop');
-      // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
-      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
-    }
-  }
-
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public override connectedCallback(): void {
     super.connectedCallback();
