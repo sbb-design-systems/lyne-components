@@ -85,7 +85,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: matrix-coverage-${{ matrix.test-module }}
+          name: matrix-coverage-${{ hashFiles(matrix.test-module) }}
           path: coverage/
           retention-days: 1
 

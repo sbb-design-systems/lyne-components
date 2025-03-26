@@ -111,7 +111,7 @@ jobs:
       - name: Store visual regression output
         uses: actions/upload-artifact@v4
         with:
-          name: matrix-screenshots-${{ matrix.test-module }}
+          name: matrix-screenshots-${{ hashFiles(matrix.test-module) }}
           path: dist/screenshots/
           retention-days: 1
 
