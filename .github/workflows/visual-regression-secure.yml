@@ -1,4 +1,4 @@
-name: Visual Regression
+name: Visual Regression Secure
 # Secure execution of continuous integration jobs
 # which are performed upon completion of the
 # "Continuous Integration" workflow
