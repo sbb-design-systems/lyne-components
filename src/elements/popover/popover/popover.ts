@@ -113,7 +113,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _isPointerDownEventOnPopover?: boolean;
   private _hoverTrigger = false;
   private _triggerElement?: HTMLElement | null;
-  private _triggerController!: AbortController;
+  private _triggerAbortController!: AbortController;
   private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -216,11 +216,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    if (!this.id) {
-      this.id = this.id || `sbb-popover-${++nextId}`;
-    }
-
-    // Validate trigger element and attach event listeners
+    this.id ||= `sbb-popover-${++nextId}`;
     this._configureTrigger();
     this.state = 'closed';
     popoversRef.add(this as SbbPopoverElement);
@@ -249,7 +245,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     this._openStateController?.abort();
     this._focusHandler.disconnect();
     popoversRef.delete(this as SbbPopoverElement);
@@ -264,7 +260,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       return;
     }
 
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement =
@@ -280,7 +276,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !pointerCoarse;
 
-    const { signal } = (this._triggerController = new AbortController());
+    const { signal } = (this._triggerAbortController = new AbortController());
     if (this._hoverTrigger) {
       this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
       this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });

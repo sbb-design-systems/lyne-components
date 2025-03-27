@@ -1,23 +1,25 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyDeclaration,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
+  SbbEscapableOverlayController,
+  SbbIdObserverController,
   SbbInertController,
   SbbLanguageController,
-  SbbEscapableOverlayController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
-import {
-  findReferencedElement,
-  isZeroAnimationDuration,
-  SbbScrollHandler,
-} from '../../core/dom.js';
+import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
@@ -67,15 +69,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
-  public set trigger(value: string | HTMLElement | null) {
-    const oldValue = this._trigger;
-    this._trigger = value;
-    this._removeTriggerClickListener(this._trigger, oldValue);
-  }
-  public get trigger(): string | HTMLElement | null {
-    return this._trigger;
-  }
-  private _trigger: string | HTMLElement | null = null;
+  public accessor trigger: string | HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the close button element.
@@ -96,7 +90,8 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _navigation!: HTMLDivElement;
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
-  private _navigationController!: AbortController;
+  private _triggerAbortController!: AbortController;
+  private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -221,35 +216,21 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   }
 
   // Removes trigger click listener on trigger change.
-  private _removeTriggerClickListener(
-    newValue: string | HTMLElement | null,
-    oldValue: string | HTMLElement | null,
-  ): void {
-    if (newValue !== oldValue) {
-      this._navigationController?.abort();
-      this._configure(this.trigger);
-    }
-  }
-
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement | null): void {
+  private _configureTrigger(): void {
+    this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
-    if (!trigger) {
-      return;
-    }
-
-    this._triggerElement = findReferencedElement(trigger);
-
+    this._triggerElement =
+      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find();
     if (!this._triggerElement) {
       return;
     }
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
-    this._navigationController?.abort();
-    this._navigationController = new AbortController();
+    this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._navigationController.signal,
+      signal: this._triggerAbortController.signal,
     });
   }
 
@@ -353,7 +334,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-${nextId++}`;
-    this._configure(this.trigger);
+    this._configureTrigger();
     if (this.isOpen) {
       this._inertController.activate();
     }
@@ -361,9 +342,21 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._navigationController?.abort();
+    this._triggerAbortController?.abort();
     this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
+  }
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   protected override render(): TemplateResult {

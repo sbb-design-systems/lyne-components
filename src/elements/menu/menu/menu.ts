@@ -94,7 +94,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
-  private _triggerController!: AbortController;
+  private _triggerAbortController!: AbortController;
   private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _isPointerDownEventOnMenu: boolean = false;
   private _windowEventsController!: AbortController;
@@ -271,6 +271,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.id ||= `sbb-menu-${nextId++}`;
     this._configureTrigger();
     if (this.isOpen) {
       this._inertController.activate();
@@ -279,7 +280,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
@@ -317,7 +318,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement =
@@ -326,11 +327,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       return;
     }
 
-    this.id = this.id || `sbb-menu-${nextId++}`;
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
-    this._triggerController = new AbortController();
+    this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._triggerController.signal,
+      signal: this._triggerAbortController.signal,
     });
   }
 

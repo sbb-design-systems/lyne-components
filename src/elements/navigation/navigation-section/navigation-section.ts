@@ -94,7 +94,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _navigationSection!: HTMLElement;
   private _navigationSectionContainerElement!: HTMLElement;
   private _triggerElement: SbbNavigationButtonElement | null = null;
-  private _triggerController!: AbortController;
+  private _triggerAbortController!: AbortController;
   private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
@@ -183,7 +183,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement = (
@@ -194,10 +194,10 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     }
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
-    this._triggerController = new AbortController();
+    this._triggerAbortController = new AbortController();
     this._triggerElement.connectedSection = this;
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._triggerController.signal,
+      signal: this._triggerAbortController.signal,
     });
   }
 
@@ -338,7 +338,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     this._windowEventsController?.abort();
   }
 
