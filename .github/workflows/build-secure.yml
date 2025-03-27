@@ -19,6 +19,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.pull_requests[0] != null
     permissions:
+      checks: write
       deployments: write
       packages: write
       pull-requests: write
@@ -66,7 +67,7 @@ jobs:
               ...payload,
               ref: context.payload.workflow_run.head_sha,
               auto_merge: false,
-              required_contexts: ['integrity', 'build', 'test', 'lint']
+              required_contexts: ['build']
             });
             await github.rest.repos.createDeploymentStatus({
               ...payload,

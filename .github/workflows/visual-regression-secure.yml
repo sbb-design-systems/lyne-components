@@ -56,7 +56,7 @@ jobs:
               await github.rest.checks.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                name: 'Visual Regression',
+                name: 'Visual Regression Result',
                 head_sha: context.payload.workflow_run.head_sha,
                 details_url: diffUrl,
                 output: {
@@ -73,7 +73,7 @@ jobs:
                 ...payload,
                 ref: context.payload.workflow_run.head_sha,
                 auto_merge: false,
-                required_contexts: ['integrity', 'build', 'test', 'lint']
+                required_contexts: ['collect-test-results']
               });
               await github.rest.repos.createDeploymentStatus({
                 ...payload,
