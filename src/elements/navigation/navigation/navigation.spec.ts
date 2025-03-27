@@ -16,28 +16,34 @@ import '../navigation-marker.js';
 import '../navigation-section.js';
 
 describe(`sbb-navigation`, () => {
-  let element: SbbNavigationElement;
+  let element: SbbNavigationElement, trigger: HTMLElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation">
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
-          <sbb-navigation-button>Travel information</sbb-navigation-button>
-          <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
-        </sbb-navigation-marker>
+    const root = await fixture(
+      html`<div>
+        <button id="navigation-trigger"></button>
+        <sbb-navigation id="navigation" trigger="navigation-trigger">
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+            <sbb-navigation-button>Travel information</sbb-navigation-button>
+            <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
+          </sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="action-1" id="first-section">
-          <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-        <sbb-navigation-section trigger="action-2" id="second-section">
-          <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-section trigger="action-1" id="first-section">
+            <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+          <sbb-navigation-section trigger="action-2" id="second-section">
+            <sbb-navigation-button>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+        </sbb-navigation>
+      </div> `,
+    );
+
+    element = root.querySelector('sbb-navigation')!;
+    trigger = root.querySelector('button')!;
   });
 
   it('renders', () => {
@@ -101,16 +107,16 @@ describe(`sbb-navigation`, () => {
       <sbb-navigation id="navigation">
         <sbb-navigation-marker>
           <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-active" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
+          <sbb-navigation-button id="action-active" class="sbb-active">
+            Vacations & Recreation
+          </sbb-navigation-button>
         </sbb-navigation-marker>
 
         <sbb-navigation-section trigger="action-active" id="active-section">
           <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button id="section-action-active" class="sbb-active"
-            >Label</sbb-navigation-button
-          >
+          <sbb-navigation-button id="section-action-active" class="sbb-active">
+            Label
+          </sbb-navigation-button>
         </sbb-navigation-section>
       </sbb-navigation>
     `);
@@ -520,5 +526,33 @@ describe(`sbb-navigation`, () => {
 
     element.remove();
     expect(pageScrollDisabled()).to.be.false;
+  });
+
+  it('should update trigger connected by id', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+
+    trigger.id = 'navigation-trigger';
+    await waitForLitRender(element);
+    expect(trigger).to.have.attribute('aria-haspopup');
+  });
+
+  it('should accept trigger as HTML Element', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+
+    element.trigger = trigger;
+    await waitForLitRender(element);
+    expect(trigger).to.have.attribute('aria-haspopup');
+  });
+
+  it('should allow removing the trigger', async () => {
+    expect(trigger).to.have.attribute('aria-haspopup');
+
+    element.trigger = null;
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
   });
 });

@@ -55,7 +55,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id = this.id || `sbb-step-label-${nextId++}`;
+    this.id ||= `sbb-step-label-${nextId++}`;
     this.internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
