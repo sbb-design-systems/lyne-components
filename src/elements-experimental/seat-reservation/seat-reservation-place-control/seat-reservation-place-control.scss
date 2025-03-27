@@ -26,6 +26,7 @@
     @include sbb.button-reset;
 
     display: block;
+    color: revert;
     font-size: calc(var(--reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
@@ -66,7 +67,7 @@
     transform: translate(-50%, -50%)
       rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
     font-size: 0.75em;
-    background-color: var(--sbb-color-milk);
+    background-color: var(--sbb-color-white);
 
     #{$root}--state-free &,
     #{$root}--state-allocated &,
@@ -84,6 +85,7 @@
 
     #{$root}--state-allocated &,
     #{$root}--state-restricted & {
+      background-color: transparent;
       color: var(--sbb-color-smoke);
     }
   }
