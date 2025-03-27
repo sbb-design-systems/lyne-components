@@ -642,6 +642,15 @@ describe('sbb-dialog', () => {
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size'),
       ).not.to.be.equal('0');
+
+      await waitForCondition(
+        () =>
+          Number(
+            getComputedStyle(stepper)
+              .getPropertyValue('--sbb-stepper-content-height')
+              .replaceAll('px', ''),
+          ) > 0,
+      );
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
       ).not.to.be.equal('0px');

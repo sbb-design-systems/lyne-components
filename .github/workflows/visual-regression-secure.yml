@@ -1,113 +1,20 @@
-name: Continuous Integration Secure
+name: Visual Regression Secure
 # Secure execution of continuous integration jobs
 # which are performed upon completion of the
 # "Continuous Integration" workflow
 # https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
 on:
   workflow_run:
-    workflows: [Continuous Integration]
+    workflows: [Visual Regression]
     types: [completed]
 
 env:
-  IMAGE_REPO_PREVIEW: ghcr.io/${{ github.repository }}/storybook-preview
-  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/${{ github.repository }}/visual-regression
   PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
   VISUAL_REQUIRED: 'pr: visual review required'
   VISUAL_APPROVED: 'pr: visual review approved'
   DIFF_URL: https://lyne-components-visual-regression-diff-pr{}.app.sbb.ch
 
 jobs:
-  preview-image:
-    runs-on: ubuntu-latest
-    if: >
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.pull_requests[0] != null
-    permissions:
-      checks: write
-      deployments: write
-      packages: write
-      pull-requests: write
-    services:
-      visual-regression:
-        image: ghcr.io/${{ github.repository }}/storybook:dev
-        ports:
-          - 8050:8080
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: storybook
-          path: dist/storybook/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
-      - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-storybook-files.cjs
-
-      - name: Create size check
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await import('${{ github.workspace }}/tools/node-esm-hook/register-hooks.js');
-            const { title, summary, text } = await import('${{ github.workspace }}/scripts/compare-stats.ts');
-
-            await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              name: 'Size Check',
-              head_sha: context.payload.workflow_run.head_sha,
-              output: { title, summary, text },
-              status: 'completed',
-              conclusion: 'success',
-            });
-
-      - name: Create GitHub Deployment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const environment = `pr${process.env.PR_NUMBER}`;
-            const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
-            const { data: deployment } = await github.rest.repos.createDeployment({
-              ...payload,
-              ref: context.payload.workflow_run.head_sha,
-              auto_merge: false,
-              required_contexts: ['integrity', 'build', 'test', 'lint']
-            });
-            await github.rest.repos.createDeploymentStatus({
-              ...payload,
-              deployment_id: deployment.id,
-              state: 'in_progress',
-              environment_url: `https://${context.repo.repo}-${environment}.app.sbb.ch`,
-            });
-
-      - uses: ./.github/actions/setup-mint
-      - name: 'Container: Build and preview image'
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-fat .
-          mint slim \
-            --target $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-fat \
-            --tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER \
-            --preserve-path /usr/share/nginx/html \
-            --include-new false
-          docker push $IMAGE_REPO_PREVIEW:pr$PR_NUMBER
-          docker tag $IMAGE_REPO_PREVIEW:pr$PR_NUMBER $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-slim
-          docker push $IMAGE_REPO_PREVIEW:pr$PR_NUMBER-slim
-          docker image list
-        env:
-          DOCKER_BUILDKIT: 1
-
-      - name: "Add 'preview-available' label"
-        # This label is used for filtering deployments in ArgoCD
-        run: gh issue edit $PR_NUMBER --add-label "preview-available"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   visual-regression:
     runs-on: ubuntu-latest
     if: >
@@ -230,29 +137,3 @@ jobs:
           gh issue edit $PR_NUMBER --add-label "diff-available"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  codecov:
-    runs-on: ubuntu-latest
-    if: >
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.pull_requests[0] != null
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
-      - uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
-          override_branch: ${{ github.event.workflow_run.head_branch }}
-          override_commit: ${{ github.event.workflow_run.head_commit.id }}
-          override_pr: ${{ env.PR_NUMBER }}
-          fail_ci_if_error: true
-          verbose: true
