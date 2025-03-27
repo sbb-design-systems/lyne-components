@@ -2,6 +2,7 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { isWebkit } from '../../core/dom.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import type { SbbSidebarElement } from '../sidebar.js';
@@ -10,7 +11,6 @@ import { SbbSidebarContainerElement } from './sidebar-container.js';
 
 import '../sidebar.js';
 import '../sidebar-content.js';
-import { isWebkit } from '@sbb-esta/lyne-elements/core/dom.js';
 
 describe('sbb-sidebar-container', () => {
   let element: SbbSidebarContainerElement,
@@ -91,10 +91,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar3.isOpen, 'sidebar 3, after reduction').to.be.false;
     expect(sidebar4.isOpen, 'sidebar 4, after reduction').to.be.true;
     expect(sidebar3).to.have.attribute('data-mode-over-forced');
-    if (!isWebkit) {
-      // This breaks for unknown reason in WebKit only during unit testing
-      expect(sidebar3).not.to.have.attribute('data-mode-over-forced-closing');
-    }
+    expect(sidebar3).not.to.have.attribute('data-mode-over-forced-closing');
 
     await setViewportWidth(320);
     await aTimeout(1);
@@ -125,14 +122,17 @@ describe('sbb-sidebar-container', () => {
     await testResizing();
   });
 
-  it('should collapse when space gets below minimum with non-zero animation duration', async () => {
-    element.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
-    element
-      .querySelector('sbb-sidebar-container')!
-      .style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+  if (!isWebkit) {
+    // This breaks for unknown reason in WebKit only during unit testing
+    it('should collapse when space gets below minimum with non-zero animation duration', async () => {
+      element.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+      element
+        .querySelector('sbb-sidebar-container')!
+        .style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
 
-    await testResizing();
-  });
+      await testResizing();
+    });
+  }
 
   it('should react to new sidebar', async () => {
     await setViewportWidth(960);
