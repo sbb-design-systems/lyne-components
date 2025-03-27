@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const cacheLocation = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../../node_modules/.cache/lyne-cdn-fonts',
+  '../../node_modules/.cache/lyne-cdn',
 );
 const preloadFontList = [
   [400, 'https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Roman.woff2'],
