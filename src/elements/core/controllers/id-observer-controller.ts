@@ -14,6 +14,7 @@ export class SbbIdObserverController<T extends LitElement> implements ReactiveCo
   public constructor(
     private _host: T,
     private _idRef: keyof T,
+    private _observers = observers,
   ) {
     this._host.addController(this);
   }
@@ -24,7 +25,7 @@ export class SbbIdObserverController<T extends LitElement> implements ReactiveCo
     }
 
     this._rootNode = this._host.getRootNode() as Document | ShadowRoot;
-    const observerContext = observers.get(this._rootNode);
+    const observerContext = this._observers.get(this._rootNode);
 
     if (observerContext) {
       observerContext.controllers.add(this);
@@ -62,7 +63,7 @@ export class SbbIdObserverController<T extends LitElement> implements ReactiveCo
         attributeOldValue: true,
       });
 
-      observers.set(this._rootNode, { observer, controllers });
+      this._observers.set(this._rootNode, { observer, controllers });
     }
   }
 
@@ -71,7 +72,7 @@ export class SbbIdObserverController<T extends LitElement> implements ReactiveCo
       return;
     }
 
-    const observerContext = observers.get(this._rootNode);
+    const observerContext = this._observers.get(this._rootNode);
     if (!observerContext) {
       this._rootNode = null;
       return;
@@ -80,7 +81,7 @@ export class SbbIdObserverController<T extends LitElement> implements ReactiveCo
     observerContext.controllers.delete(this);
     if (observerContext.controllers.size === 0) {
       observerContext.observer.disconnect();
-      observers.delete(this._rootNode);
+      this._observers.delete(this._rootNode);
     }
 
     this._rootNode = null;
