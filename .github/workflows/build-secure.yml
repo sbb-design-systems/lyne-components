@@ -23,6 +23,11 @@ jobs:
       deployments: write
       packages: write
       pull-requests: write
+    services:
+      visual-regression:
+        image: ${{ vars.IMAGE_REPO_STORYBOOK }}:dev
+        ports:
+          - 8050:8080
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
