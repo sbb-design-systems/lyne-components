@@ -1,4 +1,12 @@
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  nothing,
+  type PropertyDeclaration,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -7,14 +15,9 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbIdObserverController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
-import {
-  findReferencedElement,
-  isBreakpoint,
-  isZeroAnimationDuration,
-  setOrRemoveAttribute,
-} from '../../core/dom.js';
+import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
@@ -54,20 +57,13 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
   public accessor titleContent: string = '';
 
+  // TODO: breaking change: Change HTMLElement to SbbNavigationButtonElement
   /**
    * The element that will trigger the navigation section.
-   * Accepts both a string (id of an element) or an HTML element.
+   * Accepts both a string (id of an element) or an SbbNavigationButtonElement.
    */
   @property()
-  public set trigger(value: string | HTMLElement | null) {
-    const oldValue = this._trigger;
-    this._trigger = value;
-    this._removeTriggerClickListener(this._trigger, oldValue);
-  }
-  public get trigger(): string | HTMLElement | null {
-    return this._trigger;
-  }
-  private _trigger: string | HTMLElement | null = null;
+  public accessor trigger: string | HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
@@ -98,7 +94,8 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _navigationSection!: HTMLElement;
   private _navigationSectionContainerElement!: HTMLElement;
   private _triggerElement: SbbNavigationButtonElement | null = null;
-  private _navigationSectionController!: AbortController;
+  private _triggerController!: AbortController;
+  private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
 
@@ -184,38 +181,23 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     }
   }
 
-  // Removes trigger click listener on trigger change.
-  private _removeTriggerClickListener(
-    newValue: string | HTMLElement | null,
-    oldValue: string | HTMLElement | null,
-  ): void {
-    if (newValue !== oldValue) {
-      this._navigationSectionController?.abort();
-      this._windowEventsController?.abort();
-      this._configure(this.trigger);
-    }
-  }
-
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement | null): void {
+  private _configureTrigger(): void {
+    this._triggerController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
-    if (!trigger) {
-      return;
-    }
-
-    this._triggerElement = findReferencedElement(trigger);
-
+    this._triggerElement = (
+      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find()
+    ) as SbbNavigationButtonElement | null;
     if (!this._triggerElement) {
       return;
     }
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
-    this._navigationSectionController?.abort();
-    this._navigationSectionController = new AbortController();
+    this._triggerController = new AbortController();
     this._triggerElement.connectedSection = this;
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._navigationSectionController.signal,
+      signal: this._triggerController.signal,
     });
   }
 
@@ -350,15 +332,26 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     super.connectedCallback();
     this.id ||= `sbb-navigation-section-${nextId++}`;
     this._state ||= 'closed';
-    // Validate trigger element and attach event listeners
-    this._configure(this.trigger);
+    this._configureTrigger();
     this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._navigationSectionController?.abort();
+    this._triggerController?.abort();
     this._windowEventsController?.abort();
+  }
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   protected override render(): TemplateResult {

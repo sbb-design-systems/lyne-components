@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import { SbbNavigationElement } from '../navigation.js';
 
 import { SbbNavigationSectionElement } from './navigation-section.js';
@@ -11,12 +12,13 @@ import '../navigation-list.js';
 import '../navigation-button.js';
 
 describe(`sbb-navigation-section`, () => {
-  let element: SbbNavigationSectionElement;
+  let element: SbbNavigationSectionElement, trigger: SbbNavigationButtonElement;
 
   beforeEach(async () => {
     const root: SbbNavigationElement = await fixture(html`
       <sbb-navigation>
-        <sbb-navigation-section>
+        <sbb-navigation-button id="navigation-section-trigger"></sbb-navigation-button>
+        <sbb-navigation-section trigger="navigation-section-trigger">
           <sbb-navigation-list>
             <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
             <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
@@ -26,7 +28,8 @@ describe(`sbb-navigation-section`, () => {
         </sbb-navigation-section>
       </sbb-navigation>
     `);
-    element = root.querySelector<SbbNavigationSectionElement>('sbb-navigation-section')!;
+    element = root.querySelector('sbb-navigation-section')!;
+    trigger = root.querySelector('sbb-navigation-button')!;
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, root);
 
     // Open surrounding navigation
@@ -77,5 +80,33 @@ describe(`sbb-navigation-section`, () => {
 
     await waitForCondition(() => element.getAttribute('data-state') === 'closed');
     expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('should update trigger connected by id', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+
+    trigger.id = 'navigation-section-trigger';
+    await waitForLitRender(element);
+    expect(trigger).to.have.attribute('aria-haspopup');
+  });
+
+  it('should accept trigger as HTML Element', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+
+    element.trigger = trigger;
+    await waitForLitRender(element);
+    expect(trigger).to.have.attribute('aria-haspopup');
+  });
+
+  it('should allow removing the trigger', async () => {
+    expect(trigger).to.have.attribute('aria-haspopup');
+
+    element.trigger = null;
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
   });
 });
