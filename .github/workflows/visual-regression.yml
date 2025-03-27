@@ -81,13 +81,13 @@ jobs:
         # the visual regression tests failed. This will be evaluated in the secure workflow.
       - name: Run visual regression tests
         if: github.event_name == 'pull_request'
-        run: yarn test:visual-regression --module=${{ matrix.test-module }} || true
+        run: yarn test:visual-regression --segment=${{ matrix.segment }}/${{ env.max-segment }} || true
         env:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Run visual regression baseline generation
         if: github.ref == 'refs/heads/main'
-        run: yarn test:visual-regression --module=${{ matrix.test-module }} --update-visual-baseline
+        run: yarn test:visual-regression --segment=${{ matrix.segment }}/${{ env.max-segment }} --update-visual-baseline
         env:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
