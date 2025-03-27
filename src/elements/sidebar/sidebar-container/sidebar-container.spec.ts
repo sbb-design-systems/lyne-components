@@ -76,14 +76,15 @@ describe('sbb-sidebar-container', () => {
     expect(element.start).to.be.equal(null);
   });
 
-  async function testResizing(timeout = 1): Promise<void> {
+  async function testResizing(): Promise<void> {
     expect(sidebar1.isOpen, 'sidebar 1, initially').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, initially').to.be.true;
     expect(sidebar3.isOpen, 'sidebar 3, initially').to.be.true;
     expect(sidebar4.isOpen, 'sidebar 4, initially').to.be.true;
 
     await setViewportWidth(1279);
-    await aTimeout(timeout);
+    await aTimeout(1);
+    await waitForLitRender(element);
 
     expect(sidebar1.isOpen, 'sidebar 1, after reduction').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, after reduction').to.be.true;
@@ -93,7 +94,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar3).not.to.have.attribute('data-mode-over-forced-closing');
 
     await setViewportWidth(320);
-    await aTimeout(timeout);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, zero').to.be.false;
     expect(sidebar2.isOpen, 'sidebar 2, zero').to.be.false;
@@ -101,7 +102,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, zero').to.be.true;
 
     await setViewportWidth(1179);
-    await aTimeout(timeout);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, after increasing').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, after increasing').to.be.true;
@@ -109,7 +110,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, after increasing').to.be.true;
 
     await setViewportWidth(1280);
-    await aTimeout(timeout);
+    await aTimeout(1);
 
     expect(sidebar1.isOpen, 'sidebar 1, after max resolution').to.be.true;
     expect(sidebar2.isOpen, 'sidebar 2, after max resolution').to.be.true;
@@ -122,12 +123,12 @@ describe('sbb-sidebar-container', () => {
   });
 
   it('should collapse when space gets below minimum with non-zero animation duration', async () => {
-    element.style.setProperty('--sbb-sidebar-container-animation-duration', '100ms');
+    element.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
     element
       .querySelector('sbb-sidebar-container')!
-      .style.setProperty('--sbb-sidebar-container-animation-duration', '100ms');
+      .style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
 
-    await testResizing(101);
+    await testResizing();
   });
 
   it('should react to new sidebar', async () => {
