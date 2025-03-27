@@ -28,6 +28,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - uses: actions/download-artifact@v4
         with:
