@@ -356,4 +356,32 @@ describe(`sbb-menu`, () => {
     await scrollSpy.calledOnce();
     expect(scrollSpy.count).to.be.equal(1);
   });
+
+  it('updates trigger connected by id', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+
+    trigger.id = 'menu-trigger';
+    await waitForLitRender(element);
+    expect(trigger).to.have.attribute('aria-haspopup');
+  });
+
+  it('accepts trigger as HTML Element', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+
+    element.trigger = trigger;
+    await waitForLitRender(element);
+    expect(trigger).to.have.attribute('aria-haspopup');
+  });
+
+  it('allows removing the trigger', async () => {
+    expect(trigger).to.have.attribute('aria-haspopup');
+
+    element.trigger = null;
+    await waitForLitRender(element);
+    expect(trigger).not.to.have.attribute('aria-haspopup');
+  });
 });

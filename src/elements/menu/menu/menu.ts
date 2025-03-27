@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyDeclaration,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -12,17 +18,14 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
+  SbbEscapableOverlayController,
+  SbbIdObserverController,
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  SbbEscapableOverlayController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
-import {
-  findReferencedElement,
-  isZeroAnimationDuration,
-  SbbScrollHandler,
-} from '../../core/dom.js';
+import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
@@ -79,15 +82,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
-  public set trigger(value: string | HTMLElement | null) {
-    const oldValue = this._trigger;
-    this._trigger = value;
-    this._removeTriggerClickListener(this._trigger, oldValue);
-  }
-  public get trigger(): string | HTMLElement | null {
-    return this._trigger;
-  }
-  private _trigger: string | HTMLElement | null = null;
+  public accessor trigger: string | HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the inner list.
@@ -99,13 +94,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
+  private _triggerClickController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _menuController!: AbortController;
   private _windowEventsController!: AbortController;
   private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
+  private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [SbbMediaQueryBreakpointSmallAndBelow]: (matches) => {
       if (matches && (this.state === 'opening' || this.state === 'opened')) {
@@ -262,17 +258,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   // Removes trigger click listener on trigger change.
-  private _removeTriggerClickListener(
-    newValue: string | HTMLElement | null,
-    oldValue: string | HTMLElement | null,
-  ): void {
-    if (newValue !== oldValue) {
-      this._menuController?.abort();
-      this._windowEventsController?.abort();
-      this._configure(this.trigger);
-    }
-  }
-
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
     const renderRoot = super.createRenderRoot();
     // Due to the fact that menu can both be a list and just a container, we need to check its
@@ -286,8 +271,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    // Validate trigger element and attach event listeners
-    this._configure(this.trigger);
+    this._configureTrigger();
     if (this.isOpen) {
       this._inertController.activate();
     }
@@ -295,10 +279,22 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._menuController?.abort();
+    this._triggerClickController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
+  }
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   private _checkListCase(event: Event): void {
@@ -320,25 +316,21 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement | null): void {
+  private _configureTrigger(): void {
+    this._triggerClickController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
-    if (!trigger) {
-      return;
-    }
-
-    this._triggerElement = findReferencedElement(trigger);
-
+    this._triggerElement =
+      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find();
     if (!this._triggerElement) {
       return;
     }
 
     this.id = this.id || `sbb-menu-${nextId++}`;
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
-    this._menuController?.abort();
-    this._menuController = new AbortController();
+    this._triggerClickController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._menuController.signal,
+      signal: this._triggerClickController.signal,
     });
   }
 
