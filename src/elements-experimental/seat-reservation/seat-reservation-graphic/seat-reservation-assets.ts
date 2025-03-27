@@ -1,7 +1,7 @@
 import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import { svgs, mapCodeToSvg } from '../common.js';
+import { svgs, mapIconToSvg } from '../common.js';
 
 import './seat-reservation-assets.scss';
 
@@ -30,7 +30,7 @@ const svgTmpImage = (src: string, variant: 'light' | 'dark' = 'light'): Template
  * @returns The SVG Image as TemplateResult if it matches the OSDM code, or null if its not found.
  */
 export const svgImageByOSDMCode = (osdmCode: string): TemplateResult | null => {
-  return mapCodeToSvg[osdmCode] ? svgImage(mapCodeToSvg[osdmCode]) : null;
+  return mapIconToSvg[osdmCode]?.svg ? svgImage(mapIconToSvg[osdmCode].svg) : null;
 };
 
 const chassisTable = html`

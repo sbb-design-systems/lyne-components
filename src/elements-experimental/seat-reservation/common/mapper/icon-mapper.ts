@@ -1,12 +1,16 @@
+import { svgs } from '../svgs.js';
+
 /**
  * Map Object from OSDM Code to SVG icon name represented in svg-icon
  * component regarding the namespace "fpl".
  */
-type NavigationIcon = {
-  svgName: string;
+type SeatReservationIcon = {
+  svgName?: string;
+  svg?: string;
 };
 
-export const mapNavigationIconToSvg: Record<string, NavigationIcon> = {
+export const mapIconToSvg: Record<string, SeatReservationIcon> = {
+  //Service Icons within navigation component
   BICYCLE: { svgName: 'sa-vo' },
   BICYCLE_LOW: { svgName: 'sa-vo' },
   BICYCLE_MIDDLE: { svgName: 'sa-vo' },
@@ -14,14 +18,52 @@ export const mapNavigationIconToSvg: Record<string, NavigationIcon> = {
   BISTRO: { svgName: 'sa-wr' },
   BUSINESS: { svgName: 'sa-bz' },
   BUSINESS_COMFORT: { svgName: 'sa-bz' },
-  FAMILY: { svgName: 'sa-fz' },
+  FAMILY: { svgName: 'sa-fz' }, //TODO ggf. anderes Icon?
   PRAM: { svgName: 'sa-abteilkinderwagen' },
-  RESTAURANT: { svgName: 'sa-wr' },
+  RESTAURANT: { svgName: 'sa-wr' }, //TODO ggf. anderes Icon?
   SILENCE: { svgName: 'sa-rz' },
-  WHEELCHAIR: { svgName: 'sa-rs' },
-  WHEELCHAIR_AND_SEAT: { svgName: 'sa-rs' },
-  WHEELCHAIR_NO_SEAT: { svgName: 'sa-rs' },
-  WIFI: { svgName: 'sa-fs' },
+  WHEELCHAIR: { svgName: 'sa-rs' }, //TODO ggf. anderes Icon?
+  WHEELCHAIR_AND_SEAT: { svgName: 'sa-rs' }, //TODO ggf. anderes Icon?
+  WHEELCHAIR_NO_SEAT: { svgName: 'sa-rs' }, //TODO ggf. anderes Icon?
+  //WIFI: { svgName: 'sa-fs' }, //TODO ggf. anderes Icon?
+  //Service Icons within coach deck layout
+  EASY_ACCESS_AREA: { svg: svgs.servicePrm },
+  LUGGAGE_AREA: { svg: svgs.serviceLuggage },
+  MULTI_FUNCTION_AREA: { svg: svgs.serviceMultifunction },
+  PRAM_AREA: { svgName: 'sa-abteilkinderwagen' },
+  PRAM_ICON: { svgName: 'sa-abteilkinderwagen' },
+  PLAYGROUND_ICON: { svg: svgs.serviceFamily },
+  PLAYGROUND_AREA: { svg: svgs.serviceFamily },
+  TOILET_AREA: { svg: svgs.serviceToilet },
+  SKI_AREA: { svg: svgs.layoutSki },
+  SKI_ICON: { svg: svgs.layoutSki },
+  SILENCE_AREA_ICON: { svg: svgs.serviceSilence },
+  STAIR_AREA: { svg: svgs.layoutStair },
+  RESTAURANT_ICON: { svg: svgs.serviceRestaurant },
+  WHEELCHAIR_ICON: { svg: svgs.serviceWheelchair },
+  WHEELCHAIR_TOILET_AREA: { svg: svgs.serviceToiletPrm },
+  WIFI: { svg: svgs.serviceWifi },
+  //BISTRO: { svg: svgs.serviceBistro }, //TODO ggf. dieses Icon nehmen!
+  //BUSINESS: { svg: svgs.serviceBusiness }, //TODO ggf. dieses Icon nehmen!
+  COMPARTMENT_PASSAGE: { svg: svgs.chassisPassageCompartmentMiddle },
+  COMPARTMENT_PASSAGE_HIGH: { svg: svgs.chassisPassageCompartmentLeftTop },
+  COMPARTMENT_PASSAGE_LOW: { svg: svgs.chassisPassageCompartmentRightBottom },
+  COACH_BORDER_OUTER: { svg: svgs.chassisRowOuter },
+  COACH_BORDER_MIDDLE: { svg: svgs.chassisRowMiddle },
+  COACH_PASSAGE: { svg: svgs.chassisPassageWaggonTopLeft },
+  DRIVER_AREA: { svg: svgs.chassisDriverTrain },
+  DRIVER_AREA_FULL_TRAIN: { svg: svgs.chassisDriverTrainFull },
+  DRIVER_AREA_FULL_BUS: { svg: svgs.chassisDriverBus },
+  ENTRY_EXIT: { svg: svgs.layoutEntrance },
+  PLACE_SEAT_FREE: { svg: svgs.interiorPlaceSeatDefault },
+  PLACE_SEAT_SELECTED: { svg: svgs.interiorPlaceSeatSelected },
+  PLACE_SEAT_RESTRICTED: { svg: svgs.interiorPlaceSeatNotBookable },
+  PLACE_SEAT_ALLOCATED: { svg: svgs.interiorPlaceSeatUnavailable },
+  PLACE_BICYCLE_FREE: { svg: svgs.interiorPlaceBikeDefault },
+  PLACE_BICYCLE_SELECTED: { svg: svgs.interiorPlaceBikeSelected },
+  PLACE_BICYCLE_RESTRICTED: { svg: svgs.interiorPlaceBikeNotBookable },
+  PLACE_BICYCLE_ALLOCATED: { svg: svgs.interiorPlaceBikeUnavailable },
+  TABLE: { svg: svgs.interiorTableTest },
 };
 
 /**
