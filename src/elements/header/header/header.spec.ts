@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -122,6 +122,44 @@ describe(`sbb-header`, () => {
     expect(element.scrollOrigin).to.be.equal('container');
     expect(element.offsetHeight).to.be.equal(96);
 
+    const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
+
+    // Scroll bottom (0px to 400px): header fixed.
+    scrollContext.scrollTo({ top: 400, behavior: 'instant' });
+    await scrollEventSpy.calledOnce();
+
+    // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
+    scrollContext.scrollTo({ top: 200, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(2);
+
+    expect(scrollContext.scrollTop).to.be.equal(200);
+    expect(element).to.have.attribute('data-shadow');
+  });
+
+  it('should respect custom scrollOrigin appearing in DOM after initialization', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-header hide-on-scroll scroll-origin="container">
+          <sbb-header-button id="action-1">Action 1</sbb-header-button>
+          <sbb-header-button id="action-2">Action 2</sbb-header-button>
+        </sbb-header>
+        <div
+          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+        >
+          <div style="height: 2000px">Content</div>
+        </div>
+      </div>
+    `);
+
+    element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+
+    const scrollContext = root.querySelector<HTMLDivElement>('div > div')!;
+    expect(element.scrollOrigin).to.be.equal('container');
+    expect(element.offsetHeight).to.be.equal(96);
+
+    scrollContext.id = 'container';
+    await aTimeout(100);
+    await waitForLitRender(root);
     const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
 
     // Scroll bottom (0px to 400px): header fixed.

@@ -1,9 +1,17 @@
-import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  type PropertyDeclaration,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
+import { SbbIdObserverController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { findReferencedElement, isLean } from '../../core/dom.js';
+import { isLean } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 
 import style from './header.scss?lit&inline';
@@ -32,20 +40,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
 
   /** The element's id or the element on which the scroll listener is attached. */
   @property({ attribute: 'scroll-origin' })
-  public set scrollOrigin(value: string | HTMLElement | Document) {
-    const oldValue = this._scrollOrigin;
-    this._scrollOrigin = value;
-    if (this._scrollOrigin !== oldValue) {
-      this._setListenerOnScrollElement(this._scrollOrigin);
-      const currentScroll = this._getCurrentScrollProperty('scrollTop');
-      // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
-      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
-    }
-  }
-  public get scrollOrigin(): string | HTMLElement | Document {
-    return this._scrollOrigin;
-  }
-  private _scrollOrigin: string | HTMLElement | Document = !isServer ? document : null!;
+  public accessor scrollOrigin: string | HTMLElement | Document = !isServer ? document : null!;
 
   /** Whether the header should hide and show on scroll. */
   @forceType()
@@ -64,11 +59,17 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   private _scrollEventsController!: AbortController;
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
+  private _idObserverController = new SbbIdObserverController(this, 'scrollOrigin');
+
+  public constructor() {
+    super();
+    this.addController(new SbbFocusVisibleWithinController(this));
+  }
+
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._setListenerOnScrollElement(this.scrollOrigin);
-    new SbbFocusVisibleWithinController(this);
+    this._updateScrollListener();
   }
 
   /** Removes the scroll listener, if previously attached. */
@@ -77,18 +78,44 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
     this._scrollEventsController?.abort();
   }
 
-  /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
-  private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (!isServer && (!name || name === 'scrollOrigin') && this.hasUpdated) {
+      this._updateScrollListener();
+    }
+  }
+
+  private _updateScrollListener(): void {
+    const scrollElement =
+      this.scrollOrigin instanceof HTMLElement
+        ? this.scrollOrigin
+        : (this._idObserverController.find() ?? document);
+    if (scrollElement === this._scrollElement) {
+      return;
+    }
+
     this._scrollEventsController?.abort();
+    this._scrollElement = scrollElement;
+    if (!this._scrollElement) {
+      return;
+    }
     this._scrollEventsController = new AbortController();
-    this._scrollElement =
-      findReferencedElement(scrollOrigin as string | HTMLElement) || (!isServer ? document : null);
     this._scrollFunction = this._getScrollFunction.bind(this);
-    this._scrollElement?.addEventListener('scroll', this._scrollFunction, {
+    this._scrollElement.addEventListener('scroll', this._scrollFunction, {
       passive: true,
       signal: this._scrollEventsController.signal,
     });
+
+    const currentScroll = this._getCurrentScrollProperty('scrollTop');
+    // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
+    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   }
+
   /** Returns the correct function to attach on scroll. */
   private _getScrollFunction(): void {
     return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();
