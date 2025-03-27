@@ -10,7 +10,7 @@ import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 import style from './seat-reservation-navigation.scss?lit&inline';
 
 import '../seat-reservation-graphic.js';
-import '@sbb-esta/lyne-elements/icon/icon.component.js';
+import '@sbb-esta/lyne-elements/icon.js';
 /**
  * It will display the navigation for Seat reservation.
  *
