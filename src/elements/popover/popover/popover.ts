@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -11,12 +11,13 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
+  SbbEscapableOverlayController,
+  SbbIdObserverController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
-  SbbEscapableOverlayController,
 } from '../../core/controllers.js';
 import { forceType, hostAttributes } from '../../core/decorators.js';
-import { findReferencedElement, isZeroAnimationDuration } from '../../core/dom.js';
+import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -105,33 +106,34 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   );
 
   private _overlay!: HTMLDivElement;
-  private _triggerElement?: HTMLElement | null;
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
   private _skipCloseFocus: boolean = false;
   private _popoverCloseElement?: HTMLElement;
   private _isPointerDownEventOnPopover?: boolean;
-  private _popoverController!: AbortController;
-  private _openStateController!: AbortController;
-  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
   private _hoverTrigger = false;
+  private _triggerElement?: HTMLElement | null;
+  private _triggerController!: AbortController;
+  private _idObserverController = new SbbIdObserverController(this, 'trigger');
+  private _openStateController!: AbortController;
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _focusHandler = new SbbFocusHandler();
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
 
   /** Opens the popover on trigger click. */
   public open(): void {
-    if ((this.state !== 'closed' && this.state !== 'closing') || !this._overlay) {
-      return;
-    }
-
-    if (!this.willOpen.emit()) {
+    if (
+      (this.state !== 'closed' && this.state !== 'closing') ||
+      !this._overlay ||
+      !this.willOpen.emit()
+    ) {
       return;
     }
 
     // Close the other popovers
-    for (const popover of Array.from(popoversRef)) {
+    for (const popover of popoversRef) {
       const state = popover.getAttribute('data-state') as SbbOpenedClosedState;
       if (state && (state === 'opened' || state === 'opening')) {
         popover.close();
@@ -194,7 +196,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       elementToFocus?.focus();
     }
 
-    this._sbbEscapableOverlayController.disconnect();
+    this._escapableOverlayController.disconnect();
     this.didClose.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
     this._focusHandler.disconnect();
@@ -204,7 +206,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this.state = 'opened';
     this.inert = false;
     this._attachWindowEvents();
-    this._sbbEscapableOverlayController.connect();
+    this._escapableOverlayController.connect();
     this._setPopoverFocus();
     this._focusHandler.trap(this, {
       postFilter: (el) => el !== this._overlay,
@@ -219,22 +221,20 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     }
 
     // Validate trigger element and attach event listeners
-    this._configure();
+    this._configureTrigger();
     this.state = 'closed';
     popoversRef.add(this as SbbPopoverElement);
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
 
-    if (changedProperties.has('trigger') && this.trigger !== changedProperties.get('trigger')) {
-      this._popoverController?.abort();
-      this._openStateController?.abort();
-      this._configure();
-    }
-
-    if (changedProperties.has('hoverTrigger')) {
-      this._configure();
+    if (!isServer && (!name || name === 'trigger' || name === 'hoverTrigger') && this.hasUpdated) {
+      this._configureTrigger();
     }
   }
 
@@ -249,29 +249,26 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._popoverController?.abort();
+    this._triggerController?.abort();
     this._openStateController?.abort();
     this._focusHandler.disconnect();
     popoversRef.delete(this as SbbPopoverElement);
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(): void {
+  private _configureTrigger(): void {
     if (isServer) {
       return;
     } else if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this._configure());
+      this.hydrationComplete.then(() => this._configureTrigger());
       return;
     }
 
+    this._triggerController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
-    if (!this.trigger) {
-      return;
-    }
-
-    this._triggerElement = findReferencedElement(this.trigger);
-
+    this._triggerElement =
+      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find();
     if (!this._triggerElement) {
       return;
     }
@@ -283,12 +280,10 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !pointerCoarse;
 
-    this._popoverController?.abort();
-    const { signal } = (this._popoverController = new AbortController());
+    const { signal } = (this._triggerController = new AbortController());
     if (this._hoverTrigger) {
       this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
       this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
-
       this._triggerElement.addEventListener(
         'keydown',
         (evt: KeyboardEvent) => {

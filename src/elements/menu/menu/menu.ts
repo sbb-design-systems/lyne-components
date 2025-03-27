@@ -94,14 +94,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
-  private _triggerClickController!: AbortController;
+  private _triggerController!: AbortController;
+  private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _isPointerDownEventOnMenu: boolean = false;
   private _windowEventsController!: AbortController;
-  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
-  private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [SbbMediaQueryBreakpointSmallAndBelow]: (matches) => {
       if (matches && (this.state === 'opening' || this.state === 'opened')) {
@@ -175,7 +175,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _handleOpening(): void {
     this.state = 'opened';
     this._inertController.activate();
-    this._sbbEscapableOverlayController.connect();
+    this._escapableOverlayController.connect();
     this._setMenuFocus();
     this._focusHandler.trap(this);
     this._attachWindowEvents();
@@ -196,7 +196,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         this._triggerElement.localName === 'sbb-header-button' ||
         this._triggerElement.localName === 'sbb-header-link',
     });
-    this._sbbEscapableOverlayController.disconnect();
+    this._escapableOverlayController.disconnect();
     this.didClose.emit();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
@@ -279,7 +279,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerClickController?.abort();
+    this._triggerController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
@@ -317,7 +317,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    this._triggerClickController?.abort();
+    this._triggerController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement =
@@ -328,9 +328,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     this.id = this.id || `sbb-menu-${nextId++}`;
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
-    this._triggerClickController = new AbortController();
+    this._triggerController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._triggerClickController.signal,
+      signal: this._triggerController.signal,
     });
   }
 

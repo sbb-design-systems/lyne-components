@@ -402,6 +402,34 @@ describe(`sbb-popover`, () => {
       await aTimeout(100);
       expect(element).to.have.attribute('data-state', 'closed');
     });
+
+    it('should update trigger connected by id', async () => {
+      trigger.id = '';
+      await waitForLitRender(element);
+      expect(trigger).not.to.have.attribute('aria-haspopup');
+
+      trigger.id = 'popover-trigger';
+      await waitForLitRender(element);
+      expect(trigger).to.have.attribute('aria-haspopup');
+    });
+
+    it('should accept trigger as HTML Element', async () => {
+      trigger.id = '';
+      await waitForLitRender(element);
+      expect(trigger).not.to.have.attribute('aria-haspopup');
+
+      element.trigger = trigger;
+      await waitForLitRender(element);
+      expect(trigger).to.have.attribute('aria-haspopup');
+    });
+
+    it('should allow removing the trigger', async () => {
+      expect(trigger).to.have.attribute('aria-haspopup');
+
+      element.trigger = null;
+      await waitForLitRender(element);
+      expect(trigger).not.to.have.attribute('aria-haspopup');
+    });
   });
 
   describe('with no interactive content', () => {

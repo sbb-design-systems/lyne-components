@@ -24,12 +24,12 @@ describe(`sbb-menu`, () => {
         <sbb-menu id="menu" trigger="menu-trigger">
           <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
           <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
-          <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled
-            >Edit</sbb-menu-button
-          >
-          <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" sbb-badge="2"
-            >Details</sbb-menu-button
-          >
+          <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled>
+            Edit
+          </sbb-menu-button>
+          <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" sbb-badge="2">
+            Details
+          </sbb-menu-button>
           <sbb-divider id="menu-divider"></sbb-divider>
           <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
         </sbb-menu>

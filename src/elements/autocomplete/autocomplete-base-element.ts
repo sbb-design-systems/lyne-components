@@ -81,7 +81,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _triggerEventsController!: AbortController;
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
-  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
 
   protected abstract get options(): SbbOptionBaseElement[];
   protected abstract syncNegative(): void;
@@ -360,7 +360,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this.triggerElement?.setAttribute('aria-expanded', 'true');
-    this._sbbEscapableOverlayController.connect();
+    this._escapableOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -370,7 +370,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.triggerElement?.setAttribute('aria-expanded', 'false');
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this._sbbEscapableOverlayController.disconnect();
+    this._escapableOverlayController.disconnect();
     this.didClose.emit();
   }
 
