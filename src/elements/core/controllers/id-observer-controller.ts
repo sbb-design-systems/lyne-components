@@ -6,7 +6,7 @@ const observers = new WeakMap<
 >();
 
 /**
- *
+ * Tracks id changes in the DOM and calls component when matching with requestUpdate().
  */
 export class SbbIdObserverController<T extends LitElement> implements ReactiveController {
   private _rootNode: Document | ShadowRoot | null = null;
