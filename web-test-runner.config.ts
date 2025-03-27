@@ -34,6 +34,7 @@ const { values: cliArgs } = parseArgs({
   options: {
     file: { type: 'string' },
     module: { type: 'string' },
+    segment: { type: 'string' },
     ci: { type: 'boolean', default: !!process.env.CI },
     debug: { type: 'boolean' },
     'all-browsers': { type: 'boolean', short: 'a' },
@@ -45,7 +46,7 @@ const { values: cliArgs } = parseArgs({
     ssr: { type: 'boolean' },
     container: { type: 'boolean' },
     local: { type: 'boolean' },
-    segment: { type: 'string' },
+    'visual-regression': { type: 'boolean' },
   },
 });
 
@@ -101,7 +102,7 @@ const preloadedFonts = await preloadFonts();
 const testRunnerHtml = (
   testFramework: string,
   _config: TestRunnerCoreConfig,
-  group?: TestRunnerGroupConfig,
+  _group?: TestRunnerGroupConfig,
 ): string => `
 <!DOCTYPE html>
 <html lang='en'>
@@ -138,7 +139,7 @@ const testRunnerHtml = (
     </style>
     <script type="module">
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
-      globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
+      globalThis.testGroup = '${cliArgs['visual-regression'] ? 'visual-regression' : 'default'}';
       globalThis.testRunScript = '${testFramework}';
     </script>
   </head>
@@ -164,10 +165,19 @@ const suppressedLogs = [
 ];
 
 let testFiles = globSync(`src/**/*.spec.ts`);
-testFiles =
-  cliArgs.group === 'visual-regression'
-    ? testFiles.filter((f) => f.endsWith('.visual.spec.ts'))
-    : testFiles.filter((f) => !f.endsWith('.visual.spec.ts'));
+// The visual regression test group is only added when explicitly set, as the tests are very expensive.
+if (cliArgs['visual-regression']) {
+  testFiles = testFiles.filter((f) => f.endsWith('.visual.spec.ts'));
+  if (!cliArgs.local && platform() !== 'linux') {
+    console.log(
+      `Running visual regression tests in a non-linux environment. Switching to container usage. Use --local to opt-out.`,
+    );
+    cliArgs.container = true;
+  }
+} else {
+  testFiles = testFiles.filter((f) => !f.endsWith('.visual.spec.ts'));
+}
+
 if (typeof cliArgs.file === 'string' && cliArgs.file) {
   testFiles = testFiles.filter((f) => f === cliArgs.file);
 } else if (typeof cliArgs.module === 'string' && cliArgs.module) {
@@ -186,23 +196,6 @@ if (typeof cliArgs.file === 'string' && cliArgs.file) {
   testFiles = testFiles.slice(fileAmount * (index - 1), fileAmount * index);
 }
 
-const groups: TestRunnerGroupConfig[] = [];
-
-// The visual regression test group is only added when explicitly set, as the tests are very expensive.
-if (cliArgs.group === 'visual-regression') {
-  groups.push({
-    name: 'visual-regression',
-    files: testFiles,
-    testRunnerHtml,
-  });
-  if (!cliArgs.local && platform() !== 'linux') {
-    console.log(
-      `Running visual regression tests in a non-linux environment. Switching to container usage. Use --local to opt-out.`,
-    );
-    cliArgs.container = true;
-  }
-}
-
 if (cliArgs.container) {
   browsers
     .filter((b): b is PlaywrightLauncher => b.type === 'playwright')
@@ -211,7 +204,6 @@ if (cliArgs.container) {
 
 export default {
   files: testFiles,
-  groups,
   nodeResolve: true,
   reporters:
     cliArgs.debug || !cliArgs.ci
