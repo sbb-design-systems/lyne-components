@@ -122,12 +122,12 @@ describe('sbb-sidebar-container', () => {
   });
 
   it('should collapse when space gets below minimum with non-zero animation duration', async () => {
-    element.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+    element.style.setProperty('--sbb-sidebar-container-animation-duration', '100ms');
     element
       .querySelector('sbb-sidebar-container')!
-      .style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+      .style.setProperty('--sbb-sidebar-container-animation-duration', '100ms');
 
-    await testResizing(5);
+    await testResizing(101);
   });
 
   it('should react to new sidebar', async () => {
