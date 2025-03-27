@@ -5,6 +5,9 @@ import { svgs, mapIconToSvg } from '../common.js';
 
 import './seat-reservation-assets.scss';
 
+import '../seat-reservation-graphic.js';
+import '@sbb-esta/lyne-elements/table.js';
+
 const svgImage = (src: string): TemplateResult => {
   return html`
     <div class="story-asset">
@@ -106,7 +109,6 @@ const chassisTable = html`
     </tbody>
   </table>
 `;
-
 const interiorTable = html`
   <table class="sbb-table-m">
     <thead>
@@ -218,84 +220,102 @@ const layoutItemsTable = html`
     </tbody>
   </table>
 `;
-
 const serviceIconTable = html`
-  <table class="sbb-table-m">
-    <thead>
-      <tr>
-        <th scope="col">SVG</th>
-        <th scope="col">Figma</th>
-        <th scope="col">OSDM Code</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>${svgImageByOSDMCode('BISTRO')}</td>
-        <td>Bistro</td>
-        <td>BISTRO</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('BUSINESS')}</td>
-        <td>Business</td>
-        <td>BUSINESS</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('PLAYGROUND_ICON')}</td>
-        <td>Family</td>
-        <td>PLAYGROUND_ICON</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('LUGGAGE_AREA')}</td>
-        <td>Luggage</td>
-        <td>LUGGAGE_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('MULTI_FUNCTION_AREA')}</td>
-        <td>Multifunction</td>
-        <td>MULTI_FUNCTION_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('PRAM_ICON')}</td>
-        <td>Pram</td>
-        <td>PRAM_ICON</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('EASY_ACCESS_AREA')}</td>
-        <td>PRM</td>
-        <td>EASY_ACCESS_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('RESTAURANT_ICON')}</td>
-        <td>Restaurant</td>
-        <td>RESTAURANT_ICON</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('SILENCE_AREA_ICON')}</td>
-        <td>Silence</td>
-        <td>SILENCE_AREA_ICON</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('TOILET_AREA')}</td>
-        <td>Toilet</td>
-        <td>TOILET_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('WHEELCHAIR_TOILET_AREA')}</td>
-        <td>Toilet-PRM</td>
-        <td>WHEELCHAIR_TOILET_AREA</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('WHEELCHAIR_ICON')}</td>
-        <td>Wheelchair</td>
-        <td>WHEELCHAIR_ICON</td>
-      </tr>
-      <tr>
-        <td>${svgImageByOSDMCode('WIFI')}</td>
-        <td>Wifi</td>
-        <td>WIFI</td>
-      </tr>
-    </tbody>
-  </table>
+  <sbb-table-wrapper>
+    <table aria-label="Available Service Icons" class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">OSDM Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><sbb-seat-reservation-graphic name="BISTRO"></sbb-seat-reservation-graphic></td>
+          <td>Bistro</td>
+          <td>BISTRO</td>
+        </tr>
+        <tr>
+          <td><sbb-seat-reservation-graphic name="BUSINESS"></sbb-seat-reservation-graphic></td>
+          <td>Business</td>
+          <td>BUSINESS</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic name="PLAYGROUND_ICON"></sbb-seat-reservation-graphic>
+          </td>
+          <td>Family</td>
+          <td>PLAYGROUND_ICON</td>
+        </tr>
+        <tr>
+          <td><sbb-seat-reservation-graphic name="LUGGAGE_AREA"></sbb-seat-reservation-graphic></td>
+
+          <td>Luggage</td>
+          <td>LUGGAGE_AREA</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic name="MULTI_FUNCTION_AREA"></sbb-seat-reservation-graphic>
+          </td>
+          <td>Multifunction</td>
+          <td>MULTI_FUNCTION_AREA</td>
+        </tr>
+        <tr>
+          <td><sbb-seat-reservation-graphic name="PRAM_ICON"></sbb-seat-reservation-graphic></td>
+          <td>Pram</td>
+          <td>PRAM_ICON</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic name="EASY_ACCESS_AREA"></sbb-seat-reservation-graphic>
+          </td>
+          <td>PRM</td>
+          <td>EASY_ACCESS_AREA</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic name="RESTAURANT_ICON"></sbb-seat-reservation-graphic>
+          </td>
+          <td>Restaurant</td>
+          <td>RESTAURANT_ICON</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic name="SILENCE_AREA_ICON"></sbb-seat-reservation-graphic>
+          </td>
+          <td>Silence</td>
+          <td>SILENCE_AREA_ICON</td>
+        </tr>
+        <tr>
+          <td><sbb-seat-reservation-graphic name="TOILET_AREA"></sbb-seat-reservation-graphic></td>
+          <td>Toilet</td>
+          <td>TOILET_AREA</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic
+              name="WHEELCHAIR_TOILET_AREA"
+            ></sbb-seat-reservation-graphic>
+          </td>
+          <td>Toilet-PRM</td>
+          <td>WHEELCHAIR_TOILET_AREA</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-graphic name="WHEELCHAIR_ICON"></sbb-seat-reservation-graphic>
+          </td>
+          <td>Wheelchair</td>
+          <td>WHEELCHAIR_ICON</td>
+        </tr>
+        <tr>
+          <td><sbb-seat-reservation-graphic name="WIFI"></sbb-seat-reservation-graphic></td>
+          <td>Wifi</td>
+          <td>WIFI</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
 `;
 
 export const assetsTemplate: TemplateResult = html`
