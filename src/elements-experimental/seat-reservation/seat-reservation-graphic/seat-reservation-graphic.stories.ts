@@ -5,7 +5,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { mapCodeToSvg } from '../common.js';
+import { mapIconToSvg } from '../common/mapper/icon-mapper.js';
 
 import readme from './readme.md?raw';
 import { assetsTemplate } from './seat-reservation-assets.js';
@@ -16,7 +16,7 @@ const name: InputType = {
   control: {
     type: 'select',
   },
-  options: Object.keys(mapCodeToSvg),
+  options: Object.keys(mapIconToSvg),
 };
 
 const stretch: InputType = {
