@@ -140,7 +140,11 @@ function renderTemplate(
   const interfaces = new Map<string, string>()
     .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
     .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
-    .set('SbbValidationChangeEvent', 'core/interfaces.js');
+    .set('SbbValidationChangeEvent', 'core/interfaces.js')
+    //new for seat-reservation
+    .set('SeatReservationPlaceSelection', 'seat-reservation/seat-reservation.js')
+    .set('PlaceSelection', 'seat-reservation/seat-reservation.js');
+
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {

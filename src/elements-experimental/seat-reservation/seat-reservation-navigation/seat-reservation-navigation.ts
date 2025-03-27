@@ -14,8 +14,7 @@ import '@sbb-esta/lyne-elements/icon/icon.js';
 /**
  * It will display the navigation for Seat reservation.
  *
- * event {CustomEvent<number>} selectCoach - Emits when select a coach navigation element and returns the clicked coach nav index
- * @event {CustomEvent<void>} selectCoach - Emits when a coach within the navigation was selected
+ * @event {CustomEvent<T>} selectCoach - Emits when a coach within the navigation was selected and returns the clicked coach nav index
  */
 export
 @customElement('sbb-seat-reservation-navigation')
@@ -38,7 +37,7 @@ class SbbSeatReservationNavigationElement extends LitElement {
   private _language = new SbbLanguageController(this);
 
   /** Emits when a coach within the navigation was selected */
-  protected selectNavCoach: EventEmitter = new EventEmitter(
+  protected selectNavCoach: EventEmitter<number> = new EventEmitter(
     this,
     SbbSeatReservationNavigationElement.events.selectCoach,
   );
