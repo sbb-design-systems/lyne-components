@@ -19,8 +19,7 @@ import style from './seat-reservation-place-control.scss?lit&inline';
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
  *
- * event {CustomEvent<PlaceSelection>} selectPlace - Emits when select a place and returns a PlaceSelection object with necessary place information
- * @event {CustomEvent<void>} selectPlace - Emits when an place was selected by user.
+ * @event {CustomEvent<PlaceSelection>} selectPlace - Emits when a place was selected and returns a PlaceSelection object with necessary place information
  */
 export
 @customElement('sbb-seat-reservation-place-control')
@@ -86,7 +85,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   public accessor keyfocus: boolean = false;
 
   /** Emits when an place was selected by user. */
-  protected placeSelected: EventEmitter = new EventEmitter(
+  protected placeSelected: EventEmitter<PlaceSelection> = new EventEmitter(
     this,
     SbbSeatReservationPlaceControlElement.events.selectPlace,
   );

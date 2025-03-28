@@ -126,7 +126,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       number: choachLayout?.name,
       dimension: { w: choachLayout.dimension?.width, h: choachLayout.dimension?.height },
       places: places,
-      signs: signs,
+      serviceElements: signs,
       graphicElements: graphicalElements,
       travelClass: coachTravelClasses,
       propertyIds: coachPropertyIds,
