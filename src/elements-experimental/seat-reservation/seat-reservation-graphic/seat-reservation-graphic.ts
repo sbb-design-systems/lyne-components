@@ -52,8 +52,6 @@ class SbbSeatReservationGraphicElement extends LitElement {
       ${svgObj?.svgName
         ? html` <style>
               :host {
-                --sbb-icon-svg-width: ${this.width}px;
-                --sbb-icon-svg-height: ${this.height}px;
                 --graphic-width-from-host: ${this.width};
                 --graphic-height-from-host: ${this.height};
                 --graphic-rotation-from-host: ${this.rotation};

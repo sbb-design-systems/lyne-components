@@ -13,8 +13,8 @@
 
 // similiar to the graphic, but slightly different.
 .sbb-seat-reservation-icon {
-  --sbb-icon-svg-width: var(--graphic-width-from-host * 1px);
-  --sbb-icon-svg-height: var(--graphic-height-from-host * 1px);
+  --sbb-icon-svg-width: calc(var(--reservation-graphic-width) * 1rem);
+  --sbb-icon-svg-height: calc(var(--reservation-graphic-height) * 1rem);
 
   transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
 }
