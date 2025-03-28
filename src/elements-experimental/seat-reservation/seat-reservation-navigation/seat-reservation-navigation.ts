@@ -4,7 +4,7 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getI18nSeatReservation, mapNavigationIconToSvg } from '../common.js';
+import { getI18nSeatReservation } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
 
 import style from './seat-reservation-navigation.scss?lit&inline';
@@ -142,16 +142,12 @@ class SbbSeatReservationNavigationElement extends LitElement {
         return null;
       }
 
-      const svgObj = mapNavigationIconToSvg[sign];
-
       return html`
-        ${svgObj
-          ? html`<sbb-icon
-              name="${svgObj.svgName}"
-              aria-hidden="false"
-              aria-label="${getI18nSeatReservation(sign, this._language.current)}"
-            ></sbb-icon>`
-          : nothing}
+        <sbb-seat-reservation-graphic
+          name=${sign ?? nothing}
+          role="img"
+          aria-hidden="false"
+        ></sbb-seat-reservation-graphic>
       `;
     });
   }

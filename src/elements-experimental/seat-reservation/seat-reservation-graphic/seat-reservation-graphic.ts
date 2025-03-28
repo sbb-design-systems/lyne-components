@@ -1,11 +1,14 @@
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { mapCodeToSvg } from '../common.js';
+import { getI18nSeatReservation, mapIconToSvg } from '../common.js';
 
 import style from './seat-reservation-graphic.scss?lit&inline';
+
+import '@sbb-esta/lyne-elements/icon.js';
 
 /**
  * Output one of the SVG graphics based on its code.
@@ -18,7 +21,7 @@ class SbbSeatReservationGraphicElement extends LitElement {
   /** Name Prop */
   @forceType()
   @property({ attribute: 'name', type: String })
-  public accessor name: string = 'BISTRO';
+  public accessor name: string = '';
 
   @forceType()
   /** Stretch Prop */
@@ -40,33 +43,48 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'height', type: Number })
   public accessor height: number = 2;
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-    if (changedProperties.has('width')) {
-      this.style?.setProperty('--graphic-width-from-host', `${this.width}`);
-    }
-    if (changedProperties.has('height')) {
-      this.style?.setProperty('--graphic-height-from-host', `${this.height}`);
-    }
-    if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--graphic-rotation-from-host', `${this.rotation}`);
-    }
-  }
+  private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
-    const name: string = this.name;
-    const stretch: boolean = this.stretch;
+    const svgObj = mapIconToSvg[this.name];
 
     return html`
-      <span class="sbb-seat-reservation-graphic">${this._getSvgElement(name, stretch)}</span>
+      ${svgObj?.svgName
+        ? html` <style>
+              :host {
+                --graphic-width-from-host: ${this.width};
+                --graphic-height-from-host: ${this.height};
+                --graphic-rotation-from-host: ${this.rotation};
+              }
+            </style>
+            <span class="sbb-seat-reservation-icon">
+              <sbb-icon
+                class="sbb-icon-fit sbb-seat-reservation-icon"
+                name="${svgObj.svgName || ''}"
+                aria-hidden="false"
+                aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+              ></sbb-icon>
+            </span>`
+        : svgObj?.svg
+          ? html`
+              <style>
+                :host {
+                  --graphic-width-from-host: ${this.width};
+                  --graphic-height-from-host: ${this.height};
+                  --graphic-rotation-from-host: ${this.rotation};
+                }
+              </style>
+              <span class="sbb-seat-reservation-graphic">${this._getSvgElement(svgObj.svg)}</span>
+            `
+          : nothing}
     `;
   }
 
-  private _getSvgElement(code: string, stretch: boolean): Element | null {
+  private _getSvgElement(svg: string): Element | null {
     const parser = new DOMParser();
-    const svgString = mapCodeToSvg[code] || '<svg></svg>';
+    const svgString = svg || '<svg></svg>';
     const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
-    if (stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
+    if (this.stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
       svgElm.setAttribute('preserveAspectRatio', 'none');
     }
     return svgElm;
