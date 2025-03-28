@@ -50,11 +50,23 @@ class SbbSeatReservationGraphicElement extends LitElement {
 
     return html`
       ${svgObj?.svgName
-        ? html`<sbb-icon
-            name="${svgObj.svgName || ''}"
-            aria-hidden="false"
-            aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
-          ></sbb-icon> `
+        ? html` <style>
+              :host {
+                --sbb-icon-svg-width: ${this.width}px;
+                --sbb-icon-svg-height: ${this.height}px;
+                --graphic-width-from-host: ${this.width};
+                --graphic-height-from-host: ${this.height};
+                --graphic-rotation-from-host: ${this.rotation};
+              }
+            </style>
+            <span class="sbb-seat-reservation-icon">
+              <sbb-icon
+                class="sbb-icon-fit sbb-seat-reservation-icon"
+                name="${svgObj.svgName || ''}"
+                aria-hidden="false"
+                aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+              ></sbb-icon>
+            </span>`
         : svgObj?.svg
           ? html`
               <style>
