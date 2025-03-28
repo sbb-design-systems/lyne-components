@@ -11,6 +11,14 @@
   display: block;
 }
 
+// similiar to the graphic, but slightly different.
+.sbb-seat-reservation-icon {
+  --sbb-icon-svg-width: var(--graphic-width-from-host * 1px);
+  --sbb-icon-svg-height: var(--graphic-height-from-host * 1px);
+
+  transform: rotate(calc(var(--reservation-graphic-rotation) * 1deg));
+}
+
 .sbb-seat-reservation-graphic {
   display: flex;
   justify-content: center;
