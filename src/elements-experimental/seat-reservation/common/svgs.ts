@@ -30,7 +30,6 @@ import serviceBusiness from './svgs/service-business.svg?raw';
 import serviceFamily from './svgs/service-family.svg?raw';
 import serviceLuggage from './svgs/service-luggage.svg?raw';
 import serviceMultifunction from './svgs/service-multifunction.svg?raw';
-import servicePram from './svgs/service-pram.svg?raw';
 import servicePrm from './svgs/service-prm.svg?raw';
 import serviceRestaurant from './svgs/service-restaurant.svg?raw';
 import serviceSilence from './svgs/service-silence.svg?raw';
@@ -72,7 +71,6 @@ const svgs = {
   serviceFamily,
   serviceLuggage,
   serviceMultifunction,
-  servicePram,
   servicePrm,
   serviceRestaurant,
   serviceSilence,
