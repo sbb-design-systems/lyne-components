@@ -81,6 +81,22 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
+const toggleElement = (): void => {
+  const element = document.querySelector('#expandable')! as HTMLDivElement;
+  if (element.style.display === 'block') {
+    element.style.display = 'none';
+  } else {
+    element.style.display = 'block';
+  }
+};
+
+const addElement = (event: PointerEvent): void => {
+  const div = document.createElement('div');
+  div.innerText = 'Content dynamically added.';
+  div.style.cssText = `display: block; height: 200px; background-color: mistyrose;`;
+  (event.target as HTMLButtonElement).parentElement!.querySelector('sbb-step')!.appendChild(div);
+};
+
 const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => html`
   <sbb-form-field error-space="reserve" size="m">
     <label>Name</label>
@@ -329,6 +345,27 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
   ${textBlock()}
 `;
 
+const DynamicHeightTemplate = (args: Args): TemplateResult => html`
+  <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
+    <sbb-step-label>Step</sbb-step-label>
+    <sbb-step>
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
+        First step content: ${loremIpsum.substring(0, loremIpsumSubstring[1])}
+      </div>
+      <div id="expandable" style="display: none; background-color: aliceblue; height: 400px;">
+        Toggle this content.
+      </div>
+    </sbb-step>
+  </sbb-stepper>
+  <sbb-button @click=${() => toggleElement()}>Toggle content</sbb-button>
+  <sbb-button @click=${(event: PointerEvent) => addElement(event)}>Add content</sbb-button>
+  ${textBlock()}
+`;
+
 export const WithSingleForm: StoryObj = {
   render: WithSingleFormTemplate,
   argTypes: defaultArgTypes,
@@ -343,6 +380,12 @@ export const WithMultipleForms: StoryObj = {
 
 export const Default: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const DynamicHeight: StoryObj = {
+  render: DynamicHeightTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };

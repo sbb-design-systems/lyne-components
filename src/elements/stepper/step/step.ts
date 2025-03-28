@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/decorators.js';
@@ -33,6 +40,7 @@ class SbbStepElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     validate: 'validate',
+    resizeChange: 'resizeChange',
   } as const;
 
   /** Emits whenever step switch is triggered. */
@@ -41,8 +49,22 @@ class SbbStepElement extends LitElement {
     SbbStepElement.events.validate,
   );
 
+  /**
+   * @internal
+   * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
+   */
+  private _resizeChange: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbStepElement.events.resizeChange,
+  );
+
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
+  private _stepResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._onStepElementResize(),
+  });
 
   /** The label of the step. */
   public get label(): SbbStepLabelElement | null {
@@ -119,6 +141,13 @@ class SbbStepElement extends LitElement {
     return element.hasAttribute('sbb-stepper-previous') && !element.hasAttribute('disabled');
   }
 
+  private _onStepElementResize(): void {
+    if (!this.hasAttribute('data-selected')) {
+      return;
+    }
+    this._resizeChange.emit();
+  }
+
   private _getStepLabel(): SbbStepLabelElement | null {
     let previousSibling = this.previousElementSibling;
     while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
@@ -132,6 +161,12 @@ class SbbStepElement extends LitElement {
     this.id = this.id || `sbb-step-${nextId++}`;
     this._stepper = this.closest('sbb-stepper');
     this._label = this._getStepLabel();
+  }
+
+  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    super.firstUpdated(changedProperties);
+    await this.updateComplete;
+    this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step') as HTMLElement);
   }
 
   protected override render(): TemplateResult {
@@ -149,5 +184,11 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-step': SbbStepElement;
+  }
+}
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    resizeChange: CustomEvent<void>;
   }
 }
