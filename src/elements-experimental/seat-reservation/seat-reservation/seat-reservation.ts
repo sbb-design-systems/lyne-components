@@ -27,8 +27,7 @@ import '../seat-reservation-place-control.js';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * event {CustomEvent<Place[]>} selectedPlaces - Emits when select a place and returns a Place array with all selected places
- * @event {CustomEvent<void>} selectedPlaces - Emits when an place was selected by user.
+ * @event {CustomEvent<SeatReservationPlaceSelection>} selectedPlaces - Emits when a place was selected and returns a Place array with all selected places
  */
 export
 @customElement('sbb-seat-reservation')
@@ -65,7 +64,7 @@ class SbbSeatReservationElement extends LitElement {
   private _language = new SbbLanguageController(this);
 
   /** Emits when an place was selected by user. */
-  protected selectedPlaces: EventEmitter = new EventEmitter(
+  protected selectedPlaces: EventEmitter<SeatReservationPlaceSelection[]> = new EventEmitter(
     this,
     SbbSeatReservationElement.events.selectedPlaces,
   );
