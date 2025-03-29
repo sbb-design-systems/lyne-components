@@ -130,7 +130,7 @@
     "playwright": "1.51.1",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
-    "react": "19.0.0",
+    "react": "19.1.0",
     "rollup-plugin-postcss-lit": "2.1.0",
     "sass": "1.86.0",
     "sinon": "20.0.0",
