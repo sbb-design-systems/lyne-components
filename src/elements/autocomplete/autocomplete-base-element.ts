@@ -17,7 +17,7 @@ import {
   SbbIdObserverController,
 } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
+import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -46,7 +46,9 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /**
    * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
-   * If not set, it will search for the first 'sbb-form-field' ancestor.
+   * If not set, as fallback there are two elements which can act as origin with following priority order:
+   * 1. `sbb-form-field` if it is an ancestor.
+   * 2. trigger element if set.
    */
   @property() public accessor origin: string | HTMLElement | null = null;
 
@@ -63,13 +65,14 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   public accessor preserveIconSpace: boolean = false;
 
   /** Returns the element where autocomplete overlay is attached to. */
-  public get originElement(): HTMLElement {
-    if (!this._originElement) {
-      this._originElement = this._findOriginElement();
-    }
-    return this._originElement;
+  public get originElement(): HTMLElement | null {
+    return this.origin instanceof HTMLElement
+      ? this.origin
+      : (this._originIdObserverController.find() ??
+          this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor') ??
+          this.triggerElement ??
+          null);
   }
-  private _originElement?: HTMLElement;
 
   // TODO: Breaking change: remove undefined as return type.
   /** Returns the trigger element. */
@@ -85,7 +88,8 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerController!: AbortController;
-  private _idObserverController = new SbbIdObserverController(this, 'trigger');
+  private _triggerIdObserverController = new SbbIdObserverController(this, 'trigger');
+  private _originIdObserverController = new SbbIdObserverController(this, 'origin');
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -115,7 +119,13 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.showPopover?.();
     this.state = 'opening';
     this._triggerElement?.toggleAttribute('data-expanded', true);
-    this._setOverlayPosition();
+    const originElement = this.originElement;
+    if (!originElement) {
+      throw new Error(
+        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation',
+      );
+    }
+    this._setOverlayPosition(originElement);
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -168,12 +178,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (
-      (changedProperties.has('origin') && this.origin !== changedProperties.get('origin')) ||
-      (changedProperties.has('trigger') && this.trigger !== changedProperties.get('trigger'))
-    ) {
-      this._componentSetup();
-    }
     if (changedProperties.has('negative')) {
       this.syncNegative();
     }
@@ -198,8 +202,13 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   ): void {
     super.requestUpdate(name, oldValue, options);
 
-    if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+    if (isServer || !this.hasUpdated) {
+      return;
+    }
+    if (!name || name === 'trigger') {
       this._configureTrigger();
+    } else if ((!name || name === 'origin') && this.isOpen) {
+      this._setOverlayPosition();
     }
   }
 
@@ -259,35 +268,12 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
-    this._originElement = undefined;
     this.toggleAttribute(
       'data-option-panel-origin-borderless',
       !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
     );
 
     this._configureTrigger();
-  }
-
-  /**
-   * Retrieve the element where the autocomplete will be attached.
-   * @returns 'origin' or the first 'sbb-form-field' ancestor.
-   */
-  private _findOriginElement(): HTMLElement {
-    let result: HTMLElement | undefined | null;
-
-    if (!this.origin) {
-      result = this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor');
-    } else {
-      result = findReferencedElement(this.origin);
-    }
-
-    if (!result) {
-      throw new Error(
-        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation',
-      );
-    }
-
-    return result;
   }
 
   private _configureTrigger(): void {
@@ -298,12 +284,18 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       this.trigger instanceof HTMLElement
         ? this.trigger
         : this.trigger
-          ? this._idObserverController.find()
+          ? this._triggerIdObserverController.find()
           : this.closest?.('sbb-form-field')?.querySelector('input')
     ) as HTMLInputElement | null;
 
     if (!this.triggerElement) {
       return;
+    }
+
+    // As the trigger can be the fallback of the origin, we eventually have to update the position.
+    const originElement = this.originElement;
+    if (this.triggerElement === originElement && this.isOpen) {
+      this._setOverlayPosition(originElement);
     }
 
     this.setTriggerAttributes(this.triggerElement);
@@ -332,10 +324,15 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   // Set overlay position, width and max height
-  private _setOverlayPosition(): void {
+  private _setOverlayPosition(originElement = this.originElement): void {
+    // An undefined originElement should only occur in the unlikely event
+    // that the autocomplete loses its originElement and triggerElement during an open state.
+    if (!originElement) {
+      return;
+    }
     setOverlayPosition(
       this._overlay,
-      this.originElement,
+      originElement,
       this._optionContainer,
       this.shadowRoot!.querySelector('.sbb-autocomplete__container')!,
       this,
