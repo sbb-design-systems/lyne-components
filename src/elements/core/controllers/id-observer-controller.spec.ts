@@ -13,13 +13,13 @@ const observers = new WeakMap<
 >();
 
 /**
- * Test component containing SbbIdObserverController
+ * Test component containing SbbIdReferenceController
  */
 @customElement('sbb-id-controller-test')
 class SbbIdControllerTestElement extends LitElement {
   public observedId = 'test';
   public element: HTMLElement | null = null;
-  public idObserverController = new SbbIdReferenceController(this, 'observedId', observers);
+  public idReferenceController = new SbbIdReferenceController(this, 'observedId', observers);
 
   public override requestUpdate(
     name?: PropertyKey,
@@ -28,8 +28,8 @@ class SbbIdControllerTestElement extends LitElement {
   ): void {
     super.requestUpdate(name, oldValue, options);
 
-    if (this.idObserverController && !name) {
-      this.element = this.idObserverController.find();
+    if (this.idReferenceController && !name) {
+      this.element = this.idReferenceController.find();
     }
   }
 }
@@ -45,7 +45,7 @@ customElements.define(
   },
 );
 
-describe('IdObserverController', () => {
+describe('SbbIdReferenceController', () => {
   it('should update element with id added and removed', async () => {
     const root = await fixture(
       html`<div><sbb-id-controller-test></sbb-id-controller-test><span></span></div>`,
@@ -170,7 +170,7 @@ describe('IdObserverController', () => {
     idControllerTest.remove();
     await waitForLitRender(root);
     expect(observers.has(document)).to.be.false;
-    expect(idControllerTest.idObserverController.find(), 'rootNode needs to be reset').to.be.null;
+    expect(idControllerTest.idReferenceController.find(), 'rootNode needs to be reset').to.be.null;
 
     root.appendChild(idControllerTest);
     idElement.id = 'test';

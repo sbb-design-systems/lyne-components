@@ -38,6 +38,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor expanded: boolean = false;
 
+  // TODO: Remove the document as default assignment and refactor logic to return document
   /** The element's id or the element on which the scroll listener is attached. */
   @property({ attribute: 'scroll-origin' })
   public accessor scrollOrigin: string | HTMLElement | Document = !isServer ? document : null!;
