@@ -487,15 +487,15 @@ describe(`sbb-autocomplete-grid`, () => {
               </sbb-autocomplete-grid-option>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
-          <div id="autocomplete-origin"></div>
-          <span id="autocomplete-origin-2">Origin 2</span>
+          <div id="autocomplete-origin">Origin 1</div>
+          <div id="autocomplete-origin-2">Origin 2</div>
           <input id="autocomplete-trigger" />
           <input id="autocomplete-trigger-2" />
         </div>`,
       );
       element = root.querySelector('sbb-autocomplete-grid')!;
-      input = root.querySelector('input')!;
-      origin = root.querySelector('div > div')!;
+      input = root.querySelector('input#autocomplete-trigger')!;
+      origin = root.querySelector('div#autocomplete-origin')!;
     });
 
     it('updates origin connected by id', async () => {
@@ -527,7 +527,7 @@ describe(`sbb-autocomplete-grid`, () => {
     });
 
     it('supports moving the origin when opened', async () => {
-      const origin2 = root.querySelector<HTMLSpanElement>('div > span')!;
+      const origin2 = root.querySelector<HTMLDivElement>('#autocomplete-origin-2')!;
 
       // Open autocomplete
       input.click();
