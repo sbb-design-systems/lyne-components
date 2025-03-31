@@ -12,7 +12,7 @@ import {
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
-  SbbIdObserverController,
+  SbbIdReferenceController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
 } from '../../core/controllers.js';
@@ -114,7 +114,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _hoverTrigger = false;
   private _triggerElement?: HTMLElement | null;
   private _triggerAbortController!: AbortController;
-  private _idObserverController = new SbbIdObserverController(this, 'trigger');
+  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusHandler = new SbbFocusHandler();
@@ -264,7 +264,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement =
-      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find();
+      this.trigger instanceof HTMLElement
+        ? this.trigger
+        : this._triggerIdReferenceController.find();
     if (!this._triggerElement) {
       return;
     }

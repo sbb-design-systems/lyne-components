@@ -5,11 +5,11 @@ import { customElement } from 'lit/decorators.js';
 import { fixture } from '../testing/private.js';
 import { waitForLitRender } from '../testing.js';
 
-import { SbbIdObserverController } from './id-observer-controller.js';
+import { SbbIdReferenceController } from './id-observer-controller.js';
 
 const observers = new WeakMap<
   Node,
-  { observer: MutationObserver; controllers: Set<SbbIdObserverController<any>> }
+  { observer: MutationObserver; controllers: Set<SbbIdReferenceController<any>> }
 >();
 
 /**
@@ -19,7 +19,7 @@ const observers = new WeakMap<
 class SbbIdControllerTestElement extends LitElement {
   public observedId = 'test';
   public element: HTMLElement | null = null;
-  public idObserverController = new SbbIdObserverController(this, 'observedId', observers);
+  public idObserverController = new SbbIdReferenceController(this, 'observedId', observers);
 
   public override requestUpdate(
     name?: PropertyKey,

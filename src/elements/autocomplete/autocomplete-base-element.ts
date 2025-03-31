@@ -14,7 +14,7 @@ import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import {
   SbbConnectedAbortController,
   SbbEscapableOverlayController,
-  SbbIdObserverController,
+  SbbIdReferenceController,
 } from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
@@ -68,7 +68,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   public get originElement(): HTMLElement | null {
     return this.origin instanceof HTMLElement
       ? this.origin
-      : (this._originIdObserverController.find() ??
+      : (this._originIdReferenceController.find() ??
           this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor') ??
           this.triggerElement ??
           null);
@@ -88,8 +88,8 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerController!: AbortController;
-  private _triggerIdObserverController = new SbbIdObserverController(this, 'trigger');
-  private _originIdObserverController = new SbbIdObserverController(this, 'origin');
+  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
+  private _originIdReferenceController = new SbbIdReferenceController(this, 'origin');
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -284,7 +284,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       this.trigger instanceof HTMLElement
         ? this.trigger
         : this.trigger
-          ? this._triggerIdObserverController.find()
+          ? this._triggerIdReferenceController.find()
           : this.closest?.('sbb-form-field')?.querySelector('input')
     ) as HTMLInputElement | null;
 

@@ -9,7 +9,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
-import { SbbIdObserverController } from '../../core/controllers.js';
+import { SbbIdReferenceController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -59,7 +59,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   private _scrollEventsController!: AbortController;
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
-  private _idObserverController = new SbbIdObserverController(this, 'scrollOrigin');
+  private _scrollOriginIdReferenceController = new SbbIdReferenceController(this, 'scrollOrigin');
 
   public constructor() {
     super();
@@ -94,7 +94,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
     const scrollElement =
       this.scrollOrigin instanceof HTMLElement
         ? this.scrollOrigin
-        : (this._idObserverController.find() ?? document);
+        : (this._scrollOriginIdReferenceController.find() ?? document);
     if (scrollElement === this._scrollElement) {
       return;
     }

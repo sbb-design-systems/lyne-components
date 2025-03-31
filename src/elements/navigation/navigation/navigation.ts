@@ -14,7 +14,7 @@ import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
-  SbbIdObserverController,
+  SbbIdReferenceController,
   SbbInertController,
   SbbLanguageController,
 } from '../../core/controllers.js';
@@ -91,7 +91,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
-  private _idObserverController = new SbbIdObserverController(this, 'trigger');
+  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -222,7 +222,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement =
-      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find();
+      this.trigger instanceof HTMLElement
+        ? this.trigger
+        : this._triggerIdReferenceController.find();
     if (!this._triggerElement) {
       return;
     }

@@ -15,7 +15,7 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
-import { SbbIdObserverController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
@@ -95,7 +95,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _navigationSectionContainerElement!: HTMLElement;
   private _triggerElement: SbbNavigationButtonElement | null = null;
   private _triggerAbortController!: AbortController;
-  private _idObserverController = new SbbIdObserverController(this, 'trigger');
+  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
 
@@ -187,7 +187,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     this._triggerElement = (
-      this.trigger instanceof HTMLElement ? this.trigger : this._idObserverController.find()
+      this.trigger instanceof HTMLElement ? this.trigger : this._triggerIdReferenceController.find()
     ) as SbbNavigationButtonElement | null;
     if (!this._triggerElement) {
       return;

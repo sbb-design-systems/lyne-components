@@ -2,13 +2,13 @@ import { isServer, type LitElement, type ReactiveController } from 'lit';
 
 const observers = new WeakMap<
   Node,
-  { observer: MutationObserver; controllers: Set<SbbIdObserverController<any>> }
+  { observer: MutationObserver; controllers: Set<SbbIdReferenceController<any>> }
 >();
 
 /**
  * Tracks id changes in the DOM and calls component when matching with requestUpdate().
  */
-export class SbbIdObserverController<T extends LitElement> implements ReactiveController {
+export class SbbIdReferenceController<T extends LitElement> implements ReactiveController {
   private _rootNode: Document | ShadowRoot | null = null;
 
   public constructor(
