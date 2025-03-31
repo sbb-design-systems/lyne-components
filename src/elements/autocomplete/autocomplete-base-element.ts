@@ -88,8 +88,14 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerController!: AbortController;
-  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
-  private _originIdReferenceController = new SbbIdReferenceController(this, 'origin');
+  private _triggerIdReferenceController = new SbbIdReferenceController<SbbAutocompleteBaseElement>(
+    this,
+    'trigger',
+  );
+  private _originIdReferenceController = new SbbIdReferenceController<SbbAutocompleteBaseElement>(
+    this,
+    'origin',
+  );
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
