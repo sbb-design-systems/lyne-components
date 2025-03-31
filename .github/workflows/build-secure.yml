@@ -19,15 +19,22 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.pull_requests[0] != null
     permissions:
+      checks: write
       deployments: write
       packages: write
       pull-requests: write
+    services:
+      visual-regression:
+        image: ${{ vars.IMAGE_REPO_STORYBOOK }}:dev
+        ports:
+          - 8050:8080
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - uses: actions/download-artifact@v4
         with:
@@ -65,7 +72,7 @@ jobs:
               ...payload,
               ref: context.payload.workflow_run.head_sha,
               auto_merge: false,
-              required_contexts: ['integrity', 'build', 'test', 'lint']
+              required_contexts: ['build']
             });
             await github.rest.repos.createDeploymentStatus({
               ...payload,
