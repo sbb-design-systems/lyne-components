@@ -8,6 +8,7 @@ import { findReferencedElement } from './find-referenced-element.js';
  * @param element The starting SbbDatepickerElement element.
  * @param trigger The id or the reference of the input.
  * @param inputSelector a custom selector for the input element
+ * @deprecated Will be removed with next major version.
  */
 export function findInput(
   element: HTMLElement,
