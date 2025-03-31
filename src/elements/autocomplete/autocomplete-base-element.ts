@@ -3,6 +3,7 @@ import {
   html,
   isServer,
   nothing,
+  type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -10,7 +11,11 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController, SbbEscapableOverlayController } from '../core/controllers.js';
+import {
+  SbbConnectedAbortController,
+  SbbEscapableOverlayController,
+  SbbIdObserverController,
+} from '../core/controllers.js';
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
@@ -66,11 +71,12 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
   private _originElement?: HTMLElement;
 
+  // TODO: Breaking change: remove undefined as return type.
   /** Returns the trigger element. */
-  public get triggerElement(): HTMLInputElement | undefined {
-    return this._triggerElement;
+  public get triggerElement(): HTMLInputElement | null | undefined {
+    return this._triggerElement ?? null;
   }
-  private _triggerElement: HTMLInputElement | undefined;
+  private _triggerElement: HTMLInputElement | null | undefined;
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
@@ -78,7 +84,8 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected abort = new SbbConnectedAbortController(this);
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
-  private _triggerEventsController!: AbortController;
+  private _triggerController!: AbortController;
+  private _idObserverController = new SbbIdObserverController(this, 'trigger');
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -180,8 +187,20 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerEventsController?.abort();
+    this._triggerController?.abort();
     this._openPanelEventsController?.abort();
+  }
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   /** When an option is selected, update the input value and close the autocomplete. */
@@ -239,8 +258,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     if (isServer) {
       return;
     }
-    this._triggerEventsController?.abort();
-    this._openPanelEventsController?.abort();
 
     this._originElement = undefined;
     this.toggleAttribute(
@@ -248,7 +265,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
     );
 
-    this._bindTo(this._getTriggerElement());
+    this._configureTrigger();
   }
 
   /**
@@ -273,62 +290,44 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     return result;
   }
 
-  /**
-   * Retrieve the element that will trigger the autocomplete opening.
-   * @returns 'trigger' or the first 'input' inside the origin element.
-   */
-  private _getTriggerElement(): HTMLInputElement {
-    if (!this.trigger) {
-      return this.closest?.('sbb-form-field')?.querySelector('input') as HTMLInputElement;
-    }
+  private _configureTrigger(): void {
+    this._triggerController?.abort();
+    removeAriaComboBoxAttributes(this.triggerElement);
 
-    const result = findReferencedElement<HTMLInputElement>(this.trigger);
+    this._triggerElement = (
+      this.trigger instanceof HTMLElement
+        ? this.trigger
+        : this.trigger
+          ? this._idObserverController.find()
+          : this.closest?.('sbb-form-field')?.querySelector('input')
+    ) as HTMLInputElement | null;
 
-    if (!result) {
-      throw new Error(
-        'Cannot find the trigger element. Please specify a valid element or read the "trigger" prop documentation',
-      );
-    }
-
-    return result;
-  }
-
-  private _bindTo(triggerElem: HTMLInputElement): void {
-    if (!triggerElem) {
+    if (!this.triggerElement) {
       return;
     }
 
-    // Reset attributes to the old trigger and add them to the new one
-    this._removeTriggerAttributes(this.triggerElement);
-    this.setTriggerAttributes(triggerElem);
-
-    this._triggerElement = triggerElem;
-
-    this._setupTriggerEvents();
-  }
-
-  private _setupTriggerEvents(): void {
-    this._triggerEventsController = new AbortController();
+    this.setTriggerAttributes(this.triggerElement);
+    this._triggerController = new AbortController();
 
     // Open the overlay on focus, click, input and `ArrowDown` event
-    this.triggerElement?.addEventListener('focus', () => this.open(), {
-      signal: this._triggerEventsController.signal,
+    this.triggerElement.addEventListener('focus', () => this.open(), {
+      signal: this._triggerController.signal,
     });
-    this.triggerElement?.addEventListener('click', () => this.open(), {
-      signal: this._triggerEventsController.signal,
+    this.triggerElement.addEventListener('click', () => this.open(), {
+      signal: this._triggerController.signal,
     });
-    this.triggerElement?.addEventListener(
+    this.triggerElement.addEventListener(
       'input',
       (event) => {
         this.open();
         this._highlightOptions((event.target as HTMLInputElement).value);
       },
-      { signal: this._triggerEventsController.signal },
+      { signal: this._triggerController.signal },
     );
-    this.triggerElement?.addEventListener(
+    this.triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
-      { signal: this._triggerEventsController.signal },
+      { signal: this._triggerController.signal },
     );
   }
 
@@ -445,11 +444,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
     this.options.forEach((option) => option.highlight(searchTerm));
   }
-
-  private _removeTriggerAttributes(element?: HTMLInputElement): void {
-    removeAriaComboBoxAttributes(element);
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>

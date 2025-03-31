@@ -420,4 +420,52 @@ describe(`sbb-autocomplete-grid`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
   });
+
+  describe('trigger connection', () => {
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<div>
+          <sbb-autocomplete-grid trigger="autocomplete-trigger">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="1" id="option-1">
+                Option 1
+              </sbb-autocomplete-grid-option>
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid>
+          <input id="autocomplete-trigger" />
+        </div>`,
+      );
+      formField = root.querySelector('sbb-form-field')!;
+      input = root.querySelector('input')!;
+      element = root.querySelector('sbb-autocomplete-grid')!;
+    });
+
+    it('updates trigger connected by id', async () => {
+      input.id = '';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+
+      input.id = 'autocomplete-trigger';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).not.to.be.null;
+    });
+
+    it('accepts trigger as HTML Element', async () => {
+      input.id = '';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+
+      element.trigger = input;
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).not.to.be.null;
+    });
+
+    it('allows removing the trigger', async () => {
+      expect(input.ariaHasPopup).not.to.be.null;
+
+      element.trigger = null;
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+    });
+  });
 });

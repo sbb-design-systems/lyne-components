@@ -360,28 +360,28 @@ describe(`sbb-menu`, () => {
   it('updates trigger connected by id', async () => {
     trigger.id = '';
     await waitForLitRender(element);
-    expect(trigger).not.to.have.attribute('aria-haspopup');
+    expect(trigger.ariaHasPopup).to.be.null;
 
     trigger.id = 'menu-trigger';
     await waitForLitRender(element);
-    expect(trigger).to.have.attribute('aria-haspopup');
+    expect(trigger.ariaHasPopup).not.to.be.null;
   });
 
   it('accepts trigger as HTML Element', async () => {
     trigger.id = '';
     await waitForLitRender(element);
-    expect(trigger).not.to.have.attribute('aria-haspopup');
+    expect(trigger.ariaHasPopup).to.be.null;
 
     element.trigger = trigger;
     await waitForLitRender(element);
-    expect(trigger).to.have.attribute('aria-haspopup');
+    expect(trigger.ariaHasPopup).not.to.be.null;
   });
 
   it('allows removing the trigger', async () => {
-    expect(trigger).to.have.attribute('aria-haspopup');
+    expect(trigger.ariaHasPopup).not.to.be.null;
 
     element.trigger = null;
     await waitForLitRender(element);
-    expect(trigger).not.to.have.attribute('aria-haspopup');
+    expect(trigger.ariaHasPopup).to.be.null;
   });
 });
