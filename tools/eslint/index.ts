@@ -11,6 +11,7 @@ export const rules = (
       'import-extension-rule',
       'local-name-rule',
       'missing-component-documentation-rule',
+      'no-new-expression-without-assignment-rule',
       'needs-super-call-rule',
       'property-decorator-accessor-rule',
       'property-decorator-setter-initializer-rule',

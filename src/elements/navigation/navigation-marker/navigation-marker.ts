@@ -37,10 +37,12 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   public constructor() {
     super();
 
-    new ResizeController(this, {
-      skipInitial: true,
-      callback: () => this._setMarkerPosition(),
-    });
+    this.addController(
+      new ResizeController(this, {
+        skipInitial: true,
+        callback: () => this._setMarkerPosition(),
+      }),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
