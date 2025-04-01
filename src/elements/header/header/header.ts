@@ -64,6 +64,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
 
   public constructor() {
     super();
+
     this.addController(new SbbFocusVisibleWithinController(this));
   }
 

@@ -199,10 +199,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       }
     });
 
-    new MutationController(this, {
-      config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
-      callback: () => this._syncAriaLabels(),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
+        callback: () => this._syncAriaLabels(),
+      }),
+    );
   }
 
   private _syncAriaLabels(): void {
