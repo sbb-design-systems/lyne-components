@@ -1,7 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { type CSSResultGroup, type TemplateResult, html, LitElement, nothing } from 'lit';
+import { type CSSResultGroup, type TemplateResult, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common.js';
@@ -11,18 +10,15 @@ import style from './seat-reservation-navigation.scss?lit&inline';
 
 import '../seat-reservation-graphic.js';
 import '@sbb-esta/lyne-elements/icon.js';
+import './seat-reservation-navigation-coach/seat-reservation-navigation-coach.js';
 /**
  * It will display the navigation for Seat reservation.
  *
- * @event {CustomEvent<T>} selectCoach - Emits when a coach within the navigation was selected and returns the clicked coach nav index
  */
 export
 @customElement('sbb-seat-reservation-navigation')
 class SbbSeatReservationNavigationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    selectCoach: 'selectCoach',
-  } as const;
 
   /* seat-reservation property */
   @forceType()
@@ -36,124 +32,35 @@ class SbbSeatReservationNavigationElement extends LitElement {
 
   private _language = new SbbLanguageController(this);
 
-  /** Emits when a coach within the navigation was selected */
-  protected selectNavCoach: EventEmitter<number> = new EventEmitter(
-    this,
-    SbbSeatReservationNavigationElement.events.selectCoach,
-  );
-
   protected override render(): TemplateResult {
     return html`
       <nav>
-        <ul
+        <div
           aria-label="${getI18nSeatReservation(
             'SEAT_RESERVATION_NAVIGATION',
             this._language.current,
           )}"
           class="sbb-seat-reservation-navigation__list-coaches"
+          role="list"
         >
-          ${this._getRenderedNavCoachs(this.seatReservation?.coachItems)}
-        </ul>
+          ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
+            return html`
+              <sbb-seat-reservation-navigation-coach
+                index="${index}"
+                ?selected="${this.selectedCoachIndex === index}"
+                .coachItem="${coachItem}"
+                travelclass="${coachItem.travelClass}"
+                ?driverarea="${!coachItem.places?.length}"
+                ?first="${index === 0}"
+                ?last="${index === this.seatReservation?.coachItems.length - 1}"
+                role="listitem"
+              >
+              </sbb-seat-reservation-navigation-coach>
+            `;
+          })}
+        </div>
       </nav>
     `;
-  }
-
-  private _getRenderedNavCoachs(coaches: CoachItem[]): TemplateResult[] {
-    return coaches?.map((coachItem: CoachItem, index: number) => {
-      const coachSelectedClass =
-        this.selectedCoachIndex === index
-          ? 'sbb-seat-reservation-navigation__item-coach--selected'
-          : '';
-      return html`
-        <li class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass}">
-          ${this._getNavigationButton(index, coachItem)}
-          ${coachItem.places?.length
-            ? html` <div class="sbb-seat-reservation-navigation__signs">
-                ${this._getRenderedNavCoachSigns(coachItem.propertyIds)}
-              </div>`
-            : nothing}
-        </li>
-      `;
-    });
-  }
-
-  private _getNavigationButton(index: number, coachItem: CoachItem): TemplateResult | null {
-    if (!coachItem) {
-      return null;
-    }
-
-    return html`
-      ${coachItem.places?.length
-        ? html` <button
-            type="button"
-            class="sbb-seat-reservation-navigation-control__button"
-            title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-              coachItem.id,
-            ])}"
-            @click=${() => this._selectNavCoach(index)}
-            @keydown="${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, index)}"
-          >
-            ${this._getAdditionalCoachInformation(coachItem)}
-          </button>`
-        : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
-    `;
-  }
-
-  // handle navigation done with enter.
-  private _handleKeyboardEvent(evt: KeyboardEvent, index: number): void {
-    if (evt.code === 'Enter') {
-      this._selectNavCoach(index);
-    }
-  }
-
-  private _getAdditionalCoachInformation(coachItem: CoachItem): TemplateResult | null {
-    if (!coachItem) {
-      return null;
-    }
-
-    return html`
-      ${coachItem.travelClass.includes('FIRST')
-        ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
-        : nothing}
-      ${coachItem.places?.length
-        ? html`
-            <div class="sbb-seat-reservation-navigation__additional-information">
-              <div class="sbb-seat-reservation-navigation__item-coach-number">${coachItem.id}</div>
-              <div class="sbb-seat-reservation-navigation__item-coach-travelclass">
-                ${coachItem.travelClass.includes('FIRST')
-                  ? 1
-                  : coachItem.travelClass.includes('SECOND')
-                    ? 2
-                    : nothing}
-              </div>
-            </div>
-          `
-        : nothing}
-    `;
-  }
-
-  private _getRenderedNavCoachSigns(signs?: string[]): (null | TemplateResult<1>)[] | null {
-    if (!signs) {
-      return null;
-    }
-
-    return signs?.map((sign: string) => {
-      if (!sign) {
-        return null;
-      }
-
-      return html`
-        <sbb-seat-reservation-graphic
-          name=${sign ?? nothing}
-          role="img"
-          aria-hidden="false"
-        ></sbb-seat-reservation-graphic>
-      `;
-    });
-  }
-
-  private _selectNavCoach(coachIndex: number): void {
-    this.selectNavCoach.emit(coachIndex);
   }
 }
 
