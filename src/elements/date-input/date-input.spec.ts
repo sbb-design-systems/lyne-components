@@ -3,10 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { defaultDateAdapter } from '../core/datetime.js';
+import { isMacOS, isWebkit } from '../core/dom.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbDatepickerElement } from '../datepicker/datepicker.js';
 
 import { SbbDateInputElement } from './date-input.js';
+
+import '../form-field.js';
+import '../datepicker.js';
 
 describe('sbb-date-input', () => {
   let element: SbbDateInputElement;
@@ -45,21 +50,34 @@ describe('sbb-date-input', () => {
     expect(element.max?.toJSON()).to.be.equal(defaultDateAdapter.createDate(2024, 12, 24).toJSON());
   });
 
-  it('should not clear the text content on backspace', async function () {
-    this.timeout(300000);
-    element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
-    element.focus();
-    const value = element.value;
-    await sendKeys({ press: 'Backspace' });
-    expect(element.value).to.equal(value.substring(0, value.length - 1));
-    expect(element.textContent).to.equal(value.substring(0, value.length - 1));
+  // On Safari on Mac, the Backspace is triggering a navigation back
+  // TODO: Try to improve focus logic in form-associated-input-mixin
+  if (!(isMacOS && isWebkit)) {
+    it('should not clear the text content on backspace', async function () {
+      element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
+      element.focus();
+      const value = element.value;
+      await sendKeys({ press: 'Backspace' });
+      expect(element.value).to.equal(value.substring(0, value.length - 1));
+      expect(element.textContent).to.equal(value.substring(0, value.length - 1));
+    });
+  }
+
+  it('should not throw when calling focus without text content', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    expect(() => element.focus()).not.to.throw();
   });
 
   it('should not clear the text content on delete', async () => {
     element = await fixture(html`<sbb-date-input value="2024-12-24"></sbb-date-input>`);
     element.focus();
     const value = element.value;
-    await sendKeys({ press: 'Home' });
+
+    const selection = window.getSelection();
+    selection!.collapse(element, 0);
+    // Move the cursor to the start
+    selection!.modify('move', 'backward', 'word');
+
     await sendKeys({ press: 'Delete' });
     expect(element.value).to.equal(value.substring(1));
     expect(element.textContent).to.equal(value.substring(1));
@@ -71,6 +89,19 @@ describe('sbb-date-input', () => {
     );
     expect(element.value).to.equal('24.12.2024');
     expect(element.textContent).to.equal('24.12.2024');
+  });
+
+  it('should sync value with textContent', async () => {
+    const div = await fixture(html`<div></div>`);
+    element = document.createElement('sbb-date-input');
+
+    div.appendChild(element);
+    element.valueAsDate = new Date('2024-12-24');
+
+    await waitForLitRender(div);
+
+    expect(element.textContent).to.be.equal('Tu, 24.12.2024');
+    expect(element.valueAsDate).not.to.be.null;
   });
 
   describe('with no value', () => {
@@ -331,6 +362,33 @@ describe('sbb-date-input', () => {
       element.dispatchEvent(pasteEvent('value'));
       expect(element.value).to.equal('tesvaluet');
       expect(element.textContent).to.equal('tesvaluet');
+    });
+  });
+
+  describe('with datepicker', () => {
+    it('should update datepicker dateFilter when dateFilter is set', async () => {
+      element = await fixture(html`
+        <sbb-form-field>
+          <sbb-datepicker-toggle></sbb-datepicker-toggle>
+          <sbb-datepicker now="2022-01-01"></sbb-datepicker>
+          <sbb-date-input></sbb-date-input>
+        </sbb-form-field>
+      `);
+
+      // expect no dateFilter applied
+      const dateInput = element.querySelector<SbbDateInputElement>('sbb-date-input')!;
+      expect(dateInput.dateFilter.toString()).to.be.equal('() => true');
+      expect(dateInput.dateFilter(new Date(1, 0, 2022))).to.be.true;
+
+      // accept only odd years
+      dateInput.dateFilter = (d) => !!d && d?.getFullYear() % 2 === 1;
+      await waitForLitRender(element);
+      expect(dateInput.dateFilter.toString()).not.to.be.equal('() => true');
+      expect(dateInput.dateFilter(new Date(1, 0, 2022))).to.be.equal(false);
+
+      // expect dateFilter is proxied to sbb-datepicker
+      const datePicker = element.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+      expect(datePicker.dateFilter(new Date(1, 0, 2022))).to.be.equal(false);
     });
   });
 });

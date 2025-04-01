@@ -9,6 +9,7 @@ import { forceType } from '../../core/decorators.js';
 import type { Breakpoint } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nCloseDialog, i18nGoBack } from '../../core/i18n.js';
+import { SbbNegativeMixin } from '../../core/mixins.js';
 import { SbbTitleBase } from '../../title.js';
 
 import style from './dialog-title.scss?lit&inline';
@@ -23,7 +24,7 @@ import '../../button/transparent-button.js';
  */
 export
 @customElement('sbb-dialog-title')
-class SbbDialogTitleElement extends SbbTitleBase {
+class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
   public static readonly events: Record<string, string> = {
     backClick: 'requestBackAction',
@@ -72,11 +73,7 @@ class SbbDialogTitleElement extends SbbTitleBase {
     super();
     this.level = '2';
     this.visualLevel = '3';
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    new SbbFocusVisibleWithinController(this);
+    this.addController(new SbbFocusVisibleWithinController(this));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

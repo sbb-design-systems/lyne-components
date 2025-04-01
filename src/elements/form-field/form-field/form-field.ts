@@ -309,7 +309,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     if (this._input.localName === 'input') {
       this._patchInputValue();
     } else if (this._input.localName === 'sbb-select') {
-      this._input.addEventListener('stateChange', () => this._checkAndUpdateInputEmpty(), {
+      this._input.addEventListener('displayValueChange', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
       });
 

@@ -1,3 +1,4 @@
+import { globSync } from 'node:fs';
 import { platform } from 'node:os';
 import { parseArgs } from 'node:util';
 
@@ -32,6 +33,8 @@ const { values: cliArgs } = parseArgs({
   strict: false,
   options: {
     file: { type: 'string' },
+    module: { type: 'string' },
+    segment: { type: 'string' },
     ci: { type: 'boolean', default: !!process.env.CI },
     debug: { type: 'boolean' },
     'all-browsers': { type: 'boolean', short: 'a' },
@@ -43,6 +46,7 @@ const { values: cliArgs } = parseArgs({
     ssr: { type: 'boolean' },
     container: { type: 'boolean' },
     local: { type: 'boolean' },
+    'visual-regression': { type: 'boolean' },
   },
 });
 
@@ -98,28 +102,12 @@ const preloadedFonts = await preloadFonts();
 const testRunnerHtml = (
   testFramework: string,
   _config: TestRunnerCoreConfig,
-  group?: TestRunnerGroupConfig,
+  _group?: TestRunnerGroupConfig,
 ): string => `
 <!DOCTYPE html>
 <html lang='en'>
-  <head>${
-    // Although we provide the fonts as base64, we preload the original
-    // files which prevents a bug in Safari rendering special characters.
-    ['Roman', 'Bold', 'Light']
-      .map(
-        (type) => `
-    <link
-      rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-${type}.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />`,
-      )
-      .join('')
-  }
+  <head>
     <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
-    <style type="text/css">${renderStyles()}</style>
     <style type="text/css">
       ${preloadedFonts
         .map(
@@ -127,15 +115,16 @@ const testRunnerHtml = (
       @font-face {
         font-family: SBB;
         src: ${f.font};
-        font-display: fallback;
+        font-display: block;
         font-weight: ${f.weight};
       }`,
         )
         .join('')}
+      ${renderStyles().replace(/@font-face([^}]|\n)+\}/g, '')}
     </style>
     <script type="module">
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
-      globalThis.testGroup = '${cliArgs.ssr ? 'ssr' : (group?.name ?? 'default')}';
+      globalThis.testGroup = '${cliArgs['visual-regression'] ? 'visual-regression' : 'default'}';
       globalThis.testRunScript = '${testFramework}';
     </script>
   </head>
@@ -160,24 +149,36 @@ const suppressedLogs = [
   'Using <sbb-datepicker> with a native <input> is deprecated. Use a <sbb-date-input> instead of <input>.',
 ];
 
-const testFile = typeof cliArgs.file === 'string' && cliArgs.file ? cliArgs.file : undefined;
-const groups: TestRunnerGroupConfig[] = [
-  { name: 'ssr', files: testFile ?? 'src/**/*.ssr.spec.ts', testRunnerHtml },
-];
-
+let testFiles = globSync(`src/**/*.spec.ts`);
 // The visual regression test group is only added when explicitly set, as the tests are very expensive.
-if (cliArgs.group === 'visual-regression') {
-  groups.push({
-    name: 'visual-regression',
-    files: testFile ?? 'src/**/*.visual.spec.ts',
-    testRunnerHtml,
-  });
+if (cliArgs['visual-regression']) {
+  testFiles = testFiles.filter((f) => f.endsWith('.visual.spec.ts'));
   if (!cliArgs.local && platform() !== 'linux') {
     console.log(
       `Running visual regression tests in a non-linux environment. Switching to container usage. Use --local to opt-out.`,
     );
     cliArgs.container = true;
   }
+} else {
+  testFiles = testFiles.filter((f) => !f.endsWith('.visual.spec.ts'));
+}
+
+if (typeof cliArgs.file === 'string' && cliArgs.file) {
+  testFiles = testFiles.filter((f) => f === cliArgs.file);
+} else if (typeof cliArgs.module === 'string' && cliArgs.module) {
+  testFiles = testFiles.filter((f) => f.includes(cliArgs.module as string));
+} else if (typeof cliArgs.segment === 'string' && cliArgs.segment) {
+  const match = cliArgs.segment.match(/^(\d+)\/(\d+)$/);
+  if (!match) {
+    throw new Error(
+      `--segment parameter must be in the format index/total (e.g. 1/5), but received ${cliArgs.segment}`,
+    );
+  }
+
+  const total = +match[2];
+  const index = +match[1];
+  const fileAmount = Math.ceil(testFiles.length / total);
+  testFiles = testFiles.slice(fileAmount * (index - 1), fileAmount * index);
 }
 
 if (cliArgs.container) {
@@ -187,8 +188,7 @@ if (cliArgs.container) {
 }
 
 export default {
-  files: testFile ?? ['src/**/*.spec.ts', '!**/*.{visual,ssr}.spec.ts'],
-  groups,
+  files: testFiles,
   nodeResolve: true,
   reporters:
     cliArgs.debug || !cliArgs.ci
@@ -198,7 +198,12 @@ export default {
   concurrentBrowsers: 3,
   plugins: [
     a11ySnapshotPlugin(),
-    litSsrPlugin(),
+    litSsrPlugin({
+      workerInitModules: [
+        './tools/node-esm-hook/register-hooks.js',
+        './src/elements/core/testing/test-setup-ssr.ts',
+      ],
+    }),
     vitePlugin(),
     visualRegressionPlugin({
       ...visualRegressionConfig,
@@ -215,6 +220,7 @@ export default {
   },
   coverageConfig: {
     exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
+    reporters: cliArgs.ci ? ['json'] : undefined,
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,

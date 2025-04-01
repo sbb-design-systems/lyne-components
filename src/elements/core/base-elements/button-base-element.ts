@@ -21,6 +21,8 @@ export
   'data-button': '',
 })
 abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+  private readonly _elementsOnWhichEnterPressTriggersSubmit = ['input', 'sbb-date-input'];
+
   /**
    * The type attribute to use for the button.
    * @default 'button'
@@ -37,6 +39,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   @property()
   public override set form(value: string) {
     this._formId = value;
+    this.form?.addEventListener('keydown', this._formKeyDown, { capture: true });
   }
   public override get form(): HTMLFormElement | null {
     // Use querySelector with form and id selector, as the form property must
@@ -72,6 +75,19 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
       );
     }
   }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.form?.addEventListener('keydown', this._formKeyDown, { capture: true });
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.form?.removeEventListener('keydown', this._formKeyDown, { capture: true });
+  }
+
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
     if (this.type === 'button' || (await isEventPrevented(event))) {
       return;
@@ -81,23 +97,27 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     if (!form) {
       return;
     } else if (this.type === 'submit') {
-      // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
-      // TODO: Check if solved in any way, see https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
-      // We use the workaround described in the github issue by cloning the submit button and pass this one as an argument.
-
-      const submitButtonClone = document.createElement('button');
-      submitButtonClone.inert = true;
-      submitButtonClone.hidden = true;
-      submitButtonClone.name = this.name;
-      submitButtonClone.value = this.value ?? '';
-
-      form.append(submitButtonClone);
-      form.requestSubmit(submitButtonClone);
-      submitButtonClone.remove();
+      this._requestSubmit(form);
     } else if (this.type === 'reset') {
       form.reset();
     }
   };
+
+  private _requestSubmit(form: HTMLFormElement): void {
+    // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
+    // TODO: Check if solved in any way, see https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
+    // We use the workaround described in the github issue by cloning the submit button and pass this one as an argument.
+
+    const submitButtonClone = document.createElement('button');
+    submitButtonClone.inert = true;
+    submitButtonClone.hidden = true;
+    submitButtonClone.name = this.name;
+    submitButtonClone.value = this.value ?? '';
+
+    form.append(submitButtonClone);
+    form.requestSubmit(submitButtonClone);
+    submitButtonClone.remove();
+  }
 
   /**
    * Prevents scrolling from pressing Space, when the event target is an action element.
@@ -125,6 +145,37 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     if (event.key === ' ') {
       this._removeActiveMarker(event);
       this._dispatchClickEvent(event);
+    }
+  };
+
+  private _formKeyDown = (event: KeyboardEvent): void => {
+    const form = this.form;
+    if (
+      this.type === 'submit' &&
+      form &&
+      (event.key === 'Enter' || event.key === '\n') &&
+      this._elementsOnWhichEnterPressTriggersSubmit.includes(
+        (event.target as HTMLElement)?.localName,
+      ) &&
+      event.isTrusted
+    ) {
+      // In the case where there is only one form element, an enter press submits the form.
+      // In the case where we only have one input and this button as a submit button,
+      // we need to prevent the default functionality of submitting the form because
+      // while this button should be recognized as a submit element, that is not natively the case
+      // and therefore we manually handle this case here.
+      // If this button is not disabled we will then request a submit further down below.
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      const eventOrigin = event.composedPath()[0];
+
+      if (
+        eventOrigin.dispatchEvent(new KeyboardEvent(event.type, event)) &&
+        !this.matches(':disabled')
+      ) {
+        this._requestSubmit(form);
+      }
     }
   };
 

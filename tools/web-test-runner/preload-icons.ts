@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const cacheLocation = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../../node_modules/.cache/lyne-cdn-icons',
+  '../../node_modules/.cache/lyne-cdn',
 );
 const preloadIconList = [
   'add-stop',
@@ -56,9 +56,11 @@ const preloadIconList = [
   'exclamation-point-small',
   'exit-small',
   'eye-small',
+  'face-grinning-small',
   'face-smiling-small',
   'folder-open-medium',
   'folder-open-small',
+  'glass-cocktail-small',
   'globe-small',
   'hamburger-menu-small',
   'heart-medium',
@@ -108,6 +110,7 @@ const preloadIconList = [
   'train-small',
   'trash-small',
   'travel-backpack-medium',
+  'unicorn-small',
   'user-small',
   'utilization-high',
   'utilization-high-high-contrast',

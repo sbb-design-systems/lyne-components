@@ -1,6 +1,7 @@
 import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
+import type { Linter } from 'eslint';
 
-const rules = (
+export const rules = (
   await Promise.all(
     [
       'class-decorator-position-rule',
@@ -10,6 +11,7 @@ const rules = (
       'import-extension-rule',
       'local-name-rule',
       'missing-component-documentation-rule',
+      'no-new-expression-without-assignment-rule',
       'needs-super-call-rule',
       'property-decorator-accessor-rule',
       'property-decorator-setter-initializer-rule',
@@ -38,6 +40,10 @@ plugin.configs!.recommended = {
     (current, next) => Object.assign(current, { [`lyne/${next}`]: 'error' }),
     {} as TSESLint.FlatConfig.Rules,
   ),
+};
+
+export const configs = plugin.configs as {
+  recommended: Linter.Config;
 };
 
 export default plugin;

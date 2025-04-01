@@ -116,7 +116,6 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
-  private _initialized: boolean = false;
 
   public constructor() {
     super();
@@ -142,12 +141,6 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     this.removeAttribute('data-accordion');
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    this._initialized = true;
-  }
-
   private _toggleExpanded(): void {
     this.expanded = !this.expanded;
   }
@@ -169,7 +162,7 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
-    if (!this._initialized || this._isZeroAnimationDuration()) {
+    if (!this.hasUpdated || this._isZeroAnimationDuration()) {
       this._handleOpening();
     }
   }

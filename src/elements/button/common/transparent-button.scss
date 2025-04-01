@@ -1,13 +1,13 @@
 :host {
   --sbb-button-color-active-background: var(--sbb-color-cloud);
   --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-black);
+  --sbb-button-color-active-text: var(--sbb-color-midnight);
   --sbb-button-color-default-background: transparent;
   --sbb-button-color-default-border: transparent;
-  --sbb-button-color-default-text: var(--sbb-color-black);
+  --sbb-button-color-default-text: var(--sbb-color-midnight);
   --sbb-button-color-hover-background: var(--sbb-color-milk);
   --sbb-button-color-hover-border: var(--sbb-color-milk);
-  --sbb-button-color-hover-text: var(--sbb-color-black);
+  --sbb-button-color-hover-text: var(--sbb-color-midnight);
 }
 
 :host([negative]) {

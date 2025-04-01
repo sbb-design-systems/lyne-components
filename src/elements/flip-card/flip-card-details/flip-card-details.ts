@@ -24,21 +24,24 @@ class SbbFlipCardDetailsElement extends LitElement {
   public constructor() {
     super();
 
-    new MutationController(this, {
-      config: {
-        childList: true,
-        subtree: true,
-      },
-      callback: () => this._checkForSlottedActions(),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: {
+          childList: true,
+          subtree: true,
+          attributes: true,
+        },
+        callback: () => this._checkForSlottedActions(),
+      }),
+    );
   }
 
   private _checkForSlottedActions(): void {
     const cardFocusableAttributeName = 'data-card-focusable';
 
-    Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
-      .filter((el) => !el.hasAttribute(cardFocusableAttributeName))
-      .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
+    Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? []).forEach((el: Element) =>
+      el.toggleAttribute(cardFocusableAttributeName, true),
+    );
   }
 
   protected override render(): TemplateResult {

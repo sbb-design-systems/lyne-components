@@ -1,9 +1,9 @@
-import { html, isServer, type LitElement } from 'lit';
+import { html, isServer, type LitElement, type PropertyValues } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
 import { SbbLanguageController } from '../controllers.js';
-import { isFirefox, isWebkit } from '../dom.js';
+import { isWebkit } from '../dom.js';
 import { i18nInputRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
@@ -38,6 +38,20 @@ export declare abstract class SbbFormAssociatedInputMixinType
   protected updateFormValue(): void;
   protected language: SbbLanguageController;
 }
+
+const checkPlaintextOnlySupport = (): boolean => {
+  if (isServer) {
+    return false;
+  }
+
+  const div = document.createElement('div');
+  div.setAttribute('contenteditable', 'PLAINTEXT-ONLY');
+
+  // If plaintext-only is supported, the attribute value is
+  // returned as lower-case from the property access.
+  return div.contentEditable === 'plaintext-only';
+};
+const plaintextOnlySupported = checkPlaintextOnlySupport();
 
 /**
  * The SbbFormAssociatedInputMixin enables native form support for text input controls.
@@ -324,6 +338,16 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
+    protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+      super.firstUpdated(changedProperties);
+
+      // If the value was assigned before firstUpdate, we have to
+      // write it the document to be visually seen
+      if (this.value && !this.innerHTML.length) {
+        this.innerHTML = this.value;
+      }
+    }
+
     protected override updateFormValue(): void {
       this.internals.setFormValue(this.value, this.value);
     }
@@ -361,10 +385,14 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
 
     private _updateContenteditable(): void {
       if (!isServer && this.isConnected) {
-        // Firefox does not yet support plaintext-only. Once this is available
-        // for our supported browser range, we can switch to it fully.
+        // TODO(2026): Firefox supports plaintext-only since version 136 (March 2025).
+        // Until this is part of our baseline, we should feature check to enable it.
         const value =
-          this.disabled || this.readOnly ? 'false' : isFirefox ? 'true' : 'plaintext-only';
+          this.disabled || this.readOnly
+            ? 'false'
+            : plaintextOnlySupported
+              ? 'plaintext-only'
+              : 'true';
         this.setAttribute('contenteditable', value);
         // In the readonly case, we disable contenteditable, but it still
         // needs to be focusable. We achieve this by setting tabindex in that case.

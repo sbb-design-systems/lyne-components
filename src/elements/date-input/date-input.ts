@@ -15,6 +15,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
 } from '../core/mixins.js';
+import type { SbbDatepickerElement } from '../datepicker.js';
 
 import style from './date-input.scss?lit&inline';
 
@@ -33,9 +34,6 @@ export
 @customElement('sbb-date-input')
 class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
-  private _placeholderMutable = false;
 
   /**
    * The value of the date input. Reflects the current text value
@@ -92,8 +90,16 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   public accessor max: T | null = null;
 
   /** A function used to filter out dates. */
-  @property({ attribute: false }) public accessor dateFilter: (date: T | null) => boolean = () =>
-    true;
+  @property({ attribute: false })
+  public set dateFilter(value: (date: T | null) => boolean) {
+    this._dateFilter = value;
+    if (this.datepicker) {
+      this.datepicker.dateFilter = value;
+    }
+  }
+  public get dateFilter(): (date: T | null) => boolean {
+    return this._dateFilter;
+  }
 
   /**
    * How to format the displayed date.
@@ -108,11 +114,23 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
    * parsing of the string value.
    */
   private _valueCache?: [string, T | null];
+  private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
+  private _placeholderMutable = false;
+
+  /**
+   * Gets the associated datepicker, if any.
+   * The sbb-date-input and the sbb-datepicker are assumed to be in the same parent container.
+   */
+  public get datepicker(): SbbDatepickerElement<T> | null {
+    return this.parentElement!.querySelector<SbbDatepickerElement<T>>('sbb-datepicker');
+  }
 
   public constructor() {
     super();
     this.addEventListener?.('change', () => this._updateValueDateFormat(), { capture: true });
   }
+
+  private _dateFilter: (date: T | null) => boolean = () => true;
 
   public override connectedCallback(): void {
     super.connectedCallback();
