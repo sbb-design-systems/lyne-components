@@ -202,7 +202,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   private _isNavigationButton(trigger: HTMLElement | null): trigger is SbbNavigationButtonElement {
-    return trigger?.localName === 'sbb-navigation-button-element';
+    return trigger?.localName === 'sbb-navigation-button';
   }
 
   private _setNavigationInert(): void {
