@@ -115,11 +115,14 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.addEventListener?.('pointerup', (event) => this._closeOnBackdropClick(event));
     this.addEventListener?.('pointerdown', (event) => this._pointerDownListener(event));
 
-    new MutationController(this, {
-      skipInitial: true,
-      config: navigationObserverConfig,
-      callback: (mutationsList: MutationRecord[]) => this._onNavigationSectionChange(mutationsList),
-    });
+    this.addController(
+      new MutationController(this, {
+        skipInitial: true,
+        config: navigationObserverConfig,
+        callback: (mutationsList: MutationRecord[]) =>
+          this._onNavigationSectionChange(mutationsList),
+      }),
+    );
   }
 
   /**
