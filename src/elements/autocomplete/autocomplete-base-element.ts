@@ -128,7 +128,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     const originElement = this.originElement;
     if (!originElement) {
       throw new Error(
-        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation',
+        'Cannot find the origin element. Please specify a valid element or check the usage of the "origin" property from the documentation',
       );
     }
     this._setOverlayPosition(originElement);
