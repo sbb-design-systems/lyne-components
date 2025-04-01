@@ -80,10 +80,12 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   public constructor() {
     super();
-    new ResizeController(this, {
-      skipInitial: true,
-      callback: () => this._updateSidebarWidth(),
-    });
+    this.addController(
+      new ResizeController(this, {
+        skipInitial: true,
+        callback: () => this._updateSidebarWidth(),
+      }),
+    );
 
     this.addEventListener?.('click', (e) => {
       if ((e.target as HTMLElement | undefined)?.localName === 'sbb-sidebar-close-button') {

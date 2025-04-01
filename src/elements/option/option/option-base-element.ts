@@ -87,10 +87,12 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
       passive: true,
     });
 
-    new MutationController(this, {
-      config: optionObserverConfig,
-      callback: (mutationsList) => this.onOptionAttributesChange(mutationsList),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: optionObserverConfig,
+        callback: (mutationsList) => this.onOptionAttributesChange(mutationsList),
+      }),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
