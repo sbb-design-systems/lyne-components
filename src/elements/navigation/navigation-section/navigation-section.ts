@@ -57,7 +57,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
   public accessor titleContent: string = '';
 
-  // TODO: breaking change: Change HTMLElement to SbbNavigationButtonElement
   /**
    * The element that will trigger the navigation section.
    * Accepts both a string (id of an element) or an SbbNavigationButtonElement.
@@ -93,7 +92,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _navigationSection!: HTMLElement;
   private _navigationSectionContainerElement!: HTMLElement;
-  private _triggerElement: SbbNavigationButtonElement | null = null;
+  private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _windowEventsController!: AbortController;
@@ -112,7 +111,10 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
       return;
     }
 
-    this._setActiveNavigationAction();
+    if (this._isNavigationButton(this._triggerElement)) {
+      this._triggerElement?.marker?.select(this._triggerElement);
+    }
+
     this._closePreviousNavigationSection();
     this._state = 'opening';
     this.startUpdate();
@@ -153,10 +155,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this.completeUpdate();
   }
 
-  private _setActiveNavigationAction(): void {
-    this._triggerElement?.marker?.select(this._triggerElement);
-  }
-
   private _closePreviousNavigationSection(): void {
     (this._firstLevelNavigation?.activeNavigationSection as SbbNavigationSectionElement)?.close();
   }
@@ -195,10 +193,16 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._triggerAbortController = new AbortController();
-    this._triggerElement.connectedSection = this;
+    if (this._isNavigationButton(this._triggerElement)) {
+      this._triggerElement.connectedSection = this;
+    }
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
     });
+  }
+
+  private _isNavigationButton(trigger: HTMLElement | null): trigger is SbbNavigationButtonElement {
+    return trigger?.localName === 'sbb-navigation-button-element';
   }
 
   private _setNavigationInert(): void {
