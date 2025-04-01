@@ -234,18 +234,12 @@ const defaultArgsLink = {
   download: false,
   target: '_blank',
   rel: undefined,
-  name: undefined,
-  type: undefined,
-  form: undefined,
-  value: undefined,
 };
 
 const defaultArgsButton = {
-  ...defaultArgsLink,
-  href: undefined,
-  download: undefined,
-  target: undefined,
-  rel: undefined,
+  ...defaultArgs,
+  active: false,
+  label: 'Click this card to follow the action.',
   name: 'Button name',
   type: type.options![0],
   form: 'form-name',
