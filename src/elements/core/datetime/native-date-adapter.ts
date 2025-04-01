@@ -178,8 +178,13 @@ export class NativeDateAdapter extends DateAdapter<Date> {
       return null;
     }
 
+    let date: Date | null = null;
     const isoMatch = value.match(ISO8601_FORMAT_DATE);
-    const date = isoMatch ? this.createDate(+isoMatch[1], +isoMatch[2], +isoMatch[3]) : null;
+    try {
+      date = isoMatch ? this.createDate(+isoMatch[1], +isoMatch[2], +isoMatch[3]) : null;
+    } catch {
+      /* empty */
+    }
     if (this.isValid(date)) {
       return date;
     }
