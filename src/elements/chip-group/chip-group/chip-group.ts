@@ -33,8 +33,6 @@ export interface SbbChipInputTokenEndEventDetails {
   setLabel(value: string): void;
 }
 
-let nextId = 0;
-
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
  *
@@ -128,9 +126,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
-  private _inputDescriptionId = `sbb-chip-group-description-${++nextId}`;
   private _language = new SbbLanguageController(this);
-  private _descriptionElement: Element | undefined;
 
   public constructor() {
     super();
@@ -156,11 +152,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     ) {
       this._proxyStateToChips();
     }
-  }
-
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
-    this._renderInputDescription();
   }
 
   /** @internal */
@@ -220,7 +211,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     if (input && input !== this._inputElement) {
       this._inputAbortController?.abort();
       this._inputAttributeObserver?.disconnect();
-      this._inputElement?.removeAttribute('aria-describedby');
       this._inputElement = input;
 
       this._inputAbortController = new AbortController();
@@ -239,8 +229,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
         attributes: true,
         attributeFilter: ['readonly', 'disabled'],
       });
-
-      this._inputElement.setAttribute('aria-describedby', this._inputDescriptionId);
     }
 
     // Inherit size from the form-field and observe for changes
@@ -394,21 +382,14 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
   }
 
-  /**
-   * For a11y reasons, we need a light DOM element to link to the input 'aria-describedby'.
-   * TODO When ARIA 1.3 becomes fully supported, we should use 'aria-description' that does not need a light DOM element.
-   */
-  private _renderInputDescription(): void {
-    this._descriptionElement = this.shadowRoot!.querySelector(`#${this._inputDescriptionId}`)!;
-    this.append(this._descriptionElement);
-    this._updateInputDescription();
-  }
-
   private _updateInputDescription(): void {
-    if (!this._descriptionElement) {
+    if (!this._inputElement) {
       return;
     }
-    this._descriptionElement.innerHTML = `${i18nChipGroupInputDescription[this._language.current]} ${this.value.length}`;
+    this._inputElement.setAttribute(
+      'aria-description',
+      `${i18nChipGroupInputDescription[this._language.current]} ${this.value.length}`,
+    );
   }
 
   protected override render(): TemplateResult {
@@ -416,9 +397,6 @@ class SbbChipGroupElement extends SbbRequiredMixin(
       <div class="sbb-chip-group">
         <slot @slotchange=${this._setupComponent}></slot>
       </div>
-
-      <!-- Element connected to the input 'aria-describedby'. Will be moved to light DOM for a11y reasons -->
-      <span id=${this._inputDescriptionId} class="sbb-screen-reader-only"></span>
     `;
   }
 }
