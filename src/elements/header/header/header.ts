@@ -60,6 +60,12 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
 
+  public constructor() {
+    super();
+
+    this.addController(new SbbFocusVisibleWithinController(this));
+  }
+
   private _updateScrollOrigin(
     newValue: string | HTMLElement | Document,
     oldValue: string | HTMLElement | Document,
@@ -76,7 +82,6 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setListenerOnScrollElement(this.scrollOrigin);
-    new SbbFocusVisibleWithinController(this);
   }
 
   /** Removes the scroll listener, if previously attached. */
