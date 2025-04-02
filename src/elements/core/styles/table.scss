@@ -40,6 +40,10 @@ sbb-table-wrapper[negative] .sbb-table,
   }
 }
 
+.sbb-table-header-row {
+  @include table.table-header-row;
+}
+
 .sbb-table-header-cell {
   @include table.table-header-cell;
 }
@@ -60,6 +64,11 @@ sbb-table-wrapper[negative] .sbb-table,
   @include table.table-caption;
 }
 
+.sbb-table-filter {
+  @include table.table-filter;
+}
+
+// TODO In future, move to the 'sbb-lean' theme
 html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m) {
   @include table.table--s;
 }

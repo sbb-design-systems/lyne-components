@@ -28,8 +28,12 @@
   }
 
   thead {
-    & > tr > th {
-      @include table-header-cell;
+    & > tr {
+      @include table-header-row;
+
+      & > th {
+        @include table-header-cell;
+      }
     }
   }
 
@@ -45,6 +49,13 @@
 
   caption {
     @include table-caption;
+  }
+}
+
+@mixin table-header-row {
+  // If there are more header rows, only the last one has the bottom border
+  &:not(:last-of-type) > th {
+    border-bottom: none;
   }
 }
 
@@ -91,6 +102,10 @@
   color: var(--sbb-table-caption-color, var(--sbb-color-granite));
   margin-block-start: var(--sbb-table-caption-margin-block-start, var(--sbb-spacing-fixed-4x));
   text-align: left;
+}
+
+@mixin table-filter {
+  padding-block-start: 0 !important;
 }
 
 @mixin table--striped {

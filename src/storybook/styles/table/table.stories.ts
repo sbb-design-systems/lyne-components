@@ -25,6 +25,12 @@ const striped: InputType = {
   },
 };
 
+const inlineFilters: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const colorTheme: InputType = {
   options: ['none', 'iron'],
   control: {
@@ -36,6 +42,7 @@ const defaultArgTypes: ArgTypes = {
   size,
   negative,
   striped,
+  inlineFilters,
   'color-theme': colorTheme,
 };
 
@@ -43,6 +50,7 @@ const defaultArgs: Args = {
   size: 'm',
   negative: false,
   striped: true,
+  'inline-filters': false,
   'color-theme': colorTheme.options![0],
 };
 
@@ -58,6 +66,21 @@ const header: () => TemplateResult = () => html`
       <th>Person</th>
       <th>Most interest in</th>
       <th>Age</th>
+    </tr>
+  </thead>
+`;
+
+const headerWithFilters: () => TemplateResult = () => html`
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Most interest in</th>
+      <th>Age</th>
+    </tr>
+    <tr>
+      <th class="sbb-table-filter"><input /></th>
+      <th class="sbb-table-filter"><input /></th>
+      <th class="sbb-table-filter"><input /></th>
     </tr>
   </thead>
 `;
@@ -98,7 +121,7 @@ const Template = (args: Args): TemplateResult => html`
       'sbb-table--theme-iron': args['color-theme'] === 'iron',
     })}
   >
-    ${caption()} ${header()} ${body()}
+    ${caption()} ${args['inline-filters'] ? headerWithFilters() : header()} ${body()}
   </table>
 `;
 
@@ -130,6 +153,12 @@ export const IronTheme: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'color-theme': 'iron' },
+};
+
+export const WithFilters: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'inline-filters': true, size: 's' },
 };
 
 const meta: Meta = {
