@@ -21,7 +21,7 @@ describe('sbb-chip', () => {
       for (const state of [visualDiffDefault, visualDiffFocus]) {
         it(
           `${state.name}`,
-          visualDiffDefault.with(async (setup) => {
+          state.with(async (setup) => {
             await setup.withFixture(
               html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`,
             );
