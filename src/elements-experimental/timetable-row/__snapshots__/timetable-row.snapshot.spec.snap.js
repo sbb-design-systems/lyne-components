@@ -412,3 +412,93 @@ snapshots["sbb-timetable-row renders defaultTrip A11y tree Firefox"] =
 `;
 /* end snapshot sbb-timetable-row renders defaultTrip A11y tree Firefox */
 
+snapshots["sbb-timetable-row renders trip with access leg DOM"] = 
+`<sbb-timetable-row role="rowgroup">
+</sbb-timetable-row>
+`;
+/* end snapshot sbb-timetable-row renders trip with access leg DOM */
+
+snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] = 
+`<sbb-card
+  color="white"
+  data-action-role="button"
+  data-has-action=""
+  size="l"
+>
+  <sbb-card-button
+    data-action=""
+    data-button=""
+    slot="action"
+    tabindex="0"
+  >
+    Departure: 16:30,  on platform 4,  Bus,  B 19,  Direction Spiegel, Blinzern,       Arrival: 17:06,   Travel time 41 Minutes,  1 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
+  </sbb-card-button>
+  <div
+    class="sbb-timetable__row"
+    role="row"
+  >
+    <div
+      class="sbb-timetable__row-header"
+      role="gridcell"
+    >
+      <div class="sbb-timetable__row-details">
+        <span class="sbb-timetable__row-transport-wrapper">
+          <sbb-icon
+            aria-hidden="true"
+            class="sbb-timetable__row-transport-icon"
+            data-namespace="picto"
+            name="picto:bus-right"
+            role="img"
+          >
+          </sbb-icon>
+          <span class="sbb-screen-reader-only">
+            Bus
+          </span>
+        </span>
+        <span class="sbb-timetable__row-transportnumber">
+          B 19
+        </span>
+      </div>
+      <p>
+        Direction Spiegel, Blinzern
+      </p>
+    </div>
+    <sbb-pearl-chain-time role="gridcell">
+    </sbb-pearl-chain-time>
+    <div
+      class="sbb-timetable__row-footer"
+      role="gridcell"
+    >
+      <span>
+        <span class="sbb-screen-reader-only">
+          Departure
+        </span>
+        <span class="sbb-timetable__row--quay">
+          <span class="sbb-screen-reader-only">
+            on platform
+          </span>
+          <span
+            aria-hidden="true"
+            class="sbb-timetable__row--quay-type"
+          >
+            platform
+          </span>
+        </span>
+        4
+      </span>
+      <sbb-timetable-occupancy>
+      </sbb-timetable-occupancy>
+      <time>
+        <span class="sbb-screen-reader-only">
+          Travel time 41 Minutes
+        </span>
+        <span aria-hidden="true">
+          41 min
+        </span>
+      </time>
+    </div>
+  </div>
+</sbb-card>
+`;
+/* end snapshot sbb-timetable-row renders trip with access leg Shadow DOM */
+

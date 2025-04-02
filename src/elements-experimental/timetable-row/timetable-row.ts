@@ -302,9 +302,13 @@ class SbbTimetableRowElement extends LitElement {
     `;
   }
 
+  private _getRideLegs(): PtRideLeg[] {
+    return this.trip.legs?.filter((leg) => isRideLeg(leg));
+  }
+
   private _getQuayTypeStrings(): { long: string; short: string } | null {
     if (!this.trip.summary?.product) return null;
-    const rideLegs = this.trip.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
+    const rideLegs = this._getRideLegs();
     const isShort = this.trip.summary.product?.vehicleMode === 'TRAIN';
     const short = isShort
       ? rideLegs[0].serviceJourney.quayTypeShortName || ''
@@ -361,6 +365,8 @@ class SbbTimetableRowElement extends LitElement {
       this._language.current,
       this.a11yFootpath,
     );
+
+    const rideLegs = this._getRideLegs();
 
     const departureTime: Date | undefined = departure?.time
       ? removeTimezoneFromISOTimeString(departure.time)
@@ -423,8 +429,8 @@ class SbbTimetableRowElement extends LitElement {
     }`;
 
     const transferProcedures =
-      legs?.length > 1
-        ? `${legs?.length - 1} ${i18nTransferProcedures[this._language.current]}, `
+      rideLegs?.length > 1
+        ? `${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}, `
         : '';
 
     const arrivalTimeText = arrivalTime
