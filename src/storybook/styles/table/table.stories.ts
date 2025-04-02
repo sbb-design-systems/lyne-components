@@ -40,7 +40,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options![1],
+  size: 'm',
   negative: false,
   striped: true,
   'color-theme': colorTheme.options![0],
