@@ -35,6 +35,15 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 </figure>
 ```
 
+Instead of a `sbb-chip-label` it's also possible to slot logos. Please use the CSS class `sbb-figure-overlap-logo`.
+
+```html
+<figure class="sbb-figure">
+  <sbb-image ...></sbb-image>
+  <img class="sbb-figure-overlap-logo sbb-figure-overlap-end-end" src="logo.png" alt="Logo" />
+</figure>
+```
+
 ### Utility classes
 
 Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius.
