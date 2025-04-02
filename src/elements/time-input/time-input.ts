@@ -100,6 +100,7 @@ class SbbTimeInputElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._inputAbortController?.abort();
+    this._inputElement = null;
   }
 
   public override requestUpdate(
@@ -115,15 +116,21 @@ class SbbTimeInputElement extends LitElement {
   }
 
   private _configureInputElement(): void {
-    this._inputAbortController?.abort();
-    this._inputElement?.removeAttribute('data-sbb-time-input');
-
-    this._inputElement =
+    const inputElement =
       this.input instanceof HTMLInputElement
         ? this.input
         : ((this._inputIdReferenceController.find() as HTMLInputElement | null) ??
           this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>('input') ??
           null);
+
+    if (inputElement === this._inputElement) {
+      return;
+    }
+
+    this._inputAbortController?.abort();
+    this._inputElement?.removeAttribute('data-sbb-time-input');
+    this._inputElement = inputElement;
+
     if (!this._inputElement) {
       return;
     }

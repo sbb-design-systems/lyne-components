@@ -245,6 +245,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
+    this._triggerElement = null;
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
     this._focusHandler.disconnect();
@@ -260,13 +261,19 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       return;
     }
 
-    this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
-
-    this._triggerElement =
+    const triggerElement =
       this.trigger instanceof HTMLElement
         ? this.trigger
         : this._triggerIdReferenceController.find();
+
+    if (triggerElement === this._triggerElement) {
+      return;
+    }
+
+    this._triggerAbortController?.abort();
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    this._triggerElement = triggerElement;
+
     if (!this._triggerElement) {
       return;
     }

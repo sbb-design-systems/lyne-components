@@ -215,6 +215,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
+    this._triggerElement = null;
     this._triggerController?.abort();
     this._openPanelEventsController?.abort();
   }
@@ -304,16 +305,21 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   private _configureTrigger(): void {
-    this._triggerController?.abort();
-    removeAriaComboBoxAttributes(this.triggerElement);
-
-    this._triggerElement = (
+    const triggerElement = (
       this.trigger instanceof HTMLElement
         ? this.trigger
         : this.trigger
           ? this._triggerIdReferenceController.find()
           : this.closest?.('sbb-form-field')?.querySelector('input')
     ) as HTMLInputElement | null;
+
+    if (triggerElement === this._triggerElement) {
+      return;
+    }
+
+    this._triggerController?.abort();
+    removeAriaComboBoxAttributes(this.triggerElement);
+    this._triggerElement = triggerElement;
 
     if (!this.triggerElement) {
       return;

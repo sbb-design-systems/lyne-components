@@ -77,6 +77,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   /** Removes the scroll listener, if previously attached. */
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
+    this._scrollElement = null;
     this._scrollEventsController?.abort();
   }
 
