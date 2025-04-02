@@ -261,29 +261,30 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       return;
     }
 
+    // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
+    // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
+    // all non-touchscreen devices.
+    const hoverTrigger = this.hoverTrigger && !pointerCoarse;
+
     const triggerElement =
       this.trigger instanceof HTMLElement
         ? this.trigger
         : this._triggerIdReferenceController.find();
 
-    if (triggerElement === this._triggerElement) {
+    if (triggerElement === this._triggerElement && hoverTrigger === this._hoverTrigger) {
       return;
     }
 
     this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
     this._triggerElement = triggerElement;
+    this._hoverTrigger = hoverTrigger;
 
     if (!this._triggerElement) {
       return;
     }
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
-
-    // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
-    // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
-    // all non-touchscreen devices.
-    this._hoverTrigger = this.hoverTrigger && !pointerCoarse;
 
     const { signal } = (this._triggerAbortController = new AbortController());
     if (this._hoverTrigger) {
