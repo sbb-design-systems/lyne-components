@@ -7,7 +7,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
+} from '../common/button-test-utils.private.js';
 
 import { SbbButtonStaticElement } from './button-static.js';
 

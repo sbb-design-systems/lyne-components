@@ -3,7 +3,12 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { html } from 'lit/static-html.js';
 
 import type { SbbTimetableRowElement } from './timetable-row.js';
-import { accessLegTrip, busTrip, defaultTrip, trainTrip } from './timetable-row.sample-data.js';
+import {
+  accessLegTrip,
+  busTrip,
+  defaultTrip,
+  trainTrip,
+} from './timetable-row.sample-data.private.js';
 
 import './timetable-row.js';
 

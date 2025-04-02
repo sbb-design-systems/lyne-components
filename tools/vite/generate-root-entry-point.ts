@@ -1,4 +1,10 @@
-import type { LibraryOptions, PluginOption, ResolvedConfig } from 'vite';
+import { globSync, readFileSync } from 'node:fs';
+import { join, relative } from 'node:path';
+
+import ts from 'typescript';
+import type { PluginOption, ResolvedConfig } from 'vite';
+
+import { globExcludeInternals } from './build-meta.js';
 
 export function generateRootEntryPoint(): PluginOption {
   let viteConfig: ResolvedConfig;
@@ -11,36 +17,49 @@ export function generateRootEntryPoint(): PluginOption {
       if (viteConfig.command !== 'build') {
         return;
       }
-      const entry = (viteConfig.build.lib as LibraryOptions).entry as Record<string, string>;
-      const classNameMap: Record<string, string> = {
-        SbbOptgroupElement: 'SbbOptGroupElement',
-      };
-      const toElementName = (key: string): string => {
-        const className = `sbb-${key.split('/').reverse()[0]}-element`.replace(/(^\w|-\w)/g, (m) =>
-          m.replace(/-/, '').toUpperCase(),
-        );
-        return classNameMap[className] ?? className;
-      };
-      const keys = Object.keys(entry)
-        .filter(
-          (e, _, a) =>
-            a.every((iv) => !iv.startsWith(e + '/')) &&
-            !e.startsWith('core/') &&
-            !e.endsWith('/common'),
-        )
-        .sort()
-        .map((e) => ({ path: `./${e}.js`, symbol: toElementName(e) }))
-        .filter((v, i, a) => a.findIndex((iv) => iv.symbol === v.symbol) === i);
-      const imports = keys.map((e) => `import { ${e.symbol} } from "${e.path}";\n`).join('');
+      const customElementMap = new Map<string, string[]>();
+      for (const dirent of globSync('**/*.ts', {
+        cwd: viteConfig.root,
+        withFileTypes: true,
+        exclude: globExcludeInternals,
+      })) {
+        const file = join(dirent.parentPath, dirent.name);
+        const content = readFileSync(file, 'utf8');
+        if (content.includes('@customElement')) {
+          const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+          const customElements = sourceFile.statements
+            .filter(
+              (s): s is ts.ClassDeclaration =>
+                ts.isClassDeclaration(s) &&
+                !!s.modifiers?.some(
+                  (m) => ts.isDecorator(m) && m.getText().includes('@customElement'),
+                ) &&
+                !!s.name,
+            )
+            .map((c) => c.name!.getText())
+            .sort();
+          customElementMap.set(
+            `./${relative(viteConfig.root, file).replace(/\.ts$/, '.js')}`,
+            customElements,
+          );
+        }
+      }
+
+      const imports = Array.from(customElementMap)
+        .map(([path, symbols]) => `import { ${symbols.join(', ')} } from "${path}";\n`)
+        .join('');
+      const classSymbols = Array.from(customElementMap.values()).flat().sort();
+      const globalAssignment = classSymbols.map((s) => `globalThis.${s} = ${s};\n`).join('');
+      const typings = classSymbols.map((s) => `  var ${s}: ${s};\n`).join('');
       this.emitFile({
         type: 'asset',
         fileName: 'index.js',
-        source: `${imports}\n${keys.map((e) => `globalThis.${e.symbol} = ${e.symbol};\n`).join('')}\nexport {}\n`,
+        source: `${imports}\n${globalAssignment}\nexport {}\n`,
       });
       this.emitFile({
         type: 'asset',
         fileName: 'index.d.ts',
-        source: `${imports}\ndeclare global {\n${keys.map((e) => `  var ${e.symbol}: ${e.symbol};\n`).join('')}}\n\nexport {}\n`,
+        source: `${imports}\ndeclare global {\n${typings}}\n\nexport {}\n`,
       });
     },
   };

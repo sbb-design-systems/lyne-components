@@ -13,7 +13,7 @@ import {
   longFutureLeg,
   redirectedOnDepartureLeg,
   redirectedOnArrivalLeg,
-} from './pearl-chain.sample-data.js';
+} from './pearl-chain.sample-data.private.js';
 import readme from './readme.md?raw';
 import './pearl-chain.js';
 
