@@ -40,8 +40,6 @@ class SbbTimeInputElement extends LitElement {
     validationChange: 'validationChange',
   } as const;
 
-  private _inputIdReferenceController = new SbbIdReferenceController(this, 'input');
-
   // TODO: Replace HTMLElement by HTMLInputElement
   /** Reference of the native input connected to the datepicker. */
   @property()
@@ -90,6 +88,7 @@ class SbbTimeInputElement extends LitElement {
 
   private _statusContainer!: HTMLParagraphElement;
   private _inputAbortController = new AbortController();
+  private _inputIdReferenceController = new SbbIdReferenceController(this, 'input');
   private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
