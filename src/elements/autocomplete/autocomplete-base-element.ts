@@ -167,7 +167,9 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.state = 'closing';
     this._triggerElement?.toggleAttribute('data-expanded', false);
     this._openPanelEventsController.abort();
-    this._originResizeObserver.unobserve(this.originElement);
+    if (this.originElement) {
+      this._originResizeObserver.unobserve(this.originElement);
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -385,7 +387,9 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _handleOpening(): void {
     this.state = 'opened';
     this._attachOpenPanelEvents();
-    this._originResizeObserver.observe(this.originElement);
+    if (this.originElement) {
+      this._originResizeObserver.observe(this.originElement);
+    }
     this.triggerElement?.setAttribute('aria-expanded', 'true');
     this._escapableOverlayController.connect();
     this.didOpen.emit();
