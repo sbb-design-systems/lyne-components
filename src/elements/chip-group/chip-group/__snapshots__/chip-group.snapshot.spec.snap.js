@@ -2,12 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-chip-group renders DOM"] = 
-`<sbb-chip-group
-  data-size="m"
-  role="listbox"
->
+`<sbb-chip-group data-size="m">
   <sbb-chip
-    role="option"
     tabindex="-1"
     value="Value 1"
   >
@@ -41,16 +37,13 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
   <sbb-chip-group
     data-size="m"
     name="field-1"
-    role="listbox"
   >
     <sbb-chip
-      role="option"
       tabindex="-1"
       value="Value 1"
     >
     </sbb-chip>
     <sbb-chip
-      role="option"
       tabindex="-1"
       value="Value 2"
     >
@@ -117,11 +110,11 @@ snapshots["sbb-chip-group renders with form-field A11y tree Firefox"] =
       "children": [
         {
           "role": "option",
-          "name": "Value 1 Press the 'Delete' button to remove the chip"
+          "name": "Value 1 , Press the \"Delete\" button to remove the chip"
         },
         {
           "role": "option",
-          "name": "Value 2 Press the 'Delete' button to remove the chip"
+          "name": "Value 2 , Press the \"Delete\" button to remove the chip"
         }
       ]
     },
@@ -156,11 +149,11 @@ snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] =
       "children": [
         {
           "role": "option",
-          "name": "Value 1 Press the 'Delete' button to remove the chip"
+          "name": "Value 1 , Press the \"Delete\" button to remove the chip"
         },
         {
           "role": "option",
-          "name": "Value 2 Press the 'Delete' button to remove the chip"
+          "name": "Value 2 , Press the \"Delete\" button to remove the chip"
         }
       ]
     },
