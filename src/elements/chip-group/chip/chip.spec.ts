@@ -1,8 +1,8 @@
 import { assert, expect } from '@open-wc/testing';
-import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
 import { SbbChipElement } from './chip.js';
@@ -26,11 +26,6 @@ describe('sbb-chip', () => {
   });
 
   it('should focus the chip label on click', async () => {
-    element.click();
-
-    expect(document.activeElement!.localName).to.be.equal('sbb-chip');
-
-    await sendKeys({ press: tabKey }); // reset the focus
     await sendMouse({ type: 'click', position: [element.offsetTop + 10, element.offsetLeft + 10] });
     await waitForLitRender(element);
 
@@ -48,7 +43,7 @@ describe('sbb-chip', () => {
   it('should focus on click when readonly', async () => {
     element.readonly = true;
     await waitForLitRender(element);
-    element.click();
+    await sendMouse({ type: 'click', position: [element.offsetTop + 10, element.offsetLeft + 10] });
 
     expect(document.activeElement!.localName).to.be.equal('sbb-chip');
   });

@@ -1,11 +1,16 @@
-import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.js';
@@ -44,9 +49,6 @@ export interface SbbChipInputTokenEndEventDetails {
  */
 export
 @customElement('sbb-chip-group')
-@hostAttributes({
-  role: 'listbox',
-})
 class SbbChipGroupElement extends SbbRequiredMixin(
   SbbDisabledMixin(
     SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement, string[]>(LitElement)),
@@ -130,6 +132,10 @@ class SbbChipGroupElement extends SbbRequiredMixin(
 
   public constructor() {
     super();
+
+    /** @internal */
+    this.internals.role = 'listbox';
+
     this.addEventListener(SbbChipElement.events.requestDelete, (ev) =>
       this._deleteChip(ev.target as SbbChipElement),
     );
@@ -259,9 +265,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     // Arrow keys allow navigation between chips focus steps
     if (isArrowKeyPressed(event)) {
       const focusSteps = this._enabledChipElements();
-      const activeStep = eventTarget as SbbChipElement;
-
-      const next = getNextElementIndex(event, focusSteps.indexOf(activeStep), focusSteps.length);
+      const next = getNextElementIndex(event, focusSteps.indexOf(eventTarget), focusSteps.length);
       focusSteps[next].focus();
       return;
     }

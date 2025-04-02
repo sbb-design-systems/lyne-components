@@ -27,7 +27,8 @@ describe('sbb-chip', () => {
             );
 
             setup.withPostSetupAction(() => {
-              setup.snapshotElement.querySelector('sbb-chip')!.tabIndex = 0; // We force the tab index for the focus test case
+              // We force the tab index for the focus test case
+              setup.snapshotElement.querySelector('sbb-chip')!.tabIndex = 0;
             });
           }),
         );
@@ -90,7 +91,8 @@ describe('sbb-chip', () => {
 
             setup.withStateElement(deleteStateElement);
             setup.withPostSetupAction(() => {
-              deleteStateElement.tabIndex = 0; // We force the tab index on the delete button for test purposes
+              // We force the tab index on the delete button for test purposes
+              deleteStateElement.tabIndex = 0;
             });
           }),
         );

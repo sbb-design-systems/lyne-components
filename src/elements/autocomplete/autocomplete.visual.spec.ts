@@ -305,7 +305,6 @@ describe('sbb-autocomplete', () => {
           await waitForLitRender(autocomplete);
 
           setup.snapshotElement.querySelector('input')!.style.height = '60px';
-          await waitForLitRender(autocomplete);
         });
       }),
     );
