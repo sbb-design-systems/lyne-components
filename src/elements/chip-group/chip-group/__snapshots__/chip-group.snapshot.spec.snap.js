@@ -110,11 +110,11 @@ snapshots["sbb-chip-group renders with form-field A11y tree Firefox"] =
       "children": [
         {
           "role": "option",
-          "name": "Value 1 , Press the \"Delete\" button to remove the chip"
+          "name": "Value 1 , Press the Delete button to remove the chip"
         },
         {
           "role": "option",
-          "name": "Value 2 , Press the \"Delete\" button to remove the chip"
+          "name": "Value 2 , Press the Delete button to remove the chip"
         }
       ]
     },
@@ -149,11 +149,11 @@ snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] =
       "children": [
         {
           "role": "option",
-          "name": "Value 1 , Press the \"Delete\" button to remove the chip"
+          "name": "Value 1 , Press the Delete button to remove the chip"
         },
         {
           "role": "option",
-          "name": "Value 2 , Press the \"Delete\" button to remove the chip"
+          "name": "Value 2 , Press the Delete button to remove the chip"
         }
       ]
     },
