@@ -303,7 +303,7 @@ class SbbTimetableRowElement extends LitElement {
   }
 
   private _getRideLegs(): PtRideLeg[] {
-    return this.trip.legs?.filter((leg) => isRideLeg(leg));
+    return this.trip?.legs?.filter((leg) => isRideLeg(leg)) ?? [];
   }
 
   private _getQuayTypeStrings(): { long: string; short: string } | null {
@@ -429,8 +429,8 @@ class SbbTimetableRowElement extends LitElement {
     }`;
 
     const transferProcedures =
-      rideLegs?.length > 1
-        ? `${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}, `
+      rideLegs.length > 1
+        ? `${rideLegs.length - 1} ${i18nTransferProcedures[this._language.current]}, `
         : '';
 
     const arrivalTimeText = arrivalTime
