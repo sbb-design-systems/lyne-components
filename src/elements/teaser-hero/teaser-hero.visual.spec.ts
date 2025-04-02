@@ -7,11 +7,11 @@ import {
   visualDiffHover,
 } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
+import type { SbbImageElement } from '../image.js';
 
 import './teaser-hero.js';
 import '../image.js';
 import '../chip-label.js';
-import type { SbbImageElement } from '@sbb-esta/lyne-elements/image/image';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
