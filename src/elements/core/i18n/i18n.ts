@@ -770,10 +770,10 @@ export const i18nDateMax = (max: string): Record<string, string> => ({
 });
 
 export const i18nChipDelete: Record<string, string> = {
-  de: ', Drücken Sie die Entfernen-Taste um den Chip zu löschen',
-  en: ', Press the Delete button to remove the chip',
-  fr: ', Appuyez sur la touche Del pour supprimer cette puce',
-  it: ', Premi il tasto Canc per rimuovere questa chip',
+  de: 'Drücken Sie die Entfernen-Taste um den Chip zu löschen',
+  en: 'Press the Delete button to remove the chip',
+  fr: 'Appuyez sur la touche Del pour supprimer cette puce',
+  it: 'Premi il tasto Canc per rimuovere questa chip',
 };
 
 export const i18nChipGroupInputDescription: Record<string, string> = {

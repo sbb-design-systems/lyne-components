@@ -65,26 +65,6 @@
     border: var(--sbb-chip-border);
     border-radius: var(--sbb-chip-border-radius);
   }
-
-  :host(:not([disabled])) & {
-    &:active {
-      color: var(--sbb-chip-color-active);
-      cursor: pointer;
-      background-color: var(--sbb-chip-background-color-active);
-    }
-
-    @include sbb.hover-mq($hover: true) {
-      &:hover:not(:active) {
-        color: var(--sbb-chip-color-hover);
-        cursor: pointer;
-        background-color: var(--sbb-chip-background-color-hover);
-
-        .sbb-chip__label {
-          transform: translateY(#{sbb.px-to-rem-build(-1)});
-        }
-      }
-    }
-  }
 }
 
 .sbb-chip__label {

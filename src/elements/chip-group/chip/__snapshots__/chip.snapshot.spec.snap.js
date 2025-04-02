@@ -101,7 +101,11 @@ snapshots["sbb-chip renders A11y tree Firefox"] =
         },
         {
           "role": "text leaf",
-          "name": ", Press the Delete button to remove the chip"
+          "name": ", "
+        },
+        {
+          "role": "text leaf",
+          "name": "Press the Delete button to remove the chip"
         }
       ]
     }
@@ -123,7 +127,11 @@ snapshots["sbb-chip renders disabled A11y tree Chrome"] =
     },
     {
       "role": "text",
-      "name": ", Press the Delete button to remove the chip"
+      "name": ", "
+    },
+    {
+      "role": "text",
+      "name": "Press the Delete button to remove the chip"
     }
   ]
 }
@@ -143,7 +151,11 @@ snapshots["sbb-chip renders disabled A11y tree Firefox"] =
     },
     {
       "role": "text leaf",
-      "name": ", Press the Delete button to remove the chip"
+      "name": ", "
+    },
+    {
+      "role": "text leaf",
+      "name": "Press the Delete button to remove the chip"
     }
   ]
 }
@@ -218,7 +230,11 @@ snapshots["sbb-chip renders with label A11y tree Firefox"] =
         },
         {
           "role": "text leaf",
-          "name": ", Press the Delete button to remove the chip"
+          "name": ", "
+        },
+        {
+          "role": "text leaf",
+          "name": "Press the Delete button to remove the chip"
         }
       ]
     }

@@ -61,23 +61,21 @@ describe('sbb-chip', () => {
         }),
       );
 
+      // Hover on label
+      it(
+        `${visualDiffHover.name}`,
+        visualDiffHover.with(async (setup) => {
+          await setup.withFixture(html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`);
+
+          const chipStateElement = setup.snapshotElement
+            .querySelector('sbb-chip')!
+            .shadowRoot!.querySelector<HTMLElement>('.sbb-chip__label-wrapper')!;
+          setup.withStateElement(chipStateElement);
+        }),
+      );
+
       for (const state of [visualDiffActive, visualDiffHover]) {
-        // Focus on chip
-        it(
-          `${state.name}`,
-          state.with(async (setup) => {
-            await setup.withFixture(
-              html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`,
-            );
-
-            const chipStateElement = setup.snapshotElement
-              .querySelector('sbb-chip')!
-              .shadowRoot!.querySelector<HTMLElement>('.sbb-chip__label-wrapper')!;
-            setup.withStateElement(chipStateElement);
-          }),
-        );
-
-        // Focus on delete button
+        // Active/hover on delete button
         it(
           `delete_${state.name}`,
           state.with(async (setup) => {

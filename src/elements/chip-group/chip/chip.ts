@@ -85,7 +85,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
           @click=${() => this._requestDelete.emit()}
         >
         </sbb-mini-button>
-        <sbb-screen-reader-only>${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
+        <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
       </div>
     `;
   }
