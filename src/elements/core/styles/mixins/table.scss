@@ -53,7 +53,7 @@
 }
 
 @mixin table-header-row {
-  // If there are more header rows, only the last one has the bottom border
+  // If there is more than one header row, only the last one has the bottom border
   &:not(:last-of-type) > th {
     border-bottom: none;
   }
