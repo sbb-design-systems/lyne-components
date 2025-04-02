@@ -102,7 +102,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   });
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
-  private _triggerController!: AbortController;
+  private _triggerAbortController!: AbortController;
   private _triggerIdReferenceController = new SbbIdReferenceController<SbbAutocompleteBaseElement>(
     this,
     'trigger',
@@ -216,7 +216,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._triggerElement = null;
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     this._openPanelEventsController?.abort();
   }
 
@@ -317,7 +317,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       return;
     }
 
-    this._triggerController?.abort();
+    this._triggerAbortController?.abort();
     removeAriaComboBoxAttributes(this.triggerElement);
     this._triggerElement = triggerElement;
 
@@ -332,14 +332,14 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
 
     this.setTriggerAttributes(this.triggerElement);
-    this._triggerController = new AbortController();
+    this._triggerAbortController = new AbortController();
 
     // Open the overlay on focus, click, input and `ArrowDown` event
     this.triggerElement.addEventListener('focus', () => this.open(), {
-      signal: this._triggerController.signal,
+      signal: this._triggerAbortController.signal,
     });
     this.triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._triggerController.signal,
+      signal: this._triggerAbortController.signal,
     });
     this.triggerElement.addEventListener(
       'input',
@@ -347,13 +347,13 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         this.open();
         this._highlightOptions((event.target as HTMLInputElement).value);
       },
-      { signal: this._triggerController.signal },
+      { signal: this._triggerAbortController.signal },
     );
     this.triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       {
-        signal: this._triggerController.signal,
+        signal: this._triggerAbortController.signal,
         // We need key event to run before any other subscription to guarantee a correct
         // interaction with other components (necessary for the 'sbb-chip-group' use case).
         capture: true,
