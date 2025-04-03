@@ -1,3 +1,4 @@
+import { aTimeout } from '@open-wc/testing';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
@@ -121,7 +122,10 @@ describe('sbb-icon-sidebar', () => {
           { minHeight: '400px' },
         );
 
-        setup.withPostSetupAction(() => {
+        setup.withPostSetupAction(async () => {
+          // We wait 50ms to ensure that the ResizeObserver in the
+          // sidebar-controller handled the new viewport.
+          await aTimeout(50);
           const sidebar = setup.snapshotElement.querySelector('sbb-sidebar')!;
           sidebar.open();
         });
