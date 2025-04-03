@@ -2,11 +2,12 @@
   sbb-css-tokens;
 @use './core/mediaqueries';
 @use './core/functions';
-@use './mixins/font-face';
 @use './mixins/a11y';
+@use './mixins/font-face';
+@use './mixins/helpers';
+@use './mixins/inputs';
 @use './mixins/scrollbar';
 @use './mixins/typo';
-@use './mixins/helpers';
 
 @include helpers.box-sizing;
 
@@ -68,30 +69,82 @@ html {
   @include typo.placeholder;
 }
 
-// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 sbb-form-field {
-  :where(input, textarea):disabled::placeholder {
+  :where(input, select, textarea, sbb-select, sbb-date-input) {
+    @include typo.text-m--regular;
+    @include helpers.ellipsis;
+    @include inputs.input-reset;
+
+    // Use !important here to not interfere with Firefox focus ring definition
+    // which appears in normalize CSS of several frameworks.
+    outline: none !important;
+    overflow: var(--sbb-form-field-overflow);
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--sbb-form-field-text-color);
+
+    // Fill color needed for Safari
+    -webkit-text-fill-color: var(--sbb-form-field-text-color);
+    opacity: 1;
+    background-color: transparent;
+
+    // To be more specific than the styles in normalize.scss we need to use !important
+    // TODO: Find a better solution
+    font-size: var(--sbb-form-field-input-text-size) !important;
+    font-family: var(--sbb-typo-font-family) !important;
+    line-height: var(--sbb-typo-line-height-body-text) !important;
+
+    &::placeholder {
+      @include typo.placeholder;
+    }
+  }
+
+  &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
+  // This covers the placeholder of the sbb-date-input
+  &[floating-label] sbb-date-input::after {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+
+    @include a11y.if-forced-colors {
+      color: Canvas !important;
+      -webkit-text-fill-color: Canvas !important;
+    }
+  }
+
+  // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+  &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
     color: var(--sbb-color-granite);
     -webkit-text-fill-color: var(--sbb-color-granite);
   }
 
-  &[floating-label] :where(input, textarea)::placeholder,
-  // This covers the placeholder of the sbb-date-input
-  &[floating-label] sbb-date-input::after {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+  // Fix positioning issue for select which occurs in Safari
+  :where(select) {
+    vertical-align: middle;
+  }
 
-    @include a11y.if-forced-colors {
-      color: Canvas;
-      -webkit-text-fill-color: Canvas;
+  :where(select, sbb-select) {
+    padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+  }
+
+  :where(textarea) {
+    @include scrollbar.scrollbar;
+
+    & {
+      position: relative;
+      resize: none;
+
+      // White-space break needed for Firefox
+      white-space: break-spaces;
+      overflow-y: auto;
+      min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
     }
   }
 
-  textarea {
-    @include scrollbar.scrollbar;
+  &[size='l'] :where(textarea) {
+    padding-block-end: #{functions.px-to-rem-build(5.5)};
   }
 
-  &[negative] textarea {
+  &[negative] :where(textarea) {
     @include scrollbar.scrollbar($negative: true);
   }
 }
@@ -186,7 +239,7 @@ img {
 // TODO: Move back to the sbb-container components when the global CSS refactoring happens
 sbb-container {
   > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img) {
+  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-object-fit: cover;
 
     border-radius: var(--sbb-container-background-border-radius);
@@ -198,7 +251,7 @@ sbb-container {
 // TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
 sbb-flip-card-summary {
   > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img) {
+  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-aspect-ratio: auto;
     --sbb-image-object-fit: cover;
 
@@ -211,7 +264,7 @@ sbb-flip-card-summary {
 // TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
 sbb-lead-container {
   > [slot='image']:is(sbb-image, img, picture),
-  > [slot='image'] :is(sbb-image, img, picture) {
+  > [slot='image'] :is(sbb-image, img, picture):not(.sbb-figure-overlap-image) {
     --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
     --sbb-image-object-fit: cover;
 
@@ -222,7 +275,7 @@ sbb-lead-container {
 // TODO: Move back to the sbb-message components when the global CSS refactoring happens
 sbb-message {
   > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img) {
+  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     border-radius: var(--sbb-message-image-border-radius);
   }
 }
@@ -244,7 +297,7 @@ sbb-message {
     }
   }
 
-  :is(sbb-image, img) {
+  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     will-change: filter;
     filter: brightness(var(--sbb-teaser-image-brightness, 1));
     transition: filter var(--sbb-teaser-image-animation-duration)
@@ -254,20 +307,20 @@ sbb-message {
 
 // TODO: Move back to the teaser components when the global CSS refactoring happens
 :is(sbb-teaser-product, sbb-teaser-product-static) {
-  :is(sbb-image, img) {
+  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     border-radius: 0; // Reset sbb-image border radius in order to control it from teaser product.
 
     --sbb-image-object-fit: cover;
     --sbb-image-aspect-ratio: 16 / 9;
   }
 
-  img {
+  img:not(.sbb-figure-overlap-image) {
     place-self: stretch;
   }
 }
 
 // TODO: Move back to the teaser components when the global CSS refactoring happens
-sbb-teaser :is(sbb-image, img) {
+sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
   --sbb-image-object-fit: cover;
   --sbb-image-aspect-ratio: 4 / 3;
 
@@ -277,8 +330,8 @@ sbb-teaser :is(sbb-image, img) {
 }
 
 // TODO: Move back to the teaser-hero components when the global CSS refactoring happens
-:is(sbb-teaser-hero) {
-  :is(sbb-image, img) {
+sbb-teaser-hero {
+  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-aspect-ratio: 1 / 1;
 
     border-radius: 0;
@@ -288,7 +341,7 @@ sbb-teaser :is(sbb-image, img) {
     }
   }
 
-  img {
+  img:not(.sbb-figure-overlap-image) {
     display: block;
     align-self: stretch;
     width: 100%;

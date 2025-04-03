@@ -3,14 +3,12 @@ import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import type { CalendarView, SbbCalendarElement } from '../../calendar.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbDateInputElement } from '../../date-input.js';
-import type { SbbPopoverElement } from '../../popover/popover.js';
 import { SbbDatepickerAssociationControlController, type SbbDatepickerControl } from '../common.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
@@ -79,8 +77,6 @@ class SbbDatepickerToggleElement<T = Date>
   @state() private accessor _renderCalendar = false;
 
   private _calendarElement!: SbbCalendarElement<T>;
-  private _triggerElement!: SbbMiniButtonElement;
-  private _popoverElement!: SbbPopoverElement;
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -100,10 +96,7 @@ class SbbDatepickerToggleElement<T = Date>
    * Opens the calendar.
    */
   public open(): void {
-    if (!this._triggerElement) {
-      this._triggerElement = this.shadowRoot!.querySelector('sbb-mini-button')!;
-    }
-    this._triggerElement.click();
+    this.shadowRoot!.querySelector('sbb-mini-button')!.click();
   }
 
   public override connectedCallback(): void {
@@ -156,12 +149,6 @@ class SbbDatepickerToggleElement<T = Date>
     this._calendarElement.resetPosition();
   }
 
-  protected override updated(changedProperties: PropertyValues<this>): void {
-    super.updated(changedProperties);
-
-    this._popoverElement.trigger = this._triggerElement;
-  }
-
   private _nowOrNull(): T | null {
     return this.datepicker?.hasCustomNow() ? this.datepicker.now : null;
   }
@@ -174,7 +161,7 @@ class SbbDatepickerToggleElement<T = Date>
         aria-label=${i18nShowCalendar[this._language.current]}
         ?disabled=${!isServer && (!this.datepicker || this._disabled)}
         ?negative=${this.negative}
-        ${ref((el?: Element) => (this._triggerElement = el as SbbMiniButtonElement))}
+        id="trigger"
       ></sbb-mini-button>
       <sbb-popover
         @willOpen=${() => this._calendarElement.resetPosition()}
@@ -183,9 +170,8 @@ class SbbDatepickerToggleElement<T = Date>
             this._calendarElement.focus();
           }
         }}
-        .trigger=${this._triggerElement}
+        trigger="trigger"
         hide-close-button
-        ${ref((el?: Element) => (this._popoverElement = el as SbbPopoverElement))}
       >
         ${this._renderCalendar
           ? html`<sbb-calendar

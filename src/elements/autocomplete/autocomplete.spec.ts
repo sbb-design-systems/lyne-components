@@ -8,6 +8,7 @@ import { describeIf, EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
+import { inputAutocompleteEvent } from './autocomplete-base-element.js';
 import { SbbAutocompleteElement } from './autocomplete.js';
 
 describe(`sbb-autocomplete`, () => {
@@ -63,6 +64,12 @@ describe(`sbb-autocomplete`, () => {
       expect(input).to.have.attribute('aria-owns', id);
       expect(input).to.have.attribute('aria-expanded', 'false');
     });
+  });
+
+  it('should have form-field as origin when not defined otherwise', async () => {
+    expect(element.originElement).to.be.equal(
+      formField.shadowRoot?.querySelector?.('#overlay-anchor'),
+    );
   });
 
   it('opens and closes with mouse and keyboard', async () => {
@@ -147,6 +154,7 @@ describe(`sbb-autocomplete`, () => {
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
+    const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
     const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
 
     input.focus();
@@ -165,6 +173,7 @@ describe(`sbb-autocomplete`, () => {
 
     expect(inputEventSpy.count).to.be.equal(1);
     expect(changeEventSpy.count).to.be.equal(1);
+    expect(inputAutocompleteEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
     expect(document.activeElement).to.be.equal(input);
@@ -176,12 +185,12 @@ describe(`sbb-autocomplete`, () => {
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
+    const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
     const optOne = element.querySelector<SbbOptionElement>('#option-1');
     const optTwo = element.querySelector<SbbOptionElement>('#option-2');
     const keydownSpy = new EventSpy('keydown', input);
 
     input.focus();
-
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
@@ -203,6 +212,7 @@ describe(`sbb-autocomplete`, () => {
     expect(optTwo).to.have.attribute('selected');
     expect(inputEventSpy.count).to.be.equal(1);
     expect(changeEventSpy.count).to.be.equal(1);
+    expect(inputAutocompleteEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
     expect(input).not.to.have.attribute('aria-activedescendant');
@@ -308,5 +318,151 @@ describe(`sbb-autocomplete`, () => {
     // Should open automatically
     await didOpenEventSpy.calledTimes(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
+  });
+
+  describe('trigger connection', () => {
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<div>
+          <sbb-autocomplete trigger="autocomplete-trigger">
+            <sbb-option id="option-1" value="1">1</sbb-option>
+          </sbb-autocomplete>
+          <input id="autocomplete-trigger" />
+        </div>`,
+      );
+      formField = root.querySelector('sbb-form-field')!;
+      input = root.querySelector('input')!;
+      element = root.querySelector('sbb-autocomplete')!;
+    });
+
+    it('should return trigger', async () => {
+      expect(element.triggerElement).to.be.equal(input);
+    });
+
+    it('should have trigger as origin when not defined', async () => {
+      expect(element.originElement).to.be.equal(input);
+    });
+
+    it('updates trigger connected by id', async () => {
+      input.id = '';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+      expect(element.triggerElement).to.be.null;
+
+      input.id = 'autocomplete-trigger';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).not.to.be.null;
+      expect(element.triggerElement).to.be.equal(input);
+    });
+
+    it('accepts trigger as HTML Element', async () => {
+      input.id = '';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+      expect(element.triggerElement).to.be.null;
+
+      element.trigger = input;
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).not.to.be.null;
+      expect(element.triggerElement).to.be.equal(input);
+    });
+
+    it('allows removing the trigger', async () => {
+      expect(input.ariaHasPopup).not.to.be.null;
+      expect(element.triggerElement).to.be.equal(input);
+
+      element.trigger = null;
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+      expect(element.triggerElement).to.be.null;
+    });
+  });
+
+  describe('origin connection', () => {
+    let origin: HTMLElement, root: HTMLElement;
+    beforeEach(async () => {
+      root = await fixture(
+        html`<div>
+          <sbb-autocomplete trigger="autocomplete-trigger" origin="autocomplete-origin">
+            <sbb-option id="option-1" value="1">1</sbb-option>
+          </sbb-autocomplete>
+          <div id="autocomplete-origin">Origin 1</div>
+          <div id="autocomplete-origin-2">Origin 2</div>
+          <input id="autocomplete-trigger" />
+          <input id="autocomplete-trigger-2" />
+        </div>`,
+      );
+      element = root.querySelector('sbb-autocomplete')!;
+      input = root.querySelector('input#autocomplete-trigger')!;
+      origin = root.querySelector('div#autocomplete-origin')!;
+    });
+
+    it('updates origin connected by id', async () => {
+      origin.id = '';
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(input);
+
+      origin.id = 'autocomplete-origin';
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(origin);
+    });
+
+    it('accepts origin as HTML Element', async () => {
+      origin.id = '';
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(input);
+
+      element.origin = origin;
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(origin);
+    });
+
+    it('allows resetting the origin', async () => {
+      expect(element.originElement).to.be.equal(origin);
+
+      element.origin = null;
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(input);
+    });
+
+    it('supports moving the origin when opened', async () => {
+      const origin2 = root.querySelector<HTMLDivElement>('#autocomplete-origin-2')!;
+
+      // Open autocomplete
+      input.click();
+      expect(element.isOpen).to.be.true;
+      const offsetTopOrigin1 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+
+      element.origin = origin2;
+      await waitForLitRender(element);
+
+      expect(
+        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
+      ).to.be.greaterThan(offsetTopOrigin1);
+    });
+
+    it('supports moving the trigger which acts as origin when opened', async () => {
+      // Open autocomplete
+      input.click();
+      expect(element.isOpen).to.be.true;
+      const offsetTopOrigin1 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+
+      // Set origin to null and swap trigger
+      element.origin = null;
+      await waitForLitRender(element);
+      expect(element.triggerElement).to.be.equal(input);
+
+      element.trigger = root.querySelector<HTMLInputElement>('#autocomplete-trigger-2')!;
+      await waitForLitRender(element);
+      expect(element.triggerElement!.id).to.be.equal(element.originElement!.id);
+
+      expect(
+        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
+      ).to.be.greaterThan(offsetTopOrigin1);
+    });
   });
 });

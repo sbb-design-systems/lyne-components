@@ -688,14 +688,15 @@ describe('sbb-sidebar', () => {
     it('should detect scrolled state', async () => {
       element.opened = true;
 
+      const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
+
       await setViewport({ width: 800, height: 200 });
       await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-scrolled');
 
       scrollContext.scrollTo({ top: 1, behavior: 'instant' });
+      await scrollEventSpy.calledTimes(1);
 
-      // It takes around 30ms to get the scrolled event parsed
-      await waitForCondition(() => element.hasAttribute('data-scrolled'));
       expect(element).to.have.attribute('data-scrolled');
     });
   });

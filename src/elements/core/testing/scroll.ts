@@ -1,6 +1,7 @@
 /**
  * Can be used in tests where scroll events are not triggered by default.
  * @param options ScrollToOptions
+ * @deprecated Will be removed with next major version
  */
 export function mockScrollTo(options: ScrollToOptions): void {
   window.scrollTo(options);
