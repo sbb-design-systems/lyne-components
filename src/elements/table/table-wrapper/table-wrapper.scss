@@ -6,7 +6,7 @@
 :host {
   --sbb-table-wrapper-border-radius: var(--sbb-border-radius-4x);
 
-  display: contents;
+  display: block;
 }
 
 ::slotted(.sbb-table) {
