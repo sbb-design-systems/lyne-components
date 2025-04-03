@@ -125,9 +125,13 @@ class SbbClockElement extends LitElement {
   }
 
   private _handlePageVisibilityChange = async (): Promise<void> => {
+    if (this.now) {
+      return;
+    }
+
     if (document.visibilityState === 'hidden') {
       await this._stopClock();
-    } else if (!this.now) {
+    } else {
       await this._startClock();
     }
   };
