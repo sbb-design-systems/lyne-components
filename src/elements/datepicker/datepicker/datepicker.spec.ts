@@ -3,16 +3,14 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { findInput, isFirefox } from '../../core/dom.js';
+import { isFirefox } from '../../core/dom.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbDatepickerNextDayElement } from '../datepicker-next-day.js';
-import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day.js';
 
-import { getDatePicker, SbbDatepickerElement } from './datepicker.js';
+import { SbbDatepickerElement } from './datepicker.js';
 
 import '../../date-input.js';
 import '../../form-field.js';
@@ -103,6 +101,7 @@ describe(`sbb-datepicker`, () => {
             expect(input).dom.to.be.equal(
               `<${dateInputDetails} id="datepicker-input" placeholder="DD.MM.YYYY">`,
             );
+            expect(element.inputElement).to.be.equal(input);
           });
 
           it('renders and emit event on value change', async () => {
@@ -343,6 +342,53 @@ describe(`sbb-datepicker`, () => {
           `);
         });
 
+        describe('trigger connection', () => {
+          let root: HTMLDivElement,
+            element: SbbDatepickerElement,
+            input: HTMLInputElement | SbbDateInputElement;
+
+          beforeEach(async () => {
+            root = await fixture(html`
+              <div>
+                <sbb-datepicker input="input-1"></sbb-datepicker>
+                ${dateInput
+                  ? html`<sbb-date-input id="input-1"></sbb-date-input>`
+                  : html`<input id="input-1" />`}
+              </div>
+            `);
+            element = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+            input = root.querySelector<HTMLInputElement | SbbDateInputElement>(inputSelector)!;
+          });
+
+          it('updates trigger connected by id', async () => {
+            input.id = '';
+            await waitForLitRender(root);
+            expect(element.inputElement).to.be.equal(null);
+
+            input.id = 'input-1';
+            await waitForLitRender(root);
+            expect(element.inputElement).to.be.equal(input);
+          });
+
+          it('accepts trigger as HTML Element', async () => {
+            input.id = '';
+            await waitForLitRender(element);
+            expect(element.inputElement).to.be.equal(null);
+
+            element.input = input;
+            await waitForLitRender(element);
+            expect(element.inputElement).to.be.equal(input);
+          });
+
+          it('allows removing the trigger', async () => {
+            expect(element.inputElement).to.be.equal(input);
+
+            element.input = null;
+            await waitForLitRender(element);
+            expect(element.inputElement).to.be.equal(null);
+          });
+        });
+
         describe('date validation', () => {
           let formField: SbbFormFieldElement;
           let datePicker: SbbDatepickerElement;
@@ -511,72 +557,6 @@ describe(`sbb-datepicker`, () => {
               });
             });
           });
-        });
-      });
-
-      describe(`getDatePicker`, () => {
-        it('returns the datepicker if no trigger', async () => {
-          const page: SbbFormFieldElement = await fixture(html`
-            <sbb-form-field>
-              ${dateInput ? html`<sbb-date-input></sbb-date-input>` : html`<input />`}
-              <sbb-datepicker></sbb-datepicker>
-              <sbb-datepicker-next-day></sbb-datepicker-next-day>
-            </sbb-form-field>
-          `);
-          const picker: SbbDatepickerElement =
-            page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-          const elementNext: SbbDatepickerNextDayElement =
-            page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-          expect(getDatePicker<Date>(elementNext)).to.equal(picker);
-        });
-
-        it('returns the datepicker if its id is passed as trigger', async () => {
-          const page = await fixture(html`
-            <div>
-              ${dateInput ? html`<sbb-date-input></sbb-date-input>` : html`<input />`}
-              <sbb-datepicker id="picker"></sbb-datepicker>
-              <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-            </div>
-          `);
-          const picker: SbbDatepickerElement = page.querySelector<SbbDatepickerElement>('#picker')!;
-          const elementPrevious: SbbDatepickerPreviousDayElement =
-            page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
-          expect(getDatePicker<Date>(elementPrevious, 'picker')).to.equal(picker);
-        });
-      });
-
-      describe(`getInput`, () => {
-        it('returns the input if no trigger', async () => {
-          const page: SbbFormFieldElement = await fixture(html`
-            <sbb-form-field>
-              ${dateInput ? html`<sbb-date-input></sbb-date-input>` : html`<input />`}
-              <sbb-datepicker></sbb-datepicker>
-            </sbb-form-field>
-          `);
-          const element: SbbDatepickerElement =
-            page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-          const input: HTMLInputElement | SbbDateInputElement = page.querySelector<
-            HTMLInputElement | SbbDateInputElement
-          >(inputSelector)!;
-          expect(findInput(element, undefined, 'input,sbb-date-input')).to.equal(input);
-        });
-
-        it('returns the input if its id is passed as trigger', async () => {
-          const page = await fixture(html`
-            <div>
-              ${dateInput
-                ? html`<sbb-date-input id="input"></sbb-date-input>`
-                : html`<input id="input" />`}
-              <sbb-datepicker></sbb-datepicker>
-              <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-            </div>
-          `);
-          const picker: SbbDatepickerElement =
-            page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-          const input: HTMLInputElement | SbbDateInputElement = page.querySelector<
-            HTMLInputElement | SbbDateInputElement
-          >(inputSelector)!;
-          expect(findInput(picker, 'input')).to.equal(input);
         });
       });
     });

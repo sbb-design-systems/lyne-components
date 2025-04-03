@@ -2,11 +2,13 @@ import { findReferencedElement } from './find-referenced-element.js';
 
 /**
  * Given an element, returns the related input reference, if it exists respecting following priority.
- * 1. Input field in `sbb-form-field` (if trigger is undefiend)
+ * 1. Input field in `sbb-form-field` (if trigger is undefined)
  * 2. Input referenced by id (trigger is string)
  * 3. Input referenced directly (trigger is HTMLElement)
  * @param element The starting SbbDatepickerElement element.
  * @param trigger The id or the reference of the input.
+ * @param inputSelector a custom selector for the input element
+ * @deprecated Will be removed with next major version.
  */
 export function findInput(
   element: HTMLElement,
