@@ -86,20 +86,18 @@ const body: () => TemplateResult = () => html`
 `;
 
 const Template = (args: Args): TemplateResult => html`
-  <div style="height: 400px">
-    <sbb-table-wrapper ?negative=${args.negative}>
-      <table
-        aria-label="Train lines 2024"
-        class=${classMap({
-          'sbb-table': true,
-          'sbb-table--negative': args.negative,
-        })}
-      >
-        ${header()} ${body()}
-      </table>
-    </sbb-table-wrapper>
-    <p class="sbb-table-caption">Train lines 2024</p>
-  </div>
+  <sbb-table-wrapper ?negative=${args.negative} style="height: 400px">
+    <table
+      aria-label="Train lines 2024"
+      class=${classMap({
+        'sbb-table': true,
+        'sbb-table--negative': args.negative,
+      })}
+    >
+      ${header()} ${body()}
+    </table>
+  </sbb-table-wrapper>
+  <p class="sbb-table-caption">Train lines 2024</p>
 `;
 
 export const Default: StoryObj = {
