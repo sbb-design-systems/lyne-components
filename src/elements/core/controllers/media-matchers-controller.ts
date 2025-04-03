@@ -56,15 +56,9 @@ export class SbbMediaMatcherController implements ReactiveController {
    * @returns Whether the query matches or null with SSR.
    */
   public matches(query: string): boolean | null {
-    if (isServer) {
-      return null;
-    }
-    const mediaQuery = mediaQueryRegistry.get(query);
-    if (mediaQuery) {
-      return mediaQuery.mediaQueryList.matches;
-    } else {
-      return matchMedia(query).matches;
-    }
+    // If we use the cached instance, Webkit seems to update the state a tick too late.
+    // Due to this we directly use matchMedia here.
+    return isServer ? null : matchMedia(query).matches;
   }
 
   public hostConnected(): void {
