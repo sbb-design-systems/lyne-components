@@ -169,7 +169,7 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__bullet--start-end.sbb-pearl-chain-vertical-item__bullet--skipped {
-  @include sbb.pearl-chain-bullet-skipped;
+  @include sbb.pearl-chain-bullet-skipped-legacy;
 }
 
 .sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--skipped {
