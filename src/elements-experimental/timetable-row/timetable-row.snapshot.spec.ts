@@ -3,7 +3,7 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { html } from 'lit/static-html.js';
 
 import type { SbbTimetableRowElement } from './timetable-row.js';
-import { busTrip, defaultTrip, trainTrip } from './timetable-row.sample-data.js';
+import { accessLegTrip, busTrip, defaultTrip, trainTrip } from './timetable-row.sample-data.js';
 
 import './timetable-row.js';
 
@@ -50,6 +50,22 @@ describe(`sbb-timetable-row`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-timetable-row .now=${now} .trip=${busTrip}></sbb-timetable-row>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders trip with access leg', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-timetable-row .now=${now} .trip=${accessLegTrip}></sbb-timetable-row>`,
       );
     });
 

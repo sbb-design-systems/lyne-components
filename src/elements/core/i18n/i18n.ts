@@ -257,10 +257,17 @@ export const i18nRealTimeInfo: Record<string, string> = {
   it: 'Informazioni in tempo reale',
 };
 
+export const i18nTransferProcedure: Record<string, string> = {
+  de: 'mal umsteigen',
+  en: 'change',
+  fr: 'changement de train',
+  it: 'cambio',
+};
+
 export const i18nTransferProcedures: Record<string, string> = {
   de: 'mal umsteigen',
   en: 'changes',
-  fr: 'changement(s) de train',
+  fr: 'changements de train',
   it: 'cambi',
 };
 
