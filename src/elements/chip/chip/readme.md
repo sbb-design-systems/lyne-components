@@ -1,4 +1,4 @@
-The `sbb-chip` is a component meant to be used in combination with the [sbb-chip-group](/docs/elements-sbb-chip-group-sbb-chip-group--docs) to display a list of string user inputs.
+The `sbb-chip` is a component meant to be used in combination with the [sbb-chip-group](/docs/elements-sbb-chip-sbb-chip-group--docs) to display a list of string user inputs.
 
 ```html
 <sbb-chip-group>
