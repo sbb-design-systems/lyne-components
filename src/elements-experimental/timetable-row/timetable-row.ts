@@ -13,6 +13,7 @@ import {
   i18nOccupancy,
   i18nRealTimeInfo,
   i18nSupersaver,
+  i18nTransferProcedure,
   i18nTransferProcedures,
   i18nTravelhints,
   i18nTripDuration,
@@ -429,9 +430,11 @@ class SbbTimetableRowElement extends LitElement {
     }`;
 
     const transferProcedures =
-      rideLegs.length > 1
+      rideLegs.length > 2
         ? `${rideLegs.length - 1} ${i18nTransferProcedures[this._language.current]}, `
-        : '';
+        : rideLegs.length > 1
+          ? `${rideLegs.length - 1} ${i18nTransferProcedure[this._language.current]}, `
+          : '';
 
     const arrivalTimeText = arrivalTime
       ? `${i18nArrival[this._language.current]}: ${format(arrivalTime, 'HH:mm')}, `
@@ -479,9 +482,27 @@ class SbbTimetableRowElement extends LitElement {
           }, `
         : '';
 
-    return `${departureWalkText} ${departureTimeText} ${getDepartureQuayText()} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${cusText} ${boardingText} ${priceText} ${
-      cusText ? '' : himText
-    } ${arrivalTimeText} ${arrivalWalkText} ${durationText} ${transferProcedures} ${occupancyText} ${attributesText}`;
+    return [
+      departureWalkText,
+      departureTimeText,
+      getDepartureQuayText(),
+      meansOfTransportText,
+      vehicleSubModeText,
+      directionText,
+      cusText,
+      boardingText,
+      priceText,
+      cusText ? '' : himText,
+      arrivalTimeText,
+      arrivalWalkText,
+      durationText,
+      transferProcedures,
+      occupancyText,
+      attributesText,
+    ]
+      .map((e) => e.trim())
+      .filter((e) => e && e.length > 0)
+      .join(' ');
   }
 
   protected override render(): TemplateResult {
