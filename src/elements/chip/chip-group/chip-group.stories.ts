@@ -206,7 +206,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-chip-group/sbb-chip-group',
+  title: 'elements/sbb-chip/sbb-chip-group',
 };
 
 export default meta;
