@@ -239,7 +239,7 @@ img {
 // TODO: Move back to the sbb-container components when the global CSS refactoring happens
 sbb-container {
   > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-object-fit: cover;
 
     border-radius: var(--sbb-container-background-border-radius);
@@ -251,7 +251,7 @@ sbb-container {
 // TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
 sbb-flip-card-summary {
   > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-aspect-ratio: auto;
     --sbb-image-object-fit: cover;
 
@@ -264,7 +264,7 @@ sbb-flip-card-summary {
 // TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
 sbb-lead-container {
   > [slot='image']:is(sbb-image, img, picture),
-  > [slot='image'] :is(sbb-image, img, picture):not(.sbb-figure-overlap-logo) {
+  > [slot='image'] :is(sbb-image, img, picture):not(.sbb-figure-overlap-image) {
     --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
     --sbb-image-object-fit: cover;
 
@@ -275,7 +275,7 @@ sbb-lead-container {
 // TODO: Move back to the sbb-message components when the global CSS refactoring happens
 sbb-message {
   > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     border-radius: var(--sbb-message-image-border-radius);
   }
 }
@@ -297,7 +297,7 @@ sbb-message {
     }
   }
 
-  :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     will-change: filter;
     filter: brightness(var(--sbb-teaser-image-brightness, 1));
     transition: filter var(--sbb-teaser-image-animation-duration)
@@ -307,20 +307,20 @@ sbb-message {
 
 // TODO: Move back to the teaser components when the global CSS refactoring happens
 :is(sbb-teaser-product, sbb-teaser-product-static) {
-  :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     border-radius: 0; // Reset sbb-image border radius in order to control it from teaser product.
 
     --sbb-image-object-fit: cover;
     --sbb-image-aspect-ratio: 16 / 9;
   }
 
-  img:not(.sbb-figure-overlap-logo) {
+  img:not(.sbb-figure-overlap-image) {
     place-self: stretch;
   }
 }
 
 // TODO: Move back to the teaser components when the global CSS refactoring happens
-sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
   --sbb-image-object-fit: cover;
   --sbb-image-aspect-ratio: 4 / 3;
 
@@ -331,7 +331,7 @@ sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
 
 // TODO: Move back to the teaser-hero components when the global CSS refactoring happens
 sbb-teaser-hero {
-  :is(sbb-image, img):not(.sbb-figure-overlap-logo) {
+  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-aspect-ratio: 1 / 1;
 
     border-radius: 0;
@@ -341,7 +341,7 @@ sbb-teaser-hero {
     }
   }
 
-  img:not(.sbb-figure-overlap-logo) {
+  img:not(.sbb-figure-overlap-image) {
     display: block;
     align-self: stretch;
     width: 100%;

@@ -30,7 +30,7 @@ Otherwise, it stays behind the red panel.
       Chip label
     </sbb-chip-label>
     <img
-      class="sbb-figure-overlap-logo sbb-figure-overlap-end-end"
+      class="sbb-figure-overlap-image sbb-figure-overlap-end-end"
       src="logo.png"
       alt="Logo"
       style="z-index: 1"
