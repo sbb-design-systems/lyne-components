@@ -16,8 +16,10 @@ Use the `image` slot to pass an `sbb-image` or an `img` that will be used as bac
 </sbb-teaser-hero>
 ```
 
-Optionally, you can add an overlapping `sbb-chip-label` or `img` (logo) by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
-If the `sbb-chip-label` or the `img` should appear on top of the red panel (e.g. on small screens), you need to set a `z-index` on the `sbb-chip-label` or `img`.
+Optionally, you can add an overlapping `sbb-chip-label` or image (e.g. logo) by wrapping the `sbb-image`
+in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+If the `sbb-chip-label` or the image (e.g. logo) should appear on top of the red panel (e.g. on small screens),
+you need to set a `z-index` on the `sbb-chip-label` or the image (e.g. logo).
 Otherwise, it stays behind the red panel.
 
 ```html
