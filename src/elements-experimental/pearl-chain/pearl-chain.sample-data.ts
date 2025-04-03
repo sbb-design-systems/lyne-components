@@ -108,6 +108,23 @@ export const pastLeg: any = {
   serviceJourney: defaultService,
 };
 
+export const accessLeg: any = {
+  duration: 4,
+  id: '1',
+  __typename: 'AccessLeg',
+  distance: 49,
+  start: {
+    __typename: 'StopPlace',
+    id: '8503006',
+    name: 'Zürich Oerlikon',
+  },
+  end: {
+    __typename: 'StopPlace',
+    id: '8580449',
+    name: 'Zürich Oerlikon, Bahnhof',
+  },
+};
+
 export const defaultBusLeg: any = {
   ...futureLeg,
   serviceJourney: busService,
