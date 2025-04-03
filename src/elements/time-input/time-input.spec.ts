@@ -323,4 +323,32 @@ describe(`sbb-time-input`, () => {
     expect(changeSpy.count, 'sbb-time-input change event').to.be.equal(0);
     expect(inputSpy.count, 'sbb-time-input input event').to.be.equal(0);
   });
+
+  it('updates trigger connected by id', async () => {
+    input.id = '';
+    await waitForLitRender(element);
+    expect(input).not.to.have.attribute('data-sbb-time-input');
+
+    input.id = 'input-1';
+    await waitForLitRender(element);
+    expect(input).to.have.attribute('data-sbb-time-input');
+  });
+
+  it('accepts trigger as HTML Element', async () => {
+    input.id = '';
+    await waitForLitRender(element);
+    expect(input).not.to.have.attribute('data-sbb-time-input');
+
+    element.input = input;
+    await waitForLitRender(element);
+    expect(input).to.have.attribute('data-sbb-time-input');
+  });
+
+  it('allows removing the trigger', async () => {
+    expect(input).to.have.attribute('data-sbb-time-input');
+
+    element.input = null;
+    await waitForLitRender(element);
+    expect(input).not.to.have.attribute('data-sbb-time-input');
+  });
 });

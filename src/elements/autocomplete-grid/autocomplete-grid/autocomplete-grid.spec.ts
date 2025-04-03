@@ -95,6 +95,12 @@ describe(`sbb-autocomplete-grid`, () => {
     });
   });
 
+  it('should have form-field as origin when not defined otherwise', async () => {
+    expect(element.originElement).to.be.equal(
+      formField.shadowRoot?.querySelector?.('#overlay-anchor'),
+    );
+  });
+
   it('opens and closes with mouse and keyboard', async () => {
     const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen, element);
     const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
@@ -419,5 +425,145 @@ describe(`sbb-autocomplete-grid`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  describe('trigger connection', () => {
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<div>
+          <sbb-autocomplete-grid trigger="autocomplete-trigger">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="1" id="option-1">
+                Option 1
+              </sbb-autocomplete-grid-option>
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid>
+          <input id="autocomplete-trigger" />
+        </div>`,
+      );
+      formField = root.querySelector('sbb-form-field')!;
+      input = root.querySelector('input')!;
+      element = root.querySelector('sbb-autocomplete-grid')!;
+    });
+
+    it('updates trigger connected by id', async () => {
+      input.id = '';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+
+      input.id = 'autocomplete-trigger';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).not.to.be.null;
+    });
+
+    it('accepts trigger as HTML Element', async () => {
+      input.id = '';
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+
+      element.trigger = input;
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).not.to.be.null;
+    });
+
+    it('allows removing the trigger', async () => {
+      expect(input.ariaHasPopup).not.to.be.null;
+
+      element.trigger = null;
+      await waitForLitRender(element);
+      expect(input.ariaHasPopup).to.be.null;
+    });
+  });
+
+  describe('origin connection', () => {
+    let origin: HTMLElement, root: HTMLElement;
+    beforeEach(async () => {
+      root = await fixture(
+        html`<div>
+          <sbb-autocomplete-grid trigger="autocomplete-trigger" origin="autocomplete-origin">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="1" id="option-1">
+                Option 1
+              </sbb-autocomplete-grid-option>
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid>
+          <div id="autocomplete-origin">Origin 1</div>
+          <div id="autocomplete-origin-2">Origin 2</div>
+          <input id="autocomplete-trigger" />
+          <input id="autocomplete-trigger-2" />
+        </div>`,
+      );
+      element = root.querySelector('sbb-autocomplete-grid')!;
+      input = root.querySelector('input#autocomplete-trigger')!;
+      origin = root.querySelector('div#autocomplete-origin')!;
+    });
+
+    it('updates origin connected by id', async () => {
+      origin.id = '';
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(input);
+
+      origin.id = 'autocomplete-origin';
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(origin);
+    });
+
+    it('accepts origin as HTML Element', async () => {
+      origin.id = '';
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(input);
+
+      element.origin = origin;
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(origin);
+    });
+
+    it('allows resetting the origin', async () => {
+      expect(element.originElement).to.be.equal(origin);
+
+      element.origin = null;
+      await waitForLitRender(element);
+      expect(element.originElement).to.be.equal(input);
+    });
+
+    it('supports moving the origin when opened', async () => {
+      const origin2 = root.querySelector<HTMLDivElement>('#autocomplete-origin-2')!;
+
+      // Open autocomplete
+      input.click();
+      expect(element.isOpen).to.be.true;
+      const offsetTopOrigin1 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+
+      element.origin = origin2;
+      await waitForLitRender(element);
+
+      expect(
+        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
+      ).to.be.greaterThan(offsetTopOrigin1);
+    });
+
+    it('supports moving the trigger which acts as origin when opened', async () => {
+      // Open autocomplete
+      input.click();
+      expect(element.isOpen).to.be.true;
+      const offsetTopOrigin1 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+
+      // Set origin to null and swap trigger
+      element.origin = null;
+      await waitForLitRender(element);
+      expect(element.triggerElement).to.be.equal(input);
+
+      element.trigger = root.querySelector<HTMLInputElement>('#autocomplete-trigger-2')!;
+      await waitForLitRender(element);
+      expect(element.triggerElement!.id).to.be.equal(element.originElement!.id);
+
+      expect(
+        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
+      ).to.be.greaterThan(offsetTopOrigin1);
+    });
   });
 });

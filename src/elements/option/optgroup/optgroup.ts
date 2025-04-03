@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import type { SbbOptionElement } from '../option.js';
 
 import { SbbOptgroupBaseElement } from './optgroup-base-element.js';
@@ -17,8 +17,8 @@ class SbbOptGroupElement extends SbbOptgroupBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
   }
 
-  protected getAutocompleteParent(): SbbAutocompleteElement | null {
-    return this.closest?.('sbb-autocomplete') || null;
+  protected getAutocompleteParent(): SbbAutocompleteBaseElement | null {
+    return this.closest?.<SbbAutocompleteBaseElement>('sbb-autocomplete') || null;
   }
 
   protected setAttributeFromParent(): void {

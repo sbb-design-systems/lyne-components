@@ -152,7 +152,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _originElement!: HTMLElement;
   private _triggerElement!: HTMLElement;
   private _openPanelEventsController!: AbortController;
-  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
@@ -591,7 +591,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
-    this._sbbEscapableOverlayController.connect();
+    this._escapableOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -601,7 +601,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this._sbbEscapableOverlayController.disconnect();
+    this._escapableOverlayController.disconnect();
     this.didClose.emit();
   }
 
