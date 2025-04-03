@@ -24,12 +24,12 @@ describe(`sbb-menu`, () => {
         <sbb-menu id="menu" trigger="menu-trigger">
           <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
           <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
-          <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled
-            >Edit</sbb-menu-button
-          >
-          <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" sbb-badge="2"
-            >Details</sbb-menu-button
-          >
+          <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled>
+            Edit
+          </sbb-menu-button>
+          <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" sbb-badge="2">
+            Details
+          </sbb-menu-button>
           <sbb-divider id="menu-divider"></sbb-divider>
           <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
         </sbb-menu>
@@ -355,5 +355,33 @@ describe(`sbb-menu`, () => {
 
     await scrollSpy.calledOnce();
     expect(scrollSpy.count).to.be.equal(1);
+  });
+
+  it('updates trigger connected by id', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).to.be.null;
+
+    trigger.id = 'menu-trigger';
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).not.to.be.null;
+  });
+
+  it('accepts trigger as HTML Element', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).to.be.null;
+
+    element.trigger = trigger;
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).not.to.be.null;
+  });
+
+  it('allows removing the trigger', async () => {
+    expect(trigger.ariaHasPopup).not.to.be.null;
+
+    element.trigger = null;
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).to.be.null;
   });
 });

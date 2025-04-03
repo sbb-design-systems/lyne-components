@@ -1,9 +1,9 @@
 import { customElement } from 'lit/decorators.js';
 
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { SbbOptgroupBaseElement } from '../../option/optgroup.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
-import type { SbbAutocompleteGridElement } from '../autocomplete-grid.js';
 
 /**
  * It can be used as a container for one or more `sbb-autocomplete-grid-option`.
@@ -19,8 +19,8 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
     ) as SbbAutocompleteGridOptionElement[];
   }
 
-  protected getAutocompleteParent(): SbbAutocompleteGridElement | null {
-    return this.closest?.('sbb-autocomplete-grid') || null;
+  protected getAutocompleteParent(): SbbAutocompleteBaseElement | null {
+    return this.closest?.<SbbAutocompleteBaseElement>('sbb-autocomplete-grid') || null;
   }
 
   protected setAttributeFromParent(): void {

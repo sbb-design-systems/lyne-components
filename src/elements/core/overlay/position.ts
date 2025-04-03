@@ -59,7 +59,10 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
 /**
  * Determines whether an event is fired on a specific element.
  */
-export function isEventOnElement(element: HTMLElement, event: MouseEvent | PointerEvent): boolean {
+export function isEventOnElement(
+  element: HTMLElement | null,
+  event: MouseEvent | PointerEvent,
+): boolean {
   if (!element || !event) {
     return false;
   }
