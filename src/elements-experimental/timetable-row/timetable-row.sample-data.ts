@@ -1,5 +1,6 @@
 import type { ITripItem } from '../core/timetable.js';
 import {
+  accessLeg,
   cancelledLeg,
   connectionLeg,
   defaultBusLeg,
@@ -377,6 +378,38 @@ export const trainTrip: DeepPartial<ITripItem> = {
 
 export const busTrip: DeepPartial<ITripItem> = {
   legs: [defaultBusLeg, futureLeg, longFutureLeg],
+  situations: [],
+  summary: {
+    duration: 41,
+    arrival: {
+      time: '2022-11-30T17:06:00+01:00',
+      quayFormatted: '11',
+    },
+    arrivalWalk: 0,
+    departure: {
+      time: '2022-11-30T16:30:00+01:00',
+      quayFormatted: '4',
+    },
+    departureWalk: 0,
+    direction: 'Spiegel, Blinzern',
+    product: {
+      name: 'B 19',
+      line: '19',
+      number: '27014',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+      corporateIdentityPictogram: 'bus-right',
+    },
+    occupancy: {
+      firstClass: 'LOW',
+      secondClass: 'MEDIUM',
+    },
+    tripStatus: {},
+  },
+};
+
+export const accessLegTrip: DeepPartial<ITripItem> = {
+  legs: [pastLeg, accessLeg, futureLeg],
   situations: [],
   summary: {
     duration: 41,
