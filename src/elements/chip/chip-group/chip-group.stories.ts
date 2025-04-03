@@ -8,8 +8,7 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { SbbChipGroupElement } from './chip-group.js';
 import readme from './readme.md?raw';

@@ -1,5 +1,10 @@
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
