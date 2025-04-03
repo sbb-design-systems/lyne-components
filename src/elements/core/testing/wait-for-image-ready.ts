@@ -36,11 +36,11 @@ export async function waitForImageReady(
       });
     });
   } else {
-    await imgElement.decode().then(async () => {
+    await imgElement.decode().then(() => {
       // Safari is not always ready to display the image right after the decoded Promise resolves.
-      // We wait another 100 milliseconds
+      // We have to wait another 100 milliseconds.
       if (isSafari && element.localName === 'sbb-image') {
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        return new Promise((resolve) => setTimeout(resolve, 100));
       }
     });
   }
