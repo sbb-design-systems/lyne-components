@@ -62,13 +62,9 @@ describe(`table`, () => {
   `;
 
   const caption = (): TemplateResult => html`
-    <thead>
-      <tr>
-        <th>Person</th>
-        <th>Most interest in</th>
-        <th>Age</th>
-      </tr>
-    </thead>
+    <caption>
+      Table caption
+    </caption>
   `;
 
   const tableTemplate = (classInfo: ClassInfo): TemplateResult => html`
