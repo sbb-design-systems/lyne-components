@@ -38,7 +38,7 @@ export async function waitForImageReady(
   } else {
     await imgElement.decode().then(async () => {
       // Safari is not always ready to display the image right after the decoded Promise resolves.
-      // We wait another 100milliseconds
+      // We wait another 100 milliseconds
       if (isSafari && element.localName === 'sbb-image') {
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
