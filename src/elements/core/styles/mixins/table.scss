@@ -53,7 +53,7 @@
 }
 
 @mixin table-header-row {
-  // If there is more than one header row, only the last one has the bottom border
+  // If there is more than one header row, remove the bottom border except for the last one
   &:not(:last-of-type) > th {
     border-bottom: none;
   }
@@ -62,36 +62,36 @@
 @mixin table-header-cell {
   @include typo.text-xs--bold;
 
-  border-bottom: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  border-block-end: var(--sbb-table-border);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-header-padding-block);
   padding-inline: var(--sbb-table-header-padding-inline);
   text-align: left;
 
   // To avoid double border
   &:last-of-type {
-    border-right: none;
+    border-inline-end: none;
   }
 }
 
 @mixin table-data-row {
   // To avoid double borders
   &:first-of-type td {
-    border-top: none;
+    border-block-start: none;
   }
 }
 
 @mixin table-data-cell {
   @include typo.text-s--regular;
 
-  border-top: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  border-block-start: var(--sbb-table-border);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-cell-padding-block);
   padding-inline: var(--sbb-table-cell-padding-inline);
 
   // To avoid double border
   &:last-of-type {
-    border-right: none;
+    border-inline-end: none;
   }
 }
 
