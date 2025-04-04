@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './controllers/connected-abort-controller.js';
 export * from './controllers/escapable-overlay-controller.js';
 export * from './controllers/id-observer-controller.js';

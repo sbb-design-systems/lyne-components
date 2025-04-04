@@ -107,7 +107,7 @@ const testRunnerHtml = (
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <link rel="modulepreload" href="/src/elements/core/testing/test-setup.ts" />
+    <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
       ${preloadedFonts
         .map(
@@ -135,7 +135,7 @@ const testRunnerHtml = (
     <template id="icon:${i.namespace}:${i.icon}">${i.svg}</template>`,
       )
       .join('')}</div>
-    <script type="module" src="/src/elements/core/testing/test-setup.ts"></script>
+    <script type="module" src="/src/elements/core/testing/private/test-setup.ts"></script>
   </body>
 </html>
 `;
@@ -201,7 +201,7 @@ export default {
     litSsrPlugin({
       workerInitModules: [
         './tools/node-esm-hook/register-hooks.js',
-        './src/elements/core/testing/test-setup-ssr.ts',
+        './src/elements/core/testing/private/test-setup-ssr.ts',
       ],
     }),
     vitePlugin(),

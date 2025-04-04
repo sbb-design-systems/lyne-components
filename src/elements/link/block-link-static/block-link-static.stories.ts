@@ -23,7 +23,7 @@ import {
   blockXSIcon,
   linkCommonDefaultArgs,
   linkCommonDefaultArgTypes,
-} from '../common/link-common-stories.js';
+} from '../common/link-common-stories.private.js';
 
 import readme from './readme.md?raw';
 import './block-link-static.js';

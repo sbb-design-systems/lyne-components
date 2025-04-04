@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './mixins/animation-complete-mixin.js';
 export * from './mixins/constructor.js';
 export * from './mixins/disabled-mixin.js';

@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import sampleData from './timetable-duration.sample-data.js';
+import sampleData from './timetable-duration.sample-data.private.js';
 import './timetable-duration.js';
 
 const Template = ({ config }: Args): TemplateResult => html`

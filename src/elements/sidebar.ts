@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './sidebar/common.js';
 export * from './sidebar/icon-sidebar.js';
 export * from './sidebar/icon-sidebar-button.js';

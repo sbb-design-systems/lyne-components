@@ -9,7 +9,7 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.js';
+} from '../pearl-chain/pearl-chain.sample-data.private.js';
 
 import readme from './readme.md?raw';
 

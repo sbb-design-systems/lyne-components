@@ -6,7 +6,7 @@ import type { SbbDialogElement } from '../../../elements/dialog.js';
 import {
   futureLeg,
   pastLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.js';
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.js';
 
 import {
   bikeProduct,

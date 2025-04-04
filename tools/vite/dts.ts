@@ -4,7 +4,7 @@ import dtsPlugin from 'vite-plugin-dts';
 export function dts(): Plugin {
   return dtsPlugin({
     entryRoot: '.',
-    exclude: ['**/*[.-]{stories,spec,test-utils}.ts', '**/private/*', 'vite.config.ts'],
+    exclude: ['**/(*.)?{stories,spec,private}.ts', '**/private/*', 'vite.config.ts'],
     pathsToAliases: false,
     strictOutput: false,
     aliasesExclude: [

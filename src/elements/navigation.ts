@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './navigation/navigation.js';
 export * from './navigation/navigation-list.js';
 export * from './navigation/navigation-marker.js';

@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './button/button.js';
 export * from './button/secondary-button.js';
 export * from './button/accent-button.js';

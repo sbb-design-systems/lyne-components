@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './decorators/date-converter.js';
 export * from './decorators/date-only-type.js';
 export * from './decorators/force-type.js';

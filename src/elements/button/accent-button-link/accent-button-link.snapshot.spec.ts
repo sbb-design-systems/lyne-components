@@ -1,7 +1,10 @@
 import { expect } from '@open-wc/testing';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils.js';
+import {
+  buttonLinkIconTestTemplate,
+  buttonLinkTestTemplate,
+} from '../common/button-test-utils.private.js';
 
 import type { SbbAccentButtonLinkElement } from './accent-button-link.js';
 import './accent-button-link.js';

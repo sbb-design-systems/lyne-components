@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { globSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import type { PluginOption, ResolvedConfig } from 'vite';
@@ -46,31 +46,27 @@ export function packageJsonTemplate(
         packageJson[key] = rootPackageJson[key];
       }
 
-      const lib = viteConfig.build.lib;
-      if (lib && typeof lib.entry === 'object' && !Array.isArray(lib.entry)) {
-        const exports = Object.entries(lib.entry)
-          .sort((a, b) => a[0].localeCompare(b[0]))
-          .reduce(
-            (current, next) =>
-              Object.assign(
-                current,
-                ...options.exportsExtensions!.map((ext) => ({
-                  [`./${next[0]}${ext}`]: {
-                    types: `./development/${next[0]}.d.ts`,
-                    development: `./development/${next[0]}.js`,
-                    default: `./${next[0]}.js`,
-                  },
-                })),
-              ),
-            { ...options.exports, './package.json': { default: './package.json' } } as Record<
-              string,
-              Record<string, string>
-            >,
-          );
-        packageJson.exports = exports;
-      } else if (options.exports) {
-        packageJson.exports = options.exports;
-      }
+      packageJson.exports = globSync('**/*.ts', { cwd: viteConfig.root })
+        .filter((f) => readFileSync(join(viteConfig.root, f), 'utf8').includes('@entrypoint'))
+        .map((f) => f.replace(/\.ts$/, ''))
+        .sort()
+        .reduce(
+          (current, next) =>
+            Object.assign(
+              current,
+              ...options.exportsExtensions!.map((ext) => ({
+                [`./${next}${ext}`]: {
+                  types: `./development/${next}.d.ts`,
+                  development: `./development/${next}.js`,
+                  default: `./${next}.js`,
+                },
+              })),
+            ),
+          { ...options.exports, './package.json': { default: './package.json' } } as Record<
+            string,
+            Record<string, string>
+          >,
+        );
 
       this.emitFile({
         type: 'asset',

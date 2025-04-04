@@ -4,7 +4,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
-import sampleData from './timetable-duration.sample-data.js';
+import sampleData from './timetable-duration.sample-data.private.js';
 import './timetable-duration.js';
 
 describe(`sbb-timetable-duration`, () => {

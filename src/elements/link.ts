@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './link/block-link.js';
 export * from './link/block-link-button.js';
 export * from './link/block-link-static.js';

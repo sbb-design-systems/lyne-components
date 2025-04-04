@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './card/card.js';
 export * from './card/card-badge.js';
 export * from './card/card-button.js';

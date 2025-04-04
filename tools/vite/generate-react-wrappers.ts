@@ -9,12 +9,18 @@ import {
   rmSync,
   unlinkSync,
 } from 'fs';
-import { pathToFileURL } from 'node:url';
+import { join, relative } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import type { Package, Export, CustomElementDeclaration, Module } from 'custom-elements-manifest';
 import type { PluginOption } from 'vite';
 
 import { distDir } from './build-meta.js';
+
+const entrypointMarker = `/**
+ * @entrypoint
+ */
+`;
 
 export function generateReactWrappers(
   library: string,
@@ -69,21 +75,28 @@ export function generateReactWrappers(
         }
       }
 
-      for (const dirent of readdirSync(packageRoot, { withFileTypes: true }).filter((d) =>
-        d.isDirectory(),
-      )) {
-        const dir = new URL(`./${dirent.name}/`, packageRoot);
-        const entryPoint = `${dirent.name}.ts`;
-        entryPoints[dirent.name] = entryPoint;
-        const dirEntryPoint = new URL(`../${entryPoint}`, dir);
+      for (const dirent of readdirSync(packageRoot, {
+        withFileTypes: true,
+        recursive: true,
+      }).filter((d) => d.isDirectory())) {
+        const dir = join(dirent.parentPath, dirent.name);
+        const relativeDir = relative(fileURLToPath(packageRoot), dir);
+        const entryPoint = `${relativeDir}.ts`;
+        entryPoints[relativeDir] = entryPoint;
+        const dirEntryPoint = new URL(`./${entryPoint}`, packageRoot);
 
         if (!existsSync(dirEntryPoint)) {
           generatedPaths.push(dirEntryPoint);
-          const dirInfo = readdirSync(dir, { withFileTypes: true })
-            .filter((d) => d.isFile())
-            .map((d) => `export * from './${dirent.name}/${d.name.replace(/.ts$/, '.js')}';\n`)
-            .join('');
-          writeFileSync(dirEntryPoint, dirInfo, 'utf8');
+          const directories = readdirSync(dir, { withFileTypes: true }).filter((d) =>
+            d.isDirectory(),
+          );
+          const files = readdirSync(dir, { withFileTypes: true }).filter((d) => d.isFile());
+          const content =
+            entrypointMarker +
+            (directories.length ? directories : files)
+              .map((d) => `export * from './${dirent.name}/${d.name.replace(/\.ts$/, '')}.js';\n`)
+              .join('');
+          writeFileSync(dirEntryPoint, content, 'utf8');
         }
       }
 

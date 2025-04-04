@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './testing/event-spy.js';
 export * from './testing/mocha-extensions.js';
 export * from './testing/scroll.js';

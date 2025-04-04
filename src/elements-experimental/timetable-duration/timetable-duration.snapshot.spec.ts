@@ -3,7 +3,7 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { html } from 'lit/static-html.js';
 
 import type { SbbTimetableDurationElement } from './timetable-duration.js';
-import sampleData from './timetable-duration.sample-data.js';
+import sampleData from './timetable-duration.sample-data.private.js';
 
 import './timetable-duration.js';
 

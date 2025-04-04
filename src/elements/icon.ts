@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './icon/icon.js';
 export * from './icon/icon-base.js';
 export * from './icon/icon-request.js';
