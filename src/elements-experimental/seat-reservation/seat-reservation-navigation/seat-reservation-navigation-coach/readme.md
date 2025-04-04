@@ -8,8 +8,9 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 <sbb-seat-reservation-navigation-coach
   index="0"
   ?selected="true"
-  .coachItem="[COACH_DATA]"
-  travelclass="SECOND"
+  .coach-id="80"
+  travel-class="SECOND"
+  property-ids="[]"
   ?driverarea="false"
   ?first="false"
   ?last="false"
@@ -36,14 +37,15 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type      | Default | Description                                                                       |
-| ------------- | ------------- | ------- | --------- | ------- | --------------------------------------------------------------------------------- |
-| `index`       | `index`       | public  | `number`  | `false` | index number of the coach.                                                        |
-| `selected`    | `selected`    | public  | `boolean` | `false` | Whether the coach is active/selected.                                             |
-| `coachItem`   | `coachItem`   | public  | `object`  | null    | CoachItem data.                                                                   |
-| `travelclass` | `travelclass` | public  | `string`  | ``      | Travelclass of the actual coach.                                                  |
-| `driverarea`  | `driverarea`  | public  | `boolean` | `false` | Whether the coach is a driverarea and has therefore no additonal information.     |
-| `first`       | `first`       | public  | `boolean` | `false` | Whether the coach is the first one of the train/bus and has custom border-radius. |
-| `last`        | `last`        | public  | `boolean` | `false` | Whether the coach is the last one of the train/bus and has custom border-radius.  |
+| Name          | Attribute      | Privacy | Type      | Default | Description                                                                       |
+| ------------- | -------------- | ------- | --------- | ------- | --------------------------------------------------------------------------------- |
+| `index`       | `index`        | public  | `number`  | `false` | index number of the coach.                                                        |
+| `selected`    | `selected`     | public  | `boolean` | `false` | Whether the coach is active/selected.                                             |
+| `coachId`     | `coach-id`     | public  | `string`  | ''      | CoachItem id.                                                                     |
+| `propertyIds` | `property-ids` | public  | `array`   | []      | CoachItem propertyIds.                                                            |
+| `travelClass` | `travel-class` | public  | `string`  | ``      | Travelclass of the actual coach.                                                  |
+| `driverArea`  | `driver-area`  | public  | `boolean` | `false` | Whether the coach is a driverarea and has therefore no additonal information.     |
+| `first`       | `first`        | public  | `boolean` | `false` | Whether the coach is the first one of the train/bus and has custom border-radius. |
+| `last`        | `last`         | public  | `boolean` | `false` | Whether the coach is the last one of the train/bus and has custom border-radius.  |
 
 <!-- Auto Generated Below -->

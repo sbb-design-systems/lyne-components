@@ -9,25 +9,22 @@ import { sbbSpread } from '../../../../storybook/helpers/spread.js';
 import readme from './readme.md?raw';
 import './seat-reservation-navigation-services.js';
 
-const defaultArgs: Args = {
-  propertyIds: ['BISTRO'],
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-navigation-services
-    .propertyIds="${defaultArgs.propertyIds}"
-    ${sbbSpread(args)}
-  >
-  </sbb-seat-reservation-navigation-services>`;
-
 const propertyIdsType: InputType = {
   control: 'object',
   description: 'array of service icon names',
 };
 
 const defaultArgsTypes: Args = {
-  propertyIds: propertyIdsType,
+  'property-ids': propertyIdsType,
 };
+
+const defaultArgs: Args = {
+  'property-ids': JSON.stringify(['BISTRO']),
+};
+
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-seat-reservation-navigation-services ${sbbSpread(args)}>
+  </sbb-seat-reservation-navigation-services>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -37,7 +34,7 @@ export const Default: StoryObj = {
 
 export const MultipleServiceIcons: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, propertyIds: ['BISTRO', 'SILENCE', 'WHEELCHAIR'] },
+  args: { ...defaultArgs, 'property-ids': JSON.stringify(['BISTRO', 'SILENCE', 'WHEELCHAIR']) },
 };
 
 const meta: Meta = {

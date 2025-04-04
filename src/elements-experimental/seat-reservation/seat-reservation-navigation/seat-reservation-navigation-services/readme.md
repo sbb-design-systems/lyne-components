@@ -5,7 +5,7 @@ The purpose of this component is to be used in the main
 and should not be used on its own even if it's possible.
 
 ```html
-<sbb-seat-reservation-navigation-services .propertyIds="[PROPERTY_IDS]">
+<sbb-seat-reservation-navigation-services .propertyIds="PROPERTY_IDS">
 </sbb-seat-reservation-navigation-services>
 ```
 

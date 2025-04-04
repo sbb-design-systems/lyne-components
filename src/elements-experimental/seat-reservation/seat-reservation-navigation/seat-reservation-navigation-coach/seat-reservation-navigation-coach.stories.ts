@@ -12,13 +12,8 @@ import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-nav
 
 const mappedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 
-const defaultArgs: Args = {
-  coachItem: mappedSeatReservation.coachItems[0],
-};
-
-const Template = ({ coachItem, ...args }: Args): TemplateResult =>
+const Template = (args: Args): TemplateResult =>
   html`<sbb-seat-reservation-navigation-coach
-    .coachItem="${coachItem}"
     ${sbbSpread(args)}
   ></sbb-seat-reservation-navigation-coach>`;
 
@@ -32,15 +27,20 @@ const selectedType: InputType = {
   description: 'is coach selected',
 };
 
-const coachItemType: InputType = {
+const coachIdType: InputType = {
   control: 'object',
-  description: 'coach item',
+  description: 'coach item id',
+};
+
+const propertyIdsType: InputType = {
+  control: 'object',
+  description: 'property ids from coach',
 };
 
 const travelClassType: InputType = {
   control: 'object',
   description: 'travelClass',
-  options: ['FIRST', 'SECOND'],
+  options: ['FIRST', 'SECOND', 'ANY_CLASS'],
 };
 
 const driverAreaType: InputType = {
@@ -61,32 +61,38 @@ const lastAreaType: InputType = {
 const defaultArgsTypes: Args = {
   index: indexType,
   selected: selectedType,
-  coachItem: coachItemType,
-  travelclass: travelClassType,
-  driverarea: driverAreaType,
+  coachId: coachIdType,
+  'travel-class': travelClassType,
+  'property-ids': propertyIdsType,
+  'driver-area': driverAreaType,
   first: firstAreaType,
   last: lastAreaType,
+};
+
+const defaultArgs: Args = {
+  'coach-id': mappedSeatReservation.coachItems[0].id,
+  'property-ids': JSON.stringify(mappedSeatReservation.coachItems[0].propertyIds),
 };
 
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgsTypes,
-  args: { ...defaultArgs, travelclass: 'SECOND' },
+  args: { ...defaultArgs, 'travel-class': 'SECOND' },
 };
 
 export const NavigationCoachFirstClassSelected: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, index: 0, selected: true, travelClass: 'FIRST' },
+  args: { ...defaultArgs, index: 0, selected: true, 'travel-class': 'FIRST' },
 };
 
 export const NavigationCoachSecondClassNotSelected: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, index: 0, selected: false, travelClass: 'SECOND' },
+  args: { ...defaultArgs, index: 0, selected: false, 'travel-class': 'SECOND' },
 };
 
 export const DriverArea: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, driverarea: true, coachItem: mappedSeatReservation.coachItems[3] },
+  args: { ...defaultArgs, 'driver-area': true, 'coach-id': mappedSeatReservation.coachItems[3].id },
 };
 
 export const FirstCoachInTrainFirstClass: StoryObj = {
@@ -94,7 +100,7 @@ export const FirstCoachInTrainFirstClass: StoryObj = {
   args: {
     ...defaultArgs,
     first: true,
-    travelclass: 'FIRST',
+    'travel-class': 'FIRST',
   },
 };
 

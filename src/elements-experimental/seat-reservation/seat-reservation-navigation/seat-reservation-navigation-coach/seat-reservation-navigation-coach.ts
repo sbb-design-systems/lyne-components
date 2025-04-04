@@ -4,14 +4,14 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing/event-emitte
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-
-import type { CoachItem } from '../../seat-reservation.js';
+import { choose } from 'lit/directives/choose.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
 import { getI18nSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/translations/i18n';
 import '../../seat-reservation-graphic/seat-reservation-graphic.js';
 import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
+import type { PlaceTravelClass } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation';
 
 /**
  * This component will display the navigation coach item for Seat reservation.
@@ -26,34 +26,35 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     selectCoach: 'selectCoach',
   } as const;
 
-  /* seat-reservation property */
   @forceType()
-  @property({ attribute: 'coach-item', type: Object })
-  public accessor coachItem: CoachItem = null!;
+  @property({ attribute: 'coach-id', type: String })
+  public accessor coachId: string = '';
+
+  @property({ attribute: 'property-ids', type: Array })
+  public accessor propertyIds: string[] = [];
 
   /* pre-selected Coach index property */
   @forceType()
-  @property({ attribute: 'selected', type: Boolean })
+  @property({ type: Boolean })
   public accessor selected: boolean = false;
 
   @forceType()
-  @property({ attribute: 'index', type: Number })
+  @property({ type: Number })
   public accessor index: number = 0;
 
-  @forceType()
-  @property({ attribute: 'travelclass', type: String })
-  public accessor travelclass: string = '';
+  @property({ attribute: 'travel-class', type: String })
+  public accessor travelClass: PlaceTravelClass = 'ANY_CLASS';
 
   @forceType()
-  @property({ attribute: 'driverarea', type: Boolean })
-  public accessor driverarea: boolean = false;
+  @property({ attribute: 'driver-area', type: Boolean })
+  public accessor driverArea: boolean = false;
 
   @forceType()
-  @property({ attribute: 'first', type: Boolean })
+  @property({ type: Boolean })
   public accessor first: boolean = false;
 
   @forceType()
-  @property({ attribute: 'last', type: Boolean })
+  @property({ type: Boolean })
   public accessor last: boolean = false;
 
   private _language = new SbbLanguageController(this);
@@ -76,61 +77,63 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       <div
         class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
       >
-        ${this._getNavigationButton(this.coachItem)}
-        ${!this.driverarea && this.coachItem.propertyIds?.length
+        ${this._getNavigationButton()}
+        ${!this.driverArea && this.propertyIds?.length
           ? html`<sbb-seat-reservation-navigation-services
-              .propertyIds="${this.coachItem.propertyIds}"
+              .propertyIds="${this.propertyIds}"
             ></sbb-seat-reservation-navigation-services>`
           : nothing}
       </div>
     `;
   }
 
-  private _getNavigationButton(coachItem: CoachItem): TemplateResult | null {
-    if (!coachItem) {
-      return null;
-    }
-
+  private _getNavigationButton(): TemplateResult | null {
     return html`
-      ${!this.driverarea
+      ${!this.driverArea
         ? html` <button
             type="button"
             class="sbb-seat-reservation-navigation__control-button"
             title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-              coachItem.id,
+              this.id,
             ])}"
             @click=${() => this._selectNavCoach(this.index)}
             @keydown="${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}"
           >
-            ${this._getBtnInformation(coachItem)}
+            ${this._getBtnInformation()}
           </button>`
         : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
     `;
   }
 
-  private _getBtnInformation(coachItem: CoachItem): TemplateResult | null {
-    if (!coachItem) {
-      return null;
-    }
-
+  private _getBtnInformation(): TemplateResult | null {
     return html`
-      ${this.travelclass.includes('FIRST')
+      ${this.travelClass === 'FIRST'
         ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
         : nothing}
-      ${!this.driverarea
-        ? html`
-            <div class="sbb-seat-reservation-navigation__additional-information">
-              <div class="sbb-seat-reservation-navigation__item-coach-number">${coachItem.id}</div>
-
-              ${this.travelclass.includes('FIRST')
-                ? html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">1</div>`
-                : this.travelclass.includes('SECOND')
-                  ? html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">
-                      2
-                    </div>`
-                  : nothing}
-            </div>
-          `
+      ${this.travelClass || this.coachId
+        ? html`<div class="sbb-seat-reservation-navigation__additional-information">
+            ${this.coachId
+              ? html`<div class="sbb-seat-reservation-navigation__item-coach-number">
+                  ${this.coachId}
+                </div>`
+              : nothing}
+            ${choose(this.travelClass, [
+              [
+                'FIRST',
+                () =>
+                  html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">
+                    1
+                  </div>`,
+              ],
+              [
+                'SECOND',
+                () =>
+                  html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">
+                    2
+                  </div>`,
+              ],
+            ])}
+          </div>`
         : nothing}
     `;
   }

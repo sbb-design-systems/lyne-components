@@ -1,4 +1,3 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -17,13 +16,12 @@ export
 class SbbSeatReservationNavigationServicesElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @forceType()
-  @property({ attribute: 'propertyids', type: String })
-  public accessor propertyIds: string = '';
+  @property({ attribute: 'property-ids', type: Array })
+  public accessor propertyIds: string[] = [];
 
   protected override render(): TemplateResult {
     return html`<div class="sbb-seat-reservation-navigation__signs">
-      ${this.propertyIds?.split(',').map((signIcon: string) => {
+      ${this.propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
             name=${signIcon ?? nothing}

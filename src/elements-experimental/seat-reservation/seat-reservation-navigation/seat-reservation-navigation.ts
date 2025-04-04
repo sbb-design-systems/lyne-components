@@ -21,7 +21,6 @@ class SbbSeatReservationNavigationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /* seat-reservation property */
-  @forceType()
   @property({ attribute: 'seat-reservation', type: Object })
   public accessor seatReservation: SeatReservation = null!;
 
@@ -48,9 +47,10 @@ class SbbSeatReservationNavigationElement extends LitElement {
               <sbb-seat-reservation-navigation-coach
                 index="${index}"
                 ?selected="${this.selectedCoachIndex === index}"
-                .coachItem="${coachItem}"
-                travelclass="${coachItem.travelClass}"
-                ?driverarea="${!coachItem.places?.length}"
+                coach-id="${coachItem.id}"
+                .propertyIds="${coachItem.propertyIds}"
+                travel-class="${coachItem.travelClass}"
+                ?driver-area="${!coachItem.places?.length}"
                 ?first="${index === 0}"
                 ?last="${index === this.seatReservation?.coachItems.length - 1}"
                 role="listitem"
