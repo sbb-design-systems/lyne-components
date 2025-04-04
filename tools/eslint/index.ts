@@ -16,6 +16,7 @@ export const rules = (
       'property-decorator-accessor-rule',
       'property-decorator-setter-initializer-rule',
       'property-type-rule',
+      'relative-imports-rule',
       'test-describe-title-rule',
       'test-tabkey-rule',
     ].map((name) =>
