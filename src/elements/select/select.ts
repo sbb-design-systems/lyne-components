@@ -794,6 +794,10 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
+    if (this._filteredOptions.length === 0) {
+      return;
+    }
+
     const nextIndex =
       index ?? getNextElementIndex(event, this._activeItemIndex, this._filteredOptions.length);
     const nextOption = this._filteredOptions[nextIndex];
