@@ -28,7 +28,7 @@ const selectedType: InputType = {
 };
 
 const coachIdType: InputType = {
-  control: 'object',
+  control: 'text',
   description: 'coach item id',
 };
 
