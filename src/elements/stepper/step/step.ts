@@ -60,10 +60,15 @@ class SbbStepElement extends LitElement {
 
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
+
+  // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
+  // For more details:
+  // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
+  // - https://github.com/juggle/resize-observer/issues/103#issuecomment-1711148285
   private _stepResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => this._onStepElementResize(),
+    callback: () => setTimeout(() => this._onStepElementResize()),
   });
 
   /** The label of the step. */
