@@ -4,7 +4,6 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing/event-emitte
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { choose } from 'lit/directives/choose.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
@@ -42,8 +41,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Number })
   public accessor index: number = 0;
 
-  @property({ attribute: 'travel-class', type: String })
-  public accessor travelClass: PlaceTravelClass = 'ANY_CLASS';
+  @property({ attribute: 'travel-class', type: Array })
+  public accessor travelClass: PlaceTravelClass[] = ['ANY_CLASS'];
 
   @forceType()
   @property({ attribute: 'driver-area', type: Boolean })
@@ -107,32 +106,21 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   private _getBtnInformation(): TemplateResult | null {
     return html`
-      ${this.travelClass === 'FIRST'
+      ${this.travelClass?.includes('FIRST')
         ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
         : nothing}
-      ${this.travelClass || this.coachId
+      ${this.travelClass?.length > 0 || this.coachId
         ? html`<div class="sbb-seat-reservation-navigation__additional-information">
             ${this.coachId
               ? html`<div class="sbb-seat-reservation-navigation__item-coach-number">
                   ${this.coachId}
                 </div>`
               : nothing}
-            ${choose(this.travelClass, [
-              [
-                'FIRST',
-                () =>
-                  html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">
-                    1
-                  </div>`,
-              ],
-              [
-                'SECOND',
-                () =>
-                  html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">
-                    2
-                  </div>`,
-              ],
-            ])}
+            ${this.travelClass?.includes('FIRST')
+              ? html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">1</div>`
+              : this.travelClass?.includes('SECOND')
+                ? html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">2</div>`
+                : nothing}
           </div>`
         : nothing}
     `;

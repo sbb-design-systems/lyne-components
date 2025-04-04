@@ -49,7 +49,7 @@ class SbbSeatReservationNavigationElement extends LitElement {
                 ?selected="${this.selectedCoachIndex === index}"
                 coach-id="${coachItem.id}"
                 .propertyIds="${coachItem.propertyIds}"
-                travel-class="${coachItem.travelClass}"
+                .travelClass="${coachItem.travelClass}"
                 ?driver-area="${!coachItem.places?.length}"
                 ?first="${index === 0}"
                 ?last="${index === this.seatReservation?.coachItems.length - 1}"

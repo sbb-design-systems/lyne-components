@@ -77,17 +77,17 @@ const defaultArgs: Args = {
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgsTypes,
-  args: { ...defaultArgs, 'travel-class': 'SECOND' },
+  args: { ...defaultArgs, 'travel-class': JSON.stringify(['SECOND']) },
 };
 
 export const NavigationCoachFirstClassSelected: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, index: 0, selected: true, 'travel-class': 'FIRST' },
+  args: { ...defaultArgs, index: 0, selected: true, 'travel-class': JSON.stringify(['FIRST']) },
 };
 
 export const NavigationCoachSecondClassNotSelected: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, index: 0, selected: false, 'travel-class': 'SECOND' },
+  args: { ...defaultArgs, index: 0, selected: false, 'travel-class': JSON.stringify(['SECOND']) },
 };
 
 export const DriverArea: StoryObj = {
@@ -100,7 +100,7 @@ export const FirstCoachInTrainFirstClass: StoryObj = {
   args: {
     ...defaultArgs,
     first: true,
-    'travel-class': 'FIRST',
+    'travel-class': JSON.stringify(['FIRST']),
   },
 };
 
