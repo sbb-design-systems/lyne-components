@@ -145,7 +145,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
             .width=${width}
             .height=${height}
             .rotation=${graphicRotation}
-            role="img"
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
           <span

@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { mapRawDataToSeatReservation } from '../common.js';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationNavigationElement } from './seat-reservation-navigation.js';
+import './seat-reservation-navigation.js';
 
 const seatReservationType: InputType = {
   control: { type: 'object' },
@@ -50,9 +50,6 @@ export const Navigation: StoryObj = {
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [SbbSeatReservationNavigationElement.events.selectCoach],
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
