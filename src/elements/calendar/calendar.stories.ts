@@ -125,7 +125,7 @@ const defaultArgTypes: ArgTypes = {
   min,
   max,
   dateFilter,
-  view: view,
+  view,
   now,
 };
 

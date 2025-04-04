@@ -255,19 +255,19 @@ const TemplateSbbTimeInput = ({
   </div>
 `;
 
-export const SbbTimeInputBase: StoryObj = {
+export const Default: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs },
 };
 
-export const SbbTimeInputWithIcons: StoryObj = {
+export const WithIcons: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgsWithIcons },
 };
 
-export const SbbTimeInputBorderless: StoryObj = {
+export const Borderless: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -276,7 +276,7 @@ export const SbbTimeInputBorderless: StoryObj = {
   },
 };
 
-export const SbbTimeInputDisabled: StoryObj = {
+export const Disabled: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -285,7 +285,7 @@ export const SbbTimeInputDisabled: StoryObj = {
   },
 };
 
-export const SbbTimeInputReadonly: StoryObj = {
+export const Readonly: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -294,7 +294,7 @@ export const SbbTimeInputReadonly: StoryObj = {
   },
 };
 
-export const SbbTimeInputWithError: StoryObj = {
+export const WithError: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -303,19 +303,19 @@ export const SbbTimeInputWithError: StoryObj = {
   },
 };
 
-export const SbbTimeInputNegative: StoryObj = {
+export const Negative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, negative: true },
 };
 
-export const SbbTimeInputWithIconsNegative: StoryObj = {
+export const WithIconsNegative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgsWithIcons, negative: true },
 };
 
-export const SbbTimeInputBorderlessNegative: StoryObj = {
+export const BorderlessNegative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -325,7 +325,7 @@ export const SbbTimeInputBorderlessNegative: StoryObj = {
   },
 };
 
-export const SbbTimeInputDisabledNegative: StoryObj = {
+export const DisabledNegative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -335,7 +335,7 @@ export const SbbTimeInputDisabledNegative: StoryObj = {
   },
 };
 
-export const SbbTimeInputReadonlyNegative: StoryObj = {
+export const ReadonlyNegative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
@@ -345,7 +345,7 @@ export const SbbTimeInputReadonlyNegative: StoryObj = {
   },
 };
 
-export const SbbTimeInputWithErrorNegative: StoryObj = {
+export const WithErrorNegative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
