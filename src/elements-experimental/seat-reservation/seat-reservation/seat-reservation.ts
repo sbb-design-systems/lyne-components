@@ -63,7 +63,7 @@ class SbbSeatReservationElement extends LitElement {
 
   private _language = new SbbLanguageController(this);
 
-  /** Emits when an place was selected by user. */
+  /** Emits when a place was selected by user. */
   protected selectedPlaces: EventEmitter<SeatReservationPlaceSelection[]> = new EventEmitter(
     this,
     SbbSeatReservationElement.events.selectedPlaces,
