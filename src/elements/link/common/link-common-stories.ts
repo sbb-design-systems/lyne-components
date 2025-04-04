@@ -196,7 +196,6 @@ export const linkDefaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
-  'disabled-interactive': disabledInteractive,
   'accessibility-label': accessibilityLabel,
 };
 
@@ -207,7 +206,6 @@ export const linkDefaultArgs: Args = {
   rel: undefined,
   download: false,
   disabled: false,
-  'disabled-interactive': false,
   'accessibility-label': undefined,
 };
 
