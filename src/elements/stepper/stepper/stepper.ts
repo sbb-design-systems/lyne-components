@@ -47,6 +47,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
       });
     },
   });
+  private _resizeAbortController!: AbortController;
 
   /** If set to true, only the current and previous labels can be clicked and selected. */
   @forceType()
@@ -235,6 +236,10 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
+  private _onSelectedStepResize(e: CustomEvent<void>): void {
+    this._setStepperHeight(e.target as SbbStepElement);
+  }
+
   private _configure(): void {
     const steps = this.steps;
     steps.forEach((s) => s.configure(this._loaded));
@@ -298,6 +303,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
+    this._resizeAbortController.abort();
     window.removeEventListener('resize', this._onStepperResize);
   }
 
@@ -307,6 +313,14 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     this._loaded = true;
     this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
     this._observer.observe(this);
+    this._resizeAbortController = new AbortController();
+    this.steps.forEach(
+      (step) =>
+        step.addEventListener('resizeChange', (e: CustomEvent<void>) =>
+          this._onSelectedStepResize(e),
+        ),
+      { signal: this._resizeAbortController.signal },
+    );
     this._checkOrientation();
     // Remove [data-disable-animation] after component init
     setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
