@@ -94,7 +94,6 @@ Therefore, we provide mixins you can build on top of:
 | `table-row--striped` | `sbb-table-row--striped` | Force the striped state on a `tr`           |
 | `table-header-row`   | `sbb-table-header-row`   | Header `tr` element style                   |
 | `table-header-cell`  | `sbb-table-header-cell`  | `th` element style                          |
-| `table-data-row`     | `sbb-table-data-row`     | Body `tr` element style                     |
 | `table-data-cell`    | `sbb-table-data-cell`    | `td` element style                          |
 | `table-caption`      | `sbb-table-caption`      | `caption` element style                     |
 | `table-filter`       | `sbb-table-filter`       | `th` element that contains an inline filter |
