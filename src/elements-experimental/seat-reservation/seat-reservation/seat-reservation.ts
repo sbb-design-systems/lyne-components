@@ -38,7 +38,6 @@ class SbbSeatReservationElement extends LitElement {
   } as const;
 
   /** seat reservation*/
-  @forceType()
   @property({ attribute: 'seat-reservation', type: Object })
   public accessor seatReservation: SeatReservation = null!;
 
