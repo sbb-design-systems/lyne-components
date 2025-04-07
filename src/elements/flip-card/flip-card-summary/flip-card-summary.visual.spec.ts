@@ -57,7 +57,10 @@ describe(`sbb-flip-card-summary`, () => {
                 </div>
               `);
 
-              await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!),
+              );
             }),
           );
         }

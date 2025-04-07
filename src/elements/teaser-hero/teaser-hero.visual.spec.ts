@@ -59,7 +59,9 @@ describe(`sbb-teaser-hero`, () => {
               </sbb-teaser-hero>
             `);
 
-            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            setup.withPostSetupAction(async () => {
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            });
           }),
         );
       }
@@ -73,7 +75,9 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -90,7 +94,10 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }
@@ -116,13 +123,15 @@ describe(`sbb-teaser-hero`, () => {
           </sbb-teaser-hero>
         `);
 
-        await Promise.all(
-          Array.from(
-            setup.snapshotElement.querySelectorAll<SbbImageElement | HTMLImageElement>(
-              'img,sbb-image',
-            ),
-          ).map((el) => waitForImageReady(el)),
-        );
+        setup.withPostSetupAction(async () => {
+          await Promise.all(
+            Array.from(
+              setup.snapshotElement.querySelectorAll<SbbImageElement | HTMLImageElement>(
+                'img,sbb-image',
+              ),
+            ).map((el) => waitForImageReady(el)),
+          );
+        });
       }),
     );
   });
