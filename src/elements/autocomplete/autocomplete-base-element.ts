@@ -100,6 +100,15 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       }
     },
   });
+  /** Listens to the changes on the `disabled` or `readonly` attribute of the trigger. */
+  private _triggerAttributeObserver = !isServer
+    ? new MutationObserver((mutations: MutationRecord[]): void => {
+        const input = mutations[0].target as HTMLInputElement;
+        if (input.hasAttribute('disabled') || input.hasAttribute('readonly')) {
+          this.close();
+        }
+      })
+    : null;
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerAbortController!: AbortController;
@@ -324,6 +333,11 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     if (this.triggerElement === originElement && this.isOpen) {
       this._setOverlayPosition(originElement);
     }
+
+    this._triggerAttributeObserver?.observe(this._triggerElement!, {
+      attributes: true,
+      attributeFilter: ['disabled', 'readonly'],
+    });
 
     this.setTriggerAttributes(this.triggerElement);
     this._triggerAbortController = new AbortController();
