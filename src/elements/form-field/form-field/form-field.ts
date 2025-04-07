@@ -9,7 +9,6 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
@@ -444,11 +443,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     }
     this.toggleAttribute('data-readonly', this._input.hasAttribute('readonly'));
     this.toggleAttribute('data-disabled', this._input.hasAttribute('disabled'));
-    if (this._input.hasAttribute('disabled')) {
-      this.querySelector<SbbAutocompleteBaseElement>(
-        'sbb-autocomplete,sbb-autocomplete-grid',
-      )?.close();
-    }
     this.toggleAttribute(
       'data-invalid',
       this._input.hasAttribute('data-sbb-invalid') ||
