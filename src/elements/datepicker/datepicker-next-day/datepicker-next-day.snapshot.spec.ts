@@ -35,7 +35,7 @@ describe(`sbb-datepicker-next-day`, () => {
         <div>
           <sbb-date-input id="datepicker-input" value="2022-12-31"></sbb-date-input>
           <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+          <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
         </div>
       `);
 
