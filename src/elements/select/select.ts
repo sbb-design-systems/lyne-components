@@ -559,15 +559,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
     this.parentElement!.insertBefore?.(this._triggerElement, this);
-
-    // We set some dimension to the element so that the screen reader's outline box looks more accurate.
-    if (this.closest?.('sbb-form-field')) {
-      this._triggerElement.style.top = '0px';
-    }
-    this._triggerElement.style.width = '100%';
-
-    // We set the smallest possible height (zero breakpoint, size s)
-    this._triggerElement.style.height = 'var(--sbb-size-element-xs)';
   }
 
   private _setOverlayPosition(): void {
@@ -931,7 +922,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
       <div
-        class="sbb-screen-reader-only"
+        class="sbb-screen-reader-only sbb-select-trigger"
         tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
         role="combobox"
         aria-haspopup="listbox"
