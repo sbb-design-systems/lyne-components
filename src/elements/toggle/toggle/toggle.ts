@@ -110,12 +110,13 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     }
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    await this.updateComplete;
-    this._loaded = true;
-    this.statusChanged();
+    this.updateComplete.then(() => {
+      this._loaded = true;
+      this.statusChanged();
+    });
   }
 
   /**

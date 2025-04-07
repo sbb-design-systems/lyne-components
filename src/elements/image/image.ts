@@ -380,14 +380,15 @@ class SbbImageElement extends LitElement {
     this._addFocusAbilityToLinksInCaption();
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     // We need to wait until the update is complete to check whether the image has already been completely loaded.
-    await this.updateComplete;
-    if (this.complete) {
-      this.toggleAttribute('data-loaded', true);
-    }
+    this.updateComplete.then(() => {
+      if (this.complete) {
+        this.toggleAttribute('data-loaded', true);
+      }
+    });
   }
 
   private _logPerformanceMarks(): void {

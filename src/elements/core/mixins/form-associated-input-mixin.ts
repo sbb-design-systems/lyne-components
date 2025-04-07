@@ -338,7 +338,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
-    protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
       super.firstUpdated(changedProperties);
 
       // If the value was assigned before firstUpdate, we have to
