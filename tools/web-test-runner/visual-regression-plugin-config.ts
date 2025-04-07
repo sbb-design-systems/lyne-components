@@ -13,7 +13,7 @@ const branch =
   process.env.BRANCH ??
   execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
 const baselineUrl = process.env.GITHUB_ACTIONS
-  ? 'http://visual-regression:8050/'
+  ? 'http://visual-regression:8080/'
   : 'https://lyne-visual-regression-baseline.app.sbb.ch/';
 
 // Importing distDir doesn't work
