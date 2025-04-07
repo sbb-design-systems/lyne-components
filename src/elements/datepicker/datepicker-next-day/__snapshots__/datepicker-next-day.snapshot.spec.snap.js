@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-datepicker-next-day renders DOM"] =
+snapshots["sbb-datepicker-next-day renders DOM"] = 
 `<sbb-datepicker-next-day
   aria-disabled="true"
   aria-label="Next day"
@@ -14,7 +14,7 @@ snapshots["sbb-datepicker-next-day renders DOM"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders DOM */
 
-snapshots["sbb-datepicker-next-day renders Shadow DOM"] =
+snapshots["sbb-datepicker-next-day renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-next-day">
   <sbb-icon
     aria-hidden="true"
@@ -27,7 +27,7 @@ snapshots["sbb-datepicker-next-day renders Shadow DOM"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders Shadow DOM */
 
-snapshots["sbb-datepicker-next-day renders with connected datepicker DOM"] =
+snapshots["sbb-datepicker-next-day renders with connected datepicker DOM"] = 
 `<sbb-datepicker-next-day
   aria-label="Change to the next day, currently selected December 31, 2022."
   data-action=""
@@ -40,7 +40,7 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker DOM"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected datepicker DOM */
 
-snapshots["sbb-datepicker-next-day renders with connected datepicker Shadow DOM"] =
+snapshots["sbb-datepicker-next-day renders with connected datepicker Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-next-day">
   <sbb-icon
     aria-hidden="true"
@@ -53,7 +53,7 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker Shadow DOM"
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected datepicker Shadow DOM */
 
-snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] =
+snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -70,7 +70,7 @@ snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders A11y tree Chrome */
 
-snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Chrome"] =
+snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -95,7 +95,7 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree C
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected datepicker A11y tree Chrome */
 
-snapshots["sbb-datepicker-next-day renders A11y tree Firefox"] =
+snapshots["sbb-datepicker-next-day renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -112,7 +112,7 @@ snapshots["sbb-datepicker-next-day renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders A11y tree Firefox */
 
-snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Firefox"] =
+snapshots["sbb-datepicker-next-day renders with connected datepicker A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
