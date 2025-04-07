@@ -560,11 +560,14 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     // Move the trigger before the sbb-select
     this.parentElement!.insertBefore?.(this._triggerElement, this);
 
-    // Set the invisible trigger element dimension to match the parent (needed for screen readers)
-    const containerElement = this.closest?.('sbb-form-field') ?? this;
-    this._triggerElement.style.top = '0px';
-    this._triggerElement.style.height = `${containerElement.offsetHeight}px`;
-    this._triggerElement.style.width = `${containerElement.offsetWidth}px`;
+    // We set some dimension to the element so that the screen reader's outline box looks more accurate.
+    if (this.closest?.('sbb-form-field')) {
+      this._triggerElement.style.top = '0px';
+    }
+    this._triggerElement.style.width = '100%';
+
+    // We set the smallest possible height (zero breakpoint, size s)
+    this._triggerElement.style.height = 'var(--sbb-size-element-xs)';
   }
 
   private _setOverlayPosition(): void {
