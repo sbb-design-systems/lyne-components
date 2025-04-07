@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.5.1...v2.6.0) (2025-04-07)
+
+
+### Features
+
+* **sbb-chip-group:** initial implementation ([#3382](https://github.com/sbb-design-systems/lyne-components/issues/3382)) ([7b1566c](https://github.com/sbb-design-systems/lyne-components/commit/7b1566c3406f5d748ed67b9f95ed6d0830f781ef))
+
+
+### Bug Fixes
+
+* avoid throwing on parsing invalid date ([#3514](https://github.com/sbb-design-systems/lyne-components/issues/3514)) ([39fd53f](https://github.com/sbb-design-systems/lyne-components/commit/39fd53f010445bd02d669d55fe05e36f021307e0))
+* **sbb-clock:** handle 'visibilityChange' when paused ([#3528](https://github.com/sbb-design-systems/lyne-components/issues/3528)) ([7d72849](https://github.com/sbb-design-systems/lyne-components/commit/7d7284962bface1f1bbbdc8eedab55cfe8baf8f4))
+* **sbb-menu:** fix positioning for a Webkit edge case ([#3529](https://github.com/sbb-design-systems/lyne-components/issues/3529)) ([b96dd56](https://github.com/sbb-design-systems/lyne-components/commit/b96dd565e38c98fe5199dc064de1599280c6015f))
+* **sbb-select, sbb-autocomplete:** edge cases related to disabled property ([#3539](https://github.com/sbb-design-systems/lyne-components/issues/3539)) ([1e06113](https://github.com/sbb-design-systems/lyne-components/commit/1e06113b6b56592785dac02eee651eecb28b95ea))
+* **sbb-select:** adapt trigger size in light DOM to be more flexible ([#3541](https://github.com/sbb-design-systems/lyne-components/issues/3541)) ([d637eb9](https://github.com/sbb-design-systems/lyne-components/commit/d637eb9ace81a06fa00d441523c5c8c5087b50d0)), closes [#3540](https://github.com/sbb-design-systems/lyne-components/issues/3540)
+* **sbb-step:** fix stepper height when content changes ([#3508](https://github.com/sbb-design-systems/lyne-components/issues/3508)) ([3e054f0](https://github.com/sbb-design-systems/lyne-components/commit/3e054f09f7ae11e6f59f5de0506a933385e2affb))
+* **sbb-timetable-row:** fix count of transfer procedures ([#3521](https://github.com/sbb-design-systems/lyne-components/issues/3521)) ([4a290ea](https://github.com/sbb-design-systems/lyne-components/commit/4a290ea02476ab3bbc5d6dbbb6f93ee23a3ef21c))
+* support img in sbb-figure context ([#3523](https://github.com/sbb-design-systems/lyne-components/issues/3523)) ([e896e14](https://github.com/sbb-design-systems/lyne-components/commit/e896e140c02d211ae56b4263ecda16a753d3360a))
+* synchronize id references ([#3505](https://github.com/sbb-design-systems/lyne-components/issues/3505)) ([3920913](https://github.com/sbb-design-systems/lyne-components/commit/39209132e25d9d496f5d42c1f42727b6b36e9533))
+
+
+### Documentation
+
+* minor fixes on stories ([#3534](https://github.com/sbb-design-systems/lyne-components/issues/3534)) ([e69979c](https://github.com/sbb-design-systems/lyne-components/commit/e69979cec9371df1c7d44a94731c766f3f9458fc))
+* remove deprecated 'date-picker' property from tests, stories and docs ([#3542](https://github.com/sbb-design-systems/lyne-components/issues/3542)) ([a31f8b3](https://github.com/sbb-design-systems/lyne-components/commit/a31f8b3c3ae760212411f5ef450776d9d2a4598b))
+
+
+### Code Refactoring
+
+* avoid `new` expression without assignment ([#3511](https://github.com/sbb-design-systems/lyne-components/issues/3511)) ([aadc652](https://github.com/sbb-design-systems/lyne-components/commit/aadc652315f7c8f0cd6ad9e821aa1e23e8bcb1e0))
+* replace initialized with hasUpdated ([#3512](https://github.com/sbb-design-systems/lyne-components/issues/3512)) ([645e28b](https://github.com/sbb-design-systems/lyne-components/commit/645e28b456a07cac6b8662cf04d7e0f617f82b4d))
+* **sbb-chip-group:** adapt module name from chip-group to chip ([#3533](https://github.com/sbb-design-systems/lyne-components/issues/3533)) ([53eaee1](https://github.com/sbb-design-systems/lyne-components/commit/53eaee18e089139d5d9bcbc66ec9d088059e70f1))
+* **sbb-date-input:** feature detect plaintext-only support ([#3506](https://github.com/sbb-design-systems/lyne-components/issues/3506)) ([7ad11c7](https://github.com/sbb-design-systems/lyne-components/commit/7ad11c7cf2214b5538ef62dc9e5e666019ed22bb))
+
 ## [2.5.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.5.0...v2.5.1) (2025-03-25)
 
 
