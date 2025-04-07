@@ -121,7 +121,10 @@ describe(`sbb-container`, () => {
                   </sbb-container>`,
                 );
 
-                await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!);
+                setup.withPostSetupAction(
+                  async () =>
+                    await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!),
+                );
               }),
             );
           }

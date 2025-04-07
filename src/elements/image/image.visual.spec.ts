@@ -32,7 +32,9 @@ describe(`sbb-image`, () => {
             html`<sbb-image image-src=${imageUrl} class="sbb-image-${aspectRatio}"></sbb-image>`,
           );
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -48,7 +50,9 @@ describe(`sbb-image`, () => {
           ></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -63,7 +67,9 @@ describe(`sbb-image`, () => {
             ></sbb-image>`,
           );
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -84,7 +90,9 @@ describe(`sbb-image`, () => {
           </figure>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -93,7 +101,9 @@ describe(`sbb-image`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`<sbb-image image-src=${sampleImages[8]}></sbb-image>`);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -104,7 +114,9 @@ describe(`sbb-image`, () => {
           html`<sbb-image image-src=${imageUrl} style="width: 200px; height: 200px"></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -118,7 +130,9 @@ describe(`sbb-image`, () => {
           </figure>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -132,7 +146,9 @@ describe(`sbb-image`, () => {
           ></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -146,7 +162,9 @@ describe(`sbb-image`, () => {
           ></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -157,7 +175,9 @@ describe(`sbb-image`, () => {
           html`<sbb-image skip-lqip image-src=${imageUrl} class="sbb-image-1-1"></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
   });
