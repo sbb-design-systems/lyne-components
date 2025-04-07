@@ -14,6 +14,7 @@
 }
 
 .sbb-table-wrapper {
+  height: 100%;
   overflow: auto;
   @include sbb.scrollbar($size: thick, $track-visible: true);
 
