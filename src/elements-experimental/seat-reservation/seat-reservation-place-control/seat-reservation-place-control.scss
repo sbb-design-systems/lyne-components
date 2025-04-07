@@ -1,11 +1,13 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
-  --reservation-place-control-rotation: var(--place-control-rotation-from-host, 0);
-  --reservation-place-control-text-rotation: var(--place-control-text-rotation-from-host, 0);
-  --reservation-place-control-text-size: calc(var(--place-control-text-scale-from-host, 1) * 0.5);
-  --reservation-place-control-seat-text-offset-horizontal: calc(
-    cos(var(--reservation-place-control-text-rotation) * 1deg) * -18%
+  --sbb-reservation-place-control-rotation: 0;
+  --sbb-reservation-place-control-text-rotation: 0;
+  --sbb-reservation-place-control-text-size: calc(
+    var(--sbb-place-control-text-scale-value, 1) * 0.5
+  );
+  --sbb-reservation-place-control-seat-text-offset-horizontal: calc(
+    cos(var(--sbb-reservation-place-control-text-rotation) * 1deg) * -18%
   );
 
   display: inline-block;
@@ -16,7 +18,7 @@
 
   position: relative;
   transform-origin: center;
-  transform: rotate(calc(var(--reservation-place-control-rotation) * 1deg));
+  transform: rotate(calc(var(--sbb-reservation-place-control-rotation) * 1deg));
 
   .sbb-seat-reservation-place-control--state-focused {
     background-color: var(--sbb-color-black);
@@ -27,7 +29,7 @@
 
     display: block;
     color: revert;
-    font-size: calc(var(--reservation-place-control-text-size) * 1rem);
+    font-size: calc(var(--sbb-reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
     #{$root}--state-focused {
@@ -57,15 +59,15 @@
   &__text {
     display: none;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
     overflow: hidden;
     min-width: 17px;
     letter-spacing: -0.0625em;
     text-align: center;
     transform-origin: center center;
     transform: translate(-50%, -50%)
-      rotate(calc(var(--reservation-place-control-text-rotation) * 1deg));
+      rotate(calc(var(--sbb-reservation-place-control-text-rotation) * 1deg));
     font-size: 0.75em;
     background-color: var(--sbb-color-white);
 
@@ -76,11 +78,11 @@
     }
 
     #{$root}--type-seat & {
-      text-indent: var(--reservation-place-control-seat-text-offset-horizontal);
+      text-indent: var(--sbb-reservation-place-control-seat-text-offset-horizontal);
     }
 
     #{$root}--type-bicycle & {
-      top: 65%;
+      inset-block-start: 65%;
     }
 
     #{$root}--state-allocated &,

@@ -95,15 +95,20 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     if (changedProperties.has('width') || changedProperties.has('height')) {
       this.style?.setProperty(
-        '--place-control-text-scale-from-host',
+        '--sbb-place-control-text-scale-value',
         `${Math.min(this.width, this.height)}`,
       );
     }
+
     if (changedProperties.has('textRotation')) {
-      this.style?.setProperty('--place-control-text-rotation-from-host', `${this.textRotation}`);
+      this.style?.setProperty(
+        '--sbb-reservation-place-control-text-rotation',
+        `${this.textRotation}`,
+      );
     }
+
     if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--place-control-rotation-from-host', `${this.rotation}`);
+      this.style?.setProperty('--sbb-reservation-place-control-rotation', `${this.rotation}`);
     }
 
     if (changedProperties.has('keyfocus')) {
