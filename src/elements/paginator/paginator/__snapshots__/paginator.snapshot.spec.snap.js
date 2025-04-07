@@ -546,9 +546,8 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-label="Items per page"
         aria-owns="sbb-select-2"
         aria-required="false"
-        class="sbb-screen-reader-only"
+        class="sbb-screen-reader-only sbb-select-trigger"
         role="combobox"
-        style="top: 0px; height: 48px; width: 56px;"
         tabindex="0"
       >
         10
@@ -726,9 +725,8 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-label="Items per page"
         aria-owns="sbb-select-2"
         aria-required="false"
-        class="sbb-screen-reader-only"
+        class="sbb-screen-reader-only sbb-select-trigger"
         role="combobox"
-        style="top: 0px; height: 48px; width: 56px;"
         tabindex="0"
       >
         10
