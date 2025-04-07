@@ -354,7 +354,7 @@ const DynamicHeightTemplate = (args: Args): TemplateResult => html`
         class="sbb-focus-outline"
         style="margin-block-end: var(--sbb-spacing-fixed-4x)"
       >
-        First step content: ${loremIpsum.substring(0, loremIpsumSubstring[1])}
+        First step content: ${loremIpsum.substring(0, loremIpsumSubstring[0])}
       </div>
       <div id="expandable" style="display: none; background-color: aliceblue; height: 400px;">
         Toggle this content.

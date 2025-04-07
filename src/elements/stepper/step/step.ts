@@ -56,6 +56,7 @@ class SbbStepElement extends LitElement {
   private _resizeChange: EventEmitter<void> = new EventEmitter(
     this,
     SbbStepElement.events.resizeChange,
+    { bubbles: true },
   );
 
   private _stepper: SbbStepperElement | null = null;
