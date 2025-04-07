@@ -461,3 +461,15 @@ sbb-sidebar:has(sbb-sidebar-title) {
 sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
   margin-block-start: var(--sbb-header-height);
 }
+
+// We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
+.sbb-select-trigger {
+  width: 100%;
+
+  // We set the smallest possible height (zero breakpoint, size s)
+  height: var(--sbb-size-element-xs);
+
+  sbb-form-field & {
+    top: 0;
+  }
+}
