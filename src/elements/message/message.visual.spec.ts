@@ -60,7 +60,10 @@ describe(`sbb-message`, () => {
             </sbb-message>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
 
@@ -85,7 +88,10 @@ describe(`sbb-message`, () => {
             </sbb-message>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }
@@ -122,7 +128,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -137,7 +145,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -158,7 +168,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
   });

@@ -92,8 +92,11 @@ describe(`sbb-teaser`, () => {
                       `,
                       { maxWidth: '760px' },
                     );
-                    await waitForImageReady(
-                      setup.snapshotElement.querySelector(imgCase.imgSelector)!,
+                    setup.withPostSetupAction(
+                      async () =>
+                        await waitForImageReady(
+                          setup.snapshotElement.querySelector(imgCase.imgSelector)!,
+                        ),
                     );
                   }),
                 );
@@ -126,7 +129,9 @@ describe(`sbb-teaser`, () => {
                   `,
                   { maxWidth: '760px' },
                 );
-                await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+                setup.withPostSetupAction(
+                  async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+                );
               }),
             );
           });
@@ -163,11 +168,13 @@ describe(`sbb-teaser`, () => {
             </sbb-container>
           `);
 
-          await Promise.all(
-            Array.from(setup.snapshotElement.querySelectorAll('img')).map((el) =>
-              waitForImageReady(el),
-            ),
-          );
+          setup.withPostSetupAction(async () => {
+            await Promise.all(
+              Array.from(setup.snapshotElement.querySelectorAll('img')).map((el) =>
+                waitForImageReady(el),
+              ),
+            );
+          });
         }),
       );
 
@@ -184,7 +191,9 @@ describe(`sbb-teaser`, () => {
             { forcedColors: true },
           );
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
 
@@ -206,7 +215,9 @@ describe(`sbb-teaser`, () => {
             `,
             { maxWidth: '760px' },
           );
-          await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+          );
         }),
       );
     });
