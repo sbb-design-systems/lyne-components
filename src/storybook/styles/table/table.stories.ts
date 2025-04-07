@@ -4,6 +4,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
+import '@sbb-esta/lyne-elements/form-field.js';
+
 import readme from './readme.md?raw';
 
 const size: InputType = {
@@ -78,9 +80,15 @@ const headerWithFilters: () => TemplateResult = () => html`
       <th>Age</th>
     </tr>
     <tr>
-      <th class="sbb-table-filter"><input /></th>
-      <th class="sbb-table-filter"><input /></th>
-      <th class="sbb-table-filter"><input /></th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
     </tr>
   </thead>
 `;
