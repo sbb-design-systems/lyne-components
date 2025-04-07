@@ -794,6 +794,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
+    // Prevent keyboard navigation if all options are disabled
     if (this._filteredOptions.length === 0) {
       return;
     }
