@@ -377,6 +377,33 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
+  it('close panel when input is disabled', async () => {
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.willClose, element);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteGridElement.events.didClose, element);
+
+    input.focus();
+
+    await willOpenEventSpy.calledOnce();
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(input).to.have.attribute('data-expanded');
+    expect(element).to.match(':popover-open');
+
+    input.toggleAttribute('disabled', true);
+
+    await willCloseEventSpy.calledOnce();
+    expect(willCloseEventSpy.count).to.be.equal(1);
+    await didCloseEventSpy.calledOnce();
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(input).not.to.have.attribute('data-expanded');
+    expect(element).not.to.match(':popover-open');
+  });
+
   it('should stay closed when readonly', async () => {
     input.toggleAttribute('readonly', true);
 
