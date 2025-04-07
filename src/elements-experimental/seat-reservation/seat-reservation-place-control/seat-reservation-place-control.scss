@@ -24,6 +24,7 @@
     @include sbb.button-reset;
 
     display: block;
+    color: revert;
     font-size: calc(var(--sbb-reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
