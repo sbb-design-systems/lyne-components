@@ -1,3 +1,6 @@
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.js';
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.js';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
@@ -6,10 +9,6 @@ import { meta } from 'virtual:meta';
 import type { ScreenshotFiles } from '../../../interfaces.js';
 
 import style from './image-diff.scss?lit&inline';
-
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.js';
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.js';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/status.js';

@@ -164,7 +164,7 @@ class SbbStepElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id = this.id || `sbb-step-${nextId++}`;
+    this.id ||= `sbb-step-${nextId++}`;
     this._stepper = this.closest('sbb-stepper');
     this._label = this._getStepLabel();
   }

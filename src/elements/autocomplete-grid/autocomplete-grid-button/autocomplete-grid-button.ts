@@ -53,17 +53,19 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
 
-      new MutationController(this, {
-        config: buttonObserverConfig,
-        callback: (mutationsList) => {
-          for (const mutation of mutationsList) {
-            if (mutation.attributeName === 'data-group-disabled') {
-              this._disabledFromGroup = this.hasAttribute('data-group-disabled');
-              this._updateAriaDisabled();
+      this.addController(
+        new MutationController(this, {
+          config: buttonObserverConfig,
+          callback: (mutationsList) => {
+            for (const mutation of mutationsList) {
+              if (mutation.attributeName === 'data-group-disabled') {
+                this._disabledFromGroup = this.hasAttribute('data-group-disabled');
+                this._updateAriaDisabled();
+              }
             }
-          }
-        },
-      });
+          },
+        }),
+      );
     }
   }
 

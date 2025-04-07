@@ -152,7 +152,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _originElement!: HTMLElement;
   private _triggerElement!: HTMLElement;
   private _openPanelEventsController!: AbortController;
-  private _sbbEscapableOverlayController = new SbbEscapableOverlayController(this);
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
@@ -199,10 +199,12 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       }
     });
 
-    new MutationController(this, {
-      config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
-      callback: () => this._syncAriaLabels(),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
+        callback: () => this._syncAriaLabels(),
+      }),
+    );
   }
 
   private _syncAriaLabels(): void {
@@ -557,12 +559,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
     this.parentElement!.insertBefore?.(this._triggerElement, this);
-
-    // Set the invisible trigger element dimension to match the parent (needed for screen readers)
-    const containerElement = this.closest?.('sbb-form-field') ?? this;
-    this._triggerElement.style.top = '0px';
-    this._triggerElement.style.height = `${containerElement.offsetHeight}px`;
-    this._triggerElement.style.width = `${containerElement.offsetWidth}px`;
   }
 
   private _setOverlayPosition(): void {
@@ -589,7 +585,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this.state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
-    this._sbbEscapableOverlayController.connect();
+    this._escapableOverlayController.connect();
     this.didOpen.emit();
   }
 
@@ -599,7 +595,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this._sbbEscapableOverlayController.disconnect();
+    this._escapableOverlayController.disconnect();
     this.didClose.emit();
   }
 
@@ -792,10 +788,17 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
+    const filteredOptions = this._filteredOptions;
+
+    // Prevent keyboard navigation if all options are disabled
+    if (filteredOptions.length === 0) {
+      return;
+    }
+
     const nextIndex =
-      index ?? getNextElementIndex(event, this._activeItemIndex, this._filteredOptions.length);
-    const nextOption = this._filteredOptions[nextIndex];
-    const activeOption = this._filteredOptions[this._activeItemIndex];
+      index ?? getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
+    const nextOption = filteredOptions[nextIndex];
+    const activeOption = filteredOptions[this._activeItemIndex];
 
     this._setActiveElement(nextOption, activeOption);
 
@@ -926,7 +929,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
       <div
-        class="sbb-screen-reader-only"
+        class="sbb-screen-reader-only sbb-select-trigger"
         tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
         role="combobox"
         aria-haspopup="listbox"

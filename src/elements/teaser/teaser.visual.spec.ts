@@ -134,7 +134,7 @@ describe(`sbb-teaser`, () => {
       }
 
       it(
-        'grid with sbb-image',
+        'grid with img',
         visualDiffDefault.with(async (setup) => {
           const count = 2;
           await setup.withFixture(html`
@@ -150,7 +150,7 @@ describe(`sbb-teaser`, () => {
                       style="--sbb-teaser-align-items: stretch;"
                     >
                       <figure slot="image" class="sbb-figure" style="width: 100%">
-                        <sbb-image image-src=${imageUrl}></sbb-image>
+                        <img alt="" src=${imageUrl} />
                         <sbb-chip-label class="sbb-figure-overlap-start-start">
                           AI chip
                         </sbb-chip-label>
@@ -164,7 +164,7 @@ describe(`sbb-teaser`, () => {
           `);
 
           await Promise.all(
-            Array.from(setup.snapshotElement.querySelectorAll('sbb-image')).map((el) =>
+            Array.from(setup.snapshotElement.querySelectorAll('img')).map((el) =>
               waitForImageReady(el),
             ),
           );

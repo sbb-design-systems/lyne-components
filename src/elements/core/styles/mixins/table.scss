@@ -18,9 +18,6 @@
     --sbb-table-caption-color: var(--sbb-color-granite);
     --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
 
-    background-color: var(--sbb-table-background-color);
-    border: var(--sbb-table-border);
-    border-radius: var(--sbb-table-border-radius);
     border-spacing: 0;
     caption-side: bottom;
     color: var(--sbb-table-color);
@@ -28,8 +25,32 @@
   }
 
   thead {
-    & > tr > th {
-      @include table-header-cell;
+    & > tr {
+      @include table-header-row;
+
+      &:first-of-type {
+        & > th {
+          border-block-start: var(--sbb-table-border);
+        }
+
+        // Border radius on top-left corner
+        & > th:first-of-type {
+          border-start-start-radius: var(--sbb-table-border-radius);
+        }
+
+        // Border radius on top-right corner
+        & > th:last-of-type {
+          border-start-end-radius: var(--sbb-table-border-radius);
+        }
+      }
+
+      & > th {
+        @include table-header-cell;
+
+        &:first-of-type {
+          border-inline-start: var(--sbb-table-border);
+        }
+      }
     }
   }
 
@@ -39,6 +60,22 @@
 
       & > td {
         @include table-data-cell;
+
+        &:first-of-type {
+          border-inline-start: var(--sbb-table-border);
+        }
+      }
+
+      &:last-of-type {
+        // Border radius on bottom-left corner
+        & > td:first-of-type {
+          border-end-start-radius: var(--sbb-table-border-radius);
+        }
+
+        // Border radius on bottom-right corner
+        & > td:last-of-type {
+          border-end-end-radius: var(--sbb-table-border-radius);
+        }
       }
     }
   }
@@ -48,40 +85,36 @@
   }
 }
 
-@mixin table-header-cell {
-  @include typo.text-xs--bold;
-
-  border-bottom: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
-  padding-block: var(--sbb-table-header-padding-block);
-  padding-inline: var(--sbb-table-header-padding-inline);
-  text-align: left;
-
-  // To avoid double border
-  &:last-of-type {
-    border-right: none;
+@mixin table-header-row {
+  // If there is more than one header row, only the last one has the bottom border
+  &:last-of-type > th {
+    border-bottom: var(--sbb-table-border);
   }
 }
 
+@mixin table-header-cell {
+  @include typo.text-xs--bold;
+
+  background-color: var(--sbb-table-background-color);
+  border-inline-end: var(--sbb-table-border);
+  padding-block: var(--sbb-table-header-padding-block);
+  padding-inline: var(--sbb-table-header-padding-inline);
+  text-align: left;
+}
+
+// @deprecated No longer used internally.
 @mixin table-data-row {
-  // To avoid double borders
-  &:first-of-type td {
-    border-top: none;
-  }
+  // empty
 }
 
 @mixin table-data-cell {
   @include typo.text-s--regular;
 
-  border-top: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  background-color: var(--sbb-table-background-color);
+  border-block-end: var(--sbb-table-border);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-cell-padding-block);
   padding-inline: var(--sbb-table-cell-padding-inline);
-
-  // To avoid double border
-  &:last-of-type {
-    border-right: none;
-  }
 }
 
 @mixin table-caption {
@@ -93,15 +126,19 @@
   text-align: left;
 }
 
+@mixin table-filter {
+  padding-block-start: 0 !important;
+}
+
 @mixin table--striped {
-  tbody tr:nth-child(odd) {
+  tbody tr:nth-child(odd) :is(th, td) {
     @include table-row--striped;
   }
 }
 
 @mixin table--unstriped {
-  tbody tr:nth-child(odd) {
-    background-color: unset;
+  tbody tr:nth-child(odd) :is(th, td) {
+    background-color: var(--sbb-table-background-color);
   }
 }
 

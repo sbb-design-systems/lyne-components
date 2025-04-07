@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { brotliCompress, gzip } from 'node:zlib';
 
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);

@@ -21,34 +21,65 @@ describe(`table`, () => {
     size: ['m', 's', 'xs'],
   };
 
+  const header = (): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Most interest in</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+  `;
+
+  const headerWithFilters = (): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Most interest in</th>
+        <th>Age</th>
+      </tr>
+      <tr>
+        <th class="sbb-table-filter"><input /></th>
+        <th class="sbb-table-filter"><input /></th>
+        <th class="sbb-table-filter"><input /></th>
+      </tr>
+    </thead>
+  `;
+
+  const body = (): TemplateResult => html`
+    <tbody>
+      <tr>
+        <td>Chris</td>
+        <td>HTML tables</td>
+        <td>22</td>
+      </tr>
+      <tr>
+        <td>Dennis</td>
+        <td>Web accessibility</td>
+        <td>45</td>
+      </tr>
+    </tbody>
+  `;
+
+  const caption = (): TemplateResult => html`
+    <caption>
+      Table caption
+    </caption>
+  `;
+
   const tableTemplate = (classInfo: ClassInfo): TemplateResult => html`
     <table class=${classMap(classInfo)}>
-      <thead>
-        <tr>
-          <th>Person</th>
-          <th>Most interest in</th>
-          <th>Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Chris</td>
-          <td>HTML tables</td>
-          <td>22</td>
-        </tr>
-        <tr>
-          <td>Dennis</td>
-          <td>Web accessibility</td>
-          <td>45</td>
-        </tr>
-      </tbody>
-      <caption>
-        Table caption
-      </caption>
+      ${header()} ${body()} ${caption()}
     </table>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  const tableWithFiltersTemplate = (classInfo: ClassInfo): TemplateResult => html`
+    <table class=${classMap(classInfo)}>
+      ${headerWithFilters()} ${body()} ${caption()}
+    </table>
+  `;
+
+  describeViewports({ viewports: ['medium'] }, () => {
     describeEach(cases, ({ negative, striped }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -78,6 +109,19 @@ describe(`table`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             tableTemplate({
+              'sbb-table-xs': size === 'xs',
+              'sbb-table-s': size === 's',
+              'sbb-table-m': size === 'm',
+            }),
+          );
+        }),
+      );
+
+      it(
+        `size=${size} inline-filters`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            tableWithFiltersTemplate({
               'sbb-table-xs': size === 'xs',
               'sbb-table-s': size === 's',
               'sbb-table-m': size === 'm',

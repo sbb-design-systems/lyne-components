@@ -44,13 +44,15 @@ abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin
   public constructor() {
     super();
 
-    new MutationController(this, {
-      config: {
-        attributes: true,
-        attributeFilter: ['data-negative'],
-      },
-      callback: () => this._onNegativeChange(),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: {
+          attributes: true,
+          attributeFilter: ['data-negative'],
+        },
+        callback: () => this._onNegativeChange(),
+      }),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {

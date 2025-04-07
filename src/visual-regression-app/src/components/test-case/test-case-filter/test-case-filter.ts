@@ -1,3 +1,4 @@
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -5,7 +6,6 @@ import { type ScreenshotTestCase } from '../../../screenshots.js';
 
 import style from './test-case-filter.scss?lit&inline';
 
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.js';
 import '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/tag.js';
 

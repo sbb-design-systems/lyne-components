@@ -24,14 +24,16 @@ class SbbFlipCardDetailsElement extends LitElement {
   public constructor() {
     super();
 
-    new MutationController(this, {
-      config: {
-        childList: true,
-        subtree: true,
-        attributes: true,
-      },
-      callback: () => this._checkForSlottedActions(),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: {
+          childList: true,
+          subtree: true,
+          attributes: true,
+        },
+        callback: () => this._checkForSlottedActions(),
+      }),
+    );
   }
 
   private _checkForSlottedActions(): void {

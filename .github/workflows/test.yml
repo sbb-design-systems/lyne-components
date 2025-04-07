@@ -33,6 +33,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+      options: --user 1001
     needs: setup
     env:
       max-segment: 5
@@ -47,8 +50,6 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Install browser dependencies
-        run: yarn playwright install-deps
       - name: Restore test artifacts
         uses: actions/download-artifact@v4
         with:

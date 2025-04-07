@@ -4,7 +4,7 @@
 .sbb-figure {
   @include image.figure;
 
-  :is(img, sbb-image, .sbb-image) {
+  :is(img, sbb-image, .sbb-image):not(.sbb-figure-overlap-image) {
     @include image.figure-image;
   }
 

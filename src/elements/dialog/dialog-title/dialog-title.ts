@@ -73,11 +73,7 @@ class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
     super();
     this.level = '2';
     this.visualLevel = '3';
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    new SbbFocusVisibleWithinController(this);
+    this.addController(new SbbFocusVisibleWithinController(this));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
