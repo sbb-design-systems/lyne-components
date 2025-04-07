@@ -168,10 +168,11 @@ class SbbStepElement extends LitElement {
     this._label = this._getStepLabel();
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    await this.updateComplete;
-    this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step') as HTMLElement);
+    this.updateComplete.then(() => {
+      this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step') as HTMLElement);
+    });
   }
 
   protected override render(): TemplateResult {
