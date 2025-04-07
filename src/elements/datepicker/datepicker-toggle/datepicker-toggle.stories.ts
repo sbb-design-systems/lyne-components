@@ -44,10 +44,7 @@ const defaultArgs: Args = {
 };
 
 const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html`
-  <sbb-datepicker-toggle
-    ${sbbSpread(args)}
-    date-picker=${picker || nothing}
-  ></sbb-datepicker-toggle>
+  <sbb-datepicker-toggle ${sbbSpread(args)} datepicker=${picker || nothing}></sbb-datepicker-toggle>
 `;
 
 const PickerAndButtonTemplate = (args: Args): TemplateResult => html`

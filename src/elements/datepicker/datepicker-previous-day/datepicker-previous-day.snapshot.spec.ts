@@ -34,7 +34,7 @@ describe(`sbb-datepicker-previous-day`, () => {
       const page = await fixture(html`
         <div>
           <sbb-date-input id="datepicker-input" value="2022-12-31"></sbb-date-input>
-          <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+          <sbb-datepicker-previous-day datepicker="datepicker"></sbb-datepicker-previous-day>
           <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
         </div>
       `);
