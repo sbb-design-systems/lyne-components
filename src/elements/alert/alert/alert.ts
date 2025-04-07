@@ -98,7 +98,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     }
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     this.open();

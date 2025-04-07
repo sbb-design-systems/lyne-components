@@ -301,15 +301,16 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     window.removeEventListener('resize', this._onStepperResize);
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    await this.updateComplete;
-    this._loaded = true;
-    this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
-    this._observer.observe(this);
-    this._checkOrientation();
-    // Remove [data-disable-animation] after component init
-    setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
+    this.updateComplete.then(() => {
+      this._loaded = true;
+      this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
+      this._observer.observe(this);
+      this._checkOrientation();
+      // Remove [data-disable-animation] after component init
+      setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
+    });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
