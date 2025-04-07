@@ -6,11 +6,11 @@ to a [sbb-calendar](/docs/elements-sbb-datepicker-sbb-calendar--docs):
 a change in the latter, like selecting a date, is propagated to the former; and conversely, changes in the `sbb-datepicker`
 properties, or in the date-picker's input attributes, are propagated to the `sbb-calendar` to modify its appearance.
 
-The components can be connected using the `datePicker` property, which accepts the id of the `sbb-datepicker`,
+The components can be connected using the `datepicker` property, which accepts the id of the `sbb-datepicker`,
 or directly its reference.
 
 ```html
-<sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+<sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
 <sbb-date-input id="datepicker-input"></sbb-date-input>
 <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
 ```
@@ -19,7 +19,7 @@ or directly its reference.
 
 If the two components are used within a [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs),
 they are automatically linked and the `sbb-datepicker-toggle` will be projected in the `prefix` slot of the `sbb-form-field`;
-otherwise, they can be connected using the `datePicker` property as described above.
+otherwise, they can be connected using the `datepicker` property as described above.
 
 ```html
 <sbb-form-field>

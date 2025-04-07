@@ -32,7 +32,7 @@ snapshots["sbb-datepicker-next-day renders with connected datepicker DOM"] =
   aria-label="Change to the next day, currently selected December 31, 2022."
   data-action=""
   data-button=""
-  date-picker="datepicker"
+  datepicker="datepicker"
   slot="suffix"
   tabindex="0"
 >
