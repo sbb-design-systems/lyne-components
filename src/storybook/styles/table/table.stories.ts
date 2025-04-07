@@ -4,7 +4,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
-import '@sbb-esta/lyne-elements/form-field.js';
+import '../../../elements/form-field.js';
 
 import readme from './readme.md?raw';
 
