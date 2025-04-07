@@ -20,10 +20,6 @@
   transform-origin: center;
   transform: rotate(calc(var(--sbb-reservation-place-control-rotation) * 1deg));
 
-  .sbb-seat-reservation-place-control--state-focused {
-    background-color: var(--sbb-color-black);
-  }
-
   &__button {
     @include sbb.button-reset;
 
