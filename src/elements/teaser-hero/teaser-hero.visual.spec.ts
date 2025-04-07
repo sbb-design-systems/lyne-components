@@ -59,7 +59,9 @@ describe(`sbb-teaser-hero`, () => {
               </sbb-teaser-hero>
             `);
 
-            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            setup.withPostSetupAction(async () => {
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            });
           }),
         );
       }
