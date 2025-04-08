@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.js';
+import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.private.js';
 
 import '../../action-group.js';
 import '../../form-field.js';

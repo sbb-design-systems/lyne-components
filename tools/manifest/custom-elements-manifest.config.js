@@ -8,12 +8,7 @@ export function createManifestConfig(library = '') {
   return {
     litelement: true,
     globs: [`src/${library}/**/*.ts`],
-    exclude: [
-      '**/*[.-]{stories,spec,test-utils}.ts',
-      '**/private/*',
-      '**/private.ts',
-      'vite.config.ts',
-    ],
+    exclude: ['**/(*.)?{stories,spec,private}.ts', '**/private/*', 'vite.config.ts'],
     outdir: `dist/${library}`,
     dependencies: false,
     packagejson: false,
@@ -211,40 +206,6 @@ export function createManifestConfig(library = '') {
               }
             }
           }
-          const reexportModules = [];
-          const moduleMapping = new Map();
-          for (const moduleEntry of customElementsManifest.modules) {
-            if (
-              !reexportModules.includes(moduleEntry) &&
-              moduleEntry.exports?.length &&
-              moduleEntry.exports.some((e) => e.name !== '*')
-            ) {
-              const reexportPath = moduleEntry.path.replace(/\/[\w-]+\.js/, '.js');
-              const reexportModule = customElementsManifest.modules.find(
-                (m) => m.path === reexportPath,
-              );
-              if (reexportModule) {
-                moduleMapping.set(moduleEntry.path, reexportModule.path);
-                reexportModules.push(reexportModule);
-                reexportModule.declarations.push(...moduleEntry.declarations);
-                for (const entry of moduleEntry.exports) {
-                  entry.declaration.module = reexportModule.path;
-                }
-                reexportModule.exports = reexportModule.exports.filter(
-                  (e) =>
-                    e.name !== '*' ||
-                    moduleEntry.path ===
-                      reexportModule.path.replace(/\/[\w-]+\.js/, '') +
-                        e.declaration.package.substring(2),
-                );
-                reexportModule.exports.push(...moduleEntry.exports);
-                customElementsManifest.modules = customElementsManifest.modules.filter(
-                  (m) => m !== moduleEntry,
-                );
-              }
-            }
-          }
-          fixModulePaths(customElementsManifest, (value) => moduleMapping.get(value) ?? value);
         },
       },
     ],

@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './a11y/arrow-navigation.js';
 export * from './a11y/fake-event-detection.js';
 export * from './a11y/focus-visible-within-controller.js';
