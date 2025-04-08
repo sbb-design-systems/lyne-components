@@ -45,7 +45,9 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     // Use querySelector with form and id selector, as the form property must
     // reference a valid <form> element
     return this._formId
-      ? ((this.ownerDocument?.querySelector?.(`form#${this._formId}`) as HTMLFormElement) ?? null)
+      ? (((this.getRootNode?.() as DocumentFragment | null)?.getElementById?.(
+          this._formId,
+        ) as HTMLFormElement) ?? null)
       : this.internals.form;
   }
   private _formId: string = '';
