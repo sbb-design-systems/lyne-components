@@ -6,7 +6,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../../common.js';
-import type { PlaceTravelClass } from '../../seat-reservation/index.js';
+import type { PlaceTravelClass } from '../../seat-reservation.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
@@ -83,8 +83,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       const selectedNavButtonElement = this.shadowRoot?.querySelector(
         '.sbb-seat-reservation-navigation__control-button',
       ) as HTMLButtonElement;
-      console.log('SELEKTIERT COACH', this.selected);
-      if (selectedNavButtonElement) {
+      if (this.selected && selectedNavButtonElement) {
         selectedNavButtonElement.focus();
         this.focusNavCoach.emit();
       }
@@ -94,7 +93,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       const focusedNavButtonElement = this.shadowRoot?.querySelector(
         '.sbb-seat-reservation-navigation__control-button',
       ) as HTMLButtonElement;
-      if (focusedNavButtonElement) {
+      if (this.focused && focusedNavButtonElement) {
         focusedNavButtonElement.focus();
       }
     }
@@ -103,17 +102,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const coachSelectedClass = this.selected
       ? 'sbb-seat-reservation-navigation__item-coach--selected'
       : '';
-
-    const coachFocusedClass = this.focused
-      ? 'sbb-seat-reservation-navigation__item-coach--focused'
-      : '';
-
     const lastCoachInLayout = this.last ? 'last-coach' : '';
     const firstCoachInLayout = this.first ? 'first-coach' : '';
 
     return html`
       <div
-        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${coachFocusedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
+        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
       >
         ${this._getNavigationButton()}
         ${!this.driverArea && this.propertyIds?.length
@@ -132,7 +126,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
             type="button"
             class="sbb-seat-reservation-navigation__control-button"
             title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-              this.id,
+              this.coachId,
             ])}"
             @click=${() => this._selectNavCoach(this.index)}
           >

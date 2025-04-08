@@ -24,11 +24,11 @@
     @include sbb.button-reset;
 
     display: block;
-    font-size: calc(var(--reservation-place-control-text-size) * 1rem);
+    font-size: calc(var(--sbb-reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
     #{$root}--state-focused {
-      background-color: black;
+      background-color: var(--sbb-color-black);
     }
 
     #{$root}:focus,

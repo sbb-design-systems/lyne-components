@@ -868,9 +868,7 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   private _onSelectNavCoach(event: CustomEvent): void {
-    console.log('NAV COACH SELECTED');
     const selectedNavCoachIndex = event.detail as number;
-    console.log(selectedNavCoachIndex, this._currSelectedCoachIndex);
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this._currSelectedCoachIndex) {
       this._currSelectedPlace = null;
       this._unfocusPlaceElement();
@@ -909,7 +907,6 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   private _onFocusNavCoach(): void {
-    console.log('ONFOCUAS NAV COACH', this._preventCoachScrollByPlaceClick);
     if (!this._preventCoachScrollByPlaceClick) {
       this._preselectFirstPlaceInCoach();
     } else {
@@ -951,7 +948,6 @@ class SbbSeatReservationElement extends LitElement {
 
   private _preselectFirstPlaceInCoach(): void {
     const closestPlace = this._getClosestPlaceByKeyDirection();
-    console.log(closestPlace);
     if (closestPlace) {
       this._focusPlaceElement(closestPlace);
     }
