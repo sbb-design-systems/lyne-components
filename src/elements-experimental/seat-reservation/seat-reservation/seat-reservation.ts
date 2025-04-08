@@ -1,24 +1,21 @@
-import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
+//import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type {
   CoachItem,
   Place,
   ElementDimension,
-  ElementPosition,
-  SeatReservation,
   BaseElement,
   PlaceSelection,
-  SeatReservationPlaceSelection,
-  PlaceState,
+  SeatReservation,
 } from '../seat-reservation.js';
 
+import { SeatReservationService } from './seat-reservation-service.js';
 import style from './seat-reservation.scss?lit&inline';
 
 import '../seat-reservation-area.js';
@@ -33,60 +30,35 @@ import '../seat-reservation-navigation/seat-reservation-navigation-coach/seat-re
  */
 export
 @customElement('sbb-seat-reservation')
-class SbbSeatReservationElement extends LitElement {
+class SbbSeatReservationElement extends SeatReservationService {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    selectedPlaces: 'selectedPlaces',
-  } as const;
 
   /** seat reservation*/
   @property({ attribute: 'seat-reservation', type: Object })
-  public accessor seatReservation: SeatReservation = null!;
-
-  /** Maximal number of possible clickable seats*/
-  @forceType()
-  @property({ attribute: 'max-reservations', type: Number })
-  public accessor maxReservations: number = null!;
+  public override accessor seatReservation: SeatReservation = null!;
 
   /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
-  public accessor alignVertical: boolean = false;
+  public override accessor alignVertical: boolean = false;
+
+  @forceType()
+  @property({ attribute: 'scale', type: Number })
+  public override accessor scale: number = 1;
+
+  /** Maximal number of possible clickable seats*/
+  @forceType()
+  @property({ attribute: 'max-reservations', type: Number })
+  public override accessor maxReservations: number = null!;
 
   /** Any click functionality is prevented*/
   @forceType()
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
-  @forceType()
-  @property({ attribute: 'scale', type: Number })
-  public accessor scale: number = 1;
-
   private _language = new SbbLanguageController(this);
 
-  /** Emits when a place was selected by user. */
-  protected selectedPlaces: EventEmitter<SeatReservationPlaceSelection[]> = new EventEmitter(
-    this,
-    SbbSeatReservationElement.events.selectedPlaces,
-  );
-
-  @state() private accessor _selectedCoachIndex: number = -1;
-  @state() private accessor _focusedCoachIndex: number = -1;
-
-  private _maxHeight = 128;
-  private _gridSize = 8;
-  private _gridSizeFactor = this._maxHeight / this._gridSize;
-  private _coachBorderPadding = 6;
-  private _coachBorderPaddingUnit = this._coachBorderPadding / 16;
-  private _selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
-  private _triggerCoachPositionsCollection: number[][] = [];
-  private _coachScrollArea: HTMLElement = null!;
-  private _currSelectedPlace: Place | null = null;
-  private _currSelectedPlaceElementId: string | null = null;
-  private _currSelectedCoachIndex: number = -1;
   private _coachesHtmlTemplate?: TemplateResult;
-  private _scrollMoveDirection: boolean = true;
-  private _preventCoachScrollByPlaceClick: boolean = false;
   private _notAreaElements = [
     'DRIVER_AREA_FULL',
     'COACH_PASSAGE',
@@ -96,14 +68,6 @@ class SbbSeatReservationElement extends LitElement {
     'COMPARTMENT_PASSAGE_LOW',
     'COACH_BORDER_OUTER',
   ];
-  private _keyboardNavigationEvents = {
-    ArrowLeft: 'ArrowLeft',
-    ArrowRight: 'ArrowRight',
-    ArrowUp: 'ArrowUp',
-    ArrowDown: 'ArrowDown',
-    Tab: 'Tab',
-    Enter: 'Enter',
-  } as const;
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -116,7 +80,7 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   private _componentSetup(): void {
-    this._initNavigationSelectionByScrollEvent();
+    this.initNavigationSelectionByScrollEvent();
   }
 
   private _initVehicleSeatReservationConstruction(): void {
@@ -134,7 +98,7 @@ class SbbSeatReservationElement extends LitElement {
       <div class="sbb-seat-reservation">
         <div
           class="sbb-seat-reservation__wrapper ${classAlignVertical}"
-          @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+          @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
         >
           <nav>
             <ul
@@ -151,8 +115,8 @@ class SbbSeatReservationElement extends LitElement {
                     @focusCoach=${() => this._onFocusNavCoach()}
                     index="${index}"
                     coach-id="${coachItem.id}"
-                    .selected=${this._selectedCoachIndex === index}
-                    .focused=${this._focusedCoachIndex === index}
+                    .selected=${this.selectedCoachIndex === index}
+                    .focused=${this.focusedCoachIndex === index}
                     .propertyIds="${coachItem.propertyIds}"
                     .travelClass="${coachItem.travelClass}"
                     ?driver-area="${!coachItem.places?.length}"
@@ -193,7 +157,7 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
-    const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
+    const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     return html`
       <style>
         .coach-wrapper[data-coach-id='${coachItem.id}-${calculatedCoachDimension.w}-${calculatedCoachDimension.h}'] {
@@ -226,15 +190,15 @@ class SbbSeatReservationElement extends LitElement {
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
     const borderOffsetX =
       coachIndex === 0 && driverArea
-        ? driverArea?.dimension.w * this._gridSizeFactor
-        : this._gridSizeFactor;
+        ? driverArea?.dimension.w * this.gridSizeFactor
+        : this.gridSizeFactor;
 
     return html`
       <style>
         .coach-border[data-coach-border-id='${coachItem.id}'] {
           position: absolute;
           left: ${borderOffsetX}px;
-          top: ${this._coachBorderPadding * -1}px;
+          top: ${this.coachBorderPadding * -1}px;
           z-index: 0;
         }
       </style>
@@ -242,7 +206,7 @@ class SbbSeatReservationElement extends LitElement {
         <sbb-seat-reservation-graphic
           name="COACH_BORDER_MIDDLE"
           width=${borderWidth}
-          height=${coachItem.dimension.h + this._coachBorderPaddingUnit * 2}
+          height=${coachItem.dimension.h + this.coachBorderPaddingUnit * 2}
           ?stretch=${true}
           role="presentation"
         ></sbb-seat-reservation-graphic>
@@ -291,8 +255,8 @@ class SbbSeatReservationElement extends LitElement {
     );
 
     return places?.map((place: Place, index: number) => {
-      const calculatedInternalDimension = this._getCalculatedDimension(place.dimension);
-      const calculatedInternalPosition = this._getCalculatedPosition(place.position);
+      const calculatedInternalDimension = this.getCalculatedDimension(place.dimension);
+      const calculatedInternalPosition = this.getCalculatedPosition(place.position);
       const textRotation = place.rotation ? place.rotation * -1 : 0;
 
       return html`
@@ -363,13 +327,13 @@ class SbbSeatReservationElement extends LitElement {
       graphicalElement.icon || '',
       this._language.current,
     );
-    const calculatedDimension = this._getCalculatedDimension(
+    const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
       true,
       stretchHeight,
     );
-    const calculatedPosition = this._getCalculatedPosition(
+    const calculatedPosition = this.getCalculatedPosition(
       graphicalElement.position,
       graphicalElement.dimension,
       coachDimension,
@@ -377,11 +341,11 @@ class SbbSeatReservationElement extends LitElement {
     );
 
     let elementMounting = 'FREE';
-    if (graphicalElement.position.y === this._coachBorderPaddingUnit * -1) {
+    if (graphicalElement.position.y === this.coachBorderPaddingUnit * -1) {
       elementMounting = 'UPPER_BORDER';
     } else if (
       graphicalElement.position.y + graphicalElement.dimension.h ===
-      coachDimension.h + this._coachBorderPaddingUnit
+      coachDimension.h + this.coachBorderPaddingUnit
     ) {
       elementMounting = 'LOWER_BORDER';
     }
@@ -426,11 +390,11 @@ class SbbSeatReservationElement extends LitElement {
     rotation: number,
     coachDimension: ElementDimension,
   ): TemplateResult {
-    const calculatedDimension = this._getCalculatedDimension(
+    const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
     );
-    const calculatedPosition = this._getCalculatedPosition(
+    const calculatedPosition = this.getCalculatedPosition(
       graphicalElement.position,
       graphicalElement.dimension,
       coachDimension,
@@ -479,10 +443,10 @@ class SbbSeatReservationElement extends LitElement {
     }
 
     return serviceElements?.map((serviceElement: BaseElement) => {
-      const calculatedcCmpartmentNumberDimension = this._getCalculatedDimension(
+      const calculatedcCmpartmentNumberDimension = this.getCalculatedDimension(
         serviceElement.dimension,
       );
-      const calculatedcCmpartmentNumberPosition = this._getCalculatedPosition(
+      const calculatedcCmpartmentNumberPosition = this.getCalculatedPosition(
         serviceElement.position,
       );
       return html`
@@ -511,368 +475,24 @@ class SbbSeatReservationElement extends LitElement {
     });
   }
 
-  /* Init scroll event handling for coach navigation */
-  private _initNavigationSelectionByScrollEvent(): void {
-    this._coachScrollArea = this.shadowRoot?.getElementById(
-      'sbb-seat-reservation__parent-area',
-    ) as HTMLElement;
-
-    if (this._coachScrollArea) {
-      let currCalcTriggerPos = 0;
-      const coachScrollWidth = this._coachScrollArea.getBoundingClientRect().width;
-
-      //Precalculate trigger scroll position array depends from coach width
-      this._triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
-        const fromPos = currCalcTriggerPos;
-        currCalcTriggerPos += this._getCalculatedDimension(coach.dimension).w * this.scale;
-        return [fromPos, currCalcTriggerPos];
-      });
-
-      //Add scroll event listener to coach navigation trigger points
-      this._coachScrollArea.addEventListener('scroll', () => {
-        const scrollOffsetX = this._coachScrollArea.scrollLeft + coachScrollWidth / 3;
-        const selectedCoachIndex = this._triggerCoachPositionsCollection.findIndex(
-          ([triggerPosFrom, triggerPosTo]: number[]) =>
-            scrollOffsetX >= triggerPosFrom && scrollOffsetX <= triggerPosTo,
-        );
-
-        if (selectedCoachIndex !== this._currSelectedCoachIndex) {
-          this._currSelectedCoachIndex = selectedCoachIndex;
-        }
-      });
-
-      this._coachScrollArea.addEventListener('scrollend', () => {
-        this._selectedCoachIndex = this._currSelectedCoachIndex;
-        this._focusedCoachIndex = -1;
-        this._preventCoachScrollByPlaceClick = false;
-      });
-    }
-  }
-
-  /**
-   * Initialisation of Keyboard event handling to navigation between each places inside a selected coach by using [arrow] keys.
-   * The [Enter] key allows the user to select or deselect a focused place.
-   * With the [TAB] key the user navigation goes to the next coach navigation element and the currently selected place is automatically reset.
-   */
-  private _handleKeyboardEvent(event: KeyboardEvent): void {
-    const pressedKey = event.key;
-    // If any place is selected and TAB Key combination ist pressed,
-    // then we handle the next or previous coach selection
-    if (this._currSelectedPlace) {
-      if (event.shiftKey && event.keyCode === 9) {
-        this._navigateCoachNavigationByKeyboard('PREV_TAB');
-        event.preventDefault();
-        return;
-      }
-
-      if (pressedKey === this._keyboardNavigationEvents.Tab) {
-        this._navigateCoachNavigationByKeyboard('NEXT_TAB');
-        event.preventDefault();
-        return;
-      }
-    }
-
-    if (isArrowKeyOrPageKeysPressed(event)) {
-      event.preventDefault();
-      switch (pressedKey) {
-        case this._keyboardNavigationEvents.Enter:
-          {
-            this._togglePlaceSelectionByKeyboard();
-          }
-          break;
-        case this._keyboardNavigationEvents.ArrowLeft:
-          {
-            const pressedLeftKeyMapping: string = this.alignVertical
-              ? this._keyboardNavigationEvents.ArrowDown
-              : pressedKey;
-            this._navigateToPlaceByKeyboard(pressedLeftKeyMapping);
-          }
-          break;
-        case this._keyboardNavigationEvents.ArrowRight:
-          {
-            const pressedRightKeyMapping: string = this.alignVertical
-              ? this._keyboardNavigationEvents.ArrowUp
-              : pressedKey;
-            this._navigateToPlaceByKeyboard(pressedRightKeyMapping);
-          }
-          break;
-        case this._keyboardNavigationEvents.ArrowUp:
-          {
-            const pressedUpKeyMapping: string = this.alignVertical
-              ? this._keyboardNavigationEvents.ArrowLeft
-              : pressedKey;
-            this._navigateToPlaceByKeyboard(pressedUpKeyMapping);
-          }
-          break;
-        case this._keyboardNavigationEvents.ArrowDown:
-          {
-            const pressedDownKeyMapping: string = this.alignVertical
-              ? this._keyboardNavigationEvents.ArrowRight
-              : pressedKey;
-            this._navigateToPlaceByKeyboard(pressedDownKeyMapping);
-          }
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
-  // Handling for Tab navigation if an place is selected inside the coach.
-  // This controls the focused coach from the current selected coach.
-  private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
-    const currFocusIndex =
-      this._focusedCoachIndex === -1 ? this._currSelectedCoachIndex : this._focusedCoachIndex;
-    //Check next or prev TAB is pressed, then we have to find the next available coach index to focusable
-    const newFocusableIndex: number =
-      tabDirection === 'NEXT_TAB'
-        ? this._getNextAvailableCoachIndex(currFocusIndex)
-        : this._getPrevAvailableCoachIndex(currFocusIndex);
-
-    if (newFocusableIndex !== this._currSelectedCoachIndex) {
-      this._focusedCoachIndex = newFocusableIndex;
-    } else {
-      this._focusedCoachIndex = -1;
-      this._selectedCoachIndex = newFocusableIndex;
-      this._focusPlaceElement(this._currSelectedPlace);
-    }
-
-    //TODO - Control TAB navigation to the last input element
-    /*if(tabDirection === 'NEXT_TAB' && currFocusIndex === newFocusedIndex){
-      console.log("focus LAST element");
-    
-      this._currSelectedPlace = null;
-      this._currSelectedPlaceElementId = null;  
-      this._selectedCoachIndex = -1;
-      this._focusedCoachIndex = newFocusedIndex;
-      
-      
-      this.shadowRoot?.getElementById('last-tab-element')?.focus();
-      return;
-    }
-    //TODO - Control TAB navigation to the first input element
-    if(tabDirection === 'PREV_TAB' && currFocusIndex === newFocusedIndex){
-      console.log("focus FIRST element");
-    
-      this._currSelectedPlace = null;
-      this._currSelectedPlaceElementId = null;  
-      this._selectedCoachIndex = -1;
-      this._focusedCoachIndex = newFocusedIndex;
-      
-      this.shadowRoot?.getElementById('first-tab-element')?.focus();
-
-      return;
-    }*/
-  }
-
   private _onFocusPlace(): void {
     //TODO - If place got focus by TAB and no coach is selected, we have to set the focus to the last input element jump out of seat reservation by TAB
     //Place got a tab focus, so we jumps out from the seatreservation and set the focus to the fake input field, so the user does not tab throught all seats until the last tabable place is reached.
     //if(this._selectedCoachIndex === -1){
-    //  this._preventCoachScrollByPlaceClick = true;
-    //this._currSelectedCoachIndex = 4;
+    //  this.preventCoachScrollByPlaceClick = true;
+    //this.currSelectedCoachIndex = 4;
     //this._focusedCoachIndex = 4;
-    //console.log("SEAT RESERVATION -> focus LAST TAB Input Element",this._currSelectedCoachIndex)
+    //console.log("SEAT RESERVATION -> focus LAST TAB Input Element",this.currSelectedCoachIndex)
     //this.shadowRoot?.getElementById('last-tab-element')?.focus();
     //}
   }
 
-  private _togglePlaceSelectionByKeyboard(): void {
-    // If the focus is on a navigation coach during an enter key event, then we scroll to the focused coach
-    if (this._focusedCoachIndex !== -1) {
-      this._preventCoachScrollByPlaceClick = false;
-      this._unfocusPlaceElement();
-      this._scrollToSelectedNavCoach(this._focusedCoachIndex);
-    }
-    // If no focus is set to a coach, then we try to toggle the currently selected place status -> FREE | SELECTED
-    else {
-      const placeElement = this._getPlaceHtmlElement();
-      const hasPLaceFocus = placeElement?.getAttribute('keyfocus');
-
-      this._preventCoachScrollByPlaceClick = false;
-
-      if (placeElement && hasPLaceFocus === 'focus' && this._currSelectedPlace) {
-        const selectedState: PlaceState =
-          placeElement.getAttribute('state') === 'FREE' ? 'SELECTED' : 'FREE';
-        placeElement.setAttribute('state', selectedState);
-
-        const placeSelection = {
-          id: this._currSelectedPlaceElementId,
-          number: this._currSelectedPlace.number,
-          coachIndex: this._currSelectedCoachIndex,
-          state: selectedState,
-        } as PlaceSelection;
-        this._updateSelectedSeatReservationPlaces(placeSelection);
-      }
-    }
-  }
-
-  private _navigateToPlaceByKeyboard(pressedKey: string): void {
-    this._preventCoachScrollByPlaceClick = false;
-    const places = this.seatReservation.coachItems[this._currSelectedCoachIndex].places;
-    if (places && places.length) {
-      const findClosestPlace = this._getClosestPlaceByKeyDirection(pressedKey);
-
-      if (findClosestPlace) {
-        this._focusPlaceElement(findClosestPlace);
-      }
-      //No clostest place found by key navigation
-      else {
-        if (
-          pressedKey === this._keyboardNavigationEvents.ArrowRight ||
-          pressedKey === this._keyboardNavigationEvents.ArrowLeft ||
-          (this.alignVertical &&
-            (pressedKey === this._keyboardNavigationEvents.ArrowUp ||
-              pressedKey === this._keyboardNavigationEvents.ArrowDown))
-        ) {
-          //Check the current pressed key to get the next available coach index
-          const newSelectedCoachIndex =
-            pressedKey === this._keyboardNavigationEvents.ArrowRight
-              ? this._getNextAvailableCoachIndex()
-              : this._getPrevAvailableCoachIndex();
-          this._scrollToSelectedNavCoach(newSelectedCoachIndex);
-        }
-      }
-    }
-  }
-
-  private _getNextAvailableCoachIndex(currentIndex?: number): number {
-    const startIndex = currentIndex ?? this._currSelectedCoachIndex;
-    let nextIndex = startIndex;
-    for (let i = startIndex + 1; i < this.seatReservation.coachItems.length; i++) {
-      const places = this.seatReservation.coachItems[i].places;
-      if (places && places.length > 0) {
-        nextIndex = i;
-        break;
-      }
-    }
-    return nextIndex;
-  }
-
-  private _getPrevAvailableCoachIndex(currentIndex?: number): number {
-    const startIndex = currentIndex ?? this._currSelectedCoachIndex;
-    let prevIndex = startIndex;
-    for (let i = startIndex - 1; i >= 0; i--) {
-      const places = this.seatReservation.coachItems[i].places;
-      if (places && places.length > 0) {
-        prevIndex = i;
-        break;
-      }
-    }
-    return prevIndex;
-  }
-
-  /**
-   * Get the first place of current selected coach by table cell coordinate 0-0 id.
-   * @returns Place or null
-   */
-  private _getFirstPlaceInSelecedCoach(): Place | null {
-    let firstPlace: Place | null = null;
-    const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
-    const firstCellId = 'cell-' + this._currSelectedCoachIndex + '-0-0';
-    const placeNumber =
-      this.shadowRoot
-        ?.getElementById(firstCellId)
-        ?.querySelector('sbb-seat-reservation-place-control')
-        ?.getAttribute('text') || null;
-
-    if (coach && placeNumber) {
-      firstPlace = coach.places?.find((place) => place.number === placeNumber) || null;
-    }
-    return firstPlace;
-  }
-
-  /**
-   * To get the correct closest place of current pressed key and the current selected place,
-   * we have to investigate the coordinates of each place to find the closest place of the _currSelectedPlaceElementId.
-   * @param pressedKey
-   * @returns Place or null
-   */
-  private _getClosestPlaceByKeyDirection(pressedKey?: string): Place | null {
-    const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
-    let closestPlace = null;
-    if (coach.places) {
-      //If no place set, then wen use initial the left-top place on the coach
-      if (!this._currSelectedPlaceElementId) {
-        return this._getFirstPlaceInSelecedCoach();
-      } else {
-        if (this._currSelectedPlace) {
-          for (const place of coach.places) {
-            // If key pressed, then we try to find the place of the current scrollMoveDirection
-            if (!pressedKey) {
-              //Find place from the left side of coach by y coordinate. Current ScrollMoveDirection is RIGHT)
-              if (
-                this._scrollMoveDirection &&
-                place.position.y === this._currSelectedPlace?.position.y &&
-                (!closestPlace || place.position.x < closestPlace.position.x)
-              ) {
-                closestPlace = place;
-              }
-              //Find place from the right side of coach by y coordinate. Current ScrollMoveDirection is LEFT
-              else if (
-                !this._scrollMoveDirection &&
-                place.position.y === this._currSelectedPlace?.position.y &&
-                (!closestPlace || place.position.x > closestPlace.position.x)
-              ) {
-                closestPlace = place;
-              }
-            } else {
-              if (place.number !== this._currSelectedPlace?.number) {
-                //Key [Right] navigation, we check the place coordinates of the x-axis to get the smallest larger x place coordinate of the currently selected place
-                if (
-                  pressedKey === this._keyboardNavigationEvents.ArrowRight &&
-                  (place.position.y === this._currSelectedPlace.position.y ||
-                    place.position.y === this._currSelectedPlace.position.y - 1) &&
-                  place.position.x > this._currSelectedPlace.position.x &&
-                  (!closestPlace || place.position.x < closestPlace.position.x)
-                ) {
-                  closestPlace = place;
-                }
-                //Key [Down] navigation, we check the place coordinates of the y-axis to get the smallest larger y place coordinate of the currently selected place
-                else if (
-                  pressedKey === this._keyboardNavigationEvents.ArrowDown &&
-                  (place.position.x === this._currSelectedPlace.position.x ||
-                    place.position.x === this._currSelectedPlace.position.x + 1) &&
-                  place.position.y > this._currSelectedPlace.position.y &&
-                  (!closestPlace || place.position.y < closestPlace.position.y)
-                ) {
-                  closestPlace = place;
-                }
-                //Key [Left] navigation, we check the place coordinates of the x-axis to get the greatest smaller x place coordinate of the currently selected place
-                else if (
-                  pressedKey === this._keyboardNavigationEvents.ArrowLeft &&
-                  (place.position.y === this._currSelectedPlace.position.y ||
-                    place.position.y === this._currSelectedPlace.position.y + 1) &&
-                  place.position.x < this._currSelectedPlace.position.x &&
-                  (!closestPlace || place.position.x > closestPlace.position.x)
-                ) {
-                  closestPlace = place;
-                }
-                //Key [Up] navigation, we check the place coordinates of the y-axis to get the greatest smaller y place coordinate of the currently selected place
-                else if (
-                  pressedKey === this._keyboardNavigationEvents.ArrowUp &&
-                  (place.position.x === this._currSelectedPlace.position.x ||
-                    place.position.x === this._currSelectedPlace.position.x - 1) &&
-                  place.position.y < this._currSelectedPlace?.position.y &&
-                  (!closestPlace || place.position.y > closestPlace.position.y)
-                ) {
-                  closestPlace = place;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    return closestPlace;
-  }
-
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
-    if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this._currSelectedCoachIndex) {
-      this._currSelectedPlace = null;
-      this._unfocusPlaceElement();
-      this._scrollToSelectedNavCoach(selectedNavCoachIndex);
+    if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
+      this.currSelectedPlace = null;
+      this.unfocusPlaceElement();
+      this.scrollToSelectedNavCoach(selectedNavCoachIndex);
     }
   }
 
@@ -883,236 +503,32 @@ class SbbSeatReservationElement extends LitElement {
    */
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
     const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
-    if (
-      this._focusedCoachIndex === -1 ||
-      this._focusedCoachIndex === this._currSelectedCoachIndex
-    ) {
-      // _preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
-      this._preventCoachScrollByPlaceClick = true;
+    if (this.focusedCoachIndex === -1 || this.focusedCoachIndex === this.currSelectedCoachIndex) {
+      // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
+      this.preventCoachScrollByPlaceClick = true;
       if (!this.disable) {
         const place = this.seatReservation.coachItems[currSelectedPlace.coachIndex].places?.find(
           (place) => place.number == currSelectedPlace.number,
         );
 
         //Add place to place collection
-        this._updateSelectedSeatReservationPlaces(currSelectedPlace);
+        this.updateSelectedSeatReservationPlaces(currSelectedPlace);
 
         if (place) {
-          this._selectedCoachIndex = currSelectedPlace.coachIndex;
-          this._currSelectedCoachIndex = currSelectedPlace.coachIndex;
-          this._currSelectedPlace = place;
+          this.selectedCoachIndex = currSelectedPlace.coachIndex;
+          this.currSelectedCoachIndex = currSelectedPlace.coachIndex;
+          this.currSelectedPlace = place;
         }
       }
     }
   }
 
   private _onFocusNavCoach(): void {
-    if (!this._preventCoachScrollByPlaceClick) {
-      this._preselectFirstPlaceInCoach();
+    if (!this.preventCoachScrollByPlaceClick) {
+      this.preselectFirstPlaceInCoach();
     } else {
-      this._focusPlaceElement(this._currSelectedPlace);
+      this.focusPlaceElement(this.currSelectedPlace);
     }
-  }
-
-  private _scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
-    if (selectedNavCoachIndex !== this._currSelectedCoachIndex) {
-      const scrollToCoachPosX = this._triggerCoachPositionsCollection[selectedNavCoachIndex][0];
-      this._coachScrollArea = this.shadowRoot?.getElementById(
-        'sbb-seat-reservation__parent-area',
-      ) as HTMLElement;
-      // Set the scroll move direction
-      // True => move dirction RIGHT
-      // false => move dirction LEFT
-      this._scrollMoveDirection = this._currSelectedCoachIndex < selectedNavCoachIndex;
-      this._currSelectedCoachIndex = selectedNavCoachIndex;
-
-      // Check the difference between scrolloffset the current selected coach offset.
-      // If scrolloffset diffrence extist we can scroll to position, otherwise we select directly the new coach index
-      //const scrollContainerWidth = this._coachScrollArea.getBoundingClientRect().width;
-
-      //TODO -> Bei großen Bildschirmen ist das scrollen noch nicht korrekt. Es muss hier geprüft werden ob überhaupt gescrollt werden kann, oder ob der _selectedCoachIndex direkt gleich gesetz werden muss -> else
-      //const areaScrollable = (scrollContainerWidth + this._coachScrollArea.scrollLeft, scrollToCoachPosX);
-      //if(areaScrollable && scrollToCoachPosX !== this._coachScrollArea.scrollLeft){
-      if (scrollToCoachPosX !== this._coachScrollArea.scrollLeft) {
-        this._coachScrollArea.scrollTo({
-          top: 0,
-          left: scrollToCoachPosX,
-          behavior: 'smooth',
-        });
-      } else {
-        this._selectedCoachIndex = this._currSelectedCoachIndex;
-        this._focusedCoachIndex = -1;
-      }
-    }
-  }
-
-  private _preselectFirstPlaceInCoach(): void {
-    const closestPlace = this._getClosestPlaceByKeyDirection();
-    if (closestPlace) {
-      this._focusPlaceElement(closestPlace);
-    }
-  }
-
-  private _updateSelectedSeatReservationPlaces(placeSelection: PlaceSelection): void {
-    //Add selected place to selectedSeatReservationPlaces
-    if (placeSelection.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
-      if (seatReservationSelection) {
-        this._selectedSeatReservationPlaces.push(seatReservationSelection);
-      }
-    }
-    //Remove selected place from selectedSeatReservationPlaces
-    else {
-      this._selectedSeatReservationPlaces = this._selectedSeatReservationPlaces.filter(
-        (_selectedPlace) => _selectedPlace.id !== placeSelection.id,
-      );
-    }
-
-    //Checks whether maxReservation is activated and the maximum number of selected places is reached
-    if (this.maxReservations && this._selectedSeatReservationPlaces.length > this.maxReservations) {
-      this._resetAllPlaceSelections(placeSelection);
-    }
-
-    //Emits the seat reservation place selection
-    this.selectedPlaces.emit(this._selectedSeatReservationPlaces);
-  }
-
-  private _getSeatReservationPlaceSelection(
-    currSelectedPlace: PlaceSelection,
-  ): SeatReservationPlaceSelection | null {
-    const coach = this.seatReservation.coachItems[currSelectedPlace.coachIndex];
-    const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
-
-    if (!place) {
-      return null;
-    }
-
-    return {
-      id: currSelectedPlace.id,
-      coachId: coach.id,
-      coachNumber: coach.number,
-      coachIndex: currSelectedPlace.coachIndex,
-      placeNumber: place.number,
-      placeType: place.type,
-      placeTravelClass: place.travelClass || 'ANY_CLASS',
-      propertyIds: place.propertyIds || [],
-    };
-  }
-
-  /**
-   * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
-   * @param currSelectedPlace
-   */
-  private _resetAllPlaceSelections(currSelectedPlace?: PlaceSelection): void {
-    //Find all places to be needed unselect
-    for (const placeSelection of this._selectedSeatReservationPlaces) {
-      if (!currSelectedPlace || currSelectedPlace.id !== placeSelection.id) {
-        const placeElement = this.shadowRoot?.getElementById(placeSelection.id) as HTMLElement;
-        placeElement.setAttribute('state', 'FREE');
-      }
-    }
-    //Removes all selected places except the currently selected place
-    if (currSelectedPlace) {
-      this._selectedSeatReservationPlaces = this._selectedSeatReservationPlaces.filter(
-        (_selectedPlace) => _selectedPlace.id === currSelectedPlace.id,
-      );
-    } else {
-      this._selectedSeatReservationPlaces = [];
-    }
-  }
-
-  private _focusPlaceElement(place: Place | null, coachIndex?: number): void {
-    this._unfocusPlaceElement();
-    if (place) {
-      this._currSelectedPlace = place;
-      if (coachIndex) {
-        this._currSelectedCoachIndex = coachIndex;
-      }
-
-      this._setCurrSelectedPlaceElementId(place);
-
-      const selectedPlaceElement = this._getPlaceHtmlElement();
-      if (selectedPlaceElement) {
-        selectedPlaceElement.setAttribute('keyfocus', 'focus');
-      }
-    }
-  }
-
-  private _unfocusPlaceElement(): void {
-    const selectedPlaceElement = this._getPlaceHtmlElement();
-    if (selectedPlaceElement) {
-      selectedPlaceElement.setAttribute('keyfocus', 'unfocus');
-      this._setCurrSelectedPlaceElementId(null);
-    }
-  }
-
-  private _setCurrSelectedPlaceElementId(place: Place | null): void {
-    if (place) {
-      this._currSelectedPlaceElementId =
-        'seat-reservation__place-button-' + this._currSelectedCoachIndex + '-' + place.number;
-    } else {
-      this._currSelectedPlaceElementId = null;
-    }
-  }
-
-  /**
-   * Returns the current selected place HTML element by given placeNumber and coachIndex.
-   * If both doesnt exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
-   * @param placeNumber optional as string
-   * @param coachIndex optional as string
-   * @returns HTMLElement or null
-   */
-  private _getPlaceHtmlElement(placeNumber?: string, coachIndex?: number): HTMLElement | null {
-    const currCoachIndex = coachIndex ? coachIndex : this._currSelectedCoachIndex;
-    const coachPlaceNumberId = placeNumber
-      ? 'seat-reservation__place-button-' + currCoachIndex + '-' + placeNumber
-      : this._currSelectedPlaceElementId;
-    return coachPlaceNumberId ? this.shadowRoot?.getElementById(coachPlaceNumberId) || null : null;
-  }
-
-  private _getCalculatedDimension(
-    elementDimension: ElementDimension,
-    coachDimension?: ElementDimension,
-    isOriginHeight?: boolean,
-    isStretchHeight?: boolean,
-  ): ElementDimension {
-    if (coachDimension && !isOriginHeight) {
-      elementDimension.h += this._coachBorderPaddingUnit * 2;
-    }
-
-    if (isStretchHeight) {
-      elementDimension.h += this._coachBorderPaddingUnit;
-    }
-
-    return {
-      w: this._gridSizeFactor * elementDimension.w,
-      h: this._gridSizeFactor * elementDimension.h,
-    };
-  }
-
-  private _getCalculatedPosition(
-    elementPosition: ElementPosition,
-    elementDimension?: ElementDimension,
-    coachDimension?: ElementDimension,
-    isOriginHeight?: boolean,
-  ): ElementPosition {
-    if (coachDimension && elementDimension) {
-      const endPosHeight = isOriginHeight
-        ? coachDimension.h
-        : coachDimension.h + this._coachBorderPaddingUnit;
-      //If the original element is positioned at the top or bottom of the coach, we need to recalculate the Y coordinate with the additional border padding
-      if (elementPosition.y === 0) {
-        elementPosition.y -= this._coachBorderPaddingUnit;
-      } else if (elementPosition.y + elementDimension.h === endPosHeight) {
-        elementPosition.y += this._coachBorderPaddingUnit;
-      }
-    }
-
-    return {
-      x: this._gridSizeFactor * elementPosition.x,
-      y: this._gridSizeFactor * elementPosition.y,
-      z: elementPosition.z,
-    };
   }
 }
 
