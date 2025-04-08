@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.js';
 
 import '../../icon.js';
-import './icon-sidebar-button.js';
+import './icon-sidebar-button.component.js';
 
 describe(`sbb-icon-sidebar-button`, () => {
   let root: HTMLElement;

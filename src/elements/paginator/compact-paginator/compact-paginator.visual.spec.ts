@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
-import './compact-paginator.js';
+import './compact-paginator.component.js';
 
 describe('sbb-compact-paginator', () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {

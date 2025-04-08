@@ -6,7 +6,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './icon-sidebar-link.js';
+import './icon-sidebar-link.component.js';
 
 const Template = ({ currentPage, ...args }: Args): TemplateResult => {
   return html`<sbb-icon-sidebar-link

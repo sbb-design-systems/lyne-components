@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import '../../button.js';
 import '../../card.js';
 import '../../icon.js';
-import './checkbox-panel.js';
+import './checkbox-panel.component.js';
 
 import readme from './readme.md?raw';
 

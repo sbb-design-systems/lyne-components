@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbFormFieldElement } from './form-field.js';
+import { SbbFormFieldElement } from './form-field.component.js';
 
 describe(`sbb-form-field ssr`, () => {
   let root: SbbFormFieldElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-form-field><input /></sbb-form-field>`, {
-      modules: ['./form-field.js'],
+      modules: ['./form-field.component.js'],
     });
   });
 

@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './logo.js';
+import './logo.component.js';
 
 describe(`sbb-logo`, () => {
   const cases = {

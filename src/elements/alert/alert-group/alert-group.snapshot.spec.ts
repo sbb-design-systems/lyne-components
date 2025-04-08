@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAlertGroupElement } from './alert-group.js';
+import type { SbbAlertGroupElement } from './alert-group.component.js';
 
-import './alert-group.js';
+import './alert-group.component.js';
 import '../alert.js';
 
 describe(`sbb-alert-group`, () => {

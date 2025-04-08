@@ -10,7 +10,7 @@ import {
 } from '../../core/testing/private.js';
 
 import '../../form-field.js';
-import './mini-button.js';
+import './mini-button.component.js';
 
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;

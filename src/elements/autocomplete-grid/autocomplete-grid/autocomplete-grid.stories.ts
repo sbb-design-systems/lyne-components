@@ -15,7 +15,7 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
 import readme from './readme.md?raw';
 
 import '../autocomplete-grid-row.js';

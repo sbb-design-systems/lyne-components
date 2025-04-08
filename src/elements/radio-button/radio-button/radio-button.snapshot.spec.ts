@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbRadioButtonElement } from './radio-button.js';
+import type { SbbRadioButtonElement } from './radio-button.component.js';
 
-import './radio-button.js';
+import './radio-button.component.js';
 
 describe(`sbb-radio-button`, () => {
   let element: SbbRadioButtonElement;

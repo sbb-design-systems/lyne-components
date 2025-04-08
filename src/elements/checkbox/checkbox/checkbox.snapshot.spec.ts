@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbCheckboxElement } from './checkbox.js';
+import type { SbbCheckboxElement } from './checkbox.component.js';
 
-import './checkbox.js';
+import './checkbox.component.js';
 
 describe(`sbb-checkbox`, () => {
   let element: SbbCheckboxElement;

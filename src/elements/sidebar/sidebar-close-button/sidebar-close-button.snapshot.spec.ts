@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbSidebarCloseButtonElement } from './sidebar-close-button.js';
-import './sidebar-close-button.js';
+import type { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
+import './sidebar-close-button.component.js';
 
 describe(`sbb-sidebar-close-button`, () => {
   describe('renders', () => {

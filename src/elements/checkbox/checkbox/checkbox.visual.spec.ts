@@ -6,7 +6,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './checkbox.js';
+import './checkbox.component.js';
 
 describe('sbb-checkbox', () => {
   const defaultArgs = {

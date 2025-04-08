@@ -9,7 +9,7 @@ import '../../button/secondary-button.js';
 import '../../card.js';
 import '../../image.js';
 import '../../title.js';
-import './container.js';
+import './container.component.js';
 
 import readme from './readme.md?raw';
 

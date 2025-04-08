@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './table-wrapper/table-wrapper.js';
+export * from './table-wrapper/table-wrapper.component.js';

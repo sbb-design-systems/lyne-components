@@ -6,9 +6,9 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './mini-button-group.js';
+import './mini-button-group.component.js';
 import '../mini-button.js';
-import '../../divider/divider.js';
+import '../../divider/divider.component.js';
 
 describe('sbb-mini-button-group', () => {
   const sizeCases = ['s', 'm', 'l', 'xl'];

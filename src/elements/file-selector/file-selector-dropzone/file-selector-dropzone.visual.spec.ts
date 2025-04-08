@@ -9,8 +9,8 @@ import {
 } from '../../core/testing/private.js';
 
 import '../../form-error.js';
-import './file-selector-dropzone.js';
-import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.js';
+import './file-selector-dropzone.component.js';
+import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
 
 describe(`sbb-file-selector-dropzone`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorDropzoneElement): void {

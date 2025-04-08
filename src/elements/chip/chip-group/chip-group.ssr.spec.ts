@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 
-import { SbbChipGroupElement } from './chip-group.js';
+import { SbbChipGroupElement } from './chip-group.component.js';
 import '../chip.js';
 import '../../form-field.js';
 
@@ -21,7 +21,7 @@ describe(`sbb-chip-group ssr`, () => {
         <input />
       </sbb-form-field>`,
       {
-        modules: ['./chip-group.js', '../chip.js', '../../form-field.js'],
+        modules: ['./chip-group.component.js', '../chip.js', '../../form-field.js'],
       },
     );
     element = root.querySelector('sbb-chip-group')!;

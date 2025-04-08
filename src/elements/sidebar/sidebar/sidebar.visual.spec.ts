@@ -3,7 +3,8 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 import { waitForCondition } from '../../core/testing.js';
-import type { SbbSidebarElement } from '../../sidebar.js';
+
+import type { SbbSidebarElement } from './sidebar.component.js';
 
 import '../../header.js';
 import '../../link/block-link.js';

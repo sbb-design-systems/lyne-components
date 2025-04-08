@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import type { SbbImageElement } from './image.js';
+import type { SbbImageElement } from './image.component.js';
 
-import './image.js';
+import './image.component.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

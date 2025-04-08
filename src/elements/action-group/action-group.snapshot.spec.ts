@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbActionGroupElement } from './action-group.js';
-import './action-group.js';
+import type { SbbActionGroupElement } from './action-group.component.js';
+import './action-group.component.js';
 import '../button/secondary-button.js';
 import '../link/block-link.js';
 

@@ -1,4 +1,4 @@
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.js';
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.component.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 

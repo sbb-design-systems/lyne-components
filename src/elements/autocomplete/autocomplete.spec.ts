@@ -9,7 +9,7 @@ import { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
 import { inputAutocompleteEvent } from './autocomplete-base-element.js';
-import { SbbAutocompleteElement } from './autocomplete.js';
+import { SbbAutocompleteElement } from './autocomplete.component.js';
 
 describe(`sbb-autocomplete`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;

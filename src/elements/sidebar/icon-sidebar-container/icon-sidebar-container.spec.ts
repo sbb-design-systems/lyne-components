@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import type { SbbSidebarElement } from '../sidebar.js';
 
-import { SbbIconSidebarContainerElement } from './icon-sidebar-container.js';
+import { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.js';
 
 import '../../sidebar.js';
 

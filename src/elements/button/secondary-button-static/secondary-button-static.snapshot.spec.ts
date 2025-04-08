@@ -6,9 +6,9 @@ import {
   buttonTestTemplate,
 } from '../common/button-test-utils.private.js';
 
-import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.js';
+import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.component.js';
 
-import './secondary-button-static.js';
+import './secondary-button-static.component.js';
 
 describe(`sbb-secondary-button-static`, () => {
   let element: SbbSecondaryButtonStaticElement;

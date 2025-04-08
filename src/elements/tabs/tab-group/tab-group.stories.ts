@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.js';
+import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
 
 import '../../link.js';
 import '../../title.js';

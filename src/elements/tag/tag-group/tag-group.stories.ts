@@ -9,7 +9,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbTagElement, SbbTagGroupElement } from '../../tag.js';
 
 import readme from './readme.md?raw';
-import './tag-group.js';
+import './tag-group.component.js';
 import '../tag.js';
 import '../../action-group.js';
 import '../../button.js';
