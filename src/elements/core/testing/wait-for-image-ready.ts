@@ -14,34 +14,25 @@ export async function waitForImageReady(
     throw new Error('img tag not found');
   }
 
-  if (!element.complete) {
+  if (!imgElement.complete) {
     await new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => reject('image loading timeout'), timeoutInMilliseconds);
-      element.addEventListener('load', () => {
+      imgElement.addEventListener('load', () => {
         clearTimeout(timeout);
 
-        imgElement.decode().then(() => {
-          if (isSafari && element.localName === 'sbb-image') {
-            // On a test page this is only happening once (first time an image is loaded). Therefore, the impact is very small.
-            setTimeout(resolve, 100);
-          } else {
-            resolve();
-          }
-        });
+        if (!imgElement.complete || isSafari) {
+          imgElement.decode().then(() => resolve());
+        } else {
+          resolve();
+        }
       });
 
-      element.addEventListener('error', () => {
+      imgElement.addEventListener('error', () => {
         clearTimeout(timeout);
         reject('image error');
       });
     });
-  } else {
-    await imgElement.decode().then(() => {
-      // Safari is not always ready to display the image right after the decoded Promise resolves.
-      // We have to wait another 100 milliseconds.
-      if (isSafari && element.localName === 'sbb-image') {
-        return new Promise((resolve) => setTimeout(resolve, 100));
-      }
-    });
+  } else if (isSafari) {
+    await imgElement.decode();
   }
 }
