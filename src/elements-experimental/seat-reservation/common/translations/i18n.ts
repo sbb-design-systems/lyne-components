@@ -145,6 +145,43 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: "Internet gratuit avec l'application SBB FreeSurf",
     it: "Internet gratuito con l'app SBB FreeSurf",
   },
+  //PLACE CONTROL ARIA LABEL
+  PLACE_CONTROL_FREE: {
+    de: 'Sitzplatz Nummer _param0_ ist frei',
+    en: 'Seat number _param0_ is free',
+    fr: 'Le siège numéro _param0_ est libre',
+    it: 'Il posto numero _param0_ è libero',
+  },
+  PLACE_CONTROL_SELECTED: {
+    de: 'Sitzplatz Nummer _param0_ ist ausgewählt',
+    en: 'Seat number _param0_ is selected',
+    fr: 'Le numéro de siège _param0_ est sélectionné',
+    it: 'Il numero di posto _param0_ è selezionato',
+  },
+  PLACE_CONTROL_BIKE_FREE: {
+    de: 'Fahrrad Platz Nummer _param0_ ist frei',
+    en: 'Bike Seat number _param0_ is free',
+    fr: 'Le siège de vélo numéro _param0_ est libre',
+    it: 'Il posto bici numero _param0_ è libero',
+  },
+  PLACE_CONTROL_BIKE_SELECTED: {
+    de: 'Fahrrad Platz Nummer _param0_ ist ausgewählt',
+    en: 'Bike Seat number _param0_ is selected',
+    fr: 'Le siège de vélo numéro _param0_ est sélectionné',
+    it: 'Il sedile della bici numero _param0_ è selezionato',
+  },
+  PLACE_CONTROL_SEAT_NOT_AVAILABLE: {
+    de: 'Sitzplatz nicht verfügbar',
+    en: 'Seat not available',
+    fr: 'Siège non disponible',
+    it: 'Posto non disponibile',
+  },
+  PLACE_CONTROL_BIKE_SEAT_NOT_AVAILABLE: {
+    de: 'Fahrradplatz nicht verfügbar',
+    en: 'Bike place not available',
+    fr: 'Siège non disponible',
+    it: 'Posto non disponibile',
+  },
   EXAMPLE_WITH_PARAMS_DO_NOT_USE: {
     de: 'Test mit Parametern: _param0_ und _param1_',
     en: 'Test with parameters: _param0_ and _param1_',

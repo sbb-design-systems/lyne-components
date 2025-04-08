@@ -5,12 +5,12 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import style from './seat-reservation-navigation-coach.scss?lit&inline';
-
-import { getI18nSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/translations/i18n';
+import { getI18nSeatReservation } from '../../common/translations/i18n.js';
 import '../../seat-reservation-graphic/seat-reservation-graphic.js';
 import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
-import type { PlaceTravelClass } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation';
+import type { PlaceTravelClass } from '../../seat-reservation.js';
+
+import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
 /**
  * This component will display the navigation coach item for Seat reservation.
@@ -93,7 +93,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
             type="button"
             class="sbb-seat-reservation-navigation__control-button"
             title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-              this.id,
+              this.coachId,
             ])}"
             @click=${() => this._selectNavCoach(this.index)}
             @keydown="${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}"
