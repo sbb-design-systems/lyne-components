@@ -11,7 +11,10 @@ import type {
 import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories.js';
+import {
+  buttonDefaultArgs,
+  buttonDefaultArgTypes,
+} from '../common/button-common-stories.private.js';
 
 import '../../form-field.js';
 import '../../icon.js';

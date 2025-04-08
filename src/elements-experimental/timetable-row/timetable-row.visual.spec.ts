@@ -29,7 +29,7 @@ import {
   trainTrip,
   walkTimeTrip,
   a11yFootpathTrip,
-} from './timetable-row.sample-data.js';
+} from './timetable-row.sample-data.private.js';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
 

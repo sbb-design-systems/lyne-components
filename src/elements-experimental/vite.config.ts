@@ -1,4 +1,3 @@
-import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { defineConfig, mergeConfig, type UserConfig } from 'vite';
@@ -8,22 +7,15 @@ import {
   customElementsManifest,
   distDir,
   dts,
-  resolveEntryPoints,
   isProdBuild,
   packageJsonTemplate,
   generateRootEntryPoint,
   verifyEntryPoints,
+  resolveEntryPoints,
 } from '../../tools/vite/index.js';
 import rootConfig from '../../vite.config.js';
 
 const packageRoot = new URL('.', import.meta.url);
-// Include all directories containing an index.ts
-const entryPoints = resolveEntryPoints(packageRoot, ['core', 'core/styles/**/']);
-const barrelExports = Object.keys(entryPoints)
-  .map((e) => join(fileURLToPath(packageRoot), e))
-  .sort()
-  .filter((v, _i, a) => a.some((e) => e.startsWith(`${v}/`)))
-  .map((e) => `${e}.ts`);
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
@@ -50,7 +42,7 @@ export default defineConfig((config) =>
     build: {
       cssMinify: isProdBuild(config),
       lib: {
-        entry: entryPoints,
+        entry: resolveEntryPoints(packageRoot),
         formats: ['es'],
       },
       minify: isProdBuild(config),
@@ -62,10 +54,10 @@ export default defineConfig((config) =>
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
           if (
-            source.match(/(^lit$|^lit\/|^@lit\/|^@lit-labs\/|^tslib$)/) ||
-            source.match(/^@sbb-esta\/lyne-elements\/?/) ||
-            (!!importer && source.startsWith('../') && !importer.includes('/node_modules/')) ||
-            (!!importer && barrelExports.includes(importer) && source.match(/\.\/[a-z-]+/))
+            source.match(
+              /(^lit$|^lit\/|^@lit\/|^@lit-labs\/|^tslib$|^@sbb-esta\/lyne-elements\/?)/,
+            ) ||
+            (!!importer && source.startsWith('../') && !importer.includes('/node_modules/'))
           ) {
             if (source.includes('.scss')) {
               throw Error(`Do not import scss from another directory.
