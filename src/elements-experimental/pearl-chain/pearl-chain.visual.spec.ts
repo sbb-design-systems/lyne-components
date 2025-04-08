@@ -12,7 +12,7 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from './pearl-chain.sample-data.js';
+} from './pearl-chain.sample-data.private.js';
 import './pearl-chain.js';
 
 describe(`sbb-pearl-chain`, () => {

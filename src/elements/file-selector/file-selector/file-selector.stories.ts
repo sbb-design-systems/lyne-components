@@ -11,7 +11,7 @@ import {
   defaultWithError,
   fileSelectorDefaultArgs,
   fileSelectorDefaultArgTypes,
-} from '../common/file-selector-common-stories.js';
+} from '../common/file-selector-common-stories.private.js';
 
 import { SbbFileSelectorElement } from './file-selector.js';
 import readme from './readme.md?raw';

@@ -4,7 +4,7 @@ import { fixture } from '../../core/testing/private.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
+} from '../common/button-test-utils.private.js';
 
 import './accent-button.js';
 
