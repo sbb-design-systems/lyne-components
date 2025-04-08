@@ -273,9 +273,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     super.connectedCallback();
     this.id ||= `sbb-menu-${nextId++}`;
     this._configureTrigger();
-    if (this.isOpen) {
-      this._inertController.activate();
-    }
   }
 
   public override disconnectedCallback(): void {
