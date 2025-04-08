@@ -1,6 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -45,35 +45,36 @@ class SbbSeatReservationGraphicElement extends LitElement {
 
   private _language = new SbbLanguageController(this);
 
+  protected override willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+    if (_changedProperties.has('width')) {
+      this.style?.setProperty('--sbb-reservation-graphic-width', `${this.width}`);
+    }
+
+    if (_changedProperties.has('height')) {
+      this.style?.setProperty('--sbb-reservation-graphic-height', `${this.height}`);
+    }
+
+    if (_changedProperties.has('rotation')) {
+      this.style?.setProperty('--sbb-reservation-graphic-rotation', `${this.rotation}`);
+    }
+  }
+
   protected override render(): TemplateResult {
     const svgObj = mapIconToSvg[this.name];
 
     return html`
       ${svgObj?.svgName
-        ? html` <style>
-              :host {
-                --graphic-width-from-host: ${this.width};
-                --graphic-height-from-host: ${this.height};
-                --graphic-rotation-from-host: ${this.rotation};
-              }
-            </style>
-            <span class="sbb-seat-reservation-icon">
-              <sbb-icon
-                class="sbb-icon-fit sbb-seat-reservation-icon"
-                name="${svgObj.svgName || ''}"
-                aria-hidden="false"
-                aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
-              ></sbb-icon>
-            </span>`
+        ? html` <span class="sbb-seat-reservation-icon">
+            <sbb-icon
+              class="sbb-icon-fit sbb-seat-reservation-icon"
+              name="${svgObj.svgName || ''}"
+              aria-hidden="false"
+              aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+            ></sbb-icon>
+          </span>`
         : svgObj?.svg
           ? html`
-              <style>
-                :host {
-                  --graphic-width-from-host: ${this.width};
-                  --graphic-height-from-host: ${this.height};
-                  --graphic-rotation-from-host: ${this.rotation};
-                }
-              </style>
               <span class="sbb-seat-reservation-graphic">${this._getSvgElement(svgObj.svg)}</span>
             `
           : nothing}
