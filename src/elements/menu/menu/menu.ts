@@ -13,7 +13,7 @@ import {
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
   isArrowKeyOrPageKeysPressed,
-  SbbFocusHandler,
+  SbbFocusTrapController,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
@@ -99,7 +99,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _windowEventsController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
   private _mediaMatcher = new SbbMediaMatcherController(this, {
@@ -177,7 +177,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._inertController.activate();
     this._escapableOverlayController.connect();
     this._setMenuFocus();
-    this._focusHandler.trap(this);
+    this._focusTrapController.trap();
     this._attachWindowEvents();
     this.didOpen.emit();
   }
@@ -199,7 +199,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._escapableOverlayController.disconnect();
     this.didClose.emit();
     this._windowEventsController?.abort();
-    this._focusHandler.disconnect();
+    this._focusTrapController.unTrap();
 
     // Starting from breakpoint medium, enable scroll
     this._scrollHandler.enableScroll();
@@ -280,7 +280,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._triggerElement = null;
     this._triggerAbortController?.abort();
     this._windowEventsController?.abort();
-    this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
   }
 

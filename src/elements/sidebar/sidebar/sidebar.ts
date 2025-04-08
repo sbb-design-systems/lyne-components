@@ -4,7 +4,7 @@ import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import {
   getFirstFocusableElement,
-  SbbFocusHandler,
+  SbbFocusTrapController,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
@@ -71,7 +71,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   private _container: SbbSidebarContainerElement | null = null;
 
   private _lastFocusedElement: HTMLElement | null = null;
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
 
   public constructor() {
@@ -105,7 +105,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
-    this._focusHandler.disconnect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -243,7 +242,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _takeFocus(): void {
     // We prevent calling the focus stuff when not needed
-    if (this._focusHandler.isTrapped() || !this.isConnected) {
+    if (this._focusTrapController.isTrapped() || !this.isConnected) {
       return;
     }
     const isModeOver = this._isModeOver();
@@ -258,13 +257,13 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     if (isModeOver) {
       this._escapableOverlayController.connect();
-      this._focusHandler.trap(this);
+      this._focusTrapController.trap();
     }
   }
 
   // Internal method that we use externally. `protected` preserves type information for type safe access.
   protected cedeFocus(): void {
-    this._focusHandler.disconnect();
+    this._focusTrapController.unTrap();
     this._escapableOverlayController.disconnect();
   }
 

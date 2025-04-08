@@ -1,7 +1,7 @@
 import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusHandler } from '../core/a11y.js';
+import { SbbFocusTrapController } from '../core/a11y.js';
 import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import {
   SbbInertController,
@@ -42,7 +42,7 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   /** @deprecated */
   protected overlayController!: AbortController;
   protected openOverlayController!: AbortController;
-  protected focusHandler = new SbbFocusHandler();
+  protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
   protected returnValue: any;
   protected ariaLiveRefToggle = false;
@@ -100,7 +100,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     super.disconnectedCallback();
     this.overlayController?.abort();
     this.openOverlayController?.abort();
-    this.focusHandler.disconnect();
     this.removeInstanceFromGlobalCollection();
     this.scrollHandler.enableScroll();
   }

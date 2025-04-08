@@ -6,7 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import {
   getFirstFocusableElement,
   IS_FOCUSABLE_QUERY,
-  SbbFocusHandler,
+  SbbFocusTrapController,
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
@@ -117,7 +117,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this, {
+    postFilter: (el: HTMLElement) => el !== this._overlay,
+  });
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
@@ -199,7 +201,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._escapableOverlayController.disconnect();
     this.didClose.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
-    this._focusHandler.disconnect();
+    this._focusTrapController.unTrap();
   }
 
   private _handleOpening(): void {
@@ -208,9 +210,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._attachWindowEvents();
     this._escapableOverlayController.connect();
     this._setPopoverFocus();
-    this._focusHandler.trap(this, {
-      postFilter: (el) => el !== this._overlay,
-    });
+    this._focusTrapController.trap();
     this.didOpen.emit();
   }
 
@@ -248,7 +248,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._triggerElement = null;
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
-    this._focusHandler.disconnect();
     popoversRef.delete(this as SbbPopoverElement);
   }
 
