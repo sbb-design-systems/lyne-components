@@ -1,7 +1,7 @@
 import { globSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-import ts from 'typescript';
+import * as ts from 'typescript';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
 import { globExcludeInternals } from './build-meta.js';
