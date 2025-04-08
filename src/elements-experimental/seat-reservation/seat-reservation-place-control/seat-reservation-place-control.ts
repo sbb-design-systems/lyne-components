@@ -1,3 +1,4 @@
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import {
@@ -10,6 +11,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { getI18nSeatReservation } from '../common.js';
 import type { PlaceSelection, PlaceState, PlaceType } from '../seat-reservation.js';
 
 import '../seat-reservation-graphic.js';
@@ -84,26 +86,33 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'keyfocus', type: Boolean })
   public accessor keyfocus: boolean = false;
 
-  /** Emits when an place was selected by user. */
+  /** Emits when a place was selected by user. */
   protected placeSelected: EventEmitter<PlaceSelection> = new EventEmitter(
     this,
     SbbSeatReservationPlaceControlElement.events.selectPlace,
   );
+
+  private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('width') || changedProperties.has('height')) {
       this.style?.setProperty(
-        '--place-control-text-scale-from-host',
+        '--sbb-place-control-text-scale-value',
         `${Math.min(this.width, this.height)}`,
       );
     }
+
     if (changedProperties.has('textRotation')) {
-      this.style?.setProperty('--place-control-text-rotation-from-host', `${this.textRotation}`);
+      this.style?.setProperty(
+        '--sbb-reservation-place-control-text-rotation',
+        `${this.textRotation}`,
+      );
     }
+
     if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--place-control-rotation-from-host', `${this.rotation}`);
+      this.style?.setProperty('--sbb-reservation-place-control-rotation', `${this.rotation}`);
     }
 
     if (changedProperties.has('keyfocus')) {
@@ -168,14 +177,16 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     if (this.state === 'FREE' || this.state === 'SELECTED') {
       if (this.type === 'SEAT') {
         return this.state === 'SELECTED'
-          ? `Seat number ${this.text} is selected`
-          : `Seat number ${this.text} is free`;
+          ? getI18nSeatReservation('PLACE_CONTROL_SELECTED', this._language.current, [this.text])
+          : getI18nSeatReservation('PLACE_CONTROL_FREE', this._language.current, [this.text]);
       }
       return this.state === 'SELECTED'
-        ? `Bike place number ${this.text} is selected`
-        : `Bike place number ${this.text} is free`;
+        ? getI18nSeatReservation('PLACE_CONTROL_BIKE_SELECTED', this._language.current, [this.text])
+        : getI18nSeatReservation('PLACE_CONTROL_BIKE_FREE', this._language.current, [this.text]);
     } else {
-      return this.type === 'SEAT' ? `Seat not available` : `Bike place not available`;
+      return this.type === 'SEAT'
+        ? getI18nSeatReservation('PLACE_CONTROL_SEAT_NOT_AVAILABLE', this._language.current)
+        : getI18nSeatReservation('PLACE_CONTROL_BIKE_SEAT_NOT_AVAILABLE', this._language.current);
     }
   }
 
