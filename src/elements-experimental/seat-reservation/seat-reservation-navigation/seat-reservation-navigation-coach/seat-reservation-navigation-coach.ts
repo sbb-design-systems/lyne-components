@@ -1,21 +1,23 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing/event-emitter';
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getI18nSeatReservation } from '../../common/translations/i18n.js';
-import '../../seat-reservation-graphic/seat-reservation-graphic.js';
-import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
-import type { PlaceTravelClass } from '../../seat-reservation.js';
+import { getI18nSeatReservation } from '../../common.js';
+import type { PlaceTravelClass } from '../../seat-reservation/index.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
+
+import '../../seat-reservation-graphic/seat-reservation-graphic.js';
+import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
 
 /**
  * This component will display the navigation coach item for Seat reservation.
  *
  * @event {CustomEvent<T>} selectCoach - Emits when a coach within the navigation was selected and returns the clicked coach nav index
+ * @event {CustomEvent<T>} focusCoach -  Emits when a nav coach has the focus
  */
 export
 @customElement('sbb-seat-reservation-navigation-coach')
@@ -23,6 +25,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectCoach: 'selectCoach',
+    focusCoach: 'focusCoach',
   } as const;
 
   @forceType()
@@ -36,6 +39,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @forceType()
   @property({ type: Boolean })
   public accessor selected: boolean = false;
+
+  /* focus Coach index property */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor focused: boolean = false;
 
   @forceType()
   @property({ type: Number })
@@ -59,14 +67,45 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   private _language = new SbbLanguageController(this);
 
   /** Emits when a coach within the navigation was selected */
-  protected selectNavCoach: EventEmitter<number> = new EventEmitter(
+  protected selectNavCoach: EventEmitter = new EventEmitter(
     this,
     SbbSeatReservationNavigationCoachElement.events.selectCoach,
   );
+  protected focusNavCoach: EventEmitter = new EventEmitter(
+    this,
+    SbbSeatReservationNavigationCoachElement.events.focusCoach,
+  );
 
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('selected')) {
+      const selectedNavButtonElement = this.shadowRoot?.querySelector(
+        '.sbb-seat-reservation-navigation__control-button',
+      ) as HTMLButtonElement;
+      console.log('SELEKTIERT COACH', this.selected);
+      if (selectedNavButtonElement) {
+        selectedNavButtonElement.focus();
+        this.focusNavCoach.emit();
+      }
+    }
+
+    if (changedProperties.has('focused') && this.focused) {
+      const focusedNavButtonElement = this.shadowRoot?.querySelector(
+        '.sbb-seat-reservation-navigation__control-button',
+      ) as HTMLButtonElement;
+      if (focusedNavButtonElement) {
+        focusedNavButtonElement.focus();
+      }
+    }
+  }
   protected override render(): TemplateResult {
     const coachSelectedClass = this.selected
       ? 'sbb-seat-reservation-navigation__item-coach--selected'
+      : '';
+
+    const coachFocusedClass = this.focused
+      ? 'sbb-seat-reservation-navigation__item-coach--focused'
       : '';
 
     const lastCoachInLayout = this.last ? 'last-coach' : '';
@@ -74,7 +113,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
     return html`
       <div
-        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
+        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${coachFocusedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
       >
         ${this._getNavigationButton()}
         ${!this.driverArea && this.propertyIds?.length
@@ -93,10 +132,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
             type="button"
             class="sbb-seat-reservation-navigation__control-button"
             title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-              this.coachId,
+              this.id,
             ])}"
             @click=${() => this._selectNavCoach(this.index)}
-            @keydown="${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}"
           >
             ${this._getBtnInformation()}
           </button>`
@@ -124,13 +162,6 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           </div>`
         : nothing}
     `;
-  }
-
-  // handle navigation done with enter.
-  private _handleKeyboardEvent(evt: KeyboardEvent): void {
-    if (evt.code === 'Enter') {
-      this._selectNavCoach(this.index);
-    }
   }
 
   /**

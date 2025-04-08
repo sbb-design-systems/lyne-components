@@ -113,7 +113,10 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbSeatReservationNavigationCoachElement.events.selectCoach],
+      handles: [
+        SbbSeatReservationNavigationCoachElement.events.selectCoach,
+        SbbSeatReservationNavigationCoachElement.events.focusCoach,
+      ],
     },
     docs: {
       extractComponentDescription: () => readme,
