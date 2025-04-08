@@ -1,12 +1,11 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
-import type { SbbSidebarContentElement } from '../sidebar-content.js';
 
 import { SbbSidebarElement } from './sidebar.js';
 
@@ -18,7 +17,6 @@ import '../sidebar-title.js';
 describe('sbb-sidebar', () => {
   let container: SbbSidebarContainerElement,
     element: SbbSidebarElement,
-    content: SbbSidebarContentElement,
     closeButton: SbbSidebarCloseButtonElement,
     scrollContext: HTMLDivElement;
 
@@ -47,7 +45,6 @@ describe('sbb-sidebar', () => {
     await setViewport({ width: 800, height: 600 });
 
     element = container.querySelector('sbb-sidebar')!;
-    content = container.querySelector('sbb-sidebar-content')!;
     closeButton = container.querySelector('sbb-sidebar-close-button')!;
     scrollContext = element.shadowRoot!.querySelector('.sbb-sidebar-content-section')!;
   });
@@ -196,11 +193,15 @@ describe('sbb-sidebar', () => {
       element.mode = 'over';
       await waitForLitRender(element);
       // Opening should focus the close button
-      expect(document.activeElement).to.be.equal(closeButton);
+      expect(document.activeElement, 'focus should be set to close button').to.be.equal(
+        closeButton,
+      );
 
       // Expect that focus is trapped as it is in over mode
       await sendKeys({ press: tabKey });
-      expect(document.activeElement).to.be.equal(closeButton);
+      expect(document.activeElement, 'focus trap should keep focus on close button').to.be.equal(
+        closeButton,
+      );
 
       element.mode = 'side';
       await waitForLitRender(element);
@@ -275,7 +276,6 @@ describe('sbb-sidebar', () => {
       await sendKeys({ press: tabKey });
 
       expect(document.activeElement).to.be.equal(closeButton);
-      expect(content).to.have.attribute('inert');
     });
 
     it('should release focus when closing in mode over', async () => {
@@ -284,14 +284,12 @@ describe('sbb-sidebar', () => {
 
       element.open();
       expect(element.isOpen).to.be.true;
-
       await waitForLitRender(container);
 
       element.close();
       expect(element.isOpen).to.be.false;
       await waitForLitRender(container);
       expect(document.activeElement!.localName).to.be.equal('body');
-      expect(content).not.to.have.attribute('inert');
 
       // With the following test we ensure that the previously registered escape listener
       // doesn't run anymore (proofs that we called _windowEventsController?.abort()).
@@ -312,7 +310,10 @@ describe('sbb-sidebar', () => {
       expect(element.isOpen).to.be.true;
 
       expect(document.activeElement).to.be.equal(closeButton);
-      expect(content).not.to.have.attribute('inert');
+
+      // Should not trap focus
+      await sendKeys({ press: tabKey });
+      expect(document.activeElement!.id).to.be.equal('b1');
     });
 
     it('should release focus when closing in mode side', async () => {
@@ -336,7 +337,7 @@ describe('sbb-sidebar', () => {
       expect(document.activeElement!.localName).to.be.equal('body');
     });
 
-    it('should be inert when opening in forced mode over', async () => {
+    it('should open in forced mode over', async () => {
       await setViewport({ width: 400, height: 400 });
 
       // Wait for resizeObserver of container to be triggered
@@ -344,7 +345,11 @@ describe('sbb-sidebar', () => {
 
       element.open();
       expect(element.isOpen).to.be.true;
-      expect(content).to.have.attribute('inert');
+
+      // Escape key press is only activated in over mode and forced over mode,
+      // therefore we can assert correct configuration when the sidebar closes with an Escape key press.
+      await sendKeys({ press: 'Escape' });
+      expect(element.isOpen).to.be.false;
     });
 
     it('should close programmatically', async () => {
@@ -430,69 +435,12 @@ describe('sbb-sidebar', () => {
       element.opened = true;
       await waitForLitRender(element);
 
-      window.dispatchEvent(new CustomEvent('pointerdown'));
-      window.dispatchEvent(new CustomEvent('pointerup'));
+      container
+        .shadowRoot!.querySelector<HTMLDivElement>('.sbb-sidebar-container-backdrop')!
+        .click();
       await waitForLitRender(element);
 
       expect(element.opened).to.be.false;
-    });
-
-    it('should not close on backdrop click when releasing on sidebar', async () => {
-      element.mode = 'over';
-      element.opened = true;
-      await waitForLitRender(element);
-
-      const positionRect = element.shadowRoot!.firstElementChild!.getBoundingClientRect();
-
-      await sendMouse({
-        type: 'move',
-        position: [0, 0],
-      });
-
-      await sendMouse({ type: 'down' });
-
-      await sendMouse({
-        type: 'move',
-        position: [
-          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
-          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
-        ],
-      });
-
-      await sendMouse({ type: 'up' });
-
-      await waitForLitRender(element);
-
-      expect(element.opened).to.be.true;
-    });
-
-    it('should not close on backdrop click when starting on sidebar', async () => {
-      element.mode = 'over';
-      element.opened = true;
-      await waitForLitRender(element);
-
-      const positionRect = element.shadowRoot!.firstElementChild!.getBoundingClientRect();
-
-      await sendMouse({
-        type: 'move',
-        position: [
-          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
-          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
-        ],
-      });
-
-      await sendMouse({ type: 'down' });
-
-      await sendMouse({
-        type: 'move',
-        position: [0, 0],
-      });
-
-      await sendMouse({ type: 'up' });
-
-      await waitForLitRender(element);
-
-      expect(element.opened).to.be.true;
     });
 
     it('should close on Escape key press', async () => {

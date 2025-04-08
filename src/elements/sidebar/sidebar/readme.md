@@ -127,8 +127,7 @@ sbb-sidebar {
 
 ## Accessibility
 
-If the sidebar is on `mode="over"`, the sidebar acts like an overlay element:
-There is a focus trap and other content is inert.
+If the sidebar is on `mode="over"`, the sidebar acts like an overlay element with an activated focus trap.
 
 ### Roles
 

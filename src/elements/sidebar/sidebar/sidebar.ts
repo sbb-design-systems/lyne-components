@@ -8,11 +8,10 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbEscapableOverlayController, SbbInertController } from '../../core/controllers.js';
+import { SbbEscapableOverlayController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
-import { isEventOnElement } from '../../core/overlay.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';
@@ -73,10 +72,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _lastFocusedElement: HTMLElement | null = null;
   private _focusHandler = new SbbFocusHandler();
-  private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _windowEventsController!: AbortController;
-  private _isPointerDownEventOnSidebar: boolean = false;
 
   public constructor() {
     super();
@@ -110,7 +106,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
     this._focusHandler.disconnect();
-    this._windowEventsController?.abort();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -248,15 +243,10 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _takeFocus(): void {
     // We prevent calling the focus stuff when not needed
-    if (this._inertController.isInert() || !this.isConnected) {
+    if (this._focusHandler.isTrapped() || !this.isConnected) {
       return;
     }
     const isModeOver = this._isModeOver();
-
-    if (isModeOver) {
-      this._inertController.activate();
-      this._escapableOverlayController.connect();
-    }
 
     if (isModeOver || this.focusOnOpen) {
       const firstFocusable = getFirstFocusableElement(
@@ -267,50 +257,15 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
 
     if (isModeOver) {
+      this._escapableOverlayController.connect();
       this._focusHandler.trap(this);
-      this._attachWindowEvents();
     }
   }
-
-  private _attachWindowEvents(): void {
-    this._windowEventsController?.abort();
-    this._windowEventsController = new AbortController();
-
-    // Close sidebar on backdrop click
-    window.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this._windowEventsController.signal,
-    });
-    window.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this._windowEventsController.signal,
-    });
-  }
-
-  // Check whether the pointerdown event target is triggered on the sidebar.
-  private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnSidebar = isEventOnElement(
-      this.shadowRoot?.firstElementChild as HTMLDivElement,
-      event,
-    );
-  };
-
-  // Close sidebar on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (
-      !this._isPointerDownEventOnSidebar &&
-      !isEventOnElement(this.shadowRoot?.firstElementChild as HTMLDivElement, event)
-    ) {
-      this.close();
-    }
-  };
 
   // Internal method that we use externally. `protected` preserves type information for type safe access.
   protected cedeFocus(): void {
-    if (this._inertController.isInert()) {
-      this._inertController.deactivate();
-    }
     this._focusHandler.disconnect();
     this._escapableOverlayController.disconnect();
-    this._windowEventsController?.abort();
   }
 
   private _updateSidebarWidth(oldPosition?: this['position']): void {
