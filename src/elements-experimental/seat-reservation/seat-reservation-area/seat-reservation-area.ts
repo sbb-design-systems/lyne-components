@@ -43,13 +43,13 @@ class SbbSeatReservationAreaElement extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('width')) {
-      this.style?.setProperty('--area-width-from-host', `${this.width}`);
+      this.style?.setProperty('--sbb-reservation-area-width', `${this.width}`);
     }
     if (changedProperties.has('height')) {
-      this.style?.setProperty('--area-height-from-host', `${this.height}`);
+      this.style?.setProperty('--sbb-reservation-area-height', `${this.height}`);
     }
     if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--area-rotation-from-host', `${this.rotation}`);
+      this.style?.setProperty('--sbb-reservation-area-rotation', `${this.rotation}`);
     }
   }
 
