@@ -63,6 +63,21 @@ describe('sbb-calendar', () => {
             }),
           );
 
+          it(
+            'weekNumbers=true',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(html`
+                <sbb-calendar
+                  orientation=${orientation}
+                  ?wide=${wide}
+                  .selected=${new Date(2023, 0, 20)}
+                  .now=${new Date(2023, 0, 12, 0, 0, 0)}
+                  weekNumbers
+                ></sbb-calendar>
+              `);
+            }),
+          );
+
           for (const fn of filterFunctions) {
             it(
               `fn=${fn.name}`,

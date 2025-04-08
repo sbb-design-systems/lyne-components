@@ -196,17 +196,22 @@
   color: var(--sbb-calendar-header-color);
   width: var(--sbb-calendar-cell-size);
   padding: 0;
+  padding-block-end: var(--sbb-spacing-fixed-4x);
 
   // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
   text-align: center;
+}
 
-  :host([orientation='horizontal']) & {
-    padding-block-end: var(--sbb-spacing-fixed-4x);
-  }
+.sbb-calendar__table-row-header {
+  @include sbb.text-xs--regular;
 
-  :host([orientation='vertical']) & {
-    padding-inline-end: var(--sbb-spacing-fixed-1x);
-  }
+  color: var(--sbb-calendar-header-color);
+  width: var(--sbb-calendar-cell-size);
+  padding: 0;
+  padding-inline-end: var(--sbb-spacing-fixed-1x);
+
+  // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
+  text-align: center;
 }
 
 .sbb-calendar__table-data {

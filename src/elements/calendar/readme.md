@@ -78,6 +78,17 @@ This visual change is applied only to the day view.
 <sbb-calendar orientation="vertical"></sbb-calendar>
 ```
 
+In both orientations, the week days are always displayed:
+in `horizontal` they appear on top, while in `vertical` they are rendered on the left side.
+Using the `weekNumbers` property, it's possible to display the ISO week dates in a perpendicular direction to week days,
+so on the left side in `horizontal` and on top in `vertical`.
+
+```html
+<sbb-calendar week-days></sbb-calendar>
+
+<sbb-calendar orientation="vertical" week-days></sbb-calendar>
+```
+
 ## Events
 
 Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date
@@ -133,6 +144,7 @@ For accessibility purposes, the component is rendered as a native table element 
 | `orientation` | `orientation` | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                             |
 | `selected`    | `selected`    | public  | `T \| null`                              |                | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).              |
 | `view`        | `view`        | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                               |
+| `weekNumbers` | `weekNumbers` | public  | `boolean`                                | `false`        | Whether it has to display the week numbers in addition to week days.                                                 |
 | `wide`        | `wide`        | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                             |
 
 ## Methods

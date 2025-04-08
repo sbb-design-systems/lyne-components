@@ -40,6 +40,15 @@ const wide: InputType = {
   },
 };
 
+const weekNumbers: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
 const orientation: InputType = {
   control: {
     type: 'inline-radio',
@@ -120,6 +129,7 @@ const dateFilter: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   wide,
+  weekNumbers,
   orientation,
   selected,
   min,
@@ -138,6 +148,7 @@ const defaultArgs: Args = {
   selected: today,
   now: undefined,
   view: view.options![0],
+  weekNumbers: false,
 };
 
 export const Calendar: StoryObj = {
@@ -156,10 +167,22 @@ export const CalendarWithMinAndMax: StoryObj = {
   },
 };
 
+export const CalendarWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, weekNumbers: true },
+};
+
 export const CalendarWide: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, wide: true },
+};
+
+export const CalendarWideWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true, weekNumbers: true },
 };
 
 export const CalendarVertical: StoryObj = {
@@ -168,10 +191,22 @@ export const CalendarVertical: StoryObj = {
   args: { ...defaultArgs, orientation: orientation.options![1] },
 };
 
+export const CalendarVerticalWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1], weekNumbers: true },
+};
+
 export const CalendarVerticalWide: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, orientation: orientation.options![1], wide: true },
+};
+
+export const CalendarVerticalWideWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1], wide: true, weekNumbers: true },
 };
 
 export const CalendarFilterFunction: StoryObj = {
