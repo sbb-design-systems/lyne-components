@@ -1,16 +1,24 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
+import type { SbbOpenCloseBaseElement } from '../base-elements.js';
+
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 const inertElements = new Set<HTMLElement>();
 const inertOverlays = new Set<HTMLElement>();
 
 export class SbbInertController implements ReactiveController {
   public constructor(
-    private _host: ReactiveControllerHost & HTMLElement,
+    private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
     private _inertElements = inertElements,
     private _inertOverlays = inertOverlays,
   ) {
     this._host.addController?.(this);
+  }
+
+  public hostConnected(): void {
+    if (this._host.isOpen) {
+      this.activate();
+    }
   }
 
   public hostDisconnected(): void {

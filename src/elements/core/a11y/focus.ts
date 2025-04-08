@@ -75,7 +75,7 @@ export function getFirstFocusableElement(
 
 // TODO: Convert to Controller and handle disconnectedCallback here with hostDisconnected().
 export class SbbFocusHandler {
-  private _controller = new AbortController();
+  private _controller: AbortController | null = null;
 
   /**
    * @param element in which the focus should be trapped.
@@ -90,6 +90,8 @@ export class SbbFocusHandler {
       postFilter?: (el: HTMLElement) => boolean;
     },
   ): void {
+    this._controller = new AbortController();
+
     element.addEventListener(
       'keydown',
       (event) => {
@@ -133,8 +135,12 @@ export class SbbFocusHandler {
     );
   }
 
+  public isTrapped(): boolean {
+    return !!this._controller;
+  }
+
   public disconnect(): void {
-    this._controller.abort();
-    this._controller = new AbortController();
+    this._controller?.abort();
+    this._controller = null;
   }
 }
