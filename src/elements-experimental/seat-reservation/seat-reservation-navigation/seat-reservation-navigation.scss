@@ -9,6 +9,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-spacing-fixed-2x);
   min-height: #{sbb.px-to-rem-build(60)};
 }
