@@ -1,9 +1,9 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isWebkit } from '../../core/dom.js';
-import { fixture } from '../../core/testing/private.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import type { SbbSidebarElement } from '../sidebar.js';
 
@@ -35,11 +35,15 @@ describe('sbb-sidebar-container', () => {
 
     element = await fixture(
       html`<sbb-sidebar-container id="c1">
-        <sbb-sidebar id="s1" opened>Sidebar 1 start</sbb-sidebar>
+        <sbb-sidebar id="s1" opened>
+          Sidebar 1 start
+          <button id="b1">Button 1</button>
+          <button id="b2">Button 2</button>
+        </sbb-sidebar>
         <sbb-sidebar-content>
           <sbb-sidebar-container id="c2">
             <sbb-sidebar id="s3" opened>Sidebar 3 start</sbb-sidebar>
-            <sbb-sidebar-content>Content</sbb-sidebar-content>
+            <sbb-sidebar-content>Content<button id="b3">Button 3</button></sbb-sidebar-content>
             <sbb-sidebar id="s4" position="end" mode="over" opened>Sidebar 4 end</sbb-sidebar>
           </sbb-sidebar-container>
         </sbb-sidebar-content>
@@ -197,7 +201,7 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar2.isOpen, 'after increase viewport').to.be.true;
   });
 
-  it('should remove inert mechanism (and focus trap) if opened on small viewport and space becomes available', async () => {
+  it('should remove focus trap if opened on small viewport and space becomes available', async () => {
     // We close over mode sidebar to not interfere with other sidebar
     sidebar4.close();
 
@@ -211,13 +215,24 @@ describe('sbb-sidebar-container', () => {
     sidebar1.open();
     await waitForLitRender(element);
     expect(sidebar1.opened).to.be.true;
-    expect(sidebar2).to.have.attribute('inert');
+
+    // We assert focus trap is active
+    expect(document.activeElement!.id, 'button 1 in sidebar focused').to.be.equal('b1');
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement!.id, 'button 2 in sidebar focused').to.be.equal('b2');
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement!.id, 'button 1 in sidebar focused (trapped)').to.be.equal('b1');
 
     // Resize to bigger viewport
     await setViewportWidth(1600);
     await aTimeout(1);
 
     expect(sidebar1.opened).to.be.true;
-    expect(sidebar2).not.to.have.attribute('inert');
+
+    // We assert focus trap is not active
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement!.id, 'button 2 in sidebar focused').to.be.equal('b2');
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement!.id, 'button 3 in content focused').to.be.equal('b3');
   });
 });
