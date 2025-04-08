@@ -77,7 +77,7 @@ export const buttonLinkDefaultArgTypes: ArgTypes = {
   rel,
   download,
   disabled,
-  disabledInteractive: disabledInteractive,
+  'disabled-interactive': disabledInteractive,
   'accessibility-label': accessibilityLabel,
 };
 

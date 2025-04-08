@@ -1,0 +1,39 @@
+name: Test Secure
+# Secure execution of continuous integration jobs
+# which are performed upon completion of the
+# "Continuous Integration" workflow
+# https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+on:
+  workflow_run:
+    workflows: [Test]
+    types: [completed]
+
+env:
+  PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
+
+jobs:
+  codecov:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.pull_requests[0] != null
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          override_branch: ${{ github.event.workflow_run.head_branch }}
+          override_commit: ${{ github.event.workflow_run.head_commit.id }}
+          override_pr: ${{ env.PR_NUMBER }}
+          fail_ci_if_error: true
+          verbose: true

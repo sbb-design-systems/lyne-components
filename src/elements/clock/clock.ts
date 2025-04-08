@@ -109,12 +109,12 @@ class SbbClockElement extends LitElement {
     }
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     if (!isServer) {
       document.addEventListener('visibilitychange', this._handlePageVisibilityChange, false);
-      await this._startOrConfigureClock();
+      this._startOrConfigureClock();
     }
   }
 
@@ -125,9 +125,13 @@ class SbbClockElement extends LitElement {
   }
 
   private _handlePageVisibilityChange = async (): Promise<void> => {
+    if (this.now) {
+      return;
+    }
+
     if (document.visibilityState === 'hidden') {
       await this._stopClock();
-    } else if (!this.now) {
+    } else {
       await this._startClock();
     }
   };

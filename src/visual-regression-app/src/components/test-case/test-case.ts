@@ -1,3 +1,4 @@
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import {
   type CSSResultGroup,
   html,
@@ -10,17 +11,15 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.js';
 
+import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
+import style from './test-case.scss?lit&inline';
+
 import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/notification.js';
 import '@sbb-esta/lyne-elements/title.js';
-
-import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
-import style from './test-case.scss?lit&inline';
-
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 
 import './test-title-chip-list/test-title-chip-list.js';
 import './image-diff/image-diff.js';

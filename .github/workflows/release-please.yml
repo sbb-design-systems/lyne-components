@@ -17,8 +17,6 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
@@ -88,19 +86,19 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_STORYBOOK:$VERSION-fat .
+          docker build --tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-fat .
           mint slim \
-            --target $IMAGE_REPO_STORYBOOK:$VERSION-fat \
-            --tag $IMAGE_REPO_STORYBOOK:$VERSION \
+            --target ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-fat \
+            --tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION \
             --preserve-path /usr/share/nginx/html \
             --include-new false
-          docker push $IMAGE_REPO_STORYBOOK:$VERSION
-          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:$VERSION-slim
-          docker push $IMAGE_REPO_STORYBOOK:$VERSION-slim
-          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:latest
-          docker push $IMAGE_REPO_STORYBOOK:latest
-          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:latest-slim
-          docker push $IMAGE_REPO_STORYBOOK:latest-slim
+          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION
+          docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
+          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
+          docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
+          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
+          docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
+          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
           docker image list
         env:
           DOCKER_BUILDKIT: 1

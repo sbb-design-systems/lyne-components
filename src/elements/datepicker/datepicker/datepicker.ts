@@ -10,10 +10,10 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { readConfig } from '../../core/config.js';
-import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType } from '../../core/decorators.js';
-import { findInput, findReferencedElement } from '../../core/dom.js';
+import { findReferencedElement } from '../../core/dom.js';
 import { EventEmitter, forwardEvent } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
@@ -35,7 +35,7 @@ export interface SbbInputUpdateEvent {
  * it returns the related SbbDatepickerElement reference, if exists.
  * @param element The element potentially connected to the SbbDatepickerElement.
  * @param trigger The id or the reference of the SbbDatePicker.
- * @deprecated No longer in use.
+ * @deprecated No longer in use. Will be removed with next major version.
  */
 export function getDatePicker<T = Date>(
   element: SbbDatepickerButton<T> | SbbDatepickerToggleElement<T>,
@@ -62,7 +62,7 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
 let nextId = 0;
 let warningLogged = false;
 const isDateInput = <T>(
-  element: HTMLInputElement | SbbDateInputElement<T> | null,
+  element: HTMLElement | HTMLInputElement | SbbDateInputElement<T> | null,
 ): element is SbbDateInputElement<T> => element?.localName === 'sbb-date-input';
 
 /**
@@ -107,13 +107,15 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   }
   private _dateFilter?: (date: T | null) => boolean;
 
+  // TODO: Replace HTMLElement by HTMLInputElement | SbbDateInputElement
   /**
    * Reference of the sbb-date-input instance or the native input connected to the datepicker.
    * If given a string, it will be treated as an id reference and an attempt is
    * made to be resolved for the containing document fragment.
    * If given a HTMLElement instance, it will be used as is.
    */
-  @property() public accessor input: string | HTMLElement | null = null;
+  @property()
+  public accessor input: string | HTMLElement | null = null;
 
   /**
    * A configured date which acts as the current date instead of the real current date.
@@ -193,7 +195,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
 
   private _inputElementPlaceholderMutable = false;
 
-  private _datePickerController!: AbortController;
+  private _inputAbortController!: AbortController;
+  private _inputIdReferenceController = new SbbIdReferenceController(this, 'input');
 
   private _inputObserver = !isServer
     ? new MutationObserver((mutationsList) => {
@@ -216,14 +219,11 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   private _language = new SbbLanguageController(this);
   private _associationController = new SbbDatepickerAssociationHostController(this);
 
-  public constructor() {
-    super();
-  }
-
   public override connectedCallback(): void {
-    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
-    this._attachInput();
+
+    this.id ||= `sbb-datepicker-${++nextId}`;
+    this._configureInputElement();
   }
 
   public override requestUpdate(
@@ -240,14 +240,14 @@ class SbbDatepickerElement<T = Date> extends LitElement {
         this.inputElement.value = this._dateAdapter.format(this.valueAsDate);
       }
     }
+    if (!isServer && (!name || name === 'input') && this.hasUpdated) {
+      this._configureInputElement();
+    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('input')) {
-      this._attachInput();
-    }
     if (
       changedProperties.has('wide') ||
       changedProperties.has('dateFilter') ||
@@ -264,7 +264,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._inputObserver?.disconnect();
-    this._datePickerController?.abort();
+    this._inputAbortController?.abort();
+    this._inputElement = null;
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -280,15 +281,29 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     return !!this._now;
   }
 
-  private _attachInput(): void {
-    const input = findInput(this, this.input, 'input,sbb-date-input');
-    if (this.inputElement === input) {
+  private _configureInputElement(): void {
+    const inputElement =
+      this.input instanceof HTMLInputElement ||
+      (this.input instanceof HTMLElement && isDateInput<T>(this.input))
+        ? this.input
+        : ((this._inputIdReferenceController.find() as HTMLInputElement | null) ??
+          this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>(
+            'input,sbb-date-input',
+          ) ??
+          null);
+    if (inputElement === this.inputElement) {
       return;
-    } else if (this.inputElement) {
-      this._datePickerController?.abort();
-      this._inputObserver?.disconnect();
     }
-    const isNativeInput = !isDateInput(input);
+
+    this._inputAbortController?.abort();
+    this._inputObserver?.disconnect();
+    this._inputElement = inputElement;
+
+    if (!this.inputElement) {
+      return;
+    }
+
+    const isNativeInput = !isDateInput(this.inputElement);
     if (isNativeInput && import.meta.env.DEV && !warningLogged) {
       warningLogged = true;
       console.warn(
@@ -296,37 +311,34 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       );
     }
 
-    this._inputElement = input;
-    if (input) {
-      this._datePickerController = new AbortController();
-      this._inputObserver?.observe(input, {
-        attributeFilter: ['disabled', 'readonly', 'min', 'max', 'value'],
-      });
+    this._inputAbortController = new AbortController();
+    this._inputObserver?.observe(this.inputElement, {
+      attributeFilter: ['disabled', 'readonly', 'min', 'max', 'value'],
+    });
 
-      if (isNativeInput) {
-        this._inputElementPlaceholderMutable = !input.placeholder;
-        input.type = 'text';
-        if (this._inputElementPlaceholderMutable) {
-          input.placeholder = i18nDatePickerPlaceholder[this._language.current];
-        }
+    if (isNativeInput) {
+      this._inputElementPlaceholderMutable = !this.inputElement.placeholder;
+      this.inputElement.type = 'text';
+      if (this._inputElementPlaceholderMutable) {
+        this.inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       }
-
-      const options: AddEventListenerOptions = { signal: this._datePickerController.signal };
-      input.addEventListener(
-        'input',
-        (e) => {
-          forwardEvent(e, this);
-          this._parseInput();
-        },
-        options,
-      );
-      input.addEventListener('change', () => this._handleInputChange(), options);
-      this._parseInput(true);
-      this._tryApplyFormatToInput();
-      this._validateDate();
-      this._emitInputUpdated();
-      this._associationController?.updateControls();
     }
+
+    const options: AddEventListenerOptions = { signal: this._inputAbortController.signal };
+    this.inputElement.addEventListener(
+      'input',
+      (e) => {
+        forwardEvent(e, this);
+        this._parseInput();
+      },
+      options,
+    );
+    this.inputElement.addEventListener('change', () => this._handleInputChange(), options);
+    this._parseInput(true);
+    this._tryApplyFormatToInput();
+    this._validateDate();
+    this._emitInputUpdated();
+    this._associationController?.updateControls();
   }
 
   private _emitInputUpdated(): void {

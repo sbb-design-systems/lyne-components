@@ -36,7 +36,7 @@ const defaultArgs: Args = {
 const BaseTemplate = (args: Args, picker: string | undefined = undefined): TemplateResult => html`
   <sbb-datepicker-previous-day
     ${sbbSpread(args)}
-    .datePicker=${picker}
+    .datepicker=${picker}
   ></sbb-datepicker-previous-day>
 `;
 

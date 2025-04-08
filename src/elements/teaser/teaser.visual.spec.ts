@@ -92,8 +92,11 @@ describe(`sbb-teaser`, () => {
                       `,
                       { maxWidth: '760px' },
                     );
-                    await waitForImageReady(
-                      setup.snapshotElement.querySelector(imgCase.imgSelector)!,
+                    setup.withPostSetupAction(
+                      async () =>
+                        await waitForImageReady(
+                          setup.snapshotElement.querySelector(imgCase.imgSelector)!,
+                        ),
                     );
                   }),
                 );
@@ -126,7 +129,9 @@ describe(`sbb-teaser`, () => {
                   `,
                   { maxWidth: '760px' },
                 );
-                await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+                setup.withPostSetupAction(
+                  async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+                );
               }),
             );
           });
@@ -134,7 +139,7 @@ describe(`sbb-teaser`, () => {
       }
 
       it(
-        'grid with sbb-image',
+        'grid with img',
         visualDiffDefault.with(async (setup) => {
           const count = 2;
           await setup.withFixture(html`
@@ -150,7 +155,7 @@ describe(`sbb-teaser`, () => {
                       style="--sbb-teaser-align-items: stretch;"
                     >
                       <figure slot="image" class="sbb-figure" style="width: 100%">
-                        <sbb-image image-src=${imageUrl}></sbb-image>
+                        <img alt="" src=${imageUrl} />
                         <sbb-chip-label class="sbb-figure-overlap-start-start">
                           AI chip
                         </sbb-chip-label>
@@ -163,11 +168,13 @@ describe(`sbb-teaser`, () => {
             </sbb-container>
           `);
 
-          await Promise.all(
-            Array.from(setup.snapshotElement.querySelectorAll('sbb-image')).map((el) =>
-              waitForImageReady(el),
-            ),
-          );
+          setup.withPostSetupAction(async () => {
+            await Promise.all(
+              Array.from(setup.snapshotElement.querySelectorAll('img')).map((el) =>
+                waitForImageReady(el),
+              ),
+            );
+          });
         }),
       );
 
@@ -184,7 +191,9 @@ describe(`sbb-teaser`, () => {
             { forcedColors: true },
           );
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
 
@@ -206,7 +215,9 @@ describe(`sbb-teaser`, () => {
             `,
             { maxWidth: '760px' },
           );
-          await waitForImageReady(setup.snapshotElement.querySelector('img')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+          );
         }),
       );
     });

@@ -7,6 +7,8 @@ import {
   visualDiffHover,
 } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
+import type { SbbImageElement } from '../image.js';
+
 import './teaser-hero.js';
 import '../image.js';
 import '../chip-label.js';
@@ -57,7 +59,9 @@ describe(`sbb-teaser-hero`, () => {
               </sbb-teaser-hero>
             `);
 
-            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            setup.withPostSetupAction(async () => {
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            });
           }),
         );
       }
@@ -71,7 +75,9 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -88,9 +94,45 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }
+
+    it(
+      `allows logo img`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-teaser-hero href="#" link-content="Find out more">
+            Break out and explore castles and palaces.
+            <figure class="sbb-figure" slot="image">
+              <sbb-image image-src=${imageUrl}></sbb-image>
+              <sbb-chip-label class="sbb-figure-overlap-start-start">Chip label</sbb-chip-label>
+              <img
+                class="sbb-figure-overlap-image sbb-figure-overlap-end-end"
+                alt=""
+                width="50"
+                height="30"
+                style="border: 1px solid black"
+                src=${imageUrl}
+              />
+            </figure>
+          </sbb-teaser-hero>
+        `);
+
+        setup.withPostSetupAction(async () => {
+          await Promise.all(
+            Array.from(
+              setup.snapshotElement.querySelectorAll<SbbImageElement | HTMLImageElement>(
+                'img,sbb-image',
+              ),
+            ).map((el) => waitForImageReady(el)),
+          );
+        });
+      }),
+    );
   });
 });

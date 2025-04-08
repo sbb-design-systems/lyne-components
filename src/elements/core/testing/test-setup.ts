@@ -27,9 +27,6 @@ testFrameworkConfig.rootHooks = {
   },
 };
 
-// TODO: Decide if we want to remove hydration logic in non ssr scenario.
-//if (testGroup === 'ssr') {}
-
 if (testGroup === 'visual-regression') {
   mergeConfig({
     icon: {

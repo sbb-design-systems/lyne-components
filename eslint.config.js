@@ -43,6 +43,7 @@ export default [
   ...eslintPluginYml.configs['flat/standard'],
   ...eslintPluginYml.configs['flat/prettier'],
   eslintPluginImportX.flatConfigs.recommended,
+  eslintPluginImportX.flatConfigs.typescript,
   eslintPluginLit.configs['flat/recommended'],
   eslintPluginLyne.configs.recommended,
   {
@@ -119,6 +120,7 @@ export default [
       '@typescript-eslint/semi': 'error',
 
       'import-x/first': 'error',
+      'import-x/newline-after-import': 'error',
       'import-x/no-absolute-path': 'error',
       'import-x/no-cycle': 'error',
       'import-x/no-self-import': 'error',

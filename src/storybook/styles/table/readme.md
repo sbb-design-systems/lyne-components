@@ -82,17 +82,18 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 In advanced scenarios, predefined classes might not suffice.
 Therefore, we provide mixins you can build on top of:
 
-| Sass Mixin           | CSS class                | Description                               |
-| -------------------- | ------------------------ | ----------------------------------------- |
-| `table`              | `sbb-table`              | The table style (equivalent to `table-m`) |
-| `table--m`           | `sbb-table-m`            | Medium size table style                   |
-| `table--s`           | `sbb-table-s`            | Small size table style                    |
-| `table--xs`          | `sbb-table-xs`           | Smallest size table style                 |
-| `table--negative`    | `sbb-table--negative`    | Negative variant style                    |
-| `table--striped`     | `sbb-table--striped`     | Striped table style                       |
-| `table--unstriped`   | `sbb-table--unstriped`   | Non-striped table style                   |
-| `table-row--striped` | `sbb-table-row--striped` | Force the striped state on a `tr`         |
-| `table-header-cell`  | `sbb-table-header-cell`  | `th` element style                        |
-| `table-data-row`     | `sbb-table-data-row`     | `tr` element style                        |
-| `table-data-cell`    | `sbb-table-data-cell`    | `td` element style                        |
-| `table-caption`      | `sbb-table-caption`      | `caption` element style                   |
+| Sass Mixin           | CSS class                | Description                                 |
+| -------------------- | ------------------------ | ------------------------------------------- |
+| `table`              | `sbb-table`              | The table style (equivalent to `table-m`)   |
+| `table--m`           | `sbb-table-m`            | Medium size table style                     |
+| `table--s`           | `sbb-table-s`            | Small size table style                      |
+| `table--xs`          | `sbb-table-xs`           | Smallest size table style                   |
+| `table--negative`    | `sbb-table--negative`    | Negative variant style                      |
+| `table--striped`     | `sbb-table--striped`     | Striped table style                         |
+| `table--unstriped`   | `sbb-table--unstriped`   | Non-striped table style                     |
+| `table-row--striped` | `sbb-table-row--striped` | Force the striped state on a `tr`           |
+| `table-header-row`   | `sbb-table-header-row`   | Header `tr` element style                   |
+| `table-header-cell`  | `sbb-table-header-cell`  | `th` element style                          |
+| `table-data-cell`    | `sbb-table-data-cell`    | `td` element style                          |
+| `table-caption`      | `sbb-table-caption`      | `caption` element style                     |
+| `table-filter`       | `sbb-table-filter`       | `th` element that contains an inline filter |

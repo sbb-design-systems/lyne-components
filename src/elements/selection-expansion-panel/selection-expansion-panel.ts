@@ -109,7 +109,6 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   private _language = new SbbLanguageController(this);
-  private _initialized: boolean = false;
   private _sizeAttributeObserver = !isServer
     ? new MutationObserver((mutationsList: MutationRecord[]) =>
         this._onSizeAttributesChange(mutationsList),
@@ -152,12 +151,6 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    this._initialized = true;
-  }
-
   private _updateState(): void {
     if (!this._hasContent) {
       return;
@@ -181,7 +174,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
-    if (!this._initialized || this._isZeroAnimationDuration()) {
+    if (!this.hasUpdated || this._isZeroAnimationDuration()) {
       this._handleOpening();
     }
   }

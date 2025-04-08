@@ -127,7 +127,10 @@ describe(`sbb-lead-container`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(leadContainerTemplate(testCase.imgTemplate), wrapperStyles);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }

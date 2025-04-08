@@ -1,10 +1,15 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  LitElement,
+  type PropertyDeclaration,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbLanguageController } from '../core/controllers.js';
-import { findInput } from '../core/dom.js';
+import { SbbIdReferenceController, SbbLanguageController } from '../core/controllers.js';
 import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import { i18nTimeInputChange } from '../core/i18n.js';
 import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces.js';
@@ -35,16 +40,10 @@ class SbbTimeInputElement extends LitElement {
     validationChange: 'validationChange',
   } as const;
 
+  // TODO: Replace HTMLElement by HTMLInputElement
   /** Reference of the native input connected to the datepicker. */
   @property()
-  public set input(value: string | HTMLElement | null) {
-    this._input = value;
-    this._setupInputElement();
-  }
-  public get input(): string | HTMLElement | null {
-    return this._input;
-  }
-  private _input: string | HTMLElement | null = null;
+  public accessor input: string | HTMLElement | null = null;
 
   @state() private accessor _inputElement: HTMLInputElement | null = null;
 
@@ -88,50 +87,56 @@ class SbbTimeInputElement extends LitElement {
   );
 
   private _statusContainer!: HTMLParagraphElement;
-  private _abortController = new AbortController();
+  private _inputAbortController = new AbortController();
+  private _inputIdReferenceController = new SbbIdReferenceController(this, 'input');
   private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._setupInputElement();
+    this._configureInputElement();
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._abortController?.abort();
+    this._inputAbortController?.abort();
+    this._inputElement = null;
   }
 
-  public override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
 
-    this._setupInputElement();
+    if (!isServer && (!name || name === 'input') && this.hasUpdated) {
+      this._configureInputElement();
+    }
   }
 
-  private _setupInputElement(): void {
-    const newInput = findInput(this, this.input);
-    if (!newInput) {
-      this._abortController?.abort();
+  private _configureInputElement(): void {
+    const inputElement =
+      this.input instanceof HTMLInputElement
+        ? this.input
+        : ((this._inputIdReferenceController.find() as HTMLInputElement | null) ??
+          this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>('input') ??
+          null);
+
+    if (inputElement === this._inputElement) {
       return;
     }
 
-    const oldInput = this._inputElement;
-    if (oldInput === newInput) {
-      return;
-    }
-    this._inputElement = newInput;
-    this._registerInputElement();
-    this._updateValue(this._inputElement.value);
-  }
-
-  private _registerInputElement(): void {
-    this._abortController?.abort();
+    this._inputAbortController?.abort();
+    this._inputElement?.removeAttribute('data-sbb-time-input');
+    this._inputElement = inputElement;
 
     if (!this._inputElement) {
       return;
     }
 
-    this._abortController = new AbortController();
+    this._updateValue(this._inputElement.value);
+    this._inputAbortController = new AbortController();
 
     // Configure input
     this._inputElement.toggleAttribute('data-sbb-time-input', true);
@@ -143,18 +148,18 @@ class SbbTimeInputElement extends LitElement {
     }
 
     this._inputElement.addEventListener('input', (event: Event) => forwardEvent(event, this), {
-      signal: this._abortController.signal,
+      signal: this._inputAbortController.signal,
     });
     this._inputElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._preventCharInsert(event),
-      { signal: this._abortController.signal },
+      { signal: this._inputAbortController.signal },
     );
     this._inputElement.addEventListener(
       'change',
       (event: Event) => this._updateValue((event.target as HTMLInputElement).value),
       {
-        signal: this._abortController.signal,
+        signal: this._inputAbortController.signal,
         capture: true,
       },
     );
@@ -165,7 +170,7 @@ class SbbTimeInputElement extends LitElement {
         this._updateAccessibilityMessage();
       },
       {
-        signal: this._abortController.signal,
+        signal: this._inputAbortController.signal,
       },
     );
   }

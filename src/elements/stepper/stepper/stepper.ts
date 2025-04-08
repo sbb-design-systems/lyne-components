@@ -113,6 +113,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+    this.addEventListener('resizeChange', (e: CustomEvent<void>) => this._onSelectedStepResize(e));
   }
 
   /** Selects the next step. */
@@ -235,6 +236,10 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     );
   }
 
+  private _onSelectedStepResize(e: CustomEvent<void>): void {
+    this._setStepperHeight(e.target as SbbStepElement);
+  }
+
   private _configure(): void {
     const steps = this.steps;
     steps.forEach((s) => s.configure(this._loaded));
@@ -301,15 +306,16 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     window.removeEventListener('resize', this._onStepperResize);
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    await this.updateComplete;
-    this._loaded = true;
-    this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
-    this._observer.observe(this);
-    this._checkOrientation();
-    // Remove [data-disable-animation] after component init
-    setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
+    this.updateComplete.then(() => {
+      this._loaded = true;
+      this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
+      this._observer.observe(this);
+      this._checkOrientation();
+      // Remove [data-disable-animation] after component init
+      setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
+    });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

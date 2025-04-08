@@ -34,7 +34,7 @@ const defaultArgs: Args = {
 };
 
 const BaseTemplate = (args: Args, picker: string | undefined = undefined): TemplateResult => html`
-  <sbb-datepicker-next-day ${sbbSpread(args)} .datePicker=${picker}></sbb-datepicker-next-day>
+  <sbb-datepicker-next-day ${sbbSpread(args)} .datepicker=${picker}></sbb-datepicker-next-day>
 `;
 
 const StandaloneTemplate = (args: Args): TemplateResult => html` ${BaseTemplate(args)} `;
