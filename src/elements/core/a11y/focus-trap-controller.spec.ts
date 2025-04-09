@@ -66,9 +66,7 @@ describe('focusTrapController', () => {
   });
 
   it('should focus next element with filter', async () => {
-    const focusTrapController = new SbbFocusTrapController(element, {
-      filter: (el) => ['div', 'input'].includes(el.localName),
-    });
+    const focusTrapController = new SbbFocusTrapController(element);
 
     focusTrapController.enabled = true;
 
@@ -80,9 +78,7 @@ describe('focusTrapController', () => {
   });
 
   it('should focus next element with post filter', async () => {
-    const focusTrapController = new SbbFocusTrapController(element, {
-      postFilter: (el) => ['custom-button', 'custom-link'].includes(el.id),
-    });
+    const focusTrapController = new SbbFocusTrapController(element);
     focusTrapController.enabled = true;
 
     element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
