@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbSelectElement } from '../../select.js';
 
-import { SbbOptionElement } from './option.js';
+import { SbbOptionElement } from './option.component.js';
 
 import '../../autocomplete.js';
 import '../../select.js';
@@ -16,7 +16,7 @@ describe(`sbb-option ssr`, () => {
 
     beforeEach(async () => {
       root = await ssrHydratedFixture(html`<sbb-option value="Option A">Option A</sbb-option>`, {
-        modules: ['./option.js'],
+        modules: ['./option.component.js'],
       });
     });
 
@@ -40,7 +40,7 @@ describe(`sbb-option ssr`, () => {
             </sbb-autocomplete>
           </div>
         `,
-        { modules: ['../../autocomplete.js', './option.js'] },
+        { modules: ['../../autocomplete.js', './option.component.js'] },
       );
     });
 
@@ -61,7 +61,7 @@ describe(`sbb-option ssr`, () => {
             <sbb-option value="3">Option 3</sbb-option>
           </sbb-select>
         `,
-        { modules: ['../../select.js', './option.js'] },
+        { modules: ['../../select.js', './option.component.js'] },
       );
     });
 
@@ -90,7 +90,7 @@ describe(`sbb-option ssr`, () => {
             <sbb-option value="3">Option 3</sbb-option>
           </sbb-select>
         `,
-        { modules: ['../../select.js', './option.js'] },
+        { modules: ['../../select.js', './option.component.js'] },
       );
     });
 

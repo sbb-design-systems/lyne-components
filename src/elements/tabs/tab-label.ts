@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './tab-label/tab-label.js';
+export * from './tab-label/tab-label.component.js';

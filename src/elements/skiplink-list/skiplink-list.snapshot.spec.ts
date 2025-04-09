@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSkiplinkListElement } from './skiplink-list.js';
-import './skiplink-list.js';
+import type { SbbSkiplinkListElement } from './skiplink-list.component.js';
+import './skiplink-list.component.js';
 import '../link/block-link.js';
 
 describe(`sbb-skiplink-list`, () => {

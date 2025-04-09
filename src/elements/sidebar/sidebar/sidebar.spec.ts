@@ -7,7 +7,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
-import { SbbSidebarElement } from './sidebar.js';
+import { SbbSidebarElement } from './sidebar.component.js';
 
 import '../sidebar-close-button.js';
 import '../sidebar-container.js';

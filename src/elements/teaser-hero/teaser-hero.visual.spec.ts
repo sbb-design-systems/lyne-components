@@ -9,7 +9,7 @@ import {
 import { waitForImageReady } from '../core/testing.js';
 import type { SbbImageElement } from '../image.js';
 
-import './teaser-hero.js';
+import './teaser-hero.component.js';
 import '../image.js';
 import '../chip-label.js';
 

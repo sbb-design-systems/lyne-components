@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './button/button.js';
+export * from './button/button.component.js';

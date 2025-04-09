@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import type { SbbDialogElement } from './dialog.js';
-import './dialog.js';
+import type { SbbDialogElement } from './dialog.component.js';
+import './dialog.component.js';
 import '../dialog-title.js';
 import '../dialog-content.js';
 

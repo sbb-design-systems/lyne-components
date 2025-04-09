@@ -12,7 +12,7 @@ import '../divider.js';
 import '../link.js';
 import '../link-list.js';
 import '../title.js';
-import './footer.js';
+import './footer.component.js';
 
 const variant: InputType = {
   control: {

@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbSidebarContentElement } from './sidebar-content.js';
+import { SbbSidebarContentElement } from './sidebar-content.component.js';
 
 describe('sbb-sidebar-content', () => {
   let element: SbbSidebarContentElement;

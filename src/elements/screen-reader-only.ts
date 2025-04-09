@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './screen-reader-only/screen-reader-only.js';
+export * from './screen-reader-only/screen-reader-only.component.js';

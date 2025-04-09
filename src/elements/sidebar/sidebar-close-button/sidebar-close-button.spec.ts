@@ -5,7 +5,7 @@ import { i18nCloseSidebar } from '../../core/i18n.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import { SbbSidebarCloseButtonElement } from './sidebar-close-button.js';
+import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
 
 describe('sbb-sidebar-close-button', () => {
   let element: SbbSidebarCloseButtonElement;

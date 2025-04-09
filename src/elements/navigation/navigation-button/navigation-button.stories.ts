@@ -5,7 +5,7 @@ import { html, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './navigation-button.js';
+import './navigation-button.component.js';
 
 const size: InputType = {
   control: {

@@ -7,7 +7,7 @@ import { fixture, tabKey } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import type { SbbSidebarElement } from '../sidebar.js';
 
-import { SbbSidebarContainerElement } from './sidebar-container.js';
+import { SbbSidebarContainerElement } from './sidebar-container.component.js';
 
 import '../sidebar.js';
 import '../sidebar-content.js';

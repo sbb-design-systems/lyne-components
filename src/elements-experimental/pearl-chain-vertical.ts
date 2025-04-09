@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './pearl-chain-vertical/pearl-chain-vertical.js';
+export * from './pearl-chain-vertical/pearl-chain-vertical.component.js';

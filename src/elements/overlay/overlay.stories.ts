@@ -8,7 +8,7 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import sampleImages from '../core/images.js';
 
-import { SbbOverlayElement } from './overlay.js';
+import { SbbOverlayElement } from './overlay.component.js';
 import readme from './readme.md?raw';
 
 import '../button.js';

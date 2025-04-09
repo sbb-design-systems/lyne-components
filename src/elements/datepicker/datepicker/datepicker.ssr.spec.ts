@@ -5,7 +5,7 @@ import { defaultDateAdapter } from '../../core/datetime.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
-import { SbbDatepickerElement } from './datepicker.js';
+import { SbbDatepickerElement } from './datepicker.component.js';
 
 import '../../date-input.js';
 import '../../form-field.js';
@@ -18,7 +18,7 @@ describe(`sbb-datepicker ssr`, () => {
 
   it('renders', async () => {
     const root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
-      modules: ['./datepicker.js'],
+      modules: ['./datepicker.component.js'],
     });
     assert.instanceOf(root, SbbDatepickerElement);
   });
@@ -36,7 +36,7 @@ describe(`sbb-datepicker ssr`, () => {
       `,
       {
         modules: [
-          './datepicker.js',
+          './datepicker.component.js',
           '../../form-field.js',
           '../datepicker-next-day.js',
           '../datepicker-previous-day.js',

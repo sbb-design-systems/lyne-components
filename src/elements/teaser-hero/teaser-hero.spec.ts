@@ -5,7 +5,7 @@ import type { SbbChipLabelElement } from '../chip-label.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
-import { SbbTeaserHeroElement } from './teaser-hero.js';
+import { SbbTeaserHeroElement } from './teaser-hero.component.js';
 import '../chip-label.js';
 import '../image.js';
 

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbAutocompleteElement } from './autocomplete.js';
+import { SbbAutocompleteElement } from './autocomplete.component.js';
 
 import '../form-field.js';
 import '../option.js';
@@ -24,7 +24,7 @@ describe(`sbb-autocomplete ssr`, () => {
         </sbb-form-field>
         <button>Use this for backdrop click</button>
       `,
-      { modules: ['../form-field.js', './autocomplete.js', '../option.js'] },
+      { modules: ['../form-field.js', './autocomplete.component.js', '../option.js'] },
     );
   });
 

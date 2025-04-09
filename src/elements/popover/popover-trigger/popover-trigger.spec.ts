@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbPopoverElement } from '../popover.js';
 
-import { SbbPopoverTriggerElement } from './popover-trigger.js';
+import { SbbPopoverTriggerElement } from './popover-trigger.component.js';
 
 import '../../icon.js';
 import '../../link/link.js';

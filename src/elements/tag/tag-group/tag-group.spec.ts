@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTagElement } from '../tag.js';
 
-import { SbbTagGroupElement } from './tag-group.js';
+import { SbbTagGroupElement } from './tag-group.component.js';
 
 import '../tag.js';
 

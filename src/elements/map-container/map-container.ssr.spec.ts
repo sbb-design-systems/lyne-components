@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbMapContainerElement } from './map-container.js';
+import { SbbMapContainerElement } from './map-container.component.js';
 
 import '../title.js';
 
@@ -28,7 +28,7 @@ describe(`sbb-map-container ssr`, () => {
           <div style="height: 1200px">map</div>
         </div>
       </sbb-map-container>`,
-      { modules: ['./map-container.js', '../title.js'] },
+      { modules: ['./map-container.component.js', '../title.js'] },
     );
   });
 

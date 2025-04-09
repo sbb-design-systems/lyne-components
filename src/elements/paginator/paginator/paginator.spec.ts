@@ -9,7 +9,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbOptionElement } from '../../option.js';
 import { SbbSelectElement } from '../../select.js';
 
-import { SbbPaginatorElement } from './paginator.js';
+import { SbbPaginatorElement } from './paginator.component.js';
 
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;

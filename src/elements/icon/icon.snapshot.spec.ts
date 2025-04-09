@@ -5,9 +5,9 @@ import { mergeConfig, readConfig, type SbbIconConfig } from '../core/config.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbIconElement } from './icon.js';
+import type { SbbIconElement } from './icon.component.js';
 
-import './icon.js';
+import './icon.component.js';
 
 describe(`sbb-icon`, () => {
   let iconConfig: SbbIconConfig;

@@ -4,8 +4,8 @@ import { repeat } from 'lit/directives/repeat.js';
 import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './overlay.js';
-import type { SbbOverlayElement } from './overlay.js';
+import './overlay.component.js';
+import type { SbbOverlayElement } from './overlay.component.js';
 
 describe(`sbb-overlay`, () => {
   const defaultArgs = {
