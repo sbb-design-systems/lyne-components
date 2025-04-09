@@ -95,10 +95,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusTrapController = new SbbFocusTrapController(this, {
-    filter: (el: HTMLElement): boolean =>
-      el.nodeName !== 'SBB-NAVIGATION-SECTION' || el.getAttribute('data-state') === 'opened',
-  });
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -203,7 +200,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.didClose.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
-    this._focusTrapController.untrap();
+    this._focusTrapController.enabled = false;
 
     // Enable scrolling for content below the navigation
     this._scrollHandler.enableScroll();
@@ -215,7 +212,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._escapableOverlayController.connect();
-    this._focusTrapController.trap();
+    this._focusTrapController.enabled = true;
     this._setNavigationFocus();
     this.completeUpdate();
     this.didOpen.emit();

@@ -257,13 +257,13 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     if (isModeOver) {
       this._escapableOverlayController.connect();
-      this._focusTrapController.trap();
+      this._focusTrapController.enabled = true;
     }
   }
 
   // Internal method that we use externally. `protected` preserves type information for type safe access.
   protected cedeFocus(): void {
-    this._focusTrapController.untrap();
+    this._focusTrapController.enabled = false;
     this._escapableOverlayController.disconnect();
   }
 

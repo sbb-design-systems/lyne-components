@@ -119,7 +119,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     // Manually focus last focused element
     this.lastFocusedElement?.focus();
     this.openOverlayController?.abort();
-    this.focusTrapController.untrap();
+    this.focusTrapController.enabled = false;
     if (this._dialogContentElement) {
       this._dialogContentResizeObserver.unobserve(this._dialogContentElement);
     }
@@ -147,7 +147,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
         this.accessibilityLabel || this._dialogTitleElement?.innerText.trim(),
       ),
     );
-    this.focusTrapController.trap();
+    this.focusTrapController.enabled = true;
     this.didOpen.emit();
   }
 

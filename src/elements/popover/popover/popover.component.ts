@@ -117,9 +117,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusTrapController = new SbbFocusTrapController(this, {
-    postFilter: (el: HTMLElement) => el !== this._overlay,
-  });
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
@@ -188,7 +186,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this.hidePopover?.();
 
     this._overlay?.firstElementChild?.scrollTo(0, 0);
-    this._overlay?.removeAttribute('tabindex');
+    this.removeAttribute('tabindex');
 
     if (!this._skipCloseFocus) {
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
@@ -201,7 +199,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._escapableOverlayController.disconnect();
     this.didClose.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
-    this._focusTrapController.untrap();
+    this._focusTrapController.enabled = false;
   }
 
   private _handleOpening(): void {
@@ -210,7 +208,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._attachWindowEvents();
     this._escapableOverlayController.connect();
     this._setPopoverFocus();
-    this._focusTrapController.trap();
+    this._focusTrapController.enabled = true;
     this.didOpen.emit();
   }
 
@@ -411,9 +409,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       setModalityOnNextFocus(firstFocusable);
       firstFocusable.focus();
     } else {
-      this._overlay.setAttribute('tabindex', '0');
-      setModalityOnNextFocus(this._overlay);
-      this._overlay.focus();
+      this.setAttribute('tabindex', '0');
+      setModalityOnNextFocus(this);
+      this.focus();
 
       // When a blur occurs, we know that the popover has to be closed,
       // because there are no interactive elements inside the popover.
@@ -422,12 +420,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       // Therefore, we cannot listen to the blur event only once.
       // To prevent accidentally closing the popover, we need to check for the window/tab state.
       // We can achieve this by using visibilityState, which only works with setTimeout().
-      this._overlay.addEventListener(
+      this.addEventListener(
         'blur',
         (): void => {
           setTimeout(() => {
             if (document.visibilityState !== 'hidden') {
-              this._overlay?.removeAttribute('tabindex');
+              this.removeAttribute('tabindex');
               if (this.state === 'opened' || this.state === 'opening') {
                 this._skipCloseFocus = true;
               }

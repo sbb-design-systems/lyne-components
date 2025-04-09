@@ -41,7 +41,7 @@ describe('focusTrapController', () => {
   it('should focus next element', async () => {
     const focusTrapController = new SbbFocusTrapController(element);
 
-    focusTrapController.trap();
+    focusTrapController.enabled = true;
 
     element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
     expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
@@ -70,7 +70,7 @@ describe('focusTrapController', () => {
       filter: (el) => ['div', 'input'].includes(el.localName),
     });
 
-    focusTrapController.trap();
+    focusTrapController.enabled = true;
 
     element.shadowRoot!.querySelector('input')!.focus();
     expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
@@ -83,7 +83,7 @@ describe('focusTrapController', () => {
     const focusTrapController = new SbbFocusTrapController(element, {
       postFilter: (el) => ['custom-button', 'custom-link'].includes(el.id),
     });
-    focusTrapController.trap();
+    focusTrapController.enabled = true;
 
     element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
     expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');

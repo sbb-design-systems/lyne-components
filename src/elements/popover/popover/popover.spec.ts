@@ -453,16 +453,14 @@ describe(`sbb-popover`, () => {
     });
 
     it('should focus content container if no interactive content present', async () => {
-      const popoverContainer = element.shadowRoot!.querySelector('.sbb-popover');
-
       // When opening by keyboard
       trigger.focus();
       await sendKeys({ press: 'Space' });
 
       // Then popover opens and focuses container
       await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-      expect(document.activeElement!.shadowRoot!.activeElement).to.equal(popoverContainer);
-      expect(popoverContainer).to.have.attribute('tabindex', '0');
+      expect(document.activeElement!).to.equal(element);
+      expect(element).to.have.attribute('tabindex', '0');
 
       // When tabbing away
       await sendKeys({ press: tabKey });
@@ -472,20 +470,18 @@ describe(`sbb-popover`, () => {
       expect(document.activeElement).to.equal(
         content.querySelector('#interactive-background-element'),
       );
-      expect(popoverContainer).not.to.have.attribute('tabindex');
+      expect(element).not.to.have.attribute('tabindex');
     });
 
     it('should remove tabindex when closing with esc', async () => {
-      const popoverContainer = element.shadowRoot!.querySelector('.sbb-popover');
-
       // When opening by keyboard
       trigger.focus();
       await sendKeys({ press: 'Space' });
 
       // Then popover opens and focuses container
       await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-      expect(document.activeElement!.shadowRoot!.activeElement).to.equal(popoverContainer);
-      expect(popoverContainer).to.have.attribute('tabindex', '0');
+      expect(document.activeElement!).to.equal(element);
+      expect(element).to.have.attribute('tabindex', '0');
 
       // When pressing escape key
       await sendKeys({ press: 'Escape' });
@@ -493,7 +489,7 @@ describe(`sbb-popover`, () => {
       // Then popover should close, trigger should be focused and popover container be reset.
       await waitForCondition(() => element.getAttribute('data-state') === 'closed');
       expect(document.activeElement).to.equal(trigger);
-      expect(popoverContainer).not.to.have.attribute('tabindex');
+      expect(element).not.to.have.attribute('tabindex');
     });
   });
 
