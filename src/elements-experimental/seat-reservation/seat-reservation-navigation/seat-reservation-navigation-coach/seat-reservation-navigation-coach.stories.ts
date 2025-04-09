@@ -58,6 +58,11 @@ const lastAreaType: InputType = {
   description: 'is coach the last one',
 };
 
+const disabledAreaType: InputType = {
+  control: 'boolean',
+  description: 'is coach disabled',
+};
+
 const defaultArgsTypes: Args = {
   index: indexType,
   selected: selectedType,
@@ -67,6 +72,7 @@ const defaultArgsTypes: Args = {
   'driver-area': driverAreaType,
   first: firstAreaType,
   last: lastAreaType,
+  disable: disabledAreaType,
 };
 
 const defaultArgs: Args = {
@@ -107,6 +113,11 @@ export const FirstCoachInTrainFirstClass: StoryObj = {
 export const LastCoachInTrain: StoryObj = {
   render: Template,
   args: { ...defaultArgs, last: true },
+};
+
+export const DisabledFirstClassCoach: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, 'travel-class': JSON.stringify(['FIRST']), disable: true },
 };
 
 const meta: Meta = {
