@@ -1,8 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -18,9 +18,6 @@ import style from './toggle-option.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle-option')
-@hostAttributes({
-  role: 'radio',
-})
 @slotState()
 class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -39,10 +36,18 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
 
   public constructor() {
     super();
+    const internals: ElementInternals = this.attachInternals();
+    /** @internal */
+    internals.role = 'radio';
+
     // We need to listen input event on host as with keyboard navigation
     // the Input Event is triggered from sbb-toggle.
     this.addEventListener?.('input', () => this._handleInput());
-    this.addEventListener?.('click', () => this.shadowRoot!.querySelector('label')?.click());
+    this.addEventListener?.('click', () => {
+      if (!this.disabled && !this.checked) {
+        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      }
+    });
   }
 
   public override connectedCallback(): void {
@@ -92,23 +97,12 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
 
   protected override render(): TemplateResult {
     return html`
-      <input
-        type="radio"
-        id="sbb-toggle-option-id"
-        aria-hidden="true"
-        tabindex="-1"
-        ?inert=${this.checked}
-        ?disabled=${this.disabled}
-        .checked=${this.checked || nothing}
-        .value=${this.value || nothing}
-        @click=${(event: PointerEvent) => event.stopPropagation()}
-      />
-      <label class="sbb-toggle-option" for="sbb-toggle-option-id">
+      <div class="sbb-toggle-option">
         ${this.renderIconSlot()}
         <span class="sbb-toggle-option__label">
           <slot></slot>
         </span>
-      </label>
+      </div>
     `;
   }
 }

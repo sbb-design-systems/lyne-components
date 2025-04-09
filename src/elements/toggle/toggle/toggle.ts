@@ -10,7 +10,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import {
@@ -31,9 +31,6 @@ import style from './toggle.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle')
-@hostAttributes({
-  role: 'radiogroup',
-})
 class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -93,6 +90,9 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
   public constructor() {
     super();
+    /** @internal */
+    this.internals.role = 'radiogroup';
+
     this.addEventListener?.('input', () => this._handleInput(), { passive: true });
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
