@@ -1,0 +1,8 @@
+.sbb-seat-reservation__graphical-element {
+  position: absolute;
+  inset-block-start: var(--sbb-seat-reservation-table-cell-inset-block-start);
+  inset-inline-start: var(--sbb-seat-reservation-table-cell-inset-inline-start);
+  width: var(--sbb-seat-reservation-table-cell-width);
+  height: var(--sbb-seat-reservation-table-cell-height);
+  z-index: var(--sbb-seat-reservation-table-cell-z-index);
+}
