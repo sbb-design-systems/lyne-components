@@ -7,7 +7,6 @@ import {
   getFirstFocusableElement,
   IS_FOCUSABLE_QUERY,
   SbbFocusTrapController,
-  setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
@@ -191,7 +190,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     if (!this._skipCloseFocus) {
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
-      setModalityOnNextFocus(elementToFocus);
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       elementToFocus?.focus();
     }
@@ -406,11 +404,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
         Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
       );
     if (firstFocusable) {
-      setModalityOnNextFocus(firstFocusable);
       firstFocusable.focus();
     } else {
       this.setAttribute('tabindex', '0');
-      setModalityOnNextFocus(this);
       this.focus();
 
       // When a blur occurs, we know that the popover has to be closed,

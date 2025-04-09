@@ -81,8 +81,7 @@
 }
 
 @mixin link-focus-visible {
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  &:focus-visible {
     @include a11y.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));

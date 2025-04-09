@@ -121,7 +121,6 @@ describe(`sbb-popover`, () => {
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
-      expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -152,7 +151,6 @@ describe(`sbb-popover`, () => {
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
-      expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -201,7 +199,6 @@ describe(`sbb-popover`, () => {
 
       await didCloseEventSpy.calledOnce();
 
-      expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -247,7 +244,6 @@ describe(`sbb-popover`, () => {
       await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
-      expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -309,7 +305,6 @@ describe(`sbb-popover`, () => {
       await didCloseEventSpy.calledOnce();
       expect(didCloseEventSpy.count).to.be.equal(1);
 
-      expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -339,7 +334,6 @@ describe(`sbb-popover`, () => {
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
-      expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
       expect(document.activeElement).to.be.equal(trigger);
     });
 

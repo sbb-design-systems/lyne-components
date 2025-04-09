@@ -16,8 +16,7 @@
   z-index: 1;
 }
 
-// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+:host(:focus-visible) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
@@ -59,14 +58,16 @@ input[type='radio'] {
 
   // We need to use a ::before pseudo-element to show a single outline wrapping
   // the entire toggle when a toggle option receives :focus-visible.
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(:focus-visible) & {
     &::before {
       content: '';
       position: absolute;
       pointer-events: none;
       inset: calc(var(--sbb-focus-outline-offset) * -2);
-      border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+
+      // TODO: Check whether focus-outline mixin could be used
+      border: var(--sbb-focus-outline-color) solid
+        var(--sbb-focus-outline-width-override, var(--sbb-focus-outline-width));
       border-radius: var(--sbb-toggle-option-border-radius);
     }
   }

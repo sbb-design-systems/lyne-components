@@ -95,7 +95,7 @@
     cursor: unset;
   }
 
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  &:focus-visible {
     @include sbb.focus-outline;
 
     outline-offset: var(--sbb-spacing-fixed-1x);

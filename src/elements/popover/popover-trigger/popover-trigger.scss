@@ -66,9 +66,7 @@ $active: ':active, [data-active]';
   @include sbb.icon-button-disabled('.sbb-popover-trigger');
 }
 
-:host(
-  [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-) {
+:host([data-icon-small]:focus-visible) {
   @include sbb.icon-button-focus-visible('.sbb-popover-trigger');
 }
 
@@ -90,14 +88,7 @@ $active: ':active, [data-active]';
   }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used in popover as a workaround.
-  :host(
-      :focus-visible:not(
-          [data-icon-small],
-          [data-focus-origin='mouse'],
-          [data-focus-origin='touch']
-        )
-    )
-    & {
+  :host(:focus-visible:not([data-icon-small])) & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-4x);

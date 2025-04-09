@@ -36,12 +36,7 @@ $active: ':active, [data-active]';
     @include icon-button-disabled(#{$button-selector});
   }
 
-  :host(
-    :is(
-      [data-focus-visible],
-      :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-    )
-  ) {
+  :host(:is([data-focus-visible], :focus-visible)) {
     @include icon-button-focus-visible(#{$button-selector});
   }
 

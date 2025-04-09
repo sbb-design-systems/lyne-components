@@ -14,7 +14,6 @@ import {
   IS_FOCUSABLE_QUERY,
   isArrowKeyOrPageKeysPressed,
   SbbFocusTrapController,
-  setModalityOnNextFocus,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
@@ -188,7 +187,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     this._menu?.firstElementChild?.scrollTo(0, 0);
     this._inertController.deactivate();
-    setModalityOnNextFocus(this._triggerElement);
     // Manually focus last focused element
     this._triggerElement?.focus({
       // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
@@ -396,7 +394,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   // Set focus on the first focusable element.
   private _setMenuFocus(): void {
     const firstFocusable = this.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
-    setModalityOnNextFocus(firstFocusable);
     firstFocusable.focus();
   }
 

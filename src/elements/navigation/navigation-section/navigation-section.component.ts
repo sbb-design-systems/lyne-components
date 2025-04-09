@@ -10,7 +10,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y.js';
+import { getFirstFocusableElement } from '../../core/a11y.js';
 import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
@@ -140,7 +140,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._resetLists();
     this._setNavigationInert();
     if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
-      setModalityOnNextFocus(this._triggerElement);
       this._triggerElement.focus();
     }
     this.completeUpdate();
@@ -280,7 +279,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
         .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
     if (firstFocusableElement) {
-      setModalityOnNextFocus(firstFocusableElement);
       firstFocusableElement.focus();
     }
   }

@@ -83,7 +83,7 @@
   background-color: var(--sbb-popover-background);
   outline: none;
 
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
   }
 

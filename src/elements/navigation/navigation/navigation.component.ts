@@ -10,7 +10,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusTrapController, setModalityOnNextFocus } from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
@@ -192,7 +192,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.state = 'closed';
     this.hidePopover?.();
     this._navigationContentElement.scrollTo(0, 0);
-    setModalityOnNextFocus(this._triggerElement);
     this._inertController.deactivate();
     // To enable focusing other element than the trigger, we need to call focus() a second time.
     this._triggerElement?.focus();
@@ -285,7 +284,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     const closeButton = this.shadowRoot!.querySelector(
       '#sbb-navigation-close-button',
     ) as HTMLElement;
-    setModalityOnNextFocus(closeButton);
     closeButton.focus();
   }
 

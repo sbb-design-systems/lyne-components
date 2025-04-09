@@ -2,11 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import {
-  getFirstFocusableElement,
-  SbbFocusTrapController,
-  setModalityOnNextFocus,
-} from '../../core/a11y.js';
+import { getFirstFocusableElement, SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
@@ -227,7 +223,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     if (!isServer && (this.contains(document.activeElement) || this._isModeOver())) {
       if (this._lastFocusedElement) {
-        setModalityOnNextFocus(this._lastFocusedElement);
         this._lastFocusedElement?.focus();
       } else {
         // We don't know where to set the focus, but have to remove it, so we call blur
@@ -251,7 +246,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
       const firstFocusable = getFirstFocusableElement(
         Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
       );
-      setModalityOnNextFocus(firstFocusable);
       firstFocusable?.focus();
     }
 

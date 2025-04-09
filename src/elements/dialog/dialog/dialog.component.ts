@@ -3,7 +3,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y.js';
+import { getFirstFocusableElement } from '../../core/a11y.js';
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 import type { SbbDialogActionsElement } from '../dialog-actions.js';
@@ -115,7 +115,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.hidePopover?.();
 
     this.inertController.deactivate();
-    setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element
     this.lastFocusedElement?.focus();
     this.openOverlayController?.abort();
@@ -195,7 +194,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     const firstFocusable = getFirstFocusableElement(
       Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
-    setModalityOnNextFocus(firstFocusable);
     firstFocusable?.focus();
   }
 
