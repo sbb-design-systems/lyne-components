@@ -73,7 +73,9 @@ export function getFirstFocusableElement(
   return focusableElements.length ? focusableElements[0] : null;
 }
 
-// TODO: Convert to Controller and handle disconnectedCallback here with hostDisconnected().
+/**
+ * @deprecated Will be removed with next major release. Use SbbFocusTrapController.
+ */
 export class SbbFocusHandler {
   private _controller: AbortController | null = null;
 

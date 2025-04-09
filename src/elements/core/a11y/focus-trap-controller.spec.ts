@@ -1,18 +1,17 @@
 import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { html, LitElement } from 'lit';
 
-import { SbbOpenCloseBaseElement } from '../base-elements.js';
 import { fixture, tabKey } from '../testing/private.js';
 
 import { SbbFocusTrapController } from './focus-trap-controller.js';
 
 describe('focusTrapController', () => {
-  let element: SbbOpenCloseBaseElement;
+  let element: LitElement;
 
   customElements.define(
     'my-container-element',
-    class extends SbbOpenCloseBaseElement {
+    class extends LitElement {
       public constructor() {
         super();
         const shadowRoot = this.attachShadow({ mode: 'open' });
@@ -28,13 +27,6 @@ describe('focusTrapController', () => {
           <span id="disabled-interactive-button" disabled-interactive tabindex="0">Disabled interactive button</span>
           <span id="inert-button" tabindex="0" inert>Inert button</span>
       `;
-      }
-
-      public override open(): void {
-        throw new Error('Method not implemented.');
-      }
-      public override close(): void {
-        throw new Error('Method not implemented.');
       }
     },
   );

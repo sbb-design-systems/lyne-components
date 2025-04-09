@@ -1,7 +1,5 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
-
 import { getFocusableElements } from './focus.js';
 
 export class SbbFocusTrapController implements ReactiveController {
@@ -12,19 +10,13 @@ export class SbbFocusTrapController implements ReactiveController {
    * @param _options.postFilter filter function which is applied after collecting focusable elements.
    */
   public constructor(
-    private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
+    private _host: ReactiveControllerHost & HTMLElement,
     private _options?: {
       filter?: (el: HTMLElement) => boolean;
       postFilter?: (el: HTMLElement) => boolean;
     },
   ) {
     this._host.addController?.(this);
-  }
-
-  public hostConnected(): void {
-    if (this._host.isOpen) {
-      this.trap();
-    }
   }
 
   public hostDisconnected(): void {
