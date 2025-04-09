@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbStickyBarElement } from './sticky-bar.js';
-import './sticky-bar.js';
+import type { SbbStickyBarElement } from './sticky-bar.component.js';
+import './sticky-bar.component.js';
 
 describe(`sbb-sticky-bar`, () => {
   describe('renders', () => {

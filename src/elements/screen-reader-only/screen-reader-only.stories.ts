@@ -6,7 +6,7 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import './screen-reader-only.js';
+import './screen-reader-only.component.js';
 
 const content: InputType = {
   control: {

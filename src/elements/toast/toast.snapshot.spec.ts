@@ -5,9 +5,9 @@ import { isFirefox } from '../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { describeIf } from '../core/testing.js';
 
-import type { SbbToastElement } from './toast.js';
+import type { SbbToastElement } from './toast.component.js';
 
-import './toast.js';
+import './toast.component.js';
 
 describe(`sbb-toast`, () => {
   describe('renders', () => {

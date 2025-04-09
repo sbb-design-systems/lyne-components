@@ -9,7 +9,7 @@ import { waitForLitRender } from '../core/testing/wait-for-render.js';
 import '../form-field.js';
 import '../form-error.js';
 import '../option.js';
-import './autocomplete.js';
+import './autocomplete.component.js';
 
 describe('sbb-autocomplete', () => {
   const defaultArgs = {

@@ -6,9 +6,9 @@ import {
   buttonTestTemplate,
 } from '../common/button-test-utils.private.js';
 
-import type { SbbAccentButtonStaticElement } from './accent-button-static.js';
+import type { SbbAccentButtonStaticElement } from './accent-button-static.component.js';
 
-import './accent-button-static.js';
+import './accent-button-static.component.js';
 
 describe(`sbb-accent-button-static`, () => {
   let element: SbbAccentButtonStaticElement;

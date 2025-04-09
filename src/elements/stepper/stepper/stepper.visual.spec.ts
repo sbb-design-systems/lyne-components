@@ -8,7 +8,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './stepper.js';
+import './stepper.component.js';
 import '../step.js';
 import '../step-label.js';
 

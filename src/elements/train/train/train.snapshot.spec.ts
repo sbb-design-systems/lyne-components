@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import type { SbbTrainElement } from './train.js';
+import type { SbbTrainElement } from './train.component.js';
 
-import './train.js';
+import './train.component.js';
 
 describe(`sbb-train`, () => {
   let element: SbbTrainElement;

@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
 
 import '../breadcrumb.js';
-import './breadcrumb-group.js';
+import './breadcrumb-group.component.js';
 
 describe(`sbb-breadcrumb-group`, () => {
   let root: SbbBreadcrumbGroupElement;

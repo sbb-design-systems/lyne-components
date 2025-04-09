@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbCheckboxElement } from './checkbox.js';
+import { SbbCheckboxElement } from './checkbox.component.js';
 
 describe(`sbb-checkbox`, () => {
   describe('general', () => {

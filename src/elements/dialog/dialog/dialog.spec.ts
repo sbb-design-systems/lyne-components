@@ -7,9 +7,9 @@ import type { SbbButtonElement } from '../../button.js';
 import { i18nDialog } from '../../core/i18n.js';
 import { tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../../stepper/step/step.js';
+import { SbbStepElement } from '../../stepper/step/step.component.js';
 
-import { SbbDialogElement } from './dialog.js';
+import { SbbDialogElement } from './dialog.component.js';
 
 import '../../autocomplete.js';
 import '../../button.js';

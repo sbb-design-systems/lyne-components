@@ -8,7 +8,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './time-input.js';
+import './time-input.component.js';
 import '../form-field.js';
 import '../form-error.js';
 import '../icon.js';

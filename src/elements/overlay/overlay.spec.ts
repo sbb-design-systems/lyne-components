@@ -7,7 +7,7 @@ import { i18nDialog } from '../core/i18n.js';
 import { tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
-import { SbbOverlayElement } from './overlay.js';
+import { SbbOverlayElement } from './overlay.component.js';
 import '../button.js';
 import '../icon.js';
 

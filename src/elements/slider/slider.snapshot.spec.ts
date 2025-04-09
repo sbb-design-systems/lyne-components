@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbSliderElement } from './slider.js';
+import type { SbbSliderElement } from './slider.component.js';
 
-import './slider.js';
+import './slider.component.js';
 
 describe(`sbb-slider`, () => {
   let element: SbbSliderElement;

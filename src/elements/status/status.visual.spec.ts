@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './status.js';
+import './status.component.js';
 
 describe(`sbb-status`, () => {
   const cases = {

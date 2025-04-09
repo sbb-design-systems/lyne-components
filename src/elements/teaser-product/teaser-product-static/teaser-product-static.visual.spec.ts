@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
-import './teaser-product-static.js';
+import './teaser-product-static.component.js';
 import '../../action-group.js';
 import '../../button/button.js';
 import '../../button/secondary-button.js';

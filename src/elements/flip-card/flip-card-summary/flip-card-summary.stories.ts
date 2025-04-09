@@ -15,7 +15,7 @@ import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
 
-import './flip-card-summary.js';
+import './flip-card-summary.component.js';
 import '../../title.js';
 import '../../image.js';
 

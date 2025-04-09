@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import { SbbLinkListAnchorElement } from './link-list-anchor.js';
+import { SbbLinkListAnchorElement } from './link-list-anchor.component.js';
 import '../../link/block-link.js';
 
 describe('sbb-link-list-anchor', () => {

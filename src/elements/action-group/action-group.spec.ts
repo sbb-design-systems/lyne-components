@@ -6,7 +6,7 @@ import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 import type { SbbBlockLinkElement } from '../link.js';
 
-import { SbbActionGroupElement } from './action-group.js';
+import { SbbActionGroupElement } from './action-group.component.js';
 
 import '../button/secondary-button.js';
 import '../link/block-link.js';

@@ -7,7 +7,7 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.js';
 
-import './tag.js';
+import './tag.component.js';
 
 describe(`sbb-tag`, () => {
   const cases = {

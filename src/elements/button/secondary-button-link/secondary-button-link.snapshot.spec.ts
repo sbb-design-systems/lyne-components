@@ -6,8 +6,8 @@ import {
   buttonLinkTestTemplate,
 } from '../common/button-test-utils.private.js';
 
-import type { SbbSecondaryButtonLinkElement } from './secondary-button-link.js';
-import './secondary-button-link.js';
+import type { SbbSecondaryButtonLinkElement } from './secondary-button-link.component.js';
+import './secondary-button-link.component.js';
 
 describe(`sbb-secondary-button-link`, () => {
   let element: SbbSecondaryButtonLinkElement;

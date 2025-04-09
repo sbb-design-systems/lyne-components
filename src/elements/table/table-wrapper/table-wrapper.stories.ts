@@ -4,7 +4,7 @@ import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
 import readme from './readme.md?raw';
-import './table-wrapper.js';
+import './table-wrapper.component.js';
 
 const negative: InputType = {
   control: {

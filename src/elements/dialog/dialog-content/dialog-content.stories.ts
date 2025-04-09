@@ -3,7 +3,7 @@ import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import './dialog-content.js';
+import './dialog-content.component.js';
 import readme from './readme.md?raw';
 
 const Template = (): TemplateResult =>

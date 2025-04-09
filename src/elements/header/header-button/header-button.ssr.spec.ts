@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbHeaderButtonElement } from './header-button.js';
+import { SbbHeaderButtonElement } from './header-button.component.js';
 
 describe(`sbb-header-button ssr`, () => {
   let root: SbbHeaderButtonElement;
@@ -12,7 +12,7 @@ describe(`sbb-header-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-header-button id="focus-id">Action</sbb-header-button>`,
       {
-        modules: ['./header-button.js'],
+        modules: ['./header-button.component.js'],
       },
     );
   });

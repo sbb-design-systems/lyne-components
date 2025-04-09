@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './sidebar-close-button.js';
+import './sidebar-close-button.component.js';
 
 const ariaLabel: InputType = {
   control: {

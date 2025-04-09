@@ -6,7 +6,7 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.js';
 
-import './popover-trigger.js';
+import './popover-trigger.component.js';
 
 describe(`sbb-popover-trigger`, () => {
   const cases = {

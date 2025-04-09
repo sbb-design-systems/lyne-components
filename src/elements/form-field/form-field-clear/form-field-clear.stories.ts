@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './form-field-clear.js';
+import './form-field-clear.component.js';
 import '../form-field.js';
 
 const negative: InputType = {
