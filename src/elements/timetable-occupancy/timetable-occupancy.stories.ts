@@ -5,7 +5,7 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import './timetable-occupancy.js';
+import './timetable-occupancy.component.js';
 
 import readme from './readme.md?raw';
 

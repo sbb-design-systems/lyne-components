@@ -8,7 +8,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './date-input.js';
+import './date-input.component.js';
 import '../form-field/form-field.js';
 
 describe('sbb-date-input', () => {

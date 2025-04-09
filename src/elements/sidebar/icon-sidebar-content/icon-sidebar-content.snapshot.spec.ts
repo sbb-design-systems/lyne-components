@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbIconSidebarContentElement } from './icon-sidebar-content.js';
+import type { SbbIconSidebarContentElement } from './icon-sidebar-content.component.js';
 
-import './icon-sidebar-content.js';
+import './icon-sidebar-content.component.js';
 
 describe(`sbb-icon-sidebar-content`, () => {
   describe('renders', () => {

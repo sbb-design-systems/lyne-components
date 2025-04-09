@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbLeadContainerElement } from './lead-container.js';
+import { SbbLeadContainerElement } from './lead-container.component.js';
 
 import '../image.js';
 
@@ -15,7 +15,7 @@ describe(`sbb-lead-container ssr`, () => {
       html`<sbb-lead-container>
         <sbb-image slot="image"></sbb-image>
       </sbb-lead-container>`,
-      { modules: ['./lead-container.js', '../image.js'] },
+      { modules: ['./lead-container.component.js', '../image.js'] },
     );
   });
 

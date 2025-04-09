@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.js';
+import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.js';
 import '../autocomplete-grid.js';
-import './autocomplete-grid-row.js';
+import './autocomplete-grid-row.component.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';

@@ -10,11 +10,11 @@ import type {
 } from '@storybook/web-components';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { SbbChipGroupElement } from './chip-group.js';
+import { SbbChipGroupElement } from './chip-group.component.js';
 import readme from './readme.md?raw';
 
 import '../chip.js';
-import '../../autocomplete/autocomplete.js';
+import '../../autocomplete/autocomplete.component.js';
 import '../../form-field/form-field.js';
 import '../../option/option.js';
 

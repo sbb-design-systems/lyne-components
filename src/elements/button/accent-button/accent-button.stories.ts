@@ -24,7 +24,7 @@ import {
 } from '../common/common-stories.private.js';
 
 import readme from './readme.md?raw';
-import './accent-button.js';
+import './accent-button.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
 

@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing.js';
 import type { SbbTrainWagonElement } from '../train-wagon.js';
 import type { SbbTrainElement } from '../train.js';
 
-import { SbbTrainFormationElement } from './train-formation.js';
+import { SbbTrainFormationElement } from './train-formation.component.js';
 import '../train.js';
 import '../train-wagon.js';
 import '../train-blocked-passage.js';

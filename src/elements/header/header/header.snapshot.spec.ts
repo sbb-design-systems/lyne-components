@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbHeaderElement } from './header.js';
-import './header.js';
+import type { SbbHeaderElement } from './header.component.js';
+import './header.component.js';
 import '../header-link.js';
 
 describe(`sbb-header`, () => {

@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './toggle.js';
+import './toggle.component.js';
 import '../toggle-option.js';
 
 const disabled: InputType = {

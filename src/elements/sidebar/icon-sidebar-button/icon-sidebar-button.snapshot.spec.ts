@@ -3,9 +3,9 @@ import { html } from 'lit';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbIconSidebarButtonElement } from './icon-sidebar-button.js';
+import type { SbbIconSidebarButtonElement } from './icon-sidebar-button.component.js';
 
-import './icon-sidebar-button.js';
+import './icon-sidebar-button.component.js';
 
 describe(`sbb-icon-sidebar-button`, () => {
   let element: SbbIconSidebarButtonElement;

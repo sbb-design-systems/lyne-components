@@ -5,7 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
-import './table-wrapper.js';
+import './table-wrapper.component.js';
 
 const columns = [
   'Line',

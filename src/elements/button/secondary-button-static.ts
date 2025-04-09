@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './secondary-button-static/secondary-button-static.js';
+export * from './secondary-button-static/secondary-button-static.component.js';

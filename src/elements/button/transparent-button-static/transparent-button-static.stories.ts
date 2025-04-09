@@ -23,7 +23,7 @@ import {
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './transparent-button-static.js';
+import './transparent-button-static.component.js';
 
 const disabled: InputType = {
   control: {

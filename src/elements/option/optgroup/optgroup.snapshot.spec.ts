@@ -5,11 +5,11 @@ import { isSafari } from '../../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { describeIf } from '../../core/testing.js';
 
-import type { SbbOptGroupElement } from './optgroup.js';
+import type { SbbOptGroupElement } from './optgroup.component.js';
 
 import '../../autocomplete.js';
 import '../option.js';
-import './optgroup.js';
+import './optgroup.component.js';
 
 describe(`sbb-optgroup`, () => {
   describe('autocomplete', () => {

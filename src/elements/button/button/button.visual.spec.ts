@@ -9,7 +9,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './button.js';
+import './button.component.js';
 
 describe(`sbb-button`, () => {
   let root: HTMLElement;

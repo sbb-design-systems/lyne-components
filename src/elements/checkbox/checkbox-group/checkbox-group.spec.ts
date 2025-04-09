@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import { SbbCheckboxElement } from '../checkbox.js';
 
-import { SbbCheckboxGroupElement } from './checkbox-group.js';
+import { SbbCheckboxGroupElement } from './checkbox-group.component.js';
 
 import '../checkbox-panel.js';
 

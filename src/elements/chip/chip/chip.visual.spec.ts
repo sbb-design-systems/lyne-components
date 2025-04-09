@@ -9,7 +9,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './chip.js';
+import './chip.component.js';
 
 const cases = {
   negative: [true, false],

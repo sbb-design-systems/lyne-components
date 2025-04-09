@@ -7,7 +7,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import type { SbbTabElement } from '../tab.js';
 
-import { SbbTabGroupElement } from './tab-group.js';
+import { SbbTabGroupElement } from './tab-group.component.js';
 
 import '../tab-label.js';
 import '../tab.js';

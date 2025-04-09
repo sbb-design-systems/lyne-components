@@ -6,7 +6,7 @@ import readme from './readme.md?raw';
 
 import '../../card.js';
 
-import './icon-sidebar-content.js';
+import './icon-sidebar-content.component.js';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk"> See 'sbb-icon-sidebar' examples to see it in action. </sbb-card>

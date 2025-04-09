@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import type { SbbNavigationSectionElement } from './navigation-section.js';
+import type { SbbNavigationSectionElement } from './navigation-section.component.js';
 
-import './navigation-section.js';
+import './navigation-section.component.js';
 
 describe(`sbb-navigation-section`, () => {
   let element: SbbNavigationSectionElement;

@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy } from '../../core/testing.js';
 
-import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
+import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.js';
 
 describe(`sbb-expansion-panel-header`, () => {
   let element: SbbExpansionPanelHeaderElement;

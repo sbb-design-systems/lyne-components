@@ -7,7 +7,7 @@ import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
-import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.js';
+import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.js';
 
 import '../datepicker.js';
 import '../../date-input.js';

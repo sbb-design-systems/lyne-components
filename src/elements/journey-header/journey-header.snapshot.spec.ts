@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbJourneyHeaderElement } from './journey-header.js';
-import './journey-header.js';
+import type { SbbJourneyHeaderElement } from './journey-header.component.js';
+import './journey-header.component.js';
 
 describe(`sbb-journey-header`, () => {
   describe('renders', () => {

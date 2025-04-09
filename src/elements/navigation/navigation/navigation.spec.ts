@@ -9,7 +9,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
-import { SbbNavigationElement } from './navigation.js';
+import { SbbNavigationElement } from './navigation.component.js';
 
 import '../navigation-button.js';
 import '../navigation-marker.js';

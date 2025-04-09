@@ -9,7 +9,7 @@ import {
 } from '../../core/testing/private.js';
 
 import '../toggle-option.js';
-import './toggle.js';
+import './toggle.component.js';
 
 describe(`sbb-toggle`, () => {
   let root: HTMLElement;

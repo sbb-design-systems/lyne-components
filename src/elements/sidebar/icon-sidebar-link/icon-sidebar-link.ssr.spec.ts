@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbIconSidebarLinkElement } from './icon-sidebar-link.js';
+import { SbbIconSidebarLinkElement } from './icon-sidebar-link.component.js';
 
 describe(`sbb-icon-sidebar-link ssr`, () => {
   let root: SbbIconSidebarLinkElement;
@@ -16,7 +16,7 @@ describe(`sbb-icon-sidebar-link ssr`, () => {
         accessibility-label="Go to the party"
       ></sbb-icon-sidebar-link>`,
       {
-        modules: ['./icon-sidebar-link.js'],
+        modules: ['./icon-sidebar-link.component.js'],
       },
     );
   });

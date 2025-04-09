@@ -9,7 +9,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 
-import { SbbDatepickerElement } from './datepicker.js';
+import { SbbDatepickerElement } from './datepicker.component.js';
 
 import '../../date-input.js';
 import '../../form-field.js';

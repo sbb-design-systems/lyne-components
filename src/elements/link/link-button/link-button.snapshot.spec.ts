@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbLinkButtonElement } from './link-button.js';
+import type { SbbLinkButtonElement } from './link-button.component.js';
 
-import './link-button.js';
+import './link-button.component.js';
 
 describe(`sbb-link-button`, () => {
   let element: SbbLinkButtonElement;

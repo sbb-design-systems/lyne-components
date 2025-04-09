@@ -7,7 +7,7 @@ import { i18nOccupancy } from '../core/i18n.js';
 import { fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
-import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
+import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.js';
 
 describe(`sbb-timetable-occupancy-icon`, () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;

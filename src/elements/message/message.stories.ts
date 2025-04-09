@@ -9,7 +9,7 @@ import images from '../core/images.js';
 import '../image.js';
 import '../title.js';
 import '../button/secondary-button.js';
-import './message.js';
+import './message.component.js';
 
 import readme from './readme.md?raw';
 

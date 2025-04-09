@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './checkbox-panel/checkbox-panel.js';
+export * from './checkbox-panel/checkbox-panel.component.js';

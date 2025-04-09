@@ -7,7 +7,7 @@ import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-row.js';
-import './autocomplete-grid-optgroup.js';
+import './autocomplete-grid-optgroup.component.js';
 
 describe(`sbb-autocomplete-grid-optgroup`, () => {
   const defaultArgs = {

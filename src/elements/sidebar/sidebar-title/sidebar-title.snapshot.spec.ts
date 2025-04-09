@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbSidebarTitleElement } from './sidebar-title.js';
+import type { SbbSidebarTitleElement } from './sidebar-title.component.js';
 
-import './sidebar-title.js';
+import './sidebar-title.component.js';
 
 describe('sbb-sidebar-title', () => {
   let element: SbbSidebarTitleElement;

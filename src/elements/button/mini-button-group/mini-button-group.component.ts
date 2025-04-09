@@ -5,8 +5,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import type { SbbDividerElement } from '../../divider/divider.js';
-import type { SbbMiniButtonElement } from '../mini-button/mini-button.js';
+import type { SbbDividerElement } from '../../divider/divider.component.js';
+import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.js';
 
 import style from './mini-button-group.scss?lit&inline';
 

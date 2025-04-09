@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './footer.js';
+import './footer.component.js';
 import '../button/button-link.js';
 import '../button/secondary-button-link.js';
 import '../clock.js';

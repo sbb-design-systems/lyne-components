@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbNavigationListElement } from './navigation-list.js';
+import { SbbNavigationListElement } from './navigation-list.component.js';
 
 import '../navigation-button.js';
 

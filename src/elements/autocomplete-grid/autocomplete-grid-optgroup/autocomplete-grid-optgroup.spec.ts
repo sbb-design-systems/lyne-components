@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
-import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.js';
+import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';

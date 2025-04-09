@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbToggleOptionElement } from '../toggle-option.js';
 
-import { SbbToggleElement } from './toggle.js';
+import { SbbToggleElement } from './toggle.component.js';
 
 import '../toggle-option.js';
 
