@@ -132,7 +132,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     // Manually focus last focused element
     this.lastFocusedElement?.focus();
     this.openOverlayController?.abort();
-    this.focusTrapController.unTrap();
+    this.focusTrapController.untrap();
     this.removeInstanceFromGlobalCollection();
     // Enable scrolling for content below the overlay if no overlay is open
     if (!overlayRefs.length) {

@@ -199,7 +199,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._escapableOverlayController.disconnect();
     this.didClose.emit();
     this._windowEventsController?.abort();
-    this._focusTrapController.unTrap();
+    this._focusTrapController.untrap();
 
     // Starting from breakpoint medium, enable scroll
     this._scrollHandler.enableScroll();

@@ -201,7 +201,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._escapableOverlayController.disconnect();
     this.didClose.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
-    this._focusTrapController.unTrap();
+    this._focusTrapController.untrap();
   }
 
   private _handleOpening(): void {

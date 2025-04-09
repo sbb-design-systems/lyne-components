@@ -203,7 +203,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.didClose.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
-    this._focusTrapController.unTrap();
+    this._focusTrapController.untrap();
 
     // Enable scrolling for content below the navigation
     this._scrollHandler.enableScroll();

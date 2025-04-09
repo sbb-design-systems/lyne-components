@@ -20,7 +20,7 @@ export class SbbFocusTrapController implements ReactiveController {
   }
 
   public hostDisconnected(): void {
-    this.unTrap();
+    this.untrap();
   }
 
   public trap(): void {
@@ -68,7 +68,7 @@ export class SbbFocusTrapController implements ReactiveController {
     );
   }
 
-  public unTrap(): void {
+  public untrap(): void {
     this._abortController?.abort();
     this._abortController = null;
   }

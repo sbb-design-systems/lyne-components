@@ -119,7 +119,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     // Manually focus last focused element
     this.lastFocusedElement?.focus();
     this.openOverlayController?.abort();
-    this.focusTrapController.unTrap();
+    this.focusTrapController.untrap();
     if (this._dialogContentElement) {
       this._dialogContentResizeObserver.unobserve(this._dialogContentElement);
     }
