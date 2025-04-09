@@ -402,7 +402,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return eachWeekOfInterval(
       { start: startOfMonth(date as Date), end: endOfMonth(date as Date) },
       { weekStartsOn: 1 },
-    ).map((firstDayOfWeek: Date) => getWeek(firstDayOfWeek));
+    ).map((firstDayOfWeek: Date) =>
+      getWeek(firstDayOfWeek, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
+    );
   }
 
   /** Creates the rows for each week and sets the parameters used in keyboard navigation. */
