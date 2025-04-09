@@ -16,7 +16,7 @@ import {
   SbbRadioButtonPanelElement,
 } from '../radio-button.js';
 
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
 
 import '../link/block-link-button.js';
 import '../selection-expansion-panel.js';

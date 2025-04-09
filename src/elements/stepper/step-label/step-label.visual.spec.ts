@@ -6,7 +6,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './step-label.js';
+import './step-label.component.js';
 
 describe(`sbb-step-label`, () => {
   const template = (disabled?: boolean): TemplateResult =>

@@ -12,7 +12,7 @@ import type { SbbFormFieldElement } from '../../form-field.js';
 import { SbbPopoverElement } from '../../popover.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
-import { SbbDatepickerToggleElement } from './datepicker-toggle.js';
+import { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
 
 import '../datepicker.js';
 import '../../date-input.js';

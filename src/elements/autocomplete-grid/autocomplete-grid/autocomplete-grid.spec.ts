@@ -9,7 +9,7 @@ import { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';

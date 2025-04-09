@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbDialogActionsElement } from './dialog-actions.js';
+import { SbbDialogActionsElement } from './dialog-actions.component.js';
 
 describe(`sbb-dialog-actions ssr`, () => {
   let root: SbbDialogActionsElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-dialog-actions></sbb-dialog-actions>`, {
-      modules: ['./dialog-actions.js'],
+      modules: ['./dialog-actions.component.js'],
     });
   });
 

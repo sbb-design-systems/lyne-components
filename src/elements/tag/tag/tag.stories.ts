@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './tag.js';
+import './tag.component.js';
 
 const checked: InputType = {
   control: {

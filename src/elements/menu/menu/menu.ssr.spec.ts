@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbMenuElement } from './menu.js';
+import { SbbMenuElement } from './menu.component.js';
 
 import '../../button.js';
 import '../../divider.js';
@@ -38,7 +38,7 @@ describe(`sbb-menu ssr`, () => {
           '../../divider.js',
           '../../link.js',
           '../menu-button.js',
-          './menu.js',
+          './menu.component.js',
         ],
       },
     );

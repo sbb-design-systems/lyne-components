@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './breadcrumb.js';
+import './breadcrumb.component.js';
 
 const text: InputType = {
   control: {

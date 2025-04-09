@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbChipGroupElement } from './chip-group.js';
-import './chip-group.js';
+import type { SbbChipGroupElement } from './chip-group.component.js';
+import './chip-group.component.js';
 import '../chip.js';
 import '../../form-field.js';
 

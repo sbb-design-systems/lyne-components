@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './paginator/paginator.js';
+export * from './paginator/paginator.component.js';

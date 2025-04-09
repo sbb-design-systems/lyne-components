@@ -1,6 +1,6 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.js';
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.js';
+import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.component.js';
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.component.js';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved

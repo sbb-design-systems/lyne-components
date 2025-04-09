@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import { SbbChipElement } from './chip.js';
+import { SbbChipElement } from './chip.component.js';
 
 describe('sbb-chip', () => {
   let element: SbbChipElement;

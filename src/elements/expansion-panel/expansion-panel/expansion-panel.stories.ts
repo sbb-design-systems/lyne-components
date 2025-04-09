@@ -14,7 +14,7 @@ import { html, nothing } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.js';
 import readme from './readme.md?raw';
 
 import '../expansion-panel-content.js';

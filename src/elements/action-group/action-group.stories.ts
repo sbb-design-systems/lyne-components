@@ -7,7 +7,7 @@ import { html, nothing } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './action-group.js';
+import './action-group.component.js';
 import '../button.js';
 import '../link/block-link.js';
 

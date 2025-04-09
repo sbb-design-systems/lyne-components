@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbCalendarElement } from './calendar.js';
+import { SbbCalendarElement } from './calendar.component.js';
 
 describe(`sbb-calendar ssr`, () => {
   let root: SbbCalendarElement;
@@ -11,7 +11,7 @@ describe(`sbb-calendar ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-calendar now="2023-01-04T00:00:00" selected="2023-01-20T00:00:00"></sbb-calendar>`,
-      { modules: ['./calendar.js'] },
+      { modules: ['./calendar.component.js'] },
     );
   });
 

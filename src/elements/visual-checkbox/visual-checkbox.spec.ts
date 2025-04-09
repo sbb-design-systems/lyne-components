@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbVisualCheckboxElement } from './visual-checkbox.js';
+import { SbbVisualCheckboxElement } from './visual-checkbox.component.js';
 
 describe(`sbb-visual-checkbox`, (): void => {
   it('renders', async (): Promise<void> => {

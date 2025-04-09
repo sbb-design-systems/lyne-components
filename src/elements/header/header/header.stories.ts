@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './header.js';
+import './header.component.js';
 import '../header-button.js';
 import '../header-link.js';
 import '../../divider.js';

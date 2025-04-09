@@ -5,7 +5,7 @@ import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
 } from '../common/button-test-utils.private.js';
-import './secondary-button-static.js';
+import './secondary-button-static.component.js';
 
 describe(`sbb-secondary-button-static`, () => {
   it('should detect icon in sbb-secondary-button-static', async () => {

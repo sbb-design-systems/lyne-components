@@ -6,7 +6,7 @@ import { fixture, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbOptionElement } from '../option.js';
 
-import { SbbSelectElement } from './select.js';
+import { SbbSelectElement } from './select.component.js';
 
 import '../form-field.js';
 

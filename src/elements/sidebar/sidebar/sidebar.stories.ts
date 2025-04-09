@@ -4,10 +4,10 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbIconSidebarElement } from '../../sidebar.js';
-import { SbbSidebarElement } from '../sidebar.js';
+import type { SbbIconSidebarElement } from '../icon-sidebar/icon-sidebar.component.js';
 
 import readme from './readme.md?raw';
+import { SbbSidebarElement } from './sidebar.component.js';
 
 import '../../chip-label.js';
 import '../../header.js';

@@ -27,7 +27,7 @@ import {
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
 } from './timetable-row.sample-data.private.js';
-import './timetable-row.js';
+import './timetable-row.component.js';
 
 const cardActionLabel: InputType = {
   control: {

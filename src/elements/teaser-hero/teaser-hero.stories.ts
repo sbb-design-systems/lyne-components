@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import sampleImages from '../core/images.js';
 
 import readme from './readme.md?raw';
-import './teaser-hero.js';
+import './teaser-hero.component.js';
 import '../chip-label.js';
 import '../image.js';
 

@@ -3,7 +3,7 @@ import { html, nothing } from 'lit';
 import { defaultDateAdapter } from '../core/datetime.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './calendar.js';
+import './calendar.component.js';
 
 describe('sbb-calendar', () => {
   const minArray = [

@@ -1,6 +1,6 @@
 import type { LitElement, ReactiveController } from 'lit';
 
-import type { SbbDatepickerElement } from '../datepicker/datepicker.js';
+import type { SbbDatepickerElement } from '../datepicker/datepicker.component.js';
 
 export interface SbbDatepickerControl<T> extends LitElement {
   datepicker: SbbDatepickerElement<T> | null;

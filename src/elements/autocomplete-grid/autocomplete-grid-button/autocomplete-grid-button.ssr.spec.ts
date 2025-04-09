@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.js';
+import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.js';
 
 describe(`sbb-autocomplete-grid-button ssr`, () => {
   let element: SbbAutocompleteGridButtonElement;
@@ -11,7 +11,7 @@ describe(`sbb-autocomplete-grid-button ssr`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-autocomplete-grid-button>Button</sbb-autocomplete-grid-button>`,
-      { modules: ['./autocomplete-grid-button.ts'] },
+      { modules: ['./autocomplete-grid-button.component.ts'] },
     );
   });
 

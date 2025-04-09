@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './block-link-static/block-link-static.js';
+export * from './block-link-static/block-link-static.component.js';

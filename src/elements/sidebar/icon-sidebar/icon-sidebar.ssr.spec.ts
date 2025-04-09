@@ -3,14 +3,14 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbIconSidebarElement } from './icon-sidebar.js';
+import { SbbIconSidebarElement } from './icon-sidebar.component.js';
 
 describe(`sbb-icon-sidebar ssr`, () => {
   let root: SbbIconSidebarElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-icon-sidebar></sbb-icon-sidebar>`, {
-      modules: ['./icon-sidebar.js'],
+      modules: ['./icon-sidebar.component.js'],
     });
   });
 

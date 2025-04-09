@@ -3,14 +3,14 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.js';
+import { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.component.js';
 
 describe(`sbb-autocomplete-grid-cell ssr`, () => {
   let element: SbbAutocompleteGridCellElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-autocomplete-grid-cell></sbb-autocomplete-grid-cell>`, {
-      modules: ['./autocomplete-grid-cell.ts'],
+      modules: ['./autocomplete-grid-cell.component.ts'],
     });
   });
 

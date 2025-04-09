@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbIconSidebarButtonElement } from './icon-sidebar-button.js';
+import { SbbIconSidebarButtonElement } from './icon-sidebar-button.component.js';
 
 describe(`sbb-icon-sidebar-button ssr`, () => {
   let root: SbbIconSidebarButtonElement;
@@ -15,7 +15,7 @@ describe(`sbb-icon-sidebar-button ssr`, () => {
         aria-label="Go to the party"
       ></sbb-icon-sidebar-button>`,
       {
-        modules: ['./icon-sidebar-button.js'],
+        modules: ['./icon-sidebar-button.component.js'],
       },
     );
   });

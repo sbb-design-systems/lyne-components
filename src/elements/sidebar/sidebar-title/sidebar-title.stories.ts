@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './sidebar-title.js';
+import './sidebar-title.component.js';
 
 const level: InputType = {
   control: {

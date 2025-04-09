@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.js';
+import { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.js';
 
 describe(`sbb-loading-indicator-circle`, () => {
   let element: SbbLoadingIndicatorCircleElement;

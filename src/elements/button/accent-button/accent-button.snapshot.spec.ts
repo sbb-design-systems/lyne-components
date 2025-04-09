@@ -6,8 +6,8 @@ import {
   buttonTestTemplate,
 } from '../common/button-test-utils.private.js';
 
-import type { SbbAccentButtonElement } from './accent-button.js';
-import './accent-button.js';
+import type { SbbAccentButtonElement } from './accent-button.component.js';
+import './accent-button.component.js';
 
 describe(`sbb-accent-button`, () => {
   let element: SbbAccentButtonElement;

@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTrainWagonElement } from '../train-wagon.js';
 
-import { SbbTrainElement } from './train.js';
+import { SbbTrainElement } from './train.component.js';
 
 import '../train-wagon.js';
 

@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './visual-checkbox/visual-checkbox.js';
+export * from './visual-checkbox/visual-checkbox.component.js';

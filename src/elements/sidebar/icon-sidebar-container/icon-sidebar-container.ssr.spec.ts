@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbIconSidebarContainerElement } from './icon-sidebar-container.js';
+import { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.js';
 
 describe(`sbb-icon-sidebar-container ssr`, () => {
   let root: SbbIconSidebarContainerElement;
@@ -12,7 +12,7 @@ describe(`sbb-icon-sidebar-container ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-icon-sidebar-container></sbb-icon-sidebar-container>`,
       {
-        modules: ['./icon-sidebar-container.js'],
+        modules: ['./icon-sidebar-container.component.js'],
       },
     );
   });
