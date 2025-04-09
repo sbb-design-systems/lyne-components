@@ -1,5 +1,7 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
+$disabled: '[disabled], :disabled';
+
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
@@ -79,19 +81,31 @@
 // same for all states
 .sbb-seat-reservation-navigation__item-coach--selected
   .sbb-seat-reservation-navigation__control-button,
-.sbb-seat-reservation-navigation__control-button:focus-visible,
-.sbb-seat-reservation-navigation__control-button:hover,
-.sbb-seat-reservation-navigation__control-button:active {
+.sbb-seat-reservation-navigation__control-button:focus-visible:not(#{$disabled}),
+.sbb-seat-reservation-navigation__control-button:hover:not(#{$disabled}) {
   --sbb-seat-reservation-navigation-btn-outline-width: var(
     --sbb-seat-reservation-navigation-btn-outline-width-hover
   );
   --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-black);
 }
 
-// focus, selected
+// focus but not selected, i.e. with keyboard navigation for example (FIGMA State:Active)
+// don't move this block beneath selected if you don't want to mess up specificity
+.sbb-seat-reservation-navigation__control-button:focus-visible:not(#{$disabled}) {
+  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-silver);
+
+  .sbb-seat-reservation-navigation__item-coach-travelclass {
+    background-color: var(--sbb-color-metal);
+  }
+
+  .sbb-seat-reservation-navigation__item-coach-number {
+    color: var(--sbb-color-anthracite);
+  }
+}
+
+// selected, i.e. the coach within the train is selected (FIGMA State:Selected)
 .sbb-seat-reservation-navigation__item-coach--selected
-  .sbb-seat-reservation-navigation__control-button,
-.sbb-seat-reservation-navigation__control-button:focus-visible {
+  .sbb-seat-reservation-navigation__control-button {
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-milk);
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
@@ -103,8 +117,8 @@
   }
 }
 
-// hover
-.sbb-seat-reservation-navigation__control-button:hover {
+// hover (FIGMA State:hover)
+.sbb-seat-reservation-navigation__control-button:hover:not(#{$disabled}) {
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
@@ -116,16 +130,20 @@
   }
 }
 
-// active or pre-selected
-.sbb-seat-reservation-navigation__control-button:active {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-silver);
+// disabled (FIGMA State:disabled)
+.sbb-seat-reservation-navigation__control-button:is(#{$disabled}) {
+  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-white);
+  --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-platinum);
+
+  cursor: unset;
+  pointer-events: unset;
 
   .sbb-seat-reservation-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-metal);
+    background-color: var(--sbb-color-graphite);
   }
 
   .sbb-seat-reservation-navigation__item-coach-number {
-    color: var(--sbb-color-anthracite);
+    color: var(--sbb-color-graphite);
   }
 }
 

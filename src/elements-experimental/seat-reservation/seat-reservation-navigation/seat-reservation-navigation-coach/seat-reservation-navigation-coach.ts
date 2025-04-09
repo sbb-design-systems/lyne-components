@@ -56,6 +56,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Boolean })
   public accessor last: boolean = false;
 
+  /** Disable the coach navigation */
+  @forceType()
+  @property({ attribute: 'disable', type: Boolean })
+  public accessor disable: boolean = false;
+
   private _language = new SbbLanguageController(this);
 
   /** Emits when a coach within the navigation was selected */
@@ -87,10 +92,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   private _getNavigationButton(): TemplateResult | null {
+    // language=HTML format=false
     return html`
       ${!this.driverArea
         ? html` <button
             type="button"
+            ?disabled="${this.disable}"
             class="sbb-seat-reservation-navigation__control-button"
             title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
               this.coachId,
