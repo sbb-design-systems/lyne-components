@@ -24,12 +24,18 @@
     @include sbb.button-reset;
 
     display: block;
-    color: revert;
     font-size: calc(var(--sbb-reservation-place-control-text-size) * 1rem);
     transition: transform 0.25s ease-in-out;
 
     #{$root}--state-focused {
       background-color: var(--sbb-color-black);
+    }
+
+    #{$root}:focus,
+    &:focus-within {
+      border-radius: var(--sbb-border-radius-1x);
+      outline: 2px solid var(--sbb-color-black);
+      background-color: var(--reservation-place-control-background-focus);
     }
 
     #{$root}--state-free &:not([disabled]),
@@ -38,11 +44,6 @@
 
       &:hover {
         transform: scale(1.2);
-      }
-
-      &:focus-visible {
-        --sbb-focus-outline-offset: 0;
-        @include sbb.focus-outline;
       }
     }
 
