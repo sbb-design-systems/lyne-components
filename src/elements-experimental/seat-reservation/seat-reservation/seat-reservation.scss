@@ -23,12 +23,22 @@
   transform-origin: top left;
 }
 
+.sbb-seat-reservation-navigation__list-coaches {
+  @include sbb.list-reset;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-1x);
+  min-height: #{sbb.px-to-rem-build(60)};
+}
+
 .sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
   width: 100vh;
 }
 
 .sbb-seat-reservation__parent {
-  overflow: scroll hidden;
+  overflow-x: scroll;
   padding: 48px 0;
 }
 

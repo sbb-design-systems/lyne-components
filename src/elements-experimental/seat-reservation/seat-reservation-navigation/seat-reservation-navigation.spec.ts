@@ -1,9 +1,9 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { SbbSeatReservationNavigationElement } from './seat-reservation-navigation.js';
+import { mapRawDataToSeatReservation } from '../common.js';
 
-import { mapRawDataToSeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common';
+import { SbbSeatReservationNavigationElement } from './seat-reservation-navigation.js';
 
 const mappedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 

@@ -1,28 +1,27 @@
+//import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type {
   CoachItem,
   Place,
   ElementDimension,
-  ElementPosition,
-  SeatReservation,
   BaseElement,
   PlaceSelection,
-  SeatReservationPlaceSelection,
+  SeatReservation,
 } from '../seat-reservation.js';
 
+import { SeatReservationService } from './seat-reservation-service.js';
 import style from './seat-reservation.scss?lit&inline';
 
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
-import '../seat-reservation-navigation.js';
 import '../seat-reservation-place-control.js';
+import '../seat-reservation-navigation/seat-reservation-navigation-coach/seat-reservation-navigation-coach.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -31,56 +30,34 @@ import '../seat-reservation-place-control.js';
  */
 export
 @customElement('sbb-seat-reservation')
-class SbbSeatReservationElement extends LitElement {
+class SbbSeatReservationElement extends SeatReservationService {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    selectedPlaces: 'selectedPlaces',
-  } as const;
 
   /** seat reservation*/
   @property({ attribute: 'seat-reservation', type: Object })
-  public accessor seatReservation: SeatReservation = null!;
-
-  /** Maximal number of possible clickable seats*/
-  @forceType()
-  @property({ attribute: 'max-reservations', type: Number })
-  public accessor maxReservations: number = null!;
+  public override accessor seatReservation: SeatReservation = null!;
 
   /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
-  public accessor alignVertical: boolean = false;
+  public override accessor alignVertical: boolean = false;
+
+  @forceType()
+  @property({ attribute: 'scale', type: Number })
+  public override accessor scale: number = 1;
+
+  /** Maximal number of possible clickable seats*/
+  @forceType()
+  @property({ attribute: 'max-reservations', type: Number })
+  public override accessor maxReservations: number = null!;
 
   /** Any click functionality is prevented*/
   @forceType()
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
-  @forceType()
-  @property({ attribute: 'scale', type: Number })
-  public accessor scale: number = 1;
-
   private _language = new SbbLanguageController(this);
 
-  /** Emits when a place was selected by user. */
-  protected selectedPlaces: EventEmitter<SeatReservationPlaceSelection[]> = new EventEmitter(
-    this,
-    SbbSeatReservationElement.events.selectedPlaces,
-  );
-
-  @state() private accessor _selectedCoachIndex: number = 0;
-
-  private _maxHeight = 128;
-  private _gridSize = 8;
-  private _gridSizeFactor = this._maxHeight / this._gridSize;
-  private _coachBorderPadding = 6;
-  private _coachBorderPaddingUnit = this._coachBorderPadding / 16;
-  private _selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
-  private _triggerCoachPositionsCollection: number[][] = [];
-  private _coachScrollArea: HTMLElement = null!;
-  private _currSelectedPlaceIndex: number | null = null;
-  private _currSelectedPlaceElementId: string | null = null;
-  private _currSelectedCoachIndex: number = 0;
   private _coachesHtmlTemplate?: TemplateResult;
   private _notAreaElements = [
     'DRIVER_AREA_FULL',
@@ -103,14 +80,15 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   private _componentSetup(): void {
-    this._initNavigationSelectionByScrollEvent();
-    this._initSeatReservationSeatKeyNavigationEvent();
+    this.initNavigationSelectionByScrollEvent();
   }
 
   private _initVehicleSeatReservationConstruction(): void {
     const coachItems = JSON.parse(JSON.stringify(this.seatReservation?.coachItems));
     const classAlignVertical = this.alignVertical ? 'sbb-seat-reservation__wrapper--vertical' : '';
 
+    //TODO TAB empty jump fields <input id="first-tab-element" type="input" value="firstlement">
+    //TODO TAB empty jump fields <input id="last-tab-element" type="input" value="lastelement">
     this._coachesHtmlTemplate = html`
       <style>
         .sbb-seat-reservation__list-coaches {
@@ -118,17 +96,41 @@ class SbbSeatReservationElement extends LitElement {
         }
       </style>
       <div class="sbb-seat-reservation">
-        <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
-          <sbb-seat-reservation-navigation
-            .seatReservation=${this.seatReservation}
-            .selectedCoachIndex=${this._selectedCoachIndex}
-            @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
-          ></sbb-seat-reservation-navigation>
-          <div id="sbb-seat-reservation__parent-area" class="sbb-seat-reservation__parent">
+        <div
+          class="sbb-seat-reservation__wrapper ${classAlignVertical}"
+          @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
+        >
+          <nav>
             <ul
-              class="sbb-seat-reservation__list-coaches"
-              aria-label="${getI18nSeatReservation('LIST_ALL_COACHES', this._language.current)}"
+              class="sbb-seat-reservation-navigation__list-coaches"
+              aria-label="${getI18nSeatReservation(
+                'SEAT_RESERVATION_NAVIGATION',
+                this._language.current,
+              )}"
             >
+              ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
+                return html`<li>
+                  <sbb-seat-reservation-navigation-coach
+                    @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
+                    @focusCoach=${() => this._onFocusNavCoach()}
+                    index="${index}"
+                    coach-id="${coachItem.id}"
+                    .selected=${this.selectedCoachIndex === index}
+                    .focused=${this.focusedCoachIndex === index}
+                    .propertyIds="${coachItem.propertyIds}"
+                    .travelClass="${coachItem.travelClass}"
+                    ?driver-area="${!coachItem.places?.length}"
+                    ?first="${index === 0}"
+                    ?last="${index === this.seatReservation?.coachItems.length - 1}"
+                  >
+                  </sbb-seat-reservation-navigation-coach>
+                </li>`;
+              })}
+            </ul>
+          </nav>
+
+          <div id="sbb-seat-reservation__parent-area" class="sbb-seat-reservation__parent">
+            <ul class="sbb-seat-reservation__list-coaches" role="presentation">
               ${this._renderCoaches(coachItems)}
             </ul>
           </div>
@@ -155,8 +157,7 @@ class SbbSeatReservationElement extends LitElement {
   }
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
-    const calculatedCoachDimension = this._getCalculatedDimension(coachItem.dimension);
-
+    const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     return html`
       <style>
         .coach-wrapper[data-coach-id='${coachItem.id}-${calculatedCoachDimension.w}-${calculatedCoachDimension.h}'] {
@@ -171,7 +172,9 @@ class SbbSeatReservationElement extends LitElement {
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedServiceElements(coachItem.serviceElements)}
-        ${this._getRenderedPlaces(coachItem, index)}
+        <table class="coach-wrapper__table" id="seat-reservation-coach-${index}" role="grid">
+          ${this._getRenderedPlaces(coachItem, index)}
+        </table>
       </div>
     `;
   }
@@ -187,15 +190,15 @@ class SbbSeatReservationElement extends LitElement {
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
     const borderOffsetX =
       coachIndex === 0 && driverArea
-        ? driverArea?.dimension.w * this._gridSizeFactor
-        : this._gridSizeFactor;
+        ? driverArea?.dimension.w * this.gridSizeFactor
+        : this.gridSizeFactor;
 
     return html`
       <style>
         .coach-border[data-coach-border-id='${coachItem.id}'] {
           position: absolute;
           left: ${borderOffsetX}px;
-          top: ${this._coachBorderPadding * -1}px;
+          top: ${this.coachBorderPadding * -1}px;
           z-index: 0;
         }
       </style>
@@ -203,9 +206,9 @@ class SbbSeatReservationElement extends LitElement {
         <sbb-seat-reservation-graphic
           name="COACH_BORDER_MIDDLE"
           width=${borderWidth}
-          height=${coachItem.dimension.h + this._coachBorderPaddingUnit * 2}
+          height=${coachItem.dimension.h + this.coachBorderPaddingUnit * 2}
           ?stretch=${true}
-          aria-hidden="true"
+          role="presentation"
         ></sbb-seat-reservation-graphic>
       </div>
     `;
@@ -216,9 +219,44 @@ class SbbSeatReservationElement extends LitElement {
       return null;
     }
 
-    return coach.places?.map((place: Place) => {
-      const calculatedInternalDimension = this._getCalculatedDimension(place.dimension);
-      const calculatedInternalPosition = this._getCalculatedPosition(place.position);
+    // Prepair rows with the places to render a table
+    const tableRowPlaces: Record<number, Place[]> = {};
+    for (const place of coach.places) {
+      if (!tableRowPlaces[place.position.y]) {
+        tableRowPlaces[place.position.y] = [place];
+      } else {
+        tableRowPlaces[place.position.y].push(place);
+      }
+    }
+
+    return Object.values(tableRowPlaces)
+      .map((rowPlaces: Place[], index) => {
+        return html`
+          <tr
+            id="row-${coachIndex}-${rowPlaces[0].position.y}"
+            data-row-y=${rowPlaces[0].position.y}
+            data-row-index=${index}
+          >
+            ${this._getRenderedPlace(rowPlaces, coachIndex, index)}
+          </tr>
+        `;
+      })
+      .flatMap((rowTemplate) => rowTemplate);
+  }
+
+  private _getRenderedPlace(
+    places: Place[],
+    coachIndex: number,
+    rowIndex: number,
+  ): TemplateResult[] | null {
+    //Sorts each place by its ascending x coordinate
+    places.sort(
+      (placeA: Place, placeB: Place) => Number(placeA.position.x) - Number(placeB.position.x),
+    );
+
+    return places?.map((place: Place, index: number) => {
+      const calculatedInternalDimension = this.getCalculatedDimension(place.dimension);
+      const calculatedInternalPosition = this.getCalculatedPosition(place.position);
       const textRotation = place.rotation ? place.rotation * -1 : 0;
 
       return html`
@@ -231,13 +269,19 @@ class SbbSeatReservationElement extends LitElement {
             z-index: ${place.position.z};
           }
         </style>
-        <div
+        <td
+          id="cell-${coachIndex}-${place.position.y}-${index}"
+          class="sbb-seat-reservation__graphical-element sbb-seat-reservation__graphical-place"
           data-graphical-element-id="${coachIndex}-${place.number}"
-          class="sbb-seat-reservation__graphical-element"
+          role="gridcell"
         >
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
+            @focusPlace=${() => this._onFocusPlace()}
             id="seat-reservation__place-button-${coachIndex}-${place.number}"
+            class="seat-reservation-place-control"
+            data-cell-id="${coachIndex}-${place.position.y}-${index}"
+            data-row-y=${rowIndex}
             text=${place.number}
             type=${place.type}
             state=${place.state}
@@ -247,10 +291,8 @@ class SbbSeatReservationElement extends LitElement {
             text-rotation=${textRotation}
             coach-index=${coachIndex}
             ?disable=${this.disable}
-            tabindex="-1"
-            ?keyfocus=${false}
           ></sbb-seat-reservation-place-control>
-        </div>
+        </td>
       `;
     });
   }
@@ -271,7 +313,6 @@ class SbbSeatReservationElement extends LitElement {
       if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
         return this._getRenderElementWithoutArea(graphicalElement, rotation, coachDimension);
       }
-
       return this._getRenderElementWithArea(graphicalElement, rotation, coachDimension);
     });
   }
@@ -282,25 +323,29 @@ class SbbSeatReservationElement extends LitElement {
     coachDimension: ElementDimension,
   ): TemplateResult {
     const stretchHeight = graphicalElement.icon !== 'ENTRY_EXIT';
-    const calculatedDimension = this._getCalculatedDimension(
+    const ariaLabelForArea = getI18nSeatReservation(
+      graphicalElement.icon || '',
+      this._language.current,
+    );
+    const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
       true,
       stretchHeight,
     );
-    const calculatedPosition = this._getCalculatedPosition(
+    const calculatedPosition = this.getCalculatedPosition(
       graphicalElement.position,
       graphicalElement.dimension,
       coachDimension,
       true,
     );
-    const ariaLabel = getI18nSeatReservation(graphicalElement.icon || '', this._language.current);
+
     let elementMounting = 'FREE';
-    if (graphicalElement.position.y === this._coachBorderPaddingUnit * -1) {
+    if (graphicalElement.position.y === this.coachBorderPaddingUnit * -1) {
       elementMounting = 'UPPER_BORDER';
     } else if (
       graphicalElement.position.y + graphicalElement.dimension.h ===
-      coachDimension.h + this._coachBorderPaddingUnit
+      coachDimension.h + this.coachBorderPaddingUnit
     ) {
       elementMounting = 'LOWER_BORDER';
     }
@@ -318,16 +363,14 @@ class SbbSeatReservationElement extends LitElement {
       <div
         data-id="graph-el-with-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}"
         class="sbb-seat-reservation__graphical-element"
+        title=${ariaLabelForArea}
       >
         <sbb-seat-reservation-area
           width=${graphicalElement.dimension.w}
           height=${graphicalElement.dimension.h}
           mounting=${elementMounting}
           background="dark"
-          role=${ariaLabel ? 'figure' : nothing}
-          aria-label=${ariaLabel || nothing}
-          title=${ariaLabel || nothing}
-          tabindex="0"
+          aria-hidden="true"
         >
           <sbb-seat-reservation-graphic
             name=${graphicalElement.icon ?? nothing}
@@ -347,25 +390,25 @@ class SbbSeatReservationElement extends LitElement {
     rotation: number,
     coachDimension: ElementDimension,
   ): TemplateResult {
-    const calculatedDimension = this._getCalculatedDimension(
+    const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
     );
-    const calculatedPosition = this._getCalculatedPosition(
+    const calculatedPosition = this.getCalculatedPosition(
       graphicalElement.position,
       graphicalElement.dimension,
       coachDimension,
     );
 
-    let icon = graphicalElement.icon;
-    let ariaLabel = null;
-    if (icon && icon.indexOf('DRIVER_AREA') > -1) {
-      icon = icon.concat('_', this.seatReservation.vehicleType);
-    }
-
-    if (icon && icon.indexOf('COACH_PASSAGE') > -1) {
-      ariaLabel = getI18nSeatReservation('COACH_PASSAGE', this._language.current);
-    }
+    // If the icon is the driver area, then here concat the vehicle type to get the right vehicle chassie icon
+    const icon =
+      graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
+        ? graphicalElement.icon
+        : graphicalElement.icon?.concat('_', this.seatReservation.vehicleType);
+    const ariaLabel =
+      icon && icon.indexOf('COACH_PASSAGE') > -1
+        ? getI18nSeatReservation('COACH_PASSAGE', this._language.current)
+        : null;
 
     return html`
       <style>
@@ -381,16 +424,12 @@ class SbbSeatReservationElement extends LitElement {
         data-id="graph-el-w/o-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}"
         class="sbb-seat-reservation__graphical-element"
         title=${ariaLabel || nothing}
-        aria-label=${ariaLabel || nothing}
-        role=${ariaLabel ? 'figure' : nothing}
-        tabindex=${ariaLabel ? 0 : nothing}
       >
         <sbb-seat-reservation-graphic
           name=${icon ?? nothing}
           width=${graphicalElement.dimension.w}
           height=${graphicalElement.dimension.h}
           rotation=${rotation}
-          role="img"
           aria-hidden="true"
           ?stretch=${true}
         ></sbb-seat-reservation-graphic>
@@ -404,10 +443,10 @@ class SbbSeatReservationElement extends LitElement {
     }
 
     return serviceElements?.map((serviceElement: BaseElement) => {
-      const calculatedcCmpartmentNumberDimension = this._getCalculatedDimension(
+      const calculatedcCmpartmentNumberDimension = this.getCalculatedDimension(
         serviceElement.dimension,
       );
-      const calculatedcCmpartmentNumberPosition = this._getCalculatedPosition(
+      const calculatedcCmpartmentNumberPosition = this.getCalculatedPosition(
         serviceElement.position,
       );
       return html`
@@ -423,11 +462,6 @@ class SbbSeatReservationElement extends LitElement {
         <div
           data-id="graph-service-el-${calculatedcCmpartmentNumberPosition.y}-${calculatedcCmpartmentNumberPosition.x}-${calculatedcCmpartmentNumberDimension.w}-${calculatedcCmpartmentNumberDimension.h}"
           class="sbb-seat-reservation__graphical-element"
-          role="note"
-          aria-label="${getI18nSeatReservation(
-            'SERVICE_' + serviceElement.icon || '',
-            this._language.current,
-          ) || nothing}"
         >
           <sbb-seat-reservation-graphic
             name=${serviceElement.icon ?? nothing}
@@ -441,140 +475,25 @@ class SbbSeatReservationElement extends LitElement {
     });
   }
 
-  private _initNavigationSelectionByScrollEvent(): void {
-    this._coachScrollArea = this.shadowRoot?.getElementById(
-      'sbb-seat-reservation__parent-area',
-    ) as HTMLElement;
-
-    if (this._coachScrollArea) {
-      let currCalcTriggerPos = 0;
-      const coachScrollWidth = this._coachScrollArea.getBoundingClientRect().width;
-
-      //Generate calculated trigger point array depends from coach width
-      this._triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
-        const fromPos = currCalcTriggerPos;
-        currCalcTriggerPos += this._getCalculatedDimension(coach.dimension).w * this.scale;
-        return [fromPos, currCalcTriggerPos];
-      });
-
-      //Add scroll event listener to trigger coach navigation
-      this._coachScrollArea.addEventListener('scroll', () => {
-        const scrollOffsetX = this._coachScrollArea.scrollLeft + coachScrollWidth / 2;
-        const selectedCoachIndex = this._triggerCoachPositionsCollection.findIndex(
-          (triggerPoint: number[]) =>
-            scrollOffsetX >= triggerPoint[0] && scrollOffsetX <= triggerPoint[1],
-        );
-
-        if (selectedCoachIndex !== this._selectedCoachIndex) {
-          this._selectedCoachIndex = selectedCoachIndex;
-          this._currSelectedPlaceElementId = null;
-          this._currSelectedPlaceIndex = null;
-        }
-      });
-    }
-  }
-
-  private _initSeatReservationSeatKeyNavigationEvent(): void {
-    this.addEventListener('keydown', (e) => {
-      switch (e.code) {
-        case 'Numpad4':
-          this._keyHandlingNavigateSeat('PREV');
-          break;
-        case 'Numpad6':
-          this._keyHandlingNavigateSeat('NEXT');
-          break;
-        case 'Space':
-          this._keyHandlingToggleSeatState();
-          break;
-        default:
-          this._currSelectedPlaceIndex = null;
-          break;
-      }
-    });
-  }
-
-  private _keyHandlingNavigateSeat(keytype: string): void {
-    if (!this._currSelectedPlaceIndex) {
-      this._currSelectedPlaceIndex = 0;
-    }
-
-    if (this.seatReservation?.coachItems[this._currSelectedCoachIndex].places?.length) {
-      const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
-      if (coach.places) {
-        const place = coach.places[this._currSelectedPlaceIndex];
-        const placeId =
-          'seat-reservation__place-button-' + this._currSelectedCoachIndex + '-' + place.number;
-        const placeElement = this.shadowRoot?.getElementById(placeId) as HTMLElement;
-
-        if (this._currSelectedPlaceElementId) {
-          const replaceElement = this.shadowRoot?.getElementById(
-            this._currSelectedPlaceElementId,
-          ) as HTMLElement;
-          replaceElement.setAttribute('keyfocus', 'false');
-        }
-
-        if (placeElement) {
-          placeElement.setAttribute('keyfocus', 'true');
-          this._currSelectedPlaceElementId = placeId;
-        }
-
-        //Update selected place index
-        if (keytype === 'NEXT') {
-          this._currSelectedPlaceIndex++;
-        } else if (keytype === 'PREV') {
-          this._currSelectedPlaceIndex--;
-        }
-
-        if (this._currSelectedPlaceIndex === coach.places.length - 1) {
-          this._currSelectedPlaceIndex = 0;
-        }
-
-        if (this._currSelectedPlaceIndex < 0) {
-          this._currSelectedPlaceIndex = coach.places.length - 1;
-        }
-      }
-    }
-  }
-
-  private _keyHandlingToggleSeatState(): void {
-    if (this._currSelectedPlaceElementId) {
-      const place = this.shadowRoot?.getElementById(
-        this._currSelectedPlaceElementId,
-      ) as HTMLElement;
-      const currState = place.getAttribute('state') === 'FREE' ? 'SELECTED' : 'FREE';
-
-      place.setAttribute('state', currState);
-
-      const coach = this.seatReservation?.coachItems[this._currSelectedCoachIndex];
-
-      if (coach.places && this._currSelectedPlaceIndex) {
-        const place = coach.places[this._currSelectedPlaceIndex];
-        const placeSelection = {
-          id: this._currSelectedPlaceElementId,
-          number: place.number,
-          coachIndex: this._currSelectedCoachIndex,
-          state: currState,
-        } as PlaceSelection;
-        this._addSelectedPlace(placeSelection);
-      }
-    }
+  private _onFocusPlace(): void {
+    //TODO - If place got focus by TAB and no coach is selected, we have to set the focus to the last input element jump out of seat reservation by TAB
+    //Place got a tab focus, so we jumps out from the seatreservation and set the focus to the fake input field, so the user does not tab throught all seats until the last tabable place is reached.
+    //if(this._selectedCoachIndex === -1){
+    //  this.preventCoachScrollByPlaceClick = true;
+    //this.currSelectedCoachIndex = 4;
+    //this._focusedCoachIndex = 4;
+    //console.log("SEAT RESERVATION -> focus LAST TAB Input Element",this.currSelectedCoachIndex)
+    //this.shadowRoot?.getElementById('last-tab-element')?.focus();
+    //}
   }
 
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
-    const scrollToCoachPosX = this._triggerCoachPositionsCollection[selectedNavCoachIndex][0];
-
-    if (selectedNavCoachIndex) {
-      this._currSelectedCoachIndex = selectedNavCoachIndex;
-      this._currSelectedPlaceElementId = null;
-      this._currSelectedPlaceIndex = null;
+    if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
+      this.currSelectedPlace = null;
+      this.unfocusPlaceElement();
+      this.scrollToSelectedNavCoach(selectedNavCoachIndex);
     }
-
-    this._coachScrollArea.scrollTo({
-      top: 0,
-      left: scrollToCoachPosX,
-      behavior: 'smooth',
-    });
   }
 
   /**
@@ -583,122 +502,33 @@ class SbbSeatReservationElement extends LitElement {
    * @param selectPlaceEvent
    */
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
-    if (!this.disable) {
-      const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
+    const currSelectedPlace = selectPlaceEvent.detail as PlaceSelection;
+    if (this.focusedCoachIndex === -1 || this.focusedCoachIndex === this.currSelectedCoachIndex) {
+      // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
+      this.preventCoachScrollByPlaceClick = true;
+      if (!this.disable) {
+        const place = this.seatReservation.coachItems[currSelectedPlace.coachIndex].places?.find(
+          (place) => place.number == currSelectedPlace.number,
+        );
 
-      this._addSelectedPlace(currSelectedPlace);
-    }
-  }
+        //Add place to place collection
+        this.updateSelectedSeatReservationPlaces(currSelectedPlace);
 
-  private _addSelectedPlace(placeSelection: PlaceSelection): void {
-    if (placeSelection.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
-      if (seatReservationSelection) {
-        this._selectedSeatReservationPlaces.push(seatReservationSelection);
+        if (place) {
+          this.selectedCoachIndex = currSelectedPlace.coachIndex;
+          this.currSelectedCoachIndex = currSelectedPlace.coachIndex;
+          this.currSelectedPlace = place;
+        }
       }
     }
-    //Remove selected place from selectedSeatReservationPlaces
-    else {
-      this._selectedSeatReservationPlaces = this._selectedSeatReservationPlaces.filter(
-        (_selectedPlace) => _selectedPlace.id !== placeSelection.id,
-      );
-    }
-
-    //Checks whether maxReservation is activated and the maximum number of selected places is reached
-    if (this.maxReservations && this._selectedSeatReservationPlaces.length > this.maxReservations) {
-      this._resetAllPlaceSelections(placeSelection);
-    }
-
-    //Emits the seat reservation place selection
-    this.selectedPlaces.emit(this._selectedSeatReservationPlaces);
   }
 
-  private _getSeatReservationPlaceSelection(
-    currSelectedPlace: PlaceSelection,
-  ): SeatReservationPlaceSelection | null {
-    const coach = this.seatReservation.coachItems[currSelectedPlace.coachIndex];
-    const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
-
-    if (!place) {
-      return null;
+  private _onFocusNavCoach(): void {
+    if (!this.preventCoachScrollByPlaceClick) {
+      this.preselectFirstPlaceInCoach();
+    } else {
+      this.focusPlaceElement(this.currSelectedPlace);
     }
-
-    return {
-      id: currSelectedPlace.id,
-      coachId: coach.id,
-      coachNumber: coach.number,
-      coachIndex: currSelectedPlace.coachIndex,
-      placeNumber: place.number,
-      placeType: place.type,
-      placeTravelClass: place.travelClass || 'ANY_CLASS',
-      propertyIds: place.propertyIds || [],
-    };
-  }
-
-  /**
-   * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
-   * @param currSelectedPlace
-   */
-  private _resetAllPlaceSelections(currSelectedPlace?: PlaceSelection): void {
-    //Find all places to be needed unselect
-
-    for (const placeSelection of this._selectedSeatReservationPlaces) {
-      if (!currSelectedPlace || currSelectedPlace.id !== placeSelection.id) {
-        const placeElement = this.shadowRoot?.getElementById(placeSelection.id) as HTMLElement;
-        placeElement.setAttribute('state', 'FREE');
-      }
-    }
-    //Removes all selected places except the currently selected place
-    this._selectedSeatReservationPlaces = currSelectedPlace
-      ? this._selectedSeatReservationPlaces.filter(
-          (_selectedPlace) => _selectedPlace.id === currSelectedPlace.id,
-        )
-      : [];
-  }
-
-  private _getCalculatedDimension(
-    elementDimension: ElementDimension,
-    coachDimension?: ElementDimension,
-    isOriginHeight?: boolean,
-    isStretchHeight?: boolean,
-  ): ElementDimension {
-    if (coachDimension && !isOriginHeight) {
-      elementDimension.h += this._coachBorderPaddingUnit * 2;
-    }
-
-    if (isStretchHeight) {
-      elementDimension.h += this._coachBorderPaddingUnit;
-    }
-
-    return {
-      w: this._gridSizeFactor * elementDimension.w,
-      h: this._gridSizeFactor * elementDimension.h,
-    };
-  }
-
-  private _getCalculatedPosition(
-    elementPosition: ElementPosition,
-    elementDimension?: ElementDimension,
-    coachDimension?: ElementDimension,
-    isOriginHeight?: boolean,
-  ): ElementPosition {
-    if (coachDimension && elementDimension) {
-      const endPosHeight = isOriginHeight
-        ? coachDimension.h
-        : coachDimension.h + this._coachBorderPaddingUnit;
-      //If the original element is positioned at the top or bottom of the coach, we need to recalculate the Y coordinate with the additional border padding
-      if (elementPosition.y === 0) {
-        elementPosition.y -= this._coachBorderPaddingUnit;
-      } else if (elementPosition.y + elementDimension.h === endPosHeight) {
-        elementPosition.y += this._coachBorderPaddingUnit;
-      }
-    }
-
-    return {
-      x: this._gridSizeFactor * elementPosition.x,
-      y: this._gridSizeFactor * elementPosition.y,
-      z: elementPosition.z,
-    };
   }
 }
 

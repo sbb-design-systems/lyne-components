@@ -81,10 +81,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
-  /** Disable prop to prevent any seat action */
+  /** Set the place focus outline style */
   @forceType()
-  @property({ attribute: 'keyfocus', type: Boolean })
-  public accessor keyfocus: boolean = false;
+  @property({ attribute: 'keyfocus', type: String })
+  public accessor keyfocus: string = 'unfocus';
 
   /** Emits when a place was selected by user. */
   protected placeSelected: EventEmitter<PlaceSelection> = new EventEmitter(
@@ -116,14 +116,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     }
 
     if (changedProperties.has('keyfocus')) {
-      if (this.keyfocus) {
-        this.shadowRoot
-          ?.querySelector('button')
-          ?.classList.add('sbb-seat-reservation-place-control--state-focused');
-      } else {
-        this.shadowRoot
-          ?.querySelector('button')
-          ?.classList.remove('sbb-seat-reservation-place-control--state-focused');
+      const placeButton = this.shadowRoot?.querySelector(
+        '.sbb-seat-reservation-place-control__button',
+      ) as HTMLButtonElement;
+
+      if (this.keyfocus === 'focus') {
+        placeButton.focus();
       }
     }
   }
