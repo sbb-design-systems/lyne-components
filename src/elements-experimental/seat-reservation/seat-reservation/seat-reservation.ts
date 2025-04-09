@@ -1,4 +1,3 @@
-//import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { html, nothing } from 'lit';
@@ -22,6 +21,9 @@ import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
 import '../seat-reservation-navigation/seat-reservation-navigation-coach/seat-reservation-navigation-coach.js';
+import './scoped-components/coach-wrapper.js';
+import './scoped-components/coach-border.js';
+import './scoped-components/table-cell.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -33,7 +35,7 @@ export
 class SbbSeatReservationElement extends SeatReservationService {
   public static override styles: CSSResultGroup = style;
 
-  /** seat reservation*/
+  /** seat reservation */
   @property({ attribute: 'seat-reservation', type: Object })
   public override accessor seatReservation: SeatReservation = null!;
 
@@ -79,6 +81,14 @@ class SbbSeatReservationElement extends SeatReservationService {
     return this._coachesHtmlTemplate || null;
   }
 
+  protected override willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+
+    if (_changedProperties.has('scale')) {
+      this.style?.setProperty('--sbb-seat-reservation-list-coaches-scale-factor', `${this.scale}`);
+    }
+  }
+
   private _componentSetup(): void {
     this.initNavigationSelectionByScrollEvent();
   }
@@ -90,11 +100,6 @@ class SbbSeatReservationElement extends SeatReservationService {
     //TODO TAB empty jump fields <input id="first-tab-element" type="input" value="firstlement">
     //TODO TAB empty jump fields <input id="last-tab-element" type="input" value="lastelement">
     this._coachesHtmlTemplate = html`
-      <style>
-        .sbb-seat-reservation__list-coaches {
-          transform: scale(${this.scale});
-        }
-      </style>
       <div class="sbb-seat-reservation">
         <div
           class="sbb-seat-reservation__wrapper ${classAlignVertical}"
@@ -159,15 +164,9 @@ class SbbSeatReservationElement extends SeatReservationService {
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     return html`
-      <style>
-        .coach-wrapper[data-coach-id='${coachItem.id}-${calculatedCoachDimension.w}-${calculatedCoachDimension.h}'] {
-          width: ${calculatedCoachDimension.w}px;
-          height: ${calculatedCoachDimension.h * this.scale}px;
-        }
-      </style>
-      <div
-        data-coach-id="${coachItem.id}-${calculatedCoachDimension.w}-${calculatedCoachDimension.h}"
-        class="coach-wrapper"
+      <sbb-coach-wrapper
+        height="${calculatedCoachDimension.h * this.scale}px"
+        width="${calculatedCoachDimension.w}px"
       >
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
@@ -175,7 +174,7 @@ class SbbSeatReservationElement extends SeatReservationService {
         <table class="coach-wrapper__table" id="seat-reservation-coach-${index}" role="grid">
           ${this._getRenderedPlaces(coachItem, index)}
         </table>
-      </div>
+      </sbb-coach-wrapper>
     `;
   }
 
@@ -194,15 +193,10 @@ class SbbSeatReservationElement extends SeatReservationService {
         : this.gridSizeFactor;
 
     return html`
-      <style>
-        .coach-border[data-coach-border-id='${coachItem.id}'] {
-          position: absolute;
-          left: ${borderOffsetX}px;
-          top: ${this.coachBorderPadding * -1}px;
-          z-index: 0;
-        }
-      </style>
-      <div data-coach-border-id="${coachItem.id}" class="coach-border">
+      <sbb-coach-border
+        inset-block-start="${this.coachBorderPadding * -1}px"
+        inset-inline-start="${borderOffsetX}px"
+      >
         <sbb-seat-reservation-graphic
           name="COACH_BORDER_MIDDLE"
           width=${borderWidth}
@@ -210,7 +204,7 @@ class SbbSeatReservationElement extends SeatReservationService {
           ?stretch=${true}
           role="presentation"
         ></sbb-seat-reservation-graphic>
-      </div>
+      </sbb-coach-border>
     `;
   }
 
@@ -260,20 +254,13 @@ class SbbSeatReservationElement extends SeatReservationService {
       const textRotation = place.rotation ? place.rotation * -1 : 0;
 
       return html`
-        <style>
-          .sbb-seat-reservation__graphical-element[data-graphical-element-id='${coachIndex}-${place.number}'] {
-            top: ${calculatedInternalPosition.y}px;
-            left: ${calculatedInternalPosition.x}px;
-            width: ${calculatedInternalDimension.w}px;
-            height: ${calculatedInternalDimension.h}px;
-            z-index: ${place.position.z};
-          }
-        </style>
-        <td
+        <sbb-seat-reservation-table-cell
+          inset-block-start="${calculatedInternalPosition.y}px"
+          inset-inline-start="${calculatedInternalPosition.x}px"
+          width="${calculatedInternalDimension.w}px"
+          height="${calculatedInternalDimension.h}px"
+          z-index="${place.position.z}"
           id="cell-${coachIndex}-${place.position.y}-${index}"
-          class="sbb-seat-reservation__graphical-element sbb-seat-reservation__graphical-place"
-          data-graphical-element-id="${coachIndex}-${place.number}"
-          role="gridcell"
         >
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
@@ -292,7 +279,7 @@ class SbbSeatReservationElement extends SeatReservationService {
             coach-index=${coachIndex}
             ?disable=${this.disable}
           ></sbb-seat-reservation-place-control>
-        </td>
+        </sbb-seat-reservation-table-cell>
       `;
     });
   }
