@@ -16,7 +16,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
 
 import readme from './readme.md?raw';
-import './accordion.js';
+import './accordion.component.js';
 
 const numberOfPanels: InputType = {
   control: {

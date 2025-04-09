@@ -3,14 +3,14 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbMessageElement } from './message.js';
+import { SbbMessageElement } from './message.component.js';
 
 describe(`sbb-message ssr`, () => {
   let root: SbbMessageElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-message></sbb-message>`, {
-      modules: ['./message.js'],
+      modules: ['./message.component.js'],
     });
   });
 

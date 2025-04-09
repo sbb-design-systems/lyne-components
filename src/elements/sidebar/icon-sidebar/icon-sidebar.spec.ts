@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.js';
 
-import { SbbIconSidebarElement } from './icon-sidebar.js';
+import { SbbIconSidebarElement } from './icon-sidebar.component.js';
 
 import '../icon-sidebar-container.js';
 import '../icon-sidebar-content.js';

@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './timetable-duration/timetable-duration.js';
+export * from './timetable-duration/timetable-duration.component.js';

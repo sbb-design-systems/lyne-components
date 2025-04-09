@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './divider.js';
+import './divider.component.js';
 
 const Template = (args: Args): TemplateResult => html`
   <div style="height: 340px; padding: 20px;">

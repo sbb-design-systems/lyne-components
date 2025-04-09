@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbIconSidebarLinkElement } from './icon-sidebar-link.js';
+import { SbbIconSidebarLinkElement } from './icon-sidebar-link.component.js';
 
 describe(`sbb-icon-sidebar-link`, () => {
   let element: SbbIconSidebarLinkElement;

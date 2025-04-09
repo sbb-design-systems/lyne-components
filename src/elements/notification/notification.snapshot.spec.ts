@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbNotificationElement } from './notification.js';
-import './notification.js';
+import type { SbbNotificationElement } from './notification.component.js';
+import './notification.component.js';
 
 describe(`sbb-notification`, () => {
   describe('renders', () => {

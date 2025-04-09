@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbIconSidebarContainerElement } from './icon-sidebar-container.js';
-import './icon-sidebar-container.js';
+import type { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.js';
+import './icon-sidebar-container.component.js';
 
 describe(`sbb-icon-sidebar-container`, () => {
   describe('renders', () => {

@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbNavigationLinkElement } from './navigation-link.js';
+import type { SbbNavigationLinkElement } from './navigation-link.component.js';
 
-import './navigation-link.js';
+import './navigation-link.component.js';
 
 describe(`sbb-navigation-link`, () => {
   let element: SbbNavigationLinkElement;

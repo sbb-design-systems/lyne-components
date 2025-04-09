@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './card.js';
+import './card.component.js';
 import '../card-badge.js';
 import '../card-button.js';
 import '../card-link.js';

@@ -9,7 +9,6 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button.js';
-import { SbbSelectionExpansionPanelElement } from '../selection-expansion-panel.js';
 
 import '../card.js';
 import '../checkbox.js';
@@ -22,6 +21,7 @@ import '../radio-button.js';
 import '../title.js';
 
 import readme from './readme.md?raw';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
 
 const color: InputType = {
   control: {

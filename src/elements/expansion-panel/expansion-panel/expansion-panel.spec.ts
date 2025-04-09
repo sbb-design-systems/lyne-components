@@ -7,7 +7,7 @@ import type { SbbExpansionPanelContentElement } from '../expansion-panel-content
 import '../expansion-panel-content.js';
 import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.js';
 
 describe(`sbb-expansion-panel`, () => {
   let element: SbbExpansionPanelElement;

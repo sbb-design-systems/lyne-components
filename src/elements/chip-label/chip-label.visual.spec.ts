@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
-import './chip-label.js';
+import './chip-label.component.js';
 
 describe(`sbb-chip-label`, () => {
   const sizeCases = ['xxs', 'xs', 's'];

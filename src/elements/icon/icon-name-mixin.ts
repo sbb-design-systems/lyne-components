@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import type { AbstractConstructor } from '../core/mixins.js';
 
-import './icon.js';
+import './icon.component.js';
 
 export declare class SbbIconNameMixinType {
   public accessor iconName: string;

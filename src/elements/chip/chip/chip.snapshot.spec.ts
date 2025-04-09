@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbChipElement } from './chip.js';
-import './chip.js';
+import type { SbbChipElement } from './chip.component.js';
+import './chip.component.js';
 
 describe(`sbb-chip`, () => {
   describe('renders', () => {

@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbLinkButtonElement } from './link-button.js';
+import { SbbLinkButtonElement } from './link-button.component.js';
 
 describe(`sbb-link-button`, () => {
   let element: SbbLinkButtonElement;

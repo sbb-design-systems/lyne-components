@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './link-list.js';
+import './link-list.component.js';
 import '../../link/block-link.js';
 
 describe(`sbb-link-list`, () => {

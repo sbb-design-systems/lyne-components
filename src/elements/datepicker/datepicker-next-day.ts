@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './datepicker-next-day/datepicker-next-day.js';
+export * from './datepicker-next-day/datepicker-next-day.component.js';

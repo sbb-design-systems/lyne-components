@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbLoadingIndicatorElement } from './loading-indicator.js';
+import type { SbbLoadingIndicatorElement } from './loading-indicator.component.js';
 
-import './loading-indicator.js';
+import './loading-indicator.component.js';
 
 describe(`sbb-loading-indicator`, () => {
   let element: SbbLoadingIndicatorElement;

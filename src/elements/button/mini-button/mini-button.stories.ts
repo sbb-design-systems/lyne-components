@@ -18,7 +18,7 @@ import {
 
 import '../../form-field.js';
 import '../../icon.js';
-import './mini-button.js';
+import './mini-button.component.js';
 
 import readme from './readme.md?raw';
 

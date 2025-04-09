@@ -1,5 +1,5 @@
 /**
  * @entrypoint
  */
-export * from './title/title.js';
+export * from './title/title.component.js';
 export * from './title/title-base.js';

@@ -1,7 +1,7 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbSidebarTitleElement } from './sidebar-title.js';
+import { SbbSidebarTitleElement } from './sidebar-title.component.js';
 
 describe('sbb-sidebar-title', () => {
   let element: SbbSidebarTitleElement;

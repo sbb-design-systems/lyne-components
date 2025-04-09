@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbLinkListAnchorElement } from './link-list-anchor.js';
-import './link-list-anchor.js';
+import type { SbbLinkListAnchorElement } from './link-list-anchor.component.js';
+import './link-list-anchor.component.js';
 import '../../link/block-link.js';
 
 describe(`sbb-link-list-anchor`, () => {

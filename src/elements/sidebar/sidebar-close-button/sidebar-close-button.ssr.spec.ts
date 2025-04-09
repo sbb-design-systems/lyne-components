@@ -3,14 +3,14 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbSidebarCloseButtonElement } from './sidebar-close-button.js';
+import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
 
 describe(`sbb-sidebar-close-button ssr`, () => {
   let root: SbbSidebarCloseButtonElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-sidebar-close-button></sbb-sidebar-close-button>`, {
-      modules: ['./sidebar-close-button.js'],
+      modules: ['./sidebar-close-button.component.js'],
     });
   });
 

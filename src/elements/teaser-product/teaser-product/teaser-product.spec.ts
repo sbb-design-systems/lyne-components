@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbTeaserProductElement } from './teaser-product.js';
+import { SbbTeaserProductElement } from './teaser-product.component.js';
 import '../../image.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');

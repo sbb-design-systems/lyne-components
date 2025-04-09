@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbFooterElement } from './footer.js';
+import { SbbFooterElement } from './footer.component.js';
 
 describe(`sbb-footer`, () => {
   let element: SbbFooterElement;

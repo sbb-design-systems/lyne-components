@@ -7,7 +7,7 @@ import { html, nothing } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './menu-link.js';
+import './menu-link.component.js';
 
 const getBasicTemplate = (
   { text, badge, 'icon-name': iconName, ...args }: Args,

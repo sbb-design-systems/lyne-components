@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import '../../icon.js';
-import './tab-label.js';
+import './tab-label.component.js';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
   <sbb-tab-label ${sbbSpread(args)}>

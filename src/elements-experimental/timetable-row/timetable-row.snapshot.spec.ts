@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTimetableRowElement } from './timetable-row.js';
+import type { SbbTimetableRowElement } from './timetable-row.component.js';
 import {
   accessLegTrip,
   busTrip,
@@ -10,7 +10,7 @@ import {
   trainTrip,
 } from './timetable-row.sample-data.private.js';
 
-import './timetable-row.js';
+import './timetable-row.component.js';
 
 const now = '2022-08-16T15:00:00Z';
 

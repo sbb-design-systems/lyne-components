@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './navigation-list.js';
+import './navigation-list.component.js';
 import '../navigation-button.js';
 
 const label: InputType = {

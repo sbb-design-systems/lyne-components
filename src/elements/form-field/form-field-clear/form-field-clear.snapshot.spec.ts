@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import type { SbbFormFieldElement } from '../form-field.js';
 
-import type { SbbFormFieldClearElement } from './form-field-clear.js';
-import './form-field-clear.js';
+import type { SbbFormFieldClearElement } from './form-field-clear.component.js';
+import './form-field-clear.component.js';
 import '../form-field.js';
 
 describe(`sbb-form-field-clear`, () => {
