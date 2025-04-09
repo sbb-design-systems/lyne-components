@@ -77,11 +77,7 @@
 }
 
 .sbb-seat-reservation-navigation__item-coach--selected
-  .sbb-seat-reservation-navigation__control-button,
-.sbb-seat-reservation-navigation__item-coach:focus-visible
-  .sbb-seat-reservation-navigation__control-button,
-.sbb-seat-reservation-navigation__control-button:hover,
-.sbb-seat-reservation-navigation__control-button:focus-visible {
+  .sbb-seat-reservation-navigation__control-button {
   --sbb-seat-reservation-navigation-btn-border-width: var(
     --sbb-seat-reservation-navigation-btn-border-width-hover
   );
@@ -91,6 +87,30 @@
   --sbb-seat-reservation-navigation-btn-background-color: var(
     --sbb-seat-reservation-navigation-btn-background-color-hover
   );
+
+  .sbb-seat-reservation-navigation__item-coach-number {
+    color: var(--sbb-color-charcoal);
+  }
+
+  .sbb-seat-reservation-navigation__item-coach-travelclass {
+    background-color: var(--sbb-color-charcoal);
+  }
+}
+
+.sbb-seat-reservation-navigation__control-button:hover {
+  --sbb-seat-reservation-navigation-btn-border-color: var(--sbb-color-black);
+  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
+}
+
+.sbb-seat-reservation-navigation__item-coach:focus-visible
+  .sbb-seat-reservation-navigation__control-button,
+.sbb-seat-reservation-navigation__control-button:focus-visible {
+  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
+  --sbb-seat-reservation-navigation-btn-border-color: var(--sbb-color-lemon);
+
+  .sbb-seat-reservation-navigation__item-coach-number {
+    color: var(--sbb-color-charcoal);
+  }
 }
 
 .sbb-seat-reservation-navigation__item-coach-number {
