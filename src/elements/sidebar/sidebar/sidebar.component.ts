@@ -242,7 +242,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _takeFocus(): void {
     // We prevent calling the focus stuff when not needed
-    if (this._focusTrapController.isTrapped() || !this.isConnected) {
+    if (!this.isConnected) {
       return;
     }
     const isModeOver = this._isModeOver();
