@@ -6,7 +6,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './coach-border.scss?lit&inline';
 
 /**
- * Wrapper class for coaches.
+ * Wrapper class for coach border elements.
  */
 export
 @customElement('sbb-coach-border')
