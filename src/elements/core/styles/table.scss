@@ -104,8 +104,8 @@ sbb-table-wrapper[negative] .sbb-table,
       visibility: visible;
       opacity: 1;
       background-image: linear-gradient(-270deg, rgb(0 0 0 / 10%) 0%, transparent 100%);
-      right: calc(var(--sbb-table-wrapper-sticky-shadow-width, 3rem) * -1 - 1px);
-      left: unset;
+      inset-inline-start: unset;
+      inset-inline-end: calc(var(--sbb-table-wrapper-sticky-shadow-width, 3rem) * -1 - 1px);
     }
   }
 }
@@ -118,8 +118,8 @@ sbb-table-wrapper[negative] .sbb-table,
       visibility: visible;
       opacity: 1;
       background-image: linear-gradient(270deg, rgb(0 0 0 / 10%) 0%, transparent 100%);
-      left: calc(var(--sbb-table-wrapper-sticky-shadow-width, 3rem) * -1 - 1px);
-      right: unset;
+      inset-inline-start: calc(var(--sbb-table-wrapper-sticky-shadow-width, 3rem) * -1 - 1px);
+      inset-inline-end: unset;
     }
   }
 }
