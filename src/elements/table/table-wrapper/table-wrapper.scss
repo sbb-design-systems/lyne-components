@@ -5,6 +5,9 @@
 
 :host {
   --sbb-table-wrapper-border-radius: var(--sbb-border-radius-4x);
+  --sbb-table-wrapper-sticky-shadow-width: 3rem;
+  --sbb-table-wrapper-sticky-shadow-transition-easing: var(--sbb-animation-easing);
+  --sbb-table-wrapper-sticky-shadow-transition-duration: var(--sbb-animation-duration-6x);
 
   display: block;
 }
@@ -23,7 +26,7 @@
     @include sbb.scrollbar-variables--color-negative-track-visible;
   }
 
-  :host([data-has-horizontal-scrollbar]) & {
+  :host(:not(.sbb-table-wrapper-offset-none)) & {
     padding-bottom: var(--sbb-spacing-fixed-1x);
   }
 }

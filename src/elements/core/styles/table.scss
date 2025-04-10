@@ -75,6 +75,55 @@ sbb-table-wrapper[negative] .sbb-table,
   position: sticky !important;
 }
 
+:is(.sbb-table-sticky-border-elem-left, .sbb-table-sticky-border-elem-right)::after {
+  content: '';
+  transition: {
+    timing-function: var(
+      --sbb-table-wrapper-sticky-shadow-transition-easing,
+      var(--sbb-animation-easing)
+    );
+    duration: var(
+      --sbb-table-wrapper-sticky-shadow-transition-duration,
+      var(--sbb-animation-duration-6x)
+    );
+    property: visibility, opacity;
+  }
+
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  width: var(--sbb-table-wrapper-sticky-shadow-width, 3rem);
+  inset: 0;
+}
+
+.sbb-table-sticky-border-elem-left {
+  :is(.sbb-table-wrapper-offset-left, .sbb-table-wrapper-offset-both) & {
+    border-inline-end: var(--sbb-table-border);
+
+    &::after {
+      visibility: visible;
+      opacity: 1;
+      background-image: linear-gradient(-270deg, rgb(0 0 0 / 10%) 0%, transparent 100%);
+      right: calc(var(--sbb-table-wrapper-sticky-shadow-width, 3rem) * -1 - 1px);
+      left: unset;
+    }
+  }
+}
+
+.sbb-table-sticky-border-elem-right {
+  :is(.sbb-table-wrapper-offset-right, .sbb-table-wrapper-offset-both) & {
+    border-inline-start: var(--sbb-table-border);
+
+    &::after {
+      visibility: visible;
+      opacity: 1;
+      background-image: linear-gradient(270deg, rgb(0 0 0 / 10%) 0%, transparent 100%);
+      left: calc(var(--sbb-table-wrapper-sticky-shadow-width, 3rem) * -1 - 1px);
+      right: unset;
+    }
+  }
+}
+
 // TODO: In future, move to the 'sbb-lean' theme
 html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m) {
   @include table.table--s;
