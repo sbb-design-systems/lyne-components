@@ -92,7 +92,6 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   private _getNavigationButton(): TemplateResult | null {
-    // language=HTML format=false
     return html`
       ${!this.driverArea
         ? html` <button
