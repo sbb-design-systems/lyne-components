@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.6.0...v2.6.1) (2025-04-10)
+
+
+### Bug Fixes
+
+* avoid duplicated entries in escape overlay stack ([#3557](https://github.com/sbb-design-systems/lyne-components/issues/3557)) ([ac2d8e0](https://github.com/sbb-design-systems/lyne-components/commit/ac2d8e0bc029d6f5d27884408f99ed95436e2fba))
+* **sbb-sidebar:** avoid inert page content in over mode ([#3551](https://github.com/sbb-design-systems/lyne-components/issues/3551)) ([34624fd](https://github.com/sbb-design-systems/lyne-components/commit/34624fdddba0f37469d0cfa0d2e30694bf6c9083))
+* use correct id resolution for form ([#3552](https://github.com/sbb-design-systems/lyne-components/issues/3552)) ([1397b08](https://github.com/sbb-design-systems/lyne-components/commit/1397b081633332656bdba46faff2e4f8c8c31d42))
+
+
+### Code Refactoring
+
+* **sbb-toggle:** remove native element from Shadow DOM ([#3556](https://github.com/sbb-design-systems/lyne-components/issues/3556)) ([36b02dd](https://github.com/sbb-design-systems/lyne-components/commit/36b02ddd51e2331cf204d93d50274e7de9f44847))
+
 ## [2.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.5.1...v2.6.0) (2025-04-07)
 
 
