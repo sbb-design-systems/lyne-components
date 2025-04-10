@@ -192,7 +192,6 @@ $disabled: '[disabled], :disabled';
   border-radius: var(--sbb-border-radius-1x);
   margin: auto;
   background-color: var(--sbb-color-lemon);
-  transform: translateY(#{sbb.px-to-rem-build(1)});
 }
 
 // textual orientation of travel class
