@@ -43,7 +43,7 @@ $active: ':active, [data-active]';
   :host([data-focus-visible]) {
     // Basically the focus-outline mixin is made for use with focus-visible.
     // As we use it here with data-focus-visible, we have to ensure that the outline is not overridden when mouse or touch is in use.
-    --sbb-focus-outline-width-override: initial;
+    --sbb-focus-outline-style: initial;
   }
 
   :host(:not(#{$disabled}, #{$active}):hover) {

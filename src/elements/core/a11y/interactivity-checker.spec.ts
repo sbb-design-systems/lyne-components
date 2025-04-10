@@ -20,7 +20,7 @@ describe('InteractivityChecker', () => {
     }
   }
 
-  function createFromTemplate(template: string, append = false): void {
+  function createFromTemplate(template: string, append = false): HTMLElement {
     const tmpRoot = document.createElement('div');
     tmpRoot.innerHTML = template;
 
