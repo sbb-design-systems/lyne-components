@@ -85,6 +85,6 @@
   &:focus-visible {
     @include sbb.focus-outline;
 
-    outline-offset: calc(-1 * var(--sbb-focus-outline-offset) - #{sbb.px-to-rem-build(5)});
+    outline-offset: calc(-1 * var(--sbb-focus-outline-width) - #{sbb.px-to-rem-build(5)});
   }
 }

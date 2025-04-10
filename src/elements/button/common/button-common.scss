@@ -215,7 +215,7 @@ $active: ':active, [data-active]';
     // Handle focus on the host (button variant)
   :host(:focus-visible) &,
     // Handle focus on the action (link variant)
-  &:not(:focus-visible) {
+  &:focus-visible {
     &::before {
       @include sbb.focus-outline;
     }
