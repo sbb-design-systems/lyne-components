@@ -6,7 +6,7 @@ $disabled: '[disabled], :disabled';
 @include sbb.box-sizing;
 
 :host {
-  --sbb-seat-reservation-navigation-travelclass-spacing: #{sbb.px-to-rem-build(14)};
+  --sbb-seat-reservation-navigation-travelclass-spacing: #{sbb.px-to-rem-build(10)};
   --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-granite);
   --sbb-seat-reservation-navigation-btn-outline-width: var(--sbb-border-width-1x);
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-white);
@@ -71,6 +71,7 @@ $disabled: '[disabled], :disabled';
   flex-direction: column;
   justify-content: center;
   height: #{sbb.px-to-rem-build(36)};
+  position: relative;
   outline: var(--sbb-seat-reservation-navigation-btn-outline-width) solid
     var(--sbb-seat-reservation-navigation-btn-outline-color);
   border-radius: var(--sbb-border-radius-2x);
@@ -181,9 +182,10 @@ $disabled: '[disabled], :disabled';
 
 // graphical orientation of FIRST class
 .sbb-seat-reservation-navigation--first-class {
-  position: relative;
-  inset-block-start: sbb.px-to-rem-build(3);
   width: calc(100% - #{sbb.px-to-rem-build(8)});
+  position: absolute;
+  inset-block-start: sbb.px-to-rem-build(3);
+  inset-inline-start: sbb.px-to-rem-build(4);
 
   // use border instead of height to support force-color modes
   border: var(--sbb-border-width-1x) solid transparent;
