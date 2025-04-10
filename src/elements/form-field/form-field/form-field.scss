@@ -239,7 +239,7 @@
     border-radius: var(--sbb-form-field-border-radius);
   }
 
-  :host([data-input-focused]) & {
+  :host([data-input-focused][data-focus-origin='keyboard']) & {
     @include sbb.focus-outline;
   }
 

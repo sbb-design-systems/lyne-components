@@ -9,6 +9,8 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import type { SbbInputModality } from '../../core/a11y.js';
+import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
 import { isFirefox, isLean, setOrRemoveAttribute } from '../../core/dom.js';
@@ -330,8 +332,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     inputFocusElement?.addEventListener(
       'focusin',
       () => {
-        // TODO: Check if needed
         this.toggleAttribute('data-input-focused', true);
+        this.setAttribute(
+          'data-focus-origin',
+          (sbbInputModalityDetector.mostRecentModality as SbbInputModality) ?? '',
+        );
       },
       {
         signal: this._inputAbortController.signal,
@@ -340,7 +345,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
     inputFocusElement?.addEventListener(
       'focusout',
-      () => this.removeAttribute('data-input-focused'),
+      () =>
+        ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),
       {
         signal: this._inputAbortController.signal,
       },

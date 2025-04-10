@@ -130,6 +130,7 @@ export class InteractivityChecker {
     // Again, naive approach that does not capture many edge cases and browser quirks.
     return (
       isPotentiallyFocusable(element) &&
+      !element.inert &&
       !this.isDisabled(element) &&
       (config?.ignoreVisibility || this.isVisible(element))
     );

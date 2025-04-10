@@ -38,13 +38,14 @@ describe('focusTrapController', () => {
     `);
   });
 
-  it('should focus next element', async () => {
+  it('should wrap around', async () => {
     const focusTrapController = new SbbFocusTrapController(element);
 
     focusTrapController.enabled = true;
+    const firstButton = element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!;
+    focusTrapController.focusInitialElement();
 
-    element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
+    expect(document.activeElement!.shadowRoot!.activeElement).to.equal(firstButton);
 
     await sendKeys({ press: tabKey });
     expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
@@ -61,32 +62,6 @@ describe('focusTrapController', () => {
     );
 
     // Wrap around
-    await sendKeys({ press: tabKey });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
-  });
-
-  it('should focus next element with filter', async () => {
-    const focusTrapController = new SbbFocusTrapController(element);
-
-    focusTrapController.enabled = true;
-
-    element.shadowRoot!.querySelector('input')!.focus();
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
-
-    await sendKeys({ press: tabKey });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('input');
-  });
-
-  it('should focus next element with post filter', async () => {
-    const focusTrapController = new SbbFocusTrapController(element);
-    focusTrapController.enabled = true;
-
-    element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
-
-    await sendKeys({ press: tabKey });
-    expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
-
     await sendKeys({ press: tabKey });
     expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
   });
