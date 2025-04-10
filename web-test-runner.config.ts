@@ -26,7 +26,6 @@ import {
   visualRegressionConfig,
   vitePlugin,
   preloadIcons,
-  preloadFonts,
 } from './tools/web-test-runner/index.js';
 
 const { values: cliArgs } = parseArgs({
@@ -97,7 +96,6 @@ const browsers =
         : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const preloadedIcons = await preloadIcons();
-const preloadedFonts = await preloadFonts();
 
 const testRunnerHtml = (
   testFramework: string,
@@ -106,21 +104,25 @@ const testRunnerHtml = (
 ): string => `
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
+  <head>${
+    // Although we provide the fonts as base64, we preload the original
+    // files which prevents a bug in Safari rendering special characters.
+    ['Roman', 'Bold', 'Light']
+      .map(
+        (type) => `
+    <link
+      rel="preload"
+      href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-${type}.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />`,
+      )
+      .join('')
+  }
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
-      ${preloadedFonts
-        .map(
-          (f) => `
-      @font-face {
-        font-family: SBB;
-        src: ${f.font};
-        font-display: block;
-        font-weight: ${f.weight};
-      }`,
-        )
-        .join('')}
-      ${renderStyles().replace(/@font-face([^}]|\n)+\}/g, '')}
+      ${renderStyles()}
     </style>
     <script type="module">
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
