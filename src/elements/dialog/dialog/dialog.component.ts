@@ -3,7 +3,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { getFirstFocusableElement } from '../../core/a11y.js';
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 import type { SbbDialogActionsElement } from '../dialog-actions.js';
@@ -187,14 +186,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }
-  }
-
-  // Set focus on the first focusable element.
-  protected setOverlayFocus(): void {
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
-    firstFocusable?.focus();
   }
 
   private _syncNegative(): void {

@@ -3,11 +3,7 @@ import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import {
-  getFirstFocusableElement,
-  IS_FOCUSABLE_QUERY,
-  SbbFocusTrapController,
-} from '../../core/a11y.js';
+import { IS_FOCUSABLE_QUERY, SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
@@ -398,14 +394,9 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   // Set focus on the first focusable element.
   private _setPopoverFocus(): void {
-    const firstFocusable =
-      this.shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]') ||
-      getFirstFocusableElement(
-        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      );
-    if (firstFocusable) {
-      firstFocusable.focus();
-    } else {
+    const focused = this._focusTrapController.focusInitialElement();
+
+    if (!focused) {
       this.setAttribute('tabindex', '0');
       this.focus();
 

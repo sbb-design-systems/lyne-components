@@ -53,7 +53,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
 
   protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
-  protected abstract setOverlayFocus(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
 
@@ -158,5 +157,10 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     this.ariaLiveRef.textContent = `${i18nDialog[this.language.current]}${
       label ? `, ${label}` : ''
     }${this.ariaLiveRefToggle ? ' ' : ''}`;
+  }
+
+  /** Focuses the element marked with sbb-focus-initial or the first focusable element. */
+  protected setOverlayFocus(): void {
+    this.focusTrapController.focusInitialElement();
   }
 }

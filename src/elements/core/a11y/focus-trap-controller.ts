@@ -24,6 +24,66 @@ export class SbbFocusTrapController implements ReactiveController {
     this._untrap();
   }
 
+  /**
+   * Focuses the element that should be focused when the focus trap is initialized.
+   * @returns Whether focus was moved successfully.
+   */
+  public focusInitialElement(options?: FocusOptions): boolean {
+    // We take priority of light DOM for sbb-focus-initial attribute.
+    const redirectToElements = [
+      this._host.querySelector<HTMLElement>('[sbb-focus-initial]'),
+      this._host.shadowRoot?.querySelector<HTMLElement>('[sbb-focus-initial]'),
+    ];
+    const redirectToElement = redirectToElements[0] ?? redirectToElements[1];
+
+    if (redirectToElement) {
+      // Warn the consumer if the element they've pointed to
+      // isn't focusable, when not in production mode.
+      if (import.meta.env.DEV && !interactivityChecker.isFocusable(redirectToElement)) {
+        console.warn(`Element matching '[sbb-focus-initial]' is not focusable.`, redirectToElement);
+      }
+
+      if (!interactivityChecker.isFocusable(redirectToElement)) {
+        const focusableChild = this._getFirstTabbableElement(redirectToElement) as HTMLElement;
+        focusableChild?.focus(options);
+        return !!focusableChild;
+      }
+
+      redirectToElement.focus(options);
+      return true;
+    }
+
+    return this.focusFirstTabbableElement(options);
+  }
+
+  /**
+   * Focuses the first tabbable element within the focus trap region.
+   * @returns Whether focus was moved successfully.
+   */
+  public focusFirstTabbableElement(options?: FocusOptions): boolean {
+    const redirectToElement = this._getFirstTabbableElement(this._host);
+
+    if (redirectToElement) {
+      redirectToElement.focus(options);
+    }
+
+    return !!redirectToElement;
+  }
+
+  /**
+   * Focuses the last tabbable element within the focus trap region.
+   * @returns Whether focus was moved successfully.
+   */
+  public focusLastTabbableElement(options?: FocusOptions): boolean {
+    const redirectToElement = this._getLastTabbableElement(this._host);
+
+    if (redirectToElement) {
+      redirectToElement.focus(options);
+    }
+
+    return !!redirectToElement;
+  }
+
   private _trap(): void {
     this._abortController = new AbortController();
     this._host.addEventListener(

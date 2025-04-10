@@ -10,7 +10,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getFirstFocusableElement } from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
@@ -93,6 +93,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
+  private _focusTrapController = new SbbFocusTrapController(this);
 
   /**
    * Opens the navigation section on trigger click.
@@ -128,7 +129,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this.inert = false;
     this._attachWindowEvents();
     this._setNavigationInert();
-    this._setNavigationSectionFocus();
+    this._focusTrapController.focusInitialElement();
     this._checkActiveAction();
     this.completeUpdate();
   }
@@ -272,17 +273,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   // Set focus on the first focusable element.
-  private _setNavigationSectionFocus(): void {
-    const firstFocusableElement = getFirstFocusableElement(
-      [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
-        .concat(Array.from(this.children))
-        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
-    if (firstFocusableElement) {
-      firstFocusableElement.focus();
-    }
-  }
-
   private _checkActiveAction(): void {
     (
       this.querySelector(

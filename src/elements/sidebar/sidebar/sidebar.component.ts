@@ -2,7 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import { getFirstFocusableElement, SbbFocusTrapController } from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
@@ -243,10 +243,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     const isModeOver = this._isModeOver();
 
     if (isModeOver || this.focusOnOpen) {
-      const firstFocusable = getFirstFocusableElement(
-        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      );
-      firstFocusable?.focus();
+      this._focusTrapController.focusInitialElement();
     }
 
     if (isModeOver) {

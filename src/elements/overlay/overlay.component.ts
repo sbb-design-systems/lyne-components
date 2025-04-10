@@ -3,7 +3,6 @@ import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { getFirstFocusableElement } from '../core/a11y.js';
 import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter, forwardEvent } from '../core/eventing.js';
@@ -153,16 +152,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }
-  }
-
-  // Set focus on the first focusable element.
-  protected setOverlayFocus(): void {
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this.shadowRoot!.children).filter(
-        (e): e is HTMLElement => e instanceof window.HTMLElement,
-      ),
-    );
-    firstFocusable?.focus();
   }
 
   protected override render(): TemplateResult {

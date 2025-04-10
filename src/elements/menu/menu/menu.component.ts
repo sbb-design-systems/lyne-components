@@ -11,7 +11,6 @@ import { ref } from 'lit/directives/ref.js';
 import {
   getNextElementIndex,
   interactivityChecker,
-  IS_FOCUSABLE_QUERY,
   isArrowKeyOrPageKeysPressed,
   SbbFocusTrapController,
 } from '../../core/a11y.js';
@@ -175,7 +174,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this.state = 'opened';
     this._inertController.activate();
     this._escapableOverlayController.connect();
-    this._setMenuFocus();
+    this._focusTrapController.focusInitialElement();
     this._focusTrapController.enabled = true;
     this._attachWindowEvents();
     this.didOpen.emit();
@@ -389,12 +388,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this._handleClosing();
     }
-  }
-
-  // Set focus on the first focusable element.
-  private _setMenuFocus(): void {
-    const firstFocusable = this.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
-    firstFocusable.focus();
   }
 
   // Set menu position and max height if the breakpoint is medium-ultra.
