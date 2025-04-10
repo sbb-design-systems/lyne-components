@@ -27,7 +27,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime.js';
-import { forceType } from '../core/decorators.js';
+import { forceType, handleDistinctChange } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
@@ -159,24 +159,53 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
   private _now: T | null = null;
 
-  /** The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
+  /** Whether the calendar allows for multiple date selection. */
+  @forceType()
+  @handleDistinctChange((e: SbbCalendarElement<T>, newValue: boolean) =>
+    e._onMultipleChanged(newValue),
+  )
+  @property({ type: Boolean })
+  public accessor multiple: boolean = false;
+
+  /**
+   * The selected date.
+   * Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).
+   * If `multiple`, takes an array of the mentioned types.
+   */
   @property()
-  public set selected(value: SbbDateLike<T> | null) {
-    this._selectedDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-    if (
-      !!this._selectedDate &&
-      (!this._isDayInRange(this._dateAdapter.toIso8601(this._selectedDate)) ||
-        this._dateFilter(this._selectedDate))
-    ) {
-      this._selected = this._dateAdapter.toIso8601(this._selectedDate);
+  public set selected(value: SbbDateLike<T> | SbbDateLike<T>[] | null) {
+    // FIXME what if multiple and value is not an array?
+    if (Array.isArray(value)) {
+      this._selectedDate = value
+        .map((dateLike: SbbDateLike<T>) =>
+          this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(dateLike)),
+        )
+        .filter<T>((date: T | null): date is T => date !== null);
+      this._selected = this._selectedDate
+        .filter(
+          (date: T) =>
+            !this._isDayInRange(this._dateAdapter.toIso8601(date)) || this._dateFilter(date),
+        )
+        .map((date: T) => this._dateAdapter.toIso8601(date));
     } else {
-      this._selected = undefined;
+      this._selectedDate = this._dateAdapter.getValidDateOrNull(
+        this._dateAdapter.deserialize(value),
+      );
+      if (
+        !!this._selectedDate &&
+        (!this._isDayInRange(this._dateAdapter.toIso8601(this._selectedDate)) ||
+          this._dateFilter(this._selectedDate))
+      ) {
+        this._selected = this._dateAdapter.toIso8601(this._selectedDate);
+      } else {
+        this._selected = undefined;
+      }
     }
   }
-  public get selected(): T | null {
+  public get selected(): T | T[] | null {
     return this._selectedDate ?? null;
   }
-  private _selectedDate?: T | null;
+  private _selectedDate?: T | T[] | null;
 
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' })
@@ -193,8 +222,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  /** Event emitted on date selection. */
-  private _dateSelected: EventEmitter<T> = new EventEmitter(
+  /** Event emitted on date selection. If `multiple`, it emits an array. */
+  private _dateSelected: EventEmitter<T | T[]> = new EventEmitter(
     this,
     SbbCalendarElement.events.dateSelected,
   );
@@ -202,8 +231,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** The currently active date. */
   @state() private accessor _activeDate: T = this.now;
 
-  /** The selected date as ISOString. */
-  @state() private accessor _selected: string | undefined;
+  /** The selected date as ISOString. If `multiple`, it is an array of ISOString. */
+  @state() private accessor _selected: string | string[] | undefined;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
@@ -334,6 +363,22 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     // to call the `_focusCell()` method explicitly to correctly set the focus.
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._focusCell();
+    }
+  }
+
+  /**
+   * The `_selected` state should be adapted when the `multiple` property changes:
+   *   - if it changes to true, the '_selected' is set to an array;
+   *   - if it changes to false, the first available option is set as 'value' otherwise it's set to null.
+   */
+  private _onMultipleChanged(isMultiple: boolean): void {
+    if (isMultiple && !Array.isArray(this._selected)) {
+      this._selected = this._selected ? [this._selected as string] : [];
+    }
+    if (!isMultiple && Array.isArray(this._selected)) {
+      this._selected = (this._selected as string[]).length
+        ? (this._selected as string[])[0]
+        : undefined;
     }
   }
 
@@ -668,16 +713,42 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _selectDate(day: string): void {
     this._chosenMonth = undefined;
     this._setChosenYear();
-    if (this._selected !== day) {
-      this._selected = day;
-      this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
+    if (this.multiple) {
+      if (this._selected && this._selected.length > 0) {
+        const indexOfSelectedDay = (this._selected as string[]).findIndex((sel) => sel === day);
+        if (indexOfSelectedDay !== -1) {
+          (this._selected as string[]).splice(indexOfSelectedDay, 1);
+          this._selected = [...this._selected];
+        } else {
+          this._selected = [...(this._selected as string[]), day];
+        }
+      } else {
+        this._selected = [day];
+      }
+      this._dateSelected.emit(
+        (this._selected as string[]).map((e) => this._dateAdapter.deserialize(e)!),
+      );
+    } else {
+      if ((this._selected as string) !== day) {
+        this._selected = day;
+        this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
+      }
     }
   }
 
   private _setChosenYear(): void {
+    // TODO check this if-branch, how it can be reached?
     if (this.view === 'month') {
+      let selectedIsoDate: string, selectedDate: T;
+      if (this.multiple) {
+        selectedIsoDate = (this._selected as string[]).at(-1)!;
+        selectedDate = (this.selected as T[]).at(-1)!;
+      } else {
+        selectedIsoDate = this._selected as string;
+        selectedDate = this.selected as T;
+      }
       this._chosenYear = this._dateAdapter.getYear(
-        this._dateAdapter.deserialize(this._selected) ?? this.selected ?? this.now,
+        this._dateAdapter.deserialize(selectedIsoDate) ?? selectedDate ?? this.now,
       );
     } else {
       this._chosenYear = undefined;
@@ -803,7 +874,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** Get the element in the calendar to assign focus. */
   private _getFirstFocusable(): HTMLButtonElement {
-    const active = this._selected ? this._dateAdapter.deserialize(this._selected)! : this.now;
+    let active: T;
+    if (this.multiple) {
+      active = this._selected?.length
+        ? this._dateAdapter.deserialize([...this._selected].sort()[0])!
+        : this.now;
+    } else {
+      active = this._selected ? this._dateAdapter.deserialize(this._selected as string)! : this.now;
+    }
     let firstFocusable =
       this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
       this.shadowRoot!.querySelector(`[value="${this._dateAdapter.toIso8601(active)}"]`) ??
@@ -1131,7 +1209,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _resetCalendarView(initTransition = false): void {
     this._resetFocus = true;
-    this._activeDate = this.selected ?? this.now;
+    if (this.multiple) {
+      this._activeDate =
+        this._dateAdapter.deserialize((this._selected as string[]).at(-1)) ?? this.now;
+    } else {
+      this._activeDate = this._dateAdapter.deserialize(this._selected as string) ?? this.now;
+    }
     this._setChosenYear();
     this._chosenMonth = undefined;
     this._nextCalendarView = this._calendarView = this.view;
@@ -1358,8 +1441,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return week.map((day: Day<T>) => {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
-      const selected: boolean = !!this._selected && day.value === this._selected;
       const isToday = day.value === today;
+      let selected: boolean;
+      if (this.multiple) {
+        selected =
+          (this._selected as string[]).find((selDay: string) => day.value == selDay) !== undefined;
+      } else {
+        selected = !!this._selected && day.value === this._selected;
+      }
       return html`
         <td
           class=${classMap({
@@ -1453,17 +1542,34 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
             (row: Month[]) => html`
               <tr>
                 ${row.map((month: Month) => {
+                  let selected: boolean;
+                  if (this.multiple) {
+                    selected =
+                      (this._selected as string[])
+                        .map((selected: string) => this._dateAdapter.deserialize(selected)!)
+                        .find(
+                          (date: T) =>
+                            year === this._dateAdapter.getYear(date) &&
+                            month.monthValue === this._dateAdapter.getMonth(date),
+                        ) !== undefined;
+                  } else {
+                    const selectedMonth = this._selected
+                      ? this._dateAdapter.getMonth(
+                          this._dateAdapter.deserialize(this._selected as string)!,
+                        )
+                      : undefined;
+                    const selectedYear = this._selected
+                      ? this._dateAdapter.getYear(
+                          this._dateAdapter.deserialize(this._selected as string)!,
+                        )
+                      : undefined;
+                    selected =
+                      !!this._selected &&
+                      year === selectedYear &&
+                      month.monthValue === selectedMonth;
+                  }
                   const isOutOfRange = !this._isMonthInRange(month.monthValue, year);
                   const isFilteredOut = !this._isMonthFilteredOut(month.monthValue, year);
-                  const selectedMonth = this._selected
-                    ? this._dateAdapter.getMonth(this._dateAdapter.deserialize(this._selected)!)
-                    : undefined;
-                  const selectedYear = this._selected
-                    ? this._dateAdapter.getYear(this._dateAdapter.deserialize(this._selected)!)
-                    : undefined;
-                  const selected: boolean =
-                    !!this._selected && year === selectedYear && month.monthValue === selectedMonth;
-
                   const isCurrentMonth =
                     year === this._dateAdapter.getYear(this.now) &&
                     this._dateAdapter.getMonth(this.now) === month.monthValue;
@@ -1592,12 +1698,22 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           (row: number[]) =>
             html` <tr>
               ${row.map((year: number) => {
+                let selected: boolean;
+                if (this.multiple) {
+                  selected =
+                    (this._selected as string[])
+                      .map((selected: string) => this._dateAdapter.deserialize(selected)!)
+                      .find((date: T) => year === this._dateAdapter.getYear(date)) !== undefined;
+                } else {
+                  const selectedYear = this._selected
+                    ? this._dateAdapter.getYear(
+                        this._dateAdapter.deserialize(this._selected as string)!,
+                      )
+                    : undefined;
+                  selected = !!this._selected && year === selectedYear;
+                }
                 const isOutOfRange = !this._isYearInRange(year);
                 const isFilteredOut = !this._isYearFilteredOut(year);
-                const selectedYear = this._selected
-                  ? this._dateAdapter.getYear(this._dateAdapter.deserialize(this._selected)!)
-                  : undefined;
-                const selected: boolean = !!this._selected && year === selectedYear;
                 const isCurrentYear = this._dateAdapter.getYear(now) === year;
                 return html` <td class="sbb-calendar__table-data sbb-calendar__table-year">
                   <button

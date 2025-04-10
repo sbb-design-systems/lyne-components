@@ -23,7 +23,7 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
 
 const Template = ({ min, max, selected, dateFilter, now, ...args }: Args): TemplateResult => html`
   <sbb-calendar
-    .selected=${new Date(selected)}
+    .selected=${selected}
     .now=${new Date(now)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
@@ -41,6 +41,15 @@ const wide: InputType = {
 };
 
 const weekNumbers: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const multiple: InputType = {
   control: {
     type: 'boolean',
   },
@@ -130,6 +139,7 @@ const dateFilter: InputType = {
 const defaultArgTypes: ArgTypes = {
   wide,
   weekNumbers,
+  multiple,
   orientation,
   selected,
   min,
@@ -171,6 +181,12 @@ export const CalendarWeekNumbers: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, weekNumbers: true },
+};
+
+export const CalendarMultiple: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, multiple: true, selected: [today] },
 };
 
 export const CalendarWide: StoryObj = {

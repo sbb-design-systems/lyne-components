@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-calendar renders DOM"] = 
+snapshots["sbb-calendar renders DOM"] =
 `<sbb-calendar
   now="2023-01-04T00:00:00"
   orientation="horizontal"
@@ -11,7 +11,7 @@ snapshots["sbb-calendar renders DOM"] =
 `;
 /* end snapshot sbb-calendar renders DOM */
 
-snapshots["sbb-calendar renders Shadow DOM"] = 
+snapshots["sbb-calendar renders Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
@@ -585,7 +585,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar renders Shadow DOM */
 
-snapshots["sbb-calendar renders vertical DOM"] = 
+snapshots["sbb-calendar renders vertical DOM"] =
 `<sbb-calendar
   now="2023-01-04T00:00:00"
   orientation="vertical"
@@ -595,7 +595,7 @@ snapshots["sbb-calendar renders vertical DOM"] =
 `;
 /* end snapshot sbb-calendar renders vertical DOM */
 
-snapshots["sbb-calendar renders vertical Shadow DOM"] = 
+snapshots["sbb-calendar renders vertical Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
@@ -1167,7 +1167,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar renders vertical Shadow DOM */
 
-snapshots["sbb-calendar renders horizontal wide with week numbers DOM"] = 
+snapshots["sbb-calendar renders horizontal wide with week numbers DOM"] =
 `<sbb-calendar
   data-wide=""
   now="2023-01-04T00:00:00"
@@ -1180,7 +1180,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers DOM"] =
 `;
 /* end snapshot sbb-calendar renders horizontal wide with week numbers DOM */
 
-snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] = 
+snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
@@ -1307,10 +1307,10 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
         <tr>
           <td class="sbb-calendar__table-row-header">
             <sbb-screen-reader-only>
-              Week 53
+              Week 52
             </sbb-screen-reader-only>
             <span aria-hidden="true">
-              53
+              52
             </span>
           </td>
           <td class="sbb-calendar__table-data">
@@ -2330,7 +2330,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar renders horizontal wide with week numbers Shadow DOM */
 
-snapshots["sbb-calendar renders vertical wide with week numbers DOM"] = 
+snapshots["sbb-calendar renders vertical wide with week numbers DOM"] =
 `<sbb-calendar
   data-wide=""
   now="2023-01-04T00:00:00"
@@ -2343,7 +2343,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers DOM"] =
 `;
 /* end snapshot sbb-calendar renders vertical wide with week numbers DOM */
 
-snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] = 
+snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
@@ -2410,10 +2410,10 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </th>
           <th class="sbb-calendar__table-header">
             <sbb-screen-reader-only>
-              Week 53
+              Week 52
             </sbb-screen-reader-only>
             <span aria-hidden="true">
-              53
+              52
             </span>
           </th>
           <th class="sbb-calendar__table-header">
@@ -3441,7 +3441,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar renders vertical wide with week numbers Shadow DOM */
 
-snapshots["sbb-calendar renders A11y tree Chrome"] = 
+snapshots["sbb-calendar renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -3652,7 +3652,7 @@ snapshots["sbb-calendar renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-calendar renders A11y tree Chrome */
 
-snapshots["sbb-calendar renders A11y tree Firefox"] = 
+snapshots["sbb-calendar renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
