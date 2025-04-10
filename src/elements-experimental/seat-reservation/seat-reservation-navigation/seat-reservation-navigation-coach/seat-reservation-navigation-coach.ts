@@ -5,13 +5,12 @@ import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult 
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getI18nSeatReservation } from '../../common.js';
+import { getI18nSeatReservation } from '../../common/translations/i18n.js';
+import '../../seat-reservation-graphic/seat-reservation-graphic.js';
+import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
 import type { PlaceTravelClass } from '../../seat-reservation.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
-
-import '../../seat-reservation-graphic/seat-reservation-graphic.js';
-import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
 
 /**
  * This component will display the navigation coach item for Seat reservation.

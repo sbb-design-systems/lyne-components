@@ -18,7 +18,7 @@
 
 .sbb-seat-reservation__wrapper--vertical {
   position: relative;
-  left: 330px;
+  inset-inline-start: 330px;
   transform: rotate(90deg);
   transform-origin: top left;
 }
@@ -49,6 +49,7 @@
   margin: 0;
   list-style: none;
   transform-origin: 0 0;
+  transform: scale(var(--sbb-seat-reservation-list-coaches-scale-factor));
 }
 
 .sbb-seat-reservation__list-coaches .sbb-seat-reservation__item-coach {
@@ -57,6 +58,7 @@
   position: relative;
 }
 
+// todo remove after refactoring
 .sbb-seat-reservation__graphical-element {
   position: absolute;
 }
@@ -65,7 +67,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: var(--sbb-color-white);
 }
 
 .sbb-seat-reservation__compartment-number--first-class {
