@@ -1,18 +1,21 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-//use global stylesheet from seat-reservation-graphical-element
 import style from './seat-reservation-graphical-element.scss?lit&inline';
 
 /**
- * Wrapper class for coaches.
+ * Wrapper class for graphic elements in the seat-reservation.
  */
 export
-@customElement('sbb-seat-reservation-table-cell')
-class SbbSeatReservationTableCellElement extends LitElement {
+@customElement('sbb-seat-reservation-graphical-element')
+class SbbSeatReservationGraphicalElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
+  @forceType()
+  @property({ attribute: 'graph-elem-aria-label', type: String })
+  public accessor graphElemAriaLabel: string = '';
 
   @forceType()
   @property({ attribute: 'inset-block-start', type: String })
@@ -33,10 +36,6 @@ class SbbSeatReservationTableCellElement extends LitElement {
   @forceType()
   @property({ attribute: 'z-index', type: String })
   public accessor zIndex: string = '';
-
-  @forceType()
-  @property({ attribute: 'cell-id', type: String })
-  public accessor cellId: string = '';
 
   protected override willUpdate(_changedProperties: PropertyValues): void {
     super.willUpdate(_changedProperties);
@@ -69,19 +68,18 @@ class SbbSeatReservationTableCellElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`<td
-      id="${this.cellId}"
+    return html`<div
       class="sbb-seat-reservation__graphical-element"
-      role="gridcell"
+      title="${this.graphElemAriaLabel || nothing}"
     >
       <slot></slot>
-    </td>`;
+    </div>`;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-seat-reservation-table-cell': SbbSeatReservationTableCellElement;
+    'sbb-seat-reservation-graphical-element': SbbSeatReservationGraphicalElement;
   }
 }

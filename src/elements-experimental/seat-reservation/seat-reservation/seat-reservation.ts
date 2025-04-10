@@ -24,6 +24,7 @@ import '../seat-reservation-navigation/seat-reservation-navigation-coach/seat-re
 import './scoped-components/coach-wrapper.js';
 import './scoped-components/coach-border.js';
 import './scoped-components/table-cell.js';
+import './scoped-components/seat-reservation-graphical-element.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -260,7 +261,7 @@ class SbbSeatReservationElement extends SeatReservationService {
           width="${calculatedInternalDimension.w}px"
           height="${calculatedInternalDimension.h}px"
           z-index="${place.position.z}"
-          id="cell-${coachIndex}-${place.position.y}-${index}"
+          cell-id="cell-${coachIndex}-${place.position.y}-${index}"
         >
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
@@ -338,19 +339,13 @@ class SbbSeatReservationElement extends SeatReservationService {
     }
 
     return html`
-      <style>
-        .sbb-seat-reservation__graphical-element[data-id='graph-el-with-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}'] {
-          top: ${calculatedPosition.y}px;
-          left: ${calculatedPosition.x}px;
-          width: ${calculatedDimension.w}px;
-          height: ${calculatedDimension.h}px;
-          z-index: ${graphicalElement.position.z};
-        }
-      </style>
-      <div
-        data-id="graph-el-with-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}"
-        class="sbb-seat-reservation__graphical-element"
-        title=${ariaLabelForArea}
+      <sbb-seat-reservation-graphical-element
+        graph-elem-aria-label="${ariaLabelForArea}"
+        inset-block-start="${calculatedPosition.y}px"
+        inset-inline-start="${calculatedPosition.x}px"
+        width="${calculatedDimension.w}px"
+        height="${calculatedDimension.h}px"
+        z-index="${graphicalElement.position.z}"
       >
         <sbb-seat-reservation-area
           width=${graphicalElement.dimension.w}
@@ -368,7 +363,7 @@ class SbbSeatReservationElement extends SeatReservationService {
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
         </sbb-seat-reservation-area>
-      </div>
+      </sbb-seat-reservation-graphical-element>
     `;
   }
 
@@ -398,19 +393,13 @@ class SbbSeatReservationElement extends SeatReservationService {
         : null;
 
     return html`
-      <style>
-        .sbb-seat-reservation__graphical-element[data-id='graph-el-w/o-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}'] {
-          top: ${calculatedPosition.y}px;
-          left: ${calculatedPosition.x}px;
-          width: ${calculatedDimension.w}px;
-          height: ${calculatedDimension.h}px;
-          z-index: ${graphicalElement.position.z};
-        }
-      </style>
-      <div
-        data-id="graph-el-w/o-area-${calculatedPosition.y}-${calculatedPosition.x}-${calculatedDimension.w}-${calculatedDimension.h}"
-        class="sbb-seat-reservation__graphical-element"
-        title=${ariaLabel || nothing}
+      <sbb-seat-reservation-graphical-element
+        graph-elem-aria-label="${ariaLabel || nothing}"
+        inset-block-start="${calculatedPosition.y}px"
+        inset-inline-start="${calculatedPosition.x}px"
+        width="${calculatedDimension.w}px"
+        height="${calculatedDimension.h}px"
+        z-index="${graphicalElement.position.z}"
       >
         <sbb-seat-reservation-graphic
           name=${icon ?? nothing}
@@ -420,7 +409,7 @@ class SbbSeatReservationElement extends SeatReservationService {
           aria-hidden="true"
           ?stretch=${true}
         ></sbb-seat-reservation-graphic>
-      </div>
+      </sbb-seat-reservation-graphical-element>
     `;
   }
 
@@ -437,18 +426,12 @@ class SbbSeatReservationElement extends SeatReservationService {
         serviceElement.position,
       );
       return html`
-        <style>
-          .sbb-seat-reservation__graphical-element[data-id='graph-service-el-${calculatedcCmpartmentNumberPosition.y}-${calculatedcCmpartmentNumberPosition.x}-${calculatedcCmpartmentNumberDimension.w}-${calculatedcCmpartmentNumberDimension.h}'] {
-            top: ${calculatedcCmpartmentNumberPosition.y}px;
-            left: ${calculatedcCmpartmentNumberPosition.x}px;
-            width: ${calculatedcCmpartmentNumberDimension.w}px;
-            height: ${calculatedcCmpartmentNumberDimension.h}px;
-            z-index: ${serviceElement.position.z};
-          }
-        </style>
-        <div
-          data-id="graph-service-el-${calculatedcCmpartmentNumberPosition.y}-${calculatedcCmpartmentNumberPosition.x}-${calculatedcCmpartmentNumberDimension.w}-${calculatedcCmpartmentNumberDimension.h}"
-          class="sbb-seat-reservation__graphical-element"
+        <sbb-seat-reservation-graphical-element
+          inset-block-start="${calculatedcCmpartmentNumberPosition.y}px"
+          inset-inline-start="${calculatedcCmpartmentNumberPosition.x}px"
+          width="${calculatedcCmpartmentNumberDimension.w}px"
+          height="${calculatedcCmpartmentNumberDimension.h}px"
+          z-index="${serviceElement.position.z}"
         >
           <sbb-seat-reservation-graphic
             name=${serviceElement.icon ?? nothing}
@@ -457,7 +440,7 @@ class SbbSeatReservationElement extends SeatReservationService {
             role="img"
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
-        </div>
+        </sbb-seat-reservation-graphical-element>
       `;
     });
   }
