@@ -5,9 +5,6 @@
 
 :host {
   --sbb-table-wrapper-border-radius: var(--sbb-border-radius-4x);
-  --sbb-table-wrapper-sticky-shadow-width: 3rem;
-  --sbb-table-wrapper-sticky-shadow-transition-easing: var(--sbb-animation-easing);
-  --sbb-table-wrapper-sticky-shadow-transition-duration: var(--sbb-animation-duration-6x);
 
   display: block;
 }
