@@ -26,7 +26,7 @@ $disabled: '[disabled], :disabled';
   &.first-coach,
   &.last-coach {
     .sbb-seat-reservation-navigation--first-class {
-      width: calc(100% - #{sbb.px-to-rem-build(16)});
+      width: calc(100% - #{sbb.px-to-rem-build(18)});
     }
   }
 
