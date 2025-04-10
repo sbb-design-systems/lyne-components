@@ -7,7 +7,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './seat-reservation-graphical-element.scss?lit&inline';
 
 /**
- * Wrapper class for coaches.
+ * Wrapper class for a table cell in seat-reservation.
  */
 export
 @customElement('sbb-seat-reservation-table-cell')

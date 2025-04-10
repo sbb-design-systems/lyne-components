@@ -6,7 +6,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './coach-wrapper.scss?lit&inline';
 
 /**
- * Wrapper class for coaches.
+ * Wrapper class for coach wrapper.
  */
 export
 @customElement('sbb-coach-wrapper')
