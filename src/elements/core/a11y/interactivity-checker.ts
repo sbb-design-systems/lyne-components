@@ -137,8 +137,8 @@ export class InteractivityChecker {
   }
 }
 
-class InteractivityCheckerMock implements Partial<InteractivityChecker> {
-  public isVisible(): boolean {
+class InteractivityCheckerMock extends InteractivityChecker {
+  public override isVisible(): boolean {
     return true;
   }
 }
