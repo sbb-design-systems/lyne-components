@@ -2549,14 +2549,13 @@
     "@types/parse5" "^6.0.1"
     parse5 "^6.0.1"
 
-"@web/test-runner-chrome@^0.18.0":
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-chrome/-/test-runner-chrome-0.18.0.tgz#9d2a9633a7e312c0c7544382351959111bb629e5"
-  integrity sha512-EkB70HtHwY36pIbgn9HzqtKAv+i53qa0/UBrs+H0m8j24TxIEH9oWIdF9O/RFxjYpla7fIvZMhOFOjejgrRU5g==
+"@web/test-runner-chrome@^0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-chrome/-/test-runner-chrome-0.18.1.tgz#490a371990084b8d050dd778bd58e47d21522332"
+  integrity sha512-eO6ctCaqSguGM6G3cFobGHnrEs9wlv9Juj/Akyr4XLjeEMTheNULdvOXw9Bygi+QC/ir/0snMmt+/YKnfy8rYA==
   dependencies:
     "@web/test-runner-core" "^0.13.0"
     "@web/test-runner-coverage-v8" "^0.8.0"
-    async-mutex "0.4.0"
     chrome-launcher "^0.15.0"
     puppeteer-core "^24.0.0"
 
@@ -2681,15 +2680,15 @@
     pixelmatch "^5.2.1"
     pngjs "^7.0.0"
 
-"@web/test-runner@0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner/-/test-runner-0.20.0.tgz#b6b9d5041718bcdaa47354bdaaaf6a1f2fcff6df"
-  integrity sha512-xN+4wgEm5xh0VSiC08eUYXW0QDt/NuzZyey4s7Nnjyjs9NkuJHd1jG9aNzfgL1edpJJ/RldHc0KiM2to1h2kxQ==
+"@web/test-runner@0.20.1":
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/@web/test-runner/-/test-runner-0.20.1.tgz#d130e11dd7939fb981d52a745e2124e6232a359a"
+  integrity sha512-MTN8D1WCeCdkUWJIeG9yauUbRkk9g0zGFnBbI5smtPE91NpXFMfRd8nShIvxQnHx9fNTmK+OCYKnOSlq5DLLVA==
   dependencies:
     "@web/browser-logs" "^0.4.0"
     "@web/config-loader" "^0.3.0"
     "@web/dev-server" "^0.4.0"
-    "@web/test-runner-chrome" "^0.18.0"
+    "@web/test-runner-chrome" "^0.18.1"
     "@web/test-runner-commands" "^0.9.0"
     "@web/test-runner-core" "^0.13.0"
     "@web/test-runner-mocha" "^0.9.0"
@@ -3064,13 +3063,6 @@ async-function@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/async-function/-/async-function-1.0.0.tgz#509c9fca60eaf85034c6829838188e4e4c8ffb2b"
   integrity sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA==
-
-async-mutex@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/async-mutex/-/async-mutex-0.4.0.tgz#ae8048cd4d04ace94347507504b3cf15e631c25f"
-  integrity sha512-eJFZ1YhRR8UN8eBLoNzcDPcy/jqjsg6I1AP+KvWQX80BqOSW1oJPJXDylPUEeMr2ZQvHgnQ//Lp6f3RQ1zI7HA==
-  dependencies:
-    tslib "^2.4.0"
 
 async@^3.2.6:
   version "3.2.6"
