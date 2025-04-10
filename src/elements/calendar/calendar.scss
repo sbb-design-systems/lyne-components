@@ -246,6 +246,10 @@
       &::before {
         @include sbb.if-forced-colors {
           @include sbb.focus-outline;
+
+          // Basically the focus-outline mixin is made for use with focus-visible.
+          // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
+          --sbb-focus-outline-width-override: initial;
         }
       }
     }
@@ -267,6 +271,10 @@
     &::before {
       @include sbb.if-forced-colors {
         @include sbb.focus-outline;
+
+        // Basically the focus-outline mixin is made for use with focus-visible.
+        // As we use it here with :active, we have to ensure that the outline is not overridden when mouse or touch is in use.
+        --sbb-focus-outline-width-override: initial;
       }
     }
   }

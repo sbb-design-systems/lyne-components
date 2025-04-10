@@ -87,7 +87,6 @@ $active: ':active, [data-active]';
     color: var(--sbb-popover-color);
   }
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used in popover as a workaround.
   :host(:focus-visible:not([data-icon-small])) & {
     @include sbb.focus-outline;
 

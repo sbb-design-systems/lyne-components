@@ -241,6 +241,10 @@
 
   :host([data-input-focused]) & {
     @include sbb.focus-outline;
+
+    // Basically the focus-outline mixin is made for use with focus-visible.
+    // As we use it here with data-input-focused, we have to ensure that the outline is not overridden when mouse or touch is in use.
+    --sbb-focus-outline-width-override: initial;
   }
 
   // In high contrast, there is no borderless variant

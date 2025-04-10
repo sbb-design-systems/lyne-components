@@ -14,9 +14,7 @@
   min-width: var(--sbb-toggle-min-width);
   overflow: hidden;
   z-index: 1;
-}
 
-:host(:focus-visible) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
@@ -60,14 +58,14 @@ input[type='radio'] {
   // the entire toggle when a toggle option receives :focus-visible.
   :host(:focus-visible) & {
     &::before {
+      @include sbb.focus-outline;
+
       content: '';
       position: absolute;
       pointer-events: none;
-      inset: calc(var(--sbb-focus-outline-offset) * -2);
 
-      // TODO: Check whether focus-outline mixin could be used
-      border: var(--sbb-focus-outline-color) solid
-        var(--sbb-focus-outline-width-override, var(--sbb-focus-outline-width));
+      // The white pill is bigger than the option. We add the diff as inset.
+      inset: calc(-2 * var(--sbb-toggle-border-width));
       border-radius: var(--sbb-toggle-option-border-radius);
     }
   }

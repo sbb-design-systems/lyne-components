@@ -78,8 +78,7 @@
     }
   }
 
-  :host([data-focus-visible]) &,
-    // Handle focus on the host (button variant)
+  // Handle focus on the host (button variant)
   :host(:focus-visible) &,
     // Handle focus on the action (link variant)
   &:focus-visible {
