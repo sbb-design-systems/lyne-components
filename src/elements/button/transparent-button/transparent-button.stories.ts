@@ -4,7 +4,7 @@ import {
   buttonDefaultArgs,
   buttonDefaultArgTypes,
   requestSubmit,
-} from '../common/button-common-stories.js';
+} from '../common/button-common-stories.private.js';
 import {
   commonDecorators,
   fixedWidth,
@@ -21,10 +21,10 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.js';
+} from '../common/common-stories.private.js';
 
 import readme from './readme.md?raw';
-import './transparent-button.js';
+import './transparent-button.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
 

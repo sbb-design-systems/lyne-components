@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './chip.js';
+import './chip.component.js';
 
 const value: InputType = {
   control: {

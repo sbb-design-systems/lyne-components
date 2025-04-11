@@ -4,10 +4,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../step/step.js';
+import { SbbStepElement } from '../step/step.component.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 
-import { SbbStepperElement } from './stepper.js';
+import { SbbStepperElement } from './stepper.component.js';
 import '../step-label.js';
 import '../step.js';
 
@@ -44,6 +44,29 @@ describe('sbb-stepper', () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbStepperElement);
+  });
+
+  it("updates stepper's height if the step content changes", async () => {
+    // the starting height of the stepper should not be zero
+    const baseHeight = getComputedStyle(element)
+      .getPropertyValue('--sbb-stepper-content-height')
+      .replaceAll('px', '');
+    expect(+baseHeight).not.to.be.equal(0);
+
+    const stepOne = element.querySelector<SbbStepElement>('sbb-step:nth-of-type(1)')!;
+    const resizeChange = new EventSpy(SbbStepElement.events.resizeChange, element);
+    const addedHeight = 200;
+
+    const div = document.createElement('div');
+    div.innerText = 'Content dynamically added.';
+    div.style.cssText = `display: block; height: ${addedHeight}px;`;
+    stepOne.appendChild(div);
+    await waitForLitRender(element);
+    await resizeChange.calledOnce();
+    expect(resizeChange.count).to.be.equal(1);
+
+    const newHeight = getComputedStyle(element).getPropertyValue('--sbb-stepper-content-height');
+    expect(newHeight).to.be.equal(`${+baseHeight + addedHeight}px`);
   });
 
   it('selects the first step by default', async () => {

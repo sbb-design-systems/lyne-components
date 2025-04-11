@@ -8,7 +8,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './selection-expansion-panel.js';
+import './selection-expansion-panel.component.js';
 import '../card/card-badge.js';
 import '../checkbox/checkbox-panel.js';
 import '../checkbox/checkbox-group.js';

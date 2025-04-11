@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbPopoverTriggerElement } from './popover-trigger.js';
+import { SbbPopoverTriggerElement } from './popover-trigger.component.js';
 import '../popover.js';
 import '../../link.js';
 
@@ -21,7 +21,7 @@ describe(`sbb-popover-trigger ssr`, () => {
           </sbb-popover>
         </div>
       `,
-      { modules: ['./popover-trigger.js', '../popover.js', '../../link.js'] },
+      { modules: ['./popover-trigger.component.js', '../popover.js', '../../link.js'] },
     );
   });
 

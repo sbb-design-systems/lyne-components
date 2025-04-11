@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './datepicker-previous-day.js';
+import './datepicker-previous-day.component.js';
 import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker.js';
@@ -36,7 +36,7 @@ const defaultArgs: Args = {
 const BaseTemplate = (args: Args, picker: string | undefined = undefined): TemplateResult => html`
   <sbb-datepicker-previous-day
     ${sbbSpread(args)}
-    .datePicker=${picker}
+    .datepicker=${picker}
   ></sbb-datepicker-previous-day>
 `;
 

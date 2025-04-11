@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { defaultDateAdapter } from '../core/datetime.js';
 
-import { SbbCalendarElement } from './calendar.js';
+import { SbbCalendarElement } from './calendar.component.js';
 import readme from './readme.md?raw';
 
 const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {

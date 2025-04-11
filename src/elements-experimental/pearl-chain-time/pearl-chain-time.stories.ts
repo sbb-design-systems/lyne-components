@@ -4,10 +4,10 @@ import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.js';
+import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.js';
 
 import readme from './readme.md?raw';
-import './pearl-chain-time.js';
+import './pearl-chain-time.component.js';
 
 const departureWalk: InputType = {
   control: {

@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbSidebarContentElement } from './sidebar-content.js';
-import './sidebar-content.js';
+import type { SbbSidebarContentElement } from './sidebar-content.component.js';
+import './sidebar-content.component.js';
 
 describe(`sbb-sidebar-content`, () => {
   describe('renders', () => {

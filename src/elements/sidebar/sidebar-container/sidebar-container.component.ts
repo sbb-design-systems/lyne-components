@@ -150,7 +150,7 @@ class SbbSidebarContainerElement extends LitElement {
       ) {
         // If the sidebar was manually opened (in forced over mode)
         // and the sidebar becomes enough space available, it stays open, but we need to ensure that
-        // the focus trap and inert mechanism is reset.
+        // the focus trap is reset.
         sidebar['cedeFocus']();
         sidebar.opened = true;
         this._forcedClosedSidebars.delete(sidebar);
@@ -159,7 +159,10 @@ class SbbSidebarContainerElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`<div class="sbb-sidebar-container-backdrop"></div>
+    return html`<div
+        class="sbb-sidebar-container-backdrop"
+        @click=${() => this.sidebars.forEach((s) => s.close())}
+      ></div>
       <slot @slotchange=${() => this._handleWidthChange()}></slot>`;
   }
 }

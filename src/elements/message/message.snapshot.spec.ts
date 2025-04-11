@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import type { SbbMessageElement } from './message.js';
+import type { SbbMessageElement } from './message.component.js';
 
-import './message.js';
+import './message.component.js';
 import '../image.js';
 import '../button/button.js';
 

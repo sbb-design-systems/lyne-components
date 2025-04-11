@@ -13,7 +13,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 
-import { SbbDatepickerElement } from './datepicker.js';
+import { SbbDatepickerElement } from './datepicker.component.js';
 import readme from './readme.md?raw';
 
 import '../datepicker-next-day.js';
@@ -242,8 +242,8 @@ const changeEventHandler = async (event: Event): Promise<void> => {
 const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateResult => {
   return html`
     <div style="display: flex; gap: 0.25rem;">
-      <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+      <sbb-datepicker-previous-day datepicker="datepicker"></sbb-datepicker-previous-day>
+      <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
       <sbb-date-input
         ${sbbSpread(args)}
         id="datepicker-input"
@@ -258,7 +258,7 @@ const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateR
         @change=${(event: Event) => changeEventHandler(event)}
         now=${convertMillisecondsToIso8601(now)}
       ></sbb-datepicker>
-      <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+      <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
     </div>
     <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:

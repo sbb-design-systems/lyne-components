@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 import { waitForImageReady } from '../core/testing.js';
 
-import './message.js';
+import './message.component.js';
 import '../chip-label.js';
 import '../image.js';
 import '../button/secondary-button.js';
@@ -60,7 +60,10 @@ describe(`sbb-message`, () => {
             </sbb-message>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
 
@@ -85,7 +88,10 @@ describe(`sbb-message`, () => {
             </sbb-message>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }
@@ -122,7 +128,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -137,7 +145,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -158,7 +168,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
   });

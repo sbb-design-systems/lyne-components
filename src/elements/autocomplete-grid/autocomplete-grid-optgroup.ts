@@ -1,1 +1,4 @@
-export * from './autocomplete-grid-optgroup/autocomplete-grid-optgroup.js';
+/**
+ * @entrypoint
+ */
+export * from './autocomplete-grid-optgroup/autocomplete-grid-optgroup.component.js';

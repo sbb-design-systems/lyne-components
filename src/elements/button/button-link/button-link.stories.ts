@@ -3,7 +3,7 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import {
   buttonLinkDefaultArgs,
   buttonLinkDefaultArgTypes,
-} from '../common/button-link-common-stories.js';
+} from '../common/button-link-common-stories.private.js';
 import {
   commonDecorators,
   fixedWidth,
@@ -20,11 +20,11 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.js';
+} from '../common/common-stories.private.js';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './button-link.js';
+import './button-link.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonLinkDefaultArgTypes };
 

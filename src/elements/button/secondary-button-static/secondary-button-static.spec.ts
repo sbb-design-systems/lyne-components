@@ -4,8 +4,8 @@ import { fixture } from '../../core/testing/private.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
-import './secondary-button-static.js';
+} from '../common/button-test-utils.private.js';
+import './secondary-button-static.component.js';
 
 describe(`sbb-secondary-button-static`, () => {
   it('should detect icon in sbb-secondary-button-static', async () => {

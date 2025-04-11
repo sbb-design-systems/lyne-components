@@ -1,1 +1,4 @@
-export * from './sidebar-close-button/sidebar-close-button.js';
+/**
+ * @entrypoint
+ */
+export * from './sidebar-close-button/sidebar-close-button.component.js';

@@ -13,10 +13,10 @@ import {
   inlineNegative,
   linkButtonDefaultArgs,
   linkButtonDefaultArgTypes,
-} from '../common/link-common-stories.js';
+} from '../common/link-common-stories.private.js';
 
 import readme from './readme.md?raw';
-import './link-button.js';
+import './link-button.component.js';
 
 const defaultArgTypes: ArgTypes = {
   ...linkButtonDefaultArgTypes,

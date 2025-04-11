@@ -1,1 +1,4 @@
-export * from './popover-trigger/popover-trigger.js';
+/**
+ * @entrypoint
+ */
+export * from './popover-trigger/popover-trigger.component.js';

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbTableWrapperElement } from './table-wrapper.js';
+import { SbbTableWrapperElement } from './table-wrapper.component.js';
 
 describe(`sbb-table-wrapper ssr`, () => {
   let root: SbbTableWrapperElement;
@@ -17,7 +17,7 @@ describe(`sbb-table-wrapper ssr`, () => {
           </caption>
         </table>
       </sbb-table-wrapper>`,
-      { modules: ['./table-wrapper.js'] },
+      { modules: ['./table-wrapper.component.js'] },
     );
   });
 

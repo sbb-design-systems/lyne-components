@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbPopoverTriggerElement } from './popover-trigger.js';
-import './popover-trigger.js';
+import type { SbbPopoverTriggerElement } from './popover-trigger.component.js';
+import './popover-trigger.component.js';
 
 describe(`sbb-popover-trigger`, () => {
   let element: SbbPopoverTriggerElement;

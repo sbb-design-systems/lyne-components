@@ -1,2 +1,5 @@
-export * from './autocomplete/autocomplete.js';
+/**
+ * @entrypoint
+ */
+export * from './autocomplete/autocomplete.component.js';
 export * from './autocomplete/autocomplete-base-element.js';

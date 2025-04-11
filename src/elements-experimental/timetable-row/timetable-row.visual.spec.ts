@@ -8,8 +8,8 @@ import { html, type TemplateResult } from 'lit';
 
 import type { ITripItem } from '../core/timetable/timetable-properties.js';
 
-import type { Boarding, Price } from './timetable-row.js';
-import './timetable-row.js';
+import type { Boarding, Price } from './timetable-row.component.js';
+import './timetable-row.component.js';
 import {
   busTrip,
   cancelledTrip,
@@ -29,7 +29,7 @@ import {
   trainTrip,
   walkTimeTrip,
   a11yFootpathTrip,
-} from './timetable-row.sample-data.js';
+} from './timetable-row.sample-data.private.js';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
 

@@ -4,9 +4,9 @@ import { fixture } from '../../core/testing/private.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
+} from '../common/button-test-utils.private.js';
 
-import './accent-button.js';
+import './accent-button.component.js';
 
 describe(`sbb-accent-button`, () => {
   it('should detect icon in sbb-accent-button', async () => {

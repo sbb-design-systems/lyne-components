@@ -14,7 +14,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './datepicker-next-day.js';
+import './datepicker-next-day.component.js';
 import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker.js';
@@ -34,7 +34,7 @@ const defaultArgs: Args = {
 };
 
 const BaseTemplate = (args: Args, picker: string | undefined = undefined): TemplateResult => html`
-  <sbb-datepicker-next-day ${sbbSpread(args)} .datePicker=${picker}></sbb-datepicker-next-day>
+  <sbb-datepicker-next-day ${sbbSpread(args)} .datepicker=${picker}></sbb-datepicker-next-day>
 `;
 
 const StandaloneTemplate = (args: Args): TemplateResult => html` ${BaseTemplate(args)} `;

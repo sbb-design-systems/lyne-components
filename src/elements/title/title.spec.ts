@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.js';
 
-import { SbbTitleElement } from './title.js';
+import { SbbTitleElement } from './title.component.js';
 
 describe(`sbb-title`, () => {
   let element: SbbTitleElement;

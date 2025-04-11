@@ -10,7 +10,7 @@ import type { SbbCheckboxElement } from '../checkbox.js';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group.js';
+import './checkbox-group.component.js';
 import '../checkbox.js';
 import '../checkbox-panel.js';
 import '../../form-error.js';

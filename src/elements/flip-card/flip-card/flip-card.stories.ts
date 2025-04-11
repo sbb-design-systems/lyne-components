@@ -6,7 +6,7 @@ import { html, nothing } from 'lit';
 
 import sampleImages from '../../core/images.js';
 
-import { SbbFlipCardElement } from './flip-card.js';
+import { SbbFlipCardElement } from './flip-card.component.js';
 import readme from './readme.md?raw';
 
 import '../../chip-label.js';

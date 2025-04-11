@@ -3,11 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import './navigation.js';
+import './navigation.component.js';
 import '../navigation-button.js';
 import '../navigation-marker.js';
 import '../../button/button.js';
-import type { SbbNavigationElement } from './navigation.js';
+import type { SbbNavigationElement } from './navigation.component.js';
 
 describe(`sbb-navigation`, () => {
   describe('renders', async () => {

@@ -162,7 +162,7 @@ class SbbNotificationElement extends LitElement {
     super.connectedCallback();
   }
 
-  protected override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     this._notificationElement = this.shadowRoot?.querySelector(
@@ -170,9 +170,10 @@ class SbbNotificationElement extends LitElement {
     ) as HTMLElement;
     // We need to wait for the component's `updateComplete` in order to set the correct
     // height to the notification element.
-    await this.updateComplete;
-    this._setNotificationHeight();
-    this._open();
+    this.updateComplete.then(() => {
+      this._setNotificationHeight();
+      this._open();
+    });
   }
 
   private _isZeroAnimationDuration(): boolean {

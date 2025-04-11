@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { SbbAlertElement } from '../alert.js';
 
-import { SbbAlertGroupElement } from './alert-group.js';
+import { SbbAlertGroupElement } from './alert-group.component.js';
 import readme from './readme.md?raw';
 
 import '../../link/link.js';

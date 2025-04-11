@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './card-badge.js';
+import './card-badge.component.js';
 import '../card.js';
 
 const ariaLabel: InputType = {

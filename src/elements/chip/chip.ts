@@ -1,1 +1,4 @@
-export * from './chip/chip.js';
+/**
+ * @entrypoint
+ */
+export * from './chip/chip.component.js';

@@ -16,7 +16,7 @@ import '../link/block-link.js';
 import '../link/link.js';
 import '../notification.js';
 import '../title.js';
-import './lead-container.js';
+import './lead-container.component.js';
 
 const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
@@ -127,7 +127,10 @@ describe(`sbb-lead-container`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(leadContainerTemplate(testCase.imgTemplate), wrapperStyles);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }

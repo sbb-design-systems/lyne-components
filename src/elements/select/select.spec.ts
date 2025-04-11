@@ -6,7 +6,7 @@ import { fixture, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbOptionElement } from '../option.js';
 
-import { SbbSelectElement } from './select.js';
+import { SbbSelectElement } from './select.component.js';
 
 import '../form-field.js';
 
@@ -1073,6 +1073,33 @@ describe(`sbb-select`, () => {
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('1');
+    });
+
+    it('prevent keyboard navigation if all the options are disabled', async () => {
+      element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e) => (e.disabled = true));
+      await waitForLitRender(element);
+
+      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
+
+      element.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+      await willOpen.calledOnce();
+      expect(willOpen.count).to.be.equal(1);
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await waitForLitRender(element);
+      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(element).to.have.attribute('data-expanded');
+      expect(overlayContainerElement).to.match(':popover-open');
+
+      await sendKeys({ press: 'ArrowDown' });
+      element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e: SbbOptionElement) => {
+        expect(e).not.to.have.attribute('data-active');
+        expect(e).not.to.have.attribute('selected');
+      });
+      expect(element.value).to.be.null;
     });
   });
 });

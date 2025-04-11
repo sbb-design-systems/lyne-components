@@ -6,7 +6,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './map-container.js';
+import './map-container.component.js';
 import '../form-field.js';
 import '../icon.js';
 import '../title.js';

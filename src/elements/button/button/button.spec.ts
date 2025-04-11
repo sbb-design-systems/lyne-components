@@ -7,9 +7,9 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
+} from '../common/button-test-utils.private.js';
 
-import { SbbButtonElement } from './button.js';
+import { SbbButtonElement } from './button.component.js';
 
 describe(`sbb-button`, () => {
   let element: SbbButtonElement;

@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../core/testing/private.js';
 
-import { SbbTimetableOccupancyElement } from './timetable-occupancy.js';
+import { SbbTimetableOccupancyElement } from './timetable-occupancy.component.js';
 
 describe(`sbb-timetable-occupancy ssr`, () => {
   let root: SbbTimetableOccupancyElement;
@@ -11,7 +11,7 @@ describe(`sbb-timetable-occupancy ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html` <sbb-timetable-occupancy first-class-occupancy="high"></sbb-timetable-occupancy> `,
-      { modules: ['./timetable-occupancy.js'] },
+      { modules: ['./timetable-occupancy.component.js'] },
     );
   });
 

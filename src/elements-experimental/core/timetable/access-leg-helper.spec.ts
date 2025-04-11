@@ -4,7 +4,7 @@ import {
   connectionTrip,
   defaultTrip,
   extendedEnterTimeTrip,
-} from '../../timetable-row/timetable-row.sample-data.js';
+} from '../../timetable-row/timetable-row.sample-data.private.js';
 
 import { getDepartureArrivalTimeAttribute } from './access-leg-helper.js';
 import type { Leg } from './timetable-properties.js';

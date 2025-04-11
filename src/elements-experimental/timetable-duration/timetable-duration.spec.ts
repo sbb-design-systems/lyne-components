@@ -2,8 +2,8 @@ import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private/fixture';
 import { html } from 'lit/static-html.js';
 
-import { SbbTimetableDurationElement } from './timetable-duration.js';
-import sampleData from './timetable-duration.sample-data.js';
+import { SbbTimetableDurationElement } from './timetable-duration.component.js';
+import sampleData from './timetable-duration.sample-data.private.js';
 
 const config = JSON.stringify(sampleData[0]);
 

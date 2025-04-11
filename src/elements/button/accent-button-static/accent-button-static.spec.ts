@@ -4,8 +4,8 @@ import { fixture } from '../../core/testing/private.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
-import './accent-button-static.js';
+} from '../common/button-test-utils.private.js';
+import './accent-button-static.component.js';
 
 describe(`sbb-accent-button-static`, () => {
   it('should detect icon in sbb-accent-button-static', async () => {

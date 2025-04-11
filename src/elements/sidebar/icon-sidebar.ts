@@ -1,1 +1,4 @@
-export * from './icon-sidebar/icon-sidebar.js';
+/**
+ * @entrypoint
+ */
+export * from './icon-sidebar/icon-sidebar.component.js';

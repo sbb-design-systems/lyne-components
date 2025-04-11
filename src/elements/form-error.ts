@@ -1,1 +1,4 @@
-export * from './form-error/form-error.js';
+/**
+ * @entrypoint
+ */
+export * from './form-error/form-error.component.js';

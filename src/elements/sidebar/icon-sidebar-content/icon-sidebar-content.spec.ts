@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
 
-import { SbbIconSidebarContentElement } from './icon-sidebar-content.js';
+import { SbbIconSidebarContentElement } from './icon-sidebar-content.component.js';
 
 describe('sbb-icon-sidebar-content', () => {
   let element: SbbIconSidebarContentElement;

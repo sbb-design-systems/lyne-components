@@ -3,8 +3,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import sampleData from './timetable-duration.sample-data.js';
-import './timetable-duration.js';
+import sampleData from './timetable-duration.sample-data.private.js';
+import './timetable-duration.component.js';
 
 const Template = ({ config }: Args): TemplateResult => html`
   <sbb-timetable-duration config=${JSON.stringify(config)}></sbb-timetable-duration>

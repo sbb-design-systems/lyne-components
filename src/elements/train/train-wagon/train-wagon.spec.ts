@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbIconElement } from '../../icon.js';
 
-import { SbbTrainWagonElement } from './train-wagon.js';
+import { SbbTrainWagonElement } from './train-wagon.component.js';
 
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;

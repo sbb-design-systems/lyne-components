@@ -6,10 +6,10 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbCardElement } from '../card.js';
 
-import type { SbbCardLinkElement } from './card-link.js';
+import type { SbbCardLinkElement } from './card-link.component.js';
 
 import '../card.js';
-import './card-link.js';
+import './card-link.component.js';
 
 describe(`sbb-card-link`, () => {
   let element: SbbCardElement;

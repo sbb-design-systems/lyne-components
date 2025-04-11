@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbRadioButtonGroupElement } from './radio-button-group.js';
+import type { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
 
-import './radio-button-group.js';
+import './radio-button-group.component.js';
 import '../radio-button.js';
 import '../radio-button-panel.js';
 import '../../selection-expansion-panel.js';

@@ -18,7 +18,7 @@ import readme from './readme.md?raw';
 import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker.js';
-import './datepicker-toggle.js';
+import './datepicker-toggle.component.js';
 
 const negative: InputType = {
   control: {
@@ -44,10 +44,7 @@ const defaultArgs: Args = {
 };
 
 const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html`
-  <sbb-datepicker-toggle
-    ${sbbSpread(args)}
-    date-picker=${picker || nothing}
-  ></sbb-datepicker-toggle>
+  <sbb-datepicker-toggle ${sbbSpread(args)} datepicker=${picker || nothing}></sbb-datepicker-toggle>
 `;
 
 const PickerAndButtonTemplate = (args: Args): TemplateResult => html`

@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender, waitForCondition } from '../../core/testing.js';
 
-import { SbbTableWrapperElement } from './table-wrapper.js';
+import { SbbTableWrapperElement } from './table-wrapper.component.js';
 
 describe(`sbb-table-wrapper`, () => {
   let element: SbbTableWrapperElement;

@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import './sidebar-close-button.js';
+import './sidebar-close-button.component.js';
 
 // We test only states which are expected to be used
 describe(`sbb-sidebar-close-button`, () => {

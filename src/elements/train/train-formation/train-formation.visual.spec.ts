@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing.js';
 import '../train.js';
 import '../train-wagon.js';
 import '../train-blocked-passage.js';
-import './train-formation.js';
+import './train-formation.component.js';
 
 describe(`sbb-train-formation`, () => {
   const train1 = html`<sbb-train

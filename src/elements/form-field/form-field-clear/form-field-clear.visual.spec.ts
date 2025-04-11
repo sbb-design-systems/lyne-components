@@ -7,7 +7,7 @@ import {
   visualDiffDefault,
 } from '../../core/testing/private.js';
 
-import './form-field-clear.js';
+import './form-field-clear.component.js';
 import '../form-field.js';
 
 describe(`sbb-form-field-clear`, () => {
