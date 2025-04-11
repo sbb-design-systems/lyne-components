@@ -146,6 +146,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
           @click=${() => this._selectPlace()}
           aria-label=${this._getAriaPlaceLabel()}
           ?disabled=${buttonDisabled || nothing}
+          tabindex="-1"
         >
           <sbb-seat-reservation-graphic
             .name=${name}
