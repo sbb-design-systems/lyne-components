@@ -710,17 +710,21 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(day: string): void {
+  private _selectDate(event: PointerEvent, day: string): void {
     this._chosenMonth = undefined;
     this._setChosenYear();
     if (this.multiple) {
-      if (this._selected && this._selected.length > 0) {
-        const indexOfSelectedDay = (this._selected as string[]).findIndex((sel) => sel === day);
-        if (indexOfSelectedDay !== -1) {
-          (this._selected as string[]).splice(indexOfSelectedDay, 1);
-          this._selected = [...this._selected];
+      if (event.ctrlKey || event.metaKey) {
+        if (this._selected && this._selected.length > 0) {
+          const indexOfSelectedDay = (this._selected as string[]).findIndex((sel) => sel === day);
+          if (indexOfSelectedDay !== -1) {
+            (this._selected as string[]).splice(indexOfSelectedDay, 1);
+            this._selected = [...this._selected];
+          } else {
+            this._selected = [...(this._selected as string[]), day];
+          }
         } else {
-          this._selected = [...(this._selected as string[]), day];
+          this._selected = [day];
         }
       } else {
         this._selected = [day];
@@ -1464,7 +1468,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
               'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             })}
-            @click=${() => this._selectDate(day.value)}
+            @click=${(event: PointerEvent) => this._selectDate(event, day.value)}
             ?disabled=${isOutOfRange || isFilteredOut}
             value=${day.value}
             type="button"
