@@ -1,7 +1,5 @@
 The `sbb-table-wrapper` is a wrapper for a table. Its goal is to enhance/automate the native table capabilities.
 
-Currently, it only handles overflow (vertical and horizontal).
-
 ```html
 <sbb-table-wrapper>
   <table class="sbb-table">
@@ -18,6 +16,15 @@ Currently, it only handles overflow (vertical and horizontal).
 ## Style
 
 See the [Table](/docs/styles-table--docs) style section.
+
+### Sticky Table
+
+The `sbb-table-wrapper` provide classes and some utilities to implement a table with sticky header and columns.
+It is the consumer responsibility to set the correct style/classes to the template. (see the [sticky example](/story/elements-sbb-table-sbb-table-wrapper--sticky))
+
+**Note:** The Angular wrapper takes care of most of the sticky table setup. Please refer to the Lyne Angular examples.
+
+### Negative Table
 
 The component has a `negative` variant which can be set with the self-named property.
 Note: Due to technical limitations, consumer has to use set the `negative` property and the `sbb-table--negative` class.

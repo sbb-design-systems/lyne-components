@@ -23,7 +23,7 @@
     @include sbb.scrollbar-variables--color-negative-track-visible;
   }
 
-  :host([data-has-horizontal-scrollbar]) & {
+  :host(:not(.sbb-table-wrapper-offset-none)) & {
     padding-bottom: var(--sbb-spacing-fixed-1x);
   }
 }
