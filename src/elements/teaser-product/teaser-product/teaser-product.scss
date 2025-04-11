@@ -32,10 +32,8 @@
   inset: 0;
 
   &:focus-visible {
-    :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-      @include sbb.focus-outline;
+    @include sbb.focus-outline;
 
-      border-radius: var(--sbb-teaser-product-border-radius);
-    }
+    border-radius: var(--sbb-teaser-product-border-radius);
   }
 }

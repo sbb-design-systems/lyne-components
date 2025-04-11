@@ -10,11 +10,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import {
-  getFirstFocusableElement,
-  getFocusableElements,
-  setModalityOnNextFocus,
-} from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
@@ -97,11 +93,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
-
-  public constructor() {
-    super();
-    this.addEventListener?.('keydown', (event) => this._handleNavigationSectionFocus(event));
-  }
+  private _focusTrapController = new SbbFocusTrapController(this);
 
   /**
    * Opens the navigation section on trigger click.
@@ -137,7 +129,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this.inert = false;
     this._attachWindowEvents();
     this._setNavigationInert();
-    this._setNavigationSectionFocus();
+    this._focusTrapController.focusInitialElement();
     this._checkActiveAction();
     this.completeUpdate();
   }
@@ -149,7 +141,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._resetLists();
     this._setNavigationInert();
     if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
-      setModalityOnNextFocus(this._triggerElement);
       this._triggerElement.focus();
     }
     this.completeUpdate();
@@ -282,60 +273,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   // Set focus on the first focusable element.
-  private _setNavigationSectionFocus(): void {
-    const firstFocusableElement = getFirstFocusableElement(
-      [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
-        .concat(Array.from(this.children))
-        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
-    if (firstFocusableElement) {
-      setModalityOnNextFocus(firstFocusableElement);
-      firstFocusableElement.focus();
-    }
-  }
-
   private _checkActiveAction(): void {
     (
       this.querySelector(
         ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
       ) as HTMLElement
     )?.toggleAttribute('data-action-active', true);
-  }
-
-  private _handleNavigationSectionFocus(event: KeyboardEvent): void {
-    if (event.key !== 'Tab' || this._isZeroToLargeBreakpoint()) {
-      return;
-    }
-
-    // Dynamically get first and last focusable element, as this might have changed since opening overlay
-    const navigationChildren: HTMLElement[] = Array.from(
-      this.closest('sbb-navigation')!.shadowRoot!.children,
-    ) as HTMLElement[];
-    const navigationFocusableElements = getFocusableElements(navigationChildren, {
-      filter: (el) => el.nodeName !== 'SBB-NAVIGATION-SECTION',
-    });
-
-    const sectionChildren: HTMLElement[] = Array.from(this.shadowRoot!.children) as HTMLElement[];
-    const sectionFocusableElements = getFocusableElements(sectionChildren);
-
-    const firstFocusable = sectionFocusableElements[0] as HTMLElement;
-    const lastFocusable = sectionFocusableElements[
-      sectionFocusableElements.length - 1
-    ] as HTMLElement;
-
-    const elementToFocus = event.shiftKey
-      ? this._triggerElement
-      : navigationFocusableElements[navigationFocusableElements.indexOf(this._triggerElement!) + 1];
-    const pivot = event.shiftKey ? firstFocusable : lastFocusable;
-
-    if (
-      !!elementToFocus &&
-      ((firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
-        (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot)
-    ) {
-      elementToFocus.focus();
-      event.preventDefault();
-    }
   }
 
   public override connectedCallback(): void {

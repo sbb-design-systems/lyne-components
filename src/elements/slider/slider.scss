@@ -120,8 +120,7 @@
   border-radius: 50%;
   pointer-events: none;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     --sbb-slider-knob-size: var(--sbb-slider-knob-size-active);

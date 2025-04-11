@@ -10,7 +10,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
@@ -95,7 +95,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -192,7 +192,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.state = 'closed';
     this.hidePopover?.();
     this._navigationContentElement.scrollTo(0, 0);
-    setModalityOnNextFocus(this._triggerElement);
     this._inertController.deactivate();
     // To enable focusing other element than the trigger, we need to call focus() a second time.
     this._triggerElement?.focus();
@@ -200,7 +199,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.didClose.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
-    this._focusHandler.disconnect();
+    this._focusTrapController.enabled = false;
 
     // Enable scrolling for content below the navigation
     this._scrollHandler.enableScroll();
@@ -212,7 +211,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._escapableOverlayController.connect();
-    this._focusHandler.trap(this, { filter: this._trapFocusFilter });
+    this._focusTrapController.enabled = true;
     this._setNavigationFocus();
     this.completeUpdate();
     this.didOpen.emit();
@@ -244,10 +243,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       signal: this._triggerAbortController.signal,
     });
   }
-
-  private _trapFocusFilter = (el: HTMLElement): boolean => {
-    return el.nodeName !== 'SBB-NAVIGATION-SECTION' || el.getAttribute('data-state') === 'opened';
-  };
 
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
@@ -289,7 +284,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     const closeButton = this.shadowRoot!.querySelector(
       '#sbb-navigation-close-button',
     ) as HTMLElement;
-    setModalityOnNextFocus(closeButton);
     closeButton.focus();
   }
 
@@ -352,7 +346,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     super.disconnectedCallback();
     this._triggerElement = null;
     this._triggerAbortController?.abort();
-    this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
   }
 

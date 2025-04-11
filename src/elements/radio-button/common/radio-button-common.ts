@@ -1,7 +1,6 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { setModalityOnNextFocus } from '../../core/a11y.js';
 import {
   type AbstractConstructor,
   type Constructor,
@@ -101,7 +100,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
        * To cover that, we await the next render (which will make the 'checked' radio focusable) and focus the clicked radio
        */
       await this.updateComplete; // Wait for 'tabindex' to be updated
-      setModalityOnNextFocus(this);
       this.focus();
     }
 

@@ -93,8 +93,7 @@
   // Avoids unwanted space displayed if no label text is set.
   @include sbb.zero-width-space;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));

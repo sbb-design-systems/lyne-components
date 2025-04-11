@@ -3,12 +3,7 @@ import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import {
-  getFirstFocusableElement,
-  IS_FOCUSABLE_QUERY,
-  SbbFocusHandler,
-  setModalityOnNextFocus,
-} from '../../core/a11y.js';
+import { IS_FOCUSABLE_QUERY, SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
@@ -117,7 +112,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
@@ -186,12 +181,11 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this.hidePopover?.();
 
     this._overlay?.firstElementChild?.scrollTo(0, 0);
-    this._overlay?.removeAttribute('tabindex');
+    this.removeAttribute('tabindex');
 
     if (!this._skipCloseFocus) {
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
-      setModalityOnNextFocus(elementToFocus);
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       elementToFocus?.focus();
     }
@@ -199,7 +193,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._escapableOverlayController.disconnect();
     this.didClose.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
-    this._focusHandler.disconnect();
+    this._focusTrapController.enabled = false;
   }
 
   private _handleOpening(): void {
@@ -208,9 +202,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._attachWindowEvents();
     this._escapableOverlayController.connect();
     this._setPopoverFocus();
-    this._focusHandler.trap(this, {
-      postFilter: (el) => el !== this._overlay,
-    });
+    this._focusTrapController.enabled = true;
     this.didOpen.emit();
   }
 
@@ -248,7 +240,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._triggerElement = null;
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
-    this._focusHandler.disconnect();
     popoversRef.delete(this as SbbPopoverElement);
   }
 
@@ -403,18 +394,11 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   // Set focus on the first focusable element.
   private _setPopoverFocus(): void {
-    const firstFocusable =
-      this.shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]') ||
-      getFirstFocusableElement(
-        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      );
-    if (firstFocusable) {
-      setModalityOnNextFocus(firstFocusable);
-      firstFocusable.focus();
-    } else {
-      this._overlay.setAttribute('tabindex', '0');
-      setModalityOnNextFocus(this._overlay);
-      this._overlay.focus();
+    const focused = this._focusTrapController.focusInitialElement();
+
+    if (!focused) {
+      this.setAttribute('tabindex', '0');
+      this.focus();
 
       // When a blur occurs, we know that the popover has to be closed,
       // because there are no interactive elements inside the popover.
@@ -423,12 +407,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       // Therefore, we cannot listen to the blur event only once.
       // To prevent accidentally closing the popover, we need to check for the window/tab state.
       // We can achieve this by using visibilityState, which only works with setTimeout().
-      this._overlay.addEventListener(
+      this.addEventListener(
         'blur',
         (): void => {
           setTimeout(() => {
             if (document.visibilityState !== 'hidden') {
-              this._overlay?.removeAttribute('tabindex');
+              this.removeAttribute('tabindex');
               if (this.state === 'opened' || this.state === 'opening') {
                 this._skipCloseFocus = true;
               }

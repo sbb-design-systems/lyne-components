@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { isWebkit } from '../../core/dom.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
@@ -201,7 +202,10 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar2.isOpen, 'after increase viewport').to.be.true;
   });
 
-  it('should remove focus trap if opened on small viewport and space becomes available', async () => {
+  it('should remove focus trap if opened on small viewport and space becomes available', async function (this: Context) {
+    // On Webkit sometimes focusing fails. Retrying three times should stabilize the build.
+    this.retries(3);
+
     // We close over mode sidebar to not interfere with other sidebar
     sidebar4.close();
 

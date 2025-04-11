@@ -62,6 +62,7 @@
           "sbb-badge",
           "sbb-badge-position",
           "sbb-dialog-close",
+          "sbb-focus-initial",
           "sbb-navigation-close",
           "sbb-navigation-section-close",
           "sbb-overlay-close",
