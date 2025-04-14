@@ -14,13 +14,18 @@ import type {
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
-export class SeatReservationService extends LitElement {
+export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
     selectedPlaces: 'selectedPlaces',
   } as const;
 
   @property({ attribute: 'seat-reservation', type: Object })
   public accessor seatReservation: SeatReservation = null!;
+
+  /** The seat resvervation navigation can be toggled by this property*/
+  @forceType()
+  @property({ attribute: 'has-navigation', type: Boolean })
+  public accessor hasNavigation: boolean = true;
 
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
@@ -41,7 +46,7 @@ export class SeatReservationService extends LitElement {
   /** Emits when a place was selected by user. */
   protected selectedPlaces: EventEmitter<SeatReservationPlaceSelection[]> = new EventEmitter(
     this,
-    SeatReservationService.events.selectedPlaces,
+    SeatReservationBaseElement.events.selectedPlaces,
   );
 
   protected maxHeight = 128;
@@ -49,15 +54,17 @@ export class SeatReservationService extends LitElement {
   protected gridSizeFactor = this.maxHeight / this.gridSize;
   protected coachBorderPadding = 6;
   protected coachBorderPaddingUnit = this.coachBorderPadding / 16;
-
   protected scrollMoveDirection: boolean = true;
   protected triggerCoachPositionsCollection: number[][] = [];
+  protected firstTabElement: HTMLElement = null!;
+  protected lastTabElement: HTMLElement = null!;
   protected coachScrollArea: HTMLElement = null!;
   protected currSelectedPlace: Place | null = null;
   protected currSelectedPlaceElementId: string | null = null;
   protected currSelectedCoachIndex: number = -1;
   protected preventCoachScrollByPlaceClick: boolean = false;
   protected selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
+  protected seatReservationWithoutNavigationHasFocus = false;
   protected keyboardNavigationEvents = {
     ArrowLeft: 'ArrowLeft',
     ArrowRight: 'ArrowRight',
@@ -69,6 +76,8 @@ export class SeatReservationService extends LitElement {
 
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
+    this.firstTabElement = this.shadowRoot?.getElementById('first-tab-element') as HTMLElement;
+    this.lastTabElement = this.shadowRoot?.getElementById('last-tab-element') as HTMLElement;
     this.coachScrollArea = this.shadowRoot?.getElementById(
       'sbb-seat-reservation__parent-area',
     ) as HTMLElement;
@@ -101,7 +110,28 @@ export class SeatReservationService extends LitElement {
         this.selectedCoachIndex = this.currSelectedCoachIndex;
         this.focusedCoachIndex = -1;
         this.preventCoachScrollByPlaceClick = false;
+
+        if (!this.hasNavigation) {
+          this.preselectFirstPlaceInCoach();
+        }
       });
+    }
+  }
+
+  /**
+   * If no navigation exists (property setting -> hasNavigation) and a table coach gets the focus,
+   * the first place in the coach must be automatically preselected to control the place navigation via keyboard
+   *
+   * @param focusCoachIndex
+   */
+  protected onFocusTableCoachAndPreselectPlace(focusCoachIndex: number): void {
+    if (!this.seatReservationWithoutNavigationHasFocus && !this.hasNavigation) {
+      this.seatReservationWithoutNavigationHasFocus = true;
+      this.currSelectedCoachIndex =
+        focusCoachIndex === 0
+          ? this.getNextAvailableCoachIndex(-1)
+          : this.getPrevAvailableCoachIndex(focusCoachIndex);
+      this.preselectFirstPlaceInCoach();
     }
   }
 
@@ -184,9 +214,7 @@ export class SeatReservationService extends LitElement {
   protected scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
     if (selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       const scrollToCoachPosX = this.triggerCoachPositionsCollection[selectedNavCoachIndex][0];
-      this.coachScrollArea = this.shadowRoot?.getElementById(
-        'sbb-seat-reservation__parent-area',
-      ) as HTMLElement;
+
       // Set the scroll move direction
       // True => move dirction RIGHT
       // false => move dirction LEFT
@@ -340,6 +368,7 @@ export class SeatReservationService extends LitElement {
     if (selectedPlaceElement) {
       selectedPlaceElement.setAttribute('keyfocus', 'unfocus');
       this._setCurrSelectedPlaceElementId(null);
+      this.currSelectedPlace = null;
     }
   }
 
@@ -393,50 +422,43 @@ export class SeatReservationService extends LitElement {
   private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
     const currFocusIndex =
       this.focusedCoachIndex === -1 ? this.currSelectedCoachIndex : this.focusedCoachIndex;
-    //Check next or prev TAB is pressed, then we have to find the next available coach index to focusable
+    //Check next or prev tab is pressed, then we need to find the next available coach index that should receive the focus
     const newFocusableIndex: number =
       tabDirection === 'NEXT_TAB'
-        ? this._getNextAvailableCoachIndex(currFocusIndex)
-        : this._getPrevAvailableCoachIndex(currFocusIndex);
+        ? this.getNextAvailableCoachIndex(currFocusIndex)
+        : this.getPrevAvailableCoachIndex(currFocusIndex);
 
-    if (newFocusableIndex !== this.currSelectedCoachIndex) {
-      this.focusedCoachIndex = newFocusableIndex;
-    } else {
-      this.focusedCoachIndex = -1;
-      this.selectedCoachIndex = newFocusableIndex;
-      this.focusPlaceElement(this.currSelectedPlace);
-    }
-
-    //TODO - Control TAB navigation to the last input element
-    /*if(tabDirection === 'NEXT_TAB' && currFocusIndex === newFocusedIndex){
-      console.log("focus LAST element");
-    
-      this.currSelectedPlace = null;
-      this.currSelectedPlaceElementId = null;  
+    // If the currFocusIndex equals the newFocusableIndex then we have reached the first or last tabable navigation coach Element and we have to the set the focus manual to the firstTabElement or lastTabElement.
+    if (currFocusIndex === newFocusableIndex) {
+      this.unfocusPlaceElement();
       this.selectedCoachIndex = -1;
-      this.focusedCoachIndex = newFocusedIndex;
-      
-      
-      this.shadowRoot?.getElementById('last-tab-element')?.focus();
+      this.currSelectedCoachIndex = -1;
+      this.seatReservationWithoutNavigationHasFocus = false;
+
+      if (tabDirection === 'NEXT_TAB') this.lastTabElement.focus();
+      else this.firstTabElement.focus();
+
       return;
     }
-    //TODO - Control TAB navigation to the first input element
-    if(tabDirection === 'PREV_TAB' && currFocusIndex === newFocusedIndex){
-      console.log("focus FIRST element");
-    
-      this.currSelectedPlace = null;
-      this.currSelectedPlaceElementId = null;  
-      this.selectedCoachIndex = -1;
-      this.focusedCoachIndex = newFocusedIndex;
-      
-      this.shadowRoot?.getElementById('first-tab-element')?.focus();
-
-      return;
-    }*/
+    if (this.hasNavigation) {
+      //Set
+      if (newFocusableIndex !== this.currSelectedCoachIndex) {
+        this.focusedCoachIndex = newFocusableIndex;
+      } else {
+        this.focusedCoachIndex = -1;
+        this.selectedCoachIndex = newFocusableIndex;
+        this.focusPlaceElement(this.currSelectedPlace);
+      }
+    }
+    //If no navigation exist, we scroll directly to the next tabable coach
+    else {
+      this.scrollToSelectedNavCoach(newFocusableIndex);
+    }
   }
 
+  // Handle Enter Keyboard event
   private _togglePlaceSelectionByKeyboard(): void {
-    // If the focus is on a navigation coach during an enter key event, then we scroll to the focused coach
+    // If the focus on a navigation coach during an enter key event, we scroll to the focused coach
     if (this.focusedCoachIndex !== -1) {
       this.preventCoachScrollByPlaceClick = false;
       this.unfocusPlaceElement();
@@ -468,9 +490,9 @@ export class SeatReservationService extends LitElement {
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
     this.preventCoachScrollByPlaceClick = false;
     const places = this.seatReservation.coachItems[this.currSelectedCoachIndex].places;
+
     if (places && places.length) {
       const findClosestPlace = this._getClosestPlaceByKeyDirection(pressedKey);
-
       if (findClosestPlace) {
         this.focusPlaceElement(findClosestPlace);
       }
@@ -486,15 +508,15 @@ export class SeatReservationService extends LitElement {
           //Check the current pressed key to get the next available coach index
           const newSelectedCoachIndex =
             pressedKey === this.keyboardNavigationEvents.ArrowRight
-              ? this._getNextAvailableCoachIndex()
-              : this._getPrevAvailableCoachIndex();
+              ? this.getNextAvailableCoachIndex()
+              : this.getPrevAvailableCoachIndex();
           this.scrollToSelectedNavCoach(newSelectedCoachIndex);
         }
       }
     }
   }
 
-  private _getNextAvailableCoachIndex(currentIndex?: number): number {
+  protected getNextAvailableCoachIndex(currentIndex?: number): number {
     const startIndex = currentIndex ?? this.currSelectedCoachIndex;
     let nextIndex = startIndex;
     for (let i = startIndex + 1; i < this.seatReservation.coachItems.length; i++) {
@@ -507,7 +529,7 @@ export class SeatReservationService extends LitElement {
     return nextIndex;
   }
 
-  private _getPrevAvailableCoachIndex(currentIndex?: number): number {
+  protected getPrevAvailableCoachIndex(currentIndex?: number): number {
     const startIndex = currentIndex ?? this.currSelectedCoachIndex;
     let prevIndex = startIndex;
     for (let i = startIndex - 1; i >= 0; i--) {
