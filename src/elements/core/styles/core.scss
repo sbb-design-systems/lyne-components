@@ -126,6 +126,15 @@ sbb-form-field {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
+  &[size='s'] :where(input) {
+    height: #{functions.px-to-rem-build(18)};
+    margin-block-start: #{functions.px-to-rem-build(3.25)};
+
+    @include mediaqueries.mq($from: medium) {
+      margin-block-start: #{functions.px-to-rem-build(5)};
+    }
+  }
+
   :where(textarea) {
     @include scrollbar.scrollbar;
 
