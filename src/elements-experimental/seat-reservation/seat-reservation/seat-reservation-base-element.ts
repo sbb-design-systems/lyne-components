@@ -15,7 +15,7 @@ import type {
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
-import type { SbbSeatReservationTableCellElement } from './scoped-components/table-cell.js';
+import type { SbbScopedElement } from './scoped-components/scoped-element.js';
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
@@ -254,7 +254,7 @@ export class SeatReservationBaseElement extends LitElement {
     const firstCellId = 'cell-' + this.currSelectedCoachIndex + '-0-0';
     const placeNumber =
       this.shadowRoot
-        ?.querySelector<SbbSeatReservationTableCellElement>("[cell-id='" + firstCellId + "']")
+        ?.querySelector<SbbScopedElement>("[cell-id='" + firstCellId + "']")
         ?.querySelector<SbbSeatReservationPlaceControlElement>('sbb-seat-reservation-place-control')
         ?.getAttribute('text') || null;
 
