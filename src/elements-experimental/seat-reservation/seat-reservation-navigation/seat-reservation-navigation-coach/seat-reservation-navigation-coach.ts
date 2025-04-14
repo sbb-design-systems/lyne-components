@@ -1,4 +1,4 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers/language-controller';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing/event-emitter';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
