@@ -46,7 +46,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
 
 :host(#{$has-title}) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-status-text-color: var(--sbb-color-granite) !important;
+  --_sbb-status-text-color-override: var(--sbb-color-granite);
   --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
 }
 
@@ -55,7 +55,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
 
   display: flex;
   gap: var(--sbb-status-gap);
-  color: var(--sbb-status-text-color);
+  color: var(--_sbb-status-text-color-override, var(--sbb-status-text-color));
 }
 
 .sbb-status__icon {
