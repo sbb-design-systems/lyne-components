@@ -106,6 +106,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return this._coachesHtmlTemplate || null;
   }
 
+  protected override willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+
+    if (_changedProperties.has('scale')) {
+      this.style?.setProperty('--sbb-seat-reservation-list-coaches-scale-factor', `${this.scale}`);
+    }
+  }
+
   private _componentSetup(): void {
     this.initNavigationSelectionByScrollEvent();
   }
