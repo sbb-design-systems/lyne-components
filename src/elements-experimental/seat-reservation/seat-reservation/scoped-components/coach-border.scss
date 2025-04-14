@@ -1,0 +1,6 @@
+.coach-border {
+  position: absolute;
+  inset-inline-start: var(--sbb-coach-border-inset-inline-start);
+  inset-block-start: var(--sbb-coach-border-inset-block-start);
+  z-index: 0;
+}
