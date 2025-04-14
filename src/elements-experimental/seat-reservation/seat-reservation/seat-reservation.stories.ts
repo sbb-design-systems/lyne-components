@@ -23,6 +23,11 @@ const maxReservationType: InputType = {
   description: 'Maximal number of possible clickable seats',
 };
 
+const navigationType: InputType = {
+  control: { type: 'boolean' },
+  description: 'Controls the seat reservation navigation to show or hide',
+};
+
 const alignVerticalType: InputType = {
   control: { type: 'boolean' },
   description:
@@ -42,6 +47,7 @@ const scaleType: InputType = {
 const defaultArgTypes: ArgTypes = {
   seatReservation: seatReservationType,
   'max-reservations': maxReservationType,
+  'has-navigation': navigationType,
   'align-vertical': alignVerticalType,
   disable: disabledType,
   scale: scaleType,
@@ -51,6 +57,7 @@ const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
   seatReservation: mappedSeatReservationTrainh,
   'max-reservations': 4,
+  'has-navigation': true,
   'align-vertical': false,
   disable: false,
   scale: 1,
@@ -71,6 +78,7 @@ export const Train: StoryObj = {
 const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');
 const busArgs: Args = {
   seatReservation: mappedSeatReservationBus,
+  'has-navigation': true,
   'max-reservations': 4,
   'align-vertical': false,
   disable: false,

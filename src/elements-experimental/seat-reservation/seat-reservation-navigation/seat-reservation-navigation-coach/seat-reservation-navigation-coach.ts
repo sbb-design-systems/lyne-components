@@ -98,7 +98,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       const focusedNavButtonElement = this.shadowRoot?.querySelector(
         '.sbb-seat-reservation-navigation__control-button',
       ) as HTMLButtonElement;
-      if (this.focused && focusedNavButtonElement) {
+      if (focusedNavButtonElement) {
         focusedNavButtonElement.focus();
       }
     }
