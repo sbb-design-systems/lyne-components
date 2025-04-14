@@ -98,6 +98,12 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
   };
 };
 
+/**
+ * Mapped place and coach informations to place selection
+ * @param place
+ * @param coachIndex
+ * @returns PlaceSelection
+ */
 export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number): PlaceSelection => {
   const placeId = 'seat-reservation__place-button-' + coachIndex + '-' + place.number;
   return {
@@ -108,6 +114,14 @@ export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number):
   };
 };
 
+/**
+ * Mapped informations from place, coach and the coachiondex  to the seatReaservationPlaceSelection.
+ * This Object information is emitted outwards
+ * @param place
+ * @param CoachItem
+ * @param coachIndex
+ * @returns SeatReservationPlaceSelection
+ */
 export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
   place: Place,
   coach: CoachItem,

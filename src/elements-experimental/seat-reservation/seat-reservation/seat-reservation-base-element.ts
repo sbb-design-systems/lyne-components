@@ -85,7 +85,7 @@ export class SeatReservationBaseElement extends LitElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('seatReservation')) {
-      this._initPreselectedPlacesSelection();
+      this._initSeatReservationPlaceSelection();
     }
   }
 
@@ -548,7 +548,7 @@ export class SeatReservationBaseElement extends LitElement {
    * Initialization of SeatReservationPlaceSelection Array based on the transferred places
    * that have the state SELECTED within the seatReservation object
    */
-  private _initPreselectedPlacesSelection(): void {
+  private _initSeatReservationPlaceSelection(): void {
     this.seatReservation.coachItems.map((coach: CoachItem, coachIndex: number) => {
       coach.places
         ?.filter((place) => place.state === 'SELECTED')
