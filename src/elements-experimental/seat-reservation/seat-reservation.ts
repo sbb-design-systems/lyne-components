@@ -1,5 +1,3 @@
-export * from './seat-reservation/seat-reservation.js';
-
 /** SeatReservation defines all information about a vehicle and the wagons it contains */
 export type SeatReservation = {
   vehicleType: VehicleType;
@@ -79,3 +77,6 @@ export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' |
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';
+
+export * from './seat-reservation/seat-reservation-base-element.js';
+export * from './seat-reservation/seat-reservation.js';
