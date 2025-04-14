@@ -340,9 +340,6 @@
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
 
-  // Textarea with forced colors active needs to have the label a level higher
-  z-index: 1;
-
   @include sbb.text-xs--regular;
 
   :host([size='s']) & {

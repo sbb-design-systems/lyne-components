@@ -137,6 +137,13 @@ sbb-form-field {
       white-space: break-spaces;
       overflow-y: auto;
       min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+
+      @include a11y.if-forced-colors {
+        // In forced colors and with floating lobel,
+        // the background of the textarea is set to canvas and therefore hides the label behind.
+        // By setting the z-index to zero we move it behind the label.
+        z-index: 0;
+      }
     }
   }
 
