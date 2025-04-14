@@ -1,13 +1,13 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing/event-emitter';
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getI18nSeatReservation } from '../../common/translations/i18n.js';
-import '../../seat-reservation-graphic/seat-reservation-graphic.js';
-import '../seat-reservation-navigation-services/seat-reservation-navigation-services.js';
+import { getI18nSeatReservation } from '../../common/translations.js';
+import '../../seat-reservation-graphic.js';
+import '../seat-reservation-navigation-services.js';
 import type { PlaceTravelClass } from '../../seat-reservation.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
