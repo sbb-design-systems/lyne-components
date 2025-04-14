@@ -127,12 +127,18 @@ sbb-form-field {
   }
 
   &[size='s'] :where(input) {
+    // We shrink the input's height to support all types of inputs (especially type=number).
+    // Input size 18px works with arrows of type number input
     height: #{functions.px-to-rem-build(18)};
-    margin-block-start: #{functions.px-to-rem-build(3.25)};
 
-    @include mediaqueries.mq($from: medium) {
-      margin-block-start: #{functions.px-to-rem-build(5)};
-    }
+    // We add the missing block spacing to fit the line-height
+    margin-block: calc(
+      0.5 *
+        (
+          (var(--sbb-form-field-input-text-size) * var(--sbb-typo-line-height-body-text)) -
+            #{functions.px-to-rem-build(18)}
+        )
+    );
   }
 
   :where(textarea) {
