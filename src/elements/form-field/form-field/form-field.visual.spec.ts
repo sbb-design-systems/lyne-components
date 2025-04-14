@@ -429,5 +429,19 @@ describe(`sbb-form-field`, () => {
         }
       });
     }
+
+    it(
+      'should keep input type=number arrows inside container',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field size="s">
+            <label>Label</label>
+            <input type="number" value="2" />
+          </sbb-form-field>`,
+        );
+
+        setup.withPostSetupAction(() => setup.snapshotElement.querySelector('input')!.focus());
+      }),
+    );
   });
 });

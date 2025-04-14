@@ -128,16 +128,15 @@ sbb-form-field {
 
   &[size='s'] :where(input) {
     // We shrink the input's height to support all types of inputs (especially type=number).
-    // Input size 18px works with arrows of type number input
-    height: #{functions.px-to-rem-build(18)};
+    // Factor 1.25 ensures, letters are not cut.
+    height: calc(var(--sbb-form-field-input-text-size) * 1.25);
+
+    // Avoids Safari bug, where text gets misaligned with type=number
+    line-height: 1 !important;
 
     // We add the missing block spacing to fit the line-height
     margin-block: calc(
-      0.5 *
-        (
-          (var(--sbb-form-field-input-text-size) * var(--sbb-typo-line-height-body-text)) -
-            #{functions.px-to-rem-build(18)}
-        )
+      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-body-text) - 1.25))
     );
   }
 
