@@ -18,35 +18,34 @@ For the entire presentation, navigation and functionality of such a seat reserva
 
 #### SeatReservation
 
-```json
-SeatReservation {
+```typescript
+type SeatReservation = {
   vehicleType: VehicleType;
   deckCoachIndex: number;
   coachItems: CoachItem[];
-}
+};
 ```
 
 #### CoachItem
 
-```json
-CoachItem {
+```typescript
+type CoachItem = {
   id: string;
   number: string;
   dimension: ElementDimension;
   type?: CoachType;
   places?: Place[];
-  signs?: SignElement[];
   graphicElements?: BaseElement[];
-  compartmentNumbers?: CompartmentNumberElement[];
+  serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
-}
+};
 ```
 
 #### Place
 
-```json
-Place extends BaseElement {
+```typescript
+interface Place extends BaseElement {
   number: string;
   state: PlaceState;
   type: PlaceType;
@@ -57,26 +56,74 @@ Place extends BaseElement {
 }
 ```
 
-#### SignElement
+#### ElementDimension
 
-```json
-SignElement extends BaseElement {
-  direction?: ElementDirection | null;
-}
+```typescript
+type ElementDimension = {
+  w: number;
+  h: number;
+};
 ```
 
-#### CompartmentNumberElement
+#### ElementPosition
 
-```json
-CompartmentNumberElement extends BaseElement {
+```typescript
+type ElementPosition = {
+  x: number;
+  y: number;
+  z: number;
+};
+```
+
+#### PlaceSelection
+
+```typescript
+type PlaceSelection = {
+  id: string;
   number: string;
-}
+  coachIndex: number;
+  state: PlaceState;
+};
+```
+
+#### SeatReservationPlaceSelection
+
+```typescript
+type SeatReservationPlaceSelection = {
+  id: string;
+  coachId: string;
+  coachNumber: string;
+  coachIndex: number;
+  placeNumber: string;
+  placeType: PlaceType;
+  placeTravelClass: PlaceTravelClass;
+  propertyIds: string[];
+};
+```
+
+#### Other
+
+```typescript
+const elementMountingOptions = <const>[
+  'FREE',
+  'UPPER_BORDER',
+  'LOWER_BORDER',
+  'UPPER_TO_LOWER_BORDER',
+];
+
+type ElementMounting = (typeof elementMountingOptions)[number];
+type ElementDirection = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
+type PlaceType = 'SEAT' | 'BICYCLE';
+type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
+type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
+type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
+type VehicleType = 'TRAIN' | 'BUS';
 ```
 
 #### BaseElement
 
-```json
-BaseElement {
+```typescript
+type BaseElement = {
   icon?: string | null;
   rotation?: number;
   position: ElementPosition;
