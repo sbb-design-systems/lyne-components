@@ -4,6 +4,7 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.js';
 import type {
   ElementDimension,
   ElementPosition,
@@ -13,6 +14,8 @@ import type {
   SeatReservation,
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
+
+import type { SbbSeatReservationTableCellElement } from './scoped-components/table-cell.js';
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
@@ -251,8 +254,8 @@ export class SeatReservationBaseElement extends LitElement {
     const firstCellId = 'cell-' + this.currSelectedCoachIndex + '-0-0';
     const placeNumber =
       this.shadowRoot
-        ?.getElementById(firstCellId)
-        ?.querySelector('sbb-seat-reservation-place-control')
+        ?.querySelector<SbbSeatReservationTableCellElement>("[cell-id='" + firstCellId + "']")
+        ?.querySelector<SbbSeatReservationPlaceControlElement>('sbb-seat-reservation-place-control')
         ?.getAttribute('text') || null;
 
     if (coach && placeNumber) {

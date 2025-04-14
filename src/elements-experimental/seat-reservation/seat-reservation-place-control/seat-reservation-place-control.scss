@@ -35,7 +35,7 @@
     &:focus-within {
       border-radius: var(--sbb-border-radius-1x);
       outline: 2px solid var(--sbb-color-black);
-      background-color: var(--reservation-place-control-background-focus);
+      background-color: var(--sbb-reservation-place-control-background-focus);
     }
 
     #{$root}--state-free &:not([disabled]),
