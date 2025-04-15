@@ -20,7 +20,7 @@ import style from './seat-reservation.scss?lit&inline';
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
-import '../seat-reservation-navigation/seat-reservation-navigation-coach/seat-reservation-navigation-coach.js';
+import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
 import './scoped-components/coach-wrapper.js';
 import './scoped-components/coach-border.js';
 import './scoped-components/table-cell.js';
