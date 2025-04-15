@@ -20,11 +20,8 @@ import style from './seat-reservation.scss?lit&inline';
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
-import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
-import './scoped-components/coach-wrapper.js';
-import './scoped-components/coach-border.js';
-import './scoped-components/table-cell.js';
-import './scoped-components/seat-reservation-graphical-element.js';
+import '../seat-reservation-navigation/seat-reservation-navigation-coach/seat-reservation-navigation-coach.js';
+import './scoped-components/scoped-element.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -212,7 +209,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     return html`
-      <sbb-coach-wrapper
+      <sbb-scoped-element
+        scoped-classes="coach-wrapper"
         height="${calculatedCoachDimension.h * this.scale}px"
         width="${calculatedCoachDimension.w}px"
       >
@@ -227,7 +225,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         >
           ${this._getRenderedRowPlaces(coachItem, index)}
         </table>
-      </sbb-coach-wrapper>
+      </sbb-scoped-element>
     `;
   }
 
@@ -246,7 +244,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         : this.gridSizeFactor;
 
     return html`
-      <sbb-coach-border
+      <sbb-scoped-element
+        scoped-classes="coach-border"
         inset-block-start="${this.coachBorderPadding * -1}px"
         inset-inline-start="${borderOffsetX}px"
       >
@@ -257,7 +256,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ?stretch=${true}
           role="presentation"
         ></sbb-seat-reservation-graphic>
-      </sbb-coach-border>
+      </sbb-scoped-element>
     `;
   }
 
@@ -299,7 +298,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const textRotation = place.rotation ? place.rotation * -1 : 0;
 
       return html`
-        <sbb-seat-reservation-table-cell
+        <sbb-scoped-element
+          scoped-classes="graphical-element"
           inset-block-start="${calculatedInternalPosition.y}px"
           inset-inline-start="${calculatedInternalPosition.x}px"
           width="${calculatedInternalDimension.w}px"
@@ -322,7 +322,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             coach-index=${coachIndex}
             ?disable=${this.disable}
           ></sbb-seat-reservation-place-control>
-        </sbb-seat-reservation-table-cell>
+        </sbb-scoped-element>
       `;
     });
   }
@@ -381,7 +381,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     return html`
-      <sbb-seat-reservation-graphical-element
+      <sbb-scoped-element
+        scoped-classes="graphical-element"
         graph-elem-aria-label="${ariaLabelForArea}"
         inset-block-start="${calculatedPosition.y}px"
         inset-inline-start="${calculatedPosition.x}px"
@@ -405,7 +406,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
         </sbb-seat-reservation-area>
-      </sbb-seat-reservation-graphical-element>
+      </sbb-scoped-element>
     `;
   }
 
@@ -435,7 +436,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         : null;
 
     return html`
-      <sbb-seat-reservation-graphical-element
+      <sbb-scoped-element
+        scoped-classes="graphical-element"
         graph-elem-aria-label="${ariaLabel || nothing}"
         inset-block-start="${calculatedPosition.y}px"
         inset-inline-start="${calculatedPosition.x}px"
@@ -451,7 +453,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           aria-hidden="true"
           ?stretch=${true}
         ></sbb-seat-reservation-graphic>
-      </sbb-seat-reservation-graphical-element>
+      </sbb-scoped-element>
     `;
   }
 
@@ -468,7 +470,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         serviceElement.position,
       );
       return html`
-        <sbb-seat-reservation-graphical-element
+        <sbb-scoped-element
+          scoped-classes="graphical-element"
           inset-block-start="${calculatedcCmpartmentNumberPosition.y}px"
           inset-inline-start="${calculatedcCmpartmentNumberPosition.x}px"
           width="${calculatedcCmpartmentNumberDimension.w}px"
@@ -482,7 +485,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             role="img"
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
-        </sbb-seat-reservation-graphical-element>
+        </sbb-scoped-element>
       `;
     });
   }

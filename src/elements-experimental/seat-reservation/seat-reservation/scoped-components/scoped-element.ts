@@ -3,14 +3,14 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'l
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import style from './seat-reservation-graphical-element.scss?lit&inline';
+import style from './scoped-element.scss?lit&inline';
 
 /**
- * Wrapper class for graphic elements in the seat-reservation.
+ * Wrapper class for scoped elements with similar properties to set.
  */
 export
-@customElement('sbb-seat-reservation-graphical-element')
-class SbbSeatReservationGraphicalElement extends LitElement {
+@customElement('sbb-scoped-element')
+class SbbScopedElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   @forceType()
@@ -37,49 +37,54 @@ class SbbSeatReservationGraphicalElement extends LitElement {
   @property({ attribute: 'z-index', type: String })
   public accessor zIndex: string = '';
 
+  @forceType()
+  @property({ attribute: 'cell-id', type: String })
+  public accessor cellId: string = '';
+
+  @forceType()
+  @property({ attribute: 'scoped-classes', type: String })
+  public accessor scopedClasses: string = '';
+
   protected override willUpdate(_changedProperties: PropertyValues): void {
     super.willUpdate(_changedProperties);
 
     if (_changedProperties.has('width')) {
-      this.style?.setProperty('--sbb-seat-reservation-graphical-element-width', `${this.width}`);
+      this.style?.setProperty('--sbb-scoped-width', `${this.width}`);
     }
 
     if (_changedProperties.has('height')) {
-      this.style?.setProperty('--sbb-seat-reservation-graphical-element-height', `${this.height}`);
+      this.style?.setProperty('--sbb-scoped-height', `${this.height}`);
     }
 
     if (_changedProperties.has('insetBlockStart')) {
-      this.style?.setProperty(
-        '--sbb-seat-reservation-graphical-element-inset-block-start',
-        `${this.insetBlockStart}`,
-      );
+      this.style?.setProperty('--sbb-scoped-inset-block-start', `${this.insetBlockStart}`);
     }
 
     if (_changedProperties.has('insetInlineStart')) {
-      this.style?.setProperty(
-        '--sbb-seat-reservation-graphical-element-inset-inline-start',
-        `${this.insetInlineStart}`,
-      );
+      this.style?.setProperty('--sbb-scoped-inset-inline-start', `${this.insetInlineStart}`);
     }
 
     if (_changedProperties.has('zIndex')) {
-      this.style?.setProperty('--sbb-seat-reservation-graphical-element-z-index', `${this.zIndex}`);
+      this.style?.setProperty('--sbb-scoped-z-index', `${this.zIndex}`);
     }
   }
 
   protected override render(): TemplateResult {
-    return html`<div
-      class="sbb-seat-reservation__graphical-element"
-      title="${this.graphElemAriaLabel || nothing}"
-    >
-      <slot></slot>
-    </div>`;
+    if (!this.cellId) {
+      return html`<div class="${this.scopedClasses}" title="${this.graphElemAriaLabel || nothing}">
+        <slot></slot>
+      </div>`;
+    } else {
+      return html`<td id="${this.cellId}" class="${this.scopedClasses}" role="gridcell">
+        <slot></slot>
+      </td>`;
+    }
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-seat-reservation-graphical-element': SbbSeatReservationGraphicalElement;
+    'sbb-scoped-element': SbbScopedElement;
   }
 }
