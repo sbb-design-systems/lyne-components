@@ -1,4 +1,5 @@
 import {
+  SbbBreakpointMediumMax,
   SbbBreakpointMediumMin,
   SbbBreakpointSmallMax,
   SbbTypoScaleDefault,
@@ -12,6 +13,7 @@ export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
 export const SbbMediaQueryBreakpointMediumAndAbove = `(min-width: ${pxToRem(SbbBreakpointMediumMin)}rem)`;
+export const SbbMediaQueryBreakpointMediumAndBelow = `(max-width: ${pxToRem(SbbBreakpointMediumMax)}rem)`;
 export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${pxToRem(SbbBreakpointSmallMax)}rem)`;
 /* eslint-enable @typescript-eslint/naming-convention */
 

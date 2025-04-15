@@ -57,12 +57,27 @@ using `<ul>` and `<li>` items, for more complex scenarios the grouping must be d
 
 ## Accessibility
 
-As the menu opens, the focus will automatically be set to the first focusable item within the component.
+As the menu opens, the focus will automatically be set to the first focusable
+item within the component (unless manually specified, see below).
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
 to identify which actions are active and which are not.
 
 It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
+
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-menu>
+  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+  <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
+    Receives initial focus
+  </sbb-menu-link>
+</sbb-menu>
+```
 
 <!-- Auto Generated Below -->
 

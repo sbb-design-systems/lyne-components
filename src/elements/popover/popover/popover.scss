@@ -26,6 +26,9 @@
   // to default color for cases where the popover is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
   display: none;
 }
 
@@ -80,7 +83,7 @@
   background-color: var(--sbb-popover-background);
   outline: none;
 
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
   }
 
