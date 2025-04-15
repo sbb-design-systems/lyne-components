@@ -6,8 +6,10 @@
 :host {
   --sbb-seat-reservation-compartment-number-background-first: #a57e0c;
   --sbb-seat-reservation-compartment-number-background-second: #126a12;
+  --sbb-seat-reservation-grid-size: 16px;
 
   display: block;
+  font-size: var(--sbb-seat-reservation-grid-size);
 }
 
 .sbb-seat-reservation__wrapper {
@@ -48,8 +50,6 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  transform-origin: 0 0;
-  transform: scale(var(--sbb-seat-reservation-list-coaches-scale-factor));
 }
 
 .sbb-seat-reservation__list-coaches .sbb-seat-reservation__item-coach {

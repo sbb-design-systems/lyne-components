@@ -47,10 +47,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   @property({ attribute: 'align-vertical', type: Boolean })
   public override accessor alignVertical: boolean = false;
 
-  @forceType()
-  @property({ attribute: 'scale', type: Number })
-  public override accessor scale: number = 1;
-
   /** Maximal number of possible clickable seats*/
   @forceType()
   @property({ attribute: 'max-reservations', type: Number })
@@ -86,10 +82,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ?.querySelectorAll('table')
           .forEach((table) => table.setAttribute('tabindex', '0'));
       }
-    }
-
-    if (changedProperties.has('scale')) {
-      this.style?.setProperty('--sbb-seat-reservation-list-coaches-scale-factor', `${this.scale}`);
     }
   }
 
@@ -211,7 +203,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return html`
       <sbb-scoped-element
         scoped-classes="coach-wrapper"
-        height="${calculatedCoachDimension.h * this.scale}px"
+        height="${calculatedCoachDimension.h}px"
         width="${calculatedCoachDimension.w}px"
       >
         ${this._getRenderedCoachBorders(coachItem, index)}
@@ -222,6 +214,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           class="coach-wrapper__table"
           id="seat-reservation-coach-${index}"
           role="grid"
+          aria-labelby="Wagon ${index}"
         >
           ${this._getRenderedRowPlaces(coachItem, index)}
         </table>
@@ -240,8 +233,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
     const borderOffsetX =
       coachIndex === 0 && driverArea
-        ? driverArea?.dimension.w * this.gridSizeFactor
-        : this.gridSizeFactor;
+        ? driverArea?.dimension.w * this.baseGridSize
+        : this.baseGridSize;
 
     return html`
       <sbb-scoped-element

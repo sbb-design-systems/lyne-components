@@ -39,8 +39,12 @@ export class SeatReservationBaseElement extends LitElement {
   public accessor alignVertical: boolean = false;
 
   @forceType()
-  @property({ attribute: 'scale', type: Number })
-  public accessor scale: number = 1;
+  @property({ attribute: 'base-grid-size', type: Number })
+  public accessor baseGridSize: number = 16;
+
+  @forceType()
+  @property({ attribute: 'height', type: Number })
+  public accessor height: number = null!;
 
   /** Maximal number of possible clickable seats*/
   @forceType()
@@ -56,11 +60,8 @@ export class SeatReservationBaseElement extends LitElement {
     SeatReservationBaseElement.events.selectedPlaces,
   );
 
-  protected maxHeight = 128;
-  protected gridSize = 8;
-  protected gridSizeFactor = this.maxHeight / this.gridSize;
   protected coachBorderPadding = 6;
-  protected coachBorderPaddingUnit = this.coachBorderPadding / 16;
+  protected coachBorderPaddingUnit = this.coachBorderPadding / this.baseGridSize;
   protected scrollMoveDirection: boolean = true;
   protected triggerCoachPositionsCollection: number[][] = [];
   protected firstTabElement: HTMLElement = null!;
@@ -87,6 +88,20 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('seatReservation')) {
       this._initSeatReservationPlaceSelection();
     }
+
+    if (changedProperties.has('baseGridSize')) {
+      this.coachBorderPaddingUnit = this.coachBorderPadding / this.baseGridSize;
+      this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+    }
+
+    // If the height is used, the baseGridSize must be recalculated
+    if (changedProperties.has('height') && !!this.height) {
+      if (this.seatReservation.coachItems.length) {
+        this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
+        this.coachBorderPaddingUnit = this.coachBorderPadding / this.baseGridSize;
+        this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+      }
+    }
   }
 
   /* Init scroll event handling for coach navigation */
@@ -104,7 +119,7 @@ export class SeatReservationBaseElement extends LitElement {
       //Precalculate trigger scroll position array depends from coach width
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const fromPos = currCalcTriggerPos;
-        currCalcTriggerPos += this.getCalculatedDimension(coach.dimension).w * this.scale;
+        currCalcTriggerPos += this.getCalculatedDimension(coach.dimension).w;
         return [fromPos, currCalcTriggerPos];
       });
 
@@ -396,8 +411,8 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     return {
-      w: this.gridSizeFactor * elementDimension.w,
-      h: this.gridSizeFactor * elementDimension.h,
+      w: this.baseGridSize * elementDimension.w,
+      h: this.baseGridSize * elementDimension.h,
     };
   }
 
@@ -420,8 +435,8 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     return {
-      x: this.gridSizeFactor * elementPosition.x,
-      y: this.gridSizeFactor * elementPosition.y,
+      x: this.baseGridSize * elementPosition.x,
+      y: this.baseGridSize * elementPosition.y,
       z: elementPosition.z,
     };
   }
