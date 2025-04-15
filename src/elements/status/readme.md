@@ -66,6 +66,13 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel` | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                                               |
 | `type`         | `type`          | public  | `SbbStatusType` | `'info'` | The type of the status.                                                                                                          |
 
+## CSS Properties
+
+| Name                      | Default                   | Description                                                                                                                  |
+| ------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-status-color`      | `var(--sbb-color-iron)`   | Specify a custom color, which will override the predefined color for any type.                                               |
+| `--sbb-status-text-color` | `var(--sbb-status-color)` | Specify a custom text color, which will override the predefined color for any type. Only valid for a status without a title. |
+
 ## Slots
 
 | Name    | Description                                                |
