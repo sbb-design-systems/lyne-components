@@ -51,7 +51,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     super();
     if (!isServer) {
       this.setupBaseEventHandlers();
-      this.addEventListener('click', this._handleButtonClick);
+      this.addEventListener?.('click', this._handleButtonClick);
 
       this.addController(
         new MutationController(this, {

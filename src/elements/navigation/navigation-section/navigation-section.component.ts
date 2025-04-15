@@ -114,11 +114,11 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
       }),
     );
 
-    this.addEventListener('keydown', (e) => {
+    this.addEventListener?.('keydown', (e) => {
       this._lastKeydownEvent = e;
     });
 
-    this.addEventListener('focusout', (e) => {
+    this.addEventListener?.('focusout', (e) => {
       if (
         e.relatedTarget instanceof HTMLElement &&
         !this.contains(e.relatedTarget) &&
@@ -135,13 +135,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
           this._triggerElement?.focus();
         } else {
           const triggerIndex = focusableElements.indexOf(this._triggerElement);
-          const nextFocusableElement = focusableElements[triggerIndex + 1];
-
-          if (nextFocusableElement) {
-            nextFocusableElement.focus();
-          } else {
-            navigationElement!.closeButton?.focus();
-          }
+          (focusableElements[triggerIndex + 1] ?? navigationElement!.closeButton)?.focus();
         }
       }
     });
@@ -323,7 +317,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     }
   }
 
-  // Set focus on the first focusable element.
   private _checkActiveAction(): void {
     this.querySelector<SbbNavigationButtonElement | SbbNavigationLinkElement>(
       ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',

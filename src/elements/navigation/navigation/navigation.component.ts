@@ -196,7 +196,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.hidePopover?.();
     this.navigationContent?.scrollTo(0, 0);
     this._inertController.deactivate();
-    // To enable focusing other element than the trigger, we need to call focus() a second time.
     this._triggerElement?.focus();
     this._escapableOverlayController.disconnect();
     this.didClose.emit();
@@ -214,8 +213,8 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._escapableOverlayController.connect();
+    this._focusTrapController.focusInitialElement();
     this._focusTrapController.enabled = true;
-    this._setNavigationFocus();
     this.completeUpdate();
     this.didOpen.emit();
   }
@@ -280,14 +279,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       element.nodeName === 'A' ||
       (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
     );
-  }
-
-  // Set focus on the first focusable element.
-  private _setNavigationFocus(): void {
-    const closeButton = this.shadowRoot!.querySelector(
-      '#sbb-navigation-close-button',
-    ) as HTMLElement;
-    closeButton.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

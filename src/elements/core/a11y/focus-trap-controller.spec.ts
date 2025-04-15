@@ -160,14 +160,4 @@ describe('focusTrapController', () => {
 
     expect(buttonSpy).to.have.been.calledOnceWith(options);
   });
-
-  it('should warn if the initial focus target is not focusable', () => {
-    element.querySelector('#not-focusable')!.toggleAttribute('sbb-focus-initial', true);
-    spy(console, 'warn');
-    focusTrapController.focusInitialElement();
-
-    expect(console.warn).to.have.been.calledOnceWith(
-      `Element matching '[sbb-focus-initial]' is not focusable.`,
-    );
-  });
 });

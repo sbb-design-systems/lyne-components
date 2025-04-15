@@ -50,15 +50,28 @@ or call the `open()` method on the `sbb-navigation` component.
 
 ## Accessibility
 
-On opening, the focus will be automatically set on the first focusable element or the first action with
-the `.sbb-active` class and, if the action with this class has a connected section,
-the section will be opened and the focus will be set on the first focusable element or the first action
-with the `.sbb-active` class in the section.
+On opening, the focus will be automatically set on the first focusable element (unless manually specified, see below).
+If there is a trigger for a navigation section with the CSS class `.sbb-active`,
+the first occurrence automatically opens the connected section.
 When a navigation action is marked to indicate the user is currently on that page,
 `accessibility-current="page"` (for `sbb-navigation-link`s) or `aria-current="page"` (for `sbb-navigation-button`s)
 should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
+
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-navigation >
+  <sbb-navigation-marker>
+    <sbb-navigation-button>Label 1</sbb-navigation-button>
+    <sbb-navigation-button sbb-focus-initial>Label 2</sbb-navigation-button>
+      ...
+</sbb-navigation>
+```
 
 <!-- Auto Generated Below -->
 

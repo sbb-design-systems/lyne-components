@@ -195,6 +195,23 @@ accessibility information on the trigger button should be set.
 </sbb-sidebar-container>
 ```
 
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-sidebar-container>
+  <sbb-sidebar role="navigation">
+    <sbb-link-list>
+      <sbb-block-link>Link 1</sbb-block-link>
+      <sbb-block-link sbb-focus-initial>Link 2</sbb-block-link>
+    </sbb-link-list>
+  </sbb-sidebar>
+  <sbb-sidebar-content role="main">Content</sbb-sidebar-content>
+</sbb-sidebar-container>
+```
+
 ## Combine with `<sbb-icon-sidebar>`
 
 It's possible the combine the `<sbb-sidebar>` with the `<sbb-icon-sidebar>` as following:
