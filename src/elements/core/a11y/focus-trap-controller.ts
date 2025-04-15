@@ -3,6 +3,10 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { interactivityChecker } from './interactivity-checker.js';
 
 export class SbbFocusTrapController implements ReactiveController {
+  /**
+   * Whether the focus is trap is enabled.
+   * @param enabled
+   */
   public set enabled(enabled: boolean) {
     if (enabled) {
       this._trap();
