@@ -154,6 +154,10 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     } else if (name === 'weekdayStyle') {
       this._updateValueDateFormat();
     }
+    if (this.hasUpdated) {
+      /** @internal */
+      this.dispatchEvent(new Event('state-change'));
+    }
   }
 
   /**
