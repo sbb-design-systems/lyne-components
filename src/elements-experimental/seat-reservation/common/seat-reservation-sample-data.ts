@@ -4857,6 +4857,7 @@ export const MOCK_COACHES_RAW_1 = [
               orientation: 180,
               placeLocations: ['WINDOW'],
               placeProperties: ['asasaas', 'sddww333'],
+              state: 'FREE',
             },
           ],
         },

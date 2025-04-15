@@ -1,7 +1,10 @@
 import type {
   CoachItem,
+  Place,
+  PlaceSelection,
   PlaceTravelClass,
   SeatReservation,
+  SeatReservationPlaceSelection,
   VehicleType,
 } from '../../seat-reservation.js';
 import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from '../seat-reservation-sample-data.js';
@@ -92,5 +95,47 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
     vehicleType: vehicleType,
     deckCoachIndex: 0,
     coachItems: coachsArr,
+  };
+};
+
+/**
+ * Mapped place and coach informations to place selection
+ * @param place
+ * @param coachIndex
+ * @returns PlaceSelection
+ */
+export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number): PlaceSelection => {
+  const placeId = 'seat-reservation__place-button-' + coachIndex + '-' + place.number;
+  return {
+    id: placeId,
+    number: place.number,
+    coachIndex: coachIndex,
+    state: place.state,
+  };
+};
+
+/**
+ * Mapped informations from place, coach and the coachiondex  to the seatReaservationPlaceSelection.
+ * This Object information is emitted outwards
+ * @param place
+ * @param CoachItem
+ * @param coachIndex
+ * @returns SeatReservationPlaceSelection
+ */
+export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
+  place: Place,
+  coach: CoachItem,
+  coachIndex: number,
+): SeatReservationPlaceSelection => {
+  const placeId = 'seat-reservation__place-button-' + coachIndex + '-' + place.number;
+  return {
+    id: placeId,
+    coachId: coach.id,
+    coachNumber: coach.number,
+    coachIndex: coachIndex,
+    placeNumber: place.number,
+    placeType: place.type,
+    placeTravelClass: place.travelClass || 'ANY_CLASS',
+    propertyIds: place.propertyIds || [],
   };
 };
