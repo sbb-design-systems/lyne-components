@@ -113,7 +113,9 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-    this.addEventListener('resizeChange', (e: CustomEvent<void>) => this._onSelectedStepResize(e));
+    this.addEventListener?.('resizeChange', (e: CustomEvent<void>) =>
+      this._onSelectedStepResize(e),
+    );
   }
 
   /** Selects the next step. */

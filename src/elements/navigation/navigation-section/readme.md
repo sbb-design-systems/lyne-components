@@ -25,6 +25,21 @@ should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
 
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-navigation-section trigger="nav1">
+  <sbb-navigation-list label="Label 1.1">
+    <sbb-navigation-link href="...">Label 1.1.1</sbb-navigation-link>
+    <sbb-navigation-link sbb-focus-initial href="...">Label 1.1.2</sbb-navigation-link>
+    ...
+  </sbb-navigation-list>
+</sbb-navigation-section>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

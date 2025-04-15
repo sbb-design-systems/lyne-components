@@ -70,9 +70,21 @@ The `sbb-popover` automatically calculates where it should place itself, based o
 ## Accessibility
 
 As the popover opens, the focus will automatically be set to the first focusable item within the component.
-If the close button is not hidden, it's the first element and therefore gets focused.
+If the close button is not hidden, it's the first element and therefore gets focused (unless manually specified, see below).
 
 Overlays should always contain a heading level 2 title. It can be visually hidden if necessary.
+
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-popover>
+  <sbb-link href="#">Link</sbb-link>
+  <sbb-link sbb-focus-initial href="#">Link 2</sbb-link>
+</sbb-popover>
+```
 
 <!-- Auto Generated Below -->
 
