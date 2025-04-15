@@ -137,19 +137,9 @@ export class InteractivityChecker {
   }
 }
 
-class InteractivityCheckerMock extends InteractivityChecker {
-  public override isVisible(): boolean {
-    return true;
-  }
-}
-
 // For unit tests we need to pretend that an element is always visible.
 // This can be done by checking if visibility property is set to empty.
-export const interactivityChecker: InteractivityChecker =
-  typeof getComputedStyle === 'undefined' ||
-  getComputedStyle(document.documentElement).visibility === ''
-    ? (new InteractivityCheckerMock() as unknown as InteractivityChecker)
-    : new InteractivityChecker();
+export const interactivityChecker = new InteractivityChecker();
 
 /**
  * @deprecated Will no longer be available with next major version.
