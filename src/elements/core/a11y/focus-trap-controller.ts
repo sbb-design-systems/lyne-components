@@ -29,12 +29,7 @@ export class SbbFocusTrapController implements ReactiveController {
    * @returns Whether focus was moved successfully.
    */
   public focusInitialElement(options?: FocusOptions): boolean {
-    // We take priority of light DOM for sbb-focus-initial attribute.
-    const redirectToElements = [
-      this._host.querySelector<HTMLElement>('[sbb-focus-initial]'),
-      this._host.shadowRoot?.querySelector<HTMLElement>('[sbb-focus-initial]'),
-    ];
-    const redirectToElement = redirectToElements[0] ?? redirectToElements[1];
+    const redirectToElement = this._host.querySelector<HTMLElement>('[sbb-focus-initial]');
 
     if (redirectToElement) {
       // Warn the consumer if the element they've pointed to
@@ -44,7 +39,7 @@ export class SbbFocusTrapController implements ReactiveController {
       }
 
       if (!interactivityChecker.isFocusable(redirectToElement)) {
-        const focusableChild = this._getFirstTabbableElement(redirectToElement) as HTMLElement;
+        const focusableChild = this._getFirstTabbableElement(redirectToElement);
         focusableChild?.focus(options);
         return !!focusableChild;
       }

@@ -8,11 +8,19 @@ import {
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.js';
-import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
-import { forceType, hostAttributes, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import {
+  IS_FOCUSABLE_QUERY,
+  SbbFocusTrapController,
+  sbbInputModalityDetector,
+} from '../../core/a11y.js';
+import {
+  SbbIdReferenceController,
+  SbbLanguageController,
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointMediumAndBelow,
+} from '../../core/controllers.js';
+import { forceType, hostAttributes, omitEmptyConverter } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -42,7 +50,6 @@ export
 @hostAttributes({
   slot: 'navigation-section',
 })
-@slotState()
 class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -86,20 +93,65 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
-  private _navigationSection!: HTMLElement;
-  private _navigationSectionContainerElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
+  private _lastKeydownEvent: KeyboardEvent | null = null;
+
+  public constructor() {
+    super();
+
+    this.addController(
+      new SbbMediaMatcherController(this, {
+        [SbbMediaQueryBreakpointMediumAndBelow]: (matches) => {
+          if (this._state !== 'closed') {
+            this._setNavigationInert(matches);
+          }
+        },
+      }),
+    );
+
+    this.addEventListener('keydown', (e) => {
+      this._lastKeydownEvent = e;
+    });
+
+    this.addEventListener('focusout', (e) => {
+      if (
+        e.relatedTarget instanceof HTMLElement &&
+        !this.contains(e.relatedTarget) &&
+        sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
+        this._lastKeydownEvent?.key === 'Tab' &&
+        this._triggerElement
+      ) {
+        const navigationElement = this.closest<SbbNavigationElement>('sbb-navigation');
+        const focusableElements = Array.from(
+          navigationElement?.querySelectorAll<HTMLElement>(IS_FOCUSABLE_QUERY) ?? [],
+        ).filter((e) => !this.contains(e));
+
+        if (this._lastKeydownEvent.shiftKey || !focusableElements.length) {
+          this._triggerElement?.focus();
+        } else {
+          const triggerIndex = focusableElements.indexOf(this._triggerElement);
+          const nextFocusableElement = focusableElements[triggerIndex + 1];
+
+          if (nextFocusableElement) {
+            nextFocusableElement.focus();
+          } else {
+            navigationElement!.closeButton?.focus();
+          }
+        }
+      }
+    });
+  }
 
   /**
    * Opens the navigation section on trigger click.
    */
   public open(): void {
-    if (this._state !== 'closed' || !this._navigationSection) {
+    if (this._state !== 'closed' || !this.hasUpdated) {
       return;
     }
 
@@ -136,18 +188,18 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._navigationSectionContainerElement.scrollTo(0, 0);
+    this.shadowRoot?.querySelector('.sbb-navigation-section__container')?.scrollTo(0, 0);
     this._windowEventsController?.abort();
     this._resetLists();
     this._setNavigationInert();
-    if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
+    if (this._isBelowLarge() && this._triggerElement) {
       this._triggerElement.focus();
     }
     this.completeUpdate();
   }
 
   private _closePreviousNavigationSection(): void {
-    (this._firstLevelNavigation?.activeNavigationSection as SbbNavigationSectionElement)?.close();
+    this._firstLevelNavigation?.activeNavigationSection?.close();
   }
 
   /**
@@ -202,15 +254,11 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     return trigger?.localName === 'sbb-navigation-button';
   }
 
-  private _setNavigationInert(): void {
-    if (!this._firstLevelNavigation) {
-      return;
+  private _setNavigationInert(isBelowLarge: boolean = this._isBelowLarge()): void {
+    const navigationContent = this._firstLevelNavigation?.navigationContent;
+    if (navigationContent) {
+      navigationContent.inert = isBelowLarge && this._state !== 'closed';
     }
-    (
-      this._firstLevelNavigation!.shadowRoot!.querySelector(
-        '.sbb-navigation__content',
-      ) as HTMLElement
-    ).inert = this._isZeroToLargeBreakpoint() && this._state !== 'closed';
   }
 
   // In rare cases it can be that the animationEnd event is triggered twice.
@@ -224,10 +272,11 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   private _resetLists(): void {
-    const activeActions = Array.from(
-      this.querySelectorAll('[data-section-action][data-action-active]'),
-    ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
-    activeActions?.forEach((action) => action.removeAttribute('data-action-active'));
+    Array.from(
+      this.querySelectorAll<SbbNavigationButtonElement | SbbNavigationLinkElement>(
+        '[data-section-action][data-action-active]',
+      ) ?? [],
+    ).forEach((action) => action.removeAttribute('data-action-active'));
   }
 
   private _attachWindowEvents(): void {
@@ -244,10 +293,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   // Check if the click was triggered on an element that should close the section.
   private _handleNavigationSectionClose = (event: Event): void => {
-    const composedPathElements = event
-      .composedPath()
-      .filter((el) => el instanceof window.HTMLElement);
-    if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
+    if (
+      event
+        .composedPath()
+        .filter((el) => el instanceof HTMLElement)
+        .some((el) => this._isCloseElement(el))
+    ) {
       this.close();
     }
   };
@@ -261,7 +312,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     );
   }
 
-  private _isZeroToLargeBreakpoint(): boolean {
+  private _isBelowLarge(): boolean {
     return isBreakpoint('zero', 'large') ?? false;
   }
 
@@ -274,10 +325,8 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   // Set focus on the first focusable element.
   private _checkActiveAction(): void {
-    (
-      this.querySelector(
-        ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
-      ) as HTMLElement
+    this.querySelector<SbbNavigationButtonElement | SbbNavigationLinkElement>(
+      ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
     )?.toggleAttribute('data-action-active', true);
   }
 
@@ -310,19 +359,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        class="sbb-navigation-section__container"
-        ${ref((el?: Element) => (this._navigationSectionContainerElement = el as HTMLElement))}
-      >
+      <div class="sbb-navigation-section__container">
         <nav
           @animationend=${this._onAnimationEnd}
           class="sbb-navigation-section"
           aria-labelledby=${!this.accessibilityLabel ? 'title' : nothing}
           aria-label=${this.accessibilityLabel ? this.accessibilityLabel : nothing}
-          ${ref(
-            (navigationSectionRef?: Element) =>
-              (this._navigationSection = navigationSectionRef as HTMLElement),
-          )}
         >
           <div class="sbb-navigation-section__wrapper">
             <div class="sbb-navigation-section__content">
