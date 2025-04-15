@@ -2,10 +2,10 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import '../../seat-reservation-graphic/seat-reservation-graphic.js';
+import '../../seat-reservation-graphic.js';
 
 import style from './seat-reservation-navigation-services.scss?lit&inline';
-import '@sbb-esta/lyne-elements/screen-reader-only/screen-reader-only.js';
+import '@sbb-esta/lyne-elements/screen-reader-only.js';
 
 /**
  * Component displays the available service icons of one coach.
