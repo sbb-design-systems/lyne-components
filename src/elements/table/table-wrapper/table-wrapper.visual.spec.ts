@@ -61,7 +61,9 @@ describe(`sbb-table-wrapper`, () => {
         );
         if (scrollbar) {
           const element = root.querySelector('sbb-table-wrapper')!;
-          await waitForCondition(() => element.hasAttribute('data-has-horizontal-scrollbar'));
+          await waitForCondition(
+            () => !element.classList.contains('sbb-table-wrapper-offset-none'),
+          );
         }
       });
 
