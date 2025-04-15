@@ -115,7 +115,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     this.inertController.activate();
     this.sbbEscapableOverlayController.connect();
     this.attachOpenOverlayEvents();
-    this.setOverlayFocus();
+    this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
     this.focusTrapController.enabled = true;

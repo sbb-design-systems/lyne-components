@@ -159,7 +159,10 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     }${this.ariaLiveRefToggle ? ' ' : ''}`;
   }
 
-  /** Focuses the element marked with sbb-focus-initial or the first focusable element. */
+  /**
+   * Focuses the element marked with sbb-focus-initial or the first focusable element.
+   * @deprecated. Will be removed with next major version.
+   */
   protected setOverlayFocus(): void {
     this.focusTrapController.focusInitialElement();
   }
