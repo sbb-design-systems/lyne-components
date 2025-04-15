@@ -1,16 +1,20 @@
 import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { LitElement } from 'lit';
+import { LitElement, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import {
+  mapPlaceAndCoachToSeatReservationPlaceSelection,
+  mapPlaceInfosToPlaceSelection,
+} from '../common/mapper.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.js';
 import type {
+  CoachItem,
   ElementDimension,
   ElementPosition,
   Place,
   PlaceSelection,
-  PlaceState,
   SeatReservation,
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
@@ -77,6 +81,14 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('seatReservation')) {
+      this._initSeatReservationPlaceSelection();
+    }
+  }
+
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
     this.firstTabElement = this.shadowRoot?.getElementById('first-tab-element') as HTMLElement;
@@ -140,7 +152,6 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Initialisation of Keyboard event handling to navigation between each places inside a selected coach by using [arrow] keys.
-   * The [Enter] key allows the user to select or deselect a focused place.
    * With the [TAB] key the user navigation goes to the next coach navigation element and the currently selected place is automatically reset.
    */
   protected handleKeyboardEvent(event: KeyboardEvent): void {
@@ -164,11 +175,6 @@ export class SeatReservationBaseElement extends LitElement {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
       switch (pressedKey) {
-        case this.keyboardNavigationEvents.Enter:
-          {
-            this._togglePlaceSelectionByKeyboard();
-          }
-          break;
         case this.keyboardNavigationEvents.ArrowLeft:
           {
             const pressedLeftKeyMapping: string = this.alignVertical
@@ -459,37 +465,6 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
-  // Handle Enter Keyboard event
-  private _togglePlaceSelectionByKeyboard(): void {
-    // If the focus on a navigation coach during an enter key event, we scroll to the focused coach
-    if (this.focusedCoachIndex !== -1) {
-      this.preventCoachScrollByPlaceClick = false;
-      this.unfocusPlaceElement();
-      this.scrollToSelectedNavCoach(this.focusedCoachIndex);
-    }
-    // If no focus is set to a coach, then we try to toggle the currently selected place status -> FREE | SELECTED
-    else {
-      const placeElement = this._getPlaceHtmlElement();
-      const hasPLaceFocus = placeElement?.getAttribute('keyfocus');
-
-      this.preventCoachScrollByPlaceClick = false;
-
-      if (placeElement && hasPLaceFocus === 'focus' && this.currSelectedPlace) {
-        const selectedState: PlaceState =
-          placeElement.getAttribute('state') === 'FREE' ? 'SELECTED' : 'FREE';
-        placeElement.setAttribute('state', selectedState);
-
-        const placeSelection = {
-          id: this.currSelectedPlaceElementId,
-          number: this.currSelectedPlace.number,
-          coachIndex: this.currSelectedCoachIndex,
-          state: selectedState,
-        } as PlaceSelection;
-        this.updateSelectedSeatReservationPlaces(placeSelection);
-      }
-    }
-  }
-
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
     this.preventCoachScrollByPlaceClick = false;
     const places = this.seatReservation.coachItems[this.currSelectedCoachIndex].places;
@@ -570,6 +545,27 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
+   * Initialization of SeatReservationPlaceSelection Array based on the transferred places
+   * that have the state SELECTED within the seatReservation object
+   */
+  private _initSeatReservationPlaceSelection(): void {
+    this.seatReservation.coachItems.map((coach: CoachItem, coachIndex: number) => {
+      coach.places
+        ?.filter((place) => place.state === 'SELECTED')
+        ?.forEach((place) => {
+          const preselectedPlaceSelection: PlaceSelection = mapPlaceInfosToPlaceSelection(
+            place,
+            coachIndex,
+          );
+          const seatReservationPlaceSelection: SeatReservationPlaceSelection | null =
+            this._getSeatReservationPlaceSelection(preselectedPlaceSelection);
+          if (seatReservationPlaceSelection)
+            this.selectedSeatReservationPlaces.push(seatReservationPlaceSelection);
+        });
+    });
+  }
+
+  /**
    * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
    * @param currSelectedPlace
    */
@@ -597,20 +593,9 @@ export class SeatReservationBaseElement extends LitElement {
     const coach = this.seatReservation.coachItems[currSelectedPlace.coachIndex];
     const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
 
-    if (!place) {
-      return null;
-    }
-
-    return {
-      id: currSelectedPlace.id,
-      coachId: coach.id,
-      coachNumber: coach.number,
-      coachIndex: currSelectedPlace.coachIndex,
-      placeNumber: place.number,
-      placeType: place.type,
-      placeTravelClass: place.travelClass || 'ANY_CLASS',
-      propertyIds: place.propertyIds || [],
-    };
+    return place
+      ? mapPlaceAndCoachToSeatReservationPlaceSelection(place, coach, currSelectedPlace.coachIndex)
+      : null;
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {
