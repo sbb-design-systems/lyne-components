@@ -26,6 +26,10 @@ export type SbbStatusType =
  * @slot - Use the unnamed slot to add content to the status message.
  * @slot title - Use this to provide a title for the status (optional).
  * @slot icon - Use this slot to override the default status icon.
+ * @cssprop [--sbb-status-color=var(--sbb-color-iron)] - Specify a custom color,
+ * which will override the predefined color for any type.
+ * @cssprop [--sbb-status-text-color=var(--sbb-status-color)] - Specify a custom text color,
+ * which will override the predefined color for any type. Only valid for a status without a title.
  */
 export
 @customElement('sbb-status')
