@@ -335,7 +335,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     );
     this.inputElement.addEventListener('change', () => this._handleInputChange(), options);
     this.inputElement.addEventListener(
-      'state-change',
+      'ɵchange',
       () => this._associationController?.updateControls(),
       options,
     );

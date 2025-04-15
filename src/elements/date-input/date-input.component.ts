@@ -155,8 +155,9 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       this._updateValueDateFormat();
     }
     if (this.hasUpdated) {
+      // Used to notify the datepicker to update its state
       /** @internal */
-      this.dispatchEvent(new Event('state-change'));
+      this.dispatchEvent(new Event('ɵchange'));
     }
   }
 
