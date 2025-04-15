@@ -340,9 +340,6 @@
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
 
-  // Textarea with forced colors active needs to have the label a level higher
-  z-index: 1;
-
   @include sbb.text-xs--regular;
 
   :host([size='s']) & {
@@ -379,6 +376,14 @@
     & {
     font-size: var(--sbb-form-field-input-text-size);
     transform: translateY(var(--sbb-form-field-floating-label-transform));
+  }
+
+  :host([data-input-type='textarea']) & {
+    @include sbb.if-forced-colors {
+      // The background of the textarea is set to Canvas and therefore hides the label behind.
+      // By setting the z-index to 1, we move the label in front of the textarea.
+      z-index: 1;
+    }
   }
 }
 
