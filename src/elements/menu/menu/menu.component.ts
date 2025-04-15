@@ -11,10 +11,8 @@ import { ref } from 'lit/directives/ref.js';
 import {
   getNextElementIndex,
   interactivityChecker,
-  IS_FOCUSABLE_QUERY,
   isArrowKeyOrPageKeysPressed,
-  SbbFocusHandler,
-  setModalityOnNextFocus,
+  SbbFocusTrapController,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
@@ -99,7 +97,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _isPointerDownEventOnMenu: boolean = false;
   private _windowEventsController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this);
   private _mediaMatcher = new SbbMediaMatcherController(this, {
@@ -176,8 +174,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this.state = 'opened';
     this._inertController.activate();
     this._escapableOverlayController.connect();
-    this._setMenuFocus();
-    this._focusHandler.trap(this);
+    this._focusTrapController.focusInitialElement();
+    this._focusTrapController.enabled = true;
     this._attachWindowEvents();
     this.didOpen.emit();
   }
@@ -188,7 +186,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     this._menu?.firstElementChild?.scrollTo(0, 0);
     this._inertController.deactivate();
-    setModalityOnNextFocus(this._triggerElement);
     // Manually focus last focused element
     this._triggerElement?.focus({
       // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
@@ -199,7 +196,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._escapableOverlayController.disconnect();
     this.didClose.emit();
     this._windowEventsController?.abort();
-    this._focusHandler.disconnect();
+    this._focusTrapController.enabled = false;
 
     // Starting from breakpoint medium, enable scroll
     this._scrollHandler.enableScroll();
@@ -280,7 +277,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._triggerElement = null;
     this._triggerAbortController?.abort();
     this._windowEventsController?.abort();
-    this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
   }
 
@@ -392,13 +388,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this._handleClosing();
     }
-  }
-
-  // Set focus on the first focusable element.
-  private _setMenuFocus(): void {
-    const firstFocusable = this.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
-    setModalityOnNextFocus(firstFocusable);
-    firstFocusable.focus();
   }
 
   // Set menu position and max height if the breakpoint is medium-ultra.

@@ -1,7 +1,7 @@
 import { type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusHandler } from '../core/a11y.js';
+import { SbbFocusTrapController } from '../core/a11y.js';
 import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import {
   SbbInertController,
@@ -42,7 +42,7 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   /** @deprecated */
   protected overlayController!: AbortController;
   protected openOverlayController!: AbortController;
-  protected focusHandler = new SbbFocusHandler();
+  protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
   protected returnValue: any;
   protected ariaLiveRefToggle = false;
@@ -53,7 +53,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
 
   protected abstract closeAttribute: string;
   protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
-  protected abstract setOverlayFocus(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
 
@@ -100,7 +99,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     super.disconnectedCallback();
     this.overlayController?.abort();
     this.openOverlayController?.abort();
-    this.focusHandler.disconnect();
     this.removeInstanceFromGlobalCollection();
     this.scrollHandler.enableScroll();
   }
@@ -159,5 +157,13 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     this.ariaLiveRef.textContent = `${i18nDialog[this.language.current]}${
       label ? `, ${label}` : ''
     }${this.ariaLiveRefToggle ? ' ' : ''}`;
+  }
+
+  /**
+   * Focuses the element marked with sbb-focus-initial or the first focusable element.
+   * @deprecated. Will be removed with next major version.
+   */
+  protected setOverlayFocus(): void {
+    this.focusTrapController.focusInitialElement();
   }
 }

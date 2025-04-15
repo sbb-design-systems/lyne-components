@@ -136,11 +136,11 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     /** @internal */
     this.internals.role = 'listbox';
 
-    this.addEventListener(SbbChipElement.events.requestDelete, (ev) =>
+    this.addEventListener?.(SbbChipElement.events.requestDelete, (ev) =>
       this._deleteChip(ev.target as SbbChipElement),
     );
 
-    this.addEventListener('keydown', (ev) => this._onChipKeyDown(ev));
+    this.addEventListener?.('keydown', (ev) => this._onChipKeyDown(ev));
   }
 
   public override connectedCallback(): void {

@@ -10,7 +10,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusHandler, setModalityOnNextFocus } from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
@@ -29,6 +29,7 @@ import {
 } from '../../core/overlay.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
+import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
 import style from './navigation.scss?lit&inline';
 
@@ -71,31 +72,37 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   @property()
   public accessor trigger: string | HTMLElement | null = null;
 
-  /**
-   * This will be forwarded as aria-label to the close button element.
-   */
+  /** This will be forwarded as aria-label to the close button element. */
   @forceType()
   @property({ attribute: 'accessibility-close-label' })
   public accessor accessibilityCloseLabel: string = '';
 
-  /**
-   * Whether a navigation section is displayed.
-   */
-  @state() private accessor _activeNavigationSection: HTMLElement | null = null;
+  /** Whether a navigation section is displayed. */
+  @state() private accessor _activeNavigationSection: SbbNavigationSectionElement | null = null;
 
-  public get activeNavigationSection(): HTMLElement | null {
+  /** Returns the active navigation section element. */
+  public get activeNavigationSection(): SbbNavigationSectionElement | null {
     return this._activeNavigationSection;
   }
 
+  /** Returns the close button element. */
+  public get closeButton(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('#sbb-navigation-close-button') ?? null;
+  }
+
+  /** Returns the navigation content element. */
+  public get navigationContent(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('.sbb-navigation__content') ?? null;
+  }
+
   private _navigation!: HTMLDivElement;
-  private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
   private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -120,11 +127,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     );
   }
 
-  /**
-   * Opens the navigation.
-   */
+  /** Opens the navigation. */
   public open(): void {
-    if (this.state !== 'closed' || !this._navigation) {
+    if (this.state !== 'closed' || !this.hasUpdated) {
       return;
     }
     if (!this.willOpen.emit()) {
@@ -162,9 +167,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     activeActions?.forEach((action) => action.marker?.select(action));
   }
 
-  /**
-   * Closes the navigation.
-   */
+  /** Closes the navigation. */
   public close(): void {
     if (this.state !== 'opened') {
       return;
@@ -191,16 +194,14 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
-    this._navigationContentElement.scrollTo(0, 0);
-    setModalityOnNextFocus(this._triggerElement);
+    this.navigationContent?.scrollTo(0, 0);
     this._inertController.deactivate();
-    // To enable focusing other element than the trigger, we need to call focus() a second time.
     this._triggerElement?.focus();
     this._escapableOverlayController.disconnect();
     this.didClose.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
-    this._focusHandler.disconnect();
+    this._focusTrapController.enabled = false;
 
     // Enable scrolling for content below the navigation
     this._scrollHandler.enableScroll();
@@ -212,8 +213,8 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._navigationResizeObserver.observe(this);
     this._inertController.activate();
     this._escapableOverlayController.connect();
-    this._focusHandler.trap(this, { filter: this._trapFocusFilter });
-    this._setNavigationFocus();
+    this._focusTrapController.focusInitialElement();
+    this._focusTrapController.enabled = true;
     this.completeUpdate();
     this.didOpen.emit();
   }
@@ -244,10 +245,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       signal: this._triggerAbortController.signal,
     });
   }
-
-  private _trapFocusFilter = (el: HTMLElement): boolean => {
-    return el.nodeName !== 'SBB-NAVIGATION-SECTION' || el.getAttribute('data-state') === 'opened';
-  };
 
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
@@ -282,15 +279,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       element.nodeName === 'A' ||
       (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
     );
-  }
-
-  // Set focus on the first focusable element.
-  private _setNavigationFocus(): void {
-    const closeButton = this.shadowRoot!.querySelector(
-      '#sbb-navigation-close-button',
-    ) as HTMLElement;
-    setModalityOnNextFocus(closeButton);
-    closeButton.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.
@@ -352,7 +340,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     super.disconnectedCallback();
     this._triggerElement = null;
     this._triggerAbortController?.abort();
-    this._focusHandler.disconnect();
     this._scrollHandler.enableScroll();
   }
 
@@ -393,10 +380,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
         >
           <div class="sbb-navigation__header">${closeButton}</div>
           <div class="sbb-navigation__wrapper">
-            <div
-              class="sbb-navigation__content"
-              ${ref((el?: Element) => (this._navigationContentElement = el as HTMLElement))}
-            >
+            <div class="sbb-navigation__content">
               <slot></slot>
             </div>
           </div>

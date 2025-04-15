@@ -41,6 +41,14 @@
       --sbb-header-height: #{functions.px-to-rem-build(52)};
     }
 
+    // When the input modality is either mouse or touch,
+    // the focus outline should be hidden.
+    // We achieve this by setting the outline style to none.
+    // This is primarily to work around Safari bugs.
+    &:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
+      --sbb-focus-outline-style: none;
+    }
+
     @include mediaqueries.mq($from: medium) {
       // Header
       --sbb-header-height: var(--sbb-spacing-fixed-24x);

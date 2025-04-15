@@ -15,7 +15,7 @@
   --sbb-navigation-section-animation-easing: ease-out;
   --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-l);
-  --sbb-navigation-section-transform: translateX(100%);
+  --sbb-navigation-section-translate: 100%;
   --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-section-width: 100dvw;
@@ -41,13 +41,13 @@
     --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
       var(--sbb-layout-base-offset-responsive);
     --sbb-navigation-section-position: relative;
-    --sbb-navigation-section-transform: translateX(0%);
+    --sbb-navigation-section-translate: 0;
     --sbb-navigation-section-content-padding-inline-start: 0;
     --sbb-navigation-section-width: calc(
       100% + var(--sbb-layout-base-offset-responsive) + var(--sbb-grid-base-gutter-responsive)
     );
 
-    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
+    translate: calc(var(--sbb-grid-base-gutter-responsive) * -1) 0;
   }
 
   @include sbb.mq($from: wide) {
@@ -154,15 +154,11 @@
   @include sbb.mq($from: wide) {
     grid-column: 1 / 4;
   }
-
-  :host(:not([data-slot-names~='title'], [title-content])) & {
-    display: none;
-  }
 }
 
 .sbb-navigation-section__back {
   position: absolute;
-  transform: translateX(calc((100% + var(--sbb-spacing-fixed-1x)) * -1));
+  translate: calc((100% + var(--sbb-spacing-fixed-1x)) * -1) 0;
 
   @include sbb.mq($from: large) {
     display: none;
@@ -185,17 +181,17 @@
 
   @include sbb.mq($from: large) {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-3x));
+    translate: 0 var(--sbb-spacing-fixed-3x);
     transition: {
       duration: var(--sbb-navigation-section-animation-duration);
       delay: var(--sbb-navigation-section-animation-duration);
       timing-function: var(--sbb-navigation-section-animation-easing);
-      property: opacity, transform;
+      property: opacity, translate;
     }
 
     :host([data-state='opened']) & {
       opacity: 1;
-      transform: translateY(0);
+      translate: 0 0;
     }
   }
 
@@ -210,20 +206,20 @@
 
 @keyframes open {
   from {
-    transform: var(--sbb-navigation-section-transform);
+    translate: var(--sbb-navigation-section-translate) 0;
   }
 
   to {
-    transform: translate(0%, 0%);
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
-    transform: translate(0%, 0%);
+    translate: 0 0;
   }
 
   to {
-    transform: var(--sbb-navigation-section-transform);
+    translate: var(--sbb-navigation-section-translate) 0;
   }
 }
