@@ -37,12 +37,27 @@ describe(`sbb-table-wrapper`, () => {
   });
 
   it('detect horizontal scrollbar', async () => {
+    // ResizeObserver callbacks run outside the usual render flow
+    await waitForCondition(() => element.classList.contains('sbb-table-wrapper-offset-none'));
+    expect(element).to.have.class('sbb-table-wrapper-offset-none');
+
+    // Expand the table so that the scrollbar appears
     const table = element.querySelector('table')!;
-    table.style.setProperty('width', '130%');
+    const tableWrapper = element.shadowRoot!.querySelector('.sbb-table-wrapper')!;
+
+    table.style.setProperty('width', '140%');
+    tableWrapper.scroll(20, 0);
 
     // ResizeObserver callbacks run outside the usual render flow
-    await waitForCondition(() => element.hasAttribute('data-has-horizontal-scrollbar'));
+    await waitForCondition(() => element.classList.contains('sbb-table-wrapper-offset-both'));
+    expect(element).to.have.class('sbb-table-wrapper-offset-both');
 
-    expect(element).to.have.attribute('data-has-horizontal-scrollbar');
+    tableWrapper.scroll(-20, 0);
+    await waitForCondition(() => element.classList.contains('sbb-table-wrapper-offset-right'));
+    expect(element).to.have.class('sbb-table-wrapper-offset-right');
+
+    tableWrapper.scroll(1000, 0);
+    await waitForCondition(() => element.classList.contains('sbb-table-wrapper-offset-left'));
+    expect(element).to.have.class('sbb-table-wrapper-offset-left');
   });
 });

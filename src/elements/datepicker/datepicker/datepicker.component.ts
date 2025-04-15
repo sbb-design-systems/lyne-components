@@ -334,6 +334,11 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       options,
     );
     this.inputElement.addEventListener('change', () => this._handleInputChange(), options);
+    this.inputElement.addEventListener(
+      'ɵchange',
+      () => this._associationController?.updateControls(),
+      options,
+    );
     this._parseInput(true);
     this._tryApplyFormatToInput();
     this._validateDate();
