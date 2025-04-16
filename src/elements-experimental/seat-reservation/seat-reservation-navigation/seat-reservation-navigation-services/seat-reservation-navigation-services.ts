@@ -25,9 +25,9 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
         return html`
           <sbb-seat-reservation-graphic
             name=${signIcon ?? nothing}
-            width="1"
-            height="1"
             aria-hidden="true"
+            width="20"
+            height="20"
           ></sbb-seat-reservation-graphic>
           <sbb-screen-reader-only>${'TODO : info from BE? ' + signIcon}</sbb-screen-reader-only>
         `;
