@@ -4,9 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-seat-reservation-compartment-number-background-first: #a57e0c;
-  --sbb-seat-reservation-compartment-number-background-second: #126a12;
   --sbb-seat-reservation-grid-size: 16px;
+  --sbb-seat-reservation-vertical-offset: 0;
 
   display: block;
   font-size: var(--sbb-seat-reservation-grid-size);
@@ -19,10 +18,19 @@
 }
 
 .sbb-seat-reservation__wrapper--vertical {
+  width: fit-content;
   position: relative;
-  inset-inline-start: 330px;
+  inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
   transform: rotate(90deg);
   transform-origin: top left;
+}
+
+.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__parent {
+  overflow-y: hidden;
+}
+
+.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
+  width: 100vh;
 }
 
 .sbb-seat-reservation-navigation__list-coaches {
@@ -33,10 +41,6 @@
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-1x);
   min-height: #{sbb.px-to-rem-build(60)};
-}
-
-.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
-  width: 100vh;
 }
 
 .sbb-seat-reservation__parent {
@@ -56,19 +60,4 @@
   padding: 0;
   margin: 0;
   position: relative;
-}
-
-.sbb-seat-reservation__compartment-number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--sbb-color-white);
-}
-
-.sbb-seat-reservation__compartment-number--first-class {
-  background-color: var(--sbb-seat-reservation-compartment-number-background-first);
-}
-
-.sbb-seat-reservation__compartment-number--first-class {
-  background-color: var(--sbb-seat-reservation-compartment-number-background-second);
 }

@@ -1,21 +1,20 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
-  --sbb-reservation-graphic-width: 1;
-  --sbb-reservation-graphic-height: 1;
+  --sbb-reservation-graphic-width: 16;
+  --sbb-reservation-graphic-height: 16;
   --sbb-reservation-graphic-rotation: 0;
   --sbb-reservation-graphic-contents-rotation: calc(
     var(--sbb-reservation-graphic-rotation) - var(--sbb-reservation-graphic-rotation)
   );
-
-  display: block;
 }
 
 // similiar to the graphic, but slightly different.
 .sbb-seat-reservation-icon {
-  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * 1em);
-  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1em);
+  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * 1px);
+  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
 
+  display: block;
   transform: rotate(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
 }
 
@@ -23,8 +22,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(var(--sbb-reservation-graphic-width) * 1em);
-  height: calc(var(--sbb-reservation-graphic-height) * 1em);
+  width: calc(var(--sbb-reservation-graphic-width) * 1px);
+  height: calc(var(--sbb-reservation-graphic-height) * 1px);
   transform-origin: center;
   transform: rotate(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
 

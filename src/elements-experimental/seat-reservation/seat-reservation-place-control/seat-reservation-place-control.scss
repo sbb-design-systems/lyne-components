@@ -24,7 +24,7 @@
     @include sbb.button-reset;
 
     display: block;
-    font-size: calc(var(--sbb-reservation-place-control-text-size) * 1em);
+    font-size: calc(var(--sbb-reservation-place-control-text-size) * 1px);
     transition: transform 0.25s ease-in-out;
 
     #{$root}--state-focused {

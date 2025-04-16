@@ -61,7 +61,7 @@ export class SeatReservationBaseElement extends LitElement {
   );
 
   protected coachBorderPadding = 6;
-  protected coachBorderPaddingUnit = this.coachBorderPadding / this.baseGridSize;
+  protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected scrollMoveDirection: boolean = true;
   protected triggerCoachPositionsCollection: number[][] = [];
   protected firstTabElement: HTMLElement = null!;
@@ -90,17 +90,29 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     if (changedProperties.has('baseGridSize')) {
-      this.coachBorderPaddingUnit = this.coachBorderPadding / this.baseGridSize;
+      this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
       this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+
+      if (this.alignVertical) {
+        this._setVerticalAlignmentOffset();
+      }
     }
 
     // If the height is used, the baseGridSize must be recalculated
     if (changedProperties.has('height') && !!this.height) {
       if (this.seatReservation.coachItems.length) {
         this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
-        this.coachBorderPaddingUnit = this.coachBorderPadding / this.baseGridSize;
+        this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+
+        if (this.alignVertical) {
+          this._setVerticalAlignmentOffset();
+        }
       }
+    }
+
+    if (changedProperties.has('alignVertical') && this.alignVertical) {
+      this._setVerticalAlignmentOffset();
     }
   }
 
@@ -145,6 +157,12 @@ export class SeatReservationBaseElement extends LitElement {
           this.preselectFirstPlaceInCoach();
         }
       });
+
+      // During initialization we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
+      // becuase we rotate the entire component by 90 degrees and transform the origin point to top left.
+      if (this.alignVertical) {
+        this._setVerticalAlignmentOffset();
+      }
     }
   }
 
@@ -403,11 +421,11 @@ export class SeatReservationBaseElement extends LitElement {
     isStretchHeight?: boolean,
   ): ElementDimension {
     if (coachDimension && !isOriginHeight) {
-      elementDimension.h += this.coachBorderPaddingUnit * 2;
+      elementDimension.h += this.coachBorderOffset * 2;
     }
 
     if (isStretchHeight) {
-      elementDimension.h += this.coachBorderPaddingUnit;
+      elementDimension.h += this.coachBorderOffset;
     }
 
     return {
@@ -425,12 +443,12 @@ export class SeatReservationBaseElement extends LitElement {
     if (coachDimension && elementDimension) {
       const endPosHeight = isOriginHeight
         ? coachDimension.h
-        : coachDimension.h + this.coachBorderPaddingUnit;
+        : coachDimension.h + this.coachBorderOffset;
       //If the original element is positioned at the top or bottom of the coach, we need to recalculate the Y coordinate with the additional border padding
       if (elementPosition.y === 0) {
-        elementPosition.y -= this.coachBorderPaddingUnit;
+        elementPosition.y -= this.coachBorderOffset;
       } else if (elementPosition.y + elementDimension.h === endPosHeight) {
-        elementPosition.y += this.coachBorderPaddingUnit;
+        elementPosition.y += this.coachBorderOffset;
       }
     }
 
@@ -635,5 +653,22 @@ export class SeatReservationBaseElement extends LitElement {
       ? 'seat-reservation__place-button-' + currCoachIndex + '-' + placeNumber
       : this.currSelectedPlaceElementId;
     return coachPlaceNumberId ? this.shadowRoot?.getElementById(coachPlaceNumberId) || null : null;
+  }
+
+  //Set the vertical offset
+  private _setVerticalAlignmentOffset(): void {
+    setTimeout(() => {
+      const seatReservationWrapperElement = this.shadowRoot?.querySelector(
+        '.sbb-seat-reservation__wrapper',
+      ) as HTMLElement;
+      if (seatReservationWrapperElement) {
+        const absSeatReservationHeight =
+          seatReservationWrapperElement.getBoundingClientRect().width;
+        this.style?.setProperty(
+          '--sbb-seat-reservation-vertical-offset',
+          `${absSeatReservationHeight}px`,
+        );
+      }
+    });
   }
 }
