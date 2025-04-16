@@ -134,7 +134,7 @@ sbb-form-field {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
-  &[size='s'] :where(input) {
+  &[size='s'] :where(input, sbb-date-input) {
     // We shrink the input's height to support all types of inputs (especially type=number).
     // Factor 1.25 ensures, letters are not cut.
     height: calc(var(--sbb-form-field-input-text-size) * 1.25);

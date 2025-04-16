@@ -3,6 +3,7 @@ import { html } from 'lit';
 import {
   describeEach,
   describeViewports,
+  visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../core/testing/private.js';
@@ -18,6 +19,8 @@ describe('sbb-date-input', () => {
     negative: [false, true],
     forcedColors: [false, true],
   };
+
+  const sizeCases = ['s', 'm', 'l'];
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ disabled, negative, forcedColors }) => {
@@ -77,5 +80,18 @@ describe('sbb-date-input', () => {
         }
       });
     });
+
+    for (const size of sizeCases) {
+      it(
+        `size=${size}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-form-field size=${size}>
+              <sbb-date-input value="2024-12-11"></sbb-date-input>
+            </sbb-form-field>`,
+          );
+        }),
+      );
+    }
   });
 });
