@@ -13,7 +13,11 @@ export const IS_FOCUSABLE_QUERY = [
   .map((selector) => `${selector}:not([disabled],:disabled,[tabindex="-1"],[inert])`)
   .join(',');
 
-// Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
+/**
+ * @deprecated will be removed with next major version. Use methods of FocusTrapController.
+ *
+ * Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
+ */
 export function getFocusableElements(
   elements: HTMLElement[],
   properties?: {
@@ -62,6 +66,9 @@ export function getFocusableElements(
   return [...focusableEls];
 }
 
+/**
+ * @deprecated will be removed with next major version. Use methods of FocusTrapController.
+ */
 export function getFirstFocusableElement(
   elements: HTMLElement[],
   filter?: (el: HTMLElement) => boolean,
@@ -73,7 +80,9 @@ export function getFirstFocusableElement(
   return focusableElements.length ? focusableElements[0] : null;
 }
 
-// TODO: Convert to Controller and handle disconnectedCallback here with hostDisconnected().
+/**
+ * @deprecated Will be removed with next major release. Use SbbFocusTrapController.
+ */
 export class SbbFocusHandler {
   private _controller: AbortController | null = null;
 

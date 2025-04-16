@@ -173,9 +173,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
 
     private _onBlur(): void {
-      if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-        this.loadButton.removeAttribute('data-focus-visible');
-      }
+      this.loadButton.removeAttribute('data-focus-visible');
     }
 
     private _readFiles(event: Event): void {
