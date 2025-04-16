@@ -259,8 +259,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** A list of days, in two formats (long and single char). */
   private _weekdays!: Weekday[];
 
-  /** Grid of calendar cells representing the dates of the month. */
+  /** Grid of calendar cells representing the dates of the month along the rows. Used for rendering tables. */
   private _weeks: Day<T>[][] = [];
+
+  /** Grid of calendar cells representing the dates of the month along the columns. Used for multiple date selection. */
+  private _weeksColumn: Day<T>[][] = [];
 
   /** Grid of calendar cells representing months. */
   private _months!: Month[][];
@@ -271,8 +274,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** Grid of calendar cells representing years for the wide view. */
   private _nextMonthYears!: number[][];
 
-  /** Grid of calendar cells representing the dates of the next month. */
+  /** Grid of calendar cells representing the dates of the next month along the rows. */
   private _nextMonthWeeks!: Day<T>[][];
+
+  /** Grid of calendar cells representing the dates of the next month along the columns. */
+  private _nextMonthWeeksColumn!: Day<T>[][];
 
   /** An array containing all the month names in the current language. */
   private _monthNames: string[] = this._dateAdapter.getMonthNames('long');
@@ -398,13 +404,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._wide =
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointMediumAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
+    this._weeksColumn = this._createWeekRowsColumns(this._activeDate);
     this._years = this._createYearRows();
     this._weekNumbers = this._createWeekNumbers(this._activeDate);
     this._nextMonthWeeks = [[]];
+    this._nextMonthWeeksColumn = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
+      this._nextMonthWeeksColumn = this._createWeekRowsColumns(nextMonthDate);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
       this._nextMonthWeekNumbers = this._createWeekNumbers(nextMonthDate);
     }
@@ -452,7 +461,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     );
   }
 
-  /** Creates the rows for each week and sets the parameters used in keyboard navigation. */
+  /** Creates the rows along the horizontal direction and sets the parameters used in keyboard navigation. */
   private _createWeekRows(value: T, isSecondMonthInView = false): Day<T>[][] {
     const dateNames: string[] = this._dateAdapter.getDateNames();
     const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
@@ -487,6 +496,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     return this.orientation === 'horizontal'
       ? this._createWeekRowsHorizontal(value, dateNames, daysInMonth, weekOffset)
       : this._createWeekRowsVertical(value, dateNames, daysInMonth, weekOffset);
+  }
+
+  /** Creates the rows along the vertical direction. */
+  private _createWeekRowsColumns(value: T): Day<T>[][] {
+    const dateNames: string[] = this._dateAdapter.getDateNames();
+    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
+    const weekOffset: number = this._dateAdapter.getFirstWeekOffset(value);
+    return this.orientation === 'horizontal'
+      ? this._createWeekRowsVertical(value, dateNames, daysInMonth, weekOffset)
+      : this._createWeekRowsHorizontal(value, dateNames, daysInMonth, weekOffset);
   }
 
   /**
@@ -738,6 +757,53 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
       }
     }
+  }
+
+  /**
+   * Handle multiple dates selection:
+   * - if Cmd or Ctrl are pressed, add the new date to the current ones
+   * - if not,
+   *     - if the new dates are the same of the current one, it means that the same button has been clicked twice, so do nothing;
+   *     - if not, the selected dates are the new ones.
+   */
+  private _selectMultipleDates(event: PointerEvent, days: Day<T>[]): void {
+    const enabledDays = this._cells.filter((e) => !e.disabled).map((e) => e.value);
+    const daysToAdd = days
+      .map((e: Day<T>) => e.value)
+      .filter((isoDate: string) => enabledDays.includes(isoDate));
+    const daysToAddSet = new Set(daysToAdd);
+    const selectedSet = new Set(this._selected);
+    if (event.ctrlKey || event.metaKey) {
+      this._selected = this._updateSelectedWithMultipleDates(daysToAdd, daysToAddSet, selectedSet);
+    } else {
+      if (
+        daysToAddSet.size === selectedSet.size &&
+        [...daysToAddSet].every((item) => selectedSet.has(item))
+      ) {
+        return;
+      } else {
+        this._selected = daysToAdd;
+      }
+    }
+    this._dateSelected.emit(
+      (this._selected as string[]).map((e) => this._dateAdapter.deserialize(e)!),
+    );
+  }
+
+  /**
+   * In case of multiple selection, newly added days must be added to the existing ones, without duplication.
+   */
+  private _updateSelectedWithMultipleDates(
+    daysToAdd: string[],
+    daysToAddSet: Set<string>,
+    selectedSet: Set<string>,
+  ): string[] {
+    if (daysToAdd.every((day) => selectedSet.has(day))) {
+      daysToAddSet.forEach((day) => selectedSet.delete(day));
+    } else {
+      daysToAddSet.forEach((day) => selectedSet.add(day));
+    }
+    return Array.from(selectedSet);
   }
 
   private _setChosenYear(): void {
@@ -1258,9 +1324,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
         ${this.orientation === 'horizontal'
           ? html`
-              ${this._createDayTable(this._weeks, this._weekNumbers)}
+              ${this._createDayTable(this._weeks, this._weekNumbers, this._weeksColumn)}
               ${this._wide
-                ? this._createDayTable(this._nextMonthWeeks, this._nextMonthWeekNumbers)
+                ? this._createDayTable(
+                    this._nextMonthWeeks,
+                    this._nextMonthWeekNumbers,
+                    this._nextMonthWeeksColumn,
+                  )
                 : nothing}
             `
           : html`
@@ -1313,7 +1383,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Creates the calendar table for the daily view. */
-  private _createDayTable(weeks: Day<T>[][], weekNumbers: number[]): TemplateResult {
+  private _createDayTable(
+    weeks: Day<T>[][],
+    weekNumbers: number[],
+    weekColumns: Day<T>[][],
+  ): TemplateResult {
     const today: string = this._dateAdapter.toIso8601(this.now);
     return html`
       <table
@@ -1326,10 +1400,23 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           <tr class="sbb-calendar__table-header-row">
             ${this.weekNumbers ? html`<th class="sbb-calendar__table-row-header"></th>` : nothing}
             ${this._weekdays.map(
-              (day: Weekday) => html`
+              (day: Weekday, index: number) => html`
                 <th class="sbb-calendar__table-header">
-                  <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
-                  <span aria-hidden="true">${day.narrow}</span>
+                  ${this.multiple
+                    ? html`
+                        <button
+                          class="sbb-calendar__header-cell sbb-calendar__weekday"
+                          aria-label=${day.long}
+                          @click=${(event: PointerEvent) =>
+                            this._selectMultipleDates(event, weekColumns[index])}
+                        >
+                          ${day.narrow}
+                        </button>
+                      `
+                    : html`
+                        <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
+                        <span aria-hidden="true">${day.narrow}</span>
+                      `}
                 </th>
               `,
             )}
@@ -1344,10 +1431,23 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                   ${this.weekNumbers
                     ? html`
                         <td class="sbb-calendar__table-row-header">
-                          <sbb-screen-reader-only
-                            >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}</sbb-screen-reader-only
-                          >
-                          <span aria-hidden="true">${weekNumbers[0]}</span>
+                          ${this.multiple
+                            ? html`
+                                <button
+                                  class="sbb-calendar__header-cell sbb-calendar__weekday"
+                                  aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}
+                                  @click=${(event: PointerEvent) =>
+                                    this._selectMultipleDates(event, weeks[0])}
+                                >
+                                  ${weekNumbers[0]}
+                                </button>
+                              `
+                            : html`
+                                <sbb-screen-reader-only
+                                  >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}</sbb-screen-reader-only
+                                >
+                                <span aria-hidden="true">${weekNumbers[0]}</span>
+                              `}
                         </td>
                       `
                     : nothing}
@@ -1361,14 +1461,27 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
             return html`
               <tr>
                 ${this.weekNumbers
-                  ? html`
-                      <td class="sbb-calendar__table-row-header">
-                        <sbb-screen-reader-only
-                          >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}</sbb-screen-reader-only
-                        >
-                        <span aria-hidden="true">${weekNumbers[rowIndex]}</span>
-                      </td>
-                    `
+                  ? this.multiple
+                    ? html`
+                        <td class="sbb-calendar__table-row-header">
+                          <button
+                            class="sbb-calendar__header-cell sbb-calendar__weekday"
+                            aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}
+                            @click=${(event: PointerEvent) =>
+                              this._selectMultipleDates(event, weeks[rowIndex])}
+                          >
+                            ${weekNumbers[rowIndex]}
+                          </button>
+                        </td>
+                      `
+                    : html`
+                        <td class="sbb-calendar__table-row-header">
+                          <sbb-screen-reader-only
+                            >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}</sbb-screen-reader-only
+                          >
+                          <span aria-hidden="true">${weekNumbers[rowIndex]}</span>
+                        </td>
+                      `
                   : nothing}
                 ${this._createDayCells(week, today)}
               </tr>

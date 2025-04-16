@@ -196,10 +196,13 @@
   color: var(--sbb-calendar-header-color);
   width: var(--sbb-calendar-cell-size);
   padding: 0;
-  padding-block-end: var(--sbb-spacing-fixed-4x);
 
   // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
   text-align: center;
+
+  :host(:not([multiple])) & {
+    height: var(--sbb-calendar-cell-size);
+  }
 }
 
 .sbb-calendar__table-row-header {
@@ -208,7 +211,6 @@
   color: var(--sbb-calendar-header-color);
   width: var(--sbb-calendar-cell-size);
   padding: 0;
-  padding-inline-end: var(--sbb-spacing-fixed-1x);
 
   // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
   text-align: center;
@@ -220,6 +222,7 @@
   text-align: center;
 }
 
+.sbb-calendar__header-cell,
 .sbb-calendar__cell {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
@@ -277,6 +280,13 @@
   }
 }
 
+.sbb-calendar__header-cell {
+  @include sbb.text-xs--regular;
+
+  color: var(--sbb-calendar-header-color);
+}
+
+.sbb-calendar__weekday,
 .sbb-calendar__day {
   border-radius: 50%;
   width: var(--sbb-calendar-cell-size);

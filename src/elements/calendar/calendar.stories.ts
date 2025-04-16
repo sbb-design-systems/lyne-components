@@ -159,6 +159,7 @@ const defaultArgs: Args = {
   now: undefined,
   view: view.options![0],
   weekNumbers: false,
+  multiple: false,
 };
 
 export const Calendar: StoryObj = {
@@ -199,6 +200,12 @@ export const CalendarWideWeekNumbers: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, wide: true, weekNumbers: true },
+};
+
+export const CalendarMultipleWideWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true, weekNumbers: true, multiple: true, selected: [today] },
 };
 
 export const CalendarVertical: StoryObj = {
