@@ -39,9 +39,15 @@ const disabledType: InputType = {
   description: 'Any click functionality is prevented',
 };
 
-const scaleType: InputType = {
+const heightType: InputType = {
   control: { type: 'number' },
-  description: 'Scale factor to resize seat reservation',
+  description: 'Can be used to display the seat reservation schema in a defined size.',
+};
+
+const baseGridSizeType: InputType = {
+  control: { type: 'number' },
+  description:
+    'Specifies the size of a single cell to be used when calculating positions and dimensions of all elements.',
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -49,8 +55,9 @@ const defaultArgTypes: ArgTypes = {
   'max-reservations': maxReservationType,
   'has-navigation': navigationType,
   'align-vertical': alignVerticalType,
+  'base-grid-size': baseGridSizeType,
+  height: heightType,
   disable: disabledType,
-  scale: scaleType,
 };
 
 const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
@@ -59,8 +66,9 @@ const defaultArgs: Args = {
   'max-reservations': 4,
   'has-navigation': true,
   'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
   disable: false,
-  scale: 1,
 };
 
 const Template = ({ seatReservation, ...args }: Args): TemplateResult =>

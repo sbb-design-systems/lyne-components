@@ -47,10 +47,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   @property({ attribute: 'align-vertical', type: Boolean })
   public override accessor alignVertical: boolean = false;
 
-  @forceType()
-  @property({ attribute: 'scale', type: Number })
-  public override accessor scale: number = 1;
-
   /** Maximal number of possible clickable seats*/
   @forceType()
   @property({ attribute: 'max-reservations', type: Number })
@@ -86,10 +82,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ?.querySelectorAll('table')
           .forEach((table) => table.setAttribute('tabindex', '0'));
       }
-    }
-
-    if (changedProperties.has('scale')) {
-      this.style?.setProperty('--sbb-seat-reservation-list-coaches-scale-factor', `${this.scale}`);
     }
   }
 
@@ -211,7 +203,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return html`
       <sbb-scoped-element
         scoped-classes="coach-wrapper"
-        height="${calculatedCoachDimension.h * this.scale}px"
+        height="${calculatedCoachDimension.h}px"
         width="${calculatedCoachDimension.w}px"
       >
         ${this._getRenderedCoachBorders(coachItem, index)}
@@ -240,8 +232,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
     const borderOffsetX =
       coachIndex === 0 && driverArea
-        ? driverArea?.dimension.w * this.gridSizeFactor
-        : this.gridSizeFactor;
+        ? driverArea?.dimension.w * this.baseGridSize
+        : this.baseGridSize;
 
     return html`
       <sbb-scoped-element
@@ -251,8 +243,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       >
         <sbb-seat-reservation-graphic
           name="COACH_BORDER_MIDDLE"
-          width=${borderWidth}
-          height=${coachItem.dimension.h + this.coachBorderPaddingUnit * 2}
+          width=${borderWidth * this.baseGridSize}
+          height=${(coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize}
           ?stretch=${true}
           role="presentation"
         ></sbb-seat-reservation-graphic>
@@ -315,8 +307,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             text=${place.number}
             type=${place.type}
             state=${place.state}
-            width=${place.dimension.w}
-            height=${place.dimension.h}
+            width=${place.dimension.w * this.baseGridSize}
+            height=${place.dimension.h * this.baseGridSize}
             rotation=${place.rotation ?? nothing}
             text-rotation=${textRotation}
             coach-index=${coachIndex}
@@ -371,11 +363,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     );
 
     let elementMounting = 'FREE';
-    if (graphicalElement.position.y === this.coachBorderPaddingUnit * -1) {
+    if (graphicalElement.position.y === this.coachBorderOffset * -1) {
       elementMounting = 'UPPER_BORDER';
     } else if (
       graphicalElement.position.y + graphicalElement.dimension.h ===
-      coachDimension.h + this.coachBorderPaddingUnit
+      coachDimension.h + this.coachBorderOffset
     ) {
       elementMounting = 'LOWER_BORDER';
     }
@@ -391,8 +383,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         z-index="${graphicalElement.position.z}"
       >
         <sbb-seat-reservation-area
-          width=${graphicalElement.dimension.w}
-          height=${graphicalElement.dimension.h}
+          width=${graphicalElement.dimension.w * this.baseGridSize}
+          height=${graphicalElement.dimension.h * this.baseGridSize}
           mounting=${elementMounting}
           background="dark"
           aria-hidden="true"
@@ -400,8 +392,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           <sbb-seat-reservation-graphic
             name=${graphicalElement.icon ?? nothing}
             rotation=${rotation}
-            width="1"
-            height="1"
+            width=${this.baseGridSize}
+            height=${this.baseGridSize}
             role="img"
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
@@ -447,8 +439,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       >
         <sbb-seat-reservation-graphic
           name=${icon ?? nothing}
-          width=${graphicalElement.dimension.w}
-          height=${graphicalElement.dimension.h}
+          width=${graphicalElement.dimension.w * this.baseGridSize}
+          height=${graphicalElement.dimension.h * this.baseGridSize}
           rotation=${rotation}
           aria-hidden="true"
           ?stretch=${true}
@@ -480,8 +472,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         >
           <sbb-seat-reservation-graphic
             name=${serviceElement.icon ?? nothing}
-            width=${serviceElement.dimension.w}
-            height=${serviceElement.dimension.h}
+            width=${serviceElement.dimension.w * this.baseGridSize}
+            height=${serviceElement.dimension.h * this.baseGridSize}
             role="img"
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
