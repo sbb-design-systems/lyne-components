@@ -36,22 +36,22 @@ class SbbSeatReservationGraphicElement extends LitElement {
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width', type: Number })
-  public accessor width: number = 2;
+  public accessor width: number = null!;
 
   /** Height Prop */
   @forceType()
   @property({ attribute: 'height', type: Number })
-  public accessor height: number = 2;
+  public accessor height: number = null!;
 
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(_changedProperties: PropertyValues): void {
     super.willUpdate(_changedProperties);
-    if (_changedProperties.has('width')) {
+    if (_changedProperties.has('width') && !!this.width) {
       this.style?.setProperty('--sbb-reservation-graphic-width', `${this.width}`);
     }
 
-    if (_changedProperties.has('height')) {
+    if (_changedProperties.has('height') && !!this.height) {
       this.style?.setProperty('--sbb-reservation-graphic-height', `${this.height}`);
     }
 
