@@ -20,7 +20,7 @@
   width: fit-content;
   position: relative;
   inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
-  transform: rotate(90deg);
+  transform: rotateZ(90deg);
   transform-origin: top left;
 }
 
@@ -29,7 +29,20 @@
 }
 
 .sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
+  // todo ggf. auf 100vw
   width: 100vh;
+}
+
+.sbb-seat-reservation-navigation--vertical {
+  background-color: lime;
+  position: absolute;
+
+  // todo calculate the 40px somewhow
+  inset-inline-start: calc(var(--sbb-seat-reservation-vertical-offset) + 40px);
+
+  .sbb-seat-reservation-navigation__list-coaches {
+    flex-direction: column;
+  }
 }
 
 .sbb-seat-reservation-navigation__list-coaches {
@@ -43,6 +56,7 @@
 }
 
 .sbb-seat-reservation__parent {
+  background-color: yellow;
   overflow-x: scroll;
   padding: 48px 0;
 }

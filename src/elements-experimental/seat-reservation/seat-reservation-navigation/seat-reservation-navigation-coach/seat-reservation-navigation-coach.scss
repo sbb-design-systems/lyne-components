@@ -57,6 +57,10 @@ $disabled: '[disabled], :disabled';
   }
 }
 
+.sbb-seat-reservation-navigation-vertical .sbb-seat-reservation-navigation__item-coach {
+  flex-direction: row;
+}
+
 .sbb-seat-reservation-navigation-driver-area {
   height: #{sbb.px-to-rem-build(36)};
   outline: var(--sbb-seat-reservation-navigation-btn-outline-width) solid

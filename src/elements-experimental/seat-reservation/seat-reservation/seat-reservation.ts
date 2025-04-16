@@ -115,11 +115,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           />
         </sbb-screen-reader-only>
 
+        ${this._renderNavigation()}
+
         <div
           class="sbb-seat-reservation__wrapper ${classAlignVertical}"
           @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
         >
-          ${this._renderNavigation()}
           <div
             id="sbb-seat-reservation__parent-area"
             class="sbb-seat-reservation__parent"
@@ -149,8 +150,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       return null;
     }
 
+    const classAlignVertical = this.alignVertical
+      ? 'sbb-seat-reservation-navigation--vertical'
+      : '';
+
     return html`
-      <nav>
+      <nav class="sbb-seat-reservation-navigation ${classAlignVertical}">
         <ul
           class="sbb-seat-reservation-navigation__list-coaches"
           aria-label="${getI18nSeatReservation(
