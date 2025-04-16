@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -20,7 +20,11 @@ describe('sbb-date-input', () => {
     forcedColors: [false, true],
   };
 
-  const sizeCases = ['s', 'm', 'l'];
+  const sizeCases = {
+    size: ['s', 'm', 'l'],
+    label: [undefined, 'Label'],
+    floatingLabel: [false, true],
+  };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ disabled, negative, forcedColors }) => {
@@ -81,17 +85,18 @@ describe('sbb-date-input', () => {
       });
     });
 
-    for (const size of sizeCases) {
+    describeEach(sizeCases, ({ size, label, floatingLabel }) => {
       it(
-        `size=${size}`,
+        ``,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-form-field size=${size}>
+            html`<sbb-form-field size=${size} ?floating-label=${floatingLabel}>
+              ${label ? html`<label>${label}</label>` : nothing}
               <sbb-date-input value="2024-12-11"></sbb-date-input>
             </sbb-form-field>`,
           );
         }),
       );
-    }
+    });
   });
 });
