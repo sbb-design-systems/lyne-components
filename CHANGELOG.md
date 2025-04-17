@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.7.0...v2.7.1) (2025-04-17)
+
+
+### Bug Fixes
+
+* fix text node detection for slots ([#3600](https://github.com/sbb-design-systems/lyne-components/issues/3600)) ([f212c3b](https://github.com/sbb-design-systems/lyne-components/commit/f212c3be09d85a021719df37ce542f66b8706364)), closes [#3593](https://github.com/sbb-design-systems/lyne-components/issues/3593)
+* **sbb-form-field:** improve look of input type number ([#3579](https://github.com/sbb-design-systems/lyne-components/issues/3579)) ([c78397c](https://github.com/sbb-design-systems/lyne-components/commit/c78397c12710d405ee40e0f60ac77b77305c4b54)), closes [#3572](https://github.com/sbb-design-systems/lyne-components/issues/3572)
+* use correct react import paths ([#3602](https://github.com/sbb-design-systems/lyne-components/issues/3602)) ([5e98569](https://github.com/sbb-design-systems/lyne-components/commit/5e98569662e3e272a4e520ff7746b6b754ef0410))
+
 ## [2.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.6.0...v2.7.0) (2025-04-15)
 
 
