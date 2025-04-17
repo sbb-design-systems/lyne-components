@@ -1,8 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
+import { slotState } from '../../core/decorators.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
@@ -16,22 +17,15 @@ import style from './breadcrumb.scss?lit&inline';
  */
 export
 @customElement('sbb-breadcrumb')
+@slotState()
 class SbbBreadcrumbElement extends SbbIconNameMixin(SbbHydrationMixin(SbbLinkBaseElement)) {
   public static override styles: CSSResultGroup = style;
-
-  @state() private accessor _hasText = false;
-
-  private _handleSlotchange(): void {
-    this._hasText = Array.from(this.childNodes ?? []).some(
-      (n) => !(n as Element).slot && n.textContent?.trim(),
-    );
-  }
 
   protected override renderTemplate(): TemplateResult {
     return html`
       ${this.renderIconSlot('sbb-breadcrumb__icon')}
-      <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
-        <slot @slotchange=${this._handleSlotchange}></slot>
+      <span class="sbb-breadcrumb__label">
+        <slot></slot>
       </span>
     `;
   }

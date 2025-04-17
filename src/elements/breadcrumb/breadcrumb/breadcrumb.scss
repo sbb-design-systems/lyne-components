@@ -48,6 +48,10 @@
 
 .sbb-breadcrumb__label {
   @include sbb.ellipsis;
+
+  :host(:not([data-slot-names~='unnamed'])) & {
+    display: none;
+  }
 }
 
 .sbb-breadcrumb__icon,
