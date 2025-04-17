@@ -61,7 +61,7 @@
 }
 
 .sbb-teaser-hero__panel-link {
-  :host(:not([data-slot-names~='link-content'], [link-content])) & {
+  :host(:not([href])) & {
     display: none;
   }
 }
