@@ -734,8 +734,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._setChosenYear();
     if (this.multiple) {
       if (event.ctrlKey || event.metaKey) {
+        // If the user is selecting dates with cmd/ctrl, check if _selected has elements
         if (this._selected && this._selected.length > 0) {
           const indexOfSelectedDay = (this._selected as string[]).findIndex((sel) => sel === day);
+          // If the selected date is already in the _selected array, remove it, otherwise add it
           if (indexOfSelectedDay !== -1) {
             (this._selected as string[]).splice(indexOfSelectedDay, 1);
             this._selected = [...this._selected];
@@ -743,9 +745,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
             this._selected = [...(this._selected as string[]), day];
           }
         } else {
+          // If _selected is empty, set it
           this._selected = [day];
         }
       } else {
+        // Prevent changes if _selected has exactly the element the user wants to add
         if (this._selected?.length === 1 && this._selected[0] === day) {
           return;
         }
@@ -763,10 +767,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /**
-   * Handle multiple dates selection:
-   * - if Cmd or Ctrl are pressed, add the new date to the current ones
+   * Handle multiple dates selection via weekNumber / weekDay buttons:
+   * - if Cmd or Ctrl are pressed, add the new date to the current ones;
    * - if not,
-   *     - if the new dates are the same of the current one, it means that the same button has been clicked twice, so do nothing;
+   *     - if the new dates are the same of the current ones, it means that the same button has been clicked twice, so do nothing;
    *     - if not, the selected dates are the new ones.
    */
   private _selectMultipleDates(event: PointerEvent, days: Day<T>[]): void {
