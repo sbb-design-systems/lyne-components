@@ -1,4 +1,4 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -38,17 +38,15 @@ class SbbTeaserHeroElement extends SbbLinkBaseElement {
         <p class="sbb-teaser-hero__panel-text">
           <slot></slot>
         </p>
-        ${this.href
-          ? html`<sbb-block-link-static
-              class="sbb-teaser-hero__panel-link"
-              icon-name="chevron-small-right-small"
-              icon-placement="end"
-              size="m"
-              negative
-            >
-              <slot name="link-content">${this.linkContent}</slot>
-            </sbb-block-link-static>`
-          : nothing}
+        <sbb-block-link-static
+          class="sbb-teaser-hero__panel-link"
+          icon-name="chevron-small-right-small"
+          icon-placement="end"
+          size="m"
+          negative
+        >
+          <slot name="link-content">${this.linkContent}</slot>
+        </sbb-block-link-static>
       </span>
       <slot name="image" @slotchange=${this._imageSlotChanged}></slot>
     `;
