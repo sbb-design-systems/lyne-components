@@ -59,8 +59,8 @@ snapshots["sbb-calendar renders Shadow DOM"] =
   <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
     <table class="sbb-calendar__table">
       <thead class="sbb-calendar__table-header">
-        <tr class="sbb-calendar__table-header-row">
-          <th class="sbb-calendar__table-header">
+        <tr>
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Monday
             </sbb-screen-reader-only>
@@ -68,7 +68,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               M
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Tuesday
             </sbb-screen-reader-only>
@@ -76,7 +76,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               T
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Wednesday
             </sbb-screen-reader-only>
@@ -84,7 +84,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               W
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Thursday
             </sbb-screen-reader-only>
@@ -92,7 +92,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               T
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Friday
             </sbb-screen-reader-only>
@@ -100,7 +100,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               F
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Saturday
             </sbb-screen-reader-only>
@@ -108,7 +108,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
               S
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Sunday
             </sbb-screen-reader-only>
@@ -644,7 +644,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
     <table class="sbb-calendar__table">
       <tbody class="sbb-calendar__table-body">
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Monday
             </sbb-screen-reader-only>
@@ -726,7 +726,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Tuesday
             </sbb-screen-reader-only>
@@ -808,7 +808,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Wednesday
             </sbb-screen-reader-only>
@@ -877,7 +877,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Thursday
             </sbb-screen-reader-only>
@@ -945,7 +945,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Friday
             </sbb-screen-reader-only>
@@ -1013,7 +1013,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Saturday
             </sbb-screen-reader-only>
@@ -1081,7 +1081,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Sunday
             </sbb-screen-reader-only>
@@ -1173,7 +1173,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers DOM"] =
   now="2023-01-04T00:00:00"
   orientation="horizontal"
   selected="2023-01-20T00:00:00"
-  weeknumbers=""
+  week-numbers=""
   wide=""
 >
 </sbb-calendar>
@@ -1242,10 +1242,10 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
   <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
     <table class="sbb-calendar__table">
       <thead class="sbb-calendar__table-header">
-        <tr class="sbb-calendar__table-header-row">
-          <th class="sbb-calendar__table-row-header">
+        <tr>
+          <th class="sbb-calendar__table-header-cell">
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Monday
             </sbb-screen-reader-only>
@@ -1253,7 +1253,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               M
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Tuesday
             </sbb-screen-reader-only>
@@ -1261,7 +1261,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               T
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Wednesday
             </sbb-screen-reader-only>
@@ -1269,7 +1269,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               W
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Thursday
             </sbb-screen-reader-only>
@@ -1277,7 +1277,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               T
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Friday
             </sbb-screen-reader-only>
@@ -1285,7 +1285,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               F
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Saturday
             </sbb-screen-reader-only>
@@ -1293,7 +1293,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               S
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Sunday
             </sbb-screen-reader-only>
@@ -1305,7 +1305,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
       </thead>
       <tbody class="sbb-calendar__table-body">
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 52
             </sbb-screen-reader-only>
@@ -1341,7 +1341,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 1
             </sbb-screen-reader-only>
@@ -1450,7 +1450,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 2
             </sbb-screen-reader-only>
@@ -1558,7 +1558,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 3
             </sbb-screen-reader-only>
@@ -1666,7 +1666,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 4
             </sbb-screen-reader-only>
@@ -1774,7 +1774,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 5
             </sbb-screen-reader-only>
@@ -1815,10 +1815,10 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
     </table>
     <table class="sbb-calendar__table">
       <thead class="sbb-calendar__table-header">
-        <tr class="sbb-calendar__table-header-row">
-          <th class="sbb-calendar__table-row-header">
+        <tr>
+          <th class="sbb-calendar__table-header-cell">
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Monday
             </sbb-screen-reader-only>
@@ -1826,7 +1826,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               M
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Tuesday
             </sbb-screen-reader-only>
@@ -1834,7 +1834,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               T
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Wednesday
             </sbb-screen-reader-only>
@@ -1842,7 +1842,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               W
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Thursday
             </sbb-screen-reader-only>
@@ -1850,7 +1850,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               T
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Friday
             </sbb-screen-reader-only>
@@ -1858,7 +1858,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               F
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Saturday
             </sbb-screen-reader-only>
@@ -1866,7 +1866,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
               S
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Sunday
             </sbb-screen-reader-only>
@@ -1878,7 +1878,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
       </thead>
       <tbody class="sbb-calendar__table-body">
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 5
             </sbb-screen-reader-only>
@@ -1962,7 +1962,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 6
             </sbb-screen-reader-only>
@@ -2070,7 +2070,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 7
             </sbb-screen-reader-only>
@@ -2178,7 +2178,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 8
             </sbb-screen-reader-only>
@@ -2286,7 +2286,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 9
             </sbb-screen-reader-only>
@@ -2336,7 +2336,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers DOM"] =
   now="2023-01-04T00:00:00"
   orientation="vertical"
   selected="2023-01-20T00:00:00"
-  weeknumbers=""
+  week-numbers=""
   wide=""
 >
 </sbb-calendar>
@@ -2405,10 +2405,10 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
   <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
     <table class="sbb-calendar__table">
       <thead class="sbb-calendar__table-header">
-        <tr class="sbb-calendar__table-header-row">
+        <tr>
           <th class="sbb-calendar__table-data">
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 52
             </sbb-screen-reader-only>
@@ -2416,7 +2416,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               52
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 1
             </sbb-screen-reader-only>
@@ -2424,7 +2424,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               1
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 2
             </sbb-screen-reader-only>
@@ -2432,7 +2432,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               2
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 3
             </sbb-screen-reader-only>
@@ -2440,7 +2440,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               3
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 4
             </sbb-screen-reader-only>
@@ -2448,7 +2448,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               4
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 5
             </sbb-screen-reader-only>
@@ -2460,7 +2460,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
       </thead>
       <tbody class="sbb-calendar__table-body">
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Monday
             </sbb-screen-reader-only>
@@ -2542,7 +2542,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Tuesday
             </sbb-screen-reader-only>
@@ -2624,7 +2624,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Wednesday
             </sbb-screen-reader-only>
@@ -2693,7 +2693,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Thursday
             </sbb-screen-reader-only>
@@ -2761,7 +2761,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Friday
             </sbb-screen-reader-only>
@@ -2829,7 +2829,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Saturday
             </sbb-screen-reader-only>
@@ -2897,7 +2897,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           </td>
         </tr>
         <tr>
-          <td class="sbb-calendar__table-row-header">
+          <td class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Sunday
             </sbb-screen-reader-only>
@@ -2980,8 +2980,8 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
     </table>
     <table class="sbb-calendar__table">
       <thead class="sbb-calendar__table-header">
-        <tr class="sbb-calendar__table-header-row">
-          <th class="sbb-calendar__table-header">
+        <tr>
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 5
             </sbb-screen-reader-only>
@@ -2989,7 +2989,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               5
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 6
             </sbb-screen-reader-only>
@@ -2997,7 +2997,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               6
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 7
             </sbb-screen-reader-only>
@@ -3005,7 +3005,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               7
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 8
             </sbb-screen-reader-only>
@@ -3013,7 +3013,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
               8
             </span>
           </th>
-          <th class="sbb-calendar__table-header">
+          <th class="sbb-calendar__table-header-cell">
             <sbb-screen-reader-only>
               Week 9
             </sbb-screen-reader-only>

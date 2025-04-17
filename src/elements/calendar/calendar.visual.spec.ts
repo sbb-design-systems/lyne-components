@@ -72,7 +72,7 @@ describe('sbb-calendar', () => {
                   ?wide=${wide}
                   .selected=${new Date(2023, 0, 20)}
                   .now=${new Date(2023, 0, 12, 0, 0, 0)}
-                  weekNumbers
+                  week-numbers
                 ></sbb-calendar>
               `);
             }),

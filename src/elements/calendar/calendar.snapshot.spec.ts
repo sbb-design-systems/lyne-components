@@ -61,7 +61,7 @@ describe(`sbb-calendar`, () => {
           now="2023-01-04T00:00:00"
           orientation="horizontal"
           wide
-          weekNumbers
+          week-numbers
         ></sbb-calendar>
       `);
     });
@@ -86,7 +86,7 @@ describe(`sbb-calendar`, () => {
           now="2023-01-04T00:00:00"
           orientation="vertical"
           wide
-          weekNumbers
+          week-numbers
         ></sbb-calendar>
       `);
     });

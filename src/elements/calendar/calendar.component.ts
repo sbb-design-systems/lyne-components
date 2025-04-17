@@ -217,7 +217,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** Whether it has to display the week numbers in addition to week days. */
   @forceType()
-  @property({ type: Boolean })
+  @property({ attribute: 'week-numbers', type: Boolean })
   public accessor weekNumbers: boolean = false;
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
@@ -1408,11 +1408,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
       >
         <thead class="sbb-calendar__table-header">
-          <tr class="sbb-calendar__table-header-row">
-            ${this.weekNumbers ? html`<th class="sbb-calendar__table-row-header"></th>` : nothing}
+          <tr>
+            ${this.weekNumbers ? html`<th class="sbb-calendar__table-header-cell"></th>` : nothing}
             ${this._weekdays.map(
               (day: Weekday, index: number) => html`
-                <th class="sbb-calendar__table-header">
+                <th class="sbb-calendar__table-header-cell">
                   ${this.multiple
                     ? html`
                         <button
@@ -1441,7 +1441,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                 <tr>
                   ${this.weekNumbers
                     ? html`
-                        <td class="sbb-calendar__table-row-header">
+                        <td class="sbb-calendar__table-header-cell">
                           ${this.multiple
                             ? html`
                                 <button
@@ -1473,7 +1473,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
               <tr>
                 ${this.weekNumbers
                   ? html`
-                      <td class="sbb-calendar__table-row-header">
+                      <td class="sbb-calendar__table-header-cell">
                         ${this.multiple
                           ? html`
                               <button
@@ -1524,13 +1524,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         ${this.weekNumbers
           ? html`
               <thead class="sbb-calendar__table-header">
-                <tr class="sbb-calendar__table-header-row">
+                <tr>
                   ${nextMonthActiveDate
                     ? nothing
                     : html`<th class="sbb-calendar__table-data"></th>`}
                   ${weekNumbers.map(
                     (weekNumber: number, index: number) => html`
-                      <th class="sbb-calendar__table-header">
+                      <th class="sbb-calendar__table-header-cell">
                         ${this.multiple
                           ? html`
                               <button
@@ -1564,7 +1564,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                 ${nextMonthActiveDate
                   ? nothing
                   : html`
-                      <td class="sbb-calendar__table-row-header">
+                      <td class="sbb-calendar__table-header-cell">
                         ${this.multiple
                           ? html`
                               <button
