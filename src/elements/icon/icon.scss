@@ -13,6 +13,10 @@
   --sbb-icon-default-dimension: 0;
 }
 
+:host([data-empty][data-namespace='default'][name$='-extra-small']) {
+  --sbb-icon-default-dimension: var(--sbb-size-icon-ui-extra-small);
+}
+
 :host([data-empty][data-namespace='default'][name$='-small']) {
   --sbb-icon-default-dimension: var(--sbb-size-icon-ui-small);
 }
