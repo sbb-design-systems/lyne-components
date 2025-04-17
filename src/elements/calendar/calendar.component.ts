@@ -746,6 +746,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           this._selected = [day];
         }
       } else {
+        if (this._selected?.length === 1 && this._selected[0] === day) {
+          return;
+        }
         this._selected = [day];
       }
       this._dateSelected.emit(
