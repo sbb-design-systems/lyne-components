@@ -5,6 +5,7 @@ snapshots["sbb-breadcrumb renders with text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
+  data-slot-names="unnamed"
   download=""
   href="https://example.com/test"
   rel="subsection"
@@ -62,10 +63,7 @@ snapshots["sbb-breadcrumb renders with icon Shadow DOM"] =
     >
     </sbb-icon>
   </slot>
-  <span
-    class="sbb-breadcrumb__label"
-    hidden=""
-  >
+  <span class="sbb-breadcrumb__label">
     <slot>
     </slot>
   </span>
@@ -77,6 +75,7 @@ snapshots["sbb-breadcrumb renders with icon and text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
+  data-slot-names="unnamed"
   href="/"
   icon-name="house-small"
 >
