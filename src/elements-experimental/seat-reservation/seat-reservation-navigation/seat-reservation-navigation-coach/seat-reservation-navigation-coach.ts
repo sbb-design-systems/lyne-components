@@ -68,6 +68,10 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
+  @forceType()
+  @property({ type: Boolean })
+  public accessor vertical: boolean = false;
+
   private _language = new SbbLanguageController(this);
 
   /** Emits when a coach within the navigation was selected */
@@ -106,12 +110,18 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const coachSelectedClass = this.selected
       ? 'sbb-seat-reservation-navigation__item-coach--selected'
       : '';
-    const lastCoachInLayout = this.last ? 'last-coach' : '';
-    const firstCoachInLayout = this.first ? 'first-coach' : '';
+
+    const extraClasses: string[] = [
+      this.last ? 'last-coach' : '',
+      this.first ? 'first-coach' : '',
+      this.vertical ? 'vertical-coach' : '',
+    ].filter(Boolean);
 
     return html`
       <div
-        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
+        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${extraClasses.join(
+          ' ',
+        )}"
       >
         ${this._getNavigationButton()}
         ${!this.driverArea && this.propertyIds?.length

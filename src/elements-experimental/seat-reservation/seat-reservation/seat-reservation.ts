@@ -177,6 +177,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 ?driver-area="${!coachItem.places?.length}"
                 ?first="${index === 0}"
                 ?last="${index === this.seatReservation?.coachItems.length - 1}"
+                ?vertical="${this.alignVertical}"
               >
               </sbb-seat-reservation-navigation-coach>
             </li>`;

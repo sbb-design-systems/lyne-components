@@ -19,9 +19,15 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   @property({ attribute: 'property-ids', type: Array })
   public accessor propertyIds: string[] = [];
 
+  /**
+   * render a maximum of 3 of the service sign icons (slice(0,3)) regardless of the input from Backend,
+   * otherwise the layout could be destroyed
+   *
+   * @protected
+   */
   protected override render(): TemplateResult {
     return html`<div class="sbb-seat-reservation-navigation__signs">
-      ${this.propertyIds?.map((signIcon: string) => {
+      ${this.propertyIds?.slice(0, 3)?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
             name=${signIcon ?? nothing}

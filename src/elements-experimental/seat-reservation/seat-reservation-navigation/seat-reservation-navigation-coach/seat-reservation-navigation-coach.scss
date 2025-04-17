@@ -55,10 +55,10 @@ $disabled: '[disabled], :disabled';
       margin-inline-end: var(--sbb-seat-reservation-navigation-travelclass-spacing);
     }
   }
-}
 
-.sbb-seat-reservation-navigation-vertical .sbb-seat-reservation-navigation__item-coach {
-  flex-direction: row;
+  &.vertical-coach {
+    flex-direction: row;
+  }
 }
 
 .sbb-seat-reservation-navigation-driver-area {
@@ -158,7 +158,7 @@ $disabled: '[disabled], :disabled';
   align-items: center;
   flex: 1;
   column-gap: var(--sbb-spacing-fixed-2x);
-  padding: 0 sbb.px-to-rem-build(16);
+  padding-inline: sbb.px-to-rem-build(16) sbb.px-to-rem-build(16);
   font-family: var(--sbb-typo-font-family), sans-serif;
   font-weight: 700;
   color: var(--sbb-color-granite);
@@ -209,4 +209,41 @@ $disabled: '[disabled], :disabled';
   text-align: center;
   background-color: var(--sbb-color-granite);
   color: var(--sbb-color-white);
+}
+
+// ################ vertical mode settings ################
+// swap height and width to go vertical
+.sbb-seat-reservation-navigation__item-coach.vertical-coach {
+  .sbb-seat-reservation-navigation__control-button {
+    height: #{sbb.px-to-rem-build(80)};
+    min-width: #{sbb.px-to-rem-build(36)};
+  }
+
+  .sbb-seat-reservation-navigation__additional-information {
+    flex-direction: column-reverse;
+    padding-block: sbb.px-to-rem-build(16) sbb.px-to-rem-build(16);
+    padding-inline-start: unset;
+    padding-inline-end: unset;
+  }
+
+  // handle border-radius --> unfortunately, this values are not following logical properties rules
+  &.first-coach {
+    .sbb-seat-reservation-navigation__control-button {
+      border-start-end-radius: var(--sbb-border-radius-8x);
+      border-end-start-radius: var(--sbb-border-radius-2x);
+    }
+  }
+
+  &.last-coach {
+    .sbb-seat-reservation-navigation__control-button {
+      border-start-end-radius: var(--sbb-border-radius-2x);
+      border-end-start-radius: var(--sbb-border-radius-8x);
+    }
+  }
+
+  // Driver area
+  .sbb-seat-reservation-navigation-driver-area {
+    height: #{sbb.px-to-rem-build(80)};
+    min-width: #{sbb.px-to-rem-build(36)};
+  }
 }
