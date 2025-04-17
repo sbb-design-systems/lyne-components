@@ -282,7 +282,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
         <div class="sbb-option">
           ${this.renderIcon()}
           <span class="sbb-option__label">
-            <slot></slot>
+            <slot @slotchange=${this.handleHighlightState}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html`<sbb-screen-reader-only>
