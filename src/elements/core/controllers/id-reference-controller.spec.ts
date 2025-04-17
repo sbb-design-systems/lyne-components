@@ -5,7 +5,7 @@ import { customElement } from 'lit/decorators.js';
 import { fixture } from '../testing/private.js';
 import { waitForLitRender } from '../testing.js';
 
-import { SbbIdReferenceController } from './id-observer-controller.js';
+import { SbbIdReferenceController } from './id-reference-controller.js';
 
 const observers = new WeakMap<
   Node,
