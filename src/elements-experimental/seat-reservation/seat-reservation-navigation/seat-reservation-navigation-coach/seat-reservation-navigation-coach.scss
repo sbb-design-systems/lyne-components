@@ -211,10 +211,10 @@ $disabled: '[disabled], :disabled';
   color: var(--sbb-color-white);
 }
 
-// ################ vertical mode settings ################
-// swap height and width to go vertical
+// ################ VERTICAL MODE settings ################
 .sbb-seat-reservation-navigation__item-coach.vertical-coach {
   .sbb-seat-reservation-navigation__control-button {
+    flex-direction: row-reverse;
     height: #{sbb.px-to-rem-build(80)};
     min-width: #{sbb.px-to-rem-build(36)};
   }
@@ -226,11 +226,31 @@ $disabled: '[disabled], :disabled';
     padding-inline-end: unset;
   }
 
-  // handle border-radius --> unfortunately, this values are not following logical properties rules
+  .sbb-seat-reservation-navigation--first-class {
+    inset-inline-end: sbb.px-to-rem-build(3);
+    inset-block-start: sbb.px-to-rem-build(4);
+    inset-inline-start: initial;
+    height: calc(100% - #{sbb.px-to-rem-build(8)});
+    width: initial;
+  }
+
+  &.first-coach,
+  &.last-coach {
+    .sbb-seat-reservation-navigation--first-class {
+      height: calc(100% - #{sbb.px-to-rem-build(18)});
+    }
+  }
+
+  // handle border-radius
   &.first-coach {
     .sbb-seat-reservation-navigation__control-button {
       border-start-end-radius: var(--sbb-border-radius-8x);
       border-end-start-radius: var(--sbb-border-radius-2x);
+    }
+
+    .sbb-seat-reservation-navigation--first-class {
+      margin-block-start: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      margin-inline-start: initial;
     }
   }
 
@@ -238,6 +258,11 @@ $disabled: '[disabled], :disabled';
     .sbb-seat-reservation-navigation__control-button {
       border-start-end-radius: var(--sbb-border-radius-2x);
       border-end-start-radius: var(--sbb-border-radius-8x);
+    }
+
+    .sbb-seat-reservation-navigation--first-class {
+      margin-block-end: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      margin-inline-end: initial;
     }
   }
 
