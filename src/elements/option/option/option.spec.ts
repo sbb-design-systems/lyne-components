@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.js';
 import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender, EventSpy } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbOptGroupElement } from '../optgroup.js';
 
@@ -157,6 +157,82 @@ describe(`sbb-option`, () => {
           <span class="sbb-option__label--highlight">ion 4</span>
         </span>
       `);
+    });
+
+    it('highlight changed text node', async () => {
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+      const options = element.querySelectorAll('sbb-option');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+
+      input.focus();
+      await sendKeys({ type: 'Opt' });
+      await waitForLitRender(autocomplete);
+
+      expect(optionOneLabel).dom.to.be.equal(`
+        <span class="sbb-option__label">
+          <slot></slot>
+          <span class="sbb-option__label--highlight"></span>
+          <span>Opt</span>
+          <span class="sbb-option__label--highlight">ion 1</span>
+        </span>
+      `);
+
+      const textNode = Array.from(element.querySelector('sbb-option')!.childNodes).find(
+        (e) => e.nodeType === Node.TEXT_NODE,
+      )!;
+      textNode.textContent = 'Changed Option';
+      await waitForLitRender(autocomplete);
+
+      expect(optionOneLabel).dom.to.be.equal(`
+        <span class="sbb-option__label">
+          <slot></slot>
+          <span class="sbb-option__label--highlight">Changed</span>
+          <span>Opt</span>
+          <span class="sbb-option__label--highlight">ion</span>
+        </span>
+      `);
+    });
+
+    it('highlight changed text node (from empty)', async () => {
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+      const textNode = document.createTextNode('');
+      const option4 = document.createElement('sbb-option');
+      option4.appendChild(textNode);
+      option4.value = 'value 4';
+      autocomplete.appendChild(option4);
+      await waitForLitRender(option4);
+      const option4Label = option4.shadowRoot!.querySelector('.sbb-option__label');
+
+      input.focus();
+      await sendKeys({ type: 'Opt' });
+      await waitForLitRender(autocomplete);
+
+      expect(option4Label).dom.to.be.equal(`<span class="sbb-option__label">
+        <slot>
+        </slot>
+      </span>`);
+
+      textNode.textContent = 'Changed Option';
+      await waitForLitRender(autocomplete);
+
+      expect(option4Label).dom.to.be.equal(`
+          <span class="sbb-option__label">
+            <slot></slot>
+            <span class="sbb-option__label--highlight">Changed</span>
+            <span>Opt</span>
+            <span class="sbb-option__label--highlight">ion</span>
+          </span>
+        `);
+
+      textNode.textContent = '';
+      await waitForLitRender(autocomplete);
+
+      expect(option4Label).dom.to.be.equal(`<span class="sbb-option__label">
+        <slot>
+        </slot>
+      </span>`);
     });
 
     it('highlight later added options in sbb-optgroup', async () => {
