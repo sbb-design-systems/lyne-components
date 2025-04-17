@@ -178,16 +178,31 @@ export const CalendarWithMinAndMax: StoryObj = {
   },
 };
 
+export const CalendarFilterFunction: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes, dateFilter },
+  args: {
+    ...defaultArgs,
+    dateFilter: dateFilter.options![2],
+  },
+};
+
+export const CalendarWithInitialYearSelection: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, view: view.options![2] },
+};
+
 export const CalendarWeekNumbers: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, weekNumbers: true },
 };
 
-export const CalendarMultiple: StoryObj = {
+export const CalendarWeekNumbersMultiple: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, multiple: true, selected: [today] },
+  args: { ...defaultArgs, weekNumbers: true, multiple: true, selected: [today] },
 };
 
 export const CalendarWide: StoryObj = {
@@ -202,7 +217,7 @@ export const CalendarWideWeekNumbers: StoryObj = {
   args: { ...defaultArgs, wide: true, weekNumbers: true },
 };
 
-export const CalendarMultipleWideWeekNumbers: StoryObj = {
+export const CalendarWideWeekNumbersMultiple: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, wide: true, weekNumbers: true, multiple: true, selected: [today] },
@@ -220,6 +235,18 @@ export const CalendarVerticalWeekNumbers: StoryObj = {
   args: { ...defaultArgs, orientation: orientation.options![1], weekNumbers: true },
 };
 
+export const CalendarVerticalWeekNumbersMultiple: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: {
+    ...defaultArgs,
+    orientation: orientation.options![1],
+    weekNumbers: true,
+    multiple: true,
+    selected: [today],
+  },
+};
+
 export const CalendarVerticalWide: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
@@ -232,19 +259,17 @@ export const CalendarVerticalWideWeekNumbers: StoryObj = {
   args: { ...defaultArgs, orientation: orientation.options![1], wide: true, weekNumbers: true },
 };
 
-export const CalendarFilterFunction: StoryObj = {
+export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
   render: Template,
-  argTypes: { ...defaultArgTypes, dateFilter },
+  argTypes: { ...defaultArgTypes },
   args: {
     ...defaultArgs,
-    dateFilter: dateFilter.options![2],
+    orientation: orientation.options![1],
+    wide: true,
+    weekNumbers: true,
+    multiple: true,
+    selected: [today],
   },
-};
-
-export const CalendarWithInitialYearSelection: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, view: view.options![2] },
 };
 
 const meta: Meta = {
