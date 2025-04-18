@@ -41,6 +41,14 @@
       --sbb-header-height: #{functions.px-to-rem-build(52)};
     }
 
+    // When the input modality is either mouse or touch,
+    // the focus outline should be hidden.
+    // We achieve this by setting the outline style to none.
+    // This is primarily to work around Safari bugs.
+    &:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
+      --sbb-focus-outline-style: none;
+    }
+
     @include mediaqueries.mq($from: medium) {
       // Header
       --sbb-header-height: var(--sbb-spacing-fixed-24x);
@@ -124,6 +132,20 @@ sbb-form-field {
 
   :where(select, sbb-select) {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+  }
+
+  &[size='s'] :where(input, sbb-date-input) {
+    // We shrink the input's height to support all types of inputs (especially type=number).
+    // Factor 1.25 ensures, letters are not cut.
+    height: calc(var(--sbb-form-field-input-text-size) * 1.25);
+
+    // Avoids Safari bug, where text gets misaligned with type=number
+    line-height: 1 !important;
+
+    // We add the missing block spacing to fit the line-height
+    margin-block: calc(
+      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-body-text) - 1.25))
+    );
   }
 
   :where(textarea) {

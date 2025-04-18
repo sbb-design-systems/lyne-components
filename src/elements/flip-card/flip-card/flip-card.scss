@@ -154,7 +154,7 @@
   border-radius: var(--sbb-flip-card-border-radius);
   cursor: pointer;
 
-  &:not([data-focus-origin='mouse'], [data-focus-origin='touch']):focus-visible {
+  &:focus-visible {
     @include sbb.focus-outline;
   }
 }

@@ -3,7 +3,6 @@ import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y.js';
 import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter, forwardEvent } from '../core/eventing.js';
@@ -116,10 +115,10 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     this.inertController.activate();
     this.sbbEscapableOverlayController.connect();
     this.attachOpenOverlayEvents();
-    this.setOverlayFocus();
+    this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
-    this.focusHandler.trap(this);
+    this.focusTrapController.enabled = true;
     this.didOpen.emit();
   }
 
@@ -128,11 +127,10 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     this.state = 'closed';
     this.hidePopover?.();
     this.inertController.deactivate();
-    setModalityOnNextFocus(this.lastFocusedElement);
     // Manually focus last focused element
     this.lastFocusedElement?.focus();
     this.openOverlayController?.abort();
-    this.focusHandler.disconnect();
+    this.focusTrapController.enabled = false;
     this.removeInstanceFromGlobalCollection();
     // Enable scrolling for content below the overlay if no overlay is open
     if (!overlayRefs.length) {
@@ -154,17 +152,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }
-  }
-
-  // Set focus on the first focusable element.
-  protected setOverlayFocus(): void {
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this.shadowRoot!.children).filter(
-        (e): e is HTMLElement => e instanceof window.HTMLElement,
-      ),
-    );
-    setModalityOnNextFocus(firstFocusable);
-    firstFocusable?.focus();
   }
 
   protected override render(): TemplateResult {

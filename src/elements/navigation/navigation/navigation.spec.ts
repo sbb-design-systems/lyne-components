@@ -64,20 +64,32 @@ describe(`sbb-navigation`, () => {
     expect(element).to.match(':popover-open');
   });
 
+  it('focuses the element with sbb-focus-initial', async () => {
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+
+    const action2 = element.querySelector('#action-2')!;
+    action2.toggleAttribute('sbb-focus-initial', true);
+
+    element.open();
+    await didOpenEventSpy.calledOnce();
+
+    expect(document.activeElement).to.be.equal(action2);
+  });
+
   it('sets the initial active actions and focuses on the close button', async () => {
     element = await fixture(html`
       <sbb-navigation id="navigation">
         <sbb-navigation-marker>
           <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-active-1" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
+          <sbb-navigation-button id="action-active-1" class="sbb-active">
+            Vacations & Recreation
+          </sbb-navigation-button>
         </sbb-navigation-marker>
 
         <sbb-navigation-marker>
-          <sbb-navigation-button id="action-active-2" class="sbb-active"
-            >English</sbb-navigation-button
-          >
+          <sbb-navigation-button id="action-active-2" class="sbb-active">
+            English
+          </sbb-navigation-button>
           <sbb-navigation-button>German</sbb-navigation-button>
         </sbb-navigation-marker>
       </sbb-navigation>

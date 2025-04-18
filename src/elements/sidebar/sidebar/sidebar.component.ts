@@ -2,11 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import {
-  getFirstFocusableElement,
-  SbbFocusHandler,
-  setModalityOnNextFocus,
-} from '../../core/a11y.js';
+import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
@@ -71,7 +67,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   private _container: SbbSidebarContainerElement | null = null;
 
   private _lastFocusedElement: HTMLElement | null = null;
-  private _focusHandler = new SbbFocusHandler();
+  private _focusTrapController = new SbbFocusTrapController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
 
   public constructor() {
@@ -105,7 +101,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
-    this._focusHandler.disconnect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -228,7 +223,6 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     if (!isServer && (this.contains(document.activeElement) || this._isModeOver())) {
       if (this._lastFocusedElement) {
-        setModalityOnNextFocus(this._lastFocusedElement);
         this._lastFocusedElement?.focus();
       } else {
         // We don't know where to set the focus, but have to remove it, so we call blur
@@ -249,22 +243,18 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     const isModeOver = this._isModeOver();
 
     if (isModeOver || this.focusOnOpen) {
-      const firstFocusable = getFirstFocusableElement(
-        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      );
-      setModalityOnNextFocus(firstFocusable);
-      firstFocusable?.focus();
+      this._focusTrapController.focusInitialElement();
     }
 
     if (isModeOver) {
       this._escapableOverlayController.connect();
-      this._focusHandler.trap(this);
+      this._focusTrapController.enabled = true;
     }
   }
 
   // Internal method that we use externally. `protected` preserves type information for type safe access.
   protected cedeFocus(): void {
-    this._focusHandler.disconnect();
+    this._focusTrapController.enabled = false;
     this._escapableOverlayController.disconnect();
   }
 

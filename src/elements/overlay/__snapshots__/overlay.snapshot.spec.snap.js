@@ -20,7 +20,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
           class="sbb-overlay__close"
           data-action=""
           data-button=""
-          data-focus-origin="mouse"
           data-sbb-button=""
           icon-name="cross-small"
           sbb-overlay-close=""

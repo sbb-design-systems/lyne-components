@@ -86,16 +86,19 @@
 .sbb-tab-label__wrapper {
   position: relative;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(:focus-visible) & {
     &::before {
+      @include sbb.focus-outline;
+
       content: '';
       position: absolute;
       display: block;
-      inset: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
-      border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
-      border-radius: var(--sbb-border-radius-2x);
+      inset: 0;
       z-index: 1;
+
+      // The desired border radius is --sbb-border-radius-2x.
+      // We have to subtract --sbb-focus-outline-offset in order have the desired visual border radius.
+      border-radius: calc(var(--sbb-border-radius-2x) - var(--sbb-focus-outline-offset));
     }
   }
 }
