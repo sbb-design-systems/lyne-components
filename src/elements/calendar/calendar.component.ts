@@ -88,6 +88,7 @@ interface CalendarKeyboardNavigationDayViewParameters {
 }
 
 export interface Day<T = Date> {
+  /** Date as ISO string. */
   value: string;
   dayValue: string;
   monthValue: string;
@@ -109,7 +110,7 @@ export interface Weekday {
 export type CalendarView = 'day' | 'month' | 'year';
 
 /**
- * It displays a calendar which allows to choose a date.
+ * It displays a calendar which allows choosing a date.
  *
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
@@ -174,7 +175,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
    */
   @property()
   public set selected(value: SbbDateLike<T> | SbbDateLike<T>[] | null) {
-    // FIXME what if multiple and value is not an array?
+    // FIXME what if multiple and value is not an array? add accessor decorator?
     if (Array.isArray(value)) {
       this._selectedDate = value
         .map((dateLike: SbbDateLike<T>) =>
