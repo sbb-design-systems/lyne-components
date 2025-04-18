@@ -1076,4 +1076,109 @@ describe(`sbb-calendar`, () => {
       });
     });
   });
+
+  /**
+   * In both tests, the selected date is 08.04.2025; this month has 5 weeks (14-18)
+   */
+  describe.only('with week-numbers', () => {
+    describe('horizontal', () => {
+      it('renders', async () => {
+        const calendar: HTMLElement = await fixture(
+          html`<sbb-calendar selected="2025-04-08T00:00:00" week-numbers></sbb-calendar>`,
+        );
+        // In horizontal variant, the first cell of each row is the one with the week number
+        const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
+        const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+        expect(cells.length).to.be.equal(5);
+        expect(cells[0].querySelector('span')!.textContent!.trim()).to.be.equal('14');
+        expect(cells[1].querySelector('span')!.textContent!.trim()).to.be.equal('15');
+        expect(cells[4].querySelector('span')!.textContent!.trim()).to.be.equal('18');
+      });
+
+      it('renders multiple', async () => {
+        const calendar: HTMLElement = await fixture(
+          html`<sbb-calendar selected="2025-04-08T00:00:00" week-numbers multiple></sbb-calendar>`,
+        );
+        const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
+
+        // In horizontal variant, the first cell of each row is the one with the week number
+        const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
+        const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+        expect(cells.length).to.be.equal(5);
+        // Due to the multiple property, cells have buttons instead than span.
+        expect(cells[0].querySelector('span')).to.be.null;
+        const firstButton = cells[0].querySelector('button')!;
+        expect(firstButton).not.to.be.null;
+        expect(firstButton.textContent!.trim()).to.be.equal('14');
+        firstButton.click();
+        await selectedSpy.calledOnce();
+        const selectedDates = (selectedSpy.firstEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(6);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sun Apr 06 2025');
+        // if the same button is clicked twice, nothing happens (selected dates don't change)
+        firstButton.click();
+        expect(selectedSpy.calledTimes(1));
+      });
+    });
+
+    describe('vertical', () => {
+      it('renders', async () => {
+        const calendar: HTMLElement = await fixture(
+          html`<sbb-calendar
+            orientation="vertical"
+            selected="2025-04-08T00:00:00"
+            week-numbers
+          ></sbb-calendar>`,
+        );
+        // In vertical variant, there's a table header with the week numbers as cells
+        const thead = calendar.shadowRoot!.querySelector('thead');
+        expect(thead).not.to.be.null;
+        // Due to the presence of an empty cell along the week days, the cells are 6 and not 5
+        const cells = thead!.querySelectorAll('th');
+        expect(cells.length).to.be.equal(6);
+        // The first cell is empty
+        expect(cells[0].className).to.be.equal('sbb-calendar__table-data');
+        expect(cells[0].querySelector('span')).to.be.null;
+        expect(cells[1].querySelector('span')!.textContent!.trim()).to.be.equal('14');
+        expect(cells[2].querySelector('span')!.textContent!.trim()).to.be.equal('15');
+        expect(cells[5].querySelector('span')!.textContent!.trim()).to.be.equal('18');
+      });
+
+      it('renders multiple', async () => {
+        const calendar: HTMLElement = await fixture(
+          html`<sbb-calendar
+            selected="2025-04-08T00:00:00"
+            orientation="vertical"
+            week-numbers
+            multiple
+          ></sbb-calendar>`,
+        );
+        const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
+
+        // In vertical variant, there's a table header with the week numbers as cells
+        const thead = calendar.shadowRoot!.querySelector('thead');
+        expect(thead).not.to.be.null;
+        // Due to the presence of an empty cell along the week days, the cells are 6 and not 5
+        const cells = thead!.querySelectorAll('th');
+        expect(cells.length).to.be.equal(6);
+        // Due to the multiple property, cells have buttons instead than span.
+        expect(cells[1].querySelector('span')).to.be.null;
+        const firstButton = cells[1].querySelector('button')!;
+        expect(firstButton).not.to.be.null;
+        expect(firstButton.textContent!.trim()).to.be.equal('14');
+        firstButton.click();
+        await selectedSpy.calledOnce();
+        const selectedDates = (selectedSpy.firstEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(6);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sun Apr 06 2025');
+        // if the same button is clicked twice, nothing happens (selected dates don't change)
+        firstButton.click();
+        expect(selectedSpy.calledTimes(1));
+      });
+    });
+  });
 });
