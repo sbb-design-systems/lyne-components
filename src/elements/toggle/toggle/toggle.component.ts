@@ -1,4 +1,3 @@
-import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -76,11 +75,6 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   }
 
   private _loaded: boolean = false;
-  private _toggleResizeObserver = new ResizeController(this, {
-    target: null,
-    skipInitial: true,
-    callback: () => this.updatePillPosition(true),
-  });
 
   /** Emits whenever the toggle value changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbToggleElement.events.change, {
@@ -99,7 +93,6 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.options.forEach((option) => this._toggleResizeObserver.observe(option));
     this._updateToggle();
   }
 
@@ -166,7 +159,7 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
-    const pillLeft = firstOption.checked ? '0px' : `${firstOption.clientWidth}px`;
+    const pillLeft = isFirstChecked ? '0px' : `${firstOption.clientWidth}px`;
     const pillRight = isFirstChecked
       ? `${toggleElement.clientWidth - firstOption.clientWidth}px`
       : '0px';

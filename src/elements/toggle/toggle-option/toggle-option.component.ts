@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -32,7 +33,7 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
   @property()
   public accessor value: string = '';
 
-  private _toggle?: SbbToggleElement;
+  private _toggle: SbbToggleElement | null = null;
 
   public constructor() {
     super();
@@ -48,14 +49,26 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       }
     });
+
+    this.addController(
+      new ResizeController(this, {
+        skipInitial: true,
+        callback: () => this._toggle?.updatePillPosition(true),
+      }),
+    );
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
 
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
-    this._toggle = this.closest?.('sbb-toggle') ?? undefined;
+    this._toggle = this.closest?.('sbb-toggle') ?? null;
     this._verifyTabindex();
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._toggle = null;
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
