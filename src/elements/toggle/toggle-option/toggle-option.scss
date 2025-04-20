@@ -7,8 +7,6 @@
   --sbb-toggle-option-cursor: pointer;
   --sbb-toggle-option-color: var(--sbb-color-anthracite);
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
-  --sbb-toggle-option-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
 
   display: inline-block;
   overflow: hidden;
@@ -27,10 +25,6 @@
   --sbb-toggle-option-color: var(--sbb-color-granite);
 }
 
-input[type='radio'] {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-toggle-option {
   @include sbb.text-xs--bold;
 
@@ -40,7 +34,6 @@ input[type='radio'] {
   align-items: center;
   height: var(--sbb-toggle-height);
   padding-inline: var(--sbb-toggle-padding-inline);
-  border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
 
   // if ![icon-only]
@@ -51,22 +44,6 @@ input[type='radio'] {
 
 .sbb-toggle-option__label {
   @include sbb.ellipsis;
-
-  // We need to use a ::before pseudo-element to show a single outline wrapping
-  // the entire toggle when a toggle option receives :focus-visible.
-  :host(:focus-visible) & {
-    &::before {
-      @include sbb.focus-outline;
-
-      content: '';
-      position: absolute;
-      pointer-events: none;
-
-      // The white pill is bigger than the option. We add the diff as inset.
-      inset: calc(-2 * var(--sbb-toggle-border-width));
-      border-radius: var(--sbb-toggle-option-border-radius);
-    }
-  }
 }
 
 sbb-icon,

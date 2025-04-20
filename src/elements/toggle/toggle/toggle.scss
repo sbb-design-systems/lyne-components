@@ -5,6 +5,8 @@
 
 :host {
   display: block;
+  width: fit-content;
+  border-radius: var(--sbb-toggle-border-radius);
 
   --sbb-toggle-width: fit-content;
   --sbb-toggle-min-width: calc(
@@ -30,6 +32,8 @@
 }
 
 :host([even]) {
+  width: 100%;
+
   --sbb-toggle-width: 100%;
 }
 
@@ -69,7 +73,7 @@
   border-radius: var(--sbb-toggle-border-radius);
 
   &::before {
-    // We have to hide the pill until initialized to avoid an animation glitch
+    // We have to hide the pill until initialized to avoid an transition glitch
     :host([data-initialized]) & {
       content: '';
     }
