@@ -175,7 +175,8 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     this.style?.setProperty('--sbb-toggle-option-right', pillRight);
 
     // In order to avoid a transition glitch, we have to know when the first values were set.
-    this.toggleAttribute('data-initialized', true);
+    // Because Safari handles timing differently, we need to set it a tick later.
+    setTimeout(() => this.toggleAttribute('data-initialized', true), 0);
   }
 
   protected updateFormValue(): void {

@@ -99,7 +99,7 @@
     transition: {
       duration: var(--sbb-toggle-animation-duration);
       timing-function: ease;
-      property: margin-inline;
+      property: margin-inline-start, margin-inline-end;
     }
   }
 
