@@ -11,9 +11,7 @@
   --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
 
   display: inline-block;
-  min-width: var(--sbb-toggle-min-width);
   overflow: hidden;
-  z-index: 1;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.

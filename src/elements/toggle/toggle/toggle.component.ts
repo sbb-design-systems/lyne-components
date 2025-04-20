@@ -173,6 +173,9 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     this.style?.setProperty('--sbb-toggle-option-left', pillLeft);
     this.style?.setProperty('--sbb-toggle-option-right', pillRight);
+
+    // In order to avoid a transition glitch, we have to know when the first values were set.
+    this.toggleAttribute('data-initialized', true);
   }
 
   protected updateFormValue(): void {
