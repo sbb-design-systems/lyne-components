@@ -227,11 +227,11 @@ $disabled: '[disabled], :disabled';
   }
 
   .sbb-seat-reservation-navigation--first-class {
+    height: calc(100% - #{sbb.px-to-rem-build(8)});
+    width: initial;
     inset-inline-end: sbb.px-to-rem-build(3);
     inset-block-start: sbb.px-to-rem-build(4);
     inset-inline-start: initial;
-    height: calc(100% - #{sbb.px-to-rem-build(8)});
-    width: initial;
   }
 
   &.first-coach,
@@ -242,7 +242,7 @@ $disabled: '[disabled], :disabled';
   }
 
   // handle border-radius
-  &.first-coach {
+  &.first-coach:not(.last-coach) {
     .sbb-seat-reservation-navigation__control-button {
       border-start-end-radius: var(--sbb-border-radius-8x);
       border-end-start-radius: var(--sbb-border-radius-2x);
@@ -254,7 +254,7 @@ $disabled: '[disabled], :disabled';
     }
   }
 
-  &.last-coach {
+  &.last-coach:not(.first-coach) {
     .sbb-seat-reservation-navigation__control-button {
       border-start-end-radius: var(--sbb-border-radius-2x);
       border-end-start-radius: var(--sbb-border-radius-8x);

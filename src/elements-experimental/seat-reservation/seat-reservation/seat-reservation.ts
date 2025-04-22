@@ -3,6 +3,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type {
@@ -150,12 +151,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       return null;
     }
 
-    const classAlignVertical = this.alignVertical
-      ? 'sbb-seat-reservation-navigation--vertical'
-      : '';
-
     return html`
-      <nav class="sbb-seat-reservation-navigation ${classAlignVertical}">
+      <nav
+        class="${classMap({
+          'sbb-seat-reservation-navigation': true,
+          'sbb-seat-reservation-navigation--vertical': this.alignVertical,
+        })}"
+      >
         <ul
           class="sbb-seat-reservation-navigation__list-coaches"
           aria-label="${getI18nSeatReservation(

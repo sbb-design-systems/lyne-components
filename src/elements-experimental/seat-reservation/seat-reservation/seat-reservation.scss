@@ -34,9 +34,9 @@
 }
 
 .sbb-seat-reservation-navigation--vertical {
-  position: absolute;
   inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
   margin-inline-start: sbb.px-to-rem-build(20);
+  position: absolute;
 
   .sbb-seat-reservation-navigation__list-coaches {
     flex-direction: column;

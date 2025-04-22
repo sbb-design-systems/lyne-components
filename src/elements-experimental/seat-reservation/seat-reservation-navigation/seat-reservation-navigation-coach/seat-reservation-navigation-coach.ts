@@ -4,6 +4,7 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../../common/translations.js';
 import '../../seat-reservation-graphic.js';
@@ -106,26 +107,22 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       }
     }
   }
+
   protected override render(): TemplateResult {
-    const coachSelectedClass = this.selected
-      ? 'sbb-seat-reservation-navigation__item-coach--selected'
-      : '';
-
-    const extraClasses: string[] = [
-      this.last ? 'last-coach' : '',
-      this.first ? 'first-coach' : '',
-      this.vertical ? 'vertical-coach' : '',
-    ].filter(Boolean);
-
     return html`
       <div
-        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${extraClasses.join(
-          ' ',
-        )}"
+        class="${classMap({
+          'sbb-seat-reservation-navigation__item-coach': true,
+          'last-coach': this.last,
+          'first-coach': this.first,
+          'vertical-coach': this.vertical,
+          'sbb-seat-reservation-navigation__item-coach--selected': this.selected,
+        })}"
       >
         ${this._getNavigationButton()}
         ${!this.driverArea && this.propertyIds?.length
           ? html`<sbb-seat-reservation-navigation-services
+              ?vertical="${this.vertical}"
               .propertyIds="${this.propertyIds}"
             ></sbb-seat-reservation-navigation-services>`
           : nothing}
