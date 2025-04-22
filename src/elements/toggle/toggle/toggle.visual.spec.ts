@@ -1,4 +1,4 @@
-import { type TemplateResult, html, nothing } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -123,10 +123,13 @@ describe(`sbb-toggle`, () => {
       for (const state of [visualDiffDefault, visualDiffFocus]) {
         it(
           state.name,
-          state.with((setup) => {
-            setup.withFixture(html`<sbb-toggle>${options(true, 'app-icon-small')}</sbb-toggle>`, {
-              forcedColors: true,
-            });
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-toggle>${options(true, 'app-icon-small')}</sbb-toggle>`,
+              {
+                forcedColors: true,
+              },
+            );
           }),
         );
       }
