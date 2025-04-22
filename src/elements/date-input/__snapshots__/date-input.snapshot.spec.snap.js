@@ -20,7 +20,7 @@ snapshots["sbb-date-input renders Chrome-Safari Shadow DOM"] =
 
 snapshots["sbb-date-input renders Firefox DOM"] = 
 `<sbb-date-input
-  contenteditable="true"
+  contenteditable="plaintext-only"
   placeholder="DD.MM.YYYY"
   value="2024-12-11"
 >
