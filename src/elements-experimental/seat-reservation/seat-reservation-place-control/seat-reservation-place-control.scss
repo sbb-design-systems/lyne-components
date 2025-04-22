@@ -1,13 +1,12 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
+$disabled: '[disabled], :disabled';
+
 :host {
   --sbb-reservation-place-control-rotation: 0;
   --sbb-reservation-place-control-text-rotation: 0;
   --sbb-reservation-place-control-text-size: calc(
     var(--sbb-place-control-text-scale-value, 1) * 0.5
-  );
-  --sbb-reservation-place-control-seat-text-offset-horizontal: calc(
-    cos(var(--sbb-reservation-place-control-text-rotation) * 1deg) * -18%
   );
 
   display: inline-block;
@@ -38,8 +37,8 @@
       background-color: var(--sbb-reservation-place-control-background-focus);
     }
 
-    #{$root}--state-free &:not([disabled]),
-    #{$root}--state-selected &:not([disabled]) {
+    #{$root}--state-free &:not(#{$disabled}),
+    #{$root}--state-selected &:not(#{$disabled}) {
       cursor: pointer;
 
       &:hover {
@@ -57,14 +56,17 @@
     display: none;
     position: absolute;
     inset-block-start: 50%;
-    inset-inline-start: 50%;
+
+    // we have to use a little less than 50% to center the text, because of the width of the
+    // SVG which is not square
+    inset-inline-start: 46%;
     overflow: hidden;
-    min-width: 17px;
-    letter-spacing: -0.0625em;
-    text-align: center;
-    transform-origin: center center;
+    transform-origin: center;
     transform: translate(-50%, -50%)
       rotate(calc(var(--sbb-reservation-place-control-text-rotation) * 1deg));
+    font-family: var(--sbb-typo-font-family);
+
+    // dont use sbb.px-to-rem or --sbb-typo-scale-0-75x; we want "em" in this case!
     font-size: 0.75em;
     background-color: var(--sbb-color-white);
 
@@ -72,10 +74,6 @@
     #{$root}--state-allocated &,
     #{$root}--state-restricted#{$root}--type-bicycle & {
       display: block;
-    }
-
-    #{$root}--type-seat & {
-      text-indent: var(--sbb-reservation-place-control-seat-text-offset-horizontal);
     }
 
     #{$root}--type-bicycle & {
