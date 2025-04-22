@@ -3,6 +3,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type {
@@ -115,11 +116,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           />
         </sbb-screen-reader-only>
 
+        ${this._renderNavigation()}
+
         <div
           class="sbb-seat-reservation__wrapper ${classAlignVertical}"
           @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
         >
-          ${this._renderNavigation()}
           <div
             id="sbb-seat-reservation__parent-area"
             class="sbb-seat-reservation__parent"
@@ -150,7 +152,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     return html`
-      <nav>
+      <nav
+        class="${classMap({
+          'sbb-seat-reservation-navigation': true,
+          'sbb-seat-reservation-navigation--vertical': this.alignVertical,
+        })}"
+      >
         <ul
           class="sbb-seat-reservation-navigation__list-coaches"
           aria-label="${getI18nSeatReservation(
@@ -172,6 +179,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 ?driver-area="${!coachItem.places?.length}"
                 ?first="${index === 0}"
                 ?last="${index === this.seatReservation?.coachItems.length - 1}"
+                ?vertical="${this.alignVertical}"
               >
               </sbb-seat-reservation-navigation-coach>
             </li>`;
