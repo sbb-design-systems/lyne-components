@@ -34,11 +34,9 @@
 }
 
 .sbb-seat-reservation-navigation--vertical {
-  background-color: lime;
   position: absolute;
-
-  // todo calculate the 40px somewhow
-  inset-inline-start: calc(var(--sbb-seat-reservation-vertical-offset) + 40px);
+  inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
+  margin-inline-start: sbb.px-to-rem-build(20);
 
   .sbb-seat-reservation-navigation__list-coaches {
     flex-direction: column;

@@ -20,7 +20,7 @@ $disabled: '[disabled], :disabled';
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-2x);
-  width: #{sbb.px-to-rem-build(80)};
+  width: var(--sbb-train-formation-wagon-width);
   list-style-type: none;
 
   &.first-coach,
