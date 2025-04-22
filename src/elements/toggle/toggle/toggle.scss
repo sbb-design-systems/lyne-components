@@ -12,22 +12,26 @@
   --sbb-toggle-min-width: calc(
     var(--sbb-toggle-padding-inline) * 4 + var(--sbb-size-icon-ui-small)
   );
+  --sbb-toggle-selected-option-border-width: var(--sbb-border-width-1x);
+  --sbb-toggle-selected-option-border-style: solid;
   --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke);
   --sbb-toggle-selected-option-background-color: var(--sbb-color-white);
+  --sbb-toggle-selected-option-border-offset: #{sbb.px-to-rem-build(2)};
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
   --sbb-toggle-height: var(--sbb-size-element-xxs);
-  --sbb-toggle-border-width: var(--sbb-border-width-1x);
-  --sbb-toggle-border-style: solid;
   --sbb-toggle-border-radius: var(--sbb-border-radius-infinity);
-  --_sbb-toggle-height: calc(var(--sbb-toggle-height) - 4 * var(--sbb-toggle-border-width));
+  --sbb-toggle-grid-template-columns: auto auto;
+  --_sbb-toggle-height: calc(
+    var(--sbb-toggle-height) - 2 * var(--sbb-toggle-selected-option-border-offset)
+  );
 
   @include sbb.if-forced-colors {
     --sbb-toggle-selected-option-border-color: Highlight;
-    --sbb-toggle-border-width: var(--sbb-border-width-2x);
+    --sbb-toggle-selected-option-border-width: var(--sbb-border-width-2x);
   }
 }
 
@@ -35,14 +39,15 @@
   width: 100%;
 
   --sbb-toggle-width: 100%;
+  --sbb-toggle-grid-template-columns: 50% 50%;
 }
 
 :host(:disabled) {
   --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite);
-  --sbb-toggle-border-style: dashed;
+  --sbb-toggle-selected-option-border-style: dashed;
 
   @include sbb.if-forced-colors {
-    --sbb-toggle-border-style: solid;
+    --sbb-toggle-selected-option-border-style: solid;
     --sbb-toggle-selected-option-border-color: GrayText;
   }
 }
@@ -60,7 +65,7 @@
   @include sbb.text-m--regular;
 
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: var(--sbb-toggle-grid-template-columns);
   grid-template-areas: 'start end';
   align-items: center;
   min-width: var(--sbb-toggle-min-width);
@@ -90,11 +95,11 @@
     // To break out of the grid box, we have to use a box shadow and an outline
     // The outline is needed because in disabled we need a dashed style
     // while the box shadow is needed to provide the white background.
-    box-shadow: 0 0 0 calc(2 * var(--sbb-toggle-border-width))
+    box-shadow: 0 0 0 var(--sbb-toggle-selected-option-border-offset)
       var(--sbb-toggle-selected-option-background-color);
-    outline: var(--sbb-toggle-border-width) var(--sbb-toggle-border-style)
-      var(--sbb-toggle-selected-option-border-color);
-    outline-offset: var(--sbb-toggle-border-width);
+    outline: var(--sbb-toggle-selected-option-border-width)
+      var(--sbb-toggle-selected-option-border-style) var(--sbb-toggle-selected-option-border-color);
+    outline-offset: var(--sbb-toggle-selected-option-border-offset);
 
     transition: {
       duration: var(--sbb-toggle-animation-duration);
@@ -104,7 +109,7 @@
   }
 
   @include sbb.if-forced-colors {
-    outline: var(--sbb-toggle-border-width) solid CanvasText;
+    outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
 

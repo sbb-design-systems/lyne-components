@@ -169,7 +169,9 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     // In order to avoid a transition glitch, we have to know when the first values were set.
     // Because Safari handles timing differently, we need to set it a tick later.
-    setTimeout(() => this.toggleAttribute('data-initialized', true), 0);
+    if (!this.hasAttribute('data-initialized')) {
+      setTimeout(() => this.toggleAttribute('data-initialized', true), 0);
+    }
   }
 
   protected updateFormValue(): void {
