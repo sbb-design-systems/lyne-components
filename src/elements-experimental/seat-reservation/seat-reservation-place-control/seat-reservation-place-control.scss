@@ -68,6 +68,9 @@ $disabled: '[disabled], :disabled';
 
     // dont use sbb.px-to-rem or --sbb-typo-scale-0-75x; we want "em" in this case!
     font-size: 0.75em;
+
+    // dont use transparent or remove background, otherwise there are a11y violations regarding
+    // insufficient color contrast
     background-color: var(--sbb-color-white);
 
     #{$root}--state-free &,
@@ -78,6 +81,7 @@ $disabled: '[disabled], :disabled';
 
     #{$root}--type-bicycle & {
       inset-block-start: 65%;
+      inset-inline-start: 50%;
     }
 
     #{$root}--state-allocated &,
