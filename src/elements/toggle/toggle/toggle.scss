@@ -99,7 +99,11 @@
       var(--sbb-toggle-selected-option-background-color);
     outline: var(--sbb-toggle-selected-option-border-width)
       var(--sbb-toggle-selected-option-border-style) var(--sbb-toggle-selected-option-border-color);
-    outline-offset: var(--sbb-toggle-selected-option-border-offset);
+    outline-offset: calc(
+      var(--sbb-toggle-selected-option-border-offset) - var(
+          --sbb-toggle-selected-option-border-width
+        )
+    );
 
     transition: {
       duration: var(--sbb-toggle-animation-duration);
