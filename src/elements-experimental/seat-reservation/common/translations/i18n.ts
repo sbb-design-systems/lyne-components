@@ -49,10 +49,16 @@ const i18nObjects: Record<string, Record<string, string>> = {
     it: 'Navigazione per la prenotazione dei posti',
   },
   NAVIGATE_TO_COACH: {
-    de: 'Navigiere zu Zugabteil _param0_',
-    en: 'Navigate to train compartment _param0_',
-    fr: 'Naviguer vers le compartiment de train _param0_',
-    it: 'Naviga verso il compartimento del treno _param0_',
+    de: 'Navigiere zu Wagon _param0_',
+    en: 'Navigate to coach _param0_',
+    fr: "Naviguez jusqu'au wagon _param0_",
+    it: 'Vai al vagone _param0_',
+  },
+  NAVIGATE_TO_COACH_SERVICE_CLASS_SUB: {
+    de: ' mit _param0_ Klasse Abteil',
+    en: ' with _param0_ class compartment',
+    fr: ' avec compartiment de _param0_ classe',
+    it: ' con scompartimento di _param0_ classe',
   },
   NAVIGATION_COACH_SERVICE_AVAILABLE: {
     de: 'Verfügbare Services: ',

@@ -131,26 +131,39 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   private _getNavigationButton(): TemplateResult | null {
+    const currServiceClassNumber = this._getCoachServiceClassNumber();
+    let coachNavLabel = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
+      this.coachId,
+    ]);
+
+    //If service class exist, then expand label with service class translation
+    if (currServiceClassNumber) {
+      const serviceClassLabel = getI18nSeatReservation(
+        'NAVIGATE_TO_COACH_SERVICE_CLASS_SUB',
+        this._language.current,
+        [currServiceClassNumber],
+      );
+      coachNavLabel = coachNavLabel.concat(serviceClassLabel);
+    }
+
     return html`
       ${!this.driverArea
         ? html` <button
             type="button"
             ?disabled="${this.disable}"
             class="sbb-seat-reservation-navigation__control-button"
-            title="${getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-              this.coachId,
-            ])}"
+            title="${coachNavLabel}"
             @click=${() => this._selectNavCoach(this.index)}
           >
-            ${this._getBtnInformation()}
+            ${this._getBtnInformation(currServiceClassNumber)}
           </button>`
         : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
     `;
   }
 
-  private _getBtnInformation(): TemplateResult | null {
+  private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
     return html`
-      ${this.travelClass?.includes('FIRST')
+      ${serviceClassNumber === 1
         ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
         : nothing}
       ${this.travelClass?.length > 0 || this.coachId
@@ -160,11 +173,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
                   ${this.coachId}
                 </div>`
               : nothing}
-            ${this.travelClass?.includes('FIRST')
-              ? html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">1</div>`
-              : this.travelClass?.includes('SECOND')
-                ? html`<div class="sbb-seat-reservation-navigation__item-coach-travelclass">2</div>`
-                : nothing}
+            <div
+              ${serviceClassNumber ?? nothing}
+              class="sbb-seat-reservation-navigation__item-coach-travelclass"
+            >
+              ${serviceClassNumber}
+            </div>
           </div>`
         : nothing}
     `;
@@ -177,6 +191,16 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
    */
   private _selectNavCoach(coachIndex: number): void {
     this.selectNavCoach.emit(coachIndex);
+  }
+
+  private _getCoachServiceClassNumber(): number | null {
+    if (this.travelClass?.includes('FIRST')) {
+      return 1;
+    } else if (this.travelClass?.includes('SECOND')) {
+      return 2;
+    } else {
+      return null;
+    }
   }
 }
 
