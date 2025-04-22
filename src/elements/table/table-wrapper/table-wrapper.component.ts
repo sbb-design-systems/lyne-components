@@ -2,18 +2,20 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
+  isServer,
   LitElement,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { forceType } from '../../core/decorators.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 
 import style from './table-wrapper.scss?lit&inline';
 
 /**
- * Wraps a table to enhance its functionality
+ * Wraps a table to enhance its functionality.
  *
  * @slot - Use the unnamed slot to add the table.
  */
@@ -22,21 +24,68 @@ export
 class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private _resizeObserver = new ResizeController(this, {
-    target: null,
-    skipInitial: true,
-    callback: () => this._checkHorizontalScrollbarOffset(),
-  });
-  private _tableWrapper!: HTMLElement;
+  /** Whether the table wrapper is focusable. */
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor focusable: boolean = false;
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    this._tableWrapper = this.shadowRoot!.querySelector<HTMLElement>('.sbb-table-wrapper')!;
+  public constructor() {
+    super();
 
-    this._tableWrapper.addEventListener('scroll', () => this._checkHorizontalScrollbarOffset(), {
+    const internals: ElementInternals = this.attachInternals();
+    /** @internal */
+    internals.role = 'section';
+
+    this.addController(
+      new ResizeController(this, {
+        skipInitial: true,
+        callback: () => this._checkHorizontalScrollbarOffset(),
+      }),
+    );
+
+    this.addEventListener?.('scroll', () => this._checkHorizontalScrollbarOffset(), {
       passive: true,
     });
-    this._resizeObserver.observe(this._tableWrapper);
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // As we can't include the scrollbar mixin on the host and to minimize
+    // payload, we decided to add the scrollbar class here.
+    // This is an exception as we normally don't alter the classList of the host.
+    this._updateScrollbarClass();
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('focusable')) {
+      if (this.focusable) {
+        if (!this.hasAttribute('tabindex')) {
+          this.setAttribute('tabindex', '0');
+        }
+      } else {
+        this.removeAttribute('tabindex');
+      }
+    }
+
+    if (changedProperties.has('negative')) {
+      this._updateScrollbarClass();
+    }
+  }
+
+  private _updateScrollbarClass(): void {
+    if (isServer) {
+      return;
+    }
+    if (this.negative) {
+      this.classList.remove('sbb-scrollbar-thick-track-visible');
+      this.classList.add('sbb-scrollbar-thick-negative-track-visible');
+    } else {
+      this.classList.remove('sbb-scrollbar-thick-negative-track-visible');
+      this.classList.add('sbb-scrollbar-thick-track-visible');
+    }
   }
 
   /**
@@ -55,15 +104,13 @@ class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _calculateScrollOffset(): 'none' | 'left' | 'right' | 'both' {
-    const wrapper = this._tableWrapper;
-
-    if (wrapper.scrollWidth === wrapper.offsetWidth) {
+    if (this.scrollWidth === this.offsetWidth) {
       return 'none';
     }
-    const isAtStart = wrapper.scrollLeft === 0;
+    const isAtStart = this.scrollLeft === 0;
     // In some cases the combined value of scrollLeft and offsetWidth is off by
     // 1 pixel from the scrollWidth.
-    const isAtEnd = wrapper.scrollWidth - wrapper.scrollLeft - wrapper.offsetWidth <= 1;
+    const isAtEnd = this.scrollWidth - this.scrollLeft - this.offsetWidth <= 1;
 
     if (isAtStart) {
       return isAtEnd ? 'none' : 'right';
@@ -72,9 +119,7 @@ class SbbTableWrapperElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    return html`<div class="sbb-table-wrapper">
-      <slot></slot>
-    </div>`;
+    return html`<slot></slot>`;
   }
 }
 

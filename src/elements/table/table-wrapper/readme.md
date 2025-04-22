@@ -53,9 +53,10 @@ Always provide an accessible label for your tables via `aria-label` or `aria-lab
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type      | Default | Description                     |
-| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
-| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+| Name        | Attribute   | Privacy | Type      | Default | Description                             |
+| ----------- | ----------- | ------- | --------- | ------- | --------------------------------------- |
+| `focusable` | `focusable` | public  | `boolean` | `false` | Whether the table wrapper is focusable. |
+| `negative`  | `negative`  | public  | `boolean` | `false` | Negative coloring variant flag.         |
 
 ## Slots
 
