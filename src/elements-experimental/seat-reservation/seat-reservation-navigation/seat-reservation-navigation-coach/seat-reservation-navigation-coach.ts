@@ -4,6 +4,7 @@ import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../../common/translations.js';
 import '../../seat-reservation-graphic.js';
@@ -68,6 +69,10 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
+  @forceType()
+  @property({ type: Boolean })
+  public accessor vertical: boolean = false;
+
   private _language = new SbbLanguageController(this);
 
   /** Emits when a coach within the navigation was selected */
@@ -102,20 +107,22 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       }
     }
   }
-  protected override render(): TemplateResult {
-    const coachSelectedClass = this.selected
-      ? 'sbb-seat-reservation-navigation__item-coach--selected'
-      : '';
-    const lastCoachInLayout = this.last ? 'last-coach' : '';
-    const firstCoachInLayout = this.first ? 'first-coach' : '';
 
+  protected override render(): TemplateResult {
     return html`
       <div
-        class="sbb-seat-reservation-navigation__item-coach ${coachSelectedClass} ${lastCoachInLayout} ${firstCoachInLayout}"
+        class="${classMap({
+          'sbb-seat-reservation-navigation__item-coach': true,
+          'last-coach': this.last,
+          'first-coach': this.first,
+          'vertical-coach': this.vertical,
+          'sbb-seat-reservation-navigation__item-coach--selected': this.selected,
+        })}"
       >
         ${this._getNavigationButton()}
         ${!this.driverArea && this.propertyIds?.length
           ? html`<sbb-seat-reservation-navigation-services
+              ?vertical="${this.vertical}"
               .propertyIds="${this.propertyIds}"
             ></sbb-seat-reservation-navigation-services>`
           : nothing}
