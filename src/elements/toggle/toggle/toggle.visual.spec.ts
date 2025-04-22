@@ -124,7 +124,7 @@ describe(`sbb-toggle`, () => {
         it(
           state.name,
           state.with((setup) => {
-            setup.withFixture(html`<sbb-toggle>${options(true, 'arrow-small')}</sbb-toggle>`, {
+            setup.withFixture(html`<sbb-toggle>${options(true, 'app-icon-small')}</sbb-toggle>`, {
               forcedColors: true,
             });
           }),
