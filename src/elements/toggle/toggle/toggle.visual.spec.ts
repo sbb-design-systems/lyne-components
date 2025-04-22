@@ -34,7 +34,6 @@ describe(`sbb-toggle`, () => {
     label: [true, false],
   };
 
-  // TODO: Forced colors tests.
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ size, even }) => {
       beforeEach(async function () {
@@ -119,5 +118,18 @@ describe(`sbb-toggle`, () => {
         );
       }),
     );
+
+    describe('forced colors', () => {
+      for (const state of [visualDiffDefault, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with((setup) => {
+            setup.withFixture(html`<sbb-toggle>${options(true, 'arrow-small')}</sbb-toggle>`, {
+              forcedColors: true,
+            });
+          }),
+        );
+      }
+    });
   });
 });
