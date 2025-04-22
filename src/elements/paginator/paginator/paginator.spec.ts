@@ -247,4 +247,85 @@ describe('sbb-paginator', () => {
     // Restore language
     document.documentElement.setAttribute('lang', lang);
   });
+
+  it('should handle nextPage() call', () => {
+    element.nextPage();
+    expect(element.pageIndex).to.be.equal(1);
+  });
+
+  it('should bound nextPage() call', () => {
+    element.pageIndex = 9;
+    element.nextPage();
+    expect(element.pageIndex).to.be.equal(9);
+  });
+
+  it('should handle previousPage() call', () => {
+    element.pageIndex = 1;
+
+    element.previousPage();
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('should bound previousPage() call', () => {
+    element.previousPage();
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('should handle firstPage() call', () => {
+    element.pageIndex = 9;
+
+    element.firstPage();
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('should handle lastPage() call', () => {
+    element.lastPage();
+    expect(element.pageIndex).to.be.equal(9);
+  });
+
+  it('should handle selectPage() call', () => {
+    element.selectPage(2);
+    expect(element.pageIndex).to.be.equal(2);
+  });
+
+  it('should bound selectPage() call', () => {
+    element.selectPage(-1);
+    expect(element.pageIndex).to.be.equal(0);
+
+    element.selectPage(10);
+    expect(element.pageIndex).to.be.equal(9);
+  });
+
+  it('should handle hasPreviousPage() call', () => {
+    expect(element.hasPreviousPage()).to.be.false;
+
+    element.selectPage(1);
+    expect(element.hasPreviousPage()).to.be.true;
+  });
+
+  it('should handle hasPreviousPage() call if pageSize is 0', () => {
+    element.pageSize = 0;
+    expect(element.hasPreviousPage()).to.be.false;
+  });
+
+  it('should handle hasNextPage() call', () => {
+    expect(element.hasNextPage()).to.be.true;
+
+    element.selectPage(9);
+    expect(element.hasNextPage()).to.be.false;
+  });
+
+  it('should handle hasNextPage() call if pageSize is 0', () => {
+    element.pageSize = 0;
+    expect(element.hasNextPage()).to.be.false;
+  });
+
+  it('should handle numberOfPages() call', () => {
+    expect(element.numberOfPages()).to.be.equal(10);
+  });
+
+  it('should handle numberOfPages() call if pageSize is 0', () => {
+    element.pageSize = 0;
+    expect(element.numberOfPages()).to.be.equal(0);
+  });
 });
