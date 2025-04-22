@@ -54,6 +54,19 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Naviguer vers le compartiment de train _param0_',
     it: 'Naviga verso il compartimento del treno _param0_',
   },
+  NAVIGATION_COACH_SERVICE_AVAILABLE: {
+    de: 'Verfügbare Services: ',
+    en: 'Available services: ',
+    fr: 'Services disponibles: ',
+    it: 'Servizi disponibili: ',
+  },
+  //COACH TABLE
+  COACH_TABLE_CAPTION: {
+    de: 'Wagon _param0_ selektiert',
+    en: 'Wagon _param0_ selected',
+    fr: 'Wagon _param0_ sélectionné',
+    it: 'Carrozza _param0_ selezionata',
+  },
   //NAVIGATION ICONS
   BICYCLE: {
     de: 'Velobereich',
