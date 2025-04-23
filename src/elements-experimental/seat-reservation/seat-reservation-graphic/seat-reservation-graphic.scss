@@ -4,9 +4,7 @@
   --sbb-reservation-graphic-width: 16;
   --sbb-reservation-graphic-height: 16;
   --sbb-reservation-graphic-rotation: 0;
-  --sbb-reservation-graphic-contents-rotation: calc(
-    var(--sbb-reservation-graphic-rotation) - var(--sbb-reservation-graphic-rotation)
-  );
+  --sbb-reservation-graphic-inverse-rotation: 0;
 }
 
 // similiar to the graphic, but slightly different.
@@ -33,7 +31,7 @@
 
     .fix-rotation-inverse {
       transform-origin: center;
-      transform: rotate(calc(var(--sbb-reservation-graphic-contents-rotation) * 1deg));
+      transform: rotate(calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg));
     }
   }
 

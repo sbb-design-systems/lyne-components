@@ -16,8 +16,6 @@ $disabled: '[disabled], :disabled';
   $root: &;
 
   position: relative;
-  transform-origin: center;
-  transform: rotate(calc(var(--sbb-reservation-place-control-rotation) * 1deg));
 
   &__button {
     @include sbb.button-reset;
@@ -56,10 +54,6 @@ $disabled: '[disabled], :disabled';
     display: none;
     position: absolute;
     inset-block-start: 50%;
-
-    // we have to use a little less than 50% to center the text, because of the width of the
-    // SVG which is not square
-    inset-inline-start: 46%;
     overflow: hidden;
     transform-origin: center;
     transform: translate(-50%, -50%)
@@ -91,6 +85,23 @@ $disabled: '[disabled], :disabled';
     #{$root}--state-restricted & {
       background-color: transparent;
       color: var(--sbb-color-smoke);
+    }
+
+    // Depending on the place orientation, minor positioning adjustments may need to be made to center the text,
+    // because of the width of the SVG which is not square
+    #{$root}--orientation-0 & {
+      inset-inline-start: 47%;
+    }
+    #{$root}--orientation-90 & {
+      inset-block-start: 46%;
+      inset-inline-start: 50%;
+    }
+    #{$root}--orientation-180 & {
+      inset-inline-start: 53%;
+    }
+    #{$root}--orientation-270 & {
+      inset-block-start: 52%;
+      inset-inline-start: 52%;
     }
   }
 }
