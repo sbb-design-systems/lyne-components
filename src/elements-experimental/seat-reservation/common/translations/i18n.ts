@@ -54,6 +54,37 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Naviguer vers le compartiment de train _param0_',
     it: 'Naviga verso il compartimento del treno _param0_',
   },
+  NAVIGATE_TO_COACH_SERVICE_CLASS_SUB: {
+    de: ' mit _param0_ Abteil',
+    en: ' mit _param0_ Abteil',
+    fr: 'fr: mit _param0_ Abteil',
+    it: 'it: mit _param0_ Abteil',
+  },
+  NAVIGATION_COACH_SERVICE_AVAILABLE: {
+    de: 'Verfügbare Services: ',
+    en: 'Verfügbare Services: ',
+    fr: 'fr:Verfügbare Services: ',
+    it: 'it:Verfügbare Services: ',
+  },
+  SERVICE_CLASS_FISRT: {
+    de: 'erste Klasse',
+    en: 'en:erste Klasse',
+    fr: 'fr:erste Klasse',
+    it: 'it:erste Klasse',
+  },
+  SERVICE_CLASS_SECOND: {
+    de: 'zweite Klasse',
+    en: 'en:zweite Klasse',
+    fr: 'fr:zweite Klasse',
+    it: 'it:zweite Klasse',
+  },
+  //COACH TABLE
+  COACH_TABLE_CAPTION: {
+    de: 'Wagen _param0_ selektiert',
+    en: 'en:Wagen _param0_ selektiert',
+    fr: 'fr:Wagen _param0_ selektiert',
+    it: 'it:Wagen _param0_ selektiert',
+  },
   //NAVIGATION ICONS
   BICYCLE: {
     de: 'Velobereich',

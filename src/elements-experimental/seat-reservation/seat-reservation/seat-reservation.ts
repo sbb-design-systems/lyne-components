@@ -208,6 +208,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
+    const tableCaption = getI18nSeatReservation('COACH_TABLE_CAPTION', this._language.current, [
+      coachItem.id,
+    ]);
     return html`
       <sbb-scoped-element
         scoped-classes="coach-wrapper"
@@ -217,14 +220,18 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedServiceElements(coachItem.serviceElements)}
-        <table
-          @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
-          class="coach-wrapper__table"
-          id="seat-reservation-coach-${index}"
-          role="grid"
-        >
-          ${this._getRenderedRowPlaces(coachItem, index)}
-        </table>
+        ${coachItem.places?.length
+          ? html`<table
+              @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
+              id="seat-reservation-coach-${index}"
+              class="coach-wrapper__table"
+            >
+              <caption>
+                <sbb-screen-reader-only>${tableCaption}</sbb-screen-reader-only>
+              </caption>
+              ${this._getRenderedRowPlaces(coachItem, index)}
+            </table>`
+          : nothing}
       </sbb-scoped-element>
     `;
   }

@@ -75,7 +75,7 @@ class SbbScopedElement extends LitElement {
         <slot></slot>
       </div>`;
     } else {
-      return html`<td id="${this.cellId}" class="${this.scopedClasses}" role="gridcell">
+      return html`<td id="${this.cellId}" class="${this.scopedClasses}">
         <slot></slot>
       </td>`;
     }
