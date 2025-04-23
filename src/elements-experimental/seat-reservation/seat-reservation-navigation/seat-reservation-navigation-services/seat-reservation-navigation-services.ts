@@ -1,3 +1,5 @@
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
@@ -5,10 +7,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import '../../seat-reservation-graphic.js';
+import { getI18nSeatReservation } from '../../common.js';
 
 import style from './seat-reservation-navigation-services.scss?lit&inline';
 
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
+const MAX_SERVICE_PROPERTIES = 3;
 
 /**
  * Component displays the available service icons of one coach.
@@ -26,6 +29,8 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   @property({ type: Boolean })
   public accessor vertical: boolean = false;
 
+  private _language = new SbbLanguageController(this);
+  private _propertyIds: string[] = [];
   /**
    * render a maximum of 3 of the service sign icons (slice(0,3)) regardless of the input from Backend,
    * otherwise the layout could be destroyed
@@ -33,24 +38,49 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
    * @protected
    */
   protected override render(): TemplateResult {
-    return html`<div
+    this._propertyIds = this.propertyIds?.slice(0, MAX_SERVICE_PROPERTIES);
+    const serviceLabelDescription = this._propertyIds.length
+      ? this._getServiceLabelDescription()
+      : null;
+
+    return html` <div
       class="${classMap({
         'sbb-seat-reservation-navigation__signs': true,
         'sbb-seat-reservation-navigation__signs--vertical': this.vertical,
       })}"
     >
-      ${this.propertyIds?.slice(0, 3)?.map((signIcon: string) => {
+      <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
+        >${serviceLabelDescription}</sbb-screen-reader-only
+      >
+      ${this._propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
             name=${signIcon ?? nothing}
-            aria-hidden="true"
             width="20"
             height="20"
+            title=${getI18nSeatReservation(signIcon, this._language.current)}
+            aria-hidden="true"
           ></sbb-seat-reservation-graphic>
-          <sbb-screen-reader-only>${'TODO : info from BE? ' + signIcon}</sbb-screen-reader-only>
         `;
       })}
     </div>`;
+  }
+
+  //Generate the translated service label from the available properties
+  private _getServiceLabelDescription(): string | null {
+    let label = null;
+    const translatedServiceLabels = this._propertyIds
+      .map((prop) => getI18nSeatReservation(prop, this._language.current))
+      .filter((propTranslation) => !!propTranslation)
+      .join(', ');
+
+    if (translatedServiceLabels) {
+      label = getI18nSeatReservation(
+        'NAVIGATION_COACH_SERVICE_AVAILABLE',
+        this._language.current,
+      ).concat(translatedServiceLabels);
+    }
+    return label;
   }
 }
 
