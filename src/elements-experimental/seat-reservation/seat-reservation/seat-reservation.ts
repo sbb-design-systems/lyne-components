@@ -220,16 +220,18 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedServiceElements(coachItem.serviceElements)}
-        <table
-          @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
-          id="seat-reservation-coach-${index}"
-          class="coach-wrapper__table"
-        >
-          <caption>
-            <sbb-screen-reader-only>${tableCaption}</sbb-screen-reader-only>
-          </caption>
-          ${this._getRenderedRowPlaces(coachItem, index)}
-        </table>
+        ${coachItem.places?.length
+          ? html`<table
+              @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
+              id="seat-reservation-coach-${index}"
+              class="coach-wrapper__table"
+            >
+              <caption>
+                <sbb-screen-reader-only>${tableCaption}</sbb-screen-reader-only>
+              </caption>
+              ${this._getRenderedRowPlaces(coachItem, index)}
+            </table>`
+          : nothing}
       </sbb-scoped-element>
     `;
   }

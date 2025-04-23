@@ -30,7 +30,7 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   public accessor vertical: boolean = false;
 
   private _language = new SbbLanguageController(this);
-
+  private _propertyIds: string[] = [];
   /**
    * render a maximum of 3 of the service sign icons (slice(0,3)) regardless of the input from Backend,
    * otherwise the layout could be destroyed
@@ -38,35 +38,22 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
    * @protected
    */
   protected override render(): TemplateResult {
-    const propertyIds = this.propertyIds?.slice(0, MAX_SERVICE_PROPERTIES);
-    let servicePropertyLabels: string;
+    this._propertyIds = this.propertyIds?.slice(0, MAX_SERVICE_PROPERTIES);
+    const serviceLabelDescription = this._propertyIds.length
+      ? this._getServiceLabelDescription()
+      : null;
 
-    //Generate the tranlsated service label from the available properties
-    if (propertyIds.length > 0) {
-      const translatedServiceLabels = propertyIds
-        .map((prop) => getI18nSeatReservation(prop, this._language.current))
-        .filter((propTranslation) => !!propTranslation)
-        .join(', ');
-
-      if (translatedServiceLabels) {
-        servicePropertyLabels = getI18nSeatReservation(
-          'NAVIGATION_COACH_SERVICE_AVAILABLE',
-          this._language.current,
-        ).concat(translatedServiceLabels);
-      }
-    }
-
-    return html`<div
+    return html` <div
       class="${classMap({
         'sbb-seat-reservation-navigation__signs': true,
         'sbb-seat-reservation-navigation__signs--vertical': this.vertical,
       })}"
     >
-      ${propertyIds?.map((signIcon: string) => {
+      <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
+        >${serviceLabelDescription}</sbb-screen-reader-only
+      >
+      ${this._propertyIds?.map((signIcon: string) => {
         return html`
-          <sbb-screen-reader-only ${servicePropertyLabels ? servicePropertyLabels : nothing}
-            >${servicePropertyLabels}</sbb-screen-reader-only
-          >
           <sbb-seat-reservation-graphic
             name=${signIcon ?? nothing}
             width="20"
@@ -77,6 +64,23 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
         `;
       })}
     </div>`;
+  }
+
+  //Generate the translated service label from the available properties
+  private _getServiceLabelDescription(): string | null {
+    let label = null;
+    const translatedServiceLabels = this._propertyIds
+      .map((prop) => getI18nSeatReservation(prop, this._language.current))
+      .filter((propTranslation) => !!propTranslation)
+      .join(', ');
+
+    if (translatedServiceLabels) {
+      label = getI18nSeatReservation(
+        'NAVIGATION_COACH_SERVICE_AVAILABLE',
+        this._language.current,
+      ).concat(translatedServiceLabels);
+    }
+    return label;
   }
 }
 

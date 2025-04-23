@@ -132,19 +132,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   private _getNavigationButton(): TemplateResult | null {
     const currServiceClassNumber = this._getCoachServiceClassNumber();
-    let coachNavLabel = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
-      this.coachId,
-    ]);
-
-    //If service class exist, then expand label with service class translation
-    if (currServiceClassNumber) {
-      const serviceClassLabel = getI18nSeatReservation(
-        'NAVIGATE_TO_COACH_SERVICE_CLASS_SUB',
-        this._language.current,
-        [currServiceClassNumber],
-      );
-      coachNavLabel = coachNavLabel.concat(serviceClassLabel);
-    }
+    const coachNavButtonLabel = this._getNavigationButtonLabelDescription(currServiceClassNumber);
 
     return html`
       ${!this.driverArea
@@ -152,7 +140,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
             type="button"
             ?disabled="${this.disable}"
             class="sbb-seat-reservation-navigation__control-button"
-            title="${coachNavLabel}"
+            title="${coachNavButtonLabel}"
             @click=${() => this._selectNavCoach(this.index)}
           >
             ${this._getBtnInformation(currServiceClassNumber)}
@@ -169,19 +157,44 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       ${this.travelClass?.length > 0 || this.coachId
         ? html`<div class="sbb-seat-reservation-navigation__additional-information">
             ${this.coachId
-              ? html`<div class="sbb-seat-reservation-navigation__item-coach-number">
+              ? html`<div
+                  class="sbb-seat-reservation-navigation__item-coach-number"
+                  aria-hidden="true"
+                >
                   ${this.coachId}
                 </div>`
               : nothing}
             <div
               ${serviceClassNumber ?? nothing}
               class="sbb-seat-reservation-navigation__item-coach-travelclass"
+              aria-hidden="true"
             >
               ${serviceClassNumber}
             </div>
           </div>`
         : nothing}
     `;
+  }
+
+  private _getNavigationButtonLabelDescription(serviceClassNumber: number | null): string {
+    let label = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [this.coachId]);
+
+    //If service class exist, then expand label with service class translation
+    if (serviceClassNumber) {
+      const serviceClassTranslationKey =
+        serviceClassNumber === 1 ? 'SERVICE_CLASS_FISRT' : 'SERVICE_CLASS_SECOND';
+      const serviceClassTranslation = getI18nSeatReservation(
+        serviceClassTranslationKey,
+        this._language.current,
+      );
+      const serviceClassLabel = getI18nSeatReservation(
+        'NAVIGATE_TO_COACH_SERVICE_CLASS_SUB',
+        this._language.current,
+        [serviceClassTranslation],
+      );
+      label = label.concat(serviceClassLabel);
+    }
+    return label;
   }
 
   /**
