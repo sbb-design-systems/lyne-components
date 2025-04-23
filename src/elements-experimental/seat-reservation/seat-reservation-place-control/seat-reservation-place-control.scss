@@ -82,6 +82,9 @@ $disabled: '[disabled], :disabled';
     #{$root}--type-bicycle & {
       inset-block-start: 65%;
       inset-inline-start: 50%;
+
+      // use a smaller font-size to avoid a11y violation
+      font-size: 0.6875em;
     }
 
     #{$root}--state-allocated &,

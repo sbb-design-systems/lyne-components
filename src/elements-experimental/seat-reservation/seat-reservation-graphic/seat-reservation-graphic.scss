@@ -7,11 +7,6 @@
   --sbb-reservation-graphic-contents-rotation: calc(
     var(--sbb-reservation-graphic-rotation) - var(--sbb-reservation-graphic-rotation)
   );
-
-  // to prevent the overlap of the bicycle with the background color (nessessary for a11y!) of the
-  // place number
-  position: relative;
-  z-index: 1;
 }
 
 // similiar to the graphic, but slightly different.
