@@ -33,6 +33,11 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
+  /** Inverse rotation for part of an SVG that can be rotated opposite to the normal rotation */
+  @forceType()
+  @property({ attribute: 'inverse-roration', type: Number })
+  public accessor inverseRotation: number = 0;
+
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width', type: Number })
@@ -57,6 +62,13 @@ class SbbSeatReservationGraphicElement extends LitElement {
 
     if (_changedProperties.has('rotation')) {
       this.style?.setProperty('--sbb-reservation-graphic-rotation', `${this.rotation}`);
+    }
+
+    if (_changedProperties.has('inverseRotation')) {
+      this.style?.setProperty(
+        '--sbb-reservation-graphic-inverse-rotation',
+        `${this.inverseRotation}`,
+      );
     }
   }
 
