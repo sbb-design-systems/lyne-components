@@ -159,7 +159,7 @@ $disabled: '[disabled], :disabled';
   flex: 1;
   column-gap: var(--sbb-spacing-fixed-2x);
   padding-inline: sbb.px-to-rem-build(16) sbb.px-to-rem-build(16);
-  font-family: var(--sbb-typo-font-family), sans-serif;
+  font-family: var(--sbb-typo-font-family);
   font-weight: 700;
   color: var(--sbb-color-granite);
 
