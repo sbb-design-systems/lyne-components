@@ -495,3 +495,9 @@ sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
     top: 0;
   }
 }
+
+sbb-toggle:has(:focus-visible) {
+  @include a11y.focus-outline;
+
+  --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
+}
