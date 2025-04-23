@@ -71,6 +71,12 @@ const negative: InputType = {
   },
 };
 
+const focusable: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const sticky: InputType = {
   control: {
     type: 'boolean',
@@ -79,11 +85,13 @@ const sticky: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   negative,
+  focusable,
   sticky,
 };
 
 const defaultArgs: Args = {
   negative: false,
+  focusable: false,
   sticky: false,
 };
 
@@ -144,7 +152,7 @@ const body = (sticky = false): TemplateResult => html`
 `;
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-table-wrapper ?negative=${args.negative} style="height: 75vh">
+  <sbb-table-wrapper ?negative=${args.negative} ?focusable=${args.focusable} style="height: 75vh">
     <table
       aria-label="Train lines 2024"
       class=${classMap({

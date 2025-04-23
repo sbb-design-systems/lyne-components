@@ -6,6 +6,7 @@ import {
   describeViewports,
   visualRegressionFixture,
   visualDiffDefault,
+  visualDiffFocus,
 } from '../../core/testing/private.js';
 import { waitForCondition } from '../../core/testing/wait-for-condition.js';
 
@@ -74,5 +75,25 @@ describe(`sbb-table-wrapper`, () => {
         }),
       );
     });
+
+    it(
+      'focusable',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-table-wrapper focusable>
+            <table class="sbb-table">
+              <tr>
+                <td>Content</td>
+                <td>Content</td>
+              </tr>
+              <tr>
+                <td>Content</td>
+                <td>Content</td>
+              </tr>
+            </table>
+          </sbb-table-wrapper>`,
+        );
+      }),
+    );
   });
 });

@@ -12,7 +12,7 @@ describe(`sbb-table-wrapper`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html` <sbb-table-wrapper>
+        html`<sbb-table-wrapper>
           <table class="sbb-table" aria-label="Table caption">
             <thead>
               <tr>
