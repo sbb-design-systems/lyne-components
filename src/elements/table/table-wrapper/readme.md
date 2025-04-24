@@ -52,11 +52,15 @@ Always provide an accessible label for your tables via `aria-label` or `aria-lab
 ### Keyboard navigation
 
 Please verify that the focus outline for keyboard navigation has the correct color.
-E.g. when the table-wrapper is placed inside a dark container, the focus outline color should be changed:
+E.g. when the table-wrapper is placed inside a dark container, the focus outline color should be set to dark
+(`--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)`).
+
 ```html
-<div style="background: black">
-  <sbb-table-wrapper style="--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)">
-    <table>...</table>
+<div style="background: black; --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)">
+  <sbb-table-wrapper>
+    <table>
+      ...
+    </table>
   </sbb-table-wrapper>
 </div>
 ```
