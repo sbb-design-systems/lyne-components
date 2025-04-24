@@ -32,6 +32,7 @@ describe('sbb-compact-paginator', () => {
 
     element.addEventListener('page', (event) => {
       expect(event.detail.pageIndex).to.be.equal(element.pageIndex);
+      expect(event.detail.userInteracted).to.be.true;
       pageEventSpy();
     });
 
@@ -93,12 +94,14 @@ describe('sbb-compact-paginator', () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(1);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['userInteracted']).to.be.false;
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(2);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['userInteracted']).to.be.false;
   });
 
   it('handles length change', () => {

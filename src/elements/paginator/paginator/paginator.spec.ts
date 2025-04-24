@@ -33,6 +33,7 @@ describe('sbb-paginator', () => {
 
     element.addEventListener('page', (event) => {
       expect(event.detail.pageIndex).to.be.equal(element.pageIndex);
+      expect(event.detail.userInteracted).to.be.true;
       pageEventSpy();
     });
 
@@ -107,30 +108,25 @@ describe('sbb-paginator', () => {
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
     expect(select).not.to.be.null;
 
-    const willOpen = new EventSpy(
-      SbbSelectElement.events.willOpen,
-      element.shadowRoot!.querySelector('sbb-select'),
-    );
     const didOpen = new EventSpy(
       SbbSelectElement.events.didOpen,
       element.shadowRoot!.querySelector('sbb-select'),
     );
     select.click();
-    await willOpen.calledOnce();
-    expect(willOpen.count).to.be.equal(1);
     await didOpen.calledOnce();
     expect(didOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    const firstOption = select.querySelector<SbbOptionElement>('[value="10"]')!;
-    expect(firstOption).not.to.be.null;
-    firstOption.click();
+    const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;
+    expect(secondOption).not.to.be.null;
+    secondOption.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(1);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(10);
+    expect(pageEventSpy.count).to.be.equal(2);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(20);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(0);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(0);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['length']).to.be.equal(50);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['userInteracted']).to.be.true;
   });
 
   it('the `page` event is not emitted when pageSize and pageIndex change programmatically', async () => {
@@ -138,12 +134,14 @@ describe('sbb-paginator', () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(1);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['userInteracted']).to.be.false;
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(2);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['userInteracted']).to.be.false;
   });
 
   it('handles length change', () => {
