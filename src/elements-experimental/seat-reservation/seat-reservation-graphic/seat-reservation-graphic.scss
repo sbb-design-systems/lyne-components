@@ -13,6 +13,9 @@
   --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
 
   display: block;
+  width: calc(var(--sbb-reservation-graphic-width) * 1px);
+  height: calc(var(--sbb-reservation-graphic-height) * 1px);
+  transform-origin: center;
   transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
 
   // override color directly set in the SVG file coming from CDN

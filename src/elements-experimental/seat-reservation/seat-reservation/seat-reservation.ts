@@ -60,6 +60,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
+  // Graphics that should not be rendered with an area
   private _notAreaElements = [
     'DRIVER_AREA_FULL',
     'COACH_PASSAGE',
@@ -69,6 +70,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     'COMPARTMENT_PASSAGE_LOW',
     'COACH_BORDER_OUTER',
   ];
+  // Area icons that should not be fixed during rotation when vertical mode is selected
+  private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -116,7 +119,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           />
         </sbb-screen-reader-only>
 
-        <span @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}>
+        <div
+          class="sbb-seat-reservation__main"
+          @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
+        >
           ${this._renderNavigation()}
           <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
             <div
@@ -129,7 +135,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               </ul>
             </div>
           </div>
-        </span>
+        </div>
 
         <sbb-screen-reader-only>
           <input
@@ -343,7 +349,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return graphicalElements?.map((graphicalElement: BaseElement) => {
       const icon = graphicalElement.icon ?? '';
       const elementRotation = graphicalElement.rotation || 0;
-      const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
+      const isNotFixedRotationGraphicalElement =
+        this._notFixedRotatableAreaIcons.indexOf(graphicalElement.icon!) === -1;
+      const elementFixedRotation =
+        this.alignVertical && isNotFixedRotationGraphicalElement
+          ? elementRotation - 90
+          : elementRotation;
 
       //check if the current element is not an area element, since this element is drawn without an area component
       if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {

@@ -51,10 +51,10 @@ $disabled: '[disabled], :disabled';
   }
 
   &__text {
+    overflow: hidden;
     display: none;
     position: absolute;
     inset-block-start: 50%;
-    overflow: hidden;
     transform-origin: center;
     transform: translate(-50%, -50%)
       rotate(calc(var(--sbb-reservation-place-control-text-rotation) * 1deg));
@@ -74,8 +74,13 @@ $disabled: '[disabled], :disabled';
     }
 
     #{$root}--type-bicycle & {
-      inset-block-start: 65%;
+      inset-block-start: 66%;
       inset-inline-start: 50%;
+
+      // We need to adjust transform origin point for bicycle places text (necessary for rotation),
+      // because the position of place number is not centered in the place area.
+      // The value 16% is the optimal value for the rotation offset on the origin y-axis.
+      transform-origin: center 16%;
 
       // use a smaller font-size to avoid a11y violation
       font-size: 0.6875em;
@@ -89,17 +94,17 @@ $disabled: '[disabled], :disabled';
 
     // Depending on the place orientation, minor positioning adjustments may need to be made to center the text,
     // because of the width of the SVG which is not square
-    #{$root}--orientation-0 & {
-      inset-inline-start: 47%;
+    #{$root}--orientation-0#{$root}--type-seat & {
+      inset-inline-start: 45%;
     }
-    #{$root}--orientation-90 & {
+    #{$root}--orientation-90#{$root}--type-seat & {
       inset-block-start: 46%;
       inset-inline-start: 50%;
     }
-    #{$root}--orientation-180 & {
+    #{$root}--orientation-180#{$root}--type-seat & {
       inset-inline-start: 53%;
     }
-    #{$root}--orientation-270 & {
+    #{$root}--orientation-270#{$root}--type-seat & {
       inset-block-start: 52%;
       inset-inline-start: 52%;
     }
