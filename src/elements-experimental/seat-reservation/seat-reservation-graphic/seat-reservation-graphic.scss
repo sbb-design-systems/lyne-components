@@ -13,6 +13,9 @@
   --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
 
   display: block;
+  width: calc(var(--sbb-reservation-graphic-width) * 1px);
+  height: calc(var(--sbb-reservation-graphic-height) * 1px);
+  transform-origin: center;
   transform: rotate(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
 }
 

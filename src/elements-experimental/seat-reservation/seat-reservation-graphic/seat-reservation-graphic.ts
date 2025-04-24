@@ -79,7 +79,7 @@ class SbbSeatReservationGraphicElement extends LitElement {
       ${svgObj?.svgName
         ? html` <span class="sbb-seat-reservation-icon">
             <sbb-icon
-              class="sbb-icon-fit sbb-seat-reservation-icon"
+              class="sbb-icon-fit"
               name="${svgObj.svgName || ''}"
               aria-hidden="false"
               aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
