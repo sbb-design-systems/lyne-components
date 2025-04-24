@@ -66,7 +66,7 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'fr:Verfügbare Services: ',
     it: 'it:Verfügbare Services: ',
   },
-  SERVICE_CLASS_FISRT: {
+  SERVICE_CLASS_FIRST: {
     de: 'erste Klasse',
     en: 'en:erste Klasse',
     fr: 'fr:erste Klasse',

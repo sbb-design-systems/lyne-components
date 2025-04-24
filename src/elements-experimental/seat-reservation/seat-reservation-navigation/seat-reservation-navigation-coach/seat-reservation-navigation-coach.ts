@@ -182,7 +182,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     //If service class exist, then expand label with service class translation
     if (serviceClassNumber) {
       const serviceClassTranslationKey =
-        serviceClassNumber === 1 ? 'SERVICE_CLASS_FISRT' : 'SERVICE_CLASS_SECOND';
+        serviceClassNumber === 1 ? 'SERVICE_CLASS_FIRST' : 'SERVICE_CLASS_SECOND';
       const serviceClassTranslation = getI18nSeatReservation(
         serviceClassTranslationKey,
         this._language.current,
