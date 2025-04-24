@@ -15,7 +15,10 @@
   --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
 
   display: block;
-  transform: rotate(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
+  transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
+
+  // override color directly set in the SVG file coming from CDN
+  color: var(--sbb-color-granite);
 }
 
 .sbb-seat-reservation-graphic {
@@ -25,7 +28,7 @@
   width: calc(var(--sbb-reservation-graphic-width) * 1px);
   height: calc(var(--sbb-reservation-graphic-height) * 1px);
   transform-origin: center;
-  transform: rotate(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
+  transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
 
   svg {
     width: clamp(100%, 100%, 100%);
@@ -33,7 +36,7 @@
 
     .fix-rotation-inverse {
       transform-origin: center;
-      transform: rotate(calc(var(--sbb-reservation-graphic-contents-rotation) * 1deg));
+      transform: rotateZ(calc(var(--sbb-reservation-graphic-contents-rotation) * 1deg));
     }
   }
 
