@@ -54,8 +54,8 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   name: 'BISTRO',
   stretch: false,
-  width: 4,
-  height: 4,
+  width: 32,
+  height: 32,
   rotation: 0,
 };
 
@@ -70,12 +70,12 @@ export const Default: StoryObj = {
 
 export const pramAreaWidth2Height2: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, name: 'PRAM_AREA', width: 2, height: 2 },
+  args: { ...defaultArgs, name: 'PRAM_AREA', width: 32, height: 32 },
 };
 
 export const StairAreaWidth2Height2Rotation315: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, name: 'STAIR_AREA', width: 2, height: 2, rotation: 315 },
+  args: { ...defaultArgs, name: 'STAIR_AREA', width: 32, height: 32, rotation: 315 },
 };
 
 export const coachBorderMiddleWidth20Height4Stretch: StoryObj = {

@@ -1,8 +1,9 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation, mapIconToSvg } from '../common.js';
 
@@ -33,6 +34,11 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
+  /** Inverse rotation for part of an SVG that can be rotated opposite to the normal rotation */
+  @forceType()
+  @property({ attribute: 'inverse-roration', type: Number })
+  public accessor inverseRotation: number = 0;
+
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width', type: Number })
@@ -58,27 +64,36 @@ class SbbSeatReservationGraphicElement extends LitElement {
     if (_changedProperties.has('rotation')) {
       this.style?.setProperty('--sbb-reservation-graphic-rotation', `${this.rotation}`);
     }
+
+    if (_changedProperties.has('inverseRotation')) {
+      this.style?.setProperty(
+        '--sbb-reservation-graphic-inverse-rotation',
+        `${this.inverseRotation}`,
+      );
+    }
   }
 
-  protected override render(): TemplateResult {
+  protected override render(): TemplateResult | null {
     const svgObj = mapIconToSvg[this.name];
 
-    return html`
-      ${svgObj?.svgName
-        ? html` <span class="sbb-seat-reservation-icon">
-            <sbb-icon
-              class="sbb-icon-fit sbb-seat-reservation-icon"
-              name="${svgObj.svgName || ''}"
-              aria-hidden="false"
-              aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
-            ></sbb-icon>
-          </span>`
-        : svgObj?.svg
-          ? html`
-              <span class="sbb-seat-reservation-graphic">${this._getSvgElement(svgObj.svg)}</span>
-            `
-          : nothing}
-    `;
+    if (!svgObj?.svg && !svgObj?.svgName) {
+      return null;
+    }
+
+    return html`<span
+      class="${classMap({
+        'sbb-seat-reservation-icon': !!svgObj.svgName,
+        'sbb-seat-reservation-graphic': !!svgObj.svg,
+      })}"
+    >
+      ${svgObj.svgName
+        ? html` <sbb-icon
+            name="${svgObj.svgName || ''}"
+            aria-hidden="false"
+            aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+          ></sbb-icon>`
+        : html`${this._getSvgElement(svgObj.svg!)}`}
+    </span>`;
   }
 
   private _getSvgElement(svg: string): Element | null {
