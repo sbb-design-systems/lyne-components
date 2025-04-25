@@ -22,21 +22,13 @@ import interiorTableTest from './svgs/interior-table.svg?raw';
 import interiorTmpTable from './svgs/interior-tmp-table.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
 import layoutSki from './svgs/layout-ski.svg?raw';
-import layoutStair from './svgs/layout-stair.svg?raw';
 import layoutTmpGenericSpace from './svgs/layout-tmp-generic-space.svg?raw';
 import layoutWardrobe from './svgs/layout-wardrobe.svg?raw';
-import serviceBistro from './svgs/service-bistro.svg?raw';
-import serviceBusiness from './svgs/service-business.svg?raw';
-import serviceFamily from './svgs/service-family.svg?raw';
 import serviceLuggage from './svgs/service-luggage.svg?raw';
 import serviceMultifunction from './svgs/service-multifunction.svg?raw';
 import servicePrm from './svgs/service-prm.svg?raw';
-import serviceRestaurant from './svgs/service-restaurant.svg?raw';
-import serviceSilence from './svgs/service-silence.svg?raw';
 import serviceToiletPrm from './svgs/service-toilet-prm.svg?raw';
 import serviceToilet from './svgs/service-toilet.svg?raw';
-import serviceWheelchair from './svgs/service-wheelchair.svg?raw';
-import serviceWifi from './svgs/service-wifi.svg?raw';
 
 const svgs = {
   chassisDriverBus,
@@ -63,21 +55,13 @@ const svgs = {
   interiorTmpTable,
   layoutEntrance,
   layoutSki,
-  layoutStair,
   layoutTmpGenericSpace,
   layoutWardrobe,
-  serviceBistro,
-  serviceBusiness,
-  serviceFamily,
   serviceLuggage,
   serviceMultifunction,
   servicePrm,
-  serviceRestaurant,
-  serviceSilence,
   serviceToiletPrm,
   serviceToilet,
-  serviceWheelchair,
-  serviceWifi,
 };
 
 export { svgs };
