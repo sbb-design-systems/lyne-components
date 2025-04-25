@@ -1,8 +1,9 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation, mapIconToSvg } from '../common.js';
 
@@ -72,25 +73,27 @@ class SbbSeatReservationGraphicElement extends LitElement {
     }
   }
 
-  protected override render(): TemplateResult {
+  protected override render(): TemplateResult | null {
     const svgObj = mapIconToSvg[this.name];
 
-    return html`
-      ${svgObj?.svgName
-        ? html` <span class="sbb-seat-reservation-icon">
-            <sbb-icon
-              class="sbb-icon-fit"
-              name="${svgObj.svgName || ''}"
-              aria-hidden="false"
-              aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
-            ></sbb-icon>
-          </span>`
-        : svgObj?.svg
-          ? html`
-              <span class="sbb-seat-reservation-graphic">${this._getSvgElement(svgObj.svg)}</span>
-            `
-          : nothing}
-    `;
+    if (!svgObj?.svg && !svgObj?.svgName) {
+      return null;
+    }
+
+    return html`<span
+      class="${classMap({
+        'sbb-seat-reservation-graphic': true,
+        'sbb-seat-reservation-graphic__svg': !!svgObj.svg,
+      })}"
+    >
+      ${svgObj.svgName
+        ? html` <sbb-icon
+            name="${svgObj.svgName || ''}"
+            aria-hidden="false"
+            aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+          ></sbb-icon>`
+        : html`${this._getSvgElement(svgObj.svg!)}`}
+    </span>`;
   }
 
   private _getSvgElement(svg: string): Element | null {
