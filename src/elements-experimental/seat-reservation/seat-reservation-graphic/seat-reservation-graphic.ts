@@ -82,8 +82,8 @@ class SbbSeatReservationGraphicElement extends LitElement {
 
     return html`<span
       class="${classMap({
-        'sbb-seat-reservation-graphic': true,
-        'sbb-seat-reservation-graphic__svg': !!svgObj.svg,
+        'sbb-seat-reservation-icon': !!svgObj.svgName,
+        'sbb-seat-reservation-graphic': !!svgObj.svg,
       })}"
     >
       ${svgObj.svgName

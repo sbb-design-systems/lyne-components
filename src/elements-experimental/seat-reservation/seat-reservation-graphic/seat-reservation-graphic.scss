@@ -7,6 +7,7 @@
   --sbb-reservation-graphic-inverse-rotation: 0;
 }
 
+.sbb-seat-reservation-icon,
 .sbb-seat-reservation-graphic {
   --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * 1px);
   --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
@@ -18,31 +19,33 @@
   height: calc(var(--sbb-reservation-graphic-height) * 1px);
   transform-origin: center;
   transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
+}
 
+.sbb-seat-reservation-icon {
   // override color directly set in the SVG file coming from CDN
   color: var(--sbb-color-granite);
+}
 
-  &__svg {
-    svg {
-      width: clamp(100%, 100%, 100%);
-      height: clamp(100%, 100%, 100%);
+.sbb-seat-reservation-graphic {
+  svg {
+    width: clamp(100%, 100%, 100%);
+    height: clamp(100%, 100%, 100%);
 
-      .fix-rotation-inverse {
-        transform-origin: center;
-        transform: rotateZ(calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg));
+    .fix-rotation-inverse {
+      transform-origin: center;
+      transform: rotateZ(calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg));
+    }
+  }
+
+  @include sbb.if-forced-colors {
+    svg:not(.color-immutable) {
+      [fill]:not([fill='none']) {
+        fill: currentcolor;
       }
     }
 
-    @include sbb.if-forced-colors {
-      svg:not(.color-immutable) {
-        [fill]:not([fill='none']) {
-          fill: currentcolor;
-        }
-      }
-
-      .no-bg {
-        fill: transparent;
-      }
+    .no-bg {
+      fill: transparent;
     }
   }
 }
