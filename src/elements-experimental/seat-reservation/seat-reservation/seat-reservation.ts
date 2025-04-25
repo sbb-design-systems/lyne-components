@@ -60,6 +60,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
+  // Graphics that should not be rendered with an area
   private _notAreaElements = [
     'DRIVER_AREA_FULL',
     'COACH_PASSAGE',
@@ -69,6 +70,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     'COMPARTMENT_PASSAGE_LOW',
     'COACH_BORDER_OUTER',
   ];
+  // Area icons that should not be fixed during rotation when vertical mode is selected
+  private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -116,20 +119,21 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           />
         </sbb-screen-reader-only>
 
-        ${this._renderNavigation()}
-
         <div
-          class="sbb-seat-reservation__wrapper ${classAlignVertical}"
+          class="sbb-seat-reservation__main"
           @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
         >
-          <div
-            id="sbb-seat-reservation__parent-area"
-            class="sbb-seat-reservation__parent"
-            tabindex="-1"
-          >
-            <ul class="sbb-seat-reservation__list-coaches" role="presentation">
-              ${this._renderCoaches(coachItems)}
-            </ul>
+          ${this._renderNavigation()}
+          <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
+            <div
+              id="sbb-seat-reservation__parent-area"
+              class="sbb-seat-reservation__parent"
+              tabindex="-1"
+            >
+              <ul class="sbb-seat-reservation__list-coaches" role="presentation">
+                ${this._renderCoaches(coachItems)}
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -302,7 +306,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return places?.map((place: Place, index: number) => {
       const calculatedInternalDimension = this.getCalculatedDimension(place.dimension);
       const calculatedInternalPosition = this.getCalculatedPosition(place.position);
-      const textRotation = place.rotation ? place.rotation * -1 : 0;
+      const textRotation = this.alignVertical ? -90 : 0;
 
       return html`
         <sbb-scoped-element
@@ -344,13 +348,19 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     return graphicalElements?.map((graphicalElement: BaseElement) => {
       const icon = graphicalElement.icon ?? '';
-      const rotation = graphicalElement.rotation ?? 0;
+      const elementRotation = graphicalElement.rotation || 0;
+      const isNotFixedRotationGraphicalElement =
+        this._notFixedRotatableAreaIcons.indexOf(graphicalElement.icon!) === -1;
+      const elementFixedRotation =
+        this.alignVertical && isNotFixedRotationGraphicalElement
+          ? elementRotation - 90
+          : elementRotation;
 
       //check if the current element is not an area element, since this element is drawn without an area component
       if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
-        return this._getRenderElementWithoutArea(graphicalElement, rotation, coachDimension);
+        return this._getRenderElementWithoutArea(graphicalElement, elementRotation, coachDimension);
       }
-      return this._getRenderElementWithArea(graphicalElement, rotation, coachDimension);
+      return this._getRenderElementWithArea(graphicalElement, elementFixedRotation, coachDimension);
     });
   }
 
@@ -476,6 +486,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const calculatedcCmpartmentNumberPosition = this.getCalculatedPosition(
         serviceElement.position,
       );
+      const elementRotation = serviceElement.rotation || 0;
+      const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
+
       return html`
         <sbb-scoped-element
           scoped-classes="graphical-element"
@@ -489,6 +502,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             name=${serviceElement.icon ?? nothing}
             width=${serviceElement.dimension.w * this.baseGridSize}
             height=${serviceElement.dimension.h * this.baseGridSize}
+            .rotation=${elementFixedRotation}
             role="img"
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
