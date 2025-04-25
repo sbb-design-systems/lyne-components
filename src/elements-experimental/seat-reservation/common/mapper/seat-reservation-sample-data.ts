@@ -448,7 +448,7 @@ export const MOCK_COACHES_RAW_0 = [
                   borderRadius: null,
                 },
               },
-              orientation: 180,
+              orientation: 0,
               placeLocations: ['AISLE'],
               placeProperties: [],
               state: 'FREE',

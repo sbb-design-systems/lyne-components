@@ -46,11 +46,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
-  /** Graphic Rotation Prop */
-  @forceType()
-  @property({ attribute: 'graphic-rotation', type: Number })
-  public accessor graphicRotation: number = 0;
-
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width', type: Number })
@@ -135,11 +130,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     const text: string | null = this.text;
     const width: number = this.width;
     const height: number = this.height;
-    const graphicRotation: number = this.graphicRotation | 0;
+    const inverseRotationPlaceCheckIcon = this.textRotation - this.rotation;
 
     return html`
       <div
-        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
+        class="sbb-seat-reservation-place-control--orientation-${this
+          .rotation} sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
       >
         <button
           class="sbb-seat-reservation-place-control__button"
@@ -152,7 +148,8 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
             .name=${name}
             .width=${width}
             .height=${height}
-            .rotation=${graphicRotation}
+            .rotation=${this.rotation}
+            .inverseRotation=${inverseRotationPlaceCheckIcon}
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
           <span
