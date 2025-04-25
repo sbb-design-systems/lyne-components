@@ -4,24 +4,14 @@
   --sbb-reservation-graphic-width: 16;
   --sbb-reservation-graphic-height: 16;
   --sbb-reservation-graphic-rotation: 0;
-  --sbb-reservation-graphic-contents-rotation: calc(
-    var(--sbb-reservation-graphic-rotation) - var(--sbb-reservation-graphic-rotation)
-  );
+  --sbb-reservation-graphic-inverse-rotation: 0;
 }
 
-// similiar to the graphic, but slightly different.
-.sbb-seat-reservation-icon {
+.sbb-seat-reservation-icon,
+.sbb-seat-reservation-graphic {
   --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * 1px);
   --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
 
-  display: block;
-  transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
-
-  // override color directly set in the SVG file coming from CDN
-  color: var(--sbb-color-granite);
-}
-
-.sbb-seat-reservation-graphic {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,14 +19,21 @@
   height: calc(var(--sbb-reservation-graphic-height) * 1px);
   transform-origin: center;
   transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
+}
 
+.sbb-seat-reservation-icon {
+  // override color directly set in the SVG file coming from CDN
+  color: var(--sbb-color-granite);
+}
+
+.sbb-seat-reservation-graphic {
   svg {
     width: clamp(100%, 100%, 100%);
     height: clamp(100%, 100%, 100%);
 
     .fix-rotation-inverse {
       transform-origin: center;
-      transform: rotateZ(calc(var(--sbb-reservation-graphic-contents-rotation) * 1deg));
+      transform: rotateZ(calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg));
     }
   }
 
