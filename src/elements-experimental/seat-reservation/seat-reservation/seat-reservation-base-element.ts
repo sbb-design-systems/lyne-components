@@ -482,6 +482,7 @@ export class SeatReservationBaseElement extends LitElement {
 
       return;
     }
+
     if (this.hasNavigation) {
       //Set
       if (newFocusableIndex !== this.currSelectedCoachIndex) {
