@@ -30,6 +30,9 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
   public hasNextPage(): boolean;
   public numberOfPages(): number;
   protected language: SbbLanguageController;
+  /**
+   * @deprecated Will be removed with next major change.
+   */
   protected pageIndexChanged(value: number): void;
   protected emitPageEvent(previousPageIndex: number): void;
   protected renderPrevNextButtons(): TemplateResult;
@@ -81,7 +84,9 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     /** Current page index. */
     @property({ attribute: 'page-index', type: Number })
     public set pageIndex(value: number) {
+      const previousPageIndex = this._pageIndex;
       this._pageIndex = this._coercePageIndexInRange(value);
+      this.emitPageEvent(previousPageIndex);
     }
     public get pageIndex(): number {
       return this._pageIndex;
@@ -104,6 +109,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       SbbPaginatorCommonElement.events.page,
       { composed: true, bubbles: true },
     );
+
     protected language = new SbbLanguageController(this);
     protected abstract renderPaginator(): string;
 
@@ -174,14 +180,10 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     /**
      * If the `pageIndex` changes due to user interaction,
      * emit the `page` event and then update the `pageIndex` value.
+     * @deprecated Will be removed with next major change.
      */
     protected pageIndexChanged(value: number): void {
-      const previousPageIndex = this.pageIndex;
       this.pageIndex = value;
-
-      if (previousPageIndex !== this.pageIndex) {
-        this.emitPageEvent(previousPageIndex);
-      }
     }
 
     protected emitPageEvent(previousPageIndex: number): void {
@@ -201,7 +203,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             aria-label=${i18nPreviousPage[this.language.current]}
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
-            @click=${() => this.pageIndexChanged(this._pageIndex - 1)}
+            @click=${() => this.previousPage()}
           ></sbb-mini-button>
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button
@@ -209,7 +211,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             aria-label=${i18nNextPage[this.language.current]}
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
-            @click=${() => this.pageIndexChanged(this._pageIndex + 1)}
+            @click=${() => this.nextPage()}
           ></sbb-mini-button>
         </sbb-mini-button-group>
       `;
