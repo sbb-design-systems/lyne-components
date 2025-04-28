@@ -18,7 +18,24 @@ from which the label is displayed; below that, only the icon is visible.
 <sbb-header-button expand-from="medium">Text</sbb-header-button>
 ```
 
-### Style
+### Avatar image
+
+By slotting an `img` or a `sbb-image` into the `icon`-slot, an avatar style icon will be displayed,
+and it's possible to place a `sbb-badge` on it. However, for the `img`-elements it's not possible to directly
+place a `sbb-badge` on it. In this case, use a wrapping `<figure>` element.
+
+```html
+<figure sbb-badge="5" class="sbb-figure" slot="icon">
+  <img
+    src="..."
+    alt="Avatar Icon"
+    class="sbb-image-border-radius-round"
+    style="width: var(--sbb-size-icon-ui-small); height: var(--sbb-size-icon-ui-small);"
+  />
+</figure>
+```
+
+## Style
 
 To indicate an active state, the CSS class `sbb-active` should be set.
 

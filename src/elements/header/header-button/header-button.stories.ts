@@ -16,7 +16,21 @@ const TemplateSingle = ({ active, text, ...args }: Args): TemplateResult => html
   </sbb-header-button>
 `;
 
+const AvatarSbbImageTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
+  <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
+    <sbb-image image-src=${sampleImages[6]} slot="icon" sbb-badge="5" alt="Avatar Icon"></sbb-image>
+    ${text}
+  </sbb-header-button>
+`;
+
 const AvatarImgTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
+  <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
+    <img src=${sampleImages[6]} slot="icon" alt="Avatar Icon" />
+    ${text}
+  </sbb-header-button>
+`;
+
+const AvatarImgBadgeTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
   <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
     <figure sbb-badge="5" class="sbb-figure" slot="icon">
       <img
@@ -26,13 +40,6 @@ const AvatarImgTemplate = ({ active, text, ...args }: Args): TemplateResult => h
         style="aspect-ratio: 1 / 16; object-fit: cover; width: var(--sbb-size-icon-ui-small); height: var(--sbb-size-icon-ui-small);"
       />
     </figure>
-    ${text}
-  </sbb-header-button>
-`;
-
-const AvatarSbbImageTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
-  <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    <sbb-image image-src=${sampleImages[6]} slot="icon" sbb-badge="5" alt="Avatar Icon"></sbb-image>
     ${text}
   </sbb-header-button>
 `;
@@ -150,14 +157,20 @@ export const ExpandFromMedium: StoryObj = {
   },
 };
 
+export const AvatarSbbImage: StoryObj = {
+  render: AvatarSbbImageTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
 export const AvatarImg: StoryObj = {
   render: AvatarImgTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
-export const AvatarSbbImage: StoryObj = {
-  render: AvatarSbbImageTemplate,
+export const AvatarImgBadge: StoryObj = {
+  render: AvatarImgBadgeTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
