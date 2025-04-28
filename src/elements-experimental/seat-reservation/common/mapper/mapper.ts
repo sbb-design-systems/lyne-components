@@ -26,7 +26,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
           coachTravelClasses.push(placeGroup.travelClass);
         }
 
-        //Collect unique properties for coach
+        // Collect unique properties for coach
         if (coachPropertyIds.indexOf(placeGroup.accommodationSubType) === -1) {
           coachPropertyIds.push(placeGroup.accommodationSubType);
         }

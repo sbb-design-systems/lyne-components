@@ -212,9 +212,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const tableCaption = getI18nSeatReservation('COACH_TABLE_CAPTION', this._language.current, [
-      coachItem.id,
-    ]);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCouch(coachItem);
+
     return html`
       <sbb-scoped-element
         scoped-classes="coach-wrapper"
@@ -231,7 +230,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               class="coach-wrapper__table"
             >
               <caption>
-                <sbb-screen-reader-only>${tableCaption}</sbb-screen-reader-only>
+                <sbb-screen-reader-only
+                  >${descriptionTableCoachWithServices}</sbb-screen-reader-only
+                >
               </caption>
               ${this._getRenderedRowPlaces(coachItem, index)}
             </table>`
@@ -326,6 +327,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             text=${place.number}
             type=${place.type}
             state=${place.state}
+            .propertieIds=${place.propertyIds}
             width=${place.dimension.w * this.baseGridSize}
             height=${place.dimension.h * this.baseGridSize}
             rotation=${place.rotation ?? nothing}
@@ -370,10 +372,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachDimension: ElementDimension,
   ): TemplateResult {
     const stretchHeight = graphicalElement.icon !== 'ENTRY_EXIT';
-    const ariaLabelForArea = getI18nSeatReservation(
-      graphicalElement.icon || '',
-      this._language.current,
-    );
+    const areaProperty = graphicalElement.icon || '';
+    const ariaLabelForArea = getI18nSeatReservation(areaProperty, this._language.current);
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
@@ -400,7 +400,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return html`
       <sbb-scoped-element
         scoped-classes="graphical-element"
-        graph-elem-aria-label="${ariaLabelForArea}"
         inset-block-start="${calculatedPosition.y}px"
         inset-inline-start="${calculatedPosition.x}px"
         width="${calculatedDimension.w}px"
@@ -413,6 +412,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           mounting=${elementMounting}
           background="dark"
           aria-hidden="true"
+          title=${ariaLabelForArea || nothing}
         >
           <sbb-seat-reservation-graphic
             name=${graphicalElement.icon ?? nothing}
@@ -480,6 +480,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     return serviceElements?.map((serviceElement: BaseElement) => {
+      const titleDescription = serviceElement.icon
+        ? getI18nSeatReservation(serviceElement.icon, this._language.current)
+        : null;
       const calculatedcCmpartmentNumberDimension = this.getCalculatedDimension(
         serviceElement.dimension,
       );
@@ -505,6 +508,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             .rotation=${elementFixedRotation}
             role="img"
             aria-hidden="true"
+            title=${titleDescription}
           ></sbb-seat-reservation-graphic>
         </sbb-scoped-element>
       `;
@@ -544,6 +548,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
+    } else if (selectedNavCoachIndex === this.currSelectedCoachIndex) {
+      this.selectedCoachIndex = this.currSelectedCoachIndex;
+      this.focusedCoachIndex = -1;
+      this.preselectFirstPlaceInCoach();
     }
   }
 
@@ -553,6 +561,49 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     } else {
       this.focusPlaceElement(this.currSelectedPlace);
     }
+  }
+
+  private _getDescriptionTableCouch(coachItem: CoachItem): string {
+    let tableCoachDescription = '';
+    const areaDescriptions = this._getTitleDescriptionListString(coachItem.graphicElements!);
+    const serviceDescriptions = this._getTitleDescriptionListString(coachItem.serviceElements!);
+
+    tableCoachDescription = getI18nSeatReservation('COACH_TABLE_CAPTION', this._language.current, [
+      coachItem.id,
+    ]);
+
+    if (!!areaDescriptions || !!serviceDescriptions) {
+      tableCoachDescription +=
+        '. ' + getI18nSeatReservation('COACH_Available_SERVICES', this._language.current) + ': ';
+      tableCoachDescription += serviceDescriptions + ', ' + areaDescriptions + '.';
+    }
+    return tableCoachDescription;
+  }
+
+  private _getTitleDescriptionListString(descriptionsElements: BaseElement[]): string {
+    const uniqueDescriptions: string[] = [];
+
+    return descriptionsElements
+      ?.map((descriptionElement) => {
+        const icon = descriptionElement.icon;
+        if (!icon) return null;
+
+        const descriptionAlreayExist = uniqueDescriptions.indexOf(icon) > -1;
+        const translation = getI18nSeatReservation(
+          descriptionElement.icon!,
+          this._language.current,
+        );
+        const isValidDescription =
+          this._notFixedRotatableAreaIcons.indexOf(icon) === -1 &&
+          this._notAreaElements.indexOf(icon) === -1;
+
+        if (!descriptionAlreayExist) {
+          uniqueDescriptions.push(descriptionElement.icon!);
+        }
+        return !!translation && !descriptionAlreayExist && isValidDescription ? translation : null;
+      })
+      .filter((description) => !!description)
+      .join(', ');
   }
 }
 
