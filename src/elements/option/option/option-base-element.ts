@@ -198,6 +198,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   /** Observe changes on data attributes + slotted content and set the appropriate values. */
   protected onExternalMutation(mutationsList: MutationRecord[]): void {
+    let contentChanged = false;
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
         this.disabledFromGroup = this.hasAttribute('data-group-disabled');
@@ -205,12 +206,14 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
       } else if (mutation.attributeName === 'data-negative') {
         this.negative = this.hasAttribute('data-negative');
       } else {
-        /** @internal */
-        this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
-
-        // We return because there should be only one event triggered per mutationList
-        return;
+        contentChanged = true;
       }
+    }
+
+    if (contentChanged) {
+      this.handleHighlightState();
+      /** @internal */
+      this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
     }
   }
 
@@ -282,7 +285,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
             <slot @slotchange=${this.handleHighlightState}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html` <sbb-screen-reader-only>
+              ? html`<sbb-screen-reader-only>
                   (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
                 >`
               : nothing}

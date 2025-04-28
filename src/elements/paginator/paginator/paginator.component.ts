@@ -185,7 +185,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                       data-index=${item}
                       aria-label="${i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      @click=${() => this.pageIndexChanged(item)}
+                      @click=${() => (this.pageIndex = item)}
                       @keyup=${this._handleKeyUp}
                     >
                       <span class="sbb-paginator__page--number-item-label">${item + 1}</span>

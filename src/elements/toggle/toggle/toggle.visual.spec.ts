@@ -1,4 +1,4 @@
-import { type TemplateResult, html, nothing } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -118,5 +118,21 @@ describe(`sbb-toggle`, () => {
         );
       }),
     );
+
+    describe('forced colors', () => {
+      for (const state of [visualDiffDefault, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-toggle>${options(true, 'app-icon-small')}</sbb-toggle>`,
+              {
+                forcedColors: true,
+              },
+            );
+          }),
+        );
+      }
+    });
   });
 });

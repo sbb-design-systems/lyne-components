@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.7.1...v2.8.0) (2025-04-28)
+
+
+### Features
+
+* **sbb-paginator:** add convenience methods ([#3622](https://github.com/sbb-design-systems/lyne-components/issues/3622)) ([e927f98](https://github.com/sbb-design-systems/lyne-components/commit/e927f9880eab926b23a23f854b9cea2b81923f35)), closes [#3621](https://github.com/sbb-design-systems/lyne-components/issues/3621)
+* **sbb-table-wrapper:** introduce focusable property ([#3624](https://github.com/sbb-design-systems/lyne-components/issues/3624)) ([f427941](https://github.com/sbb-design-systems/lyne-components/commit/f42794171b2d34de5009add22145c742e32b7719)), closes [#3623](https://github.com/sbb-design-systems/lyne-components/issues/3623)
+
+
+### Bug Fixes
+
+* reduce infinity radius for Safari compatibility ([#3618](https://github.com/sbb-design-systems/lyne-components/issues/3618)) ([60f0d64](https://github.com/sbb-design-systems/lyne-components/commit/60f0d647dbeb8c1c334c42b990c258351efacfda))
+* **sbb-icon:** add extra-small dimension ([#3608](https://github.com/sbb-design-systems/lyne-components/issues/3608)) ([d4b74a5](https://github.com/sbb-design-systems/lyne-components/commit/d4b74a5ccd6d1c97c21efa76b040c9027ef6edea))
+* **sbb-paginator:** configure page event for lyne-angular ([#3629](https://github.com/sbb-design-systems/lyne-components/issues/3629)) ([1d2e401](https://github.com/sbb-design-systems/lyne-components/commit/1d2e401a2f2f84811db07905d79b9b6f4d2ca3d1))
+* **sbb-toggle:** improve stacking ([#3615](https://github.com/sbb-design-systems/lyne-components/issues/3615)) ([447251e](https://github.com/sbb-design-systems/lyne-components/commit/447251e62fbe88933d9b61b252172374244e79b2)), closes [#3605](https://github.com/sbb-design-systems/lyne-components/issues/3605)
+
+
+### Documentation
+
+* **sbb-table-wrapper:** add section about focus outline color ([#3625](https://github.com/sbb-design-systems/lyne-components/issues/3625)) ([1041e93](https://github.com/sbb-design-systems/lyne-components/commit/1041e93ede1dfe602adc3b49a4cafcd068699d8b))
+
+## [2.7.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.7.0...v2.7.1) (2025-04-17)
+
+
+### Bug Fixes
+
+* fix text node detection for slots ([#3600](https://github.com/sbb-design-systems/lyne-components/issues/3600)) ([f212c3b](https://github.com/sbb-design-systems/lyne-components/commit/f212c3be09d85a021719df37ce542f66b8706364)), closes [#3593](https://github.com/sbb-design-systems/lyne-components/issues/3593)
+* **sbb-form-field:** improve look of input type number ([#3579](https://github.com/sbb-design-systems/lyne-components/issues/3579)) ([c78397c](https://github.com/sbb-design-systems/lyne-components/commit/c78397c12710d405ee40e0f60ac77b77305c4b54)), closes [#3572](https://github.com/sbb-design-systems/lyne-components/issues/3572)
+* use correct react import paths ([#3602](https://github.com/sbb-design-systems/lyne-components/issues/3602)) ([5e98569](https://github.com/sbb-design-systems/lyne-components/commit/5e98569662e3e272a4e520ff7746b6b754ef0410))
+
 ## [2.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.6.0...v2.7.0) (2025-04-15)
 
 

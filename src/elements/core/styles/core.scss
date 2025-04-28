@@ -35,7 +35,7 @@
 
     // Infinity border radius, can be used to achieve rounded border on start and end
     // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
-    --sbb-border-radius-infinity: 10000000em;
+    --sbb-border-radius-infinity: 100000em;
 
     &:has(sbb-header[size='s']) {
       --sbb-header-height: #{functions.px-to-rem-build(52)};
@@ -132,6 +132,20 @@ sbb-form-field {
 
   :where(select, sbb-select) {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+  }
+
+  &[size='s'] :where(input, sbb-date-input) {
+    // We shrink the input's height to support all types of inputs (especially type=number).
+    // Factor 1.25 ensures, letters are not cut.
+    height: calc(var(--sbb-form-field-input-text-size) * 1.25);
+
+    // Avoids Safari bug, where text gets misaligned with type=number
+    line-height: 1 !important;
+
+    // We add the missing block spacing to fit the line-height
+    margin-block: calc(
+      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-body-text) - 1.25))
+    );
   }
 
   :where(textarea) {
@@ -480,4 +494,10 @@ sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
   sbb-form-field & {
     top: 0;
   }
+}
+
+sbb-toggle:has(:focus-visible) {
+  @include a11y.focus-outline;
+
+  --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
 }
