@@ -574,7 +574,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     if (!!areaDescriptions || !!serviceDescriptions) {
       tableCoachDescription +=
-        '. ' + getI18nSeatReservation('COACH_Available_SERVICES', this._language.current) + ': ';
+        '. ' + getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
       tableCoachDescription += serviceDescriptions + ', ' + areaDescriptions + '.';
     }
     return tableCoachDescription;
