@@ -5,12 +5,35 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import sampleImages from '../../core/images.js';
 
 import readme from './readme.md?raw';
 import './header-link.component.js';
+import '../../image.js';
 
 const TemplateSingle = ({ active, text, ...args }: Args): TemplateResult => html`
   <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
+    ${text}
+  </sbb-header-link>
+`;
+
+const AvatarImgTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
+  <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
+    <figure sbb-badge="5" class="sbb-figure" slot="icon">
+      <img
+        src=${sampleImages[6]}
+        alt="Avatar Icon"
+        class="sbb-image-border-radius-round"
+        style="aspect-ratio: 1 / 16; object-fit: cover; width: var(--sbb-size-icon-ui-small); height: var(--sbb-size-icon-ui-small);"
+      />
+    </figure>
+    ${text}
+  </sbb-header-link>
+`;
+
+const AvatarSbbImageTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
+  <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
+    <sbb-image image-src=${sampleImages[6]} slot="icon" sbb-badge="5" alt="Avatar Icon"></sbb-image>
     ${text}
   </sbb-header-link>
 `;
@@ -132,6 +155,18 @@ export const ExpandFromMedium: StoryObj = {
     text: 'Label',
     'expand-from': 'medium',
   },
+};
+
+export const AvatarImg: StoryObj = {
+  render: AvatarImgTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const AvatarSbbImage: StoryObj = {
+  render: AvatarSbbImageTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
 const meta: Meta = {
