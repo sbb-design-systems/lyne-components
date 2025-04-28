@@ -13,6 +13,8 @@ import type { PlaceTravelClass } from '../../seat-reservation.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
+const MAX_SERVICE_PROPERTIES = 3;
+
 /**
  * This component will display the navigation coach item for Seat reservation.
  *
@@ -108,7 +110,17 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     }
   }
 
+  /**
+   * Render a maximum of 3 of the service sign icons (slice(0,3)) regardless of the input from Backend,
+   * otherwise the layout could be destroyed. Furthermore, we have to filter out the value ANY_SEAT,
+   * since this is also passed as a property and does not need to be used here
+   *
+   * @protected
+   */
   protected override render(): TemplateResult {
+    this.propertyIds = this.propertyIds
+      .filter((propertyId) => propertyId !== 'ANY_SEAT')
+      .slice(0, MAX_SERVICE_PROPERTIES);
     return html`
       <div
         class="${classMap({
@@ -132,19 +144,27 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   private _getNavigationButton(): TemplateResult | null {
     const currServiceClassNumber = this._getCoachServiceClassNumber();
-    const coachNavButtonLabel = this._getNavigationButtonLabelDescription(currServiceClassNumber);
+    const titleDescriptionNavCoachButton =
+      this._getTitleDescriptionNavCoachButton(currServiceClassNumber);
+    const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
 
     return html`
+      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}"
+        >${ariaDescriptionCoachServices}</sbb-screen-reader-only
+      >
       ${!this.driverArea
-        ? html` <button
-            type="button"
-            ?disabled="${this.disable}"
-            class="sbb-seat-reservation-navigation__control-button"
-            title="${coachNavButtonLabel}"
-            @click=${() => this._selectNavCoach(this.index)}
-          >
-            ${this._getBtnInformation(currServiceClassNumber)}
-          </button>`
+        ? html`
+            <button
+              type="button"
+              ?disabled="${this.disable}"
+              class="sbb-seat-reservation-navigation__control-button"
+              title="${titleDescriptionNavCoachButton}"
+              aria-describedby="nav-coach-service-descriptions-${this.index}"
+              @click=${() => this._selectNavCoach(this.index)}
+            >
+              ${this._getBtnInformation(currServiceClassNumber)}
+            </button>
+          `
         : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
     `;
   }
@@ -176,7 +196,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     `;
   }
 
-  private _getNavigationButtonLabelDescription(serviceClassNumber: number | null): string {
+  private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
     let label = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [this.coachId]);
 
     //If service class exist, then expand label with service class translation
@@ -195,6 +215,19 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       label = label.concat(serviceClassLabel);
     }
     return label;
+  }
+
+  private _getAriaDescriptionCoachServices(): string | null {
+    let ariaDescrition = null;
+    if (this.propertyIds.length) {
+      ariaDescrition =
+        getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
+      ariaDescrition += this.propertyIds
+        .slice(0, 3)
+        .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
+        .join();
+    }
+    return ariaDescrition;
   }
 
   /**
