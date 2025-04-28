@@ -27,7 +27,7 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 <sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
 ```
 
-#### badge on img element
+#### On img element
 
 `<img>` elements don't support pseudo elements. Therefore, placing an img element directly on the img element is not possible.
 
