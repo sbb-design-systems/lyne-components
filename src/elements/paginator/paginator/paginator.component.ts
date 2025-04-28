@@ -76,7 +76,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     this.pageSize = value;
 
     if (previousPageSize !== this.pageSize) {
-      this.emitPageEvent(previousPageIndex, true);
+      this.emitPageEvent(previousPageIndex);
     }
   }
 
