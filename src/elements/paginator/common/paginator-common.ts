@@ -31,7 +31,7 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
   public numberOfPages(): number;
   protected language: SbbLanguageController;
   protected pageIndexChanged(value: number): void;
-  protected emitPageEvent(previousPageIndex: number, userInteracted?: boolean): void;
+  protected emitPageEvent(previousPageIndex: number): void;
   protected renderPrevNextButtons(): TemplateResult;
   protected abstract renderPaginator(): TemplateResult;
 }
@@ -106,7 +106,6 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       SbbPaginatorCommonElement.events.page,
       { composed: true, bubbles: true },
     );
-    private _userInteracted = false;
 
     protected language = new SbbLanguageController(this);
     protected abstract renderPaginator(): string;
@@ -180,21 +179,15 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
      * emit the `page` event and then update the `pageIndex` value.
      */
     protected pageIndexChanged(value: number): void {
-      this._userInteracted = true;
       this.pageIndex = value;
-      this._userInteracted = false;
     }
 
-    protected emitPageEvent(
-      previousPageIndex: number,
-      userInteracted = this._userInteracted,
-    ): void {
+    protected emitPageEvent(previousPageIndex: number): void {
       this._page.emit({
         previousPageIndex,
         pageIndex: this.pageIndex,
         length: this.length,
         pageSize: this.pageSize,
-        userInteracted,
       });
     }
 

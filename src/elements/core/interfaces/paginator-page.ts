@@ -3,5 +3,4 @@ export type SbbPaginatorPageEventDetails = {
   pageSize: number;
   pageIndex: number;
   previousPageIndex: number;
-  userInteracted: boolean;
 };
