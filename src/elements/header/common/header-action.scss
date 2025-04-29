@@ -199,3 +199,9 @@
     }
   }
 }
+
+::slotted([slot='icon']:is(sbb-image, img)) {
+  width: var(--sbb-header-action-icon-dimension);
+  height: var(--sbb-header-action-icon-dimension);
+  border-radius: var(--sbb-border-radius-infinity);
+}
