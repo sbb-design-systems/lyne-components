@@ -432,9 +432,6 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
       this._setupOrigin();
       this._setupTrigger();
     }
-    if (this.value) {
-      this._onValueChanged(this.value);
-    }
   }
 
   public override requestUpdate(
@@ -451,8 +448,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    // On initialization, the '_onValueChanged' is called by the connectedCallback
-    if (changedProperties.has('value') && this._didLoad) {
+    if (changedProperties.has('value') && (this._didLoad || this.value)) {
       this._onValueChanged(this.value!);
     }
     if (changedProperties.has('negative') || changedProperties.has('multiple')) {
