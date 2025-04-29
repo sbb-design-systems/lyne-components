@@ -27,6 +27,18 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 <sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
 ```
 
+#### On img element
+
+`<img>` elements don't support pseudo elements. Therefore, placing a badge directly on the `<img>` element is not possible.
+
+As workaround, a figure element can be used:
+
+```html
+<figure sbb-badge="5" class="sbb-figure">
+  <img src="..." alt="Avatar Icon" />
+</figure>
+```
+
 ### Accessibility
 
 For screen readers it's important to output the meaning of the badge. This attribute itself doesn't
