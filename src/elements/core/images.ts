@@ -8,7 +8,7 @@ const sampleImages: string[] = [
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Einheitswagen-IV-EuroCity.jpg',
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Einsatzstrecken_EW4-Eurocity.jpg',
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Frau-No-Results.png',
-  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Help-Teaser-Landscape.png',
+  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png',
 ];
 
 export default sampleImages;
