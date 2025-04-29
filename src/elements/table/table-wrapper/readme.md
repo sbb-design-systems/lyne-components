@@ -49,13 +49,30 @@ Always provide an accessible label for your tables via `aria-label` or `aria-lab
 </sbb-table-wrapper>
 ```
 
+### Keyboard navigation
+
+Please verify that the focus outline for keyboard navigation has the correct color.
+E.g. when the table-wrapper is placed inside a dark container, the focus outline color should be set to dark
+(`--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)`).
+
+```html
+<div style="background: black; --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)">
+  <sbb-table-wrapper>
+    <table>
+      ...
+    </table>
+  </sbb-table-wrapper>
+</div>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type      | Default | Description                     |
-| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
-| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+| Name        | Attribute   | Privacy | Type      | Default | Description                             |
+| ----------- | ----------- | ------- | --------- | ------- | --------------------------------------- |
+| `focusable` | `focusable` | public  | `boolean` | `false` | Whether the table wrapper is focusable. |
+| `negative`  | `negative`  | public  | `boolean` | `false` | Negative coloring variant flag.         |
 
 ## Slots
 

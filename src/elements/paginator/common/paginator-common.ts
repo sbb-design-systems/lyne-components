@@ -21,8 +21,18 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
   public accessor pageIndex: number;
   public accessor pagerPosition: 'start' | 'end';
   public accessor size: 'm' | 's';
+  public nextPage(): void;
+  public previousPage(): void;
+  public firstPage(): void;
+  public lastPage(): void;
+  public selectPage(index: number): void;
+  public hasPreviousPage(): boolean;
+  public hasNextPage(): boolean;
+  public numberOfPages(): number;
   protected language: SbbLanguageController;
-  protected numberOfPages(): number;
+  /**
+   * @deprecated Will be removed with next major change.
+   */
   protected pageIndexChanged(value: number): void;
   protected emitPageEvent(previousPageIndex: number): void;
   protected renderPrevNextButtons(): TemplateResult;
@@ -74,7 +84,9 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     /** Current page index. */
     @property({ attribute: 'page-index', type: Number })
     public set pageIndex(value: number) {
+      const previousPageIndex = this._pageIndex;
       this._pageIndex = this._coercePageIndexInRange(value);
+      this.emitPageEvent(previousPageIndex);
     }
     public get pageIndex(): number {
       return this._pageIndex;
@@ -97,6 +109,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       SbbPaginatorCommonElement.events.page,
       { composed: true, bubbles: true },
     );
+
     protected language = new SbbLanguageController(this);
     protected abstract renderPaginator(): string;
 
@@ -120,25 +133,57 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
     }
 
+    /** Advances to the next page if it exists. */
+    public nextPage(): void {
+      this.pageIndex = this.pageIndex + 1;
+    }
+
+    /** Move back to the previous page if it exists. */
+    public previousPage(): void {
+      this.pageIndex = this.pageIndex - 1;
+    }
+
+    /** Move to the first page if not already there. */
+    public firstPage(): void {
+      this.pageIndex = 0;
+    }
+
+    /** Move to the last page if not already there. */
+    public lastPage(): void {
+      this.pageIndex = this.numberOfPages() - 1;
+    }
+
+    /** Move to a specific page index. */
+    public selectPage(index: number): void {
+      this.pageIndex = index;
+    }
+
+    /** Whether there is a previous page. */
+    public hasPreviousPage(): boolean {
+      return this.pageIndex >= 1 && this.pageSize !== 0;
+    }
+
+    /** Whether there is a next page. */
+    public hasNextPage(): boolean {
+      const maxPageIndex = this.numberOfPages() - 1;
+      return this.pageIndex < maxPageIndex && this.pageSize !== 0;
+    }
+
     /**
      * Calculates the current number of pages based on the `length` and the `pageSize`;
      * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
      */
-    protected numberOfPages(): number {
+    public numberOfPages(): number {
       return this.pageSize ? Math.ceil(this.length / this.pageSize) : 0;
     }
 
     /**
      * If the `pageIndex` changes due to user interaction,
      * emit the `page` event and then update the `pageIndex` value.
+     * @deprecated Will be removed with next major change.
      */
     protected pageIndexChanged(value: number): void {
-      const previousPageIndex = this.pageIndex;
       this.pageIndex = value;
-
-      if (previousPageIndex !== this.pageIndex) {
-        this.emitPageEvent(previousPageIndex);
-      }
     }
 
     protected emitPageEvent(previousPageIndex: number): void {
@@ -157,16 +202,16 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             id="sbb-paginator-prev-page"
             aria-label=${i18nPreviousPage[this.language.current]}
             icon-name="chevron-small-left-small"
-            ?disabled=${this.disabled || this.pageIndex === 0}
-            @click=${() => this.pageIndexChanged(this._pageIndex - 1)}
+            ?disabled=${this.disabled || !this.hasPreviousPage()}
+            @click=${() => this.previousPage()}
           ></sbb-mini-button>
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button
             id="sbb-paginator-next-page"
             aria-label=${i18nNextPage[this.language.current]}
             icon-name="chevron-small-right-small"
-            ?disabled=${this.disabled || this.pageIndex === this.numberOfPages() - 1}
-            @click=${() => this.pageIndexChanged(this._pageIndex + 1)}
+            ?disabled=${this.disabled || !this.hasNextPage()}
+            @click=${() => this.nextPage()}
           ></sbb-mini-button>
         </sbb-mini-button-group>
       `;

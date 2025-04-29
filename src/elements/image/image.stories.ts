@@ -28,10 +28,9 @@ const WithCaptionTemplate = (args: Args): TemplateResult => html`
     ${ImageTemplate(args)}
     <figcaption>
       With the
-      <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html"
-        >Half Fare Travelcard</a
-      >
-      , you can travel for half price on all SBB routes and most other railways as well as on boats
+      <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html">
+        Half Fare Travelcard</a
+      >, you can travel for half price on all SBB routes and most other railways as well as on boats
       and Postbuses. You also benefit from discounts on urban transport as well as other additional
       attractive services and discounts.
     </figcaption>

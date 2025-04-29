@@ -19,6 +19,7 @@ export function typography(): PluginOption {
         { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
         { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
         { inputName: 'core/styles/core.scss', outputName: 'core.css' },
+        { inputName: 'core/styles/disable-animation.scss', outputName: 'disable-animation.css' },
         {
           inputName: 'core/styles/font-characters-extension.scss',
           outputName: 'font-characters-extension.css',

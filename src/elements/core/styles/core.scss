@@ -35,7 +35,7 @@
 
     // Infinity border radius, can be used to achieve rounded border on start and end
     // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
-    --sbb-border-radius-infinity: 10000000em;
+    --sbb-border-radius-infinity: 100000em;
 
     &:has(sbb-header[size='s']) {
       --sbb-header-height: #{functions.px-to-rem-build(52)};
@@ -494,4 +494,10 @@ sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
   sbb-form-field & {
     top: 0;
   }
+}
+
+sbb-toggle:has(:focus-visible) {
+  @include a11y.focus-outline;
+
+  --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
 }

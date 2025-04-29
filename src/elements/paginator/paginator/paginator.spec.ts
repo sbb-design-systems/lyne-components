@@ -107,27 +107,21 @@ describe('sbb-paginator', () => {
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
     expect(select).not.to.be.null;
 
-    const willOpen = new EventSpy(
-      SbbSelectElement.events.willOpen,
-      element.shadowRoot!.querySelector('sbb-select'),
-    );
     const didOpen = new EventSpy(
       SbbSelectElement.events.didOpen,
       element.shadowRoot!.querySelector('sbb-select'),
     );
     select.click();
-    await willOpen.calledOnce();
-    expect(willOpen.count).to.be.equal(1);
     await didOpen.calledOnce();
     expect(didOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    const firstOption = select.querySelector<SbbOptionElement>('[value="10"]')!;
-    expect(firstOption).not.to.be.null;
-    firstOption.click();
+    const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;
+    expect(secondOption).not.to.be.null;
+    secondOption.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(1);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(10);
+    expect(pageEventSpy.count).to.be.equal(2);
+    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(20);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(0);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(0);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['length']).to.be.equal(50);
@@ -138,12 +132,12 @@ describe('sbb-paginator', () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(1);
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(2);
   });
 
   it('handles length change', () => {
@@ -246,5 +240,86 @@ describe('sbb-paginator', () => {
 
     // Restore language
     document.documentElement.setAttribute('lang', lang);
+  });
+
+  it('should handle nextPage() call', () => {
+    element.nextPage();
+    expect(element.pageIndex).to.be.equal(1);
+  });
+
+  it('should bound nextPage() call', () => {
+    element.pageIndex = 9;
+    element.nextPage();
+    expect(element.pageIndex).to.be.equal(9);
+  });
+
+  it('should handle previousPage() call', () => {
+    element.pageIndex = 1;
+
+    element.previousPage();
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('should bound previousPage() call', () => {
+    element.previousPage();
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('should handle firstPage() call', () => {
+    element.pageIndex = 9;
+
+    element.firstPage();
+    expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('should handle lastPage() call', () => {
+    element.lastPage();
+    expect(element.pageIndex).to.be.equal(9);
+  });
+
+  it('should handle selectPage() call', () => {
+    element.selectPage(2);
+    expect(element.pageIndex).to.be.equal(2);
+  });
+
+  it('should bound selectPage() call', () => {
+    element.selectPage(-1);
+    expect(element.pageIndex).to.be.equal(0);
+
+    element.selectPage(10);
+    expect(element.pageIndex).to.be.equal(9);
+  });
+
+  it('should handle hasPreviousPage() call', () => {
+    expect(element.hasPreviousPage()).to.be.false;
+
+    element.selectPage(1);
+    expect(element.hasPreviousPage()).to.be.true;
+  });
+
+  it('should handle hasPreviousPage() call if pageSize is 0', () => {
+    element.pageSize = 0;
+    expect(element.hasPreviousPage()).to.be.false;
+  });
+
+  it('should handle hasNextPage() call', () => {
+    expect(element.hasNextPage()).to.be.true;
+
+    element.selectPage(9);
+    expect(element.hasNextPage()).to.be.false;
+  });
+
+  it('should handle hasNextPage() call if pageSize is 0', () => {
+    element.pageSize = 0;
+    expect(element.hasNextPage()).to.be.false;
+  });
+
+  it('should handle numberOfPages() call', () => {
+    expect(element.numberOfPages()).to.be.equal(10);
+  });
+
+  it('should handle numberOfPages() call if pageSize is 0', () => {
+    element.pageSize = 0;
+    expect(element.numberOfPages()).to.be.equal(0);
   });
 });

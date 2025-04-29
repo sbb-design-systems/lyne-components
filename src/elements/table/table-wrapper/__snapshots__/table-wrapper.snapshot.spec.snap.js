@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-table-wrapper renders DOM"] = 
-`<sbb-table-wrapper>
+`<sbb-table-wrapper class="sbb-scrollbar-thick-track-visible">
   <table
     aria-label="Table caption"
     class="sbb-table"
@@ -33,10 +33,8 @@ snapshots["sbb-table-wrapper renders DOM"] =
 /* end snapshot sbb-table-wrapper renders DOM */
 
 snapshots["sbb-table-wrapper renders Shadow DOM"] = 
-`<div class="sbb-table-wrapper">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-table-wrapper renders Shadow DOM */
 
