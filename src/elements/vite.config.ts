@@ -55,6 +55,7 @@ export default defineConfig((config) =>
                   'animation.css',
                   'badge.css',
                   'core.css',
+                  'disable-animation.css',
                   'font-characters-extension.css',
                   'layout.css',
                   'lists.css',

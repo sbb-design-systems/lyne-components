@@ -228,8 +228,9 @@ However, if you like to more specifically pick what you need, consider the follo
 | `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).         |
 |                                 |                                                                                     |
 | `a11y.css`                      | Provides accessibility related CSS classes.                                         |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.          |
 | `badge.css`                     | Provides badge styling.                                                             |
-| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing).                       |
+| `disable-animation.css`         | Disable animations on root level, ideally for a global test setup.                  |
 | `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
 | `lists.css`                     | Provides CSS classes to style lists.                                                |
 | `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                          |
