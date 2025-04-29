@@ -1080,7 +1080,7 @@ describe(`sbb-calendar`, () => {
   /**
    * In both tests, the selected date is 08.04.2025; this month has 5 weeks (14-18)
    */
-  describe.only('with week-numbers', () => {
+  describe('with week-numbers', () => {
     describe('horizontal', () => {
       it('renders', async () => {
         const calendar: HTMLElement = await fixture(
