@@ -59,6 +59,23 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 <sbb-calendar date-filter=${dateFilterFn}></sbb-calendar>
 ```
 
+### Multiple mode
+
+By default, the component allows selecting a single date:
+this behavior can be changed by setting the `multiple` attribute to true.
+In this case the `selected` property, if set, must be an array; moreover, the days of the week become clickable,
+allowing to select all the days with the same name (e.g. all the Mondays, all the Tuesdays and so on).
+
+```html
+<sbb-calendar multiple></sbb-calendar>
+```
+
+If the `week-numbers` property is set, the ISO week dates are also clickable, allowing to select all the days in the week.
+
+```html
+<sbb-calendar multiple week-numbers></sbb-calendar>
+```
+
 ## Style
 
 The component displays by default a single month in the `day` view, or a list of twenty-four years in the `year` view,
@@ -80,7 +97,7 @@ This visual change is applied only to the day view.
 
 In both orientations, the week days are always displayed:
 in `horizontal` they appear on top, while in `vertical` they are rendered on the left side.
-Using the `weekNumbers` property, it's possible to display the ISO week dates in a perpendicular direction to week days,
+Using the `week-numbers` property, it's possible to display the ISO week dates in a perpendicular direction to week days,
 so on the left side in `horizontal` and on top in `vertical`.
 
 ```html
