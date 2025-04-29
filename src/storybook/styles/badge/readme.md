@@ -29,7 +29,7 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 
 #### On img element
 
-`<img>` elements don't support pseudo elements. Therefore, placing an img element directly on the img element is not possible.
+`<img>` elements don't support pseudo elements. Therefore, placing a badge directly on the `<img>` element is not possible.
 
 As workaround, a figure element can be used:
 
