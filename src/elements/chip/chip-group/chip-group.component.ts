@@ -366,7 +366,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     const newChip = document.createElement('sbb-chip');
     newChip.setAttribute('value', value);
     newChip.innerText = label ?? '';
-    this.insertBefore(newChip, this._inputElement!);
+    this.insertBefore(newChip, this._inputElement ?? this.querySelector('input'));
   }
 
   private _reactToInputChanges(): void {
