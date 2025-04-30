@@ -104,6 +104,18 @@ describe('sbb-date-input', () => {
     expect(element.valueAsDate).not.to.be.null;
   });
 
+  it('should handle value=null like the native text input', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.value = null!;
+    expect(element.value).to.be.equal('');
+  });
+
+  it('should handle value=undefined like the native text input', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.value = undefined!;
+    expect(element.value).to.be.equal('undefined');
+  });
+
   describe('with no value', () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-date-input></sbb-date-input>`);
