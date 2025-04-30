@@ -63,20 +63,24 @@ describe('sbb-calendar', () => {
             }),
           );
 
-          it(
-            'weekNumbers=true',
-            visualDiffDefault.with(async (setup) => {
-              await setup.withFixture(html`
-                <sbb-calendar
-                  orientation=${orientation}
-                  ?wide=${wide}
-                  .selected=${new Date(2023, 0, 20)}
-                  .now=${new Date(2023, 0, 12, 0, 0, 0)}
-                  week-numbers
-                ></sbb-calendar>
-              `);
-            }),
-          );
+          for (const multiple of [false, true]) {
+            const selected = multiple ? [new Date(2023, 0, 20)] : new Date(2023, 0, 20);
+            it(
+              `multiple=${multiple} weekNumbers=true`,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(html`
+                  <sbb-calendar
+                    orientation=${orientation}
+                    ?multiple=${multiple}
+                    ?wide=${wide}
+                    .selected=${selected}
+                    .now=${new Date(2023, 0, 12, 0, 0, 0)}
+                    week-numbers
+                  ></sbb-calendar>
+                `);
+              }),
+            );
+          }
 
           for (const fn of filterFunctions) {
             it(
