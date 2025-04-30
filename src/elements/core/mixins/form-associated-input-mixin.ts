@@ -367,7 +367,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
 
     private _cleanText(value: string): string {
       // The native text input removes all newline characters if passed to the value property
-      return `${value}`.replace(/[\n\r]+/g, '');
+      return value === null ? '' : `${value}`.replace(/[\n\r]+/g, '');
     }
 
     private _dispatchInputEvent(): void {
