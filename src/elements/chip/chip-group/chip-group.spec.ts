@@ -592,5 +592,21 @@ describe('sbb-chip-group', () => {
       expect(element.querySelector('sbb-chip[value="new chip"]')).to.exist;
       expect(input.value).to.be.empty; // The input should be emptied
     });
+
+    it('init with value', async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <label>Label</label>
+          <sbb-chip-group name="chip-group-1" .value=${['chip 1', 'chip 2']}>
+            <input />
+          </sbb-chip-group>
+        </sbb-form-field>
+      `);
+      element = formField.querySelector('sbb-chip-group')!;
+
+      expect(element.value).to.be.eql(['chip 1', 'chip 2']);
+      expect(element.querySelector('sbb-chip[value="chip 1"]')).to.exist;
+      expect(element.querySelector('sbb-chip[value="chip 2"]')).to.exist;
+    });
   });
 });
