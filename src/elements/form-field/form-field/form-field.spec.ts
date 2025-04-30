@@ -122,6 +122,26 @@ describe(`sbb-form-field`, () => {
       // Then aria-describedby should be set to foo
       expect(input).to.have.attribute('aria-describedby');
     });
+
+    it('should update invalid state', async () => {
+      expect(element).not.to.have.attribute('data-invalid');
+
+      input.classList.add('ng-invalid');
+      await Promise.resolve();
+      expect(element).not.to.have.attribute('data-invalid');
+
+      input.classList.add('ng-touched');
+      await Promise.resolve();
+      expect(element).to.have.attribute('data-invalid');
+
+      input.classList.remove('ng-touched');
+      await Promise.resolve();
+      expect(element).not.to.have.attribute('data-invalid');
+
+      input.classList.add('sbb-invalid');
+      await Promise.resolve();
+      expect(element).to.have.attribute('data-invalid');
+    });
   });
 
   describe('with textarea', () => {

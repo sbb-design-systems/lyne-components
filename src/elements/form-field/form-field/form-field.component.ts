@@ -240,7 +240,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this._formFieldAttributeObserver?.disconnect();
     this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid', 'data-expanded'],
+      attributeFilter: [
+        'class',
+        'data-expanded',
+        'data-sbb-invalid',
+        'disabled',
+        'ng-invalid',
+        'ng-touched',
+        'readonly',
+        'sbb-invalid',
+      ],
     });
     this.setAttribute('data-input-type', this._input.localName);
     this._syncLabelInputReferences();
