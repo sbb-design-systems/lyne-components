@@ -10,6 +10,7 @@ import {
   type PropertyValues,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type { PlaceSelection, PlaceState, PlaceType } from '../seat-reservation.js';
@@ -114,7 +115,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
       const placeButton = this.shadowRoot?.querySelector(
         '.sbb-seat-reservation-place-control__button',
       ) as HTMLButtonElement;
-
       if (this.keyfocus === 'focus') {
         placeButton.focus();
       }
@@ -123,8 +123,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   protected override render(): TemplateResult {
     const name: string = this._getPlaceSvg(this.type, this.state);
-    const buttonDisabled: boolean =
-      this.disable || !(this.state === 'FREE' || this.state === 'SELECTED');
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
@@ -138,13 +136,16 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
           .rotation} sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
       >
         <button
-          class="sbb-seat-reservation-place-control__button"
+          class="${classMap({
+            'sbb-seat-reservation-place-control__button': true,
+            'sbb-reservation-place-control--disabled': this.disable,
+          })}"
           @click=${() => this._selectPlace()}
           aria-label=${this._getAriaPlaceLabel()}
-          ?disabled=${buttonDisabled || nothing}
           tabindex="-1"
         >
           <sbb-seat-reservation-graphic
+            exportparts="svg-place svg-seat-back"
             .name=${name}
             .width=${width}
             .height=${height}
@@ -188,7 +189,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   /** If the place selectable, we emit the placeSelection object which contains infos to the place state */
   private _selectPlace(): void {
-    const selectable = this.state === 'FREE' || this.state === 'SELECTED';
+    const selectable = (this.state === 'FREE' || this.state === 'SELECTED') && !this.disable;
 
     if (selectable) {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';

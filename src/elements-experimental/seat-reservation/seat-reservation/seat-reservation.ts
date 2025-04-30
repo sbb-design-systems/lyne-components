@@ -56,7 +56,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   /** Any click functionality is prevented*/
   @forceType()
   @property({ attribute: 'disable', type: Boolean })
-  public accessor disable: boolean = false;
+  public override accessor disable: boolean = false;
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;

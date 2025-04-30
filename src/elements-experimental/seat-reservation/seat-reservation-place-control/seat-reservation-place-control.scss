@@ -1,6 +1,23 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-$disabled: '[disabled], :disabled';
+// Depends from the place state and current event (hover|focus), the background and fill colors of the place,
+// seat back of place and the text color are handled by colorizePlace function.
+@mixin colorizePlace($state, $event, $textColor) {
+  ::part(svg-place) {
+    fill: var(--sbb-reservation-place-control-#{$state}-background-#{$event});
+  }
+
+  ::part(svg-seat-back) {
+    fill: var(--sbb-reservation-place-control-#{$state}-seat-back-background-#{$event});
+  }
+
+  .sbb-seat-reservation-place-control__text {
+    background-color: var(--sbb-reservation-place-control-#{$state}-background-#{$event});
+    color: $textColor;
+  }
+}
+
+$disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
 
 :host {
   --sbb-reservation-place-control-rotation: 0;
@@ -8,6 +25,18 @@ $disabled: '[disabled], :disabled';
   --sbb-reservation-place-control-text-size: calc(
     var(--sbb-place-control-text-scale-value, 1) * 0.5
   );
+
+  // Color background definition for free place
+  --sbb-reservation-place-control-free-background-hover: var(--sbb-color-cloud);
+  --sbb-reservation-place-control-free-background-focus: var(--sbb-color-silver);
+
+  // Color background definition for selected place
+  --sbb-reservation-place-control-selected-background-hover: var(--sbb-color-red125);
+  --sbb-reservation-place-control-selected-background-focus: var(--sbb-color-red150);
+
+  // Color background definition for place with seat backs
+  --sbb-reservation-place-control-selected-seat-back-background-hover: #7d000f;
+  --sbb-reservation-place-control-selected-seat-back-background-focus: #5a000b;
 
   display: inline-block;
 }
@@ -24,23 +53,32 @@ $disabled: '[disabled], :disabled';
     font-size: calc(var(--sbb-reservation-place-control-text-size) * 1px);
     transition: transform 0.25s ease-in-out;
 
-    #{$root}--state-focused {
-      background-color: var(--sbb-color-black);
-    }
-
-    #{$root}:focus,
-    &:focus-within {
+    &:focus {
       border-radius: var(--sbb-border-radius-1x);
       outline: 2px solid var(--sbb-color-black);
-      background-color: var(--sbb-reservation-place-control-background-focus);
     }
 
-    #{$root}--state-free &:not(#{$disabled}),
+    #{$root}--state-free &:not(#{$disabled}) {
+      cursor: pointer;
+
+      &:hover {
+        @include colorizePlace('free', 'hover', var(--sbb-color-iron));
+      }
+
+      &:focus {
+        @include colorizePlace('free', 'focus', var(--sbb-color-anthracite));
+      }
+    }
+
     #{$root}--state-selected &:not(#{$disabled}) {
       cursor: pointer;
 
       &:hover {
-        transform: scale(1.2);
+        @include colorizePlace('selected', 'hover', var(--sbb-color-iron));
+      }
+
+      &:focus {
+        @include colorizePlace('selected', 'focus', var(--sbb-color-anthracite));
       }
     }
 
