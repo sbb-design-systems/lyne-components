@@ -207,7 +207,10 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   }
 
   protected override shouldValidate(name: PropertyKey | undefined): boolean {
-    return super.shouldValidate(name) || ['valueAsDate', 'min', 'max'].includes(name as string);
+    return (
+      super.shouldValidate(name) ||
+      ['valueAsDate', 'min', 'max', 'dateFilter'].includes(name as string)
+    );
   }
 
   protected override validate(): void {

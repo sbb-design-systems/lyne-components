@@ -263,9 +263,8 @@ describe('sbb-date-input', () => {
     });
 
     it('should update validity with date filter', async () => {
-      const today = defaultDateAdapter.today();
+      element.valueAsDate = defaultDateAdapter.today();
       element.dateFilter = () => false;
-      element.valueAsDate = today;
       await waitForLitRender(element);
 
       expect(element.validationMessage).to.equal('Please provide a valid date.');
