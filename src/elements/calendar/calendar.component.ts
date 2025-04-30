@@ -818,12 +818,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   private _setChosenYear(): void {
-    // TODO check this if-branch, how it can be reached?
     if (this.view === 'month') {
-      let selectedIsoDate: string, selectedDate: T;
+      let selectedIsoDate: string | undefined, selectedDate: T | undefined;
       if (this.multiple) {
-        selectedIsoDate = (this._selected as string[]).at(-1)!;
-        selectedDate = (this.selected as T[]).at(-1)!;
+        selectedIsoDate = (this._selected as string[])?.at(-1);
+        selectedDate = (this.selected as T[])?.at(-1);
       } else {
         selectedIsoDate = this._selected as string;
         selectedDate = this.selected as T;

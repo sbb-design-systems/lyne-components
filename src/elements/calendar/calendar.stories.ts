@@ -21,15 +21,33 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
-const Template = ({ min, max, selected, dateFilter, now, ...args }: Args): TemplateResult => html`
-  <sbb-calendar
-    .selected=${selected}
-    .now=${new Date(now)}
-    .dateFilter=${dateFilter}
-    ${sbbSpread(getCalendarAttr(min, max))}
-    ${sbbSpread(args)}
-  ></sbb-calendar>
-`;
+const Template = ({
+  min,
+  max,
+  multiple,
+  selected,
+  dateFilter,
+  now,
+  ...args
+}: Args): TemplateResult => {
+  if (multiple && selected && !Array.isArray(selected)) {
+    selected = [new Date(selected)];
+  } else if (!multiple && selected && Array.isArray(selected)) {
+    selected = new Date(selected[0]);
+  }
+
+  console.log(selected);
+  return html`
+    <sbb-calendar
+      ?multiple=${multiple}
+      .selected=${selected}
+      .now="${new Date(now)}"
+      .dateFilter="${dateFilter}"
+      ${sbbSpread(getCalendarAttr(min, max))}
+      ${sbbSpread(args)}
+    ></sbb-calendar>
+  `;
+};
 
 const wide: InputType = {
   control: {
