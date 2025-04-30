@@ -1112,7 +1112,7 @@ describe(`sbb-calendar`, () => {
         expect(firstButton.textContent!.trim()).to.be.equal('14');
         firstButton.click();
         await selectedSpy.calledOnce();
-        const selectedDates = (selectedSpy.firstEvent as CustomEvent<Date[]>).detail;
+        let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(6);
         expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
         expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
@@ -1120,6 +1120,65 @@ describe(`sbb-calendar`, () => {
         // if the same button is clicked twice, nothing happens (selected dates don't change)
         firstButton.click();
         expect(selectedSpy.calledTimes(1));
+
+        // With the first row selected, add the second one (emulate Control + click)
+        const secondButton = cells[1].querySelector('button')!;
+        secondButton.dispatchEvent(
+          new MouseEvent('click', { ctrlKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(2);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(13);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Mon Apr 07 2025');
+        expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
+
+        // Click on Wed button: all missing Wednesdays are added (emulate Control + click)
+        const header = calendar.shadowRoot!.querySelectorAll('thead th')!;
+        const headerButtons = Array.from(header).map((e) => e.querySelector('button')!);
+        expect(headerButtons.length).to.be.equal(8);
+        headerButtons[3].dispatchEvent(
+          new MouseEvent('click', { ctrlKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(3);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(16);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
+        expect(selectedDates[13].toDateString()).to.be.equal('Wed Apr 16 2025');
+        expect(selectedDates[14].toDateString()).to.be.equal('Wed Apr 23 2025');
+        expect(selectedDates[15].toDateString()).to.be.equal('Wed Apr 30 2025');
+
+        // Click again on Wed button: all Wednesdays are removed (emulate Control + click)
+        headerButtons[3].dispatchEvent(
+          new MouseEvent('click', { ctrlKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(4);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(11);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Thu Apr 03 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Tue Apr 08 2025');
+        expect(selectedDates[7].toDateString()).to.be.equal('Thu Apr 10 2025');
+
+        // Click on a single day to add it (emulate Control + click)
+        const thirdRowButtons = rows[2].querySelectorAll('button');
+        thirdRowButtons[6].dispatchEvent(
+          new MouseEvent('click', { ctrlKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(5);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(12);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[11].toDateString()).to.be.equal('Sat Apr 19 2025');
+
+        // Click on a single day to without Control to reset the list to this single element
+        thirdRowButtons[7].click();
+        await selectedSpy.calledTimes(6);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(1);
+        expect(selectedDates[0].toDateString()).to.be.equal('Sun Apr 20 2025');
       });
     });
 
@@ -1170,7 +1229,7 @@ describe(`sbb-calendar`, () => {
         expect(firstButton.textContent!.trim()).to.be.equal('14');
         firstButton.click();
         await selectedSpy.calledOnce();
-        const selectedDates = (selectedSpy.firstEvent as CustomEvent<Date[]>).detail;
+        let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(6);
         expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
         expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
@@ -1178,6 +1237,65 @@ describe(`sbb-calendar`, () => {
         // if the same button is clicked twice, nothing happens (selected dates don't change)
         firstButton.click();
         expect(selectedSpy.calledTimes(1));
+
+        // With the first row selected, add the second one (emulate Command + click)
+        const secondButton = cells[2].querySelector('button')!;
+        secondButton.dispatchEvent(
+          new MouseEvent('click', { metaKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(2);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(13);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Mon Apr 07 2025');
+        expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
+
+        // Click on Wed button: all missing Wednesdays are added (emulate Command + click)
+        const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
+        const weekDayCells = Array.from(rows).map((e) => e.querySelector('td button')!);
+        expect(weekDayCells.length).to.be.equal(7);
+        weekDayCells[2].dispatchEvent(
+          new MouseEvent('click', { metaKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(3);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(16);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
+        expect(selectedDates[13].toDateString()).to.be.equal('Wed Apr 16 2025');
+        expect(selectedDates[14].toDateString()).to.be.equal('Wed Apr 23 2025');
+        expect(selectedDates[15].toDateString()).to.be.equal('Wed Apr 30 2025');
+
+        // Click again on Wed button: all Wednesdays are removed (emulate Command + click)
+        weekDayCells[2].dispatchEvent(
+          new MouseEvent('click', { metaKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(4);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(11);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Thu Apr 03 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Tue Apr 08 2025');
+        expect(selectedDates[7].toDateString()).to.be.equal('Thu Apr 10 2025');
+
+        // Click on a single day to add it (emulate Control + click)
+        const thirdRowButtons = rows[2].querySelectorAll('button');
+        thirdRowButtons[5].dispatchEvent(
+          new MouseEvent('click', { ctrlKey: true, bubbles: true, cancelable: true }),
+        );
+        await selectedSpy.calledTimes(5);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(12);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[11].toDateString()).to.be.equal('Wed Apr 30 2025');
+
+        // Click on a single day to without Control to reset the list to this single element
+        thirdRowButtons[3].click();
+        await selectedSpy.calledTimes(6);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(1);
+        expect(selectedDates[0].toDateString()).to.be.equal('Wed Apr 16 2025');
       });
     });
   });

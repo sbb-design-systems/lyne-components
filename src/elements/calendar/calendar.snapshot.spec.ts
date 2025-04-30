@@ -50,6 +50,28 @@ describe(`sbb-calendar`, () => {
     });
   });
 
+  describe('renders multiple', () => {
+    let element: SbbCalendarElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-calendar
+          selected="2023-01-20T00:00:00"
+          now="2023-01-04T00:00:00"
+          multiple
+        ></sbb-calendar>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
   describe('renders horizontal wide with week numbers', () => {
     let element: SbbCalendarElement;
 
