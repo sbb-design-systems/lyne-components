@@ -81,6 +81,9 @@
   }
 }
 
+// If there is no icon and the action is the first in the header, the left offset
+// must be changed (other value than for the icon only variant) to align the text with the container.
+// The value corresponds to the padding of the header action itself.
 :host(:not([data-slot-names~='icon'], [icon-name])) {
   --sbb-header-first-item-margin-inline-start: var(--_sbb-header-first-item-padding-shift);
 }
