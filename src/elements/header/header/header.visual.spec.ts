@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeViewports,
@@ -25,14 +25,18 @@ describe(`sbb-header`, () => {
       ante, mollis eu lorem id, commodo cursus risus.
   `;
 
-  const template = (expanded: boolean = false, size: 'm' | 's' = 'm'): TemplateResult => html`
+  const template = (
+    expanded: boolean = false,
+    size: 'm' | 's' = 'm',
+    noIcon = false,
+  ): TemplateResult => html`
     <style>
       ${' .last-element, .sbb-header-spacer-logo {display: none;} '}
       ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
       ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
     </style>
     <sbb-header ?expanded=${expanded} size=${size}>
-      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button icon-name=${noIcon ? nothing : 'hamburger-menu-small'} expand-from="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
@@ -109,6 +113,13 @@ describe(`sbb-header`, () => {
 
         // Scroll page down
         setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
+      }),
+    );
+
+    it(
+      `first item with no icon`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(false, 'm', true), { padding: '0' });
       }),
     );
   });
