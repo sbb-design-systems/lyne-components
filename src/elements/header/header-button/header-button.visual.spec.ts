@@ -64,5 +64,18 @@ describe(`sbb-header-button`, () => {
         }),
       );
     }
+
+    describe('without icon', () => {
+      for (const state of visualDiffStandardStates) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-header-button expand-from="medium">Menu</sbb-header-button>`,
+            );
+          }),
+        );
+      }
+    });
   });
 });
