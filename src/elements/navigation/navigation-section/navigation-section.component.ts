@@ -15,12 +15,16 @@ import {
   sbbInputModalityDetector,
 } from '../../core/a11y.js';
 import {
-  SbbIdReferenceController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointMediumAndBelow,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes, omitEmptyConverter } from '../../core/decorators.js';
+import {
+  forceType,
+  hostAttributes,
+  idReference,
+  omitEmptyConverter,
+} from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -62,10 +66,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   /**
    * The element that will trigger the navigation section.
-   * Accepts both a string (id of an element) or an SbbNavigationButtonElement.
+   *
+   * For attribute usage, provide an id reference.
    */
+  @idReference()
   @property()
-  public accessor trigger: string | HTMLElement | null = null;
+  public accessor trigger: HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
@@ -95,7 +101,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
-  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _windowEventsController!: AbortController;
   private _language = new SbbLanguageController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
@@ -218,10 +223,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    const triggerElement = (
-      this.trigger instanceof HTMLElement ? this.trigger : this._triggerIdReferenceController.find()
-    ) as SbbNavigationButtonElement | null;
-
+    const triggerElement = this.trigger as SbbNavigationButtonElement | null;
     if (triggerElement === this._triggerElement) {
       return;
     }

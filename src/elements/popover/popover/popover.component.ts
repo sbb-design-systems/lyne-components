@@ -7,11 +7,10 @@ import { IS_FOCUSABLE_QUERY, SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
-  SbbIdReferenceController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
@@ -57,9 +56,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   /**
    * The element that will trigger the popover overlay.
-   * Accepts both a string (id of an element) or an HTML element.
+   *
+   * For attribute usage, provide an id reference.
    */
-  @property() public accessor trigger: string | HTMLElement | null = null;
+  @idReference()
+  @property()
+  public accessor trigger: HTMLElement | null = null;
 
   /** Whether the close button should be hidden. */
   @forceType()
@@ -109,7 +111,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _hoverTrigger = false;
   private _triggerElement?: HTMLElement | null;
   private _triggerAbortController!: AbortController;
-  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
@@ -257,11 +258,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     // all non-touchscreen devices.
     const hoverTrigger = this.hoverTrigger && !pointerCoarse;
 
-    const triggerElement =
-      this.trigger instanceof HTMLElement
-        ? this.trigger
-        : this._triggerIdReferenceController.find();
-
+    const triggerElement = this.trigger;
     if (triggerElement === this._triggerElement && hoverTrigger === this._hoverTrigger) {
       return;
     }

@@ -22,7 +22,7 @@ describe(`sbb-navigation`, () => {
     const root = await fixture(
       html`<div>
         <button id="navigation-trigger"></button>
-        <sbb-navigation id="navigation" trigger="navigation-trigger">
+        <sbb-navigation trigger="navigation-trigger">
           <sbb-navigation-marker>
             <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
             <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
@@ -78,7 +78,7 @@ describe(`sbb-navigation`, () => {
 
   it('sets the initial active actions and focuses on the close button', async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation">
+      <sbb-navigation>
         <sbb-navigation-marker>
           <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
           <sbb-navigation-button id="action-active-1" class="sbb-active">
@@ -116,7 +116,7 @@ describe(`sbb-navigation`, () => {
 
   it('sets the initial active action and opens the connected section', async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation">
+      <sbb-navigation>
         <sbb-navigation-marker>
           <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
           <sbb-navigation-button id="action-active" class="sbb-active">

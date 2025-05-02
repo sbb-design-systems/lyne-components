@@ -12,12 +12,8 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import {
-  SbbConnectedAbortController,
-  SbbEscapableOverlayController,
-  SbbIdReferenceController,
-} from '../core/controllers.js';
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { SbbConnectedAbortController, SbbEscapableOverlayController } from '../core/controllers.js';
+import { forceType, hostAttributes, idReference } from '../core/decorators.js';
 import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
@@ -51,19 +47,27 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   public static override styles: CSSResultGroup = style;
 
   /**
-   * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
+   * The element where the autocomplete will attach.
    * If not set, as fallback there are two elements which can act as origin with following priority order:
    * 1. `sbb-form-field` if it is an ancestor.
    * 2. trigger element if set.
+   *
+   * For attribute usage, provide an id reference.
    */
-  @property() public accessor origin: string | HTMLElement | null = null;
+  @idReference()
+  @property()
+  public accessor origin: HTMLElement | null = null;
 
   /**
-   * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.
+   * The input element that will trigger the autocomplete opening.
    * By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.
    * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
+   *
+   * For attribute usage, provide an id reference.
    */
-  @property() public accessor trigger: string | HTMLInputElement | null = null;
+  @idReference()
+  @property()
+  public accessor trigger: HTMLInputElement | null = null;
 
   /** Whether the icon space is preserved when no icon is set. */
   @forceType()
@@ -72,12 +76,12 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
-    return this.origin instanceof HTMLElement
-      ? this.origin
-      : (this._originIdReferenceController.find() ??
-          this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor') ??
-          this.triggerElement ??
-          null);
+    return (
+      this.origin ??
+      this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor') ??
+      this.trigger ??
+      null
+    );
   }
 
   // TODO: Breaking change: remove undefined as return type.
@@ -112,8 +116,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerAbortController!: AbortController;
-  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
-  private _originIdReferenceController = new SbbIdReferenceController(this, 'origin');
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -308,14 +310,8 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   private _configureTrigger(): void {
-    const triggerElement = (
-      this.trigger instanceof HTMLElement
-        ? this.trigger
-        : this.trigger
-          ? this._triggerIdReferenceController.find()
-          : this.closest?.('sbb-form-field')?.querySelector('input')
-    ) as HTMLInputElement | null;
-
+    const triggerElement = (this.trigger ??
+      this.closest?.('sbb-form-field')?.querySelector('input')) as HTMLInputElement | null;
     if (triggerElement === this._triggerElement) {
       return;
     }

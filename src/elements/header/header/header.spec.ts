@@ -119,7 +119,7 @@ describe(`sbb-header`, () => {
 
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
     const scrollContext = root.querySelector<HTMLDivElement>('#container')!;
-    expect(element.scrollOrigin).to.be.equal('container');
+    expect(element.scrollOrigin).to.be.equal(scrollContext);
     expect(element.offsetHeight).to.be.equal(96);
 
     const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
@@ -154,12 +154,13 @@ describe(`sbb-header`, () => {
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
 
     const scrollContext = root.querySelector<HTMLDivElement>('div > div')!;
-    expect(element.scrollOrigin).to.be.equal('container');
+    expect(element.scrollOrigin).to.be.null;
     expect(element.offsetHeight).to.be.equal(96);
 
     scrollContext.id = 'container';
     await aTimeout(100);
     await waitForLitRender(root);
+    expect(element.scrollOrigin).to.be.equal(scrollContext);
     const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
 
     // Scroll bottom (0px to 400px): header fixed.

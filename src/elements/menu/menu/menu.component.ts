@@ -17,12 +17,11 @@ import {
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
-  SbbIdReferenceController,
   SbbInertController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
@@ -77,10 +76,12 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   /**
    * The element that will trigger the menu overlay.
-   * Accepts both a string (id of an element) or an HTML element.
+   *
+   * For attribute usage, provide an id reference.
    */
+  @idReference()
   @property()
-  public accessor trigger: string | HTMLElement | null = null;
+  public accessor trigger: HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the inner list.
@@ -93,7 +94,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
-  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _isPointerDownEventOnMenu: boolean = false;
   private _windowEventsController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -312,11 +312,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    const triggerElement =
-      this.trigger instanceof HTMLElement
-        ? this.trigger
-        : this._triggerIdReferenceController.find();
-
+    const triggerElement = this.trigger;
     if (triggerElement === this._triggerElement) {
       return;
     }
