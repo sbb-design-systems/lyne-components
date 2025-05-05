@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.8.0...v2.9.0) (2025-05-05)
+
+
+### Features
+
+* provide CSS to globally disable animations ([#3636](https://github.com/sbb-design-systems/lyne-components/issues/3636)) ([2497154](https://github.com/sbb-design-systems/lyne-components/commit/24971544c09e69f14c2d6199c9e1399d100c8265))
+
+
+### Bug Fixes
+
+* avoid throwing on utf8 id reference ([#3661](https://github.com/sbb-design-systems/lyne-components/issues/3661)) ([8f40cdf](https://github.com/sbb-design-systems/lyne-components/commit/8f40cdffc43a85fe5539da2d0f48e3e9956ae4d5))
+* **sbb-chip-group:** fix chip position when initialized with value ([#3646](https://github.com/sbb-design-systems/lyne-components/issues/3646)) ([341224b](https://github.com/sbb-design-systems/lyne-components/commit/341224b8308219e0f8950b139feba20bb57619d6))
+* **sbb-date-input:** handle null like the native text input ([#3645](https://github.com/sbb-design-systems/lyne-components/issues/3645)) ([2113193](https://github.com/sbb-design-systems/lyne-components/commit/2113193bb6664b48cd5c6e44f4ddd09469f63ebf))
+* **sbb-date-input:** validate on dateFilter change ([#3643](https://github.com/sbb-design-systems/lyne-components/issues/3643)) ([692a082](https://github.com/sbb-design-systems/lyne-components/commit/692a082a514bb0b4a3e5c22875747caf7a2316cb))
+* **sbb-header:** support header actions without icon ([#3648](https://github.com/sbb-design-systems/lyne-components/issues/3648)) ([3cb75ad](https://github.com/sbb-design-systems/lyne-components/commit/3cb75ad051e8bdf5300f0bf61a4b0b33093ef098))
+* **sbb-image:** support badge on image ([#3634](https://github.com/sbb-design-systems/lyne-components/issues/3634)) ([cc7b919](https://github.com/sbb-design-systems/lyne-components/commit/cc7b91924fcf64f1ecb200b32da1e1d3df1aa903))
+* **sbb-select:** strengthen value initialization ([#3633](https://github.com/sbb-design-systems/lyne-components/issues/3633)) ([030f619](https://github.com/sbb-design-systems/lyne-components/commit/030f61981a07f75f490a870fd8050996f73d61ce))
+
+
+### Documentation
+
+* fix image path of teaser background ([#3635](https://github.com/sbb-design-systems/lyne-components/issues/3635)) ([74d1872](https://github.com/sbb-design-systems/lyne-components/commit/74d18723ecb9bd5e9322b9169a7b0c6f486e1a13))
+
 ## [2.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.7.1...v2.8.0) (2025-04-28)
 
 
