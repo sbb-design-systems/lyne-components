@@ -213,7 +213,7 @@ const i18nObjects: Record<string, Record<string, string>> = {
     it: 'it:Table',
   },
   PLAYGROUND_AREA: {
-    de: 'Familienbreich',
+    de: 'Familienbereich',
     en: 'Family area',
     fr: 'fr:Family area',
     it: 'it:Family area',

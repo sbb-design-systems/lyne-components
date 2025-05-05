@@ -212,7 +212,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const descriptionTableCoachWithServices = this._getDescriptionTableCouch(coachItem);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
     return html`
       <sbb-scoped-element
@@ -563,7 +563,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
   }
 
-  private _getDescriptionTableCouch(coachItem: CoachItem): string {
+  private _getDescriptionTableCoach(coachItem: CoachItem): string {
     let tableCoachDescription = '';
     const areaDescriptions = this._getTitleDescriptionListString(coachItem.graphicElements!);
     const serviceDescriptions = this._getTitleDescriptionListString(coachItem.serviceElements!);

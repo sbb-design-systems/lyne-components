@@ -42,8 +42,8 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   public accessor state: PlaceState = 'FREE';
 
   /** Place Property Ids Prop */
-  @property({ attribute: 'propertieIds', type: Array })
-  public accessor propertieIds: string[] = [];
+  @property({ attribute: 'propertyIds', type: Array })
+  public accessor propertyIds: string[] = [];
 
   /** Rotation Prop */
   @forceType()
@@ -177,10 +177,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     const translationKey = 'PLACE_CONTROL_' + this.type + '_' + this.state;
     let descritpion = getI18nSeatReservation(translationKey, this._language.current, [this.text]);
 
-    if (this.propertieIds.length) {
+    if (this.propertyIds.length) {
       descritpion +=
         '. ' + getI18nSeatReservation('PLACE_PROPERTY', this._language.current).concat(': ');
-      descritpion += this.propertieIds
+      descritpion += this.propertyIds
         .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
         .join(', ');
     }
