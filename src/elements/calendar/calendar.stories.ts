@@ -30,13 +30,21 @@ const Template = ({
   now,
   ...args
 }: Args): TemplateResult => {
-  if (multiple && selected && !Array.isArray(selected)) {
-    selected = [new Date(selected)];
-  } else if (!multiple && selected && Array.isArray(selected)) {
-    selected = new Date(selected[0]);
+  if (selected) {
+    if (multiple) {
+      if (!Array.isArray(selected)) {
+        selected = [new Date(selected)];
+      } else {
+        selected = selected.map((e) => new Date(e));
+      }
+    } else {
+      if (Array.isArray(selected)) {
+        selected = new Date(selected[0]);
+      } else {
+        selected = new Date(selected);
+      }
+    }
   }
-
-  console.log(selected);
   return html`
     <sbb-calendar
       ?multiple=${multiple}
