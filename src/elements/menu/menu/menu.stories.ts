@@ -101,15 +101,11 @@ const NestedTemplate = (args: Args): TemplateResult => html`
       Edit
     </sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button icon-name="lock-closed-small" sbb-badge=${args.badge} id="sub-menu-1"
+    <sbb-menu-button icon-name="lock-closed-small" id="sub-menu-1"
       >Set Document Permissions</sbb-menu-button
     >
-    <sbb-menu-button icon-name="download-small" sbb-badge=${args.badge} id="sub-menu-2"
-      >Download Selected</sbb-menu-button
-    >
-    <sbb-menu-button icon-name="trash-small" sbb-badge=${args.badge}
-      >Delete Selected</sbb-menu-button
-    >
+    <sbb-menu-button icon-name="download-small" id="sub-menu-2">Download Selected</sbb-menu-button>
+    <sbb-menu-button icon-name="trash-small">Delete Selected</sbb-menu-button>
     <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="circle-cross-small">Cancel Selection</sbb-menu-button>
