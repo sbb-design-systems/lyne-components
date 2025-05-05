@@ -112,21 +112,26 @@ describe(`sbb-menu`, () => {
     it(
       'nested',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
-          <sbb-menu trigger="menu-trigger-1">
-            <sbb-menu-button>First level menu</sbb-menu-button>
-            <sbb-menu-button>First level menu</sbb-menu-button>
-            <sbb-menu-button id="menu-trigger-2">First level menu</sbb-menu-button>
-            <sbb-menu-button>First level menu</sbb-menu-button>
-            <sbb-menu trigger="menu-trigger-2">
-              <sbb-menu-button>Second level menu</sbb-menu-button>
-              <sbb-menu-button>Second level menu</sbb-menu-button>
-              <sbb-menu-button>Second level menu</sbb-menu-button>
-              <sbb-menu-button>Second level menu</sbb-menu-button>
+        await setup.withFixture(
+          html`
+            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-menu trigger="menu-trigger-1">
+              <sbb-menu-button icon-name="link-small">First level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="pen-small">First level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="swisspass-small" id="menu-trigger-2"
+                >First level menu</sbb-menu-button
+              >
+              <sbb-menu-button icon-name="cross-small">First level menu</sbb-menu-button>
+              <sbb-menu trigger="menu-trigger-2">
+                <sbb-menu-button icon-name="link-small">Second level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="pen-small">Second level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="swisspass-small">Second level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="cross-small">Second level menu</sbb-menu-button>
+              </sbb-menu>
             </sbb-menu>
-          </sbb-menu>
-        `);
+          `,
+          { minHeight: '400px' },
+        );
 
         setup.withPostSetupAction(() => {
           let button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
