@@ -23,7 +23,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   display: block;
 }
 
-:host(:hover:not(#{$disabled})) {
+:host(:is(:hover:not(#{$disabled}), [aria-expanded='true'])) {
   @include sbb.hover-mq($hover: true) {
     --sbb-menu-background-color: var(--sbb-color-iron);
     --sbb-menu-action-forced-color-border-color: Highlight;
@@ -75,6 +75,10 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     auto auto !important;
 }
 
+:host([aria-controls*='sbb-menu']) {
+  --sbb-menu-action-submenu-icon-display: flex;
+}
+
 :is(.sbb-menu-button, .sbb-menu-link) {
   text-decoration: none;
   display: block;
@@ -113,10 +117,16 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
-.sbb-menu-action__icon {
+.sbb-menu-action__icon,
+.sbb-menu-submenu__icon {
   display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-submenu__icon {
+  display: var(--sbb-menu-action-submenu-icon-display, none);
+  margin-inline-start: auto;
 }
 
 .sbb-menu-action__label {
