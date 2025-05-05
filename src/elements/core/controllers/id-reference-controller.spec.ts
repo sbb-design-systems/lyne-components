@@ -197,6 +197,21 @@ describe('SbbIdReferenceController', () => {
     expect(idControllerTest.element).to.be.equal(idElementShadowRoot);
     expect(observers.has(shadowRoot)).to.be.true;
   });
+
+  it('should find utf8 id strings', async () => {
+    const root = await fixture(
+      html`<div><sbb-id-controller-test></sbb-id-controller-test><span></span></div>`,
+    );
+
+    const idControllerTest = root.querySelector('sbb-id-controller-test')!;
+    const idElement = root.querySelector('span')!;
+
+    idControllerTest.observedId = '12$äöü-1234';
+
+    idElement.id = '12$äöü-1234';
+    await waitForLitRender(root);
+    expect(idControllerTest.element).to.be.equal(idElement);
+  });
 });
 
 declare global {
