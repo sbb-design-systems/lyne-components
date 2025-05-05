@@ -95,7 +95,7 @@ export class SbbIdReferenceController<T extends LitElement> implements ReactiveC
       return null;
     } else {
       const id = this._host[this._idRef];
-      return typeof id == 'string' ? this._rootNode?.querySelector(`#${id}`) : null;
+      return typeof id == 'string' ? this._rootNode?.getElementById(id) : null;
     }
   }
 }
