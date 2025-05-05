@@ -203,3 +203,92 @@ export function getElementPosition(
     alignment: alignment,
   };
 }
+
+/**
+ * Determines the position of an element relative to a trigger element by evaluating
+ * the optimal position based on the available space.
+ *
+ * @param element The element of which to calculate the position.
+ * @param trigger The element relative to which to calculate the position.
+ * @param container The element which has the position:fixed applied.
+ * @param properties Properties to take into account in calculations (optional).
+ * @param properties.verticalOffset The distance to be added between the element and the trigger (optional).
+ * @param properties.horizontalOffset The horizontal offset to be applied to the element (optional).
+ * @param properties.responsiveHeight Whether the element calculates its height based on its content (optional).
+ * @returns Returns an object containing the left position, the top position, the maximum height
+ * of the element and the current alignment object.
+ */
+export function getElementPositionHorizontal(
+  element: HTMLElement,
+  trigger: HTMLElement,
+  container: HTMLElement,
+  properties?: {
+    verticalOffset?: number;
+    horizontalOffset?: number;
+    responsiveHeight?: boolean;
+  },
+): SbbElementPositionInfos {
+  const maxHeightOffset = 16;
+
+  const verticalOffset = properties?.verticalOffset || 0;
+  const horizontalOffset = properties?.horizontalOffset || 0;
+
+  const triggerRec = trigger.getBoundingClientRect();
+  const elementRec = getElementRectangle(element);
+  const triggerParentRec = trigger
+    .parentElement!.shadowRoot!.querySelector('.sbb-menu__content')!
+    .getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+
+  const availableSpaceRight = document.documentElement.clientWidth - triggerParentRec.right;
+  const availableSpaceBelow =
+    document.documentElement.clientHeight - (triggerRec.top - verticalOffset);
+  const availableVerticalSpace = document.documentElement.clientHeight;
+  const elementMaxHeight = `${availableVerticalSpace - maxHeightOffset * 2}px`;
+  const alignment: SbbAlignment = { horizontal: 'end', vertical: 'above' };
+  const elementXOverflow = elementRec.offsetWidth + horizontalOffset;
+
+  // Default element alignment is "end/above"
+  let elementXPosition = triggerParentRec.right;
+  let elementYPosition = triggerRec.top + verticalOffset;
+
+  // Calculate element max-height
+
+  // Check if horizontal alignment needs to be changed to "start"
+  if (availableSpaceRight < elementXOverflow && triggerRec.left > elementXOverflow) {
+    elementXPosition = elementXPosition - triggerParentRec.width - elementRec.offsetWidth;
+    alignment.horizontal = 'start';
+  }
+
+  // Add horizontal offset
+  if (horizontalOffset && alignment.horizontal !== 'center') {
+    elementXPosition += horizontalOffset * (alignment.horizontal === 'start' ? -1 : 1);
+  }
+
+  // Check if vertical alignment needs to be changed to "above":
+  if (availableSpaceBelow < elementRec.scrollHeight) {
+    elementYPosition = availableVerticalSpace - elementRec.clientHeight - maxHeightOffset;
+  }
+
+  // When zooming in Safari the container rectangle contains negative values for the position
+  // and we need to re-add them to the calculated coordinates.
+  if (containerRect.left < 0) {
+    elementXPosition -= containerRect.left;
+  }
+
+  // Normally the containerRect's top value would be zero, however when the overlay is attached to an input
+  // (e.g. in an autocomplete), mobile browsers will shift everything in order to put the input in the middle
+  // of the screen and to make space for the virtual keyboard. We need to account for this offset,
+  // otherwise our positioning will be thrown off.
+  // Additionally, when zooming in Safari this fixes the vertical position.
+  if (containerRect.top < 0) {
+    elementYPosition -= containerRect.top;
+  }
+
+  return {
+    top: elementYPosition,
+    left: elementXPosition,
+    maxHeight: elementMaxHeight,
+    alignment: alignment,
+  };
+}

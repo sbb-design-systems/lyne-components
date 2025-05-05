@@ -50,6 +50,11 @@ You can also provide custom content inside the `sbb-menu`:
 </sbb-menu>
 ```
 
+## Nesting menus
+
+It is possible to place a `sbb-menu` inside another `sbb-menu`, in order to create submenus.
+When doing so a `sbb-menu-button`/`sbb-menu-link` needs to be used as trigger element. In mobile navigation submenus will automatically display a back button to navigate back to the parent menu.
+
 ## Style
 
 If only `sbb-menu-button`/`sbb-menu-link` components are provided, the items are automatically grouped within a list
@@ -64,6 +69,7 @@ to identify which actions are active and which are not.
 
 It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
+If the trigger element for a nested menu is focused <kbd>ArrowRight</kbd> will open and focus the submenu; if the focus is currently on a nested menu <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.
 
 ### Controlling initial focus
 

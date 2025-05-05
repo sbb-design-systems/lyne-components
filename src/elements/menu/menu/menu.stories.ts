@@ -93,6 +93,52 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   </sbb-menu>
 `;
 
+const NestedTemplate = (args: Args): TemplateResult => html`
+  ${triggerButton('menu-trigger-1')}
+  <sbb-menu trigger="menu-trigger-1">
+    <sbb-menu-button icon-name=${args['icon-name']}> New Document </sbb-menu-button>
+    <sbb-menu-button icon-name="pen-small" sbb-badge=${args.badge} ?disabled=${args.disabled}>
+      Edit
+    </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="lock-closed-small" sbb-badge=${args.badge} id="sub-menu-1"
+      >Set Document Permissions</sbb-menu-button
+    >
+    <sbb-menu-button icon-name="download-small" sbb-badge=${args.badge} id="sub-menu-2"
+      >Download Selected</sbb-menu-button
+    >
+    <sbb-menu-button icon-name="trash-small" sbb-badge=${args.badge}
+      >Delete Selected</sbb-menu-button
+    >
+    <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="circle-cross-small">Cancel Selection</sbb-menu-button>
+
+    <sbb-menu trigger="sub-menu-1">
+      <sbb-menu-button icon-name="employees-sbb-small"> All Users </sbb-menu-button>
+      <sbb-menu-button icon-name="two-users-small"> Group </sbb-menu-button>
+      <sbb-menu-button icon-name="user-small"> Single User </sbb-menu-button>
+      <sbb-divider></sbb-divider>
+      <sbb-menu-button icon-name="filter-small" id="sub-menu-3">
+        Custom User Permission
+      </sbb-menu-button>
+
+      <sbb-menu trigger="sub-menu-3">
+        <sbb-menu-button icon-name="hand-small">Hand Select</sbb-menu-button>
+        <sbb-menu-button icon-name="tag-small">Define Permission Criteria</sbb-menu-button>
+        <sbb-menu-button icon-name="link-small">Create Invitation Link</sbb-menu-button>
+      </sbb-menu>
+    </sbb-menu>
+
+    <sbb-menu trigger="sub-menu-2">
+      <sbb-menu-button icon-name="document-pdf-small"> Download as PDF </sbb-menu-button>
+      <sbb-menu-button icon-name="document-doc-small"> Download as DOCX </sbb-menu-button>
+      <sbb-menu-button icon-name="document-xls-small"> Download as XLS </sbb-menu-button>
+      <sbb-menu-button icon-name="document-zip-small"> Download as archive </sbb-menu-button>
+    </sbb-menu>
+  </sbb-menu>
+`;
+
 const ListTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
   <sbb-menu trigger="menu-trigger-1">
@@ -209,6 +255,12 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+export const Nested: StoryObj = {
+  render: NestedTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
 };

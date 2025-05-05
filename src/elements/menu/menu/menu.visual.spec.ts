@@ -11,6 +11,7 @@ import '../../link.js';
 import '../menu-link.js';
 import '../menu-button.js';
 import './menu.component.js';
+import type { SbbMenuElement } from './menu.component.js';
 
 describe(`sbb-menu`, () => {
   const userNameStyle = {
@@ -103,6 +104,37 @@ describe(`sbb-menu`, () => {
 
         setup.withPostSetupAction(() => {
           const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-3')!;
+          button.click();
+        });
+      }),
+    );
+
+    it(
+      'nested',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+          <sbb-menu trigger="menu-trigger-1">
+            <sbb-menu-button>First level menu</sbb-menu-button>
+            <sbb-menu-button>First level menu</sbb-menu-button>
+            <sbb-menu-button id="menu-trigger-2">First level menu</sbb-menu-button>
+            <sbb-menu-button>First level menu</sbb-menu-button>
+            <sbb-menu trigger="menu-trigger-2">
+              <sbb-menu-button>Second level menu</sbb-menu-button>
+              <sbb-menu-button>Second level menu</sbb-menu-button>
+              <sbb-menu-button>Second level menu</sbb-menu-button>
+              <sbb-menu-button>Second level menu</sbb-menu-button>
+            </sbb-menu>
+          </sbb-menu>
+        `);
+
+        setup.withPostSetupAction(() => {
+          let button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
+          const menu = setup.snapshotElement.querySelector<SbbMenuElement>('sbb-menu')!;
+
+          button.click();
+
+          button = menu.querySelector('#menu-trigger-2')!;
           button.click();
         });
       }),

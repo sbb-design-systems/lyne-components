@@ -25,12 +25,25 @@ export const SbbMenuActionCommonElementMixin = <
   {
     public static styles: CSSResultGroup = style;
 
+    public override connectedCallback(): void {
+      super.connectedCallback();
+
+      this.addEventListener('pointerup', (event) => {
+        if (this.hasAttribute('data-nested-menu-trigger')) {
+          event.stopImmediatePropagation();
+        }
+      });
+    }
+
     protected override renderTemplate(): TemplateResult {
       return html`
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon"> ${super.renderIconSlot()} </span>
           <span class="sbb-menu-action__label">
             <slot></slot>
+          </span>
+          <span class="sbb-menu-submenu__icon">
+            <sbb-icon name="chevron-small-right-small"></sbb-icon>
           </span>
         </span>
       `;
