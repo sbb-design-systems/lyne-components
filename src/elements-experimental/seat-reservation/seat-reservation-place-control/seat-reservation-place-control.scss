@@ -1,14 +1,14 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-// Depends from the place state and current event (hover|focus), the background and fill colors of the place,
-// seat back of place and the text color are handled by colorizePlace function.
+// Depends on the place state and current event (hover|focus), the background and fill colors of the place,
+// backrest of place and the text color are handled by colorizePlace function.
 @mixin colorizePlace($state, $event, $textColor) {
   ::part(svg-place) {
     fill: var(--sbb-reservation-place-control-#{$state}-background-#{$event});
   }
 
-  ::part(svg-seat-back) {
-    fill: var(--sbb-reservation-place-control-#{$state}-seat-back-background-#{$event});
+  ::part(svg-backrest) {
+    fill: var(--sbb-reservation-place-control-#{$state}-backrest-background-#{$event});
   }
 
   .sbb-seat-reservation-place-control__text {
@@ -34,9 +34,9 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
   --sbb-reservation-place-control-selected-background-hover: var(--sbb-color-red125);
   --sbb-reservation-place-control-selected-background-focus: var(--sbb-color-red150);
 
-  // Color background definition for place with seat backs
-  --sbb-reservation-place-control-selected-seat-back-background-hover: #7d000f;
-  --sbb-reservation-place-control-selected-seat-back-background-focus: #5a000b;
+  // Color background definition for place with backrest
+  --sbb-reservation-place-control-selected-backrest-background-hover: #7d000f;
+  --sbb-reservation-place-control-selected-backrest-background-focus: #5a000b;
 
   display: inline-block;
 }

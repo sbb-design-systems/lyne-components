@@ -53,8 +53,8 @@ export class SeatReservationBaseElement extends LitElement {
 
   /** Any click functionality is prevented*/
   @forceType()
-  @property({ attribute: 'disable', type: Boolean })
-  public accessor disable: boolean = false;
+  @property({ attribute: 'prevent-place-click', type: Boolean })
+  public accessor preventPlaceClick: boolean = false;
 
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
@@ -508,7 +508,7 @@ export class SeatReservationBaseElement extends LitElement {
     this.preventCoachScrollByPlaceClick = false;
     const places = this.seatReservation.coachItems[this.currSelectedCoachIndex].places;
 
-    if (!this.disable && places && places.length) {
+    if (!this.preventPlaceClick && places && places.length) {
       const findClosestPlace = this._getClosestPlaceByKeyDirection(pressedKey);
       if (findClosestPlace) {
         this.focusPlaceElement(findClosestPlace);

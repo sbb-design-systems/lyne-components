@@ -72,10 +72,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'coach-index', type: Number })
   public accessor coachIndex: number = null!;
 
-  /** Disable prop to prevent any seat action */
+  /** Prevent click prop prevent any place action */
   @forceType()
-  @property({ attribute: 'disable', type: Boolean })
-  public accessor disable: boolean = false;
+  @property({ attribute: 'prevent-click', type: Boolean })
+  public accessor preventClick: boolean = false;
 
   /** Set the place focus outline style */
   @forceType()
@@ -138,14 +138,14 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
         <button
           class="${classMap({
             'sbb-seat-reservation-place-control__button': true,
-            'sbb-reservation-place-control--disabled': this.disable,
+            'sbb-reservation-place-control--disabled': this.preventClick,
           })}"
           @click=${() => this._selectPlace()}
           aria-label=${this._getAriaPlaceLabel()}
           tabindex="-1"
         >
           <sbb-seat-reservation-graphic
-            exportparts="svg-place svg-seat-back"
+            exportparts="svg-place svg-backrest"
             .name=${name}
             .width=${width}
             .height=${height}
@@ -189,7 +189,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   /** If the place selectable, we emit the placeSelection object which contains infos to the place state */
   private _selectPlace(): void {
-    const selectable = (this.state === 'FREE' || this.state === 'SELECTED') && !this.disable;
+    const selectable = (this.state === 'FREE' || this.state === 'SELECTED') && !this.preventClick;
 
     if (selectable) {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
