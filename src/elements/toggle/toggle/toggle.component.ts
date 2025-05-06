@@ -74,8 +74,6 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     return Array.from(this.querySelectorAll?.('sbb-toggle-option') ?? []);
   }
 
-  private _loaded: boolean = false;
-
   /** Emits whenever the toggle value changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbToggleElement.events.change, {
     bubbles: true,
@@ -106,8 +104,9 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
+    this.updatePillPosition(false);
+
     this.updateComplete.then(() => {
-      this._loaded = true;
       this.statusChanged();
     });
   }
@@ -135,22 +134,16 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     this.value = state as string;
   }
 
-  /**
-   * @deprecated Will be made 'private' in the next major version
-   * @internal
-   */
+  /** @internal */
   public updatePillPosition(resizing = false): void {
-    if (!this._loaded) {
-      return;
-    }
-
     const options = this.options;
-    const toggleElement = this.shadowRoot!.querySelector<HTMLDivElement>('.sbb-toggle');
+    const toggleElement = this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-toggle');
 
     if (
+      options.length < 2 ||
+      !toggleElement ||
       options.every((o) => !o.checked) ||
-      options.every((o) => !o.clientWidth) ||
-      !toggleElement
+      options.every((o) => !o.clientWidth)
     ) {
       return;
     }
@@ -164,14 +157,19 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
       ? `${toggleElement.clientWidth - firstOption.clientWidth}px`
       : '0px';
 
+    if (pillRight === '0px' && pillLeft === '0px') {
+      return;
+    }
+
     this.style?.setProperty('--sbb-toggle-option-left', pillLeft);
     this.style?.setProperty('--sbb-toggle-option-right', pillRight);
 
+    // Triggers a layout reflow which is needed to avoid animation glitches.
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    this.offsetWidth;
+
     // In order to avoid a transition glitch, we have to know when the first values were set.
-    // Because Safari handles timing differently, we need to set it a tick later.
-    if (!this.hasAttribute('data-initialized')) {
-      setTimeout(() => this.toggleAttribute('data-initialized', true), 0);
-    }
+    this.toggleAttribute('data-initialized', true);
   }
 
   protected updateFormValue(): void {

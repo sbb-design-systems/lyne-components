@@ -78,11 +78,7 @@
   border-radius: var(--sbb-toggle-border-radius);
 
   &::before {
-    // We have to hide the pill until initialized to avoid an transition glitch
-    :host([data-initialized]) & {
-      content: '';
-    }
-
+    content: '';
     grid-area: start / start / end / end;
     padding-inline: var(--sbb-toggle-padding-inline);
     margin-inline: var(--sbb-toggle-option-left, 0) var(--sbb-toggle-option-right, 0);

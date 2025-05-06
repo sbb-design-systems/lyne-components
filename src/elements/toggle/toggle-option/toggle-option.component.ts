@@ -64,11 +64,18 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this.closest?.('sbb-toggle') ?? null;
     this._verifyTabindex();
+    this._toggle?.updatePillPosition(true);
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._toggle = null;
+  }
+
+  public override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this._toggle?.updatePillPosition(true);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
