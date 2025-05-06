@@ -1,6 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators/force-type';
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
