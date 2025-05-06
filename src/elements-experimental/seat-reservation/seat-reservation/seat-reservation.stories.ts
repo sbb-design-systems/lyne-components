@@ -34,9 +34,9 @@ const alignVerticalType: InputType = {
     'Controls the visual represention of seat reservation in a horizonal or vertical alignment',
 };
 
-const disabledType: InputType = {
+const preventPlaceClickType: InputType = {
   control: { type: 'boolean' },
-  description: 'Any click functionality is prevented',
+  description: 'Any place click functionality is prevented',
 };
 
 const heightType: InputType = {
@@ -57,7 +57,7 @@ const defaultArgTypes: ArgTypes = {
   'align-vertical': alignVerticalType,
   'base-grid-size': baseGridSizeType,
   height: heightType,
-  disable: disabledType,
+  'prevent-place-click': preventPlaceClickType,
 };
 
 const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
@@ -68,7 +68,7 @@ const defaultArgs: Args = {
   'align-vertical': false,
   'base-grid-size': 16,
   height: null,
-  disable: false,
+  'prevent-place-click': false,
 };
 
 const Template = ({ seatReservation, ...args }: Args): TemplateResult =>
@@ -89,7 +89,7 @@ const busArgs: Args = {
   'has-navigation': true,
   'max-reservations': 4,
   'align-vertical': false,
-  disable: false,
+  'prevent-place-click': false,
 };
 
 export const Bus: StoryObj = {
