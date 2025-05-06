@@ -14,9 +14,9 @@ import { SbbChipGroupElement } from './chip-group.component.js';
 import readme from './readme.md?raw';
 
 import '../chip.js';
-import '../../autocomplete/autocomplete.component.js';
-import '../../form-field/form-field.js';
-import '../../option/option.js';
+import '../../autocomplete.js';
+import '../../form-field.js';
+import '../../option.js';
 
 const disabled: InputType = {
   control: {

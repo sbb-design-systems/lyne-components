@@ -3,7 +3,6 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.js';
-import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -15,6 +14,7 @@ import {
   type SbbChipInputTokenEndEventDetails,
 } from './chip-group.component.js';
 import '../chip.js';
+import '../../autocomplete.js';
 import '../../form-field.js';
 import '../../option.js';
 
@@ -463,7 +463,7 @@ describe('sbb-chip-group', () => {
     });
 
     it('should create chip when option is selected', async () => {
-      const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
+      const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
       const tokenEndEventSpy = new EventSpy<CustomEvent>(
         SbbChipGroupElement.events.chipInputTokenEnd,
         element,

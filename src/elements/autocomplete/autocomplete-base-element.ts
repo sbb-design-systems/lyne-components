@@ -32,11 +32,6 @@ import style from './autocomplete-base-element.scss?lit&inline';
  */
 const ariaRoleOnHost = isSafari;
 
-/**
- * Custom event emitted on the input when an option is selected
- */
-export const inputAutocompleteEvent = 'inputAutocomplete';
-
 export
 @hostAttributes({
   popover: 'manual',
@@ -266,7 +261,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
       // Custom input event emitted when input value changes after an option is selected
-      this.triggerElement.dispatchEvent(new Event(inputAutocompleteEvent));
+      this.triggerElement.dispatchEvent(new Event('inputAutocomplete'));
       this.triggerElement.focus();
     }
 
