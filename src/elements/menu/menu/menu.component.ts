@@ -21,8 +21,7 @@ import {
   SbbEscapableOverlayController,
   SbbInertController,
   SbbMediaMatcherController,
-  SbbMediaQueryBreakpointSmallAndBelow,
-  SbbIdReferenceController,
+  SbbMediaQueryBreakpointSmallAndBelow
 } from '../../core/controllers.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
@@ -35,9 +34,9 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
-import type { SbbMenuButtonElement } from '../menu-button.js';
 import '../../divider.js';
 import '../menu-button.js';
+import type { SbbMenuButtonElement } from '../menu-button.js';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.js';
 
 import style from './menu.scss?lit&inline';
@@ -123,6 +122,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
     this._menu.addEventListener?.('mouseover', (e) => this._handleNestedMenus(e));
+    this._configureTrigger();
   }
 
   /**
@@ -157,7 +157,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes the menu.
    */
   public close(): void {
-    if (this.state === 'opening' || !this.dispatchBeforeCloseEvent()) {
+    if ((this.state === 'opening' && !this._nested) || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -333,11 +333,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     }
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    this._configureTrigger();
   }
 
   private _checkListCase(event: Event): void {
