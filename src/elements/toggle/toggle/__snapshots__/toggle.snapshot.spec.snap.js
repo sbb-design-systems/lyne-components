@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-toggle renders DOM"] = 
-`<sbb-toggle size="m">
+`<sbb-toggle
+  data-initialized=""
+  size="m"
+>
   <sbb-toggle-option
     aria-checked="true"
     checked=""
