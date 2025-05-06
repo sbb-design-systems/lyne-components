@@ -12,16 +12,17 @@ import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-row', () => {
+  const row: TemplateResult = html`
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-cell>
+        <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+      </sbb-autocomplete-grid-cell>
+    </sbb-autocomplete-grid-row>
+  `;
+
   describe('renders', () => {
     let root: SbbAutocompleteGridRowElement;
-    const row: TemplateResult = html`
-      <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-        <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-        </sbb-autocomplete-grid-cell>
-      </sbb-autocomplete-grid-row>
-    `;
     beforeEach(async () => {
       root = (
         await fixture(html`
@@ -38,7 +39,7 @@ describe('sbb-autocomplete-grid-row', () => {
     it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(row);
   });
+
+  testA11yTreeSnapshot(row);
 });

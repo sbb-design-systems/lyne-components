@@ -157,7 +157,7 @@ describe(`sbb-navigation`, () => {
 
   it('resets the markers on navigation close', async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation">
+      <sbb-navigation>
         <sbb-navigation-marker>
           <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
           <sbb-navigation-button id="second-action" class="sbb-active"

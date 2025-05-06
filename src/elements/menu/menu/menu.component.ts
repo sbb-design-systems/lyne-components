@@ -312,14 +312,13 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    const triggerElement = this.trigger;
-    if (triggerElement === this._triggerElement) {
+    if (this.trigger === this._triggerElement) {
       return;
     }
 
     this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
-    this._triggerElement = triggerElement;
+    this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;

@@ -28,6 +28,8 @@ customElements.define(
   },
 );
 
+// TODO Test von Jeri kopieren, test für attribut vs property Zuweisung
+
 describe('idReference', () => {
   it('should automatically resolve ids', async () => {
     const root = await fixture(
@@ -219,6 +221,38 @@ describe('idReference', () => {
     expect(idControllerTest.element).to.be.null;
 
     idElement.id = 'test';
+    await waitForLitRender(root);
+    expect(idControllerTest.element).to.be.equal(idElement);
+  });
+
+  it('should precede attribute before manually passed id string', async () => {
+    const root = await fixture(
+      html`<div>
+        <sbb-id-decorator-test element="id1"></sbb-id-decorator-test>
+        <span id="id1"></span>
+        <span id="id2"></span>
+      </div>`,
+    );
+
+    const idControllerTest = root.querySelector('sbb-id-decorator-test')!;
+    const spanElement = root.querySelector('#id1')!;
+
+    idControllerTest.element = 'id2' as any;
+    await waitForLitRender(root);
+    expect(idControllerTest.element).to.be.equal(spanElement);
+  });
+
+  it('should find utf8 id strings', async () => {
+    const root = await fixture(
+      html`<div><sbb-id-decorator-test></sbb-id-decorator-test><span></span></div>`,
+    );
+
+    const idControllerTest = root.querySelector('sbb-id-decorator-test')!;
+    const idElement = root.querySelector('span')!;
+
+    idControllerTest.setAttribute('element', '12$äöü-1234');
+
+    idElement.id = '12$äöü-1234';
     await waitForLitRender(root);
     expect(idControllerTest.element).to.be.equal(idElement);
   });

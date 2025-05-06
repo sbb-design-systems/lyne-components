@@ -123,7 +123,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox A11y tree Chrome"] = 
+snapshots["sbb-autocomplete-grid-optgroup A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -141,9 +141,9 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox A11y tree Chrom
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup renders Chrome-Firefox A11y tree Chrome */
+/* end snapshot sbb-autocomplete-grid-optgroup A11y tree Chrome */
 
-snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox A11y tree Firefox"] = 
+snapshots["sbb-autocomplete-grid-optgroup A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -161,5 +161,5 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox A11y tree Firef
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup renders Chrome-Firefox A11y tree Firefox */
+/* end snapshot sbb-autocomplete-grid-optgroup A11y tree Firefox */
 

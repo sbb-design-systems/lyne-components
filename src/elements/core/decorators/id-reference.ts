@@ -8,6 +8,14 @@ interface IdReferenceController extends ReactiveController {
   checkIdReference: (changedIds?: Set<string>) => void;
 }
 
+/**
+ * We keep track of the observers for each root node, which is either a document
+ * or a shadow root.
+ * Each observer is associated with a set of controllers that each represent
+ * an id reference.
+ * Whenever the MutationObserver detects a change that affects a potential id
+ * reference, it notifies all controllers associated with that observer.
+ */
 const observers = new WeakMap<
   Node,
   {
@@ -15,6 +23,13 @@ const observers = new WeakMap<
     controllers: Set<IdReferenceController>;
   }
 >();
+/**
+ * Whenever an id string is passed to the setter and no reference is found,
+ * we store it in this WeakMap.
+ * The key is the host element and the value is the id string.
+ * Please note that if an id reference property has both an entry
+ * in this WeakMap and an associated attribute, the attribute will take precedence.
+ */
 const idReferences = new WeakMap<object, string | null>();
 
 /**
@@ -42,7 +57,7 @@ export const idReference = <C extends Interface<ReactiveElement>, V>() => {
           host: this,
           rootNode: null,
           checkIdReference(changedIds?: Set<string>): void {
-            const id = idReferences.get(this.host) ?? this.host.getAttribute(attributeName);
+            const id = this.host.getAttribute(attributeName) ?? idReferences.get(this.host);
             if (id && typeof id === 'string' && (!changedIds || changedIds.has(id))) {
               const value = (this.rootNode?.getElementById?.(id) ?? null) as unknown as V;
               if (context.access.get(this.host as C) !== value) {
@@ -122,19 +137,49 @@ export const idReference = <C extends Interface<ReactiveElement>, V>() => {
       });
       return {
         set(this: C, value) {
-          if (typeof value === 'string') {
-            if (value) {
-              idReferences.set(this, value);
-              const element = (this.getRootNode?.() as Document | ShadowRoot)?.getElementById?.(
-                value,
-              );
-              value = (element ?? null) as unknown as V;
-            } else {
-              idReferences.delete(this);
+          if (typeof value !== 'string') {
+            idReferences.delete(this);
+            if (
+              value instanceof HTMLElement &&
+              this.hasAttribute(attributeName) &&
+              value.id !== this.getAttribute(attributeName)
+            ) {
+              if (import.meta.env.DEV) {
+                const elementIdentity = value.id
+                  ? `#${value.id}`
+                  : value.classList.value
+                      .split(' ')
+                      .map((c) => `.${c}`)
+                      .join('');
+                console.warn(
+                  `An element (${value.localName + elementIdentity}) was ` +
+                    `passed to the ${this.localName}.${name as string} property, ` +
+                    `which does not match the existing id reference attribute ` +
+                    `${attributeName} with value ${this.getAttribute(attributeName)}. ` +
+                    `This will remove the current attribute value.`,
+                );
+              }
+              this.removeAttribute(attributeName);
+            }
+          } else if (
+            this.hasAttribute(attributeName) &&
+            this.getAttribute(attributeName) !== value
+          ) {
+            // When a string is passed to the setter but the attribute is set to a
+            // different value, we ignore the passed value.
+            return;
+          } else {
+            const element = value
+              ? (this.getRootNode?.() as Document | ShadowRoot)?.getElementById?.(value)
+              : null;
+            if (element) {
+              value = element as unknown as V;
+            } else if (value) {
+              // If we are unable to resolve the id reference, we temporarily store it
+              // to try to resolve it later.
+              idReferences.set(this, value as string);
               value = null!;
             }
-          } else {
-            idReferences.delete(this);
           }
 
           (target as ClassAccessorDecoratorTarget<C, V>).set.call(this as unknown as C, value);

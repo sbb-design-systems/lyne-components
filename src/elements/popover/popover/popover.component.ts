@@ -257,15 +257,13 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
     // all non-touchscreen devices.
     const hoverTrigger = this.hoverTrigger && !pointerCoarse;
-
-    const triggerElement = this.trigger;
-    if (triggerElement === this._triggerElement && hoverTrigger === this._hoverTrigger) {
+    if (this.trigger === this._triggerElement && hoverTrigger === this._hoverTrigger) {
       return;
     }
 
     this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
-    this._triggerElement = triggerElement;
+    this._triggerElement = this.trigger;
     this._hoverTrigger = hoverTrigger;
 
     if (!this._triggerElement) {
