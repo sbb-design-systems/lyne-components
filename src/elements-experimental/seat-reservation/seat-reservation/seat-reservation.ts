@@ -55,8 +55,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   /** Any click functionality is prevented*/
   @forceType()
-  @property({ attribute: 'disable', type: Boolean })
-  public accessor disable: boolean = false;
+  @property({ attribute: 'prevent-place-click', type: Boolean })
+  public override accessor preventPlaceClick: boolean = false;
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
@@ -331,7 +331,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             rotation=${place.rotation ?? nothing}
             text-rotation=${textRotation}
             coach-index=${coachIndex}
-            ?disable=${this.disable}
+            .preventClick=${this.preventPlaceClick}
           ></sbb-seat-reservation-place-control>
         </sbb-scoped-element>
       `;
@@ -522,7 +522,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (this.focusedCoachIndex === -1 || this.focusedCoachIndex === this.currSelectedCoachIndex) {
       // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
       this.preventCoachScrollByPlaceClick = true;
-      if (!this.disable) {
+      if (!this.preventPlaceClick) {
         const place = this.seatReservation.coachItems[selectedPlace.coachIndex].places?.find(
           (place) => place.number == selectedPlace.number,
         );
