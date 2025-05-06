@@ -51,6 +51,11 @@ export class SeatReservationBaseElement extends LitElement {
   @property({ attribute: 'max-reservations', type: Number })
   public accessor maxReservations: number = null!;
 
+  /** Any click functionality is prevented*/
+  @forceType()
+  @property({ attribute: 'prevent-place-click', type: Boolean })
+  public accessor preventPlaceClick: boolean = false;
+
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
 
@@ -510,7 +515,7 @@ export class SeatReservationBaseElement extends LitElement {
     this.preventCoachScrollByPlaceClick = false;
     const places = this.seatReservation.coachItems[this.currSelectedCoachIndex].places;
 
-    if (places && places.length) {
+    if (!this.preventPlaceClick && places && places.length) {
       const findClosestPlace = this._getClosestPlaceByKeyDirection(pressedKey);
       if (findClosestPlace) {
         this.focusPlaceElement(findClosestPlace);

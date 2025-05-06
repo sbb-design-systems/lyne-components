@@ -10,6 +10,7 @@ import {
   type PropertyValues,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type { PlaceSelection, PlaceState, PlaceType } from '../seat-reservation.js';
@@ -75,10 +76,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'coach-index', type: Number })
   public accessor coachIndex: number = null!;
 
-  /** Disable prop to prevent any seat action */
+  /** Prevent click prop prevent any place action */
   @forceType()
-  @property({ attribute: 'disable', type: Boolean })
-  public accessor disable: boolean = false;
+  @property({ attribute: 'prevent-click', type: Boolean })
+  public accessor preventClick: boolean = false;
 
   /** Set the place focus outline style */
   @forceType()
@@ -118,7 +119,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
       const placeButton = this.shadowRoot?.querySelector(
         '.sbb-seat-reservation-place-control__button',
       ) as HTMLButtonElement;
-
       if (this.keyfocus === 'focus') {
         placeButton.focus();
       }
@@ -127,8 +127,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   protected override render(): TemplateResult {
     const name: string = this._getPlaceSvg(this.type, this.state);
-    const buttonDisabled: boolean =
-      this.disable || !(this.state === 'FREE' || this.state === 'SELECTED');
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
@@ -142,13 +140,17 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
           .rotation} sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
       >
         <button
-          class="sbb-seat-reservation-place-control__button"
+          class="${classMap({
+            'sbb-seat-reservation-place-control__button': true,
+            'sbb-reservation-place-control--disabled': this.preventClick,
+          })}"
           @click=${() => this._selectPlace()}
+          aria-label=${this._getAriaPlaceLabel()}
           title=${this._getTitleDescriptionPlace()}
-          ?disabled=${buttonDisabled || nothing}
           tabindex="-1"
         >
           <sbb-seat-reservation-graphic
+            exportparts="svg-place svg-backrest"
             .name=${name}
             .width=${width}
             .height=${height}
@@ -175,22 +177,22 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   private _getTitleDescriptionPlace(): string {
     const translationKey = 'PLACE_CONTROL_' + this.type + '_' + this.state;
-    let descritpion = getI18nSeatReservation(translationKey, this._language.current, [this.text]);
+    let description = getI18nSeatReservation(translationKey, this._language.current, [this.text]);
 
     if (this.propertyIds.length) {
-      descritpion +=
+      description +=
         '. ' + getI18nSeatReservation('PLACE_PROPERTY', this._language.current).concat(': ');
-      descritpion += this.propertyIds
+      description += this.propertyIds
         .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
         .join(', ');
     }
 
-    return descritpion;
+    return description;
   }
 
   /** If the place selectable, we emit the placeSelection object which contains infos to the place state */
   private _selectPlace(): void {
-    const selectable = this.state === 'FREE' || this.state === 'SELECTED';
+    const selectable = (this.state === 'FREE' || this.state === 'SELECTED') && !this.preventClick;
 
     if (selectable) {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
