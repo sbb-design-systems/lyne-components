@@ -2,7 +2,7 @@ The `sbb-datepicker` is a component which can be used together with an `<sbb-dat
 to display the typed value as a formatted date (default: `dd.MM.yyyy`).
 
 The component allows the insertion of up to 10 numbers,
-possibly with separators like empty space, dot (`.`), hyphen (`-`), comma (`,`), slash (`/`) or forward slash (`\`),
+possibly with separators like white space, dot (`.`), hyphen (`-`), comma (`,`), slash (`/`) or backslash (`\`),
 then automatically formats the value as date and displays it.
 It also allows to get / set the value formatted as Date via the `valueAsDate` property.
 
