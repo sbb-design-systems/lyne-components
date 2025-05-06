@@ -110,7 +110,7 @@
     "cross-env": "7.0.3",
     "custom-elements-manifest": "2.1.0",
     "date-fns": "4.1.0",
-    "esbuild": "0.25.3",
+    "esbuild": "0.25.4",
     "eslint": "9.26.0",
     "eslint-config-prettier": "10.1.2",
     "eslint-import-resolver-typescript": "4.3.4",
