@@ -2,7 +2,7 @@ import { html, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
-import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.js';
+import type { SbbFormFieldElement } from '../../form-field/form-field.js';
 
 import './chip-group.component.js';
 import '../chip.js';

@@ -14,6 +14,7 @@ import {
   type SbbChipInputTokenEndEventDetails,
 } from './chip-group.component.js';
 import '../chip.js';
+import '../../autocomplete.js';
 import '../../form-field.js';
 import '../../option.js';
 
