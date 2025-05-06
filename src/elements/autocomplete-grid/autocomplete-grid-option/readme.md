@@ -93,10 +93,9 @@ which is needed to correctly set the `aria-activedescendant` on the related `inp
 
 ## Events
 
-| Name                                | Type                | Description                                     | Inherited From |
-| ----------------------------------- | ------------------- | ----------------------------------------------- | -------------- |
-| `autocompleteOptionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
-| `autocompleteOptionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
+| Name                         | Type                | Description                                | Inherited From |
+| ---------------------------- | ------------------- | ------------------------------------------ | -------------- |
+| `autocompleteOptionSelected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
 
 ## CSS Properties
 

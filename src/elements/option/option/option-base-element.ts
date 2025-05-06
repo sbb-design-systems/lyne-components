@@ -59,9 +59,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return this.hasAttribute('selected');
   }
 
-  /** Emits when the option selection status changes. */
-  protected abstract selectionChange: EventEmitter;
-
   /** Emits when an option was selected by user. */
   protected abstract optionSelected: EventEmitter;
 
@@ -122,12 +119,8 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     this._highlightString = value;
   }
 
-  /**
-   * @internal
-   */
-  public setSelectedViaUserInteraction(selected: boolean): void {
+  protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
-    this.selectionChange.emit();
     if (this.selected) {
       this.optionSelected.emit();
     }

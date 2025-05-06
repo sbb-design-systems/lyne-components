@@ -240,9 +240,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   /** When an option is selected, update the input value and close the autocomplete. */
   protected onOptionSelected(event: CustomEvent): void {
     const target = event.target as SbbOptionBaseElement;
-    if (!target.selected) {
-      return;
-    }
 
     // Deselect the previous options
     this.options
