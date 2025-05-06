@@ -327,12 +327,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             text=${place.number}
             type=${place.type}
             state=${place.state}
-            .propertieIds=${place.propertyIds}
             width=${place.dimension.w * this.baseGridSize}
             height=${place.dimension.h * this.baseGridSize}
             rotation=${place.rotation ?? nothing}
             text-rotation=${textRotation}
             coach-index=${coachIndex}
+            .propertyIds=${place.propertyIds}
             ?disable=${this.disable}
           ></sbb-seat-reservation-place-control>
         </sbb-scoped-element>
