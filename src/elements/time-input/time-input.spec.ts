@@ -274,7 +274,7 @@ describe(`sbb-time-input`, () => {
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 
-    element.input = 'input-2';
+    element.setAttribute('input', 'input-2');
     element.valueAsDate = '2023-01-01T15:00:00';
     await waitForLitRender(element);
 
@@ -294,7 +294,7 @@ describe(`sbb-time-input`, () => {
     const input2 = root.querySelector<HTMLInputElement>('#input-4')!;
     await waitForLitRender(element);
     expect(input1.value).to.be.equal('01:11');
-    element.input = 'input-4';
+    element.setAttribute('input', 'input-4');
     await waitForLitRender(element);
     expect(input2.value).to.be.equal('23:00');
   });

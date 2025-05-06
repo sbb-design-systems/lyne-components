@@ -44,12 +44,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                                      |
-| ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityBackLabel` | `accessibility-back-label` | public  | `string`                        | `''`    | This will be forwarded as aria-label to the back button element.                                                                 |
-| `accessibilityLabel`     | `accessibility-label`      | public  | `string`                        | `''`    | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.                        |
-| `titleContent`           | `title-content`            | public  | `string`                        | `''`    | The label to be shown before the action list.                                                                                    |
-| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the navigation section. Accepts both a string (id of an element) or an SbbNavigationButtonElement. |
+| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                               |
+| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `accessibilityBackLabel` | `accessibility-back-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the back button element.                                          |
+| `accessibilityLabel`     | `accessibility-label`      | public  | `string`              | `''`    | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section. |
+| `titleContent`           | `title-content`            | public  | `string`              | `''`    | The label to be shown before the action list.                                                             |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the navigation section. For attribute usage, provide an id reference.       |
 
 ## Methods
 

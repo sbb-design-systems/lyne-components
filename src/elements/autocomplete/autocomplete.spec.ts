@@ -363,7 +363,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should return trigger', async () => {
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
     });
 
     it('should have trigger as origin when not defined', async () => {
@@ -374,34 +374,34 @@ describe(`sbb-autocomplete`, () => {
       input.id = '';
       await waitForLitRender(element);
       expect(input.ariaHasPopup).to.be.null;
-      expect(element.triggerElement).to.be.null;
+      expect(element.trigger).to.be.null;
 
       input.id = 'autocomplete-trigger';
       await waitForLitRender(element);
       expect(input.ariaHasPopup).not.to.be.null;
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
     });
 
     it('accepts trigger as HTML Element', async () => {
       input.id = '';
       await waitForLitRender(element);
       expect(input.ariaHasPopup).to.be.null;
-      expect(element.triggerElement).to.be.null;
+      expect(element.trigger).to.be.null;
 
       element.trigger = input;
       await waitForLitRender(element);
       expect(input.ariaHasPopup).not.to.be.null;
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
     });
 
     it('allows removing the trigger', async () => {
       expect(input.ariaHasPopup).not.to.be.null;
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
 
       element.trigger = null;
       await waitForLitRender(element);
       expect(input.ariaHasPopup).to.be.null;
-      expect(element.triggerElement).to.be.null;
+      expect(element.trigger).to.be.null;
     });
   });
 
@@ -481,11 +481,11 @@ describe(`sbb-autocomplete`, () => {
       // Set origin to null and swap trigger
       element.origin = null;
       await waitForLitRender(element);
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
 
       element.trigger = root.querySelector<HTMLInputElement>('#autocomplete-trigger-2')!;
       await waitForLitRender(element);
-      expect(element.triggerElement!.id).to.be.equal(element.originElement!.id);
+      expect(element.trigger!.id).to.be.equal(element.originElement!.id);
 
       expect(
         element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,

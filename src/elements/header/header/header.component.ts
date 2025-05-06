@@ -9,8 +9,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
-import { SbbIdReferenceController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, idReference } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 
@@ -38,10 +37,14 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor expanded: boolean = false;
 
-  // TODO: Remove the document as default assignment and refactor logic to return document
-  /** The element's id or the element on which the scroll listener is attached. */
+  /**
+   * The element's id or the element on which the scroll listener is attached.
+   *
+   * For attribute usage, provide an id reference.
+   */
+  @idReference()
   @property({ attribute: 'scroll-origin' })
-  public accessor scrollOrigin: string | HTMLElement | Document = !isServer ? document : null!;
+  public accessor scrollOrigin: HTMLElement | null = null;
 
   /** Whether the header should hide and show on scroll. */
   @forceType()
@@ -60,7 +63,6 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   private _scrollEventsController!: AbortController;
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
-  private _scrollOriginIdReferenceController = new SbbIdReferenceController(this, 'scrollOrigin');
 
   public constructor() {
     super();
@@ -94,10 +96,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _updateScrollListener(): void {
-    const scrollElement =
-      this.scrollOrigin instanceof HTMLElement
-        ? this.scrollOrigin
-        : (this._scrollOriginIdReferenceController.find() ?? document);
+    const scrollElement = this.scrollOrigin ?? document;
     if (scrollElement === this._scrollElement) {
       return;
     }
