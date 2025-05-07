@@ -194,6 +194,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   protected handleKeyboardEvent(event: KeyboardEvent): void {
     const pressedKey = event.key;
+
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
     if (this.currSelectedPlace) {
@@ -489,8 +490,14 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     if (this.hasNavigation) {
-      //Set
-      if (newFocusableIndex !== this.currSelectedCoachIndex) {
+      //If we tab back (PREV_TAB) and the focus is currently on place, we remove the selected state from the currently selected navigation coach and only set the focus status to it
+      if (tabDirection === 'PREV_TAB' && this.selectedCoachIndex === currFocusIndex) {
+        this.focusedCoachIndex = currFocusIndex;
+        this.selectedCoachIndex = -1;
+        this.unfocusPlaceElement();
+      }
+      // Only sets the focus on the new navigation couch
+      else if (newFocusableIndex !== this.currSelectedCoachIndex) {
         this.focusedCoachIndex = newFocusableIndex;
       } else {
         this.focusedCoachIndex = -1;
