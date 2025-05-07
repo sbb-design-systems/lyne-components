@@ -47,9 +47,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
   });
 
   it('set selected and emits on click', async () => {
-    const selectionChangeSpy = new EventSpy(
-      SbbAutocompleteGridOptionElement.events.selectionChange,
-    );
+    const optionSelectedSpy = new EventSpy(SbbAutocompleteGridOptionElement.events.optionSelected);
     const optionOne = element.querySelector<SbbAutocompleteGridOptionElement>(
       'sbb-autocomplete-grid-option',
     )!;
@@ -58,7 +56,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
     await waitForLitRender(element);
 
     expect(optionOne.selected).to.be.equal(true);
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    expect(optionSelectedSpy.count).to.be.equal(1);
   });
 
   it('highlight on input', async () => {

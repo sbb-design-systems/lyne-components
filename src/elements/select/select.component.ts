@@ -777,7 +777,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     const activeOption: SbbOptionElement = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
-      activeOption.setSelectedViaUserInteraction(!activeOption.selected);
+      activeOption['selectViaUserInteraction'](!activeOption.selected);
     } else {
       this.close();
     }
@@ -801,7 +801,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     if (!this.multiple) {
       this._setSelectedElement(nextOption, activeOption);
     } else if (event?.shiftKey) {
-      nextOption.setSelectedViaUserInteraction(!nextOption.selected);
+      nextOption['selectViaUserInteraction'](!nextOption.selected);
     }
     this._activeItemIndex = nextIndex;
   }
@@ -828,10 +828,10 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     nextActiveOption: SbbOptionElement,
     lastActiveOption: SbbOptionElement,
   ): void {
-    nextActiveOption.setSelectedViaUserInteraction(true);
+    nextActiveOption['selectViaUserInteraction'](true);
 
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
-      lastActiveOption.setSelectedViaUserInteraction(false);
+      lastActiveOption['selectViaUserInteraction'](false);
     }
   }
 

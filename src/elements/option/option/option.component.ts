@@ -87,14 +87,19 @@ class SbbOptionElement extends SbbOptionBaseElement {
 
     if (this._isMultiple) {
       event.stopPropagation();
-      this.setSelectedViaUserInteraction(!this.selected);
+      this.selectViaUserInteraction(!this.selected);
     } else {
-      this.setSelectedViaUserInteraction(true);
+      this.selectViaUserInteraction(true);
     }
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
+  }
+
+  protected override selectViaUserInteraction(selected: boolean): void {
+    super.selectViaUserInteraction(selected);
+    this.selectionChange.emit();
   }
 
   protected override init(): void {
@@ -165,5 +170,6 @@ declare global {
 
   interface GlobalEventHandlersEventMap {
     optionSelectionChange: CustomEvent<void>;
+    optionSelected: CustomEvent<void>;
   }
 }
