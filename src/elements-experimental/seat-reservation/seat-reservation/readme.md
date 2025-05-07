@@ -131,4 +131,34 @@ type BaseElement = {
 };
 ```
 
+## Customizing
+
+### Coloring place by css properties
+
+Custom CSS properties allow you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors for the background color, backrest, and text of the place can be customized. The currently specified values ​​(var(--sbb-color-black)) are the built-in default values.
+
+By using the pseudo element ::part(sbb-seat-reservation-place-part) in your own css, the individual custom properties can be overwritten.
+
+```html
+::part(sbb-seat-reservation-place-part) { // Color definition for text with state FREE
+--sbb-reservation-place-control-free-text-default: var(--sbb-color-black); // Color background
+definition for place witzh state FREE --sbb-reservation-place-control-free-background-default:
+var(--sbb-color-white); --sbb-reservation-place-control-free-background-hover:
+var(--sbb-color-cloud); --sbb-reservation-place-control-free-background-focus:
+var(--sbb-color-silver); // Color background definition for backrest with state FREE
+--sbb-reservation-place-control-free-backrest-background-default: var(--sbb-color-black);
+--sbb-reservation-place-control-free-backrest-background-hover: var(--sbb-color-black);
+--sbb-reservation-place-control-free-backrest-background-focus: var(--sbb-color-black); // Color
+background definition for place with state SELECTED
+--sbb-reservation-place-control-selected-background-default: var(--sbb-color-red);
+--sbb-reservation-place-control-selected-background-hover: var(--sbb-color-red125);
+--sbb-reservation-place-control-selected-background-focus: var(--sbb-color-red150); // Color
+background definition for backrest with state SELECTED
+--sbb-reservation-place-control-selected-backrest-background-default: var(--sbb-color-red150);
+--sbb-reservation-place-control-selected-backrest-background-hover: #7d000f;
+--sbb-reservation-place-control-selected-backrest-background-focus: #5a000b; }
+```
+
+#### SeatReservation
+
 <!-- Auto Generated Below -->

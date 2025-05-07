@@ -132,6 +132,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     return html`
       <div
+        part="sbb-seat-reservation-place-part"
         class="sbb-seat-reservation-place-control--orientation-${this
           .rotation} sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
       >
@@ -145,7 +146,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
           tabindex="-1"
         >
           <sbb-seat-reservation-graphic
-            exportparts="svg-place svg-backrest"
             .name=${name}
             .width=${width}
             .height=${height}
