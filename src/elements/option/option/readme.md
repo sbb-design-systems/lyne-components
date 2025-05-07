@@ -61,7 +61,7 @@ If the label slot contains only a **text node**, it is possible to search for te
 | `disabled` | `disabled`  | public  | `boolean` | `false` | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string`  | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `selected` | `selected`  | public  | `boolean` |         | Whether the option is selected.                                                                                                  |
-| `value`    | `value`     | public  | `string`  |         | Value of the option.                                                                                                             |
+| `value`    | `value`     | public  | `T`       | `null`  | Value of the option.                                                                                                             |
 
 ## Events
 
