@@ -26,7 +26,7 @@ export
 @hostAttributes({
   role: 'option',
 })
-class SbbOptionElement extends SbbOptionBaseElement {
+class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',

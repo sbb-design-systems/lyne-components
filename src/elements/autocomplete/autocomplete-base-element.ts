@@ -69,6 +69,10 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public accessor preserveIconSpace: boolean = false;
 
+  /** Function that maps an option's control value to its display value in the trigger. */
+  @property({ attribute: false })
+  public accessor displayWith: ((value: any) => string) | null = null;
+
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
@@ -247,11 +251,14 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       .forEach((option) => (option.selected = false));
 
     if (this.triggerElement) {
+      // Given a value, returns the string that should be shown within the input.
+      const toDisplay = this.displayWith?.(target.value) ?? target.value;
+
       // Set the option value
       // In order to support React onChange event, we have to get the setter and call it.
       // https://github.com/facebook/react/issues/11600#issuecomment-345813130
       const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.triggerElement, target.value);
+      setValue.call(this.triggerElement, toDisplay);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
