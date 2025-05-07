@@ -447,15 +447,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
         ? graphicalElement.icon
         : graphicalElement.icon?.concat('_', this.seatReservation.vehicleType);
-    const ariaLabel =
-      icon && icon.indexOf('COACH_PASSAGE') > -1
-        ? getI18nSeatReservation('COACH_PASSAGE', this._language.current)
-        : null;
 
     return html`
       <sbb-scoped-element
         scoped-classes="graphical-element"
-        graph-elem-aria-label="${ariaLabel || nothing}"
         inset-block-start="${calculatedPosition.y}px"
         inset-inline-start="${calculatedPosition.x}px"
         width="${calculatedDimension.w}px"
@@ -508,7 +503,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             .rotation=${elementFixedRotation}
             role="img"
             aria-hidden="true"
-            title=${titleDescription}
+            title=${titleDescription ?? nothing}
           ></sbb-seat-reservation-graphic>
         </sbb-scoped-element>
       `;
