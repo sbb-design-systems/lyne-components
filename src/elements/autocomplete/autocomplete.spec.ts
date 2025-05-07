@@ -347,6 +347,42 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
   });
 
+  it('recalculate position when option list changes', async () => {
+    // Set up the autocomplete to the bottom of the page and add a listener on it which removes every option except the first one.
+    formField.parentElement?.style.setProperty('inset-block-end', '2rem');
+    formField.parentElement?.style.setProperty('inset-inline-start', '2rem');
+    formField.parentElement?.style.setProperty('position', 'absolute');
+    formField.parentElement?.style.setProperty('max-width', 'calc(100% - 4rem)');
+    const optFn = (): void => {
+      element
+        .querySelectorAll('sbb-option')
+        .forEach((option, index) => index !== 0 && option.remove());
+    };
+
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    input.addEventListener('input', optFn);
+    input.focus();
+    await didOpenEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(
+      getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
+    ).to.be.equal(isSafari ? '336px' : '334px');
+
+    // Simulate the options' removal and check again position
+    await sendKeys({ press: 'a' });
+    expect(
+      getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
+    ).to.be.equal(isSafari ? '424px' : '423px');
+
+    // Clean up env
+    element.close();
+    input.removeEventListener('input', optFn);
+    formField.parentElement?.style.setProperty('inset-block-end', '');
+    formField.parentElement?.style.setProperty('inset-inline-start', '');
+    formField.parentElement?.style.setProperty('position', '');
+    formField.parentElement?.style.setProperty('max-width', '');
+  });
+
   describe('trigger connection', () => {
     beforeEach(async () => {
       const root = await fixture(
