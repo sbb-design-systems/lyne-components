@@ -1,6 +1,5 @@
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -45,9 +44,12 @@ class SbbPearlChainElement extends LitElement {
   @property({ attribute: 'disable-animation', type: Boolean })
   public accessor disableAnimation: boolean = false;
 
-  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  /**
+   * A configured date which acts as the current date instead of the real current date.
+   * Only recommended for testing purposes.
+   */
   @property()
-  public set now(value: SbbDateLike | undefined) {
+  public set now(value: Date | null) {
     this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
   }
   public get now(): Date | null {

@@ -19,7 +19,7 @@ import {
   i18nTripDuration,
   i18nTripQuayChange,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
-import type { SbbDateLike, SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -267,9 +267,12 @@ class SbbTimetableRowElement extends LitElement {
   @property({ type: Boolean })
   public accessor active: boolean = false;
 
-  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  /**
+   * A configured date which acts as the current date instead of the real current date.
+   * Only recommended for testing purposes.
+   */
   @property()
-  public set now(value: SbbDateLike | undefined) {
+  public set now(value: Date | null) {
     this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
   }
   public get now(): Date {

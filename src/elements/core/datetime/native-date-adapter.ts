@@ -1,5 +1,4 @@
 import { SbbLanguageController } from '../controllers.js';
-import type { SbbDateLike } from '../interfaces.js';
 
 import { DateAdapter, FORMAT_DATE, ISO8601_FORMAT_DATE } from './date-adapter.js';
 
@@ -153,21 +152,16 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return new Date(date.getFullYear(), date.getMonth(), targetDay, 0, 0, 0, 0);
   }
 
-  /** Creates a Date from a valid input (Date, string or number in seconds). */
-  public override deserialize(date: SbbDateLike | null | undefined): Date | null {
+  /** Creates a Date from a valid input (Date or ISO string). */
+  public override deserialize(date: Date | string | null | undefined): Date | null {
     if (typeof date === 'string') {
       if (!date) {
         return null;
-      } else if (!Number.isNaN(+date)) {
-        return this.getValidDateOrNull(new Date(+date * 1000));
-
+      } else if (ISO_8601_REGEX.test(date)) {
         // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
         // string is the right format first.
-      } else if (ISO_8601_REGEX.test(date)) {
         return this.getValidDateOrNull(new Date(date.includes('T') ? date : date + 'T00:00:00'));
       }
-    } else if (typeof date === 'number') {
-      return this.getValidDateOrNull(new Date(date * 1000));
     }
     return super.deserialize(date);
   }
