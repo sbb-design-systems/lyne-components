@@ -271,7 +271,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
     /**
-     * It's possible to filter out option with an opened panel on input change.
+     * It's possible to filter out options with an opened panel on input change.
      * In this case, the panel's position must be recalculated considering the new option's list.
      */
     if (this.isOpen) {
