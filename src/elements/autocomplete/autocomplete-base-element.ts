@@ -270,6 +270,13 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+    /**
+     * In Angular, it's possible to filter out option with an opened panel on input change.
+     * In this case, the panel's position must be recalculated considering the new option's list.
+     */
+    if (this.isOpen) {
+      this._setOverlayPosition();
+    }
     this._openOnNewOptions();
   }
 
@@ -484,6 +491,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
     this.options.forEach((option) => option.highlight(searchTerm));
   }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
