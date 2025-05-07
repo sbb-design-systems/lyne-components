@@ -146,13 +146,25 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Restaurant',
     it: 'Ristorante',
   },
+  RESTAURANT_ICON: {
+    de: 'Restaurant Bereich',
+    en: 'Restaurant area',
+    fr: 'fr:Restaurant area',
+    it: 'it:Restaurant area',
+  },
   SILENCE: {
     de: 'Ruhezone',
     en: 'Silence area',
     fr: 'Zone de repos',
     it: 'Zona di riposo',
   },
-  WHEELCHAIR: {
+  SILENCE_AREA_ICON: {
+    de: 'Ruhezone',
+    en: 'Silence area',
+    fr: 'Zone de repos',
+    it: 'Zona di riposo',
+  },
+  WHEELCHAIR_ICON: {
     de: 'Rollstuhlzone',
     en: 'Wheelchairzone',
     fr: 'Zone pour fauteuils roulants',
@@ -176,48 +188,133 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: "Internet gratuit avec l'application SBB FreeSurf",
     it: "Internet gratuito con l'app SBB FreeSurf",
   },
+  AISLE_SEAT: {
+    de: 'Gangplatz',
+    en: 'Aisle seat',
+    fr: 'fr:Aisle seat',
+    it: 'it:Aisle seat',
+  },
+  POWER: {
+    de: 'Steckdose',
+    en: 'Power socket',
+    fr: 'fr:Power socket',
+    it: 'it:Power socket',
+  },
+  WINDOW_SEAT: {
+    de: 'Fensterplatz',
+    en: 'Window seat',
+    fr: 'fr:Window seat',
+    it: 'it:Window seat',
+  },
+  TABLE: {
+    de: 'Tisch',
+    en: 'Table',
+    fr: 'fr:Table',
+    it: 'it:Table',
+  },
+  PLAYGROUND_AREA: {
+    de: 'Familienbereich',
+    en: 'Family area',
+    fr: 'fr:Family area',
+    it: 'it:Family area',
+  },
+  STAIR_AREA: {
+    de: 'Treppenbereich',
+    en: 'Stair area',
+    fr: 'fr:Stair area',
+    it: 'it:Stair area',
+  },
+  TOILET_AREA: {
+    de: 'Toilettenbereich',
+    en: 'Toilet area',
+    fr: 'fr:Toilet area',
+    it: 'it:Toilet area',
+  },
+  WHEELCHAIR_TOILET_AREA: {
+    de: 'Rollstuhl Toilettenbereich',
+    en: 'Wheelchair toilet area',
+    fr: 'fr:Wheelchair toilet area',
+    it: 'it:Wheelchair toilet area',
+  },
+  SKI_AREA: {
+    de: 'Ski Bereich',
+    en: 'Ski area',
+    fr: 'fr:Ski area',
+    it: 'it:Ski area',
+  },
+  EASY_ACCESS_AREA: {
+    de: 'de:Easy access area for PRMs',
+    en: 'Easy access area for PRMs',
+    fr: 'fr:Easy access area for PRMs',
+    it: 'it:Easy access area for PRMs',
+  },
+
   //PLACE CONTROL ARIA LABEL
-  PLACE_CONTROL_FREE: {
+  PLACE_CONTROL_SEAT_FREE: {
     de: 'Sitzplatz Nummer _param0_ ist frei',
     en: 'Seat number _param0_ is free',
     fr: 'Le siège numéro _param0_ est libre',
     it: 'Il posto numero _param0_ è libero',
   },
-  PLACE_CONTROL_SELECTED: {
+  PLACE_CONTROL_SEAT_SELECTED: {
     de: 'Sitzplatz Nummer _param0_ ist ausgewählt',
     en: 'Seat number _param0_ is selected',
     fr: 'Le numéro de siège _param0_ est sélectionné',
     it: 'Il numero di posto _param0_ è selezionato',
   },
-  PLACE_CONTROL_BIKE_FREE: {
+  PLACE_CONTROL_BICYCLE_FREE: {
     de: 'Fahrrad Platz Nummer _param0_ ist frei',
     en: 'Bike Seat number _param0_ is free',
     fr: 'Le siège de vélo numéro _param0_ est libre',
     it: 'Il posto bici numero _param0_ è libero',
   },
-  PLACE_CONTROL_BIKE_SELECTED: {
+  PLACE_CONTROL_BICYCLE_SELECTED: {
     de: 'Fahrrad Platz Nummer _param0_ ist ausgewählt',
     en: 'Bike Seat number _param0_ is selected',
     fr: 'Le siège de vélo numéro _param0_ est sélectionné',
     it: 'Il sedile della bici numero _param0_ è selezionato',
   },
-  PLACE_CONTROL_SEAT_NOT_AVAILABLE: {
+  PLACE_CONTROL_SEAT_RESTRICTED: {
     de: 'Sitzplatz nicht verfügbar',
     en: 'Seat not available',
     fr: 'Siège non disponible',
     it: 'Posto non disponibile',
   },
-  PLACE_CONTROL_BIKE_SEAT_NOT_AVAILABLE: {
+  PLACE_CONTROL_BICYCLE_RESTRICTED: {
     de: 'Fahrradplatz nicht verfügbar',
     en: 'Bike place not available',
     fr: 'Siège non disponible',
     it: 'Posto non disponibile',
+  },
+  PLACE_CONTROL_SEAT_ALLOCATED: {
+    de: 'Sitzplatz _param0_ nicht verfügbar',
+    en: 'Seat _param0_ not available',
+    fr: 'Siège _param0_ non disponible',
+    it: 'Posto _param0_ non disponibile',
+  },
+  PLACE_CONTROL_BICYCLE_ALLOCATED: {
+    de: 'Fahrradplatz _param0_ nicht verfügbar',
+    en: 'Bike place _param0_ not available',
+    fr: 'Siège _param0_ non disponible',
+    it: 'Posto _param0_ non disponibile',
   },
   EXAMPLE_WITH_PARAMS_DO_NOT_USE: {
     de: 'Test mit Parametern: _param0_ und _param1_',
     en: 'Test with parameters: _param0_ and _param1_',
     fr: 'Test avec paramètres: _param0_ et _param1_',
     it: 'Test con parametri: _param0_ e _param1_',
+  },
+  PLACE_PROPERTY: {
+    de: 'Platzeigenschaften',
+    en: 'en:Platzeigenschaften',
+    fr: 'fr:Platzeigenschaften',
+    it: 'it:Platzeigenschaften',
+  },
+  COACH_AVAILABLE_SERVICES: {
+    de: 'Verfügbare Services',
+    en: 'en:Verfügbare Services',
+    fr: 'fr:Verfügbare Services',
+    it: 'it:Verfügbare Services',
   },
 };
 

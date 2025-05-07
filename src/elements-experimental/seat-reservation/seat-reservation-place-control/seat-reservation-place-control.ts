@@ -42,6 +42,10 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   @property({ attribute: 'state', type: String })
   public accessor state: PlaceState = 'FREE';
 
+  /** Place Property Ids Prop */
+  @property({ attribute: 'propertyIds', type: Array })
+  public accessor propertyIds: string[] = [];
+
   /** Rotation Prop */
   @forceType()
   @property({ attribute: 'rotation', type: Number })
@@ -141,7 +145,8 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
             'sbb-reservation-place-control--disabled': this.preventClick,
           })}"
           @click=${() => this._selectPlace()}
-          aria-label=${this._getAriaPlaceLabel()}
+          aria-label=${this._getTitleDescriptionPlace()}
+          title=${this._getTitleDescriptionPlace()}
           tabindex="-1"
         >
           <sbb-seat-reservation-graphic
@@ -170,21 +175,19 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     return `PLACE_${typeString}_${stateString}`;
   }
 
-  private _getAriaPlaceLabel(): string {
-    if (this.state === 'FREE' || this.state === 'SELECTED') {
-      if (this.type === 'SEAT') {
-        return this.state === 'SELECTED'
-          ? getI18nSeatReservation('PLACE_CONTROL_SELECTED', this._language.current, [this.text])
-          : getI18nSeatReservation('PLACE_CONTROL_FREE', this._language.current, [this.text]);
-      }
-      return this.state === 'SELECTED'
-        ? getI18nSeatReservation('PLACE_CONTROL_BIKE_SELECTED', this._language.current, [this.text])
-        : getI18nSeatReservation('PLACE_CONTROL_BIKE_FREE', this._language.current, [this.text]);
-    } else {
-      return this.type === 'SEAT'
-        ? getI18nSeatReservation('PLACE_CONTROL_SEAT_NOT_AVAILABLE', this._language.current)
-        : getI18nSeatReservation('PLACE_CONTROL_BIKE_SEAT_NOT_AVAILABLE', this._language.current);
+  private _getTitleDescriptionPlace(): string {
+    const translationKey = 'PLACE_CONTROL_' + this.type + '_' + this.state;
+    let description = getI18nSeatReservation(translationKey, this._language.current, [this.text]);
+
+    if (this.propertyIds.length) {
+      description +=
+        '. ' + getI18nSeatReservation('PLACE_PROPERTY', this._language.current).concat(': ');
+      description += this.propertyIds
+        .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
+        .join(', ');
     }
+
+    return description;
   }
 
   /** If the place selectable, we emit the placeSelection object which contains infos to the place state */

@@ -1,6 +1,6 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './scoped-element.scss?lit&inline';
@@ -12,10 +12,6 @@ export
 @customElement('sbb-scoped-element')
 class SbbScopedElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-
-  @forceType()
-  @property({ attribute: 'graph-elem-aria-label', type: String })
-  public accessor graphElemAriaLabel: string = '';
 
   @forceType()
   @property({ attribute: 'inset-block-start', type: String })
@@ -71,7 +67,7 @@ class SbbScopedElement extends LitElement {
 
   protected override render(): TemplateResult {
     if (!this.cellId) {
-      return html`<div class="${this.scopedClasses}" title="${this.graphElemAriaLabel || nothing}">
+      return html`<div class="${this.scopedClasses}">
         <slot></slot>
       </div>`;
     } else {
