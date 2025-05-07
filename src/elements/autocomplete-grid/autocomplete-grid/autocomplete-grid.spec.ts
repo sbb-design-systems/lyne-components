@@ -605,7 +605,7 @@ describe(`sbb-autocomplete-grid`, () => {
           <label>Autocomplete</label>
           <input />
           <sbb-autocomplete-grid
-            @optionSelected=${(e: Event) => optionSelectedSpy(e)}
+            @autocompleteOptionSelected=${(e: Event) => optionSelectedSpy(e)}
             .displayWith=${(o: { property: string; otherProperty: string }) => o.property}
           >
             <sbb-autocomplete-grid-row>
@@ -637,7 +637,7 @@ describe(`sbb-autocomplete-grid`, () => {
       input.click();
       expect(element.isOpen).to.be.true;
 
-      const option1 = element.querySelector('sbb-option')!;
+      const option1 = element.querySelector('sbb-autocomplete-grid-option')!;
       expect(option1.value).to.deep.equal({
         property: 'Option 1',
         otherProperty: 'hello',
