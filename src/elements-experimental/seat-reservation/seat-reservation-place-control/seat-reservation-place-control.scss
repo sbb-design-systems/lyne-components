@@ -26,15 +26,26 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
     var(--sbb-place-control-text-scale-value, 1) * 0.5
   );
 
-  // Color background definition for free place
+  // Color definition for text with state FREE
+  --sbb-reservation-place-control-free-text-default: var(--sbb-color-black);
+
+  // Color background definition for place with state FREE
+  --sbb-reservation-place-control-free-background-default: var(--sbb-color-white);
   --sbb-reservation-place-control-free-background-hover: var(--sbb-color-cloud);
   --sbb-reservation-place-control-free-background-focus: var(--sbb-color-silver);
 
-  // Color background definition for selected place
+  // Color background definition for backrest with state FREE
+  --sbb-reservation-place-control-free-backrest-background-default: var(--sbb-color-black);
+  --sbb-reservation-place-control-free-backrest-background-hover: var(--sbb-color-black);
+  --sbb-reservation-place-control-free-backrest-background-focus: var(--sbb-color-black);
+
+  // Color background definition for place with state SELECTED
+  --sbb-reservation-place-control-selected-background-default: var(--sbb-color-red);
   --sbb-reservation-place-control-selected-background-hover: var(--sbb-color-red125);
   --sbb-reservation-place-control-selected-background-focus: var(--sbb-color-red150);
 
-  // Color background definition for place with backrest
+  // Color background definition for backrest with state SELECTED
+  --sbb-reservation-place-control-selected-backrest-background-default: var(--sbb-color-red150);
   --sbb-reservation-place-control-selected-backrest-background-hover: #7d000f;
   --sbb-reservation-place-control-selected-backrest-background-focus: #5a000b;
 
@@ -59,6 +70,12 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
     }
 
     #{$root}--state-free &:not(#{$disabled}) {
+      @include colorizePlace(
+        'free',
+        'default',
+        var(--sbb-reservation-place-control-free-text-default)
+      );
+
       cursor: pointer;
 
       &:hover {
@@ -71,6 +88,12 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
     }
 
     #{$root}--state-selected &:not(#{$disabled}) {
+      @include colorizePlace(
+        'selected',
+        'default',
+        var(--sbb-reservation-place-control-selected-background-default)
+      );
+
       cursor: pointer;
 
       &:hover {
