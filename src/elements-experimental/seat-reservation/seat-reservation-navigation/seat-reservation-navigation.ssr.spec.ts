@@ -17,7 +17,7 @@ describe(`sbb-seat-reservation-navigation ssr`, () => {
         .seatReservation=${mappedSeatReservation}
       ></sbb-seat-reservation-navigation>`,
       {
-        modules: ['./seat-reservation-navigation.js'],
+        modules: ['./seat-reservation-navigation.component.js'],
       },
     );
   });
