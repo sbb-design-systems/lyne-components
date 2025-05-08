@@ -85,7 +85,7 @@ describe(`sbb-timetable-row`, () => {
       ?loading-trip=${args.loadingTrip}
       ?a11y-footpath=${args.a11yFootpath}
       ?loading-price=${args.loadingPrice}
-      now=${args.now ?? new Date('2022-12-01T12:11:00')}
+      .now=${args.now ?? new Date('2022-12-01T12:11:00')}
       disable-animation
     ></sbb-timetable-row>
   `;
