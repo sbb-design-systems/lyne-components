@@ -15,7 +15,7 @@ describe(`sbb-seat-reservation ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-seat-reservation .seatReservation=${mapedSeatReservation}></sbb-seat-reservation>`,
       {
-        modules: ['./seat-reservation.js'],
+        modules: ['./seat-reservation.component.js'],
       },
     );
   });
