@@ -6,7 +6,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
-import './seat-reservation-navigation-coach.js';
+import './seat-reservation-navigation-coach.component.js';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
   /**

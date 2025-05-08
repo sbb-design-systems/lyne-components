@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { mapRawDataToSeatReservation } from '../common.js';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationElement } from './seat-reservation.js';
+import { SbbSeatReservationElement } from './seat-reservation.component.js';
 
 const seatReservationType: InputType = {
   control: { type: 'object' },

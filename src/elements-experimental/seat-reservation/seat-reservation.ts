@@ -79,4 +79,4 @@ export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';
 
 export * from './seat-reservation/seat-reservation-base-element.js';
-export * from './seat-reservation/seat-reservation.js';
+export * from './seat-reservation/seat-reservation.component.js';

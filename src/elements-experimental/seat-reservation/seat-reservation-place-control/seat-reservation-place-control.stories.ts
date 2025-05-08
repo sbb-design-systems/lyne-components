@@ -7,7 +7,7 @@ import { html } from 'lit';
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.js';
+import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
 
 const type: InputType = {
   control: {

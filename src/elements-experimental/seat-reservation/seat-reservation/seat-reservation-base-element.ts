@@ -8,7 +8,7 @@ import {
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
 } from '../common/mapper.js';
-import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.js';
+import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 import type {
   CoachItem,
   ElementDimension,
@@ -19,7 +19,7 @@ import type {
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
-import type { SbbScopedElement } from './scoped-components/scoped-element.js';
+import type { SbbScopedElement } from './scoped-components/scoped-element.component.js';
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {

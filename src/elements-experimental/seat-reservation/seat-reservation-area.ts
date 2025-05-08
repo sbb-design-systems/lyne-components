@@ -1,1 +1,1 @@
-export * from './seat-reservation-area/seat-reservation-area.js';
+export * from './seat-reservation-area/seat-reservation-area.component.js';

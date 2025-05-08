@@ -7,11 +7,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../../common/translations.js';
-import '../../seat-reservation-graphic.js';
-import '../seat-reservation-navigation-services.js';
 import type { PlaceTravelClass } from '../../seat-reservation.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
+
+import '@sbb-esta/lyne-elements/screen-reader-only.js';
+import '../seat-reservation-navigation-services.js';
 
 const MAX_SERVICE_PROPERTIES = 3;
 
