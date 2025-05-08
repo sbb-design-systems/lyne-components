@@ -11,7 +11,7 @@ describe(`sbb-seat-reservation-navigation-services ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-seat-reservation-navigation-services></sbb-seat-reservation-navigation-services>`,
       {
-        modules: ['./seat-reservation-navigation-services.js'],
+        modules: ['./seat-reservation-navigation-services.component.js'],
       },
     );
   });
