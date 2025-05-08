@@ -1,1 +1,1 @@
-export * from './scoped-components/scoped-element.js';
+export * from './scoped-components/scoped-element.component.js';

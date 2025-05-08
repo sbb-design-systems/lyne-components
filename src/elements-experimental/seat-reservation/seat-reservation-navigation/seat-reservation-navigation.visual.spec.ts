@@ -3,7 +3,8 @@ import {
   visualDiffStandardStates,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
-import './seat-reservation-navigation.js';
+
+import './seat-reservation-navigation.component.js';
 
 describe('sbb-seat-reservation-navigation', () => {
   /**
