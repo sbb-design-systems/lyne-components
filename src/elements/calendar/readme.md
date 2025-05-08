@@ -59,6 +59,23 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 <sbb-calendar date-filter=${dateFilterFn}></sbb-calendar>
 ```
 
+### Multiple mode
+
+By default, the component allows selecting a single date:
+this behavior can be changed by setting the `multiple` attribute to true.
+In this case the `selected` property, if set, must be an array; moreover, the days of the week become clickable,
+allowing to select all the days with the same name (e.g. all the Mondays, all the Tuesdays and so on).
+
+```html
+<sbb-calendar multiple></sbb-calendar>
+```
+
+If the `week-numbers` property is set, the ISO week dates are also clickable, allowing to select all the days in the week.
+
+```html
+<sbb-calendar multiple week-numbers></sbb-calendar>
+```
+
 ## Style
 
 The component displays by default a single month in the `day` view, or a list of twenty-four years in the `year` view,
@@ -76,6 +93,17 @@ This visual change is applied only to the day view.
 
 ```html
 <sbb-calendar orientation="vertical"></sbb-calendar>
+```
+
+In both orientations, the week days are always displayed:
+in `horizontal` they appear on top, while in `vertical` they are rendered on the left side.
+Using the `week-numbers` property, it's possible to display the ISO week dates in a perpendicular direction to week days,
+so on the left side in `horizontal` and on top in `vertical`.
+
+```html
+<sbb-calendar week-days></sbb-calendar>
+
+<sbb-calendar orientation="vertical" week-days></sbb-calendar>
 ```
 
 ## Events
@@ -124,16 +152,18 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type                                     | Default        | Description                                                                                                          |
-| ------------- | ------------- | ------- | ---------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `dateFilter`  | `date-filter` | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                 |
-| `max`         | `max`         | public  | `T \| null`                              |                | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).         |
-| `min`         | `min`         | public  | `T \| null`                              |                | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).         |
-| `now`         | `now`         | public  | `T`                                      | `null`         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. |
-| `orientation` | `orientation` | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                             |
-| `selected`    | `selected`    | public  | `T \| null`                              |                | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).              |
-| `view`        | `view`        | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                               |
-| `wide`        | `wide`        | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                             |
+| Name          | Attribute      | Privacy | Type                                     | Default        | Description                                                                                                                                                   |
+| ------------- | -------------- | ------- | ---------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dateFilter`  | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                                                          |
+| `max`         | `max`          | public  | `T \| null`                              |                | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).                                                  |
+| `min`         | `min`          | public  | `T \| null`                              |                | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).                                                  |
+| `multiple`    | `multiple`     | public  | `boolean`                                | `false`        | Whether the calendar allows for multiple date selection.                                                                                                      |
+| `now`         | `now`          | public  | `T`                                      | `null`         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes.                                          |
+| `orientation` | `orientation`  | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                                                                      |
+| `selected`    | `selected`     | public  | `T \| T[] \| null`                       | `null`         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). If `multiple`, takes an array of the mentioned types. |
+| `view`        | `view`         | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                                                        |
+| `weekNumbers` | `week-numbers` | public  | `boolean`                                | `false`        | Whether it has to display the week numbers in addition to week days.                                                                                          |
+| `wide`        | `wide`         | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                                                                      |
 
 ## Methods
 
