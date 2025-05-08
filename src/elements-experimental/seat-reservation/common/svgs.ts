@@ -18,17 +18,10 @@ import interiorPlaceSeatDefault from './svgs/interior-place-seat-default.svg?raw
 import interiorPlaceSeatNotBookable from './svgs/interior-place-seat-not-bookable.svg?raw';
 import interiorPlaceSeatSelected from './svgs/interior-place-seat-selected.svg?raw';
 import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable.svg?raw';
-import interiorTableTest from './svgs/interior-table.svg?raw';
+import interiorTable from './svgs/interior-table.svg?raw';
 import interiorTmpTable from './svgs/interior-tmp-table.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
-import layoutSki from './svgs/layout-ski.svg?raw';
 import layoutTmpGenericSpace from './svgs/layout-tmp-generic-space.svg?raw';
-import layoutWardrobe from './svgs/layout-wardrobe.svg?raw';
-import serviceLuggage from './svgs/service-luggage.svg?raw';
-import serviceMultifunction from './svgs/service-multifunction.svg?raw';
-import servicePrm from './svgs/service-prm.svg?raw';
-import serviceToiletPrm from './svgs/service-toilet-prm.svg?raw';
-import serviceToilet from './svgs/service-toilet.svg?raw';
 
 const svgs = {
   chassisDriverBus,
@@ -51,17 +44,10 @@ const svgs = {
   interiorPlaceSeatNotBookable,
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
-  interiorTableTest,
+  interiorTable,
   interiorTmpTable,
   layoutEntrance,
-  layoutSki,
   layoutTmpGenericSpace,
-  layoutWardrobe,
-  serviceLuggage,
-  serviceMultifunction,
-  servicePrm,
-  serviceToiletPrm,
-  serviceToilet,
 };
 
 export { svgs };
