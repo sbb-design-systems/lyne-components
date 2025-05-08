@@ -240,9 +240,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   /** When an option is selected, update the input value and close the autocomplete. */
   protected onOptionSelected(event: CustomEvent): void {
     const target = event.target as SbbOptionBaseElement;
-    if (!target.selected) {
-      return;
-    }
 
     // Deselect the previous options
     this.options
@@ -270,6 +267,13 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+    /**
+     * It's possible to filter out options with an opened panel on input change.
+     * In this case, the panel's position must be recalculated considering the new option's list.
+     */
+    if (this.isOpen) {
+      this._setOverlayPosition();
+    }
     this._openOnNewOptions();
   }
 
@@ -484,6 +488,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     }
     this.options.forEach((option) => option.highlight(searchTerm));
   }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
