@@ -3,7 +3,7 @@ import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 //import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbSeatReservationElement } from './seat-reservation.js';
+import { SbbSeatReservationElement } from './seat-reservation.component.js';
 
 describe('sbb-seat-reservation', () => {
   let element: SbbSeatReservationElement;

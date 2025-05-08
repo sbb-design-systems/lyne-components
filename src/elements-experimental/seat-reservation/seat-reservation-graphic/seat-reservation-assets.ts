@@ -5,8 +5,8 @@ import { svgs, mapIconToSvg } from '../common.js';
 
 import './seat-reservation-assets.scss';
 
-import '../seat-reservation-graphic.js';
 import '@sbb-esta/lyne-elements/table.js';
+import '../seat-reservation-graphic.js';
 
 const svgImage = (src: string): TemplateResult => {
   return html`

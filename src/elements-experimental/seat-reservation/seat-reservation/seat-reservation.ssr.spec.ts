@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { mapRawDataToSeatReservation } from '../common.js';
 
-import { SbbSeatReservationElement } from './seat-reservation.js';
+import { SbbSeatReservationElement } from './seat-reservation.component.js';
 
 const mapedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 

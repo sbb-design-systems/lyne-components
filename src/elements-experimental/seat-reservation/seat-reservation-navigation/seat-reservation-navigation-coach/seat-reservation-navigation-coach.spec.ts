@@ -1,7 +1,7 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.js';
+import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
   let element: SbbSeatReservationNavigationCoachElement;

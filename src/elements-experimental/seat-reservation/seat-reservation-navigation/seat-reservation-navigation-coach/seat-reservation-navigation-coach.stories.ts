@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../../storybook/helpers/spread.js';
 import { mapRawDataToSeatReservation } from '../../common/mapper/mapper.js';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.js';
+import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
 
 const mappedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 

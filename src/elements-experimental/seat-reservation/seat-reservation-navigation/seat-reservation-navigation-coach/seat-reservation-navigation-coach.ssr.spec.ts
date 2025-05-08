@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { ssrHydratedFixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.js';
+import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
 
 describe(`sbb-seat-reservation-navigation-coach ssr`, () => {
   let root: SbbSeatReservationNavigationCoachElement;

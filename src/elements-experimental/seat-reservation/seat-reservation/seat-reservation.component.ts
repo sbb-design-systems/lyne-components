@@ -18,11 +18,12 @@ import type {
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
 import style from './seat-reservation.scss?lit&inline';
 
+import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
 import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
-import './scoped-components/scoped-element.js';
+import './scoped-components.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.

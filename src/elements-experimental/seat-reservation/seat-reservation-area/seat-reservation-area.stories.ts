@@ -9,7 +9,7 @@ import { elementMountingOptions } from '../seat-reservation.js';
 
 import readme from './readme.md?raw';
 
-import './seat-reservation-area.js';
+import './seat-reservation-area.component.js';
 
 const width: InputType = {
   control: {

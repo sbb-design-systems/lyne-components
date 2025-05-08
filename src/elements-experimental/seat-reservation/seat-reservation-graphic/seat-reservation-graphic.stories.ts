@@ -10,7 +10,7 @@ import { mapIconToSvg } from '../common/mapper/icon-mapper.js';
 import readme from './readme.md?raw';
 import { assetsTemplate } from './seat-reservation-assets.js';
 
-import './seat-reservation-graphic.js';
+import './seat-reservation-graphic.component.js';
 
 const name: InputType = {
   control: {
