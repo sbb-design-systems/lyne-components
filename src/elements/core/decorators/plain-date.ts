@@ -43,21 +43,21 @@ export const plainDate = <C extends Interface<ReactiveElement>, V>(
         set(this: C, value) {
           const dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
           value = dateAdapter.getValidDateOrNull(dateAdapter.deserialize(value));
-          target.set.call(
-            this,
-            value
-              ? dateAdapter.createDate(
-                  dateAdapter.getYear(value),
-                  dateAdapter.getMonth(value),
-                  dateAdapter.getDate(value),
-                )
-              : null,
-          );
+          // We want to copy the value of the date without the time part.
+          // As DateAdapter.clone does not guarantee that, we use createDate.
+          value = value
+            ? dateAdapter.createDate(
+                dateAdapter.getYear(value),
+                dateAdapter.getMonth(value),
+                dateAdapter.getDate(value),
+              )
+            : null;
+          target.set.call(this, value);
         },
         get(this: C) {
           const dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
           const value = target.get.call(this);
-          return value != null
+          return dateAdapter.isValid(value)
             ? dateAdapter.clone(value)
             : (config?.fallback?.<V>(dateAdapter) as V);
         },

@@ -66,7 +66,8 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       this._dateAdapter.compareDate(this._valueAsDate!, value!) !== 0
     ) {
       // Align with the native date input, as it copies the value of
-      // the given date and does not retain the original instance.
+      // the given date without the time and does not retain the
+      // original instance.
       this._valueAsDate = this._dateAdapter.createDate(
         this._dateAdapter.getYear(value),
         this._dateAdapter.getMonth(value),
