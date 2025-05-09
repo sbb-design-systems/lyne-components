@@ -42,13 +42,11 @@ describe(`sbb-time-input`, () => {
     >
       <label>Label</label>
       ${!args.noIcons ? html`<sbb-icon slot="prefix" name="clock-small"></sbb-icon>` : nothing}
-      <sbb-time-input></sbb-time-input>
-      <input
-        id="input-id"
+      <sbb-time-input
         value=${args.withError ? '00:99' : '12:00'}
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
-      />
+      ></sbb-time-input>
       ${!args.noIcons
         ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
         : nothing}

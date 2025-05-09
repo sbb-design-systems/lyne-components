@@ -69,6 +69,7 @@ and focus related events.
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                         | `boolean` | SbbFormAssociatedMixin      |
 | `focus`             | public  |                                                                                                                                                                                            | `options: FocusOptions` | `void`    | SbbFormAssociatedInputMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                         | `boolean` | SbbFormAssociatedMixin      |
+| `select`            | public  | Makes the selection equal to the current object. \[MDN Reference]\(https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select)                                                     |                         | `void`    | SbbFormAssociatedInputMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin      |
 
 ## Events

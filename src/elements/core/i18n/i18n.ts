@@ -776,6 +776,20 @@ export const i18nDateMax = (max: string): Record<string, string> => ({
   it: `La data non deve essere successiva al ${max}.`,
 });
 
+export const i18nTimeInvalid: Record<string, string> = {
+  de: 'Bitte gültige Zeit eingeben.',
+  en: 'Please provide a valid time.',
+  fr: 'Veuillez saisir une heure valide.',
+  it: 'Inserisci l’orario valido.',
+};
+
+export const i18nTimeMax: Record<string, string> = {
+  de: `Zeit darf nicht nach 23:59 sein.`,
+  en: `Time must not be after 23:59.`,
+  fr: `L’heure ne doit pas être postérieure à 23h59.`,
+  it: `L’orario non può essere successivo alle 23.59.`,
+};
+
 export const i18nChipDelete: Record<string, string> = {
   de: 'Drücken Sie die Entfernen-Taste um den Chip zu löschen',
   en: 'Press the Delete button to remove the chip',
