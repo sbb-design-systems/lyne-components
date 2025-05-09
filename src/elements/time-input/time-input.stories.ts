@@ -12,59 +12,51 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error.js';
 import type { SbbFormFieldElement } from '../form-field.js';
 
 import readme from './readme.md?raw';
-import { SbbTimeInputElement } from './time-input.component.js';
+import type { SbbTimeInputElement } from './time-input.component.js';
+
+import './time-input.component.js';
 import '../button/secondary-button.js';
 import '../form-field.js';
 import '../form-error.js';
 
-const updateFormError = (event: CustomEvent): void => {
-  const valid = event.detail.valid;
+const updateOutput = (timeInput: SbbTimeInputElement): void => {
+  const exampleParent = timeInput.closest<HTMLDivElement>('div.example-parent');
+  exampleParent!.querySelector('.container-value')!.textContent = `value is: ${
+    timeInput.value
+  }; valueAsDate (time only) is: ${timeInput.valueAsDate?.toTimeString() ?? null}.`;
+};
+
+const handleInput = (event: Event): void => {
   const target = event.target as SbbTimeInputElement;
   const formField = target.closest<SbbFormFieldElement>('sbb-form-field');
+  updateOutput(target);
 
-  const formError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  formError.innerText = 'Time value is invalid';
-
-  if (!valid) {
-    formField?.append(formError);
-  } else if (valid) {
+  if (target.validity.valid) {
     formField?.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
+  } else {
+    const formError = document.createElement('sbb-form-error');
+    formError.innerText = target.validationMessage;
+    formField?.append(formError);
   }
 };
 
-const changeEventHandler = (event: CustomEvent): void => {
-  const target = event.target as SbbTimeInputElement;
-  const exampleParent = target.closest<HTMLDivElement>('div#example-parent');
-  const div = document.createElement('div');
-  div.innerText = `value is: ${
-    (exampleParent?.querySelector('#input-id') as HTMLInputElement).value
-  }; valueAsDate is: ${target.valueAsDate}.`;
-  exampleParent?.querySelector('#container-value')!.append(div);
-};
-
 const setValueAsDate = async (event: Event): Promise<void> => {
-  const target = event.target as HTMLElement;
-  const exampleParent = target.closest<HTMLDivElement>('div#example-parent')!;
-
-  const timeInput = exampleParent.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+  const timeInput = (event.target as HTMLElement)
+    .closest<HTMLDivElement>('div.example-parent')!
+    .querySelector<SbbTimeInputElement>('sbb-time-input')!;
   timeInput.valueAsDate = new Date();
-
-  const input = exampleParent?.querySelector<HTMLInputElement>('#input-id');
-  input?.dispatchEvent(new Event('change')); // Trigger change to update invalid state
+  updateOutput(timeInput);
 };
 
 const setValue = (event: Event): void => {
-  const target = event.target as HTMLElement;
-
-  const input = target
-    .closest('div#example-parent')!
-    .querySelector('#input-id') as HTMLInputElement;
-  input.value = '00:00';
-  input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
+  const timeInput = (event.target as HTMLElement)
+    .closest<HTMLDivElement>('div.example-parent')!
+    .querySelector<SbbTimeInputElement>('sbb-time-input')!;
+  timeInput.value = '00:00';
+  updateOutput(timeInput);
 };
 
 const value: InputType = {
@@ -223,7 +215,7 @@ const TemplateSbbTimeInput = ({
   size,
   ...args
 }: Args): TemplateResult => html`
-  <div id="example-parent">
+  <div class="example-parent">
     <sbb-form-field
       size=${size}
       ?optional=${optional}
@@ -233,24 +225,18 @@ const TemplateSbbTimeInput = ({
     >
       ${label ? html`<label>${label}</label>` : nothing}
       ${iconStart ? html`<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : nothing}
-      <sbb-time-input
-        @change=${(event: CustomEvent) => changeEventHandler(event)}
-        @validationChange=${(event: CustomEvent) => updateFormError(event)}
-      ></sbb-time-input>
-      <input id="input-id" ${sbbSpread(args)} />
+      <sbb-time-input @input=${handleInput} ${sbbSpread(args)}></sbb-time-input>
       ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
     </sbb-form-field>
     <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-      <sbb-secondary-button size="m" @click=${(event: PointerEvent) => setValueAsDate(event)}>
-        Set valueAsDate to current datetime
+      <sbb-secondary-button size="m" @click=${setValueAsDate}>
+        Set valueAsDate to current time
       </sbb-secondary-button>
-      <sbb-secondary-button size="m" @click=${(event: PointerEvent) => setValue(event)}>
-        Set value to 00:00
-      </sbb-secondary-button>
+      <sbb-secondary-button size="m" @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
     </div>
     <div style="color: var(--sbb-color-smoke);">
-      <div style="margin-block-start: 1rem;">Change time in input:</div>
-      <div id="container-value"></div>
+      <div style="margin-block-start: 1rem;">Time in input:</div>
+      <output class="container-value"></output>
     </div>
   </div>
 `;
@@ -361,7 +347,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
-      handles: ['change', 'input', SbbTimeInputElement.events.validationChange],
+      handles: ['change', 'input'],
     },
     docs: {
       extractComponentDescription: () => readme,

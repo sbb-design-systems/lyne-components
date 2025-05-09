@@ -78,7 +78,7 @@ html {
 }
 
 sbb-form-field {
-  :where(input, select, textarea, sbb-select, sbb-date-input) {
+  :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
     @include typo.text-m--regular;
     @include helpers.ellipsis;
     @include inputs.input-reset;
@@ -108,8 +108,8 @@ sbb-form-field {
   }
 
   &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
-  // This covers the placeholder of the sbb-date-input
-  &[floating-label] sbb-date-input::after {
+  // This covers the placeholder of the sbb-date-input and sbb-time-input
+  &[floating-label] :where(sbb-date-input, sbb-time-input)::after {
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
 
@@ -134,7 +134,7 @@ sbb-form-field {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
-  &[size='s'] :where(input, sbb-date-input) {
+  &[size='s'] :where(input, sbb-date-input, sbb-time-input) {
     // We shrink the input's height to support all types of inputs (especially type=number).
     // Factor 1.25 ensures, letters are not cut.
     height: calc(var(--sbb-form-field-input-text-size) * 1.25);
