@@ -18,7 +18,7 @@
   width: calc(var(--sbb-reservation-graphic-width) * 1px);
   height: calc(var(--sbb-reservation-graphic-height) * 1px);
   transform-origin: center;
-  transform: rotateZ(calc(var(--sbb-reservation-graphic-rotation) * 1deg));
+  rotate: calc(var(--sbb-reservation-graphic-rotation) * 1deg);
 }
 
 .sbb-seat-reservation-icon {
@@ -33,7 +33,7 @@
 
     .fix-rotation-inverse {
       transform-origin: center;
-      transform: rotateZ(calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg));
+      rotate: calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg);
     }
   }
 

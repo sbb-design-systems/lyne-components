@@ -16,8 +16,7 @@
   align-items: center;
   width: calc(var(--sbb-reservation-area-width) * 1px);
   height: calc(var(--sbb-reservation-area-height) * 1px);
-  transform-origin: center;
-  transform: rotateZ(calc(var(--sbb-reservation-area-rotation) * 1deg));
+  rotate: calc(var(--sbb-reservation-area-rotation) * 1deg);
   border: #{sbb.px-to-rem-build(1)} solid var(--sbb-color-graphite);
   background-color: var(--sbb-color-white);
   border-radius: var(--sbb-reservation-area-border-radius);
