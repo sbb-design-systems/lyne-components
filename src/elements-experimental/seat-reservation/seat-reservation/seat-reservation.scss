@@ -20,7 +20,7 @@
   width: fit-content;
   position: relative;
   inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
-  transform: rotateZ(90deg);
+  rotate: 90deg;
   transform-origin: top left;
 }
 
