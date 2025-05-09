@@ -116,9 +116,8 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
     display: none;
     position: absolute;
     inset-block-start: 50%;
-    transform-origin: center;
-    transform: translate(-50%, -50%)
-      rotate(calc(var(--sbb-reservation-place-control-text-rotation) * 1deg));
+    translate: -50% -50%;
+    rotate: calc(var(--sbb-reservation-place-control-text-rotation) * 1deg);
     font-family: var(--sbb-typo-font-family);
 
     // dont use sbb.px-to-rem or --sbb-typo-scale-0-75x; we want "em" in this case!
