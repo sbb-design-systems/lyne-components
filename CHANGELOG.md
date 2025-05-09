@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.9.0...v2.9.1) (2025-05-09)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** recalculate panel's position on slotchange ([#3673](https://github.com/sbb-design-systems/lyne-components/issues/3673)) ([dfa5c9d](https://github.com/sbb-design-systems/lyne-components/commit/dfa5c9d56302c33f152922d3a78bc96ee571eabb))
+
+
+### Documentation
+
+* **sbb-datepicker:** fix broken doc section ([#3666](https://github.com/sbb-design-systems/lyne-components/issues/3666)) ([d571f7c](https://github.com/sbb-design-systems/lyne-components/commit/d571f7c33b0f12657cfe1b1956e5e3369519da98))
+
 ## [2.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.8.0...v2.9.0) (2025-05-05)
 
 
