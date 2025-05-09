@@ -213,7 +213,7 @@ const layoutItemsTable = html`
         <td>WHEELCHAIR_TOILET_AREA</td>
       </tr>
       <tr>
-        <td>${svgImage(svgs.layoutWardrobe)}</td>
+        <td>${svgImageByOSDMCode('WARDROBE_AREA')}</td>
         <td>Wardrobe</td>
         <td>???</td>
       </tr>
