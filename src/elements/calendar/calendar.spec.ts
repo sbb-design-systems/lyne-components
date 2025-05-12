@@ -1180,6 +1180,67 @@ describe(`sbb-calendar`, () => {
         expect(selectedDates.length).to.be.equal(1);
         expect(selectedDates[0].toDateString()).to.be.equal('Sun Apr 20 2025');
       });
+
+      it('renders multiple wide', async () => {
+        await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+        const calendar: HTMLElement = await fixture(
+          html`<sbb-calendar
+            selected="2025-04-08T00:00:00"
+            wide
+            week-numbers
+            multiple
+          ></sbb-calendar>`,
+        );
+        const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
+
+        // In horizontal variant, the first cell of each row is the one with the week number
+        const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
+        const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+        // In wide mode, we have two months displayed, so we have to consider the number of weeks in April and May
+        expect(cells.length).to.be.equal(10);
+        expect(cells[0].querySelector('button')!.textContent!.trim()).to.be.equal('14');
+        expect(cells[1].querySelector('button')!.textContent!.trim()).to.be.equal('15');
+        expect(cells[4].querySelector('button')!.textContent!.trim()).to.be.equal('18');
+        expect(cells[5].querySelector('button')!.textContent!.trim()).to.be.equal('18');
+        expect(cells[9].querySelector('button')!.textContent!.trim()).to.be.equal('22');
+
+        // Clicking on the last week button must select all the days of the week, including the ones in the next month
+        const lastButtonFirstMonth = cells[4].querySelector('button')!;
+        lastButtonFirstMonth.click();
+        await selectedSpy.calledOnce();
+        let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(7);
+        expect(selectedDates[0].toDateString()).to.be.equal('Mon Apr 28 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 29 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sat May 03 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Sun May 04 2025');
+
+        // Clicking on the first week button in the next month should not change the selection,
+        // since the dates are the same as before
+        const firstButtonSecondMonth = cells[5].querySelector('button')!;
+        firstButtonSecondMonth.click();
+        expect(selectedSpy.calledTimes(1));
+
+        // Clicks on the first button of the first month does not select dates in the previous (not rendered) one
+        const firstButton = cells[0].querySelector('button')!;
+        firstButton.click();
+        await selectedSpy.calledTimes(2);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(6);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sun Apr 06 2025');
+
+        // Clicking again on the first button of the second month will select dates in the last week of the previous month
+        firstButtonSecondMonth.click();
+        await selectedSpy.calledTimes(3);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(7);
+        expect(selectedDates[0].toDateString()).to.be.equal('Mon Apr 28 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 29 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sat May 03 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Sun May 04 2025');
+      });
     });
 
     describe('vertical', () => {
@@ -1296,6 +1357,73 @@ describe(`sbb-calendar`, () => {
         selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(1);
         expect(selectedDates[0].toDateString()).to.be.equal('Wed Apr 16 2025');
+      });
+
+      it('renders multiple wide', async () => {
+        await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+        const calendar: HTMLElement = await fixture(
+          html` <sbb-calendar
+            selected="2025-04-08T00:00:00"
+            orientation="vertical"
+            week-numbers
+            multiple
+            wide
+          ></sbb-calendar>`,
+        );
+        const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
+
+        // In vertical variant, there's a table header with the week numbers as cells
+        const thead = calendar.shadowRoot!.querySelectorAll('thead');
+        // In wide variant we have two tables with two separate headers
+        expect(thead.length).to.be.equal(2);
+        // The first header has a cell more than the second above the weekdays
+        const cellsPrev = thead[0].querySelectorAll('th');
+        expect(cellsPrev.length).to.be.equal(6);
+        const cellsNext = thead[1].querySelectorAll('th');
+        expect(cellsNext.length).to.be.equal(5);
+        expect(cellsPrev[1].querySelector('button')!.textContent!.trim()).to.be.equal('14');
+        expect(cellsPrev[2].querySelector('button')!.textContent!.trim()).to.be.equal('15');
+        expect(cellsPrev[5].querySelector('button')!.textContent!.trim()).to.be.equal('18');
+        expect(cellsNext[0].querySelector('button')!.textContent!.trim()).to.be.equal('18');
+        expect(cellsNext[1].querySelector('button')!.textContent!.trim()).to.be.equal('19');
+        expect(cellsNext[4].querySelector('button')!.textContent!.trim()).to.be.equal('22');
+
+        // Clicking on the last week button must select all the days of the week, including the ones in the next month
+        const lastButtonFirstMonth = cellsPrev[5].querySelector('button')!;
+        lastButtonFirstMonth.click();
+        await selectedSpy.calledOnce();
+        let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(7);
+        expect(selectedDates[0].toDateString()).to.be.equal('Mon Apr 28 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 29 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sat May 03 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Sun May 04 2025');
+
+        // Clicking on the first week button in the next month should not change the selection,
+        // since the dates are the same as before
+        const firstButtonSecondMonth = cellsNext[0].querySelector('button')!;
+        firstButtonSecondMonth.click();
+        expect(selectedSpy.calledTimes(1));
+
+        // Clicks on the first button of the first month does not select dates in the previous (not rendered) one
+        const firstButton = cellsPrev[1].querySelector('button')!;
+        firstButton.click();
+        await selectedSpy.calledTimes(2);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(6);
+        expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Wed Apr 02 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sun Apr 06 2025');
+
+        // Clicking again on the first button of the second month will select dates in the last week of the previous month
+        firstButtonSecondMonth.click();
+        await selectedSpy.calledTimes(3);
+        selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+        expect(selectedDates.length).to.be.equal(7);
+        expect(selectedDates[0].toDateString()).to.be.equal('Mon Apr 28 2025');
+        expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 29 2025');
+        expect(selectedDates[5].toDateString()).to.be.equal('Sat May 03 2025');
+        expect(selectedDates[6].toDateString()).to.be.equal('Sun May 04 2025');
       });
     });
   });
