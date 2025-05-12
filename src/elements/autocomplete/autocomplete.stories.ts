@@ -57,6 +57,15 @@ const preserveIconSpace: InputType = {
   },
 };
 
+const autoActiveFirstOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -118,6 +127,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   readonly,
   preserveIconSpace,
+  autoActiveFirstOption,
 
   // Option args
   iconName,
@@ -145,6 +155,7 @@ const defaultArgs: Args = {
   // Option args
   iconName: 'clock-small',
   preserveIconSpace: true,
+  autoActiveFirstOption: false,
   disableOption: false,
 
   // Form field args
@@ -225,7 +236,10 @@ const Template = (args: Args): TemplateResult => html`
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
     </sbb-form-field>
@@ -244,7 +258,10 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
@@ -266,7 +283,10 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         <sbb-option value="Option 1">
           <sbb-icon
             slot="icon"
@@ -317,7 +337,10 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           }}
         />
 
-        <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+        <sbb-autocomplete
+          ?preserve-icon-space=${args.preserveIconSpace}
+          ?auto-active-first-option=${args.autoActiveFirstOption}
+        >
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
             ${createOptionGroup1(args.iconName, args.disableOption)}
           </sbb-optgroup>
