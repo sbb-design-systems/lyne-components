@@ -69,7 +69,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public accessor preserveIconSpace: boolean = false;
 
-  /** Whether the first option is automatically highlighted when the autocomplete is opened. */
+  /** Whether the first option is automatically activated when the autocomplete is opened. */
   @forceType()
   @property({ attribute: 'auto-active-first-option', type: Boolean })
   public accessor autoActiveFirstOption: boolean = false;
