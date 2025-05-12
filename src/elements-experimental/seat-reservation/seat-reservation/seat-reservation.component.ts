@@ -229,8 +229,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
               id="seat-reservation-coach-${index}"
               class="coach-wrapper__table"
+              aria-describedby="seat-reservation-coach-caption-${index}"
             >
-              <caption>
+              <caption id="seat-reservation-coach-caption-${index}" tabindex="-1">
                 <sbb-screen-reader-only
                   >${descriptionTableCoachWithServices}</sbb-screen-reader-only
                 >
@@ -523,37 +524,30 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
       this.preventCoachScrollByPlaceClick = true;
       if (!this.preventPlaceClick) {
-        const place = this.seatReservation.coachItems[selectedPlace.coachIndex].places?.find(
-          (place) => place.number == selectedPlace.number,
-        );
-
         //Add place to place collection
         this.updateSelectedSeatReservationPlaces(selectedPlace);
-
-        if (place) {
-          this.selectedCoachIndex = selectedPlace.coachIndex;
-          this.currSelectedCoachIndex = selectedPlace.coachIndex;
-          this.currSelectedPlace = place;
-        }
+        this.updateCurrentSelectedPlaceInCoach(selectedPlace);
       }
     }
   }
 
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
+    this.isKeyboardNavigation = false;
+
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
     } else if (selectedNavCoachIndex === this.currSelectedCoachIndex) {
       this.selectedCoachIndex = this.currSelectedCoachIndex;
       this.focusedCoachIndex = -1;
-      this.preselectFirstPlaceInCoach();
+      this.preselectPlaceInCoach();
     }
   }
 
   private _onFocusNavCoach(): void {
     if (!this.preventCoachScrollByPlaceClick) {
-      this.preselectFirstPlaceInCoach();
+      this.preselectPlaceInCoach();
     } else {
       this.focusPlaceElement(this.currSelectedPlace);
     }
