@@ -257,7 +257,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** A list of days, in two formats (long and single char). */
   private _weekdays!: Weekday[];
 
-  /** Grid of calendar cells representing the dates of the month along the rows. Used for rendering tables. */
+  /** Grid of calendar cells representing the dates of the month. */
   private _weeks: Day<T>[][] = [];
 
   /** Grid of calendar cells representing months. */
@@ -269,16 +269,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** Grid of calendar cells representing years for the wide view. */
   private _nextMonthYears!: number[][];
 
-  /** Grid of calendar cells representing the dates of the next month along the rows. */
+  /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks!: Day<T>[][];
 
   /** An array containing all the month names in the current language. */
   private _monthNames: string[] = this._dateAdapter.getMonthNames('long');
 
-  /** An array containing the number of the week for the current month. */
+  /** An array containing the weeks' numbers for the current month. */
   private _weekNumbers!: number[];
 
-  /** An array containing the number of the week for the next month for the wide view. */
+  /** An array containing the weeks' numbers for the next month in wide mode. */
   private _nextMonthWeekNumbers!: number[];
 
   /** A list of buttons corresponding to days, months or years depending on the view. */
@@ -431,6 +431,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /**
    * Given a date, it returns the week numbers for the month the date belongs to.
+   * TODO check if date-fns can be replaced with custom logic.
    *
    * Since the calculation is not simple (see https://en.wikipedia.org/wiki/Week#Numbering),
    * the date-fns library has been used this way:
