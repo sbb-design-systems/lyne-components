@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import { type SinonSpy, spy } from 'sinon';
 
 import { isSafari } from '../core/dom.js';
 import { fixture, tabKey } from '../core/testing/private.js';
@@ -525,6 +526,56 @@ describe(`sbb-autocomplete`, () => {
       expect(
         element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
       ).to.be.greaterThan(offsetTopOrigin1);
+    });
+  });
+
+  describe('with complex value', () => {
+    let optionSelectedSpy: SinonSpy;
+
+    beforeEach(async () => {
+      optionSelectedSpy = spy();
+      formField = await fixture(
+        html`<sbb-form-field>
+          <label>Autocomplete</label>
+          <input />
+          <sbb-autocomplete
+            @optionSelected=${(e: Event) => optionSelectedSpy(e)}
+            .displayWith=${(o: { property: string; otherProperty: string }) => o.property}
+          >
+            <sbb-option .value=${{ property: 'Option 1', otherProperty: 'hello' }}>
+              Option 1
+            </sbb-option>
+            <sbb-option .value=${{ property: 'Option 2', otherProperty: 'hello' }}>
+              Option 2
+            </sbb-option>
+            <sbb-option .value=${{ property: 'Option 3', otherProperty: 'hello' }}>
+              Option 3
+            </sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>`,
+      );
+      element = formField.querySelector('sbb-autocomplete')!;
+      input = formField.querySelector('input')!;
+    });
+
+    it('should select value', async () => {
+      // Open autocomplete
+      input.click();
+      expect(element.isOpen).to.be.true;
+
+      const option1 = element.querySelector('sbb-option')!;
+      expect(option1.value).to.deep.equal({
+        property: 'Option 1',
+        otherProperty: 'hello',
+      });
+      option1.click();
+
+      expect(input.value).to.be.equal('Option 1');
+      expect(optionSelectedSpy).to.have.been.calledOnce;
+      expect(optionSelectedSpy.firstCall.args[0].target.value).to.deep.equal({
+        property: 'Option 1',
+        otherProperty: 'hello',
+      });
     });
   });
 });

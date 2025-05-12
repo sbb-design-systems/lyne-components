@@ -23,7 +23,7 @@ export
 @hostAttributes({
   role: 'gridcell',
 })
-class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
+class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     optionSelected: 'autocompleteOptionSelected',
