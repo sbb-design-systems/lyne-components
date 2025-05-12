@@ -1,7 +1,9 @@
 import { type CSSResultGroup, isServer, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { i18nTimeInvalid, i18nTimeMax } from '../core/i18n.js';
+import { sbbLiveAnnouncer } from '../core/a11y.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import { i18nTimeInputChange, i18nTimeInvalid, i18nTimeMax } from '../core/i18n.js';
 import {
   SbbFormAssociatedInputMixin,
   type FormRestoreReason,
@@ -81,9 +83,14 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
    */
   private _valueCache?: [string, Time | null];
 
+  private _language = new SbbLanguageController(this);
+
   public constructor() {
     super();
     this.addEventListener?.('change', () => this._updateValueDateFormat(), { capture: true });
+    this.addEventListener?.('change', () =>
+      sbbLiveAnnouncer.announce(i18nTimeInputChange(this.value)[this._language.current]),
+    );
     this.addEventListener?.('keydown', (event) => this._preventCharInsert(event));
   }
 

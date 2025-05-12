@@ -633,12 +633,12 @@ export const i18nBreadcrumbEllipsisButtonLabel: Record<string, string> = {
   it: 'Mostra più breadcrumbs',
 };
 
-export const i18nTimeInputChange: Record<string, string> = {
-  de: 'Zeit geändert zu',
-  en: 'Time changed to',
-  fr: 'Heure modifiée:',
-  it: 'Orario modificata alle',
-};
+export const i18nTimeInputChange = (value: string): Record<string, string> => ({
+  de: `Zeit geändert zu ${value}.`,
+  en: `Time changed to ${value}.`,
+  fr: `Heure modifiée: ${value}.`,
+  it: `Orario modificata alle ${value}.`,
+});
 
 export const i18nClearInput: Record<string, string> = {
   de: 'Feldinhalt löschen',
