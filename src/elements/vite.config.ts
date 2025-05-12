@@ -30,6 +30,13 @@ const buildStyleExports = (fileNames: string[]): Record<string, { style: string 
     {},
   );
 
+const externals = [
+  // @web/test-runner-commands needs to establish a web-socket
+  // connection. It expects a file to be served from the
+  // @web/dev-server. So it should be ignored by Vite.
+  '/__web-dev-server__web-socket.js',
+];
+
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
     root: fileURLToPath(packageRoot),
@@ -88,6 +95,10 @@ export default defineConfig((config) =>
       sourcemap: isProdBuild(config) ? false : 'inline',
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
+          if (externals.includes(source)) {
+            return true;
+          }
+
           if (
             source.match(/(^lit$|^lit\/|^@lit\/|^@lit-labs\/|^tslib$)/) ||
             (!!importer && source.startsWith('../') && !importer.includes('/node_modules/'))
