@@ -34,12 +34,10 @@ const handleInput = (event: Event): void => {
   const formField = target.closest<SbbFormFieldElement>('sbb-form-field');
   updateOutput(target);
 
-  if (target.validity.valid) {
-    formField?.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
-  } else {
-    const formError = document.createElement('sbb-form-error');
-    formError.innerText = target.validationMessage;
-    formField?.append(formError);
+  formField?.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
+  if (formField && !target.validity.valid) {
+    formField.appendChild(document.createElement('sbb-form-error')).innerText =
+      target.validationMessage;
   }
 };
 
