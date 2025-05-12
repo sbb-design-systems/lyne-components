@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { readConfig } from '../core/config.js';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.js';
-import { dateConverter, DateOnlyType, forceType } from '../core/decorators.js';
+import { plainDate, plainDateConverter } from '../core/decorators.js';
 import {
   i18nDateMax,
   i18nDateMin,
@@ -54,12 +54,9 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     return super.value ?? '';
   }
 
-  @forceType()
-  @property({ attribute: false, type: DateOnlyType })
+  @property({ attribute: false })
   public set valueAsDate(value: T | null) {
-    // Due to forceType and DateOnlyType, the given value
-    // is either null or a date only copy of the original
-    // value passed to valueAsDate.
+    value = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     if (!value) {
       this._valueAsDate = null;
       this._valueCache = ['', null];
@@ -69,24 +66,39 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       this._dateAdapter.compareDate(this._valueAsDate!, value!) !== 0
     ) {
       // Align with the native date input, as it copies the value of
-      // the given date and does not retain the original instance.
-      this._valueAsDate = value;
+      // the given date without the time and does not retain the
+      // original instance.
+      this._valueAsDate = this._dateAdapter.createDate(
+        this._dateAdapter.getYear(value),
+        this._dateAdapter.getMonth(value),
+        this._dateAdapter.getDate(value),
+      );
       const stringValue = this._formatDate();
       this._valueCache = [stringValue, this._valueAsDate];
       this.value = stringValue;
     }
   }
   public get valueAsDate(): T | null {
-    return this._valueAsDate ?? null;
+    // We should never return the internal date object directly, as it
+    // could be manipulated outside of this class.
+    return this._valueAsDate ? this._dateAdapter.clone(this._valueAsDate) : null;
   }
   private _valueAsDate?: T | null;
 
-  @forceType()
-  @property({ converter: dateConverter, reflect: true, type: DateOnlyType })
+  /**
+   * The minimum valid date. Accepts a date object or null.
+   * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
+   */
+  @plainDate()
+  @property({ converter: plainDateConverter, reflect: true })
   public accessor min: T | null = null;
 
-  @forceType()
-  @property({ converter: dateConverter, reflect: true, type: DateOnlyType })
+  /**
+   * The maximum valid date. Accepts a date object or null.
+   * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
+   */
+  @plainDate()
+  @property({ converter: plainDateConverter, reflect: true })
   public accessor max: T | null = null;
 
   /** A function used to filter out dates. */
