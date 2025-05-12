@@ -218,6 +218,22 @@ describe(`sbb-autocomplete`, () => {
     expect(input).not.to.have.attribute('aria-activedescendant');
   });
 
+  it('opens with autoActiveFirstOption', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const optOne = element.querySelector<SbbOptionElement>('#option-1');
+
+    element.autoActiveFirstOption = true;
+    await waitForLitRender(element);
+
+    input.focus();
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(optOne).to.have.attribute('data-active');
+    expect(optOne).not.to.have.attribute('selected');
+    expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+  });
+
   it('should not close on disabled option click', async () => {
     const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
     const optOne = element.querySelector<SbbOptionElement>('#option-1')!;

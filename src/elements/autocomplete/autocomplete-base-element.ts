@@ -70,6 +70,11 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public accessor preserveIconSpace: boolean = false;
 
+  /** Whether the first option is automatically activated when the autocomplete is opened. */
+  @forceType()
+  @property({ attribute: 'auto-active-first-option', type: Boolean })
+  public accessor autoActiveFirstOption: boolean = false;
+
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return this.origin instanceof HTMLElement
@@ -123,7 +128,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
-  protected abstract setNextActiveOption(event: KeyboardEvent): void;
+  protected abstract setNextActiveOption(event?: KeyboardEvent): void;
   protected abstract resetActiveElement(): void;
 
   /** Opens the autocomplete. */
@@ -150,6 +155,9 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       );
     }
     this._setOverlayPosition(originElement);
+    if (this.autoActiveFirstOption) {
+      this.setNextActiveOption();
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
