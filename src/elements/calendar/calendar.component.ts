@@ -165,9 +165,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public accessor multiple: boolean = false;
 
   /**
-   * The selected date.
-   * Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).
-   * If `multiple`, takes an array of the mentioned types.
+   * The selected date: accepts a date object, or, if `multiple`, an array of dates.
    */
   @property()
   public set selected(value: T | T[] | null) {
