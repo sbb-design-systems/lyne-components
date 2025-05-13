@@ -1,12 +1,10 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { type CSSResultGroup, type TemplateResult, html, LitElement } from 'lit';
+import { type TemplateResult, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type { CoachItem, SeatReservation } from '../seat-reservation.js';
-
-import style from './seat-reservation-navigation.scss?lit&inline';
 
 import './seat-reservation-navigation-coach.js';
 
@@ -16,8 +14,6 @@ import './seat-reservation-navigation-coach.js';
 export
 @customElement('sbb-seat-reservation-navigation')
 class SbbSeatReservationNavigationElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
-
   /* seat-reservation property */
   @property({ attribute: 'seat-reservation', type: Object })
   public accessor seatReservation: SeatReservation = null!;

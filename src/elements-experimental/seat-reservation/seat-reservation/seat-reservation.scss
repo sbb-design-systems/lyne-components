@@ -28,6 +28,7 @@
   overflow-y: hidden;
 }
 
+// ############# Seat Reservation main navigation START #############
 .sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
   // todo ggf. auf 100vw
   width: 100vh;
@@ -48,10 +49,12 @@
 
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--sbb-spacing-fixed-1x);
   min-height: #{sbb.px-to-rem-build(60)};
 }
+
+// ############# Seat Reservation main navigation END #############
 
 .sbb-seat-reservation__parent {
   overflow-x: scroll;
