@@ -16,20 +16,22 @@ import '../datepicker-toggle.js';
 describe(`sbb-datepicker ssr`, () => {
   const asIso8601 = (date: Date): string => defaultDateAdapter.toIso8601(date);
 
+  let root: SbbDatepickerElement;
+
   beforeEach(async function () {
     // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
     this.timeout(20000);
+    root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
+      modules: ['./datepicker.component.js'],
+    });
   });
 
   it('renders', async () => {
-    const root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
-      modules: ['./datepicker.component.js'],
-    });
     assert.instanceOf(root, SbbDatepickerElement);
   });
 
   it('should render full datepicker component set', async () => {
-    const root = await ssrHydratedFixture(
+    root = await ssrHydratedFixture(
       html`
         <sbb-form-field>
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
