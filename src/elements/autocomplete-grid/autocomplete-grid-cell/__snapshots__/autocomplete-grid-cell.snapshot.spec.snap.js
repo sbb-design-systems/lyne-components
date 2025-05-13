@@ -23,7 +23,7 @@ snapshots["sbb-autocomplete-grid-cell renders Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-cell renders Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-cell renders A11y tree Chrome"] = 
+snapshots["sbb-autocomplete-grid-cell A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -37,9 +37,9 @@ snapshots["sbb-autocomplete-grid-cell renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-cell renders A11y tree Chrome */
+/* end snapshot sbb-autocomplete-grid-cell A11y tree Chrome */
 
-snapshots["sbb-autocomplete-grid-cell renders A11y tree Firefox"] = 
+snapshots["sbb-autocomplete-grid-cell A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -53,5 +53,5 @@ snapshots["sbb-autocomplete-grid-cell renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-cell renders A11y tree Firefox */
+/* end snapshot sbb-autocomplete-grid-cell A11y tree Firefox */
 

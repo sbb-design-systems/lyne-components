@@ -34,11 +34,11 @@ describe('sbb-autocomplete-grid-cell', () => {
     it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(html`
-      <sbb-autocomplete-grid-cell>
-        <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-cell>
-    `);
   });
+
+  testA11yTreeSnapshot(html`
+    <sbb-autocomplete-grid-cell>
+      <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+    </sbb-autocomplete-grid-cell>
+  `);
 });

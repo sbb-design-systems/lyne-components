@@ -8,7 +8,6 @@ import { describeIf, EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
-import { inputAutocompleteEvent } from './autocomplete-base-element.js';
 import { SbbAutocompleteElement } from './autocomplete.component.js';
 
 describe(`sbb-autocomplete`, () => {
@@ -154,7 +153,7 @@ describe(`sbb-autocomplete`, () => {
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
-    const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
+    const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
     const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
 
     input.focus();
@@ -185,7 +184,7 @@ describe(`sbb-autocomplete`, () => {
     const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
-    const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
+    const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
     const optOne = element.querySelector<SbbOptionElement>('#option-1');
     const optTwo = element.querySelector<SbbOptionElement>('#option-2');
     const keydownSpy = new EventSpy('keydown', input);
@@ -216,6 +215,22 @@ describe(`sbb-autocomplete`, () => {
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
     expect(input).not.to.have.attribute('aria-activedescendant');
+  });
+
+  it('opens with autoActiveFirstOption', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    const optOne = element.querySelector<SbbOptionElement>('#option-1');
+
+    element.autoActiveFirstOption = true;
+    await waitForLitRender(element);
+
+    input.focus();
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(optOne).to.have.attribute('data-active');
+    expect(optOne).not.to.have.attribute('selected');
+    expect(input).to.have.attribute('aria-activedescendant', 'option-1');
   });
 
   it('should not close on disabled option click', async () => {
@@ -347,6 +362,42 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
   });
 
+  it('recalculate position when option list changes', async () => {
+    // Set up the autocomplete to the bottom of the page and add a listener on it which removes every option except the first one.
+    formField.parentElement?.style.setProperty('inset-block-end', '2rem');
+    formField.parentElement?.style.setProperty('inset-inline-start', '2rem');
+    formField.parentElement?.style.setProperty('position', 'absolute');
+    formField.parentElement?.style.setProperty('max-width', 'calc(100% - 4rem)');
+    const optFn = (): void => {
+      element
+        .querySelectorAll('sbb-option')
+        .forEach((option, index) => index !== 0 && option.remove());
+    };
+
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+    input.addEventListener('input', optFn);
+    input.focus();
+    await didOpenEventSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+    expect(
+      getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
+    ).to.be.equal(isSafari ? '336px' : '334px');
+
+    // Simulate the options' removal and check again position
+    await sendKeys({ press: 'a' });
+    expect(
+      getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
+    ).to.be.equal(isSafari ? '424px' : '423px');
+
+    // Clean up env
+    element.close();
+    input.removeEventListener('input', optFn);
+    formField.parentElement?.style.setProperty('inset-block-end', '');
+    formField.parentElement?.style.setProperty('inset-inline-start', '');
+    formField.parentElement?.style.setProperty('position', '');
+    formField.parentElement?.style.setProperty('max-width', '');
+  });
+
   describe('trigger connection', () => {
     beforeEach(async () => {
       const root = await fixture(
@@ -363,7 +414,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should return trigger', async () => {
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
     });
 
     it('should have trigger as origin when not defined', async () => {
@@ -374,34 +425,34 @@ describe(`sbb-autocomplete`, () => {
       input.id = '';
       await waitForLitRender(element);
       expect(input.ariaHasPopup).to.be.null;
-      expect(element.triggerElement).to.be.null;
+      expect(element.trigger).to.be.null;
 
       input.id = 'autocomplete-trigger';
       await waitForLitRender(element);
       expect(input.ariaHasPopup).not.to.be.null;
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
     });
 
     it('accepts trigger as HTML Element', async () => {
       input.id = '';
       await waitForLitRender(element);
       expect(input.ariaHasPopup).to.be.null;
-      expect(element.triggerElement).to.be.null;
+      expect(element.trigger).to.be.null;
 
       element.trigger = input;
       await waitForLitRender(element);
       expect(input.ariaHasPopup).not.to.be.null;
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
     });
 
     it('allows removing the trigger', async () => {
       expect(input.ariaHasPopup).not.to.be.null;
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
 
       element.trigger = null;
       await waitForLitRender(element);
       expect(input.ariaHasPopup).to.be.null;
-      expect(element.triggerElement).to.be.null;
+      expect(element.trigger).to.be.null;
     });
   });
 
@@ -481,11 +532,11 @@ describe(`sbb-autocomplete`, () => {
       // Set origin to null and swap trigger
       element.origin = null;
       await waitForLitRender(element);
-      expect(element.triggerElement).to.be.equal(input);
+      expect(element.trigger).to.be.equal(input);
 
       element.trigger = root.querySelector<HTMLInputElement>('#autocomplete-trigger-2')!;
       await waitForLitRender(element);
-      expect(element.triggerElement!.id).to.be.equal(element.originElement!.id);
+      expect(element.trigger!.id).to.be.equal(element.originElement!.id);
 
       expect(
         element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,

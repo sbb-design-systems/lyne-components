@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -93,7 +93,7 @@ const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => htm
   <sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   >
     <div style="display: flex; padding-top: 24px; justify-content: space-between;" slot="content">
@@ -107,7 +107,7 @@ const TemplateNoSlot = ({ trip, tripBack, now, ...args }: Args): TemplateResult 
   html`<sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   ></sbb-journey-summary>`;
 

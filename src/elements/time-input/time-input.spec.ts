@@ -224,7 +224,7 @@ describe(`sbb-time-input`, () => {
   it('should set and get value as a date (string)', async () => {
     const date = new Date('2023-01-01T15:00:00');
 
-    element.valueAsDate = date.toISOString();
+    element.valueAsDate = date.toISOString() as unknown as Date;
     await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
 
@@ -243,7 +243,7 @@ describe(`sbb-time-input`, () => {
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 
-    element.valueAsDate = '2023-01-01T15:00:00';
+    element.valueAsDate = '2023-01-01T15:00:00' as unknown as Date;
     await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
   });
@@ -258,7 +258,7 @@ describe(`sbb-time-input`, () => {
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
     element.input = input;
-    element.valueAsDate = '2023-01-01T15:00:00';
+    element.valueAsDate = '2023-01-01T15:00:00' as unknown as Date;
     await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
@@ -274,8 +274,8 @@ describe(`sbb-time-input`, () => {
     element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
     input = root.querySelector<HTMLInputElement>('input')!;
 
-    element.input = 'input-2';
-    element.valueAsDate = '2023-01-01T15:00:00';
+    element.setAttribute('input', 'input-2');
+    element.valueAsDate = '2023-01-01T15:00:00' as unknown as Date;
     await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
@@ -294,7 +294,7 @@ describe(`sbb-time-input`, () => {
     const input2 = root.querySelector<HTMLInputElement>('#input-4')!;
     await waitForLitRender(element);
     expect(input1.value).to.be.equal('01:11');
-    element.input = 'input-4';
+    element.setAttribute('input', 'input-4');
     await waitForLitRender(element);
     expect(input2.value).to.be.equal('23:00');
   });

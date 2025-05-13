@@ -104,6 +104,18 @@ describe('sbb-date-input', () => {
     expect(element.valueAsDate).not.to.be.null;
   });
 
+  it('should handle value=null like the native text input', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.value = null!;
+    expect(element.value).to.be.equal('');
+  });
+
+  it('should handle value=undefined like the native text input', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.value = undefined!;
+    expect(element.value).to.be.equal('undefined');
+  });
+
   describe('with no value', () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-date-input></sbb-date-input>`);
@@ -263,9 +275,8 @@ describe('sbb-date-input', () => {
     });
 
     it('should update validity with date filter', async () => {
-      const today = defaultDateAdapter.today();
+      element.valueAsDate = defaultDateAdapter.today();
       element.dateFilter = () => false;
-      element.valueAsDate = today;
       await waitForLitRender(element);
 
       expect(element.validationMessage).to.equal('Please provide a valid date.');

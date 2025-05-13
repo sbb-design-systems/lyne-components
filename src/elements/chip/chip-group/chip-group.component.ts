@@ -8,7 +8,6 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { isLean } from '../../core/dom.js';
@@ -224,7 +223,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
         signal: this._inputAbortController.signal,
       });
       this._inputElement.addEventListener(
-        inputAutocompleteEvent,
+        'inputAutocomplete',
         () => this._createChipFromInput('autocomplete'),
         {
           signal: this._inputAbortController.signal,
@@ -366,7 +365,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     const newChip = document.createElement('sbb-chip');
     newChip.setAttribute('value', value);
     newChip.innerText = label ?? '';
-    this.insertBefore(newChip, this._inputElement!);
+    this.insertBefore(newChip, this._inputElement ?? this.querySelector('input'));
   }
 
   private _reactToInputChanges(): void {

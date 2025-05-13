@@ -22,6 +22,7 @@ snapshots["sbb-header renders actions and logo DOM"] =
   <sbb-header-link
     data-action=""
     data-link=""
+    data-slot-names="unnamed"
     expand-from="medium"
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="hamburger-menu-small"

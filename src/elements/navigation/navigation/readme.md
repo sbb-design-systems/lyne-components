@@ -77,14 +77,14 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                                  | Default | Description                                                                                                |
-| ------------------------- | --------------------------- | ------- | ------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                              | `''`    | This will be forwarded as aria-label to the close button element.                                          |
-| `activeNavigationSection` | -                           | public  | `SbbNavigationSectionElement \| null` | `null`  | Returns the active navigation section element.                                                             |
-| `closeButton`             | -                           | public  | `HTMLElement \| null`                 |         | Returns the close button element.                                                                          |
-| `isOpen`                  | -                           | public  | `boolean`                             |         | Whether the element is open.                                                                               |
-| `navigationContent`       | -                           | public  | `HTMLElement \| null`                 |         | Returns the navigation content element.                                                                    |
-| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement \| null`       | `null`  | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
+| Name                      | Attribute                   | Privacy | Type                                  | Default | Description                                                                                 |
+| ------------------------- | --------------------------- | ------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                              | `''`    | This will be forwarded as aria-label to the close button element.                           |
+| `activeNavigationSection` | -                           | public  | `SbbNavigationSectionElement \| null` | `null`  | Returns the active navigation section element.                                              |
+| `closeButton`             | -                           | public  | `HTMLElement \| null`                 |         | Returns the close button element.                                                           |
+| `isOpen`                  | -                           | public  | `boolean`                             |         | Whether the element is open.                                                                |
+| `navigationContent`       | -                           | public  | `HTMLElement \| null`                 |         | Returns the navigation content element.                                                     |
+| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null`                 | `null`  | The element that will trigger the navigation. For attribute usage, provide an id reference. |
 
 ## Methods
 

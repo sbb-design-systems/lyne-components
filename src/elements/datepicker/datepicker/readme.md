@@ -1,7 +1,8 @@
 The `sbb-datepicker` is a component which can be used together with an `<sbb-date-input>` element
 to display the typed value as a formatted date (default: `dd.MM.yyyy`).
 
-The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, ` `, `,` or `/`,
+The component allows the insertion of up to 10 numbers,
+possibly with separators like white space, dot (`.`), hyphen (`-`), comma (`,`), slash (`/`) or backslash (`\`),
 then automatically formats the value as date and displays it.
 It also allows to get / set the value formatted as Date via the `valueAsDate` property.
 
@@ -77,7 +78,7 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | `dateFilter`   | -         | public  | `(date: T \| null) => boolean`                       |         | A function used to filter out dates.<br><strong>Deprecated</strong>: Use dateFilter from SbbDateInputElement.                                                                                                                                                                          |
 | `input`        | `input`   | public  | `string \| HTMLElement \| null`                      | `null`  | Reference of the sbb-date-input instance or the native input connected to the datepicker. If given a string, it will be treated as an id reference and an attempt is made to be resolved for the containing document fragment. If given a HTMLElement instance, it will be used as is. |
 | `inputElement` | -         | public  | `HTMLInputElement \| SbbDateInputElement<T> \| null` | `null`  | The resolved associated input element, as defined by `input`.                                                                                                                                                                                                                          |
-| `now`          | `now`     | public  | `T`                                                  |         | A configured date which acts as the current date instead of the real current date. Recommended for testing purposes.                                                                                                                                                                   |
+| `now`          | `now`     | public  | `T`                                                  | `null!` | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.                                                                                                                                                              |
 | `valueAsDate`  | -         | public  | `T \| null`                                          |         | The currently selected date as a Date or custom date provider instance.<br><strong>Deprecated</strong>: Use valueAsDate from SbbDateInputElement.                                                                                                                                      |
 | `wide`         | `wide`    | public  | `boolean`                                            | `false` | If set to true, two months are displayed.                                                                                                                                                                                                                                              |
 

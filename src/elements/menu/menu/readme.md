@@ -83,11 +83,11 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                                       |
-| ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                 | -                          | public  | `boolean`                       |         | Whether the element is open.                                                                                                      |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`                        | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
-| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
+| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                                                       |
+| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                                                      |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
 
 ## Methods
 

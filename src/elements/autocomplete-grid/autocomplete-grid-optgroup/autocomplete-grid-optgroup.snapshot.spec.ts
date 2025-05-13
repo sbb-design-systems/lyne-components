@@ -15,18 +15,19 @@ import '../autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.js';
 
 describe('sbb-autocomplete-grid-optgroup', () => {
+  const opt: TemplateResult = html`
+    <sbb-autocomplete-grid-optgroup label="Group">
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+      </sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-row>
+        <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+      </sbb-autocomplete-grid-row>
+    </sbb-autocomplete-grid-optgroup>
+  `;
+
   describe('renders', () => {
     let root: SbbAutocompleteGridOptgroupElement;
-    const opt: TemplateResult = html`
-      <sbb-autocomplete-grid-optgroup label="Group">
-        <sbb-autocomplete-grid-row>
-          <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
-        </sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-row>
-          <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
-        </sbb-autocomplete-grid-row>
-      </sbb-autocomplete-grid-optgroup>
-    `;
     beforeEach(async () => {
       root = (
         await fixture(html`
@@ -44,8 +45,6 @@ describe('sbb-autocomplete-grid-optgroup', () => {
       it('Shadow DOM', async () => {
         await expect(root).shadowDom.to.be.equalSnapshot();
       });
-
-      testA11yTreeSnapshot(opt);
     });
 
     describeIf(isSafari, 'Safari', async () => {
@@ -56,8 +55,8 @@ describe('sbb-autocomplete-grid-optgroup', () => {
       it('Shadow DOM', async () => {
         await expect(root).shadowDom.to.be.equalSnapshot();
       });
-
-      testA11yTreeSnapshot(opt);
     });
   });
+
+  testA11yTreeSnapshot(opt);
 });

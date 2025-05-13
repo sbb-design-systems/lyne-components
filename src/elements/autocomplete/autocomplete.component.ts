@@ -44,9 +44,7 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
 
   public constructor() {
     super();
-    this.addEventListener?.('optionSelectionChange', (e: CustomEvent<void>) =>
-      this.onOptionSelected(e),
-    );
+    this.addEventListener?.('optionSelected', (e: CustomEvent<void>) => this.onOptionSelected(e));
   }
 
   protected syncNegative(): void {
@@ -83,11 +81,11 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     const activeOption = this.options[this._activeItemIndex];
 
     if (activeOption) {
-      activeOption.setSelectedViaUserInteraction(true);
+      activeOption['selectViaUserInteraction'](true);
     }
   }
 
-  protected setNextActiveOption(event: KeyboardEvent): void {
+  protected setNextActiveOption(event?: KeyboardEvent): void {
     const filteredOptions = this.options.filter(
       (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );

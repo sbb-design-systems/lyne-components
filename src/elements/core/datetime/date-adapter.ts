@@ -91,10 +91,10 @@ export abstract class DateAdapter<T = any> {
    * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
    * string). The default implementation does not allow any deserialization, it simply checks that
    * the given value is already a valid date object or null.
-   * @param value Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
+   * @param value Either a date object, ISO string or an empty value.
    * @returns The date if the input is valid, `null` otherwise.
    */
-  public deserialize(value: T | string | number | null | undefined): T | null {
+  public deserialize(value: T | string | null | undefined): T | null {
     if (
       value == null ||
       (this.isDateInstance(value) && this.isValid(value as T | null | undefined))

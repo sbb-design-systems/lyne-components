@@ -9,10 +9,11 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbIdReferenceController, SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core/controllers.js';
+import { idReference } from '../core/decorators.js';
 import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import { i18nTimeInputChange } from '../core/i18n.js';
-import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces.js';
+import type { SbbValidationChangeEvent } from '../core/interfaces.js';
 
 import style from './time-input.scss?lit&inline';
 
@@ -40,16 +41,20 @@ class SbbTimeInputElement extends LitElement {
     validationChange: 'validationChange',
   } as const;
 
-  // TODO: Replace HTMLElement by HTMLInputElement
-  /** Reference of the native input connected to the datepicker. */
+  /**
+   * Reference of the native input connected to the datepicker.
+   *
+   * For attribute usage, provide an id reference.
+   */
+  @idReference()
   @property()
-  public accessor input: string | HTMLElement | null = null;
+  public accessor input: HTMLInputElement | null = null;
 
   @state() private accessor _inputElement: HTMLInputElement | null = null;
 
   /** Formats the current input's value as date. */
   @property({ attribute: false })
-  public set valueAsDate(date: SbbDateLike | null) {
+  public set valueAsDate(date: Date | null) {
     if (!date || !this._inputElement) {
       return;
     }
@@ -88,7 +93,6 @@ class SbbTimeInputElement extends LitElement {
 
   private _statusContainer!: HTMLParagraphElement;
   private _inputAbortController = new AbortController();
-  private _inputIdReferenceController = new SbbIdReferenceController(this, 'input');
   private _language = new SbbLanguageController(this);
 
   public override connectedCallback(): void {
@@ -119,9 +123,7 @@ class SbbTimeInputElement extends LitElement {
     const inputElement =
       this.input instanceof HTMLInputElement
         ? this.input
-        : ((this._inputIdReferenceController.find() as HTMLInputElement | null) ??
-          this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>('input') ??
-          null);
+        : (this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>('input') ?? null);
 
     if (inputElement === this._inputElement) {
       return;

@@ -14,11 +14,10 @@ import { SbbFocusTrapController } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
-  SbbIdReferenceController,
   SbbInertController,
   SbbLanguageController,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
@@ -67,10 +66,12 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   /**
    * The element that will trigger the navigation.
-   * Accepts both a string (id of an element) or an HTML element.
+   *
+   * For attribute usage, provide an id reference.
    */
+  @idReference()
   @property()
-  public accessor trigger: string | HTMLElement | null = null;
+  public accessor trigger: HTMLElement | null = null;
 
   /** This will be forwarded as aria-label to the close button element. */
   @forceType()
@@ -98,7 +99,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _navigation!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
-  private _triggerIdReferenceController = new SbbIdReferenceController(this, 'trigger');
   private _language = new SbbLanguageController(this);
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -222,18 +222,13 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   // Removes trigger click listener on trigger change.
   // Check if the trigger is valid and attach click event listeners.
   private _configureTrigger(): void {
-    const triggerElement =
-      this.trigger instanceof HTMLElement
-        ? this.trigger
-        : this._triggerIdReferenceController.find();
-
-    if (triggerElement === this._triggerElement) {
+    if (this.trigger === this._triggerElement) {
       return;
     }
 
     this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
-    this._triggerElement = triggerElement;
+    this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;

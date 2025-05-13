@@ -3,7 +3,6 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.js';
-import { inputAutocompleteEvent } from '../../autocomplete.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -15,6 +14,7 @@ import {
   type SbbChipInputTokenEndEventDetails,
 } from './chip-group.component.js';
 import '../chip.js';
+import '../../autocomplete.js';
 import '../../form-field.js';
 import '../../option.js';
 
@@ -463,7 +463,7 @@ describe('sbb-chip-group', () => {
     });
 
     it('should create chip when option is selected', async () => {
-      const inputAutocompleteEventSpy = new EventSpy(inputAutocompleteEvent, input);
+      const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
       const tokenEndEventSpy = new EventSpy<CustomEvent>(
         SbbChipGroupElement.events.chipInputTokenEnd,
         element,
@@ -591,6 +591,22 @@ describe('sbb-chip-group', () => {
       expect(element.value).to.include('new chip');
       expect(element.querySelector('sbb-chip[value="new chip"]')).to.exist;
       expect(input.value).to.be.empty; // The input should be emptied
+    });
+
+    it('init with value', async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <label>Label</label>
+          <sbb-chip-group name="chip-group-1" .value=${['chip 1', 'chip 2']}>
+            <input />
+          </sbb-chip-group>
+        </sbb-form-field>
+      `);
+      element = formField.querySelector('sbb-chip-group')!;
+
+      expect(element.value).to.be.eql(['chip 1', 'chip 2']);
+      expect(element.querySelector('sbb-chip[value="chip 1"]')).to.exist;
+      expect(element.querySelector('sbb-chip[value="chip 2"]')).to.exist;
     });
   });
 });
