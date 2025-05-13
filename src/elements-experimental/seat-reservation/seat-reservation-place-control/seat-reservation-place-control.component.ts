@@ -146,7 +146,6 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
             'sbb-reservation-place-control--disabled': this.preventClick,
           })}"
           @click=${() => this._selectPlace()}
-          aria-label=${this._getTitleDescriptionPlace()}
           title=${this._getTitleDescriptionPlace()}
           tabindex="-1"
         >
