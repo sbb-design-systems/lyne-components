@@ -267,7 +267,7 @@ export class SeatReservationBaseElement extends LitElement {
     else {
       // We need to set the currSelectedPlace here for further correct functioning navigation via tab.
       this.currSelectedPlace = closestPlace;
-      this._setFocusToSelectedCoachTable();
+      this._setFocusToSelectedCoachGrid();
     }
   }
 
@@ -302,9 +302,9 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
-   * Sets the focus on the HTML table-caption element so that the heading is read out when using a ScreenReader
+   * Sets the focus on the HTML table (grid) caption element so that the heading is read out when using a ScreenReader.
    */
-  private _setFocusToSelectedCoachTable(): void {
+  private _setFocusToSelectedCoachGrid(): void {
     const coachTableCaptionElement = this.shadowRoot?.querySelector(
       '#seat-reservation-coach-caption-' + this.currSelectedCoachIndex,
     ) as HTMLTableCaptionElement;
@@ -539,7 +539,7 @@ export class SeatReservationBaseElement extends LitElement {
         if (placeInCoachHasFocus) {
           this.focusPlaceElement(this.currSelectedPlace);
         } else {
-          this._setFocusToSelectedCoachTable();
+          this._setFocusToSelectedCoachGrid();
         }
       }
     }
