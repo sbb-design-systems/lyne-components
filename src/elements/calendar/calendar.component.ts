@@ -26,7 +26,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime.js';
-import { forceType } from '../core/decorators.js';
+import { forceType, plainDate } from '../core/decorators.js';
 import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
@@ -38,7 +38,6 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../core/i18n.js';
-import type { SbbDateLike } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
 
 import style from './calendar.scss?lit&inline';
@@ -127,39 +126,33 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** The initial view of the calendar which should be displayed on opening. */
   @property() public accessor view: CalendarView = 'day';
 
-  /** The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
+  /**
+   * The minimum valid date. Accepts a date object or null.
+   * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
+   */
+  @plainDate()
   @property()
-  public set min(value: SbbDateLike<T> | null) {
-    this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-  }
-  public get min(): T | null {
-    return this._min ?? null;
-  }
-  private _min?: T | null;
+  public accessor min: T | null = null;
 
-  /** The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
+  /**
+   * The maximum valid date. Accepts a date object or null.
+   * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
+   */
+  @plainDate()
   @property()
-  public set max(value: SbbDateLike<T> | null) {
-    this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-  }
-  public get max(): T | null {
-    return this._max ?? null;
-  }
-  private _max?: T | null;
+  public accessor max: T | null = null;
 
-  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  /**
+   * A configured date which acts as the current date instead of the real current date.
+   * Only recommended for testing purposes.
+   */
+  @plainDate({ fallback: (a) => a.today() })
   @property()
-  public set now(value: SbbDateLike<T> | null) {
-    this._now = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-  }
-  public get now(): T {
-    return this._now ?? this._dateAdapter.today();
-  }
-  private _now: T | null = null;
+  public accessor now: T = null!;
 
   /** The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property()
-  public set selected(value: SbbDateLike<T> | null) {
+  public set selected(value: T | null) {
     this._selectedDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     if (
       !!this._selectedDate &&
@@ -172,7 +165,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     }
   }
   public get selected(): T | null {
-    return this._selectedDate ?? null;
+    return this._selectedDate ? this._dateAdapter.clone(this._selectedDate) : null;
   }
   private _selectedDate?: T | null;
 

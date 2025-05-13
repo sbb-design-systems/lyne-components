@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -124,7 +124,7 @@ const Template = ({ trip, price, boarding, now, ...args }: Args): TemplateResult
     .trip=${trip}
     .price=${price}
     .boarding=${boarding}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   ></sbb-timetable-row>`;
 

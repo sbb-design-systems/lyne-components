@@ -132,7 +132,7 @@ class SbbDatepickerToggleElement<T = Date>
       return;
     }
     this._calendarElement.wide = this.datepicker.wide;
-    this._calendarElement.now = this._nowOrNull();
+    this._calendarElement.now = this._nowOrNull()!;
     this._calendarElement.dateFilter = this.datepicker.dateFilter;
   }
 

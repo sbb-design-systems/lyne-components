@@ -169,18 +169,6 @@ describe('NativeDateAdapter', () => {
       '1.1.1970',
     );
 
-    const dateNumber: Date = nativeDateAdapter.deserialize(946684800)!;
-    expect(dateNumber instanceof Date).to.be.equal(true);
-    expect(
-      `${dateNumber.getDate()}.${dateNumber.getMonth() + 1}.${dateNumber.getFullYear()}`,
-    ).to.be.equal('1.1.2000');
-
-    const dateNumAsStr: Date = nativeDateAdapter.deserialize('946684800')!;
-    expect(dateNumAsStr instanceof Date).to.be.equal(true);
-    expect(
-      `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`,
-    ).to.be.equal('1.1.2000');
-
     const dateString: Date = nativeDateAdapter.deserialize('2024-01-01')!;
     expect(dateString instanceof Date).to.be.equal(true);
     expect(
