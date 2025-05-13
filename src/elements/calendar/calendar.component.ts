@@ -712,7 +712,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         // If the user is selecting dates with cmd/ctrl, check if _selected has elements
         if (this._selected && (this._selected as T[]).length > 0) {
           const indexOfSelectedDay: number = (this._selected as T[]).findIndex(
-            (sel) => sel === day,
+            (sel) => this._dateAdapter.compareDate(sel, day) === 0,
           );
           // If the selected date is already in the _selected array, remove it, otherwise add it
           if (indexOfSelectedDay !== -1) {
@@ -727,7 +727,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         }
       } else {
         // Prevent changes if _selected has exactly the element the user wants to add
-        if ((this._selected as T[])?.length === 1 && (this._selected as T[])[0] === day) {
+        if (
+          (this._selected as T[])?.length === 1 &&
+          this._dateAdapter.compareDate((this._selected as T[])[0], day) === 0
+        ) {
           return;
         }
         this._selected = [day];
@@ -735,7 +738,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._dateSelected.emit(this._selected);
     } else {
       // In single selection, check if the day is already selected
-      if ((this._selected as T) !== day) {
+      if (this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
         this._selected = day;
         this._dateSelected.emit(day);
       }

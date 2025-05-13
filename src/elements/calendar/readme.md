@@ -101,9 +101,9 @@ Using the `week-numbers` property, it's possible to display the ISO week dates i
 so on the left side in `horizontal` and on top in `vertical`.
 
 ```html
-<sbb-calendar week-days></sbb-calendar>
+<sbb-calendar week-numbers></sbb-calendar>
 
-<sbb-calendar orientation="vertical" week-days></sbb-calendar>
+<sbb-calendar orientation="vertical" week-numbers></sbb-calendar>
 ```
 
 ## Events
@@ -152,18 +152,18 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Properties
 
-| Name          | Attribute      | Privacy | Type                                     | Default        | Description                                                                                                                                                   |
-| ------------- | -------------- | ------- | ---------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dateFilter`  | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                                                          |
-| `max`         | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                    |
-| `min`         | `min`          | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                    |
-| `multiple`    | `multiple`     | public  | `boolean`                                | `false`        | Whether the calendar allows for multiple date selection.                                                                                                      |
-| `now`         | `now`          | public  | `T`                                      | `null!`        | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.                                     |
-| `orientation` | `orientation`  | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                                                                      |
-| `selected`    | `selected`     | public  | `T \| T[] \| null`                       | `null`         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). If `multiple`, takes an array of the mentioned types. |
-| `view`        | `view`         | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                                                        |
-| `weekNumbers` | `week-numbers` | public  | `boolean`                                | `false`        | Whether it has to display the week numbers in addition to week days.                                                                                          |
-| `wide`        | `wide`         | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                                                                      |
+| Name          | Attribute      | Privacy | Type                                     | Default        | Description                                                                                                                |
+| ------------- | -------------- | ------- | ---------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `dateFilter`  | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                       |
+| `max`         | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
+| `min`         | `min`          | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
+| `multiple`    | `multiple`     | public  | `boolean`                                | `false`        | Whether the calendar allows for multiple date selection.                                                                   |
+| `now`         | `now`          | public  | `T`                                      | `null!`        | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.  |
+| `orientation` | `orientation`  | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                                   |
+| `selected`    | `selected`     | public  | `T \| T[] \| null`                       | `null`         | The selected date: accepts a date object, or, if `multiple`, an array of dates.                                            |
+| `view`        | `view`         | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                     |
+| `weekNumbers` | `week-numbers` | public  | `boolean`                                | `false`        | Whether it has to display the week numbers in addition to week days.                                                       |
+| `wide`        | `wide`         | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                                   |
 
 ## Methods
 
