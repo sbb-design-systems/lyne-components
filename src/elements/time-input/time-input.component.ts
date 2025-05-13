@@ -3,7 +3,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { sbbLiveAnnouncer } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { i18nTimeInputChange, i18nTimeInvalid, i18nTimeMax } from '../core/i18n.js';
+import {
+  i18nTimeInputChange,
+  i18nTimeInvalid,
+  i18nTimeMax,
+  i18nTimeMaxLength,
+} from '../core/i18n.js';
 import {
   SbbFormAssociatedInputMixin,
   type FormRestoreReason,
@@ -13,7 +18,7 @@ import {
 import style from './time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
-const REGEX_DISALLOWED_CHARACTERS = /[^0-9.:,\-;_hH]/;
+const REGEX_DISALLOWED_CHARACTERS = /[^0-9.:,\-;_hH]/g;
 const REGEX_GROUPS_WITHOUT_COLON = /^([0-9]{1,2})([0-9]{2})$/;
 const REGEX_GROUPS_WITH_COLON = /^([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?$/;
 
@@ -35,7 +40,7 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
    * of this input.
    */
   public override set value(value: string) {
-    value = value.replace(REGEX_DISALLOWED_CHARACTERS, '');
+    value = value.replace(REGEX_DISALLOWED_CHARACTERS, '').substring(0, 5);
     this._tryParseValue(value);
     // As long as this element has focus we delay automatically updating
     // the value with the formatted string of the parsed date.
@@ -171,6 +176,12 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
     return `${hours}:${minutes}`;
   }
 
+  protected override preparePastedText(text: string): string {
+    return text
+      .replace(REGEX_DISALLOWED_CHARACTERS, '')
+      .substring(0, 5 - (this.textContent?.length ?? 0));
+  }
+
   protected override shouldValidate(name: PropertyKey | undefined): boolean {
     return (
       super.shouldValidate(name) ||
@@ -222,9 +233,12 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
       !event.altKey &&
       !event.metaKey &&
       !alwaysAllowed.includes(event.key) &&
-      !REGEX_ALLOWED_CHARACTERS.test(event.key)
+      (!REGEX_ALLOWED_CHARACTERS.test(event.key) || this.value.length >= 5)
     ) {
       event.preventDefault();
+      if (this.value.length >= 5) {
+        sbbLiveAnnouncer.announce(i18nTimeMaxLength[this._language.current]);
+      }
     }
   }
 }

@@ -43,6 +43,7 @@ export declare abstract class SbbFormAssociatedInputMixinType
 
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
+  protected preparePastedText(text: string): string;
   protected language: SbbLanguageController;
 }
 
@@ -251,7 +252,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         }
 
         selectedRange.deleteContents();
-        selectedRange.insertNode(document.createTextNode(text));
+        selectedRange.insertNode(document.createTextNode(this.preparePastedText(text)));
         selectedRange.setStart(selectedRange.endContainer, selectedRange.endOffset);
         this._dispatchInputEvent();
       });
@@ -348,7 +349,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     /**
      * Makes the selection equal to the current object.
      *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select)
+     * @link https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select
      */
     public select(): void {
       window.getSelection()?.selectAllChildren(this);
@@ -379,6 +380,10 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       } else {
         this.removeValidityFlag('valueMissing');
       }
+    }
+
+    protected preparePastedText(text: string): string {
+      return text;
     }
 
     private _cleanText(value: string): string {

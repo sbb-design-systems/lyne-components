@@ -8,12 +8,14 @@
 
   // With sbb-form-field[width="collapsed"], the default min width of a
   // an inline element is basically nothing (except potentially the placeholder).
-  // Due to this, we set a minimum width of the date input element.
+  // Due to this, we set a minimum width for the time input element.
   min-width: var(--sbb-time-input-max-width);
+
+  // The time input also has a very specific dimension, so we also set the maximum width.
   max-width: var(--sbb-time-input-max-width);
 
   // Without this, the input field collapses to 0px when empty.
-  min-height: calc(1rem * var(--sbb-typo-line-height-body-text));
+  min-height: calc(1em * var(--sbb-typo-line-height-body-text));
   cursor: text;
   align-items: center;
 

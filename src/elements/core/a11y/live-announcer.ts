@@ -1,9 +1,22 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.dev/license
+ */
+
 import { isServer } from 'lit';
 
 export type AriaLivePoliteness = 'off' | 'polite' | 'assertive';
 
 let uniqueIds = 0;
 
+/**
+ * Allows to announce messages to screen readers.
+ *
+ * Adapted from https://github.com/angular/components/blob/main/src/cdk/a11y/live-announcer/live-announcer.ts
+ */
 export class SbbLiveAnnouncer {
   private _liveElement!: HTMLElement;
   private _previousTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -78,7 +91,6 @@ export class SbbLiveAnnouncer {
     politeness ??= defaultOptions?.politeness ?? 'polite';
     duration ??= defaultOptions?.duration;
 
-    // TODO: ensure changing the politeness works on all environments we support.
     this._liveElement.setAttribute('aria-live', politeness);
 
     // This 100ms timeout is necessary for some browser + screen-reader combinations:

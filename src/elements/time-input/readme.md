@@ -9,7 +9,7 @@ then automatically formats the value as time and displays it (see ["Format examp
 
 ## In `sbb-form-field`
 
-If the `sbb-time-input` can be used within a `sbb-form-field`:
+The `sbb-time-input` can be used within an `sbb-form-field`:
 
 ```html
 <sbb-form-field width="collapse" size="s">

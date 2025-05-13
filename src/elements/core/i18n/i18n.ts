@@ -633,13 +633,6 @@ export const i18nBreadcrumbEllipsisButtonLabel: Record<string, string> = {
   it: 'Mostra più breadcrumbs',
 };
 
-export const i18nTimeInputChange = (value: string): Record<string, string> => ({
-  de: `Zeit geändert zu ${value}.`,
-  en: `Time changed to ${value}.`,
-  fr: `Heure modifiée: ${value}.`,
-  it: `Orario modificata alle ${value}.`,
-});
-
 export const i18nClearInput: Record<string, string> = {
   de: 'Feldinhalt löschen',
   en: 'Clear input value',
@@ -776,6 +769,13 @@ export const i18nDateMax = (max: string): Record<string, string> => ({
   it: `La data non deve essere successiva al ${max}.`,
 });
 
+export const i18nTimeInputChange = (value: string): Record<string, string> => ({
+  de: `Zeit geändert zu ${value}.`,
+  en: `Time changed to ${value}.`,
+  fr: `Heure modifiée: ${value}.`,
+  it: `Orario modificata alle ${value}.`,
+});
+
 export const i18nTimeInvalid: Record<string, string> = {
   de: 'Bitte gültige Zeit eingeben.',
   en: 'Please provide a valid time.',
@@ -788,6 +788,13 @@ export const i18nTimeMax: Record<string, string> = {
   en: `Time must not be after 23:59.`,
   fr: `L’heure ne doit pas être postérieure à 23h59.`,
   it: `L’orario non può essere successivo alle 23.59.`,
+};
+
+export const i18nTimeMaxLength: Record<string, string> = {
+  de: `Die Zeiteingabe darf nicht mehr als fünf Zeichen haben.`,
+  en: `The time input must not exceed five characters.`,
+  fr: `La saisie de l’heure ne doit pas comporter plus de cinq caractères.`,
+  it: `L’indicazione temporale non può contenere più di cinque caratteri.`,
 };
 
 export const i18nChipDelete: Record<string, string> = {
