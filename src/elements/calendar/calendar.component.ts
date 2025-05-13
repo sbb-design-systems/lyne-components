@@ -738,7 +738,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._dateSelected.emit(this._selected);
     } else {
       // In single selection, check if the day is already selected
-      if (this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
+      if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
         this._selected = day;
         this._dateSelected.emit(day);
       }

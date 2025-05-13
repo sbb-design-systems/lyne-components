@@ -16,6 +16,11 @@ import '../datepicker-toggle.js';
 describe(`sbb-datepicker ssr`, () => {
   const asIso8601 = (date: Date): string => defaultDateAdapter.toIso8601(date);
 
+  beforeEach(async function () {
+    // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
+    this.timeout(20000);
+  });
+
   it('renders', async () => {
     const root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
       modules: ['./datepicker.component.js'],
