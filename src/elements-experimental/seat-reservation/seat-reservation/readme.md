@@ -101,6 +101,19 @@ type SeatReservationPlaceSelection = {
 };
 ```
 
+#### SeatReservationCoachSelection
+
+```typescript
+type SeatReservationCoachSelection = {
+  coachId: string;
+  coachNumber: string;
+  coachIndex: number;
+  coachType?: CoachType;
+  coachTravelClass: PlaceTravelClass[];
+  coachPropertyIds?: string[];
+};
+```
+
 #### Other
 
 ```typescript

@@ -64,6 +64,15 @@ export type SeatReservationPlaceSelection = {
   propertyIds: string[];
 };
 
+export type SeatReservationCoachSelection = {
+  coachId: string;
+  coachNumber: string;
+  coachIndex: number;
+  coachType?: CoachType;
+  coachTravelClass: PlaceTravelClass[];
+  coachPropertyIds?: string[];
+};
+
 export const elementMountingOptions = <const>[
   'FREE',
   'UPPER_BORDER',

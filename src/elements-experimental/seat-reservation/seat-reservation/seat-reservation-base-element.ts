@@ -5,6 +5,7 @@ import { LitElement, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import {
+  mapCoachInfosToCoachSelection,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
 } from '../common/mapper.js';
@@ -16,6 +17,7 @@ import type {
   Place,
   PlaceSelection,
   SeatReservation,
+  SeatReservationCoachSelection,
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
@@ -24,6 +26,7 @@ import type { SbbScopedElement } from './scoped-components/scoped-element.compon
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
     selectedPlaces: 'selectedPlaces',
+    selectedCoach: 'selectedCoach',
   } as const;
 
   @property({ attribute: 'seat-reservation', type: Object })
@@ -63,6 +66,12 @@ export class SeatReservationBaseElement extends LitElement {
   protected selectedPlaces: EventEmitter<SeatReservationPlaceSelection[]> = new EventEmitter(
     this,
     SeatReservationBaseElement.events.selectedPlaces,
+  );
+
+  /** Emits when a coach was selected by user. */
+  protected selectedCoach: EventEmitter<SeatReservationCoachSelection> = new EventEmitter(
+    this,
+    SeatReservationBaseElement.events.selectedCoach,
   );
 
   protected coachBorderPadding = 6;
@@ -159,9 +168,8 @@ export class SeatReservationBaseElement extends LitElement {
               : findScrollCoachIndex;
         }
 
-        this.selectedCoachIndex = this.currSelectedCoachIndex;
-        this.focusedCoachIndex = -1;
         this.preventCoachScrollByPlaceClick = false;
+        this.updateCurrentSelectedCoach();
 
         if (!this.hasNavigation) {
           this.preselectPlaceInCoach();
@@ -293,8 +301,7 @@ export class SeatReservationBaseElement extends LitElement {
           behavior: 'smooth',
         });
       } else {
-        this.selectedCoachIndex = this.currSelectedCoachIndex;
-        this.focusedCoachIndex = -1;
+        this.updateCurrentSelectedCoach();
       }
     }
   }
@@ -665,12 +672,25 @@ export class SeatReservationBaseElement extends LitElement {
     );
 
     if (!place) return;
-
-    this.selectedCoachIndex = coachIndex;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
 
+    if (this.currSelectedCoachIndex !== this.selectedCoachIndex) {
+      this.updateCurrentSelectedCoach();
+    }
+
     this._setCurrSelectedPlaceElementId(place);
+  }
+
+  protected updateCurrentSelectedCoach(): void {
+    this.selectedCoachIndex = this.currSelectedCoachIndex;
+    this.focusedCoachIndex = -1;
+
+    const coachSelection = this._getSeatReservationCoachSelection(this.selectedCoachIndex);
+
+    if (coachSelection) {
+      this.selectedCoach.emit(coachSelection);
+    }
   }
 
   /**
@@ -725,6 +745,14 @@ export class SeatReservationBaseElement extends LitElement {
     return place
       ? mapPlaceAndCoachToSeatReservationPlaceSelection(place, coach, currSelectedPlace.coachIndex)
       : null;
+  }
+
+  private _getSeatReservationCoachSelection(
+    coachIndex: number,
+  ): SeatReservationCoachSelection | null {
+    const coach = this.seatReservation.coachItems[coachIndex];
+
+    return coach ? mapCoachInfosToCoachSelection(coachIndex, coach) : null;
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {
