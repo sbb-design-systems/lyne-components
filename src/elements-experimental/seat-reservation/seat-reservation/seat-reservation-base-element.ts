@@ -302,7 +302,7 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
-   * Sets the focus on the table caption so that the heading is read out when using a ScreenReader
+   * Sets the focus on the HTML table-caption element so that the heading is read out when using a ScreenReader
    */
   private _setFocusToSelectedCoachTable(): void {
     const coachTableCaptionElement = this.shadowRoot?.querySelector(
@@ -528,7 +528,7 @@ export class SeatReservationBaseElement extends LitElement {
           this.focusedCoachIndex = newFocusableIndex;
         }
       }
-      // Only sets the focus on the new navigation couch
+      // Only sets the focus on the new navigation coach
       else if (newFocusableIndex !== this.currSelectedCoachIndex) {
         this.focusedCoachIndex = newFocusableIndex;
       } else {
