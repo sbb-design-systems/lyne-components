@@ -25,14 +25,14 @@ import style from './chip.scss?lit&inline';
  */
 export
 @customElement('sbb-chip')
-class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
+class SbbChipElement<T = string> extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     requestDelete: 'requestDelete',
   } as const;
 
   /** The value of chip. Will be used as label if nothing is slotted. */
-  @forceType() @property() public accessor value: string = '';
+  @property() public accessor value: T | null = null;
 
   /** Whether the component is readonly */
   @forceType()
@@ -80,7 +80,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
       <div class="sbb-chip">
         <div class="sbb-chip__label-wrapper">
           <span class="sbb-chip__label">
-            <slot>${this.value}</slot>
+            <slot>${this.value ?? ''}</slot>
           </span>
         </div>
         <sbb-mini-button

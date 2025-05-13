@@ -265,7 +265,9 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
       // Custom input event emitted when input value changes after an option is selected
-      this.triggerElement.dispatchEvent(new Event('inputAutocomplete'));
+      this.triggerElement.dispatchEvent(
+        new CustomEvent('inputAutocomplete', { detail: { option: target } }),
+      );
       this.triggerElement.focus();
     }
 
@@ -520,5 +522,11 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementEventMap {
+    inputAutocomplete: CustomEvent<{ option: SbbOptionBaseElement<any> }>;
   }
 }
