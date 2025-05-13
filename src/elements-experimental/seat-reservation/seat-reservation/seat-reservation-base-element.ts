@@ -68,6 +68,8 @@ export class SeatReservationBaseElement extends LitElement {
   protected coachBorderPadding = 6;
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected scrollMoveDirection: boolean = true;
+  protected maxCalcCoachsWidth: number = 0;
+  protected scrollCoachsAreaWidth: number = 0;
   protected triggerCoachPositionsCollection: number[][] = [];
   protected firstTabElement: HTMLElement = null!;
   protected lastTabElement: HTMLElement = null!;
@@ -132,29 +134,31 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (this.coachScrollArea) {
       let currCalcTriggerPos = 0;
-      const coachScrollWidth = this.coachScrollArea.getBoundingClientRect().width;
+      this.scrollCoachsAreaWidth = this.coachScrollArea.getBoundingClientRect().width;
 
-      //Precalculate trigger scroll position array depends from coach width
+      // Precalculate trigger scroll position array depends from coach width
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const fromPos = currCalcTriggerPos;
         currCalcTriggerPos += this.getCalculatedDimension(coach.dimension).w;
         return [fromPos, currCalcTriggerPos];
       });
 
-      //Add scroll event listener to coach navigation trigger points
-      this.coachScrollArea.addEventListener('scroll', () => {
-        const scrollOffsetX = this.coachScrollArea.scrollLeft + coachScrollWidth / 3;
-        const selectedCoachIndex = this.triggerCoachPositionsCollection.findIndex(
-          ([triggerPosFrom, triggerPosTo]: number[]) =>
-            scrollOffsetX >= triggerPosFrom && scrollOffsetX <= triggerPosTo,
-        );
+      // Set maximum calculated coach width
+      this.maxCalcCoachsWidth = currCalcTriggerPos;
 
-        if (selectedCoachIndex !== this.currSelectedCoachIndex) {
-          this.currSelectedCoachIndex = selectedCoachIndex;
-        }
-      });
-
+      // At the end of a scroll Events to a coach, the reached wagon is marked as selected
       this.coachScrollArea.addEventListener('scrollend', () => {
+        const findScrollCoachIndex = this._getCoachIndexByScrollTriggerPosition();
+
+        if (this._isScrollableToSelectedCoach()) {
+          this.currSelectedCoachIndex = findScrollCoachIndex;
+        } else {
+          this.currSelectedCoachIndex =
+            findScrollCoachIndex < this.currSelectedCoachIndex
+              ? this.currSelectedCoachIndex
+              : findScrollCoachIndex;
+        }
+
         this.selectedCoachIndex = this.currSelectedCoachIndex;
         this.focusedCoachIndex = -1;
         this.preventCoachScrollByPlaceClick = false;
@@ -281,14 +285,8 @@ export class SeatReservationBaseElement extends LitElement {
       this.scrollMoveDirection = this.currSelectedCoachIndex < selectedNavCoachIndex;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
 
-      // Check the difference between scrolloffset the current selected coach offset.
-      // If scrolloffset diffrence extist we can scroll to position, otherwise we select directly the new coach index
-      //const scrollContainerWidth = this.coachScrollArea.getBoundingClientRect().width;
-
-      //TODO -> Bei großen Bildschirmen ist das scrollen noch nicht korrekt. Es muss hier geprüft werden ob überhaupt gescrollt werden kann, oder ob der selectedCoachIndex direkt gleich gesetz werden muss -> else
-      //const areaScrollable = (scrollContainerWidth + this.coachScrollArea.scrollLeft, scrollToCoachPosX);
-      //if(areaScrollable && scrollToCoachPosX !== this.coachScrollArea.scrollLeft){
-      if (scrollToCoachPosX !== this.coachScrollArea.scrollLeft) {
+      // Checks whether the current scroll position allows scrolling to the next wagon or not
+      if (this._isScrollableToSelectedCoach()) {
         this.coachScrollArea.scrollTo({
           top: 0,
           left: scrollToCoachPosX,
@@ -311,6 +309,32 @@ export class SeatReservationBaseElement extends LitElement {
     if (coachTableCaptionElement) {
       coachTableCaptionElement.focus();
     }
+  }
+
+  /**
+   * Returns whether the current scrolled position can be used to scroll to the selected wagon
+   * @returns boolean
+   */
+  private _isScrollableToSelectedCoach(): boolean {
+    const coachScrollWindowWidth = this.coachScrollArea.getBoundingClientRect().width;
+    const maxScrollWidthArea = this.maxCalcCoachsWidth - coachScrollWindowWidth;
+    return (
+      this.coachScrollArea.scrollLeft < maxScrollWidthArea ||
+      this.coachScrollArea.scrollLeft >
+        this.triggerCoachPositionsCollection[this.currSelectedCoachIndex][0]
+    );
+  }
+
+  /**
+   * Returns the coach index which is currently visible in the scroll area
+   * @returns number
+   */
+  private _getCoachIndexByScrollTriggerPosition(): number {
+    const scrollOffsetX = this.coachScrollArea.scrollLeft + this.scrollCoachsAreaWidth / 4;
+    return this.triggerCoachPositionsCollection.findIndex(
+      ([triggerPosFrom, triggerPosTo]: number[]) =>
+        scrollOffsetX >= triggerPosFrom && scrollOffsetX <= triggerPosTo,
+    );
   }
 
   /**

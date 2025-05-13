@@ -43,7 +43,7 @@ describe(`sbb-calendar`, () => {
   describe('horizontal', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
+        html`<sbb-calendar now="2023-01-10" selected="2023-01-15"></sbb-calendar>`,
       );
     });
 
@@ -87,7 +87,7 @@ describe(`sbb-calendar`, () => {
     });
 
     it('sets max and next month button gets disabled', async () => {
-      element.max = 1674946800;
+      element.max = new Date('2023-01-29');
       await waitForLitRender(element);
 
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
@@ -106,7 +106,7 @@ describe(`sbb-calendar`, () => {
     });
 
     it('sets min and previous month button gets disabled', async () => {
-      element.min = 1673737200;
+      element.min = new Date('2023-01-15');
       await waitForLitRender(element);
 
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
@@ -145,7 +145,7 @@ describe(`sbb-calendar`, () => {
     it("clicks on disabled day and doesn't change selection", async () => {
       const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
 
-      element.max = 1674946800;
+      element.max = new Date('2023-01-29');
       await waitForLitRender(element);
 
       const day = element.shadowRoot!.querySelector('button[value="2023-01-30"]') as HTMLElement;
@@ -255,7 +255,7 @@ describe(`sbb-calendar`, () => {
     });
 
     it('opens month view with selected date', async () => {
-      element.selected = '2017-01-22';
+      element.selected = new Date('2017-01-22');
       element.view = 'month';
       await waitForLitRender(element);
 
@@ -266,7 +266,7 @@ describe(`sbb-calendar`, () => {
 
     it('opens month view with current date', async () => {
       element.selected = null;
-      element.now = '2022-08-15';
+      element.now = new Date('2022-08-15');
       element.view = 'month';
       await waitForLitRender(element);
 
@@ -414,8 +414,8 @@ describe(`sbb-calendar`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar
-          now="1673348400"
-          selected="1673744400"
+          now="2023-01-10"
+          selected="2023-01-15"
           orientation="vertical"
         ></sbb-calendar>`,
       );
@@ -511,11 +511,7 @@ describe(`sbb-calendar`, () => {
 
   it('renders with min and max', async () => {
     const page: HTMLElement = await fixture(
-      html`<sbb-calendar
-        selected="2023-01-20T00:00:00"
-        min="2023-01-09T00:00:00"
-        max="2023-01-29T00:00:00"
-      ></sbb-calendar>`,
+      html`<sbb-calendar selected="2023-01-20" min="2023-01-09" max="2023-01-29"></sbb-calendar>`,
     );
 
     const buttonPrevDay = page.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
@@ -552,7 +548,7 @@ describe(`sbb-calendar`, () => {
 
     it('changes to year and month selection views', async () => {
       element = await fixture(
-        html`<sbb-calendar now="1673348400" selected="1673744400" wide></sbb-calendar>`,
+        html`<sbb-calendar now="2023-01-10" selected="2023-01-15" wide></sbb-calendar>`,
       );
 
       // Open year selection
@@ -631,7 +627,7 @@ describe(`sbb-calendar`, () => {
     describe('keyboard navigation', () => {
       beforeEach(async () => {
         element = await fixture(
-          html`<sbb-calendar now="1738281600" selected="1738281600" wide></sbb-calendar>`,
+          html`<sbb-calendar now="2025-01-31" selected="2025-01-31" wide></sbb-calendar>`,
         );
       });
 
@@ -710,8 +706,8 @@ describe(`sbb-calendar`, () => {
       beforeEach(async () => {
         element = await fixture(
           html`<sbb-calendar
-            now="1738108800"
-            selected="1738108800"
+            now="2025-01-29"
+            selected="2025-01-29"
             orientation="vertical"
             wide
           ></sbb-calendar>`,
@@ -787,7 +783,7 @@ describe(`sbb-calendar`, () => {
   describe('keyboard navigation for year view', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar now="1673348400" selected="1673744400"></sbb-calendar>`,
+        html`<sbb-calendar now="2023-01-10" selected="2023-01-15"></sbb-calendar>`,
       );
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
@@ -907,7 +903,7 @@ describe(`sbb-calendar`, () => {
   describe('date filter applied', () => {
     // selected date is 2025-01-22, Wednesday
     beforeEach(async () => {
-      element = await fixture(html`<sbb-calendar selected="1737504000"></sbb-calendar>`);
+      element = await fixture(html`<sbb-calendar selected="2025-01-22"></sbb-calendar>`);
     });
 
     it('focus the first available day if the selected date is disabled by dateFilter', async () => {

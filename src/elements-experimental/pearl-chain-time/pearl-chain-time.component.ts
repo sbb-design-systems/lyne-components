@@ -6,7 +6,6 @@ import {
   i18nDeparture,
   i18nTransferProcedures,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
-import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces/types';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -71,9 +70,12 @@ class SbbPearlChainTimeElement extends LitElement {
   @property({ attribute: 'a11y-footpath', type: Boolean })
   public accessor a11yFootpath: boolean = false;
 
-  /** A configured date which acts as the current date instead of the real current date. Recommended for testing purposes. */
+  /**
+   * A configured date which acts as the current date instead of the real current date.
+   * Only recommended for testing purposes.
+   */
   @property()
-  public set now(value: SbbDateLike | undefined) {
+  public set now(value: Date | undefined) {
     this._now = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
   }
   public get now(): Date {
