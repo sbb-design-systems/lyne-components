@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -6,7 +6,7 @@ import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } fro
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, hostAttributes, slotState } from '../core/decorators.js';
-import { isFirefox, isLean, isZeroAnimationDuration } from '../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
@@ -72,25 +72,32 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
 
-  /**
-   * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
-   * JAWS does not read out aria-live message.
-   */
-  private get _role(): 'status' | 'alert' | undefined {
-    if (!isFirefox) {
-      return;
-    }
-
-    if (this.politeness === 'polite') {
-      return 'status';
-    } else if (this.politeness === 'assertive') {
-      return 'alert';
-    }
-  }
-
   public constructor() {
     super();
     this.addEventListener?.('click', (e) => this._onClick(e));
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Add this toast to the global collection
+    toastRefs.add(this);
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    clearTimeout(this._closeTimeout);
+
+    // Remove this instance
+    toastRefs.delete(this);
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('politeness')) {
+      this.setAttribute('aria-live', this.politeness);
+    }
   }
 
   /**
@@ -115,10 +122,6 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     if (this._isZeroAnimationDuration()) {
       this._handleOpening();
     }
-  }
-
-  private _isZeroAnimationDuration(): boolean {
-    return isZeroAnimationDuration(this, '--sbb-toast-animation-duration');
   }
 
   /**
@@ -167,19 +170,8 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Add this toast to the global collection
-    toastRefs.add(this);
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    clearTimeout(this._closeTimeout);
-
-    // Remove this instance
-    toastRefs.delete(this);
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-toast-animation-duration');
   }
 
   /**
@@ -245,15 +237,10 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-toast__overlay-container">
-        ${/* Firefox needs 'role' to enable screen readers */ ''}
-        <div
-          class="sbb-toast"
-          role=${this._role ?? nothing}
-          @animationend=${this._onToastAnimationEnd}
-        >
+        <div class="sbb-toast" @animationend=${this._onToastAnimationEnd}>
           <div class="sbb-toast__icon">${this.renderIconSlot()}</div>
 
-          <div class="sbb-toast__content" aria-live=${this.politeness}>
+          <div class="sbb-toast__content">
             <slot @slotchange=${this._onContentSlotChange}></slot>
           </div>
 
