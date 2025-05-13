@@ -9,6 +9,7 @@
   // With sbb-form-field[width="collapsed"], the default min width of a
   // an inline element is basically nothing (except potentially the placeholder).
   // Due to this, we set a minimum width for the time input element.
+  // We also cannot use width, as the form field overwrites that property.
   min-width: var(--sbb-time-input-max-width);
 
   // The time input also has a very specific dimension, so we also set the maximum width.
