@@ -45,6 +45,7 @@ describe(`sbb-datepicker ssr`, () => {
         modules: [
           './datepicker.component.js',
           '../../form-field.js',
+          '../../date-input.js',
           '../datepicker-next-day.js',
           '../datepicker-previous-day.js',
           '../datepicker-toggle.js',
