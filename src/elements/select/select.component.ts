@@ -358,10 +358,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
-  private async _onValueChanged(newValue: T | T[]): Promise<void> {
-    // We need to wait for the options to be ready before we can set the value.
-    await this._optionsReady();
-
+  private _onValueChanged(newValue: T | T[]): void {
     const options = this._filteredOptions;
     if (!Array.isArray(newValue)) {
       const optionElement = options.find((o) => o.value === newValue) ?? null;
@@ -877,11 +874,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
   };
 
-  private async _setValueFromSelected(): Promise<void> {
-    // In order to not interfere with onValueChanged(), we need to wait for the options
-    // to be updated, like in onValueChanged().
-    await this._optionsReady();
-
+  private _setValueFromSelected(): void {
     const selected = this._getSelected();
 
     if (Array.isArray(selected)) {
@@ -942,15 +935,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       await this.hydrationComplete;
     }
     return this._displayValue ? html`${this._displayValue}` : placeholder;
-  }
-
-  /**
-   * To interact with the value property, we need to wait for the
-   * options to be ready at certain points.
-   */
-  private async _optionsReady(): Promise<void> {
-    await customElements.whenDefined('sbb-option');
-    await Promise.all(this._options.map((o) => o.updateComplete));
   }
 
   protected override render(): TemplateResult {
