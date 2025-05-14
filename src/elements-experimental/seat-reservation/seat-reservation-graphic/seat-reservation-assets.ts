@@ -208,9 +208,9 @@ const layoutItemsTable = html`
         <td>TOILET_AREA</td>
       </tr>
       <tr>
-        <td>${svgImageByOSDMCode('WHEELCHAIR_TOILET_AREA')}</td>
+        <td>${svgImageByOSDMCode('TOILET_WHEELCHAIR_AREA')}</td>
         <td>Toilet-Handicap</td>
-        <td>WHEELCHAIR_TOILET_AREA</td>
+        <td>TOILET_WHEELCHAIR_AREA</td>
       </tr>
       <tr>
         <td>${svgImageByOSDMCode('WARDROBE_AREA')}</td>
@@ -295,11 +295,11 @@ const serviceIconTable = html`
         <tr>
           <td>
             <sbb-seat-reservation-graphic
-              name="WHEELCHAIR_TOILET_AREA"
+              name="TOILET_WHEELCHAIR_AREA"
             ></sbb-seat-reservation-graphic>
           </td>
           <td>Toilet-PRM</td>
-          <td>WHEELCHAIR_TOILET_AREA</td>
+          <td>TOILET_WHEELCHAIR_AREA</td>
         </tr>
         <tr>
           <td>
