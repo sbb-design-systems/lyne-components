@@ -1,8 +1,9 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-toast renders Chrome-Safari DOM"] = 
+snapshots["sbb-toast renders DOM"] = 
 `<sbb-toast
+  aria-live="polite"
   data-slot-names="unnamed"
   data-state="closed"
   dismissible=""
@@ -11,13 +12,13 @@ snapshots["sbb-toast renders Chrome-Safari DOM"] =
   position="bottom-center"
 >
   <span>
-    'Lorem ipsum dolor'
+    Lorem ipsum dolor
   </span>
 </sbb-toast>
 `;
-/* end snapshot sbb-toast renders Chrome-Safari DOM */
+/* end snapshot sbb-toast renders DOM */
 
-snapshots["sbb-toast renders Chrome-Safari Shadow DOM"] = 
+snapshots["sbb-toast renders Shadow DOM"] = 
 `<div class="sbb-toast__overlay-container">
   <div class="sbb-toast">
     <div class="sbb-toast__icon">
@@ -31,10 +32,7 @@ snapshots["sbb-toast renders Chrome-Safari Shadow DOM"] =
         </sbb-icon>
       </slot>
     </div>
-    <div
-      aria-live="polite"
-      class="sbb-toast__content"
-    >
+    <div class="sbb-toast__content">
       <slot>
       </slot>
     </div>
@@ -58,7 +56,7 @@ snapshots["sbb-toast renders Chrome-Safari Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-toast renders Chrome-Safari Shadow DOM */
+/* end snapshot sbb-toast renders Shadow DOM */
 
 snapshots["sbb-toast renders A11y tree Chrome"] = 
 `<p>
@@ -70,9 +68,20 @@ snapshots["sbb-toast renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toast renders A11y tree Chrome */
 
-snapshots["sbb-toast renders Firefox DOM"] = 
+snapshots["sbb-toast renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-toast renders A11y tree Firefox */
+
+snapshots["sbb-toast renders with action DOM"] = 
 `<sbb-toast
-  data-slot-names="unnamed"
+  aria-live="polite"
+  data-slot-names="action unnamed"
   data-state="closed"
   dismissible=""
   icon-name="circle-tick-small"
@@ -80,18 +89,29 @@ snapshots["sbb-toast renders Firefox DOM"] =
   position="bottom-center"
 >
   <span>
-    'Lorem ipsum dolor'
+    Lorem ipsum dolor
   </span>
+  <sbb-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
+    data-slot-names="unnamed"
+    href="https://www.sbb.ch"
+    negative=""
+    sbb-toast-close=""
+    size="s"
+    slot="action"
+    target="_blank"
+  >
+    Link action
+  </sbb-link>
 </sbb-toast>
 `;
-/* end snapshot sbb-toast renders Firefox DOM */
+/* end snapshot sbb-toast renders with action DOM */
 
-snapshots["sbb-toast renders Firefox Shadow DOM"] = 
+snapshots["sbb-toast renders with action Shadow DOM"] = 
 `<div class="sbb-toast__overlay-container">
-  <div
-    class="sbb-toast"
-    role="status"
-  >
+  <div class="sbb-toast">
     <div class="sbb-toast__icon">
       <slot name="icon">
         <sbb-icon
@@ -103,10 +123,7 @@ snapshots["sbb-toast renders Firefox Shadow DOM"] =
         </sbb-icon>
       </slot>
     </div>
-    <div
-      aria-live="polite"
-      class="sbb-toast__content"
-    >
+    <div class="sbb-toast__content">
       <slot>
       </slot>
     </div>
@@ -130,15 +147,5 @@ snapshots["sbb-toast renders Firefox Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-toast renders Firefox Shadow DOM */
-
-snapshots["sbb-toast renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-toast renders A11y tree Firefox */
+/* end snapshot sbb-toast renders with action Shadow DOM */
 
