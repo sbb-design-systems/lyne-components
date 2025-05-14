@@ -184,7 +184,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
 
     if (slotNodes.some((el) => el.nodeType === Node.TEXT_NODE)) {
       const span = document.createElement('span');
-      this.appendChild(span);
+      this.prepend(span);
       span.append(...slotNodes);
     }
   }
