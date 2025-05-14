@@ -7,6 +7,7 @@
   --sbb-optgroup-divider-display: block;
   --sbb-optgroup-divider-spacing: 0;
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
   --sbb-optgroup-label-color: var(--sbb-color-metal);
@@ -30,6 +31,15 @@
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
 }
 
+:host([data-size='s']) {
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+}
+
+:host([data-size='s']:first-child) {
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
+}
+
 :host([data-negative]) {
   --sbb-optgroup-label-color: var(--sbb-color-smoke);
 }
@@ -47,7 +57,7 @@
   color: var(--sbb-optgroup-label-color);
   -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
-  padding-block: var(--sbb-optgroup-label-padding-start) var(--sbb-spacing-fixed-2x);
+  padding-block: var(--sbb-optgroup-label-padding-start) var(--sbb-optgroup-label-padding-end);
 
   :host([data-variant='select'][data-multiple]) & {
     @include sbb.text-xs--regular;

@@ -150,6 +150,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     super.connectedCallback();
     this._registerInputListener();
     this._syncNegative();
+    this._syncSize();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -157,6 +158,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
     if (changedProperties.has('negative')) {
       this._syncNegative();
+    }
+    if (changedProperties.has('size')) {
+      this._syncSize();
     }
   }
 
@@ -513,6 +517,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this.querySelectorAll?.(
       'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
+  }
+
+  private _syncSize(): void {
+    this.querySelectorAll?.('sbb-autocomplete,sbb-autocomplete-grid').forEach((element) =>
+      element.setAttribute('data-size', this.size),
+    );
   }
 
   protected override render(): TemplateResult {

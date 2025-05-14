@@ -35,6 +35,10 @@
   --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
 }
 
+:host([data-size='s']) {
+  --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);
+}
+
 :host(:hover:not([disabled], [data-group-disabled])) {
   @include sbb.hover-mq($hover: true) {
     --sbb-option-background-color: var(--sbb-option-background-color-hover);
