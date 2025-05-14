@@ -38,7 +38,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   /**
    * The value of the date input. Reflects the current text value
    * of this input.
-   * @attr Accepts ISO8601 formatted values, which will be
+   * The attribute `value` Accepts ISO8601 formatted values, which will be
    * formatted according to the current locale.
    */
   public override set value(value: string) {
