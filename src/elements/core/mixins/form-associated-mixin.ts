@@ -49,11 +49,10 @@ if (typeof ValidityState === 'undefined') {
   globalThis.ValidityState = validityClass as unknown as typeof ValidityState;
 }
 
-export declare abstract class SbbFormAssociatedMixinType<V = string> {
+export declare abstract class SbbFormAssociatedMixinType {
   public get form(): HTMLFormElement | null;
   public accessor name: string;
   public get type(): string;
-  public accessor value: V | null;
 
   public get validity(): ValidityState;
   public get validationMessage(): string;
@@ -89,12 +88,12 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>, V = string>(
+export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): AbstractConstructor<SbbFormAssociatedMixinType<V>> & T => {
+): AbstractConstructor<SbbFormAssociatedMixinType> & T => {
   abstract class SbbFormAssociatedElement
     extends superClass
-    implements Partial<SbbFormAssociatedMixinType<V>>
+    implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
 
@@ -126,17 +125,6 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     public get type(): string {
       return this.localName;
     }
-
-    /** Value of the form element. */
-    @property()
-    public set value(value: V | null) {
-      this._value = value;
-      this.updateFormValue();
-    }
-    public get value(): V | null {
-      return this._value;
-    }
-    private _value: V | null = null;
 
     /**
      * Returns the ValidityState object for this element.
@@ -274,6 +262,9 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       options?: PropertyDeclaration,
     ): void {
       super.requestUpdate(name, oldValue, options);
+      if (name === 'value') {
+        this.updateFormValue();
+      }
       if (this.hasUpdated && this.shouldValidate(name)) {
         this.validate();
       }
@@ -381,8 +372,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       }
     }
   }
-  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType<V>> &
-    T;
+  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType> & T;
 };
 
 /**
@@ -390,7 +380,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
  * state is a `FormData` object, its entry list of name and values will be
  * provided.
  */
-export type FormRestoreState = File | string | [string, FormDataEntryValue][];
+export type FormRestoreState = string | FormData | File;
 
 /**
  * The reason a form component is being restored for, either `'restore'` for
