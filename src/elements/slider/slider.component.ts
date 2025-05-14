@@ -40,18 +40,19 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    * If no value is provided, default is the middle point between min and max.
    */
   @property()
-  public override set value(value: string | null) {
+  public set value(value: string | null) {
     if (this._isValidNumber(value)) {
-      super.value = this._boundBetweenMinMax(value!);
+      this._value = this._boundBetweenMinMax(value!);
     } else {
-      super.value = this._getDefaultValue();
+      this._value = this._getDefaultValue();
     }
     this.internals.ariaValueNow = this.value;
     this._calculateValueFraction();
   }
-  public override get value(): string {
-    return super.value!;
+  public get value(): string {
+    return this._value;
   }
+  private _value: string = this._getDefaultValue();
 
   /** Numeric value for the inner HTMLInputElement. */
   @property({ attribute: 'value-as-number', type: Number })
