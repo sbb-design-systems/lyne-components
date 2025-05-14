@@ -21,16 +21,6 @@ describe(`sbb-datepicker ssr`, () => {
   beforeEach(async function () {
     // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
     this.timeout(20000);
-    root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
-      modules: ['./datepicker.component.js'],
-    });
-  });
-
-  it('renders', async () => {
-    assert.instanceOf(root, SbbDatepickerElement);
-  });
-
-  it('should render full datepicker component set', async () => {
     root = await ssrHydratedFixture(
       html`
         <sbb-form-field>
@@ -52,8 +42,12 @@ describe(`sbb-datepicker ssr`, () => {
         ],
       },
     );
+  });
 
+  it('should render full datepicker component set', async () => {
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+    assert.instanceOf(datepicker, SbbDatepickerElement);
+
     expect(asIso8601(datepicker.valueAsDate!)).to.equal(asIso8601(new Date(2023, 0, 1)));
 
     const datepickerToggle =
