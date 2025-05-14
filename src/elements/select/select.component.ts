@@ -469,8 +469,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this.value.forEach((el) => {
         (formValue as FormData).append(
           this.name,
-          typeof el === 'string' || typeof el === 'number'
-            ? `${el}`
+          typeof el === 'string'
+            ? el
             : new Blob([JSON.stringify(el)], {
                 type: 'application/json',
               }),
@@ -478,8 +478,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       });
     } else if (typeof this.value === 'string' || this.value === null) {
       formValue = this.value as string | null;
-    } else if (typeof this.value === 'number') {
-      formValue = `${this.value}`;
     } else {
       formValue.append(
         this.name,

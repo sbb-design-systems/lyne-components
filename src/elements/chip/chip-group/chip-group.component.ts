@@ -201,8 +201,8 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     this.value.forEach((el) => {
       data.append(
         this.name,
-        typeof el === 'string' || typeof el === 'number'
-          ? `${el}`
+        typeof el === 'string'
+          ? el
           : new Blob([JSON.stringify(el)], {
               type: 'application/json',
             }),
