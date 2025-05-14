@@ -114,7 +114,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           <input
             id="first-tab-element"
             type="text"
-            aria-label="Beginn der Grafische Sitzplatzreservierung"
+            aria-label="${getI18nSeatReservation('SEAT_RESERVATION_BEGIN', this._language.current)}"
             role="contentinfo"
             readonly
           />
@@ -142,7 +142,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           <input
             id="last-tab-element"
             type="input"
-            aria-label="Verlassen der Grafische Sitzplatzreservierung"
+            aria-label="${getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)}"
             role="contentinfo"
             readonly
           />

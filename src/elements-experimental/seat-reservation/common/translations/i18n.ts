@@ -24,6 +24,18 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: "Liste de tous les wagons avec des places réservables. Vous pouvez activer la navigation par touches en appuyant sur la touche 's', puis vous pouvez naviguer avec les flèches entre les sièges du wagon.",
     it: "Elenco di tutti i vagoni con posti riservabili. Puoi attivare la navigazione con tasti premendo il tasto 's', poi puoi navigare tra i posti del vagone con i tasti freccia.",
   },
+  SEAT_RESERVATION_BEGIN: {
+    de: 'Beginn der Grafische Sitzplatzreservierung',
+    en: 'en:Beginn der Grafische Sitzplatzreservierung',
+    fr: 'fr:Beginn der Grafische Sitzplatzreservierung',
+    it: 'it:Beginn der Grafische Sitzplatzreservierung',
+  },
+  SEAT_RESERVATION_END: {
+    de: 'Verlassen der Grafische Sitzplatzreservierung',
+    en: 'en:Verlassen der Grafische Sitzplatzreservierung',
+    fr: 'fr:Verlassen der Grafische Sitzplatzreservierung',
+    it: 'it:Verlassen der Grafische Sitzplatzreservierung',
+  },
 
   // NAVIGATION
   NAVIGATE_TO_COACH: {
@@ -31,12 +43,6 @@ const i18nObjects: Record<string, Record<string, string>> = {
     en: 'Navigate to train compartment _param0_',
     fr: 'Naviguer vers le compartiment de train _param0_',
     it: 'Naviga verso il compartimento del treno _param0_',
-  },
-  NAVIGATION_COACH_SERVICE_AVAILABLE: {
-    de: 'Verfügbare Services: ',
-    en: 'Verfügbare Services: ',
-    fr: 'fr:Verfügbare Services: ',
-    it: 'it:Verfügbare Services: ',
   },
   NAVIGATE_TO_COACH_SERVICE_CLASS_SUB: {
     de: ' mit _param0_ Abteil',
@@ -203,16 +209,16 @@ const i18nObjects: Record<string, Record<string, string>> = {
     it: 'it:Multifunction area',
   },
   PLAYGROUND_AREA: {
-    de: 'Familienbereich',
-    en: 'Family area',
-    fr: 'fr:Family area',
-    it: 'it:Family area',
+    de: 'Familienwagen',
+    en: 'Family car',
+    fr: 'Voiture familiale',
+    it: 'Auto familiare',
   },
   PLAYGROUND_ICON: {
-    de: 'Familienbereich',
-    en: 'Family area',
-    fr: 'fr:Family area',
-    it: 'it:Family area',
+    de: 'Familienwagen',
+    en: 'Family car',
+    fr: 'Voiture familiale',
+    it: 'Auto familiare',
   },
   PRAM: {
     de: 'Kinderwagenbereich',
@@ -270,37 +276,37 @@ const i18nObjects: Record<string, Record<string, string>> = {
   },
   SKI_AREA: {
     de: 'Ski Bereich',
-    en: 'Ski area',
+    en: 'en: Ski area',
     fr: 'fr:Ski area',
     it: 'it:Ski area',
   },
   SKI_ICON: {
     de: 'Ski Bereich',
-    en: 'Ski area',
+    en: 'en: Ski area',
     fr: 'fr:Ski area',
     it: 'it:Ski area',
   },
   STAIR_AREA: {
     de: 'Treppenbereich',
-    en: 'Stair area',
+    en: 'en: Stair area',
     fr: 'fr:Stair area',
     it: 'it:Stair area',
   },
   TOILET_AREA: {
     de: 'Toilettenbereich',
-    en: 'Toilet area',
+    en: 'en: Toilet area',
     fr: 'fr:Toilet area',
     it: 'it:Toilet area',
   },
   TOILET_ICON: {
     de: 'Toilettenbereich',
-    en: 'Toilet area',
+    en: 'en: Toilet area',
     fr: 'fr:Toilet area',
     it: 'it:Toilet area',
   },
   TOILET_WHEELCHAIR_AREA: {
     de: 'Rollstuhl Toilettenbereich',
-    en: 'Wheelchair toilet area',
+    en: 'en: Wheelchair toilet area',
     fr: 'fr:Wheelchair toilet area',
     it: 'it:Wheelchair toilet area',
   },
@@ -350,7 +356,7 @@ const i18nObjects: Record<string, Record<string, string>> = {
   //ADDITIONAL INFO FOR SEATS
   AISLE_SEAT: {
     de: 'Gangplatz',
-    en: 'Aisle seat',
+    en: 'en: Aisle seat',
     fr: 'fr:Aisle seat',
     it: 'it:Aisle seat',
   },
