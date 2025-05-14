@@ -1,7 +1,7 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../decorators.js';
+import { forceType, hostAttributes } from '../decorators.js';
 import { isEventPrevented } from '../eventing.js';
 import {
   type FormRestoreReason,
@@ -22,6 +22,11 @@ export
 })
 abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
   private readonly _elementsOnWhichEnterPressTriggersSubmit = ['input', 'sbb-date-input'];
+
+  /** Value of the form element. */
+  @forceType()
+  @property()
+  public accessor value: string = '';
 
   /**
    * The type attribute to use for the button.
