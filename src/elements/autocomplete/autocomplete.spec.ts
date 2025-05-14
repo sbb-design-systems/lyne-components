@@ -71,6 +71,21 @@ describe(`sbb-autocomplete`, () => {
     );
   });
 
+  it('should have synced data-size attribute', async () => {
+    expect(element.getAttribute('data-size')).not.to.be.null;
+    expect(element.getAttribute('data-size')).to.be.equal('m');
+    element.querySelectorAll<SbbOptionElement>('sbb-option').forEach((opt) => {
+      expect(opt.getAttribute('data-size')).to.be.equal('m');
+    });
+
+    formField.size = 's';
+    await waitForLitRender(formField);
+    expect(element.getAttribute('data-size')).to.be.equal('s');
+    element.querySelectorAll<SbbOptionElement>('sbb-option').forEach((opt) => {
+      expect(opt.getAttribute('data-size')).to.be.equal('s');
+    });
+  });
+
   it('opens and closes with mouse and keyboard', async () => {
     const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen, element);
     const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
