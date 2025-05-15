@@ -43,6 +43,10 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
+:host(:is([data-sbb-menu-trigger])) {
+  --sbb-menu-action-cursor: default;
+}
+
 :host([data-button]) {
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: ButtonText;
