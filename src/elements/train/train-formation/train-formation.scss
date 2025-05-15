@@ -34,6 +34,10 @@
     color: var(--sbb-train-formation-text-color);
   }
 
+  &:focus-visible {
+    @include sbb.focus-outline;
+  }
+
   // Enable inline padding
   &::before,
   &::after {
