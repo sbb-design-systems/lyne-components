@@ -1,17 +1,18 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-sticky-bar renders DOM"] = 
+snapshots["sbb-sticky-bar renders DOM"] =
 `<sbb-sticky-bar
   data-initialized=""
   data-state="sticky"
+  size="m"
   slot="sticky-bar"
 >
 </sbb-sticky-bar>
 `;
 /* end snapshot sbb-sticky-bar renders DOM */
 
-snapshots["sbb-sticky-bar renders Shadow DOM"] = 
+snapshots["sbb-sticky-bar renders Shadow DOM"] =
 `<div class="sbb-sticky-bar__wrapper">
   <div class="sbb-sticky-bar">
     <slot>
@@ -23,7 +24,7 @@ snapshots["sbb-sticky-bar renders Shadow DOM"] =
 `;
 /* end snapshot sbb-sticky-bar renders Shadow DOM */
 
-snapshots["sbb-sticky-bar renders A11y tree Chrome"] = 
+snapshots["sbb-sticky-bar renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -33,7 +34,7 @@ snapshots["sbb-sticky-bar renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-sticky-bar renders A11y tree Chrome */
 
-snapshots["sbb-sticky-bar renders A11y tree Firefox"] = 
+snapshots["sbb-sticky-bar renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
