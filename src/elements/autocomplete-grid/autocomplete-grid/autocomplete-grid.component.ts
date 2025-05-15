@@ -71,12 +71,6 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
     ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }
 
-  protected syncSize(): void {
-    this.querySelectorAll?.<SbbAutocompleteGridOptionElement | SbbOptGroupElement>(
-      'sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
-    ).forEach((element) => element.setAttribute('data-size', this.dataset.size!));
-  }
-
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this.state !== 'opened') {
       return;

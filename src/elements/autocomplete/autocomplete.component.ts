@@ -55,12 +55,6 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
     ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }
 
-  protected syncSize(): void {
-    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((element) => element.setAttribute('data-size', this.dataset.size!));
-  }
-
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this.state !== 'opened') {
       return;

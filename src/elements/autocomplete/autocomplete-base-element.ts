@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
@@ -114,7 +113,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         }
       })
     : null;
-
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
   private _triggerAbortController!: AbortController;
@@ -123,25 +121,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
 
   protected abstract get options(): SbbOptionBaseElement[];
-
-  public constructor() {
-    super();
-    this.addController(
-      new MutationController(this, {
-        config: { attributeFilter: ['data-size'] },
-        callback: (mutationsList) => {
-          for (const mutation of mutationsList) {
-            if (mutation.attributeName === 'data-size') {
-              this.syncSize();
-            }
-          }
-        },
-      }),
-    );
-  }
-
   protected abstract syncNegative(): void;
-  protected abstract syncSize(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
@@ -219,7 +199,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     if (formField) {
       this.negative = formField.hasAttribute('negative');
-      this.syncSize();
     }
 
     if (this.hasUpdated) {
