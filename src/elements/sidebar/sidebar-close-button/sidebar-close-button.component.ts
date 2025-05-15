@@ -13,6 +13,7 @@ import style from './sidebar-close-button.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the sidebar-close-button. Not intended to be used in this context.
  * @slot icon - Slot used to display the icon, if one is set. Not intended to be used in this context.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-sidebar-close-button')

@@ -16,6 +16,7 @@ import style from './toggle-check.scss?lit&inline';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-toggle-check')

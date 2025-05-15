@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbButtonLikeBaseElement } from '../../core/base-elements.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
@@ -27,17 +27,24 @@ export type SbbTagSize = 's' | 'm';
  * @event {CustomEvent<void>} input - Input event emitter
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Change event emitter
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-tag')
 @slotState()
-class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)) {
+class SbbTagElement<T = string> extends SbbIconNameMixin(
+  SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',
     change: 'change',
   } as const;
+
+  /** Value of the form element. */
+  @property()
+  public override accessor value: T | null = null;
 
   /** Amount displayed inside the tag. */
   @forceType()
@@ -143,10 +150,14 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
 
   protected override updateFormValue(): void {
     if (this.checked) {
-      this.internals.setFormValue(this.value, `${this.checked}`);
+      super.updateFormValue();
     } else {
       this.internals.setFormValue(null);
     }
+  }
+
+  protected override formState(): FormRestoreState {
+    return `${this.checked}`;
   }
 
   protected override renderTemplate(): TemplateResult {

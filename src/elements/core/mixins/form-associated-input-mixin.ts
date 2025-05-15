@@ -353,10 +353,6 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
-    protected override updateFormValue(): void {
-      this.internals.setFormValue(this.value, this.value);
-    }
-
     protected override shouldValidate(name: PropertyKey | undefined): boolean {
       return super.shouldValidate(name) || name === 'value' || name === 'required';
     }

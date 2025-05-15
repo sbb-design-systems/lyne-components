@@ -76,7 +76,8 @@ export declare abstract class SbbFormAssociatedMixinType {
     reason: FormRestoreReason,
   ): void;
 
-  protected abstract updateFormValue(): void;
+  protected updateFormValue(): void;
+  protected formState?(): FormRestoreState;
   protected setValidityFlag<T extends keyof ValidityStateFlags>(
     flag: T,
     message: string,
@@ -99,6 +100,9 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
+
+    public abstract get value(): unknown;
+    public abstract set value(value: unknown);
 
     /**
      * Returns the form owner of this element.
@@ -283,7 +287,39 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
      * Adapts and sets the formValue in the supported format (string | FormData | File | null)
      * https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/setFormValue
      */
-    protected abstract updateFormValue(): void;
+    protected updateFormValue(): void {
+      let formValue: FormData | string | null;
+      const name = this.name ?? this.getAttribute('name');
+
+      if (typeof this.value === 'string' || this.value == null) {
+        formValue = this.value as string | null;
+      } else if (Array.isArray(this.value)) {
+        formValue = new FormData();
+        this.value.forEach((el) => {
+          (formValue as FormData).append(
+            name,
+            typeof el === 'string'
+              ? el
+              : new Blob([JSON.stringify(el)], {
+                  type: 'application/json',
+                }),
+          );
+        });
+      } else {
+        formValue = new FormData();
+        formValue.append(
+          name,
+          new Blob([JSON.stringify(this.value)], {
+            type: 'application/json',
+          }),
+        );
+      }
+
+      // If the form state is undefined then form value will be copied to state.
+      this.internals.setFormValue(formValue, this.formState?.());
+    }
+
+    protected formState?(): FormRestoreState;
 
     /**
      * Marks this element as suffering from the constraint indicated by the

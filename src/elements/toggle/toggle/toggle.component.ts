@@ -27,6 +27,7 @@ import style from './toggle.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-toggle')
@@ -170,10 +171,6 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     // In order to avoid a transition glitch, we have to know when the first values were set.
     this.toggleAttribute('data-initialized', true);
-  }
-
-  protected updateFormValue(): void {
-    this.internals.setFormValue(this.value);
   }
 
   private _updateToggle(): void {

@@ -459,34 +459,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._openPanelEventsController?.abort();
   }
 
-  protected override updateFormValue(): void {
-    let formValue: FormData | string | null = new FormData();
-
-    if (this.multiple && Array.isArray(this.value)) {
-      this.value.forEach((el) => {
-        (formValue as FormData).append(
-          this.name,
-          typeof el === 'string'
-            ? el
-            : new Blob([JSON.stringify(el)], {
-                type: 'application/json',
-              }),
-        );
-      });
-    } else if (typeof this.value === 'string' || this.value === null) {
-      formValue = this.value as string | null;
-    } else {
-      formValue.append(
-        this.name,
-        new Blob([JSON.stringify(this.value)], {
-          type: 'application/json',
-        }),
-      );
-    }
-
-    this.internals.setFormValue(formValue);
-  }
-
   /**
    * The reset value is the attribute value (the setup value), null otherwise.
    * @internal

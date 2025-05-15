@@ -7,6 +7,7 @@ import { SbbNavigationActionCommonElementMixin } from '../common.js';
  * It displays a button element that can be used in the `sbb-navigation` component.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-button`.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-navigation-button')

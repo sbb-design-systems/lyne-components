@@ -41,6 +41,7 @@ export type SbbCheckboxPanelStateChange = Extract<
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-checkbox-panel')

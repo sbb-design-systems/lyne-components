@@ -23,6 +23,7 @@ import '../icon.js';
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-slider')
@@ -181,10 +182,6 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     _reason: FormRestoreReason,
   ): void {
     this.value = state as string | null;
-  }
-
-  protected override updateFormValue(): void {
-    this.internals.setFormValue(this.value);
   }
 
   /**

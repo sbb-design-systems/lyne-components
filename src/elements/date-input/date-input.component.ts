@@ -29,6 +29,7 @@ Object.assign(ValidityState.prototype, {
 
 /**
  * Custom input for a date.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-date-input')

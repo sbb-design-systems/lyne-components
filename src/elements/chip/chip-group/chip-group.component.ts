@@ -195,27 +195,8 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     );
   }
 
-  protected updateFormValue(): void {
-    const data = new FormData();
-
-    this.value.forEach((el) => {
-      data.append(
-        this.name,
-        typeof el === 'string'
-          ? el
-          : new Blob([JSON.stringify(el)], {
-              type: 'application/json',
-            }),
-      );
-    });
-
-    this.internals.setFormValue(data);
-    this.validate();
-    this._updateInputDescription();
-  }
-
   protected override shouldValidate(name: PropertyKey | undefined): boolean {
-    return super.shouldValidate(name) || name === 'required';
+    return super.shouldValidate(name) || name === 'required' || name === 'value';
   }
 
   protected override validate(): void {
@@ -279,6 +260,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
     this.toggleAttribute('data-empty', this.value.length === 0);
     this._reactToInputChanges();
+    this._updateInputDescription();
     this.updateFormValue();
   }
 
