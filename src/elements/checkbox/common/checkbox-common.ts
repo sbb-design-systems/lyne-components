@@ -13,7 +13,7 @@ import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
 
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 
-export declare class SbbCheckboxCommonElementMixinType
+export declare abstract class SbbCheckboxCommonElementMixinType
   extends SbbFormAssociatedCheckboxMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {

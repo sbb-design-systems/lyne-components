@@ -45,7 +45,7 @@ export type SbbCheckboxPanelStateChange = Extract<
 export
 @customElement('sbb-checkbox-panel')
 @slotState()
-class SbbCheckboxPanelElement extends SbbPanelMixin(
+class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
@@ -55,6 +55,10 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
   } as const;
+
+  /** Value of the form element. */
+  @property()
+  public override accessor value: T | null = null;
 
   /**
    * Size variant, either m or s.

@@ -26,8 +26,14 @@ import '../../visual-checkbox.js';
 export
 @customElement('sbb-checkbox')
 @slotState()
-class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(SbbIconNameMixin(LitElement)) {
+class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
+  SbbIconNameMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
+
+  /** Value of the form element. */
+  @property()
+  public override accessor value: T | null = null;
 
   /**
    * Size variant, either m, s or xs.

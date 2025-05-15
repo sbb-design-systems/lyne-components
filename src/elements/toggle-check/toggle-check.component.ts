@@ -20,8 +20,14 @@ import style from './toggle-check.scss?lit&inline';
 export
 @customElement('sbb-toggle-check')
 @slotState()
-class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(LitElement)) {
+class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
+  SbbIconNameMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
+
+  /** Value of the form element. */
+  @property()
+  public override accessor value: T | null = null;
 
   /**
    * Size variant, either m, s or xs.

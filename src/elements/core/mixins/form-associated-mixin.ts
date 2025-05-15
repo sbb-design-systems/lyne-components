@@ -8,7 +8,7 @@ import type { AbstractConstructor } from './constructor.js';
 
 declare global {
   /**
-   * Defines custom valididty state properties.
+   * Defines custom validity state properties.
    */
   interface CustomValidityState {}
   interface ValidityState extends CustomValidityState {}
@@ -53,6 +53,9 @@ export declare abstract class SbbFormAssociatedMixinType {
   public get form(): HTMLFormElement | null;
   public accessor name: string;
   public get type(): string;
+
+  public abstract get value(): unknown;
+  public abstract set value(value: unknown);
 
   public get validity(): ValidityState;
   public get validationMessage(): string;

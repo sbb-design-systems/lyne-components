@@ -26,7 +26,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   /** Value of the form element. */
   @forceType()
   @property()
-  public accessor value: string = '';
+  public override accessor value: string = '';
 
   /**
    * The type attribute to use for the button.
