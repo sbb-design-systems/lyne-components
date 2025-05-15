@@ -18,11 +18,11 @@ snapshots["sbb-journey-header renders Shadow DOM"] =
   role="heading"
   visual-level="5"
 >
-  <span class="sbb-journey-header">
+  <span
+    aria-hidden="true"
+    class="sbb-journey-header"
+  >
     <span class="sbb-journey-header__origin">
-      <sbb-screen-reader-only>
-        Connection from
-      </sbb-screen-reader-only>
       A
     </span>
     <sbb-icon
@@ -33,12 +33,12 @@ snapshots["sbb-journey-header renders Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-journey-header__destination">
-      <sbb-screen-reader-only>
-        to
-      </sbb-screen-reader-only>
       B
     </span>
   </span>
+  <sbb-screen-reader-only>
+    Connection from A to B
+  </sbb-screen-reader-only>
 </sbb-title>
 `;
 /* end snapshot sbb-journey-header renders Shadow DOM */
@@ -64,11 +64,11 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"
   role="heading"
   visual-level="4"
 >
-  <span class="sbb-journey-header">
+  <span
+    aria-hidden="true"
+    class="sbb-journey-header"
+  >
     <span class="sbb-journey-header__origin">
-      <sbb-screen-reader-only>
-        Connection from
-      </sbb-screen-reader-only>
       B
     </span>
     <sbb-icon
@@ -79,15 +79,12 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"
     >
     </sbb-icon>
     <span class="sbb-journey-header__destination">
-      <sbb-screen-reader-only>
-        to
-      </sbb-screen-reader-only>
       C
-      <sbb-screen-reader-only>
-        and back to B.
-      </sbb-screen-reader-only>
     </span>
   </span>
+  <sbb-screen-reader-only>
+    Connection from B to C and back to B.
+  </sbb-screen-reader-only>
 </sbb-title>
 `;
 /* end snapshot sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM */
@@ -100,7 +97,7 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree C
   "children": [
     {
       "role": "heading",
-      "name": "Connection from  B  to  C and back to B.",
+      "name": "Connection from B to C and back to B.",
       "level": 1
     }
   ]
@@ -117,7 +114,7 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree F
   "children": [
     {
       "role": "heading",
-      "name": "Connection from  B  to  C and back to B.",
+      "name": "Connection from B to C and back to B.",
       "level": 1
     }
   ]
