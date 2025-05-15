@@ -4,6 +4,7 @@ import type {
   PlaceSelection,
   PlaceTravelClass,
   SeatReservation,
+  SeatReservationCoachSelection,
   SeatReservationPlaceSelection,
   VehicleType,
 } from '../../seat-reservation.js';
@@ -138,5 +139,25 @@ export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
     placeType: place.type,
     placeTravelClass: place.travelClass || 'ANY_CLASS',
     propertyIds: place.propertyIds || [],
+  };
+};
+
+/**
+ * Mapped coach informations to coach selection
+ * @param place
+ * @param coachIndex
+ * @returns PlaceSelection
+ */
+export const mapCoachInfosToCoachSelection = (
+  coachIndex: number,
+  coach: CoachItem,
+): SeatReservationCoachSelection => {
+  return {
+    coachId: coach.id,
+    coachNumber: coach.number,
+    coachIndex: coachIndex,
+    coachType: coach?.type,
+    coachTravelClass: coach?.travelClass,
+    coachPropertyIds: coach?.propertyIds,
   };
 };

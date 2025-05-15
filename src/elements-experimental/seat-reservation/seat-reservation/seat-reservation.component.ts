@@ -29,6 +29,7 @@ import './scoped-components.js';
  * Describe the purpose of the component with a single short sentence.
  *
  * @event {CustomEvent<SeatReservationPlaceSelection>} selectedPlaces - Emits when a place was selected and returns a Place array with all selected places
+ * @event {CustomEvent<SeatReservationCoachSelection>} selectedCoach - Emits when a coach was selected and returns a CoachSelection
  */
 export
 @customElement('sbb-seat-reservation')
@@ -539,8 +540,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
     } else if (selectedNavCoachIndex === this.currSelectedCoachIndex) {
-      this.selectedCoachIndex = this.currSelectedCoachIndex;
-      this.focusedCoachIndex = -1;
+      this.updateCurrentSelectedCoach();
       this.preselectPlaceInCoach();
     }
   }
