@@ -40,7 +40,7 @@ const background: InputType = {
   control: {
     type: 'select',
   },
-  options: ['light', 'dark'],
+  options: ['LIGHT', 'DARK'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -52,10 +52,10 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  width: 6,
-  height: 6,
+  width: 100,
+  height: 50,
   rotation: 0,
-  background: 'dark',
+  background: 'DARK',
   mounting: elementMountingOptions[0],
 };
 
@@ -68,28 +68,28 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const width2Height2: StoryObj = {
+export const width32Height32: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 2, height: 2 },
+  args: { ...defaultArgs, width: 32, height: 32 },
 };
 
-export const width10Height4: StoryObj = {
+export const width160Height64: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 10, height: 4 },
+  args: { ...defaultArgs, width: 160, height: 64 },
 };
 
-export const width4Height4Rotation45Deg: StoryObj = {
+export const width64Height64Rotation45Deg: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 4, height: 4, rotation: 45 },
+  args: { ...defaultArgs, width: 64, height: 64, rotation: 45 },
 };
 
 export const backgroundLight: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, background: 'light' },
+  args: { ...defaultArgs, background: 'LIGHT' },
 };
 
 export const mountingUPPER_BORDER: StoryObj = {

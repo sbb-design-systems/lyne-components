@@ -16,7 +16,7 @@ const svgImage = (src: string): TemplateResult => {
   `;
 };
 
-const svgTmpImage = (src: string, variant: 'light' | 'dark' = 'light'): TemplateResult => {
+const svgTmpImage = (src: string, variant: 'LIGHT' | 'DARK' = 'LIGHT'): TemplateResult => {
   return html`
     <div class="story-asset">
       <p class="story-asset__hint">temporäre Ansicht ... per CSS erstellen</p>
@@ -323,7 +323,7 @@ export const assetsTemplate: TemplateResult = html`
   <h2>Chassis</h2>
   ${chassisTable}
   <h3>Row-Empty</h3>
-  ${svgTmpImage(svgs.chassisTmpRowEmpty, 'dark')}
+  ${svgTmpImage(svgs.chassisTmpRowEmpty, 'DARK')}
   <h2>Interior</h2>
   ${interiorTable}
   <h3>Table</h3>
