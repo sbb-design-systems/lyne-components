@@ -101,28 +101,6 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
       super.attributeChangedCallback(name, old, value);
     }
   }
-
-  /**
-   * Intentionally empty, as buttons are not targeted by form reset
-   * @internal
-   */
-  public override formResetCallback(): void {}
-
-  /**
-   * Intentionally empty, as buttons are not targeted by form restore
-   * @internal
-   */
-  public override formStateRestoreCallback(
-    _state: FormRestoreState | null,
-    _reason: FormRestoreReason,
-  ): void {}
-
-  /**
-   * Intentionally empty, as button does not write its data in form.
-   * The data is only applied on submit button click as submitter of requestSubmit();
-   * @internal
-   */
-  protected override updateFormValue(): void {}
 }
 
 /** Button base class. */
@@ -242,4 +220,26 @@ export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
       }
     }
   };
+
+  /**
+   * Intentionally empty, as buttons are not targeted by form reset
+   * @internal
+   */
+  public override formResetCallback(): void {}
+
+  /**
+   * Intentionally empty, as buttons are not targeted by form restore
+   * @internal
+   */
+  public override formStateRestoreCallback(
+    _state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {}
+
+  /**
+   * Intentionally empty, as button does not write its data in form.
+   * The data is only applied on submit button click as submitter of requestSubmit();
+   * @internal
+   */
+  protected override updateFormValue(): void {}
 }
