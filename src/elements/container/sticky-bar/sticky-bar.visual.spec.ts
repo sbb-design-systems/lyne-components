@@ -26,6 +26,7 @@ function isDark(color: string): boolean {
 describe(`sbb-sticky-bar`, () => {
   const cases = {
     color: [undefined, 'white', 'milk', 'midnight', 'charcoal'],
+    size: ['s', 'm'],
     containerExpanded: [false, true],
     scrolled: [false, true],
   };
@@ -56,7 +57,7 @@ describe(`sbb-sticky-bar`, () => {
   `;
 
   describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
-    describeEach(cases, ({ color, containerExpanded, scrolled }) => {
+    describeEach(cases, ({ color, containerExpanded, scrolled, size }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
@@ -69,7 +70,7 @@ describe(`sbb-sticky-bar`, () => {
               >
                 ${containerContent()} ${containerContent()} ${containerContent()}
                 <p>Content end</p>
-                <sbb-sticky-bar .color=${color}> ${actionGroup()} </sbb-sticky-bar>
+                <sbb-sticky-bar .color=${color} .size=${size}> ${actionGroup()} </sbb-sticky-bar>
               </sbb-container>
             </div>
           `,
