@@ -80,7 +80,7 @@ export const StairAreaWidth2Height2Rotation315: StoryObj = {
 
 export const coachBorderMiddleWidth20Height4Stretch: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, name: 'COACH_BORDER_MIDDLE', stretch: true, width: 20, height: 4 },
+  args: { ...defaultArgs, name: 'COACH_BORDER_MIDDLE', stretch: true, width: 20, height: 128 },
 };
 
 export const availableAssets: StoryObj = {
