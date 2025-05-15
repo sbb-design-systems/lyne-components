@@ -14,7 +14,7 @@ import { ref } from 'lit/directives/ref.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbConnectedAbortController, SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, hostAttributes, idReference } from '../core/decorators.js';
-import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
+import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -73,6 +73,12 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   @forceType()
   @property({ attribute: 'auto-active-first-option', type: Boolean })
   public accessor autoActiveFirstOption: boolean = false;
+
+  /**
+   * Size variant, either m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
