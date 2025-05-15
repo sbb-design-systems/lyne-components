@@ -10,22 +10,19 @@ type SeatReservationIcon = {
 };
 
 export const mapIconToSvg: Record<string, SeatReservationIcon> = {
-  //Service Icons within navigation component
   BICYCLE: { svgName: 'sa-vo' },
-  BICYCLE_LOW: { svgName: 'sa-vo' },
-  BICYCLE_MIDDLE: { svgName: 'sa-vo' },
   BICYCLE_HIGH: { svgName: 'sa-vo' },
+  BICYCLE_HIGH_ICON: { svgName: 'sa-vo' },
+  BICYCLE_ICON: { svgName: 'sa-vo' },
+  BICYCLE_LOW: { svgName: 'sa-vo' },
+  BICYCLE_LOW_ICON: { svgName: 'sa-vo' },
+  BICYCLE_MIDDLE: { svgName: 'sa-vo' },
+  BICYCLE_MIDDLE_ICON: { svgName: 'sa-vo' },
   BISTRO: { svgName: 'sa-mi' },
+  BISTRO_ICON: { svgName: 'sa-mi' },
   BUSINESS: { svgName: 'sa-bz' },
   BUSINESS_COMFORT: { svgName: 'sa-bz' },
-  FAMILY: { svgName: 'sa-fa' },
-  PRAM: { svgName: 'sa-abteilkinderwagen' },
-  RESTAURANT: { svgName: 'sa-wr' },
-  SILENCE: { svgName: 'sa-rz' },
-  WHEELCHAIR: { svgName: 'sa-rs' },
-  WHEELCHAIR_AND_SEAT: { svgName: 'sa-rs' },
-  WHEELCHAIR_NO_SEAT: { svgName: 'sa-rs' },
-  //Service Icons within coach deck layout
+  BUSINESS_ICON: { svgName: 'sa-bz' },
   COACH_BORDER_MIDDLE: { svg: svgs.chassisRowMiddle },
   COACH_BORDER_OUTER: { svg: svgs.chassisRowOuter },
   COACH_PASSAGE: { svg: svgs.chassisPassageWaggonTopLeft },
@@ -35,10 +32,15 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   DRIVER_AREA: { svg: svgs.chassisDriverTrain },
   DRIVER_AREA_FULL_BUS: { svg: svgs.chassisDriverBus },
   DRIVER_AREA_FULL_TRAIN: { svg: svgs.chassisDriverTrainFull },
+  EASY_ACCESS: { svgName: 'sa-em' },
   EASY_ACCESS_AREA: { svgName: 'sa-em' },
+  EASY_ACCESS_ICON: { svgName: 'sa-em' },
   ENTRY_EXIT: { svg: svgs.layoutEntrance },
+  FAMILY: { svgName: 'sa-fa' },
   LUGGAGE_AREA: { svgName: 'sa-ga' },
+  LUGGAGE_ICON: { svgName: 'sa-ga' },
   MULTI_FUNCTION_AREA: { svgName: 'sa-mf' },
+  MULTI_FUNCTION_ICON: { svgName: 'sa-mf' },
   PLACE_BICYCLE_ALLOCATED: { svg: svgs.interiorPlaceBikeUnavailable },
   PLACE_BICYCLE_FREE: { svg: svgs.interiorPlaceBikeDefault },
   PLACE_BICYCLE_RESTRICTED: { svg: svgs.interiorPlaceBikeNotBookable },
@@ -49,75 +51,131 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   PLACE_SEAT_SELECTED: { svg: svgs.interiorPlaceSeatSelected },
   PLAYGROUND_AREA: { svgName: 'sa-fa' },
   PLAYGROUND_ICON: { svgName: 'sa-fa' },
+  PRAM: { svgName: 'sa-abteilkinderwagen' },
   PRAM_AREA: { svgName: 'sa-abteilkinderwagen' },
   PRAM_ICON: { svgName: 'sa-abteilkinderwagen' },
+  RESTAURANT: { svgName: 'sa-wr' },
+  RESTAURANT_AREA: { svgName: 'sa-wr' },
   RESTAURANT_ICON: { svgName: 'sa-wr' },
+  SILENCE: { svgName: 'sa-rz' },
   SILENCE_AREA_ICON: { svgName: 'sa-rz' },
+  SILENCE_ICON: { svgName: 'sa-rz' },
   SKI_AREA: { svgName: 'sa-sa' },
   SKI_ICON: { svgName: 'sa-sa' },
   STAIR_AREA: { svgName: 'sa-ac' },
   TABLE: { svg: svgs.interiorTable },
+  TABLE_RESTAURANT: { svg: svgs.interiorTable },
   TOILET_AREA: { svgName: 'sa-wc' },
+  TOILET_ICON: { svgName: 'sa-wc' },
+  TOILET_WHEELCHAIR_AREA: { svgName: 'sa-rw' },
+  TOILET_WHEELCHAIR_ICON: { svgName: 'sa-rw' },
   WARDROBE_AREA: { svgName: 'sa-ka' },
+  WHEELCHAIR: { svgName: 'sa-rs' },
+  WHEELCHAIR_AND_SEAT: { svgName: 'sa-rs' },
   WHEELCHAIR_ICON: { svgName: 'sa-rs' },
-  WHEELCHAIR_TOILET_AREA: { svgName: 'sa-rw' },
+  WHEELCHAIR_NO_SEAT: { svgName: 'sa-rn' },
   WIFI: { svgName: 'sa-wv' },
 };
 
 /**
-CABIN8 Special place group in TGV	COMPARTMENT_TYPE
-CAR_LARGE 	Vehicle parking place category 6-8	SPECIAL_COMPARTMENT_TYPE
-CAR_SMALL 	Vehicle parking place category 1-3	SPECIAL_COMPARTMENT_TYPE
-CARRE		Carré (4 seats facing normally 2nd Class)	COMPARTMENT_TYPE
-CHILDREN_AREA		Places in children area	PLACE_OR_COMPARTMENT_POSITION
-CLUB 	Club Category (RENFE)	COMPARTMENT_TYPE
-CLUB_2		Club Duo (2 seats facing in a separate compartment)	COMPARTMENT_TYPE
-CLUB_4		Club 4 (4 seats facing)	COMPARTMENT_TYPE
-COMPARTMENT		Places in a compartment	COMPARTMENT_TYPE
-COUCHETTE_2 	Two person couchette cabin	COMPARTMENT_TYPE
-COUCHETTE_4 	Couchette Four-berth	COMPARTMENT_TYPE
-COUCHETTE_5 	Couchette Five-berth	COMPARTMENT_TYPE
-COUCHETTE_6 	Couchette Six-berth	COMPARTMENT_TYPE
-COUCHETTE_COMFORT_4 	Couchette higher quality Four-berth	COMPARTMENT_TYPE
-COUCHETTE_COMFORT_5 	Couchette higher quality Five-berth	COMPARTMENT_TYPE
-COUCHETTE_COMFORT_6 	Couchette higher quality Six-berth	COMPARTMENT_TYPE
-COUCHETTE_PRM_2 	Couchette suitable for PRMs Two-berth	SPECIAL_COMPARTMENT_TYPE
-COUCHETTE_PRM_3 	Couchette suitable for PRMs Three-berth	SPECIAL_COMPARTMENT_TYPE
-COUCHETTE_PRM_4 	Couchette suitable for PRMs Four-berth	SPECIAL_COMPARTMENT_TYPE
-DOUBLE 	Two person sleeper compartment	COMPARTMENT_TYPE
-DOUBLE_WC 	Two person sleeper compartment with WC	COMPARTMENT_TYPE
-DOUBLE_SWC 	Double sleeper compartment with shower & WC	COMPARTMENT_TYPE
-DOUBLE_SWC_DB 	Double sleeper compartment with shower & WC & double bed	COMPARTMENT_TYPE
-DOUBLE_S 	Double sleeper compartment with shower	COMPARTMENT_TYPE
-EASY_ACCESS		Place with easy access for PRMs	PLACE_OR_COMPARTMENT_POSITION
-EXCELLENCE		Special Excellence Places (RhB)	COMPARTMENT_TYPE
-FRONT_VIEW		Seat with front-view	PLACE_OR_COMPARTMENT_POSITION
-HISTORIC_COACH		Seat in historic coach	COMPARTMENT_TYPE
-KIOSQUE		Kiosque (special seats in edge area of a TGV)	COMPARTMENT_TYPE
-MINI_SUITE 	Mini Suite - single person couchette compartment (Capsule)	COMPARTMENT_TYPE
-MOTOR_CYCLE 	Motorcycle	SPECIAL_COMPARTMENT_TYPE
-MOTOR_CYCLE_SC 	Motorcycle with sidecar	SPECIAL_COMPARTMENT_TYPE
-OPEN_SPACE		Places in open space area	COMPARTMENT_TYPE
-PANORAMA		Places in a panorama coach	COMPARTMENT_TYPE
-PRAM_WITH_SEAT 	Seat with space for a pram	SPECIAL_COMPARTMENT_TYPE
-PREMIUM		Seat with premium comfort (higher than first class)	SPECIAL_COMPARTMENT_TYPE
-SALON		Salon (6 seats facing in a separate compartment)	COMPARTMENT_TYPE
-SINGLE 	Single sleeper compartment	COMPARTMENT_TYPE
-SINGLE_WC 	Single sleeper compartment with WC	COMPARTMENT_TYPE
-SINGLE_SWC 	Single sleeper compartment with shower & WC	COMPARTMENT_TYPE
-SINGLE_SWC_DOUBLE 	Single compartment with shower & WC & double bed	COMPARTMENT_TYPE
-SLEEPERETTE 	Sleeperette (reclining seat)	COMPARTMENT_TYPE
-SLEEPER_DELUXE 	Berth deluxe	COMPARTMENT_TYPE
-SOLO		Separate place without neighbor seat	COMPARTMENT_TYPE
-SOLO_COM		Special separate place without neighbor seat (e.g. in TGV)	COMPARTMENT_TYPE
-SPECIAL_SLEEPER 	Special Sleeper Compartment, one Person sleeper compartment smaller than a Single	COMPARTMENT_TYPE
-TANDEM		Tandem Bicycle	SPECIAL_COMPARTMENT_TYPE
-TOURIST_SLEEPER_2 	T2 sleeper compartment	COMPARTMENT_TYPE
-TOURIST_SLEEPER_3 	T3 sleeper compartment	COMPARTMENT_TYPE
-TOURIST_SLEEPER_3_WC 	T3 sleeper compartment with WC	COMPARTMENT_TYPE
-TOURIST_SLEEPER_3_SWC 	T3 sleeper compartment with shower & WC	COMPARTMENT_TYPE
-TOURIST_SLEEPER_4 	T4 sleeper compartment	COMPARTMENT_TYPE
-WITH_ANIMALS		Place with animals (animals allowed)	SPECIAL_COMPARTMENT_TYPE
-WITH_SMALL_CHILDREN		Place for passengers with small children	PLACE_OR_COMPARTMENT_POSITION
-WITHOUT_ANIMALS		Place in an area where animals are not allowed	SPECIAL_COMPARTMENT_TYPE
+ * Current icons that could be supported, but not necessarily will be
+ * Status: 14.05.2025
+ *
+ * GraphicElement:
+ *       type: string
+ *       enum:
+ *         - EASY_ACCESS_AREA
+ *         - LUGGAGE_AREA
+ *         - MULTI_FUNCTION_AREA
+ *         - PLAYGROUND_AREA
+ *         - PRAM_AREA
+ *         - RESTAURANT_AREA
+ *         - SKI_AREA
+ *         - STAFF_AREA
+ *         - TOILET_AREA
+ *         - TOILET_WHEELCHAIR_AREA
+ *         - COACH_PASSAGE
+ *         - COMPARTMENT_PASSAGE
+ *         - COMPARTMENT_PASSAGE_HIGH
+ *         - COMPARTMENT_PASSAGE_LOW
+ *         - DRIVER_AREA
+ *         - DRIVER_AREA_LEFT
+ *         - DRIVER_AREA_RIGHT
+ *         - ENTRY_EXIT
+ *         - STAIR_AREA
+ *         - TABLE
+ *         - TABLE_RESTAURANT
+ *
+ * AccommodationSubType:
+ *       type: string
+ *       enum:
+ *         - BISTRO
+ *         - BUSINESS
+ *         - BUSINESS_COMFORT
+ *         - CHILDREN_AREA
+ *         - COMPARTMENT
+ *         - EXCELLENCE
+ *         - FAMILY
+ *         - OPEN_SPACE
+ *         - PANORAMA
+ *         - PREMIUM
+ *         - RESTAURANT
+ *         - SILENCE
+ *         - SALON
+ *
+ * PlaceProperty:
+ *       type: string
+ *       enum:
+ *         - AISLE
+ *         - AIR_CONDITIONED
+ *         - BICYCLE
+ *         - BICYCLE_LOW
+ *         - BICYCLE_MIDDLE
+ *         - BICYCLE_HIGH
+ *         - EASY_ACCESS
+ *         - FRONT_VIEW
+ *         - MIDDLE_SEAT
+ *         - NEAR_ANIMALS
+ *         - NEAR_BICYCLE_AREA
+ *         - NEAR_DINING
+ *         - NEAR_PLAY_AREA
+ *         - NEAR_WHEELCHAIR_AREA
+ *         - PHONE
+ *         - POWER
+ *         - PRAM
+ *         - PRAM_WITH_SEAT
+ *         - SIDE_BY_SIDE
+ *         - TANDEM
+ *         - WHEELCHAIR
+ *         - WHEELCHAIR_AND_SEAT
+ *         - WHEELCHAIR_NO_SEAT
+ *         - WIFI
+ *         - WINDOW
+ *         - WITH_ANIMALS
+ *         - WITH_SMALL_CHILDREN
+ *         - WITHOUT_ANIMALS
+ *
+ * ServiceIcon:
+ *       type: string
+ *       enum:
+ *         - BICYCLE_ICON
+ *         - BICYCLE_LOW_ICON
+ *         - BICYCLE_MIDDLE_ICON
+ *         - BICYCLE_HIGH_ICON
+ *         - BISTRO_ICON
+ *         - BUSINESS_ICON
+ *         - CHILDREN_ICON
+ *         - EASY_ACCESS_ICON
+ *         - LUGGAGE_ICON
+ *         - MULTI_FUNCTION_ICON
+ *         - PLAYGROUND_ICON
+ *         - PRAM_ICON
+ *         - RESTAURANT_ICON
+ *         - SILENCE_AREA_ICON
+ *         - SKI_ICON
+ *         - TOILET_ICON
+ *         - TOILET_PRAM_ICON
+ *         - TOILET_WHEELCHAIR_ICON
+ *         - TROLLEY_ICON
+ *         - WHEELCHAIR_ICON
  */

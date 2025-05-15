@@ -10,44 +10,34 @@
  * const labelStr = getI18nSeatReservation('KEY_FOR_NAVIGATION_LABEL', this._language.current, ['real text', 334]);*/
 
 const i18nObjects: Record<string, Record<string, string>> = {
-  //BASICS
+  // BASICS
+  // CAPTION FOR SCREENREADER INSIDE WAGON
+  COACH_TABLE_CAPTION: {
+    de: 'Wagen _param0_ selektiert',
+    en: 'en:Wagen _param0_ selektiert',
+    fr: 'fr:Wagen _param0_ selektiert',
+    it: 'it:Wagen _param0_ selektiert',
+  },
   LIST_ALL_COACHES: {
     de: "Liste aller Wagen mit reservierbaren Plätzen. Sie können die Tastennavigation aktivieren, indem Sie die 's'-Taste drücken, und dann können Sie mit den Pfeiltasten zwischen den Sitzen des Wagens navigieren.",
     en: "List of all coaches with reservable places. You can activate key navigation by pressing the 's' key, then you can navigate by arrow keys between the seats of the coach.",
     fr: "Liste de tous les wagons avec des places réservables. Vous pouvez activer la navigation par touches en appuyant sur la touche 's', puis vous pouvez naviguer avec les flèches entre les sièges du wagon.",
     it: "Elenco di tutti i vagoni con posti riservabili. Puoi attivare la navigazione con tasti premendo il tasto 's', poi puoi navigare tra i posti del vagone con i tasti freccia.",
   },
-  LUGGAGE_AREA: {
-    de: 'Gepäckzone',
-    en: 'Luggage area',
-    fr: 'Zone de bagages',
-    it: 'Zona bagagli',
+  SEAT_RESERVATION_BEGIN: {
+    de: 'Beginn der Grafische Sitzplatzreservierung',
+    en: 'en:Beginn der Grafische Sitzplatzreservierung',
+    fr: 'fr:Beginn der Grafische Sitzplatzreservierung',
+    it: 'it:Beginn der Grafische Sitzplatzreservierung',
   },
-  ENTRY_EXIT: {
-    de: 'Ausgang / Eingang',
-    en: 'Exit/Entrance',
-    fr: 'Sortie / Entrée',
-    it: 'Uscita / Ingresso',
+  SEAT_RESERVATION_END: {
+    de: 'Verlassen der Grafische Sitzplatzreservierung',
+    en: 'en:Verlassen der Grafische Sitzplatzreservierung',
+    fr: 'fr:Verlassen der Grafische Sitzplatzreservierung',
+    it: 'it:Verlassen der Grafische Sitzplatzreservierung',
   },
-  COACH_PASSAGE: {
-    de: 'Wagenübergang',
-    en: 'Coach passage',
-    fr: 'Passage de voiture',
-    it: 'Passaggio carrozza',
-  },
-  SERVICE_WHEELCHAIR_ICON: {
-    de: 'Rollstuhl',
-    en: 'wheelchair',
-    fr: 'fauteuil roulant',
-    it: 'sedia a rotelle',
-  },
-  //NAVIGATION
-  SEAT_RESERVATION_NAVIGATION: {
-    de: 'Sitzplatzreservierungsnavigation',
-    en: 'Seat reservation Navigation',
-    fr: 'Navigation pour la réservation de sièges',
-    it: 'Navigazione per la prenotazione dei posti',
-  },
+
+  // NAVIGATION
   NAVIGATE_TO_COACH: {
     de: 'Navigiere zu Zugabteil _param0_',
     en: 'Navigate to train compartment _param0_',
@@ -60,11 +50,11 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'fr: mit _param0_ Abteil',
     it: 'it: mit _param0_ Abteil',
   },
-  NAVIGATION_COACH_SERVICE_AVAILABLE: {
-    de: 'Verfügbare Services: ',
-    en: 'Verfügbare Services: ',
-    fr: 'fr:Verfügbare Services: ',
-    it: 'it:Verfügbare Services: ',
+  SEAT_RESERVATION_NAVIGATION: {
+    de: 'Sitzplatzreservierungsnavigation',
+    en: 'Seat reservation Navigation',
+    fr: 'Navigation pour la réservation de sièges',
+    it: 'Navigazione per la prenotazione dei posti',
   },
   SERVICE_CLASS_FIRST: {
     de: 'erste Klasse',
@@ -78,27 +68,9 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'fr:zweite Klasse',
     it: 'it:zweite Klasse',
   },
-  //COACH TABLE
-  COACH_TABLE_CAPTION: {
-    de: 'Wagen _param0_ selektiert',
-    en: 'en:Wagen _param0_ selektiert',
-    fr: 'fr:Wagen _param0_ selektiert',
-    it: 'it:Wagen _param0_ selektiert',
-  },
-  //NAVIGATION ICONS
+
+  // NAVIGATION SERVICES ICONS AND SERVICE ICONS INSIDE WAGON
   BICYCLE: {
-    de: 'Velobereich',
-    en: 'Velozone',
-    fr: 'Véloparc',
-    it: 'Veloparco',
-  },
-  BICYCLE_LOW: {
-    de: 'Velobereich',
-    en: 'Velozone',
-    fr: 'Véloparc',
-    it: 'Veloparco',
-  },
-  BICYCLE_MIDDLE: {
     de: 'Velobereich',
     en: 'Velozone',
     fr: 'Véloparc',
@@ -110,11 +82,53 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Véloparc',
     it: 'Veloparco',
   },
+  BICYCLE_HIGH_ICON: {
+    de: 'Velobereich',
+    en: 'Velozone',
+    fr: 'Véloparc',
+    it: 'Veloparco',
+  },
+  BICYCLE_ICON: {
+    de: 'Velobereich',
+    en: 'Velozone',
+    fr: 'Véloparc',
+    it: 'Veloparco',
+  },
+  BICYCLE_LOW: {
+    de: 'Velobereich',
+    en: 'Velozone',
+    fr: 'Véloparc',
+    it: 'Veloparco',
+  },
+  BICYCLE_LOW_ICON: {
+    de: 'Velobereich',
+    en: 'Velozone',
+    fr: 'Véloparc',
+    it: 'Veloparco',
+  },
+  BICYCLE_MIDDLE: {
+    de: 'Velobereich',
+    en: 'Velozone',
+    fr: 'Véloparc',
+    it: 'Veloparco',
+  },
+  BICYCLE_MIDDLE_ICON: {
+    de: 'Velobereich',
+    en: 'Velozone',
+    fr: 'Véloparc',
+    it: 'Veloparco',
+  },
   BISTRO: {
     de: 'Bistro',
     en: 'Bistro',
     fr: 'Bistro',
-    it: 'bistrò',
+    it: 'Bistrot',
+  },
+  BISTRO_ICON: {
+    de: 'Bistro',
+    en: 'Bistro',
+    fr: 'Bistro',
+    it: 'Bistrot',
   },
   BUSINESS: {
     de: 'Businesszone',
@@ -128,7 +142,79 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: "Zone d'affaires",
     it: 'Zona business',
   },
+  BUSINESS_ICON: {
+    de: 'Businesszone',
+    en: 'Businesszone',
+    fr: "Zone d'affaires",
+    it: 'Zona business',
+  },
+  COACH_PASSAGE: {
+    de: 'Wagenübergang',
+    en: 'Coach passage',
+    fr: 'Passage de voiture',
+    it: 'Passaggio carrozza',
+  },
+  EASY_ACCESS: {
+    de: 'de:Easy access area for PRMs',
+    en: 'Easy access area for PRMs',
+    fr: 'fr:Easy access area for PRMs',
+    it: 'it:Easy access area for PRMs',
+  },
+  EASY_ACCESS_AREA: {
+    de: 'de:Easy access area for PRMs',
+    en: 'Easy access area for PRMs',
+    fr: 'fr:Easy access area for PRMs',
+    it: 'it:Easy access area for PRMs',
+  },
+  EASY_ACCESS_ICON: {
+    de: 'de:Easy access area for PRMs',
+    en: 'Easy access area for PRMs',
+    fr: 'fr:Easy access area for PRMs',
+    it: 'it:Easy access area for PRMs',
+  },
+  ENTRY_EXIT: {
+    de: 'Ausgang / Eingang',
+    en: 'Exit/Entrance',
+    fr: 'Sortie / Entrée',
+    it: 'Uscita / Ingresso',
+  },
   FAMILY: {
+    de: 'Familienwagen',
+    en: 'Family car',
+    fr: 'Voiture familiale',
+    it: 'Auto familiare',
+  },
+  LUGGAGE_AREA: {
+    de: 'Gepäckzone',
+    en: 'Luggage area',
+    fr: 'Zone de bagages',
+    it: 'Zona bagagli',
+  },
+  LUGGAGE_ICON: {
+    de: 'Gepäckzone',
+    en: 'Luggage area',
+    fr: 'Zone de bagages',
+    it: 'Zona bagagli',
+  },
+  MULTI_FUNCTION_AREA: {
+    de: 'de:Multifunction area',
+    en: 'en:Multifunction area',
+    fr: 'fr:Multifunction area',
+    it: 'it:Multifunction area',
+  },
+  MULTI_FUNCTION_ICON: {
+    de: 'de:Multifunction area',
+    en: 'en:Multifunction area',
+    fr: 'fr:Multifunction area',
+    it: 'it:Multifunction area',
+  },
+  PLAYGROUND_AREA: {
+    de: 'Familienwagen',
+    en: 'Family car',
+    fr: 'Voiture familiale',
+    it: 'Auto familiare',
+  },
+  PLAYGROUND_ICON: {
     de: 'Familienwagen',
     en: 'Family car',
     fr: 'Voiture familiale',
@@ -140,17 +226,35 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'zone pour poussettes',
     it: 'area per passeggini',
   },
+  PRAM_AREA: {
+    de: 'Kinderwagenbereich',
+    en: 'pram area',
+    fr: 'zone pour poussettes',
+    it: 'area per passeggini',
+  },
+  PRAM_ICON: {
+    de: 'Kinderwagenbereich',
+    en: 'pram area',
+    fr: 'zone pour poussettes',
+    it: 'area per passeggini',
+  },
   RESTAURANT: {
     de: 'Restaurant',
     en: 'Restaurant',
     fr: 'Restaurant',
     it: 'Ristorante',
   },
+  RESTAURANT_AREA: {
+    de: 'Restaurant',
+    en: 'Restaurant',
+    fr: 'Restaurant',
+    it: 'Ristorante',
+  },
   RESTAURANT_ICON: {
-    de: 'Restaurant Bereich',
-    en: 'Restaurant area',
-    fr: 'fr:Restaurant area',
-    it: 'it:Restaurant area',
+    de: 'Restaurant',
+    en: 'Restaurant',
+    fr: 'Restaurant',
+    it: 'Ristorante',
   },
   SILENCE: {
     de: 'Ruhezone',
@@ -164,13 +268,73 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Zone de repos',
     it: 'Zona di riposo',
   },
-  WHEELCHAIR_ICON: {
+  SILENCE_ICON: {
+    de: 'Ruhezone',
+    en: 'Silence area',
+    fr: 'Zone de repos',
+    it: 'Zona di riposo',
+  },
+  SKI_AREA: {
+    de: 'Ski Bereich',
+    en: 'en: Ski area',
+    fr: 'fr:Ski area',
+    it: 'it:Ski area',
+  },
+  SKI_ICON: {
+    de: 'Ski Bereich',
+    en: 'en: Ski area',
+    fr: 'fr:Ski area',
+    it: 'it:Ski area',
+  },
+  STAIR_AREA: {
+    de: 'Treppenbereich',
+    en: 'en: Stair area',
+    fr: 'fr:Stair area',
+    it: 'it:Stair area',
+  },
+  TOILET_AREA: {
+    de: 'Toilettenbereich',
+    en: 'en: Toilet area',
+    fr: 'fr:Toilet area',
+    it: 'it:Toilet area',
+  },
+  TOILET_ICON: {
+    de: 'Toilettenbereich',
+    en: 'en: Toilet area',
+    fr: 'fr:Toilet area',
+    it: 'it:Toilet area',
+  },
+  TOILET_WHEELCHAIR_AREA: {
+    de: 'Rollstuhl Toilettenbereich',
+    en: 'en: Wheelchair toilet area',
+    fr: 'fr:Wheelchair toilet area',
+    it: 'it:Wheelchair toilet area',
+  },
+  TOILET_WHEELCHAIR_ICON: {
+    de: 'Rollstuhl Toilettenbereich',
+    en: 'Wheelchair toilet area',
+    fr: 'fr:Wheelchair toilet area',
+    it: 'it:Wheelchair toilet area',
+  },
+  WARDROBE_AREA: {
+    de: 'Garderobenbereich',
+    en: 'en: Garderobenbereich',
+    fr: 'fr: Garderobenbereich',
+    it: 'it: Garderobenbereich',
+  },
+  WHEELCHAIR: {
     de: 'Rollstuhlzone',
     en: 'Wheelchairzone',
     fr: 'Zone pour fauteuils roulants',
     it: 'Zona per disabili',
   },
   WHEELCHAIR_AND_SEAT: {
+    de: 'Rollstuhlzone',
+    en: 'Wheelchairzone',
+    fr: 'Zone pour fauteuils roulants',
+    it: 'Zona per disabili',
+  },
+  WHEELCHAIR_ICON: {
     de: 'Rollstuhlzone',
     en: 'Wheelchairzone',
     fr: 'Zone pour fauteuils roulants',
@@ -188,65 +352,37 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: "Internet gratuit avec l'application SBB FreeSurf",
     it: "Internet gratuito con l'app SBB FreeSurf",
   },
+
+  //ADDITIONAL INFO FOR SEATS
   AISLE_SEAT: {
     de: 'Gangplatz',
-    en: 'Aisle seat',
+    en: 'en: Aisle seat',
     fr: 'fr:Aisle seat',
     it: 'it:Aisle seat',
   },
   POWER: {
     de: 'Steckdose',
     en: 'Power socket',
-    fr: 'fr:Power socket',
-    it: 'it:Power socket',
-  },
-  WINDOW_SEAT: {
-    de: 'Fensterplatz',
-    en: 'Window seat',
-    fr: 'fr:Window seat',
-    it: 'it:Window seat',
+    fr: 'Prise Électrique',
+    it: 'Presa Elettrica',
   },
   TABLE: {
     de: 'Tisch',
     en: 'Table',
-    fr: 'fr:Table',
-    it: 'it:Table',
+    fr: 'Table',
+    it: 'Tavolo',
   },
-  PLAYGROUND_AREA: {
-    de: 'Familienbereich',
-    en: 'Family area',
-    fr: 'fr:Family area',
-    it: 'it:Family area',
+  TABLE_RESTAURANT: {
+    de: 'Tisch',
+    en: 'Table',
+    fr: 'Table',
+    it: 'Tavolo',
   },
-  STAIR_AREA: {
-    de: 'Treppenbereich',
-    en: 'Stair area',
-    fr: 'fr:Stair area',
-    it: 'it:Stair area',
-  },
-  TOILET_AREA: {
-    de: 'Toilettenbereich',
-    en: 'Toilet area',
-    fr: 'fr:Toilet area',
-    it: 'it:Toilet area',
-  },
-  WHEELCHAIR_TOILET_AREA: {
-    de: 'Rollstuhl Toilettenbereich',
-    en: 'Wheelchair toilet area',
-    fr: 'fr:Wheelchair toilet area',
-    it: 'it:Wheelchair toilet area',
-  },
-  SKI_AREA: {
-    de: 'Ski Bereich',
-    en: 'Ski area',
-    fr: 'fr:Ski area',
-    it: 'it:Ski area',
-  },
-  EASY_ACCESS_AREA: {
-    de: 'de:Easy access area for PRMs',
-    en: 'Easy access area for PRMs',
-    fr: 'fr:Easy access area for PRMs',
-    it: 'it:Easy access area for PRMs',
+  WINDOW_SEAT: {
+    de: 'Fensterplatz',
+    en: 'Window seat',
+    fr: 'Place Côté Fenêtre',
+    it: 'Posto Finestrino',
   },
 
   //PLACE CONTROL ARIA LABEL
@@ -298,12 +434,6 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Siège _param0_ non disponible',
     it: 'Posto _param0_ non disponibile',
   },
-  EXAMPLE_WITH_PARAMS_DO_NOT_USE: {
-    de: 'Test mit Parametern: _param0_ und _param1_',
-    en: 'Test with parameters: _param0_ and _param1_',
-    fr: 'Test avec paramètres: _param0_ et _param1_',
-    it: 'Test con parametri: _param0_ e _param1_',
-  },
   PLACE_PROPERTY: {
     de: 'Platzeigenschaften',
     en: 'en:Platzeigenschaften',
@@ -315,6 +445,14 @@ const i18nObjects: Record<string, Record<string, string>> = {
     en: 'en:Verfügbare Services',
     fr: 'fr:Verfügbare Services',
     it: 'it:Verfügbare Services',
+  },
+
+  // LEAVE EXAMPLE AT LAST POSITION
+  EXAMPLE_WITH_PARAMS_DO_NOT_USE: {
+    de: 'Test mit Parametern: _param0_ und _param1_',
+    en: 'Test with parameters: _param0_ and _param1_',
+    fr: 'Test avec paramètres: _param0_ et _param1_',
+    it: 'Test con parametri: _param0_ e _param1_',
   },
 };
 

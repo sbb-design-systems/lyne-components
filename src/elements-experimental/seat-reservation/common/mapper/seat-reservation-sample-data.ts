@@ -102,8 +102,33 @@ export const MOCK_COACHES_RAW_0 = [
           ],
         },
         {
+          travelClass: 'FIRST',
+          accommodationSubType: 'BUSINESS',
+          places: [
+            {
+              number: '152',
+              rectangle: {
+                position: {
+                  x: 26,
+                  y: 6,
+                  z: 0,
+                },
+                dimension: {
+                  width: 2,
+                  height: 2,
+                  borderRadius: null,
+                },
+              },
+              orientation: 0,
+              placeLocations: ['BICYCLE_LOW'],
+              placeProperties: [],
+              state: 'FREE',
+            },
+          ],
+        },
+        {
           travelClass: 'SECOND',
-          accommodationSubType: 'ANY_SEAT',
+          accommodationSubType: 'WHEELCHAIR_ICON',
           places: [
             {
               number: '48',
@@ -1038,7 +1063,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'WHEELCHAIR_TOILET_AREA',
+          type: 'TOILET_WHEELCHAIR_AREA',
         },
         {
           rectangle: {
@@ -1184,7 +1209,7 @@ export const MOCK_COACHES_RAW_0 = [
       placeGroups: [
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE',
+          accommodationSubType: 'BICYCLE_HIGH',
           places: [
             {
               number: '153',
@@ -1247,7 +1272,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE',
+          accommodationSubType: '',
           places: [
             {
               number: '152',
@@ -2768,7 +2793,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE_LOW',
+          accommodationSubType: 'BICYCLE_LOW_ICON',
           places: [
             {
               number: '25',
@@ -2932,7 +2957,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE',
+          accommodationSubType: 'BICYCLE_ICON',
           places: [
             {
               number: '153',
@@ -2995,7 +3020,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE',
+          accommodationSubType: 'BICYCLE_ICON',
           places: [
             {
               number: '152',
@@ -4030,7 +4055,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE',
+          accommodationSubType: 'BICYCLE_ICON',
           places: [
             {
               number: '153',
@@ -4093,7 +4118,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE',
+          accommodationSubType: 'BICYCLE_ICON',
           places: [
             {
               number: '152',
