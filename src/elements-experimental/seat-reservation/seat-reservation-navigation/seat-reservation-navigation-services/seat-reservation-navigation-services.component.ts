@@ -67,10 +67,9 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
       .join(', ');
 
     if (translatedServiceLabels) {
-      label = getI18nSeatReservation(
-        'NAVIGATION_COACH_SERVICE_AVAILABLE',
-        this._language.current,
-      ).concat(translatedServiceLabels);
+      label = getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current)
+        .concat(':')
+        .concat(translatedServiceLabels);
     }
     return label;
   }
