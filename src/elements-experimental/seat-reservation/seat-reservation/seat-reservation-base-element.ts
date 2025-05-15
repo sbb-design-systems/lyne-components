@@ -750,9 +750,10 @@ export class SeatReservationBaseElement extends LitElement {
   private _getSeatReservationCoachSelection(
     coachIndex: number,
   ): SeatReservationCoachSelection | null {
-    const coach = this.seatReservation.coachItems[coachIndex];
+    if (!this.seatReservation.coachItems[coachIndex]) return null;
 
-    return coach ? mapCoachInfosToCoachSelection(coachIndex, coach) : null;
+    const coach = this.seatReservation.coachItems[coachIndex];
+    return mapCoachInfosToCoachSelection(coachIndex, coach);
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {
