@@ -148,7 +148,7 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
 
     #{$root}--state-allocated &,
     #{$root}--state-restricted & {
-      background-color: transparent;
+      background-color: var(--sbb-color-milk);
       color: var(--sbb-color-smoke);
     }
 
