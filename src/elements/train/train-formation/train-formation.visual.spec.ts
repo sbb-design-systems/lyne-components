@@ -1,6 +1,10 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
 import '../train.js';
@@ -244,6 +248,15 @@ describe(`sbb-train-formation`, () => {
         );
 
         await waitForLitRender(setup.snapshotElement);
+      }),
+    );
+
+    it(
+      `displays focus outline`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-train-formation> ${train1} ${train2} </sbb-train-formation>`,
+        );
       }),
     );
   });
