@@ -42,7 +42,7 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
 /* end snapshot sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set */
 
 snapshots["sbb-skiplink-list renders DOM"] = 
-`<sbb-skiplink-list data-slot-names="li-0 li-1 li-2">
+`<sbb-skiplink-list>
   <sbb-block-link
     data-action=""
     data-link=""
@@ -128,7 +128,6 @@ snapshots["sbb-skiplink-list renders Shadow DOM"] =
 
 snapshots["sbb-skiplink-list renders with title DOM"] = 
 `<sbb-skiplink-list
-  data-slot-names="li-0 li-1 li-2"
   title-content="Skip to"
   title-level="3"
 >
