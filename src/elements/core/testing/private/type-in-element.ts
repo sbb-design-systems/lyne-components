@@ -8,6 +8,8 @@
 
 // Copied from https://github.com/angular/components/blob/main/src/cdk/testing/testbed/fake-events/type-in-element.ts
 
+import type { SbbFormAssociatedInputMixinType } from '../../mixins.js';
+
 import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events.js';
 
 const PERIOD = 190;
@@ -163,7 +165,9 @@ export function typeInElement(element: HTMLElement, ...modifiersAndKeys: any[]):
  * Clears the text in an input or textarea element.
  * @docs-private
  */
-export function clearElement(element: HTMLInputElement | HTMLTextAreaElement): void {
+export function clearElement(
+  element: HTMLInputElement | HTMLTextAreaElement | (SbbFormAssociatedInputMixinType & HTMLElement),
+): void {
   element.focus();
   element.value = '';
   dispatchFakeEvent(element, 'input');

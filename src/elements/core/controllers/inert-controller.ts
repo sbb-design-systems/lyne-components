@@ -101,7 +101,8 @@ export class SbbInertController implements ReactiveController {
           (child): child is HTMLElement =>
             child !== element &&
             child instanceof window.HTMLElement &&
-            !IGNORED_ELEMENTS.includes(child.localName),
+            !IGNORED_ELEMENTS.includes(child.localName) &&
+            !child.classList.contains('sbb-live-announcer-element'),
         )
         .forEach((element) => {
           this._inertElements.add(element);

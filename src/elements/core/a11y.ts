@@ -8,3 +8,4 @@ export * from './a11y/focus.js';
 export * from './a11y/focus-trap-controller.js';
 export * from './a11y/interactivity-checker.js';
 export * from './a11y/input-modality-detector.js';
+export * from './a11y/live-announcer.js';

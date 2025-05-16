@@ -9,13 +9,9 @@ describe(`sbb-time-input ssr`, () => {
   let root: SbbTimeInputElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(
-      html`
-        <sbb-time-input input="input-1"></sbb-time-input>
-        <input id="input-1" />
-      `,
-      { modules: ['./time-input.component.js'] },
-    );
+    root = await ssrHydratedFixture(html` <sbb-time-input value="13:30"></sbb-time-input> `, {
+      modules: ['./time-input.component.js'],
+    });
   });
 
   it('renders', () => {
