@@ -22,6 +22,7 @@ describe(`sbb-toast`, () => {
     expect(element).not.to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-icon');
     expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.have.attribute('aria-live', element.politeness);
   });
 
   it('opens and closes after timeout', async () => {

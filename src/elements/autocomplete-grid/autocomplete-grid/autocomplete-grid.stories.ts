@@ -102,6 +102,15 @@ const preserveIconSpace: InputType = {
   },
 };
 
+const autoActiveFirstOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const borderless: InputType = {
   control: {
     type: 'boolean',
@@ -179,6 +188,7 @@ const defaultArgTypes: ArgTypes = {
 
   // Autocomplete args
   preserveIconSpace,
+  autoActiveFirstOption,
 
   // Option args
   optionIconName,
@@ -208,6 +218,7 @@ const defaultArgs: Args = {
 
   // Autocomplete args
   preserveIconSpace: true,
+  autoActiveFirstOption: false,
 
   // Option args
   optionIconName: 'clock-small',
@@ -296,7 +307,10 @@ const Template = (args: Args): TemplateResult => html`
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
-      <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete-grid
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
         ${createRows2(args.buttonIconName, args.disableOption)}
       </sbb-autocomplete-grid>
@@ -327,7 +341,10 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
-      <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete-grid
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         <sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-option value="Current location" icon-name="gps-small"
             >Current location</sbb-autocomplete-grid-option

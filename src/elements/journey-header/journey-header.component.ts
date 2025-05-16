@@ -59,6 +59,7 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
 
   protected override render(): TemplateResult {
     const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';
+    const a11yString = `${i18nConnectionFrom[this._language.current]} ${this.origin} ${i18nConnectionTo[this._language.current]} ${this.destination} ${this.roundTrip ? i18nConnectionRoundtrip(this.origin)[this._language.current] : ''}`;
 
     return html`
       <sbb-title
@@ -66,26 +67,12 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
         ?negative=${this.negative}
         visual-level=${sizeToLevel.get(this.size)!}
       >
-        <span class="sbb-journey-header">
-          <span class="sbb-journey-header__origin">
-            <sbb-screen-reader-only>
-              ${i18nConnectionFrom[this._language.current]}&nbsp;
-            </sbb-screen-reader-only>
-            ${this.origin}
-          </span>
+        <span class="sbb-journey-header" aria-hidden="true">
+          <span class="sbb-journey-header__origin">${this.origin}</span>
           <sbb-icon name=${iconName}></sbb-icon>
-          <span class="sbb-journey-header__destination">
-            <sbb-screen-reader-only>
-              &nbsp;${i18nConnectionTo[this._language.current]}&nbsp;
-            </sbb-screen-reader-only>
-            ${this.destination}
-            ${this.roundTrip
-              ? html` <sbb-screen-reader-only>
-                  ${i18nConnectionRoundtrip(this.origin)[this._language.current]}
-                </sbb-screen-reader-only>`
-              : nothing}
-          </span>
+          <span class="sbb-journey-header__destination">${this.destination}</span>
         </span>
+        <sbb-screen-reader-only>${a11yString}</sbb-screen-reader-only>
       </sbb-title>
     `;
   }
