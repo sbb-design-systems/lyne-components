@@ -4,6 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-skiplink-list-wrapper-size: 0;
   --sbb-skiplink-list-height: 0;
   --sbb-skiplink-list-overflow: hidden;
   --sbb-skiplink-list-background: transparent;
@@ -21,6 +22,13 @@
 
 .sbb-skiplink-list {
   @include sbb.list-reset;
+
+  height: var(--sbb-skiplink-list-wrapper-size);
+  width: var(--sbb-skiplink-list-wrapper-size);
+
+  &:focus-within {
+    --sbb-skiplink-list-wrapper-size: auto;
+  }
 
   & > :is(li, span) {
     @include sbb.shadow-level-5-hard;
