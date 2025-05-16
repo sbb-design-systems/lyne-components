@@ -6,3 +6,10 @@ The `sbb-seat-reservation-navigation` allows the user to navigate between the in
 ```
 
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name                 | Attribute              | Privacy | Type              | Default | Description                     |
+| -------------------- | ---------------------- | ------- | ----------------- | ------- | ------------------------------- |
+| `seatReservation`    | `seat-reservation`     | public  | `SeatReservation` | `0`     | Complete SeatReservation object |
+| `selectedCoachIndex` | `selected-coach-index` | public  | `number`          | `0`     | Selected Coach index            |
