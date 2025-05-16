@@ -12,6 +12,8 @@
   }
 
   .sbb-seat-reservation-place-control__text {
+    // dont use transparent or remove background, otherwise there are a11y violations regarding
+    // insufficient color contrast
     background-color: var(--sbb-reservation-place-control-#{$state}-background-#{$event});
     color: var(--sbb-reservation-place-control-#{$state}-text);
   }
@@ -71,7 +73,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 }
 
 :host(:focus) {
-  border-radius: var(--sbb-border-radius-1x);
+  border-radius: var(--sbb-border-width-2x);
   outline: 2px solid var(--sbb-color-black);
 
   .sbb-seat-reservation-place-control {
@@ -90,6 +92,14 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
   position: relative;
   font-size: calc(var(--sbb-reservation-place-control-text-size) * 1px);
+
+  &--state-free {
+    @include colorizePlace('free', 'default');
+  }
+
+  &--state-selected {
+    @include colorizePlace('selected', 'default');
+  }
 
   &--state-allocated,
   &--state-restricted {
@@ -110,10 +120,6 @@ $disabled: '.sbb-reservation-place-control--disabled';
     // dont use sbb.px-to-rem or --sbb-typo-scale-0-75x; we want "em" in this case!
     font-size: 0.75em;
     line-height: initial;
-
-    // dont use transparent or remove background, otherwise there are a11y violations regarding
-    // insufficient color contrast
-    background-color: var(--sbb-color-white);
 
     #{$root}--state-free &,
     #{$root}--state-allocated &,
