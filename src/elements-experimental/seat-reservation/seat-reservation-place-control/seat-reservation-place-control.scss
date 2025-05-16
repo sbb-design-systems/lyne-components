@@ -73,8 +73,8 @@ $disabled: '.sbb-reservation-place-control--disabled';
 }
 
 :host(:focus) {
-  border-radius: var(--sbb-border-width-2x);
-  outline: 2px solid var(--sbb-color-black);
+  border-radius: var(--sbb-border-width-1x);
+  outline: var(--sbb-border-width-2x) solid var(--sbb-color-black);
 
   .sbb-seat-reservation-place-control {
     &--state-free:not(#{$disabled}) {
