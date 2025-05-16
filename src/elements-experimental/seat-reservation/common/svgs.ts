@@ -32,7 +32,6 @@ const svgs = {
   chassisRowOuter,
   chassisRowMiddle,
   chassisSeparator,
-  //  chassisTmpRowEmpty,
   interiorPlaceBikeDefault,
   interiorPlaceBikeNotBookable,
   interiorPlaceBikeSelected,
@@ -42,9 +41,7 @@ const svgs = {
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
   interiorTable,
-  //  interiorTmpTable,
   layoutEntrance,
-  //  layoutTmpGenericSpace,
 };
 
 export { svgs };
