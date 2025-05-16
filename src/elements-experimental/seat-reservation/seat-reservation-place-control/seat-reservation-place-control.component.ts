@@ -1,16 +1,9 @@
+import { SbbButtonBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
-import {
-  type CSSResultGroup,
-  html,
-  nothing,
-  type TemplateResult,
-  LitElement,
-  type PropertyValues,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type { PlaceSelection, PlaceState, PlaceType } from '../seat-reservation.js';
@@ -26,7 +19,7 @@ import style from './seat-reservation-place-control.scss?lit&inline';
  */
 export
 @customElement('sbb-seat-reservation-place-control')
-class SbbSeatReservationPlaceControlElement extends LitElement {
+class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectPlace: 'selectPlace',
@@ -35,7 +28,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   /** Type Prop */
   @forceType()
   @property({ attribute: 'type', type: String })
-  public accessor type: PlaceType = 'SEAT';
+  public accessor placeType: PlaceType = 'SEAT';
 
   /** State Prop */
   @forceType()
@@ -94,6 +87,11 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
   private _language = new SbbLanguageController(this);
 
+  public constructor() {
+    super();
+    this.addEventListener('click', () => this._selectPlace());
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -116,54 +114,45 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
     }
 
     if (changedProperties.has('keyfocus')) {
-      const placeButton = this.shadowRoot?.querySelector(
-        '.sbb-seat-reservation-place-control__button',
-      ) as HTMLButtonElement;
       if (this.keyfocus === 'focus') {
-        placeButton.focus();
+        this.focus();
       }
     }
   }
 
   protected override render(): TemplateResult {
-    const name: string = this._getPlaceSvg(this.type, this.state);
+    const name: string = this._getPlaceSvg(this.placeType, this.state);
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
     const width: number = this.width;
     const height: number = this.height;
     const inverseRotationPlaceCheckIcon = this.textRotation - this.rotation;
+    const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
+
+    this.title = this._getTitleDescriptionPlace();
+    this.tabIndex = -1;
 
     return html`
       <div
         part="sbb-seat-reservation-place-part"
-        class="sbb-seat-reservation-place-control--orientation-${this
-          .rotation} sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
+        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--orientation-${this
+          .rotation} sbb-seat-reservation-place-control--state-${state} sbb-seat-reservation-place-control--type-${type} ${disabledClass}"
       >
-        <button
-          class="${classMap({
-            'sbb-seat-reservation-place-control__button': true,
-            'sbb-reservation-place-control--disabled': this.preventClick,
-          })}"
-          @click=${() => this._selectPlace()}
-          title=${this._getTitleDescriptionPlace()}
-          tabindex="-1"
+        <sbb-seat-reservation-graphic
+          .name=${name}
+          .width=${width}
+          .height=${height}
+          .rotation=${this.rotation}
+          .inverseRotation=${inverseRotationPlaceCheckIcon}
+          aria-hidden="true"
+        ></sbb-seat-reservation-graphic>
+        <span
+          ${this.text ?? nothing}
+          class="sbb-seat-reservation-place-control__text"
+          aria-hidden="true"
+          >${text}</span
         >
-          <sbb-seat-reservation-graphic
-            .name=${name}
-            .width=${width}
-            .height=${height}
-            .rotation=${this.rotation}
-            .inverseRotation=${inverseRotationPlaceCheckIcon}
-            aria-hidden="true"
-          ></sbb-seat-reservation-graphic>
-          <span
-            ${this.text ?? nothing}
-            class="sbb-seat-reservation-place-control__text"
-            aria-hidden="true"
-            >${text}</span
-          >
-        </button>
       </div>
     `;
   }

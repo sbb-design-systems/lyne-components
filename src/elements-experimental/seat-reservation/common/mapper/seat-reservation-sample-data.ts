@@ -15,7 +15,7 @@ export const MOCK_COACHES_RAW_0 = [
       placeGroups: [
         {
           travelClass: 'FIRST',
-          accommodationSubType: 'SILENCE',
+          accommodationSubType: 'BICYCLE',
           places: [
             {
               number: '153',
@@ -78,32 +78,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'FIRST',
-          accommodationSubType: 'BUSINESS',
-          places: [
-            {
-              number: '152',
-              rectangle: {
-                position: {
-                  x: 26,
-                  y: 6,
-                  z: 0,
-                },
-                dimension: {
-                  width: 2,
-                  height: 2,
-                  borderRadius: null,
-                },
-              },
-              orientation: 0,
-              placeLocations: ['BICYCLE_LOW'],
-              placeProperties: [],
-              state: 'FREE',
-            },
-          ],
-        },
-        {
-          travelClass: 'FIRST',
-          accommodationSubType: 'BUSINESS',
+          accommodationSubType: 'BICYCLE',
           places: [
             {
               number: '152',
@@ -1150,7 +1125,7 @@ export const MOCK_COACHES_RAW_0 = [
           rectangle: {
             position: {
               x: 28,
-              y: 7,
+              y: 6,
               z: 0,
             },
             dimension: {
@@ -1180,7 +1155,7 @@ export const MOCK_COACHES_RAW_0 = [
           rectangle: {
             position: {
               x: 28,
-              y: 1,
+              y: 2,
               z: 0,
             },
             dimension: {
@@ -1268,12 +1243,6 @@ export const MOCK_COACHES_RAW_0 = [
               placeProperties: [],
               state: 'FREE',
             },
-          ],
-        },
-        {
-          travelClass: 'SECOND',
-          accommodationSubType: '',
-          places: [
             {
               number: '152',
               rectangle: {
@@ -4092,7 +4061,7 @@ export const MOCK_COACHES_RAW_0 = [
               },
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
-              placeProperties: [],
+              placeProperties: ['BICYCLE_LOW'],
               state: 'FREE',
             },
             {
