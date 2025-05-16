@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import type { Context } from 'mocha';
@@ -818,6 +818,73 @@ describe(`sbb-radio-button-common`, () => {
               expect(radioButtonRegistry.get(form)!.get('sbb-group-1')?.size).to.be.equal(3);
               expect(radioButtonRegistry.get(form2)!.get('sbb-group-1')).to.be.undefined;
             });
+          });
+        });
+
+        describe('with complex value', () => {
+          const values = [
+            { value: '1', label: 'Value 1' },
+            { value: '2', label: 'Value 2' },
+            { value: '3', label: 'Value 3' },
+          ];
+
+          beforeEach(async () => {
+            form = await fixture(html`
+              <form id="main">
+                <${tagSingle} .value=${values[0]} name="sbb-group-1">${values[0].label}</${tagSingle}>
+                <${tagSingle} .value=${values[1]} name="sbb-group-1" checked>${values[1].label}</${tagSingle}>
+                <${tagSingle} .value=${values[2]} name="sbb-group-1">${values[2].label}</${tagSingle}>
+              </form>`);
+
+            elements = Array.from(form.querySelectorAll(selector));
+
+            inputSpy = new EventSpy('input', fieldset);
+            changeSpy = new EventSpy('change', fieldset);
+
+            await waitForLitRender(form);
+          });
+
+          it('should init with value', async () => {
+            const formData = new FormData(form);
+            const data = formData.get('sbb-group-1');
+            const value = data instanceof Blob ? JSON.parse(await data.text()) : data;
+
+            expect(value).to.be.deep.equal(values[1]);
+            expect(elements[1].checked).to.be.true;
+          });
+
+          it('should update value on click', async () => {
+            elements[0].click();
+            await waitForLitRender(form);
+
+            const formData = new FormData(form);
+            const data = formData.get('sbb-group-1');
+            const value = data instanceof Blob ? JSON.parse(await data.text()) : data;
+
+            expect(value).to.be.deep.equal(values[0]);
+            expect(elements[0].checked).to.be.true;
+            expect(elements[1].checked).to.be.false;
+          });
+
+          // TODO: Needs the compareValue function to work
+          it.skip('should serialize and deserialize complex value', async () => {
+            // Get the stored formData from the form
+            const formData = new FormData(form);
+            const data = formData.get('sbb-group-1');
+            const value = data instanceof Blob ? JSON.parse(await data.text()) : data;
+
+            form.reset();
+            await waitForLitRender(form);
+
+            // Simulate navigating to other page and then back to form
+            elements.forEach((e) => e.formStateRestoreCallback(formData, 'restore'));
+
+            // Wait for the formStateRestoreCallback to finish
+            await aTimeout(30);
+            await waitForLitRender(form);
+
+            expect(value).to.be.deep.equal(values[1]);
+            expect(elements[1]).to.have.attribute('checked');
           });
         });
       });

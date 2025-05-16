@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
+import { forceType } from '../decorators.js';
 import { i18nSelectionRequired } from '../i18n.js';
 
 import type { Constructor } from './constructor.js';
@@ -27,7 +28,7 @@ export const radioButtonRegistry = new WeakMap<
   Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>
 >();
 
-export declare class SbbFormAssociatedRadioButtonMixinType
+export declare abstract class SbbFormAssociatedRadioButtonMixinType
   extends SbbFormAssociatedMixinType
   implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
 {
@@ -58,16 +59,17 @@ export declare class SbbFormAssociatedRadioButtonMixinType
 export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbFormAssociatedRadioButtonMixinType> & T => {
-  class SbbFormAssociatedRadioButtonElement
+  abstract class SbbFormAssociatedRadioButtonElement
     extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
     /**
      * Whether the radio button is checked.
      */
+    @forceType()
     @property({ type: Boolean })
     public set checked(value: boolean) {
-      this._checked = !!value;
+      this._checked = value;
 
       this.toggleAttribute('data-checked', this.checked);
       this.internals.ariaChecked = this.checked.toString();
@@ -79,6 +81,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     }
     private _checked: boolean = false;
 
+    @property()
     public override set name(value: string) {
       super.name = value;
 
@@ -145,9 +148,18 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       state: FormRestoreState | null,
       _reason: FormRestoreReason,
     ): void {
-      if (state) {
+      if (typeof state === 'string' || state == null) {
         this.checked = state === this.value;
+      } else if (state instanceof FormData) {
+        this._readFormData(state).then((data) => {
+          this.checked = data === this.value;
+        });
       }
+    }
+
+    private async _readFormData(formData: FormData): Promise<unknown> {
+      const data = formData.get(this.name);
+      return data instanceof Blob ? JSON.parse(await data.text()) : data;
     }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -168,11 +180,24 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      * If 'checked', update the value. Otherwise, do nothing.
      */
     protected override updateFormValue(): void {
-      if (this.checked) {
-        this.internals.setFormValue(this.value, this.value);
-      } else {
+      if (!this.checked) {
         this.internals.setFormValue(null);
+        return;
       }
+
+      let formValue: FormData | string | null = new FormData();
+
+      if (typeof this.value === 'string' || this.value === null) {
+        formValue = this.value as string | null;
+      } else {
+        formValue.append(
+          this.name,
+          new Blob([JSON.stringify(this.value)], {
+            type: 'application/json',
+          }),
+        );
+      }
+      this.internals.setFormValue(formValue);
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {
@@ -263,7 +288,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       if (!this.name || isServer) {
         return;
       }
-
       const root = this.form ?? this.getRootNode();
       this._radioButtonGroupsMap = radioButtonRegistry.get(root);
 
