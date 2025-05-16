@@ -141,9 +141,9 @@ const layoutItemsTable = html`
           <td>TOILET_AREA</td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('WHEELCHAIR_TOILET_AREA')}</td>
+          <td>${svgImageByOSDMCode('TOILET_WHEELCHAIR_AREA')}</td>
           <td>Toilet-Handicap</td>
-          <td>WHEELCHAIR_TOILET_AREA</td>
+          <td>TOILET_WHEELCHAIR_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('WARDROBE_AREA')}</td>
@@ -197,7 +197,7 @@ const serviceIconTable = html`
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('EASY_ACCESS_AREA')}</td>
-          <td>PRM</td>
+          <td>Easy Access Area</td>
           <td>EASY_ACCESS_AREA</td>
         </tr>
         <tr>
@@ -216,9 +216,9 @@ const serviceIconTable = html`
           <td>TOILET_AREA</td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('WHEELCHAIR_TOILET_AREA')}</td>
+          <td>${svgImageByOSDMCode('TOILET_WHEELCHAIR_AREA')}</td>
           <td>Toilet-PRM</td>
-          <td>WHEELCHAIR_TOILET_AREA</td>
+          <td>TOILET_WHEELCHAIR_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('WHEELCHAIR_ICON')}</td>
