@@ -124,12 +124,6 @@ const elementMountingOptions = <const>[
   'UPPER_TO_LOWER_BORDER',
 ];
 
-const elementMountingOptions = <const>[
-  'FREE',
-  'UPPER_BORDER',
-  'LOWER_BORDER',
-  'UPPER_TO_LOWER_BORDER',
-];
 type AreaBackgroundState = 'LIGHT' | 'DARK';
 type ElementMounting = (typeof elementMountingOptions)[number];
 type PlaceType = 'SEAT' | 'BICYCLE';
