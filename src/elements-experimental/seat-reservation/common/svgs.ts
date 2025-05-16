@@ -9,7 +9,6 @@ import chassisPassageWaggonTopLeft from './svgs/chassis-passage-waggon-top-left.
 import chassisRowMiddle from './svgs/chassis-row-middle.svg?raw';
 import chassisRowOuter from './svgs/chassis-row-outer.svg?raw';
 import chassisSeparator from './svgs/chassis-separator.svg?raw';
-import chassisTmpRowEmpty from './svgs/chassis-tmp-row-empty.svg?raw';
 import interiorPlaceBikeDefault from './svgs/interior-place-bike-default.svg?raw';
 import interiorPlaceBikeNotBookable from './svgs/interior-place-bike-not-bookable.svg?raw';
 import interiorPlaceBikeSelected from './svgs/interior-place-bike-selected.svg?raw';
@@ -19,9 +18,7 @@ import interiorPlaceSeatNotBookable from './svgs/interior-place-seat-not-bookabl
 import interiorPlaceSeatSelected from './svgs/interior-place-seat-selected.svg?raw';
 import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable.svg?raw';
 import interiorTable from './svgs/interior-table.svg?raw';
-import interiorTmpTable from './svgs/interior-tmp-table.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
-import layoutTmpGenericSpace from './svgs/layout-tmp-generic-space.svg?raw';
 
 const svgs = {
   chassisDriverBus,
@@ -35,7 +32,6 @@ const svgs = {
   chassisRowOuter,
   chassisRowMiddle,
   chassisSeparator,
-  chassisTmpRowEmpty,
   interiorPlaceBikeDefault,
   interiorPlaceBikeNotBookable,
   interiorPlaceBikeSelected,
@@ -45,9 +41,7 @@ const svgs = {
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
   interiorTable,
-  interiorTmpTable,
   layoutEntrance,
-  layoutTmpGenericSpace,
 };
 
 export { svgs };

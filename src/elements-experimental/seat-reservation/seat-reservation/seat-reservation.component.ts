@@ -413,7 +413,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           width=${graphicalElement.dimension.w * this.baseGridSize}
           height=${graphicalElement.dimension.h * this.baseGridSize}
           mounting=${elementMounting}
-          background="dark"
+          background="DARK"
           aria-hidden="true"
           title=${ariaLabelForArea || nothing}
         >

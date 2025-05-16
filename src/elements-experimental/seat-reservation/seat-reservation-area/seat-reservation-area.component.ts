@@ -3,7 +3,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type ElementMounting } from '../seat-reservation.js';
+import { type AreaBackgroundState, type ElementMounting } from '../seat-reservation.js';
 
 import style from './seat-reservation-area.scss?lit&inline';
 
@@ -38,7 +38,7 @@ class SbbSeatReservationAreaElement extends LitElement {
   /** Background Prop */
   @forceType()
   @property({ attribute: 'background', type: String })
-  public accessor background: 'light' | 'dark' = 'light';
+  public accessor background: AreaBackgroundState = 'LIGHT';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

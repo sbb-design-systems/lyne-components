@@ -124,8 +124,8 @@ const elementMountingOptions = <const>[
   'UPPER_TO_LOWER_BORDER',
 ];
 
+type AreaBackgroundState = 'LIGHT' | 'DARK';
 type ElementMounting = (typeof elementMountingOptions)[number];
-type ElementDirection = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
 type PlaceType = 'SEAT' | 'BICYCLE';
 type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
