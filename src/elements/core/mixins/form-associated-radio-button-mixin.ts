@@ -185,19 +185,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
         return;
       }
 
-      let formValue: FormData | string | null = new FormData();
-
-      if (typeof this.value === 'string' || this.value === null) {
-        formValue = this.value as string | null;
-      } else {
-        formValue.append(
-          this.name,
-          new Blob([JSON.stringify(this.value)], {
-            type: 'application/json',
-          }),
-        );
-      }
-      this.internals.setFormValue(formValue);
+      super.updateFormValue();
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {
