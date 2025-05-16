@@ -20,7 +20,7 @@ import style from './toggle-option.scss?lit&inline';
 export
 @customElement('sbb-toggle-option')
 @slotState()
-class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the toggle-option is checked. */
@@ -29,9 +29,8 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
   public accessor checked: boolean = false;
 
   /** Value of toggle-option. */
-  @forceType()
   @property()
-  public accessor value: string = '';
+  public accessor value: T | null = null;
 
   private _toggle: SbbToggleElement | null = null;
 

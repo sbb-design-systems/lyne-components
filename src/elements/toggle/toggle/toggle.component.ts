@@ -31,7 +31,7 @@ import style from './toggle.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle')
-class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
+class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     change: 'change',
@@ -56,23 +56,25 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    * a new option is selected (see the `onToggleOptionSelect()` method).
    */
   @property()
-  public override set value(value: string | null) {
+  public set value(value: T | null) {
     if (isServer) {
       this._value = value;
     } else {
       this._valueChanged(value);
     }
   }
-  public override get value(): string {
+  public get value(): T | null {
     return isServer
-      ? (this._value ?? '')
-      : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? '');
+      ? (this._value ?? null)
+      : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? null);
   }
-  private _value: string | null = null;
+  private _value: T | null = null;
 
   /** The child instances of sbb-toggle-option as an array. */
-  public get options(): SbbToggleOptionElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-toggle-option') ?? []);
+  public get options(): SbbToggleOptionElement<T>[] {
+    return Array.from(
+      this.querySelectorAll?.<SbbToggleOptionElement<T>>('sbb-toggle-option') ?? [],
+    );
   }
 
   /** Emits whenever the toggle value changes. */
@@ -123,16 +125,32 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
   /**
    * Reset to the init value if present. Select the first option, otherwise.
+   * @internal
    */
   public formResetCallback(): void {
-    this.value = this.getAttribute('value');
+    // TODO: Should select first option
+    this.value = (this.hasAttribute('value') ? this.getAttribute('value') : null) as T;
   }
 
+  /**
+   * @internal
+   */
   public formStateRestoreCallback(
     state: FormRestoreState | null,
     _reason: FormRestoreReason,
   ): void {
-    this.value = state as string;
+    if (typeof state === 'string' || state == null) {
+      this.value = (state as T) ?? null;
+    } else if (state instanceof FormData) {
+      this._readFormData(state).then((data) => {
+        this.value = data;
+      });
+    }
+  }
+
+  private async _readFormData(formData: FormData): Promise<T> {
+    const data = formData.get(this.name);
+    return data instanceof Blob ? JSON.parse(await data.text()) : (data as T);
   }
 
   /** @internal */
@@ -178,10 +196,11 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     this._updateDisabled();
   }
 
-  private _valueChanged(value: string | null): void {
+  private _valueChanged(value: T | null): void {
     const options = this.options;
     // If options are not yet defined web components, we can check if attribute is already set as a fallback.
     // We do this by checking whether value property is available (defined component).
+    // TODO this approach does not work with complex value or in Angular, needs discussion (cannot be asynchronous)
     const selectedOption =
       options.find(
         (o) => value === ('value' in o ? o.value : (o as HTMLElement).getAttribute('value')),
@@ -230,7 +249,7 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     if (isArrowKeyPressed(evt)) {
       const checked: number = enabledToggleOptions.findIndex(
-        (toggleOption: SbbToggleOptionElement) => toggleOption.checked,
+        (toggleOption: SbbToggleOptionElement<T>) => toggleOption.checked,
       );
       const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {
