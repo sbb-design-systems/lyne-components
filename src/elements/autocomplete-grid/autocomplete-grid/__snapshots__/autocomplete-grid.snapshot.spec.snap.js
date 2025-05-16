@@ -5,6 +5,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
 `<sbb-autocomplete-grid
   data-state="closed"
   popover="manual"
+  size="m"
 >
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-1"
@@ -98,6 +99,7 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   id="sbb-autocomplete-grid-1"
   popover="manual"
   role="grid"
+  size="m"
 >
   <sbb-autocomplete-grid-row
     id="sbb-autocomplete-grid-row-1"
@@ -181,28 +183,6 @@ snapshots["sbb-autocomplete-grid Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid Safari Shadow DOM */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "grid"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
 `<p>
   {
@@ -224,4 +204,26 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
+
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "statictext",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "autocomplete": "list",
+      "haspopup": "grid"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
 
