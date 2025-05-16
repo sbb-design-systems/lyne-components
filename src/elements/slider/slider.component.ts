@@ -97,8 +97,14 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
    */
   @forceType()
-  @property({ type: Boolean, reflect: true })
-  public accessor readonly: boolean = false;
+  @property({ type: Boolean })
+  public set readOnly(value: boolean) {
+    this.toggleAttribute('readonly', !!value);
+    this.requestUpdate?.();
+  }
+  public get readOnly(): boolean {
+    return this.hasAttribute('readonly');
+  }
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
   @forceType()
@@ -159,8 +165,8 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     if (changedProperties.has('max')) {
       this.internals.ariaValueMax = this.max;
     }
-    if (changedProperties.has('readonly')) {
-      this.internals.ariaReadOnly = Boolean(this.readonly).toString();
+    if (changedProperties.has('readOnly')) {
+      this.internals.ariaReadOnly = Boolean(this.readOnly).toString();
     }
   }
 
@@ -219,7 +225,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
       event.preventDefault();
     }
 
-    if (this.readonly) {
+    if (this.readOnly) {
       return;
     }
 
@@ -267,7 +273,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
               tabindex="-1"
               min=${this.min}
               max=${this.max}
-              ?disabled=${this.disabled || this.formDisabled || this.readonly}
+              ?disabled=${this.disabled || this.formDisabled || this.readOnly}
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"

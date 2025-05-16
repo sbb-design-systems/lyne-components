@@ -74,8 +74,14 @@ class SbbNotificationElement extends LitElement {
    * In readonly mode, there is no dismiss button offered to the user.
    */
   @forceType()
-  @property({ reflect: true, type: Boolean })
-  public accessor readonly: boolean = false;
+  @property({ type: Boolean })
+  public set readOnly(value: boolean) {
+    this.toggleAttribute('readonly', !!value);
+    this.requestUpdate?.();
+  }
+  public get readOnly(): boolean {
+    return this.hasAttribute('readonly');
+  }
 
   /**
    * Size variant, either s or m.
@@ -251,7 +257,7 @@ class SbbNotificationElement extends LitElement {
             <slot></slot>
           </span>
 
-          ${!this.readonly
+          ${!this.readOnly
             ? html`<span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-secondary-button

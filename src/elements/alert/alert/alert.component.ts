@@ -42,8 +42,14 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
    * In readonly mode, there is no dismiss button offered to the user.
    */
   @forceType()
-  @property({ reflect: true, type: Boolean })
-  public accessor readonly: boolean = false;
+  @property({ type: Boolean })
+  public set readOnly(value: boolean) {
+    this.toggleAttribute('readonly', !!value);
+    this.requestUpdate?.();
+  }
+  public get readOnly(): boolean {
+    return this.hasAttribute('readonly');
+  }
 
   /**
    * You can choose between `s`, `m` or `l` size.
@@ -153,7 +159,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                 <slot @slotchange=${this._syncLinks}></slot>
               </p>
             </span>
-            ${!this.readonly
+            ${!this.readOnly
               ? html`<span class="sbb-alert__close-button-wrapper">
                   <sbb-divider
                     orientation="vertical"

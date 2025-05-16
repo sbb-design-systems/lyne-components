@@ -13,7 +13,7 @@ It is possible to provide a label via the unnamed slot. If not present, the `val
 
 ## States
 
-The `disabled`/`readonly` properties are controlled by the `sbb-chip-group`.
+The `disabled`/`readOnly` properties are controlled by the `sbb-chip-group`.
 
 ## Accessibility
 
@@ -27,7 +27,7 @@ Use the `accessibility-label` property to add info on the chip content.
 | ---------- | ---------- | ------- | --------- | ------- | --------------------------------------------------------------- |
 | `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled.                              |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag.                                 |
-| `readonly` | `readonly` | public  | `boolean` | `false` | Whether the component is readonly                               |
+| `readOnly` | `readOnly` | public  | `boolean` |         | Whether the component is readonly                               |
 | `value`    | `value`    | public  | `string`  | `''`    | The value of chip. Will be used as label if nothing is slotted. |
 
 ## Slots

@@ -272,7 +272,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
     switch (event.key) {
       case 'Backspace':
       case 'Delete':
-        if (!eventTarget.readonly && !eventTarget.disabled) {
+        if (!eventTarget.readOnly && !eventTarget.disabled) {
           event.preventDefault();
           this._deleteChip(eventTarget);
         }
@@ -376,7 +376,7 @@ class SbbChipGroupElement extends SbbRequiredMixin(
   private _proxyStateToChips(): void {
     this._chipElements().forEach((c) => {
       c.disabled = this.disabled || this.formDisabled;
-      c.readonly = this._inputElement?.hasAttribute('readonly') ?? false;
+      c.readOnly = this._inputElement?.hasAttribute('readonly') ?? false;
       c.negative = this.negative;
     });
   }

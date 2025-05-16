@@ -36,8 +36,14 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
 
   /** Whether the component is readonly */
   @forceType()
-  @property({ type: Boolean, reflect: true })
-  public accessor readonly: boolean = false;
+  @property({ type: Boolean })
+  public set readOnly(value: boolean) {
+    this.toggleAttribute('readonly', !!value);
+    this.requestUpdate?.();
+  }
+  public get readOnly(): boolean {
+    return this.hasAttribute('readonly');
+  }
 
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);

@@ -115,11 +115,15 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Whether the select is readonly. */
   @forceType()
-  @handleDistinctChange((e: SbbSelectElement, newValue: boolean) =>
-    e._closeOnDisabledReadonlyChanged(newValue),
-  )
-  @property({ type: Boolean, reflect: true })
-  public accessor readonly: boolean = false;
+  @property({ type: Boolean })
+  public set readOnly(value: boolean) {
+    this._closeOnDisabledReadonlyChanged(value);
+    this.toggleAttribute('readonly', !!value);
+    this.requestUpdate?.();
+  }
+  public get readOnly(): boolean {
+    return this.hasAttribute('readonly');
+  }
 
   /**
    * Form type of element.
@@ -652,7 +656,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _onKeyDown(event: KeyboardEvent): void {
-    if (this.readonly) {
+    if (this.readOnly) {
       return;
     }
 
@@ -680,7 +684,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.readonly || this.state !== 'opened') {
+    if (this.readOnly || this.state !== 'opened') {
       return;
     }
 
@@ -888,7 +892,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   }
 
   private _toggleOpening(): void {
-    if (this.disabled || this.formDisabled || this.readonly) {
+    if (this.disabled || this.formDisabled || this.readOnly) {
       return;
     }
     this._triggerElement?.focus();
