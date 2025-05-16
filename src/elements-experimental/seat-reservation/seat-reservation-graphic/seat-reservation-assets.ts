@@ -148,7 +148,7 @@ const layoutItemsTable = html`
         <tr>
           <td>${svgImageByOSDMCode('WARDROBE_AREA')}</td>
           <td>Wardrobe</td>
-          <td>???</td>
+          <td>WARDROBE_AREA</td>
         </tr>
       </tbody>
     </table>
