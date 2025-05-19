@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { register } from 'node:module';
+import { platform } from 'node:os';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -16,7 +17,11 @@ export function verifyEntryPoints(): PluginOption {
     },
     async closeBundle() {
       // On windows, the files are not yet written when closeBundle is called.
-      if (viteConfig.command !== 'build' || !existsSync(viteConfig.build.outDir)) {
+      if (
+        viteConfig.command !== 'build' ||
+        !existsSync(viteConfig.build.outDir) ||
+        platform() === 'win32'
+      ) {
         return;
       }
 

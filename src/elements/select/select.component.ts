@@ -118,7 +118,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   @handleDistinctChange((e: SbbSelectElement<T>, newValue: boolean) =>
     e._closeOnDisabledReadonlyChanged(newValue),
   )
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   public accessor readonly: boolean = false;
 
   /** Value of the form element. */

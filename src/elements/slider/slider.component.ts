@@ -99,7 +99,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
    */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   public accessor readonly: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */

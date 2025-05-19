@@ -13,7 +13,7 @@ import { SbbLanguageController } from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
 import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import { i18nTimeInputChange } from '../core/i18n.js';
-import type { SbbDateLike, SbbValidationChangeEvent } from '../core/interfaces.js';
+import type { SbbValidationChangeEvent } from '../core/interfaces.js';
 
 import style from './time-input.scss?lit&inline';
 
@@ -54,7 +54,7 @@ class SbbTimeInputElement extends LitElement {
 
   /** Formats the current input's value as date. */
   @property({ attribute: false })
-  public set valueAsDate(date: SbbDateLike | null) {
+  public set valueAsDate(date: Date | null) {
     if (!date || !this._inputElement) {
       return;
     }

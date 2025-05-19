@@ -12,11 +12,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { readConfig } from '../../core/config.js';
 import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
-import { forceType } from '../../core/decorators.js';
+import { forceType, plainDate } from '../../core/decorators.js';
 import { findReferencedElement } from '../../core/dom.js';
 import { EventEmitter, forwardEvent } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
-import type { SbbDateLike, SbbValidationChangeEvent } from '../../core/interfaces.js';
+import type { SbbValidationChangeEvent } from '../../core/interfaces.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import { SbbDatepickerAssociationHostController, type SbbDatepickerButton } from '../common.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
@@ -119,31 +119,25 @@ class SbbDatepickerElement<T = Date> extends LitElement {
 
   /**
    * A configured date which acts as the current date instead of the real current date.
-   * Recommended for testing purposes.
+   * Only recommended for testing purposes.
    */
+  @plainDate({ fallback: (a) => a.today() })
   @property()
-  public set now(value: SbbDateLike<T> | null) {
-    this._now = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-  }
-  public get now(): T {
-    return this._now ?? this._dateAdapter.today();
-  }
-  private _now?: T | null;
+  public accessor now: T = null!;
 
   /**
    * The currently selected date as a Date or custom date provider instance.
    * @deprecated Use valueAsDate from SbbDateInputElement.
    */
   @property({ attribute: false })
-  public set valueAsDate(value: SbbDateLike<T> | null) {
+  public set valueAsDate(value: T | null) {
+    value = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     if (isDateInput(this.inputElement)) {
-      this.inputElement.valueAsDate = this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value),
-      );
+      this.inputElement.valueAsDate = value;
       return;
     }
 
-    this._valueAsDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+    this._valueAsDate = value;
     if (this._tryApplyFormatToInput()) {
       // Emit blur event when value is changed programmatically to notify
       // frameworks that rely on that event to update form status.
@@ -209,7 +203,8 @@ class SbbDatepickerElement<T = Date> extends LitElement {
           mutationsList?.some((e) => e.attributeName === 'value')
         ) {
           const value = this.inputElement.getAttribute('value');
-          this.valueAsDate = this._dateAdapter.parse(value, this.now) ?? value;
+          this.valueAsDate =
+            this._dateAdapter.parse(value, this.now) ?? this._dateAdapter.deserialize(value);
         }
       })
     : null;
@@ -278,7 +273,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
    * Whether a custom now is configured.
    */
   public hasCustomNow(): boolean {
-    return !!this._now;
+    return this._dateAdapter.compareDate(this.now, this._dateAdapter.today()) !== 0;
   }
 
   private _configureInputElement(): void {

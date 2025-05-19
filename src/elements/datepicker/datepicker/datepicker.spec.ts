@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
+import { defaultDateAdapter } from '../../core/datetime.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
@@ -15,6 +16,8 @@ import '../../date-input.js';
 import '../../form-field.js';
 import '../datepicker-previous-day.js';
 import '../datepicker-next-day.js';
+
+const toISO = (date: Date): string => defaultDateAdapter.toIso8601(date);
 
 describe(`sbb-datepicker`, () => {
   for (const dateInput of [false, true]) {
@@ -60,23 +63,6 @@ describe(`sbb-datepicker`, () => {
 
           expect(input.value).to.be.equal('Mo, 20.12.2021');
         });
-
-        if (!dateInput) {
-          it('renders and interprets timestamp', async () => {
-            const element = await fixture(html`
-              <div>
-                <input id="datepicker-input" value="1594512000" />
-                <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-              </div>
-            `);
-
-            const input: HTMLInputElement | SbbDateInputElement = element.querySelector<
-              HTMLInputElement | SbbDateInputElement
-            >(inputSelector)!;
-
-            expect(input.value).to.be.equal('Su, 12.07.2020');
-          });
-        }
 
         const commonBehaviorTest: (template: TemplateResult) => void = (
           template: TemplateResult,
@@ -412,26 +398,26 @@ describe(`sbb-datepicker`, () => {
               const availableDate: Date = datePicker.findPreviousAvailableDate(
                 new Date(2023, 1, 26, 0, 0, 0, 0),
               );
-              expect(availableDate.getTime()).to.equal(new Date(2023, 1, 25, 0, 0, 0, 0).getTime());
+              expect(toISO(availableDate)).to.equal(toISO(new Date(2023, 1, 25, 0, 0, 0, 0)));
             });
 
             it('get date without dateFilter and with current date equal to min date', async () => {
               const date = new Date(2023, 1, 26, 0, 0, 0, 0);
-              input.min = dateInput ? date : String(date.valueOf() / 1000);
+              input.min = dateInput ? date : toISO(date);
               const availableDate: Date = datePicker.findPreviousAvailableDate(date);
-              expect(availableDate.getTime()).to.equal(date.getTime());
+              expect(toISO(availableDate)).to.equal(toISO(date));
             });
 
             it('get date with dateFilter and min', async () => {
               const minDate = new Date(2023, 1, 26, 0, 0, 0, 0);
 
               datePicker.dateFilter = (d: Date | null) => d?.getDate() !== 27;
-              input.min = String(minDate.valueOf() / 1000);
+              input.min = toISO(minDate);
 
               const availableDate: Date = datePicker.findPreviousAvailableDate(
                 new Date(2023, 1, 28, 0, 0, 0, 0),
               );
-              expect(availableDate.getTime()).to.equal(minDate.getTime());
+              expect(toISO(availableDate)).to.equal(toISO(minDate));
             });
           });
 
@@ -440,26 +426,26 @@ describe(`sbb-datepicker`, () => {
               const availableDate: Date = datePicker.findNextAvailableDate(
                 new Date(2023, 1, 26, 0, 0, 0, 0),
               );
-              expect(availableDate.getTime()).to.equal(new Date(2023, 1, 27, 0, 0, 0, 0).getTime());
+              expect(toISO(availableDate)).to.equal(toISO(new Date(2023, 1, 27, 0, 0, 0, 0)));
             });
 
             it('get date without dateFilter with current date equal to max date', async () => {
               const date: Date = new Date(2023, 1, 26, 0, 0, 0, 0);
-              input.max = dateInput ? date : String(date.valueOf() / 1000);
+              input.max = dateInput ? date : toISO(date);
               const availableDate: Date = datePicker.findNextAvailableDate(date);
-              expect(availableDate.getTime()).to.equal(date.getTime());
+              expect(toISO(availableDate)).to.equal(toISO(date));
             });
 
             it('get date with dateFilter and max', async () => {
               const maxDate = new Date(2023, 1, 28, 0, 0, 0, 0);
 
               datePicker.dateFilter = (d: Date | null) => d?.getDate() !== 27;
-              input.min = String(maxDate.valueOf() / 1000);
+              input.min = toISO(maxDate);
 
               const availableDate: Date = datePicker.findNextAvailableDate(
                 new Date(2023, 1, 26, 0, 0, 0, 0),
               );
-              expect(availableDate.getTime()).to.equal(maxDate.getTime());
+              expect(toISO(availableDate)).to.equal(toISO(maxDate));
             });
           });
 
