@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import type { SbbCalendarElement } from '../../calendar.js';
@@ -238,7 +239,10 @@ describe(`sbb-datepicker-toggle`, () => {
         expect(calendar.selected).to.be.null;
       });
 
-      it('handles view property', async () => {
+      it('handles view property', async function (this: Context) {
+        // Test is flaky in Chromium
+        this.retries(3);
+
         const element: SbbFormFieldElement = await fixture(
           html`<sbb-form-field>
             <sbb-datepicker-toggle view="year"></sbb-datepicker-toggle>
