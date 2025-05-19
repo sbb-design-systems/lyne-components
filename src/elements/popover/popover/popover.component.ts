@@ -210,7 +210,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-popover-${++nextId}`;
-    this._configureTrigger();
     this.state = 'closed';
     popoversRef.add(this as SbbPopoverElement);
   }
@@ -229,6 +228,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+    this._configureTrigger();
 
     if (this._hoverTrigger) {
       this._overlay.addEventListener('mouseenter', () => this._onOverlayMouseEnter());
