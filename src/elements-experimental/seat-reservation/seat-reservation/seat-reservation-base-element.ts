@@ -582,7 +582,7 @@ export class SeatReservationBaseElement extends LitElement {
     this.preventCoachScrollByPlaceClick = false;
     this.isKeyboardNavigation = true;
 
-    const places = this.seatReservation.coachItems[this.currSelectedCoachIndex].places;
+    const places = this.seatReservation.coachItems[this.currSelectedCoachIndex]?.places;
 
     if (this.focusedCoachIndex !== -1) {
       this.focusedCoachIndex = -1;
