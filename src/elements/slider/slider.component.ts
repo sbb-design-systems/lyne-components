@@ -11,6 +11,7 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
+  SbbReadonlyMixin,
 } from '../core/mixins.js';
 
 import style from './slider.scss?lit&inline';
@@ -29,7 +30,9 @@ export
 @hostAttributes({
   tabindex: '0',
 })
-class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
+class SbbSliderElement extends SbbDisabledMixin(
+  SbbReadonlyMixin(SbbFormAssociatedMixin(LitElement)),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -91,20 +94,6 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     return this._max;
   }
   private _max: string = '100';
-
-  /**
-   * Readonly state for the inner HTMLInputElement.
-   * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
-   */
-  @forceType()
-  @property({ type: Boolean })
-  public set readOnly(value: boolean) {
-    this.toggleAttribute('readonly', value);
-    this.requestUpdate?.();
-  }
-  public get readOnly(): boolean {
-    return this.hasAttribute('readonly');
-  }
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
   @forceType()

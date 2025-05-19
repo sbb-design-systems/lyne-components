@@ -24,6 +24,7 @@ import {
   SbbFormAssociatedMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
+  SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
@@ -73,8 +74,10 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
-            SbbOpenCloseBaseElement,
+          SbbReadonlyMixin(
+            SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement, string | string[]>(
+              SbbOpenCloseBaseElement,
+            ),
           ),
         ),
       ),
@@ -115,14 +118,11 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
 
   /** Whether the select is readonly. */
   @forceType()
-  @property({ type: Boolean })
-  public set readOnly(value: boolean) {
+  @property({ type: Boolean, attribute: 'readonly' })
+  public override set readOnly(value: boolean) {
     this._closeOnDisabledReadonlyChanged(value);
     this.toggleAttribute('readonly', value);
     this.requestUpdate?.();
-  }
-  public get readOnly(): boolean {
-    return this.hasAttribute('readonly');
   }
 
   /**

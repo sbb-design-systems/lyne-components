@@ -15,6 +15,7 @@ import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
+import { SbbReadonlyMixin } from '../core/mixins.js';
 import type { SbbTitleLevel } from '../title.js';
 
 import style from './notification.scss?lit&inline';
@@ -48,7 +49,7 @@ const DEBOUNCE_TIME = 150;
 export
 @customElement('sbb-notification')
 @slotState()
-class SbbNotificationElement extends LitElement {
+class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -68,20 +69,6 @@ class SbbNotificationElement extends LitElement {
 
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
-
-  /**
-   * Whether the notification is readonly.
-   * In readonly mode, there is no dismiss button offered to the user.
-   */
-  @forceType()
-  @property({ type: Boolean })
-  public set readOnly(value: boolean) {
-    this.toggleAttribute('readonly', value);
-    this.requestUpdate?.();
-  }
-  public get readOnly(): boolean {
-    return this.hasAttribute('readonly');
-  }
 
   /**
    * Size variant, either s or m.
