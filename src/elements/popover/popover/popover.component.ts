@@ -209,6 +209,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._configureTrigger();
     this.id ||= `sbb-popover-${++nextId}`;
     this.state = 'closed';
     popoversRef.add(this as SbbPopoverElement);
