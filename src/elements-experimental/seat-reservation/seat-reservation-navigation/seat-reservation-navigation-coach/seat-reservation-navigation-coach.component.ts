@@ -93,7 +93,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
     if (changedProperties.has('selected')) {
       const selectedNavButtonElement = this.shadowRoot?.querySelector(
-        '.sbb-sr-navigation__control-button',
+        '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
       if (this.selected && selectedNavButtonElement) {
         selectedNavButtonElement.focus();
@@ -103,7 +103,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
     if (changedProperties.has('focused') && this.focused) {
       const focusedNavButtonElement = this.shadowRoot?.querySelector(
-        '.sbb-sr-navigation__control-button',
+        '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
       if (focusedNavButtonElement) {
         focusedNavButtonElement.focus();
@@ -158,7 +158,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
             <button
               type="button"
               ?disabled="${this.disable}"
-              class="sbb-sr-navigation__control-button"
+              class="sbb-sr-navigation__ctrl-button"
               title="${titleDescriptionNavCoachButton}"
               aria-describedby="nav-coach-service-descriptions-${this.index}"
               @click=${() => this._selectNavCoach(this.index)}

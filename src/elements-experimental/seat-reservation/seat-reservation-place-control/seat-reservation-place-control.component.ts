@@ -117,7 +117,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     if (changedProperties.has('keyfocus')) {
       const placeButton = this.shadowRoot?.querySelector(
-        '.sbb-seat-reservation-place-control__button',
+        '.sbb-sr-place-ctrl__button',
       ) as HTMLButtonElement;
       if (this.keyfocus === 'focus') {
         placeButton.focus();
