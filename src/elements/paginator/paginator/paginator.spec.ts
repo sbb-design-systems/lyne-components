@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbOptionElement } from '../../option.js';
@@ -107,20 +108,16 @@ describe('sbb-paginator', () => {
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
     expect(select).not.to.be.null;
 
-    const didOpen = new EventSpy(
-      SbbSelectElement.events.didOpen,
-      element.shadowRoot!.querySelector('sbb-select'),
-    );
+    const didOpen = new EventSpy(SbbSelectElement.events.didOpen, select);
     select.click();
     await didOpen.calledOnce();
-    expect(didOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 
     const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;
     expect(secondOption).not.to.be.null;
     secondOption.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(2);
+    expect(pageEventSpy.count).to.be.equal(1);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(20);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(0);
     expect((pageEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(0);
@@ -321,5 +318,22 @@ describe('sbb-paginator', () => {
   it('should handle numberOfPages() call if pageSize is 0', () => {
     element.pageSize = 0;
     expect(element.numberOfPages()).to.be.equal(0);
+  });
+
+  it('should avoid emitting page event before updated', async () => {
+    const pageSpy = spy();
+    element = await fixture(
+      html`<sbb-paginator
+        length="10"
+        page-size="10"
+        page-index="2"
+        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageSpy(e)}
+      ></sbb-paginator>`,
+    );
+
+    await waitForLitRender(element);
+    await aTimeout(30);
+
+    expect(pageSpy).to.not.have.been.called;
   });
 });
