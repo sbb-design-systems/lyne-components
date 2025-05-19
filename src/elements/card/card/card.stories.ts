@@ -39,7 +39,10 @@ const Template = ({ size, color }: Args): TemplateResult => html`
 `;
 
 const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+  <sbb-card
+    ${sbbSpread({ size, color })}
+    style=${size.includes('s') ? '--sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x)' : ''}
+  >
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
@@ -260,6 +263,15 @@ export const WithBadge: StoryObj = {
   args: {
     ...defaultArgs,
     size: size.options![2],
+  },
+};
+
+export const WithBadgeS: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![1],
   },
 };
 

@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean } from '../../core/dom.js';
@@ -38,15 +38,6 @@ class SbbCardElement extends LitElement {
     | 'transparent-bordered'
     | 'transparent-bordered-dashed' = 'white';
 
-  /**
-   * It is used internally to show the `<sbb-card-badge>`.
-   *
-   * @returns True whether size is equal to m, l, xl or xxl.
-   */
-  private _isBadgeVisible(): boolean {
-    return ['m', 'l', 'xl', 'xxl', 'xxxl'].includes(this.size);
-  }
-
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-card">
@@ -54,11 +45,9 @@ class SbbCardElement extends LitElement {
         <span class="sbb-card__wrapper">
           <slot></slot>
         </span>
-        ${this._isBadgeVisible()
-          ? html`<span class="sbb-card__badge-wrapper">
-              <slot name="badge"></slot>
-            </span>`
-          : nothing}
+        <span class="sbb-card__badge-wrapper">
+          <slot name="badge"></slot>
+        </span>
       </span>
     `;
   }
