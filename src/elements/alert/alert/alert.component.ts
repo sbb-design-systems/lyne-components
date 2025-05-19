@@ -44,7 +44,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
   @forceType()
   @property({ type: Boolean })
   public set readOnly(value: boolean) {
-    this.toggleAttribute('readonly', !!value);
+    this.toggleAttribute('readonly', value);
     this.requestUpdate?.();
   }
   public get readOnly(): boolean {

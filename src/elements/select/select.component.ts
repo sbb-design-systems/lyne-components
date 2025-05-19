@@ -118,7 +118,7 @@ class SbbSelectElement extends SbbUpdateSchedulerMixin(
   @property({ type: Boolean })
   public set readOnly(value: boolean) {
     this._closeOnDisabledReadonlyChanged(value);
-    this.toggleAttribute('readonly', !!value);
+    this.toggleAttribute('readonly', value);
     this.requestUpdate?.();
   }
   public get readOnly(): boolean {

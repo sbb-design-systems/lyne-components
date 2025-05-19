@@ -30,7 +30,7 @@ The component can optionally display a `sbb-icon` at the component start using t
 The `sbb-alert` can optionally be hidden by a user, if the `readOnly` prop is not set.
 
 ```html
-<sbb-alert title-content="Interruption between Berne and Olten" readOnly>
+<sbb-alert title-content="Interruption between Berne and Olten" readonly>
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed
   connections.
