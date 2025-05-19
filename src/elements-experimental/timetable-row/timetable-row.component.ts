@@ -503,7 +503,7 @@ class SbbTimetableRowElement extends LitElement {
       occupancyText,
       attributesText,
     ]
-      .map((e) => e.trim())
+      .map((e) => e?.trim())
       .filter((e) => e && e.length > 0)
       .join(' ');
   }
