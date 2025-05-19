@@ -149,11 +149,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     return html`
-      <nav
-        class="${classMap({
-          'sbb-sr-navigation--vertical': this.alignVertical,
-        })}"
-      >
+      <nav class="${classMap({ 'sbb-sr-navigation--vertical': this.alignVertical })}">
         <ul
           class="sbb-sr-navigation__list-coaches"
           aria-label="${getI18nSeatReservation(

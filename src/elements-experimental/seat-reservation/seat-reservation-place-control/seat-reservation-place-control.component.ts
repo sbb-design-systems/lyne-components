@@ -54,12 +54,12 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width', type: Number })
-  public accessor width: number = 3;
+  public accessor width: number = 32;
 
   /** Height Prop */
   @forceType()
   @property({ attribute: 'height', type: Number })
-  public accessor height: number = 3;
+  public accessor height: number = 32;
 
   /** Text Prop */
   @forceType()

@@ -73,8 +73,8 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   type: 'SEAT',
   state: 'FREE',
-  width: 2,
-  height: 2,
+  width: 32,
+  height: 32,
   rotation: 0,
   'graphic-rotation': 0,
   text: '',
