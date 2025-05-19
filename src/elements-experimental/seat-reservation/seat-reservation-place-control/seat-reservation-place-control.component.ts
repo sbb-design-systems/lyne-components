@@ -136,14 +136,14 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
 
     return html`
       <div
-        part="sbb-seat-reservation-place-part"
-        class="sbb-seat-reservation-place-control--orientation-${this
-          .rotation} sbb-seat-reservation-place-control sbb-seat-reservation-place-control--type-${type} sbb-seat-reservation-place-control--state-${state}"
+        part="sbb-sr-place-part"
+        class="sbb-sr-place-ctrl--orientation-${this
+          .rotation} sbb-sr-place-ctrl sbb-sr-place-ctrl--type-${type} sbb-sr-place-ctrl--state-${state}"
       >
         <button
           class="${classMap({
-            'sbb-seat-reservation-place-control__button': true,
-            'sbb-reservation-place-control--disabled': this.preventClick,
+            'sbb-sr-place-ctrl__button': true,
+            'sbb-sr-place-ctrl--disabled': this.preventClick,
           })}"
           @click=${() => this._selectPlace()}
           title=${this._getTitleDescriptionPlace()}
@@ -157,10 +157,7 @@ class SbbSeatReservationPlaceControlElement extends LitElement {
             .inverseRotation=${inverseRotationPlaceCheckIcon}
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
-          <span
-            ${this.text ?? nothing}
-            class="sbb-seat-reservation-place-control__text"
-            aria-hidden="true"
+          <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
             >${text}</span
           >
         </button>

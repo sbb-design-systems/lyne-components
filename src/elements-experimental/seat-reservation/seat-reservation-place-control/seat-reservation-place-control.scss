@@ -11,7 +11,7 @@
     fill: var(--sbb-reservation-place-control-#{$state}-backrest-background-#{$event});
   }
 
-  .sbb-seat-reservation-place-control__text {
+  .sbb-sr-place-ctrl__text {
     background-color: var(--sbb-reservation-place-control-#{$state}-background-#{$event});
     color: $textColor;
   }
@@ -52,7 +52,7 @@ $disabled: '[disabled], :disabled, .sbb-reservation-place-control--disabled';
   display: inline-block;
 }
 
-.sbb-seat-reservation-place-control {
+.sbb-sr-place-ctrl {
   $root: &;
 
   position: relative;

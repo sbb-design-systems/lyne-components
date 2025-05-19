@@ -33,7 +33,7 @@ class SbbSeatReservationNavigationElement extends LitElement {
             'SEAT_RESERVATION_NAVIGATION',
             this._language.current,
           )}"
-          class="sbb-seat-reservation-navigation__list-coaches"
+          class="sbb-sr-navigation__list-coaches"
           role="list"
         >
           ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {

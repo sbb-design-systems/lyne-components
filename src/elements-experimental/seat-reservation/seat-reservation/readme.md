@@ -150,10 +150,10 @@ type BaseElement = {
 
 Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors for the background color, backrest, and text of the place can be customized. The currently specified values ​​(var(--sbb-color-black)) are the built-in default values.
 
-By using the pseudo-element ::part(sbb-seat-reservation-place-part) in your own css, the individual custom properties can be overwritten.
+By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the individual custom properties can be overwritten.
 
 ```css
-::part(sbb-seat-reservation-place-part) {
+::part(sbb-sr-place-part) {
 
   // Color definition for text with state FREE
   --sbb-reservation-place-control-free-text-default: var(--sbb-color-black);

@@ -93,7 +93,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
     if (changedProperties.has('selected')) {
       const selectedNavButtonElement = this.shadowRoot?.querySelector(
-        '.sbb-seat-reservation-navigation__control-button',
+        '.sbb-sr-navigation__control-button',
       ) as HTMLButtonElement;
       if (this.selected && selectedNavButtonElement) {
         selectedNavButtonElement.focus();
@@ -103,7 +103,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
     if (changedProperties.has('focused') && this.focused) {
       const focusedNavButtonElement = this.shadowRoot?.querySelector(
-        '.sbb-seat-reservation-navigation__control-button',
+        '.sbb-sr-navigation__control-button',
       ) as HTMLButtonElement;
       if (focusedNavButtonElement) {
         focusedNavButtonElement.focus();
@@ -125,11 +125,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     return html`
       <div
         class="${classMap({
-          'sbb-seat-reservation-navigation__item-coach': true,
+          'sbb-sr-navigation__item-coach': true,
           'last-coach': this.last,
           'first-coach': this.first,
           'vertical-coach': this.vertical,
-          'sbb-seat-reservation-navigation__item-coach--selected': this.selected,
+          'sbb-sr-navigation__item-coach--selected': this.selected,
         })}"
       >
         ${this._getNavigationButton()}
@@ -158,7 +158,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
             <button
               type="button"
               ?disabled="${this.disable}"
-              class="sbb-seat-reservation-navigation__control-button"
+              class="sbb-sr-navigation__control-button"
               title="${titleDescriptionNavCoachButton}"
               aria-describedby="nav-coach-service-descriptions-${this.index}"
               @click=${() => this._selectNavCoach(this.index)}
@@ -166,28 +166,25 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
               ${this._getBtnInformation(currServiceClassNumber)}
             </button>
           `
-        : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
+        : html`<div class="sbb-sr-navigation-driver-area"></div>`}
     `;
   }
 
   private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
     return html`
       ${serviceClassNumber === 1
-        ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
+        ? html`<span class="sbb-sr-navigation--first-class"></span>`
         : nothing}
       ${this.travelClass?.length > 0 || this.coachId
-        ? html`<div class="sbb-seat-reservation-navigation__additional-information">
+        ? html`<div class="sbb-sr-navigation__additional-information">
             ${this.coachId
-              ? html`<div
-                  class="sbb-seat-reservation-navigation__item-coach-number"
-                  aria-hidden="true"
-                >
+              ? html`<div class="sbb-sr-navigation__item-coach-number" aria-hidden="true">
                   ${this.coachId}
                 </div>`
               : nothing}
             <div
               ${serviceClassNumber ?? nothing}
-              class="sbb-seat-reservation-navigation__item-coach-travelclass"
+              class="sbb-sr-navigation__item-coach-travelclass"
               aria-hidden="true"
             >
               ${serviceClassNumber}
