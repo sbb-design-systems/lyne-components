@@ -155,8 +155,11 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
 ```css
 ::part(sbb-sr-place-part) {
 
-  // Color definition for text with state FREE
-  --sbb-reservation-place-control-free-text-default: var(--sbb-color-black);
+  // Color definition for text
+  --sbb-reservation-place-control-default-text: var(--sbb-color-black);
+  --sbb-reservation-place-control-hover-text: var(--sbb-color-iron);
+  --sbb-reservation-place-control-focus-text: var(--sbb-color-anthracite);
+  --sbb-reservation-place-control-allocated-text: var(--sbb-color-smoke);
 
   // Color background definition for place with state FREE
   --sbb-reservation-place-control-free-background-default: var(--sbb-color-white);
@@ -177,6 +180,9 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
   --sbb-reservation-place-control-selected-backrest-background-default: var(--sbb-color-red150);
   --sbb-reservation-place-control-selected-backrest-background-hover: #7d000f;
   --sbb-reservation-place-control-selected-backrest-background-focus: #5a000b;
+
+  // Color background definition for place with state ALLOCATED
+  --sbb-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 }
 ```
 
