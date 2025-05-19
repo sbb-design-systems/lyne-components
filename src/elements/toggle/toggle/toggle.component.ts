@@ -57,18 +57,18 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMix
    */
   @property()
   public set value(value: T | null) {
-    if (isServer) {
-      this._value = value;
+    if (isServer || !this.hasUpdated) {
+      this._fallbackValue = value;
     } else {
       this._valueChanged(value);
     }
   }
   public get value(): T | null {
     return isServer
-      ? (this._value ?? null)
+      ? (this._fallbackValue ?? null)
       : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? null);
   }
-  private _value: T | null = null;
+  private _fallbackValue: T | null = null;
 
   /** The child instances of sbb-toggle-option as an array. */
   public get options(): SbbToggleOptionElement<T>[] {
@@ -92,26 +92,17 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMix
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._updateToggle();
-  }
-
   protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled') || changedProperties.has('formDisabled')) {
       this._updateDisabled();
     }
-  }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    this.updatePillPosition(false);
-
-    this.updateComplete.then(() => {
-      this.statusChanged();
-    });
+    // Before the first update, init with the fallback value.
+    // The willUpdate hook is safer than the 'value' setter.
+    if (!this.hasUpdated) {
+      this._valueChanged(this._fallbackValue);
+    }
   }
 
   /**
@@ -128,7 +119,6 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMix
    * @internal
    */
   public formResetCallback(): void {
-    // TODO: Should select first option
     this.value = (this.hasAttribute('value') ? this.getAttribute('value') : null) as T;
   }
 
@@ -198,15 +188,9 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMix
 
   private _valueChanged(value: T | null): void {
     const options = this.options;
-    // If options are not yet defined web components, we can check if attribute is already set as a fallback.
-    // We do this by checking whether value property is available (defined component).
-    // TODO this approach does not work with complex value or in Angular, needs discussion (cannot be asynchronous)
+
     const selectedOption =
-      options.find(
-        (o) => value === ('value' in o ? o.value : (o as HTMLElement).getAttribute('value')),
-      ) ??
-      options.find((o) => o.checked) ??
-      options[0];
+      options.find((o) => value === o.value) ?? options.find((o) => o.checked) ?? options[0];
 
     if (!selectedOption) {
       if (import.meta.env.DEV && !isServer) {
@@ -214,9 +198,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMix
       }
       return;
     }
-    if (!selectedOption.checked) {
-      selectedOption.checked = true;
-    }
+    selectedOption.checked = true;
     this.statusChanged();
   }
 
