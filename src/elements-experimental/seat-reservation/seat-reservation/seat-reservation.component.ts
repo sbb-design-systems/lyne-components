@@ -114,6 +114,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         <sbb-screen-reader-only>
           <input
             id="first-tab-element"
+            role="contentinfo"
             type="text"
             aria-label="${getI18nSeatReservation('SEAT_RESERVATION_BEGIN', this._language.current)}"
             readonly
@@ -134,6 +135,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         <sbb-screen-reader-only>
           <input
             id="last-tab-element"
+            role="contentinfo"
             type="text"
             aria-label="${getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)}"
             readonly
