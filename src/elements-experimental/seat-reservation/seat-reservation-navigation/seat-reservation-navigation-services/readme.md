@@ -10,3 +10,10 @@ and should not be used on its own even if it's possible.
 ```
 
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name           | Attribute     | Privacy | Type      | Default | Description          |
+| -------------- | ------------- | ------- | --------- | ------- | -------------------- |
+| `property-ids` | `propertyIds` | public  | `array`   | `[]`    | array of ids         |
+| `vertical`     | `vertical`    | public  | `boolean` | `false` | vertical view active |

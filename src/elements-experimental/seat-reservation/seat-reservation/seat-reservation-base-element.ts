@@ -787,11 +787,11 @@ export class SeatReservationBaseElement extends LitElement {
         '.sbb-seat-reservation__wrapper',
       ) as HTMLElement;
       if (seatReservationWrapperElement) {
-        const absSeatReservationHeight =
+        const seatReservationVerticalOffset =
           seatReservationWrapperElement.getBoundingClientRect().width;
         this.style?.setProperty(
           '--sbb-seat-reservation-vertical-offset',
-          `${absSeatReservationHeight}px`,
+          `${seatReservationVerticalOffset}px`,
         );
       }
     });
