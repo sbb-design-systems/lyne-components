@@ -151,7 +151,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return html`
       <nav
         class="${classMap({
-          'sbb-sr-navigation': true,
           'sbb-sr-navigation--vertical': this.alignVertical,
         })}"
       >
