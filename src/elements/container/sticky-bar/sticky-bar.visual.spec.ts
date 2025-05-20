@@ -110,8 +110,8 @@ describe(`sbb-sticky-bar`, () => {
         `color=${color} size=s`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html` <sbb-container>
-              ${containerContent()}
+            html` <sbb-container style="overflow: auto; height: 400px;">
+              ${containerContent()} ${containerContent()} ${containerContent()}
               <sbb-sticky-bar .color=${color} size="s">${actionGroup(color)}</sbb-sticky-bar>
             </sbb-container>`,
             { padding: '0' },
