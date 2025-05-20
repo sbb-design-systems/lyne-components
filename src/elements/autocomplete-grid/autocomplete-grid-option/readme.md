@@ -80,6 +80,15 @@ The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
 this means that the `sbb-autocomplete-grid-option` has a `gridcell` role and its `id` is set from `sbb-autocomplete-grid-row`'s `id`,
 which is needed to correctly set the `aria-activedescendant` on the related `input`.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbAutocompleteGridOption<T>`.
+
+```html
+<sbb-autocomplete-grid-option .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-autocomplete-grid-option>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

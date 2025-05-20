@@ -140,6 +140,31 @@ At any time, only a single chip (usually, the last one) is focusable and part of
 
 The `sbb-chip-group` follows the `grid` aria pattern.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbChipGroup<T>`.
+
+To render the complex value, the `displayWith` function can be used to map
+the value to a string represented in the created chips.
+
+```html
+<sbb-form-field>
+  <label>Label</label>
+  <sbb-chip-group
+    name="chip-group-1"
+    .displayWith=${(value) => value.property}
+    .value=${[{property: 'Option 1', otherProp: 'test'}]}
+  >
+    <input placeholder="Placeholder" />
+  </sbb-chip-group>
+  <sbb-autocomplete>
+    <sbb-option .value=${{property: 'Option 3', otherProp: 'test'}}>Option 3</sbb-option>
+    <sbb-option .value=${{property: 'Option 4', otherProp: 'test'}}>Option 4</sbb-option>
+  </sbb-autocomplete>
+</sbb-form-field>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

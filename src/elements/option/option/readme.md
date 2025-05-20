@@ -52,6 +52,15 @@ If the label slot contains only a **text node**, it is possible to search for te
 </sbb-option>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbOption<T>`.
+
+```html
+<sbb-option .value=${{value: 'value', name: 'name'}}>Option</sbb-option>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

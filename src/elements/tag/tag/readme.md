@@ -74,6 +74,15 @@ To partially address the problem, disabled elements are kept focusable (other in
 However, it is still the consumers responsibility to provide a reason for the element being disabled.
 This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
+
+```html
+<sbb-tag .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-tag>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

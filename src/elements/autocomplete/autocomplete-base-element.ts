@@ -36,7 +36,7 @@ export
 @hostAttributes({
   popover: 'manual',
 })
-abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
+abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -76,7 +76,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** Function that maps an option's control value to its display value in the trigger. */
   @property({ attribute: false })
-  public accessor displayWith: ((value: any) => string) | null = null;
+  public accessor displayWith: ((value: T) => string) | null = null;
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
@@ -124,7 +124,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
 
-  protected abstract get options(): SbbOptionBaseElement[];
+  protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
@@ -251,7 +251,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** When an option is selected, update the input value and close the autocomplete. */
   protected onOptionSelected(event: CustomEvent): void {
-    const target = event.target as SbbOptionBaseElement;
+    const target = event.target as SbbOptionBaseElement<T>;
 
     // Deselect the previous options
     this.options
@@ -260,7 +260,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
     if (this.triggerElement) {
       // Given a value, returns the string that should be shown within the input.
-      const toDisplay = this.displayWith?.(target.value) ?? target.value;
+      const toDisplay = this.displayWith?.(target.value as T) ?? target.value;
 
       // Set the option value
       // In order to support React onChange event, we have to get the setter and call it.

@@ -135,6 +135,25 @@ Opened panel:
 | <kbd>Shift</kbd><kbd>Up Arrow</kbd>     | If `multiple`, moves to the next non-disabled option and toggle its selection.                                                                    |
 | Any char or number                      | If exists, select the first non-disabled matching option after the selected value.                                                                |
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbSelect<T>`.
+
+```ts
+const values = [
+  { value: 'value 1', name: 'Option 1' },
+  { value: 'value 2', name: 'Option 2' },
+];
+```
+
+```html
+<sbb-select .value="${values[0]}" name="name">
+  <sbb-option .value="${values[0]}">Option 1</sbb-option>
+  <sbb-option .value="${values[1]}">Option 2</sbb-option>
+</sbb-select>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

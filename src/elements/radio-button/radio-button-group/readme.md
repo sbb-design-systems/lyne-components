@@ -66,6 +66,25 @@ to intercept the selection's change; the current value can be read from `event.d
 
 In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbRadioButtonGroup<T>`.
+
+```ts
+const values = [
+  { value: 'value1', name: 'Option 1' },
+  { value: 'value2', name: 'Option 2' },
+];
+```
+
+```html
+<sbb-radio-button-group .value="${values[0]}" name="name">
+  <sbb-radio-button .value="${values[0]}">Option 1</sbb-radio-button>
+  <sbb-radio-button .value="${values[1]}">Option 2</sbb-radio-button>
+</sbb-radio-button-group>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

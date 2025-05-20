@@ -30,6 +30,25 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 <sbb-toggle size="s" even> ... </sbb-toggle>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbToggle<T>`.
+
+```ts
+const values = [
+  { value: 'value 1', name: 'Option 1' },
+  { value: 'value 2', name: 'Option 2' },
+];
+```
+
+```html
+<sbb-toggle .value="${values[0]}" name="name">
+  <sbb-toggle-option .value="${values[0]}">Option 1</sbb-toggle-option>
+  <sbb-toggle-option .value="${values[1]}">Option 2</sbb-toggle-option>
+</sbb-toggle>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
