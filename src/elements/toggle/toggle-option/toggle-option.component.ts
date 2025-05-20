@@ -16,6 +16,7 @@ import style from './toggle-option.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-toggle-option')
