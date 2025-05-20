@@ -13,8 +13,8 @@ It's possible to use the component together with the `sbb-card-badge` and the `s
 
 The `sbb-card-badge` component can be used to display a badge in the upper right corner.
 
-The badge is displayed for all sizes: for `xs` and `s` values,
-consumers should redefine the value of the `--sbb-card-padding-block-start` variable to have it correctly displayed.
+The badge is displayed for all sizes: for `xs` and `s` values, consumers must redefine the values
+of `--sbb-card-padding-block-start` and `--sbb-card-padding-block-end` to have the badge correctly displayed.
 
 For API details, see the [sbb-card-badge](/docs/elements-sbb-card-sbb-card-badge--docs) docs.
 
