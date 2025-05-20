@@ -1,3 +1,4 @@
+import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -8,6 +9,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
+
 import '../../form-field.js';
 import '../../form-error.js';
 import '../../autocomplete-grid.js';
@@ -151,6 +153,8 @@ describe('sbb-autocomplete-grid', () => {
   `;
 
   const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> => {
+    // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.
+    await aTimeout(10);
     const input = setup.snapshotElement.querySelector('input')!;
     input.focus();
     await sendKeys({ press: 'O' });
