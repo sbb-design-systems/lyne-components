@@ -133,7 +133,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
         })}"
       >
         ${this._getNavigationButton()}
-        ${!this.driverArea && this.propertyIds?.length
+        ${this.propertyIds?.length
           ? html`<sbb-seat-reservation-navigation-services
               ?vertical="${this.vertical}"
               .propertyIds="${this.propertyIds}"
@@ -149,28 +149,29 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       this._getTitleDescriptionNavCoachButton(currServiceClassNumber);
     const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
 
-    return html`
+    return html` <button
+        type="button"
+        ?disabled="${this.disable}"
+        class="${classMap({
+          'sbb-seat-reservation-navigation__control-button': true,
+          'sbb-seat-reservation-navigation-driver-area': this.driverArea,
+        })}"
+        title="${titleDescriptionNavCoachButton}"
+        aria-describedby="nav-coach-service-descriptions-${this.index}"
+        @click=${() => this._selectNavCoach(this.index)}
+      >
+        ${this._getBtnInformation(currServiceClassNumber)}
+      </button>
       <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}"
         >${ariaDescriptionCoachServices}</sbb-screen-reader-only
-      >
-      ${!this.driverArea
-        ? html`
-            <button
-              type="button"
-              ?disabled="${this.disable}"
-              class="sbb-seat-reservation-navigation__control-button"
-              title="${titleDescriptionNavCoachButton}"
-              aria-describedby="nav-coach-service-descriptions-${this.index}"
-              @click=${() => this._selectNavCoach(this.index)}
-            >
-              ${this._getBtnInformation(currServiceClassNumber)}
-            </button>
-          `
-        : html`<div class="sbb-seat-reservation-navigation-driver-area"></div>`}
-    `;
+      >`;
   }
 
   private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
+    if (this.driverArea) {
+      return null;
+    }
+
     return html`
       ${serviceClassNumber === 1
         ? html`<span class="sbb-seat-reservation-navigation--first-class"></span>`
@@ -198,6 +199,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
+    if (this.driverArea) {
+      return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current, [
+        this.coachId,
+      ]);
+    }
+
     let label = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [this.coachId]);
 
     //If service class exist, then expand label with service class translation
@@ -215,6 +222,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       );
       label = label.concat(serviceClassLabel);
     }
+
     return label;
   }
 
@@ -236,7 +244,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
    * @private
    */
   private _selectNavCoach(coachIndex: number): void {
-    this.selectNavCoach.emit(coachIndex);
+    if (!this.driverArea) {
+      this.selectNavCoach.emit(coachIndex);
+    }
   }
 
   private _getCoachServiceClassNumber(): number | null {

@@ -225,21 +225,17 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${this._getRenderedCoachBorders(coachItem, index)}
         ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
         ${this._getRenderedServiceElements(coachItem.serviceElements)}
-        ${coachItem.places?.length
-          ? html`<table
-              @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
-              id="seat-reservation-coach-${index}"
-              class="coach-wrapper__table"
-              aria-describedby="seat-reservation-coach-caption-${index}"
-            >
-              <caption id="seat-reservation-coach-caption-${index}" tabindex="-1">
-                <sbb-screen-reader-only
-                  >${descriptionTableCoachWithServices}</sbb-screen-reader-only
-                >
-              </caption>
-              ${this._getRenderedRowPlaces(coachItem, index)}
-            </table>`
-          : nothing}
+        <table
+          @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
+          id="seat-reservation-coach-${index}"
+          class="coach-wrapper__table"
+          aria-describedby="seat-reservation-coach-caption-${index}"
+        >
+          <caption id="seat-reservation-coach-caption-${index}" tabindex="-1">
+            <sbb-screen-reader-only>${descriptionTableCoachWithServices}</sbb-screen-reader-only>
+          </caption>
+          ${this._getRenderedRowPlaces(coachItem, index)}
+        </table>
       </sbb-scoped-element>
     `;
   }
@@ -521,20 +517,19 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
     const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
 
-    if (this.focusedCoachIndex === -1 || this.focusedCoachIndex === this.currSelectedCoachIndex) {
-      // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
-      this.preventCoachScrollByPlaceClick = true;
-      if (!this.preventPlaceClick) {
-        //Add place to place collection
-        this.updateSelectedSeatReservationPlaces(selectedPlace);
-        this.updateCurrentSelectedPlaceInCoach(selectedPlace);
-      }
+    // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
+    this.preventCoachScrollByPlaceClick = true;
+    if (!this.preventPlaceClick) {
+      //Add place to place collection
+      this.updateSelectedSeatReservationPlaces(selectedPlace);
+      this.updateCurrentSelectedPlaceInCoach(selectedPlace);
     }
   }
 
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
     this.isKeyboardNavigation = false;
+
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
@@ -553,6 +548,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem): string {
+    if (!coachItem.places?.length) {
+      return getI18nSeatReservation('COACH_BLOCKED_TABLE_CAPTION', this._language.current, [
+        coachItem.id,
+      ]);
+    }
+
     let tableCoachDescription = '';
     const areaDescriptions = this._getTitleDescriptionListString(coachItem.graphicElements!);
     const serviceDescriptions = this._getTitleDescriptionListString(coachItem.serviceElements!);

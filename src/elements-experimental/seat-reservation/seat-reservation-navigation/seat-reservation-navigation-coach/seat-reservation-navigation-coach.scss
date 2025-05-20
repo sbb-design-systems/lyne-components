@@ -15,7 +15,6 @@ $disabled: '[disabled], :disabled';
   --sbb-seat-reservation-navigation-btn-background-color-hover: var(--sbb-color-cloud);
 }
 
-// <li>
 .sbb-seat-reservation-navigation__item-coach {
   display: flex;
   flex-direction: column;
@@ -31,7 +30,9 @@ $disabled: '[disabled], :disabled';
   }
 
   &.first-coach {
-    .sbb-seat-reservation-navigation__control-button {
+    .sbb-seat-reservation-navigation__control-button:not(
+        .sbb-seat-reservation-navigation-driver-area
+      ) {
       border-start-start-radius: var(--sbb-border-radius-8x);
       border-end-start-radius: var(--sbb-border-radius-8x);
     }
@@ -42,7 +43,9 @@ $disabled: '[disabled], :disabled';
   }
 
   &.last-coach {
-    .sbb-seat-reservation-navigation__control-button {
+    .sbb-seat-reservation-navigation__control-button:not(
+        .sbb-seat-reservation-navigation-driver-area
+      ) {
       border-start-end-radius: var(--sbb-border-radius-8x);
       border-end-end-radius: var(--sbb-border-radius-8x);
     }
@@ -61,13 +64,6 @@ $disabled: '[disabled], :disabled';
   }
 }
 
-.sbb-seat-reservation-navigation-driver-area {
-  height: #{sbb.px-to-rem-build(36)};
-  outline: var(--sbb-seat-reservation-navigation-btn-outline-width) solid
-    var(--sbb-seat-reservation-navigation-btn-outline-color);
-  border-radius: var(--sbb-border-radius-8x);
-}
-
 .sbb-seat-reservation-navigation__control-button {
   @include sbb.button-reset;
 
@@ -81,13 +77,24 @@ $disabled: '[disabled], :disabled';
   border-radius: var(--sbb-border-radius-2x);
   background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
   cursor: pointer;
+
+  &.sbb-seat-reservation-navigation-driver-area {
+    border-radius: var(--sbb-border-radius-8x);
+    cursor: initial;
+  }
 }
 
 // same for all states
 .sbb-seat-reservation-navigation__item-coach--selected
   .sbb-seat-reservation-navigation__control-button,
-.sbb-seat-reservation-navigation__control-button:focus-visible:not(#{$disabled}),
-.sbb-seat-reservation-navigation__control-button:hover:not(#{$disabled}) {
+.sbb-seat-reservation-navigation__control-button:focus-visible:not(
+    #{$disabled},
+    .sbb-seat-reservation-navigation-driver-area
+  ),
+.sbb-seat-reservation-navigation__control-button:hover:not(
+    #{$disabled},
+    .sbb-seat-reservation-navigation-driver-area
+  ) {
   --sbb-seat-reservation-navigation-btn-outline-width: var(
     --sbb-seat-reservation-navigation-btn-outline-width-hover
   );
@@ -243,7 +250,9 @@ $disabled: '[disabled], :disabled';
 
   // handle border-radius
   &.first-coach:not(.last-coach) {
-    .sbb-seat-reservation-navigation__control-button {
+    .sbb-seat-reservation-navigation__control-button:not(
+        .sbb-seat-reservation-navigation-driver-area
+      ) {
       border-start-end-radius: var(--sbb-border-radius-8x);
       border-end-start-radius: var(--sbb-border-radius-2x);
     }
@@ -255,7 +264,9 @@ $disabled: '[disabled], :disabled';
   }
 
   &.last-coach:not(.first-coach) {
-    .sbb-seat-reservation-navigation__control-button {
+    .sbb-seat-reservation-navigation__control-button:not(
+        .sbb-seat-reservation-navigation-driver-area
+      ) {
       border-start-end-radius: var(--sbb-border-radius-2x);
       border-end-start-radius: var(--sbb-border-radius-8x);
     }

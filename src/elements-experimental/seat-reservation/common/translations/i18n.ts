@@ -18,6 +18,12 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'fr:Wagen _param0_ selektiert',
     it: 'it:Wagen _param0_ selektiert',
   },
+  COACH_BLOCKED_TABLE_CAPTION: {
+    de: 'Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
+    en: 'en:Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
+    fr: 'fr:Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
+    it: 'it:Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
+  },
   LIST_ALL_COACHES: {
     de: "Liste aller Wagen mit reservierbaren Plätzen. Sie können die Tastennavigation aktivieren, indem Sie die 's'-Taste drücken, und dann können Sie mit den Pfeiltasten zwischen den Sitzen des Wagens navigieren.",
     en: "List of all coaches with reservable places. You can activate key navigation by pressing the 's' key, then you can navigate by arrow keys between the seats of the coach.",
@@ -46,9 +52,15 @@ const i18nObjects: Record<string, Record<string, string>> = {
   },
   NAVIGATE_TO_COACH_SERVICE_CLASS_SUB: {
     de: ' mit _param0_ Abteil',
-    en: ' mit _param0_ Abteil',
+    en: 'en: mit _param0_ Abteil',
     fr: 'fr: mit _param0_ Abteil',
     it: 'it: mit _param0_ Abteil',
+  },
+  NAVIGATE_COACH_BLOCKED: {
+    de: 'Zugabteil _param0_ ist nicht betretbar',
+    en: 'en:Zugabteil _param0_ ist nicht betretbar',
+    fr: 'fr:Zugabteil _param0_ ist nicht betretbar',
+    it: 'it:Zugabteil _param0_ ist nicht betretbar',
   },
   SEAT_RESERVATION_NAVIGATION: {
     de: 'Sitzplatzreservierungsnavigation',
