@@ -229,17 +229,24 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
     ];
 
     if (
-      !event.ctrlKey &&
-      !event.altKey &&
-      !event.metaKey &&
-      !alwaysAllowed.includes(event.key) &&
-      (!REGEX_ALLOWED_CHARACTERS.test(event.key) || this.value.length >= 5)
+      event.ctrlKey ||
+      event.altKey ||
+      event.metaKey ||
+      alwaysAllowed.includes(event.key) ||
+      (REGEX_ALLOWED_CHARACTERS.test(event.key) && (this.value.length < 5 || this._hasSelection()))
     ) {
-      event.preventDefault();
-      if (this.value.length >= 5) {
-        sbbLiveAnnouncer.announce(i18nTimeMaxLength[this._language.current]);
-      }
+      return;
     }
+
+    event.preventDefault();
+    if (this.value.length >= 5) {
+      sbbLiveAnnouncer.announce(i18nTimeMaxLength[this._language.current]);
+    }
+  }
+
+  private _hasSelection(): boolean {
+    const range = window.getSelection()?.getRangeAt(0);
+    return !!range && range.startOffset !== range.endOffset;
   }
 }
 
