@@ -26,7 +26,6 @@ function isDark(color: string): boolean {
 describe(`sbb-sticky-bar`, () => {
   const cases = {
     color: [undefined, 'white', 'milk', 'midnight', 'charcoal'],
-    size: ['s', 'm'],
     containerExpanded: [false, true],
     scrolled: [false, true],
   };
@@ -57,7 +56,7 @@ describe(`sbb-sticky-bar`, () => {
   `;
 
   describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
-    describeEach(cases, ({ color, containerExpanded, scrolled, size }) => {
+    describeEach(cases, ({ color, containerExpanded, scrolled }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
@@ -70,7 +69,7 @@ describe(`sbb-sticky-bar`, () => {
               >
                 ${containerContent()} ${containerContent()} ${containerContent()}
                 <p>Content end</p>
-                <sbb-sticky-bar .color=${color} .size=${size}> ${actionGroup()} </sbb-sticky-bar>
+                <sbb-sticky-bar .color=${color}> ${actionGroup()} </sbb-sticky-bar>
               </sbb-container>
             </div>
           `,
@@ -101,6 +100,19 @@ describe(`sbb-sticky-bar`, () => {
             html` <sbb-container .color=${color}>
               ${containerContent(color)}
               <sbb-sticky-bar> ${actionGroup(color)}</sbb-sticky-bar>
+            </sbb-container>`,
+            { padding: '0' },
+          );
+        }),
+      );
+
+      it(
+        `color=${color} size=s`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <sbb-container>
+              ${containerContent()}
+              <sbb-sticky-bar .color=${color} size="s">${actionGroup(color)}</sbb-sticky-bar>
             </sbb-container>`,
             { padding: '0' },
           );
