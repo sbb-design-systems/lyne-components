@@ -2762,7 +2762,7 @@ export const MOCK_COACHES_RAW_0 = [
         },
         {
           travelClass: 'SECOND',
-          accommodationSubType: 'BICYCLE_LOW_ICON',
+          accommodationSubType: 'ANY_SEAT',
           places: [
             {
               number: '25',

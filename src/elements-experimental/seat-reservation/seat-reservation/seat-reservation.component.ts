@@ -535,7 +535,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
     this.isKeyboardNavigation = false;
-
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
