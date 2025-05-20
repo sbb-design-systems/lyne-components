@@ -11,7 +11,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipDelete } from '../../core/i18n.js';
-import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 import '../../screen-reader-only.js';
@@ -25,7 +25,7 @@ import style from './chip.scss?lit&inline';
  */
 export
 @customElement('sbb-chip')
-class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
+class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbReadonlyMixin(LitElement))) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     requestDelete: 'requestDelete',
@@ -33,11 +33,6 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(LitElement)) {
 
   /** The value of chip. Will be used as label if nothing is slotted. */
   @forceType() @property() public accessor value: string = '';
-
-  /** Whether the component is readonly */
-  @forceType()
-  @property({ type: Boolean, reflect: true })
-  public accessor readonly: boolean = false;
 
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
