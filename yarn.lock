@@ -1047,7 +1047,7 @@
   resolved "https://registry.yarnpkg.com/@octokit/webhooks-methods/-/webhooks-methods-5.1.1.tgz#192f11a1f115702833f033293e2fef8f69f612e4"
   integrity sha512-NGlEHZDseJTCj8TMMFehzwa9g7On4KJMPVHDSrHxCQumL6uSQR8wIkP/qesv52fXqV1BPf4pTxwtS31ldAt9Xg==
 
-"@octokit/webhooks@^13.6.1":
+"@octokit/webhooks@^13.6.1", "@octokit/webhooks@^13.8.3":
   version "13.9.0"
   resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-13.9.0.tgz#1dd2f1c6b4616bd91735b9aa5a25aa2cdf5fff5c"
   integrity sha512-5Kva+/Gi7c+39d0/0MM/v/5RCZuwqm75fUD+t7Es3Iz/adui54GnjfNmJpkkPkXGC+5IWnEvgqwY6gstK/JlUQ==
@@ -7251,10 +7251,10 @@ object.values@^1.1.6, object.values@^1.2.1:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-octokit@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/octokit/-/octokit-5.0.0.tgz#be51ebe1fa4a0cb3bcfebb2edc79ce29779945e2"
-  integrity sha512-qgcHWEuoeDiO5zFENCbEY6S9UUEG2yJrFwSfSTYRCG2M54m0noddwjD8G3WdWxy7XFeXcJ03BsNgUI9pOQXaMg==
+octokit@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/octokit/-/octokit-5.0.1.tgz#6d9c92968649aefaba4c085903af7cd59b4c707e"
+  integrity sha512-wuIuCCz4MxiHukcTZbP//ONAH27BdJmqDtNQnqXEfp4R/6m/KzhxgUl/zfQyvaP4sssFtp+o8zjzZxQArBRZHQ==
   dependencies:
     "@octokit/app" "^15.1.6"
     "@octokit/core" "^6.1.5"
@@ -7266,6 +7266,7 @@ octokit@5.0.0:
     "@octokit/plugin-throttling" "^10.0.0"
     "@octokit/request-error" "^6.1.8"
     "@octokit/types" "^14.0.0"
+    "@octokit/webhooks" "^13.8.3"
 
 on-finished@^2.3.0:
   version "2.4.1"
