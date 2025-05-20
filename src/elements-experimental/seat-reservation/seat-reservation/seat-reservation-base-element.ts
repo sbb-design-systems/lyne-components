@@ -23,6 +23,17 @@ import type {
 
 import type { SbbScopedElement } from './scoped-components/scoped-element.component.js';
 
+enum ScrollDirection {
+  right = 'right',
+  left = 'left',
+}
+
+interface CoachScrollTriggerPoint {
+  start: number;
+  end: number;
+  width: number;
+}
+
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
     selectedPlaces: 'selectedPlaces',
@@ -76,10 +87,10 @@ export class SeatReservationBaseElement extends LitElement {
 
   protected coachBorderPadding = 6;
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-  protected scrollMoveDirection: boolean = true;
+  protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
   protected scrollCoachsAreaWidth: number = 0;
-  protected triggerCoachPositionsCollection: number[][] = [];
+  protected triggerCoachPositionsCollection: CoachScrollTriggerPoint[] = [];
   protected firstTabElement: HTMLElement = null!;
   protected lastTabElement: HTMLElement = null!;
   protected coachScrollArea: HTMLElement = null!;
@@ -147,9 +158,14 @@ export class SeatReservationBaseElement extends LitElement {
 
       // Precalculate trigger scroll position array depends from coach width
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
-        const fromPos = currCalcTriggerPos;
-        currCalcTriggerPos += this.getCalculatedDimension(coach.dimension).w;
-        return [fromPos, currCalcTriggerPos];
+        const startPosX = currCalcTriggerPos;
+        const coachWidth = this.getCalculatedDimension(coach.dimension).w;
+        currCalcTriggerPos += coachWidth;
+        return {
+          start: startPosX,
+          end: currCalcTriggerPos,
+          width: coachWidth,
+        } as CoachScrollTriggerPoint;
       });
 
       // Set maximum calculated coach width
@@ -157,8 +173,8 @@ export class SeatReservationBaseElement extends LitElement {
 
       // At the end of a scroll Events to a coach, the reached wagon is marked as selected
       this.coachScrollArea.addEventListener('scrollend', () => {
+        //Update current and selected coach index only, if selected
         const findScrollCoachIndex = this._getCoachIndexByScrollTriggerPosition();
-
         if (this._isScrollableToSelectedCoach()) {
           this.currSelectedCoachIndex = findScrollCoachIndex;
         } else {
@@ -285,13 +301,10 @@ export class SeatReservationBaseElement extends LitElement {
 
   protected scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
     if (selectedNavCoachIndex !== this.currSelectedCoachIndex) {
-      const scrollToCoachPosX = this.triggerCoachPositionsCollection[selectedNavCoachIndex][0];
-
-      // Set the scroll move direction
-      // True => move dirction RIGHT
-      // false => move dirction LEFT
-      this.scrollMoveDirection = this.currSelectedCoachIndex < selectedNavCoachIndex;
+      // Set the current scroll move direction
+      this._setScrollDirection(selectedNavCoachIndex);
       this.currSelectedCoachIndex = selectedNavCoachIndex;
+      const scrollToCoachPosX = this._getCoachScrollPositionX();
 
       // Checks whether the current scroll position allows scrolling to the next wagon or not
       if (this._isScrollableToSelectedCoach()) {
@@ -304,6 +317,32 @@ export class SeatReservationBaseElement extends LitElement {
         this.updateCurrentSelectedCoach();
       }
     }
+  }
+
+  /**
+   * Sets the new ScrollDirection by the new given target coach index.
+   */
+  private _setScrollDirection(targetCoachIndex: number): void {
+    this.currScrollDirection =
+      this.currSelectedCoachIndex < targetCoachIndex ? ScrollDirection.right : ScrollDirection.left;
+  }
+
+  /**
+   * Returns the scroll start or end position X from the selected coach.
+   * In case the user is curretnly navigate throught places by keyboard and goes to previous coach,
+   * then we return the end position of the coach to get clostest next scroll position of the next focus place.
+   * @returns number
+   */
+  private _getCoachScrollPositionX(): number {
+    const coachTriggerPoint = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
+    const isFocusPlaceFromPreviousCoachPosition =
+      this.isKeyboardNavigation &&
+      this.currScrollDirection === ScrollDirection.left &&
+      coachTriggerPoint.width > this.scrollCoachsAreaWidth;
+
+    return isFocusPlaceFromPreviousCoachPosition
+      ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
+      : coachTriggerPoint.start;
   }
 
   /**
@@ -325,10 +364,10 @@ export class SeatReservationBaseElement extends LitElement {
   private _isScrollableToSelectedCoach(): boolean {
     const coachScrollWindowWidth = this.coachScrollArea.getBoundingClientRect().width;
     const maxScrollWidthArea = this.maxCalcCoachsWidth - coachScrollWindowWidth;
+    const currCoachTrigger = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
     return (
       this.coachScrollArea.scrollLeft < maxScrollWidthArea ||
-      this.coachScrollArea.scrollLeft >
-        this.triggerCoachPositionsCollection[this.currSelectedCoachIndex][0]
+      this.coachScrollArea.scrollLeft > currCoachTrigger.start
     );
   }
 
@@ -339,8 +378,7 @@ export class SeatReservationBaseElement extends LitElement {
   private _getCoachIndexByScrollTriggerPosition(): number {
     const scrollOffsetX = this.coachScrollArea.scrollLeft + this.scrollCoachsAreaWidth / 4;
     return this.triggerCoachPositionsCollection.findIndex(
-      ([triggerPosFrom, triggerPosTo]: number[]) =>
-        scrollOffsetX >= triggerPosFrom && scrollOffsetX <= triggerPosTo,
+      (coachTrigger) => scrollOffsetX >= coachTrigger.start && scrollOffsetX <= coachTrigger.end,
     );
   }
 
@@ -380,19 +418,19 @@ export class SeatReservationBaseElement extends LitElement {
       } else {
         if (this.currSelectedPlace) {
           for (const place of coach.places) {
-            // If key pressed, then we try to find the place of the current scrollMoveDirection
+            // If key pressed, then we try to find the place of the current currScrollDirection
             if (!pressedKey) {
-              //Find place from the left side of coach by y coordinate. Current ScrollMoveDirection is RIGHT)
+              //Find place from the left side of coach by y coordinate. Current currScrollDirection is RIGHT)
               if (
-                this.scrollMoveDirection &&
+                this.currScrollDirection === ScrollDirection.right &&
                 place.position.y === this.currSelectedPlace?.position.y &&
                 (!closestPlace || place.position.x < closestPlace.position.x)
               ) {
                 closestPlace = place;
               }
-              //Find place from the right side of coach by y coordinate. Current ScrollMoveDirection is LEFT
+              //Find place from the right side of coach by y coordinate. Current currScrollDirection is LEFT
               else if (
-                !this.scrollMoveDirection &&
+                this.currScrollDirection === ScrollDirection.left &&
                 place.position.y === this.currSelectedPlace?.position.y &&
                 (!closestPlace || place.position.x > closestPlace.position.x)
               ) {
