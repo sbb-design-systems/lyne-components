@@ -148,12 +148,12 @@ describe('sbb-chip-group', () => {
       input.toggleAttribute('readonly', true);
       await waitForLitRender(formField);
 
-      expect(chips.every((c) => c.readonly)).to.be.true;
+      expect(chips.every((c) => c.readOnly)).to.be.true;
 
       input.toggleAttribute('readonly', false);
       await waitForLitRender(formField);
 
-      expect(chips.every((c) => c.readonly)).to.be.false;
+      expect(chips.every((c) => c.readOnly)).to.be.false;
     });
 
     it('should handle different separator keys', async () => {
@@ -291,7 +291,7 @@ describe('sbb-chip-group', () => {
       });
 
       it('should prevent delete on readonly chip', async () => {
-        chips.at(-1)!.readonly = true;
+        chips.at(-1)!.readOnly = true;
         input.focus();
 
         await sendKeys({ press: 'Backspace' });
@@ -310,7 +310,7 @@ describe('sbb-chip-group', () => {
 
       it('should handle arrow navigation', async () => {
         chips[1].disabled = true;
-        chips[2].readonly = true;
+        chips[2].readOnly = true;
         await waitForLitRender(element);
 
         chips[0].focus();

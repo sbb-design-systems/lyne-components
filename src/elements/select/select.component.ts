@@ -24,6 +24,7 @@ import {
   SbbFormAssociatedMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
+  SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
@@ -73,7 +74,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     SbbNegativeMixin(
       SbbHydrationMixin(
         SbbRequiredMixin(
-          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement>(SbbOpenCloseBaseElement),
+          SbbReadonlyMixin(
+            SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement>(SbbOpenCloseBaseElement),
+          ),
         ),
       ),
     ),
@@ -115,11 +118,11 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Whether the select is readonly. */
   @forceType()
-  @handleDistinctChange((e: SbbSelectElement<T>, newValue: boolean) =>
-    e._closeOnDisabledReadonlyChanged(newValue),
-  )
-  @property({ type: Boolean, reflect: true })
-  public accessor readonly: boolean = false;
+  @property({ type: Boolean, attribute: 'readonly' })
+  public override set readOnly(value: boolean) {
+    this._closeOnDisabledReadonlyChanged(value);
+    super.readOnly = value;
+  }
 
   /** Value of the form element. */
   @property()
@@ -642,7 +645,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _onKeyDown(event: KeyboardEvent): void {
-    if (this.readonly) {
+    if (this.readOnly) {
       return;
     }
 
@@ -670,7 +673,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.readonly || this.state !== 'opened') {
+    if (this.readOnly || this.state !== 'opened') {
       return;
     }
 
@@ -877,7 +880,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _toggleOpening(): void {
-    if (this.disabled || this.formDisabled || this.readonly) {
+    if (this.disabled || this.formDisabled || this.readOnly) {
       return;
     }
     this._triggerElement?.focus();

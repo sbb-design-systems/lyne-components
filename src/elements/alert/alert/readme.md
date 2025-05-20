@@ -27,7 +27,7 @@ The component can optionally display a `sbb-icon` at the component start using t
 </sbb-alert>
 ```
 
-The `sbb-alert` can optionally be hidden by a user, if the `readonly` prop is not set.
+The `sbb-alert` can optionally be hidden by a user, if the `readOnly` prop is not set.
 
 ```html
 <sbb-alert title-content="Interruption between Berne and Olten" readonly>
@@ -69,7 +69,7 @@ As a base rule, opening animations should be active if an alert arrives after th
 | `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                                                          |
 | `iconName`     | `icon-name`     | public  | `string`                               | `'info'`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
 | `isOpen`       | -               | public  | `boolean`                              |                    | Whether the element is open.                                                                                                                                     |
-| `readonly`     | `readonly`      | public  | `boolean`                              | `false`            | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 |
+| `readOnly`     | `readonly`      | public  | `boolean`                              |                    | Whether the component is readonly.                                                                                                                               |
 | `size`         | `size`          | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                                                     |
 | `titleContent` | `title-content` | public  | `string`                               | `''`               | Content of title.                                                                                                                                                |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                        | `'3'`              | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |

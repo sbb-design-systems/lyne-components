@@ -11,6 +11,7 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
+  SbbReadonlyMixin,
 } from '../core/mixins.js';
 
 import style from './slider.scss?lit&inline';
@@ -30,7 +31,9 @@ export
 @hostAttributes({
   tabindex: '0',
 })
-class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
+class SbbSliderElement extends SbbDisabledMixin(
+  SbbReadonlyMixin(SbbFormAssociatedMixin(LitElement)),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -94,14 +97,6 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
   }
   private _max: string = '100';
 
-  /**
-   * Readonly state for the inner HTMLInputElement.
-   * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
-   */
-  @forceType()
-  @property({ type: Boolean, reflect: true })
-  public accessor readonly: boolean = false;
-
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
   @forceType()
   @property({ attribute: 'start-icon' })
@@ -161,8 +156,8 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     if (changedProperties.has('max')) {
       this.internals.ariaValueMax = this.max;
     }
-    if (changedProperties.has('readonly')) {
-      this.internals.ariaReadOnly = Boolean(this.readonly).toString();
+    if (changedProperties.has('readOnly')) {
+      this.internals.ariaReadOnly = Boolean(this.readOnly).toString();
     }
   }
 
@@ -217,7 +212,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
       event.preventDefault();
     }
 
-    if (this.readonly) {
+    if (this.readOnly) {
       return;
     }
 
@@ -265,7 +260,7 @@ class SbbSliderElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
               tabindex="-1"
               min=${this.min}
               max=${this.max}
-              ?disabled=${this.disabled || this.formDisabled || this.readonly}
+              ?disabled=${this.disabled || this.formDisabled || this.readOnly}
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"

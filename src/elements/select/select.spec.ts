@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
@@ -79,7 +80,10 @@ describe(`sbb-select`, () => {
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
 
-    it('opens and closes the select with non-zero animation duration', async () => {
+    it('opens and closes the select with non-zero animation duration', async function (this: Context) {
+      // Test is flaky on WebKit
+      this.retries(3);
+
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
