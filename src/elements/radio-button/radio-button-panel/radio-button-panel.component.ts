@@ -68,7 +68,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
   /**
-   * The value of the field
+   * The value of the form element
    */
   @property()
   public accessor value: T | null = null;

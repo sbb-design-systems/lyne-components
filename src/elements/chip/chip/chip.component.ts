@@ -21,6 +21,7 @@ import style from './chip.scss?lit&inline';
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
  *
  * @slot - Use the unnamed slot to add the display value. If not provided, the 'value' will be used.
+ * @overrideType value - string | null
  */
 export
 @customElement('sbb-chip')

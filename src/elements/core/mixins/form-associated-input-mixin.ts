@@ -106,7 +106,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     }
 
     /**
-     * The text value of the input element.
+     * The value of the input. Reflects the current text value of this input.
      */
     @property()
     public set value(value: string) {
@@ -118,7 +118,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     public get value(): string {
       return this._value ?? '';
     }
-    private _value: string | null = null;
+    private _value: string = '';
 
     /**
      * Whether the component is readonly.

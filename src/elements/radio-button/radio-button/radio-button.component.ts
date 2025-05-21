@@ -40,7 +40,7 @@ class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin
   public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
 
   /**
-   * The value of the field
+   * The value of the form element
    */
   @property()
   public accessor value: T | null = null;
