@@ -14,7 +14,7 @@ describe(`sbb-time-input`, () => {
   let element: SbbTimeInputElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <sbb-time-input></sbb-time-input> `);
+    element = await fixture(html`<sbb-time-input></sbb-time-input>`);
   });
 
   it('renders', async () => {

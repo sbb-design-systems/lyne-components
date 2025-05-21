@@ -172,7 +172,9 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       this.addEventListener?.(
         'input',
         () => {
-          this.value = this._cleanText(this.textContent ?? '');
+          const oldValue = this._value;
+          this._value = this._cleanText(this.textContent ?? '');
+          this.requestUpdate('value', oldValue);
           this._interacted = true;
           this._shouldEmitChange = true;
         },
