@@ -1183,7 +1183,8 @@ describe(`sbb-select`, () => {
       // Object equality is lost, but deep equality is preserved
       expect(element.value).not.to.be.equal(value1);
       expect(element.value).to.be.deep.equal(value1);
-      expect(element.getDisplayValue()).to.be.equal(''); // TODO: this should be 'First'
+      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First'
+      // expect(firstOption.selected).to.be.true; // TODO: With a comparison function, this should be true
     });
 
     it('should serialize and deserialize complex value with multiple', async () => {

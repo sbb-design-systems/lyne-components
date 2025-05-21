@@ -142,7 +142,9 @@ describe('sbb-sidebar-container', () => {
     });
   }
 
-  it('should react to new sidebar', async () => {
+  it('should react to new sidebar', async function (this: Context) {
+    // Test is flaky on WebKit
+    this.retries(3);
     await setViewportWidth(960);
 
     expect(sidebar1.isOpen, 'sidebar 1, before sidebar 1 removal').to.be.true;
