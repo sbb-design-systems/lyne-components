@@ -259,6 +259,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       // When focusing a text input via keyboard, the text content should be selected.
       this.addEventListener?.('focus', () => {
         if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+          // TODO: This does not seem to work in Firefox with readonly.
           window.getSelection()?.selectAllChildren(this);
         }
       });
