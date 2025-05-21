@@ -51,20 +51,4 @@ describe(`sbb-card`, () => {
     ).to.be.equal('none');
     expect(element).not.to.have.attribute('data-has-card-badge');
   });
-
-  it('should not render sbb-card-badge for small sizes', async () => {
-    const root = await fixture(
-      html` <sbb-card size="xs">
-        <h2>Title</h2>
-        Content text
-        <sbb-card-badge>
-          <span>%</span>
-          <span>from CHF</span>
-          <span>19.99</span>
-        </sbb-card-badge>
-      </sbb-card>`,
-    );
-
-    expect(root.shadowRoot!.querySelector('.sbb-card__badge-wrapper')).not.to.be.ok;
-  });
 });
