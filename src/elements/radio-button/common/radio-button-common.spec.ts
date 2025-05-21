@@ -840,7 +840,6 @@ describe(`sbb-radio-button-common`, () => {
 
             inputSpy = new EventSpy('input', fieldset);
             changeSpy = new EventSpy('change', fieldset);
-
             await waitForLitRender(form);
           });
 
@@ -868,7 +867,12 @@ describe(`sbb-radio-button-common`, () => {
 
           it('should serialize and deserialize complex value', async () => {
             // TODO: Deserialization needs the compareValue function to work properly, for now we use 'numbers' as complex value.
-            elements.forEach((r, i) => (r.value = i as any));
+            (
+              elements as unknown as (
+                | SbbRadioButtonElement<number>
+                | SbbRadioButtonPanelElement<number>
+              )[]
+            ).forEach((r, i) => (r.value = i));
             await waitForLitRender(form);
 
             // Get the stored formData from the form

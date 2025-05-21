@@ -646,8 +646,8 @@ describe('sbb-chip-group', () => {
       await aTimeout(30);
       await waitForLitRender(element);
 
-      // Object equality is lost, but deep equality is preserved
-      expect(element.value).not.to.be.equal(values);
+      // Object equality is currently lost, but deep equality is preserved
+      expect(element.value).not.to.be.equal(values); // TODO: With a comparison function, this should be equal
       expect(element.value).to.be.deep.equal(values);
     });
   });

@@ -1180,11 +1180,11 @@ describe(`sbb-select`, () => {
       await aTimeout(30);
       await waitForLitRender(element);
 
-      // Object equality is lost, but deep equality is preserved
-      expect(element.value).not.to.be.equal(value1);
+      // Object equality is currently lost, but deep equality is preserved
       expect(element.value).to.be.deep.equal(value1);
+      expect(element.value).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
       expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First'
-      // expect(firstOption.selected).to.be.true; // TODO: With a comparison function, this should be true
+      expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
     });
 
     it('should serialize and deserialize complex value with multiple', async () => {
@@ -1207,12 +1207,13 @@ describe(`sbb-select`, () => {
       await aTimeout(30);
       await waitForLitRender(element);
 
-      // Object equality is lost, but deep equality is preserved
-      expect(element.value.length).to.be.equal(2);
-      expect(element.value[0]).not.to.be.equal(value1);
-      expect(element.value[1]).not.to.be.equal(value2);
+      // Object equality is currently lost, but deep equality is preserved
       expect(element.value).to.be.deep.equal([value1, value2]);
-      expect(element.getDisplayValue()).to.be.equal('');
+      expect(element.value.length).to.be.equal(2);
+      expect(element.value[0]).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
+      expect(element.value[1]).not.to.be.equal(value2); // TODO: With a comparison function, this should be equal
+      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First, Second'
+      expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
     });
   });
 });
