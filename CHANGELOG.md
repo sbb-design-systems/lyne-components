@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.10.0...v2.10.1) (2025-05-21)
+
+
+### Bug Fixes
+
+* **sbb-popover:** improve the robustness of the initialization ([#3731](https://github.com/sbb-design-systems/lyne-components/issues/3731)) ([171cf8b](https://github.com/sbb-design-systems/lyne-components/commit/171cf8bb82f218b53c5f0784a90f33ca250cb7eb))
+* **sbb-skiplink-list:** avoid invisible content block ([#3721](https://github.com/sbb-design-systems/lyne-components/issues/3721)) ([bdcfc0d](https://github.com/sbb-design-systems/lyne-components/commit/bdcfc0da7f9bf53b4bd9c2fd05fec825e616ed22))
+
 ## [2.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.9.0...v2.10.0) (2025-05-15)
 
 
