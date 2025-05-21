@@ -107,32 +107,25 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _initVehicleSeatReservationConstruction(): void {
     const coachItems = JSON.parse(JSON.stringify(this.seatReservation?.coachItems));
-    const classAlignVertical = this.alignVertical ? 'sbb-seat-reservation__wrapper--vertical' : '';
+    const classAlignVertical = this.alignVertical ? 'sbb-sr__wrapper--vertical' : '';
 
     this._coachesHtmlTemplate = html`
-      <div class="sbb-seat-reservation">
+      <div>
         <sbb-screen-reader-only>
           <input
             id="first-tab-element"
+            role="contentinfo"
             type="text"
             aria-label="${getI18nSeatReservation('SEAT_RESERVATION_BEGIN', this._language.current)}"
-            role="contentinfo"
             readonly
           />
         </sbb-screen-reader-only>
 
-        <div
-          class="sbb-seat-reservation__main"
-          @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
-        >
+        <div @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}>
           ${this._renderNavigation()}
-          <div class="sbb-seat-reservation__wrapper ${classAlignVertical}">
-            <div
-              id="sbb-seat-reservation__parent-area"
-              class="sbb-seat-reservation__parent"
-              tabindex="-1"
-            >
-              <ul class="sbb-seat-reservation__list-coaches" role="presentation">
+          <div class="sbb-sr__wrapper ${classAlignVertical}">
+            <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
+              <ul class="sbb-sr__list-coaches" role="presentation">
                 ${this._renderCoaches(coachItems)}
               </ul>
             </div>
@@ -142,9 +135,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         <sbb-screen-reader-only>
           <input
             id="last-tab-element"
-            type="input"
-            aria-label="${getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)}"
             role="contentinfo"
+            type="text"
+            aria-label="${getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)}"
             readonly
           />
         </sbb-screen-reader-only>
@@ -158,14 +151,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     return html`
-      <nav
-        class="${classMap({
-          'sbb-seat-reservation-navigation': true,
-          'sbb-seat-reservation-navigation--vertical': this.alignVertical,
-        })}"
-      >
+      <nav class="${classMap({ 'sbb-sr-navigation--vertical': this.alignVertical })}">
         <ul
-          class="sbb-seat-reservation-navigation__list-coaches"
+          class="sbb-sr-navigation__list-coaches"
           aria-label="${getI18nSeatReservation(
             'SEAT_RESERVATION_NAVIGATION',
             this._language.current,
@@ -205,9 +193,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
     return coaches.map((coachItem: CoachItem, index: number) => {
       return html`
-        <li class="sbb-seat-reservation__item-coach">
-          ${this._renderCoachElement(coachItem, index)}
-        </li>
+        <li class="sbb-sr__item-coach">${this._renderCoachElement(coachItem, index)}</li>
       `;
     });
   }
@@ -228,11 +214,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${coachItem.places?.length
           ? html`<table
               @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
-              id="seat-reservation-coach-${index}"
+              id="sbb-sr-coach-${index}"
               class="coach-wrapper__table"
-              aria-describedby="seat-reservation-coach-caption-${index}"
+              aria-describedby="sbb-sr-coach-caption-${index}"
             >
-              <caption id="seat-reservation-coach-caption-${index}" tabindex="-1">
+              <caption id="sbb-sr-coach-caption-${index}" tabindex="-1">
                 <sbb-screen-reader-only
                   >${descriptionTableCoachWithServices}</sbb-screen-reader-only
                 >
