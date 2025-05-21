@@ -301,7 +301,6 @@ describe(`sbb-checkbox-common`, () => {
           const deserializedFormContent = JSON.parse(
             await (formData.get(element.name) as Blob).text(),
           );
-          expect(deserializedFormContent).not.to.be.equal(value); // TODO: With a comparison function, this should be equal
           expect(deserializedFormContent).to.be.deep.equal(value);
         });
 

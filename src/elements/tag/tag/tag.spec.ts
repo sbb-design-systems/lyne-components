@@ -109,7 +109,6 @@ describe(`sbb-tag`, () => {
       const data = formData.get('tag1');
       const v = data instanceof Blob ? JSON.parse(await data.text()) : data;
 
-      expect(v).not.to.be.equal(value); // TODO: With a comparison function, this should be equal
       expect(v).to.be.deep.equal(value);
     });
 
