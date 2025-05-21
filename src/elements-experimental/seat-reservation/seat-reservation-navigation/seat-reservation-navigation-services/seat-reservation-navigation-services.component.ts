@@ -33,8 +33,8 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   protected override render(): TemplateResult {
     return html` <div
       class="${classMap({
-        'sbb-seat-reservation-navigation__signs': true,
-        'sbb-seat-reservation-navigation__signs--vertical': this.vertical,
+        'sbb-sr-navigation__signs': true,
+        'sbb-sr-navigation__signs--vertical': this.vertical,
       })}"
     >
       ${this.propertyIds?.map((signIcon: string) => {

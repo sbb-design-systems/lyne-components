@@ -6,6 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../../storybook/helpers/spread.js';
 import { mapRawDataToSeatReservation } from '../../common/mapper/mapper.js';
+import extraStylesFromParent from '../../seat-reservation/seat-reservation.scss?lit&inline';
 
 import readme from './readme.md?raw';
 import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
@@ -121,7 +122,16 @@ export const DisabledFirstClassCoach: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [
+    withActions as Decorator,
+    (story) =>
+      html`<style>
+          ${extraStylesFromParent}
+        </style>
+        <ul class="sbb-sr-navigation__list-coaches">
+          <li>${story()}</li>
+        </ul>`,
+  ],
   parameters: {
     actions: {
       handles: [

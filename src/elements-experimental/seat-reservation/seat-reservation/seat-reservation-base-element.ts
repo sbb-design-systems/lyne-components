@@ -148,9 +148,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected initNavigationSelectionByScrollEvent(): void {
     this.firstTabElement = this.shadowRoot?.getElementById('first-tab-element') as HTMLElement;
     this.lastTabElement = this.shadowRoot?.getElementById('last-tab-element') as HTMLElement;
-    this.coachScrollArea = this.shadowRoot?.getElementById(
-      'sbb-seat-reservation__parent-area',
-    ) as HTMLElement;
+    this.coachScrollArea = this.shadowRoot?.getElementById('sbb-sr__parent-area') as HTMLElement;
 
     if (this.coachScrollArea) {
       let currCalcTriggerPos = 0;
@@ -353,7 +351,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _setFocusToSelectedCoachGrid(): void {
     const coachTableCaptionElement = this.shadowRoot?.querySelector(
-      '#seat-reservation-coach-caption-' + this.currSelectedCoachIndex,
+      '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
     ) as HTMLTableCaptionElement;
 
     if (coachTableCaptionElement) {
@@ -813,14 +811,14 @@ export class SeatReservationBaseElement extends LitElement {
   private _setVerticalAlignmentOffset(): void {
     setTimeout(() => {
       const seatReservationWrapperElement = this.shadowRoot?.querySelector(
-        '.sbb-seat-reservation__wrapper',
+        '.sbb-sr__wrapper',
       ) as HTMLElement;
       if (seatReservationWrapperElement) {
-        const absSeatReservationHeight =
+        const seatReservationVerticalOffset =
           seatReservationWrapperElement.getBoundingClientRect().width;
         this.style?.setProperty(
           '--sbb-seat-reservation-vertical-offset',
-          `${absSeatReservationHeight}px`,
+          `${seatReservationVerticalOffset}px`,
         );
       }
     });

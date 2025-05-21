@@ -3,8 +3,6 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import { svgs, mapIconToSvg } from '../common.js';
 
-import './seat-reservation-assets.scss';
-
 import '@sbb-esta/lyne-elements/table.js';
 import '../seat-reservation-graphic.js';
 
@@ -319,6 +317,12 @@ const chassisTable = html`
 `;
 
 export const assetsTemplate: TemplateResult = html`
+  <style>
+    .story-asset {
+      width: max-content;
+      background-color: var(--sbb-color-white);
+    }
+  </style>
   <h1>List of all currently available assets.</h1>
   <h2>Interior</h2>
   ${interiorTable}

@@ -11,7 +11,7 @@
     fill: var(--sbb-reservation-place-control-#{$state}-backrest-background-#{$event});
   }
 
-  .sbb-seat-reservation-place-control__text {
+  .sbb-sr-place-ctrl__text {
     // dont use transparent or remove background, otherwise there are a11y violations regarding
     // insufficient color contrast
     background-color: var(--sbb-reservation-place-control-#{$state}-background-#{$event});
@@ -61,7 +61,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 }
 
 :host(:hover) {
-  .sbb-seat-reservation-place-control {
+  .sbb-sr-place-ctrl {
     &--state-free:not(#{$disabled}) {
       @include colorizePlace('free', 'hover');
     }
@@ -76,7 +76,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
   border-radius: var(--sbb-border-width-1x);
   outline: var(--sbb-border-width-2x) solid var(--sbb-color-black);
 
-  .sbb-seat-reservation-place-control {
+  .sbb-sr-place-ctrl {
     &--state-free:not(#{$disabled}) {
       @include colorizePlace('free', 'focus');
     }
@@ -87,7 +87,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
   }
 }
 
-.sbb-seat-reservation-place-control {
+.sbb-sr-place-ctrl {
   $root: &;
 
   position: relative;
