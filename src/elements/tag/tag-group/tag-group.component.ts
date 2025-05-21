@@ -64,35 +64,14 @@ class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
    */
   @property()
   public set value(value: T | (T | null)[] | null) {
-    const tags = this.tags;
-    if (isServer) {
+    if (isServer || !this.hasUpdated) {
       this._value = value;
-    } else if (value === null) {
-      tags.forEach((t) => (t.checked = false));
-    } else if (this.multiple) {
-      if (!Array.isArray(value) && tags.every((t) => t.value !== value)) {
-        try {
-          // If it is multiple mode and no tag matches the value, we try to parse the value as JSON.
-          // This allows server side rendering to use array values to be passed to the client side.
-          value = JSON.parse(value as string);
-        } catch {
-          /* empty */
-        }
-      }
-      const valueAsArray = Array.isArray(value) ? value : [value];
-      tags.forEach(
-        (t) => (t.checked = valueAsArray.includes(t.value ?? (t.getAttribute('value') as any))),
-      ); // TODO: remove 'any' and fix the same timing problem we have on setter of other components
-    } else {
-      if (!Array.isArray(value)) {
-        tags.forEach((t) => (t.checked = (t.value ?? t.getAttribute('value')) === value));
-      } else if (import.meta.env.DEV) {
-        console.warn('value must not be set as an array in singular mode.', value);
-      }
+      return;
     }
+    this._applyValueToTags(value);
   }
   public get value(): T | (T | null)[] | null {
-    return isServer
+    return isServer || !this.hasUpdated
       ? this._value
       : this.multiple
         ? this.tags.filter((t) => t.checked).map((t) => t.value)
@@ -107,6 +86,10 @@ class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('value') && !this.hasUpdated && this._value) {
+      this._applyValueToTags(this.value);
+    }
 
     if (changedProperties.has('size')) {
       this.tags.forEach((t) => t.requestUpdate?.('size'));
@@ -133,6 +116,32 @@ class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
         ? null
         : 'group',
     );
+  }
+
+  private _applyValueToTags(value: any): void {
+    const tags = this.tags;
+
+    if (value === null) {
+      tags.forEach((t) => (t.checked = false));
+    } else if (this.multiple) {
+      if (!Array.isArray(value) && tags.every((t) => t.value !== value)) {
+        try {
+          // If it is multiple mode and no tag matches the value, we try to parse the value as JSON.
+          // This allows server side rendering to use array values to be passed to the client side.
+          value = JSON.parse(value as string);
+        } catch {
+          /* empty */
+        }
+      }
+      const valueAsArray = Array.isArray(value) ? value : [value];
+      tags.forEach((t) => (t.checked = valueAsArray.includes(t.value)));
+    } else {
+      if (!Array.isArray(value)) {
+        tags.forEach((t) => (t.checked = t.value === value));
+      } else if (import.meta.env.DEV) {
+        console.warn('value must not be set as an array in singular mode.', value);
+      }
+    }
   }
 
   protected override render(): TemplateResult {
