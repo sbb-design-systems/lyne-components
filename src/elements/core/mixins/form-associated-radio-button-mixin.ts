@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
 import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
-import { forceType } from '../decorators.js';
 import { i18nSelectionRequired } from '../i18n.js';
 
 import type { AbstractConstructor } from './constructor.js';
@@ -66,10 +65,9 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
     /**
      * Whether the radio button is checked.
      */
-    @forceType()
     @property({ type: Boolean })
     public set checked(value: boolean) {
-      this._checked = value;
+      this._checked = !!value;
 
       this.toggleAttribute('data-checked', this.checked);
       this.internals.ariaChecked = this.checked.toString();
