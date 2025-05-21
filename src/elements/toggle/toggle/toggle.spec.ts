@@ -426,8 +426,8 @@ describe(`sbb-toggle`, () => {
       await waitForLitRender(element);
 
       expect(element.value).to.be.deep.equal(value2);
-      expect(firstOption).to.have.attribute('checked');
-      assertPillLeft();
+      expect(secondOption).to.have.attribute('checked');
+      assertPillRight();
     });
   });
 });

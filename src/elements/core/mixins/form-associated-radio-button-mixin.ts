@@ -6,7 +6,7 @@ import { SbbConnectedAbortController, SbbLanguageController } from '../controlle
 import { forceType } from '../decorators.js';
 import { i18nSelectionRequired } from '../i18n.js';
 
-import type { Constructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.js';
 import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
 import {
   type FormRestoreReason,
@@ -56,9 +56,9 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType
  * The SbbFormAssociatedRadioButtonMixin enables native form support for radio controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbFormAssociatedRadioButtonMixinType> & T => {
+): AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> & T => {
   abstract class SbbFormAssociatedRadioButtonElement
     extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
@@ -369,6 +369,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     }
   }
 
-  return SbbFormAssociatedRadioButtonElement as unknown as Constructor<SbbFormAssociatedRadioButtonMixinType> &
+  return SbbFormAssociatedRadioButtonElement as unknown as AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> &
     T;
 };
