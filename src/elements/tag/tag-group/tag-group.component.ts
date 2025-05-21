@@ -26,7 +26,7 @@ import style from './tag-group.scss?lit&inline';
  */
 export
 @customElement('sbb-tag-group')
-class SbbTagGroupElement extends SbbDisabledMixin(
+class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -62,7 +62,7 @@ class SbbTagGroupElement extends SbbDisabledMixin(
    * If set multiple to true, the value is an array.
    */
   @property()
-  public set value(value: string | (string | null)[] | null) {
+  public set value(value: T | (T | null)[] | null) {
     const tags = this.tags;
     if (isServer) {
       this._value = value;
@@ -73,13 +73,15 @@ class SbbTagGroupElement extends SbbDisabledMixin(
         try {
           // If it is multiple mode and no tag matches the value, we try to parse the value as JSON.
           // This allows server side rendering to use array values to be passed to the client side.
-          value = JSON.parse(value);
+          value = JSON.parse(value as string);
         } catch {
           /* empty */
         }
       }
       const valueAsArray = Array.isArray(value) ? value : [value];
-      tags.forEach((t) => (t.checked = valueAsArray.includes(t.value ?? t.getAttribute('value'))));
+      tags.forEach(
+        (t) => (t.checked = valueAsArray.includes(t.value ?? (t.getAttribute('value') as any))),
+      ); // TODO: remove 'any' and fix the same timing problem we have on setter of other components
     } else {
       if (!Array.isArray(value)) {
         tags.forEach((t) => (t.checked = (t.value ?? t.getAttribute('value')) === value));
@@ -88,18 +90,18 @@ class SbbTagGroupElement extends SbbDisabledMixin(
       }
     }
   }
-  public get value(): string | (string | null)[] | null {
+  public get value(): T | (T | null)[] | null {
     return isServer
       ? this._value
       : this.multiple
         ? this.tags.filter((t) => t.checked).map((t) => t.value)
         : (this.tags.find((t) => t.checked)?.value ?? null);
   }
-  private _value: string | (string | null)[] | null = null;
+  private _value: T | (T | null)[] | null = null;
 
   /** The child instances of sbb-tag as an array. */
-  public get tags(): SbbTagElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []);
+  public get tags(): SbbTagElement<T>[] {
+    return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? []);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
