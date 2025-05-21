@@ -35,17 +35,20 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 
 > Component was successfully tested with different High-Contrast Modes
 
+<!-- Auto Generated Below -->
+
 ## Properties
 
 | Name          | Attribute      | Privacy | Type      | Default | Description                                                                       |
 | ------------- | -------------- | ------- | --------- | ------- | --------------------------------------------------------------------------------- |
-| `index`       | `index`        | public  | `number`  | `false` | index number of the coach.                                                        |
-| `selected`    | `selected`     | public  | `boolean` | `false` | Whether the coach is active/selected.                                             |
 | `coachId`     | `coach-id`     | public  | `string`  | ''      | CoachItem id.                                                                     |
 | `propertyIds` | `property-ids` | public  | `array`   | []      | CoachItem propertyIds.                                                            |
+| `selected`    | `selected`     | public  | `boolean` | `false` | Whether the coach is active/selected.                                             |
+| `focused`     | `focused`      | public  | `boolean` | `false` | Whether the coach is focused.                                                     |
+| `index`       | `index`        | public  | `number`  | `false` | index number of the coach.                                                        |
 | `travelClass` | `travel-class` | public  | `string`  | ``      | Travelclass of the actual coach.                                                  |
 | `driverArea`  | `driver-area`  | public  | `boolean` | `false` | Whether the coach is a driverarea and has therefore no additonal information.     |
 | `first`       | `first`        | public  | `boolean` | `false` | Whether the coach is the first one of the train/bus and has custom border-radius. |
 | `last`        | `last`         | public  | `boolean` | `false` | Whether the coach is the last one of the train/bus and has custom border-radius.  |
-
-<!-- Auto Generated Below -->
+| `disable`     | `disable`      | public  | `boolean` | `false` | Whether the coach is disabled.                                                    |
+| `vertical`    | `vertical`     | public  | `boolean` | `false` | Whether the view is vertical.                                                     |

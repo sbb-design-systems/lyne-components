@@ -10,13 +10,13 @@
   display: block;
 }
 
-.sbb-seat-reservation__wrapper {
+.sbb-sr__wrapper {
   display: flex;
   flex-direction: column;
   gap: 48px;
 }
 
-.sbb-seat-reservation__wrapper--vertical {
+.sbb-sr__wrapper--vertical {
   width: fit-content;
   position: relative;
   inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
@@ -24,27 +24,26 @@
   transform-origin: top left;
 }
 
-.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__parent {
+.sbb-sr__wrapper--vertical .sbb-sr__parent {
   overflow-y: hidden;
 }
 
 // ############# Seat Reservation main navigation START #############
-.sbb-seat-reservation__wrapper--vertical .sbb-seat-reservation__list-coaches {
-  // todo ggf. auf 100vw
-  width: 100vh;
+.sbb-sr__wrapper--vertical .sbb-sr__list-coaches {
+  width: 100vw;
 }
 
-.sbb-seat-reservation-navigation--vertical {
+.sbb-sr-navigation--vertical {
   inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
   margin-inline-start: sbb.px-to-rem-build(20);
   position: absolute;
 
-  .sbb-seat-reservation-navigation__list-coaches {
+  .sbb-sr-navigation__list-coaches {
     flex-direction: column;
   }
 }
 
-.sbb-seat-reservation-navigation__list-coaches {
+.sbb-sr-navigation__list-coaches {
   @include sbb.list-reset;
 
   display: flex;
@@ -56,12 +55,12 @@
 
 // ############# Seat Reservation main navigation END #############
 
-.sbb-seat-reservation__parent {
+.sbb-sr__parent {
   overflow-x: scroll;
   padding: 48px 0;
 }
 
-.sbb-seat-reservation__list-coaches {
+.sbb-sr__list-coaches {
   display: flex;
   gap: 4px;
   padding: 0;
@@ -69,7 +68,7 @@
   list-style: none;
 }
 
-.sbb-seat-reservation__list-coaches .sbb-seat-reservation__item-coach {
+.sbb-sr__item-coach {
   padding: 0;
   margin: 0;
   position: relative;

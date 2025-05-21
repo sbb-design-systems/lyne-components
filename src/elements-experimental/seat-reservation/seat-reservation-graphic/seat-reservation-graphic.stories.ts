@@ -68,17 +68,17 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const pramAreaWidth2Height2: StoryObj = {
+export const pramAreaWidth32Height32: StoryObj = {
   render: Template,
   args: { ...defaultArgs, name: 'PRAM_AREA', width: 32, height: 32 },
 };
 
-export const StairAreaWidth2Height2Rotation315: StoryObj = {
+export const StairAreaWidth32Height32Rotation315: StoryObj = {
   render: Template,
   args: { ...defaultArgs, name: 'STAIR_AREA', width: 32, height: 32, rotation: 315 },
 };
 
-export const coachBorderMiddleWidth20Height4Stretch: StoryObj = {
+export const coachBorderMiddleWidth20Height128Stretch: StoryObj = {
   render: Template,
   args: { ...defaultArgs, name: 'COACH_BORDER_MIDDLE', stretch: true, width: 20, height: 128 },
 };
