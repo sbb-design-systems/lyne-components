@@ -126,7 +126,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Value of the form element. */
   @property()
-  public override accessor value: T | T[] | null = null;
+  public accessor value: T | T[] | null = null;
 
   /**
    * Form type of element.

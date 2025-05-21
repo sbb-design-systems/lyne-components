@@ -87,14 +87,14 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     /** The path of the first selected file. Empty string ('') if no file is selected */
     @property({ attribute: false })
-    public override set value(value: string | null) {
+    public set value(value: string | null) {
       this._hiddenInput.value = value ?? '';
 
       if (!value) {
         this.files = [];
       }
     }
-    public override get value(): string | null {
+    public get value(): string | null {
       return this._hiddenInput?.value;
     }
 

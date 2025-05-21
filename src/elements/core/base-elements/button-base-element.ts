@@ -110,7 +110,7 @@ export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
   /** Value of the form element. */
   @forceType()
   @property()
-  public override accessor value: string = '';
+  public accessor value: string = '';
 
   /**
    * The type attribute to use for the button.

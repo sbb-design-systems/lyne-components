@@ -44,7 +44,7 @@ class SbbTagElement<T = string> extends SbbIconNameMixin(
 
   /** Value of the form element. */
   @property()
-  public override accessor value: T | null = null;
+  public accessor value: T | null = null;
 
   /** Amount displayed inside the tag. */
   @forceType()

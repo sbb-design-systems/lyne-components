@@ -59,7 +59,7 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
 
   /** Value of the form element. */
   @property()
-  public override accessor value: T | null = null;
+  public accessor value: T | null = null;
 
   /**
    * Size variant, either m or s.
