@@ -31,12 +31,18 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
+    const serviceLabelDescription = this.propertyIds.length
+      ? this._getServiceLabelDescription()
+      : null;
     return html` <div
       class="${classMap({
         'sbb-sr-navigation__signs': true,
         'sbb-sr-navigation__signs--vertical': this.vertical,
       })}"
     >
+      <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
+        >${serviceLabelDescription}</sbb-screen-reader-only
+      >
       ${this.propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
@@ -49,6 +55,22 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
         `;
       })}
     </div>`;
+  }
+
+  //Generate the translated service label from the available properties
+  private _getServiceLabelDescription(): string | null {
+    let label = null;
+    const translatedServiceLabels = this.propertyIds
+      .map((prop) => getI18nSeatReservation(prop, this._language.current))
+      .filter((propTranslation) => !!propTranslation)
+      .join(', ');
+
+    if (translatedServiceLabels) {
+      label = getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current)
+        .concat(':')
+        .concat(translatedServiceLabels);
+    }
+    return label;
   }
 }
 

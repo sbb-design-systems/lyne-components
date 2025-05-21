@@ -118,7 +118,7 @@ $disabled: '[disabled], :disabled';
 }
 
 // hover (FIGMA State:hover)
-.sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}) {
+.sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}, .sbb-sr-navigation-driver-area) {
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
 
   .sbb-sr-navigation__item-coach-travelclass {

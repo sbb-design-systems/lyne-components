@@ -365,10 +365,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // they are displayed distorted due to different heights and widths and this is not visually good.
     const isNotTableGraphicTempFix = graphicalElement.icon?.indexOf('TABLE') === -1;
 
-    const stretchHeight = graphicalElement.icon !== 'ENTRY_EXIT';
     const areaProperty =
-      graphicalElement.icon && isNotTableGraphicTempFix ? graphicalElement.icon : '';
-    const ariaLabelForArea = getI18nSeatReservation(areaProperty, this._language.current);
+      graphicalElement.icon && isNotTableGraphicTempFix ? graphicalElement.icon : null;
+    const stretchHeight = areaProperty !== 'ENTRY_EXIT';
+    const ariaLabelForArea = graphicalElement.icon
+      ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
+      : nothing;
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
@@ -407,16 +409,20 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           mounting=${elementMounting}
           background="DARK"
           aria-hidden="true"
-          title=${ariaLabelForArea || nothing}
+          title=${ariaLabelForArea}
         >
-          <sbb-seat-reservation-graphic
-            name=${areaProperty ?? nothing}
-            rotation=${rotation}
-            width=${this.baseGridSize}
-            height=${this.baseGridSize}
-            role="img"
-            aria-hidden="true"
-          ></sbb-seat-reservation-graphic>
+          ${areaProperty
+            ? html`
+                <sbb-seat-reservation-graphic
+                  name=${areaProperty}
+                  rotation=${rotation}
+                  width=${this.baseGridSize}
+                  height=${this.baseGridSize}
+                  role="img"
+                  aria-hidden="true"
+                ></sbb-seat-reservation-graphic>
+              `
+            : nothing}
         </sbb-seat-reservation-area>
       </sbb-scoped-element>
     `;
@@ -513,10 +519,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
     const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
 
-    // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
+    // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
+
     if (!this.preventPlaceClick) {
-      //Add place to place collection
+      // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);
       this.updateCurrentSelectedPlaceInCoach(selectedPlace);
     }

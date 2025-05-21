@@ -19,10 +19,10 @@ const i18nObjects: Record<string, Record<string, string>> = {
     it: 'it:Wagen _param0_ selektiert',
   },
   COACH_BLOCKED_TABLE_CAPTION: {
-    de: 'Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
-    en: 'en:Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
-    fr: 'fr:Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
-    it: 'it:Wagen _param0_ ist nicht betretbar. Navigieren Sie Bitte zum nächst verfügbaren Wagen',
+    de: 'Wagen _param0_ ist nicht betretbar. Navigieren Sie bitte zum nächsten verfügbaren Wagen',
+    en: 'en:Wagen _param0_ ist nicht betretbar. Navigieren Sie bitte zum nächsten verfügbaren Wagen',
+    fr: 'fr:Wagen _param0_ ist nicht betretbar. Navigieren Sie bitte zum nächsten verfügbaren Wagen',
+    it: 'it:Wagen _param0_ ist nicht betretbar. Navigieren Sie bitte zum nächsten verfügbaren Wagen',
   },
   LIST_ALL_COACHES: {
     de: "Liste aller Wagen mit reservierbaren Plätzen. Sie können die Tastennavigation aktivieren, indem Sie die 's'-Taste drücken, und dann können Sie mit den Pfeiltasten zwischen den Sitzen des Wagens navigieren.",
