@@ -20,6 +20,9 @@ import '../card-button.js';
 import '../card-link.js';
 import '../../title.js';
 
+const styleSizeS =
+  '--sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x); --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs)';
+
 const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut
@@ -39,7 +42,7 @@ const Template = ({ size, color }: Args): TemplateResult => html`
 `;
 
 const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+  <sbb-card ${sbbSpread({ size, color })} style=${size.includes('s') ? styleSizeS : ''}>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
@@ -260,6 +263,15 @@ export const WithBadge: StoryObj = {
   args: {
     ...defaultArgs,
     size: size.options![2],
+  },
+};
+
+export const WithBadgeS: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![1],
   },
 };
 
