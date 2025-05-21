@@ -1,23 +1,24 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyDeclaration,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
+import { type CSSResultGroup, isServer, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
+import { sbbLiveAnnouncer } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { idReference } from '../core/decorators.js';
-import { EventEmitter, forwardEvent } from '../core/eventing.js';
-import { i18nTimeInputChange } from '../core/i18n.js';
-import type { SbbValidationChangeEvent } from '../core/interfaces.js';
+import {
+  i18nTimeInputChange,
+  i18nTimeInvalid,
+  i18nTimeMax,
+  i18nTimeMaxLength,
+} from '../core/i18n.js';
+import {
+  SbbFormAssociatedInputMixin,
+  type FormRestoreReason,
+  type FormRestoreState,
+} from '../core/mixins.js';
 
 import style from './time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
+const REGEX_DISALLOWED_CHARACTERS = /[^0-9.:,\-;_hH]/g;
 const REGEX_GROUPS_WITHOUT_COLON = /^([0-9]{1,2})([0-9]{2})$/;
 const REGEX_GROUPS_WITH_COLON = /^([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?$/;
 
@@ -27,237 +28,187 @@ interface Time {
 }
 
 /**
- * * Combined with a native input, it displays the input's value as a formatted time.
- *
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
+ * Custom input for a time.
  */
 export
 @customElement('sbb-time-input')
-class SbbTimeInputElement extends LitElement {
+class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    didChange: 'didChange',
-    validationChange: 'validationChange',
-  } as const;
 
   /**
-   * Reference of the native input connected to the datepicker.
-   *
-   * For attribute usage, provide an id reference.
+   * The value of the time input. Reflects the current text value
+   * of this input.
    */
-  @idReference()
-  @property()
-  public accessor input: HTMLInputElement | null = null;
-
-  @state() private accessor _inputElement: HTMLInputElement | null = null;
+  public override set value(value: string) {
+    value = value.replace(REGEX_DISALLOWED_CHARACTERS, '').substring(0, 5);
+    this._tryParseValue(value);
+    // As long as this element has focus we delay automatically updating
+    // the value with the formatted string of the parsed date.
+    if (!isServer && !this.matches(':focus') && this.valueAsDate !== null) {
+      value = this._formatTime();
+    }
+    super.value = value;
+  }
+  public override get value(): string {
+    return super.value ?? '';
+  }
 
   /** Formats the current input's value as date. */
   @property({ attribute: false })
   public set valueAsDate(date: Date | null) {
-    if (!date || !this._inputElement) {
-      return;
+    if (date instanceof Date && !isNaN(date.valueOf())) {
+      this._valueAsTime = {
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+      };
+      const formattedValue = this._formatTime();
+      if (this.value !== formattedValue) {
+        this.value = formattedValue;
+      }
+    } else {
+      this._valueAsTime = null;
+      this.value = '';
     }
-    const dateObj = date instanceof Date ? date : new Date(date);
-
-    this._inputElement.value = this._formatValue({
-      hours: dateObj.getHours(),
-      minutes: dateObj.getMinutes(),
-    });
-
-    // Emit blur event when value is changed programmatically to notify
-    // frameworks that rely on that event to update form status.
-    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
   public get valueAsDate(): Date | null {
-    return this._formatValueAsDate(this._parseInput(this._inputElement?.value)) ?? null;
+    if (this._valueAsTime && this._isTimeValid(this._valueAsTime)) {
+      const date = new Date(0);
+      date.setHours(this._valueAsTime.hours);
+      date.setMinutes(this._valueAsTime.minutes);
+      return date;
+    } else {
+      return null;
+    }
   }
+  private _valueAsTime?: Time | null;
 
   /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   * Stores the last string and parsed date object value to prevent repeated
+   * parsing of the string value.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbTimeInputElement.events.didChange, {
-    bubbles: true,
-    cancelable: true,
-  });
+  private _valueCache?: [string, Time | null];
 
-  /** Emits whenever the internal validation state changes. */
-  private _validationChange: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
-    this,
-    SbbTimeInputElement.events.validationChange,
-    {
-      bubbles: true,
-      composed: false,
-    },
-  );
-
-  private _statusContainer!: HTMLParagraphElement;
-  private _inputAbortController = new AbortController();
   private _language = new SbbLanguageController(this);
+
+  public constructor() {
+    super();
+    this.addEventListener?.('change', () => this._updateValueDateFormat(), { capture: true });
+    this.addEventListener?.('change', () =>
+      sbbLiveAnnouncer.announce(i18nTimeInputChange(this.value)[this._language.current]),
+    );
+    this.addEventListener?.('keydown', (event) => this._preventCharInsert(event));
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    this._configureInputElement();
+    this.inputMode ||= 'numeric';
+    this.placeholder ||= 'HH:MM';
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._inputAbortController?.abort();
-    this._inputElement = null;
   }
 
-  public override requestUpdate(
-    name?: PropertyKey,
-    oldValue?: unknown,
-    options?: PropertyDeclaration,
+  /**
+   *  Called when the browser is trying to restore element’s state to state in which case
+   *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
+   *  user in which case reason is "autocomplete".
+   *  In the case of "restore", state is a string, File, or FormData object
+   *  previously set as the second argument to setFormValue.
+   *
+   * @internal
+   */
+  public override formStateRestoreCallback(
+    state: FormRestoreState | null,
+    _reason: FormRestoreReason,
   ): void {
-    super.requestUpdate(name, oldValue, options);
-
-    if (!isServer && (!name || name === 'input') && this.hasUpdated) {
-      this._configureInputElement();
+    if (state && typeof state === 'string') {
+      this.value = state;
     }
   }
 
-  private _configureInputElement(): void {
-    const inputElement =
-      this.input instanceof HTMLInputElement
-        ? this.input
-        : (this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>('input') ?? null);
-
-    if (inputElement === this._inputElement) {
-      return;
-    }
-
-    this._inputAbortController?.abort();
-    this._inputElement?.removeAttribute('data-sbb-time-input');
-    this._inputElement = inputElement;
-
-    if (!this._inputElement) {
-      return;
-    }
-
-    this._updateValue(this._inputElement.value);
-    this._inputAbortController = new AbortController();
-
-    // Configure input
-    this._inputElement.toggleAttribute('data-sbb-time-input', true);
-    this._inputElement.type = 'text';
-    this._inputElement.inputMode = 'numeric';
-    this._inputElement.maxLength = 5;
-    if (!this._inputElement.placeholder) {
-      this._inputElement.placeholder = 'HH:MM';
-    }
-
-    this._inputElement.addEventListener('input', (event: Event) => forwardEvent(event, this), {
-      signal: this._inputAbortController.signal,
-    });
-    this._inputElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => this._preventCharInsert(event),
-      { signal: this._inputAbortController.signal },
-    );
-    this._inputElement.addEventListener(
-      'change',
-      (event: Event) => this._updateValue((event.target as HTMLInputElement).value),
-      {
-        signal: this._inputAbortController.signal,
-        capture: true,
-      },
-    );
-    this._inputElement.addEventListener(
-      'change',
-      (event: Event) => {
-        this._emitChange(event);
-        this._updateAccessibilityMessage();
-      },
-      {
-        signal: this._inputAbortController.signal,
-      },
-    );
+  protected override updateFormValue(): void {
+    this._tryParseValue();
+    const formValue = this.valueAsDate !== null ? this._formatTime() : null;
+    this.internals.setFormValue(formValue, this.value);
   }
 
-  /**
-   * Updates `value` and `valueAsDate`. The direct update on the `_inputElement` is required
-   * to force the input change when the typed value is the same of the current one.
-   */
-  private _updateValue(value: string): void {
-    // Reset accessibility message
-    if (this._statusContainer) {
-      this._statusContainer.innerText = '';
+  private _tryParseValue(value = this.value): void {
+    if (this._valueCache?.[0] !== value) {
+      this._valueAsTime = this._parseValue(value);
+      this._valueCache = [value, this._valueAsTime ?? null];
     }
-    if (!this._inputElement) {
-      return;
-    }
-
-    const time = this._parseInput(value);
-    const isTimeValid = !!time && this._isTimeValid(time);
-    const isEmptyOrValid = !value || value.trim() === '' || isTimeValid;
-    if (isEmptyOrValid && time) {
-      // In order to support React onChange event, we have to get the setter and call it.
-      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
-      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this._inputElement, this._formatValue(time));
-
-      this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    }
-
-    const wasValid = !this._inputElement.hasAttribute('data-sbb-invalid');
-    this._inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
-    if (wasValid !== isEmptyOrValid) {
-      this._validationChange.emit({ valid: isEmptyOrValid });
-    }
-  }
-
-  /** Emits the change event. */
-  private _emitChange(event: Event): void {
-    forwardEvent(event, this);
-    this._didChange.emit();
-  }
-
-  /** Returns the right format for the `value` property. */
-  private _formatValue(time: Time): string {
-    const hours = String(time.hours).padStart(2, '0');
-    const minutes = String(time.minutes).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
-
-  /**
-   * Returns the right format for the `valueAsDate` property:
-   * sets the start date at 01.01.1970, then adds the typed hours/minutes.
-   */
-  private _formatValueAsDate(time: Time | null | undefined): Date | null {
-    if (!time || !this._isTimeValid(time)) {
-      return null;
-    }
-
-    return new Date(new Date(0).setHours(time.hours, time.minutes, 0, 0));
-  }
-
-  /** Checks if values of hours and minutes are possible, to avoid non-existent times. */
-  private _isTimeValid(time: Time): boolean {
-    return time.hours < 24 && time.minutes < 60;
   }
 
   /** Validate input against the defined RegExps. */
-  private _parseInput(value: string | undefined): Time | null {
+  private _parseValue(value: string | undefined): Time | null {
     const trimmedValue = value?.trim();
     if (!trimmedValue) {
       return null;
     }
 
     // Special case: the input is 3 or 4 digits; split like: AB?:CD
-    const match = trimmedValue.match(REGEX_GROUPS_WITHOUT_COLON);
+    const match =
+      trimmedValue.match(REGEX_GROUPS_WITHOUT_COLON) ?? trimmedValue.match(REGEX_GROUPS_WITH_COLON);
     if (match) {
       return { hours: +match[1] || 0, minutes: +match[2] || 0 };
     }
 
-    const matchColon = trimmedValue.match(REGEX_GROUPS_WITH_COLON);
-    if (matchColon) {
-      return { hours: +matchColon[1] || 0, minutes: +matchColon[2] || 0 };
-    }
-
     return null;
+  }
+
+  private _updateValueDateFormat(): void {
+    if (this.valueAsDate) {
+      const formattedDate = this._formatTime();
+      if (this.value !== formattedDate) {
+        super.value = formattedDate;
+      }
+    }
+  }
+
+  private _formatTime(): string {
+    const value = this.valueAsDate;
+    if (!value) {
+      return '';
+    }
+    const hours = String(value.getHours()).padStart(2, '0');
+    const minutes = String(value.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
+  protected override preparePastedText(text: string): string {
+    return text
+      .replace(REGEX_DISALLOWED_CHARACTERS, '')
+      .substring(0, 5 - (this.textContent?.length ?? 0));
+  }
+
+  protected override shouldValidate(name: PropertyKey | undefined): boolean {
+    return (
+      super.shouldValidate(name) ||
+      ['valueAsDate', 'min', 'max', 'dateFilter'].includes(name as string)
+    );
+  }
+
+  protected override validate(): void {
+    super.validate();
+    if (!this.value) {
+      this._removeValidityErrors();
+    } else if (!this._valueAsTime) {
+      this.setValidityFlag('badInput', i18nTimeInvalid[this.language.current]);
+    } else if (!this._isTimeValid(this._valueAsTime)) {
+      this.setValidityFlag('rangeOverflow', i18nTimeMax[this.language.current]);
+    } else {
+      this._removeValidityErrors();
+    }
+  }
+
+  private _removeValidityErrors(): void {
+    (['badInput', 'rangeOverflow'] as const).forEach((f) => this.removeValidityFlag(f));
+  }
+
+  /** Checks if values of hours and minutes are possible, to avoid non-existent times. */
+  private _isTimeValid(time: Time): boolean {
+    return time.hours < 24 && time.minutes < 60;
   }
 
   /**  Only allow typing numbers and separator keys. */
@@ -278,36 +229,24 @@ class SbbTimeInputElement extends LitElement {
     ];
 
     if (
-      !event.ctrlKey &&
-      !event.altKey &&
-      !event.metaKey &&
-      !alwaysAllowed.includes(event.key) &&
-      !REGEX_ALLOWED_CHARACTERS.test(event.key)
+      event.ctrlKey ||
+      event.altKey ||
+      event.metaKey ||
+      alwaysAllowed.includes(event.key) ||
+      (REGEX_ALLOWED_CHARACTERS.test(event.key) && (this.value.length < 5 || this._hasSelection()))
     ) {
-      event.preventDefault();
-    }
-  }
-
-  // We use a programmatic approach to avoid initial setting the message
-  // and to not immediately change output if language should change (no reason to read out message).
-  private _updateAccessibilityMessage(): void {
-    const valid = !this._inputElement!.hasAttribute('data-sbb-invalid');
-    if (!valid) {
       return;
     }
 
-    this._statusContainer.innerText = `${i18nTimeInputChange[this._language.current]} ${
-      this._inputElement?.value
-    }.`;
+    event.preventDefault();
+    if (this.value.length >= 5) {
+      sbbLiveAnnouncer.announce(i18nTimeMaxLength[this._language.current]);
+    }
   }
 
-  protected override render(): TemplateResult {
-    return html`
-      <p
-        role="status"
-        ${ref((el?: Element) => (this._statusContainer = el as HTMLParagraphElement))}
-      ></p>
-    `;
+  private _hasSelection(): boolean {
+    const range = window.getSelection()?.getRangeAt(0);
+    return !!range && range.startOffset !== range.endOffset;
   }
 }
 
