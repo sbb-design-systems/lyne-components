@@ -23,6 +23,7 @@ import style from './tag-group.scss?lit&inline';
  * It can be used as a container for one or more `sbb-tag`.
  *
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
+ * @overrideType value - string | (string | null)[] | null
  */
 export
 @customElement('sbb-tag-group')
