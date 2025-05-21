@@ -244,14 +244,6 @@ sbb-title + p {
   margin-block-start: 0;
 }
 
-input[data-sbb-time-input] {
-  max-width: var(--sbb-time-input-max-width);
-
-  sbb-form-field[size='s'] & {
-    max-width: var(--sbb-time-input-s-max-width);
-  }
-}
-
 img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
