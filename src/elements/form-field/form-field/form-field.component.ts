@@ -47,6 +47,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     'select',
     'textarea',
     'sbb-date-input',
+    'sbb-time-input',
   ];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
@@ -61,6 +62,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     'input',
     'select',
     'sbb-date-input',
+    'sbb-time-input',
     'sbb-select',
     'textarea',
   ];

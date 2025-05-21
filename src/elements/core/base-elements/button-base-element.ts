@@ -105,7 +105,11 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
 
 /** Button base class. */
 export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
-  private readonly _elementsOnWhichEnterPressTriggersSubmit = ['input', 'sbb-date-input'];
+  private readonly _elementsOnWhichEnterPressTriggersSubmit = [
+    'input',
+    'sbb-date-input',
+    'sbb-time-input',
+  ];
 
   /** Value of the form element. */
   @forceType()
