@@ -145,7 +145,7 @@ class SbbSliderElement extends SbbDisabledMixin(
     if (changedProperties.has('readOnly')) {
       this.internals.ariaReadOnly = Boolean(this.readOnly).toString();
     }
-    this.style.setProperty('--sbb-slider-value-fraction', this._valueFraction().toString());
+    this.style?.setProperty('--sbb-slider-value-fraction', this._valueFraction().toString());
   }
 
   /**
