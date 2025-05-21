@@ -1,8 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { EventEmitter, forwardEvent } from '../core/eventing.js';
@@ -46,17 +45,16 @@ class SbbSliderElement extends SbbDisabledMixin(
   @property()
   public set value(value: string | null) {
     if (this._isValidNumber(value)) {
-      this._value = this._boundBetweenMinMax(value!);
+      this._value = this._boundBetweenMinMax(value);
     } else {
-      this._value = this._getDefaultValue();
+      this._value = null;
     }
     this.internals.ariaValueNow = this.value;
-    this._calculateValueFraction();
   }
   public get value(): string {
-    return this._value;
+    return this._value ?? this._defaultValue();
   }
-  private _value: string = this._getDefaultValue();
+  private _value: string | null = null;
 
   /** Numeric value for the inner HTMLInputElement. */
   @property({ attribute: 'value-as-number', type: Number })
@@ -70,12 +68,16 @@ class SbbSliderElement extends SbbDisabledMixin(
   /** Minimum acceptable value for the inner HTMLInputElement. */
   @property()
   public set min(value: string) {
-    if (!this._isValidNumber(value!)) {
+    if (!this._isValidNumber(value)) {
       return;
     }
 
     this._min = value;
-    this.value = this._boundBetweenMinMax(this.value);
+    this.internals.ariaValueMin = this.min;
+    const boundValue = this._boundBetweenMinMax(this.value);
+    if (this.value !== boundValue) {
+      this.value = boundValue;
+    }
   }
   public get min(): string {
     return this._min;
@@ -85,12 +87,16 @@ class SbbSliderElement extends SbbDisabledMixin(
   /** Maximum acceptable value for the inner HTMLInputElement. */
   @property()
   public set max(value: string) {
-    if (!this._isValidNumber(value!)) {
+    if (!this._isValidNumber(value)) {
       return;
     }
 
     this._max = value;
-    this.value = this._boundBetweenMinMax(this.value);
+    this.internals.ariaValueMax = this.max;
+    const boundValue = this._boundBetweenMinMax(this.value);
+    if (this.value !== boundValue) {
+      this.value = boundValue;
+    }
   }
   public get max(): string {
     return this._max;
@@ -116,12 +122,6 @@ class SbbSliderElement extends SbbDisabledMixin(
   }
 
   /**
-   * The ratio between the absolute value and the validity interval.
-   * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
-   */
-  @state() private accessor _valueFraction = 0;
-
-  /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   private _didChange: EventEmitter = new EventEmitter(this, SbbSliderElement.events.didChange, {
@@ -139,26 +139,13 @@ class SbbSliderElement extends SbbDisabledMixin(
     this.addEventListener?.('keydown', (e) => this._handleKeydown(e));
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    if (!this.value) {
-      this.value = this._getDefaultValue();
-    }
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('min')) {
-      this.internals.ariaValueMin = this.min;
-    }
-    if (changedProperties.has('max')) {
-      this.internals.ariaValueMax = this.max;
-    }
     if (changedProperties.has('readOnly')) {
       this.internals.ariaReadOnly = Boolean(this.readOnly).toString();
     }
+    this.style.setProperty('--sbb-slider-value-fraction', this._valueFraction().toString());
   }
 
   /**
@@ -166,7 +153,7 @@ class SbbSliderElement extends SbbDisabledMixin(
    * @internal
    */
   public formResetCallback(): void {
-    this.value = this.getAttribute('value') ?? this._getDefaultValue();
+    this.value = this.getAttribute('value') ?? this._defaultValue();
   }
 
   /**
@@ -183,11 +170,11 @@ class SbbSliderElement extends SbbDisabledMixin(
    *  If no value is provided, default is the middle point between min and max
    *  (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value)
    */
-  private _getDefaultValue(): string {
+  private _defaultValue(): string {
     return (+this.min + (+this.max - +this.min) / 2).toString();
   }
 
-  private _isValidNumber(value: string | null): boolean {
+  private _isValidNumber(value: string | null): value is string {
     return !!value && !isNaN(Number(value));
   }
 
@@ -198,13 +185,13 @@ class SbbSliderElement extends SbbDisabledMixin(
     return Math.max(+this.min, Math.min(+this.max, +value)).toString();
   }
 
-  private _calculateValueFraction(): void {
+  private _valueFraction(): number {
     const value = this.valueAsNumber!;
     const min = +this.min;
     const max = +this.max;
 
     const mathFraction: number = (value - min) / (max - min);
-    this._valueFraction = isNaN(mathFraction) ? 0 : Math.max(0, Math.min(1, mathFraction));
+    return isNaN(mathFraction) ? 0 : Math.max(0, Math.min(1, mathFraction));
   }
 
   private async _handleKeydown(event: KeyboardEvent): Promise<void> {
@@ -252,10 +239,7 @@ class SbbSliderElement extends SbbDisabledMixin(
           <slot name="prefix">
             ${this.startIcon ? html`<sbb-icon name="${this.startIcon}"></sbb-icon>` : nothing}
           </slot>
-          <div
-            class="sbb-slider__container"
-            style=${styleMap({ '--sbb-slider-value-fraction': this._valueFraction.toString() })}
-          >
+          <div class="sbb-slider__container">
             <input
               tabindex="-1"
               min=${this.min}
