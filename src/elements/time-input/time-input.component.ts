@@ -37,7 +37,10 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
    * of this input.
    */
   public override set value(value: string) {
-    value = value.replace(REGEX_DISALLOWED_CHARACTERS, '').substring(0, 5);
+    value =
+      typeof value === 'string'
+        ? value.replace(REGEX_DISALLOWED_CHARACTERS, '').substring(0, 5)
+        : '';
     this._tryParseValue(value);
     // As long as this element has focus we delay automatically updating
     // the value with the formatted string of the parsed date.
