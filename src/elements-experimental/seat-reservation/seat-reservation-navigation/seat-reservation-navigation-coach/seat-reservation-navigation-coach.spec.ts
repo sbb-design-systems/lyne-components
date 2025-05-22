@@ -20,9 +20,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should have a button', () => {
-    const el = element.shadowRoot?.querySelector(
-      '.sbb-seat-reservation-navigation__control-button',
-    );
+    const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__ctrl-button');
 
     assert.instanceOf(el, HTMLButtonElement);
   });
@@ -31,7 +29,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     const clickSpy = new EventSpy('click');
 
     const btn = element.shadowRoot?.querySelector(
-      '.sbb-seat-reservation-navigation__control-button',
+      '.sbb-sr-navigation__ctrl-button',
     ) as HTMLButtonElement;
     btn.click();
     await clickSpy.calledOnce();
@@ -44,9 +42,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
 
   it('check host attributes and content', () => {
     expect(
-      element.shadowRoot!.firstElementChild!.classList.contains(
-        'sbb-seat-reservation-navigation__item-coach',
-      ),
+      element.shadowRoot!.firstElementChild!.classList.contains('sbb-sr-navigation__item-coach'),
     ).to.be.true;
   });
 
@@ -55,7 +51,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await waitForLitRender(element);
 
     const btn = element.shadowRoot?.querySelector(
-      '.sbb-seat-reservation-navigation__control-button',
+      '.sbb-sr-navigation__ctrl-button',
     ) as HTMLButtonElement;
 
     expect(btn.hasAttribute('disabled')).to.be.true;
@@ -65,7 +61,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     element.driverArea = true;
     await waitForLitRender(element);
 
-    const el = element.shadowRoot?.querySelector('.sbb-seat-reservation-navigation-driver-area');
+    const el = element.shadowRoot?.querySelector('.sbb-sr-navigation-driver-area');
 
     assert.instanceOf(el, HTMLDivElement);
   });
