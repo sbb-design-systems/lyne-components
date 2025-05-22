@@ -9,6 +9,7 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import type { SbbInputModality } from '../../core/a11y.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
@@ -150,6 +151,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     super.connectedCallback();
     this._registerInputListener();
     this._syncNegative();
+    this._syncSize();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -157,6 +159,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
 
     if (changedProperties.has('negative')) {
       this._syncNegative();
+    }
+    if (changedProperties.has('size')) {
+      this._syncSize();
     }
   }
 
@@ -513,6 +518,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     this.querySelectorAll?.(
       'sbb-form-error,sbb-mini-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
+  }
+
+  private _syncSize(): void {
+    this.querySelectorAll?.<SbbAutocompleteBaseElement>(
+      'sbb-autocomplete,sbb-autocomplete-grid',
+    ).forEach((element) => (element.size = this.size === 's' ? 's' : 'm'));
   }
 
   protected override render(): TemplateResult {
