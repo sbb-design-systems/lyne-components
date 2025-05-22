@@ -72,6 +72,20 @@ describe(`sbb-time-input`, () => {
     expect(element.validity.rangeOverflow).to.be.false;
   });
 
+  it('should handle null as value', async () => {
+    element.value = null!;
+
+    expect(element.value).to.be.equal('');
+    expect(element.valueAsDate).to.be.equal(null);
+  });
+
+  it('should handle undefined as value', async () => {
+    element.value = undefined!;
+
+    expect(element.value).to.be.equal('');
+    expect(element.valueAsDate).to.be.equal(null);
+  });
+
   it('should validate when empty', async () => {
     // Creating invalid entry
     typeInElement(element, '99');
