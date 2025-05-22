@@ -550,4 +550,27 @@ describe(`sbb-popover`, () => {
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(secondElement).to.have.attribute('data-state', 'opened');
   });
+
+  it('init with HtmlElement as trigger', async () => {
+    trigger = await fixture(html`<sbb-button>Popover trigger</sbb-button>`);
+    element = await fixture(html`
+      <sbb-popover id="popover" .trigger=${trigger}>
+        Popover content.
+        <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
+      </sbb-popover>
+    `);
+
+    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+
+    trigger.click();
+
+    await willOpenEventSpy.calledOnce();
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
 });

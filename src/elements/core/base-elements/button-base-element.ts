@@ -21,7 +21,11 @@ export
   'data-button': '',
 })
 abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
-  private readonly _elementsOnWhichEnterPressTriggersSubmit = ['input', 'sbb-date-input'];
+  private readonly _elementsOnWhichEnterPressTriggersSubmit = [
+    'input',
+    'sbb-date-input',
+    'sbb-time-input',
+  ];
 
   /**
    * The type attribute to use for the button.

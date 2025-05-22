@@ -31,11 +31,19 @@ export declare abstract class SbbFormAssociatedInputMixinType
   public set placeholder(value: string);
   public get placeholder(): string;
 
+  /**
+   * Makes the selection equal to the current object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select)
+   */
+  public select(): void;
+
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
+  protected preparePastedText(text: string): string;
   protected language: SbbLanguageController;
 }
 
@@ -244,13 +252,14 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         }
 
         selectedRange.deleteContents();
-        selectedRange.insertNode(document.createTextNode(text));
+        selectedRange.insertNode(document.createTextNode(this.preparePastedText(text)));
         selectedRange.setStart(selectedRange.endContainer, selectedRange.endOffset);
         this._dispatchInputEvent();
       });
       // When focusing a text input via keyboard, the text content should be selected.
       this.addEventListener?.('focus', () => {
         if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+          // TODO: This does not seem to work in Firefox with readonly.
           window.getSelection()?.selectAllChildren(this);
         }
       });
@@ -282,7 +291,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       // By default, when calling focus on an input element, the cursor is placed
       // at the end of the input text. However, with contenteditable, the cursor
       // is placed at the beginning, so we move it to the end, if that is the case.
-      if (!isServer && !this.disabled && !this.readOnly && this.value) {
+      if (this._canSelect()) {
         const selection = window.getSelection();
         if (!selection) {
           return;
@@ -338,6 +347,15 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
+    /**
+     * Makes the selection equal to the current object.
+     *
+     * @link https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select
+     */
+    public select(): void {
+      window.getSelection()?.selectAllChildren(this);
+    }
+
     protected override firstUpdated(changedProperties: PropertyValues<this>): void {
       super.firstUpdated(changedProperties);
 
@@ -363,6 +381,10 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       } else {
         this.removeValidityFlag('valueMissing');
       }
+    }
+
+    protected preparePastedText(text: string): string {
+      return text;
     }
 
     private _cleanText(value: string): string {
@@ -409,6 +431,10 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         this._shouldEmitChange = false;
         this.dispatchEvent(new Event('change', { bubbles: true }));
       }
+    }
+
+    private _canSelect(): boolean {
+      return !isServer && !this.disabled && !this.readOnly && !!this.value;
     }
 
     protected override render(): unknown {

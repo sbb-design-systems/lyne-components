@@ -70,7 +70,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.size = args['size'];
-  newNotification.readonly = args['readonly'];
+  newNotification.readOnly = args['readonly'];
   newNotification.animation = args['animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
