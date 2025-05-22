@@ -47,12 +47,12 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   /** Width Prop */
   @forceType()
   @property({ attribute: 'width', type: Number })
-  public accessor width: number = 3;
+  public accessor width: number = 32;
 
   /** Height Prop */
   @forceType()
   @property({ attribute: 'height', type: Number })
-  public accessor height: number = 3;
+  public accessor height: number = 32;
 
   /** Text Prop */
   @forceType()
@@ -135,9 +135,9 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
     return html`
       <div
-        part="sbb-seat-reservation-place-part"
-        class="sbb-seat-reservation-place-control sbb-seat-reservation-place-control--orientation-${this
-          .rotation} sbb-seat-reservation-place-control--state-${state} sbb-seat-reservation-place-control--type-${type} ${disabledClass}"
+        part="sbb-sr-place-part"
+        class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${this
+          .rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
       >
         <sbb-seat-reservation-graphic
           .name=${name}
@@ -147,10 +147,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
           .inverseRotation=${inverseRotationPlaceCheckIcon}
           aria-hidden="true"
         ></sbb-seat-reservation-graphic>
-        <span
-          ${this.text ?? nothing}
-          class="sbb-seat-reservation-place-control__text"
-          aria-hidden="true"
+        <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
           >${text}</span
         >
       </div>
