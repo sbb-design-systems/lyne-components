@@ -25,11 +25,11 @@ describe(`sbb-seat-reservation-navigation-coach`, () => {
     });
 
     it('DOM', async () => {
-      expect(root).dom.to.be.equalSnapshot();
+      await expect(root).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
-      expect(root).shadowDom.to.be.equalSnapshot();
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
     testA11yTreeSnapshot();
