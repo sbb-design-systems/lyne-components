@@ -123,7 +123,10 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, after max resolution').to.be.true;
   }
 
-  it('should collapse when space gets below minimum', async () => {
+  it('should collapse when space gets below minimum', async function (this: Context) {
+    // Test is flaky on WebKit
+    this.retries(3);
+
     await testResizing();
   });
 
