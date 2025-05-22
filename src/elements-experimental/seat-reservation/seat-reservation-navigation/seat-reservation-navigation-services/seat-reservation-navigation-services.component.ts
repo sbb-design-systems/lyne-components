@@ -34,7 +34,6 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
     const serviceLabelDescription = this.propertyIds.length
       ? this._getServiceLabelDescription()
       : null;
-
     return html` <div
       class="${classMap({
         'sbb-sr-navigation__signs': true,

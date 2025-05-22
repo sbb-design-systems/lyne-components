@@ -238,7 +238,8 @@ export class SeatReservationBaseElement extends LitElement {
       }
     }
 
-    if (isArrowKeyOrPageKeysPressed(event)) {
+    // Check if a choach is selected and the arrow key is pressed
+    if (this.currSelectedCoachIndex !== -1 && isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
 
       switch (pressedKey) {
@@ -303,9 +304,11 @@ export class SeatReservationBaseElement extends LitElement {
       this._setScrollDirection(selectedNavCoachIndex);
       this.currSelectedCoachIndex = selectedNavCoachIndex;
       const scrollToCoachPosX = this._getCoachScrollPositionX();
+      const isSelectedCoachIndexScrollable =
+        this.selectedCoachIndex !== -1 || this.currSelectedCoachIndex > 0;
 
       // Checks whether the current scroll position allows scrolling to the next wagon or not
-      if (this._isScrollableToSelectedCoach()) {
+      if (isSelectedCoachIndexScrollable && this._isScrollableToSelectedCoach()) {
         this.coachScrollArea.scrollTo({
           top: 0,
           left: scrollToCoachPosX,
@@ -350,6 +353,7 @@ export class SeatReservationBaseElement extends LitElement {
     const coachTableCaptionElement = this.shadowRoot?.querySelector(
       '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
     ) as HTMLTableCaptionElement;
+
     if (coachTableCaptionElement) {
       coachTableCaptionElement.focus();
     }
@@ -363,6 +367,7 @@ export class SeatReservationBaseElement extends LitElement {
     const coachScrollWindowWidth = this.coachScrollArea.getBoundingClientRect().width;
     const maxScrollWidthArea = this.maxCalcCoachsWidth - coachScrollWindowWidth;
     const currCoachTrigger = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
+
     return (
       this.coachScrollArea.scrollLeft < maxScrollWidthArea ||
       this.coachScrollArea.scrollLeft > currCoachTrigger.start
@@ -560,7 +565,11 @@ export class SeatReservationBaseElement extends LitElement {
   // This controls the focused coach from the current selected coach.
   private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
     const currFocusIndex =
-      this.focusedCoachIndex === -1 ? this.currSelectedCoachIndex : this.focusedCoachIndex;
+      this.focusedCoachIndex === -1
+        ? this.currSelectedCoachIndex === -1
+          ? 0
+          : this.currSelectedCoachIndex
+        : this.focusedCoachIndex;
     //Check next or prev tab is pressed, then we need to find the next available coach index that should receive the focus
     const newFocusableIndex: number =
       tabDirection === 'NEXT_TAB'
@@ -620,13 +629,11 @@ export class SeatReservationBaseElement extends LitElement {
     this.preventCoachScrollByPlaceClick = false;
     this.isKeyboardNavigation = true;
 
-    const places = this.seatReservation.coachItems[this.currSelectedCoachIndex]?.places;
-
     if (this.focusedCoachIndex !== -1) {
       this.focusedCoachIndex = -1;
     }
 
-    if (!this.preventPlaceClick && places && places.length) {
+    if (!this.preventPlaceClick) {
       const findClosestPlace = this._getClosestPlaceByKeyDirection(pressedKey);
       if (findClosestPlace) {
         this.focusPlaceElement(findClosestPlace);
@@ -653,28 +660,12 @@ export class SeatReservationBaseElement extends LitElement {
 
   protected getNextAvailableCoachIndex(currentIndex?: number): number {
     const startIndex = currentIndex ?? this.currSelectedCoachIndex;
-    let nextIndex = startIndex;
-    for (let i = startIndex + 1; i < this.seatReservation.coachItems.length; i++) {
-      const places = this.seatReservation.coachItems[i].places;
-      if (places && places.length > 0) {
-        nextIndex = i;
-        break;
-      }
-    }
-    return nextIndex;
+    return startIndex < this.seatReservation.coachItems.length - 1 ? startIndex + 1 : startIndex;
   }
 
   protected getPrevAvailableCoachIndex(currentIndex?: number): number {
     const startIndex = currentIndex ?? this.currSelectedCoachIndex;
-    let prevIndex = startIndex;
-    for (let i = startIndex - 1; i >= 0; i--) {
-      const places = this.seatReservation.coachItems[i].places;
-      if (places && places.length > 0) {
-        prevIndex = i;
-        break;
-      }
-    }
-    return prevIndex;
+    return startIndex > 0 ? startIndex - 1 : startIndex;
   }
 
   protected updateSelectedSeatReservationPlaces(placeSelection: PlaceSelection): void {

@@ -360,9 +360,17 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     rotation: number,
     coachDimension: ElementDimension,
   ): TemplateResult {
-    const stretchHeight = graphicalElement.icon !== 'ENTRY_EXIT';
-    const areaProperty = graphicalElement.icon || '';
-    const ariaLabelForArea = getI18nSeatReservation(areaProperty, this._language.current);
+    // TODO -> isNotTableGraphicTempFix is temp fix to show coach tables as area and not as svg graphic.
+    // The problem here is that when using TABLE svg graphics,
+    // they are displayed distorted due to different heights and widths and this is not visually good.
+    const isNotTableGraphicTempFix = graphicalElement.icon?.indexOf('TABLE') === -1;
+
+    const areaProperty =
+      graphicalElement.icon && isNotTableGraphicTempFix ? graphicalElement.icon : null;
+    const stretchHeight = areaProperty !== 'ENTRY_EXIT';
+    const ariaLabelForArea = graphicalElement.icon
+      ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
+      : nothing;
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
@@ -401,16 +409,20 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           mounting=${elementMounting}
           background="DARK"
           aria-hidden="true"
-          title=${ariaLabelForArea || nothing}
+          title=${ariaLabelForArea}
         >
-          <sbb-seat-reservation-graphic
-            name=${graphicalElement.icon ?? nothing}
-            rotation=${rotation}
-            width=${this.baseGridSize}
-            height=${this.baseGridSize}
-            role="img"
-            aria-hidden="true"
-          ></sbb-seat-reservation-graphic>
+          ${areaProperty
+            ? html`
+                <sbb-seat-reservation-graphic
+                  name=${areaProperty}
+                  rotation=${rotation}
+                  width=${this.baseGridSize}
+                  height=${this.baseGridSize}
+                  role="img"
+                  aria-hidden="true"
+                ></sbb-seat-reservation-graphic>
+              `
+            : nothing}
         </sbb-seat-reservation-area>
       </sbb-scoped-element>
     `;
@@ -507,20 +519,20 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
     const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
 
-    if (this.focusedCoachIndex === -1 || this.focusedCoachIndex === this.currSelectedCoachIndex) {
-      // preventCoachScrollByPlaceClick tur used to prevent auto scroll We prevent
-      this.preventCoachScrollByPlaceClick = true;
-      if (!this.preventPlaceClick) {
-        //Add place to place collection
-        this.updateSelectedSeatReservationPlaces(selectedPlace);
-        this.updateCurrentSelectedPlaceInCoach(selectedPlace);
-      }
+    // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
+    this.preventCoachScrollByPlaceClick = true;
+
+    if (!this.preventPlaceClick) {
+      // Add place to place collection
+      this.updateSelectedSeatReservationPlaces(selectedPlace);
+      this.updateCurrentSelectedPlaceInCoach(selectedPlace);
     }
   }
 
   private _onSelectNavCoach(event: CustomEvent): void {
     const selectedNavCoachIndex = event.detail as number;
     this.isKeyboardNavigation = false;
+
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
@@ -539,6 +551,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem): string {
+    if (!coachItem.places?.length) {
+      return getI18nSeatReservation('COACH_BLOCKED_TABLE_CAPTION', this._language.current, [
+        coachItem.id,
+      ]);
+    }
+
     let tableCoachDescription = '';
     const areaDescriptions = this._getTitleDescriptionListString(coachItem.graphicElements!);
     const serviceDescriptions = this._getTitleDescriptionListString(coachItem.serviceElements!);
