@@ -109,6 +109,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       SbbPaginatorCommonElement.events.page,
       { composed: true, bubbles: true },
     );
+    private _lastPageEvent?: SbbPaginatorPageEventDetails;
 
     protected language = new SbbLanguageController(this);
     protected abstract renderPaginator(): string;
@@ -187,12 +188,22 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     }
 
     protected emitPageEvent(previousPageIndex: number): void {
-      this._page.emit({
+      if (
+        this._lastPageEvent?.pageIndex === this.pageIndex &&
+        this._lastPageEvent?.length === this.length &&
+        this._lastPageEvent?.pageSize === this.pageSize
+      ) {
+        // Do not emit the event if the page event details did not change
+        return;
+      }
+
+      this._lastPageEvent = {
         previousPageIndex,
         pageIndex: this.pageIndex,
         length: this.length,
         pageSize: this.pageSize,
-      });
+      };
+      this._page.emit(this._lastPageEvent);
     }
 
     protected renderPrevNextButtons(): TemplateResult {
