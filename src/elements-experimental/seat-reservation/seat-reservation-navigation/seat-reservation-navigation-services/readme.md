@@ -1,0 +1,19 @@
+The `sbb-seat-reservation-navigation-services` is a component which displays the available service icons of a coach
+
+The purpose of this component is to be used in the main
+[sbb-reservation-navigation-coach](/docs/experimental-sbb-seat-reservation-navigation-coach--docs) component
+and should not be used on its own even if it's possible.
+
+```html
+<sbb-seat-reservation-navigation-services .propertyIds="PROPERTY_IDS">
+</sbb-seat-reservation-navigation-services>
+```
+
+<!-- Auto Generated Below -->
+
+## Properties
+
+| Name           | Attribute     | Privacy | Type      | Default | Description          |
+| -------------- | ------------- | ------- | --------- | ------- | -------------------- |
+| `property-ids` | `propertyIds` | public  | `array`   | `[]`    | array of ids         |
+| `vertical`     | `vertical`    | public  | `boolean` | `false` | vertical view active |
