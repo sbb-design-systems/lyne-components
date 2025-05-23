@@ -7,6 +7,15 @@
   --sbb-seat-reservation-grid-size: 16px;
   --sbb-seat-reservation-vertical-offset: 0;
 
+  ::part(coach-floor) {
+    fill: var(--sbb-color-white);
+
+    // In High Contrast Mode we set floor color to transparent
+    @include sbb.if-forced-colors {
+      fill: transparent;
+    }
+  }
+
   display: block;
 }
 
