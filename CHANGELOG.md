@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.10.1...v2.11.0) (2025-05-23)
+
+
+### Features
+
+* **sbb-card:** add card-badge in size xs/s  ([#3728](https://github.com/sbb-design-systems/lyne-components/issues/3728)) ([54898ab](https://github.com/sbb-design-systems/lyne-components/commit/54898ab25621f5bf03f07a6e9fbb4890273f203f))
+* **sbb-sticky-bar:** add size s ([#3714](https://github.com/sbb-design-systems/lyne-components/issues/3714)) ([68ec824](https://github.com/sbb-design-systems/lyne-components/commit/68ec824ce89ed7b3e870adae93d3b3f4621f530c))
+
 ## [2.10.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.10.0...v2.10.1) (2025-05-21)
 
 
