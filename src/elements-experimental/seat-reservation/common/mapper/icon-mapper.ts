@@ -24,7 +24,7 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   BUSINESS_COMFORT: { svgName: 'sa-bz' },
   BUSINESS_ICON: { svgName: 'sa-bz' },
   COACH_BORDER_MIDDLE: { svg: svgs.chassisRowMiddle },
-  COACH_BORDER_OUTER: { svg: svgs.chassisRowOuter },
+  COACH_WALL_NO_PASSAGE: { svg: svgs.chassisRowOuter },
   COACH_PASSAGE: { svg: svgs.chassisPassageWaggonTopLeft },
   COMPARTMENT_PASSAGE: { svg: svgs.chassisPassageCompartmentMiddle },
   COMPARTMENT_PASSAGE_HIGH: { svg: svgs.chassisPassageCompartmentLeftTop },
