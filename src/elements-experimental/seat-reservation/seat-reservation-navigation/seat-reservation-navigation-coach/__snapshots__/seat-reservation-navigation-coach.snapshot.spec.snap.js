@@ -12,9 +12,6 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"
 
 snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shadow DOM"] = 
 `<div class="sbb-sr-navigation__item-coach">
-  <sbb-screen-reader-only id="nav-coach-service-descriptions-0">
-    en:Verfügbare Services: Velozone,Silence area
-  </sbb-screen-reader-only>
   <button
     aria-describedby="nav-coach-service-descriptions-0"
     class="sbb-sr-navigation__ctrl-button"
@@ -35,6 +32,9 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
       </div>
     </div>
   </button>
+  <sbb-screen-reader-only id="nav-coach-service-descriptions-0">
+    en:Verfügbare Services: Velozone,Silence area
+  </sbb-screen-reader-only>
   <sbb-seat-reservation-navigation-services>
   </sbb-seat-reservation-navigation-services>
 </div>
@@ -48,13 +48,13 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "en:Verfügbare Services: Velozone,Silence area"
-    },
-    {
       "role": "button",
       "name": "Navigate to train compartment 85",
       "description": "en:Verfügbare Services: Velozone,Silence area"
+    },
+    {
+      "role": "text",
+      "name": "en:Verfügbare Services: Velozone,Silence area"
     },
     {
       "role": "text",
@@ -73,13 +73,13 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "name": "",
   "children": [
     {
-      "role": "text leaf",
-      "name": "en:Verfügbare Services: Velozone,Silence area"
-    },
-    {
       "role": "button",
       "name": "Navigate to train compartment 85",
       "description": "en:Verfügbare Services: Velozone,Silence area"
+    },
+    {
+      "role": "text leaf",
+      "name": "en:Verfügbare Services: Velozone,Silence area"
     },
     {
       "role": "text leaf",
