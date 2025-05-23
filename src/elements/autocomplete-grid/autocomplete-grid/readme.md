@@ -150,6 +150,34 @@ and not to the previous/next button.
 The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbAutocompleteGrid<T>` and `SbbAutocompleteGridOption<T>`.
+
+```ts
+const values = [
+  { value: 'value 1', name: 'Option 1' },
+  { value: 'value 2', name: 'Option 2' },
+];
+```
+
+```html
+<sbb-form-field>
+  <input />
+  <sbb-autocomplete-grid .displayWith="${(value) => value.name}">
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option .value="${values[0]}">Option 1</sbb-autocomplete-grid-option>
+      ...
+    </sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-row>
+      <sbb-autocomplete-grid-option .value="${values[1]}">Option 2</sbb-autocomplete-grid-option>
+      ...
+    </sbb-autocomplete-grid-row>
+  </sbb-autocomplete-grid>
+</sbb-form-field>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -157,6 +185,7 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 | Name                    | Attribute                  | Privacy | Type                                    | Default | Description                                                                                                                                                                                                                                                                                                     |
 | ----------------------- | -------------------------- | ------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `autoActiveFirstOption` | `auto-active-first-option` | public  | `boolean`                               | `false` | Whether the first option is automatically activated when the autocomplete is opened.                                                                                                                                                                                                                            |
+| `displayWith`           | -                          | public  | `((value: T) => string) \| null`        | `null`  | Function that maps an option's control value to its display value in the trigger.                                                                                                                                                                                                                               |
 | `isOpen`                | -                          | public  | `boolean`                               |         | Whether the element is open.                                                                                                                                                                                                                                                                                    |
 | `negative`              | `negative`                 | public  | `boolean`                               | `false` | Negative coloring variant flag.                                                                                                                                                                                                                                                                                 |
 | `origin`                | `origin`                   | public  | `HTMLElement \| null`                   | `null`  | The element where the autocomplete will attach. If not set, as fallback there are two elements which can act as origin with following priority order: 1\. `sbb-form-field` if it is an ancestor. 2\. trigger element if set. For attribute usage, provide an id reference.                                      |

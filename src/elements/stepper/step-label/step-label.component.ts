@@ -17,6 +17,7 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to provide a label.
  * @slot icon - Use this to display an icon in the label bubble.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-step-label')

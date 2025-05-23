@@ -156,10 +156,14 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     protected override updateFormValue(): void {
       if (this.checked) {
-        this.internals.setFormValue(this.value, `${this.checked}`);
+        super.updateFormValue();
       } else {
         this.internals.setFormValue(null);
       }
+    }
+
+    protected override formState(): FormRestoreState {
+      return `${this.checked}`;
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {

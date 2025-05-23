@@ -77,6 +77,15 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <sbb-checkbox aria-label="Subscribed to email message"></sbb-checkbox>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbCheckbox<T>`.
+
+```html
+<sbb-checkbox .value=${{value: 'value', name: 'name'}} name="name">Checkbox</sbb-checkbox>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

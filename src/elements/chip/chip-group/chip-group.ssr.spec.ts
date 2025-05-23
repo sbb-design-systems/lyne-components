@@ -14,8 +14,8 @@ describe(`sbb-chip-group ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
-      html` <sbb-form-field>
-        <sbb-chip-group>
+      html`<sbb-form-field>
+        <sbb-chip-group .value=${[1]}>
           <sbb-chip value="Value"></sbb-chip>
         </sbb-chip-group>
         <input />

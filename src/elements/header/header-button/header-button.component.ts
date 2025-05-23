@@ -8,6 +8,7 @@ import { SbbHeaderActionCommonElementMixin } from '../common.js';
  *
  * @slot icon - Slot used to render the button icon.
  * @slot - Use the unnamed slot to add content to the `sbb-header-button`.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-header-button')

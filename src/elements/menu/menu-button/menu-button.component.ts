@@ -11,6 +11,7 @@ import { SbbMenuActionCommonElementMixin } from '../common.js';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
  * @cssprop [--sbb-menu-action-outer-horizontal-padding=var(--sbb-spacing-fixed-3x)] - Can be used
  * to modify horizontal padding.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-menu-button')
