@@ -1,15 +1,24 @@
 import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
-//import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
+
+import type { SeatReservation } from '../seat-reservation.js';
 
 import { SbbSeatReservationElement } from './seat-reservation.component.js';
 
 describe('sbb-seat-reservation', () => {
   let element: SbbSeatReservationElement;
 
+  const data: SeatReservation = {
+    vehicleType: 'TRAIN',
+    deckCoachIndex: 1,
+    coachItems: [],
+  };
+
   beforeEach(async () => {
-    element = await fixture(html`<sbb-seat-reservation></sbb-seat-reservation>`);
+    element = await fixture(
+      html`<sbb-seat-reservation .seatReservation="${data}"></sbb-seat-reservation>`,
+    );
   });
 
   it('renders', async () => {

@@ -8,9 +8,28 @@ snapshots["sbb-seat-reservation-navigation-services renders DOM"] =
 /* end snapshot sbb-seat-reservation-navigation-services renders DOM */
 
 snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] = 
-`<div class="sbb-seat-reservation-navigation__signs">
+`<div class="sbb-sr-navigation__signs">
   <sbb-screen-reader-only>
+    en:Verfügbare Services:Velozone, Silence area
   </sbb-screen-reader-only>
+  <sbb-seat-reservation-graphic
+    aria-hidden="true"
+    height="20"
+    name="BICYCLE"
+    style="--sbb-reservation-graphic-width: 20; --sbb-reservation-graphic-height: 20; --sbb-reservation-graphic-rotation: 0; --sbb-reservation-graphic-inverse-rotation: 0;"
+    title="Velozone"
+    width="20"
+  >
+  </sbb-seat-reservation-graphic>
+  <sbb-seat-reservation-graphic
+    aria-hidden="true"
+    height="20"
+    name="SILENCE"
+    style="--sbb-reservation-graphic-width: 20; --sbb-reservation-graphic-height: 20; --sbb-reservation-graphic-rotation: 0; --sbb-reservation-graphic-inverse-rotation: 0;"
+    title="Silence area"
+    width="20"
+  >
+  </sbb-seat-reservation-graphic>
 </div>
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders Shadow DOM */
@@ -19,7 +38,13 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "en:Verfügbare Services:Velozone, Silence area"
+    }
+  ]
 }
 </p>
 `;
@@ -29,7 +54,13 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] 
 `<p>
   {
   "role": "document",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "en:Verfügbare Services:Velozone, Silence area"
+    }
+  ]
 }
 </p>
 `;
