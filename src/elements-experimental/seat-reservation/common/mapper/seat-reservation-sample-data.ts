@@ -3563,7 +3563,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 180,
-          type: 'COACH_BORDER_OUTER',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
       ],
       serviceIcons: [
@@ -3659,7 +3659,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'COACH_BORDER_OUTER',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
         {
           rectangle: {
@@ -3675,7 +3675,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 180,
-          type: 'COACH_BORDER_OUTER',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
       ],
       serviceIcons: [],
@@ -4661,7 +4661,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'COACH_BORDER_OUTER',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
         {
           rectangle: {
@@ -4677,7 +4677,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 180,
-          type: 'COACH_BORDER_OUTER',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
       ],
       serviceIcons: [
@@ -4789,7 +4789,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'COACH_BORDER_OUTER',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
       ],
       serviceIcons: [],
@@ -5202,7 +5202,7 @@ export const MOCK_COACHES_RAW_1 = [
             },
           },
           orientation: 180,
-          type: 'COACH_PASSAGE',
+          type: 'COACH_WALL_NO_PASSAGE',
         },
         {
           rectangle: {

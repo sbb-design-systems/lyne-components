@@ -66,11 +66,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _notAreaElements = [
     'DRIVER_AREA_FULL',
     'COACH_PASSAGE',
+    'COACH_WALL_NO_PASSAGE',
     'COMPARTMENT_PASSAGE',
     'COMPARTMENT_PASSAGE_HIGH',
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
-    'COACH_BORDER_OUTER',
   ];
   // Area icons that should not be fixed during rotation when vertical mode is selected
   private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];

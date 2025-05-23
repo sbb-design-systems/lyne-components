@@ -288,9 +288,9 @@ const chassisTable = html`
           </td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('COACH_BORDER_OUTER')}</td>
+          <td>${svgImageByOSDMCode('COACH_WALL_NO_PASSAGE')}</td>
           <td>Row-Empty: Top/Left</td>
-          <td>COACH_BORDER_OUTER</td>
+          <td>COACH_WALL_NO_PASSAGE</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COACH_BORDER_MIDDLE')}</td>
