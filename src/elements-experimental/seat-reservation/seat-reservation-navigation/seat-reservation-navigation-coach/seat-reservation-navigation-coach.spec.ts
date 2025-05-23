@@ -63,6 +63,6 @@ describe('sbb-seat-reservation-navigation-coach', () => {
 
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation-driver-area');
 
-    assert.instanceOf(el, HTMLDivElement);
+    assert.instanceOf(el, HTMLButtonElement);
   });
 });
