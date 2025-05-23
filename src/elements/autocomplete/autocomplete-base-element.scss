@@ -139,6 +139,10 @@
     pointer-events: var(--sbb-options-pointer-events);
   }
 
+  :host([size='s']) & {
+    padding-block: var(--sbb-spacing-fixed-1x);
+  }
+
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
     border-top: none;
