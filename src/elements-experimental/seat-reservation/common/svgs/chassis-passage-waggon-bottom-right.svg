@@ -3,7 +3,7 @@
 <rect fill="white" width="11" height="184"/>
 <path d="M0 2H5C7.20914 2 9 3.79086 9 6V178C9 180.209 7.20914 182 5 182H0V2Z"/>
 </mask>
-<path d="M0 2H5C7.20914 2 9 3.79086 9 6V178C9 180.209 7.20914 182 5 182H0V2Z" fill="white"/>
+<path part="coach-floor" d="M0 2H5C7.20914 2 9 3.79086 9 6V178C9 180.209 7.20914 182 5 182H0V2Z" fill="none"/>
 <path d="M0 0H5C8.31371 0 11 2.68629 11 6H7C7 4.89543 6.10457 4 5 4H0V0ZM11 178C11 181.314 8.31371 184 5 184H0V180H5C6.10457 180 7 179.105 7 178H11ZM0 182V2V182ZM5 0C8.31371 0 11 2.68629 11 6V178C11 181.314 8.31371 184 5 184V180C6.10457 180 7 179.105 7 178V6C7 4.89543 6.10457 4 5 4V0Z" fill="#B7B7B7" mask="url(#path-1-outside-1_107_9559)"/>
 <mask id="path-3-outside-2_107_9559" maskUnits="userSpaceOnUse" x="2" y="77" width="13" height="30" fill="black">
 <rect fill="white" x="2" y="77" width="13" height="30"/>
