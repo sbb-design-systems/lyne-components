@@ -40,6 +40,10 @@ $intersector-overlapping: 1px;
   display: contents;
 }
 
+:host([size='s']) {
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
+}
+
 :host([data-sticking]:not([data-state='unsticky'])) {
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
