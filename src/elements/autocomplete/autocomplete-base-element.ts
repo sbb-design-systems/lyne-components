@@ -221,7 +221,6 @@ abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-
     this._componentSetup();
   }
 
@@ -242,7 +241,7 @@ abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
     if (isServer || !this.hasUpdated) {
       return;
     }
-    if (!name || name === 'trigger') {
+    if ((!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     } else if ((!name || name === 'origin') && this.isOpen) {
       this._setOverlayPosition();
