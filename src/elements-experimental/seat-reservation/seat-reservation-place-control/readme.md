@@ -12,16 +12,22 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type         | Default   | Description                           |
-| -------------- | --------------- | ------- | ------------ | --------- | ------------------------------------- |
-| `type`         | `type`          | public  | `PlaceType`  | `SEAT`    | type of PlaceControl                  |
-| `state`        | `state`         | public  | `PlaceState` | `FREE`    | state of PlaceControl                 |
-| `propertyIds`  | `property-ids`  | public  | `array`      | `[]`      | Place Property of the Control         |
-| `rotation`     | `rotation`      | public  | `number`     | `0`       | rotation of PlaceControl              |
-| `width`        | `width`         | public  | `number`     | `32`      | width of PlaceControl                 |
-| `height`       | `height`        | public  | `number`     | `32`      | height of PlaceControl                |
-| `text`         | `text`          | public  | `string`     | ``        | text inside PlaceControl              |
-| `textRotation` | `text-rotation` | public  | `number`     | `0`       | text-rotation inside PlaceControl     |
-| `coachIndex`   | `coach-index`   | public  | `number`     | `null`    | coach index where the placeControl is |
-| `preventClick` | `prevent-click` | public  | `boolean`    | `false`   | prevent click events                  |
-| `keyfocus`     | `keyfocus`      | public  | `string`     | `unfocus` |                                       |
+| Name           | Attribute       | Privacy | Type         | Default     | Description                                            |
+| -------------- | --------------- | ------- | ------------ | ----------- | ------------------------------------------------------ |
+| `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifer the right place to coach |
+| `height`       | `height`        | public  | `number`     | `32`        | Height Prop                                            |
+| `keyfocus`     | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                      |
+| `placeType`    | `type`          | public  | `PlaceType`  | `'SEAT'`    | Type Prop                                              |
+| `preventClick` | `prevent-click` | public  | `boolean`    | `false`     | Prevent click prop prevent any place action            |
+| `propertyIds`  | `propertyIds`   | public  | `string[]`   | `[]`        | Place Property Ids Prop                                |
+| `rotation`     | `rotation`      | public  | `number`     | `0`         | Rotation Prop                                          |
+| `state`        | `state`         | public  | `PlaceState` | `'FREE'`    | State Prop                                             |
+| `text`         | `text`          | public  | `string`     | `''`        | Text Prop                                              |
+| `textRotation` | `text-rotation` | public  | `number`     | `0`         | TextRotation Prop                                      |
+| `width`        | `width`         | public  | `number`     | `32`        | Width Prop                                             |
+
+## Events
+
+| Name          | Type                          | Description                                                                                          | Inherited From |
+| ------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
+| `selectPlace` | `CustomEvent<PlaceSelection>` | Emits when a place was selected and returns a PlaceSelection object with necessary place information |                |

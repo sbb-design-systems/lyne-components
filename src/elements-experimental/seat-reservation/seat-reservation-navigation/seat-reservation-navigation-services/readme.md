@@ -13,7 +13,7 @@ and should not be used on its own even if it's possible.
 
 ## Properties
 
-| Name           | Attribute     | Privacy | Type      | Default | Description          |
-| -------------- | ------------- | ------- | --------- | ------- | -------------------- |
-| `property-ids` | `propertyIds` | public  | `array`   | `[]`    | array of ids         |
-| `vertical`     | `vertical`    | public  | `boolean` | `false` | vertical view active |
+| Name          | Attribute      | Privacy | Type       | Default | Description |
+| ------------- | -------------- | ------- | ---------- | ------- | ----------- |
+| `propertyIds` | `property-ids` | public  | `string[]` | `[]`    |             |
+| `vertical`    | `vertical`     | public  | `boolean`  | `false` |             |

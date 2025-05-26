@@ -39,16 +39,23 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 
 ## Properties
 
-| Name          | Attribute      | Privacy | Type      | Default | Description                                                                       |
-| ------------- | -------------- | ------- | --------- | ------- | --------------------------------------------------------------------------------- |
-| `coachId`     | `coach-id`     | public  | `string`  | ''      | CoachItem id.                                                                     |
-| `propertyIds` | `property-ids` | public  | `array`   | []      | CoachItem propertyIds.                                                            |
-| `selected`    | `selected`     | public  | `boolean` | `false` | Whether the coach is active/selected.                                             |
-| `focused`     | `focused`      | public  | `boolean` | `false` | Whether the coach is focused.                                                     |
-| `index`       | `index`        | public  | `number`  | `false` | index number of the coach.                                                        |
-| `travelClass` | `travel-class` | public  | `string`  | ``      | Travelclass of the actual coach.                                                  |
-| `driverArea`  | `driver-area`  | public  | `boolean` | `false` | Whether the coach is a driverarea and has therefore no additonal information.     |
-| `first`       | `first`        | public  | `boolean` | `false` | Whether the coach is the first one of the train/bus and has custom border-radius. |
-| `last`        | `last`         | public  | `boolean` | `false` | Whether the coach is the last one of the train/bus and has custom border-radius.  |
-| `disable`     | `disable`      | public  | `boolean` | `false` | Whether the coach is disabled.                                                    |
-| `vertical`    | `vertical`     | public  | `boolean` | `false` | Whether the view is vertical.                                                     |
+| Name          | Attribute      | Privacy | Type                 | Default         | Description                  |
+| ------------- | -------------- | ------- | -------------------- | --------------- | ---------------------------- |
+| `coachId`     | `coach-id`     | public  | `string`             | `''`            |                              |
+| `disable`     | `disable`      | public  | `boolean`            | `false`         | Disable the coach navigation |
+| `driverArea`  | `driver-area`  | public  | `boolean`            | `false`         |                              |
+| `first`       | `first`        | public  | `boolean`            | `false`         |                              |
+| `focused`     | `focused`      | public  | `boolean`            | `false`         |                              |
+| `index`       | `index`        | public  | `number`             | `0`             |                              |
+| `last`        | `last`         | public  | `boolean`            | `false`         |                              |
+| `propertyIds` | `property-ids` | public  | `string[]`           | `[]`            |                              |
+| `selected`    | `selected`     | public  | `boolean`            | `false`         |                              |
+| `travelClass` | `travel-class` | public  | `PlaceTravelClass[]` | `['ANY_CLASS']` |                              |
+| `vertical`    | `vertical`     | public  | `boolean`            | `false`         |                              |
+
+## Events
+
+| Name          | Type             | Description                                                                                   | Inherited From |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------- | -------------- |
+| `focusCoach`  | `CustomEvent<T>` | Emits when a nav coach has the focus                                                          |                |
+| `selectCoach` | `CustomEvent<T>` | Emits when a coach within the navigation was selected and returns the clicked coach nav index |                |
