@@ -107,6 +107,28 @@ Nesting interactive controls like this interferes with many assistive technologi
 The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbAutocomplete<T>` and `SbbOption<T>`.
+
+```ts
+const values = [
+  { value: 'value 1', name: 'Option 1' },
+  { value: 'value 2', name: 'Option 2' },
+];
+```
+
+```html
+<sbb-form-field>
+  <input />
+  <sbb-autocomplete .displayWith="${(value) => value.name}">
+    <sbb-option .value="${values[0]}">Option 1</sbb-option>
+    <sbb-option .value="${values[1]}">Option 2</sbb-option>
+  </sbb-autocomplete>
+</sbb-form-field>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -114,6 +136,7 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 | Name                    | Attribute                  | Privacy | Type                                    | Default | Description                                                                                                                                                                                                                                                                                                     |
 | ----------------------- | -------------------------- | ------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `autoActiveFirstOption` | `auto-active-first-option` | public  | `boolean`                               | `false` | Whether the first option is automatically activated when the autocomplete is opened.                                                                                                                                                                                                                            |
+| `displayWith`           | -                          | public  | `((value: T) => string) \| null`        | `null`  | Function that maps an option's control value to its display value in the trigger.                                                                                                                                                                                                                               |
 | `isOpen`                | -                          | public  | `boolean`                               |         | Whether the element is open.                                                                                                                                                                                                                                                                                    |
 | `negative`              | `negative`                 | public  | `boolean`                               | `false` | Negative coloring variant flag.                                                                                                                                                                                                                                                                                 |
 | `origin`                | `origin`                   | public  | `HTMLElement \| null`                   | `null`  | The element where the autocomplete will attach. If not set, as fallback there are two elements which can act as origin with following priority order: 1\. `sbb-form-field` if it is an ancestor. 2\. trigger element if set. For attribute usage, provide an id reference.                                      |

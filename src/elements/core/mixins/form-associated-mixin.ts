@@ -8,7 +8,7 @@ import type { AbstractConstructor } from './constructor.js';
 
 declare global {
   /**
-   * Defines custom valididty state properties.
+   * Defines custom validity state properties.
    */
   interface CustomValidityState {}
   interface ValidityState extends CustomValidityState {}
@@ -49,11 +49,13 @@ if (typeof ValidityState === 'undefined') {
   globalThis.ValidityState = validityClass as unknown as typeof ValidityState;
 }
 
-export declare abstract class SbbFormAssociatedMixinType<V = string> {
+export declare abstract class SbbFormAssociatedMixinType {
   public get form(): HTMLFormElement | null;
   public accessor name: string;
   public get type(): string;
-  public accessor value: V | null;
+
+  public abstract get value(): unknown;
+  public abstract set value(value: unknown);
 
   public get validity(): ValidityState;
   public get validationMessage(): string;
@@ -74,7 +76,8 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
     reason: FormRestoreReason,
   ): void;
 
-  protected abstract updateFormValue(): void;
+  protected updateFormValue(): void;
+  protected formState?(): FormRestoreState;
   protected setValidityFlag<T extends keyof ValidityStateFlags>(
     flag: T,
     message: string,
@@ -89,14 +92,17 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>, V = string>(
+export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): AbstractConstructor<SbbFormAssociatedMixinType<V>> & T => {
+): AbstractConstructor<SbbFormAssociatedMixinType> & T => {
   abstract class SbbFormAssociatedElement
     extends superClass
-    implements Partial<SbbFormAssociatedMixinType<V>>
+    implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
+
+    public abstract get value(): unknown;
+    public abstract set value(value: unknown);
 
     /**
      * Returns the form owner of this element.
@@ -126,17 +132,6 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     public get type(): string {
       return this.localName;
     }
-
-    /** Value of the form element. */
-    @property()
-    public set value(value: V | null) {
-      this._value = value;
-      this.updateFormValue();
-    }
-    public get value(): V | null {
-      return this._value;
-    }
-    private _value: V | null = null;
 
     /**
      * Returns the ValidityState object for this element.
@@ -274,6 +269,9 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       options?: PropertyDeclaration,
     ): void {
       super.requestUpdate(name, oldValue, options);
+      if (name === 'value') {
+        this.updateFormValue();
+      }
       if (this.hasUpdated && this.shouldValidate(name)) {
         this.validate();
       }
@@ -289,7 +287,39 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
      * Adapts and sets the formValue in the supported format (string | FormData | File | null)
      * https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/setFormValue
      */
-    protected abstract updateFormValue(): void;
+    protected updateFormValue(): void {
+      let formValue: FormData | string | null;
+      const name = this.name ?? this.getAttribute('name');
+
+      if (typeof this.value === 'string' || this.value == null) {
+        formValue = this.value as string | null;
+      } else if (Array.isArray(this.value)) {
+        formValue = new FormData();
+        this.value.forEach((el) => {
+          (formValue as FormData).append(
+            name,
+            typeof el === 'string'
+              ? el
+              : new Blob([JSON.stringify(el)], {
+                  type: 'application/json',
+                }),
+          );
+        });
+      } else {
+        formValue = new FormData();
+        formValue.append(
+          name,
+          new Blob([JSON.stringify(this.value)], {
+            type: 'application/json',
+          }),
+        );
+      }
+
+      // If the form state is undefined then form value will be copied to state.
+      this.internals.setFormValue(formValue, this.formState?.());
+    }
+
+    protected formState?(): FormRestoreState;
 
     /**
      * Marks this element as suffering from the constraint indicated by the
@@ -381,8 +411,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       }
     }
   }
-  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType<V>> &
-    T;
+  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType> & T;
 };
 
 /**
@@ -390,7 +419,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
  * state is a `FormData` object, its entry list of name and values will be
  * provided.
  */
-export type FormRestoreState = File | string | [string, FormDataEntryValue][];
+export type FormRestoreState = string | FormData | File;
 
 /**
  * The reason a form component is being restored for, either `'restore'` for

@@ -19,6 +19,9 @@ export declare abstract class SbbFormAssociatedInputMixinType
   extends SbbFormAssociatedMixinType
   implements Partial<SbbRequiredMixinType>
 {
+  public set value(value: string);
+  public get value(): string;
+
   public set disabled(value: boolean);
   public get disabled(): boolean;
 
@@ -103,17 +106,19 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     }
 
     /**
-     * The text value of the input element.
+     * The value of the input. Reflects the current text value of this input.
      */
-    public override set value(value: string) {
-      super.value = this._cleanText(value);
+    @property()
+    public set value(value: string) {
+      this._value = this._cleanText(value);
       if (this.hasUpdated) {
-        this.innerHTML = super.value;
+        this.innerHTML = this._value;
       }
     }
-    public override get value(): string {
-      return super.value ?? '';
+    public get value(): string {
+      return this._value ?? '';
     }
+    private _value: string = '';
 
     /**
      * Whether the component is readonly.
@@ -167,7 +172,9 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       this.addEventListener?.(
         'input',
         () => {
-          super.value = this._cleanText(this.textContent ?? '');
+          const oldValue = this._value;
+          this._value = this._cleanText(this.textContent ?? '');
+          this.requestUpdate('value', oldValue);
           this._interacted = true;
           this._shouldEmitChange = true;
         },
@@ -364,10 +371,6 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       if (this.value && !this.innerHTML.length) {
         this.innerHTML = this.value;
       }
-    }
-
-    protected override updateFormValue(): void {
-      this.internals.setFormValue(this.value, this.value);
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {

@@ -21,6 +21,7 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  * @event {CustomEvent<void>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-radio-button-group')
@@ -28,7 +29,7 @@ export
   role: 'radiogroup',
 })
 @slotState()
-class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
+class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -54,7 +55,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    * The value of the radio group.
    */
   @property()
-  public set value(val: string | null) {
+  public set value(val: T | null) {
     this._fallbackValue = val;
     if (!this.hasUpdated) {
       return;
@@ -68,13 +69,13 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       toCheck.checked = true;
     }
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue;
   }
   /**
    * Used to preserve the `value` in case the radios are not yet 'loaded'
    */
-  private _fallbackValue: string | null = null;
+  private _fallbackValue: T | null = null;
 
   /**
    * Size variant, either xs, s or m.
@@ -101,11 +102,11 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * List of contained radio buttons.
    */
-  public get radioButtons(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] {
+  public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
     return (
       Array.from(this.querySelectorAll?.('sbb-radio-button, sbb-radio-button-panel') ?? []) as (
-        | SbbRadioButtonElement
-        | SbbRadioButtonPanelElement
+        | SbbRadioButtonElement<T>
+        | SbbRadioButtonPanelElement<T>
       )[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }

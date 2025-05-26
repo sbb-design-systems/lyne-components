@@ -16,12 +16,19 @@ import style from './toggle-check.scss?lit&inline';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-toggle-check')
 @slotState()
-class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(LitElement)) {
+class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
+  SbbIconNameMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
+
+  /** Value of the form element. */
+  @property()
+  public accessor value: T | null = null;
 
   /**
    * Size variant, either m, s or xs.

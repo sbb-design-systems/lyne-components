@@ -41,11 +41,12 @@ export type SbbCheckboxPanelStateChange = Extract<
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-checkbox-panel')
 @slotState()
-class SbbCheckboxPanelElement extends SbbPanelMixin(
+class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
@@ -55,6 +56,10 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
     stateChange: 'stateChange',
     panelConnected: 'panelConnected',
   } as const;
+
+  /** Value of the form element. */
+  @property()
+  public accessor value: T | null = null;
 
   /**
    * Size variant, either m or s.

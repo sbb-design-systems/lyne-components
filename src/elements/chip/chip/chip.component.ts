@@ -8,7 +8,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipDelete } from '../../core/i18n.js';
 import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.js';
@@ -22,17 +21,20 @@ import style from './chip.scss?lit&inline';
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
  *
  * @slot - Use the unnamed slot to add the display value. If not provided, the 'value' will be used.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-chip')
-class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbReadonlyMixin(LitElement))) {
+class SbbChipElement<T = string> extends SbbNegativeMixin(
+  SbbDisabledMixin(SbbReadonlyMixin(LitElement)),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     requestDelete: 'requestDelete',
   } as const;
 
   /** The value of chip. Will be used as label if nothing is slotted. */
-  @forceType() @property() public accessor value: string = '';
+  @property() public accessor value: T | null = null;
 
   /** @internal */
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
@@ -75,7 +77,7 @@ class SbbChipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbReadonlyMixin(
       <div class="sbb-chip">
         <div class="sbb-chip__label-wrapper">
           <span class="sbb-chip__label">
-            <slot>${this.value}</slot>
+            <slot>${this.value ?? ''}</slot>
           </span>
         </div>
         <sbb-mini-button

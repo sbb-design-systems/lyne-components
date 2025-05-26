@@ -22,12 +22,19 @@ import '../../visual-checkbox.js';
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-checkbox')
 @slotState()
-class SbbCheckboxElement extends SbbCheckboxCommonElementMixin(SbbIconNameMixin(LitElement)) {
+class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
+  SbbIconNameMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
+
+  /** Value of the form element. */
+  @property()
+  public accessor value: T | null = null;
 
   /**
    * Size variant, either m, s or xs.
