@@ -4423,10 +4423,10 @@ eslint-import-resolver-typescript@4.4.1:
     tinyglobby "^0.2.14"
     unrs-resolver "^1.7.2"
 
-eslint-plugin-import-x@4.13.2:
-  version "4.13.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.13.2.tgz#1abc5f67e027dcf043abb1db1ee95e6da675b8b5"
-  integrity sha512-U9O6nyvfG1cSu2U5dk9ws82cFtWFR+87MOXV7VbQ1PKxDrCqxVRcY2Ka5V5NM7qbm+o6zJeVrr9rDYfCCtceww==
+eslint-plugin-import-x@4.13.3:
+  version "4.13.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.13.3.tgz#bcf172817eaa02b782cd0bcdb384091c40dbb747"
+  integrity sha512-CDewJDEeYQhm94KGCDYiuwU1SdaWc/vh+SziSKkF7kichAqAFnQYtSYUvSwSBbiBjYLxV5uUxocxxQobRI9YXA==
   dependencies:
     "@typescript-eslint/utils" "^8.32.1"
     comment-parser "^1.4.1"
