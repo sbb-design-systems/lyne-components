@@ -229,6 +229,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+    this._configureTrigger();
 
     if (this._hoverTrigger) {
       this._overlay.addEventListener('mouseenter', () => this._onOverlayMouseEnter());
