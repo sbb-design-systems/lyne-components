@@ -7,6 +7,8 @@
   --sbb-seat-reservation-grid-size: 16px;
   --sbb-seat-reservation-vertical-offset: 0;
 
+  display: block;
+
   ::part(coach-floor) {
     fill: var(--sbb-color-white);
 
@@ -15,8 +17,6 @@
       fill: transparent;
     }
   }
-
-  display: block;
 }
 
 .sbb-sr__wrapper {
