@@ -244,6 +244,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
     });
+    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
   }
 
   private _isNavigationButton(trigger: HTMLElement | null): trigger is SbbNavigationButtonElement {
@@ -329,7 +330,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     super.connectedCallback();
     this.id ||= `sbb-navigation-section-${nextId++}`;
     this._state ||= 'closed';
-    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
     if (this.hasUpdated) {
       this._configureTrigger();
     }
