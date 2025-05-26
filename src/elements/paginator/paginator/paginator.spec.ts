@@ -1,7 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { spy } from 'sinon';
+import { type SinonSpy, spy } from 'sinon';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.js';
@@ -14,9 +14,17 @@ import { SbbPaginatorElement } from './paginator.component.js';
 
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;
+  let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-paginator length="50" page-size="5"></sbb-paginator>`);
+    pageEventSpy = spy();
+    element = await fixture(
+      html`<sbb-paginator
+        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
+        length="50"
+        page-size="5"
+      ></sbb-paginator>`,
+    );
   });
 
   it('renders', async () => {
@@ -24,18 +32,12 @@ describe('sbb-paginator', () => {
   });
 
   it('change pages via prev/next buttons and emits `page` event', async () => {
-    const pageEventSpy = spy();
     const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
       '#sbb-paginator-prev-page',
     )!;
     const goToNext: SbbMiniButtonElement = element.shadowRoot!.querySelector(
       '#sbb-paginator-next-page',
     )!;
-
-    element.addEventListener('page', (event) => {
-      expect(event.detail.pageIndex).to.be.equal(element.pageIndex);
-      pageEventSpy();
-    });
 
     expect(goToPrev).to.have.attribute('disabled');
     goToPrev.click();
@@ -46,6 +48,7 @@ describe('sbb-paginator', () => {
     goToNext.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledOnce;
+    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(1);
     expect(goToPrev).not.to.have.attribute('disabled');
     expect(goToNext).not.to.have.attribute('disabled');
@@ -53,6 +56,7 @@ describe('sbb-paginator', () => {
     goToPrev.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledTwice;
+    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(0);
   });
 
@@ -83,26 +87,26 @@ describe('sbb-paginator', () => {
   });
 
   it('emits `page` event when pageIndex changes via page button click', async () => {
-    const pageEventSpy = spy();
-
     element.addEventListener('page', (event) => {
       expect(event.detail.pageSize).to.be.equal(element.pageSize);
       expect(event.detail.pageSize).to.be.equal(5);
       expect(event.detail.pageIndex).to.be.equal(2);
       expect(event.detail.previousPageIndex).to.be.equal(0);
       expect(event.detail.length).to.be.equal(50);
-
-      pageEventSpy();
     });
 
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
     pages[2].dispatchEvent(new Event('click'));
     await waitForLitRender(element);
+    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
     expect(pageEventSpy).to.have.been.calledOnce;
+    expect(pageEventDetail.pageSize).to.be.equal(5);
+    expect(pageEventDetail.pageIndex).to.be.equal(2);
+    expect(pageEventDetail.previousPageIndex).to.be.equal(0);
+    expect(pageEventDetail.length).to.be.equal(50);
   });
 
   it('emits `page` event when pageSize changes via select', async () => {
-    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     element.setAttribute('page-size-options', '[10, 20, 50]');
     await waitForLitRender(element);
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
@@ -117,24 +121,25 @@ describe('sbb-paginator', () => {
     expect(secondOption).not.to.be.null;
     secondOption.click();
     await waitForLitRender(element);
-    expect(pageEventSpy.count).to.be.equal(1);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageSize']).to.be.equal(20);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['pageIndex']).to.be.equal(0);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['previousPageIndex']).to.be.equal(0);
-    expect((pageEventSpy.lastEvent as CustomEvent).detail['length']).to.be.equal(50);
+
+    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    expect(pageEventSpy).to.have.been.calledOnce;
+    expect(pageEventDetail.pageSize).to.be.equal(20);
+    expect(pageEventDetail.pageIndex).to.be.equal(0);
+    expect(pageEventDetail.previousPageIndex).to.be.equal(0);
+    expect(pageEventDetail.length).to.be.equal(50);
   });
 
   it('the `page` event is not emitted when pageSize and pageIndex change programmatically', async () => {
-    const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(pageEventSpy.count).to.be.equal(1);
+    expect(pageEventSpy).to.have.been.calledOnce;
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(pageEventSpy.count).to.be.equal(2);
+    expect(pageEventSpy).to.have.been.calledTwice;
   });
 
   it('handles length change', () => {
@@ -321,19 +326,8 @@ describe('sbb-paginator', () => {
   });
 
   it('should avoid emitting page event before updated', async () => {
-    const pageSpy = spy();
-    element = await fixture(
-      html`<sbb-paginator
-        length="10"
-        page-size="10"
-        page-index="2"
-        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageSpy(e)}
-      ></sbb-paginator>`,
-    );
-
-    await waitForLitRender(element);
+    // Give some time to wait
     await aTimeout(30);
-
-    expect(pageSpy).to.not.have.been.called;
+    expect(pageEventSpy).to.not.have.been.called;
   });
 });

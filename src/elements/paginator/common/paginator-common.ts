@@ -189,9 +189,10 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
     protected emitPageEvent(previousPageIndex: number): void {
       if (
-        this._lastPageEvent?.pageIndex === this.pageIndex &&
-        this._lastPageEvent?.length === this.length &&
-        this._lastPageEvent?.pageSize === this.pageSize
+        !this.hasUpdated ||
+        (this._lastPageEvent?.pageIndex === this.pageIndex &&
+          this._lastPageEvent?.length === this.length &&
+          this._lastPageEvent?.pageSize === this.pageSize)
       ) {
         // Do not emit the event if the page event details did not change
         return;
