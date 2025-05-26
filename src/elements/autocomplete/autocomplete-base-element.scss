@@ -19,6 +19,10 @@
   display: none;
 }
 
+:host([size='s']) {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
+}
+
 :host([data-state]:not([data-state='closed'])) {
   display: block;
 }
@@ -137,10 +141,6 @@
 
   & {
     pointer-events: var(--sbb-options-pointer-events);
-  }
-
-  :host([size='s']) & {
-    padding-block: var(--sbb-spacing-fixed-1x);
   }
 
   @include sbb.if-forced-colors {
