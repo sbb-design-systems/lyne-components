@@ -23,7 +23,7 @@ import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
 import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
-import './scoped-components.js';
+import './seat-reservation-scoped-component.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -203,7 +203,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
     return html`
-      <sbb-scoped-element
+      <sbb-seat-reservation-scoped
         scoped-classes="coach-wrapper"
         height="${calculatedCoachDimension.h}px"
         width="${calculatedCoachDimension.w}px"
@@ -226,7 +226,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               ${this._getRenderedRowPlaces(coachItem, index)}
             </table>`
           : nothing}
-      </sbb-scoped-element>
+      </sbb-seat-reservation-scoped>
     `;
   }
 
@@ -245,7 +245,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         : this.baseGridSize;
 
     return html`
-      <sbb-scoped-element
+      <sbb-seat-reservation-scoped
         scoped-classes="coach-border"
         inset-block-start="${this.coachBorderPadding * -1}px"
         inset-inline-start="${borderOffsetX}px"
@@ -257,7 +257,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ?stretch=${true}
           role="presentation"
         ></sbb-seat-reservation-graphic>
-      </sbb-scoped-element>
+      </sbb-seat-reservation-scoped>
     `;
   }
 
@@ -299,7 +299,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const textRotation = this.alignVertical ? -90 : 0;
 
       return html`
-        <sbb-scoped-element
+        <sbb-seat-reservation-scoped
           scoped-classes="graphical-element"
           inset-block-start="${calculatedInternalPosition.y}px"
           inset-inline-start="${calculatedInternalPosition.x}px"
@@ -324,7 +324,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             .propertyIds=${place.propertyIds}
             .preventClick=${this.preventPlaceClick}
           ></sbb-seat-reservation-place-control>
-        </sbb-scoped-element>
+        </sbb-seat-reservation-scoped>
       `;
     });
   }
@@ -395,7 +395,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     return html`
-      <sbb-scoped-element
+      <sbb-seat-reservation-scoped
         scoped-classes="graphical-element"
         inset-block-start="${calculatedPosition.y}px"
         inset-inline-start="${calculatedPosition.x}px"
@@ -424,7 +424,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               `
             : nothing}
         </sbb-seat-reservation-area>
-      </sbb-scoped-element>
+      </sbb-seat-reservation-scoped>
     `;
   }
 
@@ -450,7 +450,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         : graphicalElement.icon?.concat('_', this.seatReservation.vehicleType);
 
     return html`
-      <sbb-scoped-element
+      <sbb-seat-reservation-scoped
         scoped-classes="graphical-element"
         inset-block-start="${calculatedPosition.y}px"
         inset-inline-start="${calculatedPosition.x}px"
@@ -466,7 +466,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           aria-hidden="true"
           ?stretch=${true}
         ></sbb-seat-reservation-graphic>
-      </sbb-scoped-element>
+      </sbb-seat-reservation-scoped>
     `;
   }
 
@@ -489,7 +489,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
 
       return html`
-        <sbb-scoped-element
+        <sbb-seat-reservation-scoped
           scoped-classes="graphical-element"
           inset-block-start="${calculatedcCmpartmentNumberPosition.y}px"
           inset-inline-start="${calculatedcCmpartmentNumberPosition.x}px"
@@ -506,7 +506,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             aria-hidden="true"
             title=${titleDescription ?? nothing}
           ></sbb-seat-reservation-graphic>
-        </sbb-scoped-element>
+        </sbb-seat-reservation-scoped>
       `;
     });
   }

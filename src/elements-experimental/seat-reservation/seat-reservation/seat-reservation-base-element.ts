@@ -21,7 +21,7 @@ import type {
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
-import type { SbbScopedElement } from './scoped-components/scoped-element.component.js';
+import type { SbbSeatReservationScopedElement } from './seat-reservation-scoped-component/seat-reservation-scoped.component.js';
 
 enum ScrollDirection {
   right = 'right',
@@ -395,7 +395,7 @@ export class SeatReservationBaseElement extends LitElement {
     const firstCellId = 'cell-' + this.currSelectedCoachIndex + '-0-0';
     const placeNumber =
       this.shadowRoot
-        ?.querySelector<SbbScopedElement>("[cell-id='" + firstCellId + "']")
+        ?.querySelector<SbbSeatReservationScopedElement>("[cell-id='" + firstCellId + "']")
         ?.querySelector<SbbSeatReservationPlaceControlElement>('sbb-seat-reservation-place-control')
         ?.getAttribute('text') || null;
 
