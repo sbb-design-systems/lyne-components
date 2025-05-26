@@ -23,12 +23,12 @@ Use the `accessibility-label` property to add info on the chip content.
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type      | Default | Description                                                     |
-| ---------- | ---------- | ------- | --------- | ------- | --------------------------------------------------------------- |
-| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled.                              |
-| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag.                                 |
-| `readOnly` | `readonly` | public  | `boolean` |         | Whether the component is readonly.                              |
-| `value`    | `value`    | public  | `string`  | `''`    | The value of chip. Will be used as label if nothing is slotted. |
+| Name       | Attribute  | Privacy | Type                   | Default | Description                                                     |
+| ---------- | ---------- | ------- | ---------------------- | ------- | --------------------------------------------------------------- |
+| `disabled` | `disabled` | public  | `boolean`              | `false` | Whether the component is disabled.                              |
+| `negative` | `negative` | public  | `boolean`              | `false` | Negative coloring variant flag.                                 |
+| `readOnly` | `readonly` | public  | `boolean`              |         | Whether the component is readonly.                              |
+| `value`    | `value`    | public  | `(T = string) \| null` | `null`  | The value of chip. Will be used as label if nothing is slotted. |
 
 ## Slots
 

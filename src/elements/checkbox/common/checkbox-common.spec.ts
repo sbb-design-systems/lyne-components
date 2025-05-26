@@ -24,251 +24,295 @@ describe(`sbb-checkbox-common`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
     const tagSingle = unsafeStatic(selector);
 
-    describe(`${selector} general`, () => {
-      let element: SbbCheckboxElement | SbbCheckboxPanelElement;
+    describe(`${selector}`, () => {
+      describe('general', () => {
+        let element: SbbCheckboxElement | SbbCheckboxPanelElement;
 
-      beforeEach(async () => {
-        document.documentElement.removeAttribute('lang');
-        /* eslint-disable lit/binding-positions */
-        element = await fixture(html`<${tagSingle} name="name" value="value">Label</${tagSingle}>`);
-      });
-
-      describe('events', () => {
-        it('emit event on click', async () => {
-          expect(element).not.to.have.attribute('checked');
-          const changeSpy = new EventSpy('change');
-
-          element.click();
-          await waitForLitRender(element);
-
-          expect(changeSpy.count).to.be.greaterThan(0);
-          expect(element).not.to.have.attribute('checked');
-          expect(element.checked).to.equal(true);
+        beforeEach(async () => {
+          document.documentElement.removeAttribute('lang');
+          /* eslint-disable lit/binding-positions */
+          element = await fixture(
+            html`<${tagSingle} name="name" value="value">Label</${tagSingle}>`,
+          );
         });
 
-        it('emit event on keypress', async () => {
-          const changeSpy = new EventSpy('change');
+        describe('events', () => {
+          it('emit event on click', async () => {
+            expect(element).not.to.have.attribute('checked');
+            const changeSpy = new EventSpy('change');
 
-          element.focus();
-          await sendKeys({ press: 'Space' });
+            element.click();
+            await waitForLitRender(element);
 
-          await changeSpy.calledOnce();
-          expect(changeSpy.count).to.be.greaterThan(0);
+            expect(changeSpy.count).to.be.greaterThan(0);
+            expect(element).not.to.have.attribute('checked');
+            expect(element.checked).to.equal(true);
+          });
+
+          it('emit event on keypress', async () => {
+            const changeSpy = new EventSpy('change');
+
+            element.focus();
+            await sendKeys({ press: 'Space' });
+
+            await changeSpy.calledOnce();
+            expect(changeSpy.count).to.be.greaterThan(0);
+          });
         });
-      });
 
-      it('should prevent scrolling on space bar press', async () => {
-        const root = await fixture(
-          html`<div style="height: 100px; overflow: scroll" id="scroll-context">
+        it('should prevent scrolling on space bar press', async () => {
+          const root = await fixture(
+            html`<div style="height: 100px; overflow: scroll" id="scroll-context">
             <div style="height: 500px">
               <${tagSingle}></${tagSingle}>
             </div>
           </div>`,
-        );
-        element = root.querySelector(selector)!;
+          );
+          element = root.querySelector(selector)!;
 
-        expect(element.checked).to.be.false;
-        expect(root.scrollTop).to.be.equal(0);
+          expect(element.checked).to.be.false;
+          expect(root.scrollTop).to.be.equal(0);
 
-        element.focus();
-        await sendKeys({ press: ' ' });
-        await waitForLitRender(element);
+          element.focus();
+          await sendKeys({ press: ' ' });
+          await waitForLitRender(element);
 
-        await waitForCondition(() => element.checked);
-        expect(root.scrollTop).to.be.equal(0);
+          await waitForCondition(() => element.checked);
+          expect(root.scrollTop).to.be.equal(0);
+        });
+
+        it('should update validity with required true', async () => {
+          expect(element.validationMessage).to.equal('');
+          expect(element.validity.valueMissing).to.be.false;
+
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          expect(element.validationMessage.length).to.be.greaterThan(0);
+          expect(element.validity.valueMissing).to.be.true;
+        });
+
+        it('should update validity with required true and checked', async () => {
+          element.toggleAttribute('required', true);
+          element.checked = true;
+          await waitForLitRender(element);
+
+          expect(element.validationMessage).to.equal('');
+          expect(element.validity.valueMissing).to.be.false;
+        });
+
+        it('should update validity message language', async () => {
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          const original = element.validationMessage;
+          expect(element.validationMessage.length).to.be.greaterThan(0);
+          expect(element.validity.valueMissing).to.be.true;
+
+          document.documentElement.setAttribute('lang', 'de');
+          await waitForLitRender(element);
+
+          expect(element.validationMessage.length).to.be.greaterThan(0);
+          expect(element.validationMessage).not.to.equal(original);
+        });
+
+        it('should keep custom validity', async () => {
+          element.setCustomValidity('my error');
+          expect(element.validationMessage).to.equal('my error');
+          expect(element.validity.customError).to.be.true;
+
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          expect(element.validationMessage).to.equal('my error');
+          expect(element.validity.customError, 'customError').to.be.true;
+          expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+        });
+
+        it('should not unset required validity', async () => {
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          const checkedMessage = element.validationMessage;
+          expect(checkedMessage.length).to.be.greaterThan(
+            0,
+            'required validation message must not be empty',
+          );
+
+          element.setCustomValidity('my error');
+          expect(element.validationMessage).to.equal('my error', 'With custom error');
+          expect(element.validity.customError, 'customError').to.be.true;
+          expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+
+          element.setCustomValidity('');
+
+          expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
+          expect(element.validity.customError, 'customError').to.be.false;
+          expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+        });
+
+        it('should set valididty correctly on initialization', async () => {
+          element = await fixture(
+            html`<${tagSingle} name="testvalidation" required></${tagSingle}>`,
+          );
+          await waitForLitRender(element);
+
+          expect(element.validationMessage.length).to.be.greaterThan(0);
+          expect(element.validity.valueMissing).to.be.true;
+        });
+
+        it('should match :invalid with required true', async () => {
+          expect(element).to.match(':valid');
+          expect(element).not.to.match(':invalid');
+
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          expect(element).not.to.match(':valid');
+          expect(element).to.match(':invalid');
+        });
+
+        it('should reflect aria-required false', async () => {
+          const snapshot = (await a11ySnapshot({
+            selector: selector,
+          })) as unknown as CheckboxAccessibilitySnapshot;
+
+          expect(snapshot.required).to.be.undefined;
+        });
+
+        it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
+          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+          this.retries(3);
+
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          const snapshot = (await a11ySnapshot({
+            selector: selector,
+          })) as unknown as CheckboxAccessibilitySnapshot;
+
+          // TODO: Recheck if it is working in Chromium
+          if (!isChromium) {
+            expect(snapshot.required).to.be.true;
+          }
+        });
+
+        it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
+          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+          this.retries(3);
+
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
+
+          element.removeAttribute('required');
+          await waitForLitRender(element);
+
+          const snapshot = (await a11ySnapshot({
+            selector: selector,
+          })) as unknown as CheckboxAccessibilitySnapshot;
+
+          expect(snapshot.required).not.to.be.ok;
+        });
+
+        it('should reflect accessibility tree setting required property to true', async function (this: Context) {
+          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+          this.retries(3);
+
+          element.required = true;
+          await waitForLitRender(element);
+
+          const snapshot = (await a11ySnapshot({
+            selector: selector,
+          })) as unknown as CheckboxAccessibilitySnapshot;
+
+          // TODO: Recheck if it is working in Chromium
+          if (!isChromium) {
+            expect(snapshot.required).to.be.true;
+          }
+        });
+
+        it('should reflect accessibility tree setting required property to false', async function (this: Context) {
+          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+          this.retries(3);
+
+          element.required = true;
+          await waitForLitRender(element);
+
+          element.required = false;
+          await waitForLitRender(element);
+
+          const snapshot = (await a11ySnapshot({
+            selector: selector,
+          })) as unknown as CheckboxAccessibilitySnapshot;
+
+          expect(snapshot.required).not.to.be.ok;
+        });
+
+        it('should restore form state on formStateRestoreCallback()', async () => {
+          // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
+          element.formStateRestoreCallback('true', 'restore');
+          await waitForLitRender(element);
+
+          expect(element.checked).to.be.true;
+
+          element.formStateRestoreCallback('false', 'restore');
+          await waitForLitRender(element);
+
+          expect(element.checked).to.be.false;
+        });
+
+        it('should ignore interaction when disabled', async () => {
+          const inputSpy = new EventSpy('input', element);
+          const changeSpy = new EventSpy('change', element);
+          element.disabled = true;
+          await waitForLitRender(element);
+
+          element.focus();
+          element.click();
+          await sendKeys({ up: 'Space' });
+
+          expect(inputSpy.count).to.be.equal(0);
+          expect(changeSpy.count).to.be.equal(0);
+          expect(element.checked).to.be.false;
+        });
       });
 
-      it('should update validity with required true', async () => {
-        expect(element.validationMessage).to.equal('');
-        expect(element.validity.valueMissing).to.be.false;
+      describe('with complex value', () => {
+        type ComplexValue = { property: string; otherProp: string };
 
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
+        let element: SbbCheckboxElement<ComplexValue> | SbbCheckboxPanelElement<ComplexValue>;
+        const value: ComplexValue = { property: 'value 1', otherProp: 'test' };
 
-        expect(element.validationMessage.length).to.be.greaterThan(0);
-        expect(element.validity.valueMissing).to.be.true;
-      });
+        beforeEach(async () => {
+          document.documentElement.removeAttribute('lang');
+          /* eslint-disable lit/binding-positions */
+          const root = await fixture(
+            html`<form><${tagSingle} checked .value=${value} name="test">Label</${tagSingle}></form>`,
+          );
+          element = root.querySelector(selector)!;
+        });
 
-      it('should update validity with required true and checked', async () => {
-        element.toggleAttribute('required', true);
-        element.checked = true;
-        await waitForLitRender(element);
+        it('should serialize complex value into form', async () => {
+          expect(element.value).to.equal(value);
 
-        expect(element.validationMessage).to.equal('');
-        expect(element.validity.valueMissing).to.be.false;
-      });
+          // Get the stored formData from the form
+          const formData = new FormData(element.closest('form')!);
 
-      it('should update validity message language', async () => {
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
+          const deserializedFormContent = JSON.parse(
+            await (formData.get(element.name) as Blob).text(),
+          );
+          expect(deserializedFormContent).to.be.deep.equal(value);
+        });
 
-        const original = element.validationMessage;
-        expect(element.validationMessage.length).to.be.greaterThan(0);
-        expect(element.validity.valueMissing).to.be.true;
+        it('should have nothing in form if unchecked', async () => {
+          element.checked = false;
+          await waitForLitRender(element);
 
-        document.documentElement.setAttribute('lang', 'de');
-        await waitForLitRender(element);
+          // Get the stored formData from the form
+          const formData = new FormData(element.closest('form')!);
 
-        expect(element.validationMessage.length).to.be.greaterThan(0);
-        expect(element.validationMessage).not.to.equal(original);
-      });
-
-      it('should keep custom validity', async () => {
-        element.setCustomValidity('my error');
-        expect(element.validationMessage).to.equal('my error');
-        expect(element.validity.customError).to.be.true;
-
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
-
-        expect(element.validationMessage).to.equal('my error');
-        expect(element.validity.customError, 'customError').to.be.true;
-        expect(element.validity.valueMissing, 'valueMissing').to.be.true;
-      });
-
-      it('should not unset required validity', async () => {
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
-
-        const checkedMessage = element.validationMessage;
-        expect(checkedMessage.length).to.be.greaterThan(
-          0,
-          'required validation message must not be empty',
-        );
-
-        element.setCustomValidity('my error');
-        expect(element.validationMessage).to.equal('my error', 'With custom error');
-        expect(element.validity.customError, 'customError').to.be.true;
-        expect(element.validity.valueMissing, 'valueMissing').to.be.true;
-
-        element.setCustomValidity('');
-
-        expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
-        expect(element.validity.customError, 'customError').to.be.false;
-        expect(element.validity.valueMissing, 'valueMissing').to.be.true;
-      });
-
-      it('should set valididty correctly on initialization', async () => {
-        element = await fixture(html`<${tagSingle} name="testvalidation" required></${tagSingle}>`);
-        await waitForLitRender(element);
-
-        expect(element.validationMessage.length).to.be.greaterThan(0);
-        expect(element.validity.valueMissing).to.be.true;
-      });
-
-      it('should match :invalid with required true', async () => {
-        expect(element).to.match(':valid');
-        expect(element).not.to.match(':invalid');
-
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
-
-        expect(element).not.to.match(':valid');
-        expect(element).to.match(':invalid');
-      });
-
-      it('should reflect aria-required false', async () => {
-        const snapshot = (await a11ySnapshot({
-          selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
-
-        expect(snapshot.required).to.be.undefined;
-      });
-
-      it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
-
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
-
-        const snapshot = (await a11ySnapshot({
-          selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
-
-        // TODO: Recheck if it is working in Chromium
-        if (!isChromium) {
-          expect(snapshot.required).to.be.true;
-        }
-      });
-
-      it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
-
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
-
-        element.removeAttribute('required');
-        await waitForLitRender(element);
-
-        const snapshot = (await a11ySnapshot({
-          selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
-
-        expect(snapshot.required).not.to.be.ok;
-      });
-
-      it('should reflect accessibility tree setting required property to true', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
-
-        element.required = true;
-        await waitForLitRender(element);
-
-        const snapshot = (await a11ySnapshot({
-          selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
-
-        // TODO: Recheck if it is working in Chromium
-        if (!isChromium) {
-          expect(snapshot.required).to.be.true;
-        }
-      });
-
-      it('should reflect accessibility tree setting required property to false', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
-
-        element.required = true;
-        await waitForLitRender(element);
-
-        element.required = false;
-        await waitForLitRender(element);
-
-        const snapshot = (await a11ySnapshot({
-          selector: selector,
-        })) as unknown as CheckboxAccessibilitySnapshot;
-
-        expect(snapshot.required).not.to.be.ok;
-      });
-
-      it('should restore form state on formStateRestoreCallback()', async () => {
-        // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
-        element.formStateRestoreCallback('true', 'restore');
-        await waitForLitRender(element);
-
-        expect(element.checked).to.be.true;
-
-        element.formStateRestoreCallback('false', 'restore');
-        await waitForLitRender(element);
-
-        expect(element.checked).to.be.false;
-      });
-
-      it('should ignore interaction when disabled', async () => {
-        const inputSpy = new EventSpy('input', element);
-        const changeSpy = new EventSpy('change', element);
-        element.disabled = true;
-        await waitForLitRender(element);
-
-        element.focus();
-        element.click();
-        await sendKeys({ up: 'Space' });
-
-        expect(inputSpy.count).to.be.equal(0);
-        expect(changeSpy.count).to.be.equal(0);
-        expect(element.checked).to.be.false;
+          expect(formData.get(element.name)).to.be.null;
+        });
       });
     });
   });

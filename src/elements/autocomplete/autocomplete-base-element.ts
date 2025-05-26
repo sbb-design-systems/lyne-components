@@ -36,7 +36,7 @@ export
 @hostAttributes({
   popover: 'manual',
 })
-abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
+abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -73,6 +73,10 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   @forceType()
   @property({ attribute: 'auto-active-first-option', type: Boolean })
   public accessor autoActiveFirstOption: boolean = false;
+
+  /** Function that maps an option's control value to its display value in the trigger. */
+  @property({ attribute: false })
+  public accessor displayWith: ((value: T) => string) | null = null;
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
@@ -120,7 +124,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
 
-  protected abstract get options(): SbbOptionBaseElement[];
+  protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
@@ -247,7 +251,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** When an option is selected, update the input value and close the autocomplete. */
   protected onOptionSelected(event: CustomEvent): void {
-    const target = event.target as SbbOptionBaseElement;
+    const target = event.target as SbbOptionBaseElement<T>;
 
     // Deselect the previous options
     this.options
@@ -255,18 +259,23 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       .forEach((option) => (option.selected = false));
 
     if (this.triggerElement) {
+      // Given a value, returns the string that should be shown within the input.
+      const toDisplay = this.displayWith?.(target.value as T) ?? target.value;
+
       // Set the option value
       // In order to support React onChange event, we have to get the setter and call it.
       // https://github.com/facebook/react/issues/11600#issuecomment-345813130
       const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.triggerElement, target.value);
+      setValue.call(this.triggerElement, toDisplay);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
       // Custom input event emitted when input value changes after an option is selected
-      this.triggerElement.dispatchEvent(new Event('inputAutocomplete'));
+      this.triggerElement.dispatchEvent(
+        new CustomEvent('inputAutocomplete', { detail: { option: target } }),
+      );
       this.triggerElement.focus();
     }
 
@@ -521,5 +530,11 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementEventMap {
+    inputAutocomplete: CustomEvent<{ option: SbbOptionBaseElement<any> }>;
   }
 }

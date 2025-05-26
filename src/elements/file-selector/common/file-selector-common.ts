@@ -36,6 +36,8 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbF
   public accessor accessibilityLabel: string;
   public accessor disabled: boolean;
   public accessor files: Readonly<File>[];
+  public override get value(): string | null;
+  public override set value(value: string | null);
   protected formDisabled: boolean;
   protected loadButton: SbbSecondaryButtonStaticElement;
   protected language: SbbLanguageController;
@@ -85,15 +87,14 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     /** The path of the first selected file. Empty string ('') if no file is selected */
     @property({ attribute: false })
-    public override set value(value: string | null) {
+    public set value(value: string | null) {
       this._hiddenInput.value = value ?? '';
 
       if (!value) {
         this.files = [];
       }
     }
-
-    public override get value(): string | null {
+    public get value(): string | null {
       return this._hiddenInput?.value;
     }
 
@@ -147,9 +148,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       if (!state) {
         return;
       }
-      this.files = (state as [string, FormDataEntryValue][]).map(
-        ([_, value]) => value as Readonly<File>,
-      );
+      this.files = (state as FormData).getAll(this.name) as Readonly<File>[];
     }
 
     protected override updateFormValue(): void {

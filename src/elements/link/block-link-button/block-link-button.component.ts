@@ -9,6 +9,7 @@ import { SbbBlockLinkCommonElementMixin } from '../common.js';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-block-link-button`.
  * @slot icon - Slot used to display the icon, if one is set.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-block-link-button')
