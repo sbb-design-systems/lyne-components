@@ -3,14 +3,14 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'l
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import style from './scoped-element.scss?lit&inline';
+import style from './seat-reservation-scoped.scss?lit&inline';
 
 /**
  * Wrapper class for scoped elements with similar properties to set.
  */
 export
-@customElement('sbb-scoped-element')
-class SbbScopedElement extends LitElement {
+@customElement('sbb-seat-reservation-scoped')
+class SbbSeatReservationScopedElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   @forceType()
@@ -45,23 +45,29 @@ class SbbScopedElement extends LitElement {
     super.willUpdate(_changedProperties);
 
     if (_changedProperties.has('width')) {
-      this.style?.setProperty('--sbb-scoped-width', `${this.width}`);
+      this.style?.setProperty('--sbb-seat-reservation-scoped-width', `${this.width}`);
     }
 
     if (_changedProperties.has('height')) {
-      this.style?.setProperty('--sbb-scoped-height', `${this.height}`);
+      this.style?.setProperty('--sbb-seat-reservation-scoped-height', `${this.height}`);
     }
 
     if (_changedProperties.has('insetBlockStart')) {
-      this.style?.setProperty('--sbb-scoped-inset-block-start', `${this.insetBlockStart}`);
+      this.style?.setProperty(
+        '--sbb-seat-reservation-scoped-inset-block-start',
+        `${this.insetBlockStart}`,
+      );
     }
 
     if (_changedProperties.has('insetInlineStart')) {
-      this.style?.setProperty('--sbb-scoped-inset-inline-start', `${this.insetInlineStart}`);
+      this.style?.setProperty(
+        '--sbb-seat-reservation-scoped-inset-inline-start',
+        `${this.insetInlineStart}`,
+      );
     }
 
     if (_changedProperties.has('zIndex')) {
-      this.style?.setProperty('--sbb-scoped-z-index', `${this.zIndex}`);
+      this.style?.setProperty('--sbb-seat-reservation-scoped-z-index', `${this.zIndex}`);
     }
   }
 
@@ -81,6 +87,6 @@ class SbbScopedElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-scoped-element': SbbScopedElement;
+    'sbb-seat-reservation-scoped': SbbSeatReservationScopedElement;
   }
 }
