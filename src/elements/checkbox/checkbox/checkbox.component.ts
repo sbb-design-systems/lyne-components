@@ -22,7 +22,7 @@ import '../../visual-checkbox.js';
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
  * @event {Event} change - Event fired on change.
  * @event {InputEvent} input - Event fired on input.
- * @overrideType value - string | null
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-checkbox')

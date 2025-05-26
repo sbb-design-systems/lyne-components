@@ -99,7 +99,7 @@ const values = [
 | `radioButtons`        | -                       | public  | `(SbbRadioButtonElement<T> \| SbbRadioButtonPanelElement<T>)[]` |                                            | List of contained radio buttons.                          |
 | `required`            | `required`              | public  | `boolean`                                                       | `false`                                    | Whether the radio group is required.                      |
 | `size`                | `size`                  | public  | `SbbRadioButtonSize`                                            | `'m' / 'xs' (lean)`                        | Size variant, either xs, s or m.                          |
-| `value`               | `value`                 | public  | `string \| null`                                                |                                            | The value of the radio group.                             |
+| `value`               | `value`                 | public  | `(T = string) \| null`                                          |                                            | The value of the radio group.                             |
 
 ## Events
 

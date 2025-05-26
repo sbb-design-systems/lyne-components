@@ -178,12 +178,11 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
      * If 'checked', update the value. Otherwise, do nothing.
      */
     protected override updateFormValue(): void {
-      if (!this.checked) {
+      if (this.checked) {
+        super.updateFormValue();
+      } else {
         this.internals.setFormValue(null);
-        return;
       }
-
-      super.updateFormValue();
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {

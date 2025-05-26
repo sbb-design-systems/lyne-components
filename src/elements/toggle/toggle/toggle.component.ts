@@ -27,7 +27,7 @@ import style from './toggle.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
- * @overrideType value - string | null
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-toggle')

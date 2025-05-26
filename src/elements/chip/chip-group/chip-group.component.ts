@@ -51,7 +51,7 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
  * @event {CustomEvent<void>} input - Notifies that the component's value has changed.
  * @event {CustomEvent<SbbChipInputTokenEndEventDetails>} chipInputTokenEnd - Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented.
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
- * @overrideType value - string[] | null
+ * @overrideType value - (T = string[]) | null
  */
 export
 @customElement('sbb-chip-group')

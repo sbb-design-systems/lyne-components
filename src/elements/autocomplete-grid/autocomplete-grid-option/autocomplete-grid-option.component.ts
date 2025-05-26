@@ -17,7 +17,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  * @event {CustomEvent<void>} autocompleteOptionSelected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
- * @overrideType value - string
+ * @overrideType value - T = string
  */
 export
 @customElement('sbb-autocomplete-grid-option')

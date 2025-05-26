@@ -27,7 +27,7 @@ export type SbbTagSize = 's' | 'm';
  * @event {CustomEvent<void>} input - Input event emitter
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Change event emitter
- * @overrideType value - string | null
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-tag')

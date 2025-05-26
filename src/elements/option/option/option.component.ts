@@ -20,7 +20,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
  * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
- * @overrideType value - string | null
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-option')
