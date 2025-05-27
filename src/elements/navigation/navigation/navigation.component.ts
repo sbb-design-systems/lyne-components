@@ -5,6 +5,7 @@ import {
   html,
   isServer,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -333,7 +334,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-navigation-${nextId++}`;
-    this._configureTrigger();
+    if (this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -353,6 +356,11 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._configureTrigger();
   }
 
   protected override render(): TemplateResult {

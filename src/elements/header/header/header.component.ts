@@ -4,6 +4,7 @@ import {
   isServer,
   LitElement,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -64,14 +65,15 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
 
   public constructor() {
     super();
-
     this.addController(new SbbFocusVisibleWithinController(this));
   }
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._updateScrollListener();
+    if (this.hasUpdated) {
+      this._updateScrollListener();
+    }
   }
 
   /** Removes the scroll listener, if previously attached. */
@@ -91,6 +93,11 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
     if (!isServer && (!name || name === 'scrollOrigin') && this.hasUpdated) {
       this._updateScrollListener();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._updateScrollListener();
   }
 
   private _updateScrollListener(): void {

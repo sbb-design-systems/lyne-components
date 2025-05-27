@@ -3,6 +3,7 @@ import {
   html,
   isServer,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -269,7 +270,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-menu-${nextId++}`;
-    this._configureTrigger();
+    if (this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -290,6 +293,11 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._configureTrigger();
   }
 
   private _checkListCase(event: Event): void {

@@ -5,6 +5,7 @@ import {
   LitElement,
   nothing,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -242,6 +243,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
     });
+    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
   }
 
   private _isNavigationButton(trigger: HTMLElement | null): trigger is SbbNavigationButtonElement {
@@ -327,8 +329,9 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     super.connectedCallback();
     this.id ||= `sbb-navigation-section-${nextId++}`;
     this._state ||= 'closed';
-    this._configureTrigger();
-    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
+    if (this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -348,6 +351,11 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._configureTrigger();
   }
 
   protected override render(): TemplateResult {

@@ -220,7 +220,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-
     this._componentSetup();
   }
 
