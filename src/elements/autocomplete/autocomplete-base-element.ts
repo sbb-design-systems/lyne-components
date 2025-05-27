@@ -241,7 +241,7 @@ abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
     if (isServer || !this.hasUpdated) {
       return;
     }
-    if ((!name || name === 'trigger') && this.hasUpdated) {
+    if (!name || name === 'trigger') {
       this._configureTrigger();
     } else if ((!name || name === 'origin') && this.isOpen) {
       this._setOverlayPosition();
