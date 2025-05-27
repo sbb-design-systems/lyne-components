@@ -54,9 +54,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.id ||= `sbb-step-label-${nextId++}`;
     this.slot ||= 'step-label';
     this.internals.ariaSelected = 'false';
-    if (this.tabIndex < 0) {
-      this.tabIndex = -1;
-    }
+    this.tabIndex = -1;
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
     // The `data-disabled` attribute is used to preserve the initial disabled state of

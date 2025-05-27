@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-optgroup renders Safari DOM"] = 
 `<sbb-autocomplete-grid-optgroup label="Group">
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-1"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-group-label="Group"
@@ -18,10 +15,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Safari DOM"] =
       Option 1
     </sbb-autocomplete-grid-option>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-2"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-group-label="Group"
@@ -42,7 +36,6 @@ snapshots["sbb-autocomplete-grid-optgroup renders Safari Shadow DOM"] =
   <sbb-divider
     aria-orientation="horizontal"
     orientation="horizontal"
-    role="separator"
   >
   </sbb-divider>
 </div>
@@ -67,10 +60,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM"] =
   label="Group"
   role="group"
 >
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-1"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
@@ -81,10 +71,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM"] =
       Option 1
     </sbb-autocomplete-grid-option>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-2"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
@@ -104,7 +91,6 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM"] =
   <sbb-divider
     aria-orientation="horizontal"
     orientation="horizontal"
-    role="separator"
   >
   </sbb-divider>
 </div>

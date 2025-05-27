@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-loading-indicator-circle renders with variant `circle` DOM"] = 
-`<sbb-loading-indicator-circle
-  aria-busy="true"
-  color="default"
-  role="progressbar"
->
+`<sbb-loading-indicator-circle color="default">
 </sbb-loading-indicator-circle>
 `;
 /* end snapshot sbb-loading-indicator-circle renders with variant `circle` DOM */

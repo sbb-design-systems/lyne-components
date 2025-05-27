@@ -44,7 +44,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
         aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
@@ -109,7 +108,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
         aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
@@ -175,7 +173,6 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
         aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
@@ -286,7 +283,6 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
         aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button

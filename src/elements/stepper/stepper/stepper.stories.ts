@@ -105,8 +105,10 @@ const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => 
         const input = event.currentTarget as HTMLInputElement;
         if (input.value !== '') {
           sbbFormError.remove();
+          input.classList.remove('sbb-invalid');
         } else {
           input.closest('sbb-form-field')!.append(sbbFormError);
+          input.classList.add('sbb-invalid');
         }
       }}
       required

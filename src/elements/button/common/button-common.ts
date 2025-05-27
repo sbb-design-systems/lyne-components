@@ -17,8 +17,6 @@ export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
   public accessor size: SbbButtonSize;
 }
 
-export type SbbButtonCommonElement = SbbButtonCommonElementMixinType;
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,

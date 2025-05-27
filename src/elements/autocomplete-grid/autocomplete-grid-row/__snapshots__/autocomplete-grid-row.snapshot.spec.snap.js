@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-row renders DOM"] = 
-`<sbb-autocomplete-grid-row
-  id="sbb-autocomplete-grid-row-1"
-  role="row"
->
+`<sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
   <sbb-autocomplete-grid-option
     aria-selected="false"
     data-slot-names="unnamed"

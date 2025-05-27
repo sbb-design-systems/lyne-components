@@ -30,7 +30,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       <sbb-divider
         aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -97,7 +96,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
       <sbb-divider
         aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -214,7 +212,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
       <sbb-divider
         aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -331,7 +328,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
       <sbb-divider
         aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -452,7 +448,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
       <sbb-divider
         aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -564,7 +559,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-3"
-          role="option"
           selected=""
           value="10"
         >
@@ -576,7 +570,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-4"
-          role="option"
           value="25"
         >
           25
@@ -587,7 +580,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-5"
-          role="option"
           value="50"
         >
           50
@@ -631,7 +623,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
       <sbb-divider
         aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -735,7 +726,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"
-        role="listbox"
         value="10"
       >
         <sbb-option
@@ -744,7 +734,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-3"
-          role="option"
           selected=""
           value="10"
         >
@@ -756,7 +745,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-4"
-          role="option"
           value="25"
         >
           25
@@ -767,7 +755,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-5"
-          role="option"
           value="50"
         >
           50

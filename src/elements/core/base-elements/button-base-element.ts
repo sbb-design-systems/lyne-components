@@ -26,9 +26,6 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
   public constructor() {
     super();
 
-    /** @internal */
-    this.internals.role = 'button';
-
     if (!isServer) {
       this.setupBaseEventHandlers();
 

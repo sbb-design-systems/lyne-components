@@ -52,7 +52,6 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
           class="sbb-alert__close-button-divider"
           negative=""
           orientation="vertical"
-          role="separator"
         >
         </sbb-divider>
         <sbb-transparent-button
@@ -138,7 +137,6 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
           class="sbb-alert__close-button-divider"
           negative=""
           orientation="vertical"
-          role="separator"
         >
         </sbb-divider>
         <sbb-transparent-button

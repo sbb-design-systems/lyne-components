@@ -29,7 +29,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     <sbb-divider
       aria-orientation="vertical"
       orientation="vertical"
-      role="separator"
       slot="li-1"
     >
     </sbb-divider>
@@ -51,7 +50,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
       aria-orientation="vertical"
       class="sbb-compact-paginator__divider"
       orientation="vertical"
-      role="separator"
     >
     </sbb-divider>
     10

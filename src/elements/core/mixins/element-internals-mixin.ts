@@ -21,7 +21,7 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         }
 
         public override add(state: string): this {
-          if (this._host.hasUpdated) {
+          if (this._host.isConnected) {
             this._toggleState(state, true);
           }
           return super.add(state);
