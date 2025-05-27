@@ -4,24 +4,18 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { forceType, slotState } from '../../core/decorators.js';
-import {
-  type AbstractConstructor,
-  SbbDisabledMixin,
-  type SbbDisabledMixinType,
-} from '../../core/mixins.js';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
+import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './menu-action.scss?lit&inline';
 
-export declare class SbbMenuActionCommonElementMixinType
-  extends SbbDisabledMixinType
-  implements Partial<SbbIconNameMixinType>
-{
+export declare class SbbMenuActionCommonElementMixinType extends SbbIconNameMixin(
+  SbbDisabledMixin(SbbActionBaseElement),
+) {
   /**
    * @deprecated Will be removed with next major version. Use the sbb-badge attribute on a sbb-icon as alternative.
    */
   public accessor amount: string;
-  public accessor iconName: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

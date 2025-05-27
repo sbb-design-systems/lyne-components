@@ -5,26 +5,19 @@ import { html } from 'lit/static-html.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import type {
-  AbstractConstructor,
-  SbbDisabledMixinType,
-  SbbNegativeMixinType,
-} from '../../core/mixins.js';
+import type { AbstractConstructor } from '../../core/mixins.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
-
-export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
+import { SbbIconNameMixin } from '../../icon.js';
 
 export type SbbButtonSize = 'l' | 'm' | 's';
 
-export declare class SbbButtonCommonElementMixinType
-  extends SbbIconNameMixinType
-  implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>
-{
+export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
+  SbbIconNameMixin(SbbActionBaseElement),
+) {
   public accessor size: SbbButtonSize;
-  public accessor disabled: boolean;
-  public accessor negative: boolean;
 }
+
+export type SbbButtonCommonElement = SbbButtonCommonElementMixinType;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(

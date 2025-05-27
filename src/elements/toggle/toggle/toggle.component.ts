@@ -16,6 +16,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
+  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
 } from '../../core/mixins.js';
 import { type SbbToggleOptionElement } from '../toggle-option.js';
@@ -31,7 +32,10 @@ import style from './toggle.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle')
-class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
+class SbbToggleElement<T = string> extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     change: 'change',
@@ -85,9 +89,6 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMix
 
   public constructor() {
     super();
-    /** @internal */
-    this.internals.role = 'radiogroup';
-
     this.addEventListener?.('input', () => this._handleInput(), { passive: true });
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }

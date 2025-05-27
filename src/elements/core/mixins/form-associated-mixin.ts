@@ -5,6 +5,7 @@ import { property, state } from 'lit/decorators.js';
 import { isWebkit } from '../dom.js';
 
 import type { AbstractConstructor } from './constructor.js';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.js';
 
 declare global {
   /**
@@ -54,15 +55,13 @@ export declare abstract class SbbFormAssociatedMixinType {
   public accessor name: string;
   public get type(): string;
 
-  public abstract get value(): unknown;
-  public abstract set value(value: unknown);
+  public abstract accessor value: unknown;
 
   public get validity(): ValidityState;
   public get validationMessage(): string;
   public get willValidate(): boolean;
 
   protected formDisabled: boolean;
-  protected readonly internals: ElementInternals;
 
   public checkValidity(): boolean;
   public reportValidity(): boolean;
@@ -92,7 +91,9 @@ export declare abstract class SbbFormAssociatedMixinType {
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbFormAssociatedMixin = <
+  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
+>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedMixinType> & T => {
   abstract class SbbFormAssociatedElement
@@ -101,8 +102,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
   {
     public static formAssociated = true;
 
-    public abstract get value(): unknown;
-    public abstract set value(value: unknown);
+    public abstract accessor value: unknown;
 
     /**
      * Returns the form owner of this element.
@@ -160,9 +160,6 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     public get willValidate(): boolean {
       return this.internals.willValidate;
     }
-
-    /** @internal */
-    protected readonly internals: ElementInternals = this.attachInternals();
 
     private _validityStates = new Map<
       keyof ValidityStateFlags,

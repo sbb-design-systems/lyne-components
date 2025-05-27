@@ -17,7 +17,7 @@ import {
   SbbInertController,
   SbbLanguageController,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
+import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
@@ -57,11 +57,8 @@ const DEBOUNCE_TIME = 150;
  */
 export
 @customElement('sbb-navigation')
-@hostAttributes({
-  role: 'navigation',
-  popover: 'manual',
-})
 class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+  public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -327,6 +324,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.popover ||= 'manual';
     this.id ||= `sbb-navigation-${nextId++}`;
     this._configureTrigger();
   }

@@ -4,6 +4,7 @@
 export * from './mixins/animation-complete-mixin.js';
 export * from './mixins/constructor.js';
 export * from './mixins/disabled-mixin.js';
+export * from './mixins/element-internals-mixin.js';
 export * from './mixins/form-associated-checkbox-mixin.js';
 export * from './mixins/form-associated-input-mixin.js';
 export * from './mixins/form-associated-mixin.js';

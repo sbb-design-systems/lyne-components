@@ -2,11 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
@@ -25,11 +25,11 @@ let nextId = 0;
  */
 export
 @customElement('sbb-radio-button-group')
-@hostAttributes({
-  role: 'radiogroup',
-})
 @slotState()
-class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(LitElement) {
+class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
+  SbbElementInternalsMixin(LitElement),
+) {
+  public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',

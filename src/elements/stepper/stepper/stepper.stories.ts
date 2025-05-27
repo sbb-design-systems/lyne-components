@@ -6,7 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
-import { SbbStepElement } from '../step.js';
+import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.js';
 
 import readme from './readme.md?raw';
 
@@ -105,10 +105,8 @@ const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => 
         const input = event.currentTarget as HTMLInputElement;
         if (input.value !== '') {
           sbbFormError.remove();
-          input.classList.remove('sbb-invalid');
         } else {
           input.closest('sbb-form-field')!.append(sbbFormError);
-          input.classList.add('sbb-invalid');
         }
       }}
       required
@@ -195,8 +193,12 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
       <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
         <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
         <sbb-step
-          @validate=${(e: CustomEvent) => {
-            if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+          @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
+            if (
+              e.detail
+                .currentStep!.querySelector('sbb-form-field')!
+                .inputElement!.matches(':invalid')
+            ) {
               e.preventDefault();
             }
           }}
@@ -267,8 +269,10 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step
-        @validate=${(e: CustomEvent) => {
-          if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+        @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
+          if (
+            e.detail.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')
+          ) {
             e.preventDefault();
           }
         }}

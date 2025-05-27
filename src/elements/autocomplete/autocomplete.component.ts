@@ -1,7 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { hostAttributes } from '../core/decorators.js';
 import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
@@ -30,10 +29,8 @@ const ariaRoleOnHost = isSafari;
  */
 export
 @customElement('sbb-autocomplete')
-@hostAttributes({
-  role: ariaRoleOnHost ? 'listbox' : null,
-})
 class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
   private _activeItemIndex = -1;

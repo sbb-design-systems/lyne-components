@@ -21,6 +21,8 @@ export
   'data-button': '',
 })
 abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+  public static override readonly role: ElementInternals['role'] = 'button';
+
   public constructor() {
     super();
 

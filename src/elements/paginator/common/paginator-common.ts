@@ -13,9 +13,9 @@ import '../../button/mini-button.js';
 import '../../button/mini-button-group.js';
 import '../../divider.js';
 
-export declare abstract class SbbPaginatorCommonElementMixinType {
-  public accessor negative: boolean;
-  public accessor disabled: boolean;
+export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
+  SbbDisabledMixin(LitElement),
+) {
   public accessor length: number;
   public accessor pageSize: number;
   public accessor pageIndex: number;

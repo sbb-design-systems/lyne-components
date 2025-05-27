@@ -10,7 +10,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipDelete } from '../../core/i18n.js';
-import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbNegativeMixin,
+  SbbReadonlyMixin,
+} from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 import '../../screen-reader-only.js';
@@ -26,8 +31,9 @@ import style from './chip.scss?lit&inline';
 export
 @customElement('sbb-chip')
 class SbbChipElement<T = string> extends SbbNegativeMixin(
-  SbbDisabledMixin(SbbReadonlyMixin(LitElement)),
+  SbbDisabledMixin(SbbReadonlyMixin(SbbElementInternalsMixin(LitElement))),
 ) {
+  public static override readonly role = 'option';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     requestDelete: 'requestDelete',
@@ -40,13 +46,6 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
   private _requestDelete = new EventEmitter<any>(this, SbbChipElement.events.requestDelete);
 
   private _language = new SbbLanguageController(this);
-
-  public constructor() {
-    super();
-    const internals: ElementInternals = this.attachInternals();
-    /** @internal */
-    internals.role = 'option';
-  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
