@@ -72,9 +72,9 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     public set pageSize(value: number) {
       // Current page needs to be updated to reflect the new page size. Navigate to the page
       // containing the previous page's first item.
-      const previousPageSize = this.pageSize;
+      this._previousPageSize = this.pageSize;
       this._pageSize = Math.max(value, 0);
-      this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
+      this.pageIndex = Math.floor((this.pageIndex * this._previousPageSize) / this.pageSize) || 0;
     }
     public get pageSize(): number {
       return this._pageSize;
@@ -109,9 +109,9 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       SbbPaginatorCommonElement.events.page,
       { composed: true, bubbles: true },
     );
-    private _lastPageEvent?: SbbPaginatorPageEventDetails;
 
     protected language = new SbbLanguageController(this);
+    private _previousPageSize: number = this._pageSize;
     protected abstract renderPaginator(): string;
 
     protected override updated(changedProperties: PropertyValues<this>): void {
@@ -190,21 +190,24 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     protected emitPageEvent(previousPageIndex: number): void {
       if (
         !this.hasUpdated ||
-        (this._lastPageEvent?.pageIndex === this.pageIndex &&
-          this._lastPageEvent?.length === this.length &&
-          this._lastPageEvent?.pageSize === this.pageSize)
+        (this.pageIndex === previousPageIndex && this._previousPageSize === this.pageSize)
       ) {
+        // When emitting the page event is skipped during initialization,
+        // we have to update the previous page size.
+        // Otherwise, it could trigger an unnecessary page event when other prop
+        // is re-assigned with the e.g. the same value.
+        this._previousPageSize = this.pageSize; // Update the previous page size for next comparison
+
         // Do not emit the event if the page event details did not change
         return;
       }
 
-      this._lastPageEvent = {
+      this._page.emit({
         previousPageIndex,
         pageIndex: this.pageIndex,
         length: this.length,
         pageSize: this.pageSize,
-      };
-      this._page.emit(this._lastPageEvent);
+      });
     }
 
     protected renderPrevNextButtons(): TemplateResult {

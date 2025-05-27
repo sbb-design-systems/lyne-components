@@ -119,6 +119,7 @@ describe('sbb-paginator', () => {
 
     const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;
     expect(secondOption).not.to.be.null;
+    expect(pageEventSpy).not.to.have.been.called;
     secondOption.click();
     await waitForLitRender(element);
 

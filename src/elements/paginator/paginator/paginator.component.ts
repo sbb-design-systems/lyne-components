@@ -71,13 +71,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
    * emit the `page` event and then update the `pageSize` value.
    */
   private _pageSizeChanged(value: number): void {
-    const previousPageSize = this.pageSize;
-    const previousPageIndex = this.pageIndex;
     this.pageSize = value;
-
-    if (previousPageSize !== this.pageSize) {
-      this.emitPageEvent(previousPageIndex);
-    }
   }
 
   /** Returns the displayed page elements. */
