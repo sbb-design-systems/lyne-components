@@ -310,6 +310,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         >
           <sbb-seat-reservation-place-control
             @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
+            exportparts="sbb-sr-place-part"
             id="seat-reservation__place-button-${coachIndex}-${place.number}"
             class="seat-reservation-place-control"
             data-cell-id="${coachIndex}-${place.position.y}-${index}"
