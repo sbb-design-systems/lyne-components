@@ -65,15 +65,6 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
       this._markForFocus = null;
     }
   }
-
-  /**
-   * If the `pageSize` changes due to user interaction with the `pageSizeOptions` select,
-   * emit the `page` event and then update the `pageSize` value.
-   */
-  private _pageSizeChanged(value: number): void {
-    this.pageSize = value;
-  }
-
   /** Returns the displayed page elements. */
   private _getVisiblePages(): Element[] {
     return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item'));
@@ -145,7 +136,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
                 @change=${(e: CustomEvent) =>
-                  this._pageSizeChanged(+((e.target as SbbSelectElement).value as string))}
+                  (this.pageSize = +((e.target as SbbSelectElement).value as string))}
               >
                 ${repeat(
                   this.pageSizeOptions!,
