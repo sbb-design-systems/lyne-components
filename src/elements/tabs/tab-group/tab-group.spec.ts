@@ -192,7 +192,6 @@ describe(`sbb-tab-group`, () => {
     // Await throttling
     await aTimeout(200);
 
-    // console.log(element._selectedTab)
     const newLabelActive = document.createElement('sbb-tab-label');
     newLabelActive.textContent = 'Label 2';
     const newTabActive = document.createElement('sbb-tab');
@@ -205,28 +204,32 @@ describe(`sbb-tab-group`, () => {
     await aTimeout(200);
 
     expect(changeSpy.count).to.be.equal(1);
-    expect(element.querySelector('sbb-tab-label')).to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label')).to.have.attribute('aria-selected', 'true');
-    expect(element.querySelector('sbb-tab')).to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).not.to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).to.have.attribute(
-      'aria-selected',
-      'false',
-    );
-    expect(element.querySelector('sbb-tab:nth-of-type(2)')).not.to.have.attribute('active');
+
+    let firstTabLabel = element.querySelector('sbb-tab-label') as SbbTabLabelElement;
+    expect(firstTabLabel).to.have.attribute('active');
+    expect(firstTabLabel['internals'].ariaSelected).to.be.equal('true');
+    expect(element.querySelector('sbb-tab')).to.have.attribute('data-active');
+
+    let secondTabLabel = element.querySelector(
+      'sbb-tab-label:nth-of-type(2)',
+    ) as SbbTabLabelElement;
+    expect(secondTabLabel).not.to.have.attribute('active');
+    expect(secondTabLabel['internals'].ariaSelected).to.be.equal('false');
+    expect(element.querySelector('sbb-tab:nth-of-type(2)')).not.to.have.attribute('data-active');
 
     newLabelActive.click();
     await waitForLitRender(element);
 
     expect(changeSpy.count).to.be.equal(2);
-    expect(element.querySelector('sbb-tab-label')).not.to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label')).to.have.attribute('aria-selected', 'false');
-    expect(element.querySelector('sbb-tab')).not.to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).to.have.attribute(
-      'aria-selected',
-      'true',
-    );
-    expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.have.attribute('active');
+
+    firstTabLabel = element.querySelector('sbb-tab-label') as SbbTabLabelElement;
+    expect(firstTabLabel).not.to.have.attribute('active');
+    expect(firstTabLabel['internals'].ariaSelected).to.be.equal('false');
+    expect(element.querySelector('sbb-tab')).not.to.have.attribute('data-active');
+
+    secondTabLabel = element.querySelector('sbb-tab-label:nth-of-type(2)') as SbbTabLabelElement;
+    expect(secondTabLabel).to.have.attribute('active');
+    expect(secondTabLabel['internals'].ariaSelected).to.be.equal('true');
+    expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.have.attribute('data-active');
   });
 });

@@ -7,8 +7,10 @@ import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
 
+let nextId = 0;
+
 /**
- * Combined with a `sbb-tab-group`, it displays a tab's content.
+ * Combined with a `sbb-tab-group` and `sbb-tab-label`, it displays a tab's content.
  *
  * @slot - Use the unnamed slot to provide content.
  */
@@ -20,21 +22,16 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
 
   /** The `sbb-tab-label` associated with the tab. */
   public get label(): SbbTabLabelElement | null {
-    return this._label;
-  }
-  private _label: SbbTabLabelElement | null = null;
-
-  private _getTabLabel(): SbbTabLabelElement | null {
-    let previousSibling = this.previousElementSibling;
-    while (previousSibling && previousSibling.localName !== 'sbb-tab-label') {
-      previousSibling = previousSibling.previousElementSibling;
-    }
-    return previousSibling as SbbTabLabelElement;
+    return this.previousElementSibling?.localName === 'sbb-tab-label'
+      ? (this.previousElementSibling as SbbTabLabelElement)
+      : null;
   }
 
-  /** @internal */
-  public configure(): void {
-    this._label = this._getTabLabel();
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.id ||= `sbb-tab-${nextId++}`;
+    this.tabIndex ||= 0;
   }
 
   protected override render(): TemplateResult {

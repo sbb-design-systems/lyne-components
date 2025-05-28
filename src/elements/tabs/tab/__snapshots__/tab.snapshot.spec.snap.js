@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-tab renders DOM"] = 
-`<sbb-tab>
+`<sbb-tab id="sbb-tab-0">
   Content
 </sbb-tab>
 `;
@@ -15,22 +15,6 @@ snapshots["sbb-tab renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-tab renders Shadow DOM */
-
-snapshots["sbb-tab renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Content"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab renders A11y tree Chrome */
 
 snapshots["sbb-tab renders A11y tree Firefox"] = 
 `<p>
@@ -47,4 +31,20 @@ snapshots["sbb-tab renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-tab renders A11y tree Firefox */
+
+snapshots["sbb-tab renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Content"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab renders A11y tree Chrome */
 
