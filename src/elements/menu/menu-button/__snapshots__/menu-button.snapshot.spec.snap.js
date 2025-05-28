@@ -33,9 +33,8 @@ snapshots["sbb-menu-button renders Shadow DOM"] =
 `;
 /* end snapshot sbb-menu-button renders Shadow DOM */
 
-snapshots["sbb-menu-button renders component with icon and amount DOM"] = 
+snapshots["sbb-menu-button renders component with icon DOM"] = 
 `<sbb-menu-button
-  amount="123456"
   data-action=""
   data-button=""
   data-slot-names="unnamed"
@@ -45,9 +44,9 @@ snapshots["sbb-menu-button renders component with icon and amount DOM"] =
   Action
 </sbb-menu-button>
 `;
-/* end snapshot sbb-menu-button renders component with icon and amount DOM */
+/* end snapshot sbb-menu-button renders component with icon DOM */
 
-snapshots["sbb-menu-button renders component with icon and amount Shadow DOM"] = 
+snapshots["sbb-menu-button renders component with icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-menu-button">
   <span class="sbb-menu-action__content">
     <span class="sbb-menu-action__icon">
@@ -65,15 +64,12 @@ snapshots["sbb-menu-button renders component with icon and amount Shadow DOM"] =
       <slot>
       </slot>
     </span>
-    <span class="sbb-menu-action__amount">
-      123456
-    </span>
   </span>
 </span>
 `;
-/* end snapshot sbb-menu-button renders component with icon and amount Shadow DOM */
+/* end snapshot sbb-menu-button renders component with icon Shadow DOM */
 
-snapshots["sbb-menu-button renders component with icon and amount A11y tree Chrome"] = 
+snapshots["sbb-menu-button renders component with icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -81,15 +77,15 @@ snapshots["sbb-menu-button renders component with icon and amount A11y tree Chro
   "children": [
     {
       "role": "button",
-      "name": "Action 123456"
+      "name": "Action"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-menu-button renders component with icon and amount A11y tree Chrome */
+/* end snapshot sbb-menu-button renders component with icon A11y tree Chrome */
 
-snapshots["sbb-menu-button renders component with icon and amount A11y tree Firefox"] = 
+snapshots["sbb-menu-button renders component with icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -97,11 +93,11 @@ snapshots["sbb-menu-button renders component with icon and amount A11y tree Fire
   "children": [
     {
       "role": "button",
-      "name": "Action 123456"
+      "name": "Action"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-menu-button renders component with icon and amount A11y tree Firefox */
+/* end snapshot sbb-menu-button renders component with icon A11y tree Firefox */
 
