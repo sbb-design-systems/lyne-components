@@ -1,7 +1,7 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
 
 import './dialog-actions.component.js';
 import readme from './readme.md?raw';

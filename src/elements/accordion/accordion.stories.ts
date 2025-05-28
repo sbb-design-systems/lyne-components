@@ -1,16 +1,9 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  StoryContext,
-  Decorator,
-} from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
+import type { InputType } from 'storybook/internal/types';
+import { fn } from 'storybook/test';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
@@ -240,18 +233,17 @@ export const SizeSWithIcon: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  args: Object.fromEntries(
+    [
+      SbbExpansionPanelElement.events.willOpen,
+      SbbExpansionPanelElement.events.didOpen,
+      SbbExpansionPanelElement.events.willClose,
+      SbbExpansionPanelElement.events.didClose,
+    ].map((t) => [t, fn()]),
+  ),
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
-    actions: {
-      handles: [
-        SbbExpansionPanelElement.events.willOpen,
-        SbbExpansionPanelElement.events.didOpen,
-        SbbExpansionPanelElement.events.willClose,
-        SbbExpansionPanelElement.events.didClose,
-      ],
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
