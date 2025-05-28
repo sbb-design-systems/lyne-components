@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-sidebar-title renders Light DOM"] = 
 `<sbb-sidebar-title
-  aria-level="2"
   level="2"
-  role="heading"
   slot="title-section"
   visual-level="5"
 >

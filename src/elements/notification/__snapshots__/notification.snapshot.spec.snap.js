@@ -27,10 +27,8 @@ snapshots["sbb-notification renders Shadow DOM"] =
     </sbb-icon>
     <span class="sbb-notification__content">
       <sbb-title
-        aria-level="3"
         class="sbb-notification__title"
         level="3"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -90,10 +88,8 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
     </sbb-icon>
     <span class="sbb-notification__content">
       <sbb-title
-        aria-level="3"
         class="sbb-notification__title"
         level="3"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -156,10 +152,8 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
     </sbb-icon>
     <span class="sbb-notification__content">
       <sbb-title
-        aria-level="3"
         class="sbb-notification__title"
         level="3"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -220,10 +214,8 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
     </sbb-icon>
     <span class="sbb-notification__content">
       <sbb-title
-        aria-level="3"
         class="sbb-notification__title"
         level="3"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -265,10 +257,8 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
     </sbb-icon>
     <span class="sbb-notification__content">
       <sbb-title
-        aria-level="3"
         class="sbb-notification__title"
         level="3"
-        role="heading"
         visual-level="6"
       >
         <slot name="title">

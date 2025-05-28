@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-dialog-title renders Light DOM"] = 
 `<sbb-dialog-title
-  aria-level="2"
   level="2"
-  role="heading"
   visual-level="3"
 >
   Title
