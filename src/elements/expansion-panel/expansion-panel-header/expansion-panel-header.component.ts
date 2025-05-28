@@ -7,7 +7,6 @@ import {
   SbbMediaMatcherController,
   SbbSlotStateController,
 } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -25,9 +24,6 @@ import style from './expansion-panel-header.scss?lit&inline';
  */
 export
 @customElement('sbb-expansion-panel-header')
-@hostAttributes({
-  slot: 'header',
-})
 class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
@@ -56,6 +52,11 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     this.addEventListener?.('click', () => this._emitExpandedEvent());
     this.addEventListener?.('mouseenter', () => this._onMouseMovement(true));
     this.addEventListener?.('mouseleave', () => this._onMouseMovement(false));
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'header';
   }
 
   private _emitExpandedEvent(): void {
