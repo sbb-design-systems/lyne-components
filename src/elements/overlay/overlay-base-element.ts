@@ -8,7 +8,7 @@ import {
   SbbInertController,
   SbbLanguageController,
 } from '../core/controllers.js';
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
@@ -19,11 +19,7 @@ import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
-export
-@hostAttributes({
-  popover: 'manual',
-})
-abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
   @forceType()
   @property({ attribute: 'accessibility-label' })
@@ -78,6 +74,11 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     if (this.isZeroAnimationDuration()) {
       this.handleClosing();
     }
+  }
+
+  public override connectedCallback(): void {
+    this.popover = 'manual';
+    super.connectedCallback();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

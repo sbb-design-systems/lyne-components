@@ -22,7 +22,7 @@ import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
+import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
@@ -65,9 +65,6 @@ let nextId = 0;
  */
 export
 @customElement('sbb-menu')
-@hostAttributes({
-  popover: 'manual',
-})
 class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof SbbOpenCloseBaseElement
@@ -268,6 +265,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   public override connectedCallback(): void {
+    this.popover = 'manual';
     super.connectedCallback();
     this.id ||= `sbb-menu-${nextId++}`;
     if (this.hasUpdated) {
