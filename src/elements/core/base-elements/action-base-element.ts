@@ -1,6 +1,7 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
 import { hostAttributes } from '../decorators.js';
+import { SbbElementInternalsMixin } from '../mixins.js';
 
 /**
  * Whenever an element can be disabled it has disabled property
@@ -17,7 +18,7 @@ export
 @hostAttributes({
   'data-action': '',
 })
-abstract class SbbActionBaseElement extends LitElement {
+abstract class SbbActionBaseElement extends SbbElementInternalsMixin(LitElement) {
   protected get maybeDisabled(): boolean | undefined {
     const maybeDisabled = this as MaybeDisabled;
     return maybeDisabled.disabled || maybeDisabled.formDisabled;

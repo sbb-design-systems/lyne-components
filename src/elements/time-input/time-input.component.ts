@@ -9,11 +9,7 @@ import {
   i18nTimeMax,
   i18nTimeMaxLength,
 } from '../core/i18n.js';
-import {
-  SbbFormAssociatedInputMixin,
-  type FormRestoreReason,
-  type FormRestoreState,
-} from '../core/mixins.js';
+import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
 
 import style from './time-input.scss?lit&inline';
 
@@ -29,6 +25,7 @@ interface Time {
 
 /**
  * Custom input for a time.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-time-input')
@@ -110,24 +107,6 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-  }
-
-  /**
-   *  Called when the browser is trying to restore element’s state to state in which case
-   *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
-   *  user in which case reason is "autocomplete".
-   *  In the case of "restore", state is a string, File, or FormData object
-   *  previously set as the second argument to setFormValue.
-   *
-   * @internal
-   */
-  public override formStateRestoreCallback(
-    state: FormRestoreState | null,
-    _reason: FormRestoreReason,
-  ): void {
-    if (state && typeof state === 'string') {
-      this.value = state;
-    }
   }
 
   protected override updateFormValue(): void {

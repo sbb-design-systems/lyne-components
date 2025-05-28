@@ -2,7 +2,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { getNextElementIndex } from '../../core/a11y.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
@@ -33,17 +32,19 @@ const ariaRoleOnHost = isSafari;
  */
 export
 @customElement('sbb-autocomplete-grid')
-@hostAttributes({
-  role: ariaRoleOnHost ? 'grid' : null,
-})
-class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
+class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly role = ariaRoleOnHost ? 'grid' : null;
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeItemIndex = -1;
   private _activeColumnIndex = 0;
 
-  protected get options(): SbbAutocompleteGridOptionElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-autocomplete-grid-option') ?? []);
+  protected get options(): SbbAutocompleteGridOptionElement<T>[] {
+    return Array.from(
+      this.querySelectorAll?.<SbbAutocompleteGridOptionElement<T>>(
+        'sbb-autocomplete-grid-option',
+      ) ?? [],
+    );
   }
 
   private get _row(): SbbAutocompleteGridRowElement[] {
@@ -66,7 +67,7 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
       'sbb-divider, sbb-autocomplete-grid-button',
     ).forEach((e) => (e.negative = this.negative));
 
-    this.querySelectorAll?.<SbbAutocompleteGridOptionElement | SbbOptGroupElement>(
+    this.querySelectorAll?.<SbbAutocompleteGridOptionElement<T> | SbbOptGroupElement>(
       'sbb-autocomplete-grid-row, sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
     ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }
@@ -153,17 +154,19 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
       return;
     }
 
-    const elementsInRow: (SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement)[] =
-      Array.from(
-        this._row[this._activeItemIndex].querySelectorAll<
-          SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement
-        >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button'),
-      ).filter((el) => !el.disabled && !el.hasAttribute('data-group-disabled'));
+    const elementsInRow: (
+      | SbbAutocompleteGridOptionElement<T>
+      | SbbAutocompleteGridButtonElement
+    )[] = Array.from(
+      this._row[this._activeItemIndex].querySelectorAll<
+        SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
+      >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button'),
+    ).filter((el) => !el.disabled && !el.hasAttribute('data-group-disabled'));
     const next: number = getNextElementIndex(event, this._activeColumnIndex, elementsInRow.length);
     if (isNaN(next)) {
       return;
     }
-    const nextElement: SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement =
+    const nextElement: SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement =
       elementsInRow[next];
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
       nextElement.setActive(true);
@@ -171,8 +174,9 @@ class SbbAutocompleteGridElement extends SbbAutocompleteBaseElement {
       nextElement.toggleAttribute('data-focus-visible', true);
     }
 
-    const lastActiveElement: SbbAutocompleteGridOptionElement | SbbAutocompleteGridButtonElement =
-      elementsInRow[this._activeColumnIndex];
+    const lastActiveElement:
+      | SbbAutocompleteGridOptionElement<T>
+      | SbbAutocompleteGridButtonElement = elementsInRow[this._activeColumnIndex];
     if (lastActiveElement instanceof SbbAutocompleteGridOptionElement) {
       lastActiveElement.setActive(false);
     } else {

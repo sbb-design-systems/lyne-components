@@ -18,12 +18,12 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the radio label.
  * @event {Event} change - Fired on change.
  * @event {InputEvent} input - Fired on input.
- * @overrideType value - string | null
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-radio-button')
 @slotState()
-class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
+class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
     stateChange: 'stateChange',
@@ -38,6 +38,12 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
   public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
+
+  /**
+   * The value of the form element
+   */
+  @property()
+  public accessor value: T | null = null;
 
   protected override render(): TemplateResult {
     return html`

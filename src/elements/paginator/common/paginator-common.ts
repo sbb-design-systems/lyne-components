@@ -2,20 +2,24 @@ import { html, type LitElement, type PropertyValues, type TemplateResult } from 
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
-import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import {
+  type AbstractConstructor,
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbNegativeMixin,
+} from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 import '../../button/mini-button-group.js';
 import '../../divider.js';
 
-export declare abstract class SbbPaginatorCommonElementMixinType {
-  public accessor negative: boolean;
-  public accessor disabled: boolean;
+export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
+  SbbDisabledMixin(SbbElementInternalsMixin(LitElement)),
+) {
   public accessor length: number;
   public accessor pageSize: number;
   public accessor pageIndex: number;
@@ -43,13 +47,11 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
 export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
-  @hostAttributes({
-    role: 'group',
-  })
   abstract class SbbPaginatorCommonElement
-    extends SbbNegativeMixin(SbbDisabledMixin(superClass))
+    extends SbbNegativeMixin(SbbDisabledMixin(SbbElementInternalsMixin(superClass)))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
+    public static override role = 'group';
     public static readonly events: Record<string, string> = {
       page: 'page',
     } as const;
@@ -72,9 +74,9 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     public set pageSize(value: number) {
       // Current page needs to be updated to reflect the new page size. Navigate to the page
       // containing the previous page's first item.
-      const previousPageSize = this.pageSize;
+      this._previousPageSize = this.pageSize;
       this._pageSize = Math.max(value, 0);
-      this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
+      this.pageIndex = Math.floor((this.pageIndex * this._previousPageSize) / this.pageSize) || 0;
     }
     public get pageSize(): number {
       return this._pageSize;
@@ -111,6 +113,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     );
 
     protected language = new SbbLanguageController(this);
+    private _previousPageSize: number = this._pageSize;
     protected abstract renderPaginator(): string;
 
     protected override updated(changedProperties: PropertyValues<this>): void {
@@ -187,6 +190,20 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     }
 
     protected emitPageEvent(previousPageIndex: number): void {
+      if (
+        !this.hasUpdated ||
+        (this.pageIndex === previousPageIndex && this._previousPageSize === this.pageSize)
+      ) {
+        // When emitting the page event is skipped during initialization,
+        // we have to update the previous page size.
+        // Otherwise, it could trigger an unnecessary page event when other prop
+        // is re-assigned with the e.g. the same value.
+        this._previousPageSize = this.pageSize; // Update the previous page size for next comparison
+
+        // Do not emit the event if the page event details did not change
+        return;
+      }
+
       this._page.emit({
         previousPageIndex,
         pageIndex: this.pageIndex,

@@ -14,6 +14,7 @@ import {
  *
  * @slot - Use the unnamed slot to add content to the transparent-button.
  * @slot icon - Slot used to display the icon, if one is set
+ * @overrideType value - string
  */
 export
 @customElement('sbb-transparent-button')

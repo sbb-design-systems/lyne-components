@@ -1,7 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { hostAttributes } from '../core/decorators.js';
 import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
@@ -30,16 +29,14 @@ const ariaRoleOnHost = isSafari;
  */
 export
 @customElement('sbb-autocomplete')
-@hostAttributes({
-  role: ariaRoleOnHost ? 'listbox' : null,
-})
-class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
+class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
   private _activeItemIndex = -1;
 
-  protected get options(): SbbOptionElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
+  protected get options(): SbbOptionElement<T>[] {
+    return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
   }
 
   public constructor() {
@@ -50,7 +47,7 @@ class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
   protected syncNegative(): void {
     this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
 
-    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
+    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
     ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }

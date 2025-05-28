@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { forceType, getOverride } from '../decorators.js';
 
 import type { AbstractConstructor } from './constructor.js';
-import type { SbbFormAssociatedMixinType } from './form-associated-mixin.js';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.js';
 
 export declare class SbbDisabledMixinType {
   public accessor disabled: boolean;
@@ -66,7 +66,7 @@ export const SbbDisabledInteractiveMixin = <
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledTabIndexActionMixin = <
-  T extends AbstractConstructor<LitElement & SbbFormAssociatedMixinType>,
+  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
 >(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {

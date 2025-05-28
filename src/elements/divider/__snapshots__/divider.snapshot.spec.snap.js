@@ -5,7 +5,6 @@ snapshots["sbb-divider renders DOM"] =
 `<sbb-divider
   aria-orientation="horizontal"
   orientation="horizontal"
-  role="separator"
 >
 </sbb-divider>
 `;
@@ -21,7 +20,6 @@ snapshots["sbb-divider renders horizontal DOM"] =
 `<sbb-divider
   aria-orientation="horizontal"
   orientation="horizontal"
-  role="separator"
 >
 </sbb-divider>
 `;
@@ -37,7 +35,6 @@ snapshots["sbb-divider renders vertical DOM"] =
 `<sbb-divider
   aria-orientation="vertical"
   orientation="vertical"
-  role="separator"
 >
 </sbb-divider>
 `;

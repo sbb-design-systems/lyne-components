@@ -6,27 +6,26 @@ import { SbbLanguageController } from '../controllers.js';
 import { isWebkit } from '../dom.js';
 import { i18nInputRequired } from '../i18n.js';
 
-import type { Constructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.js';
+import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
-import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
+import { SbbRequiredMixin } from './required-mixin.js';
 
-export declare abstract class SbbFormAssociatedInputMixinType
-  extends SbbFormAssociatedMixinType
-  implements Partial<SbbRequiredMixinType>
-{
+export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequiredMixin(
+  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public set value(value: string);
+  public get value(): string;
+
   public set disabled(value: boolean);
   public get disabled(): boolean;
 
   public set readOnly(value: boolean);
   public get readOnly(): boolean;
-
-  public set required(value: boolean);
-  public get required(): boolean;
 
   public set placeholder(value: string);
   public get placeholder(): string;
@@ -41,8 +40,6 @@ export declare abstract class SbbFormAssociatedInputMixinType
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
-  protected withUserInteraction?(): void;
-  protected updateFormValue(): void;
   protected preparePastedText(text: string): string;
   protected language: SbbLanguageController;
 }
@@ -65,19 +62,15 @@ const plaintextOnlySupported = checkPlaintextOnlySupport();
  * The SbbFormAssociatedInputMixin enables native form support for text input controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbFormAssociatedInputMixinType> & T => {
+): AbstractConstructor<SbbFormAssociatedInputMixinType> & T => {
   abstract class SbbFormAssociatedInputElement
-    extends SbbRequiredMixin(SbbFormAssociatedMixin(superClass))
+    extends SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass)))
     implements Partial<SbbFormAssociatedInputMixinType>
   {
-    /**
-     * The native text input changes the value property when the value attribute is
-     * changed under the condition that no input event has occured since creation
-     * or the last form reset.
-     */
-    private _interacted = false;
+    public static override readonly role = 'textbox';
+
     /**
      * An element with contenteditable will not emit a change event. To achieve parity
      * with a native text input, we need to track whether a change event should be
@@ -103,17 +96,19 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     }
 
     /**
-     * The text value of the input element.
+     * The value of the input. Reflects the current text value of this input.
      */
-    public override set value(value: string) {
-      super.value = this._cleanText(value);
+    @property()
+    public set value(value: string) {
+      this._value = this._cleanText(value);
       if (this.hasUpdated) {
-        this.innerHTML = super.value;
+        this.innerHTML = this._value;
       }
     }
-    public override get value(): string {
-      return super.value ?? '';
+    public get value(): string {
+      return this._value ?? '';
     }
+    private _value: string = '';
 
     /**
      * Whether the component is readonly.
@@ -160,15 +155,15 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
 
     protected constructor() {
       super();
-      /** @internal */
-      this.internals.role = 'textbox';
       // We primarily use capture event listeners, as we want
       // our listeners to occur before consumer event listeners.
       this.addEventListener?.(
         'input',
         () => {
-          super.value = this._cleanText(this.textContent ?? '');
-          this._interacted = true;
+          const oldValue = this._value;
+          this._value = this._cleanText(this.textContent ?? '');
+          this.requestUpdate('value', oldValue);
+          this.internals.states.add('interacted');
           this._shouldEmitChange = true;
         },
         { capture: true },
@@ -314,7 +309,12 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       old: string | null,
       value: string | null,
     ): void {
-      if (name !== 'value' || !this._interacted) {
+      /**
+       * The native text input changes the value property when the value attribute is
+       * changed under the condition that no input event has occured since creation
+       * or the last form reset.
+       */
+      if (name !== 'value' || !this.internals.states.has('interacted')) {
         super.attributeChangedCallback(name, old, value);
       }
     }
@@ -325,7 +325,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
      * @internal
      */
     public override formResetCallback(): void {
-      this._interacted = false;
+      this.internals.states.delete('interacted');
       this.value = this.getAttribute('value') ?? '';
     }
 
@@ -364,10 +364,6 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       if (this.value && !this.innerHTML.length) {
         this.innerHTML = this.value;
       }
-    }
-
-    protected override updateFormValue(): void {
-      this.internals.setFormValue(this.value, this.value);
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {
@@ -442,6 +438,6 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     }
   }
 
-  return SbbFormAssociatedInputElement as unknown as Constructor<SbbFormAssociatedInputMixinType> &
+  return SbbFormAssociatedInputElement as unknown as AbstractConstructor<SbbFormAssociatedInputMixinType> &
     T;
 };

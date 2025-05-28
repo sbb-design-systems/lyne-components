@@ -6,7 +6,6 @@ snapshots["sbb-autocomplete-grid-option renders DOM"] =
   aria-selected="false"
   data-slot-names="unnamed"
   id="sbb-autocomplete-grid-option-0"
-  role="gridcell"
   value="1"
 >
   Option 1
@@ -38,7 +37,6 @@ snapshots["sbb-autocomplete-grid-option renders disabled DOM"] =
   data-slot-names="unnamed"
   disabled=""
   id="sbb-autocomplete-grid-option-2"
-  role="gridcell"
   value="1"
 >
   Option 1

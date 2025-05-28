@@ -3,13 +3,11 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators.js';
-import {
-  type AbstractConstructor,
-  SbbNegativeMixin,
-  type SbbNegativeMixinType,
-} from '../../core/mixins.js';
+import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
 
-export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixinType {
+export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
+  SbbActionBaseElement,
+) {
   public accessor imageAlignment: 'after' | 'before';
 }
 

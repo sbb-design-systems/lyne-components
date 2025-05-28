@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-step renders DOM"] = 
 `<sbb-step
   id="sbb-step-0"
-  role="tabpanel"
   slot="step"
 >
   Step content

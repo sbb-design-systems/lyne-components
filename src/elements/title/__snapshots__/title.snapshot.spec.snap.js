@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-title renders DOM"] = 
 `<sbb-title
-  aria-level="1"
   level="1"
-  role="heading"
   visual-level="2"
 >
   Sample Title Text

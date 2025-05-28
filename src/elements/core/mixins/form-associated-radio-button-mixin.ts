@@ -5,15 +5,15 @@ import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '..
 import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
 import { i18nSelectionRequired } from '../i18n.js';
 
-import type { Constructor } from './constructor.js';
-import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
+import type { AbstractConstructor } from './constructor.js';
+import { SbbDisabledMixin } from './disabled-mixin.js';
+import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
-import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
+import { SbbRequiredMixin } from './required-mixin.js';
 
 /**
  * A static registry that holds a collection of grouped `radio-buttons`.
@@ -27,13 +27,10 @@ export const radioButtonRegistry = new WeakMap<
   Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>
 >();
 
-export declare class SbbFormAssociatedRadioButtonMixinType
-  extends SbbFormAssociatedMixinType
-  implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
-{
+export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbDisabledMixin(
+  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+) {
   public accessor checked: boolean;
-  public accessor disabled: boolean;
-  public accessor required: boolean;
 
   protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonMixinType>;
   /** @deprecated No longer used internally. */
@@ -42,9 +39,6 @@ export declare class SbbFormAssociatedRadioButtonMixinType
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
-  protected isDisabledExternally(): boolean;
-  protected isRequiredExternally(): boolean;
-  protected withUserInteraction?(): void;
   protected updateFormValue(): void;
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
@@ -55,13 +49,17 @@ export declare class SbbFormAssociatedRadioButtonMixinType
  * The SbbFormAssociatedRadioButtonMixin enables native form support for radio controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbFormAssociatedRadioButtonMixinType> & T => {
-  class SbbFormAssociatedRadioButtonElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
+): AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> & T => {
+  abstract class SbbFormAssociatedRadioButtonElement
+    extends SbbDisabledMixin(
+      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
+    )
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
+    public static override readonly role = 'radio';
+
     /**
      * Whether the radio button is checked.
      */
@@ -79,6 +77,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     }
     private _checked: boolean = false;
 
+    @property()
     public override set name(value: string) {
       super.name = value;
 
@@ -111,8 +110,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
 
     protected constructor() {
       super();
-      /** @internal */
-      this.internals.role = 'radio';
       this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
     }
 
@@ -145,9 +142,18 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       state: FormRestoreState | null,
       _reason: FormRestoreReason,
     ): void {
-      if (state) {
+      if (typeof state === 'string' || state == null) {
         this.checked = state === this.value;
+      } else if (state instanceof FormData) {
+        this._readFormData(state).then((data) => {
+          this.checked = data === this.value;
+        });
       }
+    }
+
+    private async _readFormData(formData: FormData): Promise<unknown> {
+      const data = formData.get(this.name);
+      return data instanceof Blob ? JSON.parse(await data.text()) : data;
     }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -169,7 +175,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
      */
     protected override updateFormValue(): void {
       if (this.checked) {
-        this.internals.setFormValue(this.value, this.value);
+        super.updateFormValue();
       } else {
         this.internals.setFormValue(null);
       }
@@ -263,7 +269,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
       if (!this.name || isServer) {
         return;
       }
-
       const root = this.form ?? this.getRootNode();
       this._radioButtonGroupsMap = radioButtonRegistry.get(root);
 
@@ -357,6 +362,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends Constructor<LitEleme
     }
   }
 
-  return SbbFormAssociatedRadioButtonElement as unknown as Constructor<SbbFormAssociatedRadioButtonMixinType> &
+  return SbbFormAssociatedRadioButtonElement as unknown as AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> &
     T;
 };

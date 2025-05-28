@@ -5,7 +5,6 @@ snapshots["sbb-radio-button-group renders DOM"] =
 `<sbb-radio-button-group
   data-slot-names="unnamed"
   orientation="horizontal"
-  role="radiogroup"
   value="2"
 >
   <sbb-radio-button
@@ -52,7 +51,6 @@ snapshots["sbb-radio-button-group renders with panel DOM"] =
   data-has-panel=""
   data-slot-names="unnamed"
   orientation="horizontal"
-  role="radiogroup"
 >
   <sbb-radio-button-panel
     color="white"
@@ -100,7 +98,6 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] =
   data-has-panel=""
   data-slot-names="unnamed"
   orientation="horizontal"
-  role="radiogroup"
 >
   <sbb-selection-expansion-panel
     color="white"

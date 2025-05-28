@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -364,6 +364,74 @@ describe(`sbb-toggle`, () => {
       await waitForLitRender(element);
 
       expect(element.value).to.be.equal('Value two');
+    });
+  });
+
+  describe('with complex value', () => {
+    let form: HTMLFormElement;
+
+    const value1 = { value: 'Value one', label: 'test 1' };
+    const value2 = { value: 'Value two', label: 'test 2' };
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <sbb-toggle name="sbb-toggle-1" .value=${value2}>
+            <sbb-toggle-option id="sbb-toggle-option-1" .value=${value1}
+              >${value1.label}</sbb-toggle-option
+            >
+            <sbb-toggle-option id="sbb-toggle-option-2" .value=${value2}
+              >${value2.label}</sbb-toggle-option
+            >
+          </sbb-toggle>
+        </form>
+      `);
+      element = form.querySelector('sbb-toggle')!;
+      firstOption = element.querySelector<SbbToggleOptionElement>('#sbb-toggle-option-1')!;
+      secondOption = element.querySelector<SbbToggleOptionElement>('#sbb-toggle-option-2')!;
+      await waitForLitRender(element);
+    });
+
+    it('should init with value', async () => {
+      expect(firstOption).not.to.have.attribute('checked');
+      expect(secondOption).to.have.attribute('checked');
+      assertPillRight();
+
+      expect(element.value).to.be.deep.equal(value2);
+    });
+
+    it('should update value on click', async () => {
+      firstOption.click();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(value1);
+      expect(firstOption).to.have.attribute('checked');
+      expect(secondOption).not.to.have.attribute('checked');
+      assertPillLeft();
+    });
+
+    it('should serialize and deserialize complex value', async () => {
+      // TODO: Deserialization needs the compareValue function to work properly, for now we use 'numbers' as complex value.
+      firstOption.value = 1 as any;
+      secondOption.value = 2 as any;
+      await waitForLitRender(element);
+
+      // Get the stored formData from the form
+      const formData = new FormData(form);
+
+      form.reset();
+      await waitForLitRender(element);
+
+      // Simulate navigating to other page and then back to form
+      element.formStateRestoreCallback(formData, 'restore');
+
+      // Wait for the formStateRestoreCallback to finish
+      await aTimeout(30);
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(2); // // Should be 'expect(element.value).to.be.deep.equal(value2)'
+      expect(secondOption).to.have.attribute('checked');
+      assertPillRight();
     });
   });
 });

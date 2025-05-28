@@ -6,15 +6,14 @@ import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators/slot-state.js';
 import type { SbbHorizontalFrom } from '../../core/interfaces.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './header-action.scss?lit&inline';
 
-export declare class SbbHeaderActionCommonElementMixinType
-  implements Partial<SbbIconNameMixinType>
-{
+export declare class SbbHeaderActionCommonElementMixinType extends SbbIconNameMixin(
+  SbbActionBaseElement,
+) {
   public accessor expandFrom: SbbHorizontalFrom;
-  public accessor iconName: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

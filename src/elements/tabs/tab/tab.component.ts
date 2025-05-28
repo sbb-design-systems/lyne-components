@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
@@ -13,7 +14,8 @@ import style from './tab.scss?lit&inline';
  */
 export
 @customElement('sbb-tab')
-class SbbTabElement extends LitElement {
+class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
+  public static override role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
 
   /** The `sbb-tab-label` associated with the tab. */

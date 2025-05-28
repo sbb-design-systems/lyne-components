@@ -13,9 +13,7 @@ snapshots["sbb-journey-header renders DOM"] =
 
 snapshots["sbb-journey-header renders Shadow DOM"] = 
 `<sbb-title
-  aria-level="3"
   level="3"
-  role="heading"
   visual-level="5"
 >
   <span
@@ -58,10 +56,8 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative DOM"] =
 
 snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"] = 
 `<sbb-title
-  aria-level="1"
   level="1"
   negative=""
-  role="heading"
   visual-level="4"
 >
   <span

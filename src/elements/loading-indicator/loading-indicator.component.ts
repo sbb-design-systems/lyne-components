@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../core/decorators.js';
+import { SbbElementInternalsMixin } from '../core/mixins.js';
 
 import style from './loading-indicator.scss?lit&inline';
 
@@ -11,11 +11,8 @@ import style from './loading-indicator.scss?lit&inline';
  */
 export
 @customElement('sbb-loading-indicator')
-@hostAttributes({
-  role: 'progressbar',
-  'aria-busy': 'true',
-})
-class SbbLoadingIndicatorElement extends LitElement {
+class SbbLoadingIndicatorElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'progressbar';
   public static override styles: CSSResultGroup = style;
 
   /** Size variant, either s or m. */
@@ -23,6 +20,11 @@ class SbbLoadingIndicatorElement extends LitElement {
 
   /** Color variant. */
   @property({ reflect: true }) public accessor color: 'default' | 'smoke' | 'white' = 'default';
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.internals.ariaBusy = 'true';
+  }
 
   protected override render(): TemplateResult {
     return html`

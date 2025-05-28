@@ -33,10 +33,8 @@ snapshots["sbb-message renders Shadow DOM"] =
   <slot name="image">
   </slot>
   <sbb-title
-    aria-level="3"
     class="sbb-message__title"
     level="3"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -67,10 +65,8 @@ snapshots["sbb-message renders without optional slots Shadow DOM"] =
   <slot name="image">
   </slot>
   <sbb-title
-    aria-level="3"
     class="sbb-message__title"
     level="3"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">

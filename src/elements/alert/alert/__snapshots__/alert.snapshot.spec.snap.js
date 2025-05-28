@@ -30,11 +30,9 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
       </span>
       <span class="sbb-alert__content">
         <sbb-title
-          aria-level="3"
           class="sbb-alert__title"
           level="3"
           negative=""
-          role="heading"
           visual-level="5"
         >
           <slot name="title">
@@ -52,7 +50,6 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
           class="sbb-alert__close-button-divider"
           negative=""
           orientation="vertical"
-          role="separator"
         >
         </sbb-divider>
         <sbb-transparent-button
@@ -116,11 +113,9 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
       </span>
       <span class="sbb-alert__content">
         <sbb-title
-          aria-level="2"
           class="sbb-alert__title"
           level="2"
           negative=""
-          role="heading"
           visual-level="3"
         >
           <slot name="title">
@@ -138,7 +133,6 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
           class="sbb-alert__close-button-divider"
           negative=""
           orientation="vertical"
-          role="separator"
         >
         </sbb-divider>
         <sbb-transparent-button

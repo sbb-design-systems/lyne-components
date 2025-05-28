@@ -39,10 +39,8 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
         </slot>
       </sbb-chip-label>
       <sbb-title
-        aria-level="5"
         class="sbb-teaser__lead"
         level="5"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -97,10 +95,8 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
         </slot>
       </sbb-chip-label>
       <sbb-title
-        aria-level="2"
         class="sbb-teaser__lead"
         level="2"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -171,10 +167,8 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
         </slot>
       </sbb-chip-label>
       <sbb-title
-        aria-level="5"
         class="sbb-teaser__lead"
         level="5"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">

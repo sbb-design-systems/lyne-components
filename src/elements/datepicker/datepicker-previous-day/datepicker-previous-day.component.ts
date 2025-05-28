@@ -9,6 +9,7 @@ import style from './datepicker-previous-day.scss?lit&inline';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-datepicker-previous-day')

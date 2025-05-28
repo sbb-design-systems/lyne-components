@@ -2,6 +2,7 @@ import { LitElement } from 'lit';
 
 import { EventEmitter } from '../eventing.js';
 import type { SbbOpenedClosedState } from '../interfaces.js';
+import { SbbElementInternalsMixin } from '../mixins.js';
 
 /**
  * Base class for overlay components.
@@ -11,7 +12,7 @@ import type { SbbOpenedClosedState } from '../interfaces.js';
  * @event willClose - Emits whenever the component begins the closing transition. Can be canceled.
  * @event didClose - Emits whenever the component is closed.
  */
-export abstract class SbbOpenCloseBaseElement extends LitElement {
+export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(LitElement) {
   public static readonly events = {
     willOpen: 'willOpen',
     didOpen: 'didOpen',

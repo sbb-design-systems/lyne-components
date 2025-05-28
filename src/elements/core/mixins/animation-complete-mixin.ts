@@ -2,7 +2,7 @@ import type { LitElement } from 'lit';
 
 import type { AbstractConstructor } from './constructor.js';
 
-export declare class SbbAnimationCompleteMixinType {
+export declare abstract class SbbAnimationCompleteMixinType {
   public isAnimating: boolean;
   public get animationComplete(): Promise<void> | null;
   protected startAnimation(): void;

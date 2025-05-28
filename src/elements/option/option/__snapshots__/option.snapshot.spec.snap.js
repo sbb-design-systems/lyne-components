@@ -7,7 +7,6 @@ snapshots["sbb-option autocomplete renders selected DOM"] =
   data-slot-names="unnamed"
   data-variant="autocomplete"
   id="sbb-option-0"
-  role="option"
   selected=""
   value="1"
 >
@@ -41,7 +40,6 @@ snapshots["sbb-option autocomplete renders disabled DOM"] =
   data-variant="autocomplete"
   disabled=""
   id="sbb-option-2"
-  role="option"
   value="1"
 >
   Option 1

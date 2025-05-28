@@ -1,20 +1,16 @@
-import { isServer, LitElement, type CSSResultGroup, type PropertyDeclaration } from 'lit';
+import { type CSSResultGroup, isServer, LitElement, type PropertyDeclaration } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { readConfig } from '../core/config.js';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.js';
 import { plainDate, plainDateConverter } from '../core/decorators.js';
 import {
+  i18nDateInvalid,
   i18nDateMax,
   i18nDateMin,
-  i18nDateInvalid,
   i18nDatePickerPlaceholder,
 } from '../core/i18n.js';
-import {
-  SbbFormAssociatedInputMixin,
-  type FormRestoreReason,
-  type FormRestoreState,
-} from '../core/mixins.js';
+import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
 import style from './date-input.scss?lit&inline';
@@ -29,6 +25,7 @@ Object.assign(ValidityState.prototype, {
 
 /**
  * Custom input for a date.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-date-input')
@@ -38,7 +35,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   /**
    * The value of the date input. Reflects the current text value
    * of this input.
-   * @attr Accepts ISO8601 formatted values, which will be
+   * The attribute `value` Accepts ISO8601 formatted values, which will be
    * formatted according to the current locale.
    */
   public override set value(value: string) {
@@ -170,24 +167,6 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       // Used to notify the datepicker to update its state
       /** @internal */
       this.dispatchEvent(new Event('ɵchange'));
-    }
-  }
-
-  /**
-   *  Called when the browser is trying to restore element’s state to state in which case
-   *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
-   *  user in which case reason is "autocomplete".
-   *  In the case of "restore", state is a string, File, or FormData object
-   *  previously set as the second argument to setFormValue.
-   *
-   * @internal
-   */
-  public override formStateRestoreCallback(
-    state: FormRestoreState | null,
-    _reason: FormRestoreReason,
-  ): void {
-    if (state && typeof state === 'string') {
-      this.value = state;
     }
   }
 

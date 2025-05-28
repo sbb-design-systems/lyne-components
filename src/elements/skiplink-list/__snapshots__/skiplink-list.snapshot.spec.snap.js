@@ -4,12 +4,10 @@ export const snapshots = {};
 snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set"] = 
 `<div class="sbb-skiplink-list__wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-skiplink-list-title-id"
     level="2"
     negative=""
-    role="heading"
     visual-level="5"
     visually-hidden=""
   >
@@ -89,12 +87,10 @@ snapshots["sbb-skiplink-list renders DOM"] =
 snapshots["sbb-skiplink-list renders Shadow DOM"] = 
 `<div class="sbb-skiplink-list__wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-skiplink-list-title-id"
     level="2"
     negative=""
-    role="heading"
     visual-level="5"
     visually-hidden=""
   >
@@ -177,12 +173,10 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
 snapshots["sbb-skiplink-list renders with title Shadow DOM"] = 
 `<div class="sbb-skiplink-list__wrapper">
   <sbb-title
-    aria-level="3"
     class="sbb-link-list-title"
     id="sbb-skiplink-list-title-id"
     level="3"
     negative=""
-    role="heading"
     visual-level="5"
     visually-hidden=""
   >

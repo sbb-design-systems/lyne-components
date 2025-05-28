@@ -5,7 +5,11 @@ import { property, state } from 'lit/decorators.js';
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+} from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import '../../screen-reader-only.js';
@@ -30,8 +34,8 @@ const optionObserverConfig: MutationObserverInit = {
 
 export
 @slotState()
-abstract class SbbOptionBaseElement extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbHydrationMixin(LitElement)),
+abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
   protected abstract optionId: string;
 
@@ -42,12 +46,18 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
    * Due to this, it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
    */
   @property()
-  public set value(value: string) {
-    this.setAttribute('value', `${value}`);
+  public set value(value: T) {
+    if (typeof value === 'string') {
+      this.setAttribute('value', `${value}`);
+      this._value = null;
+    } else {
+      this._value = value;
+    }
   }
-  public get value(): string {
-    return this.getAttribute('value') ?? '';
+  public get value(): T {
+    return (this._value ?? this.getAttribute('value') ?? '') as T;
   }
+  private _value: T | null = null;
 
   /** Whether the option is selected. */
   @property({ type: Boolean })

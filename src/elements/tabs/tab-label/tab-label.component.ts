@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -20,7 +20,10 @@ import style from './tab-label.scss?lit&inline';
 export
 @customElement('sbb-tab-label')
 @slotState()
-class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+class SbbTabLabelElement extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public static override role = 'tab';
   public static override styles: CSSResultGroup = style;
 
   /**

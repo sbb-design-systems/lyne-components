@@ -5,17 +5,13 @@ import { html } from 'lit/static-html.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import {
-  SbbNegativeMixin,
-  type SbbNegativeMixinType,
-  type AbstractConstructor,
-} from '../../core/mixins.js';
+import { SbbNegativeMixin, type AbstractConstructor } from '../../core/mixins.js';
 
 import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
-export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixinType {
+export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixin(SbbActionBaseElement) {
   public accessor size: SbbLinkSize;
 }
 

@@ -2,9 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../core/decorators.js';
 import type { SbbOrientation } from '../core/interfaces.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
+import { SbbElementInternalsMixin, SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './divider.scss?lit&inline';
 
@@ -13,10 +12,8 @@ import style from './divider.scss?lit&inline';
  */
 export
 @customElement('sbb-divider')
-@hostAttributes({
-  role: 'separator',
-})
-class SbbDividerElement extends SbbNegativeMixin(LitElement) {
+class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
+  public static override readonly role = 'separator';
   public static override styles: CSSResultGroup = style;
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */

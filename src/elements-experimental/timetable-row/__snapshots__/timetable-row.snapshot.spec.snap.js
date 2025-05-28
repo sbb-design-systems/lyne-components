@@ -288,7 +288,6 @@ snapshots["sbb-timetable-row renders loading state Shadow DOM"] =
   <sbb-card-badge
     class="sbb-loading__badge"
     color="charcoal"
-    role="text"
     slot="badge"
   >
   </sbb-card-badge>

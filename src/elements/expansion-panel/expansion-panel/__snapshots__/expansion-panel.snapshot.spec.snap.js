@@ -24,7 +24,6 @@ snapshots["sbb-expansion-panel renders DOM"] =
     aria-labelledby="sbb-expansion-panel-header-1"
     data-size="l"
     id="sbb-expansion-panel-content-1"
-    role="region"
     slot="content"
   >
     Content
@@ -72,7 +71,6 @@ snapshots["sbb-expansion-panel renders size s DOM"] =
     aria-labelledby="sbb-expansion-panel-header-3"
     data-size="s"
     id="sbb-expansion-panel-content-3"
-    role="region"
     slot="content"
   >
     Content
@@ -121,7 +119,6 @@ snapshots["sbb-expansion-panel renders with level set DOM"] =
     aria-labelledby="sbb-expansion-panel-header-5"
     data-size="l"
     id="sbb-expansion-panel-content-5"
-    role="region"
     slot="content"
   >
     Content

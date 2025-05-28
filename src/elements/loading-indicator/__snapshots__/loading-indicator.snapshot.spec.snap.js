@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-loading-indicator renders with variant `window` DOM"] = 
 `<sbb-loading-indicator
-  aria-busy="true"
   color="default"
-  role="progressbar"
   size="s"
 >
 </sbb-loading-indicator>

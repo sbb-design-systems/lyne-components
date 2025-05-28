@@ -5,19 +5,16 @@ import { html } from 'lit/static-html.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
-import type { SbbIconNameMixinType } from '../../icon.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
-import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common.js';
+import { SbbLinkCommonElementMixin } from './link-common.js';
 // eslint-disable-next-line import-x/order
 import blockStyle from './block-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 
-export declare class SbbBlockLinkCommonElementMixinType
-  extends SbbLinkCommonElementMixinType
-  implements Partial<SbbIconNameMixinType>
-{
-  public accessor iconName: string;
+export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
+  SbbIconNameMixin(SbbActionBaseElement),
+) {
   public accessor iconPlacement: SbbIconPlacement;
 }
 

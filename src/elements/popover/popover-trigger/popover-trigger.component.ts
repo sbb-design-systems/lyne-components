@@ -12,6 +12,7 @@ import style from './popover-trigger.scss?lit&inline';
  * It can be used as a trigger for the `sbb-popover` component.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-popover-trigger')
