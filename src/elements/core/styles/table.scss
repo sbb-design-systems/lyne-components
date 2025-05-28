@@ -48,10 +48,6 @@ sbb-table-wrapper[negative] .sbb-table,
   @include table.table-header-cell;
 }
 
-.sbb-table-data-row {
-  @include table.table-data-row;
-}
-
 .sbb-table-row--striped {
   @include table.table-row--striped;
 }

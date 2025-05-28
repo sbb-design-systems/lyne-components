@@ -25,7 +25,7 @@ class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
 
   protected findAvailableDate(date: T): T {
     // When calling findAvailableDate, datepickerElement is always defined.
-    return this.datePickerElement!.findNextAvailableDate(date);
+    return this.datepicker!.findNextAvailableDate(date);
   }
 }
 

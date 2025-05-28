@@ -2,7 +2,7 @@ import { isServer, type LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
-import { SbbConnectedAbortController, SbbLanguageController } from '../controllers.js';
+import { SbbLanguageController } from '../controllers.js';
 import { i18nSelectionRequired } from '../i18n.js';
 
 import type { AbstractConstructor } from './constructor.js';
@@ -33,8 +33,6 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbD
   public accessor checked: boolean;
 
   protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonMixinType>;
-  /** @deprecated No longer used internally. */
-  protected abort: SbbConnectedAbortController;
 
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
@@ -96,9 +94,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
     public override get type(): string {
       return 'radio';
     }
-
-    /** @deprecated No longer used internally. */
-    protected abort = new SbbConnectedAbortController(this);
 
     /**
      * Set of radio buttons that belongs to the same group of `this`.

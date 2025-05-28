@@ -12,7 +12,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController, SbbEscapableOverlayController } from '../core/controllers.js';
+import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, hostAttributes, idReference } from '../core/decorators.js';
 import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
@@ -97,8 +97,6 @@ abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
-  /** @deprecated No longer used internally. */
-  protected abort = new SbbConnectedAbortController(this);
   private _originResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,

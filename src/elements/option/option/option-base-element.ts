@@ -97,7 +97,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     this.addController(
       new MutationController(this, {
         config: optionObserverConfig,
-        callback: (mutationsList) => this.onOptionAttributesChange(mutationsList),
+        callback: (mutationsList) => this.onExternalMutation(mutationsList),
       }),
     );
 
@@ -192,11 +192,6 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   private _updateAriaSelected(): void {
     this.setAttribute('aria-selected', `${this.selected}`);
-  }
-
-  /** @deprecated use onExternalMutation() as replacement. Will be removed with next major change. */
-  protected onOptionAttributesChange(mutationsList: MutationRecord[]): void {
-    this.onExternalMutation(mutationsList);
   }
 
   /** Observe changes on data attributes + slotted content and set the appropriate values. */
