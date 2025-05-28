@@ -13,7 +13,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
-import { forceType, hostAttributes, idReference } from '../core/decorators.js';
+import { forceType, idReference } from '../core/decorators.js';
 import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
@@ -32,11 +32,7 @@ import style from './autocomplete-base-element.scss?lit&inline';
  */
 const ariaRoleOnHost = isSafari;
 
-export
-@hostAttributes({
-  popover: 'manual',
-})
-abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
+export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -193,6 +189,7 @@ abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   }
 
   public override connectedCallback(): void {
+    this.popover = 'manual';
     super.connectedCallback();
     if (ariaRoleOnHost) {
       this.id ||= this.overlayId;
