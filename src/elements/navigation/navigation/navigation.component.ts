@@ -325,7 +325,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.popover ||= 'manual';
+    this.popover = 'manual';
     this.id ||= `sbb-navigation-${nextId++}`;
     if (this.hasUpdated) {
       this._configureTrigger();
