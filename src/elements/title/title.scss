@@ -9,6 +9,7 @@
   );
 
   color: var(--sbb-title-text-color-normal);
+  display: block;
 }
 
 :host([visually-hidden]) {
