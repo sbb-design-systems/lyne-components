@@ -45,7 +45,7 @@
     }
   }
 
-  ::slotted([role='tabpanel']:focus-visible) {
+  ::slotted(sbb-tab:focus-visible) {
     @include sbb.focus-outline;
   }
 }
