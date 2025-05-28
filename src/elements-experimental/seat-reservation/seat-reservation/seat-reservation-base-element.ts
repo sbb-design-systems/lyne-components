@@ -100,6 +100,8 @@ export class SeatReservationBaseElement extends LitElement {
   protected preventCoachScrollByPlaceClick: boolean = false;
   protected selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
   protected seatReservationWithoutNavigationHasFocus = false;
+  protected isCochGridFocusable = false;
+  protected isAutoScrolling = false;
   protected isKeyboardNavigation = false;
   protected keyboardNavigationEvents = {
     ArrowLeft: 'ArrowLeft',
@@ -171,8 +173,9 @@ export class SeatReservationBaseElement extends LitElement {
 
       // At the end of a scroll Events to a coach, the reached wagon is marked as selected
       this.coachScrollArea.addEventListener('scrollend', () => {
-        //Update current and selected coach index only, if selected
-        const findScrollCoachIndex = this._getCoachIndexByScrollTriggerPosition();
+        const findScrollCoachIndex = this.isAutoScrolling
+          ? this.currSelectedCoachIndex
+          : this._getCoachIndexByScrollTriggerPosition();
         if (this._isScrollableToSelectedCoach()) {
           this.currSelectedCoachIndex = findScrollCoachIndex;
         } else {
@@ -187,6 +190,7 @@ export class SeatReservationBaseElement extends LitElement {
 
         if (!this.hasNavigation) {
           this.preselectPlaceInCoach();
+          this.isAutoScrolling = false;
         }
       });
 
@@ -281,10 +285,20 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
+  /**
+   * Selects a place inside the coach if navigated via keyboard,
+   * otherwise the coach grid is selected (necessary for ScreenReader)
+   */
   protected preselectPlaceInCoach(): void {
     const closestPlace = this._getClosestPlaceByKeyDirection();
-    // Only when keyboard navigation is used, we set the focus on the first place in the coach.
-    if (this.isKeyboardNavigation) {
+    //If closestPlace exist, we have to unfocus previouse focused place
+    if (closestPlace) {
+      this.unfocusPlaceElement();
+    }
+
+    // Only when keyboard navigation is used and coaches are scrolled by auto scrolling,
+    // then we can set the focus on the first place in the coach.
+    if (this.isKeyboardNavigation && this.isAutoScrolling) {
       if (closestPlace) {
         this.focusPlaceElement(closestPlace);
       }
@@ -300,9 +314,11 @@ export class SeatReservationBaseElement extends LitElement {
 
   protected scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
     if (selectedNavCoachIndex !== this.currSelectedCoachIndex) {
-      // Set the current scroll move direction
-      this._setScrollDirection(selectedNavCoachIndex);
+      this.isAutoScrolling = true;
+      this.isCochGridFocusable = true;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
+      this._setScrollDirectionByCoachIndex();
+
       const scrollToCoachPosX = this._getCoachScrollPositionX();
       const isSelectedCoachIndexScrollable =
         this.selectedCoachIndex !== -1 || this.currSelectedCoachIndex > 0;
@@ -323,9 +339,11 @@ export class SeatReservationBaseElement extends LitElement {
   /**
    * Sets the new ScrollDirection by the new given target coach index.
    */
-  private _setScrollDirection(targetCoachIndex: number): void {
+  private _setScrollDirectionByCoachIndex(): void {
     this.currScrollDirection =
-      this.currSelectedCoachIndex < targetCoachIndex ? ScrollDirection.right : ScrollDirection.left;
+      this.currSelectedCoachIndex > this.selectedCoachIndex
+        ? ScrollDirection.right
+        : ScrollDirection.left;
   }
 
   /**
@@ -340,7 +358,6 @@ export class SeatReservationBaseElement extends LitElement {
       this.isKeyboardNavigation &&
       this.currScrollDirection === ScrollDirection.left &&
       coachTriggerPoint.width > this.scrollCoachsAreaWidth;
-
     return isFocusPlaceFromPreviousCoachPosition
       ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
       : coachTriggerPoint.start;
@@ -350,12 +367,15 @@ export class SeatReservationBaseElement extends LitElement {
    * Sets the focus on the HTML table (grid) caption element so that the heading is read out when using a ScreenReader.
    */
   private _setFocusToSelectedCoachGrid(): void {
-    const coachTableCaptionElement = this.shadowRoot?.querySelector(
-      '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
-    ) as HTMLTableCaptionElement;
-
-    if (coachTableCaptionElement) {
-      coachTableCaptionElement.focus();
+    // When the user performs an action that affects the coach navigation, then the navigated table is focusable.
+    if (this.isCochGridFocusable) {
+      this.isCochGridFocusable = false;
+      const coachTableCaptionElement = this.shadowRoot?.querySelector(
+        '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
+      ) as HTMLTableCaptionElement;
+      if (coachTableCaptionElement) {
+        coachTableCaptionElement.focus();
+      }
     }
   }
 
@@ -364,13 +384,16 @@ export class SeatReservationBaseElement extends LitElement {
    * @returns boolean
    */
   private _isScrollableToSelectedCoach(): boolean {
+    const currScrollPosX = this.coachScrollArea.scrollLeft;
     const coachScrollWindowWidth = this.coachScrollArea.getBoundingClientRect().width;
     const maxScrollWidthArea = this.maxCalcCoachsWidth - coachScrollWindowWidth;
     const currCoachTrigger = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
+    const isScrollPosSameToCurrCoachPos =
+      currScrollPosX === this.triggerCoachPositionsCollection[this.currSelectedCoachIndex].start;
 
     return (
-      this.coachScrollArea.scrollLeft < maxScrollWidthArea ||
-      this.coachScrollArea.scrollLeft > currCoachTrigger.start
+      (currScrollPosX < maxScrollWidthArea || currScrollPosX > currCoachTrigger.start) &&
+      !isScrollPosSameToCurrCoachPos
     );
   }
 
@@ -379,7 +402,7 @@ export class SeatReservationBaseElement extends LitElement {
    * @returns number
    */
   private _getCoachIndexByScrollTriggerPosition(): number {
-    const scrollOffsetX = this.coachScrollArea.scrollLeft + this.scrollCoachsAreaWidth / 4;
+    const scrollOffsetX = this.coachScrollArea.scrollLeft + this.scrollCoachsAreaWidth / 2;
     return this.triggerCoachPositionsCollection.findIndex(
       (coachTrigger) => scrollOffsetX >= coachTrigger.start && scrollOffsetX <= coachTrigger.end,
     );
@@ -595,7 +618,8 @@ export class SeatReservationBaseElement extends LitElement {
         ? selectedPlaceElement.getAttribute('keyfocus') === 'focus'
         : false;
 
-      //If we tab back (PREV_TAB) and the focus is currently on place, we remove the selected state from the currently selected navigation coach and only set the focus status to it
+      // If we tab back (PREV_TAB) and the focus is currently on place,
+      // we remove the selected state from the currently selected navigation coach and only set the focus status to it
       if (tabDirection === 'PREV_TAB' && this.selectedCoachIndex === currFocusIndex) {
         if (placeInCoachHasFocus) {
           this.focusedCoachIndex = currFocusIndex;
@@ -610,11 +634,13 @@ export class SeatReservationBaseElement extends LitElement {
       } else {
         this.focusedCoachIndex = -1;
         this.selectedCoachIndex = newFocusableIndex;
-
         //If any place was focused in coach, so we set focused again
         if (placeInCoachHasFocus) {
           this.focusPlaceElement(this.currSelectedPlace);
-        } else {
+        }
+        //If no place was selected, then we select the coach grid
+        else {
+          this.isCochGridFocusable = true;
           this._setFocusToSelectedCoachGrid();
         }
       }
@@ -652,6 +678,7 @@ export class SeatReservationBaseElement extends LitElement {
             pressedKey === this.keyboardNavigationEvents.ArrowRight
               ? this.getNextAvailableCoachIndex()
               : this.getPrevAvailableCoachIndex();
+
           this.scrollToSelectedNavCoach(newSelectedCoachIndex);
         }
       }
@@ -701,7 +728,6 @@ export class SeatReservationBaseElement extends LitElement {
     if (!place) return;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
-
     if (this.currSelectedCoachIndex !== this.selectedCoachIndex) {
       this.updateCurrentSelectedCoach();
     }
@@ -712,9 +738,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected updateCurrentSelectedCoach(): void {
     this.selectedCoachIndex = this.currSelectedCoachIndex;
     this.focusedCoachIndex = -1;
-
     const coachSelection = this._getSeatReservationCoachSelection(this.selectedCoachIndex);
-
     if (coachSelection) {
       this.selectedCoach.emit(coachSelection);
     }
