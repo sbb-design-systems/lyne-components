@@ -6,7 +6,6 @@ snapshots["sbb-compact-paginator renders DOM"] =
   length="50"
   page-size="5"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-compact-paginator>

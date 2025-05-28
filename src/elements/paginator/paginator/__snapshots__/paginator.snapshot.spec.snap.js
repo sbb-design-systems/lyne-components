@@ -6,7 +6,6 @@ snapshots["sbb-paginator renders DOM"] =
   length="4"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -72,7 +71,6 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
   length="50"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -188,7 +186,6 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
   page-index="10"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -304,7 +301,6 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
   page-index="7"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -424,7 +420,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
   length="50"
   page-size="10"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -599,7 +594,6 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
   length="50"
   page-size="10"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
