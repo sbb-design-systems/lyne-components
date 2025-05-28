@@ -6,14 +6,14 @@ import { SbbConnectedAbortController, SbbLanguageController } from '../controlle
 import { i18nSelectionRequired } from '../i18n.js';
 
 import type { AbstractConstructor } from './constructor.js';
-import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
+import { SbbDisabledMixin } from './disabled-mixin.js';
+import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
-import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
+import { SbbRequiredMixin } from './required-mixin.js';
 
 /**
  * A static registry that holds a collection of grouped `radio-buttons`.
@@ -27,13 +27,10 @@ export const radioButtonRegistry = new WeakMap<
   Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>
 >();
 
-export declare abstract class SbbFormAssociatedRadioButtonMixinType
-  extends SbbFormAssociatedMixinType
-  implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
-{
+export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbDisabledMixin(
+  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+) {
   public accessor checked: boolean;
-  public accessor disabled: boolean;
-  public accessor required: boolean;
 
   protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonMixinType>;
   /** @deprecated No longer used internally. */
@@ -42,9 +39,6 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
-  protected isDisabledExternally(): boolean;
-  protected isRequiredExternally(): boolean;
-  protected withUserInteraction?(): void;
   protected updateFormValue(): void;
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
@@ -59,9 +53,13 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> & T => {
   abstract class SbbFormAssociatedRadioButtonElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
+    extends SbbDisabledMixin(
+      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
+    )
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
+    public static override readonly role = 'radio';
+
     /**
      * Whether the radio button is checked.
      */
@@ -112,8 +110,6 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
 
     protected constructor() {
       super();
-      /** @internal */
-      this.internals.role = 'radio';
       this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
     }
 

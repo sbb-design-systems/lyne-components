@@ -9,6 +9,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
+  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
 } from '../core/mixins.js';
@@ -31,8 +32,9 @@ export
   tabindex: '0',
 })
 class SbbSliderElement extends SbbDisabledMixin(
-  SbbReadonlyMixin(SbbFormAssociatedMixin(LitElement)),
+  SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
 ) {
+  public static override readonly role = 'slider';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -134,8 +136,6 @@ class SbbSliderElement extends SbbDisabledMixin(
 
   public constructor() {
     super();
-    /** @internal */
-    this.internals.role = 'slider';
     this.addEventListener?.('keydown', (e) => this._handleKeydown(e));
   }
 

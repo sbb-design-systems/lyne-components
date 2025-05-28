@@ -6,35 +6,26 @@ import { hostAttributes } from '../decorators.js';
 import { preventScrollOnSpacebarPress } from '../eventing.js';
 import { i18nCheckboxRequired } from '../i18n.js';
 
-import type { Constructor } from './constructor.js';
-import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
+import type { AbstractConstructor } from './constructor.js';
+import { SbbDisabledMixin } from './disabled-mixin.js';
+import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 import {
   SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
-import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
+import { SbbRequiredMixin } from './required-mixin.js';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
 
-export declare abstract class SbbFormAssociatedCheckboxMixinType
-  extends SbbFormAssociatedMixinType
-  implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
-{
-  public get checked(): boolean;
-  public set checked(value: boolean);
-
-  public set disabled(value: boolean);
-  public get disabled(): boolean;
-
-  public set required(value: boolean);
-  public get required(): boolean;
+export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisabledMixin(
+  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+) {
+  public accessor checked: boolean;
 
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
-  protected isDisabledExternally(): boolean;
   protected isRequiredExternally(): boolean;
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
@@ -46,16 +37,20 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType
  * Inherited classes MUST implement the ariaChecked state (ElementInternals) themselves.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedCheckboxMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbFormAssociatedCheckboxMixinType> & T => {
+): AbstractConstructor<SbbFormAssociatedCheckboxMixinType> & T => {
   @hostAttributes({
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
+    extends SbbDisabledMixin(
+      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
+    )
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
+    public static override readonly role = 'checkbox';
+
     private _attributeMutationBlocked = false;
     private _languageController = new SbbLanguageController(this);
 
@@ -101,9 +96,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     protected constructor() {
       super();
-      /** @internal */
-      this.internals.role = 'checkbox';
-
       this.addEventListener?.('click', this._handleUserInteraction);
       this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
       this.addEventListener?.('keyup', this._handleKeyboardInteraction);
@@ -203,6 +195,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
     };
   }
 
-  return SbbFormAssociatedCheckboxElement as unknown as Constructor<SbbFormAssociatedCheckboxMixinType> &
+  return SbbFormAssociatedCheckboxElement as unknown as AbstractConstructor<SbbFormAssociatedCheckboxMixinType> &
     T;
 };

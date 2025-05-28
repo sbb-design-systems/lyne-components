@@ -5,7 +5,11 @@ import { property, state } from 'lit/decorators.js';
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import type { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+} from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import '../../screen-reader-only.js';
@@ -31,7 +35,7 @@ const optionObserverConfig: MutationObserverInit = {
 export
 @slotState()
 abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbHydrationMixin(LitElement)),
+  SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
   protected abstract optionId: string;
 

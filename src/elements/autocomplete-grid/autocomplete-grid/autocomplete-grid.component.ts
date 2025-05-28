@@ -2,7 +2,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { getNextElementIndex } from '../../core/a11y.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
@@ -33,10 +32,8 @@ const ariaRoleOnHost = isSafari;
  */
 export
 @customElement('sbb-autocomplete-grid')
-@hostAttributes({
-  role: ariaRoleOnHost ? 'grid' : null,
-})
 class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly role = ariaRoleOnHost ? 'grid' : null;
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeItemIndex = -1;

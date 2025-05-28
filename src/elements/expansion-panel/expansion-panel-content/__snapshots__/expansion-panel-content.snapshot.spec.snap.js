@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-expansion-panel-content renders DOM"] = 
-`<sbb-expansion-panel-content
-  role="region"
-  slot="content"
->
+`<sbb-expansion-panel-content slot="content">
   Content
 </sbb-expansion-panel-content>
 `;

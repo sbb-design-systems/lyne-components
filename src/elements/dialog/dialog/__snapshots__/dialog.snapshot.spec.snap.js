@@ -8,9 +8,7 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
   popover="manual"
 >
   <sbb-dialog-title
-    aria-level="2"
     level="2"
-    role="heading"
     visual-level="3"
   >
     Title

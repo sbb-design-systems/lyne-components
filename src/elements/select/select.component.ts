@@ -8,12 +8,7 @@ import { until } from 'lit/directives/until.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.js';
-import {
-  forceType,
-  getOverride,
-  handleDistinctChange,
-  hostAttributes,
-} from '../core/decorators.js';
+import { forceType, getOverride, handleDistinctChange } from '../core/decorators.js';
 import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nSelectionRequired } from '../core/i18n.js';
@@ -66,9 +61,6 @@ export interface SelectChange<T = string> {
  */
 export
 @customElement('sbb-select')
-@hostAttributes({
-  role: ariaRoleOnHost ? 'listbox' : null,
-})
 class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(
     SbbNegativeMixin(
@@ -82,6 +74,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     ),
   ),
 ) {
+  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   public static override styles: CSSResultGroup = style;
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600

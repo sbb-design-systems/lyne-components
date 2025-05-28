@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.js';
 
 import style from './icon-sidebar.scss?lit&inline';
@@ -12,7 +13,8 @@ import style from './icon-sidebar.scss?lit&inline';
  */
 export
 @customElement('sbb-icon-sidebar')
-class SbbIconSidebarElement extends LitElement {
+class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = style;
 
   /** Background color of the icon sidebar. Either `white` or `milk`. **/
@@ -22,13 +24,6 @@ class SbbIconSidebarElement extends LitElement {
   /** Returns the SbbIconSidebarContainerElement where this icon-sidebar is contained. */
   public get container(): SbbIconSidebarContainerElement | null {
     return this.closest('sbb-icon-sidebar-container');
-  }
-
-  public constructor() {
-    super();
-    const internals: ElementInternals = this.attachInternals();
-    /** @internal */
-    internals.role = 'navigation';
   }
 
   public override connectedCallback(): void {

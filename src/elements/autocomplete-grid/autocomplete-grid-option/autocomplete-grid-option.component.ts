@@ -1,7 +1,6 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbOptionBaseElement } from '../../option.js';
 
@@ -21,10 +20,8 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  */
 export
 @customElement('sbb-autocomplete-grid-option')
-@hostAttributes({
-  role: 'gridcell',
-})
 class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
+  public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     optionSelected: 'autocompleteOptionSelected',

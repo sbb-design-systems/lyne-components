@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-breadcrumb-group renders DOM"] = 
-`<sbb-breadcrumb-group
-  data-loaded=""
-  role="navigation"
->
+`<sbb-breadcrumb-group data-loaded="">
   <sbb-breadcrumb
     data-action=""
     data-link=""

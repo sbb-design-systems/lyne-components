@@ -344,14 +344,12 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     tabLabel.tabIndex = -1;
     tabLabel.disabled = tabLabel.hasAttribute('disabled');
     tabLabel.active = tabLabel.hasAttribute('active') && !tabLabel.disabled;
-    tabLabel.setAttribute('role', 'tab');
     tabLabel.setAttribute('aria-selected', String(tabLabel.active));
     tabLabel.addEventListener('click', () => {
       tabLabel.tabGroupActions?.select();
     });
     if (tabLabel.tab) {
       tabLabel.setAttribute('aria-controls', tabLabel.tab.id);
-      tabLabel.tab.setAttribute('role', 'tabpanel');
       tabLabel.tab.toggleAttribute('active', tabLabel.active);
     }
 

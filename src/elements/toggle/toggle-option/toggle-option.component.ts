@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
 
@@ -21,7 +21,10 @@ import style from './toggle-option.scss?lit&inline';
 export
 @customElement('sbb-toggle-option')
 @slotState()
-class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public static override readonly role = 'radio';
   public static override styles: CSSResultGroup = style;
 
   /** Whether the toggle-option is checked. */
@@ -37,10 +40,6 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(SbbIconNameMix
 
   public constructor() {
     super();
-    const internals: ElementInternals = this.attachInternals();
-    /** @internal */
-    internals.role = 'radio';
-
     // We need to listen input event on host as with keyboard navigation
     // the Input Event is triggered from sbb-toggle.
     this.addEventListener?.('input', () => this._handleInput());

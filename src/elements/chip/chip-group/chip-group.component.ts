@@ -17,6 +17,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
+  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
@@ -56,8 +57,9 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
 export
 @customElement('sbb-chip-group')
 class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
-  SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin<typeof LitElement>(LitElement))),
+  SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)))),
 ) {
+  public static override readonly role = 'listbox';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     input: 'input',
@@ -139,9 +141,6 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   public constructor() {
     super();
-
-    /** @internal */
-    this.internals.role = 'listbox';
 
     this.addEventListener?.(SbbChipElement.events.requestDelete, (ev) =>
       this._deleteChip(ev.target as SbbChipElement<T>),

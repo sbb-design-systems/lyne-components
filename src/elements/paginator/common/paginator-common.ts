@@ -2,20 +2,24 @@ import { html, type LitElement, type PropertyValues, type TemplateResult } from 
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
-import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import {
+  type AbstractConstructor,
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbNegativeMixin,
+} from '../../core/mixins.js';
 
 import '../../button/mini-button.js';
 import '../../button/mini-button-group.js';
 import '../../divider.js';
 
-export declare abstract class SbbPaginatorCommonElementMixinType {
-  public accessor negative: boolean;
-  public accessor disabled: boolean;
+export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
+  SbbDisabledMixin(SbbElementInternalsMixin(LitElement)),
+) {
   public accessor length: number;
   public accessor pageSize: number;
   public accessor pageIndex: number;
@@ -43,13 +47,11 @@ export declare abstract class SbbPaginatorCommonElementMixinType {
 export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
-  @hostAttributes({
-    role: 'group',
-  })
   abstract class SbbPaginatorCommonElement
-    extends SbbNegativeMixin(SbbDisabledMixin(superClass))
+    extends SbbNegativeMixin(SbbDisabledMixin(SbbElementInternalsMixin(superClass)))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
+    public static override role = 'group';
     public static readonly events: Record<string, string> = {
       page: 'page',
     } as const;

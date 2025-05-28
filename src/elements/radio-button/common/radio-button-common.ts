@@ -5,13 +5,14 @@ import {
   type AbstractConstructor,
   type Constructor,
   SbbFormAssociatedRadioButtonMixin,
-  type SbbFormAssociatedRadioButtonMixinType,
 } from '../../core/mixins.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
-export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixinType {
+export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixin(
+  LitElement,
+) {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
   public get group(): SbbRadioButtonGroupElement | null;

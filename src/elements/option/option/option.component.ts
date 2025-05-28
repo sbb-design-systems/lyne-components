@@ -2,7 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
 
 import { SbbOptionBaseElement } from './option-base-element.js';
@@ -24,10 +23,8 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
  */
 export
 @customElement('sbb-option')
-@hostAttributes({
-  role: 'option',
-})
 class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
+  public static override readonly role = 'option';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
