@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { hostAttributes } from '../../core/decorators.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
 import type { SbbCardElement } from '../card.js';
 
@@ -24,9 +23,6 @@ export const SbbCardActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbCardActionCommonElementMixinType> & T => {
-  @hostAttributes({
-    slot: 'action',
-  })
   abstract class SbbCardActionCommonElement
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
@@ -76,6 +72,7 @@ export const SbbCardActionCommonElementMixin = <
       super.connectedCallback();
       this._card = this.closest?.('sbb-card');
       if (this._card) {
+        this.slot ||= 'action';
         this._card.toggleAttribute('data-has-action', true);
         this._card.toggleAttribute('data-has-active-action', this.active);
         this._card.setAttribute('data-action-role', this.actionRole);
