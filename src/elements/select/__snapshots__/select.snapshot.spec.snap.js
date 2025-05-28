@@ -241,6 +241,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
       <div
         class="sbb-select__options"
         id="sbb-select-2"
+        role="listbox"
       >
         <slot>
         </slot>
@@ -346,6 +347,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
         aria-multiselectable=""
         class="sbb-select__options"
         id="sbb-select-5"
+        role="listbox"
       >
         <slot>
         </slot>

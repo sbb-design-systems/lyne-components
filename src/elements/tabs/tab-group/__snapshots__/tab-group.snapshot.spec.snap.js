@@ -9,7 +9,6 @@ snapshots["sbb-tab-group renders DOM"] =
     aria-selected="true"
     data-size="l"
     data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="0"
   >
@@ -27,7 +26,6 @@ snapshots["sbb-tab-group renders DOM"] =
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -45,7 +43,6 @@ snapshots["sbb-tab-group renders DOM"] =
     data-size="l"
     data-slot-names="unnamed"
     disabled=""
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -62,7 +59,6 @@ snapshots["sbb-tab-group renders DOM"] =
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >

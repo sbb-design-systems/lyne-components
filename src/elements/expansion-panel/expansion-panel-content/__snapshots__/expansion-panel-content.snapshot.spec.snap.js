@@ -2,9 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-expansion-panel-content renders DOM"] = 
-`<sbb-expansion-panel-content
-  slot="content"
->
+`<sbb-expansion-panel-content slot="content">
   Content
 </sbb-expansion-panel-content>
 `;

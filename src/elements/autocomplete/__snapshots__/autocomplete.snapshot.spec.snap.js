@@ -199,6 +199,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
       <div
         class="sbb-autocomplete__options"
         id="sbb-autocomplete-2"
+        role="listbox"
       >
         <slot>
         </slot>

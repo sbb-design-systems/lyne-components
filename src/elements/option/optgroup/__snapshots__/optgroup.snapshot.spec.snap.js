@@ -115,7 +115,6 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
   aria-label="Label"
   data-variant="autocomplete"
   label="Label"
-  role="group"
 >
   <sbb-option
     aria-selected="false"
@@ -194,7 +193,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
   data-variant="autocomplete"
   disabled=""
   label="Label"
-  role="group"
 >
   <sbb-option
     aria-disabled="true"
