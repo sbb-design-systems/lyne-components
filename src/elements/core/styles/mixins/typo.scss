@@ -12,7 +12,7 @@
     --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
   }
 
-  margin: 0;
+  margin-inline: 0;
   margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
@@ -21,15 +21,11 @@
   font-size: var(--sbb-title-font-size);
 }
 
-@mixin title-1($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
+@mixin title-1 {
   --sbb-title-font-size: var(--sbb-font-size-title-1);
 }
 
 @mixin title-2($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
   --sbb-title-font-size: var(--sbb-font-size-title-2);
 
   @if not($exclude-spacing) {
@@ -38,8 +34,6 @@
 }
 
 @mixin title-3($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
   --sbb-title-font-size: var(--sbb-font-size-title-3);
 
   @if not($exclude-spacing) {
@@ -48,8 +42,6 @@
 }
 
 @mixin title-4($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
   --sbb-title-font-size: var(--sbb-font-size-title-4);
 
   @if not($exclude-spacing) {
@@ -58,8 +50,6 @@
 }
 
 @mixin title-5($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
   --sbb-title-font-size: var(--sbb-font-size-title-5);
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 
@@ -69,8 +59,6 @@
 }
 
 @mixin title-6($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
   --sbb-title-font-size: var(--sbb-font-size-title-6);
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 

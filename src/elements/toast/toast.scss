@@ -114,6 +114,7 @@
 }
 
 .sbb-toast__content {
+  @include sbb.title($exclude-spacing: true);
   @include sbb.title-6($exclude-spacing: true);
 
   color: var(--sbb-toast-text-color);

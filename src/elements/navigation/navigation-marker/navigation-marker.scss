@@ -35,6 +35,7 @@
 
 .sbb-navigation-marker {
   @include sbb.list-reset;
+  @include sbb.title($exclude-spacing: true);
   @include sbb.title-4($exclude-spacing: true);
 
   position: relative;

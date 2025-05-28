@@ -1,0 +1,158 @@
+@use '../core/styles' as sbb;
+
+@mixin rules {
+  // rules for size s
+  html.sbb-lean {
+    sbb-title {
+      &:is([level='1']:not([visual-level]), [visual-level='1']) {
+        --sbb-title-font-size: var(--sbb-font-size-title-2);
+
+        &:not([visually-hidden]) {
+          --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+          --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+        }
+      }
+
+      &:is([level='2']:not([visual-level]), [visual-level='2']) {
+        --sbb-title-font-size: var(--sbb-font-size-title-3);
+
+        &:not([visually-hidden]) {
+          --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+          --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+
+          @include sbb.mq($from: medium) {
+            --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+          }
+        }
+      }
+
+      &:is([level='3']:not([visual-level]), [visual-level='3']) {
+        --sbb-title-font-size: var(--sbb-font-size-title-4);
+
+        &:not([visually-hidden]) {
+          --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+          --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+
+          @include sbb.mq($from: medium) {
+            --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+          }
+        }
+      }
+
+      &:is([level='4']:not([visual-level]), [visual-level='4']) {
+        --sbb-title-font-size: var(--sbb-font-size-title-5);
+
+        &:not([visually-hidden]) {
+          --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+          --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+
+          @include sbb.mq($from: medium) {
+            --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+          }
+        }
+      }
+
+      &:is([level='5']:not([visual-level]), [visual-level='5']) {
+        --sbb-title-font-size: var(--sbb-font-size-title-6);
+        --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+
+        &:not([visually-hidden]) {
+          --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+          --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+
+          @include sbb.mq($from: medium) {
+            --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+          }
+        }
+      }
+
+      &:is([level='6']:not([visual-level]), [visual-level='6']) {
+        --sbb-title-font-size: var(--sbb-font-size-title-7);
+        --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+
+        &:not([visually-hidden]) {
+          --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+          --sbb-title-margin-block-end: 0;
+
+          @include sbb.mq($from: medium) {
+            --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+          }
+        }
+      }
+    }
+  }
+
+  sbb-title {
+    @include sbb.title($exclude-spacing: false);
+
+    --sbb-title-text-color-normal: var(
+      --sbb-title-text-color-normal-override,
+      var(--sbb-color-charcoal)
+    );
+
+    color: var(--sbb-title-text-color-normal);
+
+    &[visually-hidden] {
+      --sbb-title-margin-block-start: 0;
+      --sbb-title-margin-block-end: 0;
+    }
+
+    &[negative] {
+      @include sbb.title--negative;
+    }
+
+    &[id] {
+      @include sbb.scroll-margin-block-start;
+    }
+
+    &:is([level='1']:not([visual-level]), [visual-level='1']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-1);
+
+      &:not([visually-hidden]) {
+        --sbb-title-margin-block-start: var(--sbb-spacing-responsive-l);
+      }
+    }
+
+    &:is([level='2']:not([visual-level]), [visual-level='2']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-2);
+
+      &:not([visually-hidden]) {
+        --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+      }
+    }
+
+    &:is([level='3']:not([visual-level]), [visual-level='3']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-3);
+
+      &:not([visually-hidden]) {
+        --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+      }
+    }
+
+    &:is([level='4']:not([visual-level]), [visual-level='4']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-4);
+
+      &:not([visually-hidden]) {
+        --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+      }
+    }
+
+    &:is([level='5']:not([visual-level]), [visual-level='5']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-5);
+      --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+
+      &:not([visually-hidden]) {
+        --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+      }
+    }
+
+    &:is([level='6']:not([visual-level]), [visual-level='6']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-6);
+      --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+
+      &:not([visually-hidden]) {
+        --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+      }
+    }
+  }
+}
