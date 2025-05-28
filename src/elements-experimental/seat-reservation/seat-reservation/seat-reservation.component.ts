@@ -202,32 +202,26 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
-    return html`
-      <sbb-seat-reservation-scoped
-        scoped-classes="coach-wrapper"
-        height="${calculatedCoachDimension.h}px"
-        width="${calculatedCoachDimension.w}px"
+    return html` <sbb-seat-reservation-scoped
+      scoped-classes="coach-wrapper"
+      height="${calculatedCoachDimension.h}px"
+      width="${calculatedCoachDimension.w}px"
+    >
+      ${this._getRenderedCoachBorders(coachItem, index)}
+      ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
+      ${this._getRenderedServiceElements(coachItem.serviceElements)}
+      <table
+        @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
+        id="sbb-sr-coach-${index}"
+        class="sbb-sr-coach-wrapper__table"
+        aria-describedby="sbb-sr-coach-caption-${index}"
       >
-        ${this._getRenderedCoachBorders(coachItem, index)}
-        ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
-        ${this._getRenderedServiceElements(coachItem.serviceElements)}
-        ${coachItem.places?.length
-          ? html`<table
-              @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
-              id="sbb-sr-coach-${index}"
-              class="coach-wrapper__table"
-              aria-describedby="sbb-sr-coach-caption-${index}"
-            >
-              <caption id="sbb-sr-coach-caption-${index}" tabindex="-1">
-                <sbb-screen-reader-only
-                  >${descriptionTableCoachWithServices}</sbb-screen-reader-only
-                >
-              </caption>
-              ${this._getRenderedRowPlaces(coachItem, index)}
-            </table>`
-          : nothing}
-      </sbb-seat-reservation-scoped>
-    `;
+        <caption id="sbb-sr-coach-caption-${index}" tabindex="-1">
+          <sbb-screen-reader-only>${descriptionTableCoachWithServices}</sbb-screen-reader-only>
+        </caption>
+        ${this._getRenderedRowPlaces(coachItem, index)}
+      </table>
+    </sbb-seat-reservation-scoped>`;
   }
 
   private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
@@ -519,10 +513,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    */
   private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
     const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
-
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
-
+    this.isCochGridFocusable = false;
     if (!this.preventPlaceClick) {
       // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);
@@ -549,6 +542,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     } else {
       this.focusPlaceElement(this.currSelectedPlace);
     }
+    this.isAutoScrolling = false;
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem): string {
