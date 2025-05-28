@@ -10,12 +10,17 @@
 :host {
   @include sbb.options-panel-overlay-variables;
 
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
   --sbb-options-panel-internal-z-index: var(
     --sbb-select-z-index,
     var(--sbb-overlay-default-z-index)
   );
 
   display: block;
+}
+
+:host([size='s']) {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
 }
 
 :host([negative]) {
@@ -153,10 +158,6 @@
 .sbb-select__options {
   @include sbb.optionsOverlay;
   @include sbb.scrollbar-rules;
-
-  & {
-    padding-block: var(--sbb-spacing-fixed-2x);
-  }
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;

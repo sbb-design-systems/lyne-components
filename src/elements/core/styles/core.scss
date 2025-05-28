@@ -171,6 +171,19 @@ sbb-form-field {
   }
 }
 
+:is(sbb-form-field[size='s'] sbb-select, sbb-select[size='s']) :is(sbb-option) {
+  --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);
+}
+
+:is(sbb-form-field[size='s'] sbb-select, sbb-select[size='s']) :is(sbb-optgroup) {
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+
+  &:first-child {
+    --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
+  }
+}
+
 :is(sbb-form-field[size='s'] sbb-autocomplete, sbb-autocomplete[size='s'])
   :is(sbb-option, sbb-autocomplete-grid-option) {
   --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);

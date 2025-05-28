@@ -521,8 +521,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   }
 
   private _syncSize(): void {
-    this.querySelectorAll?.<SbbAutocompleteBaseElement>(
-      'sbb-autocomplete,sbb-autocomplete-grid',
+    this.querySelectorAll?.<SbbAutocompleteBaseElement | SbbSelectElement>(
+      'sbb-autocomplete,sbb-autocomplete-grid,sbb-select',
     ).forEach((element) => (element.size = this.size === 's' ? 's' : 'm'));
   }
 
