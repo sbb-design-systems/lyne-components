@@ -37,14 +37,6 @@ const ariaRoleOnHost = isSafari;
 let nextId = 0;
 
 /**
- * @deprecated will be removed with next major version
- */
-export interface SelectChange<T = string> {
-  type: 'value';
-  value: T | T[];
-}
-
-/**
  * It displays a panel with selectable options.
  *
  * @slot - Use the unnamed slot to add options.

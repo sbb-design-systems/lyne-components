@@ -33,25 +33,6 @@ class SbbDatepickerToggleElement<T = Date>
 {
   public static override styles: CSSResultGroup = style;
 
-  /**
-   * Datepicker reference.
-   * @internal
-   * @deprecated Use property/attribute `datepicker` instead.
-   */
-  @property({ attribute: 'date-picker' })
-  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
-    if (import.meta.env.DEV) {
-      console.warn(
-        `Property datePicker/Attribute date-picker is deprecated. Use 'datepicker' instead.`,
-      );
-    }
-    this.datepicker = value as unknown as SbbDatepickerElement<T> | null;
-  }
-  /** @internal */
-  public get datePicker(): string | SbbDatepickerElement<T> | null {
-    return this.datepicker;
-  }
-
   /** Datepicker reference. */
   @property({ attribute: 'datepicker' })
   public set datepicker(value: SbbDatepickerElement<T> | null) {
