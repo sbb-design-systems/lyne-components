@@ -27,50 +27,50 @@
 
 :host(:is([level='1']:not([visual-level]), [visual-level='1'])) {
   --sbb-title-font-size: var(--sbb-font-size-title-1);
+}
 
-  &:not([visually-hidden]) {
-    --sbb-title-margin-block-start: var(--sbb-spacing-responsive-l);
-  }
+:host(:is([level='1']:not([visual-level]), [visual-level='1']):not([visually-hidden])) {
+  --sbb-title-margin-block-start: var(--sbb-spacing-responsive-l);
 }
 
 :host(:is([level='2']:not([visual-level]), [visual-level='2'])) {
   --sbb-title-font-size: var(--sbb-font-size-title-2);
+}
 
-  &:not([visually-hidden]) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
-  }
+:host(:is([level='2']:not([visual-level]), [visual-level='2']):not([visually-hidden])) {
+  --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
 }
 
 :host(:is([level='3']:not([visual-level]), [visual-level='3'])) {
   --sbb-title-font-size: var(--sbb-font-size-title-3);
+}
 
-  &:not([visually-hidden]) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
-  }
+:host(:is([level='3']:not([visual-level]), [visual-level='3']):not([visually-hidden])) {
+  --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
 }
 
 :host(:is([level='4']:not([visual-level]), [visual-level='4'])) {
   --sbb-title-font-size: var(--sbb-font-size-title-4);
+}
 
-  &:not([visually-hidden]) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
-  }
+:host(:is([level='4']:not([visual-level]), [visual-level='4']):not([visually-hidden])) {
+  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
 }
 
 :host(:is([level='5']:not([visual-level]), [visual-level='5'])) {
   --sbb-title-font-size: var(--sbb-font-size-title-5);
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+}
 
-  &:not([visually-hidden]) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
-  }
+:host(:is([level='5']:not([visual-level]), [visual-level='5']):not([visually-hidden])) {
+  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
 }
 
 :host(:is([level='6']:not([visual-level]), [visual-level='6'])) {
   --sbb-title-font-size: var(--sbb-font-size-title-6);
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+}
 
-  &:not([visually-hidden]) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
-  }
+:host(:is([level='6']:not([visual-level]), [visual-level='6']):not([visually-hidden])) {
+  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
 }
