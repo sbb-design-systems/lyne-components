@@ -1,7 +1,7 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, StoryObj } from '@storybook/web-components-vite';
 import { nothing, type TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 

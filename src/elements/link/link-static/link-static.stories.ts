@@ -1,4 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type {
   Args,
   ArgTypes,
@@ -6,7 +5,8 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
+import { withActions } from 'storybook/actions/decorator';
 
 import {
   inline,
