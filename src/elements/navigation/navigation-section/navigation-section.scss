@@ -166,6 +166,7 @@
 }
 
 .sbb-navigation-section__title {
+  @include sbb.title($exclude-spacing: true);
   @include sbb.title-4($exclude-spacing: true);
 
   @include sbb.mq($from: large) {
