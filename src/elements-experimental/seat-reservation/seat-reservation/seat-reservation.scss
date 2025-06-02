@@ -19,16 +19,6 @@
   }
 }
 
-.sbb-sr__wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-
-  .sbb-sr-coach-wrapper__table {
-    outline: 0;
-  }
-}
-
 .sbb-sr__wrapper--vertical {
   width: fit-content;
   position: relative;
@@ -85,4 +75,8 @@
   padding: 0;
   margin: 0;
   position: relative;
+}
+
+.sbb-sr-coach-wrapper__table {
+  outline: 0;
 }
