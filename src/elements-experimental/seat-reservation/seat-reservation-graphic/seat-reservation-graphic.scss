@@ -9,14 +9,14 @@
 
 .sbb-sr-icon,
 .sbb-sr-graphic {
-  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * 1px);
-  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * 1px);
+  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * #{sbb.px-to-rem-build(1)});
+  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * #{sbb.px-to-rem-build(1)});
 
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(var(--sbb-reservation-graphic-width) * 1px);
-  height: calc(var(--sbb-reservation-graphic-height) * 1px);
+  width: calc(var(--sbb-reservation-graphic-width) * #{sbb.px-to-rem-build(1)});
+  height: calc(var(--sbb-reservation-graphic-height) * #{sbb.px-to-rem-build(1)});
   transform-origin: center;
   rotate: calc(var(--sbb-reservation-graphic-rotation) * 1deg);
 }
