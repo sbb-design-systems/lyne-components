@@ -20,12 +20,7 @@ import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointMediumAndBelow,
 } from '../../core/controllers.js';
-import {
-  forceType,
-  hostAttributes,
-  idReference,
-  omitEmptyConverter,
-} from '../../core/decorators.js';
+import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -52,9 +47,6 @@ let nextId = 0;
  */
 export
 @customElement('sbb-navigation-section')
-@hostAttributes({
-  slot: 'navigation-section',
-})
 class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -328,6 +320,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.slot ||= 'navigation-section';
     this.id ||= `sbb-navigation-section-${nextId++}`;
     this._state ||= 'closed';
     if (this.hasUpdated) {

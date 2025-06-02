@@ -4,7 +4,6 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
-import { hostAttributes } from '../../core/decorators.js';
 
 import style from './flip-card-details.scss?lit&inline';
 
@@ -15,9 +14,6 @@ import style from './flip-card-details.scss?lit&inline';
  */
 export
 @customElement('sbb-flip-card-details')
-@hostAttributes({
-  slot: 'details',
-})
 class SbbFlipCardDetailsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
@@ -34,6 +30,11 @@ class SbbFlipCardDetailsElement extends LitElement {
         callback: () => this._checkForSlottedActions(),
       }),
     );
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'details';
   }
 
   private _checkForSlottedActions(): void {
