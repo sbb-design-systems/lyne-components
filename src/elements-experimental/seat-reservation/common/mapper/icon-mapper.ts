@@ -4,7 +4,7 @@ import { svgs } from '../svgs.js';
  * Map Object from OSDM Code to SVG icon name represented in svg-icon
  * component regarding the namespace "fpl".
  */
-type SeatReservationIcon = {
+export type SeatReservationIcon = {
   svgName?: string;
   svg?: string;
 };
