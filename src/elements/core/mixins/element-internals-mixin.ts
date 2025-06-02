@@ -41,7 +41,7 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         }
 
         private _toggleState(state: string, enabled: boolean): void {
-          this._host.toggleAttribute(`data-state--${state}`, enabled);
+          this._host.toggleAttribute(`state--${state}`, enabled);
         }
       }
     : null;
