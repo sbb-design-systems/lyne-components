@@ -88,7 +88,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public get triggerElement(): HTMLInputElement | null {
     return this._triggerElement ?? null;
   }
-  private _triggerElement: HTMLInputElement | null;
+  private _triggerElement?: HTMLInputElement | null;
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
