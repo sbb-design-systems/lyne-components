@@ -86,7 +86,7 @@ const parameters: Parameters = {
     },
     source: { format: 'html' },
   },
-  viewport: { viewports: storybookViewports },
+  viewport: { options: storybookViewports },
   backgrounds: { disable: true },
   options: {
     storySort: {
