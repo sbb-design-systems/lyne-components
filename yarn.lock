@@ -1947,21 +1947,6 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@8.33.0":
-  version "8.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.33.0.tgz#51ed03649575ba51bcee7efdbfd85283249b5447"
-  integrity sha512-CACyQuqSHt7ma3Ns601xykeBK/rDeZa3w6IS6UtMQbixO5DWy+8TilKkviGDH6jtWCo8FGRKEK5cLLkPvEammQ==
-  dependencies:
-    "@eslint-community/regexpp" "^4.10.0"
-    "@typescript-eslint/scope-manager" "8.33.0"
-    "@typescript-eslint/type-utils" "8.33.0"
-    "@typescript-eslint/utils" "8.33.0"
-    "@typescript-eslint/visitor-keys" "8.33.0"
-    graphemer "^1.4.0"
-    ignore "^7.0.0"
-    natural-compare "^1.4.0"
-    ts-api-utils "^2.1.0"
-
 "@typescript-eslint/eslint-plugin@8.33.1":
   version "8.33.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.33.1.tgz#532641b416ed2afd5be893cddb2a58e9cd1f7a3e"
@@ -1976,17 +1961,6 @@
     ignore "^7.0.0"
     natural-compare "^1.4.0"
     ts-api-utils "^2.1.0"
-
-"@typescript-eslint/parser@8.33.0":
-  version "8.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-8.33.0.tgz#8e523c2b447ad7cd6ac91b719d8b37449481784d"
-  integrity sha512-JaehZvf6m0yqYp34+RVnihBAChkqeH+tqqhS0GuX1qgPpwLvmTPheKEs6OeCK6hVJgXZHJ2vbjnC9j119auStQ==
-  dependencies:
-    "@typescript-eslint/scope-manager" "8.33.0"
-    "@typescript-eslint/types" "8.33.0"
-    "@typescript-eslint/typescript-estree" "8.33.0"
-    "@typescript-eslint/visitor-keys" "8.33.0"
-    debug "^4.3.4"
 
 "@typescript-eslint/parser@8.33.1":
   version "8.33.1"
@@ -2043,16 +2017,6 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.33.1.tgz#7836afcc097a4657a5ed56670851a450d8b70ab8"
   integrity sha512-STAQsGYbHCF0/e+ShUQ4EatXQ7ceh3fBCXkNU7/MZVKulrlq1usH7t2FhxvCpuCi5O5oi1vmVaAjrGeL71OK1g==
 
-"@typescript-eslint/type-utils@8.33.0":
-  version "8.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-8.33.0.tgz#f06124b2d6db8a51b24990cb123c9543af93fef5"
-  integrity sha512-lScnHNCBqL1QayuSrWeqAL5GmqNdVUQAAMTaCwdYEdWfIrSrOGzyLGRCHXcCixa5NK6i5l0AfSO2oBSjCjf4XQ==
-  dependencies:
-    "@typescript-eslint/typescript-estree" "8.33.0"
-    "@typescript-eslint/utils" "8.33.0"
-    debug "^4.3.4"
-    ts-api-utils "^2.1.0"
-
 "@typescript-eslint/type-utils@8.33.1":
   version "8.33.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-8.33.1.tgz#d73ee1a29d8a0abe60d4abbff4f1d040f0de15fa"
@@ -2105,16 +2069,6 @@
     semver "^7.6.0"
     ts-api-utils "^2.1.0"
 
-"@typescript-eslint/utils@8.33.0", "@typescript-eslint/utils@^8.8.1":
-  version "8.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-8.33.0.tgz#574ad5edee371077b9e28ca6fb804f2440f447c1"
-  integrity sha512-lPFuQaLA9aSNa7D5u2EpRiqdAUhzShwGg/nhpBlc4GR6kcTABttCuyjFs8BcEZ8VWrjCBof/bePhP3Q3fS+Yrw==
-  dependencies:
-    "@eslint-community/eslint-utils" "^4.7.0"
-    "@typescript-eslint/scope-manager" "8.33.0"
-    "@typescript-eslint/types" "8.33.0"
-    "@typescript-eslint/typescript-estree" "8.33.0"
-
 "@typescript-eslint/utils@8.33.1":
   version "8.33.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-8.33.1.tgz#ea22f40d3553da090f928cf17907e963643d4b96"
@@ -2124,6 +2078,16 @@
     "@typescript-eslint/scope-manager" "8.33.1"
     "@typescript-eslint/types" "8.33.1"
     "@typescript-eslint/typescript-estree" "8.33.1"
+
+"@typescript-eslint/utils@^8.8.1":
+  version "8.33.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-8.33.0.tgz#574ad5edee371077b9e28ca6fb804f2440f447c1"
+  integrity sha512-lPFuQaLA9aSNa7D5u2EpRiqdAUhzShwGg/nhpBlc4GR6kcTABttCuyjFs8BcEZ8VWrjCBof/bePhP3Q3fS+Yrw==
+  dependencies:
+    "@eslint-community/eslint-utils" "^4.7.0"
+    "@typescript-eslint/scope-manager" "8.33.0"
+    "@typescript-eslint/types" "8.33.0"
+    "@typescript-eslint/typescript-estree" "8.33.0"
 
 "@typescript-eslint/visitor-keys@8.33.0":
   version "8.33.0"
