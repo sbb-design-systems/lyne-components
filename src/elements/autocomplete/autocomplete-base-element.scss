@@ -20,7 +20,7 @@
 }
 
 :host([size='s']) {
-  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
+  @include sbb.options-panel-overlay-size-s-variables;
 }
 
 :host([data-state]:not([data-state='closed'])) {

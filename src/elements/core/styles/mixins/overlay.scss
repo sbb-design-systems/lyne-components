@@ -26,7 +26,7 @@
     var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
   );
   --sbb-options-panel-background-color: var(--sbb-color-white);
-  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
@@ -41,6 +41,10 @@
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+@mixin options-panel-overlay-size-s-variables {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
 }
 
 @mixin options-panel-overlay-container {

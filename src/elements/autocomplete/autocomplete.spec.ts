@@ -382,13 +382,13 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
     expect(
       getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-    ).to.be.equal(isSafari ? '336px' : '334px');
+    ).to.be.equal(isSafari ? '344px' : '342px');
 
     // Simulate the options' removal and check again position
     await sendKeys({ press: 'a' });
     expect(
       getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-    ).to.be.equal(isSafari ? '424px' : '423px');
+    ).to.be.equal(isSafari ? '540px' : '431px');
 
     // Clean up env
     element.close();
