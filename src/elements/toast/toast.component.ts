@@ -5,17 +5,18 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, slotState } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
+import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 
 import style from './toast.scss?lit&inline';
 
 import '../button/transparent-button.js';
+import '../divider.js';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -40,25 +41,21 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export
 @customElement('sbb-toast')
-@slotState()
-class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
+class SbbToastElement extends SbbIconNameMixin(
+  SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
+) {
   public static override styles: CSSResultGroup = style;
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
-   * If 0, it stays open indefinitely.
+   * If 0 (default), it stays open indefinitely.
    */
   @forceType()
   @property({ type: Number })
-  public accessor timeout: number = 6000;
+  public accessor timeout: number = 0;
 
   /** The position where to place the toast. */
   @property({ reflect: true }) public accessor position: SbbToastPosition = 'bottom-center';
-
-  /** Whether the toast has a close button. */
-  @forceType()
-  @property({ type: Boolean, reflect: true })
-  public accessor dismissible: boolean = false;
 
   /**
    * The ARIA politeness level.
@@ -236,25 +233,29 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     return html`
       <div class="sbb-toast__overlay-container">
         <div class="sbb-toast" @animationend=${this._onToastAnimationEnd}>
-          <div class="sbb-toast__icon">${this.renderIconSlot()}</div>
-
-          <div class="sbb-toast__content">
-            <slot @slotchange=${this._onContentSlotChange}></slot>
+          <div class="sbb-toast-wrapper">
+            ${this.renderIconSlot()}
+            <div class="sbb-toast__content">
+              <slot @slotchange=${this._onContentSlotChange}></slot>
+            </div>
+            <slot name="action" @slotchange=${this._onActionSlotChange}></slot>
           </div>
-
-          <div class="sbb-toast__action">
-            <slot name="action" @slotchange=${this._onActionSlotChange}>
-              ${this.dismissible
-                ? html` <sbb-transparent-button
-                    class="sbb-toast__action-button"
-                    icon-name="cross-small"
-                    negative
-                    size="m"
-                    aria-label=${i18nCloseAlert[this._language.current]}
-                    sbb-toast-close
-                  ></sbb-transparent-button>`
-                : nothing}
-            </slot>
+          <div class="sbb-toast__close">
+            <sbb-divider
+              class="sbb-toast__close-divider"
+              orientation="vertical"
+              negative
+            ></sbb-divider>
+            ${!this.readOnly
+              ? html`<sbb-transparent-button
+                  class="sbb-toast__close-button"
+                  icon-name="cross-small"
+                  negative
+                  size="m"
+                  aria-label=${i18nCloseAlert[this._language.current]}
+                  sbb-toast-close
+                ></sbb-transparent-button>`
+              : nothing}
           </div>
         </div>
       </div>
