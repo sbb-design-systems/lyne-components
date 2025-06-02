@@ -33,14 +33,14 @@
 // To display a current active page, e.g. if the CSS class sbb-active is set
 @mixin block-link-variables--active {
   --sbb-link-color-normal: var(--sbb-color-black);
-  --sbb-link-text-decoration: underline;
+  --sbb-link-text-decoration-line: underline;
   --sbb-link-text-decoration-color: currentcolor;
 }
 
 // To display a current active page, e.g. if the CSS class sbb-active is set
 @mixin block-link-variables--active-negative {
   --sbb-link-color-normal: var(--sbb-color-cement);
-  --sbb-link-text-decoration: underline;
+  --sbb-link-text-decoration-line: underline;
   --sbb-link-text-decoration-color: currentcolor;
 }
 
@@ -67,9 +67,7 @@
 
 @mixin link-base {
   color: var(--sbb-link-color-normal);
-
-  // TODO: rename --sbb-link-text-decoration variable to --sbb-link-text-decoration-line
-  text-decoration-line: var(--sbb-link-text-decoration, underline);
+  text-decoration-line: var(--sbb-link-text-decoration-line, underline);
   text-decoration-color: var(--sbb-link-text-decoration-color);
   text-decoration-thickness: #{functions.px-to-rem-build(1)};
   text-underline-offset: 0.3125em; // 5px
@@ -91,8 +89,6 @@
 @mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
-
-    // TODO: rename --sbb-link-hover-text-decoration variable to --sbb-link-text-decoration-line-hover
     text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
     text-decoration-color: var(--sbb-link-text-decoration-color-hover);
   }

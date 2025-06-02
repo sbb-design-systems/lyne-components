@@ -49,9 +49,7 @@ export class SbbDatepickerAssociationHostController<T> implements ReactiveContro
     this._context.hosts.add(this._host);
     const formField = this._host.closest('sbb-form-field');
     for (const control of this._context.controls) {
-      // TODO: Remove date-picker once datePicker in the controls has been removed.
-      const datepickerAttribute =
-        control.getAttribute('datepicker') ?? control.getAttribute('date-picker');
+      const datepickerAttribute = control.getAttribute('datepicker');
       if (
         datepickerAttribute
           ? datepickerAttribute === this._host.id
@@ -84,9 +82,7 @@ export class SbbDatepickerAssociationControlController<T> implements ReactiveCon
     this._context.controls.add(this._host);
     const formField = this._host.closest('sbb-form-field');
     let datepicker: SbbDatepickerElement<T> | null = null;
-    // TODO: Remove date-picker once datePicker in the controls has been removed.
-    const datepickerId =
-      this._host.getAttribute('datepicker') ?? this._host.getAttribute('date-picker');
+    const datepickerId = this._host.getAttribute('datepicker');
     if (datepickerId) {
       datepicker = Array.from(this._context.hosts).find((d) => d.id === datepickerId) ?? null;
     } else {
