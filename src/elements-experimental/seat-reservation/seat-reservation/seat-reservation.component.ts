@@ -1,7 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { html, nothing } from 'lit';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult, html, isServer, nothing, type PropertyValues  } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
@@ -38,7 +37,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   /** seat reservation */
   @property({ attribute: 'seat-reservation', type: Object })
-  public override accessor seatReservation: SeatReservation = null!;
+  public override accessor seatReservation: SeatReservation | null = null!;
 
   /** The seat resvervation navigation can be toggled by this property*/
   @forceType()
@@ -93,7 +92,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    this._componentSetup();
+
+    if (this.hasUpdated) {
+      this._componentSetup();
+    }
   }
 
   protected override render(): TemplateResult | null {
@@ -106,7 +108,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _initVehicleSeatReservationConstruction(): void {
-    const coachItems = JSON.parse(JSON.stringify(this.seatReservation?.coachItems));
+    let rawCoachItems: CoachItem[] = [];
+
+    if (this.seatReservation) {
+      rawCoachItems = this.seatReservation?.coachItems;
+    }
+
+    const coachItems = JSON.parse(JSON.stringify(rawCoachItems));
     const classAlignVertical = this.alignVertical ? 'sbb-sr__wrapper--vertical' : '';
 
     this._coachesHtmlTemplate = html`
@@ -146,9 +154,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderNavigation(): TemplateResult | null {
-    if (!this.hasNavigation) {
+    if (!this.hasNavigation || isServer) {
       return null;
     }
+
+    //avoid null pointer exception if seatReservation is not set
+    const lastIndex: number = this.seatReservation ? this.seatReservation.coachItems.length - 1 : 0;
 
     return html`
       <nav class="${classMap({ 'sbb-sr-navigation--vertical': this.alignVertical })}">
@@ -172,7 +183,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 .travelClass="${coachItem.travelClass}"
                 ?driver-area="${!coachItem.places?.length}"
                 ?first="${index === 0}"
-                ?last="${index === this.seatReservation?.coachItems.length - 1}"
+                ?last="${index === lastIndex}"
                 ?vertical="${this.alignVertical}"
               >
               </sbb-seat-reservation-navigation-coach>
@@ -191,6 +202,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!coaches) {
       return null;
     }
+
     return coaches.map((coachItem: CoachItem, index: number) => {
       return html`
         <li class="sbb-sr__item-coach">${this._renderCoachElement(coachItem, index)}</li>
@@ -407,7 +419,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           width=${graphicalElement.dimension.w * this.baseGridSize}
           height=${graphicalElement.dimension.h * this.baseGridSize}
           mounting=${elementMounting}
-          background="DARK"
+          background="${'DARK'}"
           aria-hidden="true"
           title=${ariaLabelForArea}
         >
@@ -447,7 +459,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const icon =
       graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
         ? graphicalElement.icon
-        : graphicalElement.icon?.concat('_', this.seatReservation.vehicleType);
+        : this.seatReservation
+          ? graphicalElement.icon?.concat('_', this.seatReservation?.vehicleType)
+          : undefined;
 
     return html`
       <sbb-scoped-element
@@ -557,7 +571,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       ]);
     }
 
-    let tableCoachDescription = '';
+    let tableCoachDescription: string;
     const areaDescriptions = this._getTitleDescriptionListString(coachItem.graphicElements!);
     const serviceDescriptions = this._getTitleDescriptionListString(coachItem.serviceElements!);
 

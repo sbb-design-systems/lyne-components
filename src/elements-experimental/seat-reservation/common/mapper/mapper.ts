@@ -120,7 +120,7 @@ export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number):
  * Mapped informations from place, coach and the coachiondex  to the seatReaservationPlaceSelection.
  * This Object information is emitted outwards
  * @param place
- * @param CoachItem
+ * @param coach
  * @param coachIndex
  * @returns SeatReservationPlaceSelection
  */

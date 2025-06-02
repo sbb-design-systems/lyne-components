@@ -1,6 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -92,18 +92,25 @@ class SbbSeatReservationGraphicElement extends LitElement {
             aria-hidden="false"
             aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
           ></sbb-icon>`
-        : html`${this._getSvgElement(svgObj.svg!)}`}
+        : this._getSvgElement(svgObj.svg!)}
     </span>`;
   }
 
-  private _getSvgElement(svg: string): Element | null {
-    const parser = new DOMParser();
-    const svgString = svg || '<svg></svg>';
-    const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
-    if (this.stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
-      svgElm.setAttribute('preserveAspectRatio', 'none');
+  private _getSvgElement(svg: string): TemplateResult {
+    let htmlTpl = html` <svg></svg>`;
+
+    if (!isServer) {
+      const parser = new DOMParser();
+      const svgString = svg || '<svg></svg>';
+      const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
+      if (this.stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
+        svgElm.setAttribute('preserveAspectRatio', 'none');
+      }
+
+      htmlTpl = html`${svgElm}`;
     }
-    return svgElm;
+
+    return htmlTpl;
   }
 }
 

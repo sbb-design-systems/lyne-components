@@ -41,7 +41,7 @@ export class SeatReservationBaseElement extends LitElement {
   } as const;
 
   @property({ attribute: 'seat-reservation', type: Object })
-  public accessor seatReservation: SeatReservation = null!;
+  public accessor seatReservation: SeatReservation | null = null!;
 
   /** The seat resvervation navigation can be toggled by this property*/
   @forceType()
@@ -128,7 +128,7 @@ export class SeatReservationBaseElement extends LitElement {
 
     // If the height is used, the baseGridSize must be recalculated
     if (changedProperties.has('height') && !!this.height) {
-      if (this.seatReservation.coachItems.length) {
+      if (this.seatReservation?.coachItems.length) {
         this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
@@ -146,6 +146,10 @@ export class SeatReservationBaseElement extends LitElement {
 
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
+    if (!this.seatReservation) {
+      return;
+    }
+
     this.firstTabElement = this.shadowRoot?.getElementById('first-tab-element') as HTMLElement;
     this.lastTabElement = this.shadowRoot?.getElementById('last-tab-element') as HTMLElement;
     this.coachScrollArea = this.shadowRoot?.getElementById('sbb-sr__parent-area') as HTMLElement;
@@ -154,7 +158,7 @@ export class SeatReservationBaseElement extends LitElement {
       let currCalcTriggerPos = 0;
       this.scrollCoachsAreaWidth = this.coachScrollArea.getBoundingClientRect().width;
 
-      // Precalculate trigger scroll position array depends from coach width
+      // Precalculate trigger scroll position array depends on from coach width
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
@@ -190,7 +194,7 @@ export class SeatReservationBaseElement extends LitElement {
         }
       });
 
-      // During initialization we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
+      // During initialization, we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
       // becuase we rotate the entire component by 90 degrees and transform the origin point to top left.
       if (this.alignVertical) {
         this._setVerticalAlignmentOffset();
@@ -412,10 +416,14 @@ export class SeatReservationBaseElement extends LitElement {
    * @returns Place or null
    */
   private _getClosestPlaceByKeyDirection(pressedKey?: string): Place | null {
-    const coach = this.seatReservation?.coachItems[this.currSelectedCoachIndex];
+    if (!this.seatReservation) {
+      return null;
+    }
+
+    const coach = this.seatReservation.coachItems[this.currSelectedCoachIndex];
     let closestPlace = null;
     if (coach.places) {
-      //If no place set, then wen use initial the left-top place on the coach
+      //If no place set, then we use initial the left-top place on the coach
       if (!this.currSelectedPlaceElementId) {
         return this._getFirstPlaceInSelecedCoach();
       } else {
@@ -423,7 +431,7 @@ export class SeatReservationBaseElement extends LitElement {
           for (const place of coach.places) {
             // If key pressed, then we try to find the place of the current currScrollDirection
             if (!pressedKey) {
-              //Find place from the left side of coach by y coordinate. Current currScrollDirection is RIGHT)
+              //Find place from the left side of coach by y coordinate. Current currScrollDirection is RIGHT
               if (
                 this.currScrollDirection === ScrollDirection.right &&
                 place.position.y === this.currSelectedPlace?.position.y &&
@@ -561,7 +569,7 @@ export class SeatReservationBaseElement extends LitElement {
     };
   }
 
-  // Handling for Tab navigation if an place is selected inside the coach.
+  // Handling for Tab navigation if a place is selected inside the coach.
   // This controls the focused coach from the current selected coach.
   private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
     const currFocusIndex =
@@ -576,7 +584,7 @@ export class SeatReservationBaseElement extends LitElement {
         ? this.getNextAvailableCoachIndex(currFocusIndex)
         : this.getPrevAvailableCoachIndex(currFocusIndex);
 
-    // If the currFocusIndex equals the newFocusableIndex then we have reached the first or last tabable navigation coach Element and we have to the set the focus manual to the firstTabElement or lastTabElement.
+    // If the currFocusIndex equals the newFocusableIndex then we have reached the first or last tabable navigation coach Element, and we have to the set the focus manual to the firstTabElement or lastTabElement.
     if (currFocusIndex === newFocusableIndex) {
       this.unfocusPlaceElement();
       this.selectedCoachIndex = -1;
@@ -659,6 +667,10 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   protected getNextAvailableCoachIndex(currentIndex?: number): number {
+    if (!this.seatReservation) {
+      return -1;
+    }
+
     const startIndex = currentIndex ?? this.currSelectedCoachIndex;
     return startIndex < this.seatReservation.coachItems.length - 1 ? startIndex + 1 : startIndex;
   }
@@ -694,7 +706,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   protected updateCurrentSelectedPlaceInCoach(placeSelection: PlaceSelection): void {
     const coachIndex = placeSelection.coachIndex;
-    const place = this.seatReservation.coachItems[coachIndex].places?.find(
+    const place = this.seatReservation?.coachItems[coachIndex].places?.find(
       (place) => place.number == placeSelection.number,
     );
 
@@ -725,7 +737,7 @@ export class SeatReservationBaseElement extends LitElement {
    * that have the state SELECTED within the seatReservation object
    */
   private _initSeatReservationPlaceSelection(): void {
-    this.seatReservation.coachItems.map((coach: CoachItem, coachIndex: number) => {
+    this.seatReservation?.coachItems.map((coach: CoachItem, coachIndex: number) => {
       coach.places
         ?.filter((place) => place.state === 'SELECTED')
         ?.forEach((place) => {
@@ -766,8 +778,12 @@ export class SeatReservationBaseElement extends LitElement {
   private _getSeatReservationPlaceSelection(
     currSelectedPlace: PlaceSelection,
   ): SeatReservationPlaceSelection | null {
+    if (!this.seatReservation) {
+      return null;
+    }
+
     const coach = this.seatReservation.coachItems[currSelectedPlace.coachIndex];
-    const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
+    const place = coach?.places?.find((place) => place.number === currSelectedPlace.number);
 
     return place
       ? mapPlaceAndCoachToSeatReservationPlaceSelection(place, coach, currSelectedPlace.coachIndex)
@@ -777,7 +793,7 @@ export class SeatReservationBaseElement extends LitElement {
   private _getSeatReservationCoachSelection(
     coachIndex: number,
   ): SeatReservationCoachSelection | null {
-    if (!this.seatReservation.coachItems[coachIndex]) return null;
+    if (!this.seatReservation?.coachItems[coachIndex]) return null;
 
     const coach = this.seatReservation.coachItems[coachIndex];
     return mapCoachInfosToCoachSelection(coachIndex, coach);
@@ -794,7 +810,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Returns the current selected place HTML element by given placeNumber and coachIndex.
-   * If both doesnt exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
+   * If both doesn't exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
    * @param placeNumber optional as string
    * @param coachIndex optional as string
    * @returns HTMLElement or null
