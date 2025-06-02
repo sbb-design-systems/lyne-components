@@ -16,6 +16,7 @@ import '../../icon.js';
 const cases = {
   amount: [false, true],
   icon: [false, true],
+  text: [true, false],
 };
 
 describe(`sbb-tab-label`, () => {
@@ -29,7 +30,7 @@ describe(`sbb-tab-label`, () => {
       );
     }
 
-    describeEach(cases, ({ amount, icon }) => {
+    describeEach(cases, ({ amount, icon, text }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -37,8 +38,9 @@ describe(`sbb-tab-label`, () => {
             html`<sbb-tab-label
               amount=${amount ? 16 : nothing}
               icon-name=${icon ? 'app-icon-small' : nothing}
-              >Tab title</sbb-tab-label
-            >`,
+            >
+              ${text ? 'Tab title' : nothing}
+            </sbb-tab-label>`,
           );
         }),
       );
