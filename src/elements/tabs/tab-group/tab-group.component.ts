@@ -104,6 +104,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
 
+  // TODO: check renaming evnet to `selectedTabChanged` or similar.
   /** Emits an event on selected tab change. */
   private _selectedTabChanged: EventEmitter<SbbTabChangedEventDetails> = new EventEmitter(
     this,
