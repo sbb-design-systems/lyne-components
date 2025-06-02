@@ -21,9 +21,11 @@ export
 class SbbSeatReservationNavigationServicesElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
   public accessor propertyIds: string[] = [];
 
+  /** If true, the service icons are displayed vertically */
   @forceType()
   @property({ type: Boolean })
   public accessor vertical: boolean = false;

@@ -13,30 +13,37 @@ export
 class SbbSeatReservationScopedElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  /** Inset block start in pixels (without unit) */
   @forceType()
   @property({ attribute: 'inset-block-start' })
   public accessor insetBlockStart: string = '';
 
+  /** Inset inline start in pixels (without unit) */
   @forceType()
   @property({ attribute: 'inset-inline-start' })
   public accessor insetInlineStart: string = '';
 
+  /** Width of the scoped element in pixels (without unit) */
   @forceType()
   @property({ attribute: 'width' })
   public accessor width: string = '';
 
+  /** Height of the scoped element in pixels (without unit) */
   @forceType()
   @property({ attribute: 'height' })
   public accessor height: string = '';
 
+  /** Z-index of the scoped element */
   @forceType()
   @property({ attribute: 'z-index' })
   public accessor zIndex: string = '';
 
+  /** Cell id of the scoped element, if it is used in a table */
   @forceType()
   @property({ attribute: 'cell-id' })
   public accessor cellId: string = '';
 
+  /** Scoped classes for the scoped element */
   @forceType()
   @property({ attribute: 'scoped-classes' })
   public accessor scopedClasses: string = '';

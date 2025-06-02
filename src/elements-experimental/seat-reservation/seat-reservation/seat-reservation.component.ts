@@ -36,26 +36,26 @@ export
 class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override styles: CSSResultGroup = style;
 
-  /** seat reservation */
+  /** The seat reservation object which contains all coaches and places */
   @property({ attribute: 'seat-reservation', type: Object })
   public override accessor seatReservation: SeatReservation = null!;
 
-  /** The seat resvervation navigation can be toggled by this property*/
+  /** The seat resvervation navigation can be toggled by this property */
   @forceType()
   @property({ attribute: 'has-navigation', type: Boolean })
   public override accessor hasNavigation: boolean = true;
 
-  /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
+  /** controls the visual represention of seat reservation in a horizonal or vertical alignment */
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
   public override accessor alignVertical: boolean = false;
 
-  /** Maximal number of possible clickable seats*/
+  /** Maximal number of possible clickable seats */
   @forceType()
   @property({ attribute: 'max-reservations', type: Number })
   public override accessor maxReservations: number = null!;
 
-  /** Any click functionality is prevented*/
+  /** Any click functionality is prevented */
   @forceType()
   @property({ attribute: 'prevent-place-click', type: Boolean })
   public override accessor preventPlaceClick: boolean = false;

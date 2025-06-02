@@ -15,17 +15,17 @@ export
 class SbbSeatReservationAreaElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Rotation Prop */
+  /** Rotation in degrees (without unit) */
   @forceType()
   @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
-  /** Width Prop */
+  /** Width of the area in pixels (without unit) */
   @forceType()
   @property({ attribute: 'width', type: Number })
   public accessor width: number = 6;
 
-  /** Height Prop */
+  /** Height of the area in pixels (without unit) */
   @forceType()
   @property({ attribute: 'height', type: Number })
   public accessor height: number = 6;
@@ -35,7 +35,7 @@ class SbbSeatReservationAreaElement extends LitElement {
   @property({ attribute: 'mounting' })
   public accessor mounting: ElementMounting = 'FREE';
 
-  /** Background Prop */
+  /** the background of the area */
   @forceType()
   @property({ attribute: 'background' })
   public accessor background: AreaBackgroundState = 'LIGHT';

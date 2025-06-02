@@ -25,41 +25,41 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     selectPlace: 'selectPlace',
   } as const;
 
-  /** Type Prop */
+  /** placeType of the place, e.g. 'SEAT', 'BICYCLE' */
   @forceType()
   @property({ attribute: 'type' })
   public accessor placeType: PlaceType = 'SEAT';
 
-  /** State Prop */
+  /** state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED' */
   @forceType()
   @property({ attribute: 'state' })
   public accessor state: PlaceState = 'FREE';
 
-  /** Place Property Ids Prop */
+  /** property ids of the place, to display more info about the place */
   @property({ attribute: 'propertyIds', type: Array })
   public accessor propertyIds: string[] = [];
 
-  /** Rotation Prop */
+  /** rotation in degrees (without unit) */
   @forceType()
   @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
 
-  /** Width Prop */
+  /** width of the place in pixels (without unit) */
   @forceType()
   @property({ attribute: 'width', type: Number })
   public accessor width: number = 32;
 
-  /** Height Prop */
+  /** height of the place in pixels (without unit) */
   @forceType()
   @property({ attribute: 'height', type: Number })
   public accessor height: number = 32;
 
-  /** Text Prop */
+  /** label of the place, e.g. '1A', '2B' */
   @forceType()
   @property({ attribute: 'text' })
   public accessor text: string = '';
 
-  /** TextRotation Prop */
+  /** Rotation of the text in degrees (without unit) */
   @forceType()
   @property({ attribute: 'text-rotation' })
   public accessor textRotation: number = 0;
