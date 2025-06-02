@@ -32,7 +32,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   } as const;
 
   @forceType()
-  @property({ attribute: 'coach-id', type: String })
+  @property({ attribute: 'coach-id' })
   public accessor coachId: string = '';
 
   @property({ attribute: 'property-ids', type: Array })

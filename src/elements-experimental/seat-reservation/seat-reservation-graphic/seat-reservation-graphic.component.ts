@@ -21,7 +21,7 @@ class SbbSeatReservationGraphicElement extends LitElement {
 
   /** Name Prop */
   @forceType()
-  @property({ attribute: 'name', type: String })
+  @property({ attribute: 'name' })
   public accessor name: string = '';
 
   @forceType()

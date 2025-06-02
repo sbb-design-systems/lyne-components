@@ -14,31 +14,31 @@ class SbbSeatReservationScopedElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   @forceType()
-  @property({ attribute: 'inset-block-start', type: String })
+  @property({ attribute: 'inset-block-start' })
   public accessor insetBlockStart: string = '';
 
   @forceType()
-  @property({ attribute: 'inset-inline-start', type: String })
+  @property({ attribute: 'inset-inline-start' })
   public accessor insetInlineStart: string = '';
 
   @forceType()
-  @property({ attribute: 'width', type: String })
+  @property({ attribute: 'width' })
   public accessor width: string = '';
 
   @forceType()
-  @property({ attribute: 'height', type: String })
+  @property({ attribute: 'height' })
   public accessor height: string = '';
 
   @forceType()
-  @property({ attribute: 'z-index', type: String })
+  @property({ attribute: 'z-index' })
   public accessor zIndex: string = '';
 
   @forceType()
-  @property({ attribute: 'cell-id', type: String })
+  @property({ attribute: 'cell-id' })
   public accessor cellId: string = '';
 
   @forceType()
-  @property({ attribute: 'scoped-classes', type: String })
+  @property({ attribute: 'scoped-classes' })
   public accessor scopedClasses: string = '';
 
   protected override willUpdate(_changedProperties: PropertyValues): void {

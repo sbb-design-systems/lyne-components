@@ -32,12 +32,12 @@ class SbbSeatReservationAreaElement extends LitElement {
 
   /** Mounting Prop */
   @forceType()
-  @property({ attribute: 'mounting', type: String })
+  @property({ attribute: 'mounting' })
   public accessor mounting: ElementMounting = 'FREE';
 
   /** Background Prop */
   @forceType()
-  @property({ attribute: 'background', type: String })
+  @property({ attribute: 'background' })
   public accessor background: AreaBackgroundState = 'LIGHT';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
