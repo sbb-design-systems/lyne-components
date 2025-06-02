@@ -7,7 +7,7 @@
   display: block;
   width: #{sbb.px-to-rem-build(320)};
 
-  --sbb-link-text-decoration: none;
+  --sbb-link-text-decoration-line: none;
   --sbb-sidebar-background-color: var(--sbb-color-white);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-padding: var(--sbb-spacing-responsive-xs);

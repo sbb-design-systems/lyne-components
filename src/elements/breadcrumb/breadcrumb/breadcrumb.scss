@@ -20,7 +20,7 @@
 }
 
 .sbb-breadcrumb {
-  --sbb-link-text-decoration: none;
+  --sbb-link-text-decoration-line: none;
 
   @include sbb.text-xs--regular;
   @include sbb.link-base;
