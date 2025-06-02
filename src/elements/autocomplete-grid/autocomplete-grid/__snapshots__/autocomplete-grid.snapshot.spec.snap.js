@@ -7,48 +7,38 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
   popover="manual"
   size="m"
 >
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-1"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-0"
-      role="gridcell"
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-2"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-1"
-      role="gridcell"
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
@@ -98,51 +88,40 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   data-state="closed"
   id="sbb-autocomplete-grid-1"
   popover="manual"
-  role="grid"
   size="m"
 >
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-1"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-0"
-      role="gridcell"
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-2"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-1"
-      role="gridcell"
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
@@ -183,28 +162,6 @@ snapshots["sbb-autocomplete-grid Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid Safari Shadow DOM */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "grid"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
 `<p>
   {
@@ -226,4 +183,26 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
+
+snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "combobox",
+      "name": "",
+      "autocomplete": "list",
+      "haspopup": "grid"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
 

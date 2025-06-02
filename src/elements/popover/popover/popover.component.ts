@@ -10,7 +10,7 @@ import {
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
+import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
@@ -50,7 +50,6 @@ const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).
  */
 export
 @customElement('sbb-popover')
-@hostAttributes({ popover: 'manual' })
 class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -208,11 +207,14 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   }
 
   public override connectedCallback(): void {
+    this.popover = 'manual';
     super.connectedCallback();
     this.id ||= `sbb-popover-${++nextId}`;
-    this._configureTrigger();
     this.state = 'closed';
     popoversRef.add(this as SbbPopoverElement);
+    if (this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   public override requestUpdate(
@@ -229,6 +231,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+    this._configureTrigger();
 
     if (this._hoverTrigger) {
       this._overlay.addEventListener('mouseenter', () => this._onOverlayMouseEnter());

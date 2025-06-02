@@ -28,12 +28,12 @@ describe(`sbb-menu-button`, () => {
     });
   });
 
-  describe('renders component with icon and amount', () => {
+  describe('renders component with icon', () => {
     let element: SbbMenuButtonElement;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-menu-button icon-name="menu-small" amount="123456"> Action </sbb-menu-button>
+        <sbb-menu-button icon-name="menu-small">Action</sbb-menu-button>
       `);
     });
 

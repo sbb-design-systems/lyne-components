@@ -1,4 +1,4 @@
-import type { Args } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -44,7 +44,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
       <sbb-menu trigger="user-menu-trigger">
         <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
-        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-button icon-name="shopping-cart-small" sbb-badge="1">
           Shopping cart
         </sbb-menu-button>
         <sbb-divider></sbb-divider>

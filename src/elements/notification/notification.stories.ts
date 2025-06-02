@@ -1,8 +1,8 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbSecondaryButtonElement } from '../button.js';
@@ -70,7 +70,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.size = args['size'];
-  newNotification.readonly = args['readonly'];
+  newNotification.readOnly = args['readonly'];
   newNotification.animation = args['animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';

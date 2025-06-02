@@ -26,7 +26,6 @@ const buttonObserverConfig: MutationObserverInit = {
 export
 @customElement('sbb-autocomplete-grid-button')
 @hostAttributes({
-  role: 'button',
   tabindex: null,
   'data-button': '',
 })
@@ -34,6 +33,7 @@ export
 class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
+  public static override readonly role = 'button';
   public static override styles: CSSResultGroup = style;
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */

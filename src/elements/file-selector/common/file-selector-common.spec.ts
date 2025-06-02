@@ -208,11 +208,11 @@ describe(`sbb-file-selector-common`, () => {
 
       it('restore formState', async () => {
         const dt = createDataTransfer(2);
-        const formRestoreState: [string, FormDataEntryValue][] = Array.from(dt.files).map((e) => [
-          'fs',
-          e,
-        ]);
-        element.formStateRestoreCallback(formRestoreState, 'restore');
+
+        const formData = new FormData();
+        Array.from(dt.files).forEach((f) => formData.append('fs', f));
+
+        element.formStateRestoreCallback(formData, 'restore');
         await waitForLitRender(form);
         expect(element.files.length).to.be.equal(2);
       });

@@ -28,7 +28,6 @@
 
     // Time Input
     --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
-    --sbb-time-input-s-max-width: #{functions.px-to-rem-build(51)};
 
     // Overlay
     --sbb-overlay-default-z-index: 1000;
@@ -55,7 +54,6 @@
 
       // Time Input
       --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
-      --sbb-time-input-s-max-width: #{functions.px-to-rem-build(58)};
 
       &:has(sbb-header[size='s']) {
         --sbb-header-height: var(--sbb-spacing-fixed-14x);
@@ -78,7 +76,7 @@ html {
 }
 
 sbb-form-field {
-  :where(input, select, textarea, sbb-select, sbb-date-input) {
+  :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
     @include typo.text-m--regular;
     @include helpers.ellipsis;
     @include inputs.input-reset;
@@ -108,8 +106,8 @@ sbb-form-field {
   }
 
   &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
-  // This covers the placeholder of the sbb-date-input
-  &[floating-label] sbb-date-input::after {
+  // This covers the placeholder of the sbb-date-input and sbb-time-input
+  &[floating-label] :where(sbb-date-input, sbb-time-input)::after {
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
 
@@ -134,7 +132,7 @@ sbb-form-field {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
-  &[size='s'] :where(input, sbb-date-input) {
+  &[size='s'] :where(input, sbb-date-input, sbb-time-input) {
     // We shrink the input's height to support all types of inputs (especially type=number).
     // Factor 1.25 ensures, letters are not cut.
     height: calc(var(--sbb-form-field-input-text-size) * 1.25);
@@ -270,14 +268,6 @@ sbb-breadcrumb-group:not(:defined) {
 // To prevent the mistakenly large gap, we reset the paragraph space.
 sbb-title + p {
   margin-block-start: 0;
-}
-
-input[data-sbb-time-input] {
-  max-width: var(--sbb-time-input-max-width);
-
-  sbb-form-field[size='s'] & {
-    max-width: var(--sbb-time-input-s-max-width);
-  }
 }
 
 img {

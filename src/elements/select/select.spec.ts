@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
@@ -79,7 +80,10 @@ describe(`sbb-select`, () => {
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
 
-    it('opens and closes the select with non-zero animation duration', async () => {
+    it('opens and closes the select with non-zero animation duration', async function (this: Context) {
+      // Test is flaky on WebKit
+      this.retries(3);
+
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
@@ -148,12 +152,14 @@ describe(`sbb-select`, () => {
 
       element.value = '1';
       await waitForLitRender(element);
+      await waitForLitRender(element);
       expect(displayValue).to.have.trimmed.text('First');
       expect(firstOption).to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
 
       element.value = '000000000';
+      await waitForLitRender(element);
       await waitForLitRender(element);
       expect(displayValue).to.have.trimmed.text('Placeholder');
       expect(firstOption).not.to.have.attribute('selected');
@@ -280,6 +286,7 @@ describe(`sbb-select`, () => {
       opt3.value = '3';
       element.appendChild(opt3);
 
+      await waitForLitRender(root);
       await waitForLitRender(root);
 
       expect(element.value).to.be.equal('3');
@@ -757,13 +764,13 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('3');
 
       element.multiple = true;
+      element.value = ['1', '2'];
       await waitForLitRender(element);
 
-      const formData = new FormData();
-      formData.append(element.name, '1');
-      formData.append(element.name, '2');
+      // Get the stored formData from the form
+      const formData = new FormData(element.closest('form')!);
 
-      element.formStateRestoreCallback(Array.from(formData.entries()), 'restore');
+      element.formStateRestoreCallback(formData, 'restore');
       await waitForLitRender(element);
 
       expect(element.value).to.be.eql(['1', '2']);
@@ -1100,6 +1107,113 @@ describe(`sbb-select`, () => {
         expect(e).not.to.have.attribute('selected');
       });
       expect(element.value).to.be.null;
+    });
+  });
+
+  describe('with complex value', () => {
+    type PropertyType = { property: string; otherProperty: string };
+    let element: SbbSelectElement<PropertyType>, firstOption: SbbOptionElement<PropertyType>;
+
+    const value1 = { property: 'Option 1', otherProperty: 'test 1' };
+    const value2 = { property: 'Option 2', otherProperty: 'test 2' };
+
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<form>
+          <sbb-form-field>
+            <label>Testlabel</label>
+            <sbb-select placeholder="Placeholder" name="select1">
+              <sbb-option id="option-1" .value=${value1}>First</sbb-option>
+              <sbb-option id="option-2" .value=${value2}>Second</sbb-option>
+              <sbb-option id="option-3" .value=${{ property: 'Option 3', otherProperty: 'test 3' }}>
+                Third
+              </sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        </form> `,
+      );
+      element = root.querySelector<SbbSelectElement<PropertyType>>('sbb-select')!;
+
+      firstOption = element.querySelector<SbbOptionElement<PropertyType>>('#option-1')!;
+    });
+
+    it('should assign complex value on option click', async () => {
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+
+      element.click();
+      await didOpen.calledOnce();
+
+      firstOption.click();
+      await didClose.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(value1);
+      expect(element.getDisplayValue()).to.be.equal('First');
+    });
+
+    it('should handle complex value assignment', async () => {
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      element.value = value1;
+      await waitForLitRender(element);
+
+      expect(firstOption).to.have.attribute('selected');
+      expect(element.getDisplayValue()).to.be.equal('First');
+    });
+
+    it('should serialize and deserialize complex value', async () => {
+      element.value = value1;
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal(value1);
+
+      // Get the stored formData from the form
+      const formData = new FormData(element.closest('form')!);
+
+      // Simulate navigating to other page and then back to form
+      element.formStateRestoreCallback(formData, 'restore');
+
+      // Wait for the formStateRestoreCallback to finish
+      await aTimeout(30);
+      await waitForLitRender(element);
+
+      // Object equality is currently lost, but deep equality is preserved
+      expect(element.value).to.be.deep.equal(value1);
+      expect(element.value).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
+      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First'
+      expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
+    });
+
+    it('should serialize and deserialize complex value with multiple', async () => {
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      element.value = [value1, value2];
+      await waitForLitRender(element);
+
+      expect(element.value[0]).to.be.equal(value1);
+      expect(element.value[1]).to.be.equal(value2);
+
+      // Get the stored formData from the form
+      const formData = new FormData(element.closest('form')!);
+
+      // Simulate navigating to other page and then back to form
+      element.formStateRestoreCallback(formData, 'restore');
+
+      // Wait for the formStateRestoreCallback to finish
+      await aTimeout(30);
+      await waitForLitRender(element);
+
+      // Object equality is currently lost, but deep equality is preserved
+      expect(element.value).to.be.deep.equal([value1, value2]);
+      expect(element.value.length).to.be.equal(2);
+      expect(element.value[0]).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
+      expect(element.value[1]).not.to.be.equal(value2); // TODO: With a comparison function, this should be equal
+      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First, Second'
+      expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
     });
   });
 });

@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElement, SbbButtonSize } from '../button.js';
+import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.js';
 import { isLean } from '../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
 import type {
@@ -70,7 +70,7 @@ class SbbActionGroupElement extends LitElement {
   }
 
   private _syncButtons(): void {
-    this.querySelectorAll?.<SbbButtonCommonElement>('[data-sbb-button]').forEach(
+    this.querySelectorAll?.<SbbButtonCommonElementMixinType>('[data-sbb-button]').forEach(
       (b) => (b.size = this.buttonSize),
     );
   }

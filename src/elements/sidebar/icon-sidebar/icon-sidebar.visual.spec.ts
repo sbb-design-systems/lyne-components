@@ -1,8 +1,7 @@
-import { aTimeout } from '@open-wc/testing';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import type { SbbIconSidebarElement, SbbSidebarElement } from '../../sidebar.js';
+import type { SbbIconSidebarElement } from '../../sidebar.js';
 
 import '../../header.js';
 import '../../link/block-link.js';
@@ -59,21 +58,6 @@ describe('sbb-icon-sidebar', () => {
     </p>
   `;
 
-  const sidebar = (
-    color: SbbSidebarElement['color'],
-    position: SbbSidebarElement['position'],
-  ): TemplateResult =>
-    html`<!-- We take the contrary color to visually distinguish the icon sidebar and the sidebar -->
-      <sbb-sidebar color=${color === 'milk' ? 'white' : 'milk'} opened position=${position}>
-        <sbb-sidebar-title>Title</sbb-sidebar-title>
-        <sbb-sidebar-close-button></sbb-sidebar-close-button>
-
-        <sbb-link-list>
-          <sbb-block-link href="#">Link 1</sbb-block-link>
-          <sbb-block-link href="#" class="sbb-active">Link 2</sbb-block-link>
-        </sbb-link-list>
-      </sbb-sidebar>`;
-
   describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
     const cases: { color: SbbIconSidebarElement['color'][]; position: ('start' | 'end')[] } = {
       color: ['white', 'milk'],
@@ -114,21 +98,20 @@ describe('sbb-icon-sidebar', () => {
               ${iconSidebar('white')}
               <sbb-icon-sidebar-content>
                 <sbb-sidebar-container>
-                  ${sidebar('white', 'start')}
+                  <sbb-sidebar color="milk" opened>
+                    <sbb-sidebar-title>Title</sbb-sidebar-title>
+                    <sbb-sidebar-close-button></sbb-sidebar-close-button>
+                    <sbb-link-list>
+                      <sbb-block-link href="#">Link 1</sbb-block-link>
+                      <sbb-block-link href="#" class="sbb-active">Link 2</sbb-block-link>
+                    </sbb-link-list>
+                  </sbb-sidebar>
                   <sbb-sidebar-content id="content">${content}</sbb-sidebar-content>
                 </sbb-sidebar-container>
               </sbb-icon-sidebar-content>
             </sbb-icon-sidebar-container>`,
           { minHeight: '400px' },
         );
-
-        setup.withPostSetupAction(async () => {
-          // We wait 50ms to ensure that the ResizeObserver in the
-          // sidebar-controller handled the new viewport.
-          await aTimeout(50);
-          const sidebar = setup.snapshotElement.querySelector('sbb-sidebar')!;
-          sidebar.open();
-        });
       }),
     );
   });

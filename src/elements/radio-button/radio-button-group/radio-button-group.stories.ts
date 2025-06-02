@@ -1,9 +1,9 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';

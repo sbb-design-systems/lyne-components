@@ -148,8 +148,9 @@ export function createManifestConfig(library = '') {
           for (const module of customElementsManifest.modules) {
             fixModulePaths(module, fixTsPaths);
             for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
-              // Abstract base classes are considered components even if they don't have the `customElement` annotation.
-              if (declaration.name.includes('Base')) {
+              // Abstract base classes or mixins are considered components
+              // even if they don't have the `customElement` annotation.
+              if (declaration.name.includes('Base') || declaration.name.includes('MixinType')) {
                 delete declaration.customElement;
               }
 

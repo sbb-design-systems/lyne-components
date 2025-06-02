@@ -8,8 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
-import { isZeroAnimationDuration } from '../../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { EventEmitter } from '../../core/eventing.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 
@@ -34,9 +33,6 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  */
 export
 @customElement('sbb-sticky-bar')
-@hostAttributes({
-  slot: 'sticky-bar',
-})
 class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -54,6 +50,12 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     | 'midnight'
     | 'charcoal'
     | null = null;
+
+  /**
+   * Size of the container.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   /** The state of the component. */
   private set _state(state: StickyState) {
@@ -90,6 +92,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.slot ||= 'sticky-bar';
     this._state = 'sticky';
 
     // Sticky bar needs to be hidden until first observer callback

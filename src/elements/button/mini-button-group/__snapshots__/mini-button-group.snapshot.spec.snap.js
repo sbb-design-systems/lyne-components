@@ -17,7 +17,6 @@ snapshots["sbb-mini-button-group renders DOM"] =
   <sbb-divider
     aria-orientation="vertical"
     orientation="vertical"
-    role="separator"
     slot="li-1"
   >
   </sbb-divider>

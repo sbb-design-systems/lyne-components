@@ -6,6 +6,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
+import { SbbReadonlyMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 
@@ -28,7 +29,7 @@ import '../../title.js';
  */
 export
 @customElement('sbb-alert')
-class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
+class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
   public static override readonly events = {
     willOpen: 'willOpen',
@@ -36,14 +37,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
     willClose: 'willClose',
     didClose: 'didClose',
   } as const;
-
-  /**
-   * Whether the alert is readonly.
-   * In readonly mode, there is no dismiss button offered to the user.
-   */
-  @forceType()
-  @property({ reflect: true, type: Boolean })
-  public accessor readonly: boolean = false;
 
   /**
    * You can choose between `s`, `m` or `l` size.
@@ -153,7 +146,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbOpenCloseBaseElement) {
                 <slot @slotchange=${this._syncLinks}></slot>
               </p>
             </span>
-            ${!this.readonly
+            ${!this.readOnly
               ? html`<span class="sbb-alert__close-button-wrapper">
                   <sbb-divider
                     orientation="vertical"

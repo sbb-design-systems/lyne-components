@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.10.0...v2.10.1) (2025-05-21)
+
+
+### Bug Fixes
+
+* **sbb-popover:** improve the robustness of the initialization ([#3731](https://github.com/sbb-design-systems/lyne-components/issues/3731)) ([171cf8b](https://github.com/sbb-design-systems/lyne-components/commit/171cf8bb82f218b53c5f0784a90f33ca250cb7eb))
+* **sbb-skiplink-list:** avoid invisible content block ([#3721](https://github.com/sbb-design-systems/lyne-components/issues/3721)) ([bdcfc0d](https://github.com/sbb-design-systems/lyne-components/commit/bdcfc0da7f9bf53b4bd9c2fd05fec825e616ed22))
+
+## [2.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.9.0...v2.10.0) (2025-05-15)
+
+
+### Features
+
+* **sbb-autocomplete:** add 'autoActiveFirstOption' property ([#3700](https://github.com/sbb-design-systems/lyne-components/issues/3700)) ([e71955e](https://github.com/sbb-design-systems/lyne-components/commit/e71955e932800c48671dc02c92e8c47a83004eb7))
+
+
+### Bug Fixes
+
+* fix SSR of platform.js ([#3710](https://github.com/sbb-design-systems/lyne-components/issues/3710)) ([c2da0b2](https://github.com/sbb-design-systems/lyne-components/commit/c2da0b2fa46a2d4087f273539775b6b29293f5ed))
+* **sbb-autocomplete, sbb-autocomplete-grid:** recalculate panel's position on slotchange ([#3673](https://github.com/sbb-design-systems/lyne-components/issues/3673)) ([dfa5c9d](https://github.com/sbb-design-systems/lyne-components/commit/dfa5c9d56302c33f152922d3a78bc96ee571eabb))
+* **sbb-journey-header:** accessibility improvement ([#3707](https://github.com/sbb-design-systems/lyne-components/issues/3707)) ([c0b0fe3](https://github.com/sbb-design-systems/lyne-components/commit/c0b0fe3f6027c4001b7b47db43b9cfca995890e3))
+* **sbb-select, sbb-slider:** display readonly state correctly if set by property ([#3698](https://github.com/sbb-design-systems/lyne-components/issues/3698)) ([b6f72a7](https://github.com/sbb-design-systems/lyne-components/commit/b6f72a77b8adff30193dcd271da1a98be7eebe3d)), closes [#3697](https://github.com/sbb-design-systems/lyne-components/issues/3697)
+* **sbb-skiplink-list:** display list correctly if only one link present ([#3696](https://github.com/sbb-design-systems/lyne-components/issues/3696)) ([a27f17e](https://github.com/sbb-design-systems/lyne-components/commit/a27f17e3c3e99c81c39eadbe46af9c5684a12830)), closes [#3694](https://github.com/sbb-design-systems/lyne-components/issues/3694)
+* **sbb-timetable-row:** avoid exception on accessibility message creation ([#3715](https://github.com/sbb-design-systems/lyne-components/issues/3715)) ([942ff27](https://github.com/sbb-design-systems/lyne-components/commit/942ff276c320670f7e964488ed3eee9babf342a9))
+* **sbb-toast:** fix a11y on windows browsers ([#3706](https://github.com/sbb-design-systems/lyne-components/issues/3706)) ([6fbe421](https://github.com/sbb-design-systems/lyne-components/commit/6fbe421b05ad143086d82ead50f630bfca6d2bf0))
+* **sbb-toggle:** fix animation glitches ([#3664](https://github.com/sbb-design-systems/lyne-components/issues/3664)) ([99af929](https://github.com/sbb-design-systems/lyne-components/commit/99af929b5053f57418ed9b0e9627dd6b47627882))
+* **sbb-train-formation:** fix focus outline of scroll container ([#3716](https://github.com/sbb-design-systems/lyne-components/issues/3716)) ([b2e801a](https://github.com/sbb-design-systems/lyne-components/commit/b2e801a56ef910b15aedb41edd9261ed3f39b9b1))
+
+
+### Documentation
+
+* **sbb-datepicker:** fix broken doc section ([#3666](https://github.com/sbb-design-systems/lyne-components/issues/3666)) ([d571f7c](https://github.com/sbb-design-systems/lyne-components/commit/d571f7c33b0f12657cfe1b1956e5e3369519da98))
+
 ## [2.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.8.0...v2.9.0) (2025-05-05)
 
 

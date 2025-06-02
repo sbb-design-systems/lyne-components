@@ -567,4 +567,30 @@ describe(`sbb-navigation`, () => {
     await waitForLitRender(element);
     expect(trigger.ariaHasPopup).to.be.null;
   });
+
+  it('init with HtmlElement as trigger', async () => {
+    trigger = await fixture(html`<button>Trigger</button>`);
+    element = await fixture(html`
+      <sbb-navigation id="menu" .trigger=${trigger}>
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+        </sbb-navigation-marker>
+      </sbb-navigation>
+    `);
+
+    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+
+    trigger.click();
+
+    await willOpenEventSpy.calledOnce();
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':popover-open');
+  });
 });

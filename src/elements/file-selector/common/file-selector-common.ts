@@ -20,28 +20,29 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
   type Constructor,
+  SbbElementInternalsMixin,
 } from '../../core/mixins.js';
 
 import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
 import '../../icon.js';
 
-export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbFormAssociatedMixinType {
+export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+) {
   public accessor size: 's' | 'm';
   public accessor multiple: boolean;
   public accessor multipleMode: 'default' | 'persistent';
   public accessor accept: string;
   public accessor accessibilityLabel: string;
-  public accessor disabled: boolean;
   public accessor files: Readonly<File>[];
-  protected formDisabled: boolean;
+  public override get value(): string | null;
+  public override set value(value: string | null);
   protected loadButton: SbbSecondaryButtonStaticElement;
   protected language: SbbLanguageController;
   protected abstract renderTemplate(input: TemplateResult): TemplateResult;
   protected createFileList(files: FileList): void;
-  protected updateFormValue(): void;
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 }
@@ -51,7 +52,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
   superclass: T,
 ): Constructor<SbbFileSelectorCommonElementMixinType> & T => {
   abstract class SbbFileSelectorCommonElement
-    extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
+    extends SbbDisabledMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superclass)))
     implements Partial<SbbFileSelectorCommonElementMixinType>
   {
     public static readonly events = {
@@ -85,15 +86,14 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     /** The path of the first selected file. Empty string ('') if no file is selected */
     @property({ attribute: false })
-    public override set value(value: string | null) {
+    public set value(value: string | null) {
       this._hiddenInput.value = value ?? '';
 
       if (!value) {
         this.files = [];
       }
     }
-
-    public override get value(): string | null {
+    public get value(): string | null {
       return this._hiddenInput?.value;
     }
 
@@ -147,9 +147,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       if (!state) {
         return;
       }
-      this.files = (state as [string, FormDataEntryValue][]).map(
-        ([_, value]) => value as Readonly<File>,
-      );
+      this.files = (state as FormData).getAll(this.name) as Readonly<File>[];
     }
 
     protected override updateFormValue(): void {

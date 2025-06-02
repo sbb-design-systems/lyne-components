@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.js';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
@@ -29,7 +29,6 @@ import '../title.js';
  */
 export
 @customElement('sbb-skiplink-list')
-@slotState()
 class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement

@@ -50,11 +50,9 @@ snapshots["sbb-link-list-anchor renders DOM"] =
 snapshots["sbb-link-list-anchor renders Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">

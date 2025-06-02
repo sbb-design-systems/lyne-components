@@ -384,4 +384,28 @@ describe(`sbb-menu`, () => {
     await waitForLitRender(element);
     expect(trigger.ariaHasPopup).to.be.null;
   });
+
+  it('init with HtmlElement as trigger', async () => {
+    trigger = await fixture(html`<sbb-button id="menu-trigger">Menu trigger</sbb-button>`);
+    element = await fixture(html`
+      <sbb-menu id="menu" .trigger=${trigger}>
+        <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
+        <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
+      </sbb-menu>
+    `);
+
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
+
+    trigger.click();
+
+    await willOpenEventSpy.calledOnce();
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await didOpenEventSpy.calledOnce();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':popover-open');
+  });
 });

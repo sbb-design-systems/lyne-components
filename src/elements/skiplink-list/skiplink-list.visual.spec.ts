@@ -24,6 +24,24 @@ describe(`sbb-skiplink-list`, () => {
       );
     }
 
+    describe('with one link', () => {
+      for (const state of [visualDiffDefault, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-skiplink-list>
+                  <sbb-block-link href="#">Link 1</sbb-block-link>
+                </sbb-skiplink-list>
+              `,
+              { minHeight: '100px' },
+            );
+          }),
+        );
+      }
+    });
+
     it(
       `title content`,
       visualDiffFocus.with(async (setup) => {

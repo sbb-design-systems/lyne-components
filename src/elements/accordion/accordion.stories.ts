@@ -1,16 +1,9 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  StoryContext,
-  Decorator,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import { SbbExpansionPanelElement } from '../expansion-panel.js';
@@ -240,7 +233,7 @@ export const SizeSWithIcon: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [withActions],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
