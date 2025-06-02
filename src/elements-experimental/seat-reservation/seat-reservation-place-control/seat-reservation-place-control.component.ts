@@ -27,12 +27,12 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
   /** Type Prop */
   @forceType()
-  @property({ attribute: 'type', type: String })
+  @property({ attribute: 'type' })
   public accessor placeType: PlaceType = 'SEAT';
 
   /** State Prop */
   @forceType()
-  @property({ attribute: 'state', type: String })
+  @property({ attribute: 'state' })
   public accessor state: PlaceState = 'FREE';
 
   /** Place Property Ids Prop */
@@ -56,7 +56,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
   /** Text Prop */
   @forceType()
-  @property({ attribute: 'text', type: String })
+  @property({ attribute: 'text' })
   public accessor text: string = '';
 
   /** TextRotation Prop */
@@ -76,7 +76,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
   /** Set the place focus outline style */
   @forceType()
-  @property({ attribute: 'keyfocus', type: String })
+  @property({ attribute: 'keyfocus' })
   public accessor keyfocus: string = 'unfocus';
 
   /** Emits when a place was selected by user. */
