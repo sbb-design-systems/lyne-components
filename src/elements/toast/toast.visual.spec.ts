@@ -34,7 +34,7 @@ describe(`sbb-toast`, () => {
                 ${content === 'short'
                   ? html`Lorem ipsum dolor`
                   : html`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.`}
+                    tempor incididunt.`}
                 ${action === 'button'
                   ? html`<sbb-transparent-button
                       slot="action"
