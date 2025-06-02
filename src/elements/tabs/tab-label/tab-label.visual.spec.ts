@@ -25,21 +25,24 @@ describe(`sbb-tab-label`, () => {
       it(
         state.name,
         state.with(async (setup) => {
-          await setup.withFixture(html`<sbb-tab-label>Tab title</sbb-tab-label>`);
+          await setup.withFixture(
+            html`<sbb-tab-label amount="123" icon-name="app-icon-small">Tab title</sbb-tab-label>`,
+          );
         }),
       );
     }
 
     describeEach(cases, ({ amount, icon, text }) => {
       it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
+        visualDiffHover.name,
+        // We use `visualDiffHover` here to ensure the bottom line is visible as a visual reference.
+        visualDiffHover.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-tab-label
               amount=${amount ? 16 : nothing}
               icon-name=${icon ? 'app-icon-small' : nothing}
             >
-              ${text ? 'Tab title' : nothing}
+              ${text || (!text && !amount && !icon) ? 'Tab title' : nothing}
             </sbb-tab-label>`,
           );
         }),
@@ -61,9 +64,9 @@ describe(`sbb-tab-label`, () => {
       'disabled',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html` <sbb-tab-label amount="16" icon-name="app-icon-small" disabled
-            >Tab title</sbb-tab-label
-          >`,
+          html`<sbb-tab-label amount="16" icon-name="app-icon-small" disabled>
+            Tab title
+          </sbb-tab-label>`,
         );
       }),
     );
@@ -72,8 +75,8 @@ describe(`sbb-tab-label`, () => {
       'slotted icon',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html` <sbb-tab-label amount="16"
-            >Tab title
+          html`<sbb-tab-label amount="16">
+            Tab title
             <sbb-icon name="app-icon-small" slot="icon"></sbb-icon>
           </sbb-tab-label>`,
         );
@@ -84,8 +87,8 @@ describe(`sbb-tab-label`, () => {
       'slotted amount',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html` <sbb-tab-label icon-name="app-icon-small"
-            >Tab title
+          html`<sbb-tab-label icon-name="app-icon-small">
+            Tab title
             <span slot="amount">16</span>
           </sbb-tab-label>`,
         );
