@@ -8,7 +8,7 @@
   --sbb-optgroup-divider-spacing: 0;
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
-  --sbb-optgroup-label-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
   --sbb-optgroup-label-color: var(--sbb-color-metal);
 
@@ -22,7 +22,6 @@
 
 :host([data-variant='select']) {
   --sbb-optgroup-divider-spacing: var(--sbb-spacing-fixed-4x);
-  --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-optgroup-label-padding-start: 0;
   --sbb-optgroup-label-font-size: inherit;
 }
@@ -52,8 +51,6 @@
 
   :host([data-variant='select'][data-multiple]) & {
     @include sbb.text-xs--regular;
-
-    padding-inline-start: calc(var(--sbb-spacing-responsive-xxxs) + var(--sbb-spacing-fixed-8x));
   }
 }
 

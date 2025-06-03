@@ -91,10 +91,6 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   protected override selectViaUserInteraction(selected: boolean): void {
     super.selectViaUserInteraction(selected);
     this.selectionChange.emit();

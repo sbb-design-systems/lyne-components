@@ -169,34 +169,6 @@ sbb-form-field {
   }
 }
 
-:is(sbb-form-field[size='s'] sbb-select, sbb-select[size='s']) :is(sbb-option) {
-  --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);
-}
-
-:is(sbb-form-field[size='s'] sbb-select, sbb-select[size='s']) :is(sbb-optgroup) {
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
-  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
-
-  &:first-child {
-    --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
-  }
-}
-
-:is(sbb-form-field[size='s'] sbb-autocomplete, sbb-autocomplete[size='s'])
-  :is(sbb-option, sbb-autocomplete-grid-option) {
-  --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);
-}
-
-:is(sbb-form-field[size='s'] sbb-autocomplete, sbb-autocomplete[size='s'])
-  :is(sbb-optgroup, sbb-autocomplete-grid-optgroup) {
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
-  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
-
-  &:first-child {
-    --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
-  }
-}
-
 // Hiding components until they are instantiated
 :is(
     sbb-autocomplete,
@@ -518,4 +490,29 @@ sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
 
   --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
+}
+
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
+  :where(sbb-option, sbb-autocomplete-grid-option) {
+    --sbb-option-min-height: var(--sbb-size-element-xxs);
+    --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+    --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+  }
+
+  sbb-optgroup {
+    --sbb-optgroup-divider-spacing: var(--sbb-spacing-fixed-2x);
+    --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+  }
+}
+
+sbb-select[size='s'] sbb-optgroup:first-child {
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+}
+
+:where(sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+
+  &:first-child {
+    --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
+  }
 }
