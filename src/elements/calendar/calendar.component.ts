@@ -287,10 +287,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.resetPosition();
-    this.focus = () => {
-      this._resetFocus = true;
-      this._focusCell();
-    };
+  }
+
+  /** @internal */
+  public override focus(): void {
+    this._resetFocus = true;
+    this._focusCell();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
