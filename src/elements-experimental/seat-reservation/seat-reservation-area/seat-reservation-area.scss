@@ -7,7 +7,7 @@
   --sbb-reservation-area-width: 1;
   --sbb-reservation-area-height: 1;
   --sbb-reservation-area-rotation: 0;
-  --sbb-reservation-area-border-radius: #{sbb.px-to-rem-build(4)};
+  --sbb-reservation-area-border-radius: var(--sbb-border-width-4x);
 
   display: inline-block;
   position: inherit;
