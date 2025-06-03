@@ -15,14 +15,7 @@
   },
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest",
-        "lockFileMaintenance",
-        "bump"
-      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
       "automerge": true,
       "automergeType": "branch",
       "automergeStrategy": "squash"
@@ -40,31 +33,25 @@
       "groupName": "esta",
       "prPriority": 10,
       "automerge": false,
-      "matchPackageNames": ["@sbb-esta/{/,}**"]
+      "matchPackageNames": ["@sbb-esta/**"]
     },
     {
       "groupName": "playwright",
       "prPriority": 10,
       "automerge": false,
-      "matchPackageNames": ["playwright{/,}**"]
+      "matchPackageNames": ["playwright**"]
     },
     {
       "groupName": "eslint",
-      "matchPackageNames": ["@typescript-eslint/{/,}**", "eslint{/,}**"]
+      "matchPackageNames": ["@typescript-eslint/**", "eslint**"]
     },
     {
       "groupName": "commitlint",
-      "matchPackageNames": ["@commitlint/{/,}**"]
+      "matchPackageNames": ["@commitlint/**"]
     },
     {
       "groupName": "stylelint",
-      "matchPackageNames": [
-        "postcss{/,}**",
-        "stylelint{/,}**",
-        "stylelint-config-prettier-scss{/,}**",
-        "stylelint-config-standard-scss{/,}**",
-        "stylelint-scss{/,}**"
-      ]
+      "matchPackageNames": ["postcss", "stylelint**"]
     }
   ]
 }
