@@ -80,16 +80,25 @@ The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
 this means that the `sbb-autocomplete-grid-option` has a `gridcell` role and its `id` is set from `sbb-autocomplete-grid-row`'s `id`,
 which is needed to correctly set the `aria-activedescendant` on the related `input`.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbAutocompleteGridOption<T>`.
+
+```html
+<sbb-autocomplete-grid-option .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-autocomplete-grid-option>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type      | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean` | `false` | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string`  | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `selected` | `selected`  | public  | `boolean` |         | Whether the option is selected.                                                                                                  |
-| `value`    | `value`     | public  | `string`  |         | Value of the option.                                                                                                             |
+| Name       | Attribute   | Privacy | Type         | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`    | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `selected` | `selected`  | public  | `boolean`    |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `T = string` | `null`  | Value of the option.                                                                                                             |
 
 ## Events
 

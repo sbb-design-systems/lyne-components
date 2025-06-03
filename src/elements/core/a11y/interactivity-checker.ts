@@ -14,13 +14,6 @@ import { isServer } from 'lit';
 import { isFirefox, isIOS, isWebkit } from '../dom/platform.js';
 
 /**
- * @deprecated Will be removed with next major version.
- */
-export interface InterfaceInteractivityChecker {
-  isVisible(element: HTMLElement): boolean;
-}
-
-/**
  * Configuration for the isFocusable method.
  */
 export class IsFocusableConfig {
@@ -141,11 +134,7 @@ export class InteractivityChecker {
 // This can be done by checking if visibility property is set to empty.
 export const interactivityChecker = new InteractivityChecker();
 
-/**
- * @deprecated Will no longer be available with next major version.
- * TODO: remove export keyword
- */
-export function hasGeometry(element: HTMLElement): boolean {
+function hasGeometry(element: HTMLElement): boolean {
   // Use logic from jQuery to check for an invisible element.
   // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
   return !!(

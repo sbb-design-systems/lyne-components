@@ -1,4 +1,4 @@
-import type { Args } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 

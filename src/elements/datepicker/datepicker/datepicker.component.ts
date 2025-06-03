@@ -13,13 +13,11 @@ import { readConfig } from '../../core/config.js';
 import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType, plainDate } from '../../core/decorators.js';
-import { findReferencedElement } from '../../core/dom.js';
 import { EventEmitter, forwardEvent } from '../../core/eventing.js';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
 import type { SbbValidationChangeEvent } from '../../core/interfaces.js';
 import type { SbbDateInputElement } from '../../date-input.js';
-import { SbbDatepickerAssociationHostController, type SbbDatepickerButton } from '../common.js';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
+import { SbbDatepickerAssociationHostController } from '../common.js';
 
 import style from './datepicker.scss?lit&inline';
 
@@ -29,35 +27,6 @@ export interface SbbInputUpdateEvent {
   min?: string | number;
   max?: string | number;
 }
-
-/**
- * Given a SbbDatepickerPreviousDayElement, a SbbDatepickerNextDayElement or a SbbDatepickerToggleElement component,
- * it returns the related SbbDatepickerElement reference, if exists.
- * @param element The element potentially connected to the SbbDatepickerElement.
- * @param trigger The id or the reference of the SbbDatePicker.
- * @deprecated No longer in use. Will be removed with next major version.
- */
-export function getDatePicker<T = Date>(
-  element: SbbDatepickerButton<T> | SbbDatepickerToggleElement<T>,
-  trigger?: string | HTMLElement,
-): SbbDatepickerElement<T> | null | undefined {
-  if (!trigger) {
-    return element
-      .closest?.('sbb-form-field')
-      ?.querySelector<SbbDatepickerElement<T>>('sbb-datepicker');
-  }
-
-  return findReferencedElement<SbbDatepickerElement<T>>(trigger);
-}
-
-/**
- * @deprecated No longer in use.
- */
-export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
-  new CustomEvent('datepickerControlRegistered', {
-    bubbles: false,
-    composed: true,
-  });
 
 let nextId = 0;
 let warningLogged = false;

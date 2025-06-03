@@ -26,10 +26,8 @@ snapshots["sbb-status renders Shadow DOM"] =
   </span>
   <span class="sbb-status__content">
     <sbb-title
-      aria-level="3"
       class="sbb-status__title"
       level="3"
-      role="heading"
       visual-level="5"
     >
       <slot name="title">
@@ -70,10 +68,8 @@ snapshots["sbb-status renders with title Shadow DOM"] =
   </span>
   <span class="sbb-status__content">
     <sbb-title
-      aria-level="3"
       class="sbb-status__title"
       level="3"
-      role="heading"
       visual-level="5"
     >
       <slot name="title">

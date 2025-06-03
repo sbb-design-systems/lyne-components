@@ -1,28 +1,16 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { forceType, slotState } from '../../core/decorators.js';
-import {
-  type AbstractConstructor,
-  SbbDisabledMixin,
-  type SbbDisabledMixinType,
-} from '../../core/mixins.js';
-import { SbbIconNameMixin, type SbbIconNameMixinType } from '../../icon.js';
+import { slotState } from '../../core/decorators.js';
+import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './menu-action.scss?lit&inline';
 
-export declare class SbbMenuActionCommonElementMixinType
-  extends SbbDisabledMixinType
-  implements Partial<SbbIconNameMixinType>
-{
-  /**
-   * @deprecated Will be removed with next major version. Use the sbb-badge attribute on a sbb-icon as alternative.
-   */
-  public accessor amount: string;
-  public accessor iconName: string;
-}
+export declare class SbbMenuActionCommonElementMixinType extends SbbIconNameMixin(
+  SbbDisabledMixin(SbbActionBaseElement),
+) {}
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbMenuActionCommonElementMixin = <
@@ -33,18 +21,9 @@ export const SbbMenuActionCommonElementMixin = <
   @slotState()
   abstract class SbbMenuActionCommonElement
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
-    implements Partial<SbbMenuActionCommonElementMixinType>
+    implements SbbMenuActionCommonElementMixinType
   {
     public static styles: CSSResultGroup = style;
-
-    /**
-     * Value shown as badge at component end.
-     * @deprecated Will be removed with next major version. Use the sbb-badge attribute on a sbb-icon as alternative.
-     * @internal
-     */
-    @forceType()
-    @property()
-    public accessor amount: string = '';
 
     protected override renderTemplate(): TemplateResult {
       return html`
@@ -53,9 +32,6 @@ export const SbbMenuActionCommonElementMixin = <
           <span class="sbb-menu-action__label">
             <slot></slot>
           </span>
-          ${this.amount && !this.disabled
-            ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
-            : nothing}
         </span>
       `;
     }

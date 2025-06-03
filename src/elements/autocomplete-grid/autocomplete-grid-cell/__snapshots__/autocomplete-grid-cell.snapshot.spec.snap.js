@@ -2,13 +2,12 @@
 export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-cell renders DOM"] = 
-`<sbb-autocomplete-grid-cell role="gridcell">
+`<sbb-autocomplete-grid-cell>
   <sbb-autocomplete-grid-button
     data-action=""
     data-button=""
     icon-name="pie-small"
     id="sbb-autocomplete-grid-button-1"
-    role="button"
   >
   </sbb-autocomplete-grid-button>
 </sbb-autocomplete-grid-cell>

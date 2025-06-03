@@ -77,6 +77,15 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <sbb-checkbox aria-label="Subscribed to email message"></sbb-checkbox>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbCheckbox<T>`.
+
+```html
+<sbb-checkbox .value=${{value: 'value', name: 'name'}} name="name">Checkbox</sbb-checkbox>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -96,7 +105,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `type`              | -                | public  | `string`                          | `'checkbox'`        | Form type of element.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `validationMessage` | -                | public  | `string`                          |                     | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also a custom validity message (see below) has precedence over native validation messages. |
 | `validity`          | -                | public  | `ValidityState`                   |                     | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `value`             | `value`          | public  | `string \| null`                  | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `value`             | `value`          | public  | `(T = string) \| null`            | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `willValidate`      | -                | public  | `boolean`                         |                     | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Methods

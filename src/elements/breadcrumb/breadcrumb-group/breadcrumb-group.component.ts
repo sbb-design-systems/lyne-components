@@ -15,10 +15,13 @@ import {
   sbbInputModalityDetector,
 } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import {
+  SbbElementInternalsMixin,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core/mixins.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
@@ -34,13 +37,11 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  */
 export
 @customElement('sbb-breadcrumb-group')
-@hostAttributes({
-  role: 'navigation',
-})
 class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   SbbBreadcrumbElement,
   typeof LitElement
->(LitElement) {
+>(SbbElementInternalsMixin(LitElement)) {
+  public static readonly role = 'navigation';
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 

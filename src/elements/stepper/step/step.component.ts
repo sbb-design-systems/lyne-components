@@ -8,8 +8,8 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { EventEmitter } from '../../core/eventing.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 import type { SbbStepperElement } from '../stepper.js';
 
@@ -32,11 +32,8 @@ export type SbbStepValidateEventDetails = {
  */
 export
 @customElement('sbb-step')
-@hostAttributes({
-  slot: 'step',
-  role: 'tabpanel',
-})
-class SbbStepElement extends LitElement {
+class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     validate: 'validate',
@@ -165,6 +162,7 @@ class SbbStepElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-step-${nextId++}`;
+    this.slot ||= 'step';
     this._stepper = this.closest('sbb-stepper');
     this._label = this._getStepLabel();
   }

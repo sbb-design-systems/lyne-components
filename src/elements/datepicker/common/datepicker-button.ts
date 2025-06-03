@@ -25,25 +25,6 @@ export abstract class SbbDatepickerButton<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)
   implements SbbDatepickerControl<T>
 {
-  /**
-   * Datepicker reference.
-   * @internal
-   * @deprecated Use property/attribute `datepicker` instead.
-   */
-  @property({ attribute: 'date-picker' })
-  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
-    if (import.meta.env.DEV) {
-      console.warn(
-        `Property datePicker/Attribute date-picker is deprecated. Use 'datepicker' instead.`,
-      );
-    }
-    this.datepicker = value as unknown as SbbDatepickerElement<T> | null;
-  }
-  /** @internal */
-  public get datePicker(): string | SbbDatepickerElement<T> | null {
-    return this.datepicker;
-  }
-
   /** Datepicker reference. */
   @property({ attribute: 'datepicker' })
   public set datepicker(value: SbbDatepickerElement<T> | null) {
@@ -53,7 +34,6 @@ export abstract class SbbDatepickerButton<T = Date>
           // and attempt to be resolved.
           ((this.getRootNode?.() as ParentNode | undefined)?.querySelector?.(`#${value}`) ?? null)
         : value;
-    this.datePickerElement = this._datepicker;
   }
   public get datepicker(): SbbDatepickerElement<T> | null {
     return this._datepicker ?? null;
@@ -69,10 +49,6 @@ export abstract class SbbDatepickerButton<T = Date>
   /** Whether the component is disabled due date-picker's input disabled. */
   private _inputDisabled = false;
 
-  /**
-   * @deprecated Use datepicker instead.
-   */
-  protected datePickerElement?: SbbDatepickerElement<T> | null = null;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _language = new SbbLanguageController(this);
 

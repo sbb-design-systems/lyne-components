@@ -1,7 +1,7 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -111,7 +111,7 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
       <sbb-menu trigger="user-menu-trigger">
         <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
-        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-button icon-name="shopping-cart-small" sbb-badge="1">
           Shopping cart
         </sbb-menu-button>
         <sbb-divider></sbb-divider>

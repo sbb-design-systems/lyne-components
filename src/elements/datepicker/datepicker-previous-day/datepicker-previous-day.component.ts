@@ -1,7 +1,6 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.js';
 import { SbbDatepickerButton } from '../common.js';
 
@@ -9,12 +8,10 @@ import style from './datepicker-previous-day.scss?lit&inline';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-datepicker-previous-day')
-@hostAttributes({
-  slot: 'prefix',
-})
 class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   public static override styles: CSSResultGroup = style;
 
@@ -22,9 +19,14 @@ class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
   protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'prefix';
+  }
+
   protected findAvailableDate(date: T): T {
     // When calling findAvailableDate, datepickerElement is always defined.
-    return this.datePickerElement!.findPreviousAvailableDate(date);
+    return this.datepicker!.findPreviousAvailableDate(date);
   }
 }
 

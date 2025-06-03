@@ -1,7 +1,7 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../decorators.js';
+import { forceType, hostAttributes } from '../decorators.js';
 import { isEventPrevented } from '../eventing.js';
 import {
   type FormRestoreReason,
@@ -20,12 +20,100 @@ export
   tabindex: '0',
   'data-button': '',
 })
-abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+  public static override readonly role: ElementInternals['role'] = 'button';
+
+  public constructor() {
+    super();
+
+    if (!isServer) {
+      this.setupBaseEventHandlers();
+
+      const passiveOptions = { passive: true };
+      this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
+      this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
+      this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
+      this.addEventListener(
+        'keypress',
+        (event: KeyboardEvent): void => {
+          if (event.key === 'Enter' || event.key === '\n') {
+            this._dispatchClickEvent(event);
+          }
+        },
+        passiveOptions,
+      );
+    }
+  }
+
+  /**
+   * Prevents scrolling from pressing Space, when the event target is an action element.
+   * Also sets data-active attribute.
+   * @param event The origin event.
+   */
+  private _preventScrollOnSpaceKeydown = (event: KeyboardEvent): void => {
+    if (event.key === ' ') {
+      event.preventDefault();
+      (event.target as HTMLElement).toggleAttribute('data-active', true);
+    }
+  };
+
+  private _removeActiveMarker = (event: Event): void => {
+    (event.target as HTMLElement).removeAttribute('data-active');
+  };
+
+  /**
+   * Dispatches a 'click' PointerEvent if the original keyboard event is a 'Space' press.
+   * As verified with the native button, when 'Space' is pressed, a 'click' event is dispatched
+   * after the 'keyup' event.
+   * @param event The origin event.
+   */
+  private _dispatchClickEventOnSpaceKeyup = (event: KeyboardEvent): void => {
+    if (event.key === ' ') {
+      this._removeActiveMarker(event);
+      this._dispatchClickEvent(event);
+    }
+  };
+
+  private _dispatchClickEvent = (event: KeyboardEvent): void => {
+    const { altKey, ctrlKey, metaKey, shiftKey } = event;
+    (event.target as Element).dispatchEvent(
+      new PointerEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        pointerId: -1,
+        pointerType: '',
+        altKey,
+        ctrlKey,
+        metaKey,
+        shiftKey,
+      }),
+    );
+  };
+
+  public override attributeChangedCallback(
+    name: string,
+    old: string | null,
+    value: string | null,
+  ): void {
+    if (!['name', 'value'].includes(name) || old !== value) {
+      super.attributeChangedCallback(name, old, value);
+    }
+  }
+}
+
+/** Button base class. */
+export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
   private readonly _elementsOnWhichEnterPressTriggersSubmit = [
     'input',
     'sbb-date-input',
     'sbb-time-input',
   ];
+
+  /** Value of the form element. */
+  @forceType()
+  @property()
+  public accessor value: string = '';
 
   /**
    * The type attribute to use for the button.
@@ -59,27 +147,7 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
   public constructor() {
     super();
 
-    /** @internal */
-    this.internals.role = 'button';
-
-    if (!isServer) {
-      this.setupBaseEventHandlers();
-
-      const passiveOptions = { passive: true };
-      this.addEventListener('click', this._handleButtonClick);
-      this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
-      this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
-      this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
-      this.addEventListener(
-        'keypress',
-        (event: KeyboardEvent): void => {
-          if (event.key === 'Enter' || event.key === '\n') {
-            this._dispatchClickEvent(event);
-          }
-        },
-        passiveOptions,
-      );
-    }
+    this.addEventListener('click', this._handleButtonClick);
   }
 
   public override connectedCallback(): void {
@@ -125,35 +193,6 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     submitButtonClone.remove();
   }
 
-  /**
-   * Prevents scrolling from pressing Space, when the event target is an action element.
-   * Also sets data-active attribute.
-   * @param event The origin event.
-   */
-  private _preventScrollOnSpaceKeydown = (event: KeyboardEvent): void => {
-    if (event.key === ' ') {
-      event.preventDefault();
-      (event.target as HTMLElement).toggleAttribute('data-active', true);
-    }
-  };
-
-  private _removeActiveMarker = (event: Event): void => {
-    (event.target as HTMLElement).removeAttribute('data-active');
-  };
-
-  /**
-   * Dispatches a 'click' PointerEvent if the original keyboard event is a 'Space' press.
-   * As verified with the native button, when 'Space' is pressed, a 'click' event is dispatched
-   * after the 'keyup' event.
-   * @param event The origin event.
-   */
-  private _dispatchClickEventOnSpaceKeyup = (event: KeyboardEvent): void => {
-    if (event.key === ' ') {
-      this._removeActiveMarker(event);
-      this._dispatchClickEvent(event);
-    }
-  };
-
   private _formKeyDown = (event: KeyboardEvent): void => {
     const form = this.form;
     if (
@@ -185,33 +224,6 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
     }
   };
 
-  private _dispatchClickEvent = (event: KeyboardEvent): void => {
-    const { altKey, ctrlKey, metaKey, shiftKey } = event;
-    (event.target as Element).dispatchEvent(
-      new PointerEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        composed: true,
-        pointerId: -1,
-        pointerType: '',
-        altKey,
-        ctrlKey,
-        metaKey,
-        shiftKey,
-      }),
-    );
-  };
-
-  public override attributeChangedCallback(
-    name: string,
-    old: string | null,
-    value: string | null,
-  ): void {
-    if (!['name', 'value'].includes(name) || old !== value) {
-      super.attributeChangedCallback(name, old, value);
-    }
-  }
-
   /**
    * Intentionally empty, as buttons are not targeted by form reset
    * @internal
@@ -232,5 +244,5 @@ abstract class SbbButtonBaseElement extends SbbFormAssociatedMixin(SbbActionBase
    * The data is only applied on submit button click as submitter of requestSubmit();
    * @internal
    */
-  protected updateFormValue(): void {}
+  protected override updateFormValue(): void {}
 }

@@ -32,14 +32,13 @@ describe(`sbb-menu-link`, () => {
     });
   });
 
-  describe('renders component with icon and amount', () => {
+  describe('renders component with icon', () => {
     let element: SbbMenuLinkElement;
 
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-menu-link
           icon-name="menu-small"
-          amount="123456"
           href="https://github.com/sbb-design-systems/lyne-components"
           target="_blank"
           accessibility-label="a11y label"
