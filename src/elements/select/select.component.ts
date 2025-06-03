@@ -394,15 +394,23 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    // Override the default focus behavior
-    this.focus = () => this._triggerElement.focus();
-    this.blur = () => this._triggerElement.blur();
-
     // Wait for ssr hydration
     if (!isNextjs()) {
       this.startUpdate();
       this._setupSelect();
     }
+  }
+
+  /** @internal */
+  public override focus(): void {
+    // Forward focus to the trigger element.
+    this._triggerElement?.focus();
+  }
+
+  /** @internal */
+  public override blur(): void {
+    // Forward blur to the trigger element.
+    this._triggerElement?.blur();
   }
 
   /**
