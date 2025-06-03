@@ -49,9 +49,9 @@ A `sbb-toast` can also be given a custom action that, if marked with the `sbb-to
 
 ## Style
 
-If the `readOnly` property (attribute `readonly`) is set to true, the close button is being hidden.
+If the `readOnly` property (attribute `readonly`) is set to true, the close button is hidden.
 The time before the component automatically closes can be set with the `timeout` property (in milliseconds,
-default is 0 which is equal to never auto closing).
+default is 0, which is equal to never closing automatically).
 
 The position on the page where the toast will be opened can be configured with the `position` property,
 which accepts all the combinations of the vertical positions `top` and `bottom`
