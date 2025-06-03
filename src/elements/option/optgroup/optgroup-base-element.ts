@@ -3,6 +3,7 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
+  nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -147,10 +148,14 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
       <div class="sbb-optgroup__divider">
         <sbb-divider ?negative=${this.negative}></sbb-divider>
       </div>
-      <div class="sbb-optgroup__label" aria-hidden="true">
-        <div class="sbb-optgroup__icon-space"></div>
-        <span>${this.label}</span>
-      </div>
+      ${this.label
+        ? html`
+            <div class="sbb-optgroup__label" aria-hidden="true">
+              <div class="sbb-optgroup__icon-space"></div>
+              <span>${this.label}</span>
+            </div>
+          `
+        : nothing}
       <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }
