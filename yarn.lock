@@ -1377,10 +1377,10 @@
     argparse "~1.0.9"
     string-argv "~0.3.1"
 
-"@sbb-esta/lyne-design-tokens@1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.5.1.tgz#87e4fa9543c5a99038c599f328120e77a71de0c7"
-  integrity sha512-l7q4LGAiR3XHhQ1vvtbzGTlmQEcO3JZigwA9Ps6MqE/z9aVoWDoLE+KPL0u8kqpqwCikUh96wKyXDzjiLVGvaQ==
+"@sbb-esta/lyne-design-tokens@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.6.0.tgz#ddff559e4a07d8242a5bb90a5191de4482ea67e5"
+  integrity sha512-PWmCwJBNmGjQRI0vDYM1UdVlg75Rac2D9n/ozMThcPOOlbwSE+Dl9vY/PiNEVcWfP9z4xFaEyukSMSP4gdeoFQ==
 
 "@sinonjs/commons@^3.0.1":
   version "3.0.1"
