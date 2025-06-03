@@ -59,8 +59,6 @@
 
   tbody {
     & > tr {
-      @include table-data-row;
-
       & > td {
         @include table-data-cell;
 
@@ -103,11 +101,6 @@
   padding-block: var(--sbb-table-header-padding-block);
   padding-inline: var(--sbb-table-header-padding-inline);
   text-align: left;
-}
-
-// @deprecated No longer used internally.
-@mixin table-data-row {
-  // empty
 }
 
 @mixin table-data-cell {

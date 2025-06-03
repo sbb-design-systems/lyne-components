@@ -104,6 +104,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
 
+  // TODO: check renaming event to `selectedTabChanged` or similar.
   /** Emits an event on selected tab change. */
   private _selectedTabChanged: EventEmitter<SbbTabChangedEventDetails> = new EventEmitter(
     this,
@@ -344,14 +345,12 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     tabLabel.tabIndex = -1;
     tabLabel.disabled = tabLabel.hasAttribute('disabled');
     tabLabel.active = tabLabel.hasAttribute('active') && !tabLabel.disabled;
-    tabLabel.setAttribute('role', 'tab');
     tabLabel.setAttribute('aria-selected', String(tabLabel.active));
     tabLabel.addEventListener('click', () => {
       tabLabel.tabGroupActions?.select();
     });
     if (tabLabel.tab) {
       tabLabel.setAttribute('aria-controls', tabLabel.tab.id);
-      tabLabel.tab.setAttribute('role', 'tabpanel');
       tabLabel.tab.toggleAttribute('active', tabLabel.active);
     }
 

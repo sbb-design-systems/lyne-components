@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -7,9 +5,11 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -70,7 +70,6 @@ const tabPanelFour = (): TemplateResult => html`
   </sbb-tab>
 `;
 
-// TODO: check whether didChange can be replaced with change
 const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-card
     id="container"

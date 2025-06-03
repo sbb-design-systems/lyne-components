@@ -41,12 +41,12 @@ export type SbbRadioButtonStateChange = Extract<
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @event {Event} change - Fired on change.
  * @event {InputEvent} input - Fired on input.
- * @overrideType value - string | null
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-radio-button-panel')
 @slotState()
-class SbbRadioButtonPanelElement extends SbbPanelMixin(
+class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
@@ -66,6 +66,12 @@ class SbbRadioButtonPanelElement extends SbbPanelMixin(
   @property({ reflect: true })
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
+
+  /**
+   * The value of the form element
+   */
+  @property()
+  public accessor value: T | null = null;
 
   private _hasSelectionExpansionPanelElement: boolean = false;
 

@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, hostAttributes, slotState } from '../core/decorators.js';
+import { forceType, slotState } from '../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
@@ -40,9 +40,6 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export
 @customElement('sbb-toast')
-@hostAttributes({
-  popover: 'manual',
-})
 @slotState()
 class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
@@ -78,6 +75,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   }
 
   public override connectedCallback(): void {
+    this.popover = 'manual';
     super.connectedCallback();
 
     // Add this toast to the global collection

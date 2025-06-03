@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, type TemplateResult, type PropertyValues } f
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbStepElement } from '../step.js';
@@ -17,15 +16,12 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to provide a label.
  * @slot icon - Use this to display an icon in the label bubble.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-step-label')
-@hostAttributes({
-  slot: 'step-label',
-  tabindex: '-1',
-  role: 'tab',
-})
 class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+  public static override readonly role = 'tab';
   public static override styles: CSSResultGroup = style;
 
   /** The step controlled by the label. */
@@ -56,7 +52,9 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-step-label-${nextId++}`;
+    this.slot ||= 'step-label';
     this.internals.ariaSelected = 'false';
+    this.tabIndex = -1;
     this._stepper = this.closest('sbb-stepper');
     this._step = this._getStep();
     // The `data-disabled` attribute is used to preserve the initial disabled state of

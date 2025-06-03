@@ -27,7 +27,6 @@ snapshots["sbb-accordion renders DOM"] =
       aria-labelledby="sbb-expansion-panel-header-1"
       data-size="l"
       id="sbb-expansion-panel-content-1"
-      role="region"
       slot="content"
     >
       Content 1
@@ -57,7 +56,6 @@ snapshots["sbb-accordion renders DOM"] =
       aria-labelledby="sbb-expansion-panel-header-2"
       data-size="l"
       id="sbb-expansion-panel-content-2"
-      role="region"
       slot="content"
     >
       Content 2

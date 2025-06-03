@@ -9,9 +9,13 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+} from '../../core/mixins.js';
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './optgroup-base-element.scss?lit&inline';
@@ -25,9 +29,10 @@ import '../../divider.js';
  */
 const inertAriaGroups = isSafari;
 
-export
-@hostAttributes({ role: !inertAriaGroups ? 'group' : null })
-abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin(LitElement)) {
+export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
+  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
+) {
+  public static override readonly role = !inertAriaGroups ? 'group' : null;
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */

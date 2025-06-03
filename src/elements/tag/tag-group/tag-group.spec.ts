@@ -679,4 +679,52 @@ describe(`sbb-tag-group`, () => {
       );
     });
   });
+
+  describe('with complex value', () => {
+    type ValueType = { value: string; label: string };
+    const values: ValueType[] = [
+      { value: 'tag1', label: 'Tag 1' },
+      { value: 'tag2', label: 'Tag 2' },
+      { value: 'tag3', label: 'Tag 3' },
+    ];
+    let form: HTMLFormElement;
+    let tags: SbbTagElement[];
+    let element: SbbTagGroupElement<ValueType>;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <sbb-tag-group .value=${values[0]}>
+            <sbb-tag name="sbb-tag-1" .value=${values[0]}>values[0].label</sbb-tag>
+            <sbb-tag name="sbb-tag-2" .value=${values[1]}>values[1].label</sbb-tag>
+            <sbb-tag name="sbb-tag-3" .value=${values[2]}>values[2].label</sbb-tag>
+          </sbb-tag-group>
+        </form>
+      `);
+      element = form.querySelector<SbbTagGroupElement<ValueType>>('sbb-tag-group')!;
+      tags = Array.from(element.querySelectorAll('sbb-tag'));
+    });
+
+    it('should init with value', async () => {
+      expect(element.value).to.be.equal(tags[0].value);
+      expect(element.value).to.be.deep.equal(tags[0].value);
+    });
+
+    it('should update value on click', async () => {
+      tags[1].click();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(tags[1].value);
+    });
+
+    it('should set complex value', async () => {
+      element.value = values[1];
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(tags[1].value);
+      expect(tags[0].checked).to.be.false;
+      expect(tags[1].checked).to.be.true;
+      expect(tags[2].checked).to.be.false;
+    });
+  });
 });

@@ -5,6 +5,7 @@ import {
   LitElement,
   nothing,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -19,12 +20,7 @@ import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointMediumAndBelow,
 } from '../../core/controllers.js';
-import {
-  forceType,
-  hostAttributes,
-  idReference,
-  omitEmptyConverter,
-} from '../../core/decorators.js';
+import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
@@ -51,9 +47,6 @@ let nextId = 0;
  */
 export
 @customElement('sbb-navigation-section')
-@hostAttributes({
-  slot: 'navigation-section',
-})
 class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -243,6 +236,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
     });
+    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
   }
 
   private _isNavigationButton(trigger: HTMLElement | null): trigger is SbbNavigationButtonElement {
@@ -326,10 +320,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.slot ||= 'navigation-section';
     this.id ||= `sbb-navigation-section-${nextId++}`;
     this._state ||= 'closed';
-    this._configureTrigger();
-    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
+    if (this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -349,6 +345,11 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._configureTrigger();
   }
 
   protected override render(): TemplateResult {

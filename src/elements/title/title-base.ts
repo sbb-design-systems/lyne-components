@@ -3,7 +3,8 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
+import { SbbElementInternalsMixin } from '../core/mixins.js';
 
 import style from './title-common.scss?lit&inline';
 
@@ -14,11 +15,8 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  *
  * @slot - Use the unnamed slot to place the content of the title.
  */
-export
-@hostAttributes({
-  role: 'heading',
-})
-abstract class SbbTitleBase extends LitElement {
+export abstract class SbbTitleBase extends SbbElementInternalsMixin(LitElement) {
+  public static override role = 'heading';
   public static override styles: CSSResultGroup = style;
 
   /** Title level */
@@ -41,7 +39,7 @@ abstract class SbbTitleBase extends LitElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('level')) {
-      this.setAttribute('aria-level', this.level);
+      this.internals.ariaLevel = this.level;
     }
   }
 

@@ -105,9 +105,8 @@ snapshots["sbb-tab-label A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "heading",
-      "name": "Tab title",
-      "level": 1
+      "role": "tab",
+      "name": "Tab title"
     }
   ]
 }

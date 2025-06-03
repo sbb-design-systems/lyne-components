@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nCloseSidebar } from '../../core/i18n.js';
 
 import style from './sidebar-close-button.scss?lit&inline';
@@ -13,10 +12,10 @@ import style from './sidebar-close-button.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the sidebar-close-button. Not intended to be used in this context.
  * @slot icon - Slot used to display the icon, if one is set. Not intended to be used in this context.
+ * @overrideType value - string
  */
 export
 @customElement('sbb-sidebar-close-button')
-@hostAttributes({ slot: 'title-section' })
 class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
   public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
 
@@ -27,6 +26,11 @@ class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
     super();
     this.iconName = 'cross-small';
     this.size = 's';
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'title-section';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

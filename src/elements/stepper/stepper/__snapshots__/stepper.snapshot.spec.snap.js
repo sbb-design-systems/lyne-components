@@ -16,7 +16,6 @@ snapshots["sbb-stepper renders DOM"] =
     data-selected=""
     data-size="m"
     id="sbb-step-label-0"
-    role="tab"
     slot="step-label"
     tabindex="0"
   >
@@ -27,7 +26,6 @@ snapshots["sbb-stepper renders DOM"] =
     data-orientation="horizontal"
     data-selected=""
     id="sbb-step-0"
-    role="tabpanel"
     slot="step"
   >
     Test step content 1
@@ -39,7 +37,6 @@ snapshots["sbb-stepper renders DOM"] =
     data-orientation="horizontal"
     data-size="m"
     id="sbb-step-label-1"
-    role="tab"
     slot="step-label"
     tabindex="-1"
   >
@@ -49,7 +46,6 @@ snapshots["sbb-stepper renders DOM"] =
     aria-labelledby="sbb-step-label-1"
     data-orientation="horizontal"
     id="sbb-step-1"
-    role="tabpanel"
     slot="step"
   >
     Test step content 2
@@ -63,7 +59,6 @@ snapshots["sbb-stepper renders DOM"] =
     data-size="m"
     disabled=""
     id="sbb-step-label-2"
-    role="tab"
     slot="step-label"
     tabindex="-1"
   >
@@ -73,7 +68,6 @@ snapshots["sbb-stepper renders DOM"] =
     aria-labelledby="sbb-step-label-2"
     data-orientation="horizontal"
     id="sbb-step-2"
-    role="tabpanel"
     slot="step"
   >
     Test step content 3
@@ -82,7 +76,6 @@ snapshots["sbb-stepper renders DOM"] =
     data-action=""
     data-button=""
     id="sbb-step-label-3"
-    role="tab"
     slot="step-label"
     tabindex="-1"
   >

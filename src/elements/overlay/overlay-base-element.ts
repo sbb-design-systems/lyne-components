@@ -4,11 +4,11 @@ import { property } from 'lit/decorators.js';
 import { SbbFocusTrapController } from '../core/a11y.js';
 import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import {
+  SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
-  SbbEscapableOverlayController,
 } from '../core/controllers.js';
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
@@ -19,11 +19,7 @@ import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
-export
-@hostAttributes({
-  popover: 'manual',
-})
-abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
   /** This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. */
   @forceType()
   @property({ attribute: 'accessibility-label' })
@@ -39,8 +35,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
   protected overlayCloseElement?: HTMLElement;
-  /** @deprecated */
-  protected overlayController!: AbortController;
   protected openOverlayController!: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
@@ -83,9 +77,8 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
   }
 
   public override connectedCallback(): void {
+    this.popover = 'manual';
     super.connectedCallback();
-    this.overlayController?.abort();
-    this.overlayController = new AbortController();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -97,7 +90,6 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.overlayController?.abort();
     this.openOverlayController?.abort();
     this.removeInstanceFromGlobalCollection();
     this.scrollHandler.enableScroll();
@@ -157,13 +149,5 @@ abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseEl
     this.ariaLiveRef.textContent = `${i18nDialog[this.language.current]}${
       label ? `, ${label}` : ''
     }${this.ariaLiveRefToggle ? ' ' : ''}`;
-  }
-
-  /**
-   * Focuses the element marked with sbb-focus-initial or the first focusable element.
-   * @deprecated. Will be removed with next major version.
-   */
-  protected setOverlayFocus(): void {
-    this.focusTrapController.focusInitialElement();
   }
 }
