@@ -167,6 +167,28 @@ sbb-form-field {
   &[negative] :where(textarea) {
     @include scrollbar.scrollbar($negative: true);
   }
+
+  &:has(
+      :where(
+        :where(input, textarea, select):user-invalid,
+        :where(:state(interacted), [state--interacted]):invalid,
+        .ng-touched.ng-invalid
+      )
+    ),
+  :where(.ng-submitted, .sbb-show-errors) &:has(:where(:invalid, .ng-invalid)) {
+    --sbb-form-field-border-color: var(--sbb-color-red125);
+    --sbb-form-field-text-color: var(--sbb-color-red125);
+
+    @include a11y.if-forced-colors {
+      --sbb-form-field-border-color: LinkText !important;
+      --sbb-form-field-text-color: LinkText !important;
+    }
+
+    &[negative] {
+      --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
+      --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
+    }
+  }
 }
 
 // Hiding components until they are instantiated
