@@ -84,12 +84,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     );
   }
 
-  // TODO: Breaking change: remove undefined as return type.
   /** Returns the trigger element. */
-  public get triggerElement(): HTMLInputElement | null | undefined {
+  public get triggerElement(): HTMLInputElement | null {
     return this._triggerElement ?? null;
   }
-  private _triggerElement: HTMLInputElement | null | undefined;
+  private _triggerElement?: HTMLInputElement | null;
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;

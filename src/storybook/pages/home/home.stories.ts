@@ -1,5 +1,5 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
+import type { InputType } from 'storybook/internal/types';
 
 import { homeLoggedInTemplate } from './home-logged-in.js';
 import { homeTemplate } from './home.js';

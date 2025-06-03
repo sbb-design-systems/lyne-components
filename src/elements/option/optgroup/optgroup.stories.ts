@@ -1,4 +1,3 @@
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -6,9 +5,10 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 import '../../form-field.js';
