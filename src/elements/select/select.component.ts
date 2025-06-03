@@ -24,7 +24,8 @@ import {
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
+import type { SbbDividerElement } from '../divider.js';
+import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
 
 import style from './select.scss?lit&inline';
 
@@ -490,7 +491,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _syncProperties(): void {
-    this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
+    this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
+      'sbb-divider, sbb-option-hint',
+    ).forEach((el) => (el.negative = this.negative));
 
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
