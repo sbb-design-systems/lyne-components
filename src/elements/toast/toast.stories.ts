@@ -121,7 +121,7 @@ export const Basic: StoryObj = {
 export const ReadOnlyWithTimeout: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, readonly: true, timeout: 20000 },
+  args: { ...defaultArgs, readonly: true, timeout: 5000 },
 };
 
 export const LongContent: StoryObj = {

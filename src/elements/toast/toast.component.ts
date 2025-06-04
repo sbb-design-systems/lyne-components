@@ -49,6 +49,7 @@ class SbbToastElement extends SbbIconNameMixin(
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
    * If 0 (default), it stays open indefinitely.
+   * From accessibility perspective, it is recommended to set a timeout of at least 20 seconds.
    */
   @forceType()
   @property({ type: Number })
