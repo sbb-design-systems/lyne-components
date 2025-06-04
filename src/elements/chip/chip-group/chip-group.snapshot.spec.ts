@@ -39,8 +39,8 @@ describe(`sbb-chip-group`, () => {
           <sbb-chip-group name="field-1">
             <sbb-chip value="Value 1"></sbb-chip>
             <sbb-chip value="Value 2"></sbb-chip>
+            <input />
           </sbb-chip-group>
-          <input />
         </sbb-form-field>
       `);
     });

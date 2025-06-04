@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-form-field-clear renders form-field DOM"] = 
 `<sbb-form-field
-  data-input-type="input"
   data-slot-names="label suffix unnamed"
   error-space="none"
   size="m"

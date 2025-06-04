@@ -52,6 +52,7 @@ export interface SbbElementInternalsConstructor {
 
 export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
+  protected toggleState(state: string, force?: boolean): void;
 }
 
 /**
@@ -82,6 +83,14 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       const role = (this.constructor as SbbElementInternalsConstructor).role;
       if (role) {
         this.internals.role = role;
+      }
+    }
+
+    protected toggleState(state: string, force?: boolean): void {
+      if (force || (force !== false && !this.internals.states.has(state))) {
+        this.internals.states.add(state);
+      } else {
+        this.internals.states.delete(state);
       }
     }
   }

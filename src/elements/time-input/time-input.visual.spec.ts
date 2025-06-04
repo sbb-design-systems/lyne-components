@@ -44,6 +44,7 @@ describe(`sbb-time-input`, () => {
       ${!args.noIcons ? html`<sbb-icon slot="prefix" name="clock-small"></sbb-icon>` : nothing}
       <sbb-time-input
         value=${args.withError ? '00:99' : '12:00'}
+        class=${args.withError ? 'sbb-invalid' : nothing}
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
       ></sbb-time-input>
