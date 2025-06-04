@@ -156,7 +156,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     target: null,
     skipInitial: true,
     callback: () => {
-      if (this.state === 'opened') {
+      if (this.isOpen) {
         this._setOverlayPosition();
       }
     },
@@ -553,6 +553,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
     const formField = this.closest?.('sbb-form-field');
+    if (this._originElement) {
+      this._originResizeObserver.unobserve(this._originElement);
+    }
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
@@ -560,6 +563,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         'data-option-panel-origin-borderless',
         !!formField?.hasAttribute?.('borderless'),
       );
+
+      if (this.isOpen) {
+        this._originResizeObserver.observe(this._originElement);
+      }
     }
   }
 

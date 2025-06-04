@@ -399,6 +399,19 @@ describe(`sbb-autocomplete`, () => {
     formField.parentElement?.style.setProperty('max-width', '');
   });
 
+  it('should sync form-field size change', async () => {
+    const didOpen = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+
+    element.open();
+    await waitForLitRender(element);
+    await didOpen.calledOnce();
+
+    formField.size = 's';
+    await waitForLitRender(element);
+
+    expect(element.size).to.be.equal('s');
+  });
+
   describe('trigger connection', () => {
     beforeEach(async () => {
       const root = await fixture(
