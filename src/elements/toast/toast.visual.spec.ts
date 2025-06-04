@@ -9,7 +9,9 @@ import '../link.js';
 describe(`sbb-toast`, () => {
   const cases = {
     icon: [false, true],
-    action: ['dismissible', 'button', 'link'],
+    readonly: [false, true],
+    action: ['button', 'link'],
+    content: ['short', 'long'],
   };
 
   const positionCases = [
@@ -22,17 +24,17 @@ describe(`sbb-toast`, () => {
   ];
 
   describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 300 }, () => {
-    describeEach(cases, ({ icon, action }) => {
+    describeEach(cases, ({ icon, action, readonly, content }) => {
       it(
         '',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-toast
-                icon-name=${icon ? 'circle-tick-small' : nothing}
-                ?dismissible=${action === 'dismissible'}
-              >
-                Lorem ipsum dolor
+              <sbb-toast icon-name=${icon ? 'circle-tick-small' : nothing} ?readonly=${readonly}>
+                ${content === 'short'
+                  ? html`Lorem ipsum dolor`
+                  : html`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                    tempor incididunt.`}
                 ${action === 'button'
                   ? html`<sbb-transparent-button
                       slot="action"
@@ -41,7 +43,7 @@ describe(`sbb-toast`, () => {
                     ></sbb-transparent-button>`
                   : nothing}
                 ${action === 'link'
-                  ? html`<sbb-link slot="action" sbb-toast-close href="#"> Link action </sbb-link>`
+                  ? html`<sbb-link slot="action" sbb-toast-close href="#">Link action</sbb-link>`
                   : nothing}
               </sbb-toast>
             `,
@@ -58,7 +60,7 @@ describe(`sbb-toast`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-toast icon-name="circle-tick-small" dismissible position=${position}>
+              <sbb-toast icon-name="circle-tick-small" position=${position}>
                 Lorem ipsum dolor
               </sbb-toast>
             `,

@@ -9,7 +9,7 @@ describe(`sbb-toast ssr`, () => {
   let root: SbbToastElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html` <sbb-toast></sbb-toast> `, {
+    root = await ssrHydratedFixture(html`<sbb-toast></sbb-toast>`, {
       modules: ['./toast.component.js'],
     });
   });
