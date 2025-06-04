@@ -5,56 +5,34 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { elementMountingOptions } from '../seat-reservation.js';
 
 import readme from './readme.md?raw';
 
 import './seat-reservation-area.component.js';
 
-const width: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const height: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const rotation: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
 const mounting: InputType = {
   control: {
     type: 'select',
   },
-  options: elementMountingOptions,
+  options: ['free', 'upper-border', 'lower-border', 'upper-to-lower-border'],
 };
 
 const background: InputType = {
   control: {
     type: 'select',
   },
-  options: ['LIGHT', 'DARK'],
+  options: ['light', 'dark'],
 };
 
 const defaultArgTypes: ArgTypes = {
-  width,
-  height,
-  rotation,
   mounting,
   background,
 };
 
 const defaultArgs: Args = {
   style: '--sbb-reservation-area-width: 100;--sbb-reservation-area-height: 50;',
-  background: 'DARK',
-  mounting: elementMountingOptions[0],
+  background: 'dark',
+  mounting: 'free',
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -99,25 +77,25 @@ export const width64Height64Rotation45Deg: StoryObj = {
 export const backgroundLight: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, background: 'LIGHT' },
+  args: { ...defaultArgs, background: 'light' },
 };
 
-export const mountingUPPER_BORDER: StoryObj = {
+export const mountingUpperBorder: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, mounting: 'UPPER_BORDER' },
+  args: { ...defaultArgs, mounting: 'upper-border' },
 };
 
-export const mountingLOWER_BORDER: StoryObj = {
+export const mountingLowerBorder: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, mounting: 'LOWER_BORDER' },
+  args: { ...defaultArgs, mounting: 'lower-border' },
 };
 
-export const mountingUPPER_TO_LOWER_BORDER: StoryObj = {
+export const mountingUpperToLowerBorder: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, mounting: 'UPPER_TO_LOWER_BORDER' },
+  args: { ...defaultArgs, mounting: 'upper-to-lower-border' },
 };
 
 const meta: Meta = {

@@ -19,23 +19,23 @@
   background-color: var(--sbb-color-white);
 }
 
-:host([background='DARK']) {
+:host([background='dark']) {
   background-color: var(--sbb-color-milk);
 }
 
-:host([mounting='UPPER_BORDER']) {
+:host([mounting='upper-border']) {
   border-block-start-width: var(--sbb-border-width-2x);
   border-radius: 0 0 var(--sbb-reservation-area-border-radius)
     var(--sbb-reservation-area-border-radius);
 }
 
-:host([mounting='LOWER_BORDER']) {
+:host([mounting='lower-border']) {
   border-block-end-width: var(--sbb-border-width-2x);
   border-radius: var(--sbb-reservation-area-border-radius) var(--sbb-reservation-area-border-radius)
     0 0;
 }
 
-:host([mounting='UPPER_TO_LOWER_BORDER']) {
+:host([mounting='upper-to-lower-border']) {
   border-block-start: none;
   border-block-end: none;
   border-radius: 0;

@@ -380,14 +380,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       true,
     );
 
-    let elementMounting = 'FREE';
+    let elementMounting = 'free';
     if (graphicalElement.position.y === this.coachBorderOffset * -1) {
-      elementMounting = 'UPPER_BORDER';
+      elementMounting = 'upper-border';
     } else if (
       graphicalElement.position.y + graphicalElement.dimension.h ===
       coachDimension.h + this.coachBorderOffset
     ) {
-      elementMounting = 'LOWER_BORDER';
+      elementMounting = 'lower-border';
     }
 
     return html`
@@ -405,7 +405,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             '--sbb-reservation-area-height': graphicalElement.dimension.h * this.baseGridSize,
           })}
           mounting=${elementMounting}
-          background="DARK"
+          background="dark"
           aria-hidden="true"
           title=${ariaLabelForArea}
         >

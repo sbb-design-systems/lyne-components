@@ -3,8 +3,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type AreaBackgroundState, type ElementMounting } from '../seat-reservation.js';
-
 import style from './seat-reservation-area.scss?lit&inline';
 
 /**
@@ -17,13 +15,14 @@ class SbbSeatReservationAreaElement extends LitElement {
 
   /** Mounting Prop */
   @forceType()
-  @property({ attribute: 'mounting' })
-  public accessor mounting: ElementMounting = 'FREE';
+  @property({ reflect: true })
+  public accessor mounting: 'free' | 'upper-border' | 'lower-border' | 'upper-to-lower-border' =
+    'free';
 
   /** the background of the area */
   @forceType()
-  @property({ attribute: 'background' })
-  public accessor background: AreaBackgroundState = 'LIGHT';
+  @property({ reflect: true })
+  public accessor background: 'light' | 'dark' = 'light';
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;
