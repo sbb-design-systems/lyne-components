@@ -492,27 +492,31 @@ sbb-toggle:has(:focus-visible) {
   --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
 }
 
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
-  :where(sbb-option, sbb-autocomplete-grid-option) {
+:where(sbb-option, sbb-autocomplete-grid-option) {
+  :where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] & {
     --sbb-option-min-height: var(--sbb-size-element-xxs);
     --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
     --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
   }
+}
 
-  sbb-optgroup {
+sbb-optgroup {
+  :where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] & {
     --sbb-optgroup-divider-spacing: var(--sbb-spacing-fixed-2x);
     --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
   }
-}
 
-sbb-select[size='s'] sbb-optgroup:first-child {
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
-}
-
-:where(sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+  :where(sbb-autocomplete, sbb-autocomplete-grid)[size='s'] & {
+    --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+  }
 
   &:first-child {
-    --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
+    sbb-select[size='s'] & {
+      --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+    }
+
+    :where(sbb-autocomplete, sbb-autocomplete-grid)[size='s'] & {
+      --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-1x);
+    }
   }
 }
