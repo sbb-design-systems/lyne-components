@@ -71,7 +71,7 @@
 }
 
 ::slotted(sbb-divider) {
-  margin-block: var(--sbb-spacing-fixed-3x);
+  margin-block: var(--sbb-options-panel-divider-margin-block);
 }
 
 .sbb-autocomplete__container {

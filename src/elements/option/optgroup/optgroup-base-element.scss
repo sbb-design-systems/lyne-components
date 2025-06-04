@@ -5,8 +5,6 @@
 
 :host {
   --sbb-optgroup-divider-display: block;
-  --sbb-optgroup-divider-spacing: 0;
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
@@ -17,17 +15,10 @@
 
 :host(:first-child) {
   --sbb-optgroup-divider-display: none;
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
 }
 
 :host([data-variant='select']) {
-  --sbb-optgroup-divider-spacing: var(--sbb-spacing-fixed-4x);
-  --sbb-optgroup-label-padding-start: 0;
   --sbb-optgroup-label-font-size: inherit;
-}
-
-:host([data-variant='select']:first-child) {
-  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
 }
 
 :host([data-negative]) {
@@ -47,16 +38,12 @@
   color: var(--sbb-optgroup-label-color);
   -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
-  padding-block: var(--sbb-optgroup-label-padding-start) var(--sbb-optgroup-label-padding-end);
-
-  :host([data-variant='select'][data-multiple]) & {
-    @include sbb.text-xs--regular;
-  }
+  padding-block-end: var(--sbb-optgroup-label-padding-end);
 }
 
 .sbb-optgroup__divider {
   display: var(--sbb-optgroup-divider-display);
-  padding-block: var(--sbb-optgroup-divider-spacing);
+  padding-block: var(--sbb-options-panel-divider-margin-block);
 }
 
 // Align the group label to the option label
@@ -64,4 +51,8 @@
   // Can be overridden by the 'preserve-icon-space' on the autocomplete
   display: var(--sbb-option-icon-container-display, none);
   min-width: var(--sbb-size-icon-ui-small);
+}
+
+::slotted(sbb-divider) {
+  margin-block: var(--sbb-options-panel-divider-margin-block);
 }

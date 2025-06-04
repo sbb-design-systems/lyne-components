@@ -27,6 +27,7 @@
   );
   --sbb-options-panel-background-color: var(--sbb-color-white);
   --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
+  --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
