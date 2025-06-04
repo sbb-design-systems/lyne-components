@@ -1,6 +1,13 @@
+import { aTimeout } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 
-import { describeViewports, describeEach, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  describeEach,
+  visualDiffDefault,
+  type VisualDiffSetupBuilder,
+} from '../../core/testing/private.js';
 
 import '../../select.js';
 import '../../form-field.js';
@@ -8,6 +15,14 @@ import '../../autocomplete.js';
 import '../optgroup.js';
 import '../option.js';
 import './option-hint.component.js';
+
+const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> => {
+  // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.
+  await aTimeout(10);
+  const input = setup.snapshotElement.querySelector('input')!;
+  input.focus();
+  await sendKeys({ press: 'O' });
+};
 
 describe('sbb-option-hint', () => {
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
@@ -33,6 +48,7 @@ describe('sbb-option-hint', () => {
               </sbb-autocomplete>
             </sbb-form-field>
           `);
+          setup.withPostSetupAction(() => openAutocomplete(setup));
         }),
       );
 
@@ -57,6 +73,7 @@ describe('sbb-option-hint', () => {
               </sbb-autocomplete>
             </sbb-form-field>
           `);
+          setup.withPostSetupAction(() => openAutocomplete(setup));
         }),
       );
 
@@ -75,6 +92,9 @@ describe('sbb-option-hint', () => {
               </sbb-select>
             </sbb-form-field>
           `);
+          setup.withPostSetupAction(() =>
+            setup.snapshotElement.querySelector('sbb-select')!.open(),
+          );
         }),
       );
     });
