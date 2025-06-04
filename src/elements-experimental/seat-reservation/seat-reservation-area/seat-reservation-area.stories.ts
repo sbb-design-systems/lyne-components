@@ -52,9 +52,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  width: 100,
-  height: 50,
-  rotation: 0,
+  style: '--sbb-reservation-area-width: 100;--sbb-reservation-area-height: 50;',
   background: 'DARK',
   mounting: elementMountingOptions[0],
 };
@@ -65,25 +63,37 @@ const Template = (args: Args): TemplateResult =>
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: {
+    ...defaultArgs,
+  },
 };
 
 export const width32Height32: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 32, height: 32 },
+  args: {
+    ...defaultArgs,
+    style: '--sbb-reservation-area-width: 32;--sbb-reservation-area-height: 32;',
+  },
 };
 
 export const width160Height64: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 160, height: 64 },
+  args: {
+    ...defaultArgs,
+    style: '--sbb-reservation-area-width: 160;--sbb-reservation-area-height: 64;',
+  },
 };
 
 export const width64Height64Rotation45Deg: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 64, height: 64, rotation: 45 },
+  args: {
+    ...defaultArgs,
+    style:
+      '--sbb-reservation-area-width: 64;--sbb-reservation-area-height: 64;--sbb-reservation-area-rotation: 45',
+  },
 };
 
 export const backgroundLight: StoryObj = {

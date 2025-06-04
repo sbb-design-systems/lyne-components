@@ -4,6 +4,7 @@ import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type {
@@ -399,8 +400,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         z-index="${graphicalElement.position.z}"
       >
         <sbb-seat-reservation-area
-          width=${graphicalElement.dimension.w * this.baseGridSize}
-          height=${graphicalElement.dimension.h * this.baseGridSize}
+          style=${styleMap({
+            '--sbb-reservation-area-width': graphicalElement.dimension.w * this.baseGridSize,
+            '--sbb-reservation-area-height': graphicalElement.dimension.h * this.baseGridSize,
+          })}
           mounting=${elementMounting}
           background="DARK"
           aria-hidden="true"

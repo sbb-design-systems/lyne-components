@@ -11,7 +11,4 @@ The component `sbb-seat-reservation-area` represents a gray or white background 
 | Name         | Attribute    | Privacy | Type                  | Default   | Description     |
 | ------------ | ------------ | ------- | --------------------- | --------- | --------------- |
 | `background` | `background` | public  | `AreaBackgroundState` | `'LIGHT'` | Background Prop |
-| `height`     | `height`     | public  | `number`              | `6`       | Height Prop     |
 | `mounting`   | `mounting`   | public  | `ElementMounting`     | `'FREE'`  | Mounting Prop   |
-| `rotation`   | `rotation`   | public  | `number`              | `0`       | Rotation Prop   |
-| `width`      | `width`      | public  | `number`              | `6`       | Width Prop      |
