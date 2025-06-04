@@ -57,15 +57,6 @@ const setValue = (event: Event): void => {
   updateOutput(timeInput);
 };
 
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Native input',
-  },
-};
-
 const readonly: InputType = {
   control: {
     type: 'boolean',
@@ -158,7 +149,6 @@ const iconEnd: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  value,
   disabled,
   readonly,
   required,
@@ -176,7 +166,6 @@ const formFieldBasicArgsTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  value: '12:00',
   disabled: false,
   readonly: false,
   required: false,
@@ -223,7 +212,7 @@ const TemplateSbbTimeInput = ({
     >
       ${label ? html`<label>${label}</label>` : nothing}
       ${iconStart ? html`<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : nothing}
-      <sbb-time-input @input=${handleInput} ${sbbSpread(args)}></sbb-time-input>
+      <sbb-time-input @input=${handleInput} value="12:00" ${sbbSpread(args)}></sbb-time-input>
       ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
     </sbb-form-field>
     <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
@@ -236,6 +225,10 @@ const TemplateSbbTimeInput = ({
       <div style="margin-block-start: 1rem;">Time in input:</div>
       <output class="container-value"></output>
     </div>
+    <p>
+      <strong>Note:</strong> In order for an error to be displayed, you need to enter an invalid
+      value (e.g. 99:99) manually into the input field.
+    </p>
   </div>
 `;
 
@@ -278,15 +271,6 @@ export const Readonly: StoryObj = {
   },
 };
 
-export const WithError: StoryObj = {
-  render: TemplateSbbTimeInput,
-  argTypes: { ...formFieldBasicArgsTypes },
-  args: {
-    ...formFieldBasicArgsWithIcons,
-    value: '99:99',
-  },
-};
-
 export const Negative: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
@@ -325,16 +309,6 @@ export const ReadonlyNegative: StoryObj = {
   args: {
     ...formFieldBasicArgsWithIcons,
     readonly: true,
-    negative: true,
-  },
-};
-
-export const WithErrorNegative: StoryObj = {
-  render: TemplateSbbTimeInput,
-  argTypes: { ...formFieldBasicArgsTypes },
-  args: {
-    ...formFieldBasicArgsWithIcons,
-    value: '99:99',
     negative: true,
   },
 };

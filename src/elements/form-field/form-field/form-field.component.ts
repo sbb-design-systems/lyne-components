@@ -149,7 +149,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
           event.target === this.inputElement ||
           event.target === (this.inputElement as SbbSelectElement).inputElement
         ) {
-          this.internals.states.add('input-focused');
+          this.internals.states.add('focus');
           this.internals.states.add(`focus-origin-${sbbInputModalityDetector.mostRecentModality}`);
         }
       },
@@ -163,7 +163,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
           event.target === (this.inputElement as SbbSelectElement).inputElement
         ) {
           this._checkAndUpdateInputEmpty();
-          this.internals.states.delete('input-focused');
+          this.internals.states.delete('focus');
           for (const state of this.internals.states) {
             if (state.startsWith('focus-origin-')) {
               this.internals.states.delete(state);
@@ -347,9 +347,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _readInputState(): void {
-    this._toggleState('readonly', this._input!.hasAttribute('readonly'));
-    this._toggleState('disabled', this._input!.hasAttribute('disabled'));
-    this._toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
+    this.toggleState('readonly', this._input!.hasAttribute('readonly'));
+    this.toggleState('disabled', this._input!.hasAttribute('disabled'));
+    this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
   }
 
   private _registerInputFormListener(): void {
@@ -408,8 +408,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _checkAndUpdateInputEmpty(): void {
-    this._toggleState(
-      'input-empty',
+    this.toggleState(
+      'empty',
       this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
         this._isInputEmpty(),
     );
@@ -443,14 +443,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     return ['', undefined, null].includes(value) || (Array.isArray(value) && value.length === 0);
   }
 
-  private _toggleState(state: string, value: boolean): void {
-    if (value) {
-      this.internals.states.add(state);
-    } else {
-      this.internals.states.delete(state);
-    }
-  }
-
   /**
    * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
    */
@@ -462,17 +454,13 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
     for (const el of this._errorElements) {
       // Although a form error assigns an id itself, we need to be earlier by creating one here
-      if (!el.id) {
-        el.id = `sbb-form-field-error-${++nextFormFieldErrorId}`;
-      }
-      if (!el.role) {
-        // Instead of defining a container with an aria-live region as expected, we had to change
-        // setting it for every slotted element to properly work in all browsers and screen reader combinations.
-        el.role = 'status';
-      }
+      el.id ||= `sbb-form-field-error-${++nextFormFieldErrorId}`;
+      // Instead of defining a container with an aria-live region as expected, we had to change
+      // setting it for every slotted element to properly work in all browsers and screen reader combinations.
+      el.role ||= 'status';
     }
     this._applyAriaDescribedby(removedErrorIds);
-    this._toggleState('has-error', !!this._errorElements.length);
+    this.toggleState('has-error', !!this._errorElements.length);
     this._syncNegative();
   }
 

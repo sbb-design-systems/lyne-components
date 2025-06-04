@@ -169,14 +169,14 @@ sbb-form-field {
   }
 
   &:has(
-      :where(
-        :where(input, textarea, select):user-invalid,
-        :where(:state(interacted), [state--interacted]):invalid,
+      :is(
+        :is(input, textarea, select):user-invalid,
+        :is(:state(interacted), [state--interacted]):invalid,
         .ng-touched.ng-invalid,
         .sbb-invalid
       )
     ),
-  :where(.ng-submitted, .sbb-show-errors) &:has(:where(:invalid, .ng-invalid)) {
+  :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
     --sbb-form-field-border-color: var(--sbb-color-red125);
     --sbb-form-field-text-color: var(--sbb-color-red125);
 
