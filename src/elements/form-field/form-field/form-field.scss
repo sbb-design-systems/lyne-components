@@ -158,16 +158,18 @@
   --sbb-form-field-border-color: var(--sbb-color-charcoal);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal);
   --sbb-form-field-border-width: var(--sbb-border-width-2x);
-
-  @include sbb.if-forced-colors {
-    --sbb-form-field-border-color: Highlight;
-    --sbb-form-field-prefix-color: Highlight;
-  }
 }
 
 :host(:where(:state(focus), [state--focus])[negative]) {
   --sbb-form-field-border-color: var(--sbb-color-milk);
   --sbb-form-field-prefix-color: var(--sbb-color-milk);
+}
+
+:host(:where(:state(focus), [state--focus])) {
+  @include sbb.if-forced-colors {
+    --sbb-form-field-border-color: Highlight;
+    --sbb-form-field-prefix-color: Highlight;
+  }
 }
 
 :host(:not(:where(:state(has-error), [state--has-error]))) {
@@ -182,7 +184,7 @@
   }
 }
 
-:host(:where(:not([data-slot-names~='label']), [hidden-label])) {
+:host(:is(:not([data-slot-names~='label']), [hidden-label])) {
   --sbb-form-field-label-size: 0rem;
   --sbb-form-field-label-to-input-overlapping: 0rem;
 }
@@ -236,7 +238,8 @@
 
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
-    :host(:where([borderless], :state(input-type-sbb-slider), [state--input-type-sbb-slider])) & {
+    :host(:is([borderless], :where(:state(input-type-sbb-slider), [state--input-type-sbb-slider])))
+      & {
       &::before {
         border-color: transparent;
       }
@@ -410,7 +413,7 @@
 
   :host(
       [size='s']
-        :where(
+        :is(
           :state(input-type-input),
           [state--input-type-input],
           :state(input-type-select),
