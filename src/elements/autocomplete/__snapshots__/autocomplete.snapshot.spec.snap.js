@@ -66,8 +66,6 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
   data-slot-names="unnamed"
   error-space="none"
   size="m"
@@ -215,8 +213,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
   data-slot-names="unnamed"
   error-space="none"
   size="m"

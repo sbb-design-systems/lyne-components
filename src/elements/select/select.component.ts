@@ -147,9 +147,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _displayValueChanged: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectElement.events.displayValueChange,
-    {
-      composed: false,
-    },
   );
 
   private _originResizeObserver = new ResizeController(this, {

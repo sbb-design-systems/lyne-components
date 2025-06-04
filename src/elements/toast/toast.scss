@@ -10,10 +10,8 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-toast-animation-timing-function: ease;
-  --sbb-toast-color: var(--sbb-color-white);
   --sbb-toast-text-color: var(--sbb-color-milk);
   --sbb-toast-background-color: var(--sbb-color-midnight);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-toast-margin: var(--sbb-spacing-responsive-s);
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
@@ -22,6 +20,8 @@
   --sbb-toast-container-position: fixed;
   --sbb-toast-horizontal-position: initial;
   --sbb-toast-vertical-position: initial;
+  --sbb-toast-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   display: none;
 }
@@ -79,12 +79,10 @@
   z-index: var(--sbb-toast-z-index, var(--sbb-overlay-default-z-index));
   pointer-events: auto;
   margin: var(--sbb-toast-margin);
-  padding-block: var(--sbb-toast-padding-block);
-  padding-inline: var(--sbb-toast-padding-inline);
   border-radius: var(--sbb-toast-border-radius);
   max-width: var(--sbb-toast-max-width);
   display: flex;
-  color: var(--sbb-toast-color);
+  color: var(--sbb-toast-text-color);
   background-color: var(--sbb-toast-background-color);
 
   :host([data-state='opening']) & {
@@ -104,55 +102,44 @@
   }
 }
 
-.sbb-toast__icon {
-  margin-inline-end: var(--sbb-spacing-fixed-2x);
-  line-height: initial;
-
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
-    display: none;
-  }
+.sbb-toast-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-toast-gap);
+  padding-block: var(--sbb-toast-padding-block);
+  padding-inline: var(--sbb-toast-padding-inline);
 }
 
 .sbb-toast__content {
   @include sbb.title-6($exclude-spacing: true);
 
-  color: var(--sbb-toast-text-color);
   flex: 1 1 0;
 }
 
-.sbb-toast__action {
-  position: relative;
-
-  // Since the action button has an absolute position, we have to "reserve" space
-  min-width: #{sbb.px-to-rem-build(40)};
-
-  :host(:not([data-slot-names~='action'], [dismissible])) & {
-    display: none;
-  }
+.sbb-toast__close {
+  display: flex;
+  align-items: center;
 }
 
-::slotted([data-sbb-button]),
-.sbb-toast__action-button {
-  margin-inline: var(--sbb-spacing-fixed-2x);
-  position: absolute;
-  top: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
+.sbb-toast__close-divider {
+  padding-block: var(--sbb-toast-padding-block);
 }
 
-::slotted(:is(sbb-link, sbb-link-button, sbb-link-static)) {
-  margin-inline-start: var(--sbb-spacing-fixed-4x);
+.sbb-toast__close-button {
+  margin-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
 @keyframes open {
   from {
     visibility: hidden;
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-2x));
+    translate: 0 var(--sbb-spacing-fixed-2x);
   }
 
   to {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 }
 
@@ -160,12 +147,12 @@
   from {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 
   to {
     visibility: hidden;
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-2x));
+    translate: 0 var(--sbb-spacing-fixed-2x);
   }
 }

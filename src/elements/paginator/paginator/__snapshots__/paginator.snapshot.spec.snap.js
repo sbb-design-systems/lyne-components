@@ -523,7 +523,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
     </label>
     <sbb-form-field
       borderless=""
-      data-input-type="sbb-select"
       data-slot-names="unnamed"
       error-space="none"
       size="m"
@@ -698,7 +697,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
     </label>
     <sbb-form-field
       borderless=""
-      data-input-type="sbb-select"
       data-slot-names="unnamed"
       error-space="none"
       size="m"

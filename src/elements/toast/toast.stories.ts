@@ -31,7 +31,7 @@ const position: InputType = {
   ],
 };
 
-const dismissible: InputType = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -59,7 +59,7 @@ const iconName: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   position,
-  dismissible,
+  readonly,
   timeout,
   politeness,
   'icon-name': iconName,
@@ -67,8 +67,8 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   position: 'bottom-center',
-  dismissible: false,
-  timeout: 6000,
+  readonly: false,
+  timeout: 0,
   politeness: 'polite',
   'icon-name': 'circle-tick-small',
 };
@@ -81,8 +81,9 @@ const toastTemplate = (
   <sbb-button
     @click=${(event: Event) =>
       (event.currentTarget as SbbButtonElement).parentElement!.querySelector('sbb-toast')!.open()}
-    >Show toast</sbb-button
   >
+    Show toast
+  </sbb-button>
   <sbb-toast timeout=${timeout} ${sbbSpread(args)}>
     ${contentLength === 's'
       ? 'Lorem ipsum dolor'
@@ -117,10 +118,10 @@ export const Basic: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Dismissible: StoryObj = {
+export const ReadOnlyWithTimeout: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, dismissible: true },
+  args: { ...defaultArgs, readonly: true, timeout: 5000 },
 };
 
 export const LongContent: StoryObj = {

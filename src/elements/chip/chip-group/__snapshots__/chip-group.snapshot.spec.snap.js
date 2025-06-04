@@ -22,7 +22,6 @@ snapshots["sbb-chip-group renders Shadow DOM"] =
 
 snapshots["sbb-chip-group renders with form-field DOM"] = 
 `<sbb-form-field
-  data-input-type="input"
   data-slot-names="label unnamed"
   error-space="none"
   size="m"
@@ -48,8 +47,11 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
       value="Value 2"
     >
     </sbb-chip>
+    <input
+      aria-description="Selected elements: 2"
+      id="sbb-form-field-input-0"
+    >
   </sbb-chip-group>
-  <input id="sbb-form-field-input-0">
 </sbb-form-field>
 `;
 /* end snapshot sbb-chip-group renders with form-field DOM */
@@ -115,12 +117,13 @@ snapshots["sbb-chip-group renders with form-field A11y tree Firefox"] =
         {
           "role": "option",
           "name": "Value 2 , Press the Delete button to remove the chip"
+        },
+        {
+          "role": "textbox",
+          "name": "Field label",
+          "description": "Selected elements: 2"
         }
       ]
-    },
-    {
-      "role": "textbox",
-      "name": "Field label"
     }
   ]
 }
@@ -154,12 +157,13 @@ snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] =
         {
           "role": "option",
           "name": "Value 2 , Press the Delete button to remove the chip"
+        },
+        {
+          "role": "textbox",
+          "name": "Field label",
+          "description": "Selected elements: 2"
         }
       ]
-    },
-    {
-      "role": "textbox",
-      "name": "Field label"
     }
   ]
 }
