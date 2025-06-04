@@ -40,32 +40,36 @@ export class SeatReservationBaseElement extends LitElement {
     selectedCoach: 'selectedCoach',
   } as const;
 
+  /** The seat reservation object which contains all coaches and places */
   @property({ attribute: 'seat-reservation', type: Object })
   public accessor seatReservation: SeatReservation = null!;
 
-  /** The seat resvervation navigation can be toggled by this property*/
+  /** The seat resvervation navigation can be toggled by this property */
   @forceType()
   @property({ attribute: 'has-navigation', type: Boolean })
   public accessor hasNavigation: boolean = true;
 
+  /** The seat reservation area is aligned vertically */
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
   public accessor alignVertical: boolean = false;
 
+  /** The seat reservation area's base grid size */
   @forceType()
   @property({ attribute: 'base-grid-size', type: Number })
   public accessor baseGridSize: number = 16;
 
+  /** The seat reservation area's width */
   @forceType()
   @property({ attribute: 'height', type: Number })
   public accessor height: number = null!;
 
-  /** Maximal number of possible clickable seats*/
+  /** Maximal number of possible clickable seats */
   @forceType()
   @property({ attribute: 'max-reservations', type: Number })
   public accessor maxReservations: number = null!;
 
-  /** Any click functionality is prevented*/
+  /** Any click functionality is prevented */
   @forceType()
   @property({ attribute: 'prevent-place-click', type: Boolean })
   public accessor preventPlaceClick: boolean = false;

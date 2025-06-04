@@ -73,14 +73,6 @@ export type SeatReservationCoachSelection = {
   coachPropertyIds?: string[];
 };
 
-export const elementMountingOptions = <const>[
-  'FREE',
-  'UPPER_BORDER',
-  'LOWER_BORDER',
-  'UPPER_TO_LOWER_BORDER',
-];
-export type AreaBackgroundState = 'LIGHT' | 'DARK';
-export type ElementMounting = (typeof elementMountingOptions)[number];
 export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';

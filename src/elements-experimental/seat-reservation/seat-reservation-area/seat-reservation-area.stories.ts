@@ -5,58 +5,34 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { elementMountingOptions } from '../seat-reservation.js';
 
 import readme from './readme.md?raw';
 
 import './seat-reservation-area.component.js';
 
-const width: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const height: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const rotation: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
 const mounting: InputType = {
   control: {
     type: 'select',
   },
-  options: elementMountingOptions,
+  options: ['free', 'upper-border', 'lower-border', 'upper-to-lower-border'],
 };
 
 const background: InputType = {
   control: {
     type: 'select',
   },
-  options: ['LIGHT', 'DARK'],
+  options: ['light', 'dark'],
 };
 
 const defaultArgTypes: ArgTypes = {
-  width,
-  height,
-  rotation,
   mounting,
   background,
 };
 
 const defaultArgs: Args = {
-  width: 100,
-  height: 50,
-  rotation: 0,
-  background: 'DARK',
-  mounting: elementMountingOptions[0],
+  style: '--sbb-reservation-area-width: 100;--sbb-reservation-area-height: 50;',
+  background: 'dark',
+  mounting: 'free',
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -65,49 +41,61 @@ const Template = (args: Args): TemplateResult =>
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: {
+    ...defaultArgs,
+  },
 };
 
 export const width32Height32: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 32, height: 32 },
+  args: {
+    ...defaultArgs,
+    style: '--sbb-reservation-area-width: 32;--sbb-reservation-area-height: 32;',
+  },
 };
 
 export const width160Height64: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 160, height: 64 },
+  args: {
+    ...defaultArgs,
+    style: '--sbb-reservation-area-width: 160;--sbb-reservation-area-height: 64;',
+  },
 };
 
 export const width64Height64Rotation45Deg: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, width: 64, height: 64, rotation: 45 },
+  args: {
+    ...defaultArgs,
+    style:
+      '--sbb-reservation-area-width: 64;--sbb-reservation-area-height: 64;--sbb-reservation-area-rotation: 45',
+  },
 };
 
 export const backgroundLight: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, background: 'LIGHT' },
+  args: { ...defaultArgs, background: 'light' },
 };
 
-export const mountingUPPER_BORDER: StoryObj = {
+export const mountingUpperBorder: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, mounting: 'UPPER_BORDER' },
+  args: { ...defaultArgs, mounting: 'upper-border' },
 };
 
-export const mountingLOWER_BORDER: StoryObj = {
+export const mountingLowerBorder: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, mounting: 'LOWER_BORDER' },
+  args: { ...defaultArgs, mounting: 'lower-border' },
 };
 
-export const mountingUPPER_TO_LOWER_BORDER: StoryObj = {
+export const mountingUpperToLowerBorder: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, mounting: 'UPPER_TO_LOWER_BORDER' },
+  args: { ...defaultArgs, mounting: 'upper-to-lower-border' },
 };
 
 const meta: Meta = {

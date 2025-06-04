@@ -117,15 +117,6 @@ type SeatReservationCoachSelection = {
 #### Other
 
 ```typescript
-const elementMountingOptions = <const>[
-  'FREE',
-  'UPPER_BORDER',
-  'LOWER_BORDER',
-  'UPPER_TO_LOWER_BORDER',
-];
-
-type AreaBackgroundState = 'LIGHT' | 'DARK';
-type ElementMounting = (typeof elementMountingOptions)[number];
 type PlaceType = 'SEAT' | 'BICYCLE';
 type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';

@@ -4,6 +4,7 @@ import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type {
@@ -36,26 +37,26 @@ export
 class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override styles: CSSResultGroup = style;
 
-  /** seat reservation */
+  /** The seat reservation object which contains all coaches and places */
   @property({ attribute: 'seat-reservation', type: Object })
   public override accessor seatReservation: SeatReservation = null!;
 
-  /** The seat resvervation navigation can be toggled by this property*/
+  /** The seat resvervation navigation can be toggled by this property */
   @forceType()
   @property({ attribute: 'has-navigation', type: Boolean })
   public override accessor hasNavigation: boolean = true;
 
-  /** align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment*/
+  /** controls the visual represention of seat reservation in a horizonal or vertical alignment */
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
   public override accessor alignVertical: boolean = false;
 
-  /** Maximal number of possible clickable seats*/
+  /** Maximal number of possible clickable seats */
   @forceType()
   @property({ attribute: 'max-reservations', type: Number })
   public override accessor maxReservations: number = null!;
 
-  /** Any click functionality is prevented*/
+  /** Any click functionality is prevented */
   @forceType()
   @property({ attribute: 'prevent-place-click', type: Boolean })
   public override accessor preventPlaceClick: boolean = false;
@@ -379,14 +380,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       true,
     );
 
-    let elementMounting = 'FREE';
+    let elementMounting = 'free';
     if (graphicalElement.position.y === this.coachBorderOffset * -1) {
-      elementMounting = 'UPPER_BORDER';
+      elementMounting = 'upper-border';
     } else if (
       graphicalElement.position.y + graphicalElement.dimension.h ===
       coachDimension.h + this.coachBorderOffset
     ) {
-      elementMounting = 'LOWER_BORDER';
+      elementMounting = 'lower-border';
     }
 
     return html`
@@ -399,10 +400,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         z-index="${graphicalElement.position.z}"
       >
         <sbb-seat-reservation-area
-          width=${graphicalElement.dimension.w * this.baseGridSize}
-          height=${graphicalElement.dimension.h * this.baseGridSize}
+          style=${styleMap({
+            '--sbb-reservation-area-width': graphicalElement.dimension.w * this.baseGridSize,
+            '--sbb-reservation-area-height': graphicalElement.dimension.h * this.baseGridSize,
+          })}
           mounting=${elementMounting}
-          background="DARK"
+          background="dark"
           aria-hidden="true"
           title=${ariaLabelForArea}
         >

@@ -31,10 +31,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     focusCoach: 'focusCoach',
   } as const;
 
+  /** Coach ID, which is used to identify the coach in the navigation */
   @forceType()
-  @property({ attribute: 'coach-id', type: String })
+  @property({ attribute: 'coach-id' })
   public accessor coachId: string = '';
 
+  /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
   public accessor propertyIds: string[] = [];
 
@@ -52,17 +54,21 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Number })
   public accessor index: number = 0;
 
+  /** Travel class of the coach */
   @property({ attribute: 'travel-class', type: Array })
   public accessor travelClass: PlaceTravelClass[] = ['ANY_CLASS'];
 
+  /** If the coach is a driver/restricted area */
   @forceType()
   @property({ attribute: 'driver-area', type: Boolean })
   public accessor driverArea: boolean = false;
 
+  /** If the coach is the first in the navigation */
   @forceType()
   @property({ type: Boolean })
   public accessor first: boolean = false;
 
+  /** If the coach is the last in the navigation */
   @forceType()
   @property({ type: Boolean })
   public accessor last: boolean = false;
@@ -72,6 +78,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'disable', type: Boolean })
   public accessor disable: boolean = false;
 
+  /** If the coach navigation should be displayed vertically */
   @forceType()
   @property({ type: Boolean })
   public accessor vertical: boolean = false;

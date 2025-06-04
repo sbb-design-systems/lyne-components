@@ -19,17 +19,17 @@ export
 class SbbSeatReservationGraphicElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Name Prop */
+  /** Name of the SVG graphic to be displayed. */
   @forceType()
-  @property({ attribute: 'name', type: String })
+  @property({ attribute: 'name' })
   public accessor name: string = '';
 
+  /** if true, scale the graphic content of the given element non-uniformly if necessary */
   @forceType()
-  /** Stretch Prop */
   @property({ attribute: 'stretch', type: Boolean })
   public accessor stretch: boolean = false;
 
-  /** Rotation Prop */
+  /** handles the rotation of the SVG graphic */
   @forceType()
   @property({ attribute: 'rotation', type: Number })
   public accessor rotation: number = 0;
@@ -39,12 +39,12 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'inverse-roration', type: Number })
   public accessor inverseRotation: number = 0;
 
-  /** Width Prop */
+  /** width of the svg in pixels (without unit) */
   @forceType()
   @property({ attribute: 'width', type: Number })
   public accessor width: number = null!;
 
-  /** Height Prop */
+  /** height of the svg in pixels (without unit) */
   @forceType()
   @property({ attribute: 'height', type: Number })
   public accessor height: number = null!;

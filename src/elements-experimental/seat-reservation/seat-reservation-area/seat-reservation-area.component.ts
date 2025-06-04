@@ -1,9 +1,7 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-
-import { type AreaBackgroundState, type ElementMounting } from '../seat-reservation.js';
 
 import style from './seat-reservation-area.scss?lit&inline';
 
@@ -15,46 +13,19 @@ export
 class SbbSeatReservationAreaElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Rotation Prop */
-  @forceType()
-  @property({ attribute: 'rotation', type: Number })
-  public accessor rotation: number = 0;
-
-  /** Width Prop */
-  @forceType()
-  @property({ attribute: 'width', type: Number })
-  public accessor width: number = 6;
-
-  /** Height Prop */
-  @forceType()
-  @property({ attribute: 'height', type: Number })
-  public accessor height: number = 6;
-
   /** Mounting Prop */
   @forceType()
-  @property({ attribute: 'mounting', type: String })
-  public accessor mounting: ElementMounting = 'FREE';
+  @property({ reflect: true })
+  public accessor mounting: 'free' | 'upper-border' | 'lower-border' | 'upper-to-lower-border' =
+    'free';
 
-  /** Background Prop */
+  /** the background of the area */
   @forceType()
-  @property({ attribute: 'background', type: String })
-  public accessor background: AreaBackgroundState = 'LIGHT';
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-    if (changedProperties.has('width')) {
-      this.style?.setProperty('--sbb-reservation-area-width', `${this.width}`);
-    }
-    if (changedProperties.has('height')) {
-      this.style?.setProperty('--sbb-reservation-area-height', `${this.height}`);
-    }
-    if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--sbb-reservation-area-rotation', `${this.rotation}`);
-    }
-  }
+  @property({ reflect: true })
+  public accessor background: 'light' | 'dark' = 'light';
 
   protected override render(): TemplateResult {
-    return html`<span class="sbb-sr-area"><slot></slot></span>`;
+    return html`<slot></slot>`;
   }
 }
 

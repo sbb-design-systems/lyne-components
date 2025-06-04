@@ -1,5 +1,8 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
 // Depends on the place state and current event (hover|focus), the background and fill colors of the place,
 // backrest of place and the text color are handled by colorizePlace function.
 @mixin colorizePlace($state, $event) {
@@ -90,8 +93,9 @@ $disabled: '.sbb-reservation-place-control--disabled';
 .sbb-sr-place-ctrl {
   $root: &;
 
+  width: max-content;
   position: relative;
-  font-size: calc(var(--sbb-reservation-place-control-text-size) * 1px);
+  font-size: calc(var(--sbb-reservation-place-control-text-size) * #{sbb.px-to-rem-build(1)});
 
   &--state-free {
     @include colorizePlace('free', 'default');
