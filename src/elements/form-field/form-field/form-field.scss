@@ -165,7 +165,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-milk);
 }
 
-:host(:where(:state(focus), [state--focus])) {
+:host(:is(:state(focus), [state--focus])) {
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
