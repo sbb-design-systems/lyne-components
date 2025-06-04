@@ -172,21 +172,22 @@ sbb-form-field {
       :where(
         :where(input, textarea, select):user-invalid,
         :where(:state(interacted), [state--interacted]):invalid,
-        .ng-touched.ng-invalid
+        .ng-touched.ng-invalid,
+        .sbb-invalid
       )
     ),
   :where(.ng-submitted, .sbb-show-errors) &:has(:where(:invalid, .ng-invalid)) {
     --sbb-form-field-border-color: var(--sbb-color-red125);
     --sbb-form-field-text-color: var(--sbb-color-red125);
 
-    @include a11y.if-forced-colors {
-      --sbb-form-field-border-color: LinkText !important;
-      --sbb-form-field-text-color: LinkText !important;
-    }
-
     &[negative] {
       --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
       --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
+    }
+
+    @include a11y.if-forced-colors {
+      --sbb-form-field-border-color: LinkText !important;
+      --sbb-form-field-text-color: LinkText !important;
     }
   }
 }

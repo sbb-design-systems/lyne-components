@@ -418,7 +418,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private _isInputEmpty(): boolean {
     const chipGroupElem = this.querySelector('sbb-chip-group');
     if (chipGroupElem) {
-      return this._isInputValueEmpty() && chipGroupElem.value.length === 0;
+      return (
+        this._isInputValueEmpty() &&
+        (Array.isArray(chipGroupElem.value)
+          ? chipGroupElem.value.length === 0
+          : !chipGroupElem.querySelector('sbb-chip'))
+      );
     } else if (this._input instanceof HTMLInputElement) {
       return (
         this._floatingLabelSupportedInputTypes.includes(this._input.type) &&

@@ -122,6 +122,16 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 </sbb-form-field>
 ```
 
+### Error state
+
+The form field is displayed in an error state when an input element has been interacted with
+and is in an error state. This checks both for the native validity state (which can be set
+on `<input>`, `<select>` and `<textarea>` via validation attributes like `required` or
+via the `setCustomValidity(message)` method) and for the Angular Forms state classes.
+
+If you want to manually set the error state, you can add the `sbb-invalid` CSS class
+to the input element.
+
 ## Accessibility
 
 By itself, the `sbb-form-field` does not apply any additional accessibility treatment to a form

@@ -289,7 +289,7 @@ describe(`sbb-form-field`, () => {
       expect(element).not.to.have.match(':state(input-focused)');
     });
 
-    it.only('should open select on form field click', async () => {
+    it('should open select on form field click', async () => {
       expect(element).not.to.have.match(':state(input-focused)');
       expect(select).to.not.have.attribute('data-state', 'opened');
 
