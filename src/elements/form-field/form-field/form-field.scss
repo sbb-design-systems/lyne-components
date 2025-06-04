@@ -412,8 +412,7 @@
   display: flex;
 
   :host(
-      [size='s']
-        :is(
+      [size='s']:is(
           :state(input-type-input),
           [state--input-type-input],
           :state(input-type-select),
