@@ -8,7 +8,7 @@ The component `sbb-seat-reservation-area` represents a gray or white background 
 
 ## Properties
 
-| Name         | Attribute    | Privacy | Type                                                                    | Default   | Description     |
-| ------------ | ------------ | ------- | ----------------------------------------------------------------------- | --------- | --------------- |
-| `background` | `background` | public  | `dark \| light`                                                         | `'light'` | Background Prop |
-| `mounting`   | `mounting`   | public  | `'free' \| 'upper-border' \| 'lower-border' \| 'upper-to-lower-border'` | `'free'`  | Mounting Prop   |
+| Name         | Attribute    | Privacy | Type                                                                    | Default   | Description                |
+| ------------ | ------------ | ------- | ----------------------------------------------------------------------- | --------- | -------------------------- |
+| `background` | `background` | public  | `'light' \| 'dark'`                                                     | `'light'` | the background of the area |
+| `mounting`   | `mounting`   | public  | `'free' \| 'upper-border' \| 'lower-border' \| 'upper-to-lower-border'` | `'free'`  | Mounting Prop              |

@@ -181,15 +181,15 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
 
 ## Properties
 
-| Name                | Attribute             | Privacy | Type              | Default | Description                                                                                              |
-| ------------------- | --------------------- | ------- | ----------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `alignVertical`     | `align-vertical`      | public  | `boolean`         | `false` | align-vertical controls the visual represention of seat reservation in a horizonal or vertical alignment |
-| `baseGridSize`      | `base-grid-size`      | public  | `number`          | `16`    |                                                                                                          |
-| `hasNavigation`     | `has-navigation`      | public  | `boolean`         | `true`  | The seat resvervation navigation can be toggled by this property                                         |
-| `height`            | `height`              | public  | `number`          | `null!` |                                                                                                          |
-| `maxReservations`   | `max-reservations`    | public  | `number`          | `null!` | Maximal number of possible clickable seats                                                               |
-| `preventPlaceClick` | `prevent-place-click` | public  | `boolean`         | `false` | Any click functionality is prevented                                                                     |
-| `seatReservation`   | `seat-reservation`    | public  | `SeatReservation` | `null!` | seat reservation                                                                                         |
+| Name                | Attribute             | Privacy | Type              | Default | Description                                                                               |
+| ------------------- | --------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------------------------------- |
+| `alignVertical`     | `align-vertical`      | public  | `boolean`         | `false` | controls the visual represention of seat reservation in a horizonal or vertical alignment |
+| `baseGridSize`      | `base-grid-size`      | public  | `number`          | `16`    | The seat reservation area's base grid size                                                |
+| `hasNavigation`     | `has-navigation`      | public  | `boolean`         | `true`  | The seat resvervation navigation can be toggled by this property                          |
+| `height`            | `height`              | public  | `number`          | `null!` | The seat reservation area's width                                                         |
+| `maxReservations`   | `max-reservations`    | public  | `number`          | `null!` | Maximal number of possible clickable seats                                                |
+| `preventPlaceClick` | `prevent-place-click` | public  | `boolean`         | `false` | Any click functionality is prevented                                                      |
+| `seatReservation`   | `seat-reservation`    | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places                         |
 
 ## Events
 

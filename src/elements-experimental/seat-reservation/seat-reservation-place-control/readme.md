@@ -12,19 +12,19 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type         | Default     | Description                                            |
-| -------------- | --------------- | ------- | ------------ | ----------- | ------------------------------------------------------ |
-| `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifer the right place to coach |
-| `height`       | `height`        | public  | `number`     | `32`        | Height Prop                                            |
-| `keyfocus`     | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                      |
-| `placeType`    | `type`          | public  | `PlaceType`  | `'SEAT'`    | Type Prop                                              |
-| `preventClick` | `prevent-click` | public  | `boolean`    | `false`     | Prevent click prop prevent any place action            |
-| `propertyIds`  | `propertyIds`   | public  | `string[]`   | `[]`        | Place Property Ids Prop                                |
-| `rotation`     | `rotation`      | public  | `number`     | `0`         | Rotation Prop                                          |
-| `state`        | `state`         | public  | `PlaceState` | `'FREE'`    | State Prop                                             |
-| `text`         | `text`          | public  | `string`     | `''`        | Text Prop                                              |
-| `textRotation` | `text-rotation` | public  | `number`     | `0`         | TextRotation Prop                                      |
-| `width`        | `width`         | public  | `number`     | `32`        | Width Prop                                             |
+| Name           | Attribute       | Privacy | Type         | Default     | Description                                                     |
+| -------------- | --------------- | ------- | ------------ | ----------- | --------------------------------------------------------------- |
+| `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifer the right place to coach          |
+| `height`       | `height`        | public  | `number`     | `32`        | height of the place in pixels (without unit)                    |
+| `keyfocus`     | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                               |
+| `placeType`    | `type`          | public  | `PlaceType`  | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                  |
+| `preventClick` | `prevent-click` | public  | `boolean`    | `false`     | Prevent click prop prevent any place action                     |
+| `propertyIds`  | `propertyIds`   | public  | `string[]`   | `[]`        | property ids of the place, to display more info about the place |
+| `rotation`     | `rotation`      | public  | `number`     | `0`         | rotation in degrees (without unit)                              |
+| `state`        | `state`         | public  | `PlaceState` | `'FREE'`    | state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED'          |
+| `text`         | `text`          | public  | `string`     | `''`        | label of the place, e.g. '1A', '2B'                             |
+| `textRotation` | `text-rotation` | public  | `number`     | `0`         | Rotation of the text in degrees (without unit)                  |
+| `width`        | `width`         | public  | `number`     | `32`        | width of the place in pixels (without unit)                     |
 
 ## Events
 

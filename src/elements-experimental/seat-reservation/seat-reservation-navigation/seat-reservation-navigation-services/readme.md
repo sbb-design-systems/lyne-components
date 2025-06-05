@@ -13,7 +13,7 @@ and should not be used on its own even if it's possible.
 
 ## Properties
 
-| Name          | Attribute      | Privacy | Type       | Default | Description |
-| ------------- | -------------- | ------- | ---------- | ------- | ----------- |
-| `propertyIds` | `property-ids` | public  | `string[]` | `[]`    |             |
-| `vertical`    | `vertical`     | public  | `boolean`  | `false` |             |
+| Name          | Attribute      | Privacy | Type       | Default | Description                                                                          |
+| ------------- | -------------- | ------- | ---------- | ------- | ------------------------------------------------------------------------------------ |
+| `propertyIds` | `property-ids` | public  | `string[]` | `[]`    | Coach service property ids, which are used to display the services in the navigation |
+| `vertical`    | `vertical`     | public  | `boolean`  | `false` | If true, the service icons are displayed vertically                                  |
