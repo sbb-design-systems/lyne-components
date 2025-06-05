@@ -1,0 +1,42 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-reservation-area-border-radius: var(--sbb-border-width-4x);
+  --sbb-reservation-area-rotation: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(var(--sbb-reservation-area-height) * #{sbb.px-to-rem-build(1)});
+  width: calc(var(--sbb-reservation-area-width) * #{sbb.px-to-rem-build(1)});
+  border: var(--sbb-border-width-1x) solid var(--sbb-color-graphite);
+  border-radius: var(--sbb-reservation-area-border-radius);
+  position: inherit;
+  rotate: calc(var(--sbb-reservation-area-rotation) * 1deg);
+  background-color: var(--sbb-color-white);
+}
+
+:host([background='dark']) {
+  background-color: var(--sbb-color-milk);
+}
+
+:host([mounting='upper-border']) {
+  border-block-start-width: var(--sbb-border-width-2x);
+  border-radius: 0 0 var(--sbb-reservation-area-border-radius)
+    var(--sbb-reservation-area-border-radius);
+}
+
+:host([mounting='lower-border']) {
+  border-block-end-width: var(--sbb-border-width-2x);
+  border-radius: var(--sbb-reservation-area-border-radius) var(--sbb-reservation-area-border-radius)
+    0 0;
+}
+
+:host([mounting='upper-to-lower-border']) {
+  border-block-start: none;
+  border-block-end: none;
+  border-radius: 0;
+}
