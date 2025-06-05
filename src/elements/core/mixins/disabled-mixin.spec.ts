@@ -20,7 +20,7 @@ class SbbDisabledTestElement extends SbbDisabledTabIndexActionMixin(
   }
 }
 
-describe(`disabled mixin`, () => {
+describe(`SbbDisabledMixin`, () => {
   let element: SbbDisabledTestElement;
 
   async function getA11ySnapshot(): Promise<{ disabled: boolean }> {

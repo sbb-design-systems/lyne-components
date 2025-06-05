@@ -167,6 +167,29 @@ sbb-form-field {
   &[negative] :where(textarea) {
     @include scrollbar.scrollbar($negative: true);
   }
+
+  &:has(
+      :is(
+        :is(input, textarea, select):user-invalid,
+        :is(:state(interacted), [state--interacted]):invalid,
+        .ng-touched.ng-invalid,
+        .sbb-invalid
+      )
+    ),
+  :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
+    --sbb-form-field-border-color: var(--sbb-color-red125);
+    --sbb-form-field-text-color: var(--sbb-color-red125);
+
+    &[negative] {
+      --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
+      --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
+    }
+
+    @include a11y.if-forced-colors {
+      --sbb-form-field-border-color: LinkText !important;
+      --sbb-form-field-text-color: LinkText !important;
+    }
+  }
 }
 
 // Hiding components until they are instantiated
@@ -490,4 +513,15 @@ sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
 
   --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
+}
+
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s']
+  :where(sbb-option, sbb-autocomplete-grid-option) {
+  --sbb-option-min-height: var(--sbb-size-element-xxs);
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+  --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+}
+
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
 }

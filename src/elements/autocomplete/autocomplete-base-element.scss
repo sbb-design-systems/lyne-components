@@ -19,6 +19,10 @@
   display: none;
 }
 
+:host([size='s']) {
+  @include sbb.options-panel-overlay-size-s-variables;
+}
+
 :host([data-state]:not([data-state='closed'])) {
   display: block;
 }
@@ -67,7 +71,7 @@
 }
 
 ::slotted(sbb-divider) {
-  margin-block: var(--sbb-spacing-fixed-3x);
+  margin-block: var(--sbb-options-panel-divider-margin-block);
 }
 
 .sbb-autocomplete__container {

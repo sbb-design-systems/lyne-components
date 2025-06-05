@@ -5,6 +5,7 @@ snapshots["sbb-select renders Safari DOM"] =
 `<sbb-select
   data-state="closed"
   id="sbb-select-1"
+  size="m"
 >
   <sbb-option
     aria-selected="false"
@@ -87,6 +88,7 @@ snapshots["sbb-select renders multiple Safari DOM"] =
   data-state="closed"
   id="sbb-select-3"
   multiple=""
+  size="m"
 >
   <sbb-option
     aria-selected="false"
@@ -171,7 +173,10 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 /* end snapshot sbb-select renders multiple Safari Shadow DOM */
 
 snapshots["sbb-select renders Chrome-Firefox DOM"] = 
-`<sbb-select data-state="closed">
+`<sbb-select
+  data-state="closed"
+  size="m"
+>
   <sbb-option
     aria-selected="false"
     data-disable-highlight=""
@@ -273,6 +278,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
 `<sbb-select
   data-state="closed"
   multiple=""
+  size="m"
 >
   <sbb-option
     aria-selected="false"

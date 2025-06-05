@@ -66,7 +66,6 @@ describe(`sbb-toast`, () => {
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
-    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
     element.open();
     await waitForLitRender(element);
@@ -202,7 +201,6 @@ describe(`sbb-toast`, () => {
 
   it('closes by dismiss button click with non-zero animation duration', async () => {
     element.style.setProperty('--sbb-toast-animation-duration', '1ms');
-    element.toggleAttribute('dismissible', true);
     await waitForLitRender(element);
 
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);

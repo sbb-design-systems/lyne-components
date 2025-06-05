@@ -382,13 +382,13 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
     expect(
       getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-    ).to.be.equal(isSafari ? '336px' : '334px');
+    ).to.be.equal('344px');
 
     // Simulate the options' removal and check again position
     await sendKeys({ press: 'a' });
     expect(
       getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-    ).to.be.equal(isSafari ? '424px' : '423px');
+    ).to.be.equal('540px');
 
     // Clean up env
     element.close();
@@ -397,6 +397,19 @@ describe(`sbb-autocomplete`, () => {
     formField.parentElement?.style.setProperty('inset-inline-start', '');
     formField.parentElement?.style.setProperty('position', '');
     formField.parentElement?.style.setProperty('max-width', '');
+  });
+
+  it('should sync form-field size change', async () => {
+    const didOpen = new EventSpy(SbbAutocompleteElement.events.didOpen, element);
+
+    element.open();
+    await waitForLitRender(element);
+    await didOpen.calledOnce();
+
+    formField.size = 's';
+    await waitForLitRender(element);
+
+    expect(element.size).to.be.equal('s');
   });
 
   describe('trigger connection', () => {

@@ -14,7 +14,7 @@ import { ref } from 'lit/directives/ref.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, idReference } from '../core/decorators.js';
-import { isSafari, isZeroAnimationDuration } from '../core/dom.js';
+import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -73,6 +73,12 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   /** Function that maps an option's control value to its display value in the trigger. */
   @property({ attribute: false })
   public accessor displayWith: ((value: T) => string) | null = null;
+
+  /**
+   * Size variant, either m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {

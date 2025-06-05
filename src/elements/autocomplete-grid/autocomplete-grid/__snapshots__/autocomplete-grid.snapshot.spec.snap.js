@@ -5,6 +5,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
 `<sbb-autocomplete-grid
   data-state="closed"
   popover="manual"
+  size="m"
 >
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
@@ -87,6 +88,7 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   data-state="closed"
   id="sbb-autocomplete-grid-1"
   popover="manual"
+  size="m"
 >
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option

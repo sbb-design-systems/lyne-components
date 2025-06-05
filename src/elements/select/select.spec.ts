@@ -5,6 +5,7 @@ import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
 import { SbbSelectElement } from './select.component.js';
@@ -1016,10 +1017,13 @@ describe(`sbb-select`, () => {
   });
 
   describe('with sbb-form-field', () => {
-    let element: SbbSelectElement, firstOption: SbbOptionElement, comboBoxElement: HTMLElement;
+    let element: SbbSelectElement,
+      firstOption: SbbOptionElement,
+      comboBoxElement: HTMLElement,
+      formField: SbbFormFieldElement;
 
     beforeEach(async () => {
-      const root = await fixture(html`
+      formField = await fixture(html`
         <sbb-form-field>
           <label>Testlabel</label>
           <sbb-select placeholder="Placeholder">
@@ -1029,9 +1033,9 @@ describe(`sbb-select`, () => {
           </sbb-select>
         </sbb-form-field>
       `);
-      element = root.querySelector<SbbSelectElement>('sbb-select')!;
+      element = formField.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = root.querySelector('[role="combobox"]')!;
+      comboBoxElement = formField.querySelector('[role="combobox"]')!;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     });
 
@@ -1107,6 +1111,37 @@ describe(`sbb-select`, () => {
         expect(e).not.to.have.attribute('selected');
       });
       expect(element.value).to.be.null;
+    });
+
+    it('should sync form-field size change', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+
+      element.open();
+      await waitForLitRender(element);
+      await didOpen.calledOnce();
+
+      formField.size = 's';
+      await waitForLitRender(element);
+
+      expect(element.size).to.be.equal('s');
+    });
+
+    it('should react to origin size change', async () => {
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+
+      element.open();
+      await waitForLitRender(element);
+      await didOpen.calledOnce();
+
+      const selectPanel = element.shadowRoot!.querySelector('.sbb-select__panel')!;
+      const oldPanelSize = selectPanel.clientWidth;
+
+      formField.style.width = '200px';
+
+      // Wait for resizeObserver to apply the new size
+      await aTimeout(30);
+
+      expect(selectPanel.clientWidth).to.be.lessThan(oldPanelSize);
     });
   });
 
