@@ -104,10 +104,10 @@
     margin-inline: var(--sbb-toggle-background-inset);
     height: calc(100% - 2 * var(--sbb-toggle-background-inset));
     border-radius: var(--sbb-toggle-border-radius);
-  }
 
-  @include sbb.if-forced-colors {
-    outline: var(--sbb-border-width-1x) solid CanvasText;
+    @include sbb.if-forced-colors {
+      border: var(--sbb-border-width-1x) solid CanvasText;
+    }
   }
 }
 
