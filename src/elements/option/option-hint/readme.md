@@ -5,6 +5,7 @@ or a [sbb-select](/docs/elements-sbb-select--docs) component.
 <sbb-autocomplete>
   <sbb-option value="1"> Option 1 </sbb-option>
   ...
+  <sbb-divider></sbb-divider>
   <sbb-option-hint>42 more hits</sbb-option-hint>
 </sbb-autocomplete>
 ```
@@ -13,13 +14,11 @@ or a [sbb-select](/docs/elements-sbb-select--docs) component.
 
 The `sbb-option-hint` has a `negative` property which will be automatically inherited from the parent `sbb-autocomplete | sbb-select`.
 
-Add the `divider` attribute to display a horizontal `sbb-divider` before the hint.
-
 ```html
 <sbb-autocomplete>
   <sbb-option value="1"> Option 1 </sbb-option>
   ...
-  <sbb-option-hint divider>42 more hits</sbb-option-hint>
+  <sbb-option-hint>42 more hits</sbb-option-hint>
 </sbb-autocomplete>
 ```
 
@@ -27,10 +26,9 @@ Add the `divider` attribute to display a horizontal `sbb-divider` before the hin
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type      | Default | Description                        |
-| ---------- | ---------- | ------- | --------- | ------- | ---------------------------------- |
-| `divider`  | `divider`  | public  | `boolean` | `false` | Whether the hint has a top divider |
-| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag.    |
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
 ## Slots
 

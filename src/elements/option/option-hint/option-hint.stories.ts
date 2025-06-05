@@ -1,5 +1,5 @@
 import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
@@ -21,20 +21,35 @@ const negative: InputType = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Form field',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Form field',
+  },
 };
 
 const defaultArgTypes: ArgTypes = {
   divider,
   negative,
+  size,
 };
 
 const defaultArgs: Args = {
   divider: false,
   negative: false,
+  size: size.options![0],
 };
 
 const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative} size=${args.size}>
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete>
@@ -42,13 +57,14 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
       <sbb-option value="2"> Option 2 </sbb-option>
       <sbb-option value="3"> Option 3 </sbb-option>
       <sbb-option value="4"> Option 4 </sbb-option>
-      <sbb-option-hint ?divider=${args.divider}>42 more hits</sbb-option-hint>
+      ${args.divider ? html`<sbb-divider></sbb-divider>` : nothing}
+      <sbb-option-hint>42 more hits</sbb-option-hint>
     </sbb-autocomplete>
   </sbb-form-field>
 `;
 
 const WithAutocompleteGroupTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative} size=${args.size}>
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete preserve-icon-space>
@@ -61,20 +77,22 @@ const WithAutocompleteGroupTemplate = (args: Args): TemplateResult => html`
         <sbb-option value="3" icon-name="clock-small"> Option 3 </sbb-option>
         <sbb-option value="4"> Option 4 </sbb-option>
       </sbb-optgroup>
-      <sbb-option-hint ?divider=${args.divider}>42 more hits</sbb-option-hint>
+      ${args.divider ? html`<sbb-divider></sbb-divider>` : nothing}
+      <sbb-option-hint>42 more hits</sbb-option-hint>
     </sbb-autocomplete>
   </sbb-form-field>
 `;
 
 const WithSelectTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative}>
+  <sbb-form-field ?negative=${args.negative} size=${args.size}>
     <label>Select</label>
     <sbb-select>
       <sbb-option value="1"> Option 1 </sbb-option>
       <sbb-option value="2"> Option 2 </sbb-option>
       <sbb-option value="3"> Option 3 </sbb-option>
       <sbb-option value="4"> Option 4 </sbb-option>
-      <sbb-option-hint ?divider=${args.divider}>42 more hits</sbb-option-hint>
+      ${args.divider ? html`<sbb-divider></sbb-divider>` : nothing}
+      <sbb-option-hint>42 more hits</sbb-option-hint>
     </sbb-select>
   </sbb-form-field>
 `;
