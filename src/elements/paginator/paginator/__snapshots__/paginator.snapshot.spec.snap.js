@@ -545,6 +545,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"
+        size="m"
         value="10"
       >
         <sbb-option
@@ -718,6 +719,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"
+        size="m"
         value="10"
       >
         <sbb-option

@@ -471,6 +471,19 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
+  it('should sync form-field size change', async () => {
+    const didOpen = new EventSpy(SbbAutocompleteGridElement.events.didOpen, element);
+
+    element.open();
+    await waitForLitRender(element);
+    await didOpen.calledOnce();
+
+    formField.size = 's';
+    await waitForLitRender(element);
+
+    expect(element.size).to.be.equal('s');
+  });
+
   describe('trigger connection', () => {
     beforeEach(async () => {
       const root = await fixture(

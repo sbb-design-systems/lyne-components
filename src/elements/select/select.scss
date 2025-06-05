@@ -18,6 +18,10 @@
   display: block;
 }
 
+:host([size='s']) {
+  @include sbb.options-panel-overlay-size-s-variables;
+}
+
 :host([negative]) {
   @include sbb.options-panel-overlay-negative-variables;
 }
@@ -57,7 +61,7 @@
 }
 
 ::slotted(sbb-divider) {
-  margin-block: var(--sbb-spacing-fixed-3x);
+  margin-block: var(--sbb-options-panel-divider-margin-block);
 }
 
 :host([preserve-icon-space]) {
@@ -154,10 +158,6 @@
 .sbb-select__options {
   @include sbb.optionsOverlay;
   @include sbb.scrollbar-rules;
-
-  & {
-    padding-block: var(--sbb-spacing-fixed-2x);
-  }
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;

@@ -1,4 +1,5 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -9,7 +10,13 @@ import { getNextElementIndex } from '../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.js';
 import { forceType, getOverride, handleDistinctChange } from '../core/decorators.js';
-import { isNextjs, isSafari, isZeroAnimationDuration, setOrRemoveAttribute } from '../core/dom.js';
+import {
+  isLean,
+  isNextjs,
+  isSafari,
+  isZeroAnimationDuration,
+  setOrRemoveAttribute,
+} from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nSelectionRequired } from '../core/i18n.js';
 import {
@@ -114,6 +121,12 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public accessor value: T | T[] | null = null;
 
   /**
+   * Size variant, either m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+
+  /**
    * Form type of element.
    * @default 'select-one / select-multiple'
    */
@@ -135,6 +148,16 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this,
     SbbSelectElement.events.displayValueChange,
   );
+
+  private _originResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => {
+      if (this.isOpen) {
+        this._setOverlayPosition();
+      }
+    },
+  });
 
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
@@ -267,6 +290,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.state = 'closing';
     this.toggleAttribute('data-expanded', false);
     this._openPanelEventsController.abort();
+    if (this._originElement) {
+      this._originResizeObserver.unobserve(this._originElement);
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -524,6 +550,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
     const formField = this.closest?.('sbb-form-field');
+    if (this._originElement) {
+      this._originResizeObserver.unobserve(this._originElement);
+    }
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
@@ -531,6 +560,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         'data-option-panel-origin-borderless',
         !!formField?.hasAttribute?.('borderless'),
       );
+
+      if (this.isOpen) {
+        this._originResizeObserver.observe(this._originElement);
+      }
     }
   }
 
@@ -568,6 +601,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
     this._escapableOverlayController.connect();
+    if (this._originElement) {
+      this._originResizeObserver.observe(this._originElement);
+    }
     this.didOpen.emit();
   }
 

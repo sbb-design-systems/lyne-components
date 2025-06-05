@@ -514,3 +514,14 @@ sbb-toggle:has(:focus-visible) {
 
   --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
 }
+
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s']
+  :where(sbb-option, sbb-autocomplete-grid-option) {
+  --sbb-option-min-height: var(--sbb-size-element-xxs);
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+  --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+}
+
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+}
