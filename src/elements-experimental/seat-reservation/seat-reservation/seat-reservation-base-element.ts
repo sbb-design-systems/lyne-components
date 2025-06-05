@@ -21,7 +21,7 @@ import type {
   SeatReservationPlaceSelection,
 } from '../seat-reservation.js';
 
-import type { SbbSeatReservationScopedElement } from './seat-reservation-scoped-component/seat-reservation-scoped.component.js';
+import type { SbbSeatReservationScopedElement } from './seat-reservation-scoped/seat-reservation-scoped.component.js';
 
 enum ScrollDirection {
   right = 'right',
