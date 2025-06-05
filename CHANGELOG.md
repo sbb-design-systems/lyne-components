@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.10.1...v2.11.0) (2025-06-05)
+
+
+### Features
+
+* **sbb-card:** add card-badge in size xs/s  ([#3728](https://github.com/sbb-design-systems/lyne-components/issues/3728)) ([54898ab](https://github.com/sbb-design-systems/lyne-components/commit/54898ab25621f5bf03f07a6e9fbb4890273f203f))
+* **sbb-seat-reservation:** add component for graphical seat reservation ([#3750](https://github.com/sbb-design-systems/lyne-components/issues/3750)) ([229aa85](https://github.com/sbb-design-systems/lyne-components/commit/229aa8526130b3a9a733f96c375a47a05491cdef))
+* **sbb-sticky-bar:** add size s ([#3714](https://github.com/sbb-design-systems/lyne-components/issues/3714)) ([68ec824](https://github.com/sbb-design-systems/lyne-components/commit/68ec824ce89ed7b3e870adae93d3b3f4621f530c))
+
+
+### Bug Fixes
+
+* avoid exceptions on storybook ([#3786](https://github.com/sbb-design-systems/lyne-components/issues/3786)) ([37fefde](https://github.com/sbb-design-systems/lyne-components/commit/37fefdec196b7f3b07ab36738c9a83ebf7c55912))
+* **sbb-select:** fix cursor style ([#3757](https://github.com/sbb-design-systems/lyne-components/issues/3757)) ([94077c5](https://github.com/sbb-design-systems/lyne-components/commit/94077c5ed6a7df199d59278ee4fe35f0a413472d))
+* **sbb-sidebar:** fix sidebar inline-padding on iOS browsers ([#3770](https://github.com/sbb-design-systems/lyne-components/issues/3770)) ([d3d2946](https://github.com/sbb-design-systems/lyne-components/commit/d3d29466a8e114829dd278586978e19273304087))
+* **sbb-tab-label:** allow icon only label ([#3780](https://github.com/sbb-design-systems/lyne-components/issues/3780)) ([1349cb1](https://github.com/sbb-design-systems/lyne-components/commit/1349cb1d83bea6d95f214477a3b559c1a467d8d3)), closes [#3778](https://github.com/sbb-design-systems/lyne-components/issues/3778)
+
+
+### Code Refactoring
+
+* improve init flow for components with '[@id](https://github.com/id)Reference' ([#3754](https://github.com/sbb-design-systems/lyne-components/issues/3754)) ([cb840dd](https://github.com/sbb-design-systems/lyne-components/commit/cb840dddcbbcf3b8e88364990dcf4031c35c4c3e))
+* **sbb-paginator:** avoid sending page events with identical details ([#3733](https://github.com/sbb-design-systems/lyne-components/issues/3733)) ([1fb72ca](https://github.com/sbb-design-systems/lyne-components/commit/1fb72cac68fb4c8c52df6d56f7a57c28b6d262e5)), closes [#3732](https://github.com/sbb-design-systems/lyne-components/issues/3732)
+
 ## [2.10.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.10.0...v2.10.1) (2025-05-21)
 
 
