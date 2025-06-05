@@ -24,7 +24,7 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-toggle-height: var(--sbb-size-element-s);
+  --sbb-toggle-height: var(--sbb-size-element-m);
   --sbb-toggle-border-radius: var(--sbb-border-radius-infinity);
   --sbb-toggle-grid-template-columns: auto auto;
 
@@ -53,7 +53,7 @@
 
 :host([size='s']) {
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-toggle-height: var(--sbb-size-element-xxxs);
+  --sbb-toggle-height: var(--sbb-size-element-xxs);
 }
 
 :host(:is(:not([data-initialized]), [data-disable-animation-on-resizing])) {
