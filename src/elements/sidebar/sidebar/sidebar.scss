@@ -25,7 +25,8 @@
   --sbb-sidebar__border-radius-end: 0;
   --sbb-sidebar__close-button-size: var(--sbb-size-element-xs);
 
-  @supports (scrollbar-gutter: stable) {
+  // Subtract the width of the scrollbar from the padding (Exclude iOS browsers because they use overlay scrollbars)
+  @supports (scrollbar-gutter: stable) and (not (-webkit-touch-callout: none)) {
     --sbb-sidebar__padding-inline-end: calc(
       var(--sbb-sidebar-padding) - var(--sbb-sidebar-scrollbar-placeholder-width)
     );
