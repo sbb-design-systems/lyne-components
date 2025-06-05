@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionGroupElement } from '../../action-group.js';
@@ -16,8 +15,9 @@ export
 class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
 
-  protected override render(): TemplateResult {
-    return html` <div class="sbb-dialog-actions">${super.render()}</div> `;
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'dialog-actions';
   }
 }
 

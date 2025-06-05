@@ -9,7 +9,6 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { breakpoints } from '../../core/dom/breakpoint.js';
 import sampleImages from '../../core/images.js';
 import type { SbbTitleLevel } from '../../title.js';
-import { SbbDialogTitleElement } from '../dialog-title.js';
 
 import { SbbDialogElement } from './dialog.component.js';
 import readme from './readme.md?raw';
@@ -24,6 +23,7 @@ import '../../popover.js';
 import '../../stepper.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
+import '../dialog-title.js';
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -536,7 +536,6 @@ const meta: Meta = {
         SbbDialogElement.events.didOpen,
         SbbDialogElement.events.willClose,
         SbbDialogElement.events.didClose,
-        SbbDialogTitleElement.events.backClick,
       ],
     },
     docs: {

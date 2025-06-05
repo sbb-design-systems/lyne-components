@@ -1,18 +1,15 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
+import { isZeroAnimationDuration } from '../../core/dom.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
-import type { SbbDialogActionsElement } from '../dialog-actions.js';
-import type { SbbDialogTitleElement } from '../dialog-title.js';
 
 import style from './dialog.scss?lit&inline';
 
 import '../../screen-reader-only.js';
-
-let nextId = 0;
 
 /**
  * It displays an interactive overlay element.
@@ -50,14 +47,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     callback: () => setTimeout(() => this._onContentResize()),
   });
 
-  private _dialogTitleElement: SbbDialogTitleElement | null = null;
-  private _dialogTitleHeight?: number;
-  private _dialogContentElement: HTMLElement | null = null;
-  private _dialogActionsElement: SbbDialogActionsElement | null = null;
+  private _dialogContentElement?: HTMLElement;
   private _isPointerDownEventOnDialog: boolean = false;
-  private _overflows: boolean = false;
-  private _lastScroll = 0;
-  private _dialogId = `sbb-dialog-${nextId++}`;
   protected closeAttribute: string = 'sbb-dialog-close';
 
   public constructor() {
@@ -74,14 +65,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     }
     this.lastFocusedElement = document.activeElement as HTMLElement;
 
-    // Initialize dialog elements
-    this._dialogTitleElement = this.querySelector('sbb-dialog-title');
-    this._dialogContentElement = this.querySelector('sbb-dialog-content')?.shadowRoot!
-      .firstElementChild as HTMLElement;
-    this._dialogActionsElement = this.querySelector('sbb-dialog-actions');
-
-    this._syncNegative();
-
     if (!this.willOpen.emit()) {
       return;
     }
@@ -90,8 +73,10 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.state = 'opening';
 
     // Add this dialog to the global collection
-    overlayRefs.push(this as SbbDialogElement);
-    this._dialogContentResizeObserver.observe(this._dialogContentElement);
+    overlayRefs.push(this);
+    if (this._dialogContentElement) {
+      this._dialogContentResizeObserver.observe(this._dialogContentElement);
+    }
 
     // Disable scrolling for content below the dialog
     this.scrollHandler.disableScroll();
@@ -108,7 +93,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   protected handleClosing(): void {
-    this._setHideHeaderDataAttribute(false);
     this._dialogContentElement?.scrollTo(0, 0);
     this.state = 'closed';
     this.hidePopover?.();
@@ -142,7 +126,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     // Use timeout to read label after focused element
     setTimeout(() =>
       this.setAriaLiveRefContent(
-        this.accessibilityLabel || this._dialogTitleElement?.innerText.trim(),
+        this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.innerText.trim(),
       ),
     );
     this.focusTrapController.enabled = true;
@@ -150,10 +134,9 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    // Synchronize the negative state before the first opening to avoid a possible color flash if it is negative.
-    this._dialogTitleElement = this.querySelector('sbb-dialog-title')!;
-    this._syncNegative();
     super.firstUpdated(changedProperties);
+
+    this._syncNegative();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -162,19 +145,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (changedProperties.has('negative')) {
       this._syncNegative();
     }
-  }
-
-  protected override attachOpenOverlayEvents(): void {
-    super.attachOpenOverlayEvents();
-
-    // If the content overflows, show/hide the dialog header on scroll.
-    this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
-      passive: true,
-      signal: this.openOverlayController.signal,
-    });
-    window.addEventListener('resize', () => this._setHideHeaderDataAttribute(false), {
-      signal: this.openOverlayController.signal,
-    });
   }
 
   // Wait for dialog transition to complete.
@@ -189,49 +159,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   private _syncNegative(): void {
-    if (this._dialogTitleElement) {
-      this._dialogTitleElement.negative = this.negative;
-    }
+    const dialogTitle = this.querySelector('sbb-dialog-title');
 
-    if (this._dialogActionsElement) {
-      this._dialogActionsElement.toggleAttribute('data-negative', this.negative);
+    if (dialogTitle) {
+      dialogTitle.negative = this.negative;
     }
-  }
-
-  private _onContentScroll(): void {
-    if (!this._dialogContentElement) {
-      return;
-    }
-
-    const hasVisibleHeader = this.dataset.hideHeader === undefined;
-
-    // Check whether hiding the header would make the scrollbar disappear
-    // and prevent the hiding animation if so.
-    if (
-      hasVisibleHeader &&
-      this._dialogContentElement.clientHeight + this._dialogTitleHeight! >=
-        this._dialogContentElement.scrollHeight
-    ) {
-      return;
-    }
-
-    const currentScroll = this._dialogContentElement.scrollTop;
-    if (
-      Math.round(currentScroll + this._dialogContentElement.clientHeight) >=
-      this._dialogContentElement.scrollHeight
-    ) {
-      return;
-    }
-    // Check whether is scrolling down or up.
-    if (currentScroll > 0 && this._lastScroll < currentScroll) {
-      // Scrolling down
-      this._setHideHeaderDataAttribute(true);
-    } else {
-      // Scrolling up
-      this._setHideHeaderDataAttribute(false);
-    }
-    // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
-    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   }
 
   // Check if the pointerdown event target is triggered on the dialog.
@@ -243,7 +175,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this._isPointerDownEventOnDialog = event
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-      .some((target) => target.id === this._dialogId);
+      .some((target) => target.classList.contains('sbb-dialog'));
   };
 
   // Close dialog on backdrop click.
@@ -257,53 +189,36 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       !event
         .composedPath()
         .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-        .some((target) => target.id === this._dialogId)
+        .some((target) => target.classList.contains('sbb-dialog'))
     ) {
       this.close();
     }
   };
 
-  private _setDialogHeaderHeight(): void {
-    this._dialogTitleHeight = this._dialogTitleElement?.shadowRoot!.firstElementChild!.clientHeight;
-    this.style.setProperty('--sbb-dialog-header-height', `${this._dialogTitleHeight}px`);
-  }
-
   private _onContentResize(): void {
-    this._setDialogHeaderHeight();
-    // Check whether the content overflows and set the `overflows` attribute.
-    this._overflows = this._dialogContentElement
-      ? this._dialogContentElement?.scrollHeight > this._dialogContentElement?.clientHeight
-      : false;
-    this._setOverflowsDataAttribute();
-  }
-
-  private _setHideHeaderDataAttribute(value: boolean): void {
-    const hideOnScroll = this._dialogTitleElement?.hideOnScroll ?? false;
-    const hideHeader =
-      typeof hideOnScroll === 'boolean'
-        ? hideOnScroll
-        : (isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true }) ?? false);
-    this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
-    if (this._dialogTitleElement) {
-      this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);
-    }
-  }
-
-  private _setOverflowsDataAttribute(): void {
-    this.toggleAttribute('data-overflows', this._overflows);
-    this._dialogTitleElement?.toggleAttribute('data-overflows', this._overflows);
-    this._dialogActionsElement?.toggleAttribute('data-overflows', this._overflows);
+    this.toggleState(
+      'overflows',
+      this._dialogContentElement
+        ? this._dialogContentElement?.scrollHeight > this._dialogContentElement?.clientHeight
+        : false,
+    );
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-dialog__container">
-        <div @animationend=${this.onOverlayAnimationEnd} class="sbb-dialog" id=${this._dialogId}>
+        <div @animationend=${this.onOverlayAnimationEnd} class="sbb-dialog">
           <div
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
-            <slot></slot>
+            <div
+              class="sbb-dialog-content-container"
+              ${ref((el?: Element) => (this._dialogContentElement = el as HTMLDivElement))}
+            >
+              <slot @slotchange=${() => this._syncNegative()}></slot>
+            </div>
+            <slot name="dialog-actions"></slot>
           </div>
         </div>
       </div>
