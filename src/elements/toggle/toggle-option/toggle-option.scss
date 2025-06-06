@@ -28,13 +28,14 @@
 .sbb-toggle-option {
   @include sbb.text-xs--bold;
 
-  cursor: var(--sbb-toggle-option-cursor);
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
   height: var(--sbb-toggle-height);
   padding-inline: var(--sbb-toggle-padding-inline);
   color: var(--sbb-toggle-option-color);
+  cursor: var(--sbb-toggle-option-cursor);
 }
 
 .sbb-toggle-option__label {
@@ -45,5 +46,4 @@ sbb-icon,
 ::slotted(sbb-icon) {
   min-width: var(--sbb-toggle-option-icon-min-size);
   min-height: var(--sbb-toggle-option-icon-min-size);
-  margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
