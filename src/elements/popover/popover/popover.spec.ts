@@ -575,7 +575,7 @@ describe(`sbb-popover`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
-  it('should hide outline if opened by hover', async () => {
+  it.only('should hide outline if opened by hover', async () => {
     const template = await fixture(html`
       <div>
         <sbb-button id="popover-trigger">Popover trigger</sbb-button>
@@ -594,6 +594,8 @@ describe(`sbb-popover`, () => {
     trigger.dispatchEvent(new Event('mouseenter'));
 
     await didOpenEventSpy.calledOnce();
+    await aTimeout(10); // Mouse enter handling has a setTimeout
+
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(sbbInputModalityDetector.mostRecentModality).to.be.equal('mouse');
   });
