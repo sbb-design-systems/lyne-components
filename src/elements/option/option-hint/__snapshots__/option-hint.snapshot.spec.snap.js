@@ -36,3 +36,19 @@ snapshots["sbb-option-hint renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-option-hint renders A11y tree Firefox */
 
+snapshots["sbb-option-hint renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Hint"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-option-hint renders A11y tree Chrome */
+
