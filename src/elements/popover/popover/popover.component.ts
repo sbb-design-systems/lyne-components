@@ -3,7 +3,11 @@ import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { IS_FOCUSABLE_QUERY, SbbFocusTrapController } from '../../core/a11y.js';
+import {
+  IS_FOCUSABLE_QUERY,
+  SbbFocusTrapController,
+  sbbInputModalityDetector,
+} from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
@@ -357,7 +361,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
   private _onTriggerMouseEnter = (): void => {
     if (this.state === 'closed' || this.state === 'closing') {
-      this._openTimeout = setTimeout(() => this.open(), this.openDelay);
+      this._openTimeout = setTimeout(() => {
+        // If the trigger is focused by keyboard and hovered with the mouse, the outline would be visible.
+        // So we reset the input modality to hide the outline.
+        sbbInputModalityDetector.reset();
+        this.open();
+      }, this.openDelay);
     } else {
       clearTimeout(this._closeTimeout);
     }
