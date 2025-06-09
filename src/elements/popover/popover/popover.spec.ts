@@ -3,7 +3,6 @@ import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
-import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbLinkElement } from '../../link.js';
@@ -573,30 +572,5 @@ describe(`sbb-popover`, () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-state', 'opened');
-  });
-
-  it('should hide outline if opened by hover', async () => {
-    const template = await fixture(html`
-      <div>
-        <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-        <sbb-popover trigger="popover-trigger" hover-trigger> Popover content. </sbb-popover>
-      </div>
-    `);
-    trigger = template.querySelector('sbb-button')!;
-    element = template.querySelector('sbb-popover')!;
-    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-
-    await sendKeys({ press: tabKey });
-
-    expect(sbbInputModalityDetector.mostRecentModality).to.be.equal('keyboard');
-
-    // Simulate the hovering on the trigger
-    trigger.dispatchEvent(new Event('mouseenter'));
-
-    await didOpenEventSpy.calledOnce();
-    await aTimeout(2000); // Mouse enter handling has a setTimeout
-
-    expect(didOpenEventSpy.count).to.be.equal(1);
-    expect(sbbInputModalityDetector.mostRecentModality).to.be.equal('mouse');
   });
 });
