@@ -575,7 +575,7 @@ describe(`sbb-popover`, () => {
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
-  it.only('should hide outline if opened by hover', async () => {
+  it('should hide outline if opened by hover', async () => {
     const template = await fixture(html`
       <div>
         <sbb-button id="popover-trigger">Popover trigger</sbb-button>
