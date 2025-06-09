@@ -594,7 +594,7 @@ describe(`sbb-popover`, () => {
     trigger.dispatchEvent(new Event('mouseenter'));
 
     await didOpenEventSpy.calledOnce();
-    await aTimeout(200); // Mouse enter handling has a setTimeout
+    await aTimeout(2000); // Mouse enter handling has a setTimeout
 
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(sbbInputModalityDetector.mostRecentModality).to.be.equal('mouse');
