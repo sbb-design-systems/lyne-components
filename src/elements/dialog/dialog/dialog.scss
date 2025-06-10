@@ -26,8 +26,6 @@
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
-    var(--sbb-dialog-animation-easing);
 
   display: none;
   position: fixed;
@@ -142,6 +140,7 @@
   @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
+    height: fit-content;
   }
 }
 

@@ -50,7 +50,9 @@ describe('sbb-dialog', () => {
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
-          <sbb-dialog-actions>Action group</sbb-dialog-actions>
+          <sbb-dialog-actions>
+            Action group <button sbb-dialog-close>Cancel</button>
+          </sbb-dialog-actions>
         </sbb-dialog>
       `);
       ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
@@ -213,10 +215,8 @@ describe('sbb-dialog', () => {
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
-    it('closes the dialog on close button click', async () => {
-      const closeButton = element
-        .querySelector('sbb-dialog-title')!
-        .shadowRoot!.querySelector('[sbb-dialog-close]') as HTMLElement;
+    it('closes the dialog on close button click with sbb-dialog-close attribute', async () => {
+      const closeButton = element.querySelector('[sbb-dialog-close]') as HTMLElement;
       const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
       const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
 
@@ -446,7 +446,7 @@ describe('sbb-dialog', () => {
       await setViewport({ width: 900, height: 300 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-1">
-          <sbb-dialog-title hide-on-scroll="">Title</sbb-dialog-title>
+          <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>
             Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
             face like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise
@@ -472,34 +472,12 @@ describe('sbb-dialog', () => {
       assert.instanceOf(element, SbbDialogElement);
     });
 
-    it('sets the data-overflows attribute', async () => {
+    it('sets the overflows state', async () => {
       await openDialog(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
-      await waitForCondition(() => element.hasAttribute('data-overflows'));
-      expect(element).to.have.attribute('data-overflows', '');
-    });
-
-    it('shows/hides the dialog header on scroll', async () => {
-      await openDialog(element);
-      expect(element).not.to.have.attribute('data-hide-header');
-      const scrollSpy = new EventSpy('scroll', document);
-
-      const content = element.querySelector('sbb-dialog-content')!.shadowRoot!.firstElementChild!;
-
-      // Scroll down.
-      content.scrollTo(0, 50);
-      await waitForCondition(() => element.hasAttribute('data-hide-header'));
-      await scrollSpy.calledOnce();
-
-      expect(element).to.have.attribute('data-hide-header');
-
-      // Scroll up.
-      content.scrollTo(0, 0);
-      await waitForCondition(() => !element.hasAttribute('data-hide-header'));
-      await scrollSpy.calledTimes(2);
-
-      expect(element).not.to.have.attribute('data-hide-header');
+      await waitForCondition(() => element.matches(':state(overflows)'));
+      expect(element).to.match(':state(overflows)');
     });
   });
 

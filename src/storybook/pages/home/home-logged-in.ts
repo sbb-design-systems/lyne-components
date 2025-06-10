@@ -173,10 +173,10 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
           </sbb-secondary-button>
 
           <sbb-dialog id="my-dialog">
-            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
+            <sbb-dialog-title>My Dialog</sbb-dialog-title>
 
             <sbb-dialog-content>
-              <p style="margin-top: 0;">
+              <p style="margin-block-start: 0;">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
@@ -212,11 +212,15 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
           </sbb-dialog>
 
           <sbb-dialog id="my-stacked-dialog">
-            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-title>Stacked Dialog</sbb-dialog-title>
             <sbb-dialog-content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
             </sbb-dialog-content>
+            <sbb-dialog-actions align-group="end">
+              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close sbb-focus-initial>Button</sbb-button>
+            </sbb-dialog-actions>
           </sbb-dialog>
         </div>
       </div>

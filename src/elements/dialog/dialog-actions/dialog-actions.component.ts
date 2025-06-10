@@ -17,7 +17,7 @@ class SbbDialogActionsElement extends SbbActionGroupElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.slot ||= 'dialog-actions';
+    this.slot ||= 'actions';
   }
 }
 

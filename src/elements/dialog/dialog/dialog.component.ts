@@ -48,6 +48,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   });
 
   private _dialogContentElement?: HTMLElement;
+  private _dialogElement?: HTMLElement;
   private _isPointerDownEventOnDialog: boolean = false;
   protected closeAttribute: string = 'sbb-dialog-close';
 
@@ -159,37 +160,30 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   private _syncNegative(): void {
-    const dialogTitle = this.querySelector('sbb-dialog-title');
+    const dialogTitle = this.querySelector?.('sbb-dialog-title');
 
     if (dialogTitle) {
       dialogTitle.negative = this.negative;
     }
   }
 
-  // Check if the pointerdown event target is triggered on the dialog.
+  /** Check if the pointerdown event target is triggered on the dialog. */
   private _pointerDownListener = (event: PointerEvent): void => {
     if (this.backdropAction !== 'close') {
       return;
     }
 
-    this._isPointerDownEventOnDialog = event
-      .composedPath()
-      .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-      .some((target) => target.classList.contains('sbb-dialog'));
+    this._isPointerDownEventOnDialog =
+      !!this._dialogElement && event.composedPath().includes(this._dialogElement);
   };
 
-  // Close dialog on backdrop click.
+  /** Close dialog on backdrop click. */
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (this.backdropAction !== 'close') {
-      return;
-    }
-
     if (
+      this.backdropAction === 'close' &&
       !this._isPointerDownEventOnDialog &&
-      !event
-        .composedPath()
-        .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-        .some((target) => target.classList.contains('sbb-dialog'))
+      this._dialogElement &&
+      !event.composedPath().includes(this._dialogElement)
     ) {
       this.close();
     }
@@ -199,7 +193,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.toggleState(
       'overflows',
       this._dialogContentElement
-        ? this._dialogContentElement?.scrollHeight > this._dialogContentElement?.clientHeight
+        ? this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight
         : false,
     );
   }
@@ -207,7 +201,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-dialog__container">
-        <div @animationend=${this.onOverlayAnimationEnd} class="sbb-dialog">
+        <div
+          @animationend=${this.onOverlayAnimationEnd}
+          class="sbb-dialog"
+          ${ref((el?: Element) => (this._dialogElement = el as HTMLDivElement))}
+        >
           <div
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-dialog__wrapper"
@@ -218,7 +216,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
             >
               <slot @slotchange=${() => this._syncNegative()}></slot>
             </div>
-            <slot name="dialog-actions"></slot>
+            <slot name="actions"></slot>
           </div>
         </div>
       </div>

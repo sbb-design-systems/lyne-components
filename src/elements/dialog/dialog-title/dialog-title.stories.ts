@@ -8,6 +8,8 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
+import './dialog-title.component.js';
+
 const level: InputType = {
   control: {
     type: 'inline-radio',

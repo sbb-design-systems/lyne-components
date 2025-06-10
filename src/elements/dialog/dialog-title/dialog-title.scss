@@ -1,10 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-dialog-title-padding-block: var(--sbb-dialog-padding-block);
-
   display: block;
-  margin-block: var(--sbb-dialog-padding-block) var(--sbb-dialog-title-padding-block);
+  margin-block: var(--sbb-dialog-padding-block);
   margin-inline: var(--sbb-dialog-padding-inline);
 }
 

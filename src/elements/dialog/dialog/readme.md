@@ -5,8 +5,6 @@ It offers the following features:
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
 - can host a [sbb-dialog-actions](/docs/elements-sbb-dialog-sbb-dialog-actions--docs) component in the footer;
-- has a close button, which is always visible;
-- can display a back button next to the title;
 - adds the appropriate ARIA roles automatically.
 
 ```html
@@ -26,22 +24,20 @@ There are three slots: `title`, `content` and `actions`, which can respectively 
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-actions>
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
   </sbb-dialog-actions>
 </sbb-dialog>
 ```
 
 ## Interactions
 
-In order to show the dialog, you need to call the `open(event?: PointerEvent)` method on the `sbb-dialog` component.
-It is necessary to pass the event object to the `open()` method to allow the dialog to detect
-whether it has been opened by click or keyboard, so that the focus can be better handled.
+In order to show the dialog, you need to call the `open()` method on the `sbb-dialog` component.
 
 ```html
 <sbb-button
   label="Open dialog"
-  click="openDialog(event, 'my-dialog')"
+  click="openDialog('my-dialog')"
   aria-haspopup="dialog"
   aria-controls="my-dialog"
 ></sbb-button>
@@ -52,9 +48,9 @@ whether it has been opened by click or keyboard, so that the focus can be better
 </sbb-dialog>
 
 <script>
-  const openDialog = (event, id) => {
+  const openDialog = (id) => {
     const dialog = document.getElementById(id);
-    dialog.open(event);
+    dialog.open();
   };
 </script>
 ```
@@ -63,10 +59,8 @@ To dismiss the dialog, you need to get a reference to the `sbb-dialog` element a
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
 emit a close event with an optional result as a payload.
 
-The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
+The component can also be dismissed by clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
-
-You can also set the property `backButton` on the `sbb-dialog-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
 
 ## Style
 
@@ -84,7 +78,10 @@ It's possible to display the component in `negative` variant using the self-name
 When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,
 `aria-controls="dialog-id"` that connects the button to the dialog by referencing the dialog's ID. Consider using `aria-expanded` to indicate the dialog's current state (open or closed).
 
-The `sbb-dialog` component may visually hide the title thanks to the `hideOnScroll` property of the [sbb-dialog-title](/docs/elements-sbb-dialog-sbb-dialog-title--docs) to create more space for content, this is useful especially on smaller screens. Screen readers and other assistive technologies will still have access to the title information for context.
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus.
 
 <!-- Auto Generated Below -->
 
