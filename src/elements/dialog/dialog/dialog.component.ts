@@ -14,6 +14,7 @@ import '../../screen-reader-only.js';
 /**
  * It displays an interactive overlay element.
  *
+ * @slot actions - This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.
  * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.

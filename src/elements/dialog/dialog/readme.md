@@ -119,6 +119,7 @@ If the attribute is not used, the first focusable element receives focus.
 
 ## Slots
 
-| Name | Description                                                                                                      |
-| ---- | ---------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`. |
+| Name      | Description                                                                                                      |
+| --------- | ---------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`. |
+| `actions` | This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.       |
