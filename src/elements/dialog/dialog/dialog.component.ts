@@ -11,6 +11,8 @@ import style from './dialog.scss?lit&inline';
 
 import '../../screen-reader-only.js';
 
+let nextId = 0;
+
 /**
  * It displays an interactive overlay element.
  *
@@ -60,34 +62,9 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.addEventListener?.('pointerup', this._closeOnBackdropClick);
   }
 
-  /** Opens the component. */
-  public open(): void {
-    if (this.state !== 'closed') {
-      return;
-    }
-    this.lastFocusedElement = document.activeElement as HTMLElement;
-
-    if (!this.willOpen.emit()) {
-      return;
-    }
-
-    this.showPopover?.();
-    this.state = 'opening';
-
-    // Add this dialog to the global collection
-    overlayRefs.push(this);
-    if (this._dialogContentElement) {
-      this._dialogContentResizeObserver.observe(this._dialogContentElement);
-    }
-
-    // Disable scrolling for content below the dialog
-    this.scrollHandler.disableScroll();
-
-    // If the animation duration is zero, the animationend event is not always fired reliably.
-    // In this case we directly set the `opened` state.
-    if (this.isZeroAnimationDuration()) {
-      this._handleOpening();
-    }
+  public override connectedCallback(): void {
+    this.id ||= `sbb-dialog-${nextId++}`;
+    super.connectedCallback();
   }
 
   protected isZeroAnimationDuration(): boolean {
@@ -112,17 +89,17 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (!overlayRefs.length) {
       this.scrollHandler.enableScroll();
     }
-    this.sbbEscapableOverlayController.disconnect();
+    this.escapableOverlayController.disconnect();
     this.didClose.emit({
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
     });
   }
 
-  private _handleOpening(): void {
+  protected handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.sbbEscapableOverlayController.connect();
+    this.escapableOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
@@ -132,6 +109,9 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusTrapController.enabled = true;
+    if (this._dialogContentElement) {
+      this._dialogContentResizeObserver.observe(this._dialogContentElement);
+    }
     this.didOpen.emit();
   }
 
@@ -154,7 +134,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   // To avoid entering a corrupt state, exit when state is not expected.
   protected onOverlayAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this.state === 'opening') {
-      this._handleOpening();
+      this.handleOpening();
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }

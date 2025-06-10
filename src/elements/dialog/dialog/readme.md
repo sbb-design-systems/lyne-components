@@ -35,27 +35,16 @@ There are three slots: `title`, `content` and `actions`, which can respectively 
 In order to show the dialog, you need to call the `open()` method on the `sbb-dialog` component.
 
 ```html
-<sbb-button
-  label="Open dialog"
-  click="openDialog('my-dialog')"
-  aria-haspopup="dialog"
-  aria-controls="my-dialog"
-></sbb-button>
+<sbb-button id="dialog-trigger">Open dialog</sbb-button>
 
-<sbb-dialog id="my-dialog">
+<sbb-dialog trigger="dialog-trigger">
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>
 </sbb-dialog>
-
-<script>
-  const openDialog = (id) => {
-    const dialog = document.getElementById(id);
-    dialog.open();
-  };
-</script>
 ```
 
-To dismiss the dialog, you need to get a reference to the `sbb-dialog` element and call
+To dismiss the dialog, you need to call
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
 emit a close event with an optional result as a payload.
 
@@ -75,9 +64,6 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Accessibility
 
-When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,
-`aria-controls="dialog-id"` that connects the button to the dialog by referencing the dialog's ID. Consider using `aria-expanded` to indicate the dialog's current state (open or closed).
-
 ### Controlling initial focus
 
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
@@ -94,6 +80,7 @@ If the attribute is not used, the first focusable element receives focus.
 | `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                      |
 | `isOpen`             | -                     | public  | `boolean`                   |            | Whether the element is open.                                                                                |
 | `negative`           | `negative`            | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                             |
+| `trigger`            | `trigger`             | public  | `HTMLElement \| null`       | `null`     | The element that will trigger the menu overlay. For attribute usage, provide an id reference.               |
 
 ## Methods
 

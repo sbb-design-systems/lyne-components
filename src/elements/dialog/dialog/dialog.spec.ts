@@ -439,6 +439,83 @@ describe('sbb-dialog', () => {
     });
   });
 
+  describe('with trigger', () => {
+    let element: SbbDialogElement, trigger: HTMLElement;
+
+    beforeEach(async () => {
+      await setViewport({ width: 900, height: 600 });
+      const root = await fixture(html`
+        <div>
+          <button id="trigger"></button>
+          <sbb-dialog trigger="trigger">
+            <sbb-dialog-title>Title</sbb-dialog-title>
+            <sbb-dialog-content>Dialog content</sbb-dialog-content>
+            <sbb-dialog-actions>Action group</sbb-dialog-actions>
+          </sbb-dialog>
+        </div>
+      `);
+      element = root.querySelector('sbb-dialog')!;
+      trigger = root.querySelector('#trigger')!;
+    });
+
+    it('configures trigger', () => {
+      expect(trigger.ariaHasPopup).to.be.equal('dialog');
+      expect(trigger.getAttribute('aria-controls')).to.be.equal('sbb-dialog-0');
+      expect(trigger.getAttribute('aria-expanded')).to.be.equal('false');
+
+      trigger.click();
+      expect(element.isOpen).to.be.true;
+      expect(trigger.getAttribute('aria-expanded')).to.be.equal('true');
+    });
+
+    it('updates trigger connected by id', async () => {
+      trigger.id = '';
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).to.be.null;
+
+      trigger.id = 'trigger';
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).not.to.be.null;
+    });
+
+    it('accepts trigger as HTML Element', async () => {
+      trigger.id = '';
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).to.be.null;
+
+      element.trigger = trigger;
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).not.to.be.null;
+    });
+
+    it('allows removing the trigger', async () => {
+      expect(trigger.ariaHasPopup).not.to.be.null;
+
+      element.trigger = null;
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).to.be.null;
+    });
+
+    it('init with HtmlElement as trigger', async () => {
+      trigger = await fixture(html`<sbb-button id="dialog-trigger">Menu trigger</sbb-button>`);
+      element = await fixture(html`<sbb-dialog id="dialog" .trigger=${trigger}></sbb-dialog>`);
+
+      const willOpenEventSpy = new EventSpy(SbbDialogElement.events.willOpen, element);
+      const didOpenEventSpy = new EventSpy(SbbDialogElement.events.didOpen, element);
+
+      trigger.click();
+
+      await willOpenEventSpy.calledOnce();
+      expect(willOpenEventSpy.count).to.be.equal(1);
+
+      await didOpenEventSpy.calledOnce();
+      expect(didOpenEventSpy.count).to.be.equal(1);
+
+      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':popover-open');
+    });
+  });
+
   describe('with long content', () => {
     let element: SbbDialogElement;
 
@@ -599,7 +676,7 @@ describe('sbb-dialog', () => {
     it('should open the dialog and the stepper should appear with the correct style', async () => {
       const stepper = root.querySelector('sbb-stepper')!;
       expect(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')).to.be.equal(
-        '0',
+        '0px',
       );
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),

@@ -32,57 +32,46 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Interactions
 
-In order to show the overlay, you need to call the `open(event?: PointerEvent)` method on the `sbb-overlay` component.
-It is necessary to pass the event object to the `open()` method to allow the overlay to detect
-whether it has been opened by click or keyboard, so that the focus can be better handled.
+In order to show the overlay, you need to provide a trigger or call the `open()` method on the `sbb-overlay` component.
 
 ```html
-<sbb-button
-  label="Open overlay"
-  click="openDialog(event, 'my-overlay')"
-  aria-haspopup="dialog"
-  aria-controls="my-overlay"
-></sbb-button>
+<sbb-button id="overlay-trigger">Open overlay</sbb-button>
 
-<sbb-overlay id="my-overlay">
+<sbb-overlay trigger="overlay-trigger">
   <p>Overlay content.</p>
 </sbb-overlay>
-
-<script>
-  const openOverlay = (event, id) => {
-    const overlay = document.getElementById(id);
-    overlay.open(event);
-  };
-</script>
 ```
 
-To dismiss the overlay, you need to get a reference to the `sbb-overlay` element and call
+To dismiss the overlay, you need to call
 the `close(result?: any, target?: HTMLElement)` method, which will close the overlay element and
 emit a close event with an optional result as a payload.
 
 The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-overlay` has the `sbb-overlay-close` attribute, by clicking on it.
 
-You can also set the property `backButton` on the `sbb-overlay-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
+You can also set the property `backButton` on the `sbb-overlay` component to display the back button which will emit the event `requestBackAction` when clicked.
 
 ## Accessibility
 
-When using a button to trigger the overlay, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls an overlay element,
-`aria-controls="overlay-id"` that connects the button to the overlay by referencing the overlay's ID. Consider using `aria-expanded` to indicate the overlay's current state (open or closed).
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type      | Default | Description                                                                                                           |
-| ------------------------- | --------------------------- | ------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `string`  | `''`    | This will be forwarded as aria-label to the back button element.                                                      |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`  | `''`    | This will be forwarded as aria-label to the close button element.                                                     |
-| `accessibilityLabel`      | `accessibility-label`       | public  | `string`  | `''`    | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.           |
-| `backButton`              | `back-button`               | public  | `boolean` | `false` | Whether a back button is displayed next to the title.                                                                 |
-| `expanded`                | `expanded`                  | public  | `boolean` | `false` | Whether to allow the overlay content to stretch to full width. By default, the content has the appropriate page size. |
-| `isOpen`                  | -                           | public  | `boolean` |         | Whether the element is open.                                                                                          |
-| `negative`                | `negative`                  | public  | `boolean` | `false` | Negative coloring variant flag.                                                                                       |
+| Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                           |
+| ------------------------- | --------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `string`              | `''`    | This will be forwarded as aria-label to the back button element.                                                      |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the close button element.                                                     |
+| `accessibilityLabel`      | `accessibility-label`       | public  | `string`              | `''`    | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.           |
+| `backButton`              | `back-button`               | public  | `boolean`             | `false` | Whether a back button is displayed next to the title.                                                                 |
+| `expanded`                | `expanded`                  | public  | `boolean`             | `false` | Whether to allow the overlay content to stretch to full width. By default, the content has the appropriate page size. |
+| `isOpen`                  | -                           | public  | `boolean`             |         | Whether the element is open.                                                                                          |
+| `negative`                | `negative`                  | public  | `boolean`             | `false` | Negative coloring variant flag.                                                                                       |
+| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                         |
 
 ## Methods
 

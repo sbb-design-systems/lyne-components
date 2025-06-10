@@ -5,6 +5,7 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
 `<sbb-dialog
   backdrop="opaque"
   data-state="opened"
+  id="sbb-dialog-0"
   popover="manual"
 >
   <sbb-dialog-title

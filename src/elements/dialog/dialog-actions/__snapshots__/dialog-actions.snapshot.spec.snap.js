@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-dialog-actions renders DOM"] =
+snapshots["sbb-dialog-actions renders DOM"] = 
 `<sbb-dialog-actions
   align-group="start"
   button-size="l"
@@ -14,7 +14,7 @@ snapshots["sbb-dialog-actions renders DOM"] =
 `;
 /* end snapshot sbb-dialog-actions renders DOM */
 
-snapshots["sbb-dialog-actions renders Shadow DOM"] =
+snapshots["sbb-dialog-actions renders Shadow DOM"] = 
 `<div class="sbb-action-group">
   <slot>
   </slot>
@@ -22,7 +22,7 @@ snapshots["sbb-dialog-actions renders Shadow DOM"] =
 `;
 /* end snapshot sbb-dialog-actions renders Shadow DOM */
 
-snapshots["sbb-dialog-actions renders A11y tree Chrome"] =
+snapshots["sbb-dialog-actions renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -32,7 +32,7 @@ snapshots["sbb-dialog-actions renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-dialog-actions renders A11y tree Chrome */
 
-snapshots["sbb-dialog-actions renders A11y tree Firefox"] =
+snapshots["sbb-dialog-actions renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",

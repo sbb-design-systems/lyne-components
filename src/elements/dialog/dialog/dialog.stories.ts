@@ -86,21 +86,8 @@ const basicArgs: Args = {
   'backdrop-action': backdropAction.options![0],
 };
 
-const openDialog = (id: string): void => {
-  const dialog = document.getElementById(id) as SbbDialogElement;
-  dialog.open();
-};
-
-const triggerButton = (dialogId: string): TemplateResult => html`
-  <sbb-button
-    aria-haspopup="dialog"
-    aria-controls=${dialogId}
-    size="m"
-    type="button"
-    @click=${() => openDialog(dialogId)}
-  >
-    Open dialog
-  </sbb-button>
+const triggerButton = (triggerId: string): TemplateResult => html`
+  <sbb-button id=${triggerId} size="m">Open dialog</sbb-button>
 `;
 
 const dialogActions = (negative: boolean): TemplateResult => html`
@@ -162,14 +149,11 @@ const textBlock = (): TemplateResult => html`
 `;
 
 const DefaultTemplate = ({ level, ...args }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-1')}
-  <sbb-dialog id="my-dialog-1" ${sbbSpread(args)}>
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     <sbb-dialog-content>
-      <p
-        id="dialog-content-1"
-        style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;"
-      >
+      <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
         <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
       </p>
@@ -182,8 +166,8 @@ const DefaultTemplate = ({ level, ...args }: Args): TemplateResult => html`
 `;
 
 const LongContentTemplate = ({ level, ...args }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-2')}
-  <sbb-dialog id="my-dialog-2" ${sbbSpread(args)}>
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     <sbb-dialog-content>
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
@@ -207,7 +191,7 @@ const LongContentTemplate = ({ level, ...args }: Args): TemplateResult => html`
 `;
 
 const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-3')}
+  ${triggerButton('dialog-trigger')}
   <div id="returned-value">
     <div style=${styleMap(formDetailsStyle)}>
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
@@ -215,7 +199,7 @@ const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
     </div>
   </div>
   <sbb-dialog
-    id="my-dialog-3"
+    trigger="dialog-trigger"
     @willClose=${(event: CustomEvent) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
@@ -254,11 +238,11 @@ const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
 `;
 
 const NoFooterTemplate = ({ level, ...args }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-4')}
-  <sbb-dialog id="my-dialog-4" ${sbbSpread(args)}>
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     <sbb-dialog-content>
-      <p id="dialog-content-5" style="margin: 0;">
+      <p style="margin: 0;">
         “What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher
@@ -269,14 +253,13 @@ const NoFooterTemplate = ({ level, ...args }: Args): TemplateResult => html`
 `;
 
 const NestedTemplate = ({ level, ...args }: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-5')}
-  <sbb-dialog id="my-dialog-5" ${sbbSpread(args)}>
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
-    <sbb-dialog-content
-      >Click the button to open a nested
-      dialog.&nbsp;${triggerButton('my-dialog-6')}</sbb-dialog-content
-    >
-    <sbb-dialog id="my-dialog-6" ${sbbSpread(args)}>
+    <sbb-dialog-content>
+      Click the button to open a nested dialog.&nbsp;${triggerButton('dialog-trigger-2')}
+    </sbb-dialog-content>
+    <sbb-dialog trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}
       <sbb-dialog-content>
         <p>Nested dialog content. ${loremIpsum}</p>
@@ -295,8 +278,8 @@ const NestedTemplate = ({ level, ...args }: Args): TemplateResult => html`
 `;
 
 const StepperTemplate = ({ level, orientation, linear, ...args }: Args): TemplateResult => html`
-  ${triggerButton('stepper')}
-  <sbb-dialog id="stepper" ${sbbSpread(args)}>
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     <sbb-dialog-content>
       <sbb-stepper orientation="${orientation}" ?linear=${linear} size="m">
