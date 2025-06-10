@@ -69,18 +69,27 @@ It's possible to display the component in `negative` variant using the self-name
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
 If the attribute is not used, the first focusable element receives focus.
 
+### Focus restoration
+
+When closed, the dialog restores focus to the element that previously held focus when the
+dialog opened by default. However, focus restoration can be disabled
+by setting the `skipFocusRestoration` property to `true`.
+As this is an accessibility feature, it is recommended to focus
+an alternative element by listening to the `didClose` event.
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                        | Default    | Description                                                                                                 |
-| -------------------- | --------------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`       | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. |
-| `backdrop`           | `backdrop`            | public  | `'opaque' \| 'translucent'` | `'opaque'` | Backdrop density.                                                                                           |
-| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                      |
-| `isOpen`             | -                     | public  | `boolean`                   |            | Whether the element is open.                                                                                |
-| `negative`           | `negative`            | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                             |
-| `trigger`            | `trigger`             | public  | `HTMLElement \| null`       | `null`     | The element that will trigger the menu overlay. For attribute usage, provide an id reference.               |
+| Name                   | Attribute              | Privacy | Type                        | Default    | Description                                                                                                                                                                                                                                               |
+| ---------------------- | ---------------------- | ------- | --------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel`   | `accessibility-label`  | public  | `string`                    | `''`       | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.                                                                                                                                               |
+| `backdrop`             | `backdrop`             | public  | `'opaque' \| 'translucent'` | `'opaque'` | Backdrop density.                                                                                                                                                                                                                                         |
+| `backdropAction`       | `backdrop-action`      | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                                                                                                                                                                    |
+| `isOpen`               | -                      | public  | `boolean`                   |            | Whether the element is open.                                                                                                                                                                                                                              |
+| `negative`             | `negative`             | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                           |
+| `skipFocusRestoration` | `skipFocusRestoration` | public  | `boolean`                   | `false`    | Whether to skip restoring focus to the previously-focused element when the overlay is closed. Note that automatic focus restoration is an accessibility feature and it is recommended that you provide your own equivalent, if you decide to turn it off. |
+| `trigger`              | `trigger`              | public  | `HTMLElement \| null`       | `null`     | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                                                                                                                                             |
 
 ## Methods
 

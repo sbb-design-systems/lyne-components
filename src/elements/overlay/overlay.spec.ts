@@ -371,5 +371,35 @@ describe('sbb-overlay', () => {
       expect(element).to.have.attribute('data-state', 'opened');
       expect(element).to.match(':popover-open');
     });
+
+    it('closes and restores focus', async () => {
+      trigger.focus();
+      expect(document.activeElement).to.be.equal(trigger);
+
+      trigger.click();
+      expect(element.isOpen).to.be.true;
+      await waitForCondition(() => document.activeElement !== trigger, 2);
+      expect(document.activeElement).not.to.be.equal(trigger);
+
+      await sendKeys({ press: 'Escape' });
+      expect(element.isOpen).to.be.false;
+      expect(document.activeElement).to.be.equal(trigger);
+    });
+
+    it('closes and skips focus restoration', async () => {
+      element.skipFocusRestoration = true;
+
+      trigger.focus();
+      expect(document.activeElement).to.be.equal(trigger);
+
+      trigger.click();
+      expect(element.isOpen).to.be.true;
+      await waitForCondition(() => document.activeElement !== trigger, 2);
+      expect(document.activeElement).not.to.be.equal(trigger);
+
+      await sendKeys({ press: 'Escape' });
+      expect(element.isOpen).to.be.false;
+      expect(document.activeElement).not.to.be.equal(trigger);
+    });
   });
 });

@@ -77,8 +77,10 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.hidePopover?.();
 
     this.inertController.deactivate();
-    // Manually focus last focused element
-    this.lastFocusedElement?.focus();
+    if (!this.skipFocusRestoration) {
+      // Manually focus last focused element
+      this.lastFocusedElement?.focus();
+    }
     this.openOverlayController?.abort();
     this.focusTrapController.enabled = false;
     if (this._dialogContentElement) {

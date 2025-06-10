@@ -38,6 +38,15 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
 
+  /**
+   * Whether to skip restoring focus to the previously-focused element when the overlay is closed.
+   * Note that automatic focus restoration is an accessibility feature and it is recommended that
+   * you provide your own equivalent, if you decide to turn it off.
+   */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor skipFocusRestoration: boolean = false;
+
   /** Emits whenever the component is closed. */
   protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
     this,
