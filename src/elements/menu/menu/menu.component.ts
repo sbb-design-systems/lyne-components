@@ -25,7 +25,7 @@ import {
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
-import { SbbElementInternalsMixin, SbbNamedSlotListMixin } from '../../core/mixins.js';
+import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
   isEventOnElement,
@@ -68,7 +68,7 @@ export
 class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof SbbOpenCloseBaseElement
->(SbbElementInternalsMixin(SbbOpenCloseBaseElement)) {
+>(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
   public static override readonly role = 'menu';
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
