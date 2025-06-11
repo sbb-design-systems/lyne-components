@@ -6,7 +6,6 @@ snapshots["sbb-menu renders DOM"] =
   data-state="closed"
   id="sbb-menu-0"
   popover="manual"
-  role="menu"
   trigger="menu-trigger"
 >
   <sbb-block-link
@@ -84,7 +83,6 @@ snapshots["sbb-menu renders with list DOM"] =
   data-state="closed"
   id="sbb-menu-2"
   popover="manual"
-  role="menu"
   trigger="menu-trigger"
 >
   <sbb-menu-button
@@ -213,7 +211,6 @@ snapshots["sbb-menu renders open DOM"] =
   data-state="opened"
   id="sbb-menu-5"
   popover="manual"
-  role="menu"
   trigger="menu-trigger"
 >
   <sbb-block-link
