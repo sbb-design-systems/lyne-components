@@ -7,7 +7,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../../common/translations.js';
-import type { PlaceTravelClass } from '../../seat-reservation.js';
+import type { PlaceTravelClass } from '../../common.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 

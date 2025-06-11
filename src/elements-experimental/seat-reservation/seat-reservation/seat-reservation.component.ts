@@ -14,7 +14,7 @@ import type {
   BaseElement,
   PlaceSelection,
   SeatReservation,
-} from '../seat-reservation.js';
+} from '../common.js';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
 import style from './seat-reservation.scss?lit&inline';
@@ -518,7 +518,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
-    this.isCochGridFocusable = false;
+    this.isCoachGridFocusable = false;
     if (!this.preventPlaceClick) {
       // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);

@@ -9,7 +9,6 @@ import {
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
 } from '../common/mapper.js';
-import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 import type {
   CoachItem,
   ElementDimension,
@@ -19,7 +18,8 @@ import type {
   SeatReservation,
   SeatReservationCoachSelection,
   SeatReservationPlaceSelection,
-} from '../seat-reservation.js';
+} from '../common.js';
+import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 
 import type { SbbSeatReservationScopedElement } from './seat-reservation-scoped/seat-reservation-scoped.component.js';
 
@@ -104,7 +104,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected preventCoachScrollByPlaceClick: boolean = false;
   protected selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
   protected seatReservationWithoutNavigationHasFocus = false;
-  protected isCochGridFocusable = false;
+  protected isCoachGridFocusable = false;
   protected isAutoScrolling = false;
   protected isKeyboardNavigation = false;
   protected keyboardNavigationEvents = {
@@ -199,7 +199,7 @@ export class SeatReservationBaseElement extends LitElement {
       });
 
       // During initialization we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
-      // becuase we rotate the entire component by 90 degrees and transform the origin point to top left.
+      // because we rotate the entire component by 90 degrees and transform the origin point to top left.
       if (this.alignVertical) {
         this._setVerticalAlignmentOffset();
       }
@@ -319,7 +319,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
     if (selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.isAutoScrolling = true;
-      this.isCochGridFocusable = true;
+      this.isCoachGridFocusable = true;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
       this._setScrollDirectionByCoachIndex();
 
@@ -372,8 +372,8 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _setFocusToSelectedCoachGrid(): void {
     // When the user performs an action that affects the coach navigation, then the navigated table is focusable.
-    if (this.isCochGridFocusable) {
-      this.isCochGridFocusable = false;
+    if (this.isCoachGridFocusable) {
+      this.isCoachGridFocusable = false;
       const coachTableCaptionElement = this.shadowRoot?.querySelector(
         '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
       ) as HTMLTableCaptionElement;
@@ -644,7 +644,7 @@ export class SeatReservationBaseElement extends LitElement {
         }
         //If no place was selected, then we select the coach grid
         else {
-          this.isCochGridFocusable = true;
+          this.isCoachGridFocusable = true;
           this._setFocusToSelectedCoachGrid();
         }
       }

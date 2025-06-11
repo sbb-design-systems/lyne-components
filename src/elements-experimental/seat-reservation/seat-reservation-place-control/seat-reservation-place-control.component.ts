@@ -6,7 +6,7 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyV
 import { customElement, property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common.js';
-import type { PlaceSelection, PlaceState, PlaceType } from '../seat-reservation.js';
+import type { PlaceSelection, PlaceState, PlaceType } from '../common.js';
 
 import '../seat-reservation-graphic.js';
 
@@ -64,7 +64,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ attribute: 'text-rotation' })
   public accessor textRotation: number = 0;
 
-  /** Coach Index Prop to identifer the right place to coach */
+  /** Coach Index Prop to identifier the right place to coach */
   @forceType()
   @property({ attribute: 'coach-index', type: Number })
   public accessor coachIndex: number = null!;
