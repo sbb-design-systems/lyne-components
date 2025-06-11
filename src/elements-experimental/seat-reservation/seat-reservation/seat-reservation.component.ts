@@ -29,7 +29,7 @@ import './seat-reservation-scoped.js';
 /**
  * Describe the purpose of the component with a single short sentence.
  *
- * @event {CustomEvent<SeatReservationPlaceSelection>} selectedPlaces - Emits when a place was selected and returns a Place array with all selected places
+ * @event {CustomEvent<SeatReservationSelectedPlacesEventDetails>} selectedPlaces - Emits when a place was selected and returns a Place array with all selected places
  * @event {CustomEvent<SeatReservationCoachSelection>} selectedCoach - Emits when a coach was selected and returns a CoachSelection
  */
 export
@@ -41,12 +41,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   @property({ attribute: 'seat-reservation', type: Object })
   public override accessor seatReservation: SeatReservation = null!;
 
-  /** The seat resvervation navigation can be toggled by this property */
+  /** The seat reservation navigation can be toggled by this property */
   @forceType()
   @property({ attribute: 'has-navigation', type: Boolean })
   public override accessor hasNavigation: boolean = true;
 
-  /** controls the visual represention of seat reservation in a horizonal or vertical alignment */
+  /** Controls the visual representation of seat reservation in a horizonal or vertical alignment */
   @forceType()
   @property({ attribute: 'align-vertical', type: Boolean })
   public override accessor alignVertical: boolean = false;

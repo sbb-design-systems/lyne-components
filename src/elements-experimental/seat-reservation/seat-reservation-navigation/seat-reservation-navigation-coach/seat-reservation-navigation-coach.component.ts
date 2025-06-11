@@ -16,11 +16,13 @@ import '../seat-reservation-navigation-services.js';
 
 const MAX_SERVICE_PROPERTIES = 3;
 
+export type SelectCoachEventDetails = number;
+
 /**
  * This component will display the navigation coach item for Seat reservation.
  *
- * @event {CustomEvent<T>} selectCoach - Emits when a coach within the navigation was selected and returns the clicked coach nav index
- * @event {CustomEvent<T>} focusCoach -  Emits when a nav coach has the focus
+ * @event {CustomEvent<SelectCoachEventDetails>} selectCoach - Emits when a coach within the navigation was selected and returns the clicked coach nav index
+ * @event {CustomEvent<void>} focusCoach - Emits when a nav coach has the focus
  */
 export
 @customElement('sbb-seat-reservation-navigation-coach')
@@ -86,11 +88,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   private _language = new SbbLanguageController(this);
 
   /** Emits when a coach within the navigation was selected */
-  protected selectNavCoach: EventEmitter = new EventEmitter(
+  protected selectNavCoach: EventEmitter<SelectCoachEventDetails> = new EventEmitter(
     this,
     SbbSeatReservationNavigationCoachElement.events.selectCoach,
   );
-  protected focusNavCoach: EventEmitter = new EventEmitter(
+  protected focusNavCoach: EventEmitter<void> = new EventEmitter(
     this,
     SbbSeatReservationNavigationCoachElement.events.focusCoach,
   );
