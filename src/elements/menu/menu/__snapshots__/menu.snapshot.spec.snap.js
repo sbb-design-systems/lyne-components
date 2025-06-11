@@ -209,7 +209,7 @@ snapshots["sbb-menu renders with list A11y tree Firefox"] =
 snapshots["sbb-menu renders open DOM"] = 
 `<sbb-menu
   data-state="opened"
-  id="sbb-menu-5"
+  id="sbb-menu-4"
   popover="manual"
   trigger="menu-trigger"
 >
