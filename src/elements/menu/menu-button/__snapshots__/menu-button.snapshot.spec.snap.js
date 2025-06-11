@@ -76,7 +76,7 @@ snapshots["sbb-menu-button renders component with icon A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "button",
+      "role": "menuitem",
       "name": "Action"
     }
   ]
@@ -92,8 +92,14 @@ snapshots["sbb-menu-button renders component with icon A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "button",
-      "name": "Action"
+      "role": "text container",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Action"
+        }
+      ]
     }
   ]
 }

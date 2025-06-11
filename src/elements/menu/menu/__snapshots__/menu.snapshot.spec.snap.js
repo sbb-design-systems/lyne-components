@@ -6,6 +6,7 @@ snapshots["sbb-menu renders DOM"] =
   data-state="closed"
   id="sbb-menu-0"
   popover="manual"
+  role="menu"
   trigger="menu-trigger"
 >
   <sbb-block-link
@@ -83,6 +84,7 @@ snapshots["sbb-menu renders with list DOM"] =
   data-state="closed"
   id="sbb-menu-2"
   popover="manual"
+  role="menu"
   trigger="menu-trigger"
 >
   <sbb-menu-button
@@ -173,6 +175,11 @@ snapshots["sbb-menu renders with list A11y tree Chrome"] =
       "role": "button",
       "name": "Menu trigger",
       "haspopup": "menu"
+    },
+    {
+      "role": "menu",
+      "name": "",
+      "orientation": "vertical"
     }
   ]
 }
@@ -190,10 +197,174 @@ snapshots["sbb-menu renders with list A11y tree Firefox"] =
       "role": "button",
       "name": "Menu trigger",
       "haspopup": "menu"
+    },
+    {
+      "role": "menu",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-menu renders with list A11y tree Firefox */
+
+snapshots["sbb-menu renders open DOM"] = 
+`<sbb-menu
+  data-state="opened"
+  id="sbb-menu-5"
+  popover="manual"
+  role="menu"
+  trigger="menu-trigger"
+>
+  <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
+    data-slot-names="unnamed"
+    href="https://www.sbb.ch/en"
+    icon-placement="start"
+    size="s"
+  >
+    Profile
+  </sbb-block-link>
+  <sbb-menu-button
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    icon-name="tick-small"
+    tabindex="0"
+  >
+    View
+  </sbb-menu-button>
+  <sbb-menu-button
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    disabled=""
+    icon-name="pen-small"
+    sbb-badge="1"
+  >
+    Edit
+  </sbb-menu-button>
+  <sbb-menu-button
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    icon-name="swisspass-small"
+    sbb-badge="2"
+    tabindex="0"
+  >
+    Details
+  </sbb-menu-button>
+  <sbb-divider
+    aria-orientation="horizontal"
+    orientation="horizontal"
+  >
+  </sbb-divider>
+  <sbb-menu-button
+    data-action=""
+    data-button=""
+    data-slot-names="unnamed"
+    icon-name="cross-small"
+    tabindex="0"
+  >
+    Cancel
+  </sbb-menu-button>
+</sbb-menu>
+`;
+/* end snapshot sbb-menu renders open DOM */
+
+snapshots["sbb-menu renders open Shadow DOM"] = 
+`<div class="sbb-menu__container">
+  <div class="sbb-menu">
+    <div class="sbb-menu__content">
+      <slot>
+      </slot>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-menu renders open Shadow DOM */
+
+snapshots["sbb-menu renders open A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "menu",
+      "name": "",
+      "orientation": "vertical",
+      "children": [
+        {
+          "role": "link",
+          "name": "Profile",
+          "focused": true
+        },
+        {
+          "role": "menuitem",
+          "name": "View"
+        },
+        {
+          "role": "menuitem",
+          "name": "Edit 1",
+          "disabled": true
+        },
+        {
+          "role": "menuitem",
+          "name": "Details 2"
+        },
+        {
+          "role": "menuitem",
+          "name": "Cancel"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu renders open A11y tree Chrome */
+
+snapshots["sbb-menu renders open A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "menu",
+      "name": "",
+      "children": [
+        {
+          "role": "link",
+          "name": "Profile",
+          "focused": true,
+          "value": "https://www.sbb.ch/en"
+        },
+        {
+          "role": "menuitem",
+          "name": "View"
+        },
+        {
+          "role": "menuitem",
+          "name": "Edit 1",
+          "disabled": true
+        },
+        {
+          "role": "menuitem",
+          "name": "Details 2"
+        },
+        {
+          "role": "menuitem",
+          "name": "Cancel"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-menu renders open A11y tree Firefox */
 

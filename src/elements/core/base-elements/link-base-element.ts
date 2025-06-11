@@ -49,6 +49,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   public accessor accessibilityCurrent: string = '';
 
   protected language = new SbbLanguageController(this);
+  protected readonly anchorRole: string | null = null;
 
   public constructor() {
     super();
@@ -89,6 +90,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         ?download=${this.download}
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
+        role=${this.anchorRole || nothing}
         aria-label=${this.accessibilityLabel || nothing}
         aria-current=${this.accessibilityCurrent || nothing}
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}
