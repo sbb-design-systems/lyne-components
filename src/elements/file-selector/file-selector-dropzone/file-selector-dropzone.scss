@@ -23,6 +23,7 @@
 
 .sbb-file-selector__dropzone-area--title {
   @include sbb.text--bold;
+  @include sbb.title($exclude-spacing: true);
   @include sbb.title-6($exclude-spacing: true);
 
   text-align: center;
