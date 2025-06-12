@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-next.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0-next.0...v3.0.0-next.1) (2025-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-toggle:** Before this change, the intrinsic size of the `sbb-toggle` was smaller than the element itself. Now the height and width of the element has increased to fit the real dimensions (plus 2px on all sides). Potential action needed: For some layouts the `sbb-toggle` needs a negative margin of 2px in order to nicely fit in existing layouts (align background track of `sbb-toggle` to the rest of the content).
+
+### Bug Fixes
+
+* change title level 5 line height from 175% to 130% ([#3806](https://github.com/sbb-design-systems/lyne-components/issues/3806)) ([abdad0e](https://github.com/sbb-design-systems/lyne-components/commit/abdad0e7700e13999c5d0a95a871e37f29d7339f))
+* **sbb-seat-reservation:** clean up exports ([#3803](https://github.com/sbb-design-systems/lyne-components/issues/3803)) ([f7255c5](https://github.com/sbb-design-systems/lyne-components/commit/f7255c5e53af630b7e68ccd402fde66106aee8ce))
+* **sbb-toggle:** change elements dimensions to fit intrinsic size ([#3794](https://github.com/sbb-design-systems/lyne-components/issues/3794)) ([4336649](https://github.com/sbb-design-systems/lyne-components/commit/4336649265dcc475429d9485ee711e597f998f47))
+
 ## [2.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.0...v2.11.1) (2025-06-12)
 
 
