@@ -61,7 +61,6 @@
   @include title($exclude-spacing);
 
   --sbb-title-font-size: var(--sbb-font-size-title-5);
-  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
