@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.0...v2.11.1) (2025-06-12)
+
+
+### Bug Fixes
+
+* change title level 5 line height from 175% to 130% ([#3806](https://github.com/sbb-design-systems/lyne-components/issues/3806)) ([5cf61cf](https://github.com/sbb-design-systems/lyne-components/commit/5cf61cfb169ff8bad0d8bd29a81f263f5efc674b))
+* **sbb-popover:** hide focus outline when opened by hovering ([#3796](https://github.com/sbb-design-systems/lyne-components/issues/3796)) ([d0aee6e](https://github.com/sbb-design-systems/lyne-components/commit/d0aee6e858a210b936c1298f00c2de33015f7970))
+* **sbb-seat-reservation:** clean up exports ([#3803](https://github.com/sbb-design-systems/lyne-components/issues/3803)) ([62304cc](https://github.com/sbb-design-systems/lyne-components/commit/62304cc05e6054b451059d31d9ff63bf70fa1799))
+
 ## [3.0.0-next.0](https://github.com/sbb-design-systems/lyne-components/compare/v2.0.0...v3.0.0-next.0) (2025-06-10)
 
 
