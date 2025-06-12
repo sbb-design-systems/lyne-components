@@ -512,8 +512,6 @@ sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
 
 sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
-
-  --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
 }
 
 :where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s']

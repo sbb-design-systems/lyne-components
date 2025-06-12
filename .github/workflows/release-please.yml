@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - '*.x'
+      - main
 
 # Documentation:
 # https://github.com/googleapis/release-please
@@ -95,10 +96,12 @@ jobs:
           docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION
           docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
           docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
-          docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
-          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
-          docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
-          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
+          if [[ $VERSION != *"-"* ]]; then
+            docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
+            docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
+            docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
+            docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
+          fi
           docker image list
         env:
           DOCKER_BUILDKIT: 1

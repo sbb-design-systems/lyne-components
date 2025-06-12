@@ -48,6 +48,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-text-color-override: var(--sbb-color-granite);
   --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
+  --_sbb-status-icon-line-height: var(--sbb-typo-line-height-titles);
 }
 
 .sbb-status {
@@ -64,7 +65,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   color: var(--_sbb-status-icon-color);
   margin-block-start: calc(
     (
-        (var(--_sbb-status-icon-font-size) * var(--sbb-typo-line-height-body-text)) - var(
+        (var(--_sbb-status-icon-font-size) * var(--_sbb-status-icon-line-height)) - var(
             --sbb-size-icon-ui-small
           )
       ) /

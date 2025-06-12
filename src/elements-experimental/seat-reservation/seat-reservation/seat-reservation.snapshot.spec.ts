@@ -3,7 +3,7 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import type { SeatReservation } from '../seat-reservation.js';
+import type { SeatReservation } from '../common.js';
 
 import type { SbbSeatReservationElement } from './seat-reservation.component.js';
 
