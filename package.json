@@ -104,7 +104,7 @@
     "@typescript-eslint/parser": "8.34.0",
     "@web/test-runner": "0.20.2",
     "@web/test-runner-commands": "0.9.0",
-    "@web/test-runner-playwright": "0.11.0",
+    "@web/test-runner-playwright": "0.11.1",
     "@web/test-runner-visual-regression": "0.9.0",
     "cross-env": "7.0.3",
     "custom-elements-manifest": "2.1.0",
