@@ -55,7 +55,7 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 
 ## Events
 
-| Name          | Type             | Description                                                                                   | Inherited From |
-| ------------- | ---------------- | --------------------------------------------------------------------------------------------- | -------------- |
-| `focusCoach`  | `CustomEvent<T>` | Emits when a nav coach has the focus                                                          |                |
-| `selectCoach` | `CustomEvent<T>` | Emits when a coach within the navigation was selected and returns the clicked coach nav index |                |
+| Name          | Type                                   | Description                                                                                   | Inherited From |
+| ------------- | -------------------------------------- | --------------------------------------------------------------------------------------------- | -------------- |
+| `focusCoach`  | `CustomEvent<void>`                    | Emits when a nav coach has the focus                                                          |                |
+| `selectCoach` | `CustomEvent<SelectCoachEventDetails>` | Emits when a coach within the navigation was selected and returns the clicked coach nav index |                |

@@ -7,7 +7,7 @@ import type {
   SeatReservationCoachSelection,
   SeatReservationPlaceSelection,
   VehicleType,
-} from '../../seat-reservation.js';
+} from '../types.js';
 
 import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sample-data.js';
 
@@ -17,10 +17,10 @@ import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sampl
 export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReservation => {
   const MOCK_DATA = vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_0 : MOCK_COACHES_RAW_1;
   const coachsArr = MOCK_DATA.map((coachDeckLayout) => {
-    const choachLayout = coachDeckLayout?.coachDeckLayout;
+    const coachLayout = coachDeckLayout?.coachDeckLayout;
     const coachTravelClasses: PlaceTravelClass[] = [];
     const coachPropertyIds: string[] = [];
-    const places = choachLayout.placeGroups
+    const places = coachLayout.placeGroups
       .map((placeGroup: any) => {
         //Collect unique travel classes for coach
         if (coachTravelClasses.indexOf(placeGroup.travelClass) === -1) {
@@ -53,7 +53,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       })
       .flat();
 
-    const signs = choachLayout.serviceIcons.map((serviceIcon) => {
+    const signs = coachLayout.serviceIcons.map((serviceIcon) => {
       return {
         icon: serviceIcon.type,
         position: {
@@ -68,7 +68,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       };
     });
 
-    const graphicalElements = choachLayout.graphicElements.map((element) => {
+    const graphicalElements = coachLayout.graphicElements.map((element) => {
       return {
         icon: element?.type,
         position: {
@@ -82,9 +82,9 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
     });
 
     return {
-      id: choachLayout?.id,
-      number: choachLayout?.name,
-      dimension: { w: choachLayout.dimension?.width, h: choachLayout.dimension?.height },
+      id: coachLayout?.id,
+      number: coachLayout?.name,
+      dimension: { w: coachLayout.dimension?.width, h: coachLayout.dimension?.height },
       places: places,
       serviceElements: signs,
       graphicElements: graphicalElements,
@@ -117,10 +117,10 @@ export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number):
 };
 
 /**
- * Mapped informations from place, coach and the coachiondex  to the seatReaservationPlaceSelection.
+ * Mapped information from place, coach and the coachindex  to the seatReservationPlaceSelection.
  * This Object information is emitted outwards
  * @param place
- * @param CoachItem
+ * @param coach
  * @param coachIndex
  * @returns SeatReservationPlaceSelection
  */
@@ -143,9 +143,9 @@ export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
 };
 
 /**
- * Mapped coach informations to coach selection
- * @param place
+ * Mapped coach information to coach selection
  * @param coachIndex
+ * @param coach
  * @returns PlaceSelection
  */
 export const mapCoachInfosToCoachSelection = (
