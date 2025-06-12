@@ -140,7 +140,7 @@
   @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-    height: fit-content;
+    height: auto;
   }
 }
 
