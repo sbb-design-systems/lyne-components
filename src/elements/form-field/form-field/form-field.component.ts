@@ -114,7 +114,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   @state() private accessor _errorElements: Element[] = [];
 
   /** Reference to the slotted input element. */
-  @state() private accessor _input!: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
+  @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
 
   /** Reference to the slotted label elements. */
   @state() private accessor _label!: HTMLLabelElement;
@@ -146,9 +146,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.addEventListener?.(
       'focusin',
       (event) => {
+        console.log('focusin', event.target, this.inputElement);
         if (
           event.target === this.inputElement ||
-          event.target === (this.inputElement as SbbSelectElement).inputElement
+          event.target === (this.inputElement as SbbSelectElement | undefined)?.inputElement
         ) {
           this.internals.states.add('focus');
           this.internals.states.add(`focus-origin-${sbbInputModalityDetector.mostRecentModality}`);
@@ -161,7 +162,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
       (event) => {
         if (
           event.target === this.inputElement ||
-          event.target === (this.inputElement as SbbSelectElement).inputElement
+          event.target === (this.inputElement as SbbSelectElement | undefined)?.inputElement
         ) {
           this._checkAndUpdateInputEmpty();
           this.internals.states.delete('focus');
