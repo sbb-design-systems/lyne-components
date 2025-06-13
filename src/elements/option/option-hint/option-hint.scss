@@ -1,0 +1,35 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: block;
+
+  --sbb-option-hint-color: var(--sbb-color-metal);
+  --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-2x);
+}
+
+:host([negative]) {
+  --sbb-option-hint-color: var(--sbb-color-smoke);
+}
+
+.sbb-option-hint__wrapper {
+  display: flex;
+  column-gap: var(--sbb-spacing-fixed-4x);
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+  padding-block-end: var(--sbb-option-hint-padding-block-end);
+}
+
+.sbb-optgroup__icon-space {
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
+  min-width: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-option-hint {
+  @include sbb.text-xxs--regular;
+
+  color: var(--sbb-option-hint-color);
+  -webkit-text-fill-color: var(--sbb-option-hint-color);
+}
