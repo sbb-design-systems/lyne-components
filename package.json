@@ -128,7 +128,7 @@
     "react": "19.1.0",
     "rollup-plugin-postcss-lit": "2.2.0",
     "sass": "1.89.2",
-    "sinon": "20.0.0",
+    "sinon": "21.0.0",
     "storybook": "9.0.8",
     "stylelint": "16.20.0",
     "stylelint-config-prettier-scss": "1.0.0",
