@@ -810,3 +810,10 @@ export const i18nChipGroupInputDescription: Record<string, string> = {
   fr: 'Éléments sélectionnés:',
   it: 'Elementi selezionati:',
 };
+
+export const i18nCalendarWeekNumber: Record<string, string> = {
+  de: 'Woche',
+  en: 'Week',
+  fr: 'Semaine',
+  it: 'Settimana',
+};
