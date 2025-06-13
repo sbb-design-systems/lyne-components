@@ -26,9 +26,6 @@
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
-    var(--sbb-dialog-animation-easing);
-  --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
   display: none;
   position: fixed;
@@ -71,22 +68,13 @@
   --sbb-dialog-backdrop-color: var(--sbb-color-black-alpha-50);
 }
 
-:host([data-hide-header]) {
-  // Hide transition
-  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
-}
-
 :host([negative]) {
   @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-dialog-color: var(--sbb-color-white);
   --sbb-dialog-background-color: var(--sbb-color-midnight);
-  --sbb-dialog-actions-border: none;
-}
-
-:host([data-overflows]:not([negative])) {
-  --sbb-dialog-actions-border: none;
+  --sbb-dialog-backdrop-color: var(--sbb-color-charcoal);
 }
 
 :host(:not([data-state='closed'])) {
@@ -127,7 +115,6 @@
   height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
-  overflow: auto;
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
@@ -153,7 +140,7 @@
   @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-    height: fit-content;
+    height: auto;
   }
 }
 
@@ -164,13 +151,13 @@
   height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
-  outline: none;
-  position: fixed;
+}
 
-  @include sbb.mq($from: medium) {
-    position: sticky;
-    inset-block-start: 0;
-    height: auto;
+.sbb-dialog-content-container {
+  @include sbb.scrollbar-rules;
+
+  & {
+    overflow: auto;
   }
 }
 
@@ -180,23 +167,23 @@
 @keyframes open {
   from {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
+    translate: 0 var(--sbb-spacing-fixed-4x);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 
   to {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
+    translate: 0 var(--sbb-spacing-fixed-4x);
   }
 }

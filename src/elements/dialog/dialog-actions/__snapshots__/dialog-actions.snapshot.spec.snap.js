@@ -8,17 +8,16 @@ snapshots["sbb-dialog-actions renders DOM"] =
   horizontal-from="medium"
   link-size="m"
   orientation="horizontal"
+  slot="actions"
 >
 </sbb-dialog-actions>
 `;
 /* end snapshot sbb-dialog-actions renders DOM */
 
 snapshots["sbb-dialog-actions renders Shadow DOM"] = 
-`<div class="sbb-dialog-actions">
-  <div class="sbb-action-group">
-    <slot>
-    </slot>
-  </div>
+`<div class="sbb-action-group">
+  <slot>
+  </slot>
 </div>
 `;
 /* end snapshot sbb-dialog-actions renders Shadow DOM */

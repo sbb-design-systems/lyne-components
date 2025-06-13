@@ -189,7 +189,7 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
 `;
 /* end snapshot sbb-toast renders with action Shadow DOM */
 
-snapshots["sbb-toast renders A11y tree Chrome"] =
+snapshots["sbb-toast renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -209,7 +209,7 @@ snapshots["sbb-toast renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-toast renders A11y tree Firefox */
 
-snapshots["sbb-toast renders readonly A11y tree Chrome"] =
+snapshots["sbb-toast renders readonly A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

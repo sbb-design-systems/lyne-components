@@ -6,10 +6,8 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { breakpoints } from '../../core/dom/breakpoint.js';
 import sampleImages from '../../core/images.js';
 import type { SbbTitleLevel } from '../../title.js';
-import { SbbDialogTitleElement } from '../dialog-title.js';
 
 import { SbbDialogElement } from './dialog.component.js';
 import readme from './readme.md?raw';
@@ -24,6 +22,7 @@ import '../../popover.js';
 import '../../stepper.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
+import '../dialog-title.js';
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -42,25 +41,6 @@ const level: InputType = {
   },
 };
 
-const backButton: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Title',
-  },
-};
-
-const hideOnScroll: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['Deactivate hide on scroll', ...breakpoints],
-  table: {
-    category: 'Title',
-  },
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -68,24 +48,6 @@ const negative: InputType = {
 };
 
 const accessibilityLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
-const accessibilityCloseLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
-const accessibilityBackLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -110,43 +72,22 @@ const backdropAction: InputType = {
 
 const basicArgTypes: ArgTypes = {
   level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
-  backdrop: backdrop,
+  backdrop,
   'backdrop-action': backdropAction,
 };
 
 const basicArgs: Args = {
   level: level.options![1],
-  backButton: true,
-  hideOnScroll: hideOnScroll.options![0],
-  accessibilityCloseLabel: 'Close dialog',
-  accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
   backdrop: 'opaque',
   'backdrop-action': backdropAction.options![0],
 };
 
-const openDialog = (_event: PointerEvent, id: string): void => {
-  const dialog = document.getElementById(id) as SbbDialogElement;
-  dialog.open();
-};
-
-const triggerButton = (dialogId: string): TemplateResult => html`
-  <sbb-button
-    aria-haspopup="dialog"
-    aria-controls=${dialogId}
-    size="m"
-    type="button"
-    @click=${(event: PointerEvent) => openDialog(event, dialogId)}
-  >
-    Open dialog
-  </sbb-button>
+const triggerButton = (triggerId: string): TemplateResult => html`
+  <sbb-button id=${triggerId} size="m">Open dialog</sbb-button>
 `;
 
 const dialogActions = (negative: boolean): TemplateResult => html`
@@ -160,8 +101,8 @@ const dialogActions = (negative: boolean): TemplateResult => html`
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
   </sbb-dialog-actions>
 `;
 
@@ -194,48 +135,25 @@ const textBlockStyle: Args = {
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 
-const dialogTitle = (
-  level: SbbTitleLevel,
-  backButton: boolean,
-  hideOnScroll: any,
-  accessibilityCloseLabel: string,
-  accessibilityBackLabel: string,
-): TemplateResult => html`
-  <sbb-dialog-title
-    level=${level}
-    ?back-button=${backButton}
-    hide-on-scroll=${hideOnScroll === 'Deactivate hide on scroll' ? nothing : hideOnScroll}
-    accessibility-close-label=${accessibilityCloseLabel}
-    accessibility-back-label=${accessibilityBackLabel}
-    >A describing title of the dialog</sbb-dialog-title
-  >
+const dialogTitle = (level: SbbTitleLevel): TemplateResult => html`
+  <sbb-dialog-title level=${level}>A describing title of the dialog</sbb-dialog-title>
 `;
 
 const textBlock = (): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle)}>
+  <p style=${styleMap(textBlockStyle)}>
     J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
     1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
     linguistic brilliance and mythic passion converge in a literary legacy that continues to
     transport readers to magical realms.
-  </div>
+  </p>
 `;
 
-const DefaultTemplate = ({
-  level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
-  ...args
-}: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-1')}
-  <sbb-dialog id="my-dialog-1" ${sbbSpread(args)}>
-    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
+const DefaultTemplate = ({ level, ...args }: Args): TemplateResult => html`
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
+    ${dialogTitle(level)}
     <sbb-dialog-content>
-      <p
-        id="dialog-content-1"
-        style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;"
-      >
+      <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
         <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
       </p>
@@ -247,17 +165,10 @@ const DefaultTemplate = ({
   </sbb-dialog>
 `;
 
-const LongContentTemplate = ({
-  level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
-  ...args
-}: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-2')}
-  <sbb-dialog id="my-dialog-2" ${sbbSpread(args)}>
-    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
+const LongContentTemplate = ({ level, ...args }: Args): TemplateResult => html`
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
+    ${dialogTitle(level)}
     <sbb-dialog-content>
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
       like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
@@ -279,15 +190,8 @@ const LongContentTemplate = ({
   </sbb-dialog>
 `;
 
-const FormTemplate = ({
-  level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
-  ...args
-}: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-3')}
+const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
+  ${triggerButton('dialog-trigger')}
   <div id="returned-value">
     <div style=${styleMap(formDetailsStyle)}>
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
@@ -295,7 +199,7 @@ const FormTemplate = ({
     </div>
   </div>
   <sbb-dialog
-    id="my-dialog-3"
+    trigger="dialog-trigger"
     @willClose=${(event: CustomEvent) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
@@ -306,7 +210,7 @@ const FormTemplate = ({
     }}
     ${sbbSpread(args)}
   >
-    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
+    ${dialogTitle(level)}
     <sbb-dialog-content>
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x);">
         Submit the form below to close the dialog box using the
@@ -333,19 +237,12 @@ const FormTemplate = ({
   </sbb-dialog>
 `;
 
-const NoFooterTemplate = ({
-  level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
-  ...args
-}: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-4')}
-  <sbb-dialog id="my-dialog-4" ${sbbSpread(args)}>
-    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
+const NoFooterTemplate = ({ level, ...args }: Args): TemplateResult => html`
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
+    ${dialogTitle(level)}
     <sbb-dialog-content>
-      <p id="dialog-content-5" style="margin: 0;">
+      <p style="margin: 0;">
         “What really knocks me out is a book that, when you're all done reading it, you wish the
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher
@@ -355,29 +252,15 @@ const NoFooterTemplate = ({
   </sbb-dialog>
 `;
 
-const NestedTemplate = ({
-  level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
-  ...args
-}: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-5')}
-  <sbb-dialog id="my-dialog-5" ${sbbSpread(args)}>
-    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
-    <sbb-dialog-content
-      >Click the button to open a nested
-      dialog.&nbsp;${triggerButton('my-dialog-6')}</sbb-dialog-content
-    >
-    <sbb-dialog id="my-dialog-6" ${sbbSpread(args)}>
-      ${dialogTitle(
-        level,
-        backButton,
-        hideOnScroll,
-        accessibilityCloseLabel,
-        accessibilityBackLabel,
-      )}
+const NestedTemplate = ({ level, ...args }: Args): TemplateResult => html`
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
+    ${dialogTitle(level)}
+    <sbb-dialog-content>
+      Click the button to open a nested dialog.&nbsp;${triggerButton('dialog-trigger-2')}
+    </sbb-dialog-content>
+    <sbb-dialog trigger="dialog-trigger-2" ${sbbSpread(args)}>
+      ${dialogTitle(level)}
       <sbb-dialog-content>
         <p>Nested dialog content. ${loremIpsum}</p>
         <sbb-form-field>
@@ -394,19 +277,10 @@ const NestedTemplate = ({
   </sbb-dialog>
 `;
 
-const StepperTemplate = ({
-  level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
-  orientation,
-  linear,
-  ...args
-}: Args): TemplateResult => html`
-  ${triggerButton('stepper')}
-  <sbb-dialog id="stepper" ${sbbSpread(args)}>
-    ${dialogTitle(level, backButton, hideOnScroll, accessibilityCloseLabel, accessibilityBackLabel)}
+const StepperTemplate = ({ level, orientation, linear, ...args }: Args): TemplateResult => html`
+  ${triggerButton('dialog-trigger')}
+  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
+    ${dialogTitle(level)}
     <sbb-dialog-content>
       <sbb-stepper orientation="${orientation}" ?linear=${linear} size="m">
         ${['First', 'Second', 'Third', 'Fourth'].map(
@@ -472,26 +346,10 @@ export const LongContent: StoryObj = {
   args: { ...basicArgs },
 };
 
-export const HiddenTitle: StoryObj = {
-  render: LongContentTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, hideOnScroll: hideOnScroll.options![7] },
-};
-
 export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-};
-
-export const NoBackButton: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    backButton: false,
-    accessibilityBackLabel: undefined,
-  },
 };
 
 export const NoFooter: StoryObj = {
@@ -536,7 +394,6 @@ const meta: Meta = {
         SbbDialogElement.events.didOpen,
         SbbDialogElement.events.willClose,
         SbbDialogElement.events.didClose,
-        SbbDialogTitleElement.events.backClick,
       ],
     },
     docs: {

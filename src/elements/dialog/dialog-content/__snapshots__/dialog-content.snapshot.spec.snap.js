@@ -9,10 +9,8 @@ snapshots["sbb-dialog-content renders DOM"] =
 /* end snapshot sbb-dialog-content renders DOM */
 
 snapshots["sbb-dialog-content renders Shadow DOM"] = 
-`<div class="sbb-dialog-content">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-dialog-content renders Shadow DOM */
 

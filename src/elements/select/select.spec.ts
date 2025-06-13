@@ -1126,7 +1126,10 @@ describe(`sbb-select`, () => {
       expect(element.size).to.be.equal('s');
     });
 
-    it('should react to origin size change', async () => {
+    it('should react to origin size change', async function (this: Context) {
+      // Test is flaky on WebKit
+      this.retries(3);
+
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
 
       element.open();

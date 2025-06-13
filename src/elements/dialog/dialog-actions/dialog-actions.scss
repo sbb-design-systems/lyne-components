@@ -4,21 +4,26 @@
 @include sbb.box-sizing;
 
 :host {
-  display: contents;
+  --sbb-dialog-actions-border-color: var(--sbb-color-cloud);
 
-  @include sbb.if-forced-colors {
-    --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid CanvasText;
-  }
-}
-
-.sbb-dialog-actions {
   padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-spacing-responsive-s);
+  padding-block: var(--sbb-dialog-padding-block);
   margin-block-start: auto;
   background-color: var(--sbb-dialog-background-color);
-  border-block-start: var(--sbb-dialog-actions-border);
 
-  :host([data-overflows]:not([data-negative])) & {
-    @include sbb.shadow-level-9-soft;
+  // Horizontal line has to be absolute positioned because otherwise
+  // it interferes with scroll detection of above container.
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-block-start: var(--sbb-border-width-1x) solid var(--sbb-dialog-actions-border-color);
+    width: 100%;
+    margin-block-start: calc(-1 * var(--sbb-dialog-padding-block));
+    margin-inline-start: calc(-1 * var(--sbb-dialog-padding-inline));
+
+    @include sbb.if-forced-colors {
+      border-color: CanvasText;
+    }
   }
 }
