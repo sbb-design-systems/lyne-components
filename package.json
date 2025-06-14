@@ -105,7 +105,7 @@
     "custom-elements-manifest": "2.1.0",
     "date-fns": "4.1.0",
     "esbuild": "0.25.5",
-    "eslint": "9.28.0",
+    "eslint": "9.29.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-import-resolver-typescript": "4.4.3",
     "eslint-plugin-import-x": "4.15.2",
