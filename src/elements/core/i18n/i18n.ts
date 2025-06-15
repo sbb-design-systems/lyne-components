@@ -60,14 +60,14 @@ export const i18nTrains: Record<string, string> = {
 export const i18nWagonsLabel: Record<string, string> = {
   de: 'Wagen des Zuges',
   en: 'Coaches of the train',
-  fr: 'Wagons de train',
+  fr: 'Wagons du train',
   it: 'Carrozze del treno',
 };
 
 export const i18nWagonLabel: Record<string, string> = {
   de: 'Wagen',
   en: 'Train coach',
-  fr: 'Wagon de train',
+  fr: 'Wagon du train',
   it: 'Carrozza del treno',
 };
 
@@ -81,7 +81,7 @@ export const i18nWagonLabelNumber: Record<string, string> = {
 export const i18nClosedCompartmentLabel: Record<string, string> = {
   de: 'Geschlossener Zugwaggon',
   en: 'Closed train coach',
-  fr: 'Wagon de train fermé',
+  fr: 'Wagon du train fermé',
   it: 'Carrozza del treno chiuso',
 };
 
@@ -123,13 +123,13 @@ export const i18nBlockedPassage: Record<string, Record<string, string>> = {
   next: {
     de: 'Kein Durchgang zum nächsten Wagen',
     en: 'No passage to the next train coach',
-    fr: 'Pas de passage au wagon de train suivant',
+    fr: 'Pas de passage au wagon du train suivant',
     it: 'Nessun passaggio alla carrozza del treno successivo',
   },
   both: {
     de: 'Kein Durchgang zum nächsten und vorherigen Wagen',
     en: 'No passage to the next and previous train coach',
-    fr: 'Pas de passage au wagon de train suivant et précédent',
+    fr: 'Pas de passage au wagon du train suivant et précédent',
     it: 'Nessun passaggio alla carrozza del treno successivo e precedente',
   },
 };
@@ -301,21 +301,21 @@ export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = 
   },
   low: {
     de: 'Tiefe bis mittlere Belegung erwartet',
-    en: 'Low to medium occupancy expected',
-    fr: "On s'attend à un taux d'occupation faible à moyen",
-    it: "Si prevede un'occupazione medio-bassa",
+    en: 'Low to average occupancy expected',
+    fr: 'Taux d’occupation faible à moyen prévu',
+    it: 'È prevista un’occupazione medio-bassa',
   },
   medium: {
     de: 'Hohe Belegung erwartet',
     en: 'High occupancy expected',
-    fr: "Un taux d'occupation élevé est attendu",
-    it: "Si prevede un'alta occupazione",
+    fr: 'Taux d’occupation élevé prévu',
+    it: 'È prevista un’occupazione elevata',
   },
   high: {
     de: 'Sehr hohe Belegung erwartet',
     en: 'Very high occupancy expected',
-    fr: "Un taux d'occupation très élevé est attendu",
-    it: "Si prevede un'occupazione molto alta",
+    fr: 'Taux d’occupation très élevé prévu',
+    it: 'È prevista un’occupazione molto elevata',
   },
 };
 
@@ -412,21 +412,21 @@ export const i18nWalkingDistanceArrival: Record<string, string> = {
 export const i18nWalkingDistanceDeparture: Record<string, string> = {
   de: 'Minuten Fussweg vor Abfahrt:',
   en: 'minutes of walking time before departure:',
-  fr: 'minutes trajet à pied avant le départ:',
+  fr: 'minutes de trajet à pied avant le départ:',
   it: 'minuti a piedi prima della partenza:',
 };
 
 export const i18nCloseAlert: Record<string, string> = {
   de: 'Meldung schliessen',
   en: 'Close message',
-  fr: 'Fermer message',
+  fr: 'Fermer le message',
   it: 'Chiudere il messaggio',
 };
 
 export const i18nCloseNotification: Record<string, string> = {
   de: 'Nachricht schliessen',
   en: 'Close message',
-  fr: 'Fermer message',
+  fr: 'Fermer le message',
   it: 'Chiudere il messaggio',
 };
 
@@ -510,7 +510,7 @@ export const i18nPreviousDay: Record<string, string> = {
 export const i18nYearMonthSelection: Record<string, string> = {
   de: 'Jahr und Monat auswählen',
   en: 'Choose year and month',
-  fr: "Choisissez l'année et le mois",
+  fr: 'Choisir l’année et le mois',
   it: 'Selezioni anno e mese',
 };
 
@@ -662,7 +662,7 @@ export const i18nFileSelectorButtonLabel: Record<string, string> = {
 };
 
 export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
-  de: 'Ziehe deine Dateien hier hin (Drag & Drop)',
+  de: 'Ziehen Sie Ihre Dateien hier hin (Drag & Drop)',
   en: 'Drag & Drop your files here',
   fr: 'Faites glisser et déposez vos fichiers ici',
   it: 'Trascini e rilasci i suoi file qui',
