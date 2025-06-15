@@ -15,10 +15,8 @@ import '../../button/secondary-button.js';
 describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];
 
-  const dialogTitle = (backButton = true, hideOnScroll = false): TemplateResult => html`
-    <sbb-dialog-title ?back-button=${backButton} ?hide-on-scroll=${hideOnScroll}>
-      A describing title of the dialog
-    </sbb-dialog-title>
+  const dialogTitle = (): TemplateResult => html`
+    <sbb-dialog-title> A describing title of the dialog </sbb-dialog-title>
   `;
 
   const dialogContent = (longContent = false): TemplateResult => html`
@@ -52,8 +50,8 @@ describe(`sbb-dialog`, () => {
       >
         Link
       </sbb-block-link>
-      <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-      <sbb-button sbb-dialog-close> Confirm </sbb-button>
+      <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+      <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
     </sbb-dialog-actions>
   `;
 
@@ -74,18 +72,6 @@ describe(`sbb-dialog`, () => {
         }),
       );
     }
-
-    it(
-      `no back button`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle(false)} ${dialogContent()} ${dialogFooter()} </sbb-dialog>
-        `);
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
-      }),
-    );
 
     it(
       `no footer`,

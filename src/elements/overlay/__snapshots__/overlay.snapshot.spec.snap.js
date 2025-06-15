@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-overlay renders DOM"] = 
 `<sbb-overlay
   data-state="opened"
+  id="sbb-overlay-0"
   popover="manual"
 >
 </sbb-overlay>
