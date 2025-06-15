@@ -662,7 +662,7 @@ export const i18nFileSelectorButtonLabel: Record<string, string> = {
 };
 
 export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
-  de: 'Ziehe deine Dateien hier hin (Drag & Drop)',
+  de: 'Ziehen Sie Ihre Dateien hier hin (Drag & Drop)',
   en: 'Drag & Drop your files here',
   fr: 'Faites glisser et déposez vos fichiers ici',
   it: 'Trascini e rilasci i suoi file qui',
