@@ -3,7 +3,8 @@ import { customElement } from 'lit/decorators.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
+import type { SbbDividerElement } from '../divider/divider.component.js';
+import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
 
@@ -45,7 +46,9 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected syncNegative(): void {
-    this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
+    this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
+      'sbb-divider, sbb-option-hint',
+    ).forEach((el) => (el.negative = this.negative));
 
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
