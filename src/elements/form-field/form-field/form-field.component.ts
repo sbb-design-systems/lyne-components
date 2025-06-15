@@ -146,7 +146,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.addEventListener?.(
       'focusin',
       (event) => {
-        console.log('focusin', event.target, this.inputElement);
         if (
           event.target === this.inputElement ||
           event.target === (this.inputElement as SbbSelectElement | undefined)?.inputElement
