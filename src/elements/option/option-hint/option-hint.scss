@@ -7,7 +7,9 @@
   display: block;
 
   --sbb-option-hint-color: var(--sbb-color-metal);
+  --sbb-option-hint-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-2x);
+  --sbb-option-hint-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
 :host([negative]) {
@@ -16,8 +18,8 @@
 
 .sbb-option-hint__wrapper {
   display: flex;
-  column-gap: var(--sbb-spacing-fixed-4x);
-  padding-inline: var(--sbb-spacing-responsive-xxxs);
+  column-gap: var(--sbb-option-hint-column-gap);
+  padding-inline: var(--sbb-option-hint-padding-inline);
   padding-block-end: var(--sbb-option-hint-padding-block-end);
 }
 

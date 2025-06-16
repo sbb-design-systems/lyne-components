@@ -68,12 +68,12 @@ const WithAutocompleteGroupTemplate = (args: Args): TemplateResult => html`
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete preserve-icon-space>
-      <sbb-optgroup>
+      <sbb-optgroup label="Group 1">
         <sbb-option value="1" icon-name="clock-small"> Option 1 </sbb-option>
         <sbb-option value="2" icon-name="clock-small"> Option 2 </sbb-option>
-        <sbb-option-hint>Group hint</sbb-option-hint>
+        <sbb-option-hint>Group 1 hint</sbb-option-hint>
       </sbb-optgroup>
-      <sbb-optgroup>
+      <sbb-optgroup label="Group 2">
         <sbb-option value="3" icon-name="clock-small"> Option 3 </sbb-option>
         <sbb-option value="4"> Option 4 </sbb-option>
       </sbb-optgroup>
