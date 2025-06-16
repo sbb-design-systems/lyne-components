@@ -2,137 +2,106 @@
 export const snapshots = {};
 
 snapshots["sbb-datepicker-toggle renders DOM"] = 
-`<sbb-datepicker-toggle slot="prefix">
+`<sbb-datepicker-toggle
+  data-action=""
+  data-button=""
+  tabindex="0"
+>
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle renders DOM */
 
 snapshots["sbb-datepicker-toggle renders Shadow DOM"] = 
-`<sbb-mini-button
-  aria-controls="sbb-popover-2"
-  aria-expanded="false"
-  aria-haspopup="dialog"
-  aria-label="Show calendar"
-  class="sbb-datepicker-toggle__trigger"
-  data-action=""
-  data-button=""
-  disabled=""
-  icon-name="calendar-small"
-  id="trigger"
->
-</sbb-mini-button>
-<sbb-popover
-  data-state="closed"
-  hide-close-button=""
-  id="sbb-popover-2"
-  popover="manual"
-  trigger="trigger"
->
-  <sbb-calendar orientation="horizontal">
-  </sbb-calendar>
-</sbb-popover>
+`<span class="sbb-action-base sbb-datepicker-toggle">
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="calendar-small"
+    role="img"
+  >
+  </sbb-icon>
+</span>
 `;
 /* end snapshot sbb-datepicker-toggle renders Shadow DOM */
 
 snapshots["sbb-datepicker-toggle in form-field renders DOM"] = 
-`<sbb-datepicker-toggle slot="prefix">
+`<sbb-datepicker-toggle
+  aria-controls="sbb-datepicker-1"
+  aria-expanded="false"
+  aria-haspopup="dialog"
+  data-action=""
+  data-button=""
+  slot="suffix"
+  tabindex="0"
+>
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders DOM */
 
 snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] = 
-`<sbb-mini-button
-  aria-controls="sbb-popover-4"
-  aria-expanded="false"
-  aria-haspopup="dialog"
-  aria-label="Show calendar"
-  class="sbb-datepicker-toggle__trigger"
-  data-action=""
-  data-button=""
-  icon-name="calendar-small"
-  id="trigger"
-  tabindex="0"
->
-</sbb-mini-button>
-<sbb-popover
-  data-state="closed"
-  hide-close-button=""
-  id="sbb-popover-4"
-  popover="manual"
-  trigger="trigger"
->
-  <sbb-calendar orientation="horizontal">
-  </sbb-calendar>
-</sbb-popover>
+`<span class="sbb-action-base sbb-datepicker-toggle">
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="calendar-small"
+    role="img"
+  >
+  </sbb-icon>
+</span>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders Shadow DOM */
 
 snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] = 
-`<sbb-datepicker-toggle slot="prefix">
+`<sbb-datepicker-toggle
+  aria-controls="sbb-datepicker-3"
+  aria-expanded="false"
+  aria-haspopup="dialog"
+  data-action=""
+  data-button=""
+  disabled=""
+  slot="suffix"
+>
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders disabled DOM */
 
 snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] = 
-`<sbb-mini-button
-  aria-controls="sbb-popover-6"
-  aria-expanded="false"
-  aria-haspopup="dialog"
-  aria-label="Show calendar"
-  class="sbb-datepicker-toggle__trigger"
-  data-action=""
-  data-button=""
-  disabled=""
-  icon-name="calendar-small"
-  id="trigger"
->
-</sbb-mini-button>
-<sbb-popover
-  data-state="closed"
-  hide-close-button=""
-  id="sbb-popover-6"
-  popover="manual"
-  trigger="trigger"
->
-  <sbb-calendar orientation="horizontal">
-  </sbb-calendar>
-</sbb-popover>
+`<span class="sbb-action-base sbb-datepicker-toggle">
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="calendar-small"
+    role="img"
+  >
+  </sbb-icon>
+</span>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field renders disabled Shadow DOM */
 
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] = 
-`<sbb-datepicker-toggle slot="prefix">
+`<sbb-datepicker-toggle
+  aria-controls="sbb-datepicker-5"
+  aria-expanded="false"
+  aria-haspopup="dialog"
+  data-action=""
+  data-button=""
+  slot="suffix"
+  tabindex="0"
+>
 </sbb-datepicker-toggle>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters DOM */
 
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM"] = 
-`<sbb-mini-button
-  aria-controls="sbb-popover-8"
-  aria-expanded="false"
-  aria-haspopup="dialog"
-  aria-label="Show calendar"
-  class="sbb-datepicker-toggle__trigger"
-  data-action=""
-  data-button=""
-  icon-name="calendar-small"
-  id="trigger"
-  tabindex="0"
->
-</sbb-mini-button>
-<sbb-popover
-  data-state="closed"
-  hide-close-button=""
-  id="sbb-popover-8"
-  popover="manual"
-  trigger="trigger"
->
-  <sbb-calendar
-    orientation="horizontal"
-    wide=""
+`<span class="sbb-action-base sbb-datepicker-toggle">
+  <sbb-icon
+    aria-hidden="true"
+    data-namespace="default"
+    name="calendar-small"
+    role="img"
   >
-  </sbb-calendar>
-</sbb-popover>
+  </sbb-icon>
+</span>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM */
 
@@ -147,13 +116,13 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tre
       "name": "​"
     },
     {
+      "role": "textbox",
+      "name": "DD.MM.YYYY"
+    },
+    {
       "role": "button",
       "name": "Show calendar",
       "haspopup": "dialog"
-    },
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
     }
   ]
 }
@@ -172,14 +141,14 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tre
       "name": "​"
     },
     {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    },
-    {
       "role": "textbox",
       "name": "",
       "value": "DD.MM.YYYY"
+    },
+    {
+      "role": "button",
+      "name": "Show calendar",
+      "haspopup": "dialog"
     }
   ]
 }

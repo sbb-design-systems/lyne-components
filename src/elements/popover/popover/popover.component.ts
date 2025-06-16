@@ -36,25 +36,10 @@ const HORIZONTAL_OFFSET = 32;
 
 let nextId = 0;
 
-const popoversRef = new Set<SbbPopoverElement>();
+const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
-/**
- * It displays contextual information within a popover.
- *
- * @slot - Use the unnamed slot to add content into the popover.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
- * transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
- * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
- * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
- */
-export
-@customElement('sbb-popover')
-class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
+export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -66,42 +51,17 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   @property()
   public accessor trigger: HTMLElement | null = null;
 
-  /** Whether the close button should be hidden. */
-  @forceType()
-  @property({ attribute: 'hide-close-button', type: Boolean })
-  public accessor hideCloseButton: boolean = false;
-
-  /** Whether the popover should be triggered on hover. */
-  @forceType()
-  @property({ attribute: 'hover-trigger', type: Boolean })
-  public accessor hoverTrigger: boolean = false;
-
-  /** Open the popover after a certain delay. */
-  @forceType()
-  @property({ attribute: 'open-delay', type: Number })
-  public accessor openDelay: number = 0;
-
-  /** Close the popover after a certain delay. */
-  @forceType()
-  @property({ attribute: 'close-delay', type: Number })
-  public accessor closeDelay: number = 0;
-
-  /** This will be forwarded as aria-label to the close button element. */
-  @forceType()
-  @property({ attribute: 'accessibility-close-label' })
-  public accessor accessibilityCloseLabel: string = '';
-
   /** Emits whenever the `sbb-popover` begins the closing transition. */
   protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
-    SbbPopoverElement.events.willClose,
+    SbbOpenCloseBaseElement.events.willClose,
     { cancelable: true },
   );
 
   /** Emits whenever the `sbb-popover` is closed. */
   protected override didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
-    SbbPopoverElement.events.didClose,
+    SbbOpenCloseBaseElement.events.didClose,
     { cancelable: true },
   );
 
@@ -111,15 +71,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   private _skipCloseFocus: boolean = false;
   private _popoverCloseElement?: HTMLElement;
   private _isPointerDownEventOnPopover?: boolean;
-  private _hoverTrigger = false;
   private _triggerElement?: HTMLElement | null;
   private _triggerAbortController!: AbortController;
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
-  private _openTimeout?: ReturnType<typeof setTimeout>;
-  private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _language = new SbbLanguageController(this);
+  protected closeTimeout?: ReturnType<typeof setTimeout>;
 
   /** Opens the popover on trigger click. */
   public open(): void {
@@ -215,7 +172,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     super.connectedCallback();
     this.id ||= `sbb-popover-${++nextId}`;
     this.state = 'closed';
-    popoversRef.add(this as SbbPopoverElement);
+    popoversRef.add(this);
     if (this.hasUpdated) {
       this._configureTrigger();
     }
@@ -228,6 +185,8 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   ): void {
     super.requestUpdate(name, oldValue, options);
 
+    // Checking for hoverTrigger is a special case, as only the SbbPopoverElement
+    // subclass has this property.
     if (!isServer && (!name || name === 'trigger' || name === 'hoverTrigger') && this.hasUpdated) {
       this._configureTrigger();
     }
@@ -236,11 +195,6 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
     this._configureTrigger();
-
-    if (this._hoverTrigger) {
-      this._overlay.addEventListener('mouseenter', () => this._onOverlayMouseEnter());
-      this._overlay.addEventListener('mouseleave', () => this._onOverlayMouseLeave());
-    }
   }
 
   public override disconnectedCallback(): void {
@@ -248,7 +202,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this._triggerElement = null;
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
-    popoversRef.delete(this as SbbPopoverElement);
+    popoversRef.delete(this);
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -260,18 +214,13 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
       return;
     }
 
-    // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
-    // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
-    // all non-touchscreen devices.
-    const hoverTrigger = this.hoverTrigger && !pointerCoarse;
-    if (this.trigger === this._triggerElement && hoverTrigger === this._hoverTrigger) {
-      return;
-    }
+    this.configureTrigger(this._triggerElement ?? null);
+  }
 
+  protected configureTrigger(_oldTrigger: HTMLElement | null): void {
     this._triggerAbortController?.abort();
     removeAriaOverlayTriggerAttributes(this._triggerElement);
     this._triggerElement = this.trigger;
-    this._hoverTrigger = hoverTrigger;
 
     if (!this._triggerElement) {
       return;
@@ -279,30 +228,12 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
 
-    const { signal } = (this._triggerAbortController = new AbortController());
-    if (this._hoverTrigger) {
-      this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
-      this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
-      this._triggerElement.addEventListener(
-        'keydown',
-        (evt: KeyboardEvent) => {
-          if (evt.code === 'Space' || evt.code === 'Enter') {
-            this.open();
-          }
-        },
-        { signal },
-      );
-    } else {
-      this._triggerElement.addEventListener(
-        'click',
-        () => {
-          if (this.state === 'closed') {
-            this.open();
-          }
-        },
-        { signal },
-      );
-    }
+    this._triggerAbortController = new AbortController();
+    this.registerTriggerListeners(this._triggerAbortController.signal);
+  }
+
+  protected registerTriggerListeners(signal: AbortSignal): void {
+    this._triggerElement!.addEventListener('click', () => this.open(), { signal });
   }
 
   private _attachWindowEvents(): void {
@@ -332,7 +263,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     const closeElement = composedPathHasAttribute(event, 'sbb-popover-close', this);
 
     if (closeElement && !closeElement.hasAttribute('disabled')) {
-      clearTimeout(this._closeTimeout);
+      clearTimeout(this.closeTimeout);
       this.close(closeElement);
     }
   }
@@ -349,41 +280,8 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
         .composedPath()
         .filter((el) => el instanceof window.HTMLElement)
         .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
-      clearTimeout(this._closeTimeout);
+      clearTimeout(this.closeTimeout);
       this.close();
-    }
-  };
-
-  private _onTriggerMouseEnter = (): void => {
-    if (this.state === 'closed' || this.state === 'closing') {
-      this._openTimeout = setTimeout(() => {
-        // If the trigger is focused by keyboard and hovered with the mouse, the outline would be visible.
-        // So we reset the input modality to hide the outline.
-        sbbInputModalityDetector.reset();
-        this.open();
-      }, this.openDelay);
-    } else {
-      clearTimeout(this._closeTimeout);
-    }
-  };
-
-  private _onTriggerMouseLeave = (): void => {
-    if (this.state === 'opened' || this.state === 'opening') {
-      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
-    } else {
-      clearTimeout(this._openTimeout);
-    }
-  };
-
-  private _onOverlayMouseEnter = (): void => {
-    if (this.state !== 'opening') {
-      clearTimeout(this._closeTimeout);
-    }
-  };
-
-  private _onOverlayMouseLeave = (): void => {
-    if (this.state !== 'opening') {
-      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     }
   };
 
@@ -463,7 +361,142 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     this.style.setProperty('--sbb-popover-arrow-position-x', `${arrowXPosition}px`);
   }
 
+  protected abstract renderContent(): TemplateResult;
+
   protected override render(): TemplateResult {
+    return html`
+      <div class="sbb-popover__container">
+        <div
+          @animationend=${this._onPopoverAnimationEnd}
+          class="sbb-popover"
+          role="tooltip"
+          ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}
+        >
+          <div
+            @click=${(event: Event) => this._closeOnSbbPopoverCloseClick(event)}
+            class="sbb-popover__content"
+          >
+            ${this.renderContent()}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+/**
+ * It displays contextual information within a popover.
+ *
+ * @slot - Use the unnamed slot to add content into the popover.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
+ * transition. Can be canceled.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
+ * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
+ * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
+ * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ */
+export
+@customElement('sbb-popover')
+class SbbPopoverElement extends SbbPopoverBaseElement {
+  /** Whether the close button should be hidden. */
+  @forceType()
+  @property({ attribute: 'hide-close-button', type: Boolean })
+  public accessor hideCloseButton: boolean = false;
+
+  /** Whether the popover should be triggered on hover. */
+  @forceType()
+  @property({ attribute: 'hover-trigger', type: Boolean })
+  public accessor hoverTrigger: boolean = false;
+
+  /** Open the popover after a certain delay. */
+  @forceType()
+  @property({ attribute: 'open-delay', type: Number })
+  public accessor openDelay: number = 0;
+
+  /** Close the popover after a certain delay. */
+  @forceType()
+  @property({ attribute: 'close-delay', type: Number })
+  public accessor closeDelay: number = 0;
+
+  /** This will be forwarded as aria-label to the close button element. */
+  @forceType()
+  @property({ attribute: 'accessibility-close-label' })
+  public accessor accessibilityCloseLabel: string = '';
+
+  private _hoverTrigger = false;
+  private _openTimeout?: ReturnType<typeof setTimeout>;
+  private _language = new SbbLanguageController(this);
+
+  protected override configureTrigger(oldTrigger: HTMLElement | null): void {
+    // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
+    // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
+    // all non-touchscreen devices.
+    const hoverTrigger = this.hoverTrigger && !pointerCoarse;
+    if (this.trigger === oldTrigger && hoverTrigger === this._hoverTrigger) {
+      return;
+    }
+
+    this._hoverTrigger = hoverTrigger;
+    super.configureTrigger(oldTrigger);
+  }
+
+  protected override registerTriggerListeners(signal: AbortSignal): void {
+    if (this._hoverTrigger) {
+      const overlay = this.querySelector('.sbb-popover');
+      overlay?.addEventListener('mouseenter', () => this._onOverlayMouseEnter(), { signal });
+      overlay?.addEventListener('mouseleave', () => this._onOverlayMouseLeave(), { signal });
+      this.trigger!.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
+      this.trigger!.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
+      this.trigger!.addEventListener(
+        'keydown',
+        (evt: KeyboardEvent) => {
+          if (evt.code === 'Space' || evt.code === 'Enter') {
+            this.open();
+          }
+        },
+        { signal },
+      );
+    } else {
+      super.registerTriggerListeners(signal);
+    }
+  }
+
+  private _onTriggerMouseEnter = (): void => {
+    if (this.state === 'closed' || this.state === 'closing') {
+      this._openTimeout = setTimeout(() => {
+        // If the trigger is focused by keyboard and hovered with the mouse, the outline would be visible.
+        // So we reset the input modality to hide the outline.
+        sbbInputModalityDetector.reset();
+        this.open();
+      }, this.openDelay);
+    } else {
+      clearTimeout(this.closeTimeout);
+    }
+  };
+
+  private _onTriggerMouseLeave = (): void => {
+    if (this.state === 'opened' || this.state === 'opening') {
+      this.closeTimeout = setTimeout(() => this.close(), this.closeDelay);
+    } else {
+      clearTimeout(this._openTimeout);
+    }
+  };
+
+  private _onOverlayMouseEnter = (): void => {
+    if (this.state !== 'opening') {
+      clearTimeout(this.closeTimeout);
+    }
+  };
+
+  private _onOverlayMouseLeave = (): void => {
+    if (this.state !== 'opening') {
+      this.closeTimeout = setTimeout(() => this.close(), this.closeDelay);
+    }
+  };
+
+  protected override renderContent(): TemplateResult {
     const closeButton = html`
       <span class="sbb-popover__close">
         <sbb-secondary-button
@@ -477,24 +510,10 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     `;
 
     return html`
-      <div class="sbb-popover__container">
-        <div
-          @animationend=${this._onPopoverAnimationEnd}
-          class="sbb-popover"
-          role="tooltip"
-          ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}
-        >
-          <div
-            @click=${(event: Event) => this._closeOnSbbPopoverCloseClick(event)}
-            class="sbb-popover__content"
-          >
-            ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
-            <span>
-              <slot>No content</slot>
-            </span>
-          </div>
-        </div>
-      </div>
+      ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
+      <span>
+        <slot>No content</slot>
+      </span>
     `;
   }
 }

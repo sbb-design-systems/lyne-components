@@ -196,6 +196,7 @@ sbb-form-field {
 :is(
     sbb-autocomplete,
     sbb-autocomplete-grid,
+    sbb-datepicker,
     sbb-dialog,
     sbb-menu,
     sbb-navigation,
@@ -213,6 +214,7 @@ sbb-form-field {
 [popover]:where(
     sbb-autocomplete,
     sbb-autocomplete-grid,
+    sbb-datepicker,
     sbb-dialog,
     sbb-menu,
     sbb-navigation,
