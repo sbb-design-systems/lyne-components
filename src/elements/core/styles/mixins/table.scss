@@ -2,7 +2,7 @@
 
 // SBB table mixin
 // Notes:
-// We cannot use `border-collapse` because it is not compatible with the `border-radius` property.
+// We cannot use `border-collapse` because in sticky variants it gets visually broken.
 // Therefore, we have to build the grid avoiding double borders.
 @mixin table {
   @include table--m;
@@ -11,7 +11,6 @@
   & {
     --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
     --sbb-table-border-color: var(--sbb-color-cloud);
-    --sbb-table-border-radius: var(--sbb-border-radius-4x);
     --sbb-table-background-color: var(--sbb-color-white);
     --sbb-table-row-striped-color: var(--sbb-color-milk);
     --sbb-table-color: inherit;
@@ -35,16 +34,6 @@
         & > th {
           border-block-start: var(--sbb-table-border);
         }
-
-        // Border radius on top-left corner
-        & > th:first-of-type {
-          border-start-start-radius: var(--sbb-table-border-radius);
-        }
-
-        // Border radius on top-right corner
-        & > th:last-of-type {
-          border-start-end-radius: var(--sbb-table-border-radius);
-        }
       }
 
       & > th {
@@ -66,18 +55,6 @@
 
         &:first-of-type {
           border-inline-start: var(--sbb-table-border);
-        }
-      }
-
-      &:last-of-type {
-        // Border radius on bottom-left corner
-        & > td:first-of-type {
-          border-end-start-radius: var(--sbb-table-border-radius);
-        }
-
-        // Border radius on bottom-right corner
-        & > td:last-of-type {
-          border-end-end-radius: var(--sbb-table-border-radius);
         }
       }
     }

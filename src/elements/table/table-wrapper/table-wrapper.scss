@@ -8,10 +8,6 @@
   overflow: auto;
 }
 
-:host(:not(.sbb-table-wrapper-offset-none)) {
-  padding-bottom: var(--sbb-spacing-fixed-1x);
-}
-
 :host(:focus-visible) {
   @include sbb.focus-outline;
 }
