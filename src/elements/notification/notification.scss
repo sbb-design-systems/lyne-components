@@ -99,7 +99,7 @@ $open-anim-height-to: calc(
   :host(:where([data-slot-names~='title'], [title-content])) {
     --sbb-notification-icon-margin-block-start: calc(
       (
-          (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
+          (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-titles)) - var(
               --sbb-size-icon-ui-small
             )
         ) /
