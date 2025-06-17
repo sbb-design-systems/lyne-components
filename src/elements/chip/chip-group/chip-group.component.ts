@@ -142,7 +142,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   public constructor() {
     super();
 
-    this.addEventListener?.(SbbChipElement.events.requestDelete, (ev) =>
+    this.addEventListener?.(SbbChipElement.events.requestdelete, (ev) =>
       this._deleteChip(ev.target as SbbChipElement<T>),
     );
 
