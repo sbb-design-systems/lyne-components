@@ -533,9 +533,9 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbDialogElement.events.beforeopen,
-        SbbDialogElement.events.didOpen,
+        SbbDialogElement.events.open,
         SbbDialogElement.events.beforeclose,
-        SbbDialogElement.events.didClose,
+        SbbDialogElement.events.close,
         SbbDialogTitleElement.events.backClick,
       ],
     },

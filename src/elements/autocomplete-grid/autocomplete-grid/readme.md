@@ -208,8 +208,8 @@ const values = [
 | ------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----------------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is opened.                                      | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

@@ -148,9 +148,9 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbToastElement.events.beforeopen,
-        SbbToastElement.events.didOpen,
+        SbbToastElement.events.open,
         SbbToastElement.events.beforeclose,
-        SbbToastElement.events.didClose,
+        SbbToastElement.events.close,
       ],
     },
     docs: {

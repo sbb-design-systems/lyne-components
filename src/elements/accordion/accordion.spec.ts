@@ -120,7 +120,7 @@ describe(`sbb-accordion`, () => {
   });
 
   it('should close others when expanding and multi = false', async () => {
-    const beforeOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, null, {
+    const beforeOpenSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, null, {
       capture: true,
     });
     const panelOne: SbbExpansionPanelElement =
@@ -141,25 +141,25 @@ describe(`sbb-accordion`, () => {
     }
 
     headerTwo.click();
-    await beforeOpenEventSpy.calledOnce();
+    await beforeOpenSpy.calledOnce();
     await aTimeout(0);
-    expect(beforeOpenEventSpy.count).to.be.equal(1);
+    expect(beforeOpenSpy.count).to.be.equal(1);
     expect(panelOne.expanded, 'headerTwo panelOne.expanded').to.be.equal(false);
     expect(panelTwo.expanded, 'headerTwo panelTwo.expanded').to.be.equal(true);
     expect(panelThree.expanded, 'headerTwo panelThree.expanded').to.be.equal(false);
 
     headerOne.click();
-    await beforeOpenEventSpy.calledTimes(2);
+    await beforeOpenSpy.calledTimes(2);
     await aTimeout(0);
-    expect(beforeOpenEventSpy.count).to.be.equal(2);
+    expect(beforeOpenSpy.count).to.be.equal(2);
     expect(panelOne.expanded, 'headerOne panelOne.expanded').to.be.equal(true);
     expect(panelTwo.expanded, 'headerOne panelTwo.expanded').to.be.equal(false);
     expect(panelThree.expanded, 'headerOne panelThree.expanded').to.be.equal(false);
 
     headerThree.click();
-    await beforeOpenEventSpy.calledTimes(3);
+    await beforeOpenSpy.calledTimes(3);
     await aTimeout(0);
-    expect(beforeOpenEventSpy.count).to.be.equal(3);
+    expect(beforeOpenSpy.count).to.be.equal(3);
     expect(panelOne.expanded, 'headerThree panelOne.expanded').to.be.equal(false);
     expect(panelTwo.expanded, 'headerThree panelTwo.expanded').to.be.equal(false);
     expect(panelThree.expanded, 'headerThree panelThree.expanded').to.be.equal(true);
@@ -168,7 +168,7 @@ describe(`sbb-accordion`, () => {
   it('should not change others when expanding and multi = false', async () => {
     element.multi = true;
     await waitForLitRender(element);
-    const beforeOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, null, {
+    const beforeOpenSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, null, {
       capture: true,
     });
     const panelOne: SbbExpansionPanelElement =
@@ -189,22 +189,22 @@ describe(`sbb-accordion`, () => {
     }
 
     headerTwo.click();
-    await beforeOpenEventSpy.calledOnce();
-    expect(beforeOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await beforeOpenEventSpy.calledTimes(2);
-    expect(beforeOpenEventSpy.count).to.be.equal(2);
+    await beforeOpenSpy.calledTimes(2);
+    expect(beforeOpenSpy.count).to.be.equal(2);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await beforeOpenEventSpy.calledTimes(3);
-    expect(beforeOpenEventSpy.count).to.be.equal(3);
+    await beforeOpenSpy.calledTimes(3);
+    expect(beforeOpenSpy.count).to.be.equal(3);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(true);
@@ -228,18 +228,18 @@ describe(`sbb-accordion`, () => {
       expect(panel.expanded).to.be.equal(false);
     }
 
-    const beforeOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, null, {
+    const beforeOpenSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, null, {
       capture: true,
     });
 
     headerTwo.click();
-    await beforeOpenEventSpy.calledOnce();
-    expect(beforeOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
     expect(panelTwo.expanded).to.be.equal(true);
 
     headerThree.click();
-    await beforeOpenEventSpy.calledTimes(2);
-    expect(beforeOpenEventSpy.count).to.be.equal(2);
+    await beforeOpenSpy.calledTimes(2);
+    expect(beforeOpenSpy.count).to.be.equal(2);
     expect(panelThree.expanded).to.be.equal(true);
 
     element.multi = false;

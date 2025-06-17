@@ -516,8 +516,8 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbAutocompleteGridElement.events.beforeopen,
-        SbbAutocompleteGridElement.events.didOpen,
-        SbbAutocompleteGridElement.events.didClose,
+        SbbAutocompleteGridElement.events.open,
+        SbbAutocompleteGridElement.events.close,
         SbbAutocompleteGridElement.events.beforeclose,
         'change',
         'click',

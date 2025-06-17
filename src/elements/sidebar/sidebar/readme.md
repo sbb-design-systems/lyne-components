@@ -38,7 +38,7 @@ A `<sbb-sidebar>` can be opened or closed using the `open()`, `close()` and `tog
 
 The opened state can also be set via the `opened` property.
 
-Listening to the `didOpen` and `didClose` events allows to react after transitions have been executed.
+Listening to the `open` and `close` events allows to react after transitions have been executed.
 If for a certain reason the opening or closing should be prevented,
 it's possible to call `preventDefault()` on the `beforeopen` or `beforeclose` events.
 
@@ -183,8 +183,8 @@ accessibility information on the trigger button should be set.
   <sbb-sidebar
     id="sidebar"
     role="navigation"
-    @didOpen="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') }"
-    @didClose="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') }"
+    @open="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') }"
+    @close="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') }"
   >
     <sbb-link-list>
       <sbb-block-link>Link 1</sbb-block-link>
@@ -263,8 +263,8 @@ position and connect the `<sbb-header>` with the sidebar.
 | ------------- | ------------------- | --------------------------------------------------------- | ----------------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`  | `CustomEvent<void>` | Emits when the opening animation starts. Can be canceled. | SbbOpenCloseBaseElement |
-| `didClose`    | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
-| `didOpen`     | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
 
 ## Slots
 

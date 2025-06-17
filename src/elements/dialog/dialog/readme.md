@@ -111,8 +111,8 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 | ------------- | ------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------- |
 | `beforeclose` | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `didClose`    | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`     | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

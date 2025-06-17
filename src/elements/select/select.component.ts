@@ -50,9 +50,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
  * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-select` is opened.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-select` is opened.
  * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
+ * @event {CustomEvent<void>} close - Emits whenever the `sbb-select` is closed.
  * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -82,9 +82,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     input: 'input',
     displayValueChange: 'displayValueChange',
     beforeopen: 'beforeopen',
-    didOpen: 'didOpen',
+    open: 'open',
     beforeclose: 'beforeclose',
-    didClose: 'didClose',
+    close: 'close',
   } as const;
 
   /** The placeholder used if no value has been selected. */
@@ -604,7 +604,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this._originElement) {
       this._originResizeObserver.observe(this._originElement);
     }
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   private _handleClosing(): void {
@@ -614,7 +614,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();
-    this.didClose.emit();
+    this.closeEmitter.emit();
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */

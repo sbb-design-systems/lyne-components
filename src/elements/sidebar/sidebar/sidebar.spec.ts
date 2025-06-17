@@ -225,31 +225,31 @@ describe('sbb-sidebar', () => {
 
   describe('opening and closing', () => {
     it('should toggle the sidebar', async () => {
-      const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbSidebarElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
 
       element.toggle();
 
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
       expect(element.isOpen).to.be.true;
 
       element.toggle();
 
-      await didCloseEventSpy.calledOnce();
+      await closeSpy.calledOnce();
       expect(element.isOpen).to.be.false;
     });
 
     it('should open programmatically', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbSidebarElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbSidebarElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
 
       element.open();
-      await beforeOpenEventSpy.calledOnce();
-      await didOpenEventSpy.calledOnce();
+      await beforeOpenSpy.calledOnce();
+      await openSpy.calledOnce();
       await element.animationComplete;
 
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(element.opened).to.be.true;
       expect(element.isOpen).to.be.true;
 
@@ -358,19 +358,19 @@ describe('sbb-sidebar', () => {
       element.open();
       await waitForLitRender(container);
 
-      const beforeCloseEventSpy = new EventSpy(SbbSidebarElement.events.beforeclose, element);
-      const didCloseEventSpy = new EventSpy(SbbSidebarElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbSidebarElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
 
       // Focus should be inside sidebar to test changing focus
       closeButton.focus();
       element.close();
 
-      await beforeCloseEventSpy.calledOnce();
-      await didCloseEventSpy.calledOnce();
+      await beforeCloseSpy.calledOnce();
+      await closeSpy.calledOnce();
       await element.animationComplete;
 
-      expect(beforeCloseEventSpy.count).to.be.equal(1);
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      expect(beforeCloseSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(1);
       expect(element.opened).to.be.false;
       expect(element.isOpen).to.be.false;
 
@@ -392,19 +392,19 @@ describe('sbb-sidebar', () => {
 
     it('opens and closes with non-zero animation duration', async () => {
       container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
-      const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbSidebarElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
 
       element.open();
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
       await element.animationComplete;
 
       element.close();
-      await didCloseEventSpy.calledOnce();
+      await closeSpy.calledOnce();
       await element.animationComplete;
 
-      expect(didOpenEventSpy.count).to.be.equal(1);
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(1);
     });
 
     it('should close on close button click', async () => {
@@ -500,10 +500,10 @@ describe('sbb-sidebar', () => {
       });
 
       it('should allow opening during closing', async () => {
-        const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
+        const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
 
         element.open();
-        await didOpenEventSpy.calledOnce();
+        await openSpy.calledOnce();
 
         element.close();
         expect(element).to.have.attribute('data-state', 'closing');
@@ -525,31 +525,31 @@ describe('sbb-sidebar', () => {
       });
 
       it('should prevent double open() call', async () => {
-        const beforeOpenEventSpy = new EventSpy(SbbSidebarElement.events.beforeopen, element);
+        const beforeOpenSpy = new EventSpy(SbbSidebarElement.events.beforeopen, element);
 
         element.open();
         await aTimeout(2);
         element.open();
 
-        await beforeOpenEventSpy.calledOnce();
+        await beforeOpenSpy.calledOnce();
         expect(element.opened).to.be.true;
-        expect(beforeOpenEventSpy.count).to.be.equal(1);
+        expect(beforeOpenSpy.count).to.be.equal(1);
       });
 
       it('should prevent double close() call', async () => {
-        const didOpenEventSpy = new EventSpy(SbbSidebarElement.events.didOpen, element);
-        const beforeCloseEventSpy = new EventSpy(SbbSidebarElement.events.beforeclose, element);
+        const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
+        const beforeCloseSpy = new EventSpy(SbbSidebarElement.events.beforeclose, element);
 
         element.open();
-        await didOpenEventSpy.calledOnce();
+        await openSpy.calledOnce();
 
         element.close();
         await aTimeout(2);
         element.close();
 
-        await beforeCloseEventSpy.calledOnce();
+        await beforeCloseSpy.calledOnce();
         expect(element.opened).to.be.false;
-        expect(beforeCloseEventSpy.count).to.be.equal(1);
+        expect(beforeCloseSpy.count).to.be.equal(1);
       });
     });
   });

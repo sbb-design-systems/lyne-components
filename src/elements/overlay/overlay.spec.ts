@@ -12,17 +12,17 @@ import '../button.js';
 import '../icon.js';
 
 async function openOverlay(element: SbbOverlayElement): Promise<void> {
-  const beforeOpen = new EventSpy(SbbOverlayElement.events.beforeopen, element);
-  const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, element);
+  const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, element);
+  const openSpy = new EventSpy(SbbOverlayElement.events.open, element);
 
   element.open();
   await waitForLitRender(element);
 
-  await beforeOpen.calledOnce();
-  expect(beforeOpen.count).to.be.equal(1);
+  await beforeOpenSpy.calledOnce();
+  expect(beforeOpenSpy.count).to.be.equal(1);
 
-  await didOpen.calledOnce();
-  expect(didOpen.count).to.be.equal(1);
+  await openSpy.calledOnce();
+  expect(openSpy.count).to.be.equal(1);
   expect(element).to.have.attribute('data-state', 'opened');
   expect(element).to.match(':popover-open');
 }
@@ -52,23 +52,23 @@ describe('sbb-overlay', () => {
   });
 
   it('does not open the overlay if prevented', async () => {
-    const beforeOpen = new EventSpy(SbbOverlayElement.events.beforeopen, element);
-    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, element);
+    const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, element);
+    const openSpy = new EventSpy(SbbOverlayElement.events.open, element);
 
     element.addEventListener(SbbOverlayElement.events.beforeopen, (ev) => ev.preventDefault());
 
     element.open();
     await waitForLitRender(element);
 
-    await beforeOpen.calledOnce();
-    expect(beforeOpen.count).to.be.equal(1);
-    expect(didOpen.count).to.be.equal(0);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
+    expect(openSpy.count).to.be.equal(0);
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes the overlay', async () => {
-    const beforeClose = new EventSpy(SbbOverlayElement.events.beforeclose, element);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, element);
+    const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
     await openOverlay(element);
 
@@ -77,11 +77,11 @@ describe('sbb-overlay', () => {
     element.close();
     await waitForLitRender(element);
 
-    await beforeClose.calledOnce();
-    expect(beforeClose.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
 
-    await didClose.calledOnce();
-    expect(didClose.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
     expect(element).not.to.match(':popover-open');
     expect(ariaLiveRef.textContent).to.be.equal('');
@@ -89,21 +89,21 @@ describe('sbb-overlay', () => {
 
   it('opens and closes the overlay with non-zero animation duration', async () => {
     element.style.setProperty('--sbb-overlay-animation-duration', '1ms');
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
     await openOverlay(element);
 
     element.close();
     await waitForLitRender(element);
 
-    await didClose.calledOnce();
-    expect(didClose.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('does not close the overlay if prevented', async () => {
-    const beforeClose = new EventSpy(SbbOverlayElement.events.beforeclose, element);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, element);
+    const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
     await openOverlay(element);
 
@@ -112,27 +112,27 @@ describe('sbb-overlay', () => {
     element.close();
     await waitForLitRender(element);
 
-    await beforeClose.calledOnce();
-    expect(beforeClose.count).to.be.equal(1);
-    expect(didClose.count).to.be.equal(0);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
+    expect(closeSpy.count).to.be.equal(0);
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('closes the overlay on close button click', async () => {
     const closeButton = element.shadowRoot!.querySelector('[sbb-overlay-close]') as HTMLElement;
-    const beforeClose = new EventSpy(SbbOverlayElement.events.beforeclose, element);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, element);
+    const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
     await openOverlay(element);
 
     closeButton.click();
     await waitForLitRender(element);
 
-    await beforeClose.calledOnce();
-    expect(beforeClose.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
 
-    await didClose.calledOnce();
-    expect(didClose.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-state', 'closed');
   });
@@ -151,21 +151,21 @@ describe('sbb-overlay', () => {
     const overlay = element.querySelector('sbb-overlay')!;
     const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
     const form = element.querySelector<HTMLFormElement>('form')!;
-    const beforeClose = new EventSpy<CustomEvent>(SbbOverlayElement.events.beforeclose, overlay);
+    const beforeCloseSpy = new EventSpy<CustomEvent>(SbbOverlayElement.events.beforeclose, overlay);
 
     await openOverlay(overlay);
 
     closeButton.click();
     await waitForLitRender(element);
 
-    await beforeClose.calledOnce();
+    await beforeCloseSpy.calledOnce();
 
-    expect(beforeClose.firstEvent?.detail.returnValue).to.be.deep.equal(form);
+    expect(beforeCloseSpy.firstEvent?.detail.returnValue).to.be.deep.equal(form);
   });
 
   it('closes the overlay on Esc key press', async () => {
-    const beforeClose = new EventSpy(SbbOverlayElement.events.beforeclose, element);
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, element);
+    const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, element);
+    const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
     await openOverlay(element);
 
@@ -175,11 +175,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await beforeClose.calledOnce();
-    expect(beforeClose.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
 
-    await didClose.calledOnce();
-    expect(didClose.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-state', 'closed');
   });
@@ -195,10 +195,14 @@ describe('sbb-overlay', () => {
       </sbb-overlay>
     `);
 
-    const beforeOpen = new EventSpy(SbbOverlayElement.events.beforeopen, null, { capture: true });
-    const didOpen = new EventSpy(SbbOverlayElement.events.didOpen, null, { capture: true });
-    const beforeClose = new EventSpy(SbbOverlayElement.events.beforeclose, null, { capture: true });
-    const didClose = new EventSpy(SbbOverlayElement.events.didClose, null, { capture: true });
+    const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, null, {
+      capture: true,
+    });
+    const openSpy = new EventSpy(SbbOverlayElement.events.open, null, { capture: true });
+    const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, null, {
+      capture: true,
+    });
+    const closeSpy = new EventSpy(SbbOverlayElement.events.close, null, { capture: true });
 
     await openOverlay(element);
 
@@ -207,11 +211,11 @@ describe('sbb-overlay', () => {
     stackedOverlay.open();
     await waitForLitRender(element);
 
-    await beforeOpen.calledTimes(2);
-    expect(beforeOpen.count).to.be.equal(2);
+    await beforeOpenSpy.calledTimes(2);
+    expect(beforeOpenSpy.count).to.be.equal(2);
 
-    await didOpen.calledTimes(2);
-    expect(didOpen.count).to.be.equal(2);
+    await openSpy.calledTimes(2);
+    expect(openSpy.count).to.be.equal(2);
 
     expect(stackedOverlay).to.have.attribute('data-state', 'opened');
 
@@ -221,11 +225,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await beforeClose.calledOnce();
-    expect(beforeClose.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
 
-    await didClose.calledOnce();
-    expect(didClose.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
 
     expect(stackedOverlay).to.have.attribute('data-state', 'closed');
     expect(element).to.have.attribute('data-state', 'opened');
@@ -236,11 +240,11 @@ describe('sbb-overlay', () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await beforeClose.calledTimes(2);
-    expect(beforeClose.count).to.be.equal(2);
+    await beforeCloseSpy.calledTimes(2);
+    expect(beforeCloseSpy.count).to.be.equal(2);
 
-    await didClose.calledTimes(2);
-    expect(didClose.count).to.be.equal(2);
+    await closeSpy.calledTimes(2);
+    expect(closeSpy.count).to.be.equal(2);
 
     expect(stackedOverlay).to.have.attribute('data-state', 'closed');
     expect(element).to.have.attribute('data-state', 'closed');
@@ -281,11 +285,11 @@ describe('sbb-overlay', () => {
   });
 
   it('does forward scroll event to document', async () => {
-    const didOpenEventSpy = new EventSpy(SbbOverlayElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbOverlayElement.events.open, element);
 
     element.open();
     await waitForLitRender(element);
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     await setViewport({ width: 320, height: 300 });
 

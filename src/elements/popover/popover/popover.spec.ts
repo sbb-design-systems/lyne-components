@@ -40,133 +40,133 @@ describe(`sbb-popover`, () => {
     });
 
     it('shows the popover', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
 
       element.open();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
     it('shows on trigger click', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
 
       trigger.click();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
     it('closes the popover', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const beforeCloseEventSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
 
       element.open();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
       expect(element).to.match(':popover-open');
 
       element.close();
 
-      await beforeCloseEventSpy.calledOnce();
-      expect(beforeCloseEventSpy.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'closed');
       expect(element).not.to.match(':popover-open');
     });
 
     it('closes the popover on close button click', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const beforeCloseEventSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
       const closeButton = element.shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]')!;
 
       element.open();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
       closeButton!.click();
 
-      await beforeCloseEventSpy.calledOnce();
-      expect(beforeCloseEventSpy.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('closes on interactive element click', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const beforeCloseEventSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
       const popoverLink = element.querySelector(':scope > sbb-link') as HTMLElement;
 
       trigger.click();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
       expect(popoverLink).not.to.be.null;
 
       popoverLink.click();
 
-      await beforeCloseEventSpy.calledOnce();
-      expect(beforeCloseEventSpy.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('is correctly positioned on screen', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
 
       await setViewport({ width: 1200, height: 800 });
 
       trigger.click();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
@@ -186,18 +186,18 @@ describe(`sbb-popover`, () => {
     });
 
     it('should set correct focus attribute on trigger after backdrop click', async () => {
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
 
       element.open();
 
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
 
       // Simulate backdrop click
       window.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
       window.dispatchEvent(new PointerEvent('pointerup'));
 
-      await didCloseEventSpy.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(document.activeElement).to.be.equal(trigger);
     });
@@ -206,12 +206,12 @@ describe(`sbb-popover`, () => {
       const interactiveBackgroundElement = element.parentElement!.querySelector<SbbButtonElement>(
         '#interactive-background-element',
       )!;
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
 
       element.open();
 
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
 
       const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
       await sendMouse({
@@ -221,28 +221,28 @@ describe(`sbb-popover`, () => {
           Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
         ],
       });
-      await didCloseEventSpy.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(document.activeElement).to.be.equal(interactiveBackgroundElement);
     });
 
     it('closes on interactive element click by keyboard', async () => {
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
       const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;
 
       trigger.click();
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(popoverLink).not.to.be.null;
 
       popoverLink.focus();
       await sendKeys({ press: 'Enter' });
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       expect(document.activeElement).to.be.equal(trigger);
     });
@@ -250,33 +250,33 @@ describe(`sbb-popover`, () => {
     it('opens and closes with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-popover-animation-duration', '1ms');
 
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
       const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;
 
       trigger.click();
 
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
 
       popoverLink.focus();
       await sendKeys({ press: 'Enter' });
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
     });
 
     it('sets the focus to the first focusable element when the popover is opened by keyboard', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
 
       await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Enter' });
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
       expect(document.activeElement).to.be.equal(element);
@@ -287,81 +287,81 @@ describe(`sbb-popover`, () => {
     });
 
     it('closes the popover on close button click by keyboard', async () => {
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
       const closeButton = document
         .querySelector('sbb-popover')!
         .shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]')!;
 
       element.open();
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       closeButton.focus();
       await sendKeys({ press: 'Enter' });
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('closes on Esc keypress', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const beforeCloseEventSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
-      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
 
       trigger.click();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
 
       await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Escape' });
 
-      await beforeCloseEventSpy.calledOnce();
-      expect(beforeCloseEventSpy.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
     it('does not open if prevented', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
 
       element.addEventListener(SbbPopoverElement.events.beforeopen, (ev) => ev.preventDefault());
       element.open();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
     });
 
     it('does not close if prevented', async () => {
-      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      const beforeCloseEventSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
+      const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
 
       element.open();
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
       await waitForLitRender(element);
 
       element.addEventListener(SbbPopoverElement.events.beforeclose, (ev) => ev.preventDefault());
       element.close();
 
-      await beforeCloseEventSpy.calledOnce();
+      await beforeCloseSpy.calledOnce();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -504,14 +504,14 @@ describe(`sbb-popover`, () => {
     const secondTrigger = root.querySelector<SbbButtonElement>('#another-popover-trigger');
     const secondElement = root.querySelector<SbbPopoverElement>('#another-popover');
 
-    const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, null, {
+    const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.open, null, {
       capture: true,
     });
-    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, null, { capture: true });
-    const beforeCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, null, {
+    const openSpy = new EventSpy(SbbPopoverElement.events.open, null, { capture: true });
+    const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.close, null, {
       capture: true,
     });
-    const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, null, {
+    const closeSpy = new EventSpy(SbbPopoverElement.events.close, null, {
       capture: true,
     });
 
@@ -521,12 +521,12 @@ describe(`sbb-popover`, () => {
     trigger.focus();
     await sendKeys({ press: 'Space' });
 
-    await beforeOpenEventSpy.calledOnce();
-    expect(beforeOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
 
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
 
     trigger.focus();
@@ -536,18 +536,18 @@ describe(`sbb-popover`, () => {
 
     await sendKeys({ press: 'Space' });
 
-    await beforeCloseEventSpy.calledOnce();
-    expect(beforeCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
 
-    await beforeOpenEventSpy.calledTimes(2);
-    expect(beforeOpenEventSpy.count).to.be.equal(2);
+    await beforeOpenSpy.calledTimes(2);
+    expect(beforeOpenSpy.count).to.be.equal(2);
 
-    await didOpenEventSpy.calledTimes(2);
-    expect(didOpenEventSpy.count).to.be.equal(2);
+    await openSpy.calledTimes(2);
+    expect(openSpy.count).to.be.equal(2);
     expect(secondElement).to.have.attribute('data-state', 'opened');
   });
 
@@ -560,16 +560,16 @@ describe(`sbb-popover`, () => {
       </sbb-popover>
     `);
 
-    const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+    const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
+    const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
 
     trigger.click();
 
-    await beforeOpenEventSpy.calledOnce();
-    expect(beforeOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
 
     expect(element).to.have.attribute('data-state', 'opened');
   });

@@ -278,9 +278,9 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbOverlayElement.events.beforeopen,
-        SbbOverlayElement.events.didOpen,
+        SbbOverlayElement.events.open,
         SbbOverlayElement.events.beforeclose,
-        SbbOverlayElement.events.didClose,
+        SbbOverlayElement.events.close,
         SbbOverlayElement.events.backClick,
       ],
     },

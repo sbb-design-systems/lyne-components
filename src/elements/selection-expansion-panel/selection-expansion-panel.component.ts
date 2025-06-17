@@ -28,9 +28,9 @@ import '../divider.js';
  * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} beforeopen - Emits whenever the content section starts the opening transition.
- * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
+ * @event {CustomEvent<void>} open - Emits whenever the content section is opened.
  * @event {CustomEvent<void>} beforeclose - Emits whenever the content section begins the closing transition.
- * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
+ * @event {CustomEvent<void>} close - Emits whenever the content section is closed.
  */
 export
 @customElement('sbb-selection-expansion-panel')
@@ -40,9 +40,9 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     beforeopen: 'beforeopen',
-    didOpen: 'didOpen',
+    open: 'open',
     beforeclose: 'beforeclose',
-    didClose: 'didClose',
+    close: 'close',
   } as const;
 
   /** The background color of the panel. */
@@ -88,9 +88,9 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   /** Emits whenever the content section is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
+  private _openEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.didOpen,
+    SbbSelectionExpansionPanelElement.events.open,
     { cancelable: true },
   );
 
@@ -102,9 +102,9 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   /** Emits whenever the content section is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
+  private _closeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.didClose,
+    SbbSelectionExpansionPanelElement.events.close,
     { cancelable: true },
   );
 
@@ -200,12 +200,12 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    this._closeEmitter.emit();
   }
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this._didOpen.emit();
+    this._openEmitter.emit();
   }
 
   private _initFromInput(event: Event): void {

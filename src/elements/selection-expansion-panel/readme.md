@@ -98,8 +98,8 @@ it adapts its `size` to the slotted `sbb-radio-button-panel` or in a `sbb-checkb
 | ------------- | ------------------- | ----------------------------------------------------------------- | -------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits whenever the content section begins the closing transition. |                |
 | `beforeopen`  | `CustomEvent<void>` | Emits whenever the content section starts the opening transition. |                |
-| `didClose`    | `CustomEvent<void>` | Emits whenever the content section is closed.                     |                |
-| `didOpen`     | `CustomEvent<void>` | Emits whenever the content section is opened.                     |                |
+| `close`       | `CustomEvent<void>` | Emits whenever the content section is closed.                     |                |
+| `open`        | `CustomEvent<void>` | Emits whenever the content section is opened.                     |                |
 
 ## Slots
 

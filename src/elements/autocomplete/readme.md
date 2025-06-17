@@ -159,8 +159,8 @@ const values = [
 | ------------- | ------------------- | ------------------------------------------------------------------------------------- | ----------------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

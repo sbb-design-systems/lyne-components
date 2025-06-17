@@ -48,19 +48,19 @@ describe(`sbb-select`, () => {
     });
 
     it('opens and closes the select', async () => {
-      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const beforeClose = new EventSpy(SbbSelectElement.events.beforeclose, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbSelectElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await beforeOpen.calledOnce();
-      expect(beforeOpen.count).to.be.equal(1);
-      await didOpen.calledOnce();
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
 
-      expect(didOpen.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
@@ -69,11 +69,11 @@ describe(`sbb-select`, () => {
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await beforeClose.calledOnce();
-      expect(beforeClose.count).to.be.equal(1);
-      await didClose.calledOnce();
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
 
-      expect(didClose.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
@@ -87,35 +87,35 @@ describe(`sbb-select`, () => {
 
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await open.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
     });
 
     it('closes the select by option click', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await open.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
       firstOption.click();
       await waitForLitRender(element);
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('1');
@@ -124,18 +124,18 @@ describe(`sbb-select`, () => {
     it('closes the select by option click with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await open.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
       firstOption.click();
       await waitForLitRender(element);
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('1');
@@ -234,15 +234,15 @@ describe(`sbb-select`, () => {
       expect(displayValue).to.have.trimmed.text('First');
       expect(element.value).to.be.equal('1');
 
-      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       element.click();
 
-      await beforeOpen.calledOnce();
-      expect(beforeOpen.count).to.be.equal(1);
-      await didOpen.calledOnce();
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
 
-      expect(didOpen.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
@@ -255,7 +255,7 @@ describe(`sbb-select`, () => {
       const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
       const optionSelected = new EventSpy(SbbOptionElement.events.optionSelected);
       const beforeClose = new EventSpy(SbbSelectElement.events.beforeclose, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       secondOption.click();
       await waitForLitRender(element);
@@ -266,8 +266,8 @@ describe(`sbb-select`, () => {
 
       await beforeClose.calledOnce();
       expect(beforeClose.count).to.be.equal(1);
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element.value).to.be.equal('2');
@@ -299,14 +299,14 @@ describe(`sbb-select`, () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
 
-      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       element.dispatchEvent(new CustomEvent('click'));
 
-      await beforeOpen.calledOnce();
-      expect(beforeOpen.count).to.be.equal(1);
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
       expect(firstOption).not.to.have.attribute('data-active');
       expect(firstOption).not.to.have.attribute('selected');
@@ -338,10 +338,10 @@ describe(`sbb-select`, () => {
     });
 
     it('update multiple attribute', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const open = new EventSpy(SbbSelectElement.events.open, element);
       element.dispatchEvent(new CustomEvent('click'));
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await open.calledOnce();
+      expect(open.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element.value).to.be.equal(null);
@@ -371,80 +371,80 @@ describe(`sbb-select`, () => {
     });
 
     it('close the panel if disabled', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       element.dispatchEvent(new CustomEvent('click'));
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await open.calledOnce();
+      expect(open.count).to.be.equal(1);
       await waitForLitRender(element);
 
       element.toggleAttribute('disabled', true);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
     });
 
     it('close the panel if readonly', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       element.dispatchEvent(new CustomEvent('click'));
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       element.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
     });
 
     it('handles keypress on host', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       focusableElement.focus();
       await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(element);
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       await sendKeys({ press: 'ArrowDown' });
-      await didOpen.calledTimes(2);
-      expect(didOpen.count).to.be.equal(2);
+      await openSpy.calledTimes(2);
+      expect(openSpy.count).to.be.equal(2);
 
       await sendKeys({ press: tabKey });
-      await didClose.calledTimes(2);
-      expect(didClose.count).to.be.equal(2);
+      await closeSpy.calledTimes(2);
+      expect(closeSpy.count).to.be.equal(2);
 
       focusableElement.focus();
       await sendKeys({ press: 'F' });
       await waitForLitRender(element);
-      expect(didOpen.count).to.be.equal(2);
-      expect(didClose.count).to.be.equal(2);
+      expect(openSpy.count).to.be.equal(2);
+      expect(closeSpy.count).to.be.equal(2);
       expect(displayValue).to.have.trimmed.text('First');
 
       await aTimeout(1100); // wait for the reset of _searchString timeout
 
       await sendKeys({ press: 'S' });
       await waitForLitRender(element);
-      expect(didOpen.count).to.be.equal(2);
-      expect(didClose.count).to.be.equal(2);
+      expect(openSpy.count).to.be.equal(2);
+      expect(closeSpy.count).to.be.equal(2);
       expect(displayValue).to.have.trimmed.text('Second');
     });
 
     it('handles keyboard selection', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       focusableElement.focus();
       await sendKeys({ press: ' ' });
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       expect(firstOption).not.to.have.attribute('data-active');
       expect(firstOption).not.to.have.attribute('selected');
 
@@ -457,7 +457,7 @@ describe(`sbb-select`, () => {
 
       await sendKeys({ press: 'T' });
       await waitForLitRender(element);
-      expect(didOpen.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(displayValue).to.have.trimmed.text('Third');
       expect(thirdOption).to.have.attribute('data-active');
       expect(thirdOption).to.have.attribute('selected');
@@ -467,7 +467,7 @@ describe(`sbb-select`, () => {
 
       await sendKeys({ press: 'S' });
       await waitForLitRender(element);
-      expect(didOpen.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(displayValue).to.have.trimmed.text('Second');
       expect(secondOption).to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');
@@ -475,18 +475,18 @@ describe(`sbb-select`, () => {
     });
 
     it('handles keyboard Enter selection', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       focusableElement.focus();
       await sendKeys({ press: ' ' });
-      await didOpen.calledOnce();
+      await openSpy.calledOnce();
 
       // Select second entry and confirm with Enter
       await sendKeys({ press: 'ArrowDown' });
       await sendKeys({ press: 'ArrowDown' });
       await sendKeys({ press: 'Enter' });
 
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
@@ -497,12 +497,12 @@ describe(`sbb-select`, () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       focusableElement.focus();
       await sendKeys({ press: 'ArrowUp' });
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).not.to.have.attribute('selected');
@@ -515,14 +515,14 @@ describe(`sbb-select`, () => {
       expect(displayValue).to.have.trimmed.text('Second');
 
       await sendKeys({ press: 'Escape' });
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      await didOpen.calledTimes(2);
-      expect(didOpen.count).to.be.equal(2);
+      await openSpy.calledTimes(2);
+      expect(openSpy.count).to.be.equal(2);
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
@@ -539,30 +539,30 @@ describe(`sbb-select`, () => {
     });
 
     it('does not open if prevented', async () => {
-      const beforeOpenEventSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
+      const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
 
       element.addEventListener(SbbSelectElement.events.beforeopen, (ev) => ev.preventDefault());
       element.open();
 
-      await beforeOpenEventSpy.calledOnce();
-      expect(beforeOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
     });
 
     it('does not close if prevented', async () => {
-      const didOpenEventSpy = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const beforeCloseEventSpy = new EventSpy(SbbSelectElement.events.beforeclose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const beforeCloseSpy = new EventSpy(SbbSelectElement.events.beforeclose, element);
 
       element.open();
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
       await waitForLitRender(element);
 
       element.addEventListener(SbbSelectElement.events.beforeclose, (ev) => ev.preventDefault());
       element.close();
 
-      await beforeCloseEventSpy.calledOnce();
+      await beforeCloseSpy.calledOnce();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -1040,8 +1040,8 @@ describe(`sbb-select`, () => {
     });
 
     it('closes the select by option click', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       const positionRect = element.getBoundingClientRect();
       await sendMouse({
@@ -1053,15 +1053,15 @@ describe(`sbb-select`, () => {
       });
 
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await openSpy.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
       firstOption.click();
       await waitForLitRender(element);
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
 
-      expect(didOpen.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('1');
     });
@@ -1069,18 +1069,18 @@ describe(`sbb-select`, () => {
     it('closes the select by option click with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await openSpy.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
       firstOption.click();
       await waitForLitRender(element);
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('1');
@@ -1090,16 +1090,16 @@ describe(`sbb-select`, () => {
       element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e) => (e.disabled = true));
       await waitForLitRender(element);
 
-      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await beforeOpen.calledOnce();
-      expect(beforeOpen.count).to.be.equal(1);
-      await didOpen.calledOnce();
-      expect(didOpen.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
       expect(element).to.have.attribute('data-expanded');
@@ -1114,11 +1114,11 @@ describe(`sbb-select`, () => {
     });
 
     it('should sync form-field size change', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
 
       element.open();
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await openSpy.calledOnce();
 
       formField.size = 's';
       await waitForLitRender(element);
@@ -1127,11 +1127,11 @@ describe(`sbb-select`, () => {
     });
 
     it('should react to origin size change', async () => {
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
 
       element.open();
       await waitForLitRender(element);
-      await didOpen.calledOnce();
+      await openSpy.calledOnce();
 
       const selectPanel = element.shadowRoot!.querySelector('.sbb-select__panel')!;
       const oldPanelSize = selectPanel.clientWidth;
@@ -1175,14 +1175,14 @@ describe(`sbb-select`, () => {
     it('should assign complex value on option click', async () => {
       expect(element.getDisplayValue()).to.be.equal('');
 
-      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
       element.click();
-      await didOpen.calledOnce();
+      await openSpy.calledOnce();
 
       firstOption.click();
-      await didClose.calledOnce();
+      await closeSpy.calledOnce();
       await waitForLitRender(element);
 
       expect(element.value).to.be.deep.equal(value1);

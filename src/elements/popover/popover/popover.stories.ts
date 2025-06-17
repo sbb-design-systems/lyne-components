@@ -217,8 +217,8 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbPopoverElement.events.beforeopen,
-        SbbPopoverElement.events.didOpen,
-        SbbPopoverElement.events.didClose,
+        SbbPopoverElement.events.open,
+        SbbPopoverElement.events.close,
         SbbPopoverElement.events.beforeclose,
       ],
     },

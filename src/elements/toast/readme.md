@@ -125,8 +125,8 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | ------------- | ------------------- | ------------------------------------------------------------------------------ | ----------------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

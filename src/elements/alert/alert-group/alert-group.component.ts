@@ -53,14 +53,14 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   public constructor() {
     super();
     this.addEventListener?.(
-      'didClose',
+      'close',
       async (e: CustomEvent<void>) => {
         if (!(await isEventPrevented(e))) {
           this._alertClosed(e);
         }
       },
       {
-        // We use capture here, because didClose does not bubble.
+        // We use capture here, because 'close' does not bubble.
         capture: true,
       },
     );

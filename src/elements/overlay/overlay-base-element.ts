@@ -26,9 +26,9 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   public accessor accessibilityLabel: string = '';
 
   /** Emits whenever the component is closed. */
-  protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
+  protected override closeEmitter: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
     this,
-    SbbOverlayBaseElement.events.didClose,
+    SbbOverlayBaseElement.events.close,
     { cancelable: true },
   );
 

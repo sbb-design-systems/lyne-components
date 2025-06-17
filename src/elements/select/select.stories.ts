@@ -602,8 +602,8 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbSelectElement.events.change,
-        SbbSelectElement.events.didClose,
-        SbbSelectElement.events.didOpen,
+        SbbSelectElement.events.close,
+        SbbSelectElement.events.open,
         SbbSelectElement.events.beforeclose,
         SbbSelectElement.events.beforeopen,
         SbbOptionElement.events.optionSelected,

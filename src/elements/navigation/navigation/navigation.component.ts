@@ -49,9 +49,9 @@ const DEBOUNCE_TIME = 150;
  *
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the sbb-navigation menu.
  * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-navigation` is opened.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-navigation` is opened.
  * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
+ * @event {CustomEvent<void>} close - Emits whenever the `sbb-navigation` is closed.
  * @cssprop [--sbb-navigation-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -196,7 +196,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._inertController.deactivate();
     this._triggerElement?.focus();
     this._escapableOverlayController.disconnect();
-    this.didClose.emit();
+    this.closeEmitter.emit();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
     this._focusTrapController.enabled = false;
@@ -214,7 +214,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._focusTrapController.focusInitialElement();
     this._focusTrapController.enabled = true;
     this.completeUpdate();
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   // Removes trigger click listener on trigger change.

@@ -19,9 +19,9 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
  * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
- * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
+ * @event {CustomEvent<SbbOverlayCloseEventDetails>} close - Emits whenever the `sbb-dialog` is closed.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -127,7 +127,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       this.scrollHandler.enableScroll();
     }
     this.sbbEscapableOverlayController.disconnect();
-    this.didClose.emit({
+    this.closeEmitter.emit({
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
     });
@@ -146,7 +146,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
       ),
     );
     this.focusTrapController.enabled = true;
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

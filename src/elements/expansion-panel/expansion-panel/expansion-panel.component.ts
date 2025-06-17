@@ -21,9 +21,9 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
  * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-expansion-panel` starts the opening transition.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-expansion-panel` is opened.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-expansion-panel` is opened.
  * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-expansion-panel` begins the closing transition.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-expansion-panel` is closed.
+ * @event {CustomEvent<void>} close - Emits whenever the `sbb-expansion-panel` is closed.
  */
 export
 @customElement('sbb-expansion-panel')
@@ -31,9 +31,9 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     beforeopen: 'beforeopen',
-    didOpen: 'didOpen',
+    open: 'open',
     beforeclose: 'beforeclose',
-    didClose: 'didClose',
+    close: 'close',
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
@@ -93,9 +93,9 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   /** Emits whenever the `sbb-expansion-panel` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
+  private _openEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbExpansionPanelElement.events.didOpen,
+    SbbExpansionPanelElement.events.open,
     { cancelable: true },
   );
 
@@ -107,9 +107,9 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   );
 
   /** Emits whenever the `sbb-expansion-panel` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
+  private _closeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbExpansionPanelElement.events.didClose,
+    SbbExpansionPanelElement.events.close,
     { cancelable: true },
   );
 
@@ -184,12 +184,12 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this._didOpen.emit();
+    this._openEmitter.emit();
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    this._closeEmitter.emit();
   }
 
   private _updateDisabledOnHeader(newDisabledValue: boolean): void {

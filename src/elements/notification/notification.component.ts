@@ -40,9 +40,9 @@ const DEBOUNCE_TIME = 150;
  * @slot - Use the unnamed slot to add content to the notification message.
  * @slot title - Use this to provide a notification title (optional).
  * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
- * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} open - Emits when the opening animation ends.
  * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts.
- * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ * @event {CustomEvent<void>} close - Emits when the closing animation ends.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
@@ -54,9 +54,9 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     beforeopen: 'beforeopen',
-    didOpen: 'didOpen',
+    open: 'open',
     beforeclose: 'beforeclose',
-    didClose: 'didClose',
+    close: 'close',
   } as const;
 
   /** The type of the notification. */
@@ -104,9 +104,9 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   );
 
   /** Emits whenever the `sbb-notification` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
+  private _openEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.didOpen,
+    SbbNotificationElement.events.open,
     { cancelable: true },
   );
 
@@ -118,9 +118,9 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   );
 
   /** Emits whenever the `sbb-notification` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
+  private _closeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.didClose,
+    SbbNotificationElement.events.close,
     { cancelable: true },
   );
 
@@ -214,12 +214,12 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   private _handleOpening(): void {
     this._state = 'opened';
     this._notificationResizeObserver.observe(this._notificationElement);
-    this._didOpen.emit();
+    this._openEmitter.emit();
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    this._closeEmitter.emit();
     this._notificationResizeObserver.unobserve(this._notificationElement);
     setTimeout(() => this.remove());
   }

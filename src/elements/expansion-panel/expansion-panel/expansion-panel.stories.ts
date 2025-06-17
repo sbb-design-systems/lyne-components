@@ -240,9 +240,9 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbExpansionPanelElement.events.beforeopen,
-        SbbExpansionPanelElement.events.didOpen,
+        SbbExpansionPanelElement.events.open,
         SbbExpansionPanelElement.events.beforeclose,
-        SbbExpansionPanelElement.events.didClose,
+        SbbExpansionPanelElement.events.close,
         SbbExpansionPanelHeaderElement.events.toggleExpanded,
       ],
     },

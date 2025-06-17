@@ -56,9 +56,9 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add `sbb-menu-button`/`sbb-menu-link` or other elements to the menu.
  * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-menu` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-menu` is opened.
  * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
+ * @event {CustomEvent<void>} close - Emits whenever the `sbb-menu` is closed.
  * @cssprop [--sbb-menu-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -175,7 +175,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._focusTrapController.focusInitialElement();
     this._focusTrapController.enabled = true;
     this._attachWindowEvents();
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   private _handleClosing(): void {
@@ -192,7 +192,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         this._triggerElement.localName === 'sbb-header-link',
     });
     this._escapableOverlayController.disconnect();
-    this.didClose.emit();
+    this.closeEmitter.emit();
     this._windowEventsController?.abort();
     this._focusTrapController.enabled = false;
 

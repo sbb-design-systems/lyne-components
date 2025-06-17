@@ -102,8 +102,8 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | ------------- | ------------------- | ----------------------------------------------------------------------------- | ----------------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

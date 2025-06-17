@@ -101,8 +101,8 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 | ------------- | ------------------- | ----------------------------------------------------------------------- | -------------- |
 | `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` begins the closing transition. |                |
 | `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
-| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
-| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
+| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
+| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
 
 ## Slots
 

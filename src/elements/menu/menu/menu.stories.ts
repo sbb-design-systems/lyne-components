@@ -241,8 +241,8 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbMenuElement.events.beforeopen,
-        SbbMenuElement.events.didOpen,
-        SbbMenuElement.events.didClose,
+        SbbMenuElement.events.open,
+        SbbMenuElement.events.close,
         SbbMenuElement.events.beforeclose,
       ],
     },

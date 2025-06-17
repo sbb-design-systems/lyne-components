@@ -16,11 +16,11 @@ describe(`sbb-alert`, () => {
 
   it('should fire animation events', async () => {
     const beforeOpenSpy = new EventSpy(SbbAlertElement.events.beforeopen, null, { capture: true });
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
+    const openSpy = new EventSpy(SbbAlertElement.events.open, null, { capture: true });
     const beforeCloseSpy = new EventSpy(SbbAlertElement.events.beforeclose, null, {
       capture: true,
     });
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
+    const closeSpy = new EventSpy(SbbAlertElement.events.close, null, { capture: true });
 
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
@@ -28,19 +28,19 @@ describe(`sbb-alert`, () => {
 
     await beforeOpenSpy.calledOnce();
     expect(beforeOpenSpy.count).to.be.equal(1);
-    await didOpenSpy.calledOnce();
-    expect(didOpenSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
 
     alert.close();
 
-    await didCloseSpy.calledOnce();
+    await closeSpy.calledOnce();
     expect(beforeCloseSpy.count).to.be.equal(1);
-    expect(didCloseSpy.count).to.be.equal(1);
+    expect(closeSpy.count).to.be.equal(1);
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
+    const openSpy = new EventSpy(SbbAlertElement.events.open, null, { capture: true });
+    const closeSpy = new EventSpy(SbbAlertElement.events.close, null, { capture: true });
 
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert title-content="disruption" style="--sbb-alert-animation-duration: 1ms">
@@ -48,20 +48,20 @@ describe(`sbb-alert`, () => {
       </sbb-alert>`,
     );
 
-    await didOpenSpy.calledOnce();
+    await openSpy.calledOnce();
 
     alert.close();
 
-    await didCloseSpy.calledOnce();
-    expect(didCloseSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
   });
 
   it('should respect canceled beforeClose event', async () => {
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
+    const openSpy = new EventSpy(SbbAlertElement.events.open, null, { capture: true });
     const beforeCloseSpy = new EventSpy(SbbAlertElement.events.beforeclose, null, {
       capture: true,
     });
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
+    const closeSpy = new EventSpy(SbbAlertElement.events.close, null, { capture: true });
 
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
@@ -69,16 +69,16 @@ describe(`sbb-alert`, () => {
 
     alert.addEventListener(SbbAlertElement.events.beforeclose, (ev) => ev.preventDefault());
 
-    await didOpenSpy.calledOnce();
+    await openSpy.calledOnce();
 
     alert.close();
 
     await beforeCloseSpy.calledOnce();
     expect(beforeCloseSpy.count).to.be.equal(1);
 
-    // Wait a period to ensure the  didCLose event was not dispatched.
+    // Wait a period to ensure the 'close' event is not dispatched.
     await aTimeout(10);
-    expect(didCloseSpy.count).to.be.equal(0);
+    expect(closeSpy.count).to.be.equal(0);
   });
 
   it('should hide close button in readonly mode', async () => {
