@@ -13,7 +13,7 @@ import { forceType } from '../../core/decorators.js';
 import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
+import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.js';
 
 import style from './stepper.scss?lit&inline';
 
@@ -113,7 +113,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-    this.addEventListener?.('resizeChange', (e: CustomEvent<void>) =>
+    this.addEventListener?.(SbbStepElement.events.resizechange, (e: CustomEvent<void>) =>
       this._onSelectedStepResize(e),
     );
   }

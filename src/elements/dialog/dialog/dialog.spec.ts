@@ -636,11 +636,11 @@ describe('sbb-dialog', () => {
       ).to.be.equal('0px');
 
       const stepOne = root.querySelector<SbbStepElement>('sbb-step:nth-of-type(1)')!;
-      const resizeChange = new EventSpy(SbbStepElement.events.resizeChange, stepOne);
+      const resizeChangeSpy = new EventSpy(SbbStepElement.events.resizechange, stepOne);
       await openDialog(root);
       await waitForLitRender(root);
-      await resizeChange.calledOnce();
-      expect(resizeChange.count).to.be.equal(1);
+      await resizeChangeSpy.calledOnce();
+      expect(resizeChangeSpy.count).to.be.equal(1);
       expect(root).to.have.attribute('data-state', 'opened');
 
       // Need to wait for the intersector to kick in; the value is set in px, so we have to remove the unit
