@@ -162,7 +162,7 @@ class SbbDatepickerToggleElement<T = Date>
               .now=${this._nowOrNull()}
               ?wide=${this.datepicker?.wide}
               .dateFilter=${this.datepicker?.dateFilter ?? null}
-              @dateSelected=${(d: CustomEvent<T>) => {
+              @dateselected=${(d: CustomEvent<T>) => {
                 this._calendarElement.selected = d.detail;
                 if (this.datepicker) {
                   const input = this.datepicker.inputElement;

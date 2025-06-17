@@ -193,7 +193,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCalendarElement.events.dateSelected],
+      handles: [SbbCalendarElement.events.dateselected],
     },
     docs: {
       extractComponentDescription: () => readme,

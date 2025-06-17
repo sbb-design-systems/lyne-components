@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
-import type { SbbCalendarElement } from '../../calendar.js';
+import { SbbCalendarElement } from '../../calendar.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
@@ -218,7 +218,7 @@ describe(`sbb-datepicker-toggle`, () => {
         const calendar: SbbCalendarElement =
           element.shadowRoot!.querySelector<SbbCalendarElement>('sbb-calendar')!;
         calendar.dispatchEvent(
-          new CustomEvent('dateSelected', {
+          new CustomEvent(SbbCalendarElement.events.dateselected, {
             detail: new Date('2022-01-01'),
           }),
         );
