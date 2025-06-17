@@ -126,10 +126,10 @@ export default {
         'open',
         'beforeclose',
         'close',
-        'willStick',
-        'didStick',
-        'willUnstick',
-        'didUnstick',
+        'beforestick',
+        'stick',
+        'beforeunstick',
+        'unstick',
       ]) {
         root.removeEventListener(eventName, openCloseEventsForwarder, { capture: true });
         root.addEventListener(eventName, openCloseEventsForwarder, { capture: true });
