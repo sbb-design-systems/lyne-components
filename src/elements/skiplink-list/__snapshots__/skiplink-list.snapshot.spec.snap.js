@@ -7,9 +7,7 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
     class="sbb-link-list-title"
     id="sbb-skiplink-list-title-id"
     level="2"
-    negative=""
     visual-level="5"
-    visually-hidden=""
   >
     <slot name="title">
     </slot>
@@ -90,9 +88,7 @@ snapshots["sbb-skiplink-list renders Shadow DOM"] =
     class="sbb-link-list-title"
     id="sbb-skiplink-list-title-id"
     level="2"
-    negative=""
     visual-level="5"
-    visually-hidden=""
   >
     <slot name="title">
     </slot>
@@ -176,9 +172,7 @@ snapshots["sbb-skiplink-list renders with title Shadow DOM"] =
     class="sbb-link-list-title"
     id="sbb-skiplink-list-title-id"
     level="3"
-    negative=""
     visual-level="5"
-    visually-hidden=""
   >
     <slot name="title">
       Skip to
