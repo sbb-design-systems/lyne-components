@@ -39,9 +39,9 @@ const isDateInput = <T>(
  *
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
  * @event {CustomEvent<void>} input - Notifies that the connected input fired the input event.
- * @event {CustomEvent<SbbInputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
- * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
- * @event {CustomEvent<SbbValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<SbbInputUpdateEvent>} inputupdated - Notifies that the attributes of the input connected to the datepicker have changes.
+ * @event {CustomEvent<void>} datepickerupdated - Notifies that the attributes of the datepicker have changes.
+ * @event {CustomEvent<SbbValidationChangeEvent>} validationchange - Emits whenever the internal validation state changes.
  */
 export
 @customElement('sbb-datepicker')
@@ -49,9 +49,9 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     change: 'change',
-    inputUpdated: 'inputUpdated',
-    datePickerUpdated: 'datePickerUpdated',
-    validationChange: 'validationChange',
+    inputupdated: 'inputupdated',
+    datepickerupdated: 'datepickerupdated',
+    validationchange: 'validationchange',
   } as const;
 
   /** If set to true, two months are displayed. */
@@ -129,21 +129,25 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   @state() private accessor _inputElement: HTMLInputElement | SbbDateInputElement<T> | null = null;
 
   /** Notifies that the connected input has changes. */
-  private _change: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.change, {
-    bubbles: true,
-  });
+  private _changeEmitter: EventEmitter = new EventEmitter(
+    this,
+    SbbDatepickerElement.events.change,
+    {
+      bubbles: true,
+    },
+  );
 
   /** Notifies that the attributes of the input connected to the datepicker have changes. */
-  private _inputUpdated: EventEmitter<SbbInputUpdateEvent> = new EventEmitter(
+  private _inputUpdatedEmitter: EventEmitter<SbbInputUpdateEvent> = new EventEmitter(
     this,
-    SbbDatepickerElement.events.inputUpdated,
+    SbbDatepickerElement.events.inputupdated,
     { bubbles: true, cancelable: true },
   );
 
   /** Notifies that the attributes of the datepicker have changes. */
-  private _datePickerUpdated: EventEmitter = new EventEmitter(
+  private _datePickerUpdatedEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbDatepickerElement.events.datePickerUpdated,
+    SbbDatepickerElement.events.datepickerupdated,
     {
       bubbles: true,
       cancelable: true,
@@ -151,9 +155,9 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   );
 
   /** Emits whenever the internal validation state changes. */
-  private _validationChange: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
+  private _validationChangeEmitter: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
     this,
-    SbbDatepickerElement.events.validationChange,
+    SbbDatepickerElement.events.validationchange,
   );
 
   private _inputElementPlaceholderMutable = false;
@@ -218,7 +222,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
       changedProperties.has('now')
     ) {
       this._associationController.updateControls();
-      this._datePickerUpdated.emit();
+      this._datePickerUpdatedEmitter.emit();
     }
     if (changedProperties.has('valueAsDate')) {
       this._setAriaLiveMessage();
@@ -318,7 +322,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     const max = (
       maxValue && typeof maxValue !== 'string' ? this._dateAdapter.toIso8601(maxValue) : maxValue
     ) as string | undefined;
-    this._inputUpdated.emit({ disabled, readonly, min, max });
+    this._inputUpdatedEmitter.emit({ disabled, readonly, min, max });
   }
 
   private _handleInputChange(): void {
@@ -327,7 +331,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     }
     this._validateDate();
     this._setAriaLiveMessage();
-    this._change.emit();
+    this._changeEmitter.emit();
     this._associationController?.updateControls();
   }
 
@@ -360,7 +364,7 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     const wasValid = !this.inputElement.hasAttribute('data-sbb-invalid');
     this.inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
     if (wasValid !== isEmptyOrValid) {
-      this._validationChange.emit({ valid: isEmptyOrValid });
+      this._validationChangeEmitter.emit({ valid: isEmptyOrValid });
     }
   }
 
@@ -486,6 +490,6 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    inputUpdated: CustomEvent<SbbInputUpdateEvent>;
+    inputupdated: CustomEvent<SbbInputUpdateEvent>;
   }
 }

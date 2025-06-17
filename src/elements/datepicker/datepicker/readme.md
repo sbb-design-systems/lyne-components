@@ -48,7 +48,7 @@ It's also possible to display a two-months view using the `wide` property.
 If the input's value changes, it is formatted then a `change` event is emitted with the new value.
 If it's an invalid date, the `data-sbb-invalid` attribute is added to the input.
 The component also listens for changes in its two properties, `wide` and `dateFilter`, and emits a
-`datePickerUpdated` event when changed.
+`datepickerupdated` event when changed.
 
 Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to
 intercept date changes. The `valueAsDate` property on the `sbb-datepicker` can be used to read the
@@ -67,7 +67,7 @@ This is helpful if you need a specific state of the component.
 
 ## Validation Change
 
-Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
+Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationchange` event is emitted.
 
 <!-- Auto Generated Below -->
 
@@ -94,7 +94,7 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | Name                | Type                                    | Description                                                                         | Inherited From |
 | ------------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------- |
 | `change`            | `CustomEvent<void>`                     | Notifies that the connected input has changes.                                      |                |
-| `datePickerUpdated` | `CustomEvent<void>`                     | Notifies that the attributes of the datepicker have changes.                        |                |
+| `datepickerupdated` | `CustomEvent<void>`                     | Notifies that the attributes of the datepicker have changes.                        |                |
 | `input`             | `CustomEvent<void>`                     | Notifies that the connected input fired the input event.                            |                |
-| `inputUpdated`      | `CustomEvent<SbbInputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
-| `validationChange`  | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |
+| `inputupdated`      | `CustomEvent<SbbInputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
+| `validationchange`  | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |

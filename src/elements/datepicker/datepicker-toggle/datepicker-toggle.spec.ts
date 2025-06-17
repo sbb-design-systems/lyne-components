@@ -167,7 +167,10 @@ describe(`sbb-datepicker-toggle`, () => {
 
         const toggle: SbbDatepickerToggleElement =
           root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-        const inputUpdated = new EventSpy('inputUpdated', root.querySelector('#parent'));
+        const inputUpdated = new EventSpy(
+          SbbDatepickerElement.events.inputupdated,
+          root.querySelector('#parent'),
+        );
         const trigger = toggle.shadowRoot!.querySelector<SbbMiniButtonElement>('sbb-mini-button')!;
         // there's no datepicker, so no event and the popoverTrigger is disabled due _datePickerElement not set
         expect(toggle).not.to.be.null;

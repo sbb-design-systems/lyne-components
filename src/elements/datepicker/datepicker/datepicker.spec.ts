@@ -167,7 +167,9 @@ describe(`sbb-datepicker`, () => {
           });
 
           it('renders and emits event when input parameter changes', async () => {
-            const datePickerUpdatedSpy = new EventSpy('datePickerUpdated');
+            const datePickerUpdatedSpy = new EventSpy(
+              SbbDatepickerElement.events.datepickerupdated,
+            );
             element.wide = true;
             await datePickerUpdatedSpy.calledOnce();
             expect(datePickerUpdatedSpy.count).to.be.equal(1);
@@ -178,7 +180,10 @@ describe(`sbb-datepicker`, () => {
           });
 
           it('should emit validation change event', async () => {
-            let validationChangeSpy = new EventSpy('validationChange', element);
+            let validationChangeSpy = new EventSpy(
+              SbbDatepickerElement.events.validationchange,
+              element,
+            );
 
             typeInElement(input, '20');
             input.blur();
@@ -200,7 +205,10 @@ describe(`sbb-datepicker`, () => {
             expect(input).to.have.attribute('data-sbb-invalid');
 
             // Reset event spy
-            validationChangeSpy = new EventSpy('validationChange', element);
+            validationChangeSpy = new EventSpy(
+              SbbDatepickerElement.events.validationchange,
+              element,
+            );
 
             // When adding missing parts of a valid date
             typeInElement(input, '8.23');

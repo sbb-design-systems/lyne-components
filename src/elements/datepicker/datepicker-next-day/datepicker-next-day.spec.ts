@@ -5,11 +5,10 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbDatepickerElement } from '../datepicker.js';
+import { SbbDatepickerElement } from '../datepicker.js';
 
 import { SbbDatepickerNextDayElement } from './datepicker-next-day.component.js';
 
-import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field/form-field.js';
 
@@ -72,7 +71,7 @@ describe(`sbb-datepicker-next-day`, () => {
 
           const nextButton: SbbDatepickerNextDayElement =
             element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-          const inputUpdated = new EventSpy('inputUpdated', element);
+          const inputUpdated = new EventSpy(SbbDatepickerElement.events.inputupdated, element);
           // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
           expect(nextButton).not.to.be.null;
           expect(inputUpdated.count).to.be.equal(0);
@@ -104,7 +103,10 @@ describe(`sbb-datepicker-next-day`, () => {
 
           const nextButton: SbbDatepickerNextDayElement =
             element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-          const inputUpdated = new EventSpy('inputUpdated', element.querySelector('#parent'));
+          const inputUpdated = new EventSpy(
+            SbbDatepickerElement.events.inputupdated,
+            element.querySelector('#parent'),
+          );
           // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
           expect(nextButton).not.to.be.null;
           expect(inputUpdated.count).to.be.equal(0);

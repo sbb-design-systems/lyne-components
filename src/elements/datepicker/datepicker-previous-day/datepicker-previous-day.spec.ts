@@ -5,11 +5,10 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbDatepickerElement } from '../datepicker.js';
+import { SbbDatepickerElement } from '../datepicker.js';
 
 import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.js';
 
-import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field/form-field.js';
 
@@ -71,7 +70,10 @@ describe(`sbb-datepicker-previous-day`, () => {
 
           const prevButton: SbbDatepickerPreviousDayElement =
             doc.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
-          const inputUpdated: EventSpy<Event> = new EventSpy('inputUpdated', doc);
+          const inputUpdated: EventSpy<Event> = new EventSpy(
+            SbbDatepickerElement.events.inputupdated,
+            doc,
+          );
           // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
           expect(prevButton).not.to.be.null;
           expect(inputUpdated.count).to.be.equal(0);
@@ -103,7 +105,10 @@ describe(`sbb-datepicker-previous-day`, () => {
 
           const prevButton: SbbDatepickerPreviousDayElement =
             root.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
-          const inputUpdated = new EventSpy('inputUpdated', root.querySelector('#parent'));
+          const inputUpdated = new EventSpy(
+            SbbDatepickerElement.events.inputupdated,
+            root.querySelector('#parent'),
+          );
           // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
           expect(prevButton).not.to.be.null;
           expect(inputUpdated.count).to.be.equal(0);

@@ -402,7 +402,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
-      handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
+      handles: ['input', 'change', SbbDatepickerElement.events.validationchange],
     },
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.
