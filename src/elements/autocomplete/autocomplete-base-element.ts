@@ -3,7 +3,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
@@ -14,7 +13,7 @@ import { ref } from 'lit/directives/ref.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, idReference } from '../core/decorators.js';
-import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
+import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -25,12 +24,6 @@ import {
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './autocomplete-base-element.scss?lit&inline';
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
 
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
@@ -196,9 +189,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    if (ariaRoleOnHost) {
-      this.id ||= this.overlayId;
-    }
+    this.id ||= this.overlayId;
     const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
 
     if (formField) {
@@ -519,8 +510,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              role=${!ariaRoleOnHost ? this.panelRole : nothing}
-              id=${!ariaRoleOnHost ? this.overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot @slotchange=${this._handleSlotchange}></slot>

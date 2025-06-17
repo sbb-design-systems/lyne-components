@@ -2,7 +2,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { getNextElementIndex } from '../../core/a11y.js';
-import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
 import type { SbbOptGroupElement } from '../../option.js';
@@ -11,12 +10,6 @@ import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js
 import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row.js';
 
 let nextId = 0;
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
 
 /**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.
@@ -33,7 +26,7 @@ const ariaRoleOnHost = isSafari;
 export
 @customElement('sbb-autocomplete-grid')
 class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
-  public static override readonly role = ariaRoleOnHost ? 'grid' : null;
+  public static override readonly role = 'grid';
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeItemIndex = -1;
@@ -206,7 +199,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false, 'grid');
+    setAriaComboBoxAttributes(element, this.id, false, 'grid');
   }
 }
 

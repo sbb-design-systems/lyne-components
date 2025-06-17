@@ -1,19 +1,12 @@
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
 
 let nextId = 0;
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -30,7 +23,7 @@ const ariaRoleOnHost = isSafari;
 export
 @customElement('sbb-autocomplete')
 class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
-  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
+  public static override readonly role = 'listbox';
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
   private _activeItemIndex = -1;
@@ -114,7 +107,7 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false);
+    setAriaComboBoxAttributes(element, this.id, false);
   }
 }
 

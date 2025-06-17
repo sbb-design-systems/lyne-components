@@ -3,9 +3,8 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
-import { isSafari } from '../core/dom.js';
 import { fixture, tabKey } from '../core/testing/private.js';
-import { describeIf, EventSpy, waitForLitRender } from '../core/testing.js';
+import { EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbFormFieldElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
@@ -30,40 +29,19 @@ describe(`sbb-autocomplete`, () => {
     element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
   });
 
-  describeIf(isSafari, 'Safari', async () => {
-    it('renders and sets the correct attributes', () => {
-      assert.instanceOf(formField, SbbFormFieldElement);
-      assert.instanceOf(element, SbbAutocompleteElement);
+  it('renders and sets the correct attributes', () => {
+    assert.instanceOf(formField, SbbFormFieldElement);
+    assert.instanceOf(element, SbbAutocompleteElement);
 
-      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+    expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-      expect(input).to.have.attribute('autocomplete', 'off');
-      expect(input).to.have.attribute('role', 'combobox');
-      expect(input).to.have.attribute('aria-autocomplete', 'list');
-      expect(input).to.have.attribute('aria-haspopup', 'listbox');
-      expect(input).to.have.attribute('aria-controls', element.id);
-      expect(input).to.have.attribute('aria-owns', element.id);
-      expect(input).to.have.attribute('aria-expanded', 'false');
-    });
-  });
-
-  describeIf(!isSafari, 'Chrome-Firefox', async () => {
-    it('renders and sets the correct attributes', () => {
-      assert.instanceOf(formField, SbbFormFieldElement);
-      assert.instanceOf(element, SbbAutocompleteElement);
-
-      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
-
-      const id = element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id;
-
-      expect(input).to.have.attribute('autocomplete', 'off');
-      expect(input).to.have.attribute('role', 'combobox');
-      expect(input).to.have.attribute('aria-autocomplete', 'list');
-      expect(input).to.have.attribute('aria-haspopup', 'listbox');
-      expect(input).to.have.attribute('aria-controls', id);
-      expect(input).to.have.attribute('aria-owns', id);
-      expect(input).to.have.attribute('aria-expanded', 'false');
-    });
+    expect(input).to.have.attribute('autocomplete', 'off');
+    expect(input).to.have.attribute('role', 'combobox');
+    expect(input).to.have.attribute('aria-autocomplete', 'list');
+    expect(input).to.have.attribute('aria-haspopup', 'listbox');
+    expect(input).to.have.attribute('aria-controls', element.id);
+    expect(input).to.have.attribute('aria-owns', element.id);
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
   it('should have form-field as origin when not defined otherwise', async () => {
