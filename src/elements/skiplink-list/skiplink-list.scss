@@ -46,3 +46,7 @@
   --sbb-focus-outline-color: transparent;
   --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
 }
+
+sbb-title {
+  @include sbb.screen-reader-only;
+}

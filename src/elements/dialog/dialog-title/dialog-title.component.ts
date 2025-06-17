@@ -20,6 +20,7 @@ import '../../button/transparent-button.js';
 /**
  * It displays a title inside a dialog header.
  *
+ * @slot - Use the unnamed slot to place the content of the dialog-title.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
 export

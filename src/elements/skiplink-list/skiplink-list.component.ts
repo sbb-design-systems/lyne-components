@@ -62,8 +62,6 @@ class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
           class="sbb-link-list-title"
           level=${this.titleLevel || nothing}
           visual-level="5"
-          visually-hidden
-          negative
           id="sbb-skiplink-list-title-id"
         >
           <slot name="title">${this.titleContent}</slot>

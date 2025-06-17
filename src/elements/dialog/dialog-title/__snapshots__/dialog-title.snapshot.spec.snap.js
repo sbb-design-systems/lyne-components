@@ -13,10 +13,8 @@ snapshots["sbb-dialog-title renders Light DOM"] =
 
 snapshots["sbb-dialog-title renders Shadow DOM"] = 
 `<div class="sbb-dialog__header">
-  <div class="sbb-title">
-    <slot>
-    </slot>
-  </div>
+  <slot>
+  </slot>
   <sbb-secondary-button
     aria-label="Close secondary window"
     class="sbb-dialog__close"
