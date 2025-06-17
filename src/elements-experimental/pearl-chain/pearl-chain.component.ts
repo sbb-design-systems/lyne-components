@@ -248,7 +248,10 @@ class SbbPearlChainElement extends LitElement {
               ? 'sbb-pearl-chain__stop--departure-skipped'
               : '';
 
-          const cancelled = serviceAlteration?.cancelled ? 'sbb-pearl-chain__leg--disruption' : '';
+          const cancelled =
+            serviceAlteration?.cancelled || serviceAlteration?.partiallyCancelled
+              ? 'sbb-pearl-chain__leg--disruption'
+              : '';
 
           const legDepartureWithDelay = { time: departure, delay: leg.departure?.delay ?? 0 };
           const legArrivalWithDelay = { time: arrival, delay: leg.arrival?.delay ?? 0 };
