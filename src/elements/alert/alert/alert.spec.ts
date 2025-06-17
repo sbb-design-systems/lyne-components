@@ -2,28 +2,38 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbAlertElement } from './alert.component.js';
 
+import '../../title.js';
+
 describe(`sbb-alert`, () => {
-  let alert: SbbAlertElement;
+  let alert: SbbAlertElement,
+    willOpenSpy: EventSpy<CustomEvent<void>>,
+    didOpenSpy: EventSpy<CustomEvent<void>>,
+    willCloseSpy: EventSpy<CustomEvent<void>>,
+    didCloseSpy: EventSpy<CustomEvent<void>>;
+
+  beforeEach(async () => {
+    willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen, null, { capture: true });
+    didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
+    willCloseSpy = new EventSpy(SbbAlertElement.events.willClose, null, { capture: true });
+    didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
+
+    alert = await fixture(
+      html`<sbb-alert>
+        <sbb-title level="3">Disruption</sbb-title>
+        <p>Interruption</p>
+      </sbb-alert>`,
+    );
+  });
 
   it('renders', async () => {
-    alert = await fixture(html`<sbb-alert></sbb-alert>`);
     assert.instanceOf(alert, SbbAlertElement);
   });
 
   it('should fire animation events', async () => {
-    const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen, null, { capture: true });
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
-    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose, null, { capture: true });
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
-
-    const alert: SbbAlertElement = await fixture(
-      html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
-    );
-
     await willOpenSpy.calledOnce();
     expect(willOpenSpy.count).to.be.equal(1);
     await didOpenSpy.calledOnce();
@@ -38,11 +48,11 @@ describe(`sbb-alert`, () => {
 
   it('should fire animation events with non-zero animation duration', async () => {
     const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
 
     const alert: SbbAlertElement = await fixture(
-      html`<sbb-alert title-content="disruption" style="--sbb-alert-animation-duration: 1ms">
-        Interruption
+      html`<sbb-alert style="--sbb-alert-animation-duration: 1ms">
+        <sbb-title level="3">Disruption</sbb-title>
+        <p>Interruption</p>
       </sbb-alert>`,
     );
 
@@ -55,14 +65,6 @@ describe(`sbb-alert`, () => {
   });
 
   it('should respect canceled willClose event', async () => {
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
-    const willCloseSpy = new EventSpy(SbbAlertElement.events.willClose, null, { capture: true });
-    const didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
-
-    const alert: SbbAlertElement = await fixture(
-      html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`,
-    );
-
     alert.addEventListener(SbbAlertElement.events.willClose, (ev) => ev.preventDefault());
 
     await didOpenSpy.calledOnce();
@@ -78,10 +80,17 @@ describe(`sbb-alert`, () => {
   });
 
   it('should hide close button in readonly mode', async () => {
-    alert = await fixture(
-      html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
-    );
+    alert.readOnly = true;
+    await waitForLitRender(alert);
 
     expect(alert.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
+  });
+
+  it('should sync title size', async () => {
+    expect(alert.querySelector('sbb-title')!.visualLevel).to.be.equal('5');
+    alert.size = 'l';
+    await waitForLitRender(alert);
+
+    expect(alert.querySelector('sbb-title')!.visualLevel).to.be.equal('3');
   });
 });

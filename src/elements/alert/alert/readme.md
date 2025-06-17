@@ -5,35 +5,41 @@ the [sbb-alert-group](/docs/elements-sbb-alert-sbb-alert-group--docs) component.
 
 ## Slots
 
-The text content is projected using the unnamed slot which could also contain one or more `sbb-link`.
-The title content uses the slot named `title` or alternatively the `titleContent` property.
-The component can optionally display a `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
+The unnamed slot is used to project an `sbb-title` and a `p` containing the text content and one or more `sbb-link`.
+
+The component can optionally display an `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
-<sbb-alert title-content="Interruption between Berne and Olten" icon-name="disruption">
-  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-  construction work will take place. You have to expect changed travel times and changed
-  connections.
-  <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+<sbb-alert icon-name="disruption">
+  <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+  <p>
+    Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+    construction work will take place. You have to expect changed travel times and changed
+    connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+  </p>
 </sbb-alert>
 
 <sbb-alert>
-  <span slot="title">Interruption between Berne and Olten</span>
+  <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
   <sbb-icon slot="icon" name="disruption"></sbb-icon>
-  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-  construction work will take place. You have to expect changed travel times and changed
-  connections.
-  <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+  <p>
+    Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+    construction work will take place. You have to expect changed travel times and changed
+    connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+  </p>
 </sbb-alert>
 ```
 
 The `sbb-alert` can optionally be hidden by a user, if the `readOnly` prop is not set.
 
 ```html
-<sbb-alert title-content="Interruption between Berne and Olten" readonly>
-  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-  construction work will take place. You have to expect changed travel times and changed
-  connections.
+<sbb-alert readonly>
+  <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+  <p>
+    Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+    construction work will take place. You have to expect changed travel times and changed
+    connections.
+  </p>
 </sbb-alert>
 ```
 
@@ -51,9 +57,7 @@ Users can choose between three `size`: `s`, `m` (default) and `l`.
 
 Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
 
-The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
-
-Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
+The description text should be wrapped into an `<p>` element to guarantee the semantic meaning.
 
 ## Animation
 
@@ -64,15 +68,13 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                   | Default            | Description                                                                                                                                                      |
-| -------------- | --------------- | ------- | -------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                                                          |
-| `iconName`     | `icon-name`     | public  | `string`                               | `'info'`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
-| `isOpen`       | -               | public  | `boolean`                              |                    | Whether the element is open.                                                                                                                                     |
-| `readOnly`     | `readonly`      | public  | `boolean`                              |                    | Whether the component is readonly.                                                                                                                               |
-| `size`         | `size`          | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                                                     |
-| `titleContent` | `title-content` | public  | `string`                               | `''`               | Content of title.                                                                                                                                                |
-| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                        | `'3'`              | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
+| Name        | Attribute   | Privacy | Type                                   | Default            | Description                                                                                                                                                      |
+| ----------- | ----------- | ------- | -------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                                                          |
+| `iconName`  | `icon-name` | public  | `string`                               | `'info'`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
+| `isOpen`    | -           | public  | `boolean`                              |                    | Whether the element is open.                                                                                                                                     |
+| `readOnly`  | `readonly`  | public  | `boolean`                              |                    | Whether the component is readonly.                                                                                                                               |
+| `size`      | `size`      | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                                                     |
 
 ## Methods
 
@@ -92,8 +94,7 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Slots
 
-| Name    | Description                                                                                                  |
-| ------- | ------------------------------------------------------------------------------------------------------------ |
-|         | Use the unnamed slot to add content to the `sbb-alert`.                                                      |
-| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
-| `title` | Title content.                                                                                               |
+| Name   | Description                                                                                                                            |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the `sbb-alert`. Content should consist at minimum of an `sbb-title` element and a `p` element. |
+| `icon` | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                           |

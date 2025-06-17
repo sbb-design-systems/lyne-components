@@ -9,6 +9,8 @@ import { SbbAlertElement } from '../alert.js';
 
 import { SbbAlertGroupElement } from './alert-group.component.js';
 
+import '../../title.js';
+
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;
 
@@ -28,8 +30,14 @@ describe(`sbb-alert-group`, () => {
         accessibility-title="${accessibilityTitle}"
         accessibility-title-level="${accessibilityTitleLevel}"
       >
-        <sbb-alert title-content="Interruption" id="alert1">First</sbb-alert>
-        <sbb-alert title-content="Interruption" id="alert2">Second</sbb-alert>
+        <sbb-alert id="alert1">
+          <sbb-title level="3">Interruption</sbb-title>
+          <p>First</p>
+        </sbb-alert>
+        <sbb-alert id="alert2">
+          <sbb-title level="3">Interruption</sbb-title>
+          <p>First Second</p>
+        </sbb-alert>
       </sbb-alert-group>
     `);
 

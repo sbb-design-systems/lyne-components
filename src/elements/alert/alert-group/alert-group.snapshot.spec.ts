@@ -7,6 +7,7 @@ import type { SbbAlertGroupElement } from './alert-group.component.js';
 
 import './alert-group.component.js';
 import '../alert.js';
+import '../../title.js';
 
 describe(`sbb-alert-group`, () => {
   describe('renders', () => {
@@ -15,8 +16,11 @@ describe(`sbb-alert-group`, () => {
     beforeEach(async () => {
       root = await fixture(html`
         <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="3">
-          <sbb-alert title-content="Interruption between Genève and Lausanne">
-            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+          <sbb-alert>
+            <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+            <p>
+              The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+            </p>
           </sbb-alert>
         </sbb-alert-group>
       `);
@@ -40,8 +44,11 @@ describe(`sbb-alert-group`, () => {
       root = await fixture(html`
         <sbb-alert-group accessibility-title-level="3">
           <span slot="accessibility-title">Interruptions</span>
-          <sbb-alert title-content="Interruption between Genève and Lausanne" data-state="opening">
-            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+          <sbb-alert>
+            <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+            <p>
+              The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+            </p>
           </sbb-alert>
         </sbb-alert-group>
       `);
