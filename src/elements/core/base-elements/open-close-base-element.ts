@@ -79,6 +79,6 @@ declare global {
     beforeopen: CustomEvent<void>;
     beforeclose: CustomEvent<void>;
     open: CustomEvent<void>;
-    close: CustomEvent<void>;
+    close: Event;
   }
 }

@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
+import { type SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
 
@@ -41,7 +41,9 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
 
   public constructor() {
     super();
-    this.addEventListener?.('optionSelected', (e: CustomEvent<void>) => this.onOptionSelected(e));
+    this.addEventListener?.(SbbOptionElement.events.optionselected, (e: CustomEvent<void>) =>
+      this.onOptionSelected(e),
+    );
   }
 
   protected syncNegative(): void {

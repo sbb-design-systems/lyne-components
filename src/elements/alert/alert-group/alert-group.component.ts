@@ -54,7 +54,7 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
     super();
     this.addEventListener?.(
       'close',
-      async (e: CustomEvent<void>) => {
+      async (e: Event) => {
         if (!(await isEventPrevented(e))) {
           this._alertClosed(e);
         }
