@@ -521,7 +521,7 @@ const meta: Meta = {
         SbbAutocompleteGridElement.events.beforeclose,
         'change',
         'click',
-        SbbAutocompleteGridOptionElement.events.optionSelected,
+        SbbAutocompleteGridOptionElement.events.optionselected,
       ],
     },
     backgroundColor: (context: StoryContext) =>

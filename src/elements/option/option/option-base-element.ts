@@ -70,7 +70,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   /** Emits when an option was selected by user. */
-  protected abstract optionSelected: EventEmitter;
+  protected abstract optionSelectedEmitter: EventEmitter;
 
   /** Whether to apply the negative styling */
   @state() protected accessor negative = false;
@@ -132,7 +132,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
     if (this.selected) {
-      this.optionSelected.emit();
+      this.optionSelectedEmitter.emit();
     }
   }
 

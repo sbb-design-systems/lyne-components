@@ -13,7 +13,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} autocompleteOptionSelected - Emits when an option was selected by user.
+ * @event {CustomEvent<void>} autocompleteoptionselected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - T = string
@@ -24,15 +24,15 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
   public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    optionSelected: 'autocompleteOptionSelected',
+    optionselected: 'autocompleteoptionselected',
   } as const;
 
   protected optionId = autocompleteGridOptionId;
 
   /** Emits when an option was selected by user. */
-  protected optionSelected: EventEmitter = new EventEmitter(
+  protected optionSelectedEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbAutocompleteGridOptionElement.events.optionSelected,
+    SbbAutocompleteGridOptionElement.events.optionselected,
   );
 
   protected override onExternalMutation(mutationsList: MutationRecord[]): void {
@@ -86,6 +86,6 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    autocompleteOptionSelected: CustomEvent<void>;
+    autocompleteoptionselected: CustomEvent<void>;
   }
 }

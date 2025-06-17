@@ -57,8 +57,9 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
 
   public constructor() {
     super();
-    this.addEventListener?.('autocompleteOptionSelected', (e: CustomEvent<void>) =>
-      this.onOptionSelected(e),
+    this.addEventListener?.(
+      SbbAutocompleteGridOptionElement.events.optionselected,
+      (e: CustomEvent<void>) => this.onOptionSelected(e),
     );
   }
 

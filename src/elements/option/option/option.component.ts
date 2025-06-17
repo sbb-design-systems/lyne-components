@@ -40,7 +40,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   );
 
   /** Emits when an option was selected by user. */
-  protected optionSelected: EventEmitter = new EventEmitter(
+  protected optionSelectedEmitter: EventEmitter = new EventEmitter(
     this,
     SbbOptionElement.events.optionSelected,
   );

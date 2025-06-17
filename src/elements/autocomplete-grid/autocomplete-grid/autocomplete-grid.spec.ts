@@ -176,7 +176,7 @@ describe(`sbb-autocomplete-grid`, () => {
   it('select by mouse', async () => {
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
     const optionSelectedEventSpy = new EventSpy(
-      SbbAutocompleteGridOptionElement.events.optionSelected,
+      SbbAutocompleteGridOptionElement.events.optionselected,
     );
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
@@ -276,7 +276,7 @@ describe(`sbb-autocomplete-grid`, () => {
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
     const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
     const optionSelectedEventSpy = new EventSpy(
-      SbbAutocompleteGridOptionElement.events.optionSelected,
+      SbbAutocompleteGridOptionElement.events.optionselected,
     );
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
@@ -634,7 +634,7 @@ describe(`sbb-autocomplete-grid`, () => {
           <label>Autocomplete</label>
           <input />
           <sbb-autocomplete-grid
-            @autocompleteOptionSelected=${(e: Event) => optionSelectedSpy(e)}
+            @autocompleteoptionselected=${(e: Event) => optionSelectedSpy(e)}
             .displayWith=${(o: { property: string; otherProperty: string }) => o.property}
           >
             <sbb-autocomplete-grid-row>

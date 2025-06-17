@@ -121,7 +121,7 @@ The component has no `size` property but, when slotted in a `sbb-form-field`, it
 
 ## Events
 
-The `sbb-autocomplete-grid-option` emits the `optionSelected` event when selected via user interaction.
+The `sbb-autocomplete-grid-option` emits the `autocompleteoptionselected` event when selected via user interaction.
 
 ## Keyboard interaction
 
