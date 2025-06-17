@@ -55,8 +55,8 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   public static readonly events = {
     change: 'change',
     input: 'input',
-    panelConnected: 'panelConnected',
-    stateChange: 'stateChange',
+    panelconnected: 'panelconnected',
+    statechange: 'statechange',
   } as const;
 
   /**
@@ -80,9 +80,9 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
    * Internal event that emits whenever the state of the radio option
    * in relation to the parent selection panel changes.
    */
-  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
+  private _stateChangeEmitter: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
     this,
-    SbbRadioButtonPanelElement.events.stateChange,
+    SbbRadioButtonPanelElement.events.statechange,
     { bubbles: true },
   );
 
@@ -98,13 +98,13 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
       this.toggleAttribute('data-checked', this.checked);
 
       if (this.checked !== changedProperties.get('checked')!) {
-        this._stateChange.emit({ type: 'checked', checked: this.checked });
+        this._stateChangeEmitter.emit({ type: 'checked', checked: this.checked });
       }
     }
 
     if (changedProperties.has('disabled')) {
       if (this.disabled !== changedProperties.get('disabled')!) {
-        this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+        this._stateChangeEmitter.emit({ type: 'disabled', disabled: this.disabled });
       }
     }
   }

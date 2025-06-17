@@ -129,7 +129,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   public constructor() {
     super();
-    this.addEventListener?.('panelConnected', (e) => this._initFromInput(e));
+    this.addEventListener?.('panelconnected', (e) => this._initFromInput(e));
   }
 
   public override connectedCallback(): void {
