@@ -2,12 +2,19 @@
 export const snapshots = {};
 
 snapshots["sbb-message renders DOM"] = 
-`<sbb-message title-content="Title.">
+`<sbb-message>
   <sbb-image
     data-loaded=""
     slot="image"
   >
   </sbb-image>
+  <sbb-title
+    level="3"
+    slot="title"
+    visual-level="5"
+  >
+    Title.
+  </sbb-title>
   <p slot="subtitle">
     Subtitle.
   </p>
@@ -32,15 +39,8 @@ snapshots["sbb-message renders Shadow DOM"] =
 `<div class="sbb-message__container">
   <slot name="image">
   </slot>
-  <sbb-title
-    class="sbb-message__title"
-    level="3"
-    visual-level="5"
-  >
-    <slot name="title">
-      Title.
-    </slot>
-  </sbb-title>
+  <slot name="title">
+  </slot>
   <slot name="subtitle">
   </slot>
   <slot name="legend">
@@ -52,7 +52,14 @@ snapshots["sbb-message renders Shadow DOM"] =
 /* end snapshot sbb-message renders Shadow DOM */
 
 snapshots["sbb-message renders without optional slots DOM"] = 
-`<sbb-message title-content="Title.">
+`<sbb-message>
+  <sbb-title
+    level="3"
+    slot="title"
+    visual-level="5"
+  >
+    Title.
+  </sbb-title>
   <p slot="subtitle">
     Subtitle.
   </p>
@@ -64,15 +71,8 @@ snapshots["sbb-message renders without optional slots Shadow DOM"] =
 `<div class="sbb-message__container">
   <slot name="image">
   </slot>
-  <sbb-title
-    class="sbb-message__title"
-    level="3"
-    visual-level="5"
-  >
-    <slot name="title">
-      Title.
-    </slot>
-  </sbb-title>
+  <slot name="title">
+  </slot>
   <slot name="subtitle">
   </slot>
   <slot name="legend">
