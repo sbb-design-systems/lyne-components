@@ -31,7 +31,7 @@ import {
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
+import { type SbbOptGroupElement, SbbOptionElement } from '../option.js';
 
 import style from './select.scss?lit&inline';
 
@@ -192,7 +192,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
-    this.addEventListener?.('optionSelectionChange', (e: CustomEvent<void>) =>
+    this.addEventListener?.(SbbOptionElement.events.selectionchange, (e: CustomEvent<void>) =>
       this._onOptionChanged(e),
     );
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));

@@ -486,7 +486,7 @@ const meta: Meta = {
         SbbAutocompleteElement.events.close,
         SbbAutocompleteElement.events.beforeclose,
         'change',
-        SbbOptionElement.events.optionSelected,
+        SbbOptionElement.events.optionselected,
       ],
     },
     backgroundColor: (context: StoryContext) =>

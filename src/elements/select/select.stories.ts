@@ -606,7 +606,7 @@ const meta: Meta = {
         SbbSelectElement.events.open,
         SbbSelectElement.events.beforeclose,
         SbbSelectElement.events.beforeopen,
-        SbbOptionElement.events.optionSelected,
+        SbbOptionElement.events.optionselected,
       ],
     },
     docs: {

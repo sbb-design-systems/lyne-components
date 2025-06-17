@@ -151,10 +151,10 @@ describe(`sbb-autocomplete`, () => {
 
   it('select by mouse', async () => {
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-    const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
+    const optionSelectedSpy = new EventSpy(SbbOptionElement.events.optionselected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
-    const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
+    const inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
     const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
 
     input.focus();
@@ -173,19 +173,19 @@ describe(`sbb-autocomplete`, () => {
 
     expect(inputEventSpy.count).to.be.equal(1);
     expect(changeEventSpy.count).to.be.equal(1);
-    expect(inputAutocompleteEventSpy.count).to.be.equal(1);
-    expect(optionSelectedEventSpy.count).to.be.equal(1);
-    expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
+    expect(inputAutocompleteSpy.count).to.be.equal(1);
+    expect(optionSelectedSpy.count).to.be.equal(1);
+    expect(optionSelectedSpy.firstEvent!.target).to.have.property('id', 'option-2');
     expect(document.activeElement).to.be.equal(input);
   });
 
   it('opens and select with keyboard', async () => {
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
     const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-    const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
+    const optionSelectedSpy = new EventSpy(SbbOptionElement.events.optionselected);
     const inputEventSpy = new EventSpy('input', input);
     const changeEventSpy = new EventSpy('change', input);
-    const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
+    const inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
     const optOne = element.querySelector<SbbOptionElement>('#option-1');
     const optTwo = element.querySelector<SbbOptionElement>('#option-2');
     const keydownSpy = new EventSpy('keydown', input);
@@ -212,8 +212,8 @@ describe(`sbb-autocomplete`, () => {
     expect(optTwo).to.have.attribute('selected');
     expect(inputEventSpy.count).to.be.equal(1);
     expect(changeEventSpy.count).to.be.equal(1);
-    expect(inputAutocompleteEventSpy.count).to.be.equal(1);
-    expect(optionSelectedEventSpy.count).to.be.equal(1);
+    expect(inputAutocompleteSpy.count).to.be.equal(1);
+    expect(optionSelectedSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
     expect(input).not.to.have.attribute('aria-activedescendant');
   });
