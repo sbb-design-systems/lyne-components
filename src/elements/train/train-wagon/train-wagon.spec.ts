@@ -78,7 +78,7 @@ describe(`sbb-train-wagon`, () => {
 
   it('should emit sectorChange', async () => {
     element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
-    const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorChange);
+    const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorchange);
     element.sector = 'B';
 
     await sectorChangeSpy.calledOnce();
