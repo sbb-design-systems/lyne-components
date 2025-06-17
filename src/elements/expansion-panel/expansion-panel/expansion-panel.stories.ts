@@ -243,7 +243,7 @@ const meta: Meta = {
         SbbExpansionPanelElement.events.open,
         SbbExpansionPanelElement.events.beforeclose,
         SbbExpansionPanelElement.events.close,
-        SbbExpansionPanelHeaderElement.events.toggleExpanded,
+        SbbExpansionPanelHeaderElement.events.toggleexpanded,
       ],
     },
     docs: {
