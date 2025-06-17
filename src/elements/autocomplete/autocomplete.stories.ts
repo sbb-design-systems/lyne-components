@@ -481,10 +481,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAutocompleteElement.events.willOpen,
+        SbbAutocompleteElement.events.beforeopen,
         SbbAutocompleteElement.events.didOpen,
         SbbAutocompleteElement.events.didClose,
-        SbbAutocompleteElement.events.willClose,
+        SbbAutocompleteElement.events.beforeclose,
         'change',
         SbbOptionElement.events.optionSelected,
       ],

@@ -26,9 +26,9 @@ describe(`sbb-toast`, () => {
   });
 
   it('opens and closes after timeout', async () => {
-    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbToastElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbToastElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
     element.setAttribute('timeout', '50');
@@ -36,8 +36,8 @@ describe(`sbb-toast`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     await didOpenEventSpy.calledOnce();
@@ -49,8 +49,8 @@ describe(`sbb-toast`, () => {
     // Will wait for timeout and then close itself
 
     await waitForLitRender(element);
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
     await didCloseEventSpy.calledOnce();
@@ -63,7 +63,7 @@ describe(`sbb-toast`, () => {
 
   it('closes by dismiss button click', async () => {
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbToastElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
     await waitForLitRender(element);
@@ -77,8 +77,8 @@ describe(`sbb-toast`, () => {
     dismissBtn.click();
 
     await waitForLitRender(element);
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
     await didCloseEventSpy.calledOnce();
@@ -97,7 +97,7 @@ describe(`sbb-toast`, () => {
     const actionBtn = element.querySelector('sbb-transparent-button') as HTMLElement;
 
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbToastElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose, element);
 
     element.open();
@@ -107,8 +107,8 @@ describe(`sbb-toast`, () => {
     actionBtn.click();
 
     await waitForLitRender(element);
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
     await didCloseEventSpy.calledOnce();
@@ -170,13 +170,13 @@ describe(`sbb-toast`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbToastElement.events.beforeopen, element);
 
-    element.addEventListener(SbbToastElement.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbToastElement.events.beforeopen, (ev) => ev.preventDefault());
     element.open();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
@@ -184,16 +184,16 @@ describe(`sbb-toast`, () => {
 
   it('does not close if prevented', async () => {
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbToastElement.events.beforeclose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
 
-    element.addEventListener(SbbToastElement.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbToastElement.events.beforeclose, (ev) => ev.preventDefault());
     element.close();
 
-    await willCloseEventSpy.calledOnce();
+    await beforeCloseEventSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');

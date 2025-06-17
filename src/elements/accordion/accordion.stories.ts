@@ -239,9 +239,9 @@ const meta: Meta = {
       context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
     actions: {
       handles: [
-        SbbExpansionPanelElement.events.willOpen,
+        SbbExpansionPanelElement.events.beforeopen,
         SbbExpansionPanelElement.events.didOpen,
-        SbbExpansionPanelElement.events.willClose,
+        SbbExpansionPanelElement.events.beforeclose,
         SbbExpansionPanelElement.events.didClose,
       ],
     },

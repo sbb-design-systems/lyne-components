@@ -706,8 +706,8 @@ const meta: Meta = {
       handles: [
         SbbSelectionExpansionPanelElement.events.didOpen,
         SbbSelectionExpansionPanelElement.events.didClose,
-        SbbSelectionExpansionPanelElement.events.willOpen,
-        SbbSelectionExpansionPanelElement.events.willClose,
+        SbbSelectionExpansionPanelElement.events.beforeopen,
+        SbbSelectionExpansionPanelElement.events.beforeclose,
       ],
     },
     docs: {

@@ -354,9 +354,9 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSidebarElement.events.willOpen,
+        SbbSidebarElement.events.beforeopen,
         SbbSidebarElement.events.didOpen,
-        SbbSidebarElement.events.willClose,
+        SbbSidebarElement.events.beforeclose,
         SbbSidebarElement.events.didClose,
       ],
     },

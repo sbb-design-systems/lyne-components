@@ -147,9 +147,9 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbToastElement.events.willOpen,
+        SbbToastElement.events.beforeopen,
         SbbToastElement.events.didOpen,
-        SbbToastElement.events.willClose,
+        SbbToastElement.events.beforeclose,
         SbbToastElement.events.didClose,
       ],
     },

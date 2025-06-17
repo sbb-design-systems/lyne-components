@@ -141,7 +141,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     ) {
       return;
     }
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -171,7 +171,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (this.state !== 'opened') {
       return;
     }
-    if (!this.willClose.emit()) {
+    if (!this.beforeCloseEmitter.emit()) {
       return;
     }
 

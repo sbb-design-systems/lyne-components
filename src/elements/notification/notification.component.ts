@@ -39,9 +39,9 @@ const DEBOUNCE_TIME = 150;
  *
  * @slot - Use the unnamed slot to add content to the notification message.
  * @slot title - Use this to provide a notification title (optional).
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts.
+ * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts.
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
@@ -53,9 +53,9 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'willOpen',
+    beforeopen: 'beforeopen',
     didOpen: 'didOpen',
-    willClose: 'willClose',
+    beforeclose: 'beforeclose',
     didClose: 'didClose',
   } as const;
 
@@ -97,9 +97,9 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   });
 
   /** Emits whenever the `sbb-notification` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(
+  private _beforeOpenEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.willOpen,
+    SbbNotificationElement.events.beforeopen,
     { cancelable: true },
   );
 
@@ -111,9 +111,9 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   );
 
   /** Emits whenever the `sbb-notification` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
+  private _beforeCloseEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.willClose,
+    SbbNotificationElement.events.beforeclose,
     { cancelable: true },
   );
 
@@ -127,7 +127,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   private _open(): void {
     if (this._state === 'closed') {
       this._state = 'opening';
-      this._willOpen.emit();
+      this._beforeOpenEmitter.emit();
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
       // In this case we directly set the `opened` state.
@@ -138,7 +138,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   }
 
   public close(): void {
-    if (this._state === 'opened' && this._willClose.emit()) {
+    if (this._state === 'opened' && this._beforeCloseEmitter.emit()) {
       this._state = 'closing';
 
       // If the animation duration is zero, the animationend event is not always fired reliably.

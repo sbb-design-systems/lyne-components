@@ -78,9 +78,9 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbAlertGroupElement.events.empty,
-        SbbAlertElement.events.willOpen,
+        SbbAlertElement.events.beforeopen,
         SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.willClose,
+        SbbAlertElement.events.beforeclose,
         SbbAlertElement.events.didClose,
       ],
     },

@@ -43,9 +43,9 @@ const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).
  * It displays contextual information within a popover.
  *
  * @slot - Use the unnamed slot to add content into the popover.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} beforeclose - Emits whenever the `sbb-popover` begins the closing
  * transition. Can be canceled.
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
  * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
@@ -92,11 +92,8 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
   public accessor accessibilityCloseLabel: string = '';
 
   /** Emits whenever the `sbb-popover` begins the closing transition. */
-  protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
-    this,
-    SbbPopoverElement.events.willClose,
-    { cancelable: true },
-  );
+  protected override beforeCloseEmitter: EventEmitter<{ closeTarget?: HTMLElement }> =
+    new EventEmitter(this, SbbPopoverElement.events.beforeclose, { cancelable: true });
 
   /** Emits whenever the `sbb-popover` is closed. */
   protected override didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
@@ -126,7 +123,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     if (
       (this.state !== 'closed' && this.state !== 'closing') ||
       !this._overlay ||
-      !this.willOpen.emit()
+      !this.beforeOpenEmitter.emit()
     ) {
       return;
     }
@@ -161,7 +158,7 @@ class SbbPopoverElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
     }
 
     this._popoverCloseElement = target;
-    if (!this.willClose.emit({ closeTarget: target })) {
+    if (!this.beforeCloseEmitter.emit({ closeTarget: target })) {
       return;
     }
 

@@ -189,14 +189,14 @@ const values = [
 
 ## Events
 
-| Name        | Type                | Description                                                                     | Inherited From          |
-| ----------- | ------------------- | ------------------------------------------------------------------------------- | ----------------------- |
-| `change`    | `CustomEvent<void>` | Notifies that the component's value has changed.                                |                         |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                      | SbbOpenCloseBaseElement |
-| `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                |                         |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                | Description                                                                     | Inherited From          |
+| ------------- | ------------------- | ------------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `change`      | `CustomEvent<void>` | Notifies that the component's value has changed.                                |                         |
+| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                      | SbbOpenCloseBaseElement |
+| `input`       | `CustomEvent<void>` | Notifies that an option value has been selected.                                |                         |
 
 ## CSS Properties
 

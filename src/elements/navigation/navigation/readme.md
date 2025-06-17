@@ -95,12 +95,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Events
 
-| Name        | Type                | Description                                                                         | Inherited From          |
-| ----------- | ------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                | Description                                                                         | Inherited From          |
+| ------------- | ------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

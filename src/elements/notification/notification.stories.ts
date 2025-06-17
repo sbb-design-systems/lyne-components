@@ -230,8 +230,8 @@ const meta: Meta = {
       handles: [
         SbbNotificationElement.events.didOpen,
         SbbNotificationElement.events.didClose,
-        SbbNotificationElement.events.willOpen,
-        SbbNotificationElement.events.willClose,
+        SbbNotificationElement.events.beforeopen,
+        SbbNotificationElement.events.beforeclose,
       ],
     },
     docs: {

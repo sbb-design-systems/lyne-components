@@ -31,9 +31,9 @@ const toastRefs = new Set<SbbToastElement>();
  * @slot - Use the unnamed slot to add content to the `sbb-toast`.
  * @slot icon - Assign a custom icon via slot.
  * @slot action - Provide a custom action for this toast.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-toast` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-toast` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-toast` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
  * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -105,7 +105,7 @@ class SbbToastElement extends SbbIconNameMixin(
       return;
     }
 
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -128,7 +128,7 @@ class SbbToastElement extends SbbIconNameMixin(
       return;
     }
 
-    if (!this.willClose.emit()) {
+    if (!this.beforeCloseEmitter.emit()) {
       return;
     }
     clearTimeout(this._closeTimeout);

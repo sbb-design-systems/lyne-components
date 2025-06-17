@@ -7,16 +7,16 @@ import { SbbElementInternalsMixin } from '../mixins.js';
 /**
  * Base class for overlay components.
  *
- * @event willOpen - Emits whenever the component starts the opening transition. Can be canceled.
+ * @event beforeopen - Emits whenever the component starts the opening transition. Can be canceled.
  * @event didOpen - Emits whenever the component is opened.
- * @event willClose - Emits whenever the component begins the closing transition. Can be canceled.
+ * @event beforeclose - Emits whenever the component begins the closing transition. Can be canceled.
  * @event didClose - Emits whenever the component is closed.
  */
 export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(LitElement) {
   public static readonly events = {
-    willOpen: 'willOpen',
+    beforeopen: 'beforeopen',
     didOpen: 'didOpen',
-    willClose: 'willClose',
+    beforeclose: 'beforeclose',
     didClose: 'didClose',
   } as const;
 
@@ -34,9 +34,9 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
   }
 
   /** Emits whenever the component starts the opening transition. */
-  protected willOpen: EventEmitter = new EventEmitter(
+  protected beforeOpenEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOpenCloseBaseElement.events.willOpen,
+    SbbOpenCloseBaseElement.events.beforeopen,
     { cancelable: true },
   );
 
@@ -46,9 +46,9 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
   });
 
   /** Emits whenever the component begins the closing transition. */
-  protected willClose: EventEmitter = new EventEmitter(
+  protected beforeCloseEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOpenCloseBaseElement.events.willClose,
+    SbbOpenCloseBaseElement.events.beforeclose,
     { cancelable: true },
   );
 
@@ -72,8 +72,8 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    willOpen: CustomEvent<void>;
-    willClose: CustomEvent<void>;
+    beforeopen: CustomEvent<void>;
+    beforeclose: CustomEvent<void>;
     didOpen: CustomEvent<void>;
     didClose: CustomEvent<void>;
   }

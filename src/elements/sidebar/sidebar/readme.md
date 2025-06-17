@@ -40,7 +40,7 @@ The opened state can also be set via the `opened` property.
 
 Listening to the `didOpen` and `didClose` events allows to react after transitions have been executed.
 If for a certain reason the opening or closing should be prevented,
-it's possible to call `preventDefault()` on the `willOpen` or `willClose` events.
+it's possible to call `preventDefault()` on the `beforeopen` or `beforeclose` events.
 
 **It is strongly recommended to use a button to toggle the sidebar.**
 Even with `mode="side"` and an opened sidebar at larger sizes, the sidebar will collapse if there is not enough space.
@@ -259,12 +259,12 @@ position and connect the `<sbb-header>` with the sidebar.
 
 ## Events
 
-| Name        | Type                | Description                                               | Inherited From          |
-| ----------- | ------------------- | --------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                | Description                                               | Inherited From          |
+| ------------- | ------------------- | --------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `CustomEvent<void>` | Emits when the opening animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| `didClose`    | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
+| `didOpen`     | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
 
 ## Slots
 

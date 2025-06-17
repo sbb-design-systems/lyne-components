@@ -48,16 +48,16 @@ describe(`sbb-select`, () => {
     });
 
     it('opens and closes the select', async () => {
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const willClose = new EventSpy(SbbSelectElement.events.willClose, element);
+      const beforeClose = new EventSpy(SbbSelectElement.events.beforeclose, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
       const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await willOpen.calledOnce();
-      expect(willOpen.count).to.be.equal(1);
+      await beforeOpen.calledOnce();
+      expect(beforeOpen.count).to.be.equal(1);
       await didOpen.calledOnce();
 
       expect(didOpen.count).to.be.equal(1);
@@ -69,8 +69,8 @@ describe(`sbb-select`, () => {
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeClose.calledOnce();
+      expect(beforeClose.count).to.be.equal(1);
       await didClose.calledOnce();
 
       expect(didClose.count).to.be.equal(1);
@@ -234,12 +234,12 @@ describe(`sbb-select`, () => {
       expect(displayValue).to.have.trimmed.text('First');
       expect(element.value).to.be.equal('1');
 
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       element.click();
 
-      await willOpen.calledOnce();
-      expect(willOpen.count).to.be.equal(1);
+      await beforeOpen.calledOnce();
+      expect(beforeOpen.count).to.be.equal(1);
       await didOpen.calledOnce();
 
       expect(didOpen.count).to.be.equal(1);
@@ -254,7 +254,7 @@ describe(`sbb-select`, () => {
 
       const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
       const optionSelected = new EventSpy(SbbOptionElement.events.optionSelected);
-      const willClose = new EventSpy(SbbSelectElement.events.willClose, element);
+      const beforeClose = new EventSpy(SbbSelectElement.events.beforeclose, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
 
       secondOption.click();
@@ -264,8 +264,8 @@ describe(`sbb-select`, () => {
       expect(selectionChange.count).to.be.equal(1);
       expect(optionSelected.count).to.be.equal(1);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeClose.calledOnce();
+      expect(beforeClose.count).to.be.equal(1);
       await didClose.calledOnce();
       expect(didClose.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -299,12 +299,12 @@ describe(`sbb-select`, () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
 
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       element.dispatchEvent(new CustomEvent('click'));
 
-      await willOpen.calledOnce();
-      expect(willOpen.count).to.be.equal(1);
+      await beforeOpen.calledOnce();
+      expect(beforeOpen.count).to.be.equal(1);
       await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -539,13 +539,13 @@ describe(`sbb-select`, () => {
     });
 
     it('does not open if prevented', async () => {
-      const willOpenEventSpy = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const beforeOpenEventSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
 
-      element.addEventListener(SbbSelectElement.events.willOpen, (ev) => ev.preventDefault());
+      element.addEventListener(SbbSelectElement.events.beforeopen, (ev) => ev.preventDefault());
       element.open();
 
-      await willOpenEventSpy.calledOnce();
-      expect(willOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenEventSpy.calledOnce();
+      expect(beforeOpenEventSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -553,16 +553,16 @@ describe(`sbb-select`, () => {
 
     it('does not close if prevented', async () => {
       const didOpenEventSpy = new EventSpy(SbbSelectElement.events.didOpen, element);
-      const willCloseEventSpy = new EventSpy(SbbSelectElement.events.willClose, element);
+      const beforeCloseEventSpy = new EventSpy(SbbSelectElement.events.beforeclose, element);
 
       element.open();
       await didOpenEventSpy.calledOnce();
       await waitForLitRender(element);
 
-      element.addEventListener(SbbSelectElement.events.willClose, (ev) => ev.preventDefault());
+      element.addEventListener(SbbSelectElement.events.beforeclose, (ev) => ev.preventDefault());
       element.close();
 
-      await willCloseEventSpy.calledOnce();
+      await beforeCloseEventSpy.calledOnce();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -1090,14 +1090,14 @@ describe(`sbb-select`, () => {
       element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e) => (e.disabled = true));
       await waitForLitRender(element);
 
-      const willOpen = new EventSpy(SbbSelectElement.events.willOpen, element);
+      const beforeOpen = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
 
       element.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
-      await willOpen.calledOnce();
-      expect(willOpen.count).to.be.equal(1);
+      await beforeOpen.calledOnce();
+      expect(beforeOpen.count).to.be.equal(1);
       await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
       await waitForLitRender(element);

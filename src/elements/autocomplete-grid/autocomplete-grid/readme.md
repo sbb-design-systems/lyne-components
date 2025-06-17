@@ -204,12 +204,12 @@ const values = [
 
 ## Events
 
-| Name        | Type                | Description                                                                                | Inherited From          |
-| ----------- | ------------------- | ------------------------------------------------------------------------------------------ | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                | Description                                                                                | Inherited From          |
+| ------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----------------------- |
+| `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `didClose`    | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`     | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

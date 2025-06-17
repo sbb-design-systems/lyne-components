@@ -65,8 +65,8 @@ describe(`sbb-expansion-panel`, () => {
     const toggleExpandedEventSpy = new EventSpy(
       SbbExpansionPanelHeaderElement.events.toggleExpanded,
     );
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose, element);
+    const beforeOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, element);
+    const beforeCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.beforeclose, element);
     const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
     const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
 
@@ -79,8 +79,8 @@ describe(`sbb-expansion-panel`, () => {
     expect(element.expanded).to.be.equal(true);
     expect(header.getAttribute('aria-expanded')).to.be.equal('true');
     expect(content.getAttribute('aria-hidden')).to.be.equal('false');
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
 
@@ -91,8 +91,8 @@ describe(`sbb-expansion-panel`, () => {
     expect(element.expanded).to.be.equal(false);
     expect(header.getAttribute('aria-expanded')).to.be.equal('false');
     expect(content.getAttribute('aria-hidden')).to.be.equal('true');
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
   });

@@ -122,9 +122,9 @@ export default {
       }
 
       for (const eventName of [
-        'willOpen',
+        'beforeopen',
         'didOpen',
-        'willClose',
+        'beforeclose',
         'didClose',
         'willStick',
         'didStick',

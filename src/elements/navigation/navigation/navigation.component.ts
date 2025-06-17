@@ -48,9 +48,9 @@ const DEBOUNCE_TIME = 150;
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
  *
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the sbb-navigation menu.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-navigation` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
  * @cssprop [--sbb-navigation-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -130,7 +130,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (this.state !== 'closed' || !this.hasUpdated) {
       return;
     }
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -170,7 +170,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (this.state !== 'opened') {
       return;
     }
-    if (!this.willClose.emit()) {
+    if (!this.beforeCloseEmitter.emit()) {
       return;
     }
 

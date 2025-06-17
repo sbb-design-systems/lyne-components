@@ -201,13 +201,15 @@ describe(`sbb-header`, () => {
     expect(element).to.have.attribute('data-visible');
 
     // Open menu
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, null, { capture: true });
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, null, {
+      capture: true,
+    });
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, null, { capture: true });
     const menuTrigger = root.querySelector<SbbHeaderButtonElement>('sbb-header-button')!;
     menuTrigger.click();
     await waitForLitRender(element);
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);

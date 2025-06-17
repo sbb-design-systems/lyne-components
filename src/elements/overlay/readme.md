@@ -95,11 +95,11 @@ When using a button to trigger the overlay, ensure to manage the appropriate ARI
 
 | Name                | Type                                       | Description                                                                      | Inherited From          |
 | ------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose`       | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`        | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `didClose`          | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      | SbbOpenCloseBaseElement |
 | `didOpen`           | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      | SbbOpenCloseBaseElement |
 | `requestBackAction` | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                         |
-| `willClose`         | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`          | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

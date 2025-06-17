@@ -240,10 +240,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbMenuElement.events.willOpen,
+        SbbMenuElement.events.beforeopen,
         SbbMenuElement.events.didOpen,
         SbbMenuElement.events.didClose,
-        SbbMenuElement.events.willClose,
+        SbbMenuElement.events.beforeclose,
       ],
     },
     docs: {

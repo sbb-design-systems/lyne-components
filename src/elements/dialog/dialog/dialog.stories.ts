@@ -296,7 +296,7 @@ const FormTemplate = ({
   </div>
   <sbb-dialog
     id="my-dialog-3"
-    @willClose=${(event: CustomEvent) => {
+    @beforeclose=${(event: CustomEvent) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;
@@ -532,9 +532,9 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbDialogElement.events.willOpen,
+        SbbDialogElement.events.beforeopen,
         SbbDialogElement.events.didOpen,
-        SbbDialogElement.events.willClose,
+        SbbDialogElement.events.beforeclose,
         SbbDialogElement.events.didClose,
         SbbDialogTitleElement.events.backClick,
       ],

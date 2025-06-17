@@ -49,9 +49,9 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add options.
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-select` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -81,9 +81,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     change: 'change',
     input: 'input',
     displayValueChange: 'displayValueChange',
-    willOpen: 'willOpen',
+    beforeopen: 'beforeopen',
     didOpen: 'didOpen',
-    willClose: 'willClose',
+    beforeclose: 'beforeclose',
     didClose: 'didClose',
   } as const;
 
@@ -262,7 +262,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -283,7 +283,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this.state !== 'opened') {
       return;
     }
-    if (!this.willClose.emit()) {
+    if (!this.beforeCloseEmitter.emit()) {
       return;
     }
 

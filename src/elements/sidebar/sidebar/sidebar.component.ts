@@ -17,9 +17,9 @@ import style from './sidebar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to slot any content into the sidebar.
  * @slot title - Use the title slot to add an <sbb-title>.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  */
 export
@@ -140,7 +140,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /** Opens the sidebar. */
   public open(): void {
-    if (this.state === 'opening' || this.state === 'opened' || !this.willOpen.emit()) {
+    if (this.state === 'opening' || this.state === 'opened' || !this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -191,7 +191,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /** Closes the sidebar. */
   public close(): void {
-    if (this.state === 'closing' || this.state === 'closed' || !this.willClose.emit()) {
+    if (this.state === 'closing' || this.state === 'closed' || !this.beforeCloseEmitter.emit()) {
       return;
     }
 

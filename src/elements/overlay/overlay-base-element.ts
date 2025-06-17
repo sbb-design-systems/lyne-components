@@ -63,7 +63,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       closeTarget: this.overlayCloseElement,
     };
 
-    if (!this.willClose.emit(eventData)) {
+    if (!this.beforeCloseEmitter.emit(eventData)) {
       return;
     }
     this.state = 'closing';

@@ -107,12 +107,12 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Events
 
-| Name        | Type                                       | Description                                                                     | Inherited From          |
-| ----------- | ------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                                       | Description                                                                     | Inherited From          |
+| ------------- | ------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `didClose`    | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`     | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

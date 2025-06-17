@@ -20,9 +20,9 @@ import '../screen-reader-only.js';
  * It displays an interactive overlay element.
  *
  * @slot - Use the unnamed slot to provide a content for the overlay.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-overlay` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled.
  * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-overlay` is closed.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  * @cssprop [--sbb-overlay-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
@@ -36,9 +36,9 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
-    willOpen: 'willOpen',
+    beforeopen: 'beforeopen',
     didOpen: 'didOpen',
-    willClose: 'willClose',
+    beforeclose: 'beforeclose',
     didClose: 'didClose',
     backClick: 'requestBackAction',
   } as const;
@@ -86,7 +86,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
       '.sbb-overlay__content',
     ) as HTMLElement;
 
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 

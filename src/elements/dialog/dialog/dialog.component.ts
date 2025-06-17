@@ -18,9 +18,9 @@ let nextId = 0;
  * It displays an interactive overlay element.
  *
  * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
  * @event {CustomEvent<SbbOverlayCloseEventDetails>} didClose - Emits whenever the `sbb-dialog` is closed.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -82,7 +82,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
     this._syncNegative();
 
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 

@@ -149,9 +149,9 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAlertElement.events.willOpen,
+        SbbAlertElement.events.beforeopen,
         SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.willClose,
+        SbbAlertElement.events.beforeclose,
         SbbAlertElement.events.didClose,
       ],
     },

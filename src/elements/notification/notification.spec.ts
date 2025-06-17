@@ -15,7 +15,7 @@ describe(`sbb-notification`, () => {
 
   async function openAndClose(): Promise<void> {
     const parent = element.parentElement!;
-    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbNotificationElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose, element);
 
     await didOpenEventSpy.calledOnce();
@@ -24,8 +24,8 @@ describe(`sbb-notification`, () => {
     element.close();
     await waitForLitRender(element);
 
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     await didCloseEventSpy.calledOnce();
@@ -62,7 +62,7 @@ describe(`sbb-notification`, () => {
 
     it('closes the notification and removes it from the DOM on close button click', async () => {
       const parent = element.parentElement!;
-      const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose, element);
+      const beforeCloseEventSpy = new EventSpy(SbbNotificationElement.events.beforeclose, element);
       const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose, element);
       const closeButton = element.shadowRoot!.querySelector(
         '.sbb-notification__close',
@@ -74,8 +74,8 @@ describe(`sbb-notification`, () => {
       closeButton.click();
       await waitForLitRender(element);
 
-      await willCloseEventSpy.calledOnce();
-      expect(willCloseEventSpy.count).to.be.equal(1);
+      await beforeCloseEventSpy.calledOnce();
+      expect(beforeCloseEventSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       await didCloseEventSpy.calledOnce();

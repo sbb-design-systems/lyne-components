@@ -33,13 +33,13 @@ describe(`sbb-popover-trigger`, () => {
   });
 
   it('shows popover on popover-trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, popover);
+    const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, popover);
     const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, popover);
 
     element.click();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -47,14 +47,14 @@ describe(`sbb-popover-trigger`, () => {
   });
 
   it("doesn't show popover on disabled popover-trigger click", async () => {
-    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, popover);
+    const beforeOpenEventSpy = new EventSpy(SbbPopoverElement.events.beforeopen, popover);
     element.disabled = true;
     await waitForLitRender(element);
 
     element.click();
     await waitForLitRender(element);
 
-    expect(willOpenEventSpy.count).to.be.equal(0);
+    expect(beforeOpenEventSpy.count).to.be.equal(0);
     expect(popover).to.have.attribute('data-state', 'closed');
   });
 

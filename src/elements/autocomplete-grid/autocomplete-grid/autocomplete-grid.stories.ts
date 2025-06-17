@@ -515,10 +515,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAutocompleteGridElement.events.willOpen,
+        SbbAutocompleteGridElement.events.beforeopen,
         SbbAutocompleteGridElement.events.didOpen,
         SbbAutocompleteGridElement.events.didClose,
-        SbbAutocompleteGridElement.events.willClose,
+        SbbAutocompleteGridElement.events.beforeclose,
         'change',
         'click',
         SbbAutocompleteGridOptionElement.events.optionSelected,

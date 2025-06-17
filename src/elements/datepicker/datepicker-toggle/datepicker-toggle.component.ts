@@ -145,7 +145,7 @@ class SbbDatepickerToggleElement<T = Date>
         id="trigger"
       ></sbb-mini-button>
       <sbb-popover
-        @willOpen=${() => this._calendarElement.resetPosition()}
+        @beforeopen=${() => this._calendarElement.resetPosition()}
         @didOpen=${() => {
           if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
             this._calendarElement.focus();

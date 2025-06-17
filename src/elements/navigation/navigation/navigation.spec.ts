@@ -499,13 +499,13 @@ describe(`sbb-navigation`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbNavigationElement.events.beforeopen, element);
 
-    element.addEventListener(SbbNavigationElement.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbNavigationElement.events.beforeopen, (ev) => ev.preventDefault());
     element.open();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
@@ -513,16 +513,16 @@ describe(`sbb-navigation`, () => {
 
   it('does not close if prevented', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbNavigationElement.events.beforeclose, element);
 
     element.open();
     await didOpenEventSpy.calledOnce();
     await waitForLitRender(element);
 
-    element.addEventListener(SbbNavigationElement.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbNavigationElement.events.beforeclose, (ev) => ev.preventDefault());
     element.close();
 
-    await willCloseEventSpy.calledOnce();
+    await beforeCloseEventSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -579,13 +579,13 @@ describe(`sbb-navigation`, () => {
       </sbb-navigation>
     `);
 
-    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbNavigationElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
 
     trigger.click();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);

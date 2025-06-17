@@ -44,13 +44,13 @@ describe(`sbb-menu`, () => {
   });
 
   it('opens on trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     trigger.click();
     await waitForLitRender(element);
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -60,16 +60,16 @@ describe(`sbb-menu`, () => {
   });
 
   it('closes on Esc keypress', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbMenuElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
 
     trigger.click();
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -81,8 +81,8 @@ describe(`sbb-menu`, () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
@@ -149,17 +149,17 @@ describe(`sbb-menu`, () => {
   });
 
   it('closes on menu action click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbMenuElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
     const menuAction = element.querySelector(':scope > sbb-menu-button') as HTMLElement;
 
     trigger.click();
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -169,8 +169,8 @@ describe(`sbb-menu`, () => {
 
     menuAction.click();
     await waitForLitRender(element);
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
@@ -178,17 +178,17 @@ describe(`sbb-menu`, () => {
   });
 
   it('closes on interactive element click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbMenuElement.events.beforeclose, element);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose, element);
     const menuLink = element.querySelector(':scope > sbb-block-link') as HTMLElement;
 
     trigger.click();
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -199,8 +199,8 @@ describe(`sbb-menu`, () => {
     menuLink.click();
     await waitForLitRender(element);
 
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseEventSpy.calledOnce();
+    expect(beforeCloseEventSpy.count).to.be.equal(1);
 
     await didCloseEventSpy.calledOnce();
     expect(didCloseEventSpy.count).to.be.equal(1);
@@ -228,7 +228,7 @@ describe(`sbb-menu`, () => {
   });
 
   it('is correctly positioned on desktop', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
     await setViewport({ width: 1200, height: 800 });
     if (isWebkit) {
@@ -242,8 +242,8 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -266,7 +266,7 @@ describe(`sbb-menu`, () => {
   });
 
   it('is correctly positioned on mobile', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     await setViewport({ width: 800, height: 600 });
@@ -275,8 +275,8 @@ describe(`sbb-menu`, () => {
     trigger.click();
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -291,7 +291,7 @@ describe(`sbb-menu`, () => {
   });
 
   it('sets the focus to the first focusable element when the menu is opened by keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     trigger.focus();
@@ -299,8 +299,8 @@ describe(`sbb-menu`, () => {
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -310,13 +310,13 @@ describe(`sbb-menu`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
 
-    element.addEventListener(SbbMenuElement.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbMenuElement.events.beforeopen, (ev) => ev.preventDefault());
     element.open();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
@@ -324,17 +324,17 @@ describe(`sbb-menu`, () => {
 
   it('does not close if prevented', async () => {
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose, element);
+    const beforeCloseEventSpy = new EventSpy(SbbMenuElement.events.beforeclose, element);
 
     element.open();
     await waitForLitRender(element);
     await didOpenEventSpy.calledOnce();
 
-    element.addEventListener(SbbMenuElement.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbMenuElement.events.beforeclose, (ev) => ev.preventDefault());
     element.close();
 
     await waitForLitRender(element);
-    await willCloseEventSpy.calledOnce();
+    await beforeCloseEventSpy.calledOnce();
 
     expect(element).to.have.attribute('data-state', 'opened');
   });
@@ -394,13 +394,13 @@ describe(`sbb-menu`, () => {
       </sbb-menu>
     `);
 
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, element);
+    const beforeOpenEventSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, element);
 
     trigger.click();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenEventSpy.calledOnce();
+    expect(beforeOpenEventSpy.count).to.be.equal(1);
 
     await didOpenEventSpy.calledOnce();
     expect(didOpenEventSpy.count).to.be.equal(1);

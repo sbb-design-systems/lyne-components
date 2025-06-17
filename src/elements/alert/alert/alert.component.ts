@@ -22,9 +22,9 @@ import '../../title.js';
  * @slot - Use the unnamed slot to add content to the `sbb-alert`.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
  */
 export
@@ -32,9 +32,9 @@ export
 class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
   public static override readonly events = {
-    willOpen: 'willOpen',
+    beforeopen: 'beforeopen',
     didOpen: 'didOpen',
-    willClose: 'willClose',
+    beforeclose: 'beforeclose',
     didClose: 'didClose',
   } as const;
 
@@ -69,7 +69,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   /** Open the alert. */
   public open(): void {
     this.state = 'opening';
-    this.willOpen.emit();
+    this.beforeOpenEmitter.emit();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -80,7 +80,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   /** Close the alert. */
   public close(): void {
-    if (this.state === 'opened' && this.willClose.emit()) {
+    if (this.state === 'opened' && this.beforeCloseEmitter.emit()) {
       this.state = 'closing';
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
