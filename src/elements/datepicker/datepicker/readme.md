@@ -81,9 +81,10 @@ todayStub.restore();
 
 ## Events
 
-| Name        | Type                                        | Description                                                                         | Inherited From          |
-| ----------- | ------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-datepicker` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>`                         | Emits whenever the `sbb-datepicker` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-datepicker` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>`                         | Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name           | Type                                        | Description                                                                         | Inherited From          |
+| -------------- | ------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
+| `dateSelected` | `CustomEvent<T>`                            | Event emitted on date selection.                                                    |                         |
+| `didClose`     | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-datepicker` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`      | `CustomEvent<void>`                         | Emits whenever the `sbb-datepicker` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose`    | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-datepicker` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`     | `CustomEvent<void>`                         | Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |

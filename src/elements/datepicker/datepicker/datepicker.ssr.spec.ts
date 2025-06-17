@@ -3,6 +3,7 @@ import { html } from 'lit';
 
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { waitForLitRender } from '../../core/testing.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
@@ -27,10 +28,10 @@ describe(`sbb-datepicker ssr`, () => {
       html`
         <sbb-form-field>
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
           <sbb-date-input value="01.01.2023"></sbb-date-input>
-          <sbb-datepicker></sbb-datepicker>
+          <sbb-datepicker-toggle></sbb-datepicker-toggle>
           <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
       `,
       {
@@ -46,6 +47,7 @@ describe(`sbb-datepicker ssr`, () => {
     await datepickerToggle.updateComplete;
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
     expect(datepickerToggle.datepicker).to.equal(datepicker);
+    await waitForLitRender(datepicker);
     expect(datepicker!.shadowRoot?.querySelector('sbb-calendar')).to.not.be.null;
 
     // When opening the calendar

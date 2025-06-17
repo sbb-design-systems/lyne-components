@@ -2,6 +2,7 @@ import {
   type CSSResultGroup,
   html,
   isServer,
+  nothing,
   type PropertyDeclaration,
   type TemplateResult,
 } from 'lit';
@@ -31,6 +32,7 @@ let nextId = 0;
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-datepicker` begins the closing
  * transition. Can be canceled.
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-datepicker` is closed.
+ * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 export
 @customElement('sbb-datepicker')
@@ -67,6 +69,9 @@ class SbbDatepickerElement<T = Date>
     this.addEventListener(SbbPopoverBaseElement.events.willOpen, () => {
       this.shadowRoot?.querySelector('sbb-calendar')?.resetPosition?.();
     });
+    if (!isServer && this.hydrationRequired) {
+      this.hydrationComplete.then(() => this.requestUpdate());
+    }
   }
 
   public override connectedCallback(): void {
@@ -126,29 +131,31 @@ class SbbDatepickerElement<T = Date>
   }
 
   protected override renderContent(): TemplateResult {
-    if (isServer || !this.input) {
-      return html``;
-    }
-
     return html`
       <p id="status-container" role="status"></p>
       <sbb-calendar
         .view=${this.view}
-        .min=${this.input.min}
-        .max=${this.input.max}
-        .dateFilter=${this.input.dateFilter ?? null}
-        .selected=${this.input.valueAsDate}
+        .min=${this.input?.min ?? null}
+        .max=${this.input?.max ?? null}
+        .dateFilter=${this.input?.dateFilter ?? null}
+        .selected=${this.input?.valueAsDate ?? null}
         ?wide=${this.wide}
         @dateSelected=${(d: CustomEvent<T>) => {
-          this.input!.valueAsDate = d.detail;
-          this.input!.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-          this.input!.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-          // Emit blur event when value is changed programmatically to notify
-          // frameworks that rely on that event to update form status.
-          this.input!.dispatchEvent(new Event('blur', { composed: true }));
+          if (this.input) {
+            this.input.valueAsDate = d.detail;
+            this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+            this.input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            // Emit blur event when value is changed programmatically to notify
+            // frameworks that rely on that event to update form status.
+            this.input.dispatchEvent(new Event('blur', { composed: true }));
+          }
         }}
       ></sbb-calendar>
     `;
+  }
+
+  protected override render(): TemplateResult {
+    return isServer || this.hydrationRequired ? html`${nothing}` : super.render();
   }
 }
 
