@@ -80,7 +80,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public static override readonly events = {
     change: 'change',
     input: 'input',
-    displayValueChange: 'displayValueChange',
+    displayvaluechange: 'displayvaluechange',
     beforeopen: 'beforeopen',
     open: 'open',
     beforeclose: 'beforeclose',
@@ -144,9 +144,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _input: EventEmitter = new EventEmitter(this, SbbSelectElement.events.input);
 
   /** @internal */
-  private _displayValueChanged: EventEmitter<void> = new EventEmitter(
+  private _displayValueChangeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectElement.events.displayValueChange,
+    SbbSelectElement.events.displayvaluechange,
   );
 
   private _originResizeObserver = new ResizeController(this, {
@@ -343,7 +343,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     } else {
       this._displayValue = null;
     }
-    this._displayValueChanged.emit();
+    this._displayValueChangeEmitter.emit();
   }
 
   /**
