@@ -14,10 +14,13 @@ The `sbb-notification` is structured in the following way:
 
 ```html
 <sbb-notification>
-  The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-  <sbb-link href="/">Link one</sbb-link>
-  <sbb-link href="/">Link two</sbb-link>
-  <sbb-link href="/">Link three</sbb-link>
+  <sbb-title level="3">Notification title</sbb-title>
+  <p>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    <sbb-link href="/">Link one</sbb-link>
+    <sbb-link href="/">Link two</sbb-link>
+    <sbb-link href="/">Link three</sbb-link>
+  </p>
 </sbb-notification>
 ```
 
@@ -67,7 +70,7 @@ This ensures that users who rely on screen readers are promptly informed of any 
 ```html
 <!-- Add here any incoming notification by adding a sbb-notification component. -->
 <div id="notification-container" aria-live="polite">
-  <sbb-notification type="success">Task successfully completed.</sbb-notification>
+  <sbb-notification type="success"><p>Task successfully completed.</p></sbb-notification>
 </div>
 ```
 
@@ -80,14 +83,12 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                       | Default            | Description                                                                        |
-| -------------- | --------------- | ------- | ------------------------------------------ | ------------------ | ---------------------------------------------------------------------------------- |
-| `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`            | The enabled animations.                                                            |
-| `readOnly`     | `readonly`      | public  | `boolean`                                  |                    | Whether the component is readonly.                                                 |
-| `size`         | `size`          | public  | `'m' \| 's'`                               | `'m' / 's' (lean)` | Size variant, either s or m.                                                       |
-| `titleContent` | `title-content` | public  | `string`                                   | `''`               | Content of title.                                                                  |
-| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                            | `'3'`              | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
-| `type`         | `type`          | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.                                                      |
+| Name        | Attribute   | Privacy | Type                                       | Default            | Description                        |
+| ----------- | ----------- | ------- | ------------------------------------------ | ------------------ | ---------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`            | The enabled animations.            |
+| `readOnly`  | `readonly`  | public  | `boolean`                                  |                    | Whether the component is readonly. |
+| `size`      | `size`      | public  | `'s' \| 'm'`                               | `'m' / 's' (lean)` | Size variant, either s or m.       |
+| `type`      | `type`      | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.      |
 
 ## Methods
 
@@ -97,12 +98,12 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Events
 
-| Name        | Type                | Description                              | Inherited From |
-| ----------- | ------------------- | ---------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.   |                |
-| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.   |                |
-| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts. |                |
+| Name        | Type                | Description                                               | Inherited From |
+| ----------- | ------------------- | --------------------------------------------------------- | -------------- |
+| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.                    |                |
+| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.                    |                |
+| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. |                |
+| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts.                  |                |
 
 ## CSS Properties
 
@@ -112,7 +113,6 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Slots
 
-| Name    | Description                                                      |
-| ------- | ---------------------------------------------------------------- |
-|         | Use the unnamed slot to add content to the notification message. |
-| `title` | Use this to provide a notification title (optional).             |
+| Name | Description                                                                                                                                 |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-notification`. Content should consist of a `p` element and an optional `sbb-title` element. |

@@ -62,9 +62,11 @@ Full example with applied spacings (CSS classes) in content:
   <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
   <p class="sbb-text-xl sbb-lead-container-lead-text">Lead text.</p>
   <sbb-notification type="info" class="sbb-lead-container-spacing">
-    Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
-    augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
-    lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
+    <p>
+      Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
+      augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
+      lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
+    </p>
   </sbb-notification>
   <p class="sbb-text-m other-content">Other content.</p>
 </sbb-lead-container>

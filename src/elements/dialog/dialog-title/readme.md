@@ -15,15 +15,11 @@ The title can have a `negative` state which is automatically synchronized with t
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                    | Default | Description                                                                        |
-| ------------------------- | --------------------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `string`                | `''`    | This will be forwarded as aria-label to the back button element.                   |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                | `''`    | This will be forwarded as aria-label to the close button element.                  |
-| `backButton`              | `back-button`               | public  | `boolean`               | `false` | Whether a back button is displayed next to the title.                              |
-| `hideOnScroll`            | `hide-on-scroll`            | public  | `Breakpoint \| boolean` | `false` | Whether to hide the title up to a certain breakpoint.                              |
-| `level`                   | `level`                     | public  | `SbbTitleLevel`         | `'2'`   | Title level                                                                        |
-| `negative`                | `negative`                  | public  | `boolean`               | `false` | Negative coloring variant flag.                                                    |
-| `visualLevel`             | `visual-level`              | public  | `SbbTitleLevel \| null` | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used. |
+| Name          | Attribute      | Privacy | Type                    | Default | Description                                                                        |
+| ------------- | -------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                                                                        |
+| `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag.                                                    |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used. |
 
 ## Slots
 

@@ -4,6 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import '../link/link.js';
+import '../title.js';
 import './notification.component.js';
 
 describe(`sbb-notification`, () => {
@@ -12,7 +13,6 @@ describe(`sbb-notification`, () => {
     size: 'm',
     readonly: false,
     title: true,
-    slotted: false,
   };
 
   const notificationTemplate = ({
@@ -20,20 +20,20 @@ describe(`sbb-notification`, () => {
     size,
     readonly,
     title,
-    slotted,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
-      title-content=${title && !slotted ? 'Title' : nothing}
       size=${size}
       ?readonly=${readonly}
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     >
-      ${title && slotted ? html`<span slot="title">Slotted title</span>` : nothing} The quick brown
-      fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-      <sbb-link href="/">Link one</sbb-link>
-      <sbb-link href="/">Link two</sbb-link>
-      <sbb-link href="/">Link three</sbb-link>
+      ${title ? html`<sbb-title>Title</sbb-title>` : nothing}
+      <p>
+        The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+        dog.&nbsp;<sbb-link href="/">Link one</sbb-link>
+        <sbb-link href="/">Link two</sbb-link>
+        <sbb-link href="/">Link three</sbb-link>
+      </p>
     </sbb-notification>
   `;
 
