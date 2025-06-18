@@ -89,6 +89,10 @@ $open-anim-height-to: calc(
     var(--sbb-spacing-responsive-xxxs);
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xxs);
+
+  @include sbb.mq($from: small) {
+    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+  }
 }
 
 :host(:where([data-slot-names~='title'], [title-content])) {
@@ -185,6 +189,9 @@ $open-anim-height-to: calc(
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
 
+  // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
+  --sbb-icon-svg-width: var(--sbb-notification-icon-size);
+
   @include sbb.mq($from: small) {
     margin-block-start: max(
       0rem,
@@ -199,9 +206,6 @@ $open-anim-height-to: calc(
       )
     );
   }
-
-  // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
-  --sbb-icon-svg-width: var(--sbb-notification-icon-size);
 }
 
 .sbb-notification__title {
