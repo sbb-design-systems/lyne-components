@@ -120,17 +120,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     });
   }
 
-  // Wait for overlay transition to complete.
-  // In rare cases, it can be that the animationEnd event is triggered twice.
-  // To avoid entering a corrupt state, exit when state is not expected.
-  protected onOverlayAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this.state === 'opening') {
-      this.handleOpening();
-    } else if (event.animationName === 'close' && this.state === 'closing') {
-      this.handleClosing();
-    }
-  }
-
   protected override render(): TemplateResult {
     const TAG_NAME = this.negative ? 'sbb-transparent-button' : 'sbb-secondary-button';
 

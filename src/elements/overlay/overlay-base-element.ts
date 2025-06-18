@@ -71,7 +71,6 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   private _triggerAbortController!: AbortController;
 
   protected abstract closeAttribute: string;
-  protected abstract onOverlayAnimationEnd(event: AnimationEvent): void;
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
@@ -243,5 +242,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     this._ariaLiveRef.textContent = `${i18nDialog[this.language.current]}${
       label ? `, ${label}` : ''
     }${this._ariaLiveRefToggle ? ' ' : ''}`;
+  }
+
+  // Wait for dialog transition to complete.
+  // In rare cases, it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
+  protected onOverlayAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'open' && this.state === 'opening') {
+      this.handleOpening();
+    } else if (event.animationName === 'close' && this.state === 'closing') {
+      this.handleClosing();
+    }
   }
 }

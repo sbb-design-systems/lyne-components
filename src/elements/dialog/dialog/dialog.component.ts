@@ -131,17 +131,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     }
   }
 
-  // Wait for dialog transition to complete.
-  // In rare cases, it can be that the animationEnd event is triggered twice.
-  // To avoid entering a corrupt state, exit when state is not expected.
-  protected onOverlayAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this.state === 'opening') {
-      this.handleOpening();
-    } else if (event.animationName === 'close' && this.state === 'closing') {
-      this.handleClosing();
-    }
-  }
-
   private _syncNegative(): void {
     const dialogTitle = this.querySelector?.('sbb-dialog-title');
 

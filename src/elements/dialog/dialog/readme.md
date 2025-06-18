@@ -32,7 +32,8 @@ There are three slots: `title`, `content` and `actions`, which can respectively 
 
 ## Interactions
 
-In order to show the dialog, you need to call the `open()` method on the `sbb-dialog` component.
+To display the dialog, a trigger can be connected via the `trigger` property,
+or the `open()` method on the `sbb-dialog` component can be called.
 
 ```html
 <sbb-button id="dialog-trigger">Open dialog</sbb-button>
