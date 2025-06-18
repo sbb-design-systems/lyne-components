@@ -130,7 +130,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
     this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {

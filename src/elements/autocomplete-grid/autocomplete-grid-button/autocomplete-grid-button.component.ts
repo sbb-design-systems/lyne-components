@@ -87,7 +87,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     }
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       this._updateAriaDisabled();
