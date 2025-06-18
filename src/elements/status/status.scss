@@ -3,8 +3,6 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
-$has-title: ':is([data-slot-names~=title], [title-content])';
-
 :host {
   --sbb-status-color: var(--sbb-color-iron);
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
@@ -44,7 +42,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   --sbb-status-color: var(--sbb-color-pink);
 }
 
-:host(#{$has-title}) {
+:host([data-slot-names~='title']) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-text-color-override: var(--sbb-color-granite);
   --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
@@ -73,10 +71,10 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   );
 }
 
-.sbb-status__title {
+::slotted(sbb-title[slot='title']) {
   margin-block: 0;
 
-  :host(:not(#{$has-title})) & {
+  :host(:not([data-slot-names~='title'])) & {
     display: none;
   }
 }

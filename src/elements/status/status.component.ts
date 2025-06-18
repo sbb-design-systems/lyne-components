@@ -2,9 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { slotState } from '../core/decorators.js';
 import { SbbIconNameMixin } from '../icon.js';
-import type { SbbTitleLevel } from '../title.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './status.scss?lit&inline';
 
@@ -24,7 +24,7 @@ export type SbbStatusType =
  * Displays a message to the user's attention.
  *
  * @slot - Use the unnamed slot to add content to the status message.
- * @slot title - Use this to provide a title for the status (optional).
+ * @slot title - Use this to provide an `sbb-title` for the status (optional).
  * @slot icon - Use this slot to override the default status icon.
  * @cssprop [--sbb-status-color=var(--sbb-color-iron)] - Specify a custom color,
  * which will override the predefined color for any type.
@@ -51,13 +51,13 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   /** The type of the status. */
   @property({ reflect: true }) public accessor type: SbbStatusType = 'info';
 
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
-  public accessor titleContent: string = '';
-
-  /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
+  private _configureTitle(): void {
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = '5';
+    }
+  }
 
   protected override renderIconSlot(): TemplateResult {
     return html`
@@ -72,9 +72,7 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
       <div class="sbb-status">
         <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
         <span class="sbb-status__content">
-          <sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
-            <slot name="title">${this.titleContent}</slot>
-          </sbb-title>
+          <slot name="title" @slotchange=${this._configureTitle}></slot>
           <p class="sbb-status__content-slot">
             <slot></slot>
           </p>

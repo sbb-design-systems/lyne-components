@@ -1,7 +1,6 @@
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -26,7 +25,7 @@ const type: InputType = {
   ],
 };
 
-const titleContent: InputType = {
+const titleText: InputType = {
   control: {
     type: 'text',
   },
@@ -46,20 +45,25 @@ const iconName: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   type,
-  'title-content': titleContent,
+  titleText,
   text,
   'icon-name': iconName,
 };
 
 const defaultArgs: Args = {
   type: type.options![0],
-  'title-content': undefined,
+  titleText: '',
   text: 'Status info text',
   'icon-name': undefined,
 };
 
-const Template = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-status ${sbbSpread(args)}>${text}</sbb-status>
+const Template = ({ text, titleText, ...args }: Args): TemplateResult => html`
+  <sbb-status ${sbbSpread(args)}>
+    ${titleText && titleText !== ''
+      ? html`<sbb-title level="3" slot="title">${titleText}</sbb-title>`
+      : nothing}
+    ${text}
+  </sbb-status>
 `;
 
 const TemplateIconSlot = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
@@ -119,49 +123,49 @@ export const inProgress: StoryObj = {
 export const infoWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-content': 'Title' },
+  args: { ...defaultArgs, titleText: 'Title' },
 };
 
 export const successWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![1], 'title-content': 'Success!' },
+  args: { ...defaultArgs, type: type.options![1], titleText: 'Success!' },
 };
 
 export const warningWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![2], 'title-content': 'Warning!' },
+  args: { ...defaultArgs, type: type.options![2], titleText: 'Warning!' },
 };
 
 export const errorWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![3], 'title-content': 'Error!' },
+  args: { ...defaultArgs, type: type.options![3], titleText: 'Error!' },
 };
 
 export const pendingWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![4], 'title-content': 'Pending...' },
+  args: { ...defaultArgs, type: type.options![4], titleText: 'Pending...' },
 };
 
 export const incompleteWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![5], 'title-content': 'Incomplete...' },
+  args: { ...defaultArgs, type: type.options![5], titleText: 'Incomplete...' },
 };
 
 export const notStartedWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![6], 'title-content': 'Not started...' },
+  args: { ...defaultArgs, type: type.options![6], titleText: 'Not started...' },
 };
 
 export const inProgressWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![7], 'title-content': 'In progress...' },
+  args: { ...defaultArgs, type: type.options![7], titleText: 'In progress...' },
 };
 
 export const successWithCustomIcon: StoryObj = {
@@ -171,7 +175,7 @@ export const successWithCustomIcon: StoryObj = {
     ...defaultArgs,
     type: 'success',
     'icon-name': 'pen-small',
-    'title-content': 'Success!',
+    titleText: 'Success!',
   },
 };
 
@@ -182,7 +186,6 @@ export const successWithCustomIconSlotted: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

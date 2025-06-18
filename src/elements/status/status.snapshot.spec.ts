@@ -29,7 +29,10 @@ describe(`sbb-status`, () => {
   describe('renders with title', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
+        html` <sbb-status type="info">
+          <sbb-title level="3" slot="title">Title</sbb-title>
+          Status info text
+        </sbb-status>`,
       );
     });
 
