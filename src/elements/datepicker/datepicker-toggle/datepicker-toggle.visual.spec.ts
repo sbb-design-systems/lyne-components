@@ -40,6 +40,8 @@ describe(`sbb-datepicker-toggle`, () => {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             focusOutlineDark: negative,
           });
+
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-datepicker-toggle')!);
         }),
       );
     });

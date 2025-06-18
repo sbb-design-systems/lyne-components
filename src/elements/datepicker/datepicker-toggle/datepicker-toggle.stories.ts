@@ -7,11 +7,9 @@ import type {
   StoryObj,
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
@@ -26,40 +24,27 @@ const negative: InputType = {
   },
 };
 
-const view: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['day', 'month', 'year'],
-};
-
 const defaultArgTypes: ArgTypes = {
   negative,
-  view: view,
 };
 
 const defaultArgs: Args = {
   negative: false,
-  view: view.options![0],
 };
 
-const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html`
-  <sbb-datepicker-toggle ${sbbSpread(args)} datepicker=${picker || nothing}></sbb-datepicker-toggle>
-`;
-
-const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
+const PickerAndButtonTemplate = (): TemplateResult => html`
   <div style="display: flex; gap: 1em;">
-    ${StandaloneTemplate(args, 'datepicker')}
-    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
     <sbb-date-input id="datepicker-input"></sbb-date-input>
+    <sbb-datepicker-toggle input="datepicker-input" datepicker="datepicker"></sbb-datepicker-toggle>
+    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
   </div>
 `;
 
-const FormFieldTemplate = ({ negative, ...args }: Args): TemplateResult => html`
+const FormFieldTemplate = ({ negative }: Args): TemplateResult => html`
   <sbb-form-field ?negative=${negative}>
     <sbb-date-input></sbb-date-input>
     <sbb-datepicker></sbb-datepicker>
-    ${StandaloneTemplate(args)}
+    <sbb-datepicker-toggle></sbb-datepicker-toggle>
   </sbb-form-field>
 `;
 
@@ -79,12 +64,6 @@ export const InFormFieldNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-};
-
-export const InitialYearSelection: StoryObj = {
-  render: FormFieldTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, view: view.options![2] },
 };
 
 const meta: Meta = {

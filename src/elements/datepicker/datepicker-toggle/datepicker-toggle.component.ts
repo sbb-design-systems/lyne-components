@@ -53,6 +53,8 @@ class SbbDatepickerToggleElement<T = Date> extends SbbDatepickerButtonBase<T> {
     super.requestUpdate(name, oldValue, options);
     if (name === 'datepicker' && this.datepicker && this.datepicker.trigger !== this) {
       this.datepicker.trigger = this;
+    } else if (!name) {
+      this.internals.ariaLabel = i18nShowCalendar[this.language.current];
     }
   }
 }

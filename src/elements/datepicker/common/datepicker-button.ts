@@ -43,9 +43,11 @@ export abstract class SbbDatepickerButtonBase<T = Date>
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.toggleAttribute('disabled', this.disabled);
     const formField = this.closest?.('sbb-form-field');
     if (formField) {
-      this.negative = formField.hasAttribute('negative');
+      customElements.upgrade?.(formField);
+      this.negative = formField.negative;
       SbbDateInputElement.resolveAssociation(this);
       this.slot ||= this._findSlotPosition();
     }
@@ -69,6 +71,12 @@ export abstract class SbbDatepickerButtonBase<T = Date>
         this._sync();
         this.input.addEventListener('ɵchange', () => this._sync());
       }
+      if (this.hasUpdated) {
+        this.toggleAttribute('disabled', this.disabled);
+      }
+    } else if (!name && this.input) {
+      // If language changes, we need to update related aria properties.
+      this._sync();
     }
   }
 

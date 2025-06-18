@@ -149,7 +149,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   }
 
   /**
-   * Attempts to resolve the an associated date input with the given element.
+   * Attempts to resolve the associated date input with the given element.
    */
   public static resolveAssociation<T>(host: HTMLElement & SbbDateInputAssociated<T>): void {
     if (host.hasAttribute('input') || host.input) {
@@ -199,8 +199,8 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     } else if (name === 'weekdayStyle') {
       this._updateValueDateFormat();
     }
-    if (this.hasUpdated) {
-      // Used to notify the datepicker to update its state
+    if (this.isConnected) {
+      // Used to notify associated components to update state
       /** @internal */
       this.dispatchEvent(new Event('ɵchange'));
     }
