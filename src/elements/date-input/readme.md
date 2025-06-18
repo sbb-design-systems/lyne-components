@@ -107,9 +107,9 @@ and focus related events.
 
 ## Static Methods
 
-| Name                 | Privacy | Description                                                              | Parameters                                      | Return | Inherited From |
-| -------------------- | ------- | ------------------------------------------------------------------------ | ----------------------------------------------- | ------ | -------------- |
-| `resolveAssociation` | public  | Attempts to resolve the an associated date input with the given element. | `host: HTMLElement & SbbDateInputAssociated<T>` | `void` |                |
+| Name                 | Privacy | Description                                                           | Parameters                                      | Return | Inherited From |
+| -------------------- | ------- | --------------------------------------------------------------------- | ----------------------------------------------- | ------ | -------------- |
+| `resolveAssociation` | public  | Attempts to resolve the associated date input with the given element. | `host: HTMLElement & SbbDateInputAssociated<T>` | `void` |                |
 
 ## Properties
 
