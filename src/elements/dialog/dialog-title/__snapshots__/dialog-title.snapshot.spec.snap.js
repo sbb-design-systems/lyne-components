@@ -12,23 +12,8 @@ snapshots["sbb-dialog-title renders Light DOM"] =
 /* end snapshot sbb-dialog-title renders Light DOM */
 
 snapshots["sbb-dialog-title renders Shadow DOM"] = 
-`<div class="sbb-dialog__header">
-  <slot>
-  </slot>
-  <sbb-secondary-button
-    aria-label="Close secondary window"
-    class="sbb-dialog__close"
-    data-action=""
-    data-button=""
-    data-sbb-button=""
-    icon-name="cross-small"
-    sbb-dialog-close=""
-    size="m"
-    tabindex="0"
-    type="button"
-  >
-  </sbb-secondary-button>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-dialog-title renders Shadow DOM */
 
@@ -39,12 +24,9 @@ snapshots["sbb-dialog-title renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window"
+      "role": "heading",
+      "name": "Title",
+      "level": 2
     }
   ]
 }
@@ -59,12 +41,9 @@ snapshots["sbb-dialog-title renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text leaf",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window"
+      "role": "heading",
+      "name": "Title",
+      "level": 2
     }
   ]
 }

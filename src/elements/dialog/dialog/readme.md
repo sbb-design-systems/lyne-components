@@ -5,8 +5,6 @@ It offers the following features:
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
 - can host a [sbb-dialog-actions](/docs/elements-sbb-dialog-sbb-dialog-actions--docs) component in the footer;
-- has a close button, which is always visible;
-- can display a back button next to the title;
 - adds the appropriate ARIA roles automatically.
 
 ```html
@@ -26,47 +24,33 @@ There are three slots: `title`, `content` and `actions`, which can respectively 
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-actions>
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
   </sbb-dialog-actions>
 </sbb-dialog>
 ```
 
 ## Interactions
 
-In order to show the dialog, you need to call the `open(event?: PointerEvent)` method on the `sbb-dialog` component.
-It is necessary to pass the event object to the `open()` method to allow the dialog to detect
-whether it has been opened by click or keyboard, so that the focus can be better handled.
+To display the dialog, a trigger can be connected via the `trigger` property,
+or the `open()` method on the `sbb-dialog` component can be called.
 
 ```html
-<sbb-button
-  label="Open dialog"
-  click="openDialog(event, 'my-dialog')"
-  aria-haspopup="dialog"
-  aria-controls="my-dialog"
-></sbb-button>
+<sbb-button id="dialog-trigger">Open dialog</sbb-button>
 
-<sbb-dialog id="my-dialog">
+<sbb-dialog trigger="dialog-trigger">
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>
 </sbb-dialog>
-
-<script>
-  const openDialog = (event, id) => {
-    const dialog = document.getElementById(id);
-    dialog.open(event);
-  };
-</script>
 ```
 
-To dismiss the dialog, you need to get a reference to the `sbb-dialog` element and call
+To dismiss the dialog, you need to call
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
 emit a close event with an optional result as a payload.
 
-The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
+The component can also be dismissed by clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
-
-You can also set the property `backButton` on the `sbb-dialog-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
 
 ## Style
 
@@ -81,22 +65,32 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Accessibility
 
-When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,
-`aria-controls="dialog-id"` that connects the button to the dialog by referencing the dialog's ID. Consider using `aria-expanded` to indicate the dialog's current state (open or closed).
+### Controlling initial focus
 
-The `sbb-dialog` component may visually hide the title thanks to the `hideOnScroll` property of the [sbb-dialog-title](/docs/elements-sbb-dialog-sbb-dialog-title--docs) to create more space for content, this is useful especially on smaller screens. Screen readers and other assistive technologies will still have access to the title information for context.
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus.
+
+### Focus restoration
+
+When closed, the dialog restores focus to the element that previously held focus when the
+dialog opened by default. However, focus restoration can be disabled
+by setting the `skipFocusRestoration` property to `true`.
+As this is an accessibility feature, it is recommended to focus
+an alternative element by listening to the `didClose` event.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                        | Default    | Description                                                                                                 |
-| -------------------- | --------------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`       | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. |
-| `backdrop`           | `backdrop`            | public  | `'opaque' \| 'translucent'` | `'opaque'` | Backdrop density.                                                                                           |
-| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                      |
-| `isOpen`             | -                     | public  | `boolean`                   |            | Whether the element is open.                                                                                |
-| `negative`           | `negative`            | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                             |
+| Name                   | Attribute              | Privacy | Type                        | Default    | Description                                                                                                                                                                                                                                               |
+| ---------------------- | ---------------------- | ------- | --------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel`   | `accessibility-label`  | public  | `string`                    | `''`       | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.                                                                                                                                               |
+| `backdrop`             | `backdrop`             | public  | `'opaque' \| 'translucent'` | `'opaque'` | Backdrop density.                                                                                                                                                                                                                                         |
+| `backdropAction`       | `backdrop-action`      | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                                                                                                                                                                    |
+| `isOpen`               | -                      | public  | `boolean`                   |            | Whether the element is open.                                                                                                                                                                                                                              |
+| `negative`             | `negative`             | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                           |
+| `skipFocusRestoration` | `skipFocusRestoration` | public  | `boolean`                   | `false`    | Whether to skip restoring focus to the previously-focused element when the overlay is closed. Note that automatic focus restoration is an accessibility feature and it is recommended that you provide your own equivalent, if you decide to turn it off. |
+| `trigger`              | `trigger`              | public  | `HTMLElement \| null`       | `null`     | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                                                                                                                                             |
 
 ## Methods
 
@@ -122,6 +116,7 @@ The `sbb-dialog` component may visually hide the title thanks to the `hideOnScro
 
 ## Slots
 
-| Name | Description                                                                                                      |
-| ---- | ---------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`. |
+| Name      | Description                                                                                                      |
+| --------- | ---------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`. |
+| `actions` | This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.       |
