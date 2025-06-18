@@ -13,7 +13,7 @@ import style from './title.scss?lit&inline';
 export
 @customElement('sbb-title')
 class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = style;
 }
 
 declare global {
