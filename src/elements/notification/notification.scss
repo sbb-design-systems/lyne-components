@@ -36,6 +36,8 @@ $open-anim-height-to: calc(
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xs);
+  --_sbb-notification-icon-authoritative-font-size: 1em;
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
@@ -87,30 +89,20 @@ $open-anim-height-to: calc(
     var(--sbb-spacing-responsive-xxxs);
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xxs);
+
+  @include sbb.mq($from: small) {
+    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+  }
 }
 
-@include sbb.mq($from: small) {
-  :host {
-    --sbb-notification-icon-margin-block-start: calc(
-      ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
-    );
-  }
+:host(:where([data-slot-names~='title'], [title-content])) {
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-titles);
+}
 
-  :host(:where([data-slot-names~='title'], [title-content])) {
-    --sbb-notification-icon-margin-block-start: calc(
-      (
-          (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
-              --sbb-size-icon-ui-small
-            )
-        ) /
-        2
-    );
-  }
-
-  :host([size='s']) {
-    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
-    --sbb-notification-icon-margin-block-start: 0;
-  }
+:host([size='s']:where([data-slot-names~='title'], [title-content])) {
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
 }
 
 .sbb-notification__wrapper {
@@ -196,10 +188,24 @@ $open-anim-height-to: calc(
 
 .sbb-notification__icon {
   color: var(--sbb-notification-icon-color);
-  margin-block-start: var(--sbb-notification-icon-margin-block-start);
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
   --sbb-icon-svg-width: var(--sbb-notification-icon-size);
+
+  @include sbb.mq($from: small) {
+    margin-block-start: max(
+      0rem,
+      calc(
+        (
+            (
+                var(--_sbb-notification-icon-authoritative-font-size) *
+                  var(--_sbb-notification-icon-authoritative-line-height)
+              ) - var(--sbb-size-icon-ui-small)
+          ) /
+          2
+      )
+    );
+  }
 }
 
 .sbb-notification__title {
