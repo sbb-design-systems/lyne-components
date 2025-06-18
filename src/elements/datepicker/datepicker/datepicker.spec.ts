@@ -122,7 +122,10 @@ describe(`sbb-datepicker`, () => {
   it('renders and opens datepicker programmatically', async () => {
     const root = await fixture(html`
       <div>
-        <sbb-datepicker-toggle datepicker="datepicker"></sbb-datepicker-toggle>
+        <sbb-datepicker-toggle
+          input="datepicker-input"
+          datepicker="datepicker"
+        ></sbb-datepicker-toggle>
         <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
         <sbb-date-input id="datepicker-input"></sbb-date-input>
       </div>
