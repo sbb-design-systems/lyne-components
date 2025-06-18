@@ -1,12 +1,6 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
@@ -15,8 +9,6 @@ import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js'
 import type { SbbTitleLevel } from '../title.js';
 
 import style from './skiplink-list.scss?lit&inline';
-
-import '../title.js';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
@@ -56,19 +48,21 @@ class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   }
 
   protected override render(): TemplateResult {
+    const TITLE_TAG_NAME = `h${this.titleLevel || '2'}`;
+
+    /* eslint-disable lit/binding-positions */
     return html`
       <div class="sbb-skiplink-list__wrapper">
-        <sbb-title
+        <${unsafeStatic(TITLE_TAG_NAME)}
           class="sbb-link-list-title"
-          level=${this.titleLevel || nothing}
-          visual-level="5"
           id="sbb-skiplink-list-title-id"
         >
           <slot name="title">${this.titleContent}</slot>
-        </sbb-title>
+        </${unsafeStatic(TITLE_TAG_NAME)}>
         ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
       </div>
     `;
+    /* eslint-enable lit/binding-positions */
   }
 }
 

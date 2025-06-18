@@ -19,6 +19,10 @@
   z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
+.sbb-link-list-title {
+  @include sbb.screen-reader-only;
+}
+
 .sbb-skiplink-list {
   @include sbb.list-reset;
 
@@ -45,8 +49,4 @@
 ::slotted([data-sbb-link]) {
   --sbb-focus-outline-color: transparent;
   --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
-}
-
-sbb-title {
-  @include sbb.screen-reader-only;
 }
