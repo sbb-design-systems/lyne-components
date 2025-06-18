@@ -5,6 +5,7 @@ snapshots["sbb-datepicker-previous-day renders DOM"] =
 `<sbb-datepicker-previous-day
   data-action=""
   data-button=""
+  disabled=""
   tabindex="0"
 >
 </sbb-datepicker-previous-day>
@@ -57,7 +58,8 @@ snapshots["sbb-datepicker-previous-day renders A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": ""
+      "name": "",
+      "disabled": true
     }
   ]
 }
@@ -73,7 +75,8 @@ snapshots["sbb-datepicker-previous-day renders A11y tree Firefox"] =
   "children": [
     {
       "role": "button",
-      "name": ""
+      "name": "",
+      "disabled": true
     }
   ]
 }

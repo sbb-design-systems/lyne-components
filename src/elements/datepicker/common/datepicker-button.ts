@@ -74,7 +74,7 @@ export abstract class SbbDatepickerButtonBase<T = Date>
       if (this.hasUpdated) {
         this.toggleAttribute('disabled', this.disabled);
       }
-    } else if (!name && this.input) {
+    } else if (!name && this.hasUpdated && this.input) {
       // If language changes, we need to update related aria properties.
       this._sync();
     }
