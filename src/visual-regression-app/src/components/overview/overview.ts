@@ -25,7 +25,7 @@ export
 class Overview extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <sbb-container expanded>
         <sbb-title level="3">
