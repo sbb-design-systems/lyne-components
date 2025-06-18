@@ -83,7 +83,7 @@ As a base rule, opening animations should be active if a notification arrives af
 | Name           | Attribute       | Privacy | Type                                       | Default            | Description                                                                        |
 | -------------- | --------------- | ------- | ------------------------------------------ | ------------------ | ---------------------------------------------------------------------------------- |
 | `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`            | The enabled animations.                                                            |
-| `readOnly`     | `readonly`      | public  | `boolean`                                  |                    | Whether the component is readonly.                                                 |
+| `readOnly`     | `readonly`      | public  | `boolean`                                  | `false`            | Whether the component is readonly.                                                 |
 | `size`         | `size`          | public  | `'m' \| 's'`                               | `'m' / 's' (lean)` | Size variant, either s or m.                                                       |
 | `titleContent` | `title-content` | public  | `string`                                   | `''`               | Content of title.                                                                  |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                            | `'3'`              | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |

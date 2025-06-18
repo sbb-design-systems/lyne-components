@@ -10,7 +10,7 @@ describe(`sbb-calendar ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
-      html`<sbb-calendar now="2023-01-04T00:00:00" selected="2023-01-20T00:00:00"></sbb-calendar>`,
+      html`<sbb-calendar selected="2023-01-20T00:00:00"></sbb-calendar>`,
       { modules: ['./calendar.component.js'] },
     );
   });
