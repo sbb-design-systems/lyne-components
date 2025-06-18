@@ -146,6 +146,16 @@
     --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
   }
 
+  :host([orientation='horizontal'][week-numbers]) & {
+    --sbb-calendar-min-width: calc(8 * var(--sbb-calendar-cell-size));
+  }
+
+  :host([orientation='horizontal'][week-numbers][data-wide]) & {
+    --sbb-calendar-min-width: calc(
+      2 * 8 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
+  }
+
   // The container's min-width is set in vertical mode;
   // the value `calc(7 * var(--sbb-calendar-cell-size))` is fine
   // considering that the maximum number of weeks in a month is 6, plus 1 for the header at the table's left side.
@@ -191,21 +201,24 @@
 }
 
 .sbb-calendar__table-header {
-  @include sbb.text-xs--regular;
-
-  color: var(--sbb-calendar-header-color);
-  width: var(--sbb-calendar-cell-size);
-  padding: 0;
-
   // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
   text-align: center;
+}
 
-  :host([orientation='horizontal']) & {
-    padding-block-end: var(--sbb-spacing-fixed-4x);
-  }
+.sbb-calendar__table-body {
+  // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
+  text-align: center;
+}
 
-  :host([orientation='vertical']) & {
-    padding-inline-end: var(--sbb-spacing-fixed-1x);
+.sbb-calendar__table-header-cell {
+  @include sbb.text-xs--regular;
+
+  width: var(--sbb-calendar-cell-size);
+  color: var(--sbb-calendar-header-color);
+  padding: 0;
+
+  :host(:not([multiple])) & {
+    height: var(--sbb-calendar-cell-size);
   }
 }
 
@@ -215,6 +228,7 @@
   text-align: center;
 }
 
+.sbb-calendar__header-cell,
 .sbb-calendar__cell {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
@@ -280,6 +294,13 @@
   }
 }
 
+.sbb-calendar__header-cell {
+  @include sbb.text-xs--regular;
+
+  color: var(--sbb-calendar-header-color);
+}
+
+.sbb-calendar__weekday,
 .sbb-calendar__day {
   border-radius: 50%;
   width: var(--sbb-calendar-cell-size);
