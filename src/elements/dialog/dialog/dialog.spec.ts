@@ -50,7 +50,9 @@ describe('sbb-dialog', () => {
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
-          <sbb-dialog-actions>Action group</sbb-dialog-actions>
+          <sbb-dialog-actions>
+            Action group <button sbb-dialog-close>Cancel</button>
+          </sbb-dialog-actions>
         </sbb-dialog>
       `);
       ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
@@ -213,10 +215,8 @@ describe('sbb-dialog', () => {
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
-    it('closes the dialog on close button click', async () => {
-      const closeButton = element
-        .querySelector('sbb-dialog-title')!
-        .shadowRoot!.querySelector('[sbb-dialog-close]') as HTMLElement;
+    it('closes the dialog on close button click with sbb-dialog-close attribute', async () => {
+      const closeButton = element.querySelector('[sbb-dialog-close]') as HTMLElement;
       const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
       const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
 
@@ -439,6 +439,113 @@ describe('sbb-dialog', () => {
     });
   });
 
+  describe('with trigger', () => {
+    let element: SbbDialogElement, trigger: HTMLElement;
+
+    beforeEach(async () => {
+      await setViewport({ width: 900, height: 600 });
+      const root = await fixture(html`
+        <div>
+          <button id="trigger"></button>
+          <sbb-dialog trigger="trigger">
+            <sbb-dialog-title>Title</sbb-dialog-title>
+            <sbb-dialog-content>Dialog content</sbb-dialog-content>
+            <sbb-dialog-actions>Action group</sbb-dialog-actions>
+          </sbb-dialog>
+        </div>
+      `);
+      element = root.querySelector('sbb-dialog')!;
+      trigger = root.querySelector('#trigger')!;
+    });
+
+    it('configures trigger', () => {
+      expect(trigger.ariaHasPopup).to.be.equal('dialog');
+      expect(trigger.getAttribute('aria-controls')).to.be.equal('sbb-dialog-0');
+      expect(trigger.getAttribute('aria-expanded')).to.be.equal('false');
+
+      trigger.click();
+      expect(element.isOpen).to.be.true;
+      expect(trigger.getAttribute('aria-expanded')).to.be.equal('true');
+    });
+
+    it('updates trigger connected by id', async () => {
+      trigger.id = '';
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).to.be.null;
+
+      trigger.id = 'trigger';
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).not.to.be.null;
+    });
+
+    it('accepts trigger as HTML Element', async () => {
+      trigger.id = '';
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).to.be.null;
+
+      element.trigger = trigger;
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).not.to.be.null;
+    });
+
+    it('allows removing the trigger', async () => {
+      expect(trigger.ariaHasPopup).not.to.be.null;
+
+      element.trigger = null;
+      await waitForLitRender(element);
+      expect(trigger.ariaHasPopup).to.be.null;
+    });
+
+    it('init with HtmlElement as trigger', async () => {
+      trigger = await fixture(html`<sbb-button id="dialog-trigger">Menu trigger</sbb-button>`);
+      element = await fixture(html`<sbb-dialog id="dialog" .trigger=${trigger}></sbb-dialog>`);
+
+      const willOpenEventSpy = new EventSpy(SbbDialogElement.events.willOpen, element);
+      const didOpenEventSpy = new EventSpy(SbbDialogElement.events.didOpen, element);
+
+      trigger.click();
+
+      await willOpenEventSpy.calledOnce();
+      expect(willOpenEventSpy.count).to.be.equal(1);
+
+      await didOpenEventSpy.calledOnce();
+      expect(didOpenEventSpy.count).to.be.equal(1);
+
+      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':popover-open');
+    });
+
+    it('closes and restores focus', async () => {
+      trigger.focus();
+      expect(document.activeElement).to.be.equal(trigger);
+
+      trigger.click();
+      expect(element.isOpen).to.be.true;
+      await waitForCondition(() => document.activeElement !== trigger, 2);
+      expect(document.activeElement).not.to.be.equal(trigger);
+
+      await sendKeys({ press: 'Escape' });
+      expect(element.isOpen).to.be.false;
+      expect(document.activeElement).to.be.equal(trigger);
+    });
+
+    it('closes and skips focus restoration', async () => {
+      element.skipFocusRestoration = true;
+
+      trigger.focus();
+      expect(document.activeElement).to.be.equal(trigger);
+
+      trigger.click();
+      expect(element.isOpen).to.be.true;
+      await waitForCondition(() => document.activeElement !== trigger, 2);
+      expect(document.activeElement).not.to.be.equal(trigger);
+
+      await sendKeys({ press: 'Escape' });
+      expect(element.isOpen).to.be.false;
+      expect(document.activeElement).not.to.be.equal(trigger);
+    });
+  });
+
   describe('with long content', () => {
     let element: SbbDialogElement;
 
@@ -446,7 +553,7 @@ describe('sbb-dialog', () => {
       await setViewport({ width: 900, height: 300 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-1">
-          <sbb-dialog-title hide-on-scroll="">Title</sbb-dialog-title>
+          <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>
             Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
             face like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise
@@ -472,34 +579,12 @@ describe('sbb-dialog', () => {
       assert.instanceOf(element, SbbDialogElement);
     });
 
-    it('sets the data-overflows attribute', async () => {
+    it('sets the overflows state', async () => {
       await openDialog(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
-      await waitForCondition(() => element.hasAttribute('data-overflows'));
-      expect(element).to.have.attribute('data-overflows', '');
-    });
-
-    it('shows/hides the dialog header on scroll', async () => {
-      await openDialog(element);
-      expect(element).not.to.have.attribute('data-hide-header');
-      const scrollSpy = new EventSpy('scroll', document);
-
-      const content = element.querySelector('sbb-dialog-content')!.shadowRoot!.firstElementChild!;
-
-      // Scroll down.
-      content.scrollTo(0, 50);
-      await waitForCondition(() => element.hasAttribute('data-hide-header'));
-      await scrollSpy.calledOnce();
-
-      expect(element).to.have.attribute('data-hide-header');
-
-      // Scroll up.
-      content.scrollTo(0, 0);
-      await waitForCondition(() => !element.hasAttribute('data-hide-header'));
-      await scrollSpy.calledTimes(2);
-
-      expect(element).not.to.have.attribute('data-hide-header');
+      await waitForCondition(() => element.matches(':state(overflows)'));
+      expect(element).to.match(':state(overflows)');
     });
   });
 
@@ -621,7 +706,7 @@ describe('sbb-dialog', () => {
     it('should open the dialog and the stepper should appear with the correct style', async () => {
       const stepper = root.querySelector('sbb-stepper')!;
       expect(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')).to.be.equal(
-        '0',
+        '0px',
       );
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
