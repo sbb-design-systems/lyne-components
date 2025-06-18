@@ -5,6 +5,7 @@ snapshots["sbb-datepicker-toggle renders DOM"] =
 `<sbb-datepicker-toggle
   data-action=""
   data-button=""
+  disabled=""
   tabindex="0"
 >
 </sbb-datepicker-toggle>
