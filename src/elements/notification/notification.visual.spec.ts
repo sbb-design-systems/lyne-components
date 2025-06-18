@@ -12,14 +12,14 @@ describe(`sbb-notification`, () => {
     type: 'info',
     size: 'm',
     readonly: false,
-    title: true,
+    showTitle: true,
   };
 
   const notificationTemplate = ({
     type,
     size,
     readonly,
-    title,
+    showTitle,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
       size=${size}
@@ -27,7 +27,7 @@ describe(`sbb-notification`, () => {
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     >
-      ${title ? html`<sbb-title>Title</sbb-title>` : nothing}
+      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing}
       <p>
         The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
         dog.&nbsp;<sbb-link href="/">Link one</sbb-link>
@@ -46,7 +46,7 @@ describe(`sbb-notification`, () => {
 
   const states = {
     readonly: [false, true],
-    slottedTitle: [false, true],
+    showTitle: [false, true],
   };
 
   const types = ['info', 'success', 'warn', 'error'];
@@ -56,11 +56,15 @@ describe(`sbb-notification`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'small', 'medium'] }, () => {
-    describeEach(states, ({ readonly, slottedTitle }) => {
+    describeEach(states, ({ readonly, showTitle }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          const args = { ...defaultArgs, readonly, title: slottedTitle, slotted: slottedTitle };
+          const args = {
+            ...defaultArgs,
+            readonly,
+            showTitle,
+          } satisfies typeof defaultArgs;
           await setup.withFixture(html`${notificationTemplate(args)} ${textTemplate}`);
         }),
       );
