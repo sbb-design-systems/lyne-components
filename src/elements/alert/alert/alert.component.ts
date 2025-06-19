@@ -8,6 +8,8 @@ import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbReadonlyMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbLinkElement } from '../../link.js';
+import type { SbbTitleElement } from '../../title.js';
 
 import style from './alert.scss?lit&inline';
 
@@ -123,14 +125,14 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   }
 
   private _syncLinks(): void {
-    Array.from(this.querySelectorAll?.('sbb-link') ?? []).forEach((link) => {
+    Array.from(this.querySelectorAll?.<SbbLinkElement>('sbb-link') ?? []).forEach((link) => {
       customElements.upgrade(link);
       link.negative = true;
     });
   }
 
   private _configureTitle(): void {
-    const title = this.querySelector?.('sbb-title');
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
       customElements.upgrade(title);
       title.negative = true;

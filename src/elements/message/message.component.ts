@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import type { SbbTitleElement } from '../title.js';
+
 import style from './message.scss?lit&inline';
 
 /**
@@ -19,7 +21,7 @@ class SbbMessageElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   private _configureTitle(): void {
-    const title = this.querySelector?.('sbb-title');
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
       customElements.upgrade(title);
       title.visualLevel = '5';

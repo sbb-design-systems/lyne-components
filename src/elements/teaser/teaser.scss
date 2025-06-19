@@ -82,6 +82,9 @@
 }
 
 .sbb-teaser__text {
+  @include sbb.text-s--regular;
+
+  color: var(--sbb-teaser-description-color);
   overflow: hidden;
   max-width: 100%;
 }
@@ -115,10 +118,7 @@
 }
 
 ::slotted(p) {
-  @include sbb.text-s--regular;
-
   display: inline-block;
   margin: 0;
   padding: 0;
-  color: var(--sbb-teaser-description-color);
 }

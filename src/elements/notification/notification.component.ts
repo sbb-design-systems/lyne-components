@@ -15,6 +15,7 @@ import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbReadonlyMixin } from '../core/mixins.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './notification.scss?lit&inline';
 
@@ -220,7 +221,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   }
 
   private _configureTitle(): void {
-    const title = this.querySelector?.('sbb-title');
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
 
     if (title) {
       customElements.upgrade(title);
