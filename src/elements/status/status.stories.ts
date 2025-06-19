@@ -7,6 +7,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
+import '../title.js';
 import './status.component.js';
 
 const type: InputType = {
@@ -59,16 +60,15 @@ const defaultArgs: Args = {
 
 const Template = ({ text, titleText, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}>
-    ${titleText && titleText !== ''
-      ? html`<sbb-title level="3" slot="title">${titleText}</sbb-title>`
-      : nothing}
-    ${text}
+    ${titleText ? html`<sbb-title level="3">${titleText}</sbb-title>` : nothing}
+    <p>${text}</p>
   </sbb-status>
 `;
 
 const TemplateIconSlot = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}>
-    ${text}<sbb-icon name=${iconName} slot="icon"></sbb-icon>
+    <sbb-icon name=${iconName} slot="icon"></sbb-icon>
+    <p>${text}</p>
   </sbb-status>
 `;
 

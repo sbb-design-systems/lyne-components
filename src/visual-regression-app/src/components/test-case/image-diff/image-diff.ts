@@ -117,7 +117,7 @@ class ImageDiff extends LitElement {
                 />
               </button>`
             : html`<sbb-status type="info" class="app-new-test-case-info">
-                New test case
+                <p>New test case</p>
               </sbb-status>`}
         </div>
         ${this.screenshotFiles.failedFile

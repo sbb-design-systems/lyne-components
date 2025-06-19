@@ -2,11 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-status renders DOM"] = 
-`<sbb-status
-  data-slot-names="unnamed"
-  type="info"
->
-  Status info text
+`<sbb-status type="info">
+  <p>
+    Status info text
+  </p>
 </sbb-status>
 `;
 /* end snapshot sbb-status renders DOM */
@@ -25,30 +24,24 @@ snapshots["sbb-status renders Shadow DOM"] =
     </slot>
   </span>
   <span class="sbb-status__content">
-    <slot name="title">
+    <slot>
     </slot>
-    <p class="sbb-status__content-slot">
-      <slot>
-      </slot>
-    </p>
   </span>
 </div>
 `;
 /* end snapshot sbb-status renders Shadow DOM */
 
 snapshots["sbb-status renders with title DOM"] = 
-`<sbb-status
-  data-slot-names="title unnamed"
-  type="info"
->
+`<sbb-status type="info">
   <sbb-title
     level="3"
-    slot="title"
     visual-level="5"
   >
     Title
   </sbb-title>
-  Status info text
+  <p>
+    Status info text
+  </p>
 </sbb-status>
 `;
 /* end snapshot sbb-status renders with title DOM */
@@ -67,12 +60,8 @@ snapshots["sbb-status renders with title Shadow DOM"] =
     </slot>
   </span>
   <span class="sbb-status__content">
-    <slot name="title">
+    <slot>
     </slot>
-    <p class="sbb-status__content-slot">
-      <slot>
-      </slot>
-    </p>
   </span>
 </div>
 `;
@@ -102,7 +91,7 @@ snapshots["sbb-status renders A11y tree Firefox"] =
   "children": [
     {
       "role": "text leaf",
-      "name": "Status info text "
+      "name": "Status info text"
     }
   ]
 }
@@ -144,7 +133,7 @@ snapshots["sbb-status renders with title A11y tree Firefox"] =
     },
     {
       "role": "text leaf",
-      "name": "Status info text "
+      "name": "Status info text"
     }
   ]
 }

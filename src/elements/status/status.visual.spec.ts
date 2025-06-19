@@ -7,6 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
+import '../title.js';
 import './status.component.js';
 
 describe(`sbb-status`, () => {
@@ -31,8 +32,8 @@ describe(`sbb-status`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
           <sbb-status type=${type}>
-            ${title ? html`<sbb-title level="3" slot="title">Title</sbb-title>` : nothing} Status
-            text.
+            ${title ? html`<sbb-title level="3">Title</sbb-title>` : nothing}
+            <p>Status text.</p>
           </sbb-status>
         `);
       });
@@ -52,8 +53,8 @@ describe(`sbb-status`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-status icon-name="face-smiling-small" type="success">
-                ${title ? html`<sbb-title level="3" slot="title">Title</sbb-title>` : nothing}
-                Status text.
+                ${title ? html`<sbb-title level="3">Title</sbb-title>` : nothing}
+                <p>Status text.</p>
               </sbb-status>
             `);
           }),
@@ -64,9 +65,9 @@ describe(`sbb-status`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-status type="success">
-                ${title ? html`<sbb-title level="3" slot="title">Title</sbb-title>` : nothing}
+                ${title ? html`<sbb-title level="3">Title</sbb-title>` : nothing}
                 <sbb-icon slot="icon" name="face-smiling-small"></sbb-icon>
-                Status text.
+                <p>Status text.</p>
               </sbb-status>
             `);
           }),
@@ -79,16 +80,18 @@ describe(`sbb-status`, () => {
               <sbb-status type="success">
                 ${title
                   ? html`
-                      <sbb-title level="3" slot="title">
+                      <sbb-title level="3">
                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
                         eirmod tempor
                       </sbb-title>
                     `
                   : nothing}
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet.
+                <p>
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                  no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </p>
               </sbb-status>
             `);
           }),

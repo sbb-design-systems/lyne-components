@@ -2,13 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { slotState } from '../core/decorators.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './status.scss?lit&inline';
-
-import '../title.js';
 
 export type SbbStatusType =
   | 'info'
@@ -23,8 +20,7 @@ export type SbbStatusType =
 /**
  * Displays a message to the user's attention.
  *
- * @slot - Use the unnamed slot to add content to the status message.
- * @slot title - Use this to provide an `sbb-title` for the status (optional).
+ * @slot - Use the unnamed slot to add an optional `sbb-title` and content (wrapped in a `<p>` element to the status message.
  * @slot icon - Use this slot to override the default status icon.
  * @cssprop [--sbb-status-color=var(--sbb-color-iron)] - Specify a custom color,
  * which will override the predefined color for any type.
@@ -33,7 +29,6 @@ export type SbbStatusType =
  */
 export
 @customElement('sbb-status')
-@slotState()
 class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -72,10 +67,7 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
       <div class="sbb-status">
         <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
         <span class="sbb-status__content">
-          <slot name="title" @slotchange=${this._configureTitle}></slot>
-          <p class="sbb-status__content-slot">
-            <slot></slot>
-          </p>
+          <slot @slotchange=${this._configureTitle}></slot>
         </span>
       </div>
     `;
