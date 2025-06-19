@@ -10,7 +10,6 @@ import style from './teaser.scss?lit&inline';
 
 import '../chip-label.js';
 import '../screen-reader-only.js';
-import '../title.js';
 
 /**
  * It displays an interactive image with caption.
