@@ -464,7 +464,7 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
   }
 
   protected override registerTriggerListeners(signal: AbortSignal): void {
-    if (this._hoverTrigger) {
+    if (this._hoverTrigger && this._triggerElement) {
       this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
       this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
       this._triggerElement.addEventListener(
