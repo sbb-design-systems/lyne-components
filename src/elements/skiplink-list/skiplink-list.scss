@@ -19,7 +19,7 @@
   z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
-.sbb-link-list-title {
+.sbb-skiplink-list-title {
   @include sbb.screen-reader-only;
 }
 

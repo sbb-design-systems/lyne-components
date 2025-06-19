@@ -54,7 +54,7 @@ class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
     return html`
       <div class="sbb-skiplink-list__wrapper">
         <${unsafeStatic(TITLE_TAG_NAME)}
-          class="sbb-link-list-title"
+          class="sbb-skiplink-list-title"
           id="sbb-skiplink-list-title-id"
         >
           <slot name="title">${this.titleContent}</slot>
