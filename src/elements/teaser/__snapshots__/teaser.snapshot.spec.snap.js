@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser renders after centered DOM"] = 
+snapshots["sbb-teaser renders after centered DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after-centered"
@@ -13,7 +13,7 @@ snapshots["sbb-teaser renders after centered DOM"] =
 `;
 /* end snapshot sbb-teaser renders after centered DOM */
 
-snapshots["sbb-teaser renders after centered Shadow DOM"] = 
+snapshots["sbb-teaser renders after centered Shadow DOM"] =
 `<div class="sbb-teaser__wrapper">
   <a
     aria-label="SBB teaser"
@@ -92,7 +92,7 @@ snapshots["renders after with title set Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders after with title level set Shadow DOM */
 
-snapshots["sbb-teaser renders below with projected content DOM"] = 
+snapshots["sbb-teaser renders below with projected content DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="below"
@@ -110,9 +110,12 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
       src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
     >
   </figure>
-  <span slot="chip">
+  <sbb-chip-label
+    size="xxs"
+    color="charcoal"
+  >
     Chip
-  </span>
+  </sbb-chip-label>
   <sbb-title
     level="2"
     visual-level="5"
@@ -126,7 +129,7 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
 `;
 /* end snapshot sbb-teaser renders below with projected content DOM */
 
-snapshots["sbb-teaser renders below with projected content Shadow DOM"] = 
+snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 `<div class="sbb-teaser__wrapper">
   <a
     aria-label="SBB teaser"
@@ -143,14 +146,6 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip-label
-        class="sbb-teaser__chip-label"
-        color="charcoal"
-        size="xxs"
-      >
-        <slot name="chip">
-        </slot>
-      </sbb-chip-label>
       <slot>
       </slot>
     </span>
@@ -179,7 +174,7 @@ snapshots["sbb-teaser renders after centered A11y tree Chrome"] =
 `;
 /* end snapshot sbb-teaser renders after centered A11y tree Chrome */
 
-snapshots["sbb-teaser renders after centered A11y tree Firefox"] = 
+snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -200,7 +195,7 @@ snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
 `;
 /* end snapshot sbb-teaser renders after centered A11y tree Firefox */
 
-snapshots["sbb-teaser renders after with title set DOM"] = 
+snapshots["sbb-teaser renders after with title set DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after"
@@ -219,7 +214,7 @@ snapshots["sbb-teaser renders after with title set DOM"] =
 `;
 /* end snapshot sbb-teaser renders after with title set DOM */
 
-snapshots["sbb-teaser renders after with title set Shadow DOM"] = 
+snapshots["sbb-teaser renders after with title set Shadow DOM"] =
 `<div class="sbb-teaser__wrapper">
   <a
     aria-label="SBB teaser"
@@ -236,14 +231,6 @@ snapshots["sbb-teaser renders after with title set Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip-label
-        class="sbb-teaser__chip-label"
-        color="charcoal"
-        size="xxs"
-      >
-        <slot name="chip">
-        </slot>
-      </sbb-chip-label>
       <slot>
       </slot>
     </span>

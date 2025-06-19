@@ -3,8 +3,9 @@ The `sbb-teaser` is a component which can display an image with a caption, and i
 Simple teaser example:
 
 ```html
-<sbb-teaser href="https://www.sbb.ch" chip-content="Chip label">
+<sbb-teaser href="https://www.sbb.ch">
   <img slot="image" src="..." alt="400x300" />
+  <sbb-chip-label>Chip label</sbb-chip-label>
   <sbb-title level="2">Title</sbb-title>
   <p>A brief description.</p>
 </sbb-teaser>
@@ -12,10 +13,10 @@ Simple teaser example:
 
 ## Slots
 
-The default slot is reserved for the description and, optionally, a `sbb-title`.
+The default slot is reserved for the description and,
+optionally, a [sbb-title](/docs/elements-sbb-title--docs) and a [sbb-chip-label](/docs/elements-sbb-chip-label--docs).
 The description should be wrapped into a `<p>` element to guarantee the semantic meaning.
-The component displays the `image` with the self-named slots.
-It's also possible to display a [sbb-chip-label](/docs/elements-sbb-chip-label--docs) using the `chip` slot.
+The component displays the `image` with the self-named slot.
 
 Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
 Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
@@ -26,7 +27,7 @@ Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` 
     <img src="..." alt="400x300" />
     <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
   </figure>
-  <span slot="chip">Chip label</span>
+  <sbb-chip-label>Chip label</sbb-chip-label>
   <sbb-title level="2">Title</sbb-title>
   <p>A brief description.</p>
 </sbb-teaser>

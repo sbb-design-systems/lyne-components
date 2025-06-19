@@ -113,11 +113,7 @@ describe(`sbb-teaser`, () => {
               visualDiffDefault.with(async (setup) => {
                 await setup.withFixture(
                   html`
-                    <sbb-teaser
-                      href="#"
-                      alignment=${alignment}
-                      chip-content=${hasChip ? 'This is a chip.' : nothing}
-                    >
+                    <sbb-teaser href="#" alignment=${alignment}>
                       <figure slot="image" class="sbb-figure">
                         <img src=${imageBase64} />
                         ${hasChip
@@ -126,6 +122,7 @@ describe(`sbb-teaser`, () => {
                             </sbb-chip-label>`
                           : nothing}
                       </figure>
+                      ${hasChip ? html`<sbb-chip-label>This is a chip.</sbb-chip-label>` : nothing}
                       <sbb-title level="2">This is a title</sbb-title>
                       <p>${withLongContent ? loremIpsum : 'This is a paragraph'}</p>
                     </sbb-teaser>
@@ -210,9 +207,9 @@ describe(`sbb-teaser`, () => {
                 style="width: ${screenCombination.viewport === 'micro' ? '300px' : '400px'};"
                 href="#"
                 alignment="below"
-                chip-content=${longChip}
               >
                 <img src=${imageBase64} slot="image" alt="" />
+                <sbb-chip-label>${longChip}</sbb-chip-label>
                 <sbb-title level="2">This is a title</sbb-title>
                 <p>This is a paragraph</p>
               </sbb-teaser>

@@ -1,8 +1,7 @@
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
@@ -71,7 +70,7 @@ const accessibilityLabel: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   titleContent,
-  'chip-content': chipContent,
+  chipContent,
   alignment,
   href,
   description,
@@ -80,7 +79,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   titleContent: 'This is a title',
-  'chip-content': undefined,
+  chipContent: undefined,
   alignment: 'after-centered',
   href: href.options![1],
   description: 'This is a paragraph',
@@ -88,13 +87,21 @@ const defaultArgs: Args = {
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
 };
 
-const TemplateDefault = ({ description, titleContent, ...remainingArgs }: Args): TemplateResult => {
+const TemplateDefault = ({
+  description,
+  titleContent,
+  chipContent,
+  ...remainingArgs
+}: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <figure slot="image" class="sbb-figure">
         <img src=${placeholderImage} alt="400x300" />
         <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
       </figure>
+      ${chipContent && chipContent !== ''
+        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+        : nothing}
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
@@ -106,11 +113,15 @@ const TemplateDefault = ({ description, titleContent, ...remainingArgs }: Args):
 const TemplateDefaultFixedWidth = ({
   description,
   titleContent,
+  chipContent,
   ...remainingArgs
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
       <img src=${placeholderImage} alt="400x300" slot="image" />
+      ${chipContent && chipContent !== ''
+        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+        : nothing}
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
@@ -119,7 +130,12 @@ const TemplateDefaultFixedWidth = ({
   `;
 };
 
-const TemplateCustom = ({ description, titleContent, ...remainingArgs }: Args): TemplateResult => {
+const TemplateCustom = ({
+  description,
+  titleContent,
+  chipContent,
+  ...remainingArgs
+}: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img
@@ -129,6 +145,9 @@ const TemplateCustom = ({ description, titleContent, ...remainingArgs }: Args): 
         style="width: 200px;"
         slot="image"
       />
+      ${chipContent && chipContent !== ''
+        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+        : nothing}
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
@@ -139,14 +158,16 @@ const TemplateCustom = ({ description, titleContent, ...remainingArgs }: Args): 
 
 const TemplateSlots = ({
   titleContent,
-  'chip-content': chipContent,
+  chipContent,
   description,
   ...remainingArgs
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img src=${placeholderImage} alt="400x300" slot="image" />
-      <span slot="chip">${chipContent}</span>
+      ${chipContent && chipContent !== ''
+        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+        : nothing}
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
@@ -216,14 +237,14 @@ export const AfterWithLongContentChip: StoryObj = {
   args: {
     ...defaultArgs,
     alignment: 'after',
-    'chip-content': 'This is a chip which has a very long content and should receive ellipsis.',
+    chipContent: 'This is a chip which has a very long content and should receive ellipsis.',
   },
 };
 
 export const BelowChip: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'below', 'chip-content': 'This is a chip.' },
+  args: { ...defaultArgs, alignment: 'below', chipContent: 'This is a chip.' },
 };
 
 export const BelowWithLongContentChip: StoryObj = {
@@ -232,7 +253,7 @@ export const BelowWithLongContentChip: StoryObj = {
   args: {
     ...defaultArgs,
     alignment: 'below',
-    'chip-content': 'This is a chip which has a very long content and should receive ellipsis.',
+    chipContent: 'This is a chip which has a very long content and should receive ellipsis.',
   },
 };
 
@@ -279,7 +300,7 @@ export const List: StoryObj = {
 export const WithSlots: StoryObj = {
   render: TemplateSlots,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'chip-content': 'Chip content' },
+  args: { ...defaultArgs, chipContent: 'Chip content' },
 };
 
 export const Grid: StoryObj = {
@@ -289,10 +310,7 @@ export const Grid: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`<div style="max-width: 760px;">${story()}</div>`,
-    withActions as Decorator,
-  ],
+  decorators: [(story) => html`<div style="max-width: 760px;">${story()}</div>`],
   parameters: {
     actions: {
       handles: ['click'],

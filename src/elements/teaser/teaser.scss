@@ -104,14 +104,10 @@
   }
 }
 
-.sbb-teaser__chip-label {
+::slotted(sbb-chip-label) {
   display: block;
   max-width: fit-content;
   margin-block-end: var(--sbb-spacing-fixed-1x);
-
-  :host(:not([data-slot-names~='chip'], [chip-content])) & {
-    display: none;
-  }
 }
 
 ::slotted(sbb-title) {

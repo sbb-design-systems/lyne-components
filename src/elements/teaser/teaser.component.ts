@@ -2,8 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import type { SbbChipLabelElement } from '../chip-label.js';
 import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { slotState } from '../core/decorators.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
@@ -15,9 +16,7 @@ import '../screen-reader-only.js';
  * It displays an interactive image with caption.
  *
  * @slot image - Slot used to render the image.
- * @slot chip - Slot used to render the sbb-chip-label.
- * @slot title - Slot used to render the title.
- * @slot - Use the unnamed slot to render the description.
+ * @slot - Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.
  */
 export
 @customElement('sbb-teaser')
@@ -29,16 +28,21 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  /** Content of chip label. */
-  @forceType()
-  @property({ attribute: 'chip-content', reflect: true, converter: omitEmptyConverter })
-  public accessor chipContent: string = '';
-
-  private _configureTitle(): void {
+  private _configureTitleAndChip(event: Event): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+    const chipLabel = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find(
+        (e): e is SbbChipLabelElement => e instanceof Element && e.localName === 'sbb-chip-label',
+      );
     if (title) {
       customElements.upgrade(title);
       title.visualLevel = '5';
+    }
+    if (chipLabel) {
+      customElements.upgrade(chipLabel);
+      chipLabel.color = 'charcoal';
+      chipLabel.size = 'xxs';
     }
   }
 
@@ -62,10 +66,7 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <sbb-chip-label size="xxs" color="charcoal" class="sbb-teaser__chip-label">
-            <slot name="chip">${this.chipContent}</slot>
-          </sbb-chip-label>
-          <slot @slotchange=${this._configureTitle}></slot>
+          <slot @slotchange=${(event: Event) => this._configureTitleAndChip(event)}></slot>
         </span>
       </span>
     `;

@@ -67,7 +67,7 @@ describe(`sbb-teaser`, () => {
           <figure slot="image" class="sbb-figure">
             <img src=${images[0]} alt="400x300" />
           </figure>
-          <span slot="chip">Chip</span>
+          <sbb-chip-label>Chip</sbb-chip-label>
           <sbb-title level="2">Title</sbb-title>
           <p>A brief description.</p>
         </sbb-teaser>`,
