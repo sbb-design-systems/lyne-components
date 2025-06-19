@@ -589,7 +589,7 @@ describe(`sbb-autocomplete`, () => {
       input = formField.querySelector('input')!;
     });
 
-    it.only('should select value', async () => {
+    it('should select value', async () => {
       // Open autocomplete
       input.click();
       expect(element.isOpen).to.be.true;
