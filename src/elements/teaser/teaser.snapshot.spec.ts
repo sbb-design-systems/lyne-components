@@ -8,6 +8,7 @@ import type { SbbTeaserElement } from './teaser.component.js';
 
 import '../title.js';
 import './teaser.component.js';
+import '../chip-label.js';
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
