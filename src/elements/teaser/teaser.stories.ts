@@ -1,5 +1,5 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
@@ -12,6 +12,7 @@ import placeholderImage from './assets/placeholder.png';
 import readme from './readme.md?raw';
 import '../chip-label.js';
 import '../image.js';
+import '../title.js';
 import './teaser.component.js';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
@@ -69,7 +70,7 @@ const accessibilityLabel: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'title-content': titleContent,
+  titleContent,
   'chip-content': chipContent,
   alignment,
   href,
@@ -78,7 +79,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'title-content': 'This is a title',
+  titleContent: 'This is a title',
   'chip-content': undefined,
   alignment: 'after-centered',
   href: href.options![1],
@@ -87,28 +88,38 @@ const defaultArgs: Args = {
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
 };
 
-const TemplateDefault = ({ description, ...remainingArgs }: Args): TemplateResult => {
+const TemplateDefault = ({ description, titleContent, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <figure slot="image" class="sbb-figure">
         <img src=${placeholderImage} alt="400x300" />
         <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
       </figure>
-      ${description}
+      ${titleContent && titleContent !== ''
+        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
+        : nothing}
+      <p>${description}</p>
     </sbb-teaser>
   `;
 };
 
-const TemplateDefaultFixedWidth = ({ description, ...remainingArgs }: Args): TemplateResult => {
+const TemplateDefaultFixedWidth = ({
+  description,
+  titleContent,
+  ...remainingArgs
+}: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
       <img src=${placeholderImage} alt="400x300" slot="image" />
-      ${description}
+      ${titleContent && titleContent !== ''
+        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
+        : nothing}
+      <p>${description}</p>
     </sbb-teaser>
   `;
 };
 
-const TemplateCustom = ({ description, ...remainingArgs }: Args): TemplateResult => {
+const TemplateCustom = ({ description, titleContent, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img
@@ -118,13 +129,16 @@ const TemplateCustom = ({ description, ...remainingArgs }: Args): TemplateResult
         style="width: 200px;"
         slot="image"
       />
-      ${description}
+      ${titleContent && titleContent !== ''
+        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
+        : nothing}
+      <p>${description}</p>
     </sbb-teaser>
   `;
 };
 
 const TemplateSlots = ({
-  'title-content': titleContent,
+  titleContent,
   'chip-content': chipContent,
   description,
   ...remainingArgs
@@ -133,8 +147,10 @@ const TemplateSlots = ({
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img src=${placeholderImage} alt="400x300" slot="image" />
       <span slot="chip">${chipContent}</span>
-      <span slot="title">${titleContent}</span>
-      ${description}
+      ${titleContent && titleContent !== ''
+        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
+        : nothing}
+      <p>${description}</p>
     </sbb-teaser>
   `;
 };
@@ -223,7 +239,7 @@ export const BelowWithLongContentChip: StoryObj = {
 export const WithLongTextCentered: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-content': loremIpsum, description: loremIpsum },
+  args: { ...defaultArgs, titleContent: loremIpsum, description: loremIpsum },
 };
 
 export const WithLongTextAfter: StoryObj = {
@@ -231,7 +247,7 @@ export const WithLongTextAfter: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'title-content': loremIpsum,
+    titleContent: loremIpsum,
     description: loremIpsum,
     alignment: 'after',
   },
@@ -242,7 +258,7 @@ export const WithLongTextBelow: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'title-content': loremIpsum,
+    titleContent: loremIpsum,
     description: loremIpsum,
     alignment: 'below',
   },

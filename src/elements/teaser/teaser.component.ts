@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../core/base-elements.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
-import type { SbbTitleLevel } from '../title.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
@@ -30,18 +30,18 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  /** Heading level of the sbb-title element (e.g. h1-h6). */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '5';
-
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content' })
-  public accessor titleContent: string = '';
-
   /** Content of chip label. */
   @forceType()
   @property({ attribute: 'chip-content', reflect: true, converter: omitEmptyConverter })
   public accessor chipContent: string = '';
+
+  private _configureTitle(): void {
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = '5';
+    }
+  }
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
@@ -66,12 +66,7 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <sbb-chip-label size="xxs" color="charcoal" class="sbb-teaser__chip-label">
             <slot name="chip">${this.chipContent}</slot>
           </sbb-chip-label>
-          <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
-            <slot name="title">${this.titleContent}</slot>
-          </sbb-title>
-          <span class="sbb-teaser__description">
-            <slot></slot>
-          </span>
+          <slot @slotchange=${this._configureTitle}></slot>
         </span>
       </span>
     `;

@@ -10,7 +10,7 @@ describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`);
+    element = await fixture(html`<sbb-teaser id="focus-id" href="#"><p>Content</p></sbb-teaser>`);
   });
 
   it('should render', async () => {

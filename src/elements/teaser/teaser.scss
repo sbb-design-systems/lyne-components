@@ -114,14 +114,15 @@
   }
 }
 
-.sbb-teaser__lead {
-  // Overwrite sbb-title default margin
-  margin: 0;
+::slotted(sbb-title) {
+  margin-block: 0;
 }
 
-.sbb-teaser__description {
+::slotted(p) {
   @include sbb.text-s--regular;
 
   display: inline-block;
+  margin: 0;
+  padding: 0;
   color: var(--sbb-teaser-description-color);
 }
