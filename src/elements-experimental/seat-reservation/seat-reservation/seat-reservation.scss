@@ -60,7 +60,9 @@
 // ############# Seat Reservation main navigation END #############
 
 .sbb-sr__parent {
-  overflow-x: scroll;
+  @include sbb.scrollbar;
+
+  overflow-x: auto;
   padding: sbb.px-to-rem-build(48) 0;
 }
 
