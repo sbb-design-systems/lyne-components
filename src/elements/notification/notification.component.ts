@@ -10,7 +10,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { slotState } from '../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
@@ -45,7 +44,6 @@ const DEBOUNCE_TIME = 150;
  */
 export
 @customElement('sbb-notification')
-@slotState()
 class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;

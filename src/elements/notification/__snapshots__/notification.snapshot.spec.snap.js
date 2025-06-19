@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-notification renders DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   size="m"
   type="info"
@@ -58,7 +57,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
 snapshots["sbb-notification renders with a title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   size="m"
   type="info"
@@ -118,7 +116,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
 snapshots["sbb-notification renders without the close button DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   readonly=""
   size="m"
@@ -160,7 +157,6 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
 snapshots["sbb-notification renders size s DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   size="s"
   type="info"
