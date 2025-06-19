@@ -9,7 +9,6 @@ import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
-import '../chip-label.js';
 import '../screen-reader-only.js';
 
 /**
@@ -28,17 +27,14 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  private _configureTitleAndChip(event: Event): void {
+  private _configureTitleAndChip(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
-    const chipLabel = (event.target as HTMLSlotElement)
-      .assignedElements()
-      .find(
-        (e): e is SbbChipLabelElement => e instanceof Element && e.localName === 'sbb-chip-label',
-      );
     if (title) {
       customElements.upgrade(title);
       title.visualLevel = '5';
     }
+
+    const chipLabel = this.querySelector?.<SbbChipLabelElement>('sbb-chip-label');
     if (chipLabel) {
       customElements.upgrade(chipLabel);
       chipLabel.color = 'charcoal';
@@ -66,7 +62,7 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <slot @slotchange=${(event: Event) => this._configureTitleAndChip(event)}></slot>
+          <slot @slotchange=${this._configureTitleAndChip}></slot>
         </span>
       </span>
     `;
