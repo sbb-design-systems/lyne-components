@@ -508,16 +508,16 @@ describe('sbb-dialog', () => {
       trigger = await fixture(html`<sbb-button id="dialog-trigger">Menu trigger</sbb-button>`);
       element = await fixture(html`<sbb-dialog id="dialog" .trigger=${trigger}></sbb-dialog>`);
 
-      const willOpenEventSpy = new EventSpy(SbbDialogElement.events.willOpen, element);
-      const didOpenEventSpy = new EventSpy(SbbDialogElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbDialogElement.events.open, element);
 
       trigger.click();
 
-      await willOpenEventSpy.calledOnce();
-      expect(willOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
       expect(element).to.match(':popover-open');

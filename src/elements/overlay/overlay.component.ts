@@ -31,6 +31,7 @@ let nextId = 0;
  * @cssprop [--sbb-overlay-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * @event {CustomEvent<void>} requestbackclick - Emits whenever the back button is clicked.
  */
 export
 @customElement('sbb-overlay')
@@ -43,7 +44,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     open: 'open',
     beforeclose: 'beforeclose',
     close: 'close',
-    backClick: 'requestBackAction',
+    backclick: 'requestbackclick',
   } as const;
 
   /**
@@ -72,7 +73,10 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   protected closeAttribute: string = 'sbb-overlay-close';
 
   /** Emits whenever the back button is clicked. */
-  private _backClick: EventEmitter = new EventEmitter(this, SbbOverlayElement.events.backClick);
+  private _backClickEmitter: EventEmitter = new EventEmitter(
+    this,
+    SbbOverlayElement.events.backclick,
+  );
   private _overlayContentElement: HTMLElement | null = null;
 
   public override connectedCallback(): void {
@@ -144,7 +148,7 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
         size="m"
         type="button"
         icon-name="chevron-small-left-small"
-        @click=${() => this._backClick.emit()}
+        @click=${() => this._backClickEmitter.emit()}
       ></${unsafeStatic(TAG_NAME)}>
     `;
     /* eslint-enable lit/binding-positions */

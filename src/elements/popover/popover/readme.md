@@ -111,10 +111,14 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 | Name          | Type                                        | Description                                                                      | Inherited From          |
 | ------------- | ------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      | SbbOpenCloseBaseElement |
+| `beforeclose` |                                             | Emits whenever the component begins the closing transition. Can be canceled.     | SbbOpenCloseBaseElement |
+| `beforeopen`  |                                             | Emits whenever the component starts the opening transition. Can be canceled.     | SbbOpenCloseBaseElement |
+| `close`       |                                             | Emits whenever the component is closed.                                          | SbbOpenCloseBaseElement |
+| `didClose`    | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      |                         |
+| `didOpen`     | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      |                         |
+| `open`        |                                             | Emits whenever the component is opened.                                          | SbbOpenCloseBaseElement |
+| `willClose`   | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. |                         |
+| `willOpen`    | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` starts the opening transition. Can be canceled. |                         |
 
 ## CSS Properties
 

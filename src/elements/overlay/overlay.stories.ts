@@ -268,7 +268,7 @@ const meta: Meta = {
         SbbOverlayElement.events.open,
         SbbOverlayElement.events.beforeclose,
         SbbOverlayElement.events.close,
-        SbbOverlayElement.events.backClick,
+        SbbOverlayElement.events.backclick,
       ],
     },
     docs: {
