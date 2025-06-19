@@ -281,7 +281,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-expansion-panel">
-        <div class="sbb-selection-expansion-panel__input" @stateChange=${this._onInputStateChange}>
+        <div class="sbb-selection-expansion-panel__input" @statechange=${this._onInputStateChange}>
           <slot></slot>
         </div>
         <div

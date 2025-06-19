@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { stub, type SinonStub } from 'sinon';
 
+import { SbbCalendarElement } from '../../calendar.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
@@ -166,7 +167,7 @@ describe(`sbb-datepicker`, () => {
 
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
     calendar.dispatchEvent(
-      new CustomEvent('dateSelected', {
+      new CustomEvent(SbbCalendarElement.events.dateselected, {
         detail: new Date('2022-01-01'),
       }),
     );

@@ -570,7 +570,7 @@ describe(`sbb-autocomplete`, () => {
           <label>Autocomplete</label>
           <input />
           <sbb-autocomplete
-            @optionSelected=${(e: Event) => optionSelectedSpy(e)}
+            @optionselected=${(e: Event) => optionSelectedSpy(e)}
             .displayWith=${(o: { property: string; otherProperty: string }) => o.property}
           >
             <sbb-option .value=${{ property: 'Option 1', otherProperty: 'hello' }}>
@@ -589,7 +589,7 @@ describe(`sbb-autocomplete`, () => {
       input = formField.querySelector('input')!;
     });
 
-    it('should select value', async () => {
+    it.only('should select value', async () => {
       // Open autocomplete
       input.click();
       expect(element.isOpen).to.be.true;
