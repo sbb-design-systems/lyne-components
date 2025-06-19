@@ -98,6 +98,7 @@ an alternative element by listening to the `didClose` event.
 | `close`             | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      | SbbOpenCloseBaseElement |
 | `open`              | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      | SbbOpenCloseBaseElement |
 | `requestBackAction` | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                         |
+| `requestbackclick`  | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                         |
 
 ## CSS Properties
 

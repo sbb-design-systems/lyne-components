@@ -385,11 +385,11 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
  * It displays contextual information within a popover.
  *
  * @slot - Use the unnamed slot to add content into the popover.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-popover` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} beforeclose - Emits whenever the `sbb-popover` begins the closing
  * transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} close - Emits whenever the `sbb-popover` is closed.
  * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
