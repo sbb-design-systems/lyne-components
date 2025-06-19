@@ -2,6 +2,7 @@ import { resolve } from 'path';
 
 import postcssLit from 'rollup-plugin-postcss-lit';
 import { defineConfig } from 'vite';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 import { typescriptTransform } from './tools/vite/index.js';
 
@@ -22,6 +23,13 @@ export default defineConfig({
     // CSS tagged templates) as this should apply in almost all cases.
     postcssLit({ exclude: ['**/core/styles/**/*', '**/storybook/**/*'] }),
     typescriptTransform(),
+
+    topLevelAwait({
+      // The export name of top-level await promise for each chunk module
+      promiseExportName: '__tla',
+      // The function to generate import names of top-level await promise in each chunk module
+      promiseImportName: (i) => `__tla_${i}`,
+    }),
   ],
   resolve: {
     // Alias used for test and storybook environments
