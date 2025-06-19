@@ -1,6 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { html, nothing } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -98,12 +98,23 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   protected override render(): TemplateResult | null {
+    if (!isServer) {
+      this._determineBaseFontSize();
+    }
+
     this._initVehicleSeatReservationConstruction();
     return this._coachesHtmlTemplate || null;
   }
 
   private _componentSetup(): void {
     this.initNavigationSelectionByScrollEvent();
+  }
+
+  private _determineBaseFontSize(): void {
+    const baseFontSize = parseInt(window.getComputedStyle(document.body).fontSize, 10);
+    //calculate rem of 1px
+    const onePixelInRem = (1 / baseFontSize);
+    this.style?.setProperty('--sbb-seat-reservation-one-px-rem', `${onePixelInRem + 'rem'}`);
   }
 
   private _initVehicleSeatReservationConstruction(): void {
