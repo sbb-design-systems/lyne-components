@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbChipLabelElement } from '../chip-label.js';
 import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { slotState } from '../core/decorators.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
@@ -19,7 +18,6 @@ import '../screen-reader-only.js';
  */
 export
 @customElement('sbb-teaser')
-@slotState()
 class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
@@ -27,14 +25,20 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  private _configureTitleAndChip(): void {
+  private _configureTitleAndChip(event: Event): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
       customElements.upgrade(title);
       title.visualLevel = '5';
     }
 
-    const chipLabel = this.querySelector?.<SbbChipLabelElement>('sbb-chip-label');
+    // We need to check assigned elements because in the image slot it can have labels as well.
+    const chipLabel = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find(
+        (e): e is SbbChipLabelElement => e instanceof Element && e.localName === 'sbb-chip-label',
+      );
+
     if (chipLabel) {
       customElements.upgrade(chipLabel);
       chipLabel.color = 'charcoal';
@@ -62,7 +66,7 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <slot @slotchange=${this._configureTitleAndChip}></slot>
+          <slot @slotchange=${(event: Event) => this._configureTitleAndChip(event)}></slot>
         </span>
       </span>
     `;

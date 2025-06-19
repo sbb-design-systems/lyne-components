@@ -6,9 +6,9 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbTeaserElement } from './teaser.component.js';
 
+import '../chip-label.js';
 import '../title.js';
 import './teaser.component.js';
-import '../chip-label.js';
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
