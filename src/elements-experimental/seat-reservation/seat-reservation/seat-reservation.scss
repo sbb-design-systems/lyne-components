@@ -62,8 +62,10 @@
 .sbb-sr__parent {
   @include sbb.scrollbar;
 
-  overflow-x: auto;
-  padding: sbb.px-to-rem-build(48) 0;
+  & {
+    overflow-x: auto;
+    padding: sbb.px-to-rem-build(48) 0;
+  }
 }
 
 .sbb-sr__list-coaches {
