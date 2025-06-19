@@ -5,6 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import {
   IS_FOCUSABLE_QUERY,
+  isFakeMousedownFromScreenReader,
   SbbFocusTrapController,
   sbbInputModalityDetector,
 } from '../../core/a11y.js';
@@ -65,7 +66,6 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     { cancelable: true },
   );
 
-  private _overlay!: HTMLDivElement;
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
   private _skipCloseFocus: boolean = false;
@@ -77,12 +77,13 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   protected closeTimeout?: ReturnType<typeof setTimeout>;
+  protected overlay?: HTMLDivElement;
 
   /** Opens the popover on trigger click. */
   public open(): void {
     if (
       (this.state !== 'closed' && this.state !== 'closing') ||
-      !this._overlay ||
+      !this.overlay ||
       !this.willOpen.emit()
     ) {
       return;
@@ -141,7 +142,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     this.state = 'closed';
     this.hidePopover?.();
 
-    this._overlay?.firstElementChild?.scrollTo(0, 0);
+    this.overlay?.firstElementChild?.scrollTo(0, 0);
     this.removeAttribute('tabindex');
 
     if (!this._skipCloseFocus) {
@@ -270,12 +271,12 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
   // Check if the pointerdown event target is triggered on the popover.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnPopover = isEventOnElement(this._overlay, event);
+    this._isPointerDownEventOnPopover = isEventOnElement(this.overlay!, event);
   };
 
   // Close popover on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnPopover && !isEventOnElement(this._overlay, event)) {
+    if (!this._isPointerDownEventOnPopover && !isEventOnElement(this.overlay!, event)) {
       this._nextFocusedElement = event
         .composedPath()
         .filter((el) => el instanceof window.HTMLElement)
@@ -333,12 +334,12 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   }
 
   private _setPopoverPosition(): void {
-    if (!this._overlay || !this._triggerElement) {
+    if (!this.overlay || !this._triggerElement) {
       return;
     }
 
     const popoverPosition = getElementPosition(
-      this._overlay,
+      this.overlay,
       this._triggerElement,
       this.shadowRoot!.querySelector('.sbb-popover__container')!,
       {
@@ -370,7 +371,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
           @animationend=${this._onPopoverAnimationEnd}
           class="sbb-popover"
           role="tooltip"
-          ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}
+          ${ref((el?: Element) => (this.overlay = el as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbPopoverCloseClick(event)}
@@ -428,28 +429,45 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
+  private _overlayAbortController: AbortController | null = null;
 
   protected override configureTrigger(oldTrigger: HTMLElement | null): void {
     // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
     // all non-touchscreen devices.
     const hoverTrigger = this.hoverTrigger && !pointerCoarse;
+
     if (this.trigger === oldTrigger && hoverTrigger === this._hoverTrigger) {
       return;
     }
 
-    this._hoverTrigger = hoverTrigger;
+    if (this._hoverTrigger !== hoverTrigger) {
+      this._hoverTrigger = hoverTrigger;
+      this._registerOverlayListeners();
+    }
+
     super.configureTrigger(oldTrigger);
+  }
+
+  private _registerOverlayListeners(): void {
+    this._overlayAbortController?.abort();
+
+    if (this._hoverTrigger) {
+      this._overlayAbortController = new AbortController();
+      this.overlay?.addEventListener('mouseenter', () => this._onOverlayMouseEnter(), {
+        signal: this._overlayAbortController.signal,
+      });
+      this.overlay?.addEventListener('mouseleave', () => this._onOverlayMouseLeave(), {
+        signal: this._overlayAbortController.signal,
+      });
+    }
   }
 
   protected override registerTriggerListeners(signal: AbortSignal): void {
     if (this._hoverTrigger) {
-      const overlay = this.querySelector('.sbb-popover');
-      overlay?.addEventListener('mouseenter', () => this._onOverlayMouseEnter(), { signal });
-      overlay?.addEventListener('mouseleave', () => this._onOverlayMouseLeave(), { signal });
-      this.trigger!.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
-      this.trigger!.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
-      this.trigger!.addEventListener(
+      this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
+      this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
+      this._triggerElement.addEventListener(
         'keydown',
         (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
@@ -458,9 +476,25 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
         },
         { signal },
       );
+      this._triggerElement.addEventListener(
+        'mousedown',
+        (evt: MouseEvent) => {
+          // Without this check, NVDA can't open the popover on keyboard interaction.
+          if (isFakeMousedownFromScreenReader(evt)) {
+            this.open();
+          }
+        },
+        { signal },
+      );
     } else {
       super.registerTriggerListeners(signal);
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this._registerOverlayListeners();
   }
 
   private _onTriggerMouseEnter = (): void => {
