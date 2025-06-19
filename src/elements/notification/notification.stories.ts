@@ -114,8 +114,8 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   >
     <sbb-title level="3">This is a title</sbb-title>
     <p>
-      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-      dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
+      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+      <sbb-link href="/"> Link one</sbb-link>
       <sbb-link href="/"> Link two</sbb-link>
       <sbb-link href="/"> Link three</sbb-link>
     </p>
@@ -129,8 +129,8 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
   >
     <sbb-title level="3">This is a title</sbb-title>
     <p>
-      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-      dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
+      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+      <sbb-link href="/"> Link one</sbb-link>
       <sbb-link href="/"> Link two</sbb-link>
       <sbb-link href="/"> Link three</sbb-link>
     </p>
