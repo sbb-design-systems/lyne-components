@@ -36,9 +36,9 @@ describe(`sbb-datepicker-toggle`, () => {
       beforeEach(async () => {
         page = await fixture(html`
           <sbb-form-field>
+            <sbb-date-input></sbb-date-input>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker></sbb-datepicker>
-            <sbb-date-input></sbb-date-input>
           </sbb-form-field>
         `);
         element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -60,9 +60,9 @@ describe(`sbb-datepicker-toggle`, () => {
       beforeEach(async () => {
         page = await fixture(html`
           <sbb-form-field>
+            <sbb-date-input disabled></sbb-date-input>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker></sbb-datepicker>
-            <sbb-date-input disabled></sbb-date-input>
           </sbb-form-field>
         `);
         element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -84,9 +84,9 @@ describe(`sbb-datepicker-toggle`, () => {
       beforeEach(async () => {
         page = await fixture(html`
           <sbb-form-field>
+            <sbb-date-input min="2020-09-13" max="2023-11-14"></sbb-date-input>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker wide></sbb-datepicker>
-            <sbb-date-input min="2020-09-13" max="2023-11-14"></sbb-date-input>
           </sbb-form-field>
         `);
         element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;

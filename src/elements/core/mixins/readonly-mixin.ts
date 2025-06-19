@@ -1,8 +1,6 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators/force-type.js';
-
 import type { AbstractConstructor } from './constructor.js';
 
 export declare class SbbReadonlyMixinType {
@@ -19,12 +17,11 @@ export const SbbReadonlyMixin = <T extends AbstractConstructor<LitElement>>(
   abstract class SbbReadonlyElement extends superClass implements Partial<SbbReadonlyMixinType> {
     /**
      * Whether the component is readonly.
+     * @default false
      */
-    @forceType()
     @property({ type: Boolean, attribute: 'readonly' })
     public set readOnly(value: boolean) {
-      this.toggleAttribute('readonly', value);
-      this.requestUpdate?.();
+      this.toggleAttribute('readonly', !!value);
     }
     public get readOnly(): boolean {
       return this.hasAttribute('readonly');

@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-calendar renders DOM"] = 
 `<sbb-calendar
-  now="2023-01-04T00:00:00"
   orientation="horizontal"
   selected="2023-01-20T00:00:00"
 >
@@ -587,7 +586,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
 
 snapshots["sbb-calendar renders vertical DOM"] = 
 `<sbb-calendar
-  now="2023-01-04T00:00:00"
   orientation="vertical"
   selected="2023-01-20T00:00:00"
 >

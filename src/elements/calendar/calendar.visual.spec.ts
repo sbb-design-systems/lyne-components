@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit';
+import { stub, type SinonStub } from 'sinon';
 
 import { defaultDateAdapter } from '../core/datetime.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
@@ -6,6 +7,16 @@ import { describeViewports, visualDiffDefault } from '../core/testing/private.js
 import './calendar.component.js';
 
 describe('sbb-calendar', () => {
+  let todayStub: SinonStub;
+
+  before(() => {
+    todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2023, 0, 12, 0, 0, 0));
+  });
+
+  after(() => {
+    todayStub.restore();
+  });
+
   const minArray = [
     { label: 'unset', value: null },
     { label: '07012023', value: new Date(2023, 0, 7) },
@@ -35,7 +46,6 @@ describe('sbb-calendar', () => {
                   <sbb-calendar
                     orientation="${orientation}"
                     .selected="${new Date(2023, 0, 20)}"
-                    .now="${new Date(2023, 0, 12, 0, 0, 0)}"
                     .min="${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}"
                     .max="${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}"
                   ></sbb-calendar>
@@ -57,7 +67,6 @@ describe('sbb-calendar', () => {
                   orientation=${orientation}
                   ?wide=${wide}
                   .selected=${new Date(2023, 0, 20)}
-                  .now=${new Date(2023, 0, 12, 0, 0, 0)}
                 ></sbb-calendar>
               `);
             }),
@@ -75,7 +84,6 @@ describe('sbb-calendar', () => {
                     .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
                     .selected=${new Date(2023, 0, 20)}
                     .dateFilter=${fn.dateFilter}
-                    .now=${new Date(2023, 0, 12, 0, 0, 0)}
                   ></sbb-calendar>
                 `);
               }),
@@ -92,7 +100,6 @@ describe('sbb-calendar', () => {
                     view=${view}
                     ?wide=${wide}
                     .selected=${new Date(2023, 0, 20)}
-                    .now=${new Date(2023, 0, 12, 0, 0, 0)}
                   ></sbb-calendar>
                 `);
               }),

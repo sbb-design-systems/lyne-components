@@ -86,7 +86,7 @@ As a base rule, opening animations should be active if a notification arrives af
 | Name        | Attribute   | Privacy | Type                                       | Default            | Description                        |
 | ----------- | ----------- | ------- | ------------------------------------------ | ------------------ | ---------------------------------- |
 | `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`            | The enabled animations.            |
-| `readOnly`  | `readonly`  | public  | `boolean`                                  |                    | Whether the component is readonly. |
+| `readOnly`  | `readonly`  | public  | `boolean`                                  | `false`            | Whether the component is readonly. |
 | `size`      | `size`      | public  | `'s' \| 'm'`                               | `'m' / 's' (lean)` | Size variant, either s or m.       |
 | `type`      | `type`      | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.      |
 
