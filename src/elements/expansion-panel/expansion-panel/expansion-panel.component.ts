@@ -10,7 +10,7 @@ import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
 import style from './expansion-panel.scss?lit&inline';
 
@@ -119,9 +119,7 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   public constructor() {
     super();
-    this.addEventListener?.(SbbExpansionPanelHeaderElement.events.toggleexpanded, () =>
-      this._toggleExpanded(),
-    );
+    this.addEventListener?.('toggleexpanded', () => this._toggleExpanded());
   }
 
   public override connectedCallback(): void {

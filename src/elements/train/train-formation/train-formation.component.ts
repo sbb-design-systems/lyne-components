@@ -12,8 +12,8 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
-import { SbbTrainWagonElement } from '../train-wagon.js';
-import { SbbTrainElement } from '../train.js';
+import type { SbbTrainWagonElement } from '../train-wagon.js';
+import type { SbbTrainElement } from '../train.js';
 
 import style from './train-formation.scss?lit&inline';
 
@@ -46,8 +46,8 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
 
   public constructor() {
     super();
-    this.addEventListener?.(SbbTrainElement.events.trainslotchange, (e) => this._readSectors(e));
-    this.addEventListener?.(SbbTrainWagonElement.events.sectorchange, (e) => this._readSectors(e));
+    this.addEventListener?.('trainslotchange', (e) => this._readSectors(e));
+    this.addEventListener?.('sectorchange', (e) => this._readSectors(e));
   }
 
   private _readSectors(event?: Event): void {
