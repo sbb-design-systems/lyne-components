@@ -77,7 +77,6 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 | `accessibilityCurrent` | `accessibility-current` | public  | `string`                                 | `''`               | This will be forwarded as aria-current to the inner anchor element.       |
 | `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                 | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
 | `alignment`            | `alignment`             | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `chipContent`          | `chip-content`          | public  | `string`                                 | `''`               | Content of chip label.                                                    |
 | `download`             | `download`              | public  | `boolean`                                | `false`            | Whether the browser will show the download dialog on click.               |
 | `href`                 | `href`                  | public  | `string`                                 | `''`               | The href value you want to link to.                                       |
 | `rel`                  | `rel`                   | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
@@ -85,9 +84,7 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 
 ## Slots
 
-| Name    | Description                                     |
-| ------- | ----------------------------------------------- |
-|         | Use the unnamed slot to render the description. |
-| `chip`  | Slot used to render the sbb-chip-label.         |
-| `image` | Slot used to render the image.                  |
-| `title` | Slot used to render the title.                  |
+| Name    | Description                                                                           |
+| ------- | ------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label. |
+| `image` | Slot used to render the image.                                                        |
