@@ -222,13 +222,13 @@ export const Below: StoryObj = {
 export const AfterCenteredChip: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'after-centered', 'chip-content': 'This is a chip.' },
+  args: { ...defaultArgs, alignment: 'after-centered', chipContent: 'This is a chip.' },
 };
 
 export const AfterChip: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'after', 'chip-content': 'This is a chip.' },
+  args: { ...defaultArgs, alignment: 'after', chipContent: 'This is a chip.' },
 };
 
 export const AfterWithLongContentChip: StoryObj = {
