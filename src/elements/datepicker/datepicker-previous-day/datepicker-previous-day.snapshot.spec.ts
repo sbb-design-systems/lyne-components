@@ -6,9 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.js';
 
 import './datepicker-previous-day.component.js';
-import '../datepicker.js';
 import '../../date-input.js';
-import '../../form-field.js';
 
 describe(`sbb-datepicker-previous-day`, () => {
   let element: SbbDatepickerPreviousDayElement;
@@ -29,13 +27,12 @@ describe(`sbb-datepicker-previous-day`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('renders with connected datepicker', async () => {
+  describe('renders with connected date input', async () => {
     beforeEach(async () => {
       const page = await fixture(html`
         <div>
+          <sbb-datepicker-previous-day input="datepicker-input"></sbb-datepicker-previous-day>
           <sbb-date-input id="datepicker-input" value="2022-12-31"></sbb-date-input>
-          <sbb-datepicker-previous-day datepicker="datepicker"></sbb-datepicker-previous-day>
-          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
         </div>
       `);
 

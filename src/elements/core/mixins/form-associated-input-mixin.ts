@@ -1,4 +1,10 @@
-import { html, isServer, type LitElement, type PropertyValues } from 'lit';
+import {
+  html,
+  isServer,
+  type LitElement,
+  type PropertyDeclaration,
+  type PropertyValues,
+} from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
@@ -7,12 +13,14 @@ import { isWebkit } from '../dom.js';
 import { i18nInputRequired } from '../i18n.js';
 
 import type { AbstractConstructor } from './constructor.js';
+import { SbbDisabledMixin } from './disabled-mixin.js';
 import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
 } from './form-associated-mixin.js';
+import { SbbReadonlyMixin } from './readonly-mixin.js';
 import { SbbRequiredMixin } from './required-mixin.js';
 
 export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequiredMixin(
@@ -66,7 +74,11 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedInputMixinType> & T => {
   abstract class SbbFormAssociatedInputElement
-    extends SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass)))
+    extends SbbReadonlyMixin(
+      SbbDisabledMixin(
+        SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
+      ),
+    )
     implements Partial<SbbFormAssociatedInputMixinType>
   {
     public static override readonly role = 'textbox';
@@ -109,36 +121,6 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       return this._value ?? '';
     }
     private _value: string = '';
-
-    /**
-     * Whether the component is readonly.
-     * @attr readonly
-     * @default false
-     */
-    @property({ type: Boolean })
-    public set readOnly(value: boolean) {
-      this.toggleAttribute('readonly', !!value);
-      this.internals.ariaReadOnly = value ? 'true' : null;
-      this._updateContenteditable();
-    }
-    public get readOnly(): boolean {
-      return this.hasAttribute('readonly');
-    }
-
-    /**
-     * Whether the component is disabled.
-     * @attr disabled
-     * @default false
-     */
-    @property({ type: Boolean })
-    public set disabled(value: boolean) {
-      this.toggleAttribute('disabled', !!value);
-      this.internals.ariaDisabled = value ? 'true' : null;
-      this._updateContenteditable();
-    }
-    public get disabled(): boolean {
-      return this.hasAttribute('disabled');
-    }
 
     @property({ attribute: false })
     public set placeholder(value: string) {
@@ -272,6 +254,10 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       );
     }
 
+    protected override isDisabledExternally(): boolean {
+      return this.formDisabled;
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
       this.internals.ariaMultiLine = 'false';
@@ -366,6 +352,20 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       }
     }
 
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (
+        this.isConnected &&
+        (name === 'disabled' || name === 'formDisabled' || name === 'readOnly')
+      ) {
+        this._updateContenteditable();
+      }
+    }
+
     protected override shouldValidate(name: PropertyKey | undefined): boolean {
       return super.shouldValidate(name) || name === 'value' || name === 'required';
     }
@@ -403,6 +403,8 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
 
     private _updateContenteditable(): void {
       if (!isServer && this.isConnected) {
+        this.internals.ariaReadOnly = this.readOnly ? 'true' : null;
+        this.internals.ariaDisabled = this.disabled ? 'true' : null;
         // TODO(2026): Firefox supports plaintext-only since version 136 (March 2025).
         // Until this is part of our baseline, we should feature check to enable it.
         const value =

@@ -19,14 +19,27 @@ class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected i18nOffBoundaryDay: Record<string, string> = i18nNextDay;
   protected i18nSelectOffBoundaryDay = i18nSelectNextDay;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.slot ||= 'suffix';
+  protected findAvailableDate(date: T): T | null {
+    let availableDate = this.dateAdapter.addCalendarDays(date, 1);
+    if (this._isAfterMaxDate(availableDate)) {
+      return null;
+    }
+
+    const dateFilter = this.input!.dateFilter;
+    if (dateFilter) {
+      while (!dateFilter(availableDate)) {
+        availableDate = this.dateAdapter.addCalendarDays(availableDate, 1);
+        if (this._isAfterMaxDate(availableDate)) {
+          return null;
+        }
+      }
+    }
+
+    return availableDate;
   }
 
-  protected findAvailableDate(date: T): T {
-    // When calling findAvailableDate, datepickerElement is always defined.
-    return this.datepicker!.findNextAvailableDate(date);
+  private _isAfterMaxDate(date: T): boolean {
+    return !!this.input!.max && this.dateAdapter.compareDate(date, this.input!.max) > 0;
   }
 }
 

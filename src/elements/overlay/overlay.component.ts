@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../core/decorators.js';
@@ -15,6 +16,8 @@ import '../button/secondary-button.js';
 import '../button/transparent-button.js';
 import '../container.js';
 import '../screen-reader-only.js';
+
+let nextId = 0;
 
 /**
  * It displays an interactive overlay element.
@@ -69,51 +72,23 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   protected closeAttribute: string = 'sbb-overlay-close';
 
   /** Emits whenever the back button is clicked. */
-  private _backClick: EventEmitter<any> = new EventEmitter(
-    this,
-    SbbOverlayElement.events.backClick,
-  );
+  private _backClick: EventEmitter = new EventEmitter(this, SbbOverlayElement.events.backClick);
   private _overlayContentElement: HTMLElement | null = null;
 
-  /** Opens the component. */
-  public open(): void {
-    if (this.state !== 'closed') {
-      return;
-    }
-    this.lastFocusedElement = document.activeElement as HTMLElement;
+  public override connectedCallback(): void {
+    this.id ||= `sbb-overlay-${nextId++}`;
 
-    this._overlayContentElement = this.shadowRoot?.querySelector(
-      '.sbb-overlay__content',
-    ) as HTMLElement;
-
-    if (!this.beforeOpenEmitter.emit()) {
-      return;
-    }
-
-    this.showPopover?.();
-    this.state = 'opening';
-
-    // Add this overlay to the global collection
-    overlayRefs.push(this as SbbOverlayElement);
-
-    // Disable scrolling for content below the overlay
-    this.scrollHandler.disableScroll();
-
-    // If the animation duration is zero, the animationend event is not always fired reliably.
-    // In this case we directly set the `opened` state.
-    if (this.isZeroAnimationDuration()) {
-      this._handleOpening();
-    }
+    super.connectedCallback();
   }
 
   protected isZeroAnimationDuration(): boolean {
     return isZeroAnimationDuration(this, '--sbb-overlay-animation-duration');
   }
 
-  private _handleOpening(): void {
+  protected handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.sbbEscapableOverlayController.connect();
+    this.escapableOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
@@ -127,8 +102,10 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     this.state = 'closed';
     this.hidePopover?.();
     this.inertController.deactivate();
-    // Manually focus last focused element
-    this.lastFocusedElement?.focus();
+    if (!this.skipFocusRestoration) {
+      // Manually focus last focused element
+      this.lastFocusedElement?.focus();
+    }
     this.openOverlayController?.abort();
     this.focusTrapController.enabled = false;
     this.removeInstanceFromGlobalCollection();
@@ -136,22 +113,11 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     if (!overlayRefs.length) {
       this.scrollHandler.enableScroll();
     }
-    this.sbbEscapableOverlayController.disconnect();
+    this.escapableOverlayController.disconnect();
     this.closeEmitter.emit({
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
     });
-  }
-
-  // Wait for overlay transition to complete.
-  // In rare cases, it can be that the animationEnd event is triggered twice.
-  // To avoid entering a corrupt state, exit when state is not expected.
-  protected onOverlayAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this.state === 'opening') {
-      this._handleOpening();
-    } else if (event.animationName === 'close' && this.state === 'closing') {
-      this.handleClosing();
-    }
   }
 
   protected override render(): TemplateResult {
@@ -193,7 +159,11 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
             <div class="sbb-overlay__header">
               ${this.backButton ? backButton : nothing} ${closeButton}
             </div>
-            <div class="sbb-overlay__content" @scroll=${(e: Event) => forwardEvent(e, document)}>
+            <div
+              class="sbb-overlay__content"
+              ${ref((el?: Element) => (this._overlayContentElement = el as HTMLDivElement))}
+              @scroll=${(e: Event) => forwardEvent(e, document)}
+            >
               <sbb-container
                 class="sbb-overlay__content-container"
                 ?expanded=${this.expanded}

@@ -23,7 +23,7 @@ class SpreadDirectiveTestOnlyElement extends LitElement {
     super();
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

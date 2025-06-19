@@ -7,6 +7,7 @@
 @use './mixins/helpers';
 @use './mixins/inputs';
 @use './mixins/scrollbar';
+@use './mixins/shadows';
 @use './mixins/typo';
 
 @include helpers.box-sizing;
@@ -196,6 +197,7 @@ sbb-form-field {
 :is(
     sbb-autocomplete,
     sbb-autocomplete-grid,
+    sbb-datepicker,
     sbb-dialog,
     sbb-menu,
     sbb-navigation,
@@ -213,6 +215,7 @@ sbb-form-field {
 [popover]:where(
     sbb-autocomplete,
     sbb-autocomplete-grid,
+    sbb-datepicker,
     sbb-dialog,
     sbb-menu,
     sbb-navigation,
@@ -522,4 +525,20 @@ sbb-toggle:has(:focus-visible) {
 
 :where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
   --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+}
+
+sbb-dialog-actions {
+  sbb-dialog[negative] & {
+    --sbb-dialog-actions-border-color: var(--sbb-color-iron);
+  }
+
+  sbb-dialog:is(:state(overflows), [state--overflows]) & {
+    --sbb-dialog-actions-border-color: transparent;
+
+    @include shadows.shadow-level-9-soft;
+  }
+
+  sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
+    @include shadows.shadow-level-9-soft-negative;
+  }
 }

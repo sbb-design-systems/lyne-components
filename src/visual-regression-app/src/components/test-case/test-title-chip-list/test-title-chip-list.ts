@@ -58,7 +58,7 @@ class TestTitleChipList extends LitElement {
     };
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div class="chip-list-wrapper">
         ${this._chips.map((c) =>

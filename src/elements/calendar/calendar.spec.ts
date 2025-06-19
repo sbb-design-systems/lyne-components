@@ -2,8 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import { stub, type SinonStub } from 'sinon';
 
 import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
+import { defaultDateAdapter } from '../core/datetime.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
@@ -13,6 +15,8 @@ import '../button.js';
 
 describe(`sbb-calendar`, () => {
   let element: SbbCalendarElement;
+  let todayStub: SinonStub;
+  let today: Date | null = null;
 
   const getActiveElementValue: () => string | null = () =>
     document.activeElement!.shadowRoot!.activeElement!.getAttribute('value');
@@ -40,11 +44,27 @@ describe(`sbb-calendar`, () => {
     await waitForTransition();
   };
 
+  before(() => {
+    todayStub = stub(defaultDateAdapter, 'today').callsFake(
+      () => today ?? new Date(2023, 9, 10, 0, 0, 0, 0),
+    );
+  });
+
+  after(() => {
+    todayStub.restore();
+  });
+
   describe('horizontal', () => {
+    before(() => {
+      today = new Date(2023, 0, 10, 0, 0, 0, 0);
+    });
+
+    after(() => {
+      today = null;
+    });
+
     beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-calendar now="2023-01-10" selected="2023-01-15"></sbb-calendar>`,
-      );
+      element = await fixture(html`<sbb-calendar selected="2023-01-15"></sbb-calendar>`);
     });
 
     it('renders', async () => {
@@ -266,13 +286,12 @@ describe(`sbb-calendar`, () => {
 
     it('opens month view with current date', async () => {
       element.selected = null;
-      element.now = new Date('2022-08-15');
       element.view = 'month';
       await waitForLitRender(element);
 
       expect(
         element.shadowRoot!.querySelector('#sbb-calendar__month-selection')!.textContent!.trim(),
-      ).to.be.equal('2022');
+      ).to.be.equal('2023');
     });
 
     describe('keyboard navigation', () => {
@@ -413,11 +432,7 @@ describe(`sbb-calendar`, () => {
   describe('vertical', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar
-          now="2023-01-10"
-          selected="2023-01-15"
-          orientation="vertical"
-        ></sbb-calendar>`,
+        html`<sbb-calendar selected="2023-01-15" orientation="vertical"></sbb-calendar>`,
       );
     });
 
@@ -547,9 +562,7 @@ describe(`sbb-calendar`, () => {
     });
 
     it('changes to year and month selection views', async () => {
-      element = await fixture(
-        html`<sbb-calendar now="2023-01-10" selected="2023-01-15" wide></sbb-calendar>`,
-      );
+      element = await fixture(html`<sbb-calendar selected="2023-01-15" wide></sbb-calendar>`);
 
       // Open year selection
       element
@@ -579,7 +592,6 @@ describe(`sbb-calendar`, () => {
       await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
       element = await fixture(
         html`<sbb-calendar
-          now="2024-11-04"
           selected="2024-11-20"
           min="2023-11-04"
           max="2026-12-31"
@@ -626,9 +638,7 @@ describe(`sbb-calendar`, () => {
 
     describe('keyboard navigation', () => {
       beforeEach(async () => {
-        element = await fixture(
-          html`<sbb-calendar now="2025-01-31" selected="2025-01-31" wide></sbb-calendar>`,
-        );
+        element = await fixture(html`<sbb-calendar selected="2025-01-31" wide></sbb-calendar>`);
       });
 
       it('it should navigate left', async () => {
@@ -705,12 +715,7 @@ describe(`sbb-calendar`, () => {
     describe('keyboard navigation', () => {
       beforeEach(async () => {
         element = await fixture(
-          html`<sbb-calendar
-            now="2025-01-29"
-            selected="2025-01-29"
-            orientation="vertical"
-            wide
-          ></sbb-calendar>`,
+          html`<sbb-calendar selected="2025-01-29" orientation="vertical" wide></sbb-calendar>`,
         );
       });
 
@@ -782,9 +787,7 @@ describe(`sbb-calendar`, () => {
 
   describe('keyboard navigation for year view', () => {
     beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-calendar now="2023-01-10" selected="2023-01-15"></sbb-calendar>`,
-      );
+      element = await fixture(html`<sbb-calendar selected="2023-01-15"></sbb-calendar>`);
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
         '.sbb-calendar__date-selection',

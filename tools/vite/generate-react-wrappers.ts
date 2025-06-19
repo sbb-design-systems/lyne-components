@@ -136,7 +136,7 @@ function renderTemplate(
   const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
 
   if (declaration.events?.some((e) => !e.type)) {
-    console.error('(Inherited) events need jsdocs on class level!');
+    console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
   const customEventTypes =

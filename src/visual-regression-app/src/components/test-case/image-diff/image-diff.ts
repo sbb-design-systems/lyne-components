@@ -69,7 +69,7 @@ class ImageDiff extends LitElement {
     sbbOverlayElement.open();
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     if (!this.screenshotFiles) {
       return html``;
     }

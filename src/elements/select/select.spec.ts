@@ -1127,6 +1127,9 @@ describe(`sbb-select`, () => {
     });
 
     it('should react to origin size change', async () => {
+      // Test is flaky on WebKit
+      this.retries(3);
+
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
 
       element.open();

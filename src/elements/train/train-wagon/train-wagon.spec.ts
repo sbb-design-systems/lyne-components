@@ -2,6 +2,15 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { setOrRemoveAttribute } from '../../core/dom.js';
+import {
+  i18nBlockedPassage,
+  i18nClass,
+  i18nLocomotiveLabel,
+  i18nOccupancy,
+  i18nRestaurantWagonLabel,
+  i18nSleepingWagonLabel,
+  i18nWagonLabel,
+} from '../../core/i18n.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbIconElement } from '../../icon.js';
@@ -109,15 +118,17 @@ describe(`sbb-train-wagon`, () => {
   it('should set aria labels correctly', async () => {
     element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
 
-    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql(['Train coach']);
-    expect(await extractAriaLabels({ type: 'locomotive' })).to.be.eql(['Locomotive']);
-    expect(await extractAriaLabels({ type: 'sleeping' })).to.be.eql(['Sleeping car']);
-    expect(await extractAriaLabels({ type: 'restaurant' })).to.be.eql(['Dining car']);
+    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql([i18nWagonLabel.en]);
+    expect(await extractAriaLabels({ type: 'locomotive' })).to.be.eql([i18nLocomotiveLabel.en]);
+    expect(await extractAriaLabels({ type: 'sleeping' })).to.be.eql([i18nSleepingWagonLabel.en]);
+    expect(await extractAriaLabels({ type: 'restaurant' })).to.be.eql([
+      i18nRestaurantWagonLabel.en,
+    ]);
 
     expect(
       await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` }),
     ).to.be.eql(['Closed train coach', `, Don't enter`]);
-    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql(['Train coach']);
+    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql([i18nWagonLabel.en]);
 
     expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).to.be.eql([
       'Locomotive, Sector, A',
@@ -139,73 +150,73 @@ describe(`sbb-train-wagon`, () => {
         blockedPassage: 'previous',
       }),
     ).to.be.eql([
-      'Train coach',
+      i18nWagonLabel.en,
       'Sector, A',
       'Number, 38',
-      'First Class',
-      'No occupancy forecast available',
-      'No passage to the previous train coach',
+      i18nClass.first.en,
+      i18nOccupancy.none.en,
+      i18nBlockedPassage.previous.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).to.be.eql([
-      'Train coach',
-      'Second Class',
+      i18nWagonLabel.en,
+      i18nClass.second.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.eql([
-      'Train coach',
-      'Low to medium occupancy expected',
+      i18nWagonLabel.en,
+      i18nOccupancy.low.en,
     ]);
     expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.eql([
-      'Train coach',
-      'High occupancy expected',
+      i18nWagonLabel.en,
+      i18nOccupancy.medium.en,
     ]);
     expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.eql([
-      'Train coach',
-      'Very high occupancy expected',
+      i18nWagonLabel.en,
+      i18nOccupancy.high.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.eql([
-      'Train coach',
-      'No passage to the next train coach',
+      i18nWagonLabel.en,
+      i18nBlockedPassage.next.en,
     ]);
     expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).to.be.eql([
-      'Train coach',
-      'No passage to the next and previous train coach',
+      i18nWagonLabel.en,
+      i18nBlockedPassage.both.en,
     ]);
     expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).to.be.eql([
-      'Train coach',
+      i18nWagonLabel.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon-end-left' })).to.be.eql([
-      'Train coach',
-      'No passage to the previous train coach',
+      i18nWagonLabel.en,
+      i18nBlockedPassage.previous.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon-end-right' })).to.be.eql([
-      'Train coach',
-      'No passage to the next train coach',
+      i18nWagonLabel.en,
+      i18nBlockedPassage.next.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon-end-right', blockedPassage: 'both' })).to.be.eql([
-      'Train coach',
-      'No passage to the next and previous train coach',
+      i18nWagonLabel.en,
+      i18nBlockedPassage.both.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon-end-left', sector: 'A' })).to.be.eql([
-      'Train coach',
+      i18nWagonLabel.en,
       'Sector, A',
-      'No passage to the previous train coach',
+      i18nBlockedPassage.previous.en,
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon-end-right', sector: 'A' })).to.be.eql([
-      'Train coach',
+      i18nWagonLabel.en,
       'Sector, A',
-      'No passage to the next train coach',
+      i18nBlockedPassage.next.en,
     ]);
 
     expect(
       await extractAriaLabels({ type: 'wagon-end-right', blockedPassage: 'both', sector: 'A' }),
-    ).to.be.eql(['Train coach', 'Sector, A', 'No passage to the next and previous train coach']);
+    ).to.be.eql([i18nWagonLabel.en, 'Sector, A', i18nBlockedPassage.both.en]);
   });
 });

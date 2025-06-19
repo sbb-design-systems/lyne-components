@@ -2,57 +2,46 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
+  nothing,
   type PropertyDeclaration,
-  type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import type { CalendarView } from '../../calendar.js';
 import { readConfig } from '../../core/config.js';
-import { SbbIdReferenceController, SbbLanguageController } from '../../core/controllers.js';
+import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
-import { forceType, plainDate } from '../../core/decorators.js';
-import { EventEmitter, forwardEvent } from '../../core/eventing.js';
-import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n.js';
-import type { SbbValidationChangeEvent } from '../../core/interfaces.js';
-import type { SbbDateInputElement } from '../../date-input.js';
-import { SbbDatepickerAssociationHostController } from '../common.js';
+import { forceType, idReference } from '../../core/decorators.js';
+import { i18nDateChangedTo } from '../../core/i18n.js';
+import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.js';
+import { SbbPopoverBaseElement } from '../../popover.js';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
 import style from './datepicker.scss?lit&inline';
 
-export interface SbbInputUpdateEvent {
-  disabled?: boolean;
-  readonly?: boolean;
-  min?: string | number;
-  max?: string | number;
-}
+import '../../calendar.js';
 
 let nextId = 0;
-let warningLogged = false;
-const isDateInput = <T>(
-  element: HTMLElement | HTMLInputElement | SbbDateInputElement<T> | null,
-): element is SbbDateInputElement<T> => element?.localName === 'sbb-date-input';
 
 /**
- * Combined with a native input, it displays the input's value as a formatted date.
+ * A datepicker component that allows users to select a date from a calendar view.
  *
- * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
- * @event {CustomEvent<void>} input - Notifies that the connected input fired the input event.
- * @event {CustomEvent<SbbInputUpdateEvent>} inputupdated - Notifies that the attributes of the input connected to the datepicker have changes.
- * @event {CustomEvent<void>} datepickerupdated - Notifies that the attributes of the datepicker have changes.
- * @event {CustomEvent<SbbValidationChangeEvent>} validationchange - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-datepicker` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} beforeclose - Emits whenever the `sbb-datepicker` begins the closing
+ * transition. Can be canceled.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} close - Emits whenever the `sbb-datepicker` is closed.
+ * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 export
 @customElement('sbb-datepicker')
-class SbbDatepickerElement<T = Date> extends LitElement {
-  public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    change: 'change',
-    inputupdated: 'inputupdated',
-    datepickerupdated: 'datepickerupdated',
-    validationchange: 'validationchange',
-  } as const;
+class SbbDatepickerElement<T = Date>
+  extends SbbPopoverBaseElement
+  implements SbbDateInputAssociated<T>
+{
+  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
+  public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */
   @forceType()
@@ -60,138 +49,44 @@ class SbbDatepickerElement<T = Date> extends LitElement {
   public accessor wide: boolean = false;
 
   /**
-   * A function used to filter out dates.
-   * @deprecated Use dateFilter from SbbDateInputElement.
+   * Reference to the sbb-date-input instance or the native input connected to the datepicker.
+   *
+   * For attribute usage, provide an id reference.
    */
-  @property({ attribute: false })
-  public set dateFilter(value: (date: T | null) => boolean) {
-    this._dateFilter = value;
-  }
-  public get dateFilter(): (date: T | null) => boolean {
-    return (
-      this._dateFilter ??
-      (isDateInput(this.inputElement) ? this.inputElement.dateFilter : null) ??
-      (() => true)
-    );
-  }
-  private _dateFilter?: (date: T | null) => boolean;
-
-  // TODO: Replace HTMLElement by HTMLInputElement | SbbDateInputElement
-  /**
-   * Reference of the sbb-date-input instance or the native input connected to the datepicker.
-   * If given a string, it will be treated as an id reference and an attempt is
-   * made to be resolved for the containing document fragment.
-   * If given a HTMLElement instance, it will be used as is.
-   */
+  @idReference()
   @property()
-  public accessor input: string | HTMLElement | null = null;
+  public accessor input: SbbDateInputElement<T> | null = null;
 
-  /**
-   * A configured date which acts as the current date instead of the real current date.
-   * Only recommended for testing purposes.
-   */
-  @plainDate({ fallback: (a) => a.today() })
-  @property()
-  public accessor now: T = null!;
+  /** The initial view of calendar which should be displayed on opening. */
+  @property() public accessor view: CalendarView = 'day';
 
-  /**
-   * The currently selected date as a Date or custom date provider instance.
-   * @deprecated Use valueAsDate from SbbDateInputElement.
-   */
-  @property({ attribute: false })
-  public set valueAsDate(value: T | null) {
-    value = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-    if (isDateInput(this.inputElement)) {
-      this.inputElement.valueAsDate = value;
-      return;
-    }
-
-    this._valueAsDate = value;
-    if (this._tryApplyFormatToInput()) {
-      // Emit blur event when value is changed programmatically to notify
-      // frameworks that rely on that event to update form status.
-      this.inputElement!.dispatchEvent(new Event('blur', { composed: true }));
-    }
-  }
-  public get valueAsDate(): T | null {
-    if (isDateInput(this.inputElement)) {
-      return this.inputElement.valueAsDate;
-    }
-
-    return this._valueAsDate ?? null;
-  }
-  private _valueAsDate?: T | null;
-
-  /** The resolved associated input element, as defined by `input`. */
-  public get inputElement(): HTMLInputElement | SbbDateInputElement<T> | null {
-    return this._inputElement;
-  }
-  @state() private accessor _inputElement: HTMLInputElement | SbbDateInputElement<T> | null = null;
-
-  /** Notifies that the connected input has changes. */
-  private _changeEmitter: EventEmitter = new EventEmitter(
-    this,
-    SbbDatepickerElement.events.change,
-    {
-      bubbles: true,
-    },
-  );
-
-  /** Notifies that the attributes of the input connected to the datepicker have changes. */
-  private _inputUpdatedEmitter: EventEmitter<SbbInputUpdateEvent> = new EventEmitter(
-    this,
-    SbbDatepickerElement.events.inputupdated,
-    { bubbles: true, cancelable: true },
-  );
-
-  /** Notifies that the attributes of the datepicker have changes. */
-  private _datePickerUpdatedEmitter: EventEmitter = new EventEmitter(
-    this,
-    SbbDatepickerElement.events.datepickerupdated,
-    {
-      bubbles: true,
-      cancelable: true,
-    },
-  );
-
-  /** Emits whenever the internal validation state changes. */
-  private _validationChangeEmitter: EventEmitter<SbbValidationChangeEvent> = new EventEmitter(
-    this,
-    SbbDatepickerElement.events.validationchange,
-  );
-
-  private _inputElementPlaceholderMutable = false;
-
-  private _inputAbortController!: AbortController;
-  private _inputIdReferenceController = new SbbIdReferenceController(this, 'input');
-
-  private _inputObserver = !isServer
-    ? new MutationObserver((mutationsList) => {
-        this._emitInputUpdated();
-        this._associationController?.updateControls();
-        // TODO: Decide whether to remove this logic by adding a value property to the datepicker.
-        if (
-          this.inputElement &&
-          !isDateInput(this.inputElement) &&
-          mutationsList?.some((e) => e.attributeName === 'value')
-        ) {
-          const value = this.inputElement.getAttribute('value');
-          this.valueAsDate =
-            this._dateAdapter.parse(value, this.now) ?? this._dateAdapter.deserialize(value);
-        }
-      })
-    : null;
-
+  private _inputAbortController?: AbortController;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
-
   private _language = new SbbLanguageController(this);
-  private _associationController = new SbbDatepickerAssociationHostController(this);
+
+  public constructor() {
+    super();
+    this.addEventListener(SbbPopoverBaseElement.events.beforeopen, () => {
+      this.shadowRoot?.querySelector('sbb-calendar')?.resetPosition?.();
+    });
+    if (!isServer && this.hydrationRequired) {
+      this.hydrationComplete.then(() => this.requestUpdate());
+    }
+  }
 
   public override connectedCallback(): void {
+    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
 
-    this.id ||= `sbb-datepicker-${++nextId}`;
-    this._configureInputElement();
+    const formField = this.closest?.('sbb-form-field');
+    if (formField) {
+      SbbDateInputElement.resolveAssociation(this);
+      const toggle =
+        formField.querySelector<SbbDatepickerToggleElement<T>>('sbb-datepicker-toggle');
+      if (toggle && !toggle.hasAttribute('datepicker')) {
+        toggle.datepicker ??= this;
+      }
+    }
   }
 
   public override requestUpdate(
@@ -200,286 +95,67 @@ class SbbDatepickerElement<T = Date> extends LitElement {
     options?: PropertyDeclaration,
   ): void {
     super.requestUpdate(name, oldValue, options);
-    if (this.hasUpdated && !name && this.inputElement) {
-      if (this._inputElementPlaceholderMutable) {
-        this.inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
-      }
-      if (this.valueAsDate) {
-        this.inputElement.value = this._dateAdapter.format(this.valueAsDate);
-      }
-    }
-    if (!isServer && (!name || name === 'input') && this.hasUpdated) {
-      this._configureInputElement();
-    }
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (
-      changedProperties.has('wide') ||
-      changedProperties.has('dateFilter') ||
-      changedProperties.has('now')
-    ) {
-      this._associationController.updateControls();
-      this._datePickerUpdatedEmitter.emit();
-    }
-    if (changedProperties.has('valueAsDate')) {
-      this._setAriaLiveMessage();
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._inputObserver?.disconnect();
-    this._inputAbortController?.abort();
-    this._inputElement = null;
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    this._setAriaLiveMessage();
-  }
-
-  /**
-   * @internal
-   * Whether a custom now is configured.
-   */
-  public hasCustomNow(): boolean {
-    return this._dateAdapter.compareDate(this.now, this._dateAdapter.today()) !== 0;
-  }
-
-  private _configureInputElement(): void {
-    const inputElement =
-      this.input instanceof HTMLInputElement ||
-      (this.input instanceof HTMLElement && isDateInput<T>(this.input))
-        ? this.input
-        : ((this._inputIdReferenceController.find() as HTMLInputElement | null) ??
-          this.closest?.('sbb-form-field')?.querySelector<HTMLInputElement>(
-            'input,sbb-date-input',
-          ) ??
-          null);
-    if (inputElement === this.inputElement) {
-      return;
-    }
-
-    this._inputAbortController?.abort();
-    this._inputObserver?.disconnect();
-    this._inputElement = inputElement;
-
-    if (!this.inputElement) {
-      return;
-    }
-
-    const isNativeInput = !isDateInput(this.inputElement);
-    if (isNativeInput && import.meta.env.DEV && !warningLogged) {
-      warningLogged = true;
-      console.warn(
-        'Using <sbb-datepicker> with a native <input> is deprecated. Use a <sbb-date-input> instead of <input>.',
-      );
-    }
-
-    this._inputAbortController = new AbortController();
-    this._inputObserver?.observe(this.inputElement, {
-      attributeFilter: ['disabled', 'readonly', 'min', 'max', 'value'],
-    });
-
-    if (isNativeInput) {
-      this._inputElementPlaceholderMutable = !this.inputElement.placeholder;
-      this.inputElement.type = 'text';
-      if (this._inputElementPlaceholderMutable) {
-        this.inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
+    if (name === 'input' && this.input !== oldValue) {
+      this._inputAbortController?.abort();
+      if (this.input) {
+        const { signal } = (this._inputAbortController = new AbortController());
+        this.input?.addEventListener(
+          'ɵchange',
+          () => {
+            super.requestUpdate();
+            this._updateStatus();
+          },
+          { signal },
+        );
       }
     }
-
-    const options: AddEventListenerOptions = { signal: this._inputAbortController.signal };
-    this.inputElement.addEventListener(
-      'input',
-      (e) => {
-        forwardEvent(e, this);
-        this._parseInput();
-      },
-      options,
-    );
-    this.inputElement.addEventListener('change', () => this._handleInputChange(), options);
-    this.inputElement.addEventListener(
-      'ɵchange',
-      () => this._associationController?.updateControls(),
-      options,
-    );
-    this._parseInput(true);
-    this._tryApplyFormatToInput();
-    this._validateDate();
-    this._emitInputUpdated();
-    this._associationController?.updateControls();
   }
 
-  private _emitInputUpdated(): void {
-    const { disabled, readOnly: readonly, min: minValue, max: maxValue } = this.inputElement ?? {};
-    const min = (
-      minValue && typeof minValue !== 'string' ? this._dateAdapter.toIso8601(minValue) : minValue
-    ) as string | undefined;
-    const max = (
-      maxValue && typeof maxValue !== 'string' ? this._dateAdapter.toIso8601(maxValue) : maxValue
-    ) as string | undefined;
-    this._inputUpdatedEmitter.emit({ disabled, readonly, min, max });
-  }
-
-  private _handleInputChange(): void {
-    if (this._tryApplyFormatToInput()) {
-      return;
-    }
-    this._validateDate();
-    this._setAriaLiveMessage();
-    this._changeEmitter.emit();
-    this._associationController?.updateControls();
-  }
-
-  private _tryApplyFormatToInput(): boolean {
-    if (!this.inputElement || isDateInput(this.inputElement)) {
-      return false;
-    }
-
-    const formattedDate = this.valueAsDate ? this._dateAdapter.format(this.valueAsDate!) : '';
-    if (formattedDate && this.inputElement.value !== formattedDate) {
-      // In order to support React onChange event, we have to get the setter and call it.
-      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
-      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.inputElement, formattedDate);
-
-      this.inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      this.inputElement.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      return true;
-    }
-
-    return false;
-  }
-
-  private _validateDate(): void {
-    if (!this.inputElement) {
+  private _updateStatus(): void {
+    const status = this.shadowRoot?.getElementById('status-container');
+    if (!status) {
       return;
     }
 
-    const isEmptyOrValid = !this.inputElement.value || this._isDateAvailable();
-    const wasValid = !this.inputElement.hasAttribute('data-sbb-invalid');
-    this.inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
-    if (wasValid !== isEmptyOrValid) {
-      this._validationChangeEmitter.emit({ valid: isEmptyOrValid });
+    const text = this._dateAdapter.isValid(this.input?.valueAsDate)
+      ? `${i18nDateChangedTo[this._language.current]} ${this._dateAdapter.format(
+          this.input!.valueAsDate,
+          {
+            weekdayStyle: 'long',
+          },
+        )}`
+      : '';
+    if (status.textContent !== text) {
+      status.textContent = text;
     }
   }
 
-  private _parseInput(deserializeAsFallback = false): void {
-    if (isDateInput(this.inputElement)) {
-      return;
-    }
-
-    const value = this.inputElement!.value;
-    // We are assigning directly to the private backing property of valueAsDate
-    // as we don't want to trigger a blur event during this time.
-    this._valueAsDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.parse(value, this.now),
-    );
-    if (deserializeAsFallback && !this._valueAsDate) {
-      this._valueAsDate = this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value),
-      );
-    }
-  }
-
-  private _setAriaLiveMessage(): void {
-    const containerElement: HTMLParagraphElement | null | undefined =
-      this.shadowRoot?.querySelector?.<HTMLParagraphElement>('#status-container');
-
-    if (!containerElement) {
-      return;
-    } else if (!this.valueAsDate) {
-      containerElement.innerText = '';
-    } else {
-      const date = this._dateAdapter.format(this.valueAsDate, { weekdayStyle: 'long' });
-      containerElement.innerText = `${i18nDateChangedTo[this._language.current]} ${date}`;
-    }
+  protected override renderContent(): TemplateResult {
+    return html`
+      <p id="status-container" role="status"></p>
+      <sbb-calendar
+        .view=${this.view}
+        .min=${this.input?.min ?? null}
+        .max=${this.input?.max ?? null}
+        .dateFilter=${this.input?.dateFilter ?? null}
+        .selected=${this.input?.valueAsDate ?? null}
+        ?wide=${this.wide}
+        @dateselected=${(d: CustomEvent<T>) => {
+          if (this.input) {
+            this.input.valueAsDate = d.detail;
+            this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+            this.input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            // Emit blur event when value is changed programmatically to notify
+            // frameworks that rely on that event to update form status.
+            this.input.dispatchEvent(new Event('blur', { composed: true }));
+          }
+        }}
+      ></sbb-calendar>
+    `;
   }
 
   protected override render(): TemplateResult {
-    return html`<p id="status-container" role="status"></p>`;
-  }
-
-  /**
-   * Calculates the first available date before the given one,
-   * considering the SbbDatepickerElement `dateFilter` property and `min` parameter (e.g. from the self-named input's attribute).
-   * @param date The starting date for calculations.
-   */
-  public findPreviousAvailableDate(date: T): T {
-    const previousDate = this._findAvailableDate(date, -1);
-    const dateMin = this._dateAdapter.deserialize(this.inputElement?.min);
-
-    if (
-      !dateMin ||
-      (this._dateAdapter.isValid(dateMin) &&
-        this._dateAdapter.compareDate(previousDate, dateMin) >= 0)
-    ) {
-      return previousDate;
-    }
-    return date;
-  }
-
-  /**
-   * Calculates the first available date after the given one,
-   * considering the SbbDatepickerElement `dateFilter` property and `max` parameter (e.g. from the self-named input's attribute).
-   * @param date The starting date for calculations.
-   */
-  public findNextAvailableDate(date: T): T {
-    const nextDate = this._findAvailableDate(date, 1);
-    const dateMax = this._dateAdapter.deserialize(this.inputElement?.max);
-
-    if (
-      !dateMax ||
-      (this._dateAdapter.isValid(dateMax) && this._dateAdapter.compareDate(nextDate, dateMax) <= 0)
-    ) {
-      return nextDate;
-    }
-    return date;
-  }
-
-  /**
-   * Returns the first available date before or after a given one, considering the `dateFilter` property.
-   * @param date The starting date for calculations.
-   * @param delta The number of days to add/subtract from the starting one.
-   */
-  private _findAvailableDate(date: T, delta: number): T {
-    let availableDate = this._dateAdapter.addCalendarDays(date, delta);
-
-    if (this.dateFilter) {
-      while (!this.dateFilter(availableDate)) {
-        availableDate = this._dateAdapter.addCalendarDays(availableDate, delta);
-      }
-    }
-
-    return availableDate;
-  }
-
-  /**
-   * Checks if valueAsDate is valid, considering the SbbDatepickerElement `dateFilter` property
-   * and `min` and `max` parameters (e.g. from the self-named input's attributes).
-   */
-  private _isDateAvailable(): boolean {
-    if (!this.valueAsDate) {
-      return false;
-    }
-
-    const dateMin = this._dateAdapter.deserialize(this.inputElement?.min);
-    const dateMax = this._dateAdapter.deserialize(this.inputElement?.max);
-
-    if (
-      (this._dateAdapter.isValid(dateMin) &&
-        this._dateAdapter.compareDate(this.valueAsDate, dateMin!) < 0) ||
-      (this._dateAdapter.isValid(dateMax) &&
-        this._dateAdapter.compareDate(this.valueAsDate, dateMax!) > 0)
-    ) {
-      return false;
-    }
-
-    return this.dateFilter?.(this.valueAsDate) ?? true;
+    return isServer || this.hydrationRequired ? html`${nothing}` : super.render();
   }
 }
 
@@ -487,9 +163,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-datepicker': SbbDatepickerElement;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    inputupdated: CustomEvent<SbbInputUpdateEvent>;
   }
 }

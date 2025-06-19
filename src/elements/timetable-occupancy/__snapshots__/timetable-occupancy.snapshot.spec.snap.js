@@ -75,7 +75,7 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
       First Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Low to medium occupancy expected"
+      aria-label="Low to average occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
       negative=""
@@ -128,7 +128,7 @@ snapshots["sbb-timetable-occupancy renders only first class wagon Shadow DOM"] =
       First Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Low to medium occupancy expected"
+      aria-label="Low to average occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
       role="img"
