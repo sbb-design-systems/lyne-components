@@ -25,6 +25,7 @@ import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
 import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
 import './seat-reservation-scoped.js';
+import '@sbb-esta/lyne-elements/popover.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -371,11 +372,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // need difficult calculations for position, rotation and dimension.
     const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
 
+    //generate unique index number for the trigger element
+    const triggerId = Math.floor(Date.now() * Math.random());
+
     const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
-    const stretchHeight = areaProperty !== 'ENTRY_EXIT';
-    const ariaLabelForArea = graphicalElement.icon
-      ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
-      : nothing;
+
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
@@ -425,6 +426,57 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             `
           : nothing}
       </sbb-seat-reservation-area>
+      <sbb-seat-reservation-scoped
+        scoped-classes="graphical-element"
+        inset-block-start="${calculatedPosition.y}px"
+        inset-inline-start="${calculatedPosition.x}px"
+        width="${calculatedDimension.w}px"
+        height="${calculatedDimension.h}px"
+        z-index="${graphicalElement.position.z}"
+      >
+        <sbb-popover-trigger id="${triggerId}">
+          <sbb-seat-reservation-area
+            style=${styleMap({
+              '--sbb-reservation-area-width': graphicalElement.dimension.w * this.baseGridSize,
+              '--sbb-reservation-area-height': graphicalElement.dimension.h * this.baseGridSize,
+            })}
+            mounting=${elementMounting}
+            background="dark"
+            aria-hidden="true"
+          >
+            ${areaProperty
+              ? html`
+                  <sbb-seat-reservation-graphic
+                    name=${areaProperty}
+                    rotation=${rotation}
+                    width=${this.baseGridSize}
+                    height=${this.baseGridSize}
+                    role="img"
+                    aria-hidden="true"
+                  ></sbb-seat-reservation-graphic>
+                `
+              : nothing}
+          </sbb-seat-reservation-area>
+        </sbb-popover-trigger>
+        ${this._popover(triggerId, ariaLabelForArea)}
+      </sbb-seat-reservation-scoped>
+    `;
+  }
+
+  /**
+   * Creates a popover for extra service information
+   * @param triggerId
+   * @param popoverContent
+   * @private
+   */
+  private _popover(
+    triggerId: number,
+    popoverContent: string | null | typeof nothing,
+  ): TemplateResult {
+    return html`
+      <sbb-popover trigger="${triggerId}">
+        <p class="sbb-text-s sbb-sr-popover">${popoverContent}</p>
+      </sbb-popover>
     `;
   }
 
@@ -478,6 +530,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const elementRotation = serviceElement.rotation || 0;
       const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
 
+      //generate unique index number for the trigger element
+      const triggerId = Math.floor(Date.now() * Math.random());
+
       return html`
         <sbb-seat-reservation-graphic
           style=${styleMap({
@@ -493,6 +548,28 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           aria-hidden="true"
           title=${titleDescription ?? nothing}
         ></sbb-seat-reservation-graphic>
+        <sbb-seat-reservation-scoped
+          scoped-classes="graphical-element"
+          inset-block-start="${calculatedcCmpartmentNumberPosition.y}px"
+          inset-inline-start="${calculatedcCmpartmentNumberPosition.x}px"
+          width="${calculatedcCmpartmentNumberDimension.w}px"
+          height="${calculatedcCmpartmentNumberDimension.h}px"
+          z-index="${serviceElement.position.z}"
+        >
+          <sbb-popover-trigger id="${triggerId}">
+            <div class="ASDFASDFASDFASDFAS">
+            <sbb-seat-reservation-graphic
+              name=${serviceElement.icon ?? nothing}
+              width=${serviceElement.dimension.w * this.baseGridSize}
+              height=${serviceElement.dimension.h * this.baseGridSize}
+              .rotation=${elementFixedRotation}
+              role="img"
+              aria-hidden="true"
+            ></sbb-seat-reservation-graphic>
+            </div>
+          </sbb-popover-trigger>
+          ${this._popover(triggerId, titleDescription)}
+        </sbb-seat-reservation-scoped>
       `;
     });
   }
@@ -543,7 +620,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       ]);
     }
 
-    let tableCoachDescription = '';
+    let tableCoachDescription: string;
     const areaDescriptions = this._getTitleDescriptionListString(coachItem.graphicElements!);
     const serviceDescriptions = this._getTitleDescriptionListString(coachItem.serviceElements!);
 
