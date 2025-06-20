@@ -12,8 +12,8 @@
 
 .sbb-sr-icon,
 .sbb-sr-graphic {
-  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width));
-  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height));
+  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * var(--sbb-seat-reservation-one-px-rem));
+  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * var(--sbb-seat-reservation-one-px-rem));
 
   display: flex;
   justify-content: center;
