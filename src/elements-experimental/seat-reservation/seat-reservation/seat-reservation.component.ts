@@ -218,7 +218,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-scoped-width': calculatedCoachDimension.w,
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
       })}
-      scoped-classes="coach-wrapper"
     >
       ${this._getRenderedCoachBorders(coachItem, index)}
       ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
