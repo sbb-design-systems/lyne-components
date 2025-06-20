@@ -53,8 +53,8 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
-    stateChange: 'stateChange',
-    panelConnected: 'panelConnected',
+    statechange: 'statechange',
+    panelconnected: 'panelconnected',
   } as const;
 
   /** Value of the form element. */
@@ -74,9 +74,9 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
    * Internal event that emits whenever the state of the checkbox
    * in relation to the parent selection panel changes.
    */
-  protected stateChange: EventEmitter<SbbCheckboxPanelStateChange> = new EventEmitter(
+  protected stateChangeEmitter: EventEmitter<SbbCheckboxPanelStateChange> = new EventEmitter(
     this,
-    SbbCheckboxPanelElement.events.stateChange,
+    SbbCheckboxPanelElement.events.statechange,
     { bubbles: true },
   );
 
@@ -88,12 +88,12 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
       this.toggleAttribute('data-checked', this.checked);
 
       if (this.checked !== changedProperties.get('checked')!) {
-        this.stateChange.emit({ type: 'checked', checked: this.checked });
+        this.stateChangeEmitter.emit({ type: 'checked', checked: this.checked });
       }
     }
     if (changedProperties.has('disabled')) {
       if (this.disabled !== changedProperties.get('disabled')!) {
-        this.stateChange.emit({ type: 'disabled', disabled: this.disabled });
+        this.stateChangeEmitter.emit({ type: 'disabled', disabled: this.disabled });
       }
     }
   }

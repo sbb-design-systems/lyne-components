@@ -48,7 +48,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbFileSelectorDropzoneElement.events.fileChangedEvent],
+      handles: [SbbFileSelectorDropzoneElement.events.filechanged],
     },
     docs: {
       extractComponentDescription: () => readme,

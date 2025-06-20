@@ -73,7 +73,7 @@ describe('sbb-chip-group', () => {
     });
 
     it('should customize new chip value and label', async () => {
-      element.addEventListener(SbbChipGroupElement.events.chipInputTokenEnd, (ev: Event) => {
+      element.addEventListener(SbbChipGroupElement.events.chipinputtokenend, (ev: Event) => {
         const detail: SbbChipInputTokenEndEventDetails = (ev as CustomEvent).detail;
 
         expect(detail.origin).to.be.equal('input');
@@ -96,7 +96,7 @@ describe('sbb-chip-group', () => {
     });
 
     it('should prevent chip creation', async () => {
-      element.addEventListener(SbbChipGroupElement.events.chipInputTokenEnd, (ev: Event) =>
+      element.addEventListener(SbbChipGroupElement.events.chipinputtokenend, (ev: Event) =>
         ev.preventDefault(),
       );
 
@@ -157,7 +157,7 @@ describe('sbb-chip-group', () => {
     });
 
     it('should handle different separator keys', async () => {
-      const tokenEndEventSpy = new EventSpy(SbbChipGroupElement.events.chipInputTokenEnd, element);
+      const tokenEndEventSpy = new EventSpy(SbbChipGroupElement.events.chipinputtokenend, element);
       element.separatorKeys = [',', '.'];
 
       input.focus();
@@ -462,7 +462,7 @@ describe('sbb-chip-group', () => {
     it('should create chip when option is selected', async () => {
       const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
       const tokenEndEventSpy = new EventSpy<CustomEvent>(
-        SbbChipGroupElement.events.chipInputTokenEnd,
+        SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
 
@@ -513,7 +513,7 @@ describe('sbb-chip-group', () => {
     it('should allow creating chips from input', async () => {
       const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
       const tokenEndEventSpy = new EventSpy<CustomEvent>(
-        SbbChipGroupElement.events.chipInputTokenEnd,
+        SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
 
@@ -569,7 +569,7 @@ describe('sbb-chip-group', () => {
 
     it('should create chip when option is selected', async () => {
       const tokenEndEventSpy = new EventSpy<CustomEvent>(
-        SbbChipGroupElement.events.chipInputTokenEnd,
+        SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
 
@@ -593,7 +593,7 @@ describe('sbb-chip-group', () => {
 
     it('should allow creating chips from input', async () => {
       element.addEventListener(
-        'chipInputTokenEnd',
+        SbbChipGroupElement.events.chipinputtokenend,
         (e: CustomEvent<SbbChipInputTokenEndEventDetails<ComplexValue>>) => {
           // Transform input value into object
           const detail = e.detail;
@@ -601,7 +601,7 @@ describe('sbb-chip-group', () => {
         },
       );
       const tokenEndEventSpy = new EventSpy<CustomEvent>(
-        SbbChipGroupElement.events.chipInputTokenEnd,
+        SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
 

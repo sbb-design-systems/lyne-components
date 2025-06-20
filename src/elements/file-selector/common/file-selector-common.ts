@@ -56,7 +56,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     implements Partial<SbbFileSelectorCommonElementMixinType>
   {
     public static readonly events = {
-      fileChangedEvent: 'fileChanged',
+      filechanged: 'filechanged',
     } as const;
 
     /**
@@ -123,9 +123,9 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
 
     /** An event which is emitted each time the file list changes. */
-    private _fileChangedEvent: EventEmitter<Readonly<File>[]> = new EventEmitter(
+    private _fileChangedEventEmitter: EventEmitter<Readonly<File>[]> = new EventEmitter(
       this,
-      SbbFileSelectorCommonElement.events.fileChangedEvent,
+      SbbFileSelectorCommonElement.events.filechanged,
     );
 
     private _hiddenInput!: HTMLInputElement;
@@ -197,7 +197,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
           .concat(this.files);
       }
       this._updateA11yLiveRegion();
-      this._fileChangedEvent.emit(this.files);
+      this._fileChangedEventEmitter.emit(this.files);
     }
 
     private _removeFile(file: Readonly<File>): void {
@@ -207,7 +207,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       // Dispatch native events as if the reset is done via the file selection window.
       this.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this._fileChangedEvent.emit(this.files);
+      this._fileChangedEventEmitter.emit(this.files);
     }
 
     /** Calculates the correct unit for the file's size. */

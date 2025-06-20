@@ -17,10 +17,10 @@ import style from './sidebar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to slot any content into the sidebar.
  * @slot title - Use the title slot to add an <sbb-title>.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts. Can be canceled.
+ * @event {CustomEvent<void>} open - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} close - Emits when the closing animation ends.
  */
 export
 @customElement('sbb-sidebar')
@@ -140,7 +140,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   /** Opens the sidebar. */
   public open(): void {
-    if (this.state === 'opening' || this.state === 'opened' || !this.willOpen.emit()) {
+    if (this.state === 'opening' || this.state === 'opened' || !this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -186,12 +186,12 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     this._takeFocus();
     this.stopAnimation();
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   /** Closes the sidebar. */
   public close(): void {
-    if (this.state === 'closing' || this.state === 'closed' || !this.willClose.emit()) {
+    if (this.state === 'closing' || this.state === 'closed' || !this.beforeCloseEmitter.emit()) {
       return;
     }
 
@@ -232,7 +232,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this._lastFocusedElement = null;
 
     this.stopAnimation();
-    this.didClose.emit();
+    this.closeEmitter.emit();
   }
 
   private _takeFocus(): void {

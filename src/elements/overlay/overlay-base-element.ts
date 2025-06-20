@@ -48,9 +48,9 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   public accessor skipFocusRestoration: boolean = false;
 
   /** Emits whenever the component is closed. */
-  protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
+  protected override closeEmitter: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
     this,
-    SbbOverlayBaseElement.events.didClose,
+    SbbOverlayBaseElement.events.close,
     { cancelable: true },
   );
 
@@ -82,7 +82,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
     this.lastFocusedElement = document.activeElement as HTMLElement;
 
-    if (!this.willOpen.emit()) {
+    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -116,7 +116,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       closeTarget: this.overlayCloseElement,
     };
 
-    if (!this.willClose.emit(eventData)) {
+    if (!this.beforeCloseEmitter.emit(eventData)) {
       return;
     }
     this.state = 'closing';

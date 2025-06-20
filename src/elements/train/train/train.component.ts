@@ -34,7 +34,7 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    trainSlotChange: 'trainSlotChange',
+    trainslotchange: 'trainslotchange',
   } as const;
   protected override readonly listChildLocalNames = [
     'sbb-train-wagon',
@@ -69,9 +69,9 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
    * @internal
    * Emits whenever the train slot changes.
    */
-  private _trainSlotChange: EventEmitter = new EventEmitter(
+  private _trainSlotChangeEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbTrainElement.events.trainSlotChange,
+    SbbTrainElement.events.trainslotchange,
     {
       bubbles: true,
       cancelable: true,
@@ -99,7 +99,7 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('listChildren')) {
-      this._trainSlotChange.emit();
+      this._trainSlotChangeEmitter.emit();
     }
   }
 

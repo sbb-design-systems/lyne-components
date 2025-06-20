@@ -46,7 +46,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    sectorChange: 'sectorChange',
+    sectorchange: 'sectorchange',
   } as const;
 
   /**
@@ -97,9 +97,9 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
    * @internal
    * Emits whenever the sector value changes.
    */
-  private _sectorChange: EventEmitter = new EventEmitter(
+  private _sectorChangeEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbTrainWagonElement.events.sectorChange,
+    SbbTrainWagonElement.events.sectorchange,
     {
       bubbles: true,
       cancelable: true,
@@ -107,7 +107,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
   );
 
   private _sectorChanged(): void {
-    this._sectorChange.emit();
+    this._sectorChangeEmitter.emit();
   }
 
   private _typeLabel(): string {

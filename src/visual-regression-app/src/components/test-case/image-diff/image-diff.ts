@@ -62,7 +62,7 @@ class ImageDiff extends LitElement {
 
     sbbOverlayElement.appendChild(appFullscreenDiff);
     document.body.appendChild(sbbOverlayElement);
-    sbbOverlayElement.addEventListener(SbbOverlayElement.events.didClose, () => {
+    sbbOverlayElement.addEventListener(SbbOverlayElement.events.close, () => {
       document.body.removeChild(sbbOverlayElement);
     });
 

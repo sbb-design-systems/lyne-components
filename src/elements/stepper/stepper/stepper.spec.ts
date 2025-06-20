@@ -54,7 +54,7 @@ describe('sbb-stepper', () => {
     expect(+baseHeight).not.to.be.equal(0);
 
     const stepOne = element.querySelector<SbbStepElement>('sbb-step:nth-of-type(1)')!;
-    const resizeChange = new EventSpy(SbbStepElement.events.resizeChange, element);
+    const resizeChangeSpy = new EventSpy(SbbStepElement.events.resizechange, element);
     const addedHeight = 200;
 
     const div = document.createElement('div');
@@ -62,8 +62,8 @@ describe('sbb-stepper', () => {
     div.style.cssText = `display: block; height: ${addedHeight}px;`;
     stepOne.appendChild(div);
     await waitForLitRender(element);
-    await resizeChange.calledOnce();
-    expect(resizeChange.count).to.be.equal(1);
+    await resizeChangeSpy.calledOnce();
+    expect(resizeChangeSpy.count).to.be.equal(1);
 
     const newHeight = getComputedStyle(element).getPropertyValue('--sbb-stepper-content-height');
     expect(newHeight).to.be.equal(`${+baseHeight + addedHeight}px`);

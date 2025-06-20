@@ -152,12 +152,12 @@ const sidebar = (
     ${sbbSpread(args)}
     id=${sidebarId}
     role="navigation"
-    @didOpen=${(event: CustomEvent) =>
+    @open=${(event: CustomEvent) =>
       (event.currentTarget as HTMLElement)
         .closest('sbb-header + :is(sbb-sidebar-container, sbb-icon-sidebar-container)')
         ?.parentElement?.querySelector(`#${toggleButtonId}`)
         ?.setAttribute('aria-expanded', 'true')}
-    @didClose=${(event: CustomEvent) =>
+    @close=${(event: CustomEvent) =>
       (event.currentTarget as HTMLElement)
         .closest('sbb-header + :is(sbb-sidebar-container, sbb-icon-sidebar-container)')
         ?.parentElement?.querySelector(`#${toggleButtonId}`)
@@ -354,10 +354,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSidebarElement.events.willOpen,
-        SbbSidebarElement.events.didOpen,
-        SbbSidebarElement.events.willClose,
-        SbbSidebarElement.events.didClose,
+        SbbSidebarElement.events.beforeopen,
+        SbbSidebarElement.events.open,
+        SbbSidebarElement.events.beforeclose,
+        SbbSidebarElement.events.close,
       ],
     },
     docs: {

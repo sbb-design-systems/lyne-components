@@ -47,11 +47,11 @@ describe(`sbb-navigation-section`, () => {
     `);
     element = root.querySelector('sbb-navigation-section')!;
     trigger = root.querySelector('sbb-navigation-button')!;
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, root);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, root);
 
     // Open surrounding navigation
     root.open();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     // Start with closed navigation section for all the tests
     element.close();
@@ -202,14 +202,14 @@ describe(`sbb-navigation-section`, () => {
     });
 
     it('should close and move focus on Escape key press', async () => {
-      const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, root);
+      const closeSpy = new EventSpy(SbbNavigationElement.events.close, root);
 
       trigger.focus();
       await sendKeys({ press: 'Enter' });
       expect(document.activeElement!.id).to.be.equal('first-navigation-section-button');
 
       await sendKeys({ press: 'Escape' });
-      await didCloseEventSpy.calledOnce();
+      await closeSpy.calledOnce();
       await aTimeout(30);
 
       expect(root.contains(document.activeElement)).to.be.false;

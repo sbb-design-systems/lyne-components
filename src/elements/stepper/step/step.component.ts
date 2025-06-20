@@ -37,11 +37,11 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     validate: 'validate',
-    resizeChange: 'resizeChange',
+    resizechange: 'resizechange',
   } as const;
 
   /** Emits whenever step switch is triggered. */
-  private _validate: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
+  private _validateEmitter: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
     this,
     SbbStepElement.events.validate,
   );
@@ -50,9 +50,9 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    * @internal
    * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
    */
-  private _resizeChange: EventEmitter<void> = new EventEmitter(
+  private _resizeChangeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbStepElement.events.resizeChange,
+    SbbStepElement.events.resizechange,
     { bubbles: true },
   );
 
@@ -108,7 +108,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    * @internal
    */
   public validate(eventData: SbbStepValidateEventDetails): boolean {
-    return !!this._validate.emit(eventData);
+    return !!this._validateEmitter.emit(eventData);
   }
 
   /**
@@ -148,7 +148,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.hasAttribute('data-selected')) {
       return;
     }
-    this._resizeChange.emit();
+    this._resizeChangeEmitter.emit();
   }
 
   private _getStepLabel(): SbbStepLabelElement | null {
@@ -194,6 +194,6 @@ declare global {
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    resizeChange: CustomEvent<void>;
+    resizechange: CustomEvent<void>;
   }
 }

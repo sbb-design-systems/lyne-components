@@ -50,7 +50,7 @@ If the `sbb-autocomplete-grid-option` is nested in a `sbb-autocomplete-grid-optg
 
 ## Events
 
-Consumers can listen to the `optionSelected` event on the `sbb-autocomplete-grid-option` component to intercept the selected value;
+Consumers can listen to the `autocompleteoptionselected` event on the `sbb-autocomplete-grid-option` component to intercept the selected value;
 the event is triggered if the element has been selected by some user interaction. Alternatively,
 the `selectionChange` event can be listened to, which is triggered if the element has been both selected or deselected.
 
@@ -104,7 +104,7 @@ The type can be specified using the generic type parameter `T` of `SbbAutocomple
 
 | Name                         | Type                | Description                                | Inherited From |
 | ---------------------------- | ------------------- | ------------------------------------------ | -------------- |
-| `autocompleteOptionSelected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
+| `autocompleteoptionselected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
 
 ## CSS Properties
 

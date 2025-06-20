@@ -23,7 +23,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
 ): AbstractConstructor<SbbPanelMixinType> & T => {
   abstract class SbbPanelElement extends superClass implements SbbPanelMixinType {
     public static readonly events = {
-      panelConnected: 'panelConnected',
+      panelconnected: 'panelconnected',
     } as const;
 
     /** The background color of the panel. */
@@ -43,16 +43,16 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
      * @internal
      * Internal event that emits when the checkbox is loaded.
      */
-    private _panelConnected: EventEmitter<void> = new EventEmitter(
+    private _panelConnectedEmitter: EventEmitter<void> = new EventEmitter(
       this,
-      SbbPanelElement.events.panelConnected,
+      SbbPanelElement.events.panelconnected,
       { bubbles: true },
     );
 
     public override connectedCallback(): void {
       super.connectedCallback();
 
-      this._panelConnected.emit();
+      this._panelConnectedEmitter.emit();
 
       this.closest?.('sbb-radio-button-group, sbb-checkbox-group')?.toggleAttribute(
         'data-has-panel',

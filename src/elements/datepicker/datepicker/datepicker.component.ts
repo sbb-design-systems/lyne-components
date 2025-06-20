@@ -27,11 +27,11 @@ let nextId = 0;
 /**
  * A datepicker component that allows users to select a date from a calendar view.
  *
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-datepicker` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-datepicker` begins the closing
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-datepicker` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} beforeclose - Emits whenever the `sbb-datepicker` begins the closing
  * transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-datepicker` is closed.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} close - Emits whenever the `sbb-datepicker` is closed.
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 export
@@ -66,7 +66,7 @@ class SbbDatepickerElement<T = Date>
 
   public constructor() {
     super();
-    this.addEventListener(SbbPopoverBaseElement.events.willOpen, () => {
+    this.addEventListener(SbbPopoverBaseElement.events.beforeopen, () => {
       this.shadowRoot?.querySelector('sbb-calendar')?.resetPosition?.();
     });
     if (!isServer && this.hydrationRequired) {
@@ -140,7 +140,7 @@ class SbbDatepickerElement<T = Date>
         .dateFilter=${this.input?.dateFilter ?? null}
         .selected=${this.input?.valueAsDate ?? null}
         ?wide=${this.wide}
-        @dateSelected=${(d: CustomEvent<T>) => {
+        @dateselected=${(d: CustomEvent<T>) => {
           if (this.input) {
             this.input.valueAsDate = d.detail;
             this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));

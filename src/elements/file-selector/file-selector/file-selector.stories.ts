@@ -33,7 +33,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbFileSelectorElement.events.fileChangedEvent],
+      handles: [SbbFileSelectorElement.events.filechanged],
     },
     docs: {
       extractComponentDescription: () => readme,

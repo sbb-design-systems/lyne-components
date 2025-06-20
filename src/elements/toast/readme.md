@@ -121,12 +121,12 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Events
 
-| Name        | Type                | Description                                                                    | Inherited From          |
-| ----------- | ------------------- | ------------------------------------------------------------------------------ | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                | Description                                                                    | Inherited From          |
+| ------------- | ------------------- | ------------------------------------------------------------------------------ | ----------------------- |
+| `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

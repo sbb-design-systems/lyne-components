@@ -364,8 +364,7 @@ return data ?? data2 ?? data3;
 
 #### Event naming
 
-Use the wording `will` to name events happening before an action and `did` to name events happening
-after an action (e.g. `willOpen` and `didOpen`).
+Use the wording `before` to name events happening before an action (e.g. `beforeopen` and `open`).
 
 #### Prefer properties/attributes to CSS classes
 

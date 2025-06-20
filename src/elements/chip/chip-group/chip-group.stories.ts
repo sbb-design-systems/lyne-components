@@ -196,7 +196,7 @@ const meta: Meta = {
       handles: [
         SbbChipGroupElement.events.input,
         SbbChipGroupElement.events.change,
-        SbbChipGroupElement.events.chipInputTokenEnd,
+        SbbChipGroupElement.events.chipinputtokenend,
       ],
     },
     backgroundColor: (context: StoryContext) =>

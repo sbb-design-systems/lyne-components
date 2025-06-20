@@ -53,11 +53,11 @@ The `sbb-chip-group` has a `negative` variant. If within an `sbb-form-field`, th
 
 By default, when the user presses `Enter`, the `sbb-chip-group` will create a new `sbb-chip` and add it to the slotted elements.
 
-Consumers can customize or prevent this behavior by listening to the `chipInputTokenEnd` event.
+Consumers can customize or prevent this behavior by listening to the `chipinputtokenend` event.
 
 ```html
 <!-- Preventing the event will stop the chip-group from converting the input value into a chip -->
-<sbb-chip-group name="field-name" @chipInputTokenEnd="${(ev)" ="">
+<sbb-chip-group name="field-name" @chipinputtokenend="${(ev)" ="">
   ev.preventDefault()}> ...
   <input />
 </sbb-chip-group>
@@ -67,7 +67,7 @@ Consumers can customize or prevent this behavior by listening to the `chipInputT
 <!-- Use the event.detail object to override the default behavior -->
 <sbb-chip-group
   name="field-name"
-  @chipInputTokenEnd=${(ev: CustomEvent<SbbChipInputTokenEndEventDetails>) => {
+  @chipinputtokenend=${(ev: CustomEvent<SbbChipInputTokenEndEventDetails>) => {
     ev.detail.setValue(transformedValue);
     ev.detail.setLabel('Custom label');
   }}>
@@ -177,7 +177,7 @@ the value to a string represented in the created chips.
 | `name`              | `name`           | public  | `string`                         |             | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                            |
 | `negative`          | `negative`       | public  | `boolean`                        | `false`     | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `required`          | `required`       | public  | `boolean`                        | `false`     | Whether the component is required.                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `separatorKeys`     | `separator-keys` | public  | `string[]`                       | `['Enter']` | The array of keys that will trigger a `chipInputTokenEnd` event. Default `\['Enter']`                                                                                                                                                                                                                                                                                                                                                                  |
+| `separatorKeys`     | `separator-keys` | public  | `string[]`                       | `['Enter']` | The array of keys that will trigger a `chipinputtokenend` event. Default `\['Enter']`                                                                                                                                                                                                                                                                                                                                                                  |
 | `validationMessage` | -                | public  | `string`                         |             | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also a custom validity message (see below) has precedence over native validation messages. |
 | `validity`          | -                | public  | `ValidityState`                  |             | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `value`             | `value`          | public  | `(T = string[]) \| null`         |             | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -196,7 +196,7 @@ the value to a string represented in the created chips.
 | Name                | Type                                            | Description                                                                                                      | Inherited From |
 | ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------- |
 | `change`            | `CustomEvent<void>`                             | Notifies that the component's value has changed.                                                                 |                |
-| `chipInputTokenEnd` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented. |                |
+| `chipinputtokenend` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented. |                |
 | `input`             | `CustomEvent<void>`                             | Notifies that the component's value has changed.                                                                 |                |
 
 ## Slots

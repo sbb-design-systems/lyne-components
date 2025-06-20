@@ -76,8 +76,8 @@ The type can be specified using the generic type parameter `T` of `SbbOption<T>`
 
 | Name                    | Type                | Description                                     | Inherited From |
 | ----------------------- | ------------------- | ----------------------------------------------- | -------------- |
-| `optionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
-| `optionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
+| `optionselected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
+| `optionselectionchange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 
 ## CSS Properties
 

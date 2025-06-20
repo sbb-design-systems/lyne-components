@@ -32,7 +32,7 @@ describe(`sbb-alert-group`, () => {
 
         setup.withPostSetupAction(async () => {
           const alert = setup.snapshotElement.querySelector('sbb-alert')!;
-          const didCloseEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert);
+          const closeSpy = new EventSpy(SbbAlertElement.events.close, alert);
 
           // As registering an eventSpy is too late we have to use waitForCondition().
           await waitForCondition(() => alert.getAttribute('data-state') === 'opened');
@@ -44,7 +44,7 @@ describe(`sbb-alert-group`, () => {
           closeButton.focus();
           await sendKeys({ press: 'Enter' });
 
-          await didCloseEventSpy.calledOnce();
+          await closeSpy.calledOnce();
         });
       }),
     );

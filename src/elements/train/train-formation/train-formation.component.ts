@@ -46,8 +46,8 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
 
   public constructor() {
     super();
-    this.addEventListener?.('trainSlotChange', (e) => this._readSectors(e));
-    this.addEventListener?.('sectorChange', (e) => this._readSectors(e));
+    this.addEventListener?.('trainslotchange', (e) => this._readSectors(e));
+    this.addEventListener?.('sectorchange', (e) => this._readSectors(e));
   }
 
   private _readSectors(event?: Event): void {
