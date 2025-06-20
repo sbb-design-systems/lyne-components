@@ -7,7 +7,6 @@
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
   --sbb-seat-reservation-grid-size: 16px;
   --sbb-seat-reservation-vertical-offset: 0;
-  --sbb-seat-reservation-one-px-rem: #{sbb.px-to-rem-build(1)}; // initial default value, will be overwritten by the component
 
   display: block;
 
