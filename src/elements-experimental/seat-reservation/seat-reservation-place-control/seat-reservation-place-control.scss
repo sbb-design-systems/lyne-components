@@ -95,7 +95,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
   width: max-content;
   position: relative;
-  font-size: calc(var(--sbb-reservation-place-control-text-size) * #{sbb.px-to-rem-build(1)});
+  font-size: calc(var(--sbb-reservation-place-control-text-size) * var(--sbb-seat-reservation-one-px-rem));
 
   &--state-free {
     @include colorizePlace('free', 'default');
