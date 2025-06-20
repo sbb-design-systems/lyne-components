@@ -9,6 +9,7 @@ import type { SbbMessageElement } from './message.component.js';
 import './message.component.js';
 import '../image.js';
 import '../button/button.js';
+import '../title.js';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
@@ -18,8 +19,9 @@ describe(`sbb-message`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html` <sbb-message title-content="Title.">
+        html`<sbb-message>
           <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+          <sbb-title level="3" slot="title">Title.</sbb-title>
           <p slot="subtitle">Subtitle.</p>
           <p slot="legend">Error code: 0001</p>
           <sbb-button slot="action" icon-name="arrows-circle-small"></sbb-button>
@@ -43,7 +45,8 @@ describe(`sbb-message`, () => {
   describe('renders without optional slots', async () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-message title-content="Title.">
+        html`<sbb-message>
+          <sbb-title level="3" slot="title">Title.</sbb-title>
           <p slot="subtitle">Subtitle.</p>
         </sbb-message>`,
       );

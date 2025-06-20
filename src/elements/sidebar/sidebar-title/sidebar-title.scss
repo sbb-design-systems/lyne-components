@@ -1,11 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-}
-
-.sbb-title {
-  display: flex;
   hyphens: auto;
 
   // The close button is taller than the title. We need to align the text to the close button
@@ -18,7 +13,4 @@
       )
   );
   min-height: var(--sbb-sidebar__close-button-size);
-
-  // Overwrite sbb-title default margin
-  margin-block: 0 !important;
 }

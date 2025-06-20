@@ -11,9 +11,17 @@ snapshots["sbb-alert-group renders DOM"] =
     animation="all"
     data-state="opened"
     size="m"
-    title-content="Interruption between Genève and Lausanne"
   >
-    The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+    <sbb-title
+      level="3"
+      negative=""
+      visual-level="5"
+    >
+      Interruption between Genève and Lausanne
+    </sbb-title>
+    <p>
+      The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+    </p>
   </sbb-alert>
 </sbb-alert-group>
 `;
@@ -44,9 +52,17 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
     animation="all"
     data-state="opened"
     size="m"
-    title-content="Interruption between Genève and Lausanne"
   >
-    The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+    <sbb-title
+      level="3"
+      negative=""
+      visual-level="5"
+    >
+      Interruption between Genève and Lausanne
+    </sbb-title>
+    <p>
+      The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+    </p>
   </sbb-alert>
 </sbb-alert-group>
 `;

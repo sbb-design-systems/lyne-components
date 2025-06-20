@@ -12,10 +12,8 @@ snapshots["sbb-dialog-title renders Light DOM"] =
 /* end snapshot sbb-dialog-title renders Light DOM */
 
 snapshots["sbb-dialog-title renders Shadow DOM"] = 
-`<div class="sbb-title">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-dialog-title renders Shadow DOM */
 

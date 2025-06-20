@@ -3,17 +3,13 @@ export const snapshots = {};
 
 snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set"] = 
 `<div class="sbb-skiplink-list__wrapper">
-  <sbb-title
-    class="sbb-link-list-title"
+  <h2
+    class="sbb-skiplink-list-title"
     id="sbb-skiplink-list-title-id"
-    level="2"
-    negative=""
-    visual-level="5"
-    visually-hidden=""
   >
     <slot name="title">
     </slot>
-  </sbb-title>
+  </h2>
   <ul
     aria-labelledby="sbb-skiplink-list-title-id"
     class="sbb-skiplink-list"
@@ -86,17 +82,13 @@ snapshots["sbb-skiplink-list renders DOM"] =
 
 snapshots["sbb-skiplink-list renders Shadow DOM"] = 
 `<div class="sbb-skiplink-list__wrapper">
-  <sbb-title
-    class="sbb-link-list-title"
+  <h2
+    class="sbb-skiplink-list-title"
     id="sbb-skiplink-list-title-id"
-    level="2"
-    negative=""
-    visual-level="5"
-    visually-hidden=""
   >
     <slot name="title">
     </slot>
-  </sbb-title>
+  </h2>
   <ul
     aria-labelledby="sbb-skiplink-list-title-id"
     class="sbb-skiplink-list"
@@ -172,18 +164,14 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
 
 snapshots["sbb-skiplink-list renders with title Shadow DOM"] = 
 `<div class="sbb-skiplink-list__wrapper">
-  <sbb-title
-    class="sbb-link-list-title"
+  <h3
+    class="sbb-skiplink-list-title"
     id="sbb-skiplink-list-title-id"
-    level="3"
-    negative=""
-    visual-level="5"
-    visually-hidden=""
   >
     <slot name="title">
       Skip to
     </slot>
-  </sbb-title>
+  </h3>
   <ul
     aria-labelledby="sbb-skiplink-list-title-id"
     class="sbb-skiplink-list"

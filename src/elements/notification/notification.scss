@@ -95,16 +95,6 @@ $open-anim-height-to: calc(
   }
 }
 
-:host(:where([data-slot-names~='title'], [title-content])) {
-  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-titles);
-}
-
-:host([size='s']:where([data-slot-names~='title'], [title-content])) {
-  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
-}
-
 .sbb-notification__wrapper {
   position: relative;
   inset-inline-start: calc(
@@ -208,15 +198,6 @@ $open-anim-height-to: calc(
   }
 }
 
-.sbb-notification__title {
-  // Overwrite sbb-title default margin
-  margin: 0;
-
-  :host(:not([data-slot-names~='title'], [title-content])) & {
-    display: none;
-  }
-}
-
 .sbb-notification__content {
   order: 3;
   grid-area: 2 / 1 / 3 / 3;
@@ -285,4 +266,16 @@ $open-anim-height-to: calc(
   to {
     max-height: #{$open-anim-height-from};
   }
+}
+
+::slotted(sbb-title) {
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
+::slotted(p) {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
 }

@@ -36,7 +36,6 @@ const defaultArgs: Args = {
   text: 'Data without insights are trivial, and insights without action are pointless',
   negative: false,
   'visual-level': undefined,
-  'visually-hidden': false,
 };
 
 export const h1: StoryObj = {

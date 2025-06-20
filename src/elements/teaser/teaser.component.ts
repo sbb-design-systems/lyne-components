@@ -2,23 +2,20 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import type { SbbChipLabelElement } from '../chip-label.js';
 import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
-import type { SbbTitleLevel } from '../title.js';
+import { slotState } from '../core/decorators.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
-import '../chip-label.js';
 import '../screen-reader-only.js';
-import '../title.js';
 
 /**
  * It displays an interactive image with caption.
  *
  * @slot image - Slot used to render the image.
- * @slot chip - Slot used to render the sbb-chip-label.
- * @slot title - Slot used to render the title.
- * @slot - Use the unnamed slot to render the description.
+ * @slot - Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.
  */
 export
 @customElement('sbb-teaser')
@@ -30,18 +27,26 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  /** Heading level of the sbb-title element (e.g. h1-h6). */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '5';
+  private _configureTitleAndChip(event: Event): void {
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = '5';
+    }
 
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content' })
-  public accessor titleContent: string = '';
+    // We need to check assigned elements because in the image slot it can have labels as well.
+    const chipLabel = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find(
+        (e): e is SbbChipLabelElement => e instanceof Element && e.localName === 'sbb-chip-label',
+      );
 
-  /** Content of chip label. */
-  @forceType()
-  @property({ attribute: 'chip-content', reflect: true, converter: omitEmptyConverter })
-  public accessor chipContent: string = '';
+    if (chipLabel) {
+      customElements.upgrade(chipLabel);
+      chipLabel.color = 'charcoal';
+      chipLabel.size = 'xxs';
+    }
+  }
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
@@ -63,15 +68,7 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <sbb-chip-label size="xxs" color="charcoal" class="sbb-teaser__chip-label">
-            <slot name="chip">${this.chipContent}</slot>
-          </sbb-chip-label>
-          <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
-            <slot name="title">${this.titleContent}</slot>
-          </sbb-title>
-          <span class="sbb-teaser__description">
-            <slot></slot>
-          </span>
+          <slot @slotchange=${(event: Event) => this._configureTitleAndChip(event)}></slot>
         </span>
       </span>
     `;

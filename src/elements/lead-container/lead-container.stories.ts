@@ -22,9 +22,12 @@ const content = (): TemplateResult => html`
     }
   </style>
   <sbb-alert-group class="sbb-lead-container-spacing">
-    <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
-      The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-      <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+    <sbb-alert size="m">
+      <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+      <p>
+        The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+        <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+      </p>
     </sbb-alert>
   </sbb-alert-group>
   <sbb-breadcrumb-group class="sbb-lead-container-spacing">
@@ -50,9 +53,11 @@ const content = (): TemplateResult => html`
     risus.
   </p>
   <sbb-notification type="info" class="sbb-lead-container-spacing">
-    Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
-    augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
-    lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
+    <p>
+      Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
+      augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
+      lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
+    </p>
   </sbb-notification>
   <p class="sbb-text-m other-content">
     Other content. Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula.
