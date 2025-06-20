@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-toggle-option renders DOM"] = 
 `<sbb-toggle-option
-  aria-checked="true"
   checked=""
   tabindex="0"
   value="Option 1"
@@ -26,7 +25,6 @@ snapshots["sbb-toggle-option renders Shadow DOM"] =
 
 snapshots["sbb-toggle-option renders unchecked DOM"] = 
 `<sbb-toggle-option
-  aria-checked="false"
   tabindex="-1"
   value="Option 1"
 >
@@ -48,7 +46,6 @@ snapshots["sbb-toggle-option renders unchecked Shadow DOM"] =
 
 snapshots["sbb-toggle-option renders checked disabled DOM"] = 
 `<sbb-toggle-option
-  aria-checked="true"
   aria-disabled="true"
   checked=""
   disabled=""
@@ -73,7 +70,6 @@ snapshots["sbb-toggle-option renders checked disabled Shadow DOM"] =
 
 snapshots["sbb-toggle-option renders unchecked disabled DOM"] = 
 `<sbb-toggle-option
-  aria-checked="false"
   aria-disabled="true"
   disabled=""
   tabindex="-1"

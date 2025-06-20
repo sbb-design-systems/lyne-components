@@ -25,10 +25,8 @@ snapshots["sbb-toggle-check renders Shadow DOM"] =
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
             <sbb-icon
-              aria-hidden="true"
               data-namespace="default"
               name="tick-small"
-              role="img"
             >
             </sbb-icon>
           </slot>

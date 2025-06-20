@@ -50,10 +50,8 @@ snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with
   size="l"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>

@@ -14,10 +14,8 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
       <span class="sbb-file-selector__dropzone-area">
         <span class="sbb-file-selector__dropzone-area--icon">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="folder-open-medium"
-            role="img"
           >
           </sbb-icon>
         </span>

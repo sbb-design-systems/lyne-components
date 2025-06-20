@@ -11,7 +11,7 @@ import {
   i18nSleepingWagonLabel,
   i18nWagonLabel,
 } from '../../core/i18n.js';
-import { fixture } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbIconElement } from '../../icon.js';
 
@@ -19,6 +19,7 @@ import { SbbTrainWagonElement } from './train-wagon.component.js';
 
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;
+  const elementInternals = elementInternalsSpy();
 
   async function extractAriaLabels(
     properties: Partial<
@@ -70,13 +71,14 @@ describe(`sbb-train-wagon`, () => {
     // Select all accessibility relevant text parts
     // The alternative of a11ySnapshot() does not work as the list title can't be extracted reliable.
     return Array.from(
-      element.shadowRoot!.querySelectorAll(
-        '[aria-label]:not(.sbb-train-wagon__attribute-icon-list), .sbb-screen-reader-only',
+      element.shadowRoot!.querySelectorAll<HTMLElement>(
+        '[aria-label]:not(.sbb-train-wagon__attribute-icon-list), sbb-timetable-occupancy-icon, .sbb-screen-reader-only',
       ),
     ).map((entry) =>
       entry.hasAttribute('aria-label')
         ? entry.getAttribute('aria-label')!
-        : entry.textContent!.replace(/\s+/g, ' ').trim(),
+        : (elementInternals.get(entry)?.ariaLabel ??
+          entry.textContent!.replace(/\s+/g, ' ').trim()),
     );
   }
 

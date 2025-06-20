@@ -26,11 +26,9 @@ snapshots["sbb-expansion-panel-header renders Shadow DOM"] =
   </span>
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-expansion-panel-header__toggle-icon"
       data-namespace="default"
       name="chevron-small-down-medium"
-      role="img"
     >
     </sbb-icon>
   </span>
@@ -59,10 +57,8 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
     <span class="sbb-expansion-panel-header__icon">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="pie-medium"
-          role="img"
         >
         </sbb-icon>
       </slot>
@@ -72,11 +68,9 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
   </span>
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-expansion-panel-header__toggle-icon"
       data-namespace="default"
       name="chevron-small-down-medium"
-      role="img"
     >
     </sbb-icon>
   </span>
@@ -94,10 +88,8 @@ snapshots["sbb-expansion-panel-header renders with slotted icon DOM"] =
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="pie-medium"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -118,11 +110,9 @@ snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] =
   </span>
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-expansion-panel-header__toggle-icon"
       data-namespace="default"
       name="chevron-small-down-medium"
-      role="img"
     >
     </sbb-icon>
   </span>

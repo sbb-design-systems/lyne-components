@@ -33,11 +33,9 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:train-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -46,10 +44,8 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
         </span>
         <span class="sbb-timetable__row-transport">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="ir-37"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -112,11 +108,9 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:train-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -125,10 +119,8 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
         </span>
         <span class="sbb-timetable__row-transport">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="ic-35"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -210,11 +202,9 @@ snapshots["sbb-timetable-row renders bus strip Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:bus-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -443,11 +433,9 @@ snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:bus-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">

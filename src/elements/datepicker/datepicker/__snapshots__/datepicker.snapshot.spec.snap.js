@@ -9,6 +9,7 @@ snapshots["sbb-datepicker renders DOM"] =
   width="default"
 >
   <sbb-datepicker-previous-day
+    aria-errormessage=""
     data-action=""
     data-button=""
     slot="prefix"
@@ -16,6 +17,7 @@ snapshots["sbb-datepicker renders DOM"] =
   >
   </sbb-datepicker-previous-day>
   <sbb-date-input
+    aria-errormessage=""
     contenteditable="plaintext-only"
     id="datepicker-input"
     placeholder="DD.MM.YYYY"

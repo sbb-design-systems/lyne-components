@@ -15,10 +15,8 @@ snapshots["sbb-popover-trigger renders Shadow DOM"] =
 `<span class="sbb-action-base sbb-popover-trigger">
   <slot>
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
   </slot>
@@ -41,10 +39,8 @@ snapshots["sbb-popover-trigger renders with custom content Shadow DOM"] =
 `<span class="sbb-action-base sbb-popover-trigger">
   <slot>
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
   </slot>

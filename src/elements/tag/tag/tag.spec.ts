@@ -2,7 +2,7 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbTagElement } from './tag.component.js';
@@ -10,6 +10,7 @@ import '../../icon.js';
 
 describe(`sbb-tag`, () => {
   let element: SbbTagElement;
+  const elementInternals = elementInternalsSpy();
 
   describe('general behavior', async () => {
     beforeEach(async () => {
@@ -31,7 +32,7 @@ describe(`sbb-tag`, () => {
       expect(changeSpy.count).to.be.greaterThan(0);
       expect(inputSpy.count).to.be.greaterThan(0);
       expect(element.checked).to.be.equal(true);
-      expect(element).to.have.attribute('aria-pressed', 'true');
+      expect(elementInternals.get(element)!.ariaPressed).to.equal('true');
     });
 
     it('should not be checked after click when disabled', async () => {

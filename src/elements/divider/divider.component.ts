@@ -23,7 +23,7 @@ class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitEle
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('orientation')) {
-      this.setAttribute('aria-orientation', this.orientation);
+      this.internals.ariaOrientation = this.orientation;
     }
   }
 
