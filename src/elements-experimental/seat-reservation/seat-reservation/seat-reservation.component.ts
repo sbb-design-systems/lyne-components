@@ -447,6 +447,23 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     `;
   }
 
+  /**
+   * Creates a popover for extra service information
+   * @param triggerId
+   * @param popoverContent
+   * @private
+   */
+  private _popover(
+    triggerId: number,
+    popoverContent: string | null | typeof nothing,
+  ): TemplateResult {
+    return html`
+      <sbb-popover trigger="${triggerId}">
+        <p class="sbb-text-s sbb-sr-popover">${popoverContent}</p>
+      </sbb-popover>
+    `;
+  }
+
   private _getRenderElementWithoutArea(
     graphicalElement: BaseElement,
     rotation: number,
