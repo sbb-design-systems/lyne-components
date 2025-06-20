@@ -64,16 +64,22 @@ $disabled: '.sbb-reservation-place-control--disabled';
   // Color background definition for place with state ALLOCATED
   --sbb-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 
-  width: calc(var(--sbb-reservation-place-control-width) * var(--sbb-seat-reservation-one-px-rem));
+  width: calc(
+    var(--sbb-reservation-place-control-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
   height: calc(
-    var(--sbb-reservation-place-control-height) * var(--sbb-seat-reservation-one-px-rem)
+    var(--sbb-reservation-place-control-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   position: absolute;
   inset-block-start: calc(
-    var(--sbb-reservation-place-control-top) * var(--sbb-seat-reservation-one-px-rem)
+    var(--sbb-reservation-place-control-top) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   inset-inline-start: calc(
-    var(--sbb-reservation-place-control-left) * var(--sbb-seat-reservation-one-px-rem)
+    var(--sbb-reservation-place-control-left) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   cursor: pointer;
 }
@@ -111,7 +117,8 @@ $disabled: '.sbb-reservation-place-control--disabled';
   width: max-content;
   position: relative;
   font-size: calc(
-    var(--sbb-reservation-place-control-text-size) * var(--sbb-seat-reservation-one-px-rem)
+    var(--sbb-reservation-place-control-text-size) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
 
   &--state-free {

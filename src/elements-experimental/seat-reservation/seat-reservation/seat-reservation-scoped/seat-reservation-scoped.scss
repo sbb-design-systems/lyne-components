@@ -10,9 +10,13 @@
   display: block;
 
   .scoped-element {
-    width: calc(var(--sbb-seat-reservation-scoped-width) * var(--sbb-seat-reservation-one-px-rem));
+    width: calc(
+      var(--sbb-seat-reservation-scoped-width) *
+        var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    );
     height: calc(
-      var(--sbb-seat-reservation-scoped-height) * var(--sbb-seat-reservation-one-px-rem)
+      var(--sbb-seat-reservation-scoped-height) *
+        var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
     );
   }
 }
