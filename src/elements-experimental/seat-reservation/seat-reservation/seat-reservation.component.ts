@@ -557,7 +557,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           z-index="${serviceElement.position.z}"
         >
           <sbb-popover-trigger id="${triggerId}">
-            <div class="ASDFASDFASDFASDFAS">
             <sbb-seat-reservation-graphic
               name=${serviceElement.icon ?? nothing}
               width=${serviceElement.dimension.w * this.baseGridSize}
@@ -566,7 +565,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               role="img"
               aria-hidden="true"
             ></sbb-seat-reservation-graphic>
-            </div>
           </sbb-popover-trigger>
           ${this._popover(triggerId, titleDescription)}
         </sbb-seat-reservation-scoped>
