@@ -74,6 +74,7 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
   <input
     aria-autocomplete="list"
     aria-controls="sbb-autocomplete-3"
+    aria-errormessage=""
     aria-expanded="false"
     aria-haspopup="listbox"
     aria-owns="sbb-autocomplete-3"
@@ -221,6 +222,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
   <input
     aria-autocomplete="list"
     aria-controls="sbb-autocomplete-3"
+    aria-errormessage=""
     aria-expanded="false"
     aria-haspopup="listbox"
     aria-owns="sbb-autocomplete-3"

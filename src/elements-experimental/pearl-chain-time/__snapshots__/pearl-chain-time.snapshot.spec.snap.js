@@ -50,10 +50,8 @@ snapshots["sbb-pearl-chain-time renders with departure walk Shadow DOM"] =
 `<div class="sbb-pearl-chain__time">
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-left">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="walk-small"
-      role="img"
     >
     </sbb-icon>
     <time datetime="10M">
@@ -127,10 +125,8 @@ snapshots["sbb-pearl-chain-time renders with arrival walk Shadow DOM"] =
   </time>
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-right">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="walk-small"
-      role="img"
     >
     </sbb-icon>
     <time datetime="10M">
@@ -165,10 +161,8 @@ snapshots["sbb-pearl-chain-time renders with departure and arrival walk Shadow D
 `<div class="sbb-pearl-chain__time">
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-left">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="walk-small"
-      role="img"
     >
     </sbb-icon>
     <time datetime="20M">
@@ -206,10 +200,8 @@ snapshots["sbb-pearl-chain-time renders with departure and arrival walk Shadow D
   </time>
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-right">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="walk-small"
-      role="img"
     >
     </sbb-icon>
     <time datetime="10M">

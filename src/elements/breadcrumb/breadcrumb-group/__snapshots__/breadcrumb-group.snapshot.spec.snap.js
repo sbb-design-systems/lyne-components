@@ -40,11 +40,9 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
     <slot name="li-0">
     </slot>
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb-group__divider-icon"
       data-namespace="default"
       name="chevron-small-right-small"
-      role="img"
     >
     </sbb-icon>
   </li>
@@ -52,11 +50,9 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
     <slot name="li-1">
     </slot>
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb-group__divider-icon"
       data-namespace="default"
       name="chevron-small-right-small"
-      role="img"
     >
     </sbb-icon>
   </li>

@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import type { DirectiveResult } from 'lit/directive.js';
@@ -7,6 +7,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
+import { SbbElementInternalsMixin } from '../core/mixins.js';
 
 import { getSvgContent } from './icon-request.js';
 import style from './icon.scss?lit&inline';
@@ -22,8 +23,9 @@ export
   'data-namespace': defaultNamespace,
   'data-empty': '',
 })
-abstract class SbbIconBase extends LitElement {
+abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
+  public static override readonly role = 'img';
 
   @state() private accessor _svgNamespace = defaultNamespace;
 
@@ -79,12 +81,6 @@ abstract class SbbIconBase extends LitElement {
       default:
         throw Error(`Invalid icon name: "${iconName}"`);
     }
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    this.setAttribute('role', this.getAttribute('role') ?? 'img');
   }
 
   protected override render(): TemplateResult {

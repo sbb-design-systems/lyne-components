@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, type TemplateResult, type PropertyValues } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
@@ -25,18 +25,33 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public static override styles: CSSResultGroup = style;
 
   /** The step controlled by the label. */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  private set step(value: SbbStepElement | null) {
+    if (this._step && this.internals.ariaControlsElements?.length) {
+      this.internals.ariaControlsElements = this.internals.ariaControlsElements.filter(
+        (e) => e !== this._step,
+      );
+    }
+    this._step = value instanceof Element ? value : null;
+    if (this._step) {
+      this.internals.ariaControlsElements = [
+        ...(this.internals.ariaControlsElements ?? []),
+        this._step,
+      ];
+    }
+  }
   public get step(): SbbStepElement | null {
     return this._step;
   }
+  private _step: SbbStepElement | null = null;
 
   private _stepper: SbbStepperElement | null = null;
-  private _step: SbbStepElement | null = null;
 
   public constructor() {
     super();
     this.addEventListener?.('click', () => {
-      if (this._stepper && this._step) {
-        this._stepper.selected = this._step;
+      if (this._stepper && this.step) {
+        this._stepper.selected = this.step;
       }
     });
   }
@@ -56,17 +71,10 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;
     this._stepper = this.closest('sbb-stepper');
-    this._step = this._getStep();
+    this.step = this._getStep();
     // The `data-disabled` attribute is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.
     this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-    if (this.step) {
-      this.setAttribute('aria-controls', this.step.id);
-    }
   }
 
   /**
@@ -95,7 +103,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
    */
   public configure(posInSet: number, setSize: number, stepperLoaded: boolean): void {
     if (stepperLoaded) {
-      this._step = this._getStep();
+      this.step = this._getStep();
     }
     this.internals.ariaPosInSet = `${posInSet}`;
     this.internals.ariaSetSize = `${setSize}`;

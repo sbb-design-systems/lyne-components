@@ -27,7 +27,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
         slot="li-1"
       >
@@ -92,7 +91,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
         slot="li-1"
       >
@@ -207,7 +205,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
         slot="li-1"
       >
@@ -322,7 +319,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
         slot="li-1"
       >
@@ -441,7 +437,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
         slot="li-1"
       >
@@ -542,6 +537,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         10
       </div>
       <sbb-select
+        aria-errormessage=""
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"
@@ -615,7 +611,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
         slot="li-1"
       >
@@ -716,6 +711,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         10
       </div>
       <sbb-select
+        aria-errormessage=""
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"

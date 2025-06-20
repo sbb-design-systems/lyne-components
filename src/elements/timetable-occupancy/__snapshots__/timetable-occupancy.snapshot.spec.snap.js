@@ -23,10 +23,8 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
       First Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Very high occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -41,10 +39,8 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
       Second Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Very high occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -75,11 +71,9 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
       First Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Low to average occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
       negative=""
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -94,11 +88,9 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
       Second Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="High occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
       negative=""
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -128,10 +120,8 @@ snapshots["sbb-timetable-occupancy renders only first class wagon Shadow DOM"] =
       First Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Low to average occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -161,10 +151,8 @@ snapshots["sbb-timetable-occupancy renders only second class wagon Shadow DOM"] 
       Second Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="No occupancy forecast available"
       class="sbb-timetable-occupancy__list-item-icon"
       data-namespace="default"
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>

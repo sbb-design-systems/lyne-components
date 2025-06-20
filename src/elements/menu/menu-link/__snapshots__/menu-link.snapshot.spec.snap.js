@@ -67,10 +67,8 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
     <span class="sbb-menu-action__icon">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="menu-small"
-          role="img"
         >
         </sbb-icon>
       </slot>

@@ -102,7 +102,6 @@ snapshots["sbb-journey-summary renders with second journey Shadow DOM"] =
   </div>
   <div>
     <sbb-divider
-      aria-orientation="horizontal"
       class="sbb-journey-summary__divider"
       orientation="horizontal"
     >

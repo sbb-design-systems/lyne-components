@@ -16,10 +16,8 @@ snapshots["sbb-navigation-button renders DOM"] =
 snapshots["sbb-navigation-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-navigation-button">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="dash-small"
-    role="img"
   >
   </sbb-icon>
   <slot>

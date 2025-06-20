@@ -42,10 +42,8 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>

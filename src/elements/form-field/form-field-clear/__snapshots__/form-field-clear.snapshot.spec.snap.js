@@ -15,13 +15,13 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
     Label
   </label>
   <input
+    aria-errormessage=""
     id="sbb-form-field-input-0"
     placeholder="Input placeholder"
     type="text"
     value="Input value"
   >
   <sbb-form-field-clear
-    aria-label="Clear input value"
     data-action=""
     data-button=""
     slot="suffix"
@@ -35,10 +35,8 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
 snapshots["sbb-form-field-clear renders form-field-clear Shadow DOM"] = 
 `<span class="sbb-action-base sbb-form-field-clear">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="cross-small"
-    role="img"
   >
   </sbb-icon>
 </span>

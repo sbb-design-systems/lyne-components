@@ -15,6 +15,7 @@ snapshots["sbb-form-field renders input DOM"] =
     Fill input
   </label>
   <input
+    aria-errormessage=""
     id="sbb-form-field-input-0"
     placeholder="This is an input"
   >
@@ -72,6 +73,7 @@ snapshots["sbb-form-field renders disabled input DOM"] =
     Fill input
   </label>
   <input
+    aria-errormessage=""
     class="input"
     disabled=""
     id="sbb-form-field-input-2"
@@ -131,7 +133,8 @@ snapshots["sbb-form-field renders readonly input with error DOM"] =
     Fill input
   </label>
   <input
-    aria-describedby="error"
+    aria-errormessage=""
+    aria-invalid="true"
     class="input"
     id="sbb-form-field-input-4"
     placeholder="This is an input"
@@ -191,7 +194,7 @@ snapshots["sbb-form-field should render select without label DOM"] =
   size="m"
   width="default"
 >
-  <select>
+  <select aria-errormessage="">
     <option>
       Value 1
     </option>
@@ -231,11 +234,9 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
         </slot>
       </div>
       <sbb-icon
-        aria-hidden="true"
         class="sbb-form-field__select-input-icon"
         data-namespace="default"
         name="chevron-small-down-small"
-        role="img"
       >
       </sbb-icon>
     </div>
@@ -265,7 +266,10 @@ snapshots["sbb-form-field renders select with optional flag and borderless DOM"]
   >
     Select option:
   </label>
-  <select id="sbb-form-field-input-6">
+  <select
+    aria-errormessage=""
+    id="sbb-form-field-input-6"
+  >
     <option>
       Value 1
     </option>
@@ -308,11 +312,9 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
         </slot>
       </div>
       <sbb-icon
-        aria-hidden="true"
         class="sbb-form-field__select-input-icon"
         data-namespace="default"
         name="chevron-small-down-small"
-        role="img"
       >
       </sbb-icon>
     </div>

@@ -7,7 +7,6 @@ snapshots["sbb-toggle renders DOM"] =
   size="m"
 >
   <sbb-toggle-option
-    aria-checked="true"
     checked=""
     data-slot-names="unnamed"
     tabindex="0"
@@ -16,7 +15,6 @@ snapshots["sbb-toggle renders DOM"] =
     Value one
   </sbb-toggle-option>
   <sbb-toggle-option
-    aria-checked="false"
     data-slot-names="unnamed"
     tabindex="-1"
     value="Value two"

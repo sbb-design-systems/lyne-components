@@ -16,10 +16,8 @@ snapshots["sbb-icon registers a custom namespace"] =
 
 snapshots["sbb-icon renders DOM"] = 
 `<sbb-icon
-  aria-hidden="true"
   data-empty=""
   data-namespace="default"
-  role="img"
 >
 </sbb-icon>
 `;
@@ -33,10 +31,8 @@ snapshots["sbb-icon renders Shadow DOM"] =
 
 snapshots["sbb-icon renders aria-hidden and no aria-label DOM"] = 
 `<sbb-icon
-  aria-hidden="true"
   data-namespace="default"
   name="app-icon-medium"
-  role="img"
 >
 </sbb-icon>
 `;
@@ -58,10 +54,8 @@ snapshots["sbb-icon renders aria-hidden and no aria-label Shadow DOM"] =
 snapshots["sbb-icon renders default aria-label DOM"] = 
 `<sbb-icon
   aria-hidden="false"
-  aria-label="Icon app icon medium"
   data-namespace="default"
   name="app-icon-medium"
-  role="img"
 >
 </sbb-icon>
 `;
@@ -86,7 +80,6 @@ snapshots["sbb-icon renders custom aria-label DOM"] =
   aria-label="Custom label"
   data-namespace="default"
   name="app-icon-medium"
-  role="img"
 >
 </sbb-icon>
 `;

@@ -47,10 +47,7 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
     inert=""
   >
     <div class="sbb-selection-expansion-panel__content">
-      <sbb-divider
-        aria-orientation="horizontal"
-        orientation="horizontal"
-      >
+      <sbb-divider orientation="horizontal">
       </sbb-divider>
       <slot name="content">
       </slot>

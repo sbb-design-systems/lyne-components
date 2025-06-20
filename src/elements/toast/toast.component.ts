@@ -92,7 +92,7 @@ class SbbToastElement extends SbbIconNameMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('politeness')) {
-      this.setAttribute('aria-live', this.politeness);
+      this.internals.ariaLive = this.politeness;
     }
   }
 
@@ -101,11 +101,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * If there are other opened toasts in the page, close them first.
    */
   public open(): void {
-    if (this.state !== 'closed') {
-      return;
-    }
-
-    if (!this.willOpen.emit()) {
+    if (this.state !== 'closed' || !this.willOpen.emit()) {
       return;
     }
 
@@ -124,13 +120,10 @@ class SbbToastElement extends SbbIconNameMixin(
    * Close the toast.
    */
   public close(): void {
-    if (this.state !== 'opened') {
+    if (this.state !== 'opened' || !this.willClose.emit()) {
       return;
     }
 
-    if (!this.willClose.emit()) {
-      return;
-    }
     clearTimeout(this._closeTimeout);
     this.state = 'closing';
 

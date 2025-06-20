@@ -49,6 +49,7 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
     </sbb-chip>
     <input
       aria-description="Selected elements: 2"
+      aria-errormessage=""
       id="sbb-form-field-input-0"
     >
   </sbb-chip-group>
