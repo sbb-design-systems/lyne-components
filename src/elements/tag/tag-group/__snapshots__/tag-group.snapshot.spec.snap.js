@@ -7,7 +7,6 @@ snapshots["sbb-tag-group renders DOM"] =
   size="m"
 >
   <sbb-tag
-    aria-pressed="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"
@@ -19,7 +18,6 @@ snapshots["sbb-tag-group renders DOM"] =
     First tag
   </sbb-tag>
   <sbb-tag
-    aria-pressed="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"
@@ -33,7 +31,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <div slot="li-2">
   </div>
   <sbb-tag
-    aria-pressed="false"
     data-action=""
     data-button=""
     data-slot-names="unnamed"

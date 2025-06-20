@@ -32,10 +32,8 @@ snapshots["sbb-calendar renders Shadow DOM"] =
       >
         January 2023
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="chevron-small-down-small"
-          role="img"
         >
         </sbb-icon>
       </button>
@@ -615,10 +613,8 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
       >
         January 2023
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="chevron-small-down-small"
-          role="img"
         >
         </sbb-icon>
       </button>

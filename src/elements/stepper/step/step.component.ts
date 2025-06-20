@@ -57,7 +57,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   );
 
   private _stepper: SbbStepperElement | null = null;
-  private _label: SbbStepLabelElement | null = null;
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
@@ -70,9 +69,25 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   });
 
   /** The label of the step. */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  private set label(value: SbbStepLabelElement | null) {
+    if (this._label && this.internals.ariaLabelledByElements?.length) {
+      this.internals.ariaLabelledByElements = this.internals.ariaLabelledByElements.filter(
+        (e) => e !== this._label,
+      );
+    }
+    this._label = value instanceof Element ? value : null;
+    if (this._label) {
+      this.internals.ariaLabelledByElements = [
+        ...(this.internals.ariaLabelledByElements ?? []),
+        this._label,
+      ];
+    }
+  }
   public get label(): SbbStepLabelElement | null {
     return this._label;
   }
+  private _label: SbbStepLabelElement | null = null;
 
   public constructor() {
     super();
@@ -117,10 +132,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    */
   public configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
-      this._label = this._getStepLabel();
-    }
-    if (this.label) {
-      this.setAttribute('aria-labelledby', this.label.id);
+      this.label = this._getStepLabel();
     }
   }
 
@@ -164,7 +176,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
     this._stepper = this.closest('sbb-stepper');
-    this._label = this._getStepLabel();
+    this.label = this._getStepLabel();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

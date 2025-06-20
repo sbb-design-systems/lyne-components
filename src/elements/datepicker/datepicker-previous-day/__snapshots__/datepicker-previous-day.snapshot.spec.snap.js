@@ -15,10 +15,8 @@ snapshots["sbb-datepicker-previous-day renders DOM"] =
 snapshots["sbb-datepicker-previous-day renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-previous-day">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
   >
   </sbb-icon>
 </span>
@@ -40,10 +38,8 @@ snapshots["sbb-datepicker-previous-day renders with connected date input DOM"] =
 snapshots["sbb-datepicker-previous-day renders with connected date input Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-previous-day">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
   >
   </sbb-icon>
 </span>

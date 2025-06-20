@@ -22,10 +22,8 @@ snapshots["sbb-train renders Shadow DOM"] =
   >
     <span class="sbb-train__direction-sticky-wrapper">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="chevron-small-left-small"
-        role="img"
       >
       </sbb-icon>
       <span class="sbb-train__direction-label">

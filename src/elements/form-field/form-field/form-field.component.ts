@@ -27,7 +27,6 @@ import style from './form-field.scss?lit&inline';
 import '../../icon.js';
 
 let nextId = 0;
-let nextFormFieldErrorId = 0;
 
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
@@ -287,7 +286,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     }
 
     this._input = newInput;
-    this._applyAriaDescribedby();
+    this._assignErrorMessageElements();
     this._readInputState();
     this._registerInputFormListener();
     this._checkAndUpdateInputEmpty();
@@ -452,45 +451,35 @@ class SbbFormFieldElement extends SbbNegativeMixin(
    * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
    */
   private _onSlotErrorChange(event: Event): void {
-    const errors = (event.target as HTMLSlotElement).assignedElements();
-    // Remove references of removed errors from aria-describedby.
-    const removedErrorIds = this._errorElements.filter((e) => !errors.includes(e)).map((e) => e.id);
-    this._errorElements = errors;
+    const errorElements = (event.target as HTMLSlotElement).assignedElements();
+    if (this._input && this._input.ariaErrorMessageElements?.length) {
+      this._input.ariaErrorMessageElements = this._input.ariaErrorMessageElements.filter(
+        (el) => !errorElements.includes(el),
+      );
+    }
 
+    this._errorElements = errorElements;
     for (const el of this._errorElements) {
-      // Although a form error assigns an id itself, we need to be earlier by creating one here
-      el.id ||= `sbb-form-field-error-${++nextFormFieldErrorId}`;
       // Instead of defining a container with an aria-live region as expected, we had to change
       // setting it for every slotted element to properly work in all browsers and screen reader combinations.
       el.role ||= 'status';
     }
-    this._applyAriaDescribedby(removedErrorIds);
+
+    this._assignErrorMessageElements();
     this.toggleState('has-error', !!this._errorElements.length);
     this._syncNegative();
   }
 
-  private _applyAriaDescribedby(obsoleteIds: string[] = []): void {
-    const ariaDescribedby = this._input?.getAttribute('aria-describedby') || '';
-    const ids = ariaDescribedby
-      .split(' ')
-      .filter((id) => !!id && !obsoleteIds.includes(id))
-      .filter((v, i, a) => a.indexOf(v) === i);
-
-    if (this._errorElements.length) {
-      this._errorElements.forEach((e) => {
-        if (!ids.includes(e.id)) {
-          ids.push(e.id);
-        }
-      });
-    }
-
-    const newAriaDescribedby = ids.join(' ');
-    if (this._input && newAriaDescribedby !== ariaDescribedby) {
-      if (newAriaDescribedby) {
-        this._input.setAttribute('aria-describedby', newAriaDescribedby);
-      } else {
-        this._input.removeAttribute('aria-describedby');
+  private _assignErrorMessageElements(): void {
+    if (this._input) {
+      this._input.ariaErrorMessageElements = [
+        ...(this._input.ariaErrorMessageElements ?? []),
+        ...this._errorElements,
+      ];
+      if (!this._input.ariaErrorMessageElements.length) {
+        this._input.ariaErrorMessageElements = null;
       }
+      this._input.ariaInvalid = this._errorElements.length ? 'true' : null;
     }
   }
 

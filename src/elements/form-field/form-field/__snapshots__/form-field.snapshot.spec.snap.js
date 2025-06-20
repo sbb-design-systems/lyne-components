@@ -131,7 +131,8 @@ snapshots["sbb-form-field renders readonly input with error DOM"] =
     Fill input
   </label>
   <input
-    aria-describedby="error"
+    aria-errormessage=""
+    aria-invalid="true"
     class="input"
     id="sbb-form-field-input-4"
     placeholder="This is an input"
@@ -231,11 +232,9 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
         </slot>
       </div>
       <sbb-icon
-        aria-hidden="true"
         class="sbb-form-field__select-input-icon"
         data-namespace="default"
         name="chevron-small-down-small"
-        role="img"
       >
       </sbb-icon>
     </div>
@@ -308,11 +307,9 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
         </slot>
       </div>
       <sbb-icon
-        aria-hidden="true"
         class="sbb-form-field__select-input-icon"
         data-namespace="default"
         name="chevron-small-down-small"
-        role="img"
       >
       </sbb-icon>
     </div>

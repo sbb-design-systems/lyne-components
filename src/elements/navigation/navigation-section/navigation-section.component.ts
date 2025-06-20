@@ -21,10 +21,10 @@ import {
   SbbMediaQueryBreakpointMediumAndBelow,
 } from '../../core/controllers.js';
 import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
-import { isBreakpoint, isZeroAnimationDuration, setOrRemoveAttribute } from '../../core/dom.js';
+import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -47,7 +47,9 @@ let nextId = 0;
  */
 export
 @customElement('sbb-navigation-section')
-class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
+class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
+  SbbElementInternalsMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -85,7 +87,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(LitElement) {
    */
   private set _state(state: SbbOpenedClosedState) {
     this.setAttribute('data-state', state);
-    setOrRemoveAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
+    this.ariaHidden = this._state !== 'opened' ? 'true' : null;
   }
   private get _state(): SbbOpenedClosedState {
     return this.getAttribute('data-state') as SbbOpenedClosedState;

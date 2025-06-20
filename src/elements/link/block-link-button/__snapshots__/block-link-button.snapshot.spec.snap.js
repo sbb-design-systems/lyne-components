@@ -16,10 +16,8 @@ snapshots["sbb-block-link-button renders DOM"] =
   type="submit"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-right-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
