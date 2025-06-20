@@ -139,7 +139,7 @@ export abstract class DateAdapter<T = any> {
    * @param value The date in the format DD.MM.YYYY.
    * @param now The current date as Date.
    */
-  public abstract parse(value: string | null | undefined, now?: T): T | null;
+  public abstract parse(value: string | null | undefined): T | null;
 
   /**
    * Format the given date as string.

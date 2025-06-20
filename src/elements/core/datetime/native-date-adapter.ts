@@ -167,7 +167,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   }
 
   /** Returns the right format for the `valueAsDate` property. */
-  public parse(value: string | null | undefined, now: Date = this.today()): Date | null {
+  public parse(value: string | null | undefined): Date | null {
     if (!value) {
       return null;
     }
@@ -199,7 +199,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     let year = +match[3];
 
     if (typeof year === 'number' && year < 100 && year >= 0) {
-      const shift = now.getFullYear() - 2000 + this._cutoffYearOffset;
+      const shift = this.today().getFullYear() - 2000 + this._cutoffYearOffset;
       year = year <= shift ? 2000 + year : 1900 + year;
     }
 
