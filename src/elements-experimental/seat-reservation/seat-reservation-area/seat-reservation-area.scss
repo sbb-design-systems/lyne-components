@@ -10,8 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(var(--sbb-reservation-area-height) * var(--sbb-seat-reservation-one-px-rem));
-  width: calc(var(--sbb-reservation-area-width) * var(--sbb-seat-reservation-one-px-rem));
+  height: calc(var(--sbb-reservation-area-height) * var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)}));
+  width: calc(var(--sbb-reservation-area-width) * var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)}));
   border: var(--sbb-border-width-1x) solid var(--sbb-color-graphite);
   border-radius: var(--sbb-reservation-area-border-radius);
   position: inherit;
