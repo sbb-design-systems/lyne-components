@@ -500,10 +500,21 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
       focusableElement.focus();
-      await sendKeys({ press: 'ArrowUp' });
+
+      // Pressing 'Space' twice should not break nor selecting anything.
+      await sendKeys({ press: 'Space' });
       await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
+      await sendKeys({ press: 'Space' });
+      expect(element.value).to.be.eql([]);
+      expect(displayValue).to.have.trimmed.text('Placeholder');
+      await sendKeys({ press: 'Escape' });
+      await didClose.calledOnce();
+      expect(didClose.count).to.be.equal(1);
 
+      await sendKeys({ press: 'ArrowUp' });
+      await didOpen.calledTimes(2);
+      expect(didOpen.count).to.be.equal(2);
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).not.to.have.attribute('selected');
       await sendKeys({ press: 'ArrowDown' });
@@ -515,14 +526,14 @@ describe(`sbb-select`, () => {
       expect(displayValue).to.have.trimmed.text('Second');
 
       await sendKeys({ press: 'Escape' });
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await didClose.calledTimes(2);
+      expect(didClose.count).to.be.equal(2);
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      await didOpen.calledTimes(2);
-      expect(didOpen.count).to.be.equal(2);
+      await didOpen.calledTimes(3);
+      expect(didOpen.count).to.be.equal(3);
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
