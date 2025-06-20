@@ -12,14 +12,18 @@
 
 .sbb-sr-icon,
 .sbb-sr-graphic {
-  --sbb-icon-svg-width: calc(var(--sbb-reservation-graphic-width) * #{sbb.px-to-rem-build(1)});
-  --sbb-icon-svg-height: calc(var(--sbb-reservation-graphic-height) * #{sbb.px-to-rem-build(1)});
+  --sbb-icon-svg-width: calc(
+    var(--sbb-reservation-graphic-width) * var(--sbb-seat-reservation-one-px-rem)
+  );
+  --sbb-icon-svg-height: calc(
+    var(--sbb-reservation-graphic-height) * var(--sbb-seat-reservation-one-px-rem)
+  );
 
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(var(--sbb-reservation-graphic-width) * #{sbb.px-to-rem-build(1)});
-  height: calc(var(--sbb-reservation-graphic-height) * #{sbb.px-to-rem-build(1)});
+  width: calc(var(--sbb-reservation-graphic-width) * var(--sbb-seat-reservation-one-px-rem));
+  height: calc(var(--sbb-reservation-graphic-height) * var(--sbb-seat-reservation-one-px-rem));
   transform-origin: center;
   rotate: calc(var(--sbb-reservation-graphic-rotation) * 1deg);
 }
