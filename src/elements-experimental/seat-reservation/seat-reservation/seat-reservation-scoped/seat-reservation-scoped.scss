@@ -4,25 +4,15 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-seat-reservation-scoped-width: 0;
+  --sbb-seat-reservation-scoped-height: 0;
+
   display: block;
 
-  .coach-border,
-  .coach-wrapper,
-  .graphical-element {
-    width: var(--sbb-seat-reservation-scoped-width);
-    height: var(--sbb-seat-reservation-scoped-height);
-    inset-block-start: var(--sbb-seat-reservation-scoped-inset-block-start);
-    inset-inline-start: var(--sbb-seat-reservation-scoped-inset-inline-start);
-    z-index: var(--sbb-seat-reservation-scoped-z-index);
-  }
-
-  .coach-border,
-  .graphical-element ::slotted(*),
-  .graphical-element {
-    position: absolute;
-  }
-
-  .coach-border {
-    z-index: 0;
+  .scoped-element {
+    width: calc(var(--sbb-seat-reservation-scoped-width) * var(--sbb-seat-reservation-one-px-rem));
+    height: calc(
+      var(--sbb-seat-reservation-scoped-height) * var(--sbb-seat-reservation-one-px-rem)
+    );
   }
 }

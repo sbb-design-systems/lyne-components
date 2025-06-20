@@ -14,7 +14,11 @@
   width: calc(var(--sbb-reservation-area-width) * var(--sbb-seat-reservation-one-px-rem));
   border: var(--sbb-border-width-1x) solid var(--sbb-color-graphite);
   border-radius: var(--sbb-reservation-area-border-radius);
-  position: inherit;
+  position: absolute;
+  inset-block-start: calc(var(--sbb-reservation-area-top) * var(--sbb-seat-reservation-one-px-rem));
+  inset-inline-start: calc(
+    var(--sbb-reservation-area-left) * var(--sbb-seat-reservation-one-px-rem)
+  );
   rotate: calc(var(--sbb-reservation-area-rotation) * 1deg);
   background-color: var(--sbb-color-white);
 }
