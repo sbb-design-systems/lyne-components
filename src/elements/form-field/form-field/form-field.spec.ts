@@ -87,7 +87,7 @@ describe(`sbb-form-field`, () => {
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(input.ariaErrorMessageElements).to.have.same.members([formError]);
+      expect(input.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
@@ -96,6 +96,25 @@ describe(`sbb-form-field`, () => {
 
       // Then aria-describedby should be removed
       expect(input).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should reference sbb-form-error with existing reference', async () => {
+      const description = document.createElement('div');
+      description.textContent = 'Description';
+      element.append(description);
+      input.ariaDescribedByElements = [description];
+
+      const formError = document.createElement('sbb-form-error');
+      element.append(formError);
+      await waitForLitRender(element);
+      await nextFrame();
+
+      expect(input.ariaDescribedByElements).to.have.same.members([description, formError]);
+
+      formError.remove();
+      await waitForLitRender(element);
+
+      expect(input.ariaDescribedByElements).to.have.same.members([description]);
     });
   });
 
@@ -195,15 +214,15 @@ describe(`sbb-form-field`, () => {
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(textarea.ariaErrorMessageElements).to.have.same.members([formError]);
+      expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
       formError.remove();
       await waitForLitRender(element);
 
-      // Then ariaErrorMessageElements should be removed
-      expect(textarea.ariaErrorMessageElements).to.be.null;
+      // Then ariaDescribedByElements should be removed
+      expect(textarea.ariaDescribedByElements).to.be.null;
     });
   });
 

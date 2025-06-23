@@ -16,6 +16,8 @@ import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import {
+  appendAriaElements,
+  removeAriaElements,
   SbbElementInternalsMixin,
   SbbHydrationMixin,
   SbbNegativeMixin,
@@ -452,9 +454,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
    */
   private _onSlotErrorChange(event: Event): void {
     const errorElements = (event.target as HTMLSlotElement).assignedElements();
-    if (this._input && this._input.ariaErrorMessageElements?.length) {
-      this._input.ariaErrorMessageElements = this._input.ariaErrorMessageElements.filter(
-        (el) => !errorElements.includes(el),
+    if (this._input && this._input.ariaDescribedByElements?.length) {
+      this._input.ariaDescribedByElements = removeAriaElements(
+        this._input.ariaDescribedByElements,
+        ...(this._errorElements ?? []),
       );
     }
 
@@ -472,14 +475,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _assignErrorMessageElements(): void {
     if (this._input) {
-      this._input.ariaErrorMessageElements = [
-        ...(this._input.ariaErrorMessageElements ?? []),
+      this._input.ariaDescribedByElements = appendAriaElements(
+        this._input.ariaDescribedByElements,
         ...this._errorElements,
-      ];
-      if (!this._input.ariaErrorMessageElements.length) {
-        this._input.ariaErrorMessageElements = null;
-      }
-      this._input.ariaInvalid = this._errorElements.length ? 'true' : null;
+      );
     }
   }
 

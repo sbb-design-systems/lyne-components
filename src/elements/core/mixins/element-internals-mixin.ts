@@ -69,11 +69,15 @@ if (!isServer) {
           throw new Error('Unable to resolve related element! This should never happen.');
         })());
   const observerOptions: MutationObserverInit = { attributes: true, attributeFilter: ['id'] };
-  const assignElement = (host: Element, elements: Record<string, Element>): void => {
+  const assignElement = (
+    host: Element,
+    attribute: string,
+    elements: Record<string, Element>,
+  ): void => {
     // In case both Element and ElementInternals properties are set,
     // the element reference from Element has priority.
     const activeElement = elements[Element.name] ?? elements[ElementInternals.name];
-    host.setAttribute('aria-activedescendant', (activeElement.id ||= `aria-ref-${nextId++}`));
+    host.setAttribute(attribute, (activeElement.id ||= `aria-ref-${nextId++}`));
   };
   const assignElements = (
     host: Element,
@@ -95,6 +99,7 @@ if (!isServer) {
   for (const type of [ElementInternals, Element]) {
     const prototype = type.prototype;
     if (!('ariaActiveDescendantElement' in prototype)) {
+      const attribute = 'aria-activedescendant';
       const storage = new WeakMap<
         Element,
         { elements: Record<string, Element>; observer: MutationObserver }
@@ -104,7 +109,10 @@ if (!isServer) {
         configurable: true,
         get(this: ElementInternals | Element): Element | null {
           const host = resolveHost(this);
-          return storage.get(host)?.elements[type.name] ?? null;
+          const id = host.getAttribute(attribute)?.split(/\s+/)[0] ?? null;
+          return id
+            ? ((host.getRootNode() as Document | ShadowRoot).getElementById?.(id) ?? null)
+            : null;
         },
         set(this: ElementInternals | Element, value: Element | null) {
           if (value !== null && !(value instanceof Element)) {
@@ -121,19 +129,20 @@ if (!isServer) {
               delete entry.elements[type.name];
               if (!Object.keys(entry).length) {
                 storage.delete(host);
+                host.removeAttribute(attribute);
               } else {
                 entry.observer.observe(Object.values(entry.elements)[0], observerOptions);
               }
             }
           } else if (!entry) {
             const elements: Record<string, Element> = { [type.name]: value };
-            assignElement(host, elements);
-            const observer = new MutationObserver(() => assignElement(host, elements));
+            assignElement(host, attribute, elements);
+            const observer = new MutationObserver(() => assignElement(host, attribute, elements));
             observer.observe(value, observerOptions);
             storage.set(host, { elements, observer });
           } else {
             entry.elements[type.name] = value;
-            assignElement(host, entry.elements);
+            assignElement(host, attribute, entry.elements);
             Object.values(entry.elements).forEach((e) =>
               entry.observer.observe(e, observerOptions),
             );
@@ -161,8 +170,13 @@ if (!isServer) {
           configurable: true,
           get(this: ElementInternals | Element): readonly Element[] | null {
             const host = resolveHost(this);
-            const elements = storage.get(host)?.elements[type.name] ?? null;
-            return elements ? Object.freeze(elements.slice()) : null;
+            const elements = host
+              .getAttribute(attribute)
+              ?.split(/\s+/)
+              .filter((v, i, a) => a.indexOf(v) === i)
+              .map((id) => (host.getRootNode() as Document | ShadowRoot).getElementById?.(id))
+              .filter((e) => e instanceof Element);
+            return elements?.length ? Object.freeze(elements) : null;
           },
           set(this: ElementInternals | Element, value: Element[]) {
             if (
@@ -219,6 +233,31 @@ export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
   protected toggleState(state: string, force?: boolean): void;
 }
+
+/**
+ * Appends the given elements to the given aria value and returns the
+ * combined value as a new array or null, if both values were empty.
+ */
+export const appendAriaElements = (
+  ariaValue: readonly Element[] | null,
+  ...newElements: (Element | null)[]
+): Element[] | null => {
+  const elements = newElements.filter((v): v is Element => !!v);
+  return ariaValue?.length ? ariaValue.concat(elements) : newElements.length ? elements : null;
+};
+
+/**
+ * Removes the given elements from the given aria value and returns
+ * the remaining elements as a new array or null, if the result is empty.
+ */
+export const removeAriaElements = (
+  ariaValue: readonly Element[] | null,
+  ...removableElements: (Element | null)[]
+): Element[] | null => {
+  removableElements = removableElements.filter((v) => !!v);
+  const elements = ariaValue?.filter((v) => !removableElements.includes(v)) ?? null;
+  return elements?.length ? elements : null;
+};
 
 /**
  * The SbbElementInternalsMixin attaches ElementInternals to the element and sets

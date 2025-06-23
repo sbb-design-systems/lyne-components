@@ -9,7 +9,11 @@ import {
 import { customElement } from 'lit/decorators.js';
 
 import { EventEmitter } from '../../core/eventing.js';
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbElementInternalsMixin,
+} from '../../core/mixins.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 import type { SbbStepperElement } from '../stepper.js';
 
@@ -71,18 +75,15 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   /** The label of the step. */
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private set label(value: SbbStepLabelElement | null) {
-    if (this._label && this.internals.ariaLabelledByElements?.length) {
-      this.internals.ariaLabelledByElements = this.internals.ariaLabelledByElements.filter(
-        (e) => e !== this._label,
-      );
-    }
+    this.internals.ariaLabelledByElements = removeAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
     this._label = value instanceof Element ? value : null;
-    if (this._label) {
-      this.internals.ariaLabelledByElements = [
-        ...(this.internals.ariaLabelledByElements ?? []),
-        this._label,
-      ];
-    }
+    this.internals.ariaLabelledByElements = appendAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
   }
   public get label(): SbbStepLabelElement | null {
     return this._label;

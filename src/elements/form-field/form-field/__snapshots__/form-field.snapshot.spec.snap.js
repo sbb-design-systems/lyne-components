@@ -131,8 +131,7 @@ snapshots["sbb-form-field renders readonly input with error DOM"] =
     Fill input
   </label>
   <input
-    aria-errormessage=""
-    aria-invalid="true"
+    aria-describedby=""
     class="input"
     id="sbb-form-field-input-4"
     placeholder="This is an input"

@@ -2,7 +2,7 @@ import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbStepElement } from '../step.js';
 import type { SbbStepperElement } from '../stepper.js';
@@ -27,18 +27,15 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   /** The step controlled by the label. */
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private set step(value: SbbStepElement | null) {
-    if (this._step && this.internals.ariaControlsElements?.length) {
-      this.internals.ariaControlsElements = this.internals.ariaControlsElements.filter(
-        (e) => e !== this._step,
-      );
-    }
+    this.internals.ariaControlsElements = removeAriaElements(
+      this.internals.ariaControlsElements,
+      this._step,
+    );
     this._step = value instanceof Element ? value : null;
-    if (this._step) {
-      this.internals.ariaControlsElements = [
-        ...(this.internals.ariaControlsElements ?? []),
-        this._step,
-      ];
-    }
+    this.internals.ariaControlsElements = appendAriaElements(
+      this.internals.ariaControlsElements,
+      this._step,
+    );
   }
   public get step(): SbbStepElement | null {
     return this._step;
