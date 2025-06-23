@@ -149,7 +149,7 @@
     "jackspeak": "2.1.1",
     "lit": "3.3.0",
     "playwright": "1.53.1",
-    "prettier": "3.5.3"
+    "prettier": "3.6.0"
   },
   "prettier": {
     "singleQuote": true,
