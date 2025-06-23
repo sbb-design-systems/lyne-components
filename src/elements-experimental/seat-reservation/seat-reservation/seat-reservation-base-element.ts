@@ -19,7 +19,6 @@ import type {
   SeatReservationPlaceSelection,
 } from '../common.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
-import type { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat-reservation-scoped.component.js';
 
 enum ScrollDirection {
   right = 'right',
@@ -77,7 +76,10 @@ export class SeatReservationBaseElement extends LitElement {
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
 
+  // Describes the distance between the border of the coach and the places in pixels
   protected coachBorderPadding = 6;
+  // Describes the gap between the coaches in pixels
+  protected gapBetweenCoaches = 4;
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
@@ -152,7 +154,10 @@ export class SeatReservationBaseElement extends LitElement {
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
-        currCalcTriggerPos += coachWidth;
+
+        // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
+        currCalcTriggerPos += coachWidth + this.gapBetweenCoaches;
+
         return {
           start: startPosX,
           end: currCalcTriggerPos,
@@ -168,6 +173,13 @@ export class SeatReservationBaseElement extends LitElement {
         const findScrollCoachIndex = this.isAutoScrolling
           ? this.currSelectedCoachIndex
           : this._getCoachIndexByScrollTriggerPosition();
+
+        // In case the user uses the scrollbar without interacting with the seat reservation,
+        // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
+        if (this.currSelectedCoachIndex === -1) {
+          this.currSelectedCoachIndex = findScrollCoachIndex;
+        }
+
         if (this._isScrollableToSelectedCoach()) {
           this.currSelectedCoachIndex = findScrollCoachIndex;
         } else {
@@ -410,7 +422,7 @@ export class SeatReservationBaseElement extends LitElement {
     const firstCellId = 'cell-' + this.currSelectedCoachIndex + '-0-0';
     const placeNumber =
       this.shadowRoot
-        ?.querySelector<SbbSeatReservationScopedElement>("[cell-id='" + firstCellId + "']")
+        ?.querySelector<HTMLTableCellElement>('#' + firstCellId)
         ?.querySelector<SbbSeatReservationPlaceControlElement>('sbb-seat-reservation-place-control')
         ?.getAttribute('text') || null;
 
