@@ -31,10 +31,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Safari DOM"] =
 
 snapshots["sbb-autocomplete-grid-optgroup renders Safari Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
 </div>
 <div
@@ -53,10 +50,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Safari Shadow DOM"] =
 /* end snapshot sbb-autocomplete-grid-optgroup renders Safari Shadow DOM */
 
 snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM"] = 
-`<sbb-autocomplete-grid-optgroup
-  aria-label="Group"
-  label="Group"
->
+`<sbb-autocomplete-grid-optgroup label="Group">
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
@@ -83,10 +77,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM"] =
 
 snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
 </div>
 <div

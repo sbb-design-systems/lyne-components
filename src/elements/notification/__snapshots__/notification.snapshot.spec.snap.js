@@ -18,11 +18,9 @@ snapshots["sbb-notification renders Shadow DOM"] =
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-notification__icon"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
     <span class="sbb-notification__content">
@@ -39,7 +37,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
       >
@@ -79,11 +76,9 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-notification__icon"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
     <span class="sbb-notification__content">
@@ -101,7 +96,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
       >
@@ -143,11 +137,9 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-notification__icon"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
     <span class="sbb-notification__content">
@@ -164,7 +156,6 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
       >
@@ -205,11 +196,9 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-notification__icon"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
     <span class="sbb-notification__content">
@@ -248,11 +237,9 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-notification__icon"
       data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
     <span class="sbb-notification__content">
@@ -270,7 +257,6 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
       >

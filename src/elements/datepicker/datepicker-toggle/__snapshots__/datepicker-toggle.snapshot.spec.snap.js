@@ -15,10 +15,8 @@ snapshots["sbb-datepicker-toggle renders DOM"] =
 snapshots["sbb-datepicker-toggle renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="calendar-small"
-    role="img"
   >
   </sbb-icon>
 </span>
@@ -42,10 +40,8 @@ snapshots["sbb-datepicker-toggle in form-field renders DOM"] =
 snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="calendar-small"
-    role="img"
   >
   </sbb-icon>
 </span>
@@ -69,10 +65,8 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] =
 snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="calendar-small"
-    role="img"
   >
   </sbb-icon>
 </span>
@@ -96,10 +90,8 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] =
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="calendar-small"
-    role="img"
   >
   </sbb-icon>
 </span>

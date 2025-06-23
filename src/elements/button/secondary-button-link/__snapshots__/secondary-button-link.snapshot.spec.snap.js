@@ -50,10 +50,8 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
   size="l"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>

@@ -87,10 +87,7 @@ describe(`sbb-form-field`, () => {
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(input)
-        .to.have.attribute('aria-describedby')
-        .match(/^sbb-form-field-error-/);
-      expect(formError.id).to.be.equal(input.getAttribute('aria-describedby'));
+      expect(input.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
@@ -101,26 +98,23 @@ describe(`sbb-form-field`, () => {
       expect(input).not.to.have.attribute('aria-describedby');
     });
 
-    it('should reference sbb-form-error with original aria-describedby', async () => {
-      input.setAttribute('aria-describedby', 'foo');
-      // When adding a sbb-form-error
+    it('should reference sbb-form-error with existing reference', async () => {
+      const description = document.createElement('div');
+      description.textContent = 'Description';
+      element.append(description);
+      input.ariaDescribedByElements = [description];
+
       const formError = document.createElement('sbb-form-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
 
-      // Then input should be linked and original aria-describedby preserved
-      expect(input)
-        .to.have.attribute('aria-describedby')
-        .match(/^foo sbb-form-field-error-/);
-
-      // When removing sbb-form-error
+      expect(input.ariaDescribedByElements).to.have.same.members([description, formError]);
 
       formError.remove();
       await waitForLitRender(element);
 
-      // Then aria-describedby should be set to foo
-      expect(input).to.have.attribute('aria-describedby');
+      expect(input.ariaDescribedByElements).to.have.same.members([description]);
     });
   });
 
@@ -220,40 +214,15 @@ describe(`sbb-form-field`, () => {
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(textarea)
-        .to.have.attribute('aria-describedby')
-        .match(/^sbb-form-field-error-/);
-      expect(formError.id).to.be.equal(textarea.getAttribute('aria-describedby'));
+      expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
       formError.remove();
       await waitForLitRender(element);
 
-      // Then aria-describedby should be removed
-      expect(textarea).not.to.have.attribute('aria-describedby');
-    });
-
-    it('should reference sbb-form-error with original aria-describedby', async () => {
-      textarea.setAttribute('aria-describedby', 'foo');
-      // When adding a sbb-form-error
-      const formError = document.createElement('sbb-form-error');
-      element.append(formError);
-      await waitForLitRender(element);
-      await nextFrame();
-
-      // Then input should be linked and original aria-describedby preserved
-      expect(textarea)
-        .to.have.attribute('aria-describedby')
-        .match(/^foo sbb-form-field-error-/);
-
-      // When removing sbb-form-error
-
-      formError.remove();
-      await waitForLitRender(element);
-
-      // Then aria-describedby should be set to foo
-      expect(textarea).to.have.attribute('aria-describedby');
+      // Then ariaDescribedByElements should be removed
+      expect(textarea.ariaDescribedByElements).to.be.null;
     });
   });
 

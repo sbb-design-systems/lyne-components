@@ -42,10 +42,8 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"]
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
