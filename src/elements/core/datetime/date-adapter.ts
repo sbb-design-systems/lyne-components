@@ -4,8 +4,8 @@ export const YEARS_PER_ROW: number = 4;
 export const MONTHS_PER_PAGE: number = 12;
 export const YEARS_PER_PAGE: number = 24;
 export const FORMAT_DATE =
-  /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
-export const ISO8601_FORMAT_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
+  /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
+export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
 
 /**
  * Abstract date functionality.
@@ -139,7 +139,7 @@ export abstract class DateAdapter<T = any> {
    * @param value The date in the format DD.MM.YYYY.
    * @param now The current date as Date.
    */
-  public abstract parse(value: string | null | undefined, now?: T): T | null;
+  public abstract parse(value: string | null | undefined): T | null;
 
   /**
    * Format the given date as string.

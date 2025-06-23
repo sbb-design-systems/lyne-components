@@ -228,9 +228,9 @@
 
   :host(
       :where(:state(focus), [state--focus]):where(
-          :state(focus-origin-keyboard),
-          [state--focus-origin-keyboard]
-        )
+        :state(focus-origin-keyboard),
+        [state--focus-origin-keyboard]
+      )
     )
     & {
     @include sbb.focus-outline;
@@ -384,8 +384,8 @@
       [floating-label]:is(
           :not(
             :where(:state(focus), [state--focus]):not(
-                :where(:state(input-type-sbb-select), [state--input-type-sbb-select])
-              ),
+              :where(:state(input-type-sbb-select), [state--input-type-sbb-select])
+            ),
             :where(:state(has-popup-open), [state--has-popup-open])
           ),
           :where(:state(readonly), [state--readonly])
@@ -414,17 +414,17 @@
 
   :host(
       [size='s']:is(
-          :state(input-type-input),
-          [state--input-type-input],
-          :state(input-type-select),
-          [state--input-type-select],
-          :state(input-type-sbb-select),
-          [state--input-type-sbb-select],
-          :state(input-type-sbb-date-input),
-          [state--input-type-sbb-date-input],
-          :state(input-type-sbb-time-input),
-          [state--input-type-sbb-time-input]
-        )
+        :state(input-type-input),
+        [state--input-type-input],
+        :state(input-type-select),
+        [state--input-type-select],
+        :state(input-type-sbb-select),
+        [state--input-type-sbb-select],
+        :state(input-type-sbb-date-input),
+        [state--input-type-sbb-date-input],
+        :state(input-type-sbb-time-input),
+        [state--input-type-sbb-time-input]
+      )
     )
     & {
     // In size s, the natural height of the text input is too small.
