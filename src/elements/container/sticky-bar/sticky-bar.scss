@@ -84,9 +84,9 @@ $intersector-overlapping: 1px;
 
 :host(
   [data-sticking]:is(
-      [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
-      [data-state='sticking']
-    )
+    [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
+    [data-state='sticking']
+  )
 ) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-in;
 }
