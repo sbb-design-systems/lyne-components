@@ -90,7 +90,6 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
   alignment="below"
   data-action=""
   data-link=""
-  data-slot-names="image unnamed"
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <figure
@@ -193,7 +192,6 @@ snapshots["sbb-teaser renders after with title set DOM"] =
   alignment="after"
   data-action=""
   data-link=""
-  data-slot-names="unnamed"
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <sbb-title
