@@ -9,6 +9,7 @@
 @use './mixins/scrollbar';
 @use './mixins/shadows';
 @use './mixins/typo';
+@use '../../title/title.global' as title;
 
 @include helpers.box-sizing;
 
@@ -70,6 +71,8 @@ html {
 
   color: var(--sbb-font-default-color);
 }
+
+@include title.rules;
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 ::placeholder {

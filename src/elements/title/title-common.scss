@@ -17,6 +17,8 @@
 }
 
 .sbb-title {
+  @include sbb.title($exclude-spacing: true);
+
   color: var(--sbb-title-text-color-normal);
 
   :host([visually-hidden]) & {
@@ -24,7 +26,7 @@
   }
 
   :host(:is([level='1']:not([visual-level]), [visual-level='1'])) & {
-    @include sbb.title-1($exclude-spacing: true);
+    @include sbb.title-1;
   }
 
   :host(:is([level='2']:not([visual-level]), [visual-level='2'])) & {
