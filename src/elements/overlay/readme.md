@@ -5,7 +5,6 @@ It offers the following features:
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
 - has a close button, which is always visible;
-- can display a back button;
 - adds the appropriate ARIA roles automatically.
 
 ```html
@@ -49,8 +48,6 @@ emit a close event with an optional result as a payload.
 The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-overlay` has the `sbb-overlay-close` attribute, by clicking on it.
 
-You can also set the property `backButton` on the `sbb-overlay` component to display the back button which will emit the event `requestBackAction` when clicked.
-
 ## Accessibility
 
 ### Controlling initial focus
@@ -72,10 +69,8 @@ an alternative element by listening to the `didClose` event.
 
 | Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                                                                                                                                                               |
 | ------------------------- | --------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `string`              | `''`    | This will be forwarded as aria-label to the back button element.                                                                                                                                                                                          |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the close button element.                                                                                                                                                                                         |
 | `accessibilityLabel`      | `accessibility-label`       | public  | `string`              | `''`    | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.                                                                                                                                               |
-| `backButton`              | `back-button`               | public  | `boolean`             | `false` | Whether a back button is displayed next to the title.                                                                                                                                                                                                     |
 | `expanded`                | `expanded`                  | public  | `boolean`             | `false` | Whether to allow the overlay content to stretch to full width. By default, the content has the appropriate page size.                                                                                                                                     |
 | `isOpen`                  | -                           | public  | `boolean`             |         | Whether the element is open.                                                                                                                                                                                                                              |
 | `negative`                | `negative`                  | public  | `boolean`             | `false` | Negative coloring variant flag.                                                                                                                                                                                                                           |
@@ -91,13 +86,12 @@ an alternative element by listening to the `didClose` event.
 
 ## Events
 
-| Name                | Type                                       | Description                                                                      | Inherited From          |
-| ------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`          | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`           | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      | SbbOpenCloseBaseElement |
-| `requestBackAction` | `CustomEvent<void>`                        | Emits whenever the back button is clicked.                                       |                         |
-| `willClose`         | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`          | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name        | Type                                       | Description                                                                      | Inherited From          |
+| ----------- | ------------------------------------------ | -------------------------------------------------------------------------------- | ----------------------- |
+| `didClose`  | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-overlay` is closed.                                      | SbbOpenCloseBaseElement |
+| `didOpen`   | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` is opened.                                      | SbbOpenCloseBaseElement |
+| `willClose` | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `willOpen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-overlay` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 
