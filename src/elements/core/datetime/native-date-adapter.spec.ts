@@ -198,6 +198,8 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.parse('Test', now)).to.be.null;
     expect(nativeDateAdapter.parse('1.1', now)).to.be.null;
     expect(nativeDateAdapter.parse('2000.0.1', now)).to.be.null;
+    expect(nativeDateAdapter.parse('12.0.2000', now)).to.be.null;
+    expect(nativeDateAdapter.parse('0.12.2000', now)).to.be.null;
     for (const dateString of ['1/1/2000', '1.1.2000', '2000-01-01']) {
       const date = nativeDateAdapter.parse(dateString, now)!;
       expect(date.getFullYear()).to.be.equal(2000);
