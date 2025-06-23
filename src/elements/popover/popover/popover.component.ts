@@ -464,10 +464,10 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
   }
 
   protected override registerTriggerListeners(signal: AbortSignal): void {
-    if (this._hoverTrigger) {
-      this.trigger!.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
-      this.trigger!.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
-      this.trigger!.addEventListener(
+    if (this._hoverTrigger && this.trigger) {
+      this.trigger.addEventListener('mouseenter', this._onTriggerMouseEnter, { signal });
+      this.trigger.addEventListener('mouseleave', this._onTriggerMouseLeave, { signal });
+      this.trigger.addEventListener(
         'keydown',
         (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
@@ -476,9 +476,10 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
         },
         { signal },
       );
-      this.trigger!.addEventListener(
+      this.trigger.addEventListener(
         'mousedown',
         (evt: MouseEvent) => {
+          // Without this check, NVDA can't open the popover on keyboard interaction.
           if (isFakeMousedownFromScreenReader(evt)) {
             this.open();
           }
