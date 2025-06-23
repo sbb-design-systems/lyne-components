@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbChipLabelElement } from '../chip-label.js';
 import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { slotState } from '../core/decorators.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
@@ -19,7 +18,6 @@ import '../screen-reader-only.js';
  */
 export
 @customElement('sbb-teaser')
-@slotState()
 class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
