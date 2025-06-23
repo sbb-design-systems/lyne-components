@@ -396,11 +396,11 @@
 
   :host(
       [size='s']:is(
-          [data-input-type='input'],
-          [data-input-type='select'],
-          [data-input-type='sbb-select'],
-          [data-input-type='sbb-date-input']
-        )
+        [data-input-type='input'],
+        [data-input-type='select'],
+        [data-input-type='sbb-select'],
+        [data-input-type='sbb-date-input']
+      )
     )
     & {
     // In size s, the natural height of the text input is too small.

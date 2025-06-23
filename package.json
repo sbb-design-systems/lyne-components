@@ -129,7 +129,7 @@
     "octokit": "5.0.3",
     "playwright": "1.53.1",
     "postcss": "8.5.6",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "react": "19.1.0",
     "rollup-plugin-postcss-lit": "2.2.0",
     "sass": "1.89.2",

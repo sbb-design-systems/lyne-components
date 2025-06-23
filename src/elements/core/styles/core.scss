@@ -173,32 +173,32 @@ sbb-form-field {
 
 // Hiding components until they are instantiated
 :is(
-    sbb-autocomplete,
-    sbb-autocomplete-grid,
-    sbb-dialog,
-    sbb-menu,
-    sbb-navigation,
-    sbb-navigation-section,
-    sbb-overlay,
-    sbb-popover,
-    sbb-select,
-    sbb-skiplink-list,
-    sbb-toast
-  ):not(:defined) {
+  sbb-autocomplete,
+  sbb-autocomplete-grid,
+  sbb-dialog,
+  sbb-menu,
+  sbb-navigation,
+  sbb-navigation-section,
+  sbb-overlay,
+  sbb-popover,
+  sbb-select,
+  sbb-skiplink-list,
+  sbb-toast
+):not(:defined) {
   display: none;
 }
 
 // Hide popover artifacts
 [popover]:where(
-    sbb-autocomplete,
-    sbb-autocomplete-grid,
-    sbb-dialog,
-    sbb-menu,
-    sbb-navigation,
-    sbb-overlay,
-    sbb-popover,
-    sbb-toast
-  ) {
+  sbb-autocomplete,
+  sbb-autocomplete-grid,
+  sbb-dialog,
+  sbb-menu,
+  sbb-navigation,
+  sbb-overlay,
+  sbb-popover,
+  sbb-toast
+) {
   margin: 0;
   padding: 0;
   border: none;
@@ -449,11 +449,11 @@ sbb-sidebar-container:is(
 
 // Toggles visibility of backdrop if there is an affected sidebar inside the container.
 sbb-sidebar-container:has(
-    > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
-        [data-state='opening'],
-        [data-state='opened']
-      )
-  ) {
+  > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
+      [data-state='opening'],
+      [data-state='opened']
+    )
+) {
   --sbb-sidebar-container__backdrop-visibility: visible;
   --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
