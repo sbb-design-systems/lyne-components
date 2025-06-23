@@ -15,10 +15,8 @@ snapshots["sbb-status renders Shadow DOM"] =
   <span class="sbb-status__icon">
     <slot name="icon">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="circle-information-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -51,10 +49,8 @@ snapshots["sbb-status renders with title Shadow DOM"] =
   <span class="sbb-status__icon">
     <slot name="icon">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="circle-information-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
