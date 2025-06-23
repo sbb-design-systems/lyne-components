@@ -87,9 +87,11 @@ export class SeatReservationBaseElement extends LitElement {
     SeatReservationBaseElement.events.selectedCoach,
   );
 
+  // Describes the distance between the border of the coach and the places in pixels
   protected coachBorderPadding = 6;
+  // Describes the gap between the coaches in pixels
+  protected gapBetweenCoaches = 4;
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-  protected coachBorderGap = 4;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
   protected scrollCoachsAreaWidth: number = 0;
@@ -163,7 +165,10 @@ export class SeatReservationBaseElement extends LitElement {
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
-        currCalcTriggerPos += coachWidth + this.coachBorderGap;
+
+        // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
+        currCalcTriggerPos += coachWidth + this.gapBetweenCoaches;
+
         return {
           start: startPosX,
           end: currCalcTriggerPos,
