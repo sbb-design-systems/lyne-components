@@ -4,12 +4,13 @@ export const snapshots = {};
 snapshots["sbb-notification renders DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   size="m"
   type="info"
 >
-  The quick brown fox jumps over the lazy dog.
+  <p>
+    The quick brown fox jumps over the lazy dog.
+  </p>
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders DOM */
@@ -24,14 +25,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <sbb-title
-        class="sbb-notification__title"
-        level="3"
-        visual-level="5"
-      >
-        <slot name="title">
-        </slot>
-      </sbb-title>
       <slot>
       </slot>
     </span>
@@ -61,13 +54,19 @@ snapshots["sbb-notification renders Shadow DOM"] =
 snapshots["sbb-notification renders with a title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   size="m"
-  title-content="Title"
   type="info"
 >
-  The quick brown fox jumps over the lazy dog.
+  <sbb-title
+    level="3"
+    visual-level="5"
+  >
+    Title
+  </sbb-title>
+  <p>
+    The quick brown fox jumps over the lazy dog.
+  </p>
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders with a title DOM */
@@ -82,15 +81,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <sbb-title
-        class="sbb-notification__title"
-        level="3"
-        visual-level="5"
-      >
-        <slot name="title">
-          Title
-        </slot>
-      </sbb-title>
       <slot>
       </slot>
     </span>
@@ -180,14 +170,20 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
 snapshots["sbb-notification renders without the close button DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   readonly=""
   size="m"
-  title-content="Title"
   type="info"
 >
-  The quick brown fox jumps over the lazy dog.
+  <sbb-title
+    level="3"
+    visual-level="5"
+  >
+    Title
+  </sbb-title>
+  <p>
+    The quick brown fox jumps over the lazy dog.
+  </p>
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders without the close button DOM */
@@ -202,15 +198,6 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <sbb-title
-        class="sbb-notification__title"
-        level="3"
-        visual-level="5"
-      >
-        <slot name="title">
-          Title
-        </slot>
-      </sbb-title>
       <slot>
       </slot>
     </span>
@@ -222,13 +209,19 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
 snapshots["sbb-notification renders size s DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
   data-state="opened"
   size="s"
-  title-content="Title"
   type="info"
 >
-  The quick brown fox jumps over the lazy dog.
+  <sbb-title
+    level="3"
+    visual-level="6"
+  >
+    Title
+  </sbb-title>
+  <p>
+    The quick brown fox jumps over the lazy dog.
+  </p>
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders size s DOM */
@@ -243,15 +236,6 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <sbb-title
-        class="sbb-notification__title"
-        level="3"
-        visual-level="6"
-      >
-        <slot name="title">
-          Title
-        </slot>
-      </sbb-title>
       <slot>
       </slot>
     </span>
