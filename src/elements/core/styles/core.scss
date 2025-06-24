@@ -9,6 +9,7 @@
 @use './mixins/scrollbar';
 @use './mixins/shadows';
 @use './mixins/typo';
+@use './mixins/popover';
 
 @include helpers.box-sizing;
 
@@ -223,14 +224,7 @@ sbb-form-field {
     sbb-popover,
     sbb-toast
   ) {
-  margin: 0;
-  padding: 0;
-  border: none;
-  width: auto;
-  height: auto;
-  background-color: transparent;
-  color: inherit;
-  pointer-events: none;
+  @include popover.popover-reset;
 }
 
 // Ensure stable breadcrumb height during hydrating

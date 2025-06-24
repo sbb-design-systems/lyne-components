@@ -1,4 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '@sbb-esta/lyne-elements/core/styles/mixins/popover';
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -18,6 +19,10 @@
       fill: transparent;
     }
   }
+}
+
+[popover]:where(sbb-popover) {
+  @include popover.popover-reset;
 }
 
 .sbb-sr__wrapper--vertical {
