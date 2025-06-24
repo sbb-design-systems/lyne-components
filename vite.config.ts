@@ -7,16 +7,6 @@ import { typescriptTransform } from './tools/vite/index.js';
 
 export default defineConfig({
   server: { allowedHosts: ['host.containers.internal'] },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // https://vitejs.dev/config/shared-options#css-preprocessoroptions
-        // TODO: api: 'modern',
-        api: 'legacy',
-        silenceDeprecations: ['legacy-js-api'],
-      },
-    },
-  },
   plugins: [
     // We apply the postcssLit plugin (which transforms .scss files to Lit
     // CSS tagged templates) as this should apply in almost all cases.

@@ -1,5 +1,4 @@
-@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as
-  sbb-css-tokens;
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens;
 @use './core/mediaqueries';
 @use './core/functions';
 @use './mixins/a11y';
