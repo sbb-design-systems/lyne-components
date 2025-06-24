@@ -12,21 +12,17 @@ The component can optionally display an `sbb-icon` at the component start using 
 ```html
 <sbb-alert icon-name="disruption">
   <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
-  <p>
-    Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-    construction work will take place. You have to expect changed travel times and changed
-    connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
-  </p>
+  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+  construction work will take place. You have to expect changed travel times and changed
+  connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
 </sbb-alert>
 
 <sbb-alert>
   <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
   <sbb-icon slot="icon" name="disruption"></sbb-icon>
-  <p>
-    Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-    construction work will take place. You have to expect changed travel times and changed
-    connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
-  </p>
+  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+  construction work will take place. You have to expect changed travel times and changed
+  connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
 </sbb-alert>
 ```
 
@@ -35,11 +31,9 @@ The `sbb-alert` can optionally be hidden by a user, if the `readOnly` prop is no
 ```html
 <sbb-alert readonly>
   <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
-  <p>
-    Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-    construction work will take place. You have to expect changed travel times and changed
-    connections.
-  </p>
+  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+  construction work will take place. You have to expect changed travel times and changed
+  connections.
 </sbb-alert>
 ```
 
@@ -56,8 +50,6 @@ Users can choose between three `size`: `s`, `m` (default) and `l`.
 ## Accessibility
 
 Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
-
-The description text should be wrapped into an `<p>` element to guarantee the semantic meaning.
 
 ## Animation
 
@@ -94,7 +86,8 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Slots
 
-| Name   | Description                                                                                                                            |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the `sbb-alert`. Content should consist at minimum of an `sbb-title` element and a `p` element. |
-| `icon` | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                           |
+| Name    | Description                                                                                                               |
+| ------- | ------------------------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and some text should be used. |
+| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.              |
+| `title` | Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.                               |

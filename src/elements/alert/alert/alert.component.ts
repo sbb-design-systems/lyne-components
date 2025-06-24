@@ -19,8 +19,9 @@ import '../../divider.js';
 /**
  * It displays messages which require user's attention.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-alert`. Content should consist at minimum of an `sbb-title` element and a `p` element.
+ * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and some text should be used.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
+ * @slot title - Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.
  * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
@@ -121,7 +122,12 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   private _handleSlotchange(): void {
     this._syncLinks();
-    this._configureTitle();
+
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+
+    if (title) {
+      title.slot = 'title';
+    }
   }
 
   private _syncLinks(): void {
@@ -133,6 +139,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+
     if (title) {
       customElements.upgrade(title);
       title.negative = true;
@@ -148,7 +155,10 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
           <div class="sbb-alert">
             <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
             <span class="sbb-alert__content">
-              <slot @slotchange=${this._handleSlotchange}></slot>
+              <slot name="title" @slotchange=${this._configureTitle}></slot>
+              <p class="sbb-alert__content-slot">
+                <slot @slotchange=${this._handleSlotchange}></slot>
+              </p>
             </span>
             ${!this.readOnly
               ? html`<span class="sbb-alert__close-button-wrapper">

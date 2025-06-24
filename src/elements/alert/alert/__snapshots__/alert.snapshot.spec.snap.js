@@ -10,13 +10,12 @@ snapshots["sbb-alert should render default properties DOM"] =
   <sbb-title
     level="3"
     negative=""
+    slot="title"
     visual-level="5"
   >
     Interruption
   </sbb-title>
-  <p>
-    Alert content
-  </p>
+  Alert content
 </sbb-alert>
 `;
 /* end snapshot sbb-alert should render default properties DOM */
@@ -35,8 +34,12 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
         </slot>
       </span>
       <span class="sbb-alert__content">
-        <slot>
+        <slot name="title">
         </slot>
+        <p class="sbb-alert__content-slot">
+          <slot>
+          </slot>
+        </p>
       </span>
       <span class="sbb-alert__close-button-wrapper">
         <sbb-divider
@@ -74,24 +77,23 @@ snapshots["sbb-alert should render customized properties DOM"] =
   <sbb-title
     level="2"
     negative=""
+    slot="title"
     visual-level="3"
   >
     Interruption
   </sbb-title>
-  <p>
-    Alert content Alert content
-    <sbb-link
-      data-action=""
-      data-link=""
-      data-sbb-link=""
-      data-slot-names="unnamed"
-      href="https://www.sbb.ch"
-      negative=""
-      size="s"
-    >
-      Find out more
-    </sbb-link>
-  </p>
+  Alert content Alert content
+  <sbb-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
+    data-slot-names="unnamed"
+    href="https://www.sbb.ch"
+    negative=""
+    size="s"
+  >
+    Find out more
+  </sbb-link>
 </sbb-alert>
 `;
 /* end snapshot sbb-alert should render customized properties DOM */
@@ -110,8 +112,12 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
         </slot>
       </span>
       <span class="sbb-alert__content">
-        <slot>
+        <slot name="title">
         </slot>
+        <p class="sbb-alert__content-slot">
+          <slot>
+          </slot>
+        </p>
       </span>
       <span class="sbb-alert__close-button-wrapper">
         <sbb-divider

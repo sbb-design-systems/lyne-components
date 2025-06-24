@@ -15,13 +15,12 @@ snapshots["sbb-alert-group renders DOM"] =
     <sbb-title
       level="3"
       negative=""
+      slot="title"
       visual-level="5"
     >
       Interruption between Genève and Lausanne
     </sbb-title>
-    <p>
-      The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-    </p>
+    The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
   </sbb-alert>
 </sbb-alert-group>
 `;
@@ -56,13 +55,12 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
     <sbb-title
       level="3"
       negative=""
+      slot="title"
       visual-level="5"
     >
       Interruption between Genève and Lausanne
     </sbb-title>
-    <p>
-      The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-    </p>
+    The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
   </sbb-alert>
 </sbb-alert-group>
 `;

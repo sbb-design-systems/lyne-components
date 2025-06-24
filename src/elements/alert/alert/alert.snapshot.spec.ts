@@ -17,7 +17,7 @@ describe(`sbb-alert`, () => {
       element = await fixture(
         html`<sbb-alert>
           <sbb-title level="3">Interruption</sbb-title>
-          <p>Alert content</p>
+          Alert content
         </sbb-alert>`,
       );
     });
@@ -36,9 +36,7 @@ describe(`sbb-alert`, () => {
       element = await fixture(
         html`<sbb-alert size="l" icon-name="disruption">
           <sbb-title level="2">Interruption</sbb-title>
-          <p>
-            Alert content Alert content <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
-          </p>
+          Alert content Alert content <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
         </sbb-alert>`,
       );
     });

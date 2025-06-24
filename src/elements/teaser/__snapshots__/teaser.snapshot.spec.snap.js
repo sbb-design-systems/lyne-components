@@ -38,7 +38,7 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders after centered Shadow DOM */
 
-snapshots["renders after with title set DOM"] =
+snapshots["renders after with title set DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after"
@@ -51,7 +51,7 @@ snapshots["renders after with title set DOM"] =
 `;
 /* end snapshot sbb-teaser renders after with title level set DOM */
 
-snapshots["renders after with title set Shadow DOM"] =
+snapshots["renders after with title set Shadow DOM"] = 
 `<div class="sbb-teaser__wrapper">
   <a
     aria-label="SBB teaser"
@@ -145,7 +145,7 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser renders below with projected content Shadow DOM */
 
-snapshots["sbb-teaser renders after centered A11y tree Chrome"] =
+snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

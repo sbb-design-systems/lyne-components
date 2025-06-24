@@ -5,18 +5,14 @@ The `sbb-alert-group` manages the accessibility of one or multiple
 <sbb-alert-group accessibility-title="Disruptions" accessibility-level="2">
   <sbb-alert size="l">
     <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
-    <p>
-      The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-      <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
-    </p>
+    The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+    <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
   <sbb-alert>
     <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
-    <p>
-      Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-      construction work will take place. You have to expect changed travel times and changed
-      connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
-    </p>
+    Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+    construction work will take place. You have to expect changed travel times and changed
+    connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
 </sbb-alert-group>
 ```

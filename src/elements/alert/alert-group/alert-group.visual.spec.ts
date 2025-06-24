@@ -12,11 +12,9 @@ import '../../title.js';
 describe(`sbb-alert-group`, () => {
   const alert = html`<sbb-alert>
     <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
-    <p>
-      Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
-      construction work will take place. You have to expect changed travel times and changed
-      connections.
-    </p>
+    Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
+    construction work will take place. You have to expect changed travel times and changed
+    connections.
   </sbb-alert>`;
 
   describeViewports({ viewports: ['medium'] }, () => {

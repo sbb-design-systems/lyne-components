@@ -14,7 +14,7 @@ describe(`sbb-alert ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-alert>
         <sbb-title level="3">Disruption</sbb-title>
-        <p>Content</p>
+        Content
       </sbb-alert>`,
       {
         modules: ['./alert.component.js', '../../title.js'],

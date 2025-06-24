@@ -135,6 +135,13 @@ $open-anim-opacity-to: 1;
   }
 }
 
+.sbb-alert__content-slot {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 .sbb-alert__close-button-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -200,11 +207,4 @@ $open-anim-opacity-to: 1;
 ::slotted(sbb-title) {
   // Overwrite sbb-title default margin
   margin: 0;
-}
-
-::slotted(p) {
-  // Reset paragraph styles
-  display: inline;
-  margin: 0;
-  padding: 0;
 }

@@ -24,7 +24,7 @@ describe(`sbb-alert`, () => {
     alert = await fixture(
       html`<sbb-alert>
         <sbb-title level="3">Disruption</sbb-title>
-        <p>Interruption</p>
+        Interruption
       </sbb-alert>`,
     );
   });
@@ -52,7 +52,7 @@ describe(`sbb-alert`, () => {
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert style="--sbb-alert-animation-duration: 1ms">
         <sbb-title level="3">Disruption</sbb-title>
-        <p>Interruption</p>
+        Interruption
       </sbb-alert>`,
     );
 

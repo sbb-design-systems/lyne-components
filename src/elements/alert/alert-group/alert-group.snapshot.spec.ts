@@ -18,9 +18,7 @@ describe(`sbb-alert-group`, () => {
         <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="3">
           <sbb-alert>
             <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
-            <p>
-              The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-            </p>
+            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>
       `);
@@ -46,9 +44,7 @@ describe(`sbb-alert-group`, () => {
           <span slot="accessibility-title">Interruptions</span>
           <sbb-alert>
             <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
-            <p>
-              The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-            </p>
+            The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>
       `);

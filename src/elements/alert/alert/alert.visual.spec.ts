@@ -29,9 +29,7 @@ describe(`sbb-alert`, () => {
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-alert size=${size} ?readonly=${readonly} icon-name=${icon}>
       <sbb-title>${title}</sbb-title>
-      <p>
-        ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
-      </p>
+      ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>
   `;
 
@@ -66,7 +64,7 @@ describe(`sbb-alert`, () => {
           html`<sbb-alert>
             <sbb-icon name="disruption" slot="icon"></sbb-icon>
             <sbb-title>Slotted title</sbb-title>
-            <p>${contentSlotText}</p>
+            ${contentSlotText}
           </sbb-alert>`,
         );
       }),

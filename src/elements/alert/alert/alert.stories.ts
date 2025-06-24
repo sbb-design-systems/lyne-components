@@ -19,7 +19,7 @@ const Default = ({
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
     <sbb-title level="3">${title}</sbb-title>
-    <p>${contentSlotText}</p>
+    ${contentSlotText}
   </sbb-alert>
 `;
 
@@ -30,7 +30,7 @@ const WithLink = ({
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
     <sbb-title level="3">${title}</sbb-title>
-    <p>${contentSlotText} <sbb-link href="https://www.sbb.ch">Find out more</sbb-link></p>
+    ${contentSlotText} <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
 `;
 
@@ -51,7 +51,7 @@ const CustomSlots = ({
   <sbb-alert ${sbbSpread(args)}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
     <sbb-title level="3">${title}</sbb-title>
-    <p>${contentSlotText}</p>
+    ${contentSlotText}
   </sbb-alert>
 `;
 
