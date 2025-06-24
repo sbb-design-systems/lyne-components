@@ -14,6 +14,8 @@ import '../screen-reader-only.js';
  * It displays an interactive image with caption.
  *
  * @slot image - Slot used to render the image.
+ * @slot chip - Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @slot - Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.
  */
 export
@@ -25,24 +27,39 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  private _configureTitleAndChip(event: Event): void {
-    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
-    if (title) {
-      customElements.upgrade(title);
-      title.visualLevel = '5';
+  private _handleSlotchange(): void {
+    const chip = Array.from(this.children).find((el) => el.localName === 'sbb-chip-label');
+    if (chip) {
+      chip.slot = 'chip';
     }
 
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+    if (title) {
+      title.slot = 'title';
+    }
+  }
+
+  private _configureChip(event: Event): void {
     // We need to check assigned elements because in the image slot it can have labels as well.
     const chipLabel = (event.target as HTMLSlotElement)
       .assignedElements()
-      .find(
-        (e): e is SbbChipLabelElement => e instanceof Element && e.localName === 'sbb-chip-label',
-      );
+      .find((e): e is SbbChipLabelElement => e.localName === 'sbb-chip-label');
 
     if (chipLabel) {
       customElements.upgrade(chipLabel);
       chipLabel.color = 'charcoal';
       chipLabel.size = 'xxs';
+    }
+  }
+
+  private _configureTitle(event: Event): void {
+    const title = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
+
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = '5';
     }
   }
 
@@ -66,7 +83,11 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <slot @slotchange=${(event: Event) => this._configureTitleAndChip(event)}></slot>
+          <slot name="chip" @slotchange=${this._configureChip}></slot>
+          <slot name="title" @slotchange=${this._configureTitle}></slot>
+          <p class="sbb-teaser__description">
+            <slot @slotchange=${this._handleSlotchange}></slot>
+          </p>
         </span>
       </span>
     `;

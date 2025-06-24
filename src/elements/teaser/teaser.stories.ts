@@ -105,7 +105,7 @@ const TemplateDefault = ({
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
-      <p>${description}</p>
+      ${description}
     </sbb-teaser>
   `;
 };
@@ -125,7 +125,7 @@ const TemplateDefaultFixedWidth = ({
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
-      <p>${description}</p>
+      ${description}
     </sbb-teaser>
   `;
 };
@@ -151,7 +151,7 @@ const TemplateCustom = ({
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
-      <p>${description}</p>
+      ${description}
     </sbb-teaser>
   `;
 };
@@ -171,7 +171,7 @@ const TemplateSlots = ({
       ${titleContent && titleContent !== ''
         ? html`<sbb-title level="2">${titleContent}</sbb-title>`
         : nothing}
-      <p>${description}</p>
+      ${description}
     </sbb-teaser>
   `;
 };

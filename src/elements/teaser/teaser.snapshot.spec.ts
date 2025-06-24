@@ -70,7 +70,7 @@ describe(`sbb-teaser`, () => {
           </figure>
           <sbb-chip-label>Chip</sbb-chip-label>
           <sbb-title level="2">Title</sbb-title>
-          <p>A brief description.</p>
+          A brief description.
         </sbb-teaser>`,
       );
     });

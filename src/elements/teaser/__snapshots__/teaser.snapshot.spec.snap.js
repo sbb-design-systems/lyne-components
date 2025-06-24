@@ -30,8 +30,14 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <slot>
+      <slot name="chip">
       </slot>
+      <slot name="title">
+      </slot>
+      <p class="sbb-teaser__description">
+        <slot>
+        </slot>
+      </p>
     </span>
   </span>
 </div>
@@ -104,18 +110,18 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
   <sbb-chip-label
     color="charcoal"
     size="xxs"
+    slot="chip"
   >
     Chip
   </sbb-chip-label>
   <sbb-title
     level="2"
+    slot="title"
     visual-level="5"
   >
     Title
   </sbb-title>
-  <p>
-    A brief description.
-  </p>
+  A brief description.
 </sbb-teaser>
 `;
 /* end snapshot sbb-teaser renders below with projected content DOM */
@@ -137,8 +143,14 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <slot>
+      <slot name="chip">
       </slot>
+      <slot name="title">
+      </slot>
+      <p class="sbb-teaser__description">
+        <slot>
+        </slot>
+      </p>
     </span>
   </span>
 </div>
@@ -196,6 +208,7 @@ snapshots["sbb-teaser renders after with title set DOM"] =
 >
   <sbb-title
     level="2"
+    slot="title"
     visual-level="5"
   >
     Title
@@ -221,8 +234,14 @@ snapshots["sbb-teaser renders after with title set Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <slot>
+      <slot name="chip">
       </slot>
+      <slot name="title">
+      </slot>
+      <p class="sbb-teaser__description">
+        <slot>
+        </slot>
+      </p>
     </span>
   </span>
 </div>

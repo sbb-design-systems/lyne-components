@@ -124,7 +124,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
     this._syncLinks();
 
     const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
-
     if (title) {
       title.slot = 'title';
     }
@@ -139,7 +138,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
-
     if (title) {
       customElements.upgrade(title);
       title.negative = true;

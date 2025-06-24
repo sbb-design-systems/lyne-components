@@ -223,7 +223,6 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
 
   private _handleSlotchange(): void {
     const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
-
     if (title) {
       title.slot = 'title';
     }
@@ -231,7 +230,6 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
 
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
-
     if (title) {
       customElements.upgrade(title);
       title.visualLevel = this.size === 'm' ? '5' : '6';

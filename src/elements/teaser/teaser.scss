@@ -107,6 +107,13 @@
   }
 }
 
+.sbb-teaser__description {
+  // Reset paragraph styles
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
 ::slotted(sbb-chip-label) {
   display: block;
   max-width: fit-content;
@@ -115,10 +122,4 @@
 
 ::slotted(sbb-title) {
   margin-block: 0;
-}
-
-::slotted(p) {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
 }

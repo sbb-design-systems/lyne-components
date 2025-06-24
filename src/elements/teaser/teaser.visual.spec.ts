@@ -90,7 +90,7 @@ describe(`sbb-teaser`, () => {
                         <sbb-teaser href="#" alignment=${alignment}>
                           ${imgCase.imgTemplate()}
                           <sbb-title level="2">This is a title</sbb-title>
-                          <p>This is a paragraph</p>
+                          This is a paragraph
                         </sbb-teaser>
                       `,
                       { maxWidth: '760px' },
@@ -124,7 +124,7 @@ describe(`sbb-teaser`, () => {
                       </figure>
                       ${hasChip ? html`<sbb-chip-label>This is a chip.</sbb-chip-label>` : nothing}
                       <sbb-title level="2">This is a title</sbb-title>
-                      <p>${withLongContent ? loremIpsum : 'This is a paragraph'}</p>
+                      ${withLongContent ? loremIpsum : 'This is a paragraph'}
                     </sbb-teaser>
                   `,
                   { maxWidth: '760px' },
@@ -160,7 +160,7 @@ describe(`sbb-teaser`, () => {
                         </sbb-chip-label>
                       </figure>
                       <sbb-title level="2">This is a title</sbb-title>
-                      <p>This is a paragraph</p>
+                      This is a paragraph
                     </sbb-teaser>
                   `,
                 )}
@@ -186,7 +186,7 @@ describe(`sbb-teaser`, () => {
               <sbb-teaser href="#" alignment="below">
                 <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
                 <sbb-title level="2">This is a title</sbb-title>
-                <p>This is a paragraph</p>
+                This is a paragraph
               </sbb-teaser>
             `,
             { forcedColors: true },
@@ -211,7 +211,7 @@ describe(`sbb-teaser`, () => {
                 <img src=${imageBase64} slot="image" alt="" />
                 <sbb-chip-label>${longChip}</sbb-chip-label>
                 <sbb-title level="2">This is a title</sbb-title>
-                <p>This is a paragraph</p>
+                This is a paragraph
               </sbb-teaser>
             `,
             { maxWidth: '760px' },

@@ -49,14 +49,15 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
 
   private _handleSlotchange(): void {
     const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
-
     if (title) {
       title.slot = 'title';
     }
   }
 
-  private _configureTitle(): void {
-    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+  private _configureTitle(event: Event): void {
+    const title = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
     if (title) {
       customElements.upgrade(title);
       title.visualLevel = '5';

@@ -9,12 +9,9 @@ describe(`sbb-teaser ssr`, () => {
   let root: SbbTeaserElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(
-      html`<sbb-teaser id="focus-id" href="#"><p>Content</p></sbb-teaser>`,
-      {
-        modules: ['./teaser.component.js'],
-      },
-    );
+    root = await ssrHydratedFixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
+      modules: ['./teaser.component.js'],
+    });
   });
 
   it('renders', () => {

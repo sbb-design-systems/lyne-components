@@ -7,7 +7,7 @@ Simple teaser example:
   <img slot="image" src="..." alt="400x300" />
   <sbb-chip-label>Chip label</sbb-chip-label>
   <sbb-title level="2">Title</sbb-title>
-  <p>A brief description.</p>
+  A brief description.
 </sbb-teaser>
 ```
 
@@ -15,7 +15,6 @@ Simple teaser example:
 
 The default slot is reserved for the description and,
 optionally, a [sbb-title](/docs/elements-sbb-title--docs) and a [sbb-chip-label](/docs/elements-sbb-chip-label--docs).
-The description should be wrapped into a `<p>` element to guarantee the semantic meaning.
 The component displays the `image` with the self-named slot.
 
 Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
@@ -29,7 +28,7 @@ Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` 
   </figure>
   <sbb-chip-label>Chip label</sbb-chip-label>
   <sbb-title level="2">Title</sbb-title>
-  <p>A brief description.</p>
+  A brief description.
 </sbb-teaser>
 ```
 
@@ -84,7 +83,9 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 
 ## Slots
 
-| Name    | Description                                                                           |
-| ------- | ------------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label. |
-| `image` | Slot used to render the image.                                                        |
+| Name    | Description                                                                                                                                 |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
+| `chip`  | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
+| `image` | Slot used to render the image.                                                                                                              |
+| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |
