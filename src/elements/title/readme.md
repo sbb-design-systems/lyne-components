@@ -42,6 +42,6 @@ This can be removed or customized via simple CSS rules.
 
 ## Slots
 
-| Name | Description                                             |
-| ---- | ------------------------------------------------------- |
-|      | Use the unnamed slot to place the content of the title. |
+| Name | Description                                        |
+| ---- | -------------------------------------------------- |
+|      | Use the unnamed slot for the content of the title. |

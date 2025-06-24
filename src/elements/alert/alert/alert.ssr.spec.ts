@@ -17,7 +17,7 @@ describe(`sbb-alert ssr`, () => {
         <p>Content</p>
       </sbb-alert>`,
       {
-        modules: ['./alert.component.js'],
+        modules: ['./alert.component.js', '../../title.js'],
       },
     );
   });

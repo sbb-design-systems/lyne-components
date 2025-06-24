@@ -20,6 +20,6 @@ The slot `title-section` is automatically assigned to be properly positioned on 
 
 ## Slots
 
-| Name | Description                                                     |
-| ---- | --------------------------------------------------------------- |
-|      | Use the unnamed slot to place the content of the sidebar-title. |
+| Name | Description                                                |
+| ---- | ---------------------------------------------------------- |
+|      | Use the unnamed slot for the content of the sidebar-title. |

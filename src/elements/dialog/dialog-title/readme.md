@@ -23,6 +23,6 @@ The title can have a `negative` state which is automatically synchronized with t
 
 ## Slots
 
-| Name | Description                                                    |
-| ---- | -------------------------------------------------------------- |
-|      | Use the unnamed slot to place the content of the dialog-title. |
+| Name | Description                                                  |
+| ---- | ------------------------------------------------------------ |
+|      | Use the unnamed slot to for the content of the dialog-title. |
