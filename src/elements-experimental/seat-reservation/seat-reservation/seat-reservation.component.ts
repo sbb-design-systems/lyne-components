@@ -25,7 +25,7 @@ import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
 import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
 import './seat-reservation-scoped.js';
-import '@sbb-esta/lyne-elements/popover.js';
+import '@sbb-esta/lyne-elements/popover/popover.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -402,6 +402,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     return html`
       <sbb-seat-reservation-area
+        id="${triggerId}"
         style=${styleMap({
           '--sbb-reservation-area-width': calculatedDimension.w,
           '--sbb-reservation-area-height': calculatedDimension.h,
@@ -411,7 +412,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         mounting=${elementMounting}
         background="dark"
         aria-hidden="true"
-        title=${ariaLabelForArea}
       >
         ${areaProperty
           ? html`
@@ -426,40 +426,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             `
           : nothing}
       </sbb-seat-reservation-area>
-      <sbb-seat-reservation-scoped
-        scoped-classes="graphical-element"
-        inset-block-start="${calculatedPosition.y}px"
-        inset-inline-start="${calculatedPosition.x}px"
-        width="${calculatedDimension.w}px"
-        height="${calculatedDimension.h}px"
-        z-index="${graphicalElement.position.z}"
-      >
-        <sbb-popover-trigger id="${triggerId}">
-          <sbb-seat-reservation-area
-            style=${styleMap({
-              '--sbb-reservation-area-width': graphicalElement.dimension.w * this.baseGridSize,
-              '--sbb-reservation-area-height': graphicalElement.dimension.h * this.baseGridSize,
-            })}
-            mounting=${elementMounting}
-            background="dark"
-            aria-hidden="true"
-          >
-            ${areaProperty
-              ? html`
-                  <sbb-seat-reservation-graphic
-                    name=${areaProperty}
-                    rotation=${rotation}
-                    width=${this.baseGridSize}
-                    height=${this.baseGridSize}
-                    role="img"
-                    aria-hidden="true"
-                  ></sbb-seat-reservation-graphic>
-                `
-              : nothing}
-          </sbb-seat-reservation-area>
-        </sbb-popover-trigger>
-        ${this._popover(triggerId, ariaLabelForArea)}
-      </sbb-seat-reservation-scoped>
+      ${this._popover(triggerId, ariaLabelForArea)}
     `;
   }
 
@@ -546,28 +513,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           .rotation=${elementFixedRotation}
           role="img"
           aria-hidden="true"
-          title=${titleDescription ?? nothing}
+          id="${triggerId}"
         ></sbb-seat-reservation-graphic>
-        <sbb-seat-reservation-scoped
-          scoped-classes="graphical-element"
-          inset-block-start="${calculatedcCmpartmentNumberPosition.y}px"
-          inset-inline-start="${calculatedcCmpartmentNumberPosition.x}px"
-          width="${calculatedcCmpartmentNumberDimension.w}px"
-          height="${calculatedcCmpartmentNumberDimension.h}px"
-          z-index="${serviceElement.position.z}"
-        >
-          <sbb-popover-trigger id="${triggerId}">
-            <sbb-seat-reservation-graphic
-              name=${serviceElement.icon ?? nothing}
-              width=${serviceElement.dimension.w * this.baseGridSize}
-              height=${serviceElement.dimension.h * this.baseGridSize}
-              .rotation=${elementFixedRotation}
-              role="img"
-              aria-hidden="true"
-            ></sbb-seat-reservation-graphic>
-          </sbb-popover-trigger>
-          ${this._popover(triggerId, titleDescription)}
-        </sbb-seat-reservation-scoped>
+        ${this._popover(triggerId, titleDescription)}
       `;
     });
   }

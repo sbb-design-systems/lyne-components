@@ -54,3 +54,8 @@
   border-block-end: none;
   border-radius: 0;
 }
+
+// hover state with pointer cursor for service icons and popover
+:host(:hover) {
+  cursor: pointer;
+}

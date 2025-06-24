@@ -50,6 +50,13 @@
   rotate: calc(var(--sbb-reservation-graphic-rotation) * 1deg);
 }
 
+// hover state with pointer cursor for service icons and popover
+.sbb-sr-icon {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .sbb-sr-icon {
   // override color directly set in the SVG file coming from CDN
   color: var(--sbb-color-granite);
