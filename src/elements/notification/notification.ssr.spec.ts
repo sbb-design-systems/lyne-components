@@ -14,10 +14,7 @@ describe(`sbb-notification ssr`, () => {
     root = await ssrHydratedFixture(
       html`
         <sbb-notification id="notification">
-          <p>
-            The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-            dog.
-          </p>
+          The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,

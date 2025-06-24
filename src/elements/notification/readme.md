@@ -15,12 +15,10 @@ The `sbb-notification` is structured in the following way:
 ```html
 <sbb-notification>
   <sbb-title level="3">Notification title</sbb-title>
-  <p>
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-    <sbb-link href="/">Link one</sbb-link>
-    <sbb-link href="/">Link two</sbb-link>
-    <sbb-link href="/">Link three</sbb-link>
-  </p>
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+  <sbb-link href="/">Link one</sbb-link>
+  <sbb-link href="/">Link two</sbb-link>
+  <sbb-link href="/">Link three</sbb-link>
 </sbb-notification>
 ```
 
@@ -70,7 +68,7 @@ This ensures that users who rely on screen readers are promptly informed of any 
 ```html
 <!-- Add here any incoming notification by adding a sbb-notification component. -->
 <div id="notification-container" aria-live="polite">
-  <sbb-notification type="success"><p>Task successfully completed.</p></sbb-notification>
+  <sbb-notification type="success">Task successfully completed.</sbb-notification>
 </div>
 ```
 
@@ -113,6 +111,7 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Slots
 
-| Name | Description                                                                                                                                 |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the `sbb-notification`. Content should consist of a `p` element and an optional `sbb-title` element. |
+| Name    | Description                                                                                                                             |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-notification`. Content should consist an optional `sbb-title` element and text content. |
+| `title` | Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.                                             |

@@ -48,10 +48,7 @@ describe(`sbb-notification`, () => {
       element = await fixture(html`
         <sbb-notification id="notification">
           <sbb-title level="3">Title</sbb-title>
-          <p>
-            The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-            dog.
-          </p>
+          The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `);
@@ -110,10 +107,7 @@ describe(`sbb-notification`, () => {
       });
       element = await fixture(html`
         <sbb-notification id="notification" style="--sbb-notification-animation-duration: 1ms">
-          <p>
-            The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-            dog.
-          </p>
+          The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `);

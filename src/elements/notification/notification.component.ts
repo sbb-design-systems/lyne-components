@@ -35,7 +35,8 @@ const DEBOUNCE_TIME = 150;
 /**
  * It displays messages which require a user's attention without interrupting its tasks.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of a `p` element and an optional `sbb-title` element.
+ * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist an optional `sbb-title` element and text content.
+ * @slot title - Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.
  * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
@@ -220,6 +221,14 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
     setTimeout(() => this.remove());
   }
 
+  private _handleSlotChange(): void {
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+
+    if (title) {
+      title.slot = 'title';
+    }
+  }
+
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
 
@@ -238,7 +247,10 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
             name=${notificationTypes.get(this.type)!}
           ></sbb-icon>
           <span class="sbb-notification__content">
-            <slot @slotchange=${this._configureTitle}></slot>
+            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <p class="sbb-notification__text">
+              <slot @slotchange=${this._handleSlotChange}></slot>
+            </p>
           </span>
 
           ${!this.readOnly

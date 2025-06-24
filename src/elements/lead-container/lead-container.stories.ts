@@ -53,11 +53,9 @@ const content = (): TemplateResult => html`
     risus.
   </p>
   <sbb-notification type="info" class="sbb-lead-container-spacing">
-    <p>
-      Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
-      augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
-      lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
-    </p>
+    Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at
+    augue quis tellus vulputate tempor. Vivamus urna velit, varius nec est ac, mollis efficitur
+    lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat metus.
   </sbb-notification>
   <p class="sbb-text-m other-content">
     Other content. Vestibulum rutrum elit et lacus sollicitudin, quis malesuada lorem vehicula.

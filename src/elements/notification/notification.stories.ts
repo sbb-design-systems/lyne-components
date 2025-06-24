@@ -69,7 +69,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.readOnly = args['readonly'];
   newNotification.animation = args['animation'];
   newNotification.innerHTML =
-    '<p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>';
+    'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
 
   newNotification.prepend(title);
   (event.target as SbbSecondaryButtonElement).parentElement
@@ -94,7 +94,7 @@ const simpleNotification = (type: string, title: string): TemplateResult => html
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
     <sbb-title level="3">${title}</sbb-title>
-    <p>This is a ${type} notification.</p>
+    This is a ${type} notification.
   </sbb-notification>
 `;
 
@@ -113,12 +113,10 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
     <sbb-title level="3">This is a title</sbb-title>
-    <p>
-      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-      <sbb-link href="/"> Link one</sbb-link>
-      <sbb-link href="/"> Link two</sbb-link>
-      <sbb-link href="/"> Link three</sbb-link>
-    </p>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    <sbb-link href="/"> Link one</sbb-link>
+    <sbb-link href="/"> Link two</sbb-link>
+    <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
 `;
 
@@ -128,12 +126,10 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
     <sbb-title level="3">This is a title</sbb-title>
-    <p>
-      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-      <sbb-link href="/"> Link one</sbb-link>
-      <sbb-link href="/"> Link two</sbb-link>
-      <sbb-link href="/"> Link three</sbb-link>
-    </p>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    <sbb-link href="/"> Link one</sbb-link>
+    <sbb-link href="/"> Link two</sbb-link>
+    <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
 
   ${simpleNotification('success', 'Success')} ${simpleNotification('warn', 'Warn')}

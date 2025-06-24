@@ -27,13 +27,11 @@ describe(`sbb-notification`, () => {
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     >
-      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing}
-      <p>
-        The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-        <sbb-link href="/">Link one</sbb-link>
-        <sbb-link href="/">Link two</sbb-link>
-        <sbb-link href="/">Link three</sbb-link>
-      </p>
+      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing} The quick brown fox jumps over the
+      lazy dog. The quick brown fox jumps over the lazy dog.
+      <sbb-link href="/">Link one</sbb-link>
+      <sbb-link href="/">Link two</sbb-link>
+      <sbb-link href="/">Link three</sbb-link>
     </sbb-notification>
   `;
 

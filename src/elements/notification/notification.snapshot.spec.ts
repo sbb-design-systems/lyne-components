@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbNotificationElement } from './notification.component.js';
+
 import './notification.component.js';
 import '../title.js';
 
@@ -13,9 +14,7 @@ describe(`sbb-notification`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-notification>
-          <p>The quick brown fox jumps over the lazy dog.</p>
-        </sbb-notification>`,
+        html`<sbb-notification>The quick brown fox jumps over the lazy dog.</sbb-notification>`,
       );
     });
 
@@ -35,7 +34,7 @@ describe(`sbb-notification`, () => {
       element = await fixture(
         html`<sbb-notification>
           <sbb-title level="3">Title</sbb-title>
-          <p>The quick brown fox jumps over the lazy dog.</p>
+          The quick brown fox jumps over the lazy dog.
         </sbb-notification>`,
       );
     });
@@ -56,7 +55,7 @@ describe(`sbb-notification`, () => {
       element = await fixture(
         html`<sbb-notification readonly>
           <sbb-title level="3">Title</sbb-title>
-          <p>The quick brown fox jumps over the lazy dog.</p>
+          The quick brown fox jumps over the lazy dog.
         </sbb-notification>`,
       );
     });
@@ -77,7 +76,7 @@ describe(`sbb-notification`, () => {
       element = await fixture(
         html`<sbb-notification size="s">
           <sbb-title level="3">Title</sbb-title>
-          <p>The quick brown fox jumps over the lazy dog.</p>
+          The quick brown fox jumps over the lazy dog.
         </sbb-notification>`,
       );
     });
@@ -94,7 +93,7 @@ describe(`sbb-notification`, () => {
   testA11yTreeSnapshot(
     html`<sbb-notification>
       <sbb-title level="3">Test title</sbb-title>
-      <p>Lorem ipsum ...</p>
+      Lorem ipsum...
     </sbb-notification>`,
   );
 });

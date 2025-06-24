@@ -8,9 +8,7 @@ snapshots["sbb-notification renders DOM"] =
   size="m"
   type="info"
 >
-  <p>
-    The quick brown fox jumps over the lazy dog.
-  </p>
+  The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders DOM */
@@ -25,8 +23,12 @@ snapshots["sbb-notification renders Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <slot>
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
@@ -60,13 +62,12 @@ snapshots["sbb-notification renders with a title DOM"] =
 >
   <sbb-title
     level="3"
+    slot="title"
     visual-level="5"
   >
     Title
   </sbb-title>
-  <p>
-    The quick brown fox jumps over the lazy dog.
-  </p>
+  The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders with a title DOM */
@@ -81,8 +82,12 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <slot>
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
@@ -177,13 +182,12 @@ snapshots["sbb-notification renders without the close button DOM"] =
 >
   <sbb-title
     level="3"
+    slot="title"
     visual-level="5"
   >
     Title
   </sbb-title>
-  <p>
-    The quick brown fox jumps over the lazy dog.
-  </p>
+  The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders without the close button DOM */
@@ -198,8 +202,12 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <slot>
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
   </div>
 </div>
@@ -215,13 +223,12 @@ snapshots["sbb-notification renders size s DOM"] =
 >
   <sbb-title
     level="3"
+    slot="title"
     visual-level="6"
   >
     Title
   </sbb-title>
-  <p>
-    The quick brown fox jumps over the lazy dog.
-  </p>
+  The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
 /* end snapshot sbb-notification renders size s DOM */
@@ -236,8 +243,12 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
     >
     </sbb-icon>
     <span class="sbb-notification__content">
-      <slot>
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
@@ -275,7 +286,7 @@ snapshots["sbb-notification A11y tree Chrome"] =
     },
     {
       "role": "text",
-      "name": "Lorem ipsum ..."
+      "name": "Lorem ipsum..."
     },
     {
       "role": "button",
@@ -300,7 +311,7 @@ snapshots["sbb-notification A11y tree Firefox"] =
     },
     {
       "role": "text leaf",
-      "name": "Lorem ipsum ..."
+      "name": "Lorem ipsum... "
     },
     {
       "role": "button",
