@@ -36,7 +36,7 @@ const DEBOUNCE_TIME = 150;
  * It displays messages which require a user's attention without interrupting its tasks.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content.
- * @slot title - Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.

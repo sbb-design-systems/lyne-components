@@ -21,7 +21,7 @@ import '../../divider.js';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and some text should be used.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
- * @slot title - Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
  * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.

@@ -556,6 +556,6 @@ sbb-notification:has(sbb-title) {
 sbb-status:has(sbb-title) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-text-color-override: var(--sbb-color-granite);
-  --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
-  --_sbb-status-icon-line-height: var(--sbb-typo-line-height-titles);
+  --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
+  --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
 }

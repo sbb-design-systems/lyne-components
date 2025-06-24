@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-status renders DOM"] = 
 `<sbb-status type="info">
-  <p>
-    Status info text
-  </p>
+  Status info text
 </sbb-status>
 `;
 /* end snapshot sbb-status renders DOM */
@@ -22,8 +20,12 @@ snapshots["sbb-status renders Shadow DOM"] =
     </slot>
   </span>
   <span class="sbb-status__content">
-    <slot>
+    <slot name="title">
     </slot>
+    <p class="sbb-status__content-slot">
+      <slot>
+      </slot>
+    </p>
   </span>
 </div>
 `;
@@ -33,13 +35,12 @@ snapshots["sbb-status renders with title DOM"] =
 `<sbb-status type="info">
   <sbb-title
     level="3"
+    slot="title"
     visual-level="5"
   >
     Title
   </sbb-title>
-  <p>
-    Status info text
-  </p>
+  Status info text
 </sbb-status>
 `;
 /* end snapshot sbb-status renders with title DOM */
@@ -56,8 +57,12 @@ snapshots["sbb-status renders with title Shadow DOM"] =
     </slot>
   </span>
   <span class="sbb-status__content">
-    <slot>
+    <slot name="title">
     </slot>
+    <p class="sbb-status__content-slot">
+      <slot>
+      </slot>
+    </p>
   </span>
 </div>
 `;
@@ -129,7 +134,7 @@ snapshots["sbb-status renders with title A11y tree Firefox"] =
     },
     {
       "role": "text leaf",
-      "name": "Status info text"
+      "name": "Status info text "
     }
   ]
 }

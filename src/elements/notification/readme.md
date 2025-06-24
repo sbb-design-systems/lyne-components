@@ -114,4 +114,4 @@ As a base rule, opening animations should be active if a notification arrives af
 | Name    | Description                                                                                                                                |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 |         | Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content. |
-| `title` | Slot for the sbb-title. Doesn't need to be set by consumer as it is automatically assigned.                                                |
+| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.             |

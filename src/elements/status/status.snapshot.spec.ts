@@ -13,7 +13,7 @@ describe(`sbb-status`, () => {
 
   describe('renders', () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-status type="info"><p>Status info text</p></sbb-status>`);
+      element = await fixture(html`<sbb-status type="info">Status info text</sbb-status>`);
     });
 
     it('DOM', async () => {
@@ -32,7 +32,7 @@ describe(`sbb-status`, () => {
       element = await fixture(
         html`<sbb-status type="info">
           <sbb-title level="3">Title</sbb-title>
-          <p>Status info text</p>
+          Status info text
         </sbb-status>`,
       );
     });

@@ -60,15 +60,14 @@ const defaultArgs: Args = {
 
 const Template = ({ text, titleText, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}>
-    ${titleText ? html`<sbb-title level="3">${titleText}</sbb-title>` : nothing}
-    <p>${text}</p>
+    ${titleText ? html`<sbb-title level="3">${titleText}</sbb-title>` : nothing} ${text}
   </sbb-status>
 `;
 
 const TemplateIconSlot = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}>
     <sbb-icon name=${iconName} slot="icon"></sbb-icon>
-    <p>${text}</p>
+    ${text}
   </sbb-status>
 `;
 

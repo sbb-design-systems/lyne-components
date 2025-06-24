@@ -20,8 +20,9 @@ export type SbbStatusType =
 /**
  * Displays a message to the user's attention.
  *
- * @slot - Use the unnamed slot to add an optional `sbb-title` and content (wrapped in a `<p>` element to the status message.
+ * @slot - Use the unnamed slot to add an optional `sbb-title` and content to the status message.
  * @slot icon - Use this slot to override the default status icon.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @cssprop [--sbb-status-color=var(--sbb-color-iron)] - Specify a custom color,
  * which will override the predefined color for any type.
  * @cssprop [--sbb-status-text-color=var(--sbb-status-color)] - Specify a custom text color,
@@ -46,6 +47,14 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   /** The type of the status. */
   @property({ reflect: true }) public accessor type: SbbStatusType = 'info';
 
+  private _handleSlotchange(): void {
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+
+    if (title) {
+      title.slot = 'title';
+    }
+  }
+
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
@@ -67,7 +76,10 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
       <div class="sbb-status">
         <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
         <span class="sbb-status__content">
-          <slot @slotchange=${this._configureTitle}></slot>
+          <slot name="title" @slotchange=${this._configureTitle}></slot>
+          <p class="sbb-status__content-slot" @slotchange=${this._handleSlotchange}>
+            <slot></slot>
+          </p>
         </span>
       </div>
     `;
