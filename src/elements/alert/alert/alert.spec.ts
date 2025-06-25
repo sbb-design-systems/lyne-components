@@ -56,15 +56,19 @@ describe(`sbb-alert`, () => {
       </sbb-alert>`,
     );
 
+    openSpy = new EventSpy(SbbAlertElement.events.open, alert, { capture: true });
+    closeSpy = new EventSpy(SbbAlertElement.events.close, alert, { capture: true });
+
     await openSpy.calledOnce();
 
+    await aTimeout(10);
     alert.close();
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
   });
 
-  it('should respect canceled willClose event', async () => {
+  it('should respect canceled beforeclose event', async () => {
     alert.addEventListener(SbbAlertElement.events.beforeclose, (ev) => ev.preventDefault());
 
     await openSpy.calledOnce();

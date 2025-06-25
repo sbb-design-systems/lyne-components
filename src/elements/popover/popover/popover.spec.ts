@@ -36,8 +36,8 @@ describe(`sbb-popover`, () => {
       `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
-      openSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
-      closeSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
     });
 
     it('renders', () => {
