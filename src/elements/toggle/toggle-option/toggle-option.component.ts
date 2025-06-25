@@ -81,7 +81,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this.setAttribute('aria-checked', `${this.checked}`);
+      this.internals.ariaChecked = `${this.checked}`;
       this._verifyTabindex();
       if (this.checked) {
         this._uncheckOtherOptions();

@@ -1,5 +1,4 @@
-@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as
-  sbb-css-tokens;
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens;
 @use './core/mediaqueries';
 @use './core/functions';
 @use './mixins/a11y';
@@ -541,4 +540,21 @@ sbb-dialog-actions {
   sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
     @include shadows.shadow-level-9-soft-negative;
   }
+}
+
+sbb-notification:has(sbb-title) {
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-titles);
+
+  &[size='s'] {
+    --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
+    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+  }
+}
+
+sbb-status:has(sbb-title) {
+  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
+  --_sbb-status-text-color-override: var(--sbb-color-granite);
+  --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
+  --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
 }

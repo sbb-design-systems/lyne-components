@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-sidebar-close-button renders DOM"] = 
 `<sbb-sidebar-close-button
-  aria-label="Close sidebar"
   data-action=""
   data-button=""
   data-sbb-button=""
@@ -20,10 +19,8 @@ snapshots["sbb-sidebar-close-button renders Shadow DOM"] =
 `<span class="sbb-action-base sbb-sidebar-close-button">
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="cross-small"
-      role="img"
     >
     </sbb-icon>
   </slot>

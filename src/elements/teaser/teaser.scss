@@ -82,6 +82,9 @@
 }
 
 .sbb-teaser__text {
+  @include sbb.text-s--regular;
+
+  color: var(--sbb-teaser-description-color);
   overflow: hidden;
   max-width: 100%;
 }
@@ -104,24 +107,19 @@
   }
 }
 
-.sbb-teaser__chip-label {
+.sbb-teaser__description {
+  // Reset paragraph styles
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+::slotted(sbb-chip-label) {
   display: block;
   max-width: fit-content;
   margin-block-end: var(--sbb-spacing-fixed-1x);
-
-  :host(:not([data-slot-names~='chip'], [chip-content])) & {
-    display: none;
-  }
 }
 
-.sbb-teaser__lead {
-  // Overwrite sbb-title default margin
-  margin: 0;
-}
-
-.sbb-teaser__description {
-  @include sbb.text-s--regular;
-
-  display: inline-block;
-  color: var(--sbb-teaser-description-color);
+::slotted(sbb-title) {
+  margin-block: 0;
 }

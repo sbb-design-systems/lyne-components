@@ -10,18 +10,16 @@ import type { SbbOverlayElement } from './overlay.component.js';
 describe(`sbb-overlay`, () => {
   const defaultArgs = {
     expanded: false,
-    backButton: false,
     negative: false,
     numberOfBlocks: 1,
   };
 
   const template = ({
     expanded,
-    backButton,
     negative,
     numberOfBlocks,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-overlay ?negative=${negative} ?expanded=${expanded} ?back-button=${backButton}>
+    <sbb-overlay ?negative=${negative} ?expanded=${expanded}>
       ${repeat(
         new Array(numberOfBlocks),
         () => html`
@@ -48,14 +46,6 @@ describe(`sbb-overlay`, () => {
         `negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative }));
-          openOverlay(setup);
-        }),
-      );
-
-      it(
-        `negative=${negative} backButton`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, backButton: true }));
           openOverlay(setup);
         }),
       );

@@ -30,46 +30,34 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip-label
-        class="sbb-teaser__chip-label"
-        color="charcoal"
-        size="xxs"
-      >
-        <slot name="chip">
-        </slot>
-      </sbb-chip-label>
-      <sbb-title
-        class="sbb-teaser__lead"
-        level="5"
-        visual-level="5"
-      >
-        <slot name="title">
-        </slot>
-      </sbb-title>
-      <span class="sbb-teaser__description">
+      <slot name="chip">
+      </slot>
+      <slot name="title">
+      </slot>
+      <p class="sbb-teaser__description">
         <slot>
         </slot>
-      </span>
+      </p>
     </span>
   </span>
 </div>
 `;
 /* end snapshot sbb-teaser renders after centered Shadow DOM */
 
-snapshots["sbb-teaser renders after with title level set DOM"] = 
+snapshots["renders after with title set DOM"] = 
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after"
   data-action=""
   data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
-  title-level="2"
 >
+  <sbb-title level="2">Title</sbb-title>
 </sbb-teaser>
 `;
 /* end snapshot sbb-teaser renders after with title level set DOM */
 
-snapshots["sbb-teaser renders after with title level set Shadow DOM"] = 
+snapshots["renders after with title set Shadow DOM"] = 
 `<div class="sbb-teaser__wrapper">
   <a
     aria-label="SBB teaser"
@@ -94,18 +82,8 @@ snapshots["sbb-teaser renders after with title level set Shadow DOM"] =
         <slot name="chip">
         </slot>
       </sbb-chip-label>
-      <sbb-title
-        class="sbb-teaser__lead"
-        level="2"
-        visual-level="5"
-      >
-        <slot name="title">
-        </slot>
-      </sbb-title>
-      <span class="sbb-teaser__description">
-        <slot>
-        </slot>
-      </span>
+      <slot>
+      </slot>
     </span>
   </span>
 </div>
@@ -118,7 +96,6 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
   alignment="below"
   data-action=""
   data-link=""
-  data-slot-names="chip image title unnamed"
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <figure
@@ -130,13 +107,21 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
       src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
     >
   </figure>
-  <span slot="chip">
+  <sbb-chip-label
+    color="charcoal"
+    size="xxs"
+    slot="chip"
+  >
     Chip
-  </span>
-  <span slot="title">
-    TITLE
-  </span>
-  description
+  </sbb-chip-label>
+  <sbb-title
+    level="2"
+    slot="title"
+    visual-level="5"
+  >
+    Title
+  </sbb-title>
+  A brief description.
 </sbb-teaser>
 `;
 /* end snapshot sbb-teaser renders below with projected content DOM */
@@ -158,26 +143,14 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-teaser__text">
-      <sbb-chip-label
-        class="sbb-teaser__chip-label"
-        color="charcoal"
-        size="xxs"
-      >
-        <slot name="chip">
-        </slot>
-      </sbb-chip-label>
-      <sbb-title
-        class="sbb-teaser__lead"
-        level="5"
-        visual-level="5"
-      >
-        <slot name="title">
-        </slot>
-      </sbb-title>
-      <span class="sbb-teaser__description">
+      <slot name="chip">
+      </slot>
+      <slot name="title">
+      </slot>
+      <p class="sbb-teaser__description">
         <slot>
         </slot>
-      </span>
+      </p>
     </span>
   </span>
 </div>
@@ -224,4 +197,54 @@ snapshots["sbb-teaser renders after centered A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-teaser renders after centered A11y tree Firefox */
+
+snapshots["sbb-teaser renders after with title set DOM"] = 
+`<sbb-teaser
+  accessibility-label="SBB teaser"
+  alignment="after"
+  data-action=""
+  data-link=""
+  href="https://github.com/sbb-design-systems/lyne-components"
+>
+  <sbb-title
+    level="2"
+    slot="title"
+    visual-level="5"
+  >
+    Title
+  </sbb-title>
+</sbb-teaser>
+`;
+/* end snapshot sbb-teaser renders after with title set DOM */
+
+snapshots["sbb-teaser renders after with title set Shadow DOM"] = 
+`<div class="sbb-teaser__wrapper">
+  <a
+    aria-label="SBB teaser"
+    class="sbb-action-base sbb-teaser"
+    href="https://github.com/sbb-design-systems/lyne-components"
+  >
+    <sbb-screen-reader-only>
+      SBB teaser
+    </sbb-screen-reader-only>
+  </a>
+  <span class="sbb-teaser__container">
+    <span class="sbb-teaser__image-wrapper">
+      <slot name="image">
+      </slot>
+    </span>
+    <span class="sbb-teaser__text">
+      <slot name="chip">
+      </slot>
+      <slot name="title">
+      </slot>
+      <p class="sbb-teaser__description">
+        <slot>
+        </slot>
+      </p>
+    </span>
+  </span>
+</div>
+`;
+/* end snapshot sbb-teaser renders after with title set Shadow DOM */
 

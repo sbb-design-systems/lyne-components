@@ -8,6 +8,7 @@ import { EventSpy, waitForLitRender } from '../core/testing.js';
 import { SbbNotificationElement } from './notification.component.js';
 
 import '../link/link.js';
+import '../title.js';
 
 describe(`sbb-notification`, () => {
   let element: SbbNotificationElement;
@@ -46,6 +47,7 @@ describe(`sbb-notification`, () => {
       });
       element = await fixture(html`
         <sbb-notification id="notification">
+          <sbb-title level="3">Title</sbb-title>
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
@@ -87,6 +89,14 @@ describe(`sbb-notification`, () => {
       await aTimeout(0);
       element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
       expect(element).to.be.null;
+    });
+
+    it('should sync title size', async () => {
+      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('5');
+      element.size = 's';
+      await waitForLitRender(element);
+
+      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('6');
     });
   });
 

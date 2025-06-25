@@ -6,7 +6,6 @@ import {
   SbbLanguageController,
   SbbMediaMatcherController,
 } from '../core/controllers.js';
-import { setOrRemoveAttribute } from '../core/dom.js';
 import { i18nOccupancy } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
@@ -56,10 +55,9 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
   }
 
   private _setAriaLabel(): void {
-    const label = (i18nOccupancy[this.occupancy] as Record<string, string>)?.[
+    this.internals.ariaLabel = (i18nOccupancy[this.occupancy] as Record<string, string>)?.[
       this._language.current
     ];
-    setOrRemoveAttribute(this, 'aria-label', label);
   }
 
   public override connectedCallback(): void {

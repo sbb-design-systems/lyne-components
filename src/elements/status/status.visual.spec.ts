@@ -7,6 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
+import '../title.js';
 import './status.component.js';
 
 describe(`sbb-status`, () => {
@@ -21,17 +22,17 @@ describe(`sbb-status`, () => {
       'not-started',
       'in-progress',
     ],
-    titleContent: [undefined, 'Title'],
+    title: [true, false],
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     let root: HTMLElement;
 
-    describeEach(cases, ({ type, titleContent }) => {
+    describeEach(cases, ({ type, title }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-status type=${type} title-content=${titleContent || nothing}>
-            Status text.
+          <sbb-status type=${type}>
+            ${title ? html`<sbb-title level="3">Title</sbb-title>` : nothing} Status text.
           </sbb-status>
         `);
       });
@@ -44,18 +45,14 @@ describe(`sbb-status`, () => {
       );
     });
 
-    for (const titleContent of [undefined, 'Title']) {
-      describe(`title=${titleContent}`, () => {
+    for (const title of cases.title) {
+      describe(`title=${title}`, () => {
         it(
           'custom icon',
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              <sbb-status
-                icon-name="face-smiling-small"
-                title-content=${titleContent || nothing}
-                type="success"
-              >
-                Status text.
+              <sbb-status icon-name="face-smiling-small" type="success">
+                ${title ? html`<sbb-title level="3">Title</sbb-title>` : nothing} Status text.
               </sbb-status>
             `);
           }),
@@ -65,7 +62,8 @@ describe(`sbb-status`, () => {
           'custom slotted icon',
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              <sbb-status title-content=${titleContent || nothing} type="success">
+              <sbb-status type="success">
+                ${title ? html`<sbb-title level="3">Title</sbb-title>` : nothing}
                 <sbb-icon slot="icon" name="face-smiling-small"></sbb-icon>
                 Status text.
               </sbb-status>
@@ -77,12 +75,15 @@ describe(`sbb-status`, () => {
           'long content',
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              <sbb-status
-                title-content=${titleContent
-                  ? 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor'
-                  : nothing || nothing}
-                type="success"
-              >
+              <sbb-status type="success">
+                ${title
+                  ? html`
+                      <sbb-title level="3">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                        eirmod tempor
+                      </sbb-title>
+                    `
+                  : nothing}
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
                 eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea

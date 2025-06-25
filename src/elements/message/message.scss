@@ -17,12 +17,7 @@
   text-align: center;
 }
 
-.sbb-message__title {
-  // Overwrite sbb-title default margin
-  margin: 0;
-}
-
-::slotted([slot='title']) {
+::slotted(sbb-title[slot='title']) {
   margin: 0;
 }
 

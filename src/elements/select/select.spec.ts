@@ -500,6 +500,26 @@ describe(`sbb-select`, () => {
       const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
       focusableElement.focus();
+
+      // Pressing 'Space' twice should not break nor selecting anything.
+      await sendKeys({ press: 'Space' });
+      await didOpen.calledOnce();
+      expect(didOpen.count).to.be.equal(1);
+      await sendKeys({ press: 'Space' });
+      expect(element.value).to.be.eql([]);
+      expect(displayValue).to.have.trimmed.text('Placeholder');
+      await sendKeys({ press: 'Escape' });
+      await didClose.calledOnce();
+      expect(didClose.count).to.be.equal(1);
+    });
+
+    it('handles keyboard selection in multiple', async () => {
+      element.toggleAttribute('multiple', true);
+      await waitForLitRender(element);
+
+      const didOpen = new EventSpy(SbbSelectElement.events.didOpen, element);
+      const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
+      focusableElement.focus();
       await sendKeys({ press: 'ArrowUp' });
       await didOpen.calledOnce();
       expect(didOpen.count).to.be.equal(1);
