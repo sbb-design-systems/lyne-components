@@ -252,7 +252,7 @@ describe(`sbb-select`, () => {
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).not.to.have.attribute('selected');
 
-      const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
+      const selectionChange = new EventSpy(SbbOptionElement.events.optionSelectionChange);
       const optionSelected = new EventSpy(SbbOptionElement.events.optionSelected);
       const willClose = new EventSpy(SbbSelectElement.events.willClose, element);
       const didClose = new EventSpy(SbbSelectElement.events.didClose, element);
@@ -313,7 +313,7 @@ describe(`sbb-select`, () => {
       expect(secondOption).not.to.have.attribute('data-active');
       expect(secondOption).not.to.have.attribute('selected');
 
-      const selectionChange = new EventSpy(SbbOptionElement.events.selectionChange);
+      const selectionChange = new EventSpy(SbbOptionElement.events.optionSelectionChange);
       firstOption.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
       expect(selectionChange.count).to.be.equal(1);
