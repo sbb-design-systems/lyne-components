@@ -9,7 +9,7 @@ const defaultOptions: EventInit = {
  * element with the specified event name.
  * Event options default to bubbles, cancelable and composed set to true.
  */
-export class EventEmitter<T = any> {
+export class EventEmitter<T> {
   public constructor(
     private _element: HTMLElement,
     private _eventName: string,
@@ -29,7 +29,9 @@ export class EventEmitter<T = any> {
   public emit(detail?: T): boolean {
     return (
       this._element.dispatchEvent?.(
-        new CustomEvent(this._eventName, { ...this._options, detail }),
+        detail
+          ? new CustomEvent(this._eventName, { ...this._options, detail })
+          : new Event(this._eventName),
       ) ?? true
     );
   }
