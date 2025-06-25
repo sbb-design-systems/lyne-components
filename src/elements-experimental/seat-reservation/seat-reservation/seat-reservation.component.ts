@@ -364,13 +364,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     rotation: number,
     coachDimension: ElementDimension,
   ): TemplateResult {
-    // TODO -> isNotTableGraphicTempFix is temp fix to show coach tables as area and not as svg graphic.
-    // The problem here is that when using TABLE svg graphics,
-    // they are displayed distorted due to different heights and widths and this is not visually good.
-    const isNotTableGraphicTempFix = graphicalElement.icon?.indexOf('TABLE') === -1;
+    // for TABLE, we use the area component itself to display the table instead of the SVG graphic.
+    // Due to different heights and widths, it would'nt show correctly. To correct this, we would
+    // need difficult calculations for position, rotation and dimension.
+    const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
 
-    const areaProperty =
-      graphicalElement.icon && isNotTableGraphicTempFix ? graphicalElement.icon : null;
+    const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
     const stretchHeight = areaProperty !== 'ENTRY_EXIT';
     const ariaLabelForArea = graphicalElement.icon
       ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
