@@ -8,6 +8,8 @@ import style from './dialog-title.scss?lit&inline';
 
 /**
  * It displays a title inside a dialog header.
+ *
+ * @slot - Use the unnamed slot for the content of the dialog-title.
  */
 export
 @customElement('sbb-dialog-title')

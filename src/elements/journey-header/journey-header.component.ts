@@ -1,5 +1,5 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
@@ -7,17 +7,19 @@ import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
-import type { SbbTitleLevel } from '../title.js';
+import { SbbTitleBase, type SbbTitleLevel } from '../title.js';
 
 import style from './journey-header.scss?lit&inline';
 
 import '../icon.js';
 import '../screen-reader-only.js';
-import '../title.js';
 
 export type JourneyHeaderSize = 's' | 'm' | 'l';
 
-const sizeToLevel: Map<JourneyHeaderSize, string> = new Map<JourneyHeaderSize, string>([
+const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
+  JourneyHeaderSize,
+  SbbTitleLevel
+>([
   ['s', '6'],
   ['m', '5'],
   ['l', '4'],
@@ -28,8 +30,8 @@ const sizeToLevel: Map<JourneyHeaderSize, string> = new Map<JourneyHeaderSize, s
  */
 export
 @customElement('sbb-journey-header')
-class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   /** Origin location for the journey header. */
   @forceType()
@@ -46,9 +48,6 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   @property({ attribute: 'round-trip', type: Boolean })
   public accessor roundTrip: boolean = false;
 
-  /** Heading level of the journey header element (e.g. h1-h6). */
-  @property() public accessor level: SbbTitleLevel = '3';
-
   /**
    * Journey header size, either s, m or l.
    * @default 'm' / 's' (lean)
@@ -57,23 +56,32 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
 
   private _language = new SbbLanguageController(this);
 
+  public constructor() {
+    super();
+
+    this.level = '3';
+    this.visualLevel = sizeToLevel.get(this.size) ?? null;
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this.visualLevel = sizeToLevel.get(this.size) ?? null;
+    }
+  }
+
   protected override render(): TemplateResult {
     const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';
     const a11yString = `${i18nConnectionFrom[this._language.current]} ${this.origin} ${i18nConnectionTo[this._language.current]} ${this.destination} ${this.roundTrip ? i18nConnectionRoundtrip(this.origin)[this._language.current] : ''}`;
 
     return html`
-      <sbb-title
-        level=${this.level || nothing}
-        ?negative=${this.negative}
-        visual-level=${sizeToLevel.get(this.size)!}
-      >
-        <span class="sbb-journey-header" aria-hidden="true">
-          <span class="sbb-journey-header__origin">${this.origin}</span>
-          <sbb-icon name=${iconName}></sbb-icon>
-          <span class="sbb-journey-header__destination">${this.destination}</span>
-        </span>
-        <sbb-screen-reader-only>${a11yString}</sbb-screen-reader-only>
-      </sbb-title>
+      <span class="sbb-journey-header" aria-hidden="true">
+        <span class="sbb-journey-header__origin">${this.origin}</span>
+        <sbb-icon name=${iconName}></sbb-icon>
+        <span class="sbb-journey-header__destination">${this.destination}</span>
+      </span>
+      <sbb-screen-reader-only>${a11yString}</sbb-screen-reader-only>
     `;
   }
 }
