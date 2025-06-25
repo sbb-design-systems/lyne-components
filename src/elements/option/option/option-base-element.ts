@@ -4,7 +4,6 @@ import { property, state } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
@@ -73,12 +72,6 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     return this.hasAttribute('selected');
   }
 
-  /** Emits when an option was selected by user. */
-  private _optionSelectedEmitter = new EventEmitter<void>(
-    this,
-    SbbOptionBaseElement.events.optionselected,
-  );
-
   /** Whether to apply the negative styling */
   @state() protected accessor negative = false;
 
@@ -139,7 +132,8 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
     if (this.selected) {
-      this._optionSelectedEmitter.emit();
+      /** Emits when an option was selected by user. */
+      this.dispatchEvent(new Event('optionselected', { bubbles: true, composed: true }));
     }
   }
 

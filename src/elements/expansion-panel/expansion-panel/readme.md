@@ -97,12 +97,12 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 
 ## Events
 
-| Name          | Type                | Description                                                             | Inherited From |
-| ------------- | ------------------- | ----------------------------------------------------------------------- | -------------- |
-| `beforeclose` | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` begins the closing transition. |                |
-| `beforeopen`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
-| `close`       | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
-| `open`        | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
+| Name          | Type    | Description                                                             | Inherited From |
+| ------------- | ------- | ----------------------------------------------------------------------- | -------------- |
+| `beforeclose` | `Event` | Emits whenever the `sbb-expansion-panel` begins the closing transition. |                |
+| `beforeopen`  | `Event` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
+| `close`       | `Event` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
+| `open`        | `Event` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
 
 ## Slots
 

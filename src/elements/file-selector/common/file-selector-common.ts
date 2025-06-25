@@ -9,7 +9,7 @@ import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter, forwardEvent } from '../../core/eventing.js';
+import { forwardEvent } from '../../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorCurrentlySelected,
@@ -122,12 +122,6 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       return 'file';
     }
 
-    /** An event which is emitted each time the file list changes. */
-    private _fileChangedEventEmitter: EventEmitter<Readonly<File>[]> = new EventEmitter(
-      this,
-      SbbFileSelectorCommonElement.events.filechanged,
-    );
-
     private _hiddenInput!: HTMLInputElement;
     private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
     private _liveRegion!: HTMLParagraphElement;
@@ -197,7 +191,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
           .concat(this.files);
       }
       this._updateA11yLiveRegion();
-      this._fileChangedEventEmitter.emit(this.files);
+      this._dispatchFileChangedEvent();
     }
 
     private _removeFile(file: Readonly<File>): void {
@@ -205,9 +199,35 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       this._updateA11yLiveRegion();
 
       // Dispatch native events as if the reset is done via the file selection window.
-      this.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
+      /** The input event fires when the value has been changed as a direct result of a user action. */
+      this.dispatchEvent(
+        new InputEvent('input', {
+          bubbles: true,
+          composed: true,
+        }),
+      );
+
+      /**
+       * The change event is fired when the user modifies the element's value.
+       * Unlike the input event, the change event is not necessarily fired
+       * for each alteration to an element's value.
+       */
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this._fileChangedEventEmitter.emit(this.files);
+      this._dispatchFileChangedEvent();
+    }
+
+    private _dispatchFileChangedEvent(): void {
+      /**
+       * @type {CustomEvent<Readonly<File>[]>}
+       * An event which is emitted each time the file list changes.
+       */
+      this.dispatchEvent(
+        new CustomEvent('filechanged', {
+          bubbles: true,
+          composed: true,
+          detail: this.files,
+        }),
+      );
     }
 
     /** Calculates the correct unit for the file's size. */

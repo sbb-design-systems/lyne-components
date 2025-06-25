@@ -8,7 +8,6 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { EventEmitter } from '../../core/eventing.js';
 import {
   appendAriaElements,
   removeAriaElements,
@@ -32,7 +31,6 @@ export type SbbStepValidateEventDetails = {
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
  * @slot - Use the unnamed slot to provide content.
- * @event {CustomEvent<SbbStepValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
  */
 export
 @customElement('sbb-step')
@@ -43,22 +41,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     validate: 'validate',
     resizechange: 'resizechange',
   } as const;
-
-  /** Emits whenever step switch is triggered. */
-  private _validateEmitter: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
-    this,
-    SbbStepElement.events.validate,
-  );
-
-  /**
-   * @internal
-   * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
-   */
-  private _resizeChangeEmitter: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbStepElement.events.resizechange,
-    { bubbles: true },
-  );
 
   private _stepper: SbbStepperElement | null = null;
 
@@ -112,7 +94,18 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    * @internal
    */
   public validate(eventData: SbbStepValidateEventDetails): boolean {
-    return !!this._validateEmitter.emit(eventData);
+    /**
+     * @type {CustomEvent<SbbStepValidateEventDetails>}
+     * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
+     */
+    return this.dispatchEvent(
+      new CustomEvent<SbbStepValidateEventDetails>('validate', {
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+        detail: eventData,
+      }),
+    );
   }
 
   /**
@@ -149,7 +142,12 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.hasAttribute('data-selected')) {
       return;
     }
-    this._resizeChangeEmitter.emit();
+
+    /**
+     * @internal
+     * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
+     */
+    this.dispatchEvent(new Event('resizechange', { bubbles: true }));
   }
 
   public override connectedCallback(): void {

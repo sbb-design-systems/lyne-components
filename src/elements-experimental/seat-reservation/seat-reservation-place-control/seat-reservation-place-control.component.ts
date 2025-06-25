@@ -1,7 +1,6 @@
 import { SbbButtonBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -14,8 +13,6 @@ import style from './seat-reservation-place-control.scss?lit&inline';
 
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
- *
- * @event {CustomEvent<PlaceSelection>} selectPlace - Emits when a place was selected and returns a PlaceSelection object with necessary place information
  */
 export
 @customElement('sbb-seat-reservation-place-control')
@@ -78,12 +75,6 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @forceType()
   @property({ attribute: 'keyfocus' })
   public accessor keyfocus: string = 'unfocus';
-
-  /** Emits when a place was selected by user. */
-  protected placeSelected: EventEmitter<PlaceSelection> = new EventEmitter(
-    this,
-    SbbSeatReservationPlaceControlElement.events.selectPlace,
-  );
 
   private _language = new SbbLanguageController(this);
 
@@ -187,7 +178,19 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
         number: this.text,
         state: this.state,
       };
-      this.placeSelected.emit(placeSelection);
+
+      /**
+       * @type {CustomEvent<PlaceSelection>}
+       * Emits when a place was selected via user interaction and returns a
+       * PlaceSelection object with necessary place information.
+       */
+      this.dispatchEvent(
+        new CustomEvent('selectPlace', {
+          detail: placeSelection,
+          bubbles: true,
+          composed: true,
+        }),
+      );
     }
   }
 }

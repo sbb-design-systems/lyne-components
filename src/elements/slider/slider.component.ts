@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { EventEmitter, forwardEvent } from '../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -23,7 +22,7 @@ import '../icon.js';
  *
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - string | null
  */
 export
@@ -123,14 +122,6 @@ class SbbSliderElement extends SbbDisabledMixin(
     return 'range';
   }
 
-  /**
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbSliderElement.events.didChange, {
-    bubbles: true,
-    cancelable: true,
-  });
-
   /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
@@ -227,9 +218,19 @@ class SbbSliderElement extends SbbDisabledMixin(
   }
 
   /** Emits the change event. */
-  private _emitChange(event: Event): void {
-    forwardEvent(event, this);
-    this._didChange.emit();
+  private _dispatchChangeEvent(): void {
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+
+    /**
+     * Mirrors change event.
+     * @deprecated only used for React. Will probably be removed once React 19 is available.
+     */
+    this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
   protected override render(): TemplateResult {
@@ -248,7 +249,7 @@ class SbbSliderElement extends SbbDisabledMixin(
               value=${this.value || nothing}
               class="sbb-slider__range-input"
               type="range"
-              @change=${(event: Event) => this._emitChange(event)}
+              @change=${() => this._dispatchChangeEvent()}
               @input=${() => (this.value = this._rangeInput.value)}
               ${ref((input?: Element) => (this._rangeInput = input as HTMLInputElement))}
             />

@@ -10,7 +10,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -66,19 +65,6 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
   private _language = new SbbLanguageController(this);
 
   /**
-   * @internal
-   * Emits whenever the train slot changes.
-   */
-  private _trainSlotChangeEmitter: EventEmitter = new EventEmitter(
-    this,
-    SbbTrainElement.events.trainslotchange,
-    {
-      bubbles: true,
-      cancelable: true,
-    },
-  );
-
-  /**
    * Create the aria-label text out of the direction label, station and the accessibility label.
    */
   private _getDirectionAriaLabel(): string {
@@ -99,7 +85,8 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('listChildren')) {
-      this._trainSlotChangeEmitter.emit();
+      /** @internal */
+      this.dispatchEvent(new Event('trainslotchange', { bubbles: true }));
     }
   }
 

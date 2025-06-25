@@ -28,9 +28,6 @@ import './seat-reservation-scoped.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
- *
- * @event {CustomEvent<SeatReservationSelectedPlacesEventDetails>} selectedPlaces - Emits when a place was selected and returns a Place array with all selected places
- * @event {CustomEvent<SeatReservationCoachSelection>} selectedCoach - Emits when a coach was selected and returns a CoachSelection
  */
 export
 @customElement('sbb-seat-reservation')

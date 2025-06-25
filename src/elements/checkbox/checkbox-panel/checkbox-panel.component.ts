@@ -50,12 +50,6 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
 
-  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
-  public static readonly events = {
-    statechange: 'statechange',
-    panelconnected: 'panelconnected',
-  } as const;
-
   /** Value of the form element. */
   @property()
   public accessor value: T | null = null;
