@@ -51,6 +51,10 @@ Users can choose between three `size`: `s`, `m` (default) and `l`.
 
 Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
 
+The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
+
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
+
 ## Animation
 
 Set the `animation` property to manage which animations are enabled.

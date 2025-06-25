@@ -14,7 +14,7 @@ Simple teaser example:
 ## Slots
 
 The default slot is reserved for the description and,
-optionally, a [sbb-title](/docs/elements-sbb-title--docs) and a [sbb-chip-label](/docs/elements-sbb-chip-label--docs).
+optionally, an [sbb-title](/docs/elements-sbb-title--docs) and an [sbb-chip-label](/docs/elements-sbb-chip-label--docs).
 The component displays the `image` with the self-named slot.
 
 Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.

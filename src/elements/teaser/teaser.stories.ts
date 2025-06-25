@@ -18,7 +18,7 @@ const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing el
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
 rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
 
-const titleContent: InputType = {
+const title: InputType = {
   control: {
     type: 'text',
   },
@@ -69,7 +69,7 @@ const accessibilityLabel: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  titleContent,
+  title,
   chipContent,
   alignment,
   href,
@@ -78,7 +78,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  titleContent: 'This is a title',
+  title: 'This is a title',
   chipContent: undefined,
   alignment: 'after-centered',
   href: href.options![1],
@@ -89,7 +89,7 @@ const defaultArgs: Args = {
 
 const TemplateDefault = ({
   description,
-  titleContent,
+  title,
   chipContent,
   ...remainingArgs
 }: Args): TemplateResult => {
@@ -102,9 +102,7 @@ const TemplateDefault = ({
       ${chipContent && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
-      ${titleContent && titleContent !== ''
-        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
-        : nothing}
+      ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
   `;
@@ -112,19 +110,17 @@ const TemplateDefault = ({
 
 const TemplateDefaultFixedWidth = ({
   description,
-  titleContent,
+  title,
   chipContent,
   ...remainingArgs
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
       <img src=${placeholderImage} alt="400x300" slot="image" />
-      ${chipContent && chipContent !== ''
+      ${title && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
-      ${titleContent && titleContent !== ''
-        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
-        : nothing}
+      ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
   `;
@@ -132,7 +128,7 @@ const TemplateDefaultFixedWidth = ({
 
 const TemplateCustom = ({
   description,
-  titleContent,
+  title,
   chipContent,
   ...remainingArgs
 }: Args): TemplateResult => {
@@ -148,16 +144,14 @@ const TemplateCustom = ({
       ${chipContent && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
-      ${titleContent && titleContent !== ''
-        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
-        : nothing}
+      ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
   `;
 };
 
 const TemplateSlots = ({
-  titleContent,
+  title,
   chipContent,
   description,
   ...remainingArgs
@@ -168,9 +162,7 @@ const TemplateSlots = ({
       ${chipContent && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
-      ${titleContent && titleContent !== ''
-        ? html`<sbb-title level="2">${titleContent}</sbb-title>`
-        : nothing}
+      ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
   `;
@@ -260,7 +252,7 @@ export const BelowWithLongContentChip: StoryObj = {
 export const WithLongTextCentered: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, titleContent: loremIpsum, description: loremIpsum },
+  args: { ...defaultArgs, title: loremIpsum, description: loremIpsum },
 };
 
 export const WithLongTextAfter: StoryObj = {
@@ -268,7 +260,7 @@ export const WithLongTextAfter: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    titleContent: loremIpsum,
+    title: loremIpsum,
     description: loremIpsum,
     alignment: 'after',
   },
@@ -279,7 +271,7 @@ export const WithLongTextBelow: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    titleContent: loremIpsum,
+    title: loremIpsum,
     description: loremIpsum,
     alignment: 'below',
   },

@@ -26,7 +26,7 @@ const type: InputType = {
   ],
 };
 
-const titleText: InputType = {
+const title: InputType = {
   control: {
     type: 'text',
   },
@@ -46,21 +46,21 @@ const iconName: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   type,
-  titleText,
+  title,
   text,
   'icon-name': iconName,
 };
 
 const defaultArgs: Args = {
   type: type.options![0],
-  titleText: '',
+  title: '',
   text: 'Status info text',
   'icon-name': undefined,
 };
 
-const Template = ({ text, titleText, ...args }: Args): TemplateResult => html`
+const Template = ({ text, title, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}>
-    ${titleText ? html`<sbb-title level="3">${titleText}</sbb-title>` : nothing} ${text}
+    ${title ? html`<sbb-title level="3">${title}</sbb-title>` : nothing} ${text}
   </sbb-status>
 `;
 
@@ -122,49 +122,49 @@ export const inProgress: StoryObj = {
 export const infoWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, titleText: 'Title' },
+  args: { ...defaultArgs, title: 'Title' },
 };
 
 export const successWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![1], titleText: 'Success!' },
+  args: { ...defaultArgs, type: type.options![1], title: 'Success!' },
 };
 
 export const warningWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![2], titleText: 'Warning!' },
+  args: { ...defaultArgs, type: type.options![2], title: 'Warning!' },
 };
 
 export const errorWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![3], titleText: 'Error!' },
+  args: { ...defaultArgs, type: type.options![3], title: 'Error!' },
 };
 
 export const pendingWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![4], titleText: 'Pending...' },
+  args: { ...defaultArgs, type: type.options![4], title: 'Pending...' },
 };
 
 export const incompleteWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![5], titleText: 'Incomplete...' },
+  args: { ...defaultArgs, type: type.options![5], title: 'Incomplete...' },
 };
 
 export const notStartedWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![6], titleText: 'Not started...' },
+  args: { ...defaultArgs, type: type.options![6], title: 'Not started...' },
 };
 
 export const inProgressWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![7], titleText: 'In progress...' },
+  args: { ...defaultArgs, type: type.options![7], title: 'In progress...' },
 };
 
 export const successWithCustomIcon: StoryObj = {
@@ -174,7 +174,7 @@ export const successWithCustomIcon: StoryObj = {
     ...defaultArgs,
     type: 'success',
     'icon-name': 'pen-small',
-    titleText: 'Success!',
+    title: 'Success!',
   },
 };
 
