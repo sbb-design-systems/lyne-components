@@ -25,18 +25,6 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public static override styles: CSSResultGroup = style;
 
   /** The step controlled by the label. */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  private set step(value: SbbStepElement | null) {
-    this.internals.ariaControlsElements = removeAriaElements(
-      this.internals.ariaControlsElements,
-      this._step,
-    );
-    this._step = value instanceof Element ? value : null;
-    this.internals.ariaControlsElements = appendAriaElements(
-      this.internals.ariaControlsElements,
-      this._step,
-    );
-  }
   public get step(): SbbStepElement | null {
     return this._step;
   }
@@ -53,14 +41,6 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     });
   }
 
-  private _getStep(): SbbStepElement | null {
-    let nextSibling = this.nextElementSibling;
-    while (nextSibling && nextSibling.localName !== 'sbb-step') {
-      nextSibling = nextSibling.nextElementSibling;
-    }
-    return nextSibling as SbbStepElement;
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-step-label-${nextId++}`;
@@ -68,7 +48,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;
     this._stepper = this.closest('sbb-stepper');
-    this.step = this._getStep();
+    this._assignStep();
     // The `data-disabled` attribute is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.
     this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
@@ -100,10 +80,28 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
    */
   public configure(posInSet: number, setSize: number, stepperLoaded: boolean): void {
     if (stepperLoaded) {
-      this.step = this._getStep();
+      this._assignStep();
     }
     this.internals.ariaPosInSet = `${posInSet}`;
     this.internals.ariaSetSize = `${setSize}`;
+  }
+
+  private _assignStep(): void {
+    let nextSibling = this.nextElementSibling;
+    while (nextSibling && nextSibling.localName !== 'sbb-step') {
+      nextSibling = nextSibling.nextElementSibling;
+    }
+
+    const value = nextSibling as SbbStepElement | null;
+    this.internals.ariaControlsElements = removeAriaElements(
+      this.internals.ariaControlsElements,
+      this._step,
+    );
+    this._step = value instanceof Element ? value : null;
+    this.internals.ariaControlsElements = appendAriaElements(
+      this.internals.ariaControlsElements,
+      this._step,
+    );
   }
 
   protected override render(): TemplateResult {
