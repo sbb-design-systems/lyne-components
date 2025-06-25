@@ -104,7 +104,7 @@ The type can be specified using the generic type parameter `T` of `SbbAutocomple
 
 | Name             | Type                | Description                                | Inherited From |
 | ---------------- | ------------------- | ------------------------------------------ | -------------- |
-| `optionSelected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
+| `optionselected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
 
 ## CSS Properties
 
