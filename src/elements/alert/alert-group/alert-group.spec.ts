@@ -36,7 +36,7 @@ describe(`sbb-alert-group`, () => {
         </sbb-alert>
         <sbb-alert id="alert2">
           <sbb-title level="3">Interruption</sbb-title>
-          First Second
+          Second
         </sbb-alert>
       </sbb-alert-group>
     `);

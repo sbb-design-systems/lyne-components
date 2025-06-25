@@ -5,7 +5,7 @@ the [sbb-alert-group](/docs/elements-sbb-alert-sbb-alert-group--docs) component.
 
 ## Slots
 
-The unnamed slot is used to project an `sbb-title` and a `p` containing the text content and one or more `sbb-link`.
+The unnamed slot is used to project an `sbb-title`, text content and one or more `sbb-link` elements.
 
 The component can optionally display an `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
@@ -86,8 +86,8 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Slots
 
-| Name    | Description                                                                                                                    |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-|         | Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and some text should be used.      |
-| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                   |
-| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot. |
+| Name    | Description                                                                                                                        |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used. |
+| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                       |
+| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.     |
