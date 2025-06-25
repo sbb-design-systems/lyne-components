@@ -209,10 +209,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbNotificationElement.events.didOpen,
-        SbbNotificationElement.events.didClose,
-        SbbNotificationElement.events.willOpen,
-        SbbNotificationElement.events.willClose,
+        SbbNotificationElement.events.open,
+        SbbNotificationElement.events.close,
+        SbbNotificationElement.events.beforeopen,
+        SbbNotificationElement.events.beforeclose,
       ],
     },
     docs: {

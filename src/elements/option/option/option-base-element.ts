@@ -38,7 +38,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
   public static readonly events = {
-    optionSelected: 'optionSelected',
+    optionselected: 'optionselected',
   } as const;
 
   protected abstract optionId: string;
@@ -74,9 +74,9 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   /** Emits when an option was selected by user. */
-  private _optionSelected: EventEmitter = new EventEmitter(
+  private _optionSelectedEmitter = new EventEmitter<void>(
     this,
-    SbbOptionBaseElement.events.optionSelected,
+    SbbOptionBaseElement.events.optionselected,
   );
 
   /** Whether to apply the negative styling */
@@ -139,7 +139,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
     if (this.selected) {
-      this._optionSelected.emit();
+      this._optionSelectedEmitter.emit();
     }
   }
 
@@ -304,6 +304,6 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    optionSelected: CustomEvent<void>;
+    optionselected: CustomEvent<void>;
   }
 }

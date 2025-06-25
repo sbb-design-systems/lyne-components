@@ -122,14 +122,14 @@ export default {
       }
 
       for (const eventName of [
-        'willOpen',
-        'didOpen',
-        'willClose',
-        'didClose',
-        'willStick',
-        'didStick',
-        'willUnstick',
-        'didUnstick',
+        'beforeopen',
+        'open',
+        'beforeclose',
+        'close',
+        'beforestick',
+        'stick',
+        'beforeunstick',
+        'unstick',
       ]) {
         root.removeEventListener(eventName, openCloseEventsForwarder, { capture: true });
         root.addEventListener(eventName, openCloseEventsForwarder, { capture: true });

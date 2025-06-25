@@ -177,8 +177,8 @@ const meta: Meta = {
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
       handles: [
-        SbbOptionElement.events.optionSelectionChange,
-        SbbOptionElement.events.optionSelected,
+        SbbOptionElement.events.optionselectionchange,
+        SbbOptionElement.events.optionselected,
       ],
     },
     docs: {

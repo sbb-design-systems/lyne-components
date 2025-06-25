@@ -25,47 +25,47 @@ describe(`sbb-radio-button-panel`, () => {
   });
 
   it('selects radio on click', async () => {
-    const stateChange = new EventSpy(SbbRadioButtonPanelElement.events.stateChange);
+    const stateChangeSpy = new EventSpy(SbbRadioButtonPanelElement.events.statechange);
 
     element.click();
     await waitForLitRender(element);
 
     expect(element.checked).to.be.true;
     expect(element).to.have.attribute('data-checked');
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
+    await stateChangeSpy.calledOnce();
+    expect(stateChangeSpy.count).to.be.equal(1);
   });
 
   it('does not deselect radio if already checked', async () => {
-    const stateChange = new EventSpy(SbbRadioButtonPanelElement.events.stateChange);
+    const stateChangeSpy = new EventSpy(SbbRadioButtonPanelElement.events.statechange);
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
+    await stateChangeSpy.calledOnce();
+    expect(stateChangeSpy.count).to.be.equal(1);
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
+    await stateChangeSpy.calledOnce();
+    expect(stateChangeSpy.count).to.be.equal(1);
   });
 
   it('allows empty selection', async () => {
-    const stateChange = new EventSpy(SbbRadioButtonPanelElement.events.stateChange);
+    const stateChangeSpy = new EventSpy(SbbRadioButtonPanelElement.events.statechange);
 
     element.allowEmptySelection = true;
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
+    await stateChangeSpy.calledOnce();
+    expect(stateChangeSpy.count).to.be.equal(1);
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.false;
-    await stateChange.calledTimes(2);
-    expect(stateChange.count).to.be.equal(2);
+    await stateChangeSpy.calledTimes(2);
+    expect(stateChangeSpy.count).to.be.equal(2);
   });
 });

@@ -96,12 +96,12 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Events
 
-| Name        | Type                | Description                                               | Inherited From |
-| ----------- | ------------------- | --------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.                    |                |
-| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.                    |                |
-| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts.                  |                |
+| Name          | Type                | Description                              | Inherited From |
+| ------------- | ------------------- | ---------------------------------------- | -------------- |
+| `beforeclose` | `CustomEvent<void>` | Emits when the closing animation starts. |                |
+| `beforeopen`  | `CustomEvent<void>` | Emits when the opening animation starts. |                |
+| `close`       | `CustomEvent<void>` | Emits when the closing animation ends.   |                |
+| `open`        | `CustomEvent<void>` | Emits when the opening animation ends.   |                |
 
 ## CSS Properties
 

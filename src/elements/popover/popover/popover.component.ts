@@ -53,16 +53,13 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   public accessor trigger: HTMLElement | null = null;
 
   /** Emits whenever the `sbb-popover` begins the closing transition. */
-  protected override willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
-    this,
-    SbbOpenCloseBaseElement.events.willClose,
-    { cancelable: true },
-  );
+  protected override beforeCloseEmitter: EventEmitter<{ closeTarget?: HTMLElement }> =
+    new EventEmitter(this, SbbOpenCloseBaseElement.events.beforeclose, { cancelable: true });
 
   /** Emits whenever the `sbb-popover` is closed. */
-  protected override didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
+  protected override closeEmitter: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
-    SbbOpenCloseBaseElement.events.didClose,
+    SbbOpenCloseBaseElement.events.close,
     { cancelable: true },
   );
 
@@ -84,7 +81,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     if (
       (this.state !== 'closed' && this.state !== 'closing') ||
       !this.overlay ||
-      !this.willOpen.emit()
+      !this.beforeOpenEmitter.emit()
     ) {
       return;
     }
@@ -119,7 +116,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     }
 
     this._popoverCloseElement = target;
-    if (!this.willClose.emit({ closeTarget: target })) {
+    if (!this.beforeCloseEmitter.emit({ closeTarget: target })) {
       return;
     }
 
@@ -153,7 +150,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     }
 
     this._escapableOverlayController.disconnect();
-    this.didClose.emit({ closeTarget: this._popoverCloseElement });
+    this.closeEmitter.emit({ closeTarget: this._popoverCloseElement });
     this._openStateController?.abort();
     this._focusTrapController.enabled = false;
   }
@@ -165,7 +162,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     this._escapableOverlayController.connect();
     this._setPopoverFocus();
     this._focusTrapController.enabled = true;
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   public override connectedCallback(): void {
@@ -389,11 +386,11 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
  * It displays contextual information within a popover.
  *
  * @slot - Use the unnamed slot to add content into the popover.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} open - Emits whenever the `sbb-popover` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} beforeclose - Emits whenever the `sbb-popover` begins the closing
  * transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} close - Emits whenever the `sbb-popover` is closed.
  * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.

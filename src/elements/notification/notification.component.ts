@@ -37,10 +37,10 @@ const DEBOUNCE_TIME = 150;
  *
  * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
- * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} open - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts.
+ * @event {CustomEvent<void>} close - Emits when the closing animation ends.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
@@ -50,10 +50,10 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /** The type of the notification. */
@@ -86,30 +86,30 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   });
 
   /** Emits whenever the `sbb-notification` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(
+  private _beforeOpenEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.willOpen,
+    SbbNotificationElement.events.beforeopen,
     { cancelable: true },
   );
 
   /** Emits whenever the `sbb-notification` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
+  private _openEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.didOpen,
+    SbbNotificationElement.events.open,
     { cancelable: true },
   );
 
   /** Emits whenever the `sbb-notification` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
+  private _beforeCloseEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.willClose,
+    SbbNotificationElement.events.beforeclose,
     { cancelable: true },
   );
 
   /** Emits whenever the `sbb-notification` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
+  private _closeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbNotificationElement.events.didClose,
+    SbbNotificationElement.events.close,
     { cancelable: true },
   );
 
@@ -124,7 +124,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   private _open(): void {
     if (this._state === 'closed') {
       this._state = 'opening';
-      this._willOpen.emit();
+      this._beforeOpenEmitter.emit();
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
       // In this case we directly set the `opened` state.
@@ -135,7 +135,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   }
 
   public close(): void {
-    if (this._state === 'opened' && this._willClose.emit()) {
+    if (this._state === 'opened' && this._beforeCloseEmitter.emit()) {
       this._state = 'closing';
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -211,12 +211,12 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   private _handleOpening(): void {
     this._state = 'opened';
     this._notificationResizeObserver.observe(this._notificationElement);
-    this._didOpen.emit();
+    this._openEmitter.emit();
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    this._closeEmitter.emit();
     this._notificationResizeObserver.unobserve(this._notificationElement);
     setTimeout(() => this.remove());
   }

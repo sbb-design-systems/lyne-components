@@ -36,7 +36,7 @@ describe(`sbb-datepicker-toggle`, () => {
     const toggle = root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
     const input = root.querySelector('sbb-date-input')!;
-    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, datepicker);
+    const openSpy = new EventSpy(SbbPopoverElement.events.open, datepicker);
 
     expect(toggle.datepicker).to.be.equal(datepicker);
     expect(toggle.input).to.be.equal(input);
@@ -44,7 +44,7 @@ describe(`sbb-datepicker-toggle`, () => {
     expect(datepicker).to.have.attribute('data-state', 'closed');
 
     toggle.click();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     expect(datepicker).to.have.attribute('data-state', 'opened');
   });

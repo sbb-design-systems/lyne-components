@@ -134,14 +134,14 @@ describe(`sbb-selection-expansion-panel`, () => {
     let secondPanel: SbbSelectionExpansionPanelElement;
     let secondInput: SbbRadioButtonPanelElement;
     let disabledInput: SbbRadioButtonPanelElement;
-    let willOpenEventSpy: EventSpy<Event>;
-    let didOpenEventSpy: EventSpy<Event>;
+    let beforeOpenSpy: EventSpy<Event>;
+    let openSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+      beforeOpenSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeopen, null, {
         capture: true,
       });
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+      openSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.open, null, {
         capture: true,
       });
 
@@ -167,10 +167,10 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('selects input on click and shows related content', async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+      beforeOpenSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeopen, null, {
         capture: true,
       });
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+      openSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.open, null, {
         capture: true,
       });
 
@@ -184,12 +184,12 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       secondInput.click();
 
-      await willOpenEventSpy.calledOnce();
-      await didOpenEventSpy.calledOnce();
+      await beforeOpenSpy.calledOnce();
+      await openSpy.calledOnce();
       await waitForLitRender(wrapper);
 
-      expect(willOpenEventSpy.count).to.be.equal(1);
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(firstInput.checked).to.be.false;
       expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondInput.checked).to.be.true;
@@ -330,22 +330,22 @@ describe(`sbb-selection-expansion-panel`, () => {
     let nestedElement: SbbRadioButtonGroupElement;
     let panel1: SbbSelectionExpansionPanelElement;
     let panel2: SbbSelectionExpansionPanelElement;
-    let willOpenEventSpy: EventSpy<Event>;
-    let didOpenEventSpy: EventSpy<Event>;
-    let willCloseEventSpy: EventSpy<Event>;
-    let didCloseEventSpy: EventSpy<Event>;
+    let beforeOpenSpy: EventSpy<Event>;
+    let openSpy: EventSpy<Event>;
+    let beforeCloseSpy: EventSpy<Event>;
+    let closeSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+      beforeOpenSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeopen, null, {
         capture: true,
       });
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+      openSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.open, null, {
         capture: true,
       });
-      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose, null, {
+      beforeCloseSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeclose, null, {
         capture: true,
       });
-      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose, null, {
+      closeSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.close, null, {
         capture: true,
       });
 
@@ -392,9 +392,9 @@ describe(`sbb-selection-expansion-panel`, () => {
         .then(() => Promise.reject('accidentally passed'))
         .catch((error) => expect(error).to.include('timeout'));
 
-      await didOpenEventSpy.calledOnce();
-      expect(willOpenEventSpy.count).to.be.equal(1);
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(mainRadioButton1Label.name.trim()).to.be.equal('Main Option 1 , expanded');
       expect(mainRadioButton2Label.name.trim()).to.be.equal('Main Option 2 , collapsed');
       expect(panel1).to.have.attribute('data-state', 'opened');
@@ -403,8 +403,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       // Activate main option 2
       mainRadioButton2.click();
 
-      await didOpenEventSpy.calledTimes(2);
-      await didCloseEventSpy.calledOnce();
+      await openSpy.calledTimes(2);
+      await closeSpy.calledOnce();
 
       const mainRadioButton1LabelSecondRender = (await a11ySnapshot({
         selector: 'sbb-radio-button-panel[value="main1"]',
@@ -414,10 +414,10 @@ describe(`sbb-selection-expansion-panel`, () => {
         selector: 'sbb-radio-button-panel[value="main2"]',
       })) as unknown as { name: string };
 
-      expect(willOpenEventSpy.count).to.be.equal(2);
-      expect(didOpenEventSpy.count).to.be.equal(2);
-      expect(willCloseEventSpy.count).to.be.equal(1);
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      expect(beforeOpenSpy.count).to.be.equal(2);
+      expect(openSpy.count).to.be.equal(2);
+      expect(beforeCloseSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(1);
       expect(mainRadioButton1LabelSecondRender.name.trim()).to.be.equal(
         'Main Option 1 , collapsed',
       );
@@ -457,9 +457,9 @@ describe(`sbb-selection-expansion-panel`, () => {
         'sbb-radio-button[value="sub1"]',
       )!;
 
-      await didOpenEventSpy.calledOnce();
-      expect(willOpenEventSpy.count).to.be.equal(1);
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(panel1).to.have.attribute('data-state', 'opened');
       expect(panel2).to.have.attribute('data-state', 'closed');
       expect(main1.checked).to.be.true;
@@ -468,13 +468,13 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       main2.checked = true;
 
-      await didOpenEventSpy.calledTimes(2);
-      await didCloseEventSpy.calledOnce();
+      await openSpy.calledTimes(2);
+      await closeSpy.calledOnce();
 
-      expect(willOpenEventSpy.count).to.be.equal(2);
-      expect(didOpenEventSpy.count).to.be.equal(2);
-      expect(willCloseEventSpy.count).to.be.equal(1);
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      expect(beforeOpenSpy.count).to.be.equal(2);
+      expect(openSpy.count).to.be.equal(2);
+      expect(beforeCloseSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(1);
 
       expect(panel1).to.have.attribute('data-state', 'closed');
       expect(panel2).to.have.attribute('data-state', 'opened');
@@ -541,22 +541,22 @@ describe(`sbb-selection-expansion-panel`, () => {
     let secondPanel: SbbSelectionExpansionPanelElement;
     let secondInput: SbbCheckboxPanelElement;
     let disabledInput: SbbCheckboxPanelElement;
-    let willOpenEventSpy: EventSpy<Event>;
-    let didOpenEventSpy: EventSpy<Event>;
-    let willCloseEventSpy: EventSpy<Event>;
-    let didCloseEventSpy: EventSpy<Event>;
+    let beforeOpenSpy: EventSpy<Event>;
+    let openSpy: EventSpy<Event>;
+    let beforeCloseSpy: EventSpy<Event>;
+    let closeSpy: EventSpy<Event>;
 
     beforeEach(async () => {
-      willOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willOpen, null, {
+      beforeOpenSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeopen, null, {
         capture: true,
       });
-      didOpenEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didOpen, null, {
+      openSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.open, null, {
         capture: true,
       });
-      willCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.willClose, null, {
+      beforeCloseSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeclose, null, {
         capture: true,
       });
-      didCloseEventSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.didClose, null, {
+      closeSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.close, null, {
         capture: true,
       });
 
@@ -583,10 +583,10 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('selects input on click and shows related content', async () => {
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
 
-      expect(willOpenEventSpy.count).to.be.equal(1);
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      expect(beforeOpenSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
       expect(firstPanel).to.have.attribute('data-state', 'opened');
       expect(firstInput.checked).to.be.true;
       expect(secondPanel).to.have.attribute('data-state', 'closed');
@@ -594,10 +594,10 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       secondInput.click();
       await waitForLitRender(wrapper);
-      await didOpenEventSpy.calledTimes(2);
+      await openSpy.calledTimes(2);
 
-      expect(willOpenEventSpy.count).to.be.equal(2);
-      expect(didOpenEventSpy.count).to.be.equal(2);
+      expect(beforeOpenSpy.count).to.be.equal(2);
+      expect(openSpy.count).to.be.equal(2);
       expect(firstInput.checked).to.be.true;
       expect(firstPanel).to.have.attribute('data-state', 'opened');
       expect(secondInput.checked).to.be.true;
@@ -608,15 +608,15 @@ describe(`sbb-selection-expansion-panel`, () => {
       elements.forEach((panel) =>
         panel.style.setProperty('--sbb-selection-expansion-panel-animation-duration', '1ms'),
       );
-      await didOpenEventSpy.calledOnce();
+      await openSpy.calledOnce();
       expect(firstPanel).to.have.attribute('data-state', 'opened');
 
       firstInput.click();
       secondInput.click();
 
       await waitForLitRender(wrapper);
-      await didOpenEventSpy.calledTimes(2);
-      await didCloseEventSpy.calledOnce();
+      await openSpy.calledTimes(2);
+      await closeSpy.calledOnce();
 
       expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondPanel).to.have.attribute('data-state', 'opened');
@@ -629,9 +629,9 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       firstInput.click();
 
-      await didCloseEventSpy.calledOnce();
-      expect(willCloseEventSpy.count).to.be.equal(1);
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(1);
       expect(firstInput.checked).to.be.false;
       expect(firstPanel).to.have.attribute('data-state', 'closed');
     });

@@ -108,14 +108,14 @@ export type CalendarView = 'day' | 'month' | 'year';
 /**
  * It displays a calendar which allows to choose a date.
  *
- * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
+ * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
  */
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    dateSelected: 'dateSelected',
+    dateselected: 'dateselected',
   } as const;
 
   /** If set to true, two months are displayed */
@@ -172,9 +172,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   /** Event emitted on date selection. */
-  private _dateSelected: EventEmitter<T> = new EventEmitter(
+  private _dateSelectedEmitter: EventEmitter<T> = new EventEmitter(
     this,
-    SbbCalendarElement.events.dateSelected,
+    SbbCalendarElement.events.dateselected,
   );
 
   /** The currently active date. */
@@ -623,7 +623,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._setChosenYear();
     if (this._selected !== day) {
       this._selected = day;
-      this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
+      this._dateSelectedEmitter.emit(this._dateAdapter.deserialize(day)!);
     }
   }
 

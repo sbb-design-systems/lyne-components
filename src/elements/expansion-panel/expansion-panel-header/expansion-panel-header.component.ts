@@ -19,7 +19,7 @@ import style from './expansion-panel-header.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
- * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
+ * @event {CustomEvent<void>} toggleexpanded - Notifies that the `sbb-expansion-panel` has to expand.
  * @overrideType value - string
  */
 export
@@ -29,13 +29,13 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    toggleExpanded: 'toggleExpanded',
+    toggleexpanded: 'toggleexpanded',
   } as const;
 
   /** Notifies that the `sbb-expansion-panel` has to expand. */
-  private _toggleExpanded: EventEmitter = new EventEmitter(
+  private _toggleExpandedEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbExpansionPanelHeaderElement.events.toggleExpanded,
+    SbbExpansionPanelHeaderElement.events.toggleexpanded,
     {
       bubbles: true,
     },
@@ -61,7 +61,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
 
   private _emitExpandedEvent(): void {
     if (!this.disabled) {
-      this._toggleExpanded.emit();
+      this._toggleExpandedEmitter.emit();
     }
   }
 

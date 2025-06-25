@@ -112,9 +112,9 @@ describe('sbb-paginator', () => {
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
     expect(select).not.to.be.null;
 
-    const didOpen = new EventSpy(SbbSelectElement.events.didOpen, select);
+    const openSpy = new EventSpy(SbbSelectElement.events.open, select);
     select.click();
-    await didOpen.calledOnce();
+    await openSpy.calledOnce();
     await waitForLitRender(element);
 
     const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;

@@ -140,7 +140,7 @@ const FormTemplate = (args: Args): TemplateResult => html`
   </div>
   <sbb-overlay
     trigger="overlay-trigger"
-    @willClose=${(event: CustomEvent) => {
+    @beforeclose=${(event: CustomEvent) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;
@@ -236,10 +236,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbOverlayElement.events.willOpen,
-        SbbOverlayElement.events.didOpen,
-        SbbOverlayElement.events.willClose,
-        SbbOverlayElement.events.didClose,
+        SbbOverlayElement.events.beforeopen,
+        SbbOverlayElement.events.open,
+        SbbOverlayElement.events.beforeclose,
+        SbbOverlayElement.events.close,
       ],
     },
     docs: {

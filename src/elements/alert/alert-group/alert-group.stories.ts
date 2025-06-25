@@ -81,10 +81,10 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbAlertGroupElement.events.empty,
-        SbbAlertElement.events.willOpen,
-        SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.willClose,
-        SbbAlertElement.events.didClose,
+        SbbAlertElement.events.beforeopen,
+        SbbAlertElement.events.open,
+        SbbAlertElement.events.beforeclose,
+        SbbAlertElement.events.close,
       ],
     },
     docs: {

@@ -12,7 +12,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
+ * @event {CustomEvent<void>} optionselected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - T = string

@@ -10,16 +10,18 @@ import '../../title.js';
 
 describe(`sbb-alert`, () => {
   let alert: SbbAlertElement,
-    willOpenSpy: EventSpy<CustomEvent<void>>,
-    didOpenSpy: EventSpy<CustomEvent<void>>,
-    willCloseSpy: EventSpy<CustomEvent<void>>,
-    didCloseSpy: EventSpy<CustomEvent<void>>;
+    beforeOpenSpy: EventSpy<CustomEvent<void>>,
+    openSpy: EventSpy<CustomEvent<void>>,
+    beforeCloseSpy: EventSpy<CustomEvent<void>>,
+    closeSpy: EventSpy<CustomEvent<void>>;
 
   beforeEach(async () => {
-    willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen, null, { capture: true });
-    didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
-    willCloseSpy = new EventSpy(SbbAlertElement.events.willClose, null, { capture: true });
-    didCloseSpy = new EventSpy(SbbAlertElement.events.didClose, null, { capture: true });
+    beforeOpenSpy = new EventSpy(SbbAlertElement.events.beforeopen, null, { capture: true });
+    openSpy = new EventSpy(SbbAlertElement.events.open, null, { capture: true });
+    beforeCloseSpy = new EventSpy(SbbAlertElement.events.beforeclose, null, {
+      capture: true,
+    });
+    closeSpy = new EventSpy(SbbAlertElement.events.close, null, { capture: true });
 
     alert = await fixture(
       html`<sbb-alert>
@@ -34,21 +36,19 @@ describe(`sbb-alert`, () => {
   });
 
   it('should fire animation events', async () => {
-    await willOpenSpy.calledOnce();
-    expect(willOpenSpy.count).to.be.equal(1);
-    await didOpenSpy.calledOnce();
-    expect(didOpenSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
 
     alert.close();
 
-    await didCloseSpy.calledOnce();
-    expect(willCloseSpy.count).to.be.equal(1);
-    expect(didCloseSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
+    expect(closeSpy.count).to.be.equal(1);
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
-    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen, null, { capture: true });
-
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert style="--sbb-alert-animation-duration: 1ms">
         <sbb-title level="3">Disruption</sbb-title>
@@ -56,27 +56,31 @@ describe(`sbb-alert`, () => {
       </sbb-alert>`,
     );
 
-    await didOpenSpy.calledOnce();
+    openSpy = new EventSpy(SbbAlertElement.events.open, alert, { capture: true });
+    closeSpy = new EventSpy(SbbAlertElement.events.close, alert, { capture: true });
 
+    await openSpy.calledOnce();
+
+    await aTimeout(10);
     alert.close();
 
-    await didCloseSpy.calledOnce();
-    expect(didCloseSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
   });
 
-  it('should respect canceled willClose event', async () => {
-    alert.addEventListener(SbbAlertElement.events.willClose, (ev) => ev.preventDefault());
+  it('should respect canceled beforeclose event', async () => {
+    alert.addEventListener(SbbAlertElement.events.beforeclose, (ev) => ev.preventDefault());
 
-    await didOpenSpy.calledOnce();
+    await openSpy.calledOnce();
 
     alert.close();
 
-    await willCloseSpy.calledOnce();
-    expect(willCloseSpy.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
 
-    // Wait a period to ensure the  didCLose event was not dispatched.
+    // Wait a period to ensure the 'close' event is not dispatched.
     await aTimeout(10);
-    expect(didCloseSpy.count).to.be.equal(0);
+    expect(closeSpy.count).to.be.equal(0);
   });
 
   it('should hide close button in readonly mode', async () => {

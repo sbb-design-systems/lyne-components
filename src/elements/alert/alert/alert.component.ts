@@ -22,20 +22,20 @@ import '../../divider.js';
  * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
- * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
+ * @event {CustomEvent<void>} open - Emits when the opening animation ends.
+ * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts. Can be canceled.
+ * @event {CustomEvent<void>} close - Emits when the closing animation ends.
  */
 export
 @customElement('sbb-alert')
 class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = style;
   public static override readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /**
@@ -61,7 +61,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   /** Open the alert. */
   public open(): void {
     this.state = 'opening';
-    this.willOpen.emit();
+    this.beforeOpenEmitter.emit();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -72,7 +72,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   /** Close the alert. */
   public close(): void {
-    if (this.state === 'opened' && this.willClose.emit()) {
+    if (this.state === 'opened' && this.beforeCloseEmitter.emit()) {
       this.state = 'closing';
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -111,12 +111,12 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
+    this.openEmitter.emit();
   }
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.didClose.emit();
+    this.closeEmitter.emit();
     setTimeout(() => this.remove());
   }
 
