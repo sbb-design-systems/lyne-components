@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-toast renders DOM"] = 
 `<sbb-toast
-  aria-live="polite"
   data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
@@ -22,10 +21,8 @@ snapshots["sbb-toast renders Shadow DOM"] =
     <div class="sbb-toast-wrapper">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="circle-tick-small"
-          role="img"
         >
         </sbb-icon>
       </slot>
@@ -38,7 +35,6 @@ snapshots["sbb-toast renders Shadow DOM"] =
     </div>
     <div class="sbb-toast__close">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-toast__close-divider"
         negative=""
         orientation="vertical"
@@ -65,7 +61,6 @@ snapshots["sbb-toast renders Shadow DOM"] =
 
 snapshots["sbb-toast renders readonly DOM"] = 
 `<sbb-toast
-  aria-live="polite"
   data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
@@ -85,10 +80,8 @@ snapshots["sbb-toast renders readonly Shadow DOM"] =
     <div class="sbb-toast-wrapper">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="circle-tick-small"
-          role="img"
         >
         </sbb-icon>
       </slot>
@@ -101,7 +94,6 @@ snapshots["sbb-toast renders readonly Shadow DOM"] =
     </div>
     <div class="sbb-toast__close">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-toast__close-divider"
         negative=""
         orientation="vertical"
@@ -115,7 +107,6 @@ snapshots["sbb-toast renders readonly Shadow DOM"] =
 
 snapshots["sbb-toast renders with action DOM"] = 
 `<sbb-toast
-  aria-live="polite"
   data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
@@ -148,10 +139,8 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
     <div class="sbb-toast-wrapper">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="circle-tick-small"
-          role="img"
         >
         </sbb-icon>
       </slot>
@@ -164,7 +153,6 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
     </div>
     <div class="sbb-toast__close">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-toast__close-divider"
         negative=""
         orientation="vertical"

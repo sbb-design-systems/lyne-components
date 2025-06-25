@@ -194,7 +194,7 @@ describe(`sbb-calendar`, () => {
       expect(yearSelection).dom.to.be.equal(`
         <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
           2016 - 2039
-          <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+          <sbb-icon data-namespace="default" name="chevron-small-up-small"></sbb-icon>
         </button>
       `);
 
@@ -226,7 +226,7 @@ describe(`sbb-calendar`, () => {
       expect(monthSelection).dom.to.be.equal(`
         <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
           2023
-          <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+          <sbb-icon data-namespace="default" name="chevron-small-up-small"></sbb-icon>
         </button>
       `);
 

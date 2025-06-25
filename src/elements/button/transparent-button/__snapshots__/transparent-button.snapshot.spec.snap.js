@@ -42,10 +42,8 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted 
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>

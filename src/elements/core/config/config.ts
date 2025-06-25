@@ -34,6 +34,5 @@ export function mergeConfig(config: Partial<SbbConfig>): void {
 
 declare global {
   // Only `var` is working
-  // eslint-disable-next-line no-var
   var sbbConfig: SbbConfig;
 }

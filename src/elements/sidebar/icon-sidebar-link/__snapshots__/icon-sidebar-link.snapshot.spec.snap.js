@@ -21,10 +21,8 @@ snapshots["sbb-icon-sidebar-link renders Shadow DOM"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="glass-cocktail-small"
-      role="img"
     >
     </sbb-icon>
   </slot>

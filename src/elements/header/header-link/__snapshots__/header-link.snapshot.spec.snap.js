@@ -29,10 +29,8 @@ snapshots["sbb-header-link renders Shadow DOM"] =
     <span class="sbb-header-action__icon">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="pie-small"
-          role="img"
         >
         </sbb-icon>
       </slot>

@@ -23,12 +23,6 @@ const expanded: InputType = {
   },
 };
 
-const backButton: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -53,29 +47,16 @@ const accessibilityCloseLabel: InputType = {
   },
 };
 
-const accessibilityBackLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   expanded,
-  'back-button': backButton,
   accessibilityCloseLabel,
-  accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
 };
 
 const basicArgs: Args = {
   expanded: false,
-  'back-button': false,
   accessibilityCloseLabel: 'Close overlay',
-  accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
 };
@@ -238,15 +219,6 @@ export const Expanded: StoryObj = {
   },
 };
 
-export const WithBackButton: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'back-button': true,
-  },
-};
-
 export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
@@ -268,7 +240,6 @@ const meta: Meta = {
         SbbOverlayElement.events.open,
         SbbOverlayElement.events.beforeclose,
         SbbOverlayElement.events.close,
-        SbbOverlayElement.events.backclick,
       ],
     },
     docs: {

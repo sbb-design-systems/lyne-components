@@ -142,11 +142,6 @@ $open-anim-opacity-to: 1;
   padding: 0;
 }
 
-.sbb-alert__title {
-  // Overwrite sbb-title default margin
-  margin: 0;
-}
-
 .sbb-alert__close-button-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -207,4 +202,9 @@ $open-anim-opacity-to: 1;
   to {
     opacity: #{$open-anim-opacity-from};
   }
+}
+
+::slotted(sbb-title) {
+  // Overwrite sbb-title default margin
+  margin: 0;
 }

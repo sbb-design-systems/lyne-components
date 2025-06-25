@@ -8,20 +8,20 @@ import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbReadonlyMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbTitleLevel } from '../../title.js';
+import type { SbbLinkElement } from '../../link.js';
+import type { SbbTitleElement } from '../../title.js';
 
 import style from './alert.scss?lit&inline';
 
 import '../../button/transparent-button.js';
 import '../../divider.js';
-import '../../title.js';
 
 /**
  * It displays messages which require user's attention.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-alert`.
+ * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
- * @slot title - Title content.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
  * @event {CustomEvent<void>} open - Emits when the opening animation ends.
  * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts. Can be canceled.
@@ -52,14 +52,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   @forceType()
   @property({ attribute: 'icon-name' })
   public override accessor iconName: string = 'info';
-
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content' })
-  public accessor titleContent: string = '';
-
-  /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -97,6 +89,14 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
     this.open();
   }
 
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this._configureTitle();
+    }
+  }
+
   private _isZeroAnimationDuration(): boolean {
     return isZeroAnimationDuration(this, '--sbb-alert-animation-duration');
   }
@@ -120,10 +120,29 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
     setTimeout(() => this.remove());
   }
 
+  private _handleSlotchange(): void {
+    this._syncLinks();
+
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+    if (title) {
+      title.slot = 'title';
+    }
+  }
+
   private _syncLinks(): void {
-    Array.from(this.querySelectorAll?.('sbb-link') ?? []).forEach((link) =>
-      link.toggleAttribute('negative', true),
-    );
+    Array.from(this.querySelectorAll?.<SbbLinkElement>('sbb-link') ?? []).forEach((link) => {
+      customElements.upgrade(link);
+      link.negative = true;
+    });
+  }
+
+  private _configureTitle(): void {
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+    if (title) {
+      customElements.upgrade(title);
+      title.negative = true;
+      title.visualLevel = this.size === 'l' ? '3' : '5';
+    }
   }
 
   protected override render(): TemplateResult {
@@ -134,16 +153,9 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
           <div class="sbb-alert">
             <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
             <span class="sbb-alert__content">
-              <sbb-title
-                class="sbb-alert__title"
-                level=${this.titleLevel}
-                visual-level=${this.size === 'l' ? '3' : '5'}
-                negative
-              >
-                <slot name="title">${this.titleContent}</slot>
-              </sbb-title>
+              <slot name="title" @slotchange=${this._configureTitle}></slot>
               <p class="sbb-alert__content-slot">
-                <slot @slotchange=${this._syncLinks}></slot>
+                <slot @slotchange=${this._handleSlotchange}></slot>
               </p>
             </span>
             ${!this.readOnly

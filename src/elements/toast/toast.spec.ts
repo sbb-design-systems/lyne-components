@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTransparentButtonElement } from '../button.js';
-import { fixture } from '../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbToastElement } from './toast.component.js';
@@ -12,6 +12,7 @@ import '../link/link-button.js';
 
 describe(`sbb-toast`, () => {
   let element: SbbToastElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-toast></sbb-toast>`);
@@ -22,7 +23,7 @@ describe(`sbb-toast`, () => {
     expect(element).not.to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-icon');
     expect(element).to.have.attribute('data-state', 'closed');
-    expect(element).to.have.attribute('aria-live', element.politeness);
+    expect(elementInternals.get(element)!.ariaLive).to.equal(element.politeness);
   });
 
   it('opens and closes after timeout', async () => {
