@@ -73,18 +73,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   });
 
   /** The label of the step. */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  private set label(value: SbbStepLabelElement | null) {
-    this.internals.ariaLabelledByElements = removeAriaElements(
-      this.internals.ariaLabelledByElements,
-      this._label,
-    );
-    this._label = value instanceof Element ? value : null;
-    this.internals.ariaLabelledByElements = appendAriaElements(
-      this.internals.ariaLabelledByElements,
-      this._label,
-    );
-  }
   public get label(): SbbStepLabelElement | null {
     return this._label;
   }
@@ -133,7 +121,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    */
   public configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
-      this.label = this._getStepLabel();
+      this._assignLabel();
     }
   }
 
@@ -164,20 +152,12 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     this._resizeChangeEmitter.emit();
   }
 
-  private _getStepLabel(): SbbStepLabelElement | null {
-    let previousSibling = this.previousElementSibling;
-    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
-      previousSibling = previousSibling.previousElementSibling;
-    }
-    return previousSibling as SbbStepLabelElement;
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
     this._stepper = this.closest('sbb-stepper');
-    this.label = this._getStepLabel();
+    this._assignLabel();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -185,6 +165,24 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     this.updateComplete.then(() => {
       this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step') as HTMLElement);
     });
+  }
+
+  private _assignLabel(): void {
+    let previousSibling = this.previousElementSibling;
+    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
+      previousSibling = previousSibling.previousElementSibling;
+    }
+    const value = previousSibling as SbbStepLabelElement | null;
+
+    this.internals.ariaLabelledByElements = removeAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
+    this._label = value instanceof Element ? value : null;
+    this.internals.ariaLabelledByElements = appendAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
   }
 
   protected override render(): TemplateResult {

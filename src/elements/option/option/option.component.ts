@@ -26,8 +26,8 @@ export
 class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'option';
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    selectionchange: 'optionselectionchange',
+  public static override readonly events = {
+    optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',
   } as const;
 
@@ -36,13 +36,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   /** Emits when the option selection status changes. */
   protected selectionChangeEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOptionElement.events.selectionchange,
-  );
-
-  /** Emits when an option was selected by user. */
-  protected optionSelectedEmitter: EventEmitter = new EventEmitter(
-    this,
-    SbbOptionElement.events.optionselected,
+    SbbOptionElement.events.optionselectionchange,
   );
 
   private set _variant(state: SbbOptionVariant) {
@@ -164,6 +158,5 @@ declare global {
 
   interface GlobalEventHandlersEventMap {
     optionselectionchange: CustomEvent<void>;
-    optionselected: CustomEvent<void>;
   }
 }

@@ -1,7 +1,6 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { EventEmitter } from '../../core/eventing.js';
 import { SbbOptionBaseElement } from '../../option.js';
 
 import style from './autocomplete-grid-option.scss?lit&inline';
@@ -13,7 +12,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} autocompleteoptionselected - Emits when an option was selected by user.
+ * @event {CustomEvent<void>} optionselected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - T = string
@@ -23,17 +22,8 @@ export
 class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    optionselected: 'autocompleteoptionselected',
-  } as const;
 
   protected optionId = autocompleteGridOptionId;
-
-  /** Emits when an option was selected by user. */
-  protected optionSelectedEmitter: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteGridOptionElement.events.optionselected,
-  );
 
   protected override onExternalMutation(mutationsList: MutationRecord[]): void {
     super.onExternalMutation(mutationsList);
@@ -83,9 +73,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-autocomplete-grid-option': SbbAutocompleteGridOptionElement;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    autocompleteoptionselected: CustomEvent<void>;
   }
 }

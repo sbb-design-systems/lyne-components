@@ -634,7 +634,7 @@ describe(`sbb-autocomplete-grid`, () => {
           <label>Autocomplete</label>
           <input />
           <sbb-autocomplete-grid
-            @autocompleteoptionselected=${(e: Event) => optionSelectedSpy(e)}
+            @optionselected=${(e: Event) => optionSelectedSpy(e)}
             .displayWith=${(o: { property: string; otherProperty: string }) => o.property}
           >
             <sbb-autocomplete-grid-row>

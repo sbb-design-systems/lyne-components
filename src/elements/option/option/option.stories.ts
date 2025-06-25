@@ -176,7 +176,10 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbOptionElement.events.selectionchange, SbbOptionElement.events.optionselected],
+      handles: [
+        SbbOptionElement.events.optionselectionchange,
+        SbbOptionElement.events.optionselected,
+      ],
     },
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.

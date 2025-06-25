@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-next.3](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0-next.2...v3.0.0-next.3) (2025-06-25)
+
+
+### Code Refactoring
+
+* **sbb-step, sbb-step-label:** replace private setter by private method ([#3858](https://github.com/sbb-design-systems/lyne-components/issues/3858)) ([ef8ab51](https://github.com/sbb-design-systems/lyne-components/commit/ef8ab51706473294e6a6786727e6704c3b0bdbf2))
+
 ## [3.0.0-next.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0-next.1...v3.0.0-next.2) (2025-06-25)
 
 
