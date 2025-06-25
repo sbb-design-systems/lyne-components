@@ -73,7 +73,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   @property()
   public accessor value: T | null = null;
 
-  private _hasSelectionExpansionPanelElement: boolean = false;
+  private _hasSelectionPanelElement: boolean = false;
 
   /**
    * @internal
@@ -88,7 +88,9 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._hasSelectionExpansionPanelElement = !!this.closest?.('sbb-selection-expansion-panel');
+    this._hasSelectionPanelElement = !!this.closest?.(
+      'sbb-selection-expansion-panel, sbb-selection-action-panel',
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -110,22 +112,22 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   }
 
   /**
-   * As an exception, panels with an expansion-panel attached are always focusable
+   * As an exception, panels with a selection-panel attached are always focusable
    */
   protected override updateFocusableRadios(): void {
     super.updateFocusableRadios();
     const radios = Array.from(this.associatedRadioButtons ?? []) as SbbRadioButtonPanelElement[];
 
     radios
-      .filter((r) => !r.disabled && r._hasSelectionExpansionPanelElement)
+      .filter((r) => !r.disabled && r._hasSelectionPanelElement)
       .forEach((r) => (r.tabIndex = 0));
   }
 
   /**
-   * As an exception, radio-panels with an expansion-panel attached are not checked automatically when navigating by keyboard
+   * As an exception, radio-panels with a selection-panel attached are not checked automatically when navigating by keyboard
    */
   protected override async navigateByKeyboard(next: SbbRadioButtonPanelElement): Promise<void> {
-    if (!this._hasSelectionExpansionPanelElement) {
+    if (!this._hasSelectionPanelElement) {
       await super.navigateByKeyboard(next);
     } else {
       next.focus();

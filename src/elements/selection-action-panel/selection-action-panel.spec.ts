@@ -30,11 +30,9 @@ describe(`sbb-selection-action-panel`, () => {
 
         /* eslint-disable lit/binding-positions */
         wrapper = await fixture(html`
-          <${tagGroupElement} ${inputType === 'radio-button' && 'value="Value one"'} size="m">
+          <${tagGroupElement} size="m">
             <sbb-selection-action-panel>
-              <${tagSingle} id="sbb-input-1" value="Value one" ?checked='${
-                inputType === 'checkbox'
-              }'>Value one</${tagSingle}>
+              <${tagSingle} id="sbb-input-1" value="Value one">Value one</${tagSingle}>
               <sbb-secondary-button size="m" icon-name="arrow-right-small">
               </sbb-secondary-button>
             </sbb-selection-action-panel>
@@ -79,9 +77,7 @@ describe(`sbb-selection-action-panel`, () => {
         await sendKeys({ press: tabKey });
 
         // Focus the second action
-        expect(document.activeElement).to.be.equal(
-          secondPanel.querySelector('sbb-secondary-button'),
-        );
+        expect(document.activeElement!.localName).to.be.equal('sbb-secondary-button');
         await sendKeys({ press: tabKey });
 
         // Skip the disabled panel to the 4th
@@ -89,7 +85,7 @@ describe(`sbb-selection-action-panel`, () => {
 
         // Assert disabled state
         expect(elements[2]).to.have.attribute('data-disabled');
-        expect(disabledInput.tabIndex).to.be.equal(-1);
+        expect(disabledInput).to.match(':disabled');
       });
 
       it('does update on disabled change', async () => {
@@ -97,26 +93,26 @@ describe(`sbb-selection-action-panel`, () => {
         await waitForLitRender(wrapper);
 
         expect(elements[2]).not.to.have.attribute('data-disabled');
-        expect(disabledInput.tabIndex).to.be.equal(0);
+        expect(disabledInput).not.to.match(':disabled');
       });
 
       it('does update on disabled change on group', async () => {
         wrapper.disabled = true;
         await waitForLitRender(wrapper);
 
-        expect(firstInput.tabIndex).to.be.equal(-1);
+        expect(firstInput).to.match(':disabled');
         expect(firstPanel).to.have.attribute('data-disabled');
 
-        expect(disabledInput.tabIndex).to.be.equal(-1);
+        expect(disabledInput).to.match(':disabled');
         expect(elements[2]).to.have.attribute('data-disabled');
 
         wrapper.disabled = false;
         await waitForLitRender(wrapper);
 
-        expect(firstInput.tabIndex).to.be.equal(0);
+        expect(firstInput).not.to.match(':disabled');
         expect(firstPanel).not.to.have.attribute('data-disabled');
 
-        expect(disabledInput.tabIndex).to.be.equal(-1);
+        expect(disabledInput).to.match(':disabled');
         expect(elements[2]).to.have.attribute('data-disabled');
       });
 
@@ -157,12 +153,15 @@ describe(`sbb-selection-action-panel`, () => {
 
         await sendKeys({ press: ' ' });
         expect(fourthInput.checked).to.be.true;
-        expect(firstInput.checked).to.be.false;
+        inputType === 'checkbox'
+          ? expect(firstInput.checked).to.be.true
+          : expect(firstInput.checked).to.be.false;
       });
 
       it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
         firstInput.click();
         firstInput.focus();
+
         await sendKeys({ press: 'ArrowRight' });
         await waitForLitRender(wrapper);
         expect(document.activeElement!.id).to.be.equal(secondInput.id);
@@ -171,7 +170,9 @@ describe(`sbb-selection-action-panel`, () => {
 
         await sendKeys({ press: ' ' });
         expect(secondInput.checked).to.be.true;
-        expect(firstInput.checked).to.be.false;
+        inputType === 'checkbox'
+          ? expect(firstInput.checked).to.be.true
+          : expect(firstInput.checked).to.be.false;
         expect(document.activeElement!.id).to.be.equal(secondInput.id);
       });
 
