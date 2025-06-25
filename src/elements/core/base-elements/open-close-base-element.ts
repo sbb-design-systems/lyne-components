@@ -7,17 +7,17 @@ import { SbbElementInternalsMixin } from '../mixins.js';
 /**
  * Base class for overlay components.
  *
- * @event willOpen - Emits whenever the component starts the opening transition. Can be canceled.
- * @event didOpen - Emits whenever the component is opened.
- * @event willClose - Emits whenever the component begins the closing transition. Can be canceled.
- * @event didClose - Emits whenever the component is closed.
+ * @event beforeopen - Emits whenever the component starts the opening transition. Can be canceled.
+ * @event open - Emits whenever the component is opened.
+ * @event beforeclose - Emits whenever the component begins the closing transition. Can be canceled.
+ * @event close - Emits whenever the component is closed.
  */
 export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(LitElement) {
   public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /** The state of the component. */
@@ -34,28 +34,32 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
   }
 
   /** Emits whenever the component starts the opening transition. */
-  protected willOpen: EventEmitter = new EventEmitter(
+  protected beforeOpenEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOpenCloseBaseElement.events.willOpen,
+    SbbOpenCloseBaseElement.events.beforeopen,
     { cancelable: true },
   );
 
   /** Emits whenever the component is opened. */
-  protected didOpen: EventEmitter = new EventEmitter(this, SbbOpenCloseBaseElement.events.didOpen, {
-    cancelable: true,
-  });
+  protected openEmitter: EventEmitter = new EventEmitter(
+    this,
+    SbbOpenCloseBaseElement.events.open,
+    {
+      cancelable: true,
+    },
+  );
 
   /** Emits whenever the component begins the closing transition. */
-  protected willClose: EventEmitter = new EventEmitter(
+  protected beforeCloseEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOpenCloseBaseElement.events.willClose,
+    SbbOpenCloseBaseElement.events.beforeclose,
     { cancelable: true },
   );
 
   /** Emits whenever the component is closed. */
-  protected didClose: EventEmitter = new EventEmitter(
+  protected closeEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOpenCloseBaseElement.events.didClose,
+    SbbOpenCloseBaseElement.events.close,
     { cancelable: true },
   );
 
@@ -72,9 +76,9 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    willOpen: CustomEvent<void>;
-    willClose: CustomEvent<void>;
-    didOpen: CustomEvent<void>;
-    didClose: CustomEvent<void>;
+    beforeopen: CustomEvent<void>;
+    beforeclose: CustomEvent<void>;
+    open: CustomEvent<void>;
+    close: Event;
   }
 }

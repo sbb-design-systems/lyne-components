@@ -80,7 +80,7 @@ This visual change is applied only to the day view.
 
 ## Events
 
-Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date
+Consumers can listen to the `dateselected` event on the `sbb-calendar` component to intercept the selected date
 which can be read from `event.detail`.
 
 ## Keyboard interaction
@@ -144,4 +144,4 @@ For accessibility purposes, the component is rendered as a native table element 
 
 | Name           | Type             | Description                      | Inherited From |
 | -------------- | ---------------- | -------------------------------- | -------------- |
-| `dateSelected` | `CustomEvent<T>` | Event emitted on date selection. |                |
+| `dateselected` | `CustomEvent<T>` | Event emitted on date selection. |                |

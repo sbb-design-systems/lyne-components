@@ -15,8 +15,8 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} optionSelectionChange - Emits when the option selection status changes.
- * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
+ * @event {CustomEvent<void>} optionselectionchange - Emits when the option selection status changes.
+ * @event {CustomEvent<void>} optionselected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - (T = string) | null
@@ -26,23 +26,17 @@ export
 class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'option';
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    selectionChange: 'optionSelectionChange',
-    optionSelected: 'optionSelected',
+  public static override readonly events = {
+    optionselectionchange: 'optionselectionchange',
+    optionselected: 'optionselected',
   } as const;
 
   protected optionId = `sbb-option`;
 
   /** Emits when the option selection status changes. */
-  protected selectionChange: EventEmitter = new EventEmitter(
+  protected selectionChangeEmitter: EventEmitter = new EventEmitter(
     this,
-    SbbOptionElement.events.selectionChange,
-  );
-
-  /** Emits when an option was selected by user. */
-  protected optionSelected: EventEmitter = new EventEmitter(
-    this,
-    SbbOptionElement.events.optionSelected,
+    SbbOptionElement.events.optionselectionchange,
   );
 
   private set _variant(state: SbbOptionVariant) {
@@ -93,7 +87,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
 
   protected override selectViaUserInteraction(selected: boolean): void {
     super.selectViaUserInteraction(selected);
-    this.selectionChange.emit();
+    this.selectionChangeEmitter.emit();
   }
 
   protected override init(): void {
@@ -163,7 +157,6 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    optionSelectionChange: CustomEvent<void>;
-    optionSelected: CustomEvent<void>;
+    optionselectionchange: CustomEvent<void>;
   }
 }

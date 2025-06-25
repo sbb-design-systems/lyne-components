@@ -36,8 +36,8 @@ describe(`sbb-popover`, () => {
       `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
       element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
-      openSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
-      closeSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
+      openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
     });
 
     it('renders', () => {
@@ -45,7 +45,7 @@ describe(`sbb-popover`, () => {
     });
 
     it('shows the popover', async () => {
-      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.willOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
 
       element.open();
 
@@ -63,7 +63,7 @@ describe(`sbb-popover`, () => {
     });
 
     it('closes the popover', async () => {
-      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.willClose, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
 
       element.open();
 
@@ -255,9 +255,9 @@ describe(`sbb-popover`, () => {
     });
 
     it('does not open if prevented', async () => {
-      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.willOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, element);
 
-      element.addEventListener(SbbPopoverElement.events.willOpen, (ev) => ev.preventDefault());
+      element.addEventListener(SbbPopoverElement.events.beforeopen, (ev) => ev.preventDefault());
       element.open();
 
       await beforeOpenSpy.calledOnce();
@@ -267,13 +267,13 @@ describe(`sbb-popover`, () => {
     });
 
     it('does not close if prevented', async () => {
-      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.willClose, element);
+      const beforeCloseSpy = new EventSpy(SbbPopoverElement.events.beforeclose, element);
 
       element.open();
       await openSpy.calledOnce();
       await waitForLitRender(element);
 
-      element.addEventListener(SbbPopoverElement.events.willClose, (ev) => ev.preventDefault());
+      element.addEventListener(SbbPopoverElement.events.beforeclose, (ev) => ev.preventDefault());
       element.close();
 
       await beforeCloseSpy.calledOnce();
@@ -497,8 +497,8 @@ describe(`sbb-popover`, () => {
     const secondTrigger = root.querySelector<SbbButtonElement>('#another-popover-trigger');
     const secondElement = root.querySelector<SbbPopoverElement>('#another-popover');
 
-    openSpy = new EventSpy(SbbPopoverElement.events.didOpen, null, { capture: true });
-    closeSpy = new EventSpy(SbbPopoverElement.events.didClose, null, {
+    openSpy = new EventSpy(SbbPopoverElement.events.open, null, { capture: true });
+    closeSpy = new EventSpy(SbbPopoverElement.events.close, null, {
       capture: true,
     });
 
@@ -538,7 +538,7 @@ describe(`sbb-popover`, () => {
       </sbb-popover>
     `);
 
-    const openSpy = new EventSpy(SbbPopoverElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
 
     trigger.click();
 

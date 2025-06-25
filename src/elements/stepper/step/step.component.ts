@@ -41,11 +41,11 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     validate: 'validate',
-    resizeChange: 'resizeChange',
+    resizechange: 'resizechange',
   } as const;
 
   /** Emits whenever step switch is triggered. */
-  private _validate: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
+  private _validateEmitter: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
     this,
     SbbStepElement.events.validate,
   );
@@ -54,9 +54,9 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    * @internal
    * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
    */
-  private _resizeChange: EventEmitter<void> = new EventEmitter(
+  private _resizeChangeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbStepElement.events.resizeChange,
+    SbbStepElement.events.resizechange,
     { bubbles: true },
   );
 
@@ -73,18 +73,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   });
 
   /** The label of the step. */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  private set label(value: SbbStepLabelElement | null) {
-    this.internals.ariaLabelledByElements = removeAriaElements(
-      this.internals.ariaLabelledByElements,
-      this._label,
-    );
-    this._label = value instanceof Element ? value : null;
-    this.internals.ariaLabelledByElements = appendAriaElements(
-      this.internals.ariaLabelledByElements,
-      this._label,
-    );
-  }
   public get label(): SbbStepLabelElement | null {
     return this._label;
   }
@@ -124,7 +112,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    * @internal
    */
   public validate(eventData: SbbStepValidateEventDetails): boolean {
-    return !!this._validate.emit(eventData);
+    return !!this._validateEmitter.emit(eventData);
   }
 
   /**
@@ -133,7 +121,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
    */
   public configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
-      this.label = this._getStepLabel();
+      this._assignLabel();
     }
   }
 
@@ -161,15 +149,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.hasAttribute('data-selected')) {
       return;
     }
-    this._resizeChange.emit();
-  }
-
-  private _getStepLabel(): SbbStepLabelElement | null {
-    let previousSibling = this.previousElementSibling;
-    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
-      previousSibling = previousSibling.previousElementSibling;
-    }
-    return previousSibling as SbbStepLabelElement;
+    this._resizeChangeEmitter.emit();
   }
 
   public override connectedCallback(): void {
@@ -177,7 +157,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
     this._stepper = this.closest('sbb-stepper');
-    this.label = this._getStepLabel();
+    this._assignLabel();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -185,6 +165,24 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     this.updateComplete.then(() => {
       this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step') as HTMLElement);
     });
+  }
+
+  private _assignLabel(): void {
+    let previousSibling = this.previousElementSibling;
+    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
+      previousSibling = previousSibling.previousElementSibling;
+    }
+    const value = previousSibling as SbbStepLabelElement | null;
+
+    this.internals.ariaLabelledByElements = removeAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
+    this._label = value instanceof Element ? value : null;
+    this.internals.ariaLabelledByElements = appendAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
   }
 
   protected override render(): TemplateResult {
@@ -207,6 +205,6 @@ declare global {
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    resizeChange: CustomEvent<void>;
+    resizechange: CustomEvent<void>;
   }
 }

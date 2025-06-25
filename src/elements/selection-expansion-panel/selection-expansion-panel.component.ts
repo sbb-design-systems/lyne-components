@@ -27,10 +27,10 @@ import '../divider.js';
  *
  * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
  * @slot content - Use this slot to provide custom content for the panel (optional).
- * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
- * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the content section begins the closing transition.
- * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
+ * @event {CustomEvent<void>} beforeopen - Emits whenever the content section starts the opening transition.
+ * @event {CustomEvent<void>} open - Emits whenever the content section is opened.
+ * @event {CustomEvent<void>} beforeclose - Emits whenever the content section begins the closing transition.
+ * @event {CustomEvent<void>} close - Emits whenever the content section is closed.
  */
 export
 @customElement('sbb-selection-expansion-panel')
@@ -38,11 +38,11 @@ export
 class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+  public static readonly events = {
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /** The background color of the panel. */
@@ -81,30 +81,30 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   }
 
   /** Emits whenever the content section starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(
+  private _beforeOpenEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.willOpen,
+    SbbSelectionExpansionPanelElement.events.beforeopen,
     { cancelable: true },
   );
 
   /** Emits whenever the content section is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
+  private _openEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.didOpen,
+    SbbSelectionExpansionPanelElement.events.open,
     { cancelable: true },
   );
 
   /** Emits whenever the content section begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
+  private _beforeCloseEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.willClose,
+    SbbSelectionExpansionPanelElement.events.beforeclose,
     { cancelable: true },
   );
 
   /** Emits whenever the content section is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
+  private _closeEmitter: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionExpansionPanelElement.events.didClose,
+    SbbSelectionExpansionPanelElement.events.close,
     { cancelable: true },
   );
 
@@ -129,7 +129,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   public constructor() {
     super();
-    this.addEventListener?.('panelConnected', (e) => this._initFromInput(e));
+    this.addEventListener?.('panelconnected', (e) => this._initFromInput(e));
   }
 
   public override connectedCallback(): void {
@@ -170,7 +170,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     }
 
     this._state = 'opening';
-    this._willOpen.emit();
+    this._beforeOpenEmitter.emit();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -185,7 +185,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     }
 
     this._state = 'closing';
-    this._willClose.emit();
+    this._beforeCloseEmitter.emit();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -200,12 +200,12 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    this._closeEmitter.emit();
   }
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this._didOpen.emit();
+    this._openEmitter.emit();
   }
 
   private _initFromInput(event: Event): void {
@@ -281,7 +281,7 @@ class SbbSelectionExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-expansion-panel">
-        <div class="sbb-selection-expansion-panel__input" @stateChange=${this._onInputStateChange}>
+        <div class="sbb-selection-expansion-panel__input" @statechange=${this._onInputStateChange}>
           <slot></slot>
         </div>
         <div

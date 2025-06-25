@@ -48,14 +48,14 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   public constructor() {
     super();
     this.addEventListener?.(
-      'willOpen',
+      'beforeopen',
       async (e: CustomEvent<void>) => {
         if (!(await isEventPrevented(e))) {
           this._closePanels(e);
         }
       },
       {
-        // We use capture here, because willOpen does not bubble.
+        // We use capture here, because 'beforeopen' does not bubble.
         capture: true,
       },
     );

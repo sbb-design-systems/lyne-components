@@ -26,7 +26,7 @@ export
 class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
-    stateChange: 'stateChange',
+    statechange: 'statechange',
     change: 'change',
     input: 'input',
   } as const;

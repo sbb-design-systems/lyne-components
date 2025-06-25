@@ -176,7 +176,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
       { passive: true },
     );
     this.addEventListener('input', () => this._checkAndUpdateInputEmpty());
-    this.addEventListener('displayValueChange', () => this._checkAndUpdateInputEmpty());
+    this.addEventListener('displayvaluechange', () => this._checkAndUpdateInputEmpty());
     // We want to prevent the native browser validation message popover
     // to be shown. This also prevents a bug in WebKit, which would not
     // allow host as the validity anchor: https://bugs.webkit.org/show_bug.cgi?id=269832

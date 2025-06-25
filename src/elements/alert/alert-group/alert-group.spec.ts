@@ -19,7 +19,7 @@ describe(`sbb-alert-group`, () => {
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';
 
-    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.didOpen, null, {
+    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.open, null, {
       capture: true,
     });
 
@@ -44,8 +44,8 @@ describe(`sbb-alert-group`, () => {
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
     const alert1 = element.querySelector<SbbAlertElement>('sbb-alert#alert1')!;
     const alert2 = element.querySelector<SbbAlertElement>('sbb-alert#alert2')!;
-    const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert1);
-    const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert2);
+    const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.close, alert1);
+    const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.close, alert2);
 
     // Wait until both alerts are opened
     await alertOpenedEventSpy.calledTimes(2);

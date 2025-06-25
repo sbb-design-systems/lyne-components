@@ -704,10 +704,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSelectionExpansionPanelElement.events.didOpen,
-        SbbSelectionExpansionPanelElement.events.didClose,
-        SbbSelectionExpansionPanelElement.events.willOpen,
-        SbbSelectionExpansionPanelElement.events.willClose,
+        SbbSelectionExpansionPanelElement.events.open,
+        SbbSelectionExpansionPanelElement.events.close,
+        SbbSelectionExpansionPanelElement.events.beforeopen,
+        SbbSelectionExpansionPanelElement.events.beforeclose,
       ],
     },
     docs: {
