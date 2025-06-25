@@ -158,4 +158,8 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-radio-button-panel': SbbRadioButtonPanelElement;
   }
+
+  interface GlobalEventHandlersEventMap {
+    statechange: CustomEvent<SbbStateChange>;
+  }
 }

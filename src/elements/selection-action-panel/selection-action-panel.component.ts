@@ -58,8 +58,8 @@ class SbbSelectionActionPanelElement extends SbbHydrationMixin(LitElement) {
 
   public constructor() {
     super();
-    this.addEventListener?.('panelConnected', (e) => this._initFromInput(e)); // TODO 'panelConnected' will become 'panelconnected'
-    this.addEventListener?.('stateChange', (e) => this._onInputStateChange(e)); // TODO 'stateChange' will become 'statechange'
+    this.addEventListener?.('panelconnected', (e) => this._initFromInput(e));
+    this.addEventListener?.('statechange', (e) => this._onInputStateChange(e));
   }
 
   public override disconnectedCallback(): void {

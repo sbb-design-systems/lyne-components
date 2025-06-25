@@ -8,10 +8,10 @@
   --sbb-selection-action-panel-border-color: var(--sbb-color-cloud);
 
   // Variable used to override background color of selection panels.
-  --sbb-selection-expansion-panel-inner-background: transparent; // TODO rename to '--sbb-selection-panel-inner-background'
+  --sbb-selection-panel-inner-background: transparent;
 
   // Variable used to override border width of selection panels.
-  --sbb-selection-expansion-panel-inner-border-width: 0px; // TODO rename to '--sbb-selection-panel-inner-border-width'
+  --sbb-selection-panel-inner-border-width: 0px;
   --sbb-selection-action-panel-border-width: var(--sbb-border-width-1x);
   --sbb-selection-action-panel-border-radius: var(--sbb-border-radius-4x);
 
