@@ -214,7 +214,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
-    return html` <sbb-seat-reservation-scoped
+    return html`<sbb-seat-reservation-scoped
       style=${styleMap({
         '--sbb-seat-reservation-scoped-width': calculatedCoachDimension.w,
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
