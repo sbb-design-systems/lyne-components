@@ -376,7 +376,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const triggerId = Math.floor(Date.now() * Math.random());
 
     const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
-
+    const stretchHeight = areaProperty !== 'ENTRY_EXIT';
+    const ariaLabelForArea = graphicalElement.icon
+      ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
+      : nothing;
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
@@ -427,23 +430,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           : nothing}
       </sbb-seat-reservation-area>
       ${this._popover(triggerId, ariaLabelForArea)}
-    `;
-  }
-
-  /**
-   * Creates a popover for extra service information
-   * @param triggerId
-   * @param popoverContent
-   * @private
-   */
-  private _popover(
-    triggerId: number,
-    popoverContent: string | null | typeof nothing,
-  ): TemplateResult {
-    return html`
-      <sbb-popover trigger="${triggerId}">
-        <p class="sbb-text-s sbb-sr-popover">${popoverContent}</p>
-      </sbb-popover>
     `;
   }
 
