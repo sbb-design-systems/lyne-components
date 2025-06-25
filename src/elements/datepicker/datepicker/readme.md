@@ -81,10 +81,10 @@ todayStub.restore();
 
 ## Events
 
-| Name           | Type                                        | Description                                                                         | Inherited From          |
-| -------------- | ------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-datepicker` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`   | `CustomEvent<void>`                         | Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`        | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-datepicker` is closed.                                      | SbbOpenCloseBaseElement |
-| `dateSelected` | `CustomEvent<T>`                            | Event emitted on date selection.                                                    |                         |
-| `open`         | `CustomEvent<void>`                         | Emits whenever the `sbb-datepicker` is opened.                                      | SbbOpenCloseBaseElement |
+| Name           | Type             | Description                                                                         | Inherited From          |
+| -------------- | ---------------- | ----------------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose`  | `Event`          | Emits whenever the `sbb-datepicker` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`   | `Event`          | Emits whenever the component starts the opening transition. Can be canceled.        | SbbOpenCloseBaseElement |
+| `close`        | `Event`          | Emits whenever the `sbb-datepicker` is closed.                                      | SbbOpenCloseBaseElement |
+| `dateSelected` | `CustomEvent<T>` | Event emitted on date selection.                                                    |                         |
+| `open`         | `Event`          | Emits whenever the component is opened.                                             | SbbOpenCloseBaseElement |

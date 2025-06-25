@@ -61,7 +61,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   /** Open the alert. */
   public open(): void {
     this.state = 'opening';
-    this.beforeOpenEmitter.emit();
+    this.dispatchBeforeOpenEvent();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -72,7 +72,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   /** Close the alert. */
   public close(): void {
-    if (this.state === 'opened' && this.beforeCloseEmitter.emit()) {
+    if (this.state === 'opened' && this.dispatchBeforeCloseEvent()) {
       this.state = 'closing';
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -111,12 +111,12 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.openEmitter.emit();
+    this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.closeEmitter.emit();
+    this.dispatchCloseEvent();
     setTimeout(() => this.remove());
   }
 

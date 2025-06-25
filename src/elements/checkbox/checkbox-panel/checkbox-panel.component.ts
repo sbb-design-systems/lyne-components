@@ -10,7 +10,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -69,16 +68,14 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the checkbox
-   * in relation to the parent selection panel changes.
-   */
-  protected stateChangeEmitter: EventEmitter<SbbCheckboxPanelStateChange> = new EventEmitter(
-    this,
-    SbbCheckboxPanelElement.events.statechange,
-    { bubbles: true },
-  );
+  private _dispatchStateChange(detail: SbbCheckboxPanelStateChange): boolean {
+    /**
+     * @internal
+     * Internal event that emits whenever the state of the checkbox
+     * in relation to the parent selection panel changes.
+     */
+    return this.dispatchEvent(new CustomEvent('statechange', { detail, bubbles: true }));
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -88,12 +85,12 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
       this.toggleAttribute('data-checked', this.checked);
 
       if (this.checked !== changedProperties.get('checked')!) {
-        this.stateChangeEmitter.emit({ type: 'checked', checked: this.checked });
+        this._dispatchStateChange({ type: 'checked', checked: this.checked });
       }
     }
     if (changedProperties.has('disabled')) {
       if (this.disabled !== changedProperties.get('disabled')!) {
-        this.stateChangeEmitter.emit({ type: 'disabled', disabled: this.disabled });
+        this._dispatchStateChange({ type: 'disabled', disabled: this.disabled });
       }
     }
   }

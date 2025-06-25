@@ -27,11 +27,9 @@ let nextId = 0;
 /**
  * A datepicker component that allows users to select a date from a calendar view.
  *
- * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} open - Emits whenever the `sbb-datepicker` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} beforeclose - Emits whenever the `sbb-datepicker` begins the closing
+ * @event {CustomEvent<{ closeTarget: HTMLElement | null }>} beforeclose - Emits whenever the `sbb-datepicker` begins the closing
  * transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} close - Emits whenever the `sbb-datepicker` is closed.
+ * @event {CustomEvent<{ closeTarget: HTMLElement | null }>} close - Emits whenever the `sbb-datepicker` is closed.
  * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 export
