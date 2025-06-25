@@ -6,10 +6,10 @@
 @use './mixins/font-face';
 @use './mixins/helpers';
 @use './mixins/inputs';
+@use './mixins/popover';
 @use './mixins/scrollbar';
 @use './mixins/shadows';
 @use './mixins/typo';
-@use './mixins/popover';
 
 @include helpers.box-sizing;
 
