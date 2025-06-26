@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.2](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.1...v2.11.2) (2025-06-26)
+
+
+### Bug Fixes
+
+* avoid parsing 0 day/month dates ([#3847](https://github.com/sbb-design-systems/lyne-components/issues/3847)) ([1ee3786](https://github.com/sbb-design-systems/lyne-components/commit/1ee3786f9e8711ad269129eec28c81fc9a4bbc92)), closes [#3842](https://github.com/sbb-design-systems/lyne-components/issues/3842)
+* **sbb-notification:** fix positioning of the icon ([#3831](https://github.com/sbb-design-systems/lyne-components/issues/3831)) ([ad616c6](https://github.com/sbb-design-systems/lyne-components/commit/ad616c67e4184d414af28b446e20f76b7dbcf535))
+* **sbb-pearl-chain:** handle partially canceled trips ([#3825](https://github.com/sbb-design-systems/lyne-components/issues/3825)) ([21d21bd](https://github.com/sbb-design-systems/lyne-components/commit/21d21bd18d15b2ed898c5e225224e99741f5abb4)), closes [#3815](https://github.com/sbb-design-systems/lyne-components/issues/3815)
+* **sbb-select:** check null value on keyboard interaction ([#3843](https://github.com/sbb-design-systems/lyne-components/issues/3843)) ([0560ba3](https://github.com/sbb-design-systems/lyne-components/commit/0560ba378e6703d6ad129efad8c592dde287daea))
+
+
+### Documentation
+
+* link stackblitz starter projects ([#3854](https://github.com/sbb-design-systems/lyne-components/issues/3854)) ([4377ff5](https://github.com/sbb-design-systems/lyne-components/commit/4377ff5bc21acc94671204b0904558a5ed53a1fc))
+
+
+### Code Refactoring
+
+* remove table border radius ([#3808](https://github.com/sbb-design-systems/lyne-components/issues/3808)) ([257ede4](https://github.com/sbb-design-systems/lyne-components/commit/257ede436f5304af7a01a835126f63f78f06bee2))
+
 ## [2.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.0...v2.11.1) (2025-06-12)
 
 
