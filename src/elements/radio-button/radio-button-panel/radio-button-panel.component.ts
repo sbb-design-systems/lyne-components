@@ -38,8 +38,8 @@ export type SbbRadioButtonStateChange = Extract<
  * @slot subtext - Slot used to render a subtext under the label.
  * @slot suffix - Slot used to render additional content after the label.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
- * @event {Event} change - Fired on change.
- * @event {InputEvent} input - Fired on input.
+ * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
 export

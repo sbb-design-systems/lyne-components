@@ -16,8 +16,8 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * It displays a radio button enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
- * @event {Event} change - Fired on change.
- * @event {InputEvent} input - Fired on input.
+ * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
 export
