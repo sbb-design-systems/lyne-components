@@ -390,14 +390,20 @@ describe(`sbb-select`, () => {
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       element.dispatchEvent(new CustomEvent('click'));
       await openSpy.calledOnce();
-      expect(openSpy.count).to.be.equal(1);
-      await waitForLitRender(element);
 
       element.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
+    });
+
+    it('avoid opening the panel if readonly', async () => {
+      element.toggleAttribute('readonly', true);
+      await waitForLitRender(element);
+
+      element.dispatchEvent(new CustomEvent('click'));
+      expect(element.isOpen).to.be.equal(false);
     });
 
     it('handles keypress on host', async () => {

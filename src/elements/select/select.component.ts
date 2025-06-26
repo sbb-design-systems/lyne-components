@@ -108,14 +108,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   @getOverride((e: SbbSelectElement<T>, v: boolean): boolean => v || e.isDisabledExternally())
   public override accessor disabled: boolean = false;
 
-  /** Whether the select is readonly. */
-  @forceType()
-  @property({ type: Boolean, attribute: 'readonly' })
-  public override set readOnly(value: boolean) {
-    this._closeOnDisabledReadonlyChanged(value);
-    super.readOnly = value;
-  }
-
   /** Value of the form element. */
   @property()
   public accessor value: T | T[] | null = null;
@@ -469,6 +461,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
     if (changedProperties.has('negative') || changedProperties.has('multiple')) {
       this._syncProperties();
+    }
+    if (changedProperties.has('readOnly')) {
+      this._closeOnDisabledReadonlyChanged(this.readOnly);
     }
   }
 
