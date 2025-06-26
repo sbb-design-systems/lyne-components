@@ -115,7 +115,7 @@ The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
 | Name        | Type         | Description                                                                                                                                                                        | Inherited From |
 | ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `change`    | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `didChange` | `Event`      | Mirrors change event.                                                                                                                                                              |                |
+| `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                |
 | `input`     | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
 ## Slots

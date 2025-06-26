@@ -156,8 +156,8 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
     this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
 
     /**
-     * Mirrors change event.
-     * @deprecated only used for React. Will probably be removed once React 19 is available.
+     * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+     * @deprecated
      */
     this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }

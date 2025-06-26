@@ -103,9 +103,9 @@ const values = [
 
 ## Events
 
-| Name        | Type    | Description           | Inherited From |
-| ----------- | ------- | --------------------- | -------------- |
-| `didChange` | `Event` | Mirrors change event. |                |
+| Name        | Type    | Description                                                                                             | Inherited From |
+| ----------- | ------- | ------------------------------------------------------------------------------------------------------- | -------------- |
+| `didChange` | `Event` | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events. |                |
 
 ## Slots
 

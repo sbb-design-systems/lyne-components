@@ -227,8 +227,8 @@ class SbbSliderElement extends SbbDisabledMixin(
     this.dispatchEvent(new Event('change', { bubbles: true }));
 
     /**
-     * Mirrors change event.
-     * @deprecated only used for React. Will probably be removed once React 19 is available.
+     * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+     * @deprecated
      */
     this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
