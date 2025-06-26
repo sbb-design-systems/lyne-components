@@ -511,6 +511,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             '--sbb-reservation-graphic-top': calculatedPosition.y,
             '--sbb-reservation-graphic-left': calculatedPosition.x,
             '--sbb-reservation-graphic-position': 'absolute',
+            '--sbb-reservation--cursor-pointer': 'pointer',
           })}
           name=${serviceElement.icon ?? nothing}
           .rotation=${elementFixedRotation}

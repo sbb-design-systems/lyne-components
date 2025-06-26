@@ -53,7 +53,7 @@
 // hover state with pointer cursor for service icons and popover
 .sbb-sr-icon {
   &:hover {
-    cursor: pointer;
+    cursor: var(--sbb-reservation--cursor-pointer, default);
   }
 }
 
