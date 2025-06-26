@@ -368,7 +368,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   private _emitInputEvents(): void {
     /** The input event fires when the value has been changed as a direct result of a user action. */
-    this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
     /**
      * The change event is fired when the user modifies the element's value.

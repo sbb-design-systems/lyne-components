@@ -180,8 +180,8 @@ describe(`sbb-datepicker`, () => {
 
     // Clear the input value and expect the calendar to clear the previous selected date
     input.value = '';
-    input.dispatchEvent(new Event('input'));
-    input.dispatchEvent(new Event('change'));
+    input.dispatchEvent(new InputEvent('input'));
+    input.dispatchEvent(new InputEvent('change'));
     await waitForLitRender(toggle);
 
     expect(input.value).to.be.equal('');
