@@ -10,7 +10,6 @@ import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } fr
  *
  * @slot - Use the unnamed slot to add content to the button.
  * @slot icon - Slot used to display the icon, if one is set
- * @overrideType value - string
  */
 export
 @customElement('sbb-button')

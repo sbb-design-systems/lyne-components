@@ -8,7 +8,6 @@ import style from './datepicker-next-day.scss?lit&inline';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
- * @overrideType value - string
  */
 export
 @customElement('sbb-datepicker-next-day')

@@ -16,7 +16,6 @@ import '../../icon.js';
  * It allows to select one or more file from storage devices and display them.
  *
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @overrideType value - string | null
  */
 export
 @customElement('sbb-file-selector')

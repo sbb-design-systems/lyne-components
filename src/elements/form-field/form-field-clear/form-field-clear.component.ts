@@ -14,7 +14,6 @@ import '../../icon.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
- * @overrideType value - string
  */
 export
 @customElement('sbb-form-field-clear')

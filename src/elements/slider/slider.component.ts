@@ -23,7 +23,6 @@ import '../icon.js';
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
- * @overrideType value - string | null
  */
 export
 @customElement('sbb-slider')

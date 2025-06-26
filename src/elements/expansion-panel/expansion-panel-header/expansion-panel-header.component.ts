@@ -18,7 +18,6 @@ import style from './expansion-panel-header.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
- * @overrideType value - string
  */
 export
 @customElement('sbb-expansion-panel-header')
