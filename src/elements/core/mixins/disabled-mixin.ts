@@ -27,12 +27,14 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
      * Whether the component is disabled.
      * @default false
      */
-    @property({ type: Boolean })
+    // TODO: remove reflect: true and manage only in setter.
+    @property({ type: Boolean, reflect: true })
     public set disabled(value: boolean) {
       this.#disabled = !!value;
 
       // The attribute needs to be reflected synchronously (like native)
-      this.toggleAttribute('disabled', this.#disabled);
+      // TODO: only disabled of the actual component should be reflected, without considering this.isDisabledExternally()
+      this.toggleAttribute('disabled', this.disabled);
     }
     public get disabled(): boolean {
       return this.#disabled || this.isDisabledExternally();
