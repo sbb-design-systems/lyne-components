@@ -368,7 +368,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachDimension: ElementDimension,
   ): TemplateResult {
     // for TABLE, we use the area component itself to display the table instead of the SVG graphic.
-    // Due to different heights and widths, it would'nt show correctly. To correct this, we would
+    // Due to different heights and widths, it wouldn't show correctly. To correct this, we would
     // need difficult calculations for position, rotation and dimension.
     const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
 
@@ -419,6 +419,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${areaProperty
           ? html`
               <sbb-seat-reservation-graphic
+                style=${styleMap({
+                  '--sbb-reservation--cursor-pointer': 'pointer',
+                })}
                 name=${areaProperty}
                 width=${this.baseGridSize}
                 height=${this.baseGridSize}
