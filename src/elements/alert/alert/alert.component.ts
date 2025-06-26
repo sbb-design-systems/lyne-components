@@ -22,10 +22,6 @@ import '../../divider.js';
  * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
- * @event {CustomEvent<void>} beforeopen - Emits when the opening animation starts.
- * @event {CustomEvent<void>} open - Emits when the opening animation ends.
- * @event {CustomEvent<void>} beforeclose - Emits when the closing animation starts. Can be canceled.
- * @event {CustomEvent<void>} close - Emits when the closing animation ends.
  */
 export
 @customElement('sbb-alert')
@@ -61,7 +57,10 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   /** Open the alert. */
   public open(): void {
     this.state = 'opening';
-    this.dispatchBeforeOpenEvent();
+
+    if (!this.dispatchBeforeOpenEvent()) {
+      return;
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.

@@ -18,8 +18,6 @@ let nextId = 0;
  *
  * @slot actions - This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.
  * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
- * @event {CustomEvent<SbbOverlayCloseEventDetails>} beforeclose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
- * @event {CustomEvent<SbbOverlayCloseEventDetails>} close - Emits whenever the `sbb-dialog` is closed.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.

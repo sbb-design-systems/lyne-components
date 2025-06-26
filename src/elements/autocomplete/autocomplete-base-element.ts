@@ -168,10 +168,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   /** Closes the autocomplete. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.dispatchBeforeCloseEvent()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 

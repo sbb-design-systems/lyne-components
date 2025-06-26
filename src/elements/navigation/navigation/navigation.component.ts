@@ -163,10 +163,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   /** Closes the navigation. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.dispatchBeforeCloseEvent()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 

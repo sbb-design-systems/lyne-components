@@ -142,11 +142,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes the menu.
    */
   public close(): void {
-    if (this.state === 'opening') {
-      return;
-    }
-
-    if (!this.dispatchBeforeCloseEvent()) {
+    if (this.state === 'opening' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 

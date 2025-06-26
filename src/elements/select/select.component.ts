@@ -46,10 +46,6 @@ let nextId = 0;
  * It displays a panel with selectable options.
  *
  * @slot - Use the unnamed slot to add options.
- * @event {Event} beforeopen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled to prevent the `sbb-select` from opening.
- * @event {Event} open - Emits whenever the `sbb-select` is opened.
- * @event {Event} beforeclose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled to prevent the `sbb-select` from closing.
- * @event {Event} close - Emits whenever the `sbb-select` is closed.
  * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -242,12 +238,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       !this._overlay ||
       this._options.length === 0 ||
       this.disabled ||
-      this.formDisabled
+      this.formDisabled ||
+      !this.dispatchBeforeOpenEvent()
     ) {
-      return;
-    }
-
-    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -265,10 +258,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Closes the selection panel. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.dispatchBeforeCloseEvent()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 

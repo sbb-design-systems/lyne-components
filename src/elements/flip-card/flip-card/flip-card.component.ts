@@ -20,7 +20,6 @@ import '../../screen-reader-only.js';
  * Displays an informative card that reveals more information upon being clicked.
  *
  * @slot - Use the unnamed slot to add a `sbb-flip-card-summary` and a `sbb-flip-card-details` element.
- * @event {CustomEvent<void>} flip - Emits when the flip card flips.
  *
  */
 export

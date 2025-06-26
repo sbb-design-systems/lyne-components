@@ -191,12 +191,12 @@ const values = [
 
 | Name          | Type         | Description                                                                                                                                                                        | Inherited From          |
 | ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `Event`      | Emits whenever the `sbb-select` begins the closing transition. Can be canceled to prevent the `sbb-select` from closing.                                                           | SbbOpenCloseBaseElement |
-| `beforeopen`  | `Event`      | Emits whenever the `sbb-select` starts the opening transition. Can be canceled to prevent the `sbb-select` from opening.                                                           | SbbOpenCloseBaseElement |
+| `beforeclose` | `Event`      | Emits whenever the component begins the closing transition. Can be canceled.                                                                                                       | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`      | Emits whenever the component starts the opening transition. Can be canceled.                                                                                                       | SbbOpenCloseBaseElement |
 | `change`      | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                         |
-| `close`       | `Event`      | Emits whenever the `sbb-select` is closed.                                                                                                                                         | SbbOpenCloseBaseElement |
+| `close`       | `Event`      | Emits whenever the component is closed.                                                                                                                                            | SbbOpenCloseBaseElement |
 | `input`       | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                         |
-| `open`        | `Event`      | Emits whenever the `sbb-select` is opened.                                                                                                                                         | SbbOpenCloseBaseElement |
+| `open`        | `Event`      | Emits whenever the component is opened.                                                                                                                                            | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 
