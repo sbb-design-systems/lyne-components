@@ -138,7 +138,7 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   private _close(): void {
     this._state = 'closing';
     /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
-    this.dispatchEvent(new Event('beforeclose', { cancelable: true }));
+    this.dispatchEvent(new Event('beforeclose'));
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
