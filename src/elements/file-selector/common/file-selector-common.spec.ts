@@ -45,7 +45,7 @@ function addFiles(
   }
 
   // Manually dispatch events to simulate a user interaction
-  nativeInput.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
+  nativeInput.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
   nativeInput.dispatchEvent(new Event('change'));
 }
 

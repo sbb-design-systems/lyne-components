@@ -17,7 +17,6 @@ import {
   isZeroAnimationDuration,
   setOrRemoveAttribute,
 } from '../core/dom.js';
-import { EventEmitter } from '../core/eventing.js';
 import { i18nSelectionRequired } from '../core/i18n.js';
 import {
   type FormRestoreReason,
@@ -47,12 +46,6 @@ let nextId = 0;
  * It displays a panel with selectable options.
  *
  * @slot - Use the unnamed slot to add options.
- * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
- * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
- * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} open - Emits whenever the `sbb-select` is opened.
- * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} close - Emits whenever the `sbb-select` is closed.
  * @cssprop [--sbb-select-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -128,18 +121,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** The value displayed by the component. */
   @state() private accessor _displayValue: string | null = null;
-
-  /** Notifies that the component's value has changed. */
-  private _change: EventEmitter = new EventEmitter(this, SbbSelectElement.events.change);
-
-  /** Notifies that an option value has been selected. */
-  private _input: EventEmitter = new EventEmitter(this, SbbSelectElement.events.input);
-
-  /** @internal */
-  private _displayValueChangeEmitter: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbSelectElement.events.displayvaluechange,
-  );
 
   private _originResizeObserver = new ResizeController(this, {
     target: null,
@@ -249,12 +230,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       !this._overlay ||
       this._options.length === 0 ||
       this.disabled ||
-      this.formDisabled
+      this.formDisabled ||
+      !this.dispatchBeforeOpenEvent()
     ) {
-      return;
-    }
-
-    if (!this.beforeOpenEmitter.emit()) {
       return;
     }
 
@@ -272,10 +250,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Closes the selection panel. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.beforeCloseEmitter.emit()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -335,7 +310,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     } else {
       this._displayValue = null;
     }
-    this._displayValueChangeEmitter.emit();
+
+    /** @internal */
+    this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
   }
 
   /**
@@ -599,7 +576,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this._originElement) {
       this._originResizeObserver.observe(this._originElement);
     }
-    this.openEmitter.emit();
+    this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
@@ -609,7 +586,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();
-    this.closeEmitter.emit();
+    this.dispatchCloseEvent();
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
@@ -627,17 +604,32 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       }
     }
 
-    this._input.emit();
-    this._change.emit();
+    this._dispatchInputEvents();
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
   private _onOptionDeselected(optionSelectionChange: SbbOptionElement<T>): void {
     if (this.multiple && Array.isArray(this.value)) {
       this.value = this.value.filter((el) => el !== optionSelectionChange.value);
-      this._input.emit();
-      this._change.emit();
+      this._dispatchInputEvents();
     }
+  }
+
+  private _dispatchInputEvents(): void {
+    /** The input event fires when the value has been changed as a direct result of a user action. */
+    this.dispatchEvent(
+      new InputEvent('input', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
+
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   private _attachOpenPanelEvents(): void {

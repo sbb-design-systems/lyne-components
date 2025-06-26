@@ -141,7 +141,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     ) {
       return;
     }
-    if (!this.beforeOpenEmitter.emit()) {
+    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -168,10 +168,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   /** Closes the autocomplete. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.beforeCloseEmitter.emit()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -417,7 +414,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
     this.triggerElement?.setAttribute('aria-expanded', 'true');
     this._escapableOverlayController.connect();
-    this.openEmitter.emit();
+    this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
@@ -427,7 +424,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();
-    this.closeEmitter.emit();
+    this.dispatchCloseEvent();
   }
 
   private _attachOpenPanelEvents(): void {

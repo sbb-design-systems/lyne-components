@@ -109,12 +109,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Events
 
-| Name          | Type                                        | Description                                                                      | Inherited From          |
-| ------------- | ------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      | SbbOpenCloseBaseElement |
+| Name          | Type                                                | Description                                                                  | Inherited From          |
+| ------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`                                             | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`                                             | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

@@ -193,11 +193,11 @@ the value to a string represented in the created chips.
 
 ## Events
 
-| Name                | Type                                            | Description                                                                                                      | Inherited From |
-| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change`            | `CustomEvent<void>`                             | Notifies that the component's value has changed.                                                                 |                |
-| `chipinputtokenend` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented. |                |
-| `input`             | `CustomEvent<void>`                             | Notifies that the component's value has changed.                                                                 |                |
+| Name                | Type                                            | Description                                                                                                                                                                        | Inherited From |
+| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`            | `Event`                                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `chipinputtokenend` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
+| `input`             | `InputEvent`                                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
 ## Slots
 

@@ -147,8 +147,6 @@ const breakpointMap: Record<string, number> = {
 /**
  * It displays an image.
  *
- * @event {Event} load - Emits when the image has been loaded.
- * @event {Event} error - Emits when the image loading ended in an error.
  * @cssprop [--sbb-image-aspect-ratio=auto] - Can be used to override `aspectRatio` property.
  * This way we can have, for example, an image component with an aspect
  * ratio of 4/3 in smaller viewports and 16/9 in larger viewports.
@@ -542,6 +540,8 @@ class SbbImageElement extends LitElement {
   private _imageLoaded(): void {
     this._logPerformanceMarks();
     this.toggleAttribute('data-loaded', true);
+
+    /** Emits when the image has been loaded. */
     this.dispatchEvent(new Event('load'));
   }
 
@@ -597,7 +597,10 @@ class SbbImageElement extends LitElement {
           <img
             alt=${this.alt || ''}
             @load=${this._imageLoaded}
-            @error=${() => this.dispatchEvent(new Event('error'))}
+            @error=${() => {
+              /** Emits when the image loading ended in an error. */
+              return this.dispatchEvent(new Event('error'));
+            }}
             class="sbb-image__img"
             src=${this.imageSrc!}
             width="1000"

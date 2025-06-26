@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { waitForLitRender } from '../../core/testing.js';
 
 import { SbbRadioButtonPanelElement } from './radio-button-panel.component.js';
 
@@ -25,47 +25,31 @@ describe(`sbb-radio-button-panel`, () => {
   });
 
   it('selects radio on click', async () => {
-    const stateChangeSpy = new EventSpy(SbbRadioButtonPanelElement.events.statechange);
-
     element.click();
     await waitForLitRender(element);
 
     expect(element.checked).to.be.true;
     expect(element).to.have.attribute('data-checked');
-    await stateChangeSpy.calledOnce();
-    expect(stateChangeSpy.count).to.be.equal(1);
   });
 
   it('does not deselect radio if already checked', async () => {
-    const stateChangeSpy = new EventSpy(SbbRadioButtonPanelElement.events.statechange);
+    element.click();
+    await waitForLitRender(element);
+    expect(element.checked).to.be.true;
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChangeSpy.calledOnce();
-    expect(stateChangeSpy.count).to.be.equal(1);
-
-    element.click();
-    await waitForLitRender(element);
-    expect(element.checked).to.be.true;
-    await stateChangeSpy.calledOnce();
-    expect(stateChangeSpy.count).to.be.equal(1);
   });
 
   it('allows empty selection', async () => {
-    const stateChangeSpy = new EventSpy(SbbRadioButtonPanelElement.events.statechange);
-
     element.allowEmptySelection = true;
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChangeSpy.calledOnce();
-    expect(stateChangeSpy.count).to.be.equal(1);
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.false;
-    await stateChangeSpy.calledTimes(2);
-    expect(stateChangeSpy.count).to.be.equal(2);
   });
 });

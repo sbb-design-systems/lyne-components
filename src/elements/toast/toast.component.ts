@@ -31,10 +31,6 @@ const toastRefs = new Set<SbbToastElement>();
  * @slot - Use the unnamed slot to add content to the `sbb-toast`.
  * @slot icon - Assign a custom icon via slot.
  * @slot action - Provide a custom action for this toast.
- * @event {CustomEvent<void>} beforeopen - Emits whenever the `sbb-toast` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} open - Emits whenever the `sbb-toast` is opened.
- * @event {CustomEvent<void>} beforeclose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} close - Emits whenever the `sbb-toast` is closed.
  * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -101,7 +97,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * If there are other opened toasts in the page, close them first.
    */
   public open(): void {
-    if (this.state !== 'closed' || !this.beforeOpenEmitter.emit()) {
+    if (this.state !== 'closed' || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -120,7 +116,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * Close the toast.
    */
   public close(): void {
-    if (this.state !== 'opened' || !this.beforeCloseEmitter.emit()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -137,12 +133,12 @@ class SbbToastElement extends SbbIconNameMixin(
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
-    this.closeEmitter.emit();
+    this.dispatchCloseEvent();
   }
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.openEmitter.emit();
+    this.dispatchOpenEvent();
 
     // Start the countdown to close it
     if (this.timeout) {

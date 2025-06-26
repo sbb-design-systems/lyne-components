@@ -8,7 +8,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipDelete } from '../../core/i18n.js';
 import {
   SbbDisabledMixin,
@@ -42,9 +41,6 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
   /** The value of chip. Will be used as label if nothing is slotted. */
   @property() public accessor value: T | null = null;
 
-  /** @internal */
-  private _requestDeleteEmitter = new EventEmitter<any>(this, SbbChipElement.events.requestdelete);
-
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -71,6 +67,11 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
     return this.shadowRoot!.querySelector('sbb-mini-button')!;
   }
 
+  private _handleDeleteButtonClick(): void {
+    /** @internal */
+    this.dispatchEvent(new Event('requestdelete', { bubbles: true, composed: true }));
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip">
@@ -83,7 +84,7 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
           aria-hidden="true"
           class="sbb-chip__delete"
           icon-name="cross-tiny-small"
-          @click=${() => this._requestDeleteEmitter.emit()}
+          @click=${this._handleDeleteButtonClick}
         >
         </sbb-mini-button>
         <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>

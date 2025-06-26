@@ -33,7 +33,6 @@ export interface SbbDateInputAssociated<T> {
 
 /**
  * Custom input for a date.
- * @overrideType value - string
  */
 export
 @customElement('sbb-date-input')

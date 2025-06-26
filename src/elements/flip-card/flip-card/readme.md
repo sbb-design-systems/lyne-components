@@ -64,9 +64,9 @@ The `sbb-flip-card` will switch to the flipped state after the user clicks on it
 
 ## Events
 
-| Name   | Type                | Description                     | Inherited From |
-| ------ | ------------------- | ------------------------------- | -------------- |
-| `flip` | `CustomEvent<void>` | Emits when the flip card flips. |                |
+| Name   | Type    | Description                              | Inherited From |
+| ------ | ------- | ---------------------------------------- | -------------- |
+| `flip` | `Event` | Emits whenever the component is flipped. |                |
 
 ## Slots
 

@@ -2,7 +2,6 @@ import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { forceType } from '../decorators.js';
-import { EventEmitter } from '../eventing.js';
 
 import type { AbstractConstructor } from './constructor.js';
 
@@ -22,10 +21,6 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbPanelMixinType> & T => {
   abstract class SbbPanelElement extends superClass implements SbbPanelMixinType {
-    public static readonly events = {
-      panelconnected: 'panelconnected',
-    } as const;
-
     /** The background color of the panel. */
     @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
 
@@ -39,20 +34,11 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
     @property()
     public accessor expansionState: string = '';
 
-    /**
-     * @internal
-     * Internal event that emits when the checkbox is loaded.
-     */
-    private _panelConnectedEmitter: EventEmitter<void> = new EventEmitter(
-      this,
-      SbbPanelElement.events.panelconnected,
-      { bubbles: true },
-    );
-
     public override connectedCallback(): void {
       super.connectedCallback();
 
-      this._panelConnectedEmitter.emit();
+      /** @internal */
+      this.dispatchEvent(new Event('panelconnected', { bubbles: true }));
 
       this.closest?.('sbb-radio-button-group, sbb-checkbox-group')?.toggleAttribute(
         'data-has-panel',

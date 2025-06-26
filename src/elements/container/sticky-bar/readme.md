@@ -52,12 +52,12 @@ The component has two sizes, `m` and `s`, that can be set using the `size` prope
 
 ## Events
 
-| Name            | Type                | Description                                                                                      | Inherited From |
-| --------------- | ------------------- | ------------------------------------------------------------------------------------------------ | -------------- |
-| `beforestick`   | `CustomEvent<void>` | Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled. |                |
-| `beforeunstick` | `CustomEvent<void>` | Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled. |                |
-| `stick`         | `CustomEvent<void>` | Emits when the animation from normal content flow to `position: sticky` ends.                    |                |
-| `unstick`       | `CustomEvent<void>` | Emits when the animation from `position: sticky` to normal content flow ends.                    |                |
+| Name            | Type    | Description                                                                                      | Inherited From |
+| --------------- | ------- | ------------------------------------------------------------------------------------------------ | -------------- |
+| `beforestick`   | `Event` | Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled. |                |
+| `beforeunstick` | `Event` | Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled. |                |
+| `stick`         | `Event` | Emits when the animation from normal content flow to `position: sticky` ends.                    |                |
+| `unstick`       | `Event` | Emits when the animation from `position: sticky` to normal content flow ends.                    |                |
 
 ## CSS Properties
 
