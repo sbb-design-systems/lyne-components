@@ -450,6 +450,16 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     `;
   }
 
+  /**
+   * trigger to close all opened popovers (normally only one is opened at a time)
+   * @private
+   */
+  private _closePopover(): void {
+    this.shadowRoot
+      ?.querySelectorAll('sbb-popover[data-state="opened"]')
+      .forEach((popover) => popover.setAttribute('data-state', 'closed'));
+  }
+
   private _getRenderElementWithoutArea(
     graphicalElement: BaseElement,
     rotation: number,
@@ -505,6 +515,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
       return html`
         <sbb-seat-reservation-graphic
+          id="${triggerId}"
           style=${styleMap({
             '--sbb-reservation-graphic-width': calculatedDimension.w,
             '--sbb-reservation-graphic-height': calculatedDimension.h,
@@ -517,7 +528,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           .rotation=${elementFixedRotation}
           role="img"
           aria-hidden="true"
-          id="${triggerId}"
         ></sbb-seat-reservation-graphic>
         ${this._popover(triggerId, titleDescription)}
       `;
@@ -552,6 +562,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       this.updateCurrentSelectedCoach();
       this.preselectPlaceInCoach();
     }
+
+    this._closePopover();
   }
 
   private _onFocusNavCoach(): void {
