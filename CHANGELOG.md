@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0-next.3...v3.0.0) (2025-06-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* The event `didChange` of the `sbb-tag-group` element has been renamed to `tabchange`. `CustomEvent<void>` event types have been replaced by type `Event`.
+* Renamed the event names to lowercase to adhere to web standards. The following events have been renamed:
+    - `willOpen` => `beforeopen`
+    - `didOpen` => `open`
+    - `willClose` => `beforeclose`
+    - `didClose` => `close`
+    - `willStick` => `beforestick` 
+    - `didStick` => `stick`,
+    - `willUnstick` => `beforeunstick`
+    - `didUnstick` => `unstick`
+    - `optionSelectionChange` => `optionselectionchange`
+    - `optionSelected` => `optionselected`
+    - `dateSelected` => `dateselected`
+    - `chipInputTokenEnd` => `chipinputtokenend`
+    - `toggleExpanded` => `toggleexpanded`
+    - `fileChanged` => `filechanged`
+* **sbb-autocomplete-grid:** replaced autocompleteOptionSelected event by optionSelected event
+
+### Bug Fixes
+
+* **sbb-select:** avoid opening select if readonly ([#3866](https://github.com/sbb-design-systems/lyne-components/issues/3866)) ([ab8dfe4](https://github.com/sbb-design-systems/lyne-components/commit/ab8dfe4f245c751ba34f3b84c0c1773349877f8f))
+
+
+### Code Refactoring
+
+* align event names to native events ([#3837](https://github.com/sbb-design-systems/lyne-components/issues/3837)) ([f4471ba](https://github.com/sbb-design-systems/lyne-components/commit/f4471ba15675bd7dbf07072618360b846f2624cf))
+* remove EventEmitter and directly dispatch events ([#3865](https://github.com/sbb-design-systems/lyne-components/issues/3865)) ([1410587](https://github.com/sbb-design-systems/lyne-components/commit/141058703c93b79ebbebe1b367e578dcfbb0e1cc))
+* remove SbbValidationChangeEvent interface ([#3861](https://github.com/sbb-design-systems/lyne-components/issues/3861)) ([3b65dd4](https://github.com/sbb-design-systems/lyne-components/commit/3b65dd4281bec74f86d1c42e344e411f633c6a9d))
+* **sbb-autocomplete-grid:** replace autocompleteOptionSelected event by optionSelected event ([#3864](https://github.com/sbb-design-systems/lyne-components/issues/3864)) ([12ab0f1](https://github.com/sbb-design-systems/lyne-components/commit/12ab0f1bb90e5e47985468f50798d6d3c092c85e))
+
+
+### Miscellaneous Chores
+
+* update release please config ([b46d21f](https://github.com/sbb-design-systems/lyne-components/commit/b46d21fe332fb38e5e6174951e95ddb6d7c6cd6f))
+
 ## [2.11.2](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.1...v2.11.2) (2025-06-26)
 
 
