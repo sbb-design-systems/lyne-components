@@ -30,6 +30,7 @@
       var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   rotate: calc(var(--sbb-reservation-area-rotation) * 1deg);
+  line-height: normal;
   background-color: var(--sbb-color-white);
 }
 
