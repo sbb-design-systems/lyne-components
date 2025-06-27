@@ -88,6 +88,7 @@ export class SeatReservationBaseElement extends LitElement {
   );
 
   // Describes the distance between the border of the coach and the places in pixels
+  // todo describe all the magicNumber values and their usage
   protected coachBorderPadding = 6;
   // Describes the gap between the coaches in pixels
   protected gapBetweenCoaches = 4;

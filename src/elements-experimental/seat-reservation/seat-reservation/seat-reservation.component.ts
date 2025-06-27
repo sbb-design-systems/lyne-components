@@ -1,20 +1,12 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { html, isServer, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
-import type {
-  CoachItem,
-  Place,
-  ElementDimension,
-  BaseElement,
-  PlaceSelection,
-  SeatReservation,
-} from '../common.js';
+import type { CoachItem, Place, ElementDimension, BaseElement, PlaceSelection } from '../common.js';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
 import style from './seat-reservation.scss?lit&inline';
@@ -28,7 +20,7 @@ import './seat-reservation-scoped.js';
 import '@sbb-esta/lyne-elements/popover/popover.js';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Main component for the seat reservation.
  *
  * @event {CustomEvent<SeatReservationSelectedPlacesEventDetails>} selectedPlaces - Emits when a place was selected and returns a Place array with all selected places
  * @event {CustomEvent<SeatReservationCoachSelection>} selectedCoach - Emits when a coach was selected and returns a CoachSelection
@@ -38,32 +30,9 @@ export
 class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override styles: CSSResultGroup = style;
 
-  /** The seat reservation object which contains all coaches and places */
-  @property({ attribute: 'seat-reservation', type: Object })
-  public override accessor seatReservation: SeatReservation = null!;
-
-  /** The seat reservation navigation can be toggled by this property */
-  @forceType()
-  @property({ attribute: 'has-navigation', type: Boolean })
-  public override accessor hasNavigation: boolean = true;
-
-  /** Controls the visual representation of seat reservation in a horizonal or vertical alignment */
-  @forceType()
-  @property({ attribute: 'align-vertical', type: Boolean })
-  public override accessor alignVertical: boolean = false;
-
-  /** Maximal number of possible clickable seats */
-  @forceType()
-  @property({ attribute: 'max-reservations', type: Number })
-  public override accessor maxReservations: number = null!;
-
-  /** Any click functionality is prevented */
-  @forceType()
-  @property({ attribute: 'prevent-place-click', type: Boolean })
-  public override accessor preventPlaceClick: boolean = false;
-
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
+
   // Graphics that should not be rendered with an area
   private _notAreaElements = [
     'DRIVER_AREA_FULL',
@@ -74,6 +43,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
   ];
+
   // Area icons that should not be fixed during rotation when vertical mode is selected
   private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
 
@@ -242,6 +212,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     </sbb-seat-reservation-scoped>`;
   }
 
+  // todo describe all the magicNumber values and their usage
   private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
     const allElements = coachItem.graphicElements;
     const COACH_PASSAGE_WIDTH = 1;
