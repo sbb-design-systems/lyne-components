@@ -126,7 +126,7 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (changedProperties.has('baseGridSize')) {
       this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-      this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+      this.style?.setProperty('--sbb-reservation-grid-size', `${this.baseGridSize}px`);
 
       if (this.alignVertical) {
         this._setVerticalAlignmentOffset();
@@ -138,7 +138,7 @@ export class SeatReservationBaseElement extends LitElement {
       if (this.seatReservation.coachItems.length) {
         this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-        this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+        this.style?.setProperty('--sbb-reservation-grid-size', `${this.baseGridSize}px`);
 
         if (this.alignVertical) {
           this._setVerticalAlignmentOffset();
@@ -856,7 +856,7 @@ export class SeatReservationBaseElement extends LitElement {
         const seatReservationVerticalOffset =
           seatReservationWrapperElement.getBoundingClientRect().width;
         this.style?.setProperty(
-          '--sbb-seat-reservation-vertical-offset',
+          '--sbb-reservation-vertical-offset',
           `${seatReservationVerticalOffset}px`,
         );
       }

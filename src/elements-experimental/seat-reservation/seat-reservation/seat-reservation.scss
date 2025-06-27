@@ -6,8 +6,8 @@
 
 :host {
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
-  --sbb-seat-reservation-grid-size: 16px;
-  --sbb-seat-reservation-vertical-offset: 0;
+  --sbb-reservation-grid-size: 16px;
+  --sbb-reservation-vertical-offset: 0;
 
   display: block;
 
@@ -28,7 +28,7 @@
 .sbb-sr__wrapper--vertical {
   width: fit-content;
   position: relative;
-  inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
+  inset-inline-start: var(--sbb-reservation-vertical-offset);
   rotate: 90deg;
   transform-origin: top left;
 }
@@ -43,7 +43,7 @@
 }
 
 .sbb-sr-navigation--vertical {
-  inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
+  inset-inline-start: var(--sbb-reservation-vertical-offset);
   margin-inline-start: sbb.px-to-rem-build(20);
   position: absolute;
 

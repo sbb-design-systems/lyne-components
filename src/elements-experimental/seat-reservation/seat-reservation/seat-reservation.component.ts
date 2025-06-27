@@ -115,7 +115,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const baseFontSize = parseInt(window.getComputedStyle(document.body).fontSize, 10);
     //calculate rem of 1px
     const onePixelInRem = 1 / baseFontSize;
-    this.style?.setProperty('--sbb-seat-reservation-one-px-rem', `${onePixelInRem + 'rem'}`);
+    this.style?.setProperty('--sbb-reservation-one-px-rem', `${onePixelInRem + 'rem'}`);
   }
 
   private _initVehicleSeatReservationConstruction(): void {
@@ -216,8 +216,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
-        '--sbb-seat-reservation-scoped-width': calculatedCoachDimension.w,
-        '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
+        '--sbb-reservation-scoped-width': calculatedCoachDimension.w,
+        '--sbb-reservation-scoped-height': calculatedCoachDimension.h,
       })}
     >
       ${this._getRenderedCoachBorders(coachItem, index)}
