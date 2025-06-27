@@ -221,8 +221,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       })}
     >
       ${this._getRenderedCoachBorders(coachItem, index)}
-      ${this._getRenderedGraphicalElements(coachItem.graphicElements || [], coachItem.dimension)}
-      ${this._getRenderedServiceElements(coachItem.serviceElements)}
+      ${this._getRenderedGraphicalElements(
+        coachItem.graphicElements || [],
+        coachItem.dimension,
+        index,
+      )}
+      ${this._getRenderedServiceElements(index, coachItem.serviceElements)}
 
       <table
         @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
@@ -339,6 +343,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _getRenderedGraphicalElements(
     graphicalElements: BaseElement[],
     coachDimension: ElementDimension,
+    coachIndex: number,
   ): TemplateResult[] | null {
     if (!graphicalElements) {
       return null;
@@ -358,22 +363,33 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
         return this._getRenderElementWithoutArea(graphicalElement, elementRotation, coachDimension);
       }
-      return this._getRenderElementWithArea(graphicalElement, elementFixedRotation, coachDimension);
+      return this._getRenderElementWithArea(
+        graphicalElement,
+        elementFixedRotation,
+        coachDimension,
+        coachIndex,
+      );
     });
   }
 
+  /**
+   * creates a rendered element with an area component
+   * @param graphicalElement
+   * @param rotation
+   * @param coachDimension
+   * @param coachIndex used to generate a unique id for the popover trigger
+   * @private
+   */
   private _getRenderElementWithArea(
     graphicalElement: BaseElement,
     rotation: number,
     coachDimension: ElementDimension,
+    coachIndex: number,
   ): TemplateResult {
     // for TABLE, we use the area component itself to display the table instead of the SVG graphic.
     // Due to different heights and widths, it wouldn't show correctly. To correct this, we would
     // need difficult calculations for position, rotation and dimension.
     const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
-
-    //generate unique index number for the trigger element
-    const triggerId = Math.floor(Date.now() * Math.random());
 
     const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
     const stretchHeight = areaProperty !== 'ENTRY_EXIT';
@@ -392,6 +408,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       coachDimension,
       true,
     );
+
+    //generate unique index number for the trigger element
+    const triggerId = `popover-trigger-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
 
     let elementMounting = 'free';
     if (graphicalElement.position.y === this.coachBorderOffset * -1) {
@@ -443,7 +462,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @private
    */
   private _popover(
-    triggerId: number,
+    triggerId: string,
     popoverContent: string | null | typeof nothing,
   ): TemplateResult {
     return html`
@@ -499,7 +518,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     ></sbb-seat-reservation-graphic>`;
   }
 
-  private _getRenderedServiceElements(serviceElements?: BaseElement[]): TemplateResult[] | null {
+  private _getRenderedServiceElements(
+    coachIndex: number,
+    serviceElements?: BaseElement[],
+  ): TemplateResult[] | null {
     if (!serviceElements) {
       return null;
     }
@@ -514,7 +536,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
 
       //generate unique index number for the trigger element
-      const triggerId = Math.floor(Date.now() * Math.random());
+      const triggerId = `popover-trigger-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
 
       return html`
         <sbb-seat-reservation-graphic
@@ -566,6 +588,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       this.preselectPlaceInCoach();
     }
 
+    //close all opened popovers
     this._closePopover();
   }
 
