@@ -9,6 +9,7 @@ import { forceType } from '../decorators.js';
 import type { SbbStateChange } from '../interfaces/types.js';
 
 import type { AbstractConstructor } from './constructor.js';
+import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 
 export declare class SbbSelectionPanelMixinType {
   public accessor color: 'white' | 'milk';
@@ -36,7 +37,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
   superClass: T,
 ): AbstractConstructor<SbbSelectionPanelMixinType> & T => {
   abstract class SbbSelectionPanelElement
-    extends superClass
+    extends SbbElementInternalsMixin(superClass)
     implements Partial<SbbSelectionPanelMixinType>
   {
     /** The background color of the panel. */
@@ -49,15 +50,15 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
 
     /** Whether the selection panel is checked. */
     protected set checked(checked: boolean) {
-      this.toggleAttribute('data-checked', checked);
+      this.toggleState('checked', checked);
     }
     protected get checked(): boolean {
-      return this.hasAttribute('data-checked');
+      return this.internals.states.has('checked');
     }
 
     /** Whether the selection panel is disabled. */
     protected set disabled(disabled: boolean) {
-      this.toggleAttribute('data-disabled', disabled);
+      this.toggleState('disabled', disabled);
     }
 
     protected get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null {

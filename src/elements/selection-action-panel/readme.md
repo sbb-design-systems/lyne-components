@@ -1,6 +1,20 @@
 The `sbb-selection-action-panel` component wraps either a [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)
 or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-panel--docs) and an action element (e.g. `sbb-secondary-button`).
 
+```html
+<sbb-selection-action-panel>
+  <sbb-radio-button-panel>
+    Value
+    <span slot="subtext">Subtext</span>
+  </sbb-radio-button-panel>
+
+  <!-- action -->
+  <sbb-secondary-button icon-name="arrow-right-small">...</sbb-secondary-button>
+  <!-- or -->
+  <button data-action>...</button>
+</sbb-selection-action-panel>
+```
+
 The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-sbb-radio-button-sbb-radio-button-group--docs) or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 
 ### With `sbb-radio-button-group`
@@ -35,6 +49,8 @@ The selection panel can also be used inside a [sbb-radio-button-group](/docs/ele
 
 ## Style
 
+### Color
+
 The component has two background options that can be set using the `color` variable: `milk` and `white` (default).
 
 ```html
@@ -46,6 +62,8 @@ It's also possible to display the `sbb-selection-action-panel` without border by
 ```html
 <sbb-selection-action-panel borderless> ... </sbb-selection-action-panel>
 ```
+
+### Size
 
 The component has no `size` property but, when slotted in a `sbb-radio-button-group` or in a `sbb-checkbox-group`,
 it adapts to the parent `size` (`m` or `s`); if there's no wrapping group component,

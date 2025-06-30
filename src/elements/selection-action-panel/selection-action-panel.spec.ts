@@ -84,7 +84,7 @@ describe(`sbb-selection-action-panel`, () => {
         expect(document.activeElement!.id).to.be.equal('sbb-input-4');
 
         // Assert disabled state
-        expect(elements[2]).to.have.attribute('data-disabled');
+        expect(elements[2]).to.match(':state(disabled)');
         expect(disabledInput).to.match(':disabled');
       });
 
@@ -92,7 +92,7 @@ describe(`sbb-selection-action-panel`, () => {
         disabledInput.disabled = false;
         await waitForLitRender(wrapper);
 
-        expect(elements[2]).not.to.have.attribute('data-disabled');
+        expect(elements[2]).not.to.match(':state(disabled)');
         expect(disabledInput).not.to.match(':disabled');
       });
 
@@ -101,19 +101,19 @@ describe(`sbb-selection-action-panel`, () => {
         await waitForLitRender(wrapper);
 
         expect(firstInput).to.match(':disabled');
-        expect(firstPanel).to.have.attribute('data-disabled');
+        expect(firstPanel).to.match(':state(disabled)');
 
         expect(disabledInput).to.match(':disabled');
-        expect(elements[2]).to.have.attribute('data-disabled');
+        expect(elements[2]).to.match(':state(disabled)');
 
         wrapper.disabled = false;
         await waitForLitRender(wrapper);
 
         expect(firstInput).not.to.match(':disabled');
-        expect(firstPanel).not.to.have.attribute('data-disabled');
+        expect(firstPanel).not.to.match(':state(disabled)');
 
         expect(disabledInput).to.match(':disabled');
-        expect(elements[2]).to.have.attribute('data-disabled');
+        expect(elements[2]).to.match(':state(disabled)');
       });
 
       it('preserves input button disabled state after being disabled from group', async () => {

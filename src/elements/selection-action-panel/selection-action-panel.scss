@@ -30,12 +30,12 @@
   --sbb-selection-action-panel-background: var(--sbb-color-milk);
 }
 
-:host([data-checked]:not([data-disabled])) {
+:host(:where(:state(checked), [state--checked]):not(:where(:state(disabled), [state--disabled]))) {
   --sbb-selection-action-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-action-panel-border-width: var(--sbb-border-width-2x);
 }
 
-:host([borderless]:not([data-checked])) {
+:host([borderless]:not(:where(:state(checked), [state--checked]))) {
   --sbb-selection-action-panel-border-color: transparent;
 }
 
