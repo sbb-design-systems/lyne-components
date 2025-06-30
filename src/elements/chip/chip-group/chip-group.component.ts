@@ -330,7 +330,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
      * Notifies that a chip is about to be created. Can be prevented.
      */
     return this.dispatchEvent(
-      new CustomEvent('chipinputtokenend', {
+      new CustomEvent<SbbChipInputTokenEndEventDetails>('chipinputtokenend', {
         detail: eventDetail,
         cancelable: true,
         bubbles: true,

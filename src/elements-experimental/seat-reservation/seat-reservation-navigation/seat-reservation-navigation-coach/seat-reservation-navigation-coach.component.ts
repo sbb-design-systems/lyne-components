@@ -243,7 +243,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
        * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
        */
       this.dispatchEvent(
-        new CustomEvent('selectCoach', { bubbles: true, composed: true, detail: coachIndex }),
+        new CustomEvent<SelectCoachEventDetails>('selectCoach', {
+          bubbles: true,
+          composed: true,
+          detail: coachIndex,
+        }),
       );
     }
   }

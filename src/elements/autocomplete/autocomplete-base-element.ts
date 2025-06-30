@@ -270,7 +270,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
       // Custom input event emitted when input value changes after an option is selected
       this.triggerElement.dispatchEvent(
-        new CustomEvent('inputAutocomplete', { detail: { option: target } }),
+        new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
+          detail: { option: target },
+        }),
       );
       this.triggerElement.focus();
     }
