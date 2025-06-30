@@ -76,6 +76,8 @@ export class SeatReservationBaseElement extends LitElement {
 
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
+  //Sets the hover style when scrolling to a coach
+  @state() protected accessor hoveredScrollCoachIndex: number = -1;
 
   /** Emits when a place was selected by user. */
   protected selectedPlaces: EventEmitter<SeatReservationSelectedPlacesEventDetails> =
@@ -91,13 +93,17 @@ export class SeatReservationBaseElement extends LitElement {
   protected coachBorderPadding = 6;
   // Describes the gap between the coaches in pixels
   protected gapBetweenCoaches = 4;
+  // Describes the fix width of coach navigation button
+  protected coachNavButtonWidth = 80;
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
   protected scrollCoachsAreaWidth: number = 0;
+  protected scrollNavigationAreaDim: number = 0;
   protected triggerCoachPositionsCollection: CoachScrollTriggerPoint[] = [];
   protected firstTabElement: HTMLElement = null!;
   protected lastTabElement: HTMLElement = null!;
+  protected navigationScrollArea: HTMLElement = null!;
   protected coachScrollArea: HTMLElement = null!;
   protected currSelectedPlace: Place | null = null;
   protected currSelectedPlaceElementId: string | null = null;
@@ -127,10 +133,6 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('baseGridSize')) {
       this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
       this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
-
-      if (this.alignVertical) {
-        this._setVerticalAlignmentOffset();
-      }
     }
 
     // If the height is used, the baseGridSize must be recalculated
@@ -139,82 +141,106 @@ export class SeatReservationBaseElement extends LitElement {
         this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
-
-        if (this.alignVertical) {
-          this._setVerticalAlignmentOffset();
-        }
       }
     }
 
     if (changedProperties.has('alignVertical') && this.alignVertical) {
-      this._setVerticalAlignmentOffset();
+      this.initNavigationSelectionByScrollEvent();
+      this.style?.setProperty(
+        '--sbb-seat-reservation-vertical-screen-height',
+        `${window.innerHeight}px`,
+      );
     }
+  }
+
+  protected navigateByDirectionBtn(btnDirection: string): void {
+    this.unfocusPlaceElement();
+    let navigateToCoachIndex = this.currSelectedCoachIndex;
+    if (btnDirection == 'DIRECTION_LEFT') {
+      navigateToCoachIndex =
+        this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex - 1 : 0;
+    } else if (btnDirection == 'DIRECTION_RIGHT') {
+      navigateToCoachIndex =
+        this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex + 1 : 0;
+    }
+
+    this.scrollToSelectedNavCoach(navigateToCoachIndex);
   }
 
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
-    this.firstTabElement = this.shadowRoot?.getElementById('first-tab-element') as HTMLElement;
-    this.lastTabElement = this.shadowRoot?.getElementById('last-tab-element') as HTMLElement;
-    this.coachScrollArea = this.shadowRoot?.getElementById('sbb-sr__parent-area') as HTMLElement;
+    setTimeout(() => {
+      this.firstTabElement = this.shadowRoot?.getElementById('first-tab-element') as HTMLElement;
+      this.lastTabElement = this.shadowRoot?.getElementById('last-tab-element') as HTMLElement;
+      this.coachScrollArea = this.shadowRoot?.getElementById('sbb-sr__parent-area') as HTMLElement;
+      this.navigationScrollArea = this.shadowRoot?.getElementById(
+        'sbb-sr-navigation',
+      ) as HTMLElement;
 
-    if (this.coachScrollArea) {
-      let currCalcTriggerPos = 0;
-      this.scrollCoachsAreaWidth = this.coachScrollArea.getBoundingClientRect().width;
-
-      // Precalculate trigger scroll position array depends from coach width
-      this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
-        const startPosX = currCalcTriggerPos;
-        const coachWidth = this.getCalculatedDimension(coach.dimension).w;
-
-        // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
-        currCalcTriggerPos += coachWidth + this.gapBetweenCoaches;
-
-        return {
-          start: startPosX,
-          end: currCalcTriggerPos,
-          width: coachWidth,
-        } as CoachScrollTriggerPoint;
-      });
-
-      // Set maximum calculated coach width
-      this.maxCalcCoachsWidth = currCalcTriggerPos;
-
-      // At the end of a scroll Events to a coach, the reached wagon is marked as selected
-      this.coachScrollArea.addEventListener('scrollend', () => {
-        const findScrollCoachIndex = this.isAutoScrolling
-          ? this.currSelectedCoachIndex
-          : this._getCoachIndexByScrollTriggerPosition();
-
-        // In case the user uses the scrollbar without interacting with the seat reservation,
-        // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
-        if (this.currSelectedCoachIndex === -1) {
-          this.currSelectedCoachIndex = findScrollCoachIndex;
-        }
-
-        if (this._isScrollableToSelectedCoach()) {
-          this.currSelectedCoachIndex = findScrollCoachIndex;
-        } else {
-          this.currSelectedCoachIndex =
-            findScrollCoachIndex < this.currSelectedCoachIndex
-              ? this.currSelectedCoachIndex
-              : findScrollCoachIndex;
-        }
-
-        this.preventCoachScrollByPlaceClick = false;
-        this.updateCurrentSelectedCoach();
-
-        if (!this.hasNavigation) {
-          this.preselectPlaceInCoach();
-          this.isAutoScrolling = false;
-        }
-      });
-
-      // During initialization we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
-      // because we rotate the entire component by 90 degrees and transform the origin point to top left.
-      if (this.alignVertical) {
-        this._setVerticalAlignmentOffset();
+      if (this.navigationScrollArea) {
+        this.scrollNavigationAreaDim = this.alignVertical
+          ? this.navigationScrollArea.getBoundingClientRect().height
+          : this.navigationScrollArea.getBoundingClientRect().width;
       }
-    }
+
+      if (this.coachScrollArea) {
+        let currCalcTriggerPos = 0;
+        this.scrollCoachsAreaWidth = this.coachScrollArea.getBoundingClientRect().width;
+
+        // Precalculate trigger scroll position array depends from coach width
+        this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
+          const startPosX = currCalcTriggerPos;
+          const coachWidth = this.getCalculatedDimension(coach.dimension).w;
+
+          // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
+          currCalcTriggerPos += coachWidth + this.gapBetweenCoaches;
+
+          return {
+            start: startPosX,
+            end: currCalcTriggerPos,
+            width: coachWidth,
+          } as CoachScrollTriggerPoint;
+        });
+
+        // Set maximum calculated coach width
+        this.maxCalcCoachsWidth = currCalcTriggerPos;
+
+        // At the end of a scroll Events to a coach, the reached wagon is marked as selected
+        this.coachScrollArea.addEventListener('scrollend', () => {
+          const findScrollCoachIndex = this.isAutoScrolling
+            ? this.currSelectedCoachIndex
+            : this._getCoachIndexByScrollTriggerPosition();
+
+          // In case the user uses the scrollbar without interacting with the seat reservation,
+          // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
+          if (this.currSelectedCoachIndex === -1) {
+            this.currSelectedCoachIndex = findScrollCoachIndex;
+          }
+
+          if (this._isScrollableToSelectedCoach()) {
+            this.currSelectedCoachIndex = findScrollCoachIndex;
+          } else {
+            this.currSelectedCoachIndex =
+              findScrollCoachIndex < this.currSelectedCoachIndex
+                ? this.currSelectedCoachIndex
+                : findScrollCoachIndex;
+          }
+
+          if (!this.isAutoScrolling) {
+            //When user is scrolling via scrollbar, it automatically scrolls to the focused coach in the main navigation
+            this._scrollToSelectedNavigationButton(findScrollCoachIndex);
+          }
+
+          this.preventCoachScrollByPlaceClick = false;
+          this.updateCurrentSelectedCoach();
+
+          if (!this.hasNavigation) {
+            this.preselectPlaceInCoach();
+            this.isAutoScrolling = false;
+          }
+        });
+      }
+    }, 10);
   }
 
   /**
@@ -341,14 +367,45 @@ export class SeatReservationBaseElement extends LitElement {
       // Checks whether the current scroll position allows scrolling to the next wagon or not
       if (isSelectedCoachIndexScrollable && this._isScrollableToSelectedCoach()) {
         this.coachScrollArea.scrollTo({
-          top: 0,
-          left: scrollToCoachPosX,
+          top: this.alignVertical ? scrollToCoachPosX : 0,
+          left: this.alignVertical ? 0 : scrollToCoachPosX,
           behavior: 'smooth',
         });
       } else {
         this.updateCurrentSelectedCoach();
       }
+
+      // Automatic scrolling to the selected coach in the main navigation
+      this._scrollToSelectedNavigationButton(selectedNavCoachIndex);
     }
+  }
+
+  /**
+   * Performs an automatic main navigation scroll to the specified selectedNavCoachIndex.
+   * Calculates the central scroll offset of the nav coach to be selected.
+   * @param selectedNavCoachIndex
+   */
+  private _scrollToSelectedNavigationButton(selectedNavCoachIndex: number): void {
+    //Time delay to not interfere with other executing calling scrollTo functions (coaches scrolling)
+    setTimeout(() => {
+      // Sets the hover index style for the target scroll coach
+      this.hoveredScrollCoachIndex = selectedNavCoachIndex;
+
+      if (this.hasNavigation && this.navigationScrollArea) {
+        const navigationAreaCenteredPosX = this.scrollNavigationAreaDim / 2;
+        const scrollOffsetX =
+          selectedNavCoachIndex * this.coachNavButtonWidth +
+          selectedNavCoachIndex * 2 -
+          navigationAreaCenteredPosX +
+          this.coachNavButtonWidth;
+
+        this.navigationScrollArea.scrollTo({
+          top: this.alignVertical ? scrollOffsetX : 0,
+          left: this.alignVertical ? 0 : scrollOffsetX,
+          behavior: 'smooth',
+        });
+      }
+    }, 10);
   }
 
   /**
@@ -399,8 +456,12 @@ export class SeatReservationBaseElement extends LitElement {
    * @returns boolean
    */
   private _isScrollableToSelectedCoach(): boolean {
-    const currScrollPosX = this.coachScrollArea.scrollLeft;
-    const coachScrollWindowWidth = this.coachScrollArea.getBoundingClientRect().width;
+    const currScrollPosX = this.alignVertical
+      ? this.coachScrollArea.scrollTop
+      : this.coachScrollArea.scrollLeft;
+    const coachScrollWindowWidth = this.alignVertical
+      ? this.coachScrollArea.getBoundingClientRect().height
+      : this.coachScrollArea.getBoundingClientRect().width;
     const maxScrollWidthArea = this.maxCalcCoachsWidth - coachScrollWindowWidth;
     const currCoachTrigger = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
     const isScrollPosSameToCurrCoachPos =
@@ -417,7 +478,10 @@ export class SeatReservationBaseElement extends LitElement {
    * @returns number
    */
   private _getCoachIndexByScrollTriggerPosition(): number {
-    const scrollOffsetX = this.coachScrollArea.scrollLeft + this.scrollCoachsAreaWidth / 2;
+    const scrollPos = this.alignVertical
+      ? this.coachScrollArea.scrollTop
+      : this.coachScrollArea.scrollLeft;
+    const scrollOffsetX = scrollPos + this.scrollCoachsAreaWidth / 2;
     return this.triggerCoachPositionsCollection.findIndex(
       (coachTrigger) => scrollOffsetX >= coachTrigger.start && scrollOffsetX <= coachTrigger.end,
     );
@@ -614,11 +678,12 @@ export class SeatReservationBaseElement extends LitElement {
         ? this.getNextAvailableCoachIndex(currFocusIndex)
         : this.getPrevAvailableCoachIndex(currFocusIndex);
 
+    // By Tab Navigation, perform automatic scrolling to the focused wagon
+    this._scrollToSelectedNavigationButton(newFocusableIndex);
+
     // If the currFocusIndex equals the newFocusableIndex then we have reached the first or last tabable navigation coach Element and we have to the set the focus manual to the firstTabElement or lastTabElement.
     if (currFocusIndex === newFocusableIndex) {
       this.unfocusPlaceElement();
-      this.selectedCoachIndex = -1;
-      this.currSelectedCoachIndex = -1;
       this.seatReservationWithoutNavigationHasFocus = false;
 
       if (tabDirection === 'NEXT_TAB') this.lastTabElement.focus();
@@ -844,22 +909,5 @@ export class SeatReservationBaseElement extends LitElement {
       ? 'seat-reservation__place-button-' + currCoachIndex + '-' + placeNumber
       : this.currSelectedPlaceElementId;
     return coachPlaceNumberId ? this.shadowRoot?.getElementById(coachPlaceNumberId) || null : null;
-  }
-
-  //Set the vertical offset
-  private _setVerticalAlignmentOffset(): void {
-    setTimeout(() => {
-      const seatReservationWrapperElement = this.shadowRoot?.querySelector(
-        '.sbb-sr__wrapper',
-      ) as HTMLElement;
-      if (seatReservationWrapperElement) {
-        const seatReservationVerticalOffset =
-          seatReservationWrapperElement.getBoundingClientRect().width;
-        this.style?.setProperty(
-          '--sbb-seat-reservation-vertical-offset',
-          `${seatReservationVerticalOffset}px`,
-        );
-      }
-    });
   }
 }

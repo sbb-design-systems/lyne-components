@@ -19,6 +19,7 @@ import type {
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
 import style from './seat-reservation.scss?lit&inline';
 
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
@@ -119,41 +120,65 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _initVehicleSeatReservationConstruction(): void {
     const coachItems = JSON.parse(JSON.stringify(this.seatReservation?.coachItems));
-    const classAlignVertical = this.alignVertical ? 'sbb-sr__wrapper--vertical' : '';
+    const classAlignVertical = this.alignVertical ? 'sbb-sr__grid--vertical' : '';
     this._coachesHtmlTemplate = html`
-      <div>
-        <sbb-screen-reader-only>
-          <input
-            id="first-tab-element"
-            role="contentinfo"
-            type="text"
-            aria-label="${getI18nSeatReservation('SEAT_RESERVATION_BEGIN', this._language.current)}"
-            readonly
-          />
-        </sbb-screen-reader-only>
-
-        <div @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}>
-          ${this._renderNavigation()}
-          <div class="sbb-sr__wrapper ${classAlignVertical}">
-            <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
-              <ul class="sbb-sr__list-coaches" role="presentation">
-                ${this._renderCoaches(coachItems)}
-              </ul>
+      <div class="sbb-sr sbb-sr__grid ${classAlignVertical}">
+        <div class="sbb-sr-navigation-first-grid">
+          ${this.hasNavigation ? this._renderNavigationControlButton('DIRECTION_LEFT') : nothing}
+        </div>
+        <div
+          class="sbb-sr__component"
+          @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
+        >
+          <div class="sbb-sr-grid-inner">
+            <div class="nav-grid">${this._renderNavigation()}</div>
+            <div class="coaches-grid">
+              <div class="sbb-sr__wrapper">
+                <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
+                  <ul class="sbb-sr__list-coaches" role="presentation">
+                    ${this._renderCoaches(coachItems)}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <sbb-screen-reader-only>
-          <input
-            id="last-tab-element"
-            role="contentinfo"
-            type="text"
-            aria-label="${getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)}"
-            readonly
-          />
-        </sbb-screen-reader-only>
+        <div class="sbb-sr-navigation-last-grid">
+          ${this.hasNavigation ? this._renderNavigationControlButton('DIRECTION_RIGHT') : nothing}
+        </div>
       </div>
     `;
+  }
+
+  private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
+    const btnId = btnDirection == 'DIRECTION_RIGHT' ? 'last-tab-element' : 'first-tab-element';
+    const btnIcon = btnDirection == 'DIRECTION_RIGHT' ? 'arrow-right-small' : 'arrow-left-small';
+    const btnAriaDescription =
+      btnDirection == 'DIRECTION_RIGHT'
+        ? getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)
+        : getI18nSeatReservation('SEAT_RESERVATION_BEGIN', this._language.current);
+    let btnDisabled = true;
+
+    if (btnDirection == 'DIRECTION_LEFT' && this.selectedCoachIndex > 0) {
+      btnDisabled = false;
+    } else if (
+      btnDirection == 'DIRECTION_RIGHT' &&
+      this.selectedCoachIndex < this.seatReservation.coachItems.length - 1
+    ) {
+      btnDisabled = false;
+    }
+
+    return html`<sbb-secondary-button
+      @click="${() => this.navigateByDirectionBtn(btnDirection)}"
+      id="${btnId}"
+      class="sbb-sr__navigation-control-button"
+      size="s"
+      icon-name="${btnIcon}"
+      type="button"
+      aria-label="${btnAriaDescription}"
+      role="contentinfo"
+      disabled-interactive="${btnDisabled || nothing}"
+    ></sbb-secondary-button>`;
   }
 
   private _renderNavigation(): TemplateResult | null {
@@ -161,9 +186,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       return null;
     }
 
-    return html`
-      <nav class="${classMap({ 'sbb-sr-navigation--vertical': this.alignVertical })}">
+    return html` <div class="sbb-sr-navigation-wrapper">
+      <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
         <ul
+          id="sbb-sr__navigation-list-coaches"
           class="sbb-sr-navigation__list-coaches"
           aria-label="${getI18nSeatReservation(
             'SEAT_RESERVATION_NAVIGATION',
@@ -175,6 +201,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               <sbb-seat-reservation-navigation-coach
                 @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
                 @focusCoach=${() => this._onFocusNavCoach()}
+                class="${classMap({
+                  'sbb-sr__navigation-coach--hover-scroll': this.hoveredScrollCoachIndex === index,
+                })}"
                 index="${index}"
                 coach-id="${coachItem.id}"
                 .selected=${this.selectedCoachIndex === index}
@@ -191,7 +220,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           })}
         </ul>
       </nav>
-    `;
+    </div>`;
   }
   /**
    *
