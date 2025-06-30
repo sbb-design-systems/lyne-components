@@ -326,7 +326,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   private _dispatchChipInputTokenEnd(eventDetail: SbbChipInputTokenEndEventDetails<T>): boolean {
     /**
-     * @type {CustomEvent<SbbChipInputTokenEndEventDetails<T>>}
+     * @type {CustomEvent<SbbChipInputTokenEndEventDetails>}
      * Notifies that a chip is about to be created. Can be prevented.
      */
     return this.dispatchEvent(
