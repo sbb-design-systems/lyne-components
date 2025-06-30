@@ -133,7 +133,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                 ?disabled=${this.disabled}
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
-                @change=${(e: CustomEvent) =>
+                @change=${(e: Event) =>
                   (this.pageSize = +((e.target as SbbSelectElement).value as string))}
               >
                 ${repeat(

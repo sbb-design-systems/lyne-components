@@ -7,6 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import sampleImages from '../core/images.js';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 
 import { SbbOverlayElement } from './overlay.component.js';
 import readme from './readme.md?raw';
@@ -140,7 +141,7 @@ const FormTemplate = (args: Args): TemplateResult => html`
   </div>
   <sbb-overlay
     trigger="overlay-trigger"
-    @beforeclose=${(event: CustomEvent) => {
+    @beforeclose=${(event: CustomEvent<SbbOverlayCloseEventDetails>) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;

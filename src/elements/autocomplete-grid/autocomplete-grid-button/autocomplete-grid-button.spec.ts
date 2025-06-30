@@ -44,7 +44,7 @@ describe(`sbb-autocomplete-grid-button`, () => {
 
       const clickSpy = new EventSpy('click');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(clickSpy.count).not.to.be.greaterThan(0);

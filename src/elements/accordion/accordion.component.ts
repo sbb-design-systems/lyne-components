@@ -49,7 +49,7 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     super();
     this.addEventListener?.(
       'beforeopen',
-      async (e: CustomEvent<void>) => {
+      async (e: Event) => {
         if (!(await isEventPrevented(e))) {
           this._closePanels(e);
         }
@@ -65,7 +65,7 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
     return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
   }
 
-  private _closePanels(e: CustomEvent): void {
+  private _closePanels(e: Event): void {
     if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
       return;
     }

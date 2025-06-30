@@ -52,7 +52,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
       'sbb-autocomplete-grid-option',
     )!;
 
-    optionOne.dispatchEvent(new CustomEvent('click'));
+    optionOne.dispatchEvent(new PointerEvent('click'));
     await waitForLitRender(element);
 
     expect(optionOne.selected).to.be.equal(true);

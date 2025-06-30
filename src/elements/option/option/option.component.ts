@@ -148,6 +148,6 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    optionselectionchange: CustomEvent<void>;
+    optionselectionchange: Event;
   }
 }
