@@ -27,6 +27,7 @@
   --sbb-menu-container-height: 100dvh;
   --sbb-menu-open-animation-name: open;
   --sbb-menu-close-animation-name: close;
+  --sbb-menu-back-button-display: block;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
@@ -52,18 +53,22 @@
   }
 }
 
+:host(:not([data-nested-menu])) {
+  --sbb-menu-back-button-display: none;
+}
+
 :host(:not([data-state='closed'])) {
   --sbb-menu-inset: 0;
 }
 
-:host([data-skip-animation]) {
-  @include sbb.mq($to: medium) {
-    --sbb-menu-close-animation-name: none;
+@include sbb.mq($to: medium) {
+  :host([data-skip-animation]) {
+    --sbb-disable-animation-duration: 0ms;
   }
-}
 
-:host([data-nested-menu-open]) {
-  --sbb-menu-transform-x: translateX(-100%);
+  :host([data-nested-menu-open]) {
+    --sbb-menu-transform-x: translateX(-100%);
+  }
 }
 
 :host([data-nested-menu])::backdrop {
@@ -85,7 +90,7 @@ sbb-divider,
 
 sbb-divider,
 .sbb-menu__back-button {
-  display: var(--sbb-menu-back-button-display, unset);
+  display: var(--sbb-menu-back-button-display, block);
 }
 
 .sbb-menu__container {
@@ -164,9 +169,9 @@ sbb-divider,
     }
 
     :host([data-state][data-state='closing'][data-nested-menu]:not([data-close-vertically])) & {
-      --sbb-menu-close-animation-name: close-sideways;
-
       transform: var(--sbb-menu-transform-sideways);
+
+      --sbb-menu-close-animation-name: close-sideways;
     }
   }
 

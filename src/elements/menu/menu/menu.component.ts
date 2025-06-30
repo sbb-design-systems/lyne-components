@@ -2,7 +2,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
@@ -162,7 +161,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes the menu.
    */
   public close(): void {
-    this._close(false);
+    this._close(true);
   }
 
   /**
@@ -170,7 +169,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes nested menu.
    */
   public back(): void {
-    this._close(true);
+    this._close(false);
   }
 
   private _close(vertically = false): void {
@@ -180,12 +179,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     if (this._nested) {
       this.parentElement?.toggleAttribute('data-nested-menu-open', false);
+      this.parentElement?.toggleAttribute('data-skip-animation', vertically);
       this.toggleAttribute('data-close-vertically', vertically);
     }
-
-    // if(!this._nested && vertically && this.hasAttribute('data-nested-menu-open')){
-    //   this.toggleAttribute('data-skip-animation', true);
-    // }
 
     // In case there are nested menus they need to be closed
     this._closeNestedMenus(!vertically);
@@ -465,8 +461,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     const element = event.target as HTMLElement;
     const isMobile = this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow);
 
-    // console.log(element);
-
     // All nested menus should close in desktop mode if the cursor landed on
     // anything other than the container, the container's scrollbar or the trigger itself
     if (
@@ -553,17 +547,13 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
             ${this.listChildren.length
               ? this.renderList({ class: 'sbb-menu-list', ariaLabel: this.listAccessibilityLabel })
               : html`<slot></slot>`}
-            ${this._nested
-              ? html`
-                  <sbb-divider></sbb-divider>
-                  <sbb-menu-button
-                    class="sbb-menu__back-button"
-                    @click=${this.back}
-                    icon-name="chevron-small-left-small"
-                    >Back</sbb-menu-button
-                  >
-                `
-              : nothing}
+            <sbb-divider></sbb-divider>
+            <sbb-menu-button
+              class="sbb-menu__back-button"
+              @click=${this.back}
+              icon-name="chevron-small-left-small"
+              >Back</sbb-menu-button
+            >
           </div>
         </div>
       </div>
