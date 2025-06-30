@@ -38,9 +38,9 @@ A `<sbb-sidebar>` can be opened or closed using the `open()`, `close()` and `tog
 
 The opened state can also be set via the `opened` property.
 
-Listening to the `didOpen` and `didClose` events allows to react after transitions have been executed.
+Listening to the `open` and `close` events allows to react after transitions have been executed.
 If for a certain reason the opening or closing should be prevented,
-it's possible to call `preventDefault()` on the `willOpen` or `willClose` events.
+it's possible to call `preventDefault()` on the `beforeopen` or `beforeclose` events.
 
 **It is strongly recommended to use a button to toggle the sidebar.**
 Even with `mode="side"` and an opened sidebar at larger sizes, the sidebar will collapse if there is not enough space.
@@ -183,8 +183,8 @@ accessibility information on the trigger button should be set.
   <sbb-sidebar
     id="sidebar"
     role="navigation"
-    @didOpen="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') }"
-    @didClose="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') }"
+    @open="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') }"
+    @close="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') }"
   >
     <sbb-link-list>
       <sbb-block-link>Link 1</sbb-block-link>
@@ -259,12 +259,12 @@ position and connect the `<sbb-header>` with the sidebar.
 
 ## Events
 
-| Name        | Type                | Description                                               | Inherited From          |
-| ----------- | ------------------- | --------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## Slots
 

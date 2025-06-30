@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../../core/decorators.js';
-import { EventEmitter, isEventPrevented } from '../../core/eventing.js';
+import { isEventPrevented } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbAlertElement } from '../alert.js';
@@ -16,7 +16,6 @@ import style from './alert-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
  * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
- * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */
 export
 @customElement('sbb-alert-group')
@@ -47,20 +46,17 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
   /** Whether the group currently has any alerts. */
   @state() private accessor _hasAlerts: boolean = false;
 
-  /** Emits when `sbb-alert-group` becomes empty. */
-  private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroupElement.events.empty);
-
   public constructor() {
     super();
     this.addEventListener?.(
-      'didClose',
-      async (e: CustomEvent<void>) => {
+      'close',
+      async (e: Event) => {
         if (!(await isEventPrevented(e))) {
           this._alertClosed(e);
         }
       },
       {
-        // We use capture here, because didClose does not bubble.
+        // We use capture here, because 'close' does not bubble.
         capture: true,
       },
     );
@@ -90,7 +86,8 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
         .assignedElements()
         .filter((e) => e instanceof Element && e.localName === 'sbb-alert').length > 0;
     if (!this._hasAlerts && hadAlerts) {
-      this._empty.emit();
+      /** Emits when `sbb-alert-group` becomes empty. */
+      this.dispatchEvent(new Event('empty', { composed: true, bubbles: true }));
     }
 
     this.toggleAttribute('data-empty', !this._hasAlerts);

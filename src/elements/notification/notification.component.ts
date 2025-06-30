@@ -10,20 +10,17 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
-import { EventEmitter } from '../core/eventing.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbReadonlyMixin } from '../core/mixins.js';
-import type { SbbTitleLevel } from '../title.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './notification.scss?lit&inline';
 
 import '../button/secondary-button.js';
 import '../divider.js';
 import '../icon.js';
-import '../title.js';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -37,44 +34,31 @@ const DEBOUNCE_TIME = 150;
 /**
  * It displays messages which require a user's attention without interrupting its tasks.
  *
- * @slot - Use the unnamed slot to add content to the notification message.
- * @slot title - Use this to provide a notification title (optional).
- * @event {CustomEvent<void>} willOpen - Emits when the opening animation starts.
- * @event {CustomEvent<void>} didOpen - Emits when the opening animation ends.
- * @event {CustomEvent<void>} willClose - Emits when the closing animation starts.
- * @event {CustomEvent<void>} didClose - Emits when the closing animation ends.
+ * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
 export
 @customElement('sbb-notification')
-@slotState()
 class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /** The type of the notification. */
   @property({ reflect: true }) public accessor type: 'info' | 'success' | 'warn' | 'error' = 'info';
 
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
-  public accessor titleContent: string = '';
-
-  /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
-
   /**
    * Size variant, either s or m.
    * @default 'm' / 's' (lean)
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -96,38 +80,19 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
     callback: () => this._onNotificationResize(),
   });
 
-  /** Emits whenever the `sbb-notification` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNotificationElement.events.willOpen,
-    { cancelable: true },
-  );
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
 
-  /** Emits whenever the `sbb-notification` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNotificationElement.events.didOpen,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the `sbb-notification` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNotificationElement.events.willClose,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the `sbb-notification` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbNotificationElement.events.didClose,
-    { cancelable: true },
-  );
+    if (changedProperties.has('size')) {
+      this._configureTitle();
+    }
+  }
 
   private _open(): void {
     if (this._state === 'closed') {
       this._state = 'opening';
-      this._willOpen.emit();
+      /** Emits when the opening animation starts. */
+      this.dispatchEvent(new Event('beforeopen'));
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
       // In this case we directly set the `opened` state.
@@ -138,7 +103,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   }
 
   public close(): void {
-    if (this._state === 'opened' && this._willClose.emit()) {
+    if (this._state === 'opened' && this._dispatchBeforeCloseEvent()) {
       this._state = 'closing';
 
       // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -147,6 +112,11 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
         this._handleClosing();
       }
     }
+  }
+
+  private _dispatchBeforeCloseEvent(): boolean {
+    /** Emits when the closing animation starts. Can be canceled to prevent the component from closing. */
+    return this.dispatchEvent(new Event('beforeclose', { cancelable: true }));
   }
 
   public override connectedCallback(): void {
@@ -214,14 +184,31 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   private _handleOpening(): void {
     this._state = 'opened';
     this._notificationResizeObserver.observe(this._notificationElement);
-    this._didOpen.emit();
+    /** Emits when the opening animation ends. */
+    this.dispatchEvent(new Event('open'));
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    /** Emits when the closing animation ends. */
+    this.dispatchEvent(new Event('close'));
     this._notificationResizeObserver.unobserve(this._notificationElement);
     setTimeout(() => this.remove());
+  }
+
+  private _handleSlotchange(): void {
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+    if (title) {
+      title.slot = 'title';
+    }
+  }
+
+  private _configureTitle(): void {
+    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = this.size === 'm' ? '5' : '6';
+    }
   }
 
   protected override render(): TemplateResult {
@@ -232,16 +219,11 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
             class="sbb-notification__icon"
             name=${notificationTypes.get(this.type)!}
           ></sbb-icon>
-
           <span class="sbb-notification__content">
-            <sbb-title
-              class="sbb-notification__title"
-              level=${this.titleLevel}
-              visual-level=${this.size === 'm' ? '5' : '6'}
-            >
-              <slot name="title">${this.titleContent}</slot>
-            </sbb-title>
-            <slot></slot>
+            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <p class="sbb-notification__text">
+              <slot @slotchange=${this._handleSlotchange}></slot>
+            </p>
           </span>
 
           ${!this.readOnly

@@ -8,7 +8,6 @@ import { SbbCardActionCommonElementMixin } from '../common.js';
  *
  * @slot - Use the unnamed slot to add a descriptive label / title of the button (important!).
  *   This is relevant for SEO and screen readers.
- * @overrideType value - string
  */
 export
 @customElement('sbb-card-button')

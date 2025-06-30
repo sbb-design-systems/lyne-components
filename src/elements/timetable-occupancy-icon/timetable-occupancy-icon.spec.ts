@@ -1,10 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import type { SinonStub } from 'sinon';
-import { stub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
 import { i18nOccupancy } from '../core/i18n.js';
-import { fixture } from '../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.js';
@@ -21,6 +20,7 @@ describe(`sbb-timetable-occupancy-icon`, () => {
     removeEventListener: stub(),
     dispatchEvent: stub(),
   };
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(() => {
     matchMediaStub = stub(window, 'matchMedia');
@@ -40,7 +40,7 @@ describe(`sbb-timetable-occupancy-icon`, () => {
       html`<sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
-    expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(i18nOccupancy.low.en);
     await waitForLitRender(element);
     expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
       'data-name',
@@ -58,7 +58,7 @@ describe(`sbb-timetable-occupancy-icon`, () => {
       html`<sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
-    expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(i18nOccupancy.medium.en);
     await waitForLitRender(element);
     expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
       'data-name',
@@ -79,7 +79,7 @@ describe(`sbb-timetable-occupancy-icon`, () => {
       ></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
-    expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(i18nOccupancy.medium.en);
     await waitForLitRender(element);
     expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
       'data-name',

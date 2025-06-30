@@ -86,7 +86,6 @@ You can file new issues by providing the above information [here](https://github
   The PR title and message should as well conform to the [commit message conventions](#commit).
 
 - If we suggest changes then:
-
   - Make the required updates.
   - Re-run tests to ensure tests are still passing.
   - Rebase your branch and force push to your GitHub repository (this will update your Pull

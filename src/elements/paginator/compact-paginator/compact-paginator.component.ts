@@ -9,8 +9,6 @@ import style from './compact-paginator.scss?lit&inline';
 
 /**
  * It displays a paginator component in compact mode.
- *
- * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
 export
 @customElement('sbb-compact-paginator')

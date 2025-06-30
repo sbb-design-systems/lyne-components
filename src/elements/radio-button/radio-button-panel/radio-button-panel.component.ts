@@ -10,7 +10,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -39,8 +38,8 @@ export type SbbRadioButtonStateChange = Extract<
  * @slot subtext - Slot used to render a subtext under the label.
  * @slot suffix - Slot used to render additional content after the label.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
- * @event {Event} change - Fired on change.
- * @event {InputEvent} input - Fired on input.
+ * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
 export
@@ -55,8 +54,6 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   public static readonly events = {
     change: 'change',
     input: 'input',
-    panelConnected: 'panelConnected',
-    stateChange: 'stateChange',
   } as const;
 
   /**
@@ -75,17 +72,6 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
 
   private _hasSelectionExpansionPanelElement: boolean = false;
 
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the radio option
-   * in relation to the parent selection panel changes.
-   */
-  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
-    this,
-    SbbRadioButtonPanelElement.events.stateChange,
-    { bubbles: true },
-  );
-
   public override connectedCallback(): void {
     super.connectedCallback();
     this._hasSelectionExpansionPanelElement = !!this.closest?.('sbb-selection-expansion-panel');
@@ -98,13 +84,13 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
       this.toggleAttribute('data-checked', this.checked);
 
       if (this.checked !== changedProperties.get('checked')!) {
-        this._stateChange.emit({ type: 'checked', checked: this.checked });
+        this._dispatchChangeEvent({ type: 'checked', checked: this.checked });
       }
     }
 
     if (changedProperties.has('disabled')) {
       if (this.disabled !== changedProperties.get('disabled')!) {
-        this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+        this._dispatchChangeEvent({ type: 'disabled', disabled: this.disabled });
       }
     }
   }
@@ -130,6 +116,15 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
     } else {
       next.focus();
     }
+  }
+
+  private _dispatchChangeEvent(detail: SbbStateChange): void {
+    /**
+     * @internal
+     * Internal event that emits whenever the state of the radio option
+     * in relation to the parent selection panel changes.
+     */
+    this.dispatchEvent(new CustomEvent('statechange', { bubbles: true, detail }));
   }
 
   protected override render(): TemplateResult {

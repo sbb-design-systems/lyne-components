@@ -5,10 +5,9 @@ import type { SbbSecondaryButtonElement } from '../../button.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.js';
-import type { SbbFileSelectorElement } from '../file-selector.js';
+import { SbbFileSelectorElement } from '../file-selector.js';
 
 import '../file-selector-dropzone.js';
-import '../file-selector.js';
 
 import '../../button/secondary-button.js';
 
@@ -46,7 +45,7 @@ function addFiles(
   }
 
   // Manually dispatch events to simulate a user interaction
-  nativeInput.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
+  nativeInput.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
   nativeInput.dispatchEvent(new Event('change'));
 }
 
@@ -145,7 +144,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads a file, then deletes it', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         addFiles(element, 1);
         addFiles(input, 1);
         await waitForLitRender(form);
@@ -192,7 +191,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads a file, then reset the form', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         addFiles(element, 1);
         addFiles(input, 1);
         await waitForLitRender(form);
@@ -218,7 +217,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads more than one file in multiple mode', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         element.multiple = true;
         input.multiple = true;
         await waitForLitRender(form);
@@ -244,7 +243,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads files in multiple persistent mode', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         element.multiple = true;
         element.multipleMode = 'persistent';
         await waitForLitRender(form);

@@ -602,11 +602,11 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbSelectElement.events.change,
-        SbbSelectElement.events.didClose,
-        SbbSelectElement.events.didOpen,
-        SbbSelectElement.events.willClose,
-        SbbSelectElement.events.willOpen,
-        SbbOptionElement.events.optionSelected,
+        SbbSelectElement.events.close,
+        SbbSelectElement.events.open,
+        SbbSelectElement.events.beforeclose,
+        SbbSelectElement.events.beforeopen,
+        SbbOptionElement.events.optionselected,
       ],
     },
     docs: {

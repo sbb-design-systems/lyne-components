@@ -147,10 +147,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbToastElement.events.willOpen,
-        SbbToastElement.events.didOpen,
-        SbbToastElement.events.willClose,
-        SbbToastElement.events.didClose,
+        SbbToastElement.events.beforeopen,
+        SbbToastElement.events.open,
+        SbbToastElement.events.beforeclose,
+        SbbToastElement.events.close,
       ],
     },
     docs: {

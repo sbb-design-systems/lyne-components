@@ -15,7 +15,7 @@ describe(`sbb-dialog`, () => {
 
     beforeEach(async () => {
       root = await fixture(
-        html` <sbb-dialog>
+        html`<sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Content</sbb-dialog-content>
         </sbb-dialog>`,

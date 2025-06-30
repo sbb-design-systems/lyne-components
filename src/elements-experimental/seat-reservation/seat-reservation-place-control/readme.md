@@ -14,7 +14,7 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 
 | Name           | Attribute       | Privacy | Type         | Default     | Description                                                     |
 | -------------- | --------------- | ------- | ------------ | ----------- | --------------------------------------------------------------- |
-| `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifer the right place to coach          |
+| `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifier the right place to coach         |
 | `height`       | `height`        | public  | `number`     | `32`        | height of the place in pixels (without unit)                    |
 | `keyfocus`     | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                               |
 | `placeType`    | `type`          | public  | `PlaceType`  | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                  |
@@ -28,6 +28,6 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 
 ## Events
 
-| Name          | Type                          | Description                                                                                          | Inherited From |
-| ------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| `selectPlace` | `CustomEvent<PlaceSelection>` | Emits when a place was selected and returns a PlaceSelection object with necessary place information |                |
+| Name          | Type                          | Description                                                                                                                | Inherited From |
+| ------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `selectPlace` | `CustomEvent<PlaceSelection>` | Emits when a place was selected via user interaction and returns a PlaceSelection object with necessary place information. |                |

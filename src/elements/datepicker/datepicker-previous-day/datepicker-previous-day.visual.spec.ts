@@ -36,8 +36,8 @@ describe(`sbb-datepicker-previous-day`, () => {
             await setup.withFixture(
               html`
                 <sbb-form-field ?negative=${negative}>
-                  <sbb-date-input value=${value || nothing}></sbb-date-input>
                   <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+                  <sbb-date-input value=${value || nothing}></sbb-date-input>
                   <sbb-datepicker></sbb-datepicker>
                 </sbb-form-field>
               `,

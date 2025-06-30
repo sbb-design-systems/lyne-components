@@ -2,13 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
 import { SbbIconNameMixin } from '../icon.js';
-import type { SbbTitleLevel } from '../title.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './status.scss?lit&inline';
-
-import '../title.js';
 
 export type SbbStatusType =
   | 'info'
@@ -23,9 +20,9 @@ export type SbbStatusType =
 /**
  * Displays a message to the user's attention.
  *
- * @slot - Use the unnamed slot to add content to the status message.
- * @slot title - Use this to provide a title for the status (optional).
+ * @slot - Use the unnamed slot to add an optional `sbb-title` and content to the status message.
  * @slot icon - Use this slot to override the default status icon.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @cssprop [--sbb-status-color=var(--sbb-color-iron)] - Specify a custom color,
  * which will override the predefined color for any type.
  * @cssprop [--sbb-status-text-color=var(--sbb-status-color)] - Specify a custom text color,
@@ -33,7 +30,6 @@ export type SbbStatusType =
  */
 export
 @customElement('sbb-status')
-@slotState()
 class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -51,13 +47,22 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   /** The type of the status. */
   @property({ reflect: true }) public accessor type: SbbStatusType = 'info';
 
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content', reflect: true, converter: omitEmptyConverter })
-  public accessor titleContent: string = '';
+  private _handleSlotchange(): void {
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+    if (title) {
+      title.slot = 'title';
+    }
+  }
 
-  /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '3';
+  private _configureTitle(event: Event): void {
+    const title = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = '5';
+    }
+  }
 
   protected override renderIconSlot(): TemplateResult {
     return html`
@@ -72,10 +77,8 @@ class SbbStatusElement extends SbbIconNameMixin(LitElement) {
       <div class="sbb-status">
         <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
         <span class="sbb-status__content">
-          <sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
-            <slot name="title">${this.titleContent}</slot>
-          </sbb-title>
-          <p class="sbb-status__content-slot">
+          <slot name="title" @slotchange=${this._configureTitle}></slot>
+          <p class="sbb-status__content-slot" @slotchange=${this._handleSlotchange}>
             <slot></slot>
           </p>
         </span>

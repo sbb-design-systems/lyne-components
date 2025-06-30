@@ -24,10 +24,8 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
   target="_blank"
 >
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="dash-small"
-    role="img"
   >
   </sbb-icon>
   <slot>

@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - '*.x'
-      - main
 
 # Documentation:
 # https://github.com/googleapis/release-please
@@ -14,6 +13,9 @@ permissions:
   contents: write
   packages: write
   pull-requests: write
+
+env:
+  IMAGE_REPO_STORYBOOK: ghcr.io/sbb-design-systems/lyne-components/storybook
 
 jobs:
   release-please:
@@ -87,20 +89,20 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-fat .
+          docker build --tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-fat .
           mint slim \
-            --target ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-fat \
-            --tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION \
+            --target ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-fat \
+            --tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION \
             --preserve-path /usr/share/nginx/html \
             --include-new false
-          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION
-          docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
-          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
-          if [[ $VERSION == *-* ]]; then
-            docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
-            docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest
-            docker tag ${{ vars.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
-            docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:latest-slim
+          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION
+          docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
+          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
+          if [[ $VERSION != *"-"* ]]; then
+            docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:latest
+            docker push ${{ env.IMAGE_REPO_STORYBOOK }}:latest
+            docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim
+            docker push ${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim
           fi
           docker image list
         env:

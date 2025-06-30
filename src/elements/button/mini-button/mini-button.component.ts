@@ -13,7 +13,6 @@ import style from './mini-button.scss?lit&inline';
  * it's meant to be used mainly within the sbb-form-field in prefix/suffix slot.
  *
  * @slot icon - Slot used to display the icon, if one is set
- * @overrideType value - string
  */
 export
 @customElement('sbb-mini-button')

@@ -20,7 +20,7 @@ Whenever the sticky bar is currently not sticky (e.g. scrolled down),
 calling `stick()` or `unstick()` won't have any visual effect.
 
 An example use case is to call `unstick()`, which visually slides out the sticky bar, and
-then the consumer can remove it from the DOM by listening to the `didUnstick` event.
+then the consumer can remove it from the DOM by listening to the `unstick` event.
 
 ## Slots
 
@@ -52,12 +52,12 @@ The component has two sizes, `m` and `s`, that can be set using the `size` prope
 
 ## Events
 
-| Name          | Type                | Description                                                                                      | Inherited From |
-| ------------- | ------------------- | ------------------------------------------------------------------------------------------------ | -------------- |
-| `didStick`    | `CustomEvent<void>` | Emits when the animation from normal content flow to `position: sticky` ends.                    |                |
-| `didUnstick`  | `CustomEvent<void>` | Emits when the animation from `position: sticky` to normal content flow ends.                    |                |
-| `willStick`   | `CustomEvent<void>` | Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled. |                |
-| `willUnstick` | `CustomEvent<void>` | Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled. |                |
+| Name            | Type    | Description                                                                                      | Inherited From |
+| --------------- | ------- | ------------------------------------------------------------------------------------------------ | -------------- |
+| `beforestick`   | `Event` | Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled. |                |
+| `beforeunstick` | `Event` | Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled. |                |
+| `stick`         | `Event` | Emits when the animation from normal content flow to `position: sticky` ends.                    |                |
+| `unstick`       | `Event` | Emits when the animation from `position: sticky` to normal content flow ends.                    |                |
 
 ## CSS Properties
 

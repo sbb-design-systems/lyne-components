@@ -39,7 +39,6 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
       </span>
     </li>
     <sbb-timetable-occupancy-icon
-      aria-label="No occupancy forecast available"
       class="sbb-train-wagon__occupancy"
       data-namespace="default"
       occupancy="none"
@@ -61,10 +60,8 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
 snapshots["sbb-train-wagon should render as type wagon with one icon DOM"] = 
 `<sbb-train-wagon type="wagon">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="sa-rs"
-    role="img"
     slot="li-0"
   >
   </sbb-icon>
@@ -104,18 +101,14 @@ snapshots["sbb-train-wagon should render as type wagon with one icon Shadow DOM"
 snapshots["sbb-train-wagon should render as type wagon with multiple icons DOM"] = 
 `<sbb-train-wagon type="wagon">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="sa-rs"
-    role="img"
     slot="li-0"
   >
   </sbb-icon>
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="sa-rs"
-    role="img"
     slot="li-1"
   >
   </sbb-icon>

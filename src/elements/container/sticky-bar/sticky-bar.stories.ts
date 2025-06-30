@@ -343,10 +343,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbStickyBarElement.events.willStick,
-        SbbStickyBarElement.events.didStick,
-        SbbStickyBarElement.events.willUnstick,
-        SbbStickyBarElement.events.didUnstick,
+        SbbStickyBarElement.events.beforestick,
+        SbbStickyBarElement.events.stick,
+        SbbStickyBarElement.events.beforeunstick,
+        SbbStickyBarElement.events.unstick,
       ],
     },
     docs: {

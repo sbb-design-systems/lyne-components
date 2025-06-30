@@ -48,7 +48,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div class="app-test-case-filter">
         <div>

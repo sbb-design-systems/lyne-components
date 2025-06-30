@@ -6,7 +6,6 @@ import { until } from 'lit/directives/until.js';
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
@@ -21,7 +20,6 @@ import '../../screen-reader-only.js';
  * Displays an informative card that reveals more information upon being clicked.
  *
  * @slot - Use the unnamed slot to add a `sbb-flip-card-summary` and a `sbb-flip-card-details` element.
- * @event {CustomEvent<void>} flip - Emits when the flip card flips.
  *
  */
 export
@@ -39,9 +37,6 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
   @forceType()
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = '';
-
-  /** Emits whenever the component is flipped. */
-  protected flip: EventEmitter = new EventEmitter(this, SbbFlipCardElement.events.flip);
 
   /** Returns the slotted sbb-flip-card-summary. */
   public get summary(): SbbFlipCardSummaryElement | null {
@@ -95,7 +90,8 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     this.details!.toggleAttribute('data-flipped', this._flipped);
     this.summary!.inert = this._flipped;
     this.details!.inert = !this._flipped;
-    this.flip.emit();
+    /** Emits whenever the component is flipped. */
+    this.dispatchEvent(new Event('flip', { bubbles: true, composed: true }));
   }
 
   private _setCardDetailsHeight(): any {

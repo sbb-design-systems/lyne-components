@@ -55,10 +55,6 @@ let nextId = 0;
  * It displays a contextual menu with one or more action element.
  *
  * @slot - Use the unnamed slot to add `sbb-menu-button`/`sbb-menu-link` or other elements to the menu.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-menu` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  * @cssprop [--sbb-menu-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -122,7 +118,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     if (this.state === 'closing' || !this._menu) {
       return;
     }
-    if (!this.willOpen.emit()) {
+    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -147,11 +143,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    * Closes the menu.
    */
   public close(): void {
-    if (this.state === 'opening') {
-      return;
-    }
-
-    if (!this.willClose.emit()) {
+    if (this.state === 'opening' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -176,7 +168,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._focusTrapController.focusInitialElement();
     this._focusTrapController.enabled = true;
     this._attachWindowEvents();
-    this.didOpen.emit();
+    this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
@@ -193,7 +185,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         this._triggerElement.localName === 'sbb-header-link',
     });
     this._escapableOverlayController.disconnect();
-    this.didClose.emit();
+    this.dispatchCloseEvent();
     this._windowEventsController?.abort();
     this._focusTrapController.enabled = false;
 

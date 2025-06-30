@@ -13,14 +13,13 @@ The slot `title-section` is automatically assigned to be properly positioned on 
 
 ## Properties
 
-| Name             | Attribute         | Privacy | Type                    | Default | Description                                                                                                                                                                                     |
-| ---------------- | ----------------- | ------- | ----------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `level`          | `level`           | public  | `SbbTitleLevel`         | `'2'`   | Title level                                                                                                                                                                                     |
-| `visualLevel`    | `visual-level`    | public  | `SbbTitleLevel \| null` | `'5'`   | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                              |
-| `visuallyHidden` | `visually-hidden` | public  | `boolean`               | `false` | Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true. |
+| Name          | Attribute      | Privacy | Type                    | Default | Description                                                                        |
+| ------------- | -------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                                                                        |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'5'`   | Visual level for the title. Optional, if not set, the value of level will be used. |
 
 ## Slots
 
-| Name | Description                                             |
-| ---- | ------------------------------------------------------- |
-|      | Use the unnamed slot to place the content of the title. |
+| Name | Description                                                |
+| ---- | ---------------------------------------------------------- |
+|      | Use the unnamed slot for the content of the sidebar-title. |

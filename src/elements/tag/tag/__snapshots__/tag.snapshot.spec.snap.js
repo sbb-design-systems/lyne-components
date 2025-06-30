@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-tag renders unchecked DOM"] = 
 `<sbb-tag
   aria-label="Check to remove filters"
-  aria-pressed="false"
   data-action=""
   data-button=""
   data-slot-names="unnamed"
@@ -37,7 +36,6 @@ snapshots["sbb-tag renders unchecked Shadow DOM"] =
 
 snapshots["sbb-tag renders checked DOM"] = 
 `<sbb-tag
-  aria-pressed="true"
   checked=""
   data-action=""
   data-button=""
@@ -73,7 +71,6 @@ snapshots["sbb-tag renders checked Shadow DOM"] =
 snapshots["sbb-tag renders disabled with icon and amount DOM"] = 
 `<sbb-tag
   amount="123"
-  aria-pressed="false"
   data-action=""
   data-button=""
   data-slot-names="unnamed"
@@ -92,10 +89,8 @@ snapshots["sbb-tag renders disabled with icon and amount Shadow DOM"] =
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="circle-information-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -115,7 +110,6 @@ snapshots["sbb-tag renders disabled with icon and amount Shadow DOM"] =
 
 snapshots["sbb-tag renders slotted icon and amount DOM"] = 
 `<sbb-tag
-  aria-pressed="false"
   data-action=""
   data-button=""
   data-slot-names="amount icon unnamed"

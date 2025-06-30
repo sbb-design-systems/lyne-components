@@ -181,19 +181,19 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
 
 ## Properties
 
-| Name                | Attribute             | Privacy | Type              | Default | Description                                                                               |
-| ------------------- | --------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `alignVertical`     | `align-vertical`      | public  | `boolean`         | `false` | controls the visual represention of seat reservation in a horizonal or vertical alignment |
-| `baseGridSize`      | `base-grid-size`      | public  | `number`          | `16`    | The seat reservation area's base grid size                                                |
-| `hasNavigation`     | `has-navigation`      | public  | `boolean`         | `true`  | The seat resvervation navigation can be toggled by this property                          |
-| `height`            | `height`              | public  | `number`          | `null!` | The seat reservation area's width                                                         |
-| `maxReservations`   | `max-reservations`    | public  | `number`          | `null!` | Maximal number of possible clickable seats                                                |
-| `preventPlaceClick` | `prevent-place-click` | public  | `boolean`         | `false` | Any click functionality is prevented                                                      |
-| `seatReservation`   | `seat-reservation`    | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places                         |
+| Name                | Attribute             | Privacy | Type              | Default | Description                                                                                 |
+| ------------------- | --------------------- | ------- | ----------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `alignVertical`     | `align-vertical`      | public  | `boolean`         | `false` | Controls the visual representation of seat reservation in a horizonal or vertical alignment |
+| `baseGridSize`      | `base-grid-size`      | public  | `number`          | `16`    | The seat reservation area's base grid size                                                  |
+| `hasNavigation`     | `has-navigation`      | public  | `boolean`         | `true`  | The seat reservation navigation can be toggled by this property                             |
+| `height`            | `height`              | public  | `number`          | `null!` | The seat reservation area's width                                                           |
+| `maxReservations`   | `max-reservations`    | public  | `number`          | `null!` | Maximal number of possible clickable seats                                                  |
+| `preventPlaceClick` | `prevent-place-click` | public  | `boolean`         | `false` | Any click functionality is prevented                                                        |
+| `seatReservation`   | `seat-reservation`    | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places                           |
 
 ## Events
 
-| Name             | Type                                         | Description                                                                        | Inherited From |
-| ---------------- | -------------------------------------------- | ---------------------------------------------------------------------------------- | -------------- |
-| `selectedCoach`  | `CustomEvent<SeatReservationCoachSelection>` | Emits when a coach was selected and returns a CoachSelection                       |                |
-| `selectedPlaces` | `CustomEvent<SeatReservationPlaceSelection>` | Emits when a place was selected and returns a Place array with all selected places |                |
+| Name             | Type                                                     | Description                                                                         | Inherited From             |
+| ---------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedCoach`  | `CustomEvent<SeatReservationCoachSelection>`             | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedPlaces` | `CustomEvent<SeatReservationSelectedPlacesEventDetails>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |

@@ -14,7 +14,6 @@ import '../../icon.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
- * @overrideType value - string
  */
 export
 @customElement('sbb-form-field-clear')
@@ -52,8 +51,7 @@ class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
-
-    this.setAttribute('aria-label', i18nClearInput[this._language.current]);
+    this.internals.ariaLabel = i18nClearInput[this._language.current];
   }
 
   protected override renderTemplate(): TemplateResult {
