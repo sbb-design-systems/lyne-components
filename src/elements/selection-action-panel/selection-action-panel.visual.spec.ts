@@ -40,6 +40,7 @@ describe(`sbb-selection-action-panel`, () => {
         value=${params.value || nothing}
         size=${params.size || 'm'}
       >
+        Value ${params.value || nothing}
         <span slot="subtext">Subtext</span>
       </sbb-checkbox-panel>
       <sbb-secondary-button
@@ -60,6 +61,7 @@ describe(`sbb-selection-action-panel`, () => {
         value=${params.value || nothing}
         size=${params.size || 'm'}
       >
+        Value ${params.value || nothing}
         <span slot="subtext">Subtext</span>
       </sbb-radio-button-panel>
       <sbb-secondary-button
