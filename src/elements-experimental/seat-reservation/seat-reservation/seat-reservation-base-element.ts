@@ -1,6 +1,5 @@
 import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { LitElement, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -78,16 +77,6 @@ export class SeatReservationBaseElement extends LitElement {
 
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
-
-  /** Emits when a place was selected by user. */
-  protected selectedPlaces: EventEmitter<SeatReservationSelectedPlacesEventDetails> =
-    new EventEmitter(this, SeatReservationBaseElement.events.selectedPlaces);
-
-  /** Emits when a coach was selected by user. */
-  protected selectedCoach: EventEmitter<SeatReservationCoachSelection> = new EventEmitter(
-    this,
-    SeatReservationBaseElement.events.selectedCoach,
-  );
 
   protected coachBorderPadding = 6;
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
@@ -719,8 +708,17 @@ export class SeatReservationBaseElement extends LitElement {
       this._resetAllPlaceSelections(placeSelection);
     }
 
-    // Emits the seat reservation place selection
-    this.selectedPlaces.emit(this.selectedSeatReservationPlaces);
+    /**
+     * @@type {CustomEvent<SeatReservationSelectedPlacesEventDetails>}
+     * Emits when a place was selected and returns a Place array with all selected places.
+     */
+    this.dispatchEvent(
+      new CustomEvent('selectedPlaces', {
+        bubbles: true,
+        composed: true,
+        detail: this.selectedSeatReservationPlaces,
+      }),
+    );
   }
 
   protected updateCurrentSelectedPlaceInCoach(placeSelection: PlaceSelection): void {
@@ -744,7 +742,17 @@ export class SeatReservationBaseElement extends LitElement {
     this.focusedCoachIndex = -1;
     const coachSelection = this._getSeatReservationCoachSelection(this.selectedCoachIndex);
     if (coachSelection) {
-      this.selectedCoach.emit(coachSelection);
+      /**
+       * @type {CustomEvent<SeatReservationCoachSelection>}
+       * Emits when a coach was selected and returns a CoachSelection
+       */
+      this.dispatchEvent(
+        new CustomEvent('selectedCoach', {
+          bubbles: true,
+          composed: true,
+          detail: coachSelection,
+        }),
+      );
     }
   }
 

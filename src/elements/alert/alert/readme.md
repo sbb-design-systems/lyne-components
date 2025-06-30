@@ -81,12 +81,12 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Events
 
-| Name          | Type                | Description                                               | Inherited From          |
-| ------------- | ------------------- | --------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<void>` | Emits when the closing animation starts. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `CustomEvent<void>` | Emits when the opening animation starts.                  | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<void>` | Emits when the closing animation ends.                    | SbbOpenCloseBaseElement |
-| `open`        | `CustomEvent<void>` | Emits when the opening animation ends.                    | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## Slots
 

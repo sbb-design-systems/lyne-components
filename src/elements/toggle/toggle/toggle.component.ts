@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -27,7 +26,6 @@ import style from './toggle.scss?lit&inline';
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
- * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  * @overrideType value - (T = string) | null
  */
 export
@@ -80,12 +78,6 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
       this.querySelectorAll?.<SbbToggleOptionElement<T>>('sbb-toggle-option') ?? [],
     );
   }
-
-  /** Emits whenever the toggle value changes. */
-  private _change: EventEmitter = new EventEmitter(this, SbbToggleElement.events.change, {
-    bubbles: true,
-    composed: true,
-  });
 
   public constructor() {
     super();
@@ -214,7 +206,12 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
    */
   private _handleInput(): void {
     this.statusChanged();
-    this._change.emit();
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

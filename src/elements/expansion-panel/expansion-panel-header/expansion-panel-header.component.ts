@@ -7,7 +7,6 @@ import {
   SbbMediaMatcherController,
   SbbSlotStateController,
 } from '../../core/controllers.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbExpansionPanelElement } from '../expansion-panel.js';
@@ -19,8 +18,6 @@ import style from './expansion-panel-header.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
- * @event {CustomEvent<void>} toggleexpanded - Notifies that the `sbb-expansion-panel` has to expand.
- * @overrideType value - string
  */
 export
 @customElement('sbb-expansion-panel-header')
@@ -32,14 +29,6 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     toggleexpanded: 'toggleexpanded',
   } as const;
 
-  /** Notifies that the `sbb-expansion-panel` has to expand. */
-  private _toggleExpandedEmitter: EventEmitter = new EventEmitter(
-    this,
-    SbbExpansionPanelHeaderElement.events.toggleexpanded,
-    {
-      bubbles: true,
-    },
-  );
   private _namedSlots = new SbbSlotStateController(this, () => this._setDataIconAttribute());
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [SbbMediaQueryHover]: (m) => (this._isHover = m),
@@ -61,7 +50,8 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
 
   private _emitExpandedEvent(): void {
     if (!this.disabled) {
-      this._toggleExpandedEmitter.emit();
+      /** Notifies that the `sbb-expansion-panel` is about to expand/shrink. */
+      this.dispatchEvent(new Event('toggleexpanded', { bubbles: true, composed: true }));
     }
   }
 

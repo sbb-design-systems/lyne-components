@@ -58,9 +58,9 @@ When the element is clicked, the `toggleexpanded` event is emitted.
 
 ## Events
 
-| Name             | Type                | Description                                            | Inherited From |
-| ---------------- | ------------------- | ------------------------------------------------------ | -------------- |
-| `toggleexpanded` | `CustomEvent<void>` | Notifies that the `sbb-expansion-panel` has to expand. |                |
+| Name             | Type    | Description                                                        | Inherited From |
+| ---------------- | ------- | ------------------------------------------------------------------ | -------------- |
+| `toggleexpanded` | `Event` | Notifies that the `sbb-expansion-panel` is about to expand/shrink. |                |
 
 ## Slots
 

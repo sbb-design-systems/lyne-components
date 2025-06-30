@@ -25,7 +25,6 @@ interface Time {
 
 /**
  * Custom input for a time.
- * @overrideType value - string
  */
 export
 @customElement('sbb-time-input')

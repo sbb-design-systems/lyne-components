@@ -103,9 +103,9 @@ const values = [
 
 ## Events
 
-| Name        | Type                | Description                                                                                                                               | Inherited From |
-| ----------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<void>` | Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes. |                |
+| Name        | Type    | Description                                                                                             | Inherited From |
+| ----------- | ------- | ------------------------------------------------------------------------------------------------------- | -------------- |
+| `didChange` | `Event` | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events. |                |
 
 ## Slots
 

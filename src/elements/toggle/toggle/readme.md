@@ -76,9 +76,9 @@ const values = [
 
 ## Events
 
-| Name     | Type                | Description                              | Inherited From |
-| -------- | ------------------- | ---------------------------------------- | -------------- |
-| `change` | `CustomEvent<void>` | Emits whenever the toggle value changes. |                |
+| Name     | Type    | Description                                                                                                                                                                        | Inherited From |
+| -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change` | `Event` | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
 
 ## Slots
 

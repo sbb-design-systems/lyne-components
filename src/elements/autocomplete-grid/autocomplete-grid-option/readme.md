@@ -102,9 +102,9 @@ The type can be specified using the generic type parameter `T` of `SbbAutocomple
 
 ## Events
 
-| Name             | Type                | Description                                | Inherited From |
-| ---------------- | ------------------- | ------------------------------------------ | -------------- |
-| `optionselected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
+| Name             | Type    | Description                                | Inherited From       |
+| ---------------- | ------- | ------------------------------------------ | -------------------- |
+| `optionselected` | `Event` | Emits when an option was selected by user. | SbbOptionBaseElement |
 
 ## CSS Properties
 

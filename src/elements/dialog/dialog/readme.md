@@ -101,12 +101,12 @@ an alternative element by listening to the `didClose` event.
 
 ## Events
 
-| Name          | Type                                       | Description                                                                     | Inherited From          |
-| ------------- | ------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
+| Name          | Type                                       | Description                                                                  | Inherited From          |
+| ------------- | ------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`                                    | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`                                    | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

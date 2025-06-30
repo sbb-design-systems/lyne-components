@@ -50,9 +50,9 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 ## Events
 
-| Name    | Type                | Description                                 | Inherited From |
-| ------- | ------------------- | ------------------------------------------- | -------------- |
-| `empty` | `CustomEvent<void>` | Emits when `sbb-alert-group` becomes empty. |                |
+| Name    | Type    | Description                                 | Inherited From |
+| ------- | ------- | ------------------------------------------- | -------------- |
+| `empty` | `Event` | Emits when `sbb-alert-group` becomes empty. |                |
 
 ## Slots
 

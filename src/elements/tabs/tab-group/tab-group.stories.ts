@@ -259,7 +259,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbTabGroupElement.events.didChange],
+      handles: [SbbTabGroupElement.events.tabchange],
     },
     docs: {
       extractComponentDescription: () => readme,

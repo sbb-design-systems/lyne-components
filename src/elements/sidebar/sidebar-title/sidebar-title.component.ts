@@ -20,7 +20,7 @@ class SbbSidebarTitleElement extends SbbTitleBase {
 
   public constructor() {
     super();
-    this.visualLevel ??= '5';
+    this.visualLevel ??= '5' as this['visualLevel'];
   }
 
   public override connectedCallback(): void {

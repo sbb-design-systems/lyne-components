@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -24,9 +23,6 @@ export type SbbTagSize = 's' | 'm';
  * @slot - Use the unnamed slot to add content to the tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
- * @event {CustomEvent<void>} input - Input event emitter
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<void>} change - Change event emitter
  * @overrideType value - (T = string) | null
  */
 export
@@ -67,22 +63,6 @@ class SbbTagElement<T = string> extends SbbIconNameMixin(
   /** Reference to the connected tag group. */
   private _group: SbbTagGroupElement | null = null;
 
-  /** Input event emitter */
-  private _input: EventEmitter = new EventEmitter(this, SbbTagElement.events.input, {
-    bubbles: true,
-    composed: true,
-  });
-
-  /** @deprecated only used for React. Will probably be removed once React 19 is available. */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbTagElement.events.didChange, {
-    bubbles: true,
-  });
-
-  /** Change event emitter */
-  private _change: EventEmitter = new EventEmitter(this, SbbTagElement.events.change, {
-    bubbles: true,
-  });
-
   public constructor() {
     super();
     this.addEventListener?.('click', () => this._handleClick());
@@ -109,9 +89,27 @@ class SbbTagElement<T = string> extends SbbIconNameMixin(
       return;
     }
     this.checked = !this.checked;
-    this._input.emit();
-    this._change.emit();
-    this._didChange.emit();
+
+    /** The input event fires when the value has been changed as a direct result of a user action. */
+    this.dispatchEvent(
+      new InputEvent('input', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
+
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+
+    /**
+     * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+     * @deprecated
+     */
+    this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

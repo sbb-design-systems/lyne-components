@@ -59,7 +59,7 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   public constructor() {
     super();
 
-    this.level = '3';
+    this.level = '3' as this['level'];
     this.visualLevel = sizeToLevel.get(this.size) ?? null;
   }
 
