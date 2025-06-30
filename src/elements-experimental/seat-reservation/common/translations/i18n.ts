@@ -180,7 +180,7 @@ const i18nObjects: Record<string, Record<string, string>> = {
   },
   ENTRY_EXIT: {
     de: 'Ausgang / Eingang',
-    en: 'Exit/Entrance',
+    en: 'Exit / Entrance',
     fr: 'Sortie / Entrée',
     it: 'Uscita / Ingresso',
   },
