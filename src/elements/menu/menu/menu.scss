@@ -18,12 +18,15 @@
   --sbb-menu-animation-easing: ease;
   --sbb-menu-background-color: var(--sbb-color-black);
   --sbb-menu-transform: translateY(100%);
+  --sbb-menu-transform-x: translateX(0%);
   --sbb-menu-transform-sideways: translateX(100%);
   --sbb-menu-transform-sideways-target: translateX(0%);
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
   --sbb-menu-inset: 0 auto auto 0;
   --sbb-menu-container-height: 100dvh;
+  --sbb-menu-open-animation-name: open;
+  --sbb-menu-close-animation-name: close;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
@@ -51,6 +54,16 @@
 
 :host(:not([data-state='closed'])) {
   --sbb-menu-inset: 0;
+}
+
+:host([data-skip-animation]) {
+  @include sbb.mq($to: medium) {
+    --sbb-menu-close-animation-name: none;
+  }
+}
+
+:host([data-nested-menu-open]) {
+  --sbb-menu-transform-x: translateX(-100%);
 }
 
 :host([data-nested-menu])::backdrop {
@@ -125,6 +138,8 @@ sbb-divider,
   background-color: var(--sbb-menu-background-color);
   padding: 0;
   overflow: hidden;
+  transform: var(--sbb-menu-transform-x);
+  transition: transform var(--sbb-menu-animation-duration);
 
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
@@ -132,7 +147,7 @@ sbb-divider,
     pointer-events: all;
 
     animation: {
-      name: open;
+      name: var(--sbb-menu-open-animation-name);
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
@@ -140,43 +155,18 @@ sbb-divider,
 
   :host([data-state][data-state='closing']) & {
     pointer-events: none;
-    animation-name: close;
+    animation-name: var(--sbb-menu-close-animation-name);
   }
 
   @include sbb.mq($to: medium) {
     :host([data-nested-menu][data-state]:not([data-state='closed'])) & {
-      animation: {
-        name: open-sideways;
-        duration: var(--sbb-menu-animation-duration);
-        timing-function: var(--sbb-menu-animation-easing);
-      }
+      --sbb-menu-open-animation-name: open-sideways;
     }
 
-    :host([data-nested-menu][data-state][data-state='closing']) & {
-      pointer-events: none;
+    :host([data-state][data-state='closing'][data-nested-menu]:not([data-close-vertically])) & {
+      --sbb-menu-close-animation-name: close-sideways;
+
       transform: var(--sbb-menu-transform-sideways);
-
-      animation: {
-        name: close-sideways;
-        duration: var(--sbb-menu-animation-duration);
-        timing-function: var(--sbb-menu-animation-easing);
-      }
-    }
-
-    :host(:not([data-has-nested-menus])) & {
-      transform: translateX(0%);
-      transition-property: transform;
-    }
-
-    :host([data-has-nested-menus]) & {
-      inset-inline-start: unset;
-      inset-inline-end: 100%;
-
-      animation: {
-        name: open-sideways;
-        duration: var(--sbb-menu-animation-duration);
-        timing-function: var(--sbb-menu-animation-easing);
-      }
     }
   }
 
