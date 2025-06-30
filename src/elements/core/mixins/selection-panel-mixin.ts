@@ -115,12 +115,9 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
     protected onInputStateChange(event: CustomEvent<SbbStateChange>): void {
       if (event.detail.type === 'disabled') {
         this.disabled = event.detail.disabled;
-        return;
-      } else if (event.detail.type !== 'checked') {
-        return;
+      } else if (event.detail.type === 'checked') {
+        this.checked = event.detail.checked;
       }
-
-      this.checked = event.detail.checked;
     }
   }
 
