@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import { SbbStepElement } from '../step/step.component.js';
 import type { SbbStepLabelElement } from '../step-label.js';
@@ -13,6 +13,7 @@ import '../step.js';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -54,7 +55,7 @@ describe('sbb-stepper', () => {
     expect(+baseHeight).not.to.be.equal(0);
 
     const stepOne = element.querySelector<SbbStepElement>('sbb-step:nth-of-type(1)')!;
-    const resizeChange = new EventSpy(SbbStepElement.events.resizeChange, element);
+    const resizeChangeSpy = new EventSpy(SbbStepElement.events.resizechange, element);
     const addedHeight = 200;
 
     const div = document.createElement('div');
@@ -62,8 +63,8 @@ describe('sbb-stepper', () => {
     div.style.cssText = `display: block; height: ${addedHeight}px;`;
     stepOne.appendChild(div);
     await waitForLitRender(element);
-    await resizeChange.calledOnce();
-    expect(resizeChange.count).to.be.equal(1);
+    await resizeChangeSpy.calledOnce();
+    expect(resizeChangeSpy.count).to.be.equal(1);
 
     const newHeight = getComputedStyle(element).getPropertyValue('--sbb-stepper-content-height');
     expect(newHeight).to.be.equal(`${+baseHeight + addedHeight}px`);
@@ -339,12 +340,12 @@ describe('sbb-stepper', () => {
     expect(document.activeElement!.id).to.be.equal('step-one-content');
   });
 
-  it('sets the correct aria-labelledby attributes', async () => {
+  it('sets the correct ariaLabelledbyElements property', async () => {
     const steps: SbbStepElement[] = Array.from(
       element.querySelectorAll<SbbStepElement>('sbb-step'),
     );
     steps.forEach((step: SbbStepElement) =>
-      expect(step).to.have.attribute('aria-labelledby', step.label!.id),
+      expect(elementInternals.get(step)!.ariaLabelledByElements).to.have.same.members([step.label]),
     );
   });
 

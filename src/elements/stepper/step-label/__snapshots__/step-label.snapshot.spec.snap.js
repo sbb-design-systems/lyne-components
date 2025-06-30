@@ -47,10 +47,8 @@ snapshots["sbb-step-label renders with icon Shadow DOM"] =
   <span class="sbb-step-label__prefix">
     <slot name="icon">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="tick-small"
-        role="img"
       >
       </sbb-icon>
     </slot>

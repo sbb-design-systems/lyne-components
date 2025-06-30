@@ -9,7 +9,6 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -20,10 +19,6 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
  * @slot - Use the unnamed slot to add content to the sticky bar.
- * @event {CustomEvent<void>} willStick - Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled.
- * @event {CustomEvent<void>} didStick - Emits when the animation from normal content flow to `position: sticky` ends.
- * @event {CustomEvent<void>} willUnstick - Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled.
- * @event {CustomEvent<void>} didUnstick - Emits when the animation from `position: sticky` to normal content flow ends.
  * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xs)] - Block padding of the sticky bar.
  * @cssprop [--sbb-sticky-bar-bottom-overlapping-height=0px] - Define an additional area where
  * the sticky bar overlaps the following content on the bottom.
@@ -37,10 +32,10 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   public static readonly events = {
-    willStick: 'willStick',
-    didStick: 'didStick',
-    willUnstick: 'willUnstick',
-    didUnstick: 'didUnstick',
+    beforestick: 'beforestick',
+    stick: 'stick',
+    beforeunstick: 'beforeunstick',
+    unstick: 'unstick',
   } as const;
 
   /** Color of the container, like transparent, white etc. */
@@ -64,23 +59,6 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   private get _state(): StickyState {
     return this.getAttribute('data-state') as StickyState;
   }
-
-  private _willStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.willStick, {
-    cancelable: true,
-  });
-  private _didStick: EventEmitter = new EventEmitter(this, SbbStickyBarElement.events.didStick, {
-    cancelable: true,
-  });
-  private _willUnstick: EventEmitter = new EventEmitter(
-    this,
-    SbbStickyBarElement.events.willUnstick,
-    { cancelable: true },
-  );
-  private _didUnstick: EventEmitter = new EventEmitter(
-    this,
-    SbbStickyBarElement.events.didUnstick,
-    { cancelable: true },
-  );
 
   private _intersector?: HTMLSpanElement;
   private _observer = new IntersectionController(this, {
@@ -160,7 +138,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   /** Animates from normal content flow position to `position: sticky`. */
   public stick(): void {
-    if (this._state !== 'unsticky' || !this._willStick.emit()) {
+    if (this._state !== 'unsticky' || !this._dispatchBeforeStickEvent()) {
       return;
     }
 
@@ -172,7 +150,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   /** Animates `position: sticky` to normal content flow position. */
   public unstick(): void {
-    if (this._state !== 'sticky' || !this._willUnstick.emit()) {
+    if (this._state !== 'sticky' || !this._dispatchBeforeUnStickEvent()) {
       return;
     }
 
@@ -185,11 +163,14 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   private _stickyCallback(): void {
     this._state = 'sticky';
-    this._didStick.emit();
+
+    /** Emits when the animation from normal content flow to `position: sticky` ends. */
+    this.dispatchEvent(new Event('stick'));
   }
 
   private _unstickyCallback(): void {
-    this._didUnstick.emit();
+    /** Emits when the animation from `position: sticky` to normal content flow ends. */
+    this.dispatchEvent(new Event('unstick'));
     this._state = 'unsticky';
   }
 
@@ -202,6 +183,16 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     } else if (this._state === 'unsticking' && event.animationName === 'slide-out') {
       this._unstickyCallback();
     }
+  }
+
+  private _dispatchBeforeStickEvent(): boolean {
+    /** Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled. */
+    return this.dispatchEvent(new Event('beforestick', { cancelable: true }));
+  }
+
+  private _dispatchBeforeUnStickEvent(): boolean {
+    /** Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled. */
+    return this.dispatchEvent(new Event('beforeunstick', { cancelable: true }));
   }
 
   protected override render(): TemplateResult {

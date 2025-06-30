@@ -98,12 +98,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Events
 
-| Name        | Type                | Description                                                                   | Inherited From          |
-| ----------- | ------------------- | ----------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

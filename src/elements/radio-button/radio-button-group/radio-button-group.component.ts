@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbRadioButtonSize } from '../common.js';
@@ -20,7 +19,6 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @event {CustomEvent<void>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
  * @overrideType value - (T = string) | null
  */
 export
@@ -111,15 +109,6 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
-  /**
-   * Emits whenever the `sbb-radio-group` value changes.
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   */
-  private _didChange: EventEmitter = new EventEmitter(
-    this,
-    SbbRadioButtonGroupElement.events.didChange,
-  );
-
   public constructor() {
     super();
     this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
@@ -130,7 +119,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
     this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
@@ -165,7 +154,12 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
     }
 
     this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
-    this._didChange.emit();
+
+    /**
+     * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+     * @deprecated
+     */
+    this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
   /**

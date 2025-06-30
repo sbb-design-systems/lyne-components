@@ -10,13 +10,26 @@ import { SbbAlertElement } from './alert.component.js';
 import readme from './readme.md?raw';
 
 import '../../link/link.js';
+import '../../title.js';
 
-const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
-  <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
+const Default = ({
+  title,
+  'content-slot-text': contentSlotText,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-alert ${sbbSpread(args)}>
+    <sbb-title level="3">${title}</sbb-title>
+    ${contentSlotText}
+  </sbb-alert>
 `;
 
-const WithLink = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
+const WithLink = ({
+  title,
+  'content-slot-text': contentSlotText,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
+    <sbb-title level="3">${title}</sbb-title>
     ${contentSlotText} <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
 `;
@@ -31,18 +44,18 @@ const DefaultWithOtherContent = (args: Args): TemplateResult => {
 };
 
 const CustomSlots = ({
-  'title-content': titleContent,
+  title,
   'content-slot-text': contentSlotText,
   ...args
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
-    <span slot="title">${titleContent}</span>
+    <sbb-title level="3">${title}</sbb-title>
     ${contentSlotText}
   </sbb-alert>
 `;
 
-const titleContent: InputType = {
+const title: InputType = {
   control: {
     type: 'text',
   },
@@ -88,7 +101,7 @@ const animation: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'title-content': titleContent,
+  title,
   'title-level': titleLevel,
   size,
   readonly,
@@ -98,7 +111,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'title-content': 'Interruption between Berne and Olten',
+  title: 'Interruption between Berne and Olten',
   'title-level': 3,
   size: size.options![0],
   readonly: false,
@@ -149,10 +162,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAlertElement.events.willOpen,
-        SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.willClose,
-        SbbAlertElement.events.didClose,
+        SbbAlertElement.events.beforeopen,
+        SbbAlertElement.events.open,
+        SbbAlertElement.events.beforeclose,
+        SbbAlertElement.events.close,
       ],
     },
     docs: {

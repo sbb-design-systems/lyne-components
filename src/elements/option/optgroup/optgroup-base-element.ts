@@ -11,7 +11,7 @@ import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { forceType } from '../../core/decorators.js';
-import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { isSafari } from '../../core/dom.js';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
@@ -80,11 +80,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
     if (changedProperties.has('disabled')) {
       if (!this._inertAriaGroups) {
-        if (this.disabled) {
-          this.setAttribute('aria-disabled', 'true');
-        } else {
-          this.removeAttribute('aria-disabled');
-        }
+        this.internals.ariaDisabled = this.disabled ? 'true' : null;
       }
 
       this.proxyDisabledToOptions();
@@ -105,10 +101,10 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   private _proxyGroupLabelToOptions(): void {
     if (!this._inertAriaGroups) {
-      setOrRemoveAttribute(this, 'aria-label', this.label);
+      this.internals.ariaLabel = this.label;
       return;
     } else if (this.label) {
-      this.removeAttribute('aria-label');
+      this.internals.ariaLabel = null;
       for (const option of this.options) {
         option.setAttribute('data-group-label', this.label);
         option.requestUpdate?.();

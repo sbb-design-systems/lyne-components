@@ -87,7 +87,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     }
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       this._updateAriaDisabled();
@@ -95,11 +95,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   }
 
   private _updateAriaDisabled(): void {
-    if (this.disabled || this._disabledFromGroup) {
-      this.setAttribute('aria-disabled', 'true');
-    } else {
-      this.removeAttribute('aria-disabled');
-    }
+    this.internals.ariaDisabled = this.disabled || this._disabledFromGroup ? 'true' : null;
   }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {

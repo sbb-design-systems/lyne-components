@@ -5,7 +5,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';
@@ -20,20 +19,16 @@ let nextId = 0;
  * It displays an expandable summary-details widget.
  *
  * @slot - Use the unnamed slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-expansion-panel` starts the opening transition.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-expansion-panel` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-expansion-panel` begins the closing transition.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-expansion-panel` is closed.
  */
 export
 @customElement('sbb-expansion-panel')
 class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
@@ -85,41 +80,13 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     return this.getAttribute('data-state') as SbbOpenedClosedState;
   }
 
-  /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbExpansionPanelElement.events.willOpen,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the `sbb-expansion-panel` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbExpansionPanelElement.events.didOpen,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbExpansionPanelElement.events.willClose,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the `sbb-expansion-panel` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbExpansionPanelElement.events.didClose,
-    { cancelable: true },
-  );
-
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
 
   public constructor() {
     super();
-    this.addEventListener?.('toggleExpanded', () => this._toggleExpanded());
+    this.addEventListener?.('toggleexpanded', () => this._toggleExpanded());
   }
 
   public override connectedCallback(): void {
@@ -158,7 +125,8 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _open(): void {
     this._state = 'opening';
-    this._willOpen.emit();
+    /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
+    this.dispatchEvent(new Event('beforeopen'));
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -169,7 +137,8 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _close(): void {
     this._state = 'closing';
-    this._willClose.emit();
+    /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
+    this.dispatchEvent(new Event('beforeclose'));
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -184,12 +153,14 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this._didOpen.emit();
+    /** Emits whenever the `sbb-expansion-panel` is opened. */
+    this.dispatchEvent(new Event('open'));
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this._didClose.emit();
+    /** Emits whenever the `sbb-expansion-panel` is closed. */
+    this.dispatchEvent(new Event('close'));
   }
 
   private _updateDisabledOnHeader(newDisabledValue: boolean): void {

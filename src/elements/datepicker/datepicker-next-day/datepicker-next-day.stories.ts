@@ -7,7 +7,7 @@ import type {
   ArgTypes,
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -33,8 +33,8 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const BaseTemplate = (args: Args, picker: string | undefined = undefined): TemplateResult => html`
-  <sbb-datepicker-next-day ${sbbSpread(args)} .datepicker=${picker}></sbb-datepicker-next-day>
+const BaseTemplate = (args: Args, input: string | undefined = undefined): TemplateResult => html`
+  <sbb-datepicker-next-day ${sbbSpread(args)} input=${input || nothing}></sbb-datepicker-next-day>
 `;
 
 const StandaloneTemplate = (args: Args): TemplateResult => html` ${BaseTemplate(args)} `;
@@ -42,12 +42,8 @@ const StandaloneTemplate = (args: Args): TemplateResult => html` ${BaseTemplate(
 const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
   <div style="display: flex; gap: 1em;">
     <sbb-date-input value="2023-02-15" id="datepicker-input"></sbb-date-input>
-    <sbb-datepicker
-      id="datepicker"
-      input="datepicker-input"
-      now="2023-01-12T00:00:00Z"
-    ></sbb-datepicker>
-    ${BaseTemplate(args, 'datepicker')}
+    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+    ${BaseTemplate(args, 'datepicker-input')}
   </div>
 `;
 

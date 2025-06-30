@@ -21,10 +21,9 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
-const Template = ({ min, max, selected, dateFilter, now, ...args }: Args): TemplateResult => html`
+const Template = ({ min, max, selected, dateFilter, ...args }: Args): TemplateResult => html`
   <sbb-calendar
     .selected=${new Date(selected)}
-    .now=${new Date(now)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -84,15 +83,6 @@ const view: InputType = {
   options: ['day', 'month', 'year'],
 };
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const filterFunctions = [
   undefined,
   (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0,
@@ -126,7 +116,6 @@ const defaultArgTypes: ArgTypes = {
   max,
   dateFilter,
   view,
-  now,
 };
 
 const today = new Date();
@@ -136,7 +125,6 @@ const defaultArgs: Args = {
   wide: false,
   orientation: orientation.options![0],
   selected: today,
-  now: undefined,
   view: view.options![0],
 };
 
@@ -193,13 +181,13 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCalendarElement.events.dateSelected],
+      handles: [SbbCalendarElement.events.dateselected],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-datepicker/sbb-calendar',
+  title: 'elements/sbb-calendar',
 };
 
 export default meta;

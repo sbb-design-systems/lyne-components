@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -46,7 +45,7 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    sectorChange: 'sectorChange',
+    sectorchange: 'sectorchange',
   } as const;
 
   /**
@@ -93,21 +92,9 @@ class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof 
 
   private _language = new SbbLanguageController(this);
 
-  /**
-   * @internal
-   * Emits whenever the sector value changes.
-   */
-  private _sectorChange: EventEmitter = new EventEmitter(
-    this,
-    SbbTrainWagonElement.events.sectorChange,
-    {
-      bubbles: true,
-      cancelable: true,
-    },
-  );
-
   private _sectorChanged(): void {
-    this._sectorChange.emit();
+    /** @internal */
+    this.dispatchEvent(new Event('sectorchange', { bubbles: true, composed: true }));
   }
 
   private _typeLabel(): string {

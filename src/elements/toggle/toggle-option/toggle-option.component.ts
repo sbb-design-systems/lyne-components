@@ -71,7 +71,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
     this._toggle = null;
   }
 
-  public override firstUpdated(changedProperties: PropertyValues<this>): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     this._toggle?.updatePillPosition?.(true);
@@ -81,7 +81,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this.setAttribute('aria-checked', `${this.checked}`);
+      this.internals.ariaChecked = `${this.checked}`;
       this._verifyTabindex();
       if (this.checked) {
         this._uncheckOtherOptions();

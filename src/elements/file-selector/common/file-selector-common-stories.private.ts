@@ -21,7 +21,7 @@ export const FileSelectorTemplateWithError = ({ tag, ...args }: Args): TemplateR
     <${unsafeStatic(tag)}
       ${sbbSpread(args)}
       id="sbb-file-selector"
-      @fileChanged=${(event: CustomEvent<File[]>) => {
+      @filechanged=${(event: CustomEvent<File[]>) => {
         if (event.detail && event.detail.length > 0) {
           (event.target as SbbFileSelectorElement | SbbFileSelectorDropzoneElement)!.append(
             sbbFormError,

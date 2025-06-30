@@ -12,7 +12,7 @@ import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 class SbbElementInternalsTestElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'text';
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`Button`;
   }
 }

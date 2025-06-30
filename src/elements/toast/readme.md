@@ -109,7 +109,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `isOpen`     | -            | public  | `boolean`                          |                   | Whether the element is open.                                                                                                                                                                                                 |
 | `politeness` | `politeness` | public  | `'polite' \| 'assertive' \| 'off'` | `'polite'`        | The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info                                                                          |
 | `position`   | `position`   | public  | `SbbToastPosition`                 | `'bottom-center'` | The position where to place the toast.                                                                                                                                                                                       |
-| `readOnly`   | `readonly`   | public  | `boolean`                          |                   | Whether the component is readonly.                                                                                                                                                                                           |
+| `readOnly`   | `readonly`   | public  | `boolean`                          | `false`           | Whether the component is readonly.                                                                                                                                                                                           |
 | `timeout`    | `timeout`    | public  | `number`                           | `0`               | The length of time in milliseconds to wait before automatically dismissing the toast. If 0 (default), it stays open indefinitely. From accessibility perspective, it is recommended to set a timeout of at least 20 seconds. |
 
 ## Methods
@@ -121,12 +121,12 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Events
 
-| Name        | Type                | Description                                                                    | Inherited From          |
-| ----------- | ------------------- | ------------------------------------------------------------------------------ | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

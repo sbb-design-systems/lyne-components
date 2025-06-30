@@ -98,7 +98,7 @@ class TestCase extends LitElement {
     this._showGlobalDiff = (event.target as SbbToggleCheckElement).checked;
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <sbb-header expanded>
         <div class="app-progress" style="--app-progress: ${this._progressFraction()}"></div>

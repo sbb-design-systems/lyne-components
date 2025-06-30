@@ -59,10 +59,8 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-slow-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -84,10 +82,8 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
     </div>
     <slot name="suffix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-fast-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -116,10 +112,8 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-slow-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -142,10 +136,8 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
     </div>
     <slot name="suffix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-fast-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -174,10 +166,8 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-slow-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -200,10 +190,8 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
     </div>
     <slot name="suffix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-fast-small"
-        role="img"
       >
       </sbb-icon>
     </slot>

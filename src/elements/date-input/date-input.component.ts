@@ -24,8 +24,15 @@ Object.assign(ValidityState.prototype, {
 });
 
 /**
+ * Interface for elements that can be associated with a date input.
+ * Implementing classes must also have a static property `sbbDateInputAssociated` set to `true`.
+ */
+export interface SbbDateInputAssociated<T> {
+  input: SbbDateInputElement<T> | null;
+}
+
+/**
  * Custom input for a date.
- * @overrideType value - string
  */
 export
 @customElement('sbb-date-input')
@@ -98,13 +105,14 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   @property({ converter: plainDateConverter, reflect: true })
   public accessor max: T | null = null;
 
-  /** A function used to filter out dates. */
+  /**
+   * A function used to filter out dates.
+   * It is strongly recommended to use min and max dates alongside
+   * this filter.
+   */
   @property({ attribute: false })
   public set dateFilter(value: (date: T | null) => boolean) {
     this._dateFilter = value;
-    if (this.datepicker) {
-      this.datepicker.dateFilter = value;
-    }
   }
   public get dateFilter(): (date: T | null) => boolean {
     return this._dateFilter;
@@ -139,6 +147,22 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     this.addEventListener?.('change', () => this._updateValueDateFormat(), { capture: true });
   }
 
+  /**
+   * Attempts to resolve the associated date input with the given element.
+   */
+  public static resolveAssociation<T>(host: HTMLElement & SbbDateInputAssociated<T>): void {
+    if (host.hasAttribute('input') || host.input) {
+      return;
+    }
+
+    const input = host
+      .closest('sbb-form-field')
+      ?.querySelector<SbbDateInputElement<T>>('sbb-date-input');
+    if (input) {
+      host.input = input;
+    }
+  }
+
   private _dateFilter: (date: T | null) => boolean = () => true;
 
   public override connectedCallback(): void {
@@ -146,6 +170,17 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     if (!this.placeholder) {
       this._placeholderMutable = true;
       this.placeholder = i18nDatePickerPlaceholder[this.language.current];
+    }
+    for (const child of Array.from(this.closest('sbb-form-field')?.children ?? [])) {
+      // Elements must be upgraded in order for the constructor to be accessible.
+      customElements.upgrade?.(child);
+      if (
+        (child.constructor as { sbbDateInputAssociated?: boolean }).sbbDateInputAssociated &&
+        !child.hasAttribute('input') &&
+        !(child as Partial<SbbDateInputAssociated<T>>).input
+      ) {
+        (child as Partial<SbbDateInputAssociated<T>>).input = this;
+      }
     }
   }
 
@@ -163,8 +198,8 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     } else if (name === 'weekdayStyle') {
       this._updateValueDateFormat();
     }
-    if (this.hasUpdated) {
-      // Used to notify the datepicker to update its state
+    if (this.isConnected) {
+      // Used to notify associated components to update state
       /** @internal */
       this.dispatchEvent(new Event('ɵchange'));
     }

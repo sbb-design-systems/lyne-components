@@ -8,7 +8,6 @@ import style from './datepicker-previous-day.scss?lit&inline';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
- * @overrideType value - string
  */
 export
 @customElement('sbb-datepicker-previous-day')
@@ -19,14 +18,27 @@ class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
   protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.slot ||= 'prefix';
+  protected findAvailableDate(date: T): T | null {
+    let availableDate = this.dateAdapter.addCalendarDays(date, -1);
+    if (this._isBeforeMinDate(availableDate)) {
+      return null;
+    }
+
+    const dateFilter = this.input!.dateFilter;
+    if (dateFilter) {
+      while (!dateFilter(availableDate)) {
+        availableDate = this.dateAdapter.addCalendarDays(availableDate, -1);
+        if (this._isBeforeMinDate(availableDate)) {
+          return null;
+        }
+      }
+    }
+
+    return availableDate;
   }
 
-  protected findAvailableDate(date: T): T {
-    // When calling findAvailableDate, datepickerElement is always defined.
-    return this.datepicker!.findPreviousAvailableDate(date);
+  private _isBeforeMinDate(date: T): boolean {
+    return !!this.input!.min && this.dateAdapter.compareDate(date, this.input!.min) < 0;
   }
 }
 

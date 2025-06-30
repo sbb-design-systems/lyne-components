@@ -1,5 +1,4 @@
-@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as
-  sbb-css-tokens;
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens;
 @use './core/mediaqueries';
 @use './core/functions';
 @use './mixins/a11y';
@@ -7,6 +6,7 @@
 @use './mixins/helpers';
 @use './mixins/inputs';
 @use './mixins/scrollbar';
+@use './mixins/shadows';
 @use './mixins/typo';
 
 @include helpers.box-sizing;
@@ -169,13 +169,13 @@ sbb-form-field {
   }
 
   &:has(
-      :is(
-        :is(input, textarea, select):user-invalid,
-        :is(:state(interacted), [state--interacted]):invalid,
-        .ng-touched.ng-invalid,
-        .sbb-invalid
-      )
-    ),
+    :is(
+      :is(input, textarea, select):user-invalid,
+      :is(:state(interacted), [state--interacted]):invalid,
+      .ng-touched.ng-invalid,
+      .sbb-invalid
+    )
+  ),
   :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
     --sbb-form-field-border-color: var(--sbb-color-red125);
     --sbb-form-field-text-color: var(--sbb-color-red125);
@@ -194,32 +194,34 @@ sbb-form-field {
 
 // Hiding components until they are instantiated
 :is(
-    sbb-autocomplete,
-    sbb-autocomplete-grid,
-    sbb-dialog,
-    sbb-menu,
-    sbb-navigation,
-    sbb-navigation-section,
-    sbb-overlay,
-    sbb-popover,
-    sbb-select,
-    sbb-skiplink-list,
-    sbb-toast
-  ):not(:defined) {
+  sbb-autocomplete,
+  sbb-autocomplete-grid,
+  sbb-datepicker,
+  sbb-dialog,
+  sbb-menu,
+  sbb-navigation,
+  sbb-navigation-section,
+  sbb-overlay,
+  sbb-popover,
+  sbb-select,
+  sbb-skiplink-list,
+  sbb-toast
+):not(:defined) {
   display: none;
 }
 
 // Hide popover artifacts
 [popover]:where(
-    sbb-autocomplete,
-    sbb-autocomplete-grid,
-    sbb-dialog,
-    sbb-menu,
-    sbb-navigation,
-    sbb-overlay,
-    sbb-popover,
-    sbb-toast
-  ) {
+  sbb-autocomplete,
+  sbb-autocomplete-grid,
+  sbb-datepicker,
+  sbb-dialog,
+  sbb-menu,
+  sbb-navigation,
+  sbb-overlay,
+  sbb-popover,
+  sbb-toast
+) {
   margin: 0;
   padding: 0;
   border: none;
@@ -462,11 +464,11 @@ sbb-sidebar-container:is(
 
 // Toggles visibility of backdrop if there is an affected sidebar inside the container.
 sbb-sidebar-container:has(
-    > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
-        [data-state='opening'],
-        [data-state='opened']
-      )
-  ) {
+  > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
+      [data-state='opening'],
+      [data-state='opened']
+    )
+) {
   --sbb-sidebar-container__backdrop-visibility: visible;
   --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
@@ -511,8 +513,6 @@ sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
 
 sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
-
-  --sbb-focus-outline-offset: #{functions.px-to-rem-build(5)};
 }
 
 :where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
@@ -529,4 +529,37 @@ sbb-toggle:has(:focus-visible) {
   sbb-option-hint {
     --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
   }
+}
+
+sbb-dialog-actions {
+  sbb-dialog[negative] & {
+    --sbb-dialog-actions-border-color: var(--sbb-color-iron);
+  }
+
+  sbb-dialog:is(:state(overflows), [state--overflows]) & {
+    --sbb-dialog-actions-border-color: transparent;
+
+    @include shadows.shadow-level-9-soft;
+  }
+
+  sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
+    @include shadows.shadow-level-9-soft-negative;
+  }
+}
+
+sbb-notification:has(sbb-title) {
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-titles);
+
+  &[size='s'] {
+    --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
+    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+  }
+}
+
+sbb-status:has(sbb-title) {
+  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
+  --_sbb-status-text-color-override: var(--sbb-color-granite);
+  --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
+  --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
 }

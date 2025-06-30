@@ -20,10 +20,6 @@ const ariaRoleOnHost = isSafari;
  * Combined with a native input, it displays a panel with a list of available options.
  *
  * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -42,7 +38,7 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
 
   public constructor() {
     super();
-    this.addEventListener?.('optionSelected', (e: CustomEvent<void>) => this.onOptionSelected(e));
+    this.addEventListener?.('optionselected', (e: CustomEvent<void>) => this.onOptionSelected(e));
   }
 
   protected syncNegative(): void {

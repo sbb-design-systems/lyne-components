@@ -29,8 +29,6 @@ class SbbIconElement extends SbbIconBase {
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor name: string = '';
 
-  private _defaultAriaLabel = '';
-
   /**
    * The sbb-angular library has a sbb-icon component as well. In order to provide
    * compatibility with it (as some icons are used internally inside the other sbb-angular
@@ -38,20 +36,13 @@ class SbbIconElement extends SbbIconBase {
    */
   @state() private accessor _sbbAngularCompatibility = false;
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.internals.ariaHidden = 'true';
+  }
+
   protected override async fetchSvgIcon(namespace: string, name: string): Promise<string> {
-    // If the icon is changing, and we were using the defaultAriaLabel, reset it
-    if (this.getAttribute('aria-label') === this._defaultAriaLabel) {
-      this.removeAttribute('aria-label');
-    }
-
-    this._defaultAriaLabel = `Icon ${name.replace(/-/g, ' ')}`;
-
-    // generate a default label in case user does not provide their own
-    // and aria-hidden is set to "false"
-    if (this.getAttribute('aria-hidden') === 'false' && !this.hasAttribute('aria-label') && name) {
-      this.setAttribute('aria-label', this._defaultAriaLabel);
-    }
-
+    this.internals.ariaLabel = `Icon ${name.replace(/-/g, ' ')}`;
     return super.fetchSvgIcon(namespace, name);
   }
 
@@ -72,14 +63,6 @@ class SbbIconElement extends SbbIconBase {
       this._sbbAngularCompatibility = !!value;
     } else {
       super.attributeChangedCallback(name, _old, value);
-    }
-  }
-
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    if (!this.hasAttribute('aria-hidden')) {
-      this.setAttribute('aria-hidden', 'true');
     }
   }
 

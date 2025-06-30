@@ -216,10 +216,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbPopoverElement.events.willOpen,
-        SbbPopoverElement.events.didOpen,
-        SbbPopoverElement.events.didClose,
-        SbbPopoverElement.events.willClose,
+        SbbPopoverElement.events.beforeopen,
+        SbbPopoverElement.events.open,
+        SbbPopoverElement.events.close,
+        SbbPopoverElement.events.beforeclose,
       ],
     },
     docs: {
