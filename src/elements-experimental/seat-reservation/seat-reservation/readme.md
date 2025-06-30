@@ -139,7 +139,7 @@ type BaseElement = {
 
 ### Coloring place by css properties
 
-Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors for the background color, backrest, and text of the place can be customized. The currently specified values ​​(var(--sbb-color-black)) are the built-in default values.
+Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors of the background, the backrest and textcolor of the place can be customized. The currently specified values var(--sbb-color-black)) are the built-in default values.
 
 By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the individual custom properties can be overwritten.
 
@@ -176,6 +176,30 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
   --sbb-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 }
 ```
+
+### Example of customizing CASA (blue)
+
+```css
+::part(sbb-sr-place-part) {
+  --sbb-reservation-place-control-selected-background-default: var(--casa-blue);
+  --sbb-reservation-place-control-selected-background-hover: var(--casa-blue);
+  --sbb-reservation-place-control-selected-background-focus: var(--casa-blue);
+  --sbb-reservation-place-control-selected-backrest-background-default: var(--casa-blue-hover);
+  --sbb-reservation-place-control-selected-backrest-background-hover: var(--casa-blue-hover);
+  --sbb-reservation-place-control-selected-backrest-background-focus: var(--casa-blue-hover);
+}
+```
+
+## Accessibility
+
+The `sbb-seat-reservation` component is designed to be accessible. It uses ARIA roles and
+properties to ensure that screen readers can interpret the seat reservation structure correctly.
+Each seat and coach is represented with appropriate roles, and the component emits custom events
+to communicate user interactions.
+
+Keyboard navigation is supported, allowing users to navigate through the seat reservation navigation
+with TAB and arrow keys. The component also provides visual focus indicators to help users understand
+their current position within the reservation area.
 
 <!-- Auto Generated Below -->
 
