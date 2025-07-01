@@ -62,6 +62,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
+  private _blurTimeout: ReturnType<typeof setTimeout> | null = null;
   protected closeTimeout?: ReturnType<typeof setTimeout>;
   protected overlay?: HTMLDivElement;
 
@@ -190,6 +191,9 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
     popoversRef.delete(this);
+    if (this._blurTimeout) {
+      clearTimeout(this._blurTimeout);
+    }
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -301,10 +305,18 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
       // We can achieve this by using visibilityState, which only works with setTimeout().
       this.addEventListener(
         'blur',
-        (): void => {
-          setTimeout(() => {
+        (e: FocusEvent): void => {
+          this._blurTimeout = setTimeout(() => {
             if (document.visibilityState !== 'hidden') {
               this.removeAttribute('tabindex');
+
+              // In Safari on iOS it can occur, that a blur event triggers on the popover
+              // although the focus remains inside the popover.
+              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover.
+              if (this.contains(e.relatedTarget as Node)) {
+                return;
+              }
+
               if (this.state === 'opened' || this.state === 'opening') {
                 this._skipCloseFocus = true;
               }

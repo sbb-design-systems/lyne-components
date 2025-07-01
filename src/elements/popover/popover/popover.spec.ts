@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbLinkElement } from '../../link.js';
 
 import { SbbPopoverElement } from './popover.component.js';
@@ -420,7 +420,7 @@ describe(`sbb-popover`, () => {
   });
 
   describe('with no interactive content', () => {
-    let content: HTMLElement;
+    let content: HTMLElement, openSpy: EventSpy<Event>, closeSpy: EventSpy<Event>;
 
     beforeEach(async () => {
       content = await fixture(html`
@@ -437,6 +437,9 @@ describe(`sbb-popover`, () => {
       `);
       trigger = content.querySelector('sbb-button')!;
       element = content.querySelector('sbb-popover')!;
+
+      openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+      closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
     });
 
     it('should focus content container if no interactive content present', async () => {
@@ -445,7 +448,7 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: 'Space' });
 
       // Then popover opens and focuses container
-      await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+      await openSpy.calledOnce();
       expect(document.activeElement!).to.equal(element);
       expect(element).to.have.attribute('tabindex', '0');
 
@@ -453,10 +456,36 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: tabKey });
 
       // Then popover should close, next element should be focused and popover container be reset.
-      await waitForCondition(() => element.getAttribute('data-state') === 'closed');
+      await closeSpy.calledOnce();
       expect(document.activeElement).to.equal(
         content.querySelector('#interactive-background-element'),
       );
+      expect(element).not.to.have.attribute('tabindex');
+    });
+
+    it('should handle blur event inside popover', async () => {
+      element.open();
+      await openSpy.calledOnce();
+
+      expect(document.activeElement!).to.equal(element);
+      expect(element).to.have.attribute('tabindex', '0');
+
+      // Add focusable content
+      const button = document.createElement('sbb-button');
+      button.textContent = 'later added button';
+      element.append(button);
+      button.focus();
+
+      // Fake blur event to simulate behavior on iOS mobile
+      element.dispatchEvent(
+        new FocusEvent('blur', {
+          relatedTarget: button,
+        }),
+      );
+
+      // Then popover should stay open, but tabindex should be removed
+      await aTimeout(10);
+      expect(element.isOpen, 'popover should stay open').to.be.true;
       expect(element).not.to.have.attribute('tabindex');
     });
 
@@ -466,7 +495,7 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: 'Space' });
 
       // Then popover opens and focuses container
-      await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+      await openSpy.calledOnce();
       expect(document.activeElement!).to.equal(element);
       expect(element).to.have.attribute('tabindex', '0');
 
@@ -474,7 +503,7 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: 'Escape' });
 
       // Then popover should close, trigger should be focused and popover container be reset.
-      await waitForCondition(() => element.getAttribute('data-state') === 'closed');
+      await closeSpy.calledOnce();
       expect(document.activeElement).to.equal(trigger);
       expect(element).not.to.have.attribute('tabindex');
     });
