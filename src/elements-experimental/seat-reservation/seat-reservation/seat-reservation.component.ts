@@ -160,7 +160,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
             return html`<li>
               <sbb-seat-reservation-navigation-coach
-                @selectCoach=${(event: CustomEvent) => this._onSelectNavCoach(event)}
+                @selectCoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
                 @focusCoach=${() => this._onFocusNavCoach()}
                 index="${index}"
                 coach-id="${coachItem.id}"
@@ -301,7 +301,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           cell-id="cell-${coachIndex}-${place.position.y}-${index}"
         >
           <sbb-seat-reservation-place-control
-            @selectPlace=${(selectPlaceEvent: CustomEvent) => this._onSelectPlace(selectPlaceEvent)}
+            @selectPlace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
+              this._onSelectPlace(selectPlaceEvent)}
             exportparts="sbb-sr-place-part"
             id="seat-reservation__place-button-${coachIndex}-${place.number}"
             class="seat-reservation-place-control"
@@ -511,8 +512,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * Each selection emits an array of all selected places
    * @param selectPlaceEvent
    */
-  private _onSelectPlace(selectPlaceEvent: CustomEvent): void {
-    const selectedPlace = selectPlaceEvent.detail as PlaceSelection;
+  private _onSelectPlace(selectPlaceEvent: CustomEvent<PlaceSelection>): void {
+    const selectedPlace = selectPlaceEvent.detail;
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
     this.isCoachGridFocusable = false;
@@ -523,8 +524,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
   }
 
-  private _onSelectNavCoach(event: CustomEvent): void {
-    const selectedNavCoachIndex = event.detail as number;
+  private _onSelectNavCoach(event: CustomEvent<number>): void {
+    const selectedNavCoachIndex = event.detail;
     this.isKeyboardNavigation = false;
 
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {

@@ -60,9 +60,9 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    beforeopen: CustomEvent<void>;
-    beforeclose: CustomEvent<void>;
-    open: CustomEvent<void>;
+    beforeopen: Event;
+    beforeclose: Event;
+    open: Event;
     close: Event;
   }
 }

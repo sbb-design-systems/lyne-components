@@ -124,7 +124,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
      * Internal event that emits whenever the state of the radio option
      * in relation to the parent selection panel changes.
      */
-    this.dispatchEvent(new CustomEvent('statechange', { bubbles: true, detail }));
+    this.dispatchEvent(new CustomEvent<SbbStateChange>('statechange', { bubbles: true, detail }));
   }
 
   protected override render(): TemplateResult {

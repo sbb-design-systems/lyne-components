@@ -713,7 +713,7 @@ export class SeatReservationBaseElement extends LitElement {
      * Emits when a place was selected and returns a Place array with all selected places.
      */
     this.dispatchEvent(
-      new CustomEvent('selectedPlaces', {
+      new CustomEvent<SeatReservationPlaceSelection[]>('selectedPlaces', {
         bubbles: true,
         composed: true,
         detail: this.selectedSeatReservationPlaces,
@@ -747,7 +747,7 @@ export class SeatReservationBaseElement extends LitElement {
        * Emits when a coach was selected and returns a CoachSelection
        */
       this.dispatchEvent(
-        new CustomEvent('selectedCoach', {
+        new CustomEvent<SeatReservationCoachSelection>('selectedCoach', {
           bubbles: true,
           composed: true,
           detail: coachSelection,

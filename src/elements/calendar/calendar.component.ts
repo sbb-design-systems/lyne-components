@@ -617,8 +617,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
       /** @type {CustomEvent<T>} Event emitted on date selection. */
       this.dispatchEvent(
-        new CustomEvent('dateselected', {
-          detail: this._dateAdapter.deserialize(day),
+        new CustomEvent<T>('dateselected', {
+          detail: this._dateAdapter.deserialize(day)!,
           composed: true,
           bubbles: true,
         }),

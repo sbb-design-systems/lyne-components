@@ -10,10 +10,10 @@ import '../../title.js';
 
 describe(`sbb-alert`, () => {
   let alert: SbbAlertElement,
-    beforeOpenSpy: EventSpy<CustomEvent<void>>,
-    openSpy: EventSpy<CustomEvent<void>>,
-    beforeCloseSpy: EventSpy<CustomEvent<void>>,
-    closeSpy: EventSpy<CustomEvent<void>>;
+    beforeOpenSpy: EventSpy<Event>,
+    openSpy: EventSpy<Event>,
+    beforeCloseSpy: EventSpy<Event>,
+    closeSpy: EventSpy<Event>;
 
   beforeEach(async () => {
     beforeOpenSpy = new EventSpy(SbbAlertElement.events.beforeopen, null, { capture: true });

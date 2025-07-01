@@ -203,6 +203,6 @@ declare global {
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    resizechange: CustomEvent<void>;
+    resizechange: Event;
   }
 }

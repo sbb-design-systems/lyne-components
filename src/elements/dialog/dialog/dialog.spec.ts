@@ -133,8 +133,8 @@ describe('sbb-dialog', () => {
       await openDialog(element);
 
       // Simulate backdrop click
-      element.dispatchEvent(new CustomEvent('pointerdown'));
-      element.dispatchEvent(new CustomEvent('pointerup'));
+      element.dispatchEvent(new PointerEvent('pointerdown'));
+      element.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
       await beforeCloseSpy.calledOnce();
@@ -158,8 +158,8 @@ describe('sbb-dialog', () => {
       await openDialog(element);
 
       // Simulate backdrop click
-      element.dispatchEvent(new CustomEvent('pointerdown'));
-      element.dispatchEvent(new CustomEvent('pointerup'));
+      element.dispatchEvent(new PointerEvent('pointerdown'));
+      element.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
       expect(beforeCloseSpy.count).to.be.equal(0);
@@ -180,8 +180,8 @@ describe('sbb-dialog', () => {
       // Simulate backdrop click
       element
         .shadowRoot!.querySelector('.sbb-dialog')!
-        .dispatchEvent(new CustomEvent('pointerdown', { bubbles: true, composed: true }));
-      element.dispatchEvent(new CustomEvent('pointerup'));
+        .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      element.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
       expect(beforeCloseSpy.count).to.be.equal(0);
@@ -200,10 +200,10 @@ describe('sbb-dialog', () => {
       await openDialog(element);
 
       // Simulate backdrop click
-      element.dispatchEvent(new CustomEvent('pointerdown'));
+      element.dispatchEvent(new PointerEvent('pointerdown'));
       element
         .shadowRoot!.querySelector('.sbb-dialog')!
-        .dispatchEvent(new CustomEvent('pointerup', { bubbles: true, composed: true }));
+        .dispatchEvent(new PointerEvent('pointerup', { bubbles: true, composed: true }));
       await waitForLitRender(element);
 
       expect(beforeCloseSpy.count).to.be.equal(0);
@@ -396,8 +396,8 @@ describe('sbb-dialog', () => {
       expect(innerElement).to.have.attribute('data-state', 'opened');
 
       // Simulate a click on the inner dialog's backdrop
-      innerElement.dispatchEvent(new CustomEvent('pointerdown'));
-      innerElement.dispatchEvent(new CustomEvent('pointerup'));
+      innerElement.dispatchEvent(new PointerEvent('pointerdown'));
+      innerElement.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
       await beforeCloseSpy.calledOnce();
