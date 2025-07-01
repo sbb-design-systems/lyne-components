@@ -212,27 +212,29 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     </sbb-seat-reservation-scoped>`;
   }
 
-  // todo describe all the magicNumber values and their usage
+  /**
+   * @returns Returns the border graphic (COACH_BORDER_MIDDLE) of a coach with calculated border gap and coach width,
+   * depending on whether the coach is with a driver area or without.
+   */
   private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
-    const allElements = coachItem.graphicElements;
     const COACH_PASSAGE_WIDTH = 1;
+    const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find(
       (element: BaseElement) => element.icon === 'DRIVER_AREA_FULL',
     );
     const borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
+    const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
     const borderOffsetX =
       coachIndex === 0 && driverArea
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
-
     return html`
       <sbb-seat-reservation-graphic
         style=${styleMap({
           '--sbb-reservation-graphic-width': borderWidth * this.baseGridSize,
-          '--sbb-reservation-graphic-height':
-            (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize,
+          '--sbb-reservation-graphic-height': borderHeight,
           '--sbb-reservation-graphic-top': this.coachBorderPadding * -1,
           '--sbb-reservation-graphic-left': borderOffsetX,
           '--sbb-reservation-graphic-position': 'absolute',

@@ -88,10 +88,11 @@ export class SeatReservationBaseElement extends LitElement {
   );
 
   // Describes the distance between the border of the coach and the places in pixels
-  // todo describe all the magicNumber values and their usage
   protected coachBorderPadding = 6;
   // Describes the gap between the coaches in pixels
   protected gapBetweenCoaches = 4;
+  // The calculated coachBorderOffset is used to calculate the width and height of coach border graphic,
+  // but also to position other graphics that are aligned directly to the coach border.
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
