@@ -114,8 +114,6 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
 @include sbb-sr-mixins.rotate-dom-part(svg-place);
 
-@include sbb-sr-mixins.rotate-dom-part(svg-place-selected);
-
 .sbb-sr-place-ctrl {
   $root: &;
 
