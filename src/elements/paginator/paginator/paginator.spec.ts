@@ -96,7 +96,7 @@ describe('sbb-paginator', () => {
     });
 
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
-    pages[2].dispatchEvent(new Event('click'));
+    pages[2].dispatchEvent(new PointerEvent('click'));
     await waitForLitRender(element);
     const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
     expect(pageEventSpy).to.have.been.calledOnce;

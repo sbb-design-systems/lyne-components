@@ -54,7 +54,7 @@ describe(`sbb-select`, () => {
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
       const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await beforeOpenSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);
@@ -67,7 +67,7 @@ describe(`sbb-select`, () => {
       expect(element).to.have.attribute('data-expanded');
       expect(overlayContainerElement).to.match(':popover-open');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await beforeCloseSpy.calledOnce();
       expect(beforeCloseSpy.count).to.be.equal(1);
@@ -90,13 +90,13 @@ describe(`sbb-select`, () => {
       const open = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await open.calledOnce();
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
@@ -107,7 +107,7 @@ describe(`sbb-select`, () => {
       const open = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await open.calledOnce();
 
@@ -127,7 +127,7 @@ describe(`sbb-select`, () => {
       const open = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await open.calledOnce();
 
@@ -301,7 +301,7 @@ describe(`sbb-select`, () => {
 
       const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
 
       await beforeOpenSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);
@@ -314,22 +314,22 @@ describe(`sbb-select`, () => {
       expect(secondOption).not.to.have.attribute('selected');
 
       const selectionChange = new EventSpy(SbbOptionElement.events.optionselectionchange);
-      firstOption.dispatchEvent(new CustomEvent('click'));
+      firstOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(selectionChange.count).to.be.equal(1);
       expect(element.value).to.be.eql(['1']);
       expect(displayValue).to.have.trimmed.text('First');
 
-      secondOption.dispatchEvent(new CustomEvent('click'));
+      secondOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(selectionChange.count).to.be.equal(2);
       expect(element.value).to.be.eql(['1', '2']);
       expect(displayValue).to.have.trimmed.text('First, Second');
 
-      firstOption.dispatchEvent(new CustomEvent('click'));
+      firstOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(element.value).to.be.eql(['2']);
-      secondOption.dispatchEvent(new CustomEvent('click'));
+      secondOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(element.value).to.be.eql([]);
       expect(displayValue).to.have.trimmed.text('Placeholder');
@@ -339,7 +339,7 @@ describe(`sbb-select`, () => {
 
     it('update multiple attribute', async () => {
       const open = new EventSpy(SbbSelectElement.events.open, element);
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await open.calledOnce();
       expect(open.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -352,16 +352,16 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(element.value).to.be.equal(null);
 
-      firstOption.dispatchEvent(new CustomEvent('click'));
+      firstOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(element.value).to.be.eql('1');
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
       expect(element.value).to.be.eql(['1']);
 
-      firstOption.dispatchEvent(new CustomEvent('click'));
-      thirdOption.dispatchEvent(new CustomEvent('click'));
-      secondOption.dispatchEvent(new CustomEvent('click'));
+      firstOption.dispatchEvent(new PointerEvent('click'));
+      thirdOption.dispatchEvent(new PointerEvent('click'));
+      secondOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(element.value).to.be.eql(['3', '2']);
@@ -373,7 +373,7 @@ describe(`sbb-select`, () => {
     it('close the panel if disabled', async () => {
       const open = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await open.calledOnce();
       expect(open.count).to.be.equal(1);
       await waitForLitRender(element);
@@ -388,7 +388,7 @@ describe(`sbb-select`, () => {
     it('close the panel if readonly', async () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await openSpy.calledOnce();
 
       element.toggleAttribute('readonly', true);
@@ -402,7 +402,7 @@ describe(`sbb-select`, () => {
       element.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       expect(element.isOpen).to.be.equal(false);
     });
 
@@ -1098,7 +1098,7 @@ describe(`sbb-select`, () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
@@ -1120,7 +1120,7 @@ describe(`sbb-select`, () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await beforeOpenSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);

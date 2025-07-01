@@ -152,12 +152,12 @@ const sidebar = (
     ${sbbSpread(args)}
     id=${sidebarId}
     role="navigation"
-    @open=${(event: CustomEvent) =>
+    @open=${(event: Event) =>
       (event.currentTarget as HTMLElement)
         .closest('sbb-header + :is(sbb-sidebar-container, sbb-icon-sidebar-container)')
         ?.parentElement?.querySelector(`#${toggleButtonId}`)
         ?.setAttribute('aria-expanded', 'true')}
-    @close=${(event: CustomEvent) =>
+    @close=${(event: Event) =>
       (event.currentTarget as HTMLElement)
         .closest('sbb-header + :is(sbb-sidebar-container, sbb-icon-sidebar-container)')
         ?.parentElement?.querySelector(`#${toggleButtonId}`)

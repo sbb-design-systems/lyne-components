@@ -298,6 +298,6 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    optionselected: CustomEvent<void>;
+    optionselected: Event;
   }
 }

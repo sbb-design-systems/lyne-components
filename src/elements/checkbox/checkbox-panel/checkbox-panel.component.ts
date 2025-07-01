@@ -68,7 +68,9 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
      * Internal event that emits whenever the state of the checkbox
      * in relation to the parent selection panel changes.
      */
-    return this.dispatchEvent(new CustomEvent('statechange', { detail, bubbles: true }));
+    return this.dispatchEvent(
+      new CustomEvent<SbbCheckboxPanelStateChange>('statechange', { detail, bubbles: true }),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

@@ -222,7 +222,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
        * An event which is emitted each time the file list changes.
        */
       this.dispatchEvent(
-        new CustomEvent('filechanged', {
+        new CustomEvent<Readonly<File>[]>('filechanged', {
           bubbles: true,
           composed: true,
           detail: this.files,

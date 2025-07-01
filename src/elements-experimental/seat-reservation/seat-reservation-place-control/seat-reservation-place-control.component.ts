@@ -185,7 +185,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
        * PlaceSelection object with necessary place information.
        */
       this.dispatchEvent(
-        new CustomEvent('selectPlace', {
+        new CustomEvent<PlaceSelection>('selectPlace', {
           detail: placeSelection,
           bubbles: true,
           composed: true,
