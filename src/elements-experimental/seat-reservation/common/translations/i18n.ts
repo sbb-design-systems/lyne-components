@@ -24,12 +24,6 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'fr:Wagen _param0_ ist nicht betretbar. Navigieren Sie bitte zum nächsten verfügbaren Wagen',
     it: 'it:Wagen _param0_ ist nicht betretbar. Navigieren Sie bitte zum nächsten verfügbaren Wagen',
   },
-  LIST_ALL_COACHES: {
-    de: "Liste aller Wagen mit reservierbaren Plätzen. Sie können die Tastennavigation aktivieren, indem Sie die 's'-Taste drücken, und dann können Sie mit den Pfeiltasten zwischen den Sitzen des Wagens navigieren.",
-    en: "List of all coaches with reservable places. You can activate key navigation by pressing the 's' key, then you can navigate by arrow keys between the seats of the coach.",
-    fr: "Liste de tous les wagons avec des places réservables. Vous pouvez activer la navigation par touches en appuyant sur la touche 's', puis vous pouvez naviguer avec les flèches entre les sièges du wagon.",
-    it: "Elenco di tutti i vagoni con posti riservabili. Puoi attivare la navigazione con tasti premendo il tasto 's', poi puoi navigare tra i posti del vagone con i tasti freccia.",
-  },
   SEAT_RESERVATION_BEGIN: {
     de: 'Beginn der Grafische Sitzplatzreservierung',
     en: 'en:Beginn der Grafische Sitzplatzreservierung',
@@ -186,7 +180,7 @@ const i18nObjects: Record<string, Record<string, string>> = {
   },
   ENTRY_EXIT: {
     de: 'Ausgang / Eingang',
-    en: 'Exit/Entrance',
+    en: 'Exit / Entrance',
     fr: 'Sortie / Entrée',
     it: 'Uscita / Ingresso',
   },
