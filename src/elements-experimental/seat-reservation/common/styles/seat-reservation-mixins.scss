@@ -1,0 +1,17 @@
+// Mixin for rotating elements based on the direction of the host element.
+// default rotation is 180 degrees for RTL.
+// for SVG which are not bicyle, not selected or already rotated seats at the moment.
+// * todo: selected seats !
+@mixin rotate-dom-part($part-identifier, $concrete-degree: 180) {
+  :host(:dir(rtl)) {
+    :not(
+      .sbb-sr-place-ctrl--type-bicycle,
+      .sbb-sr-place-ctrl--orientation-90,
+      .sbb-sr-place-ctrl--state-selected
+    ) {
+      ::part(#{$part-identifier}) {
+        transform: rotate(calc(#{$concrete-degree} * 1deg));
+      }
+    }
+  }
+}

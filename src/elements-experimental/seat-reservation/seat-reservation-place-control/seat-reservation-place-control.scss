@@ -1,4 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -111,6 +112,10 @@ $disabled: '.sbb-reservation-place-control--disabled';
   }
 }
 
+@include sbb-sr-mixins.rotate-dom-part(svg-place);
+
+@include sbb-sr-mixins.rotate-dom-part(svg-place-selected);
+
 .sbb-sr-place-ctrl {
   $root: &;
 
@@ -186,6 +191,36 @@ $disabled: '.sbb-reservation-place-control--disabled';
     #{$root}--orientation-270#{$root}--type-seat & {
       inset-block-start: 52%;
       inset-inline-start: 52%;
+    }
+  }
+}
+
+:host(:dir(rtl)) {
+  // For RTL, we need to adjust the text position to the right side
+  .sbb-sr-place-ctrl {
+    .sbb-sr-place-ctrl__text {
+      inset-inline-start: 0;
+    }
+
+    &--orientation-0 .sbb-sr-place-ctrl__text {
+      inset-inline-end: 50%;
+    }
+
+    &--orientation-90 .sbb-sr-place-ctrl__text {
+      inset-inline-end: 50%;
+    }
+
+    &--orientation-180 .sbb-sr-place-ctrl__text {
+      inset-inline-end: 45%;
+    }
+
+    // where to find this orientation?
+    &--orientation-270 .sbb-sr-place-ctrl__text {
+      inset-inline-end: 45%;
+    }
+
+    &--type-bicycle .sbb-sr-place-ctrl__text {
+      inset-inline-end: 43%;
     }
   }
 }
