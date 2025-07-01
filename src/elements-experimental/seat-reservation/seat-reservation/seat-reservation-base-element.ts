@@ -91,6 +91,8 @@ export class SeatReservationBaseElement extends LitElement {
   protected coachBorderPadding = 6;
   // Describes the gap between the coaches in pixels
   protected gapBetweenCoaches = 4;
+  // The calculated coachBorderOffset is used to calculate the width and height of coach border graphic,
+  // but also to position other graphics that are aligned directly to the coach border.
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
@@ -126,7 +128,7 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (changedProperties.has('baseGridSize')) {
       this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-      this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+      this.style?.setProperty('--sbb-reservation-grid-size', `${this.baseGridSize}px`);
 
       if (this.alignVertical) {
         this._setVerticalAlignmentOffset();
@@ -138,7 +140,7 @@ export class SeatReservationBaseElement extends LitElement {
       if (this.seatReservation.coachItems.length) {
         this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-        this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+        this.style?.setProperty('--sbb-reservation-grid-size', `${this.baseGridSize}px`);
 
         if (this.alignVertical) {
           this._setVerticalAlignmentOffset();
@@ -856,7 +858,7 @@ export class SeatReservationBaseElement extends LitElement {
         const seatReservationVerticalOffset =
           seatReservationWrapperElement.getBoundingClientRect().width;
         this.style?.setProperty(
-          '--sbb-seat-reservation-vertical-offset',
+          '--sbb-reservation-vertical-offset',
           `${seatReservationVerticalOffset}px`,
         );
       }
