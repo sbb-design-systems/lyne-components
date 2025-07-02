@@ -26,7 +26,7 @@ let nextId = 0;
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
- * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
+ * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
  */
 export
 @customElement('sbb-datepicker')

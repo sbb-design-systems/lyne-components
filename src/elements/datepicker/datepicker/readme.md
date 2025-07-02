@@ -86,5 +86,5 @@ todayStub.restore();
 | `beforeclose`  | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `beforeopen`   | `Event`                                             | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
 | `close`        | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
-| `dateSelected` | `CustomEvent<T>`                                    | Event emitted on date selection.                                             |                         |
+| `dateselected` | `CustomEvent<T>`                                    | Event emitted on date selection.                                             |                         |
 | `open`         | `Event`                                             | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
