@@ -131,7 +131,8 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     if (!value) {
       return;
     }
-    this.options.forEach((opt) => opt.highlight(value));
+    const ranges = this.options.flatMap((opt) => opt.getRangesToHighlight(value));
+    CSS.highlights.set('sbb-option__label--highlight', new Highlight(...ranges));
   }
 
   private _onNegativeChange(): void {

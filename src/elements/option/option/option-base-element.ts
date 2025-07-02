@@ -41,6 +41,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   } as const;
 
   protected abstract optionId: string;
+  private _labelNode: Text[] = [];
 
   /**
    * Value of the option.
@@ -121,12 +122,32 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   /**
-   * Highlight the label of the option
+   * Calculates and returns the text's range to highlight.
    * @param value the highlighted portion of the label
    * @internal
    */
-  public highlight(value: string): void {
+  public getRangesToHighlight(value: string): Range[] {
     this._highlightString = value;
+    if (!this._highlightString || !this._highlightString.trim()) {
+      return [];
+    }
+
+    const label = this._labelNode
+      .map((l) => l.wholeText)
+      .filter((l) => l.trim())
+      .join();
+    const matchIndex = label!.toLowerCase().indexOf(this._highlightString.toLowerCase());
+    if (matchIndex === -1) {
+      return [];
+    }
+
+    const rangeBefore = new Range();
+    rangeBefore.setStart(this._labelNode[0], 0);
+    rangeBefore.setEnd(this._labelNode[0], matchIndex);
+    const rangeAfter = new Range();
+    rangeAfter.setStart(this._labelNode[0], matchIndex + this._highlightString.length);
+    rangeAfter.setEnd(this._labelNode[0], this._labelNode[0].length);
+    return [rangeBefore, rangeAfter];
   }
 
   protected selectViaUserInteraction(selected: boolean): void {
@@ -233,42 +254,11 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
       this.updateDisableHighlight(true);
       return;
     }
-    this.label = labelNodes
-      .map((l) => l.wholeText)
-      .filter((l) => l.trim())
-      .join();
-  }
-
-  protected getHighlightedLabel(): TemplateResult {
-    if (!this._highlightString || !this._highlightString.trim()) {
-      return html`${this.label}`;
-    }
-
-    const matchIndex = this.label!.toLowerCase().indexOf(this._highlightString.toLowerCase());
-
-    if (matchIndex === -1) {
-      return html`${this.label}`;
-    }
-
-    const prefix = this.label!.substring(0, matchIndex);
-    const highlighted = this.label!.substring(
-      matchIndex,
-      matchIndex + this._highlightString.length,
-    );
-    const postfix = this.label!.substring(matchIndex + this._highlightString.length);
-
-    return html`
-      <span class="sbb-option__label--highlight">${prefix}</span><span>${highlighted}</span
-      ><span class="sbb-option__label--highlight">${postfix}</span>
-    `;
+    this._labelNode = labelNodes;
   }
 
   protected renderIcon(): TemplateResult {
     return html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
-  }
-
-  protected renderLabel(): TemplateResult | typeof nothing {
-    return this.label && !this.disableLabelHighlight ? this.getHighlightedLabel() : nothing;
   }
 
   protected renderTick(): TemplateResult | typeof nothing {
@@ -282,7 +272,6 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           ${this.renderIcon()}
           <span class="sbb-option__label">
             <slot @slotchange=${this.handleHighlightState}></slot>
-            ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html`<sbb-screen-reader-only>
                   (${this.getAttribute('data-group-label')})</sbb-screen-reader-only

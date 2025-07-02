@@ -43,13 +43,6 @@
   --sbb-option-background-color: var(--sbb-option-background-color-active);
 }
 
-// If highlighting is enabled, hide the original slot content
-:host(:not([data-disable-highlight])) {
-  .sbb-option__label slot {
-    display: none;
-  }
-}
-
 :host(:is([data-group-disabled], [disabled])) {
   --sbb-option-cursor: default;
 

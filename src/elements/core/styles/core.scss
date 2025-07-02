@@ -75,6 +75,11 @@ html {
   @include typo.placeholder;
 }
 
+:not([data-disable-highlight])::highlight(sbb-option__label--highlight) {
+  background-color: black;
+  color: white;
+}
+
 sbb-form-field {
   :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
     @include typo.text-m--regular;

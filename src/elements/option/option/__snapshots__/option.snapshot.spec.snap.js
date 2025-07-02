@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-option autocomplete renders selected DOM"] = 
+snapshots["sbb-option autocomplete renders selected DOM"] =
 `<sbb-option
   aria-selected="true"
   data-slot-names="unnamed"
@@ -15,7 +15,7 @@ snapshots["sbb-option autocomplete renders selected DOM"] =
 `;
 /* end snapshot sbb-option autocomplete renders selected DOM */
 
-snapshots["sbb-option autocomplete renders selected Shadow DOM"] = 
+snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
 `<div class="sbb-option__container">
   <div class="sbb-option">
     <span class="sbb-option__icon">
@@ -25,14 +25,13 @@ snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
     <span class="sbb-option__label">
       <slot>
       </slot>
-      Option 1
     </span>
   </div>
 </div>
 `;
 /* end snapshot sbb-option autocomplete renders selected Shadow DOM */
 
-snapshots["sbb-option autocomplete renders disabled DOM"] = 
+snapshots["sbb-option autocomplete renders disabled DOM"] =
 `<sbb-option
   aria-disabled="true"
   aria-selected="false"
@@ -47,7 +46,7 @@ snapshots["sbb-option autocomplete renders disabled DOM"] =
 `;
 /* end snapshot sbb-option autocomplete renders disabled DOM */
 
-snapshots["sbb-option autocomplete renders disabled Shadow DOM"] = 
+snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
 `<div class="sbb-option__container">
   <div class="sbb-option">
     <span class="sbb-option__icon">
@@ -57,14 +56,13 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
     <span class="sbb-option__label">
       <slot>
       </slot>
-      Option 1
     </span>
   </div>
 </div>
 `;
 /* end snapshot sbb-option autocomplete renders disabled Shadow DOM */
 
-snapshots["sbb-option selected Chrome"] = 
+snapshots["sbb-option selected Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -74,7 +72,7 @@ snapshots["sbb-option selected Chrome"] =
 `;
 /* end snapshot sbb-option selected Chrome */
 
-snapshots["sbb-option selected Firefox"] = 
+snapshots["sbb-option selected Firefox"] =
 `<p>
   {
   "role": "document",
@@ -84,7 +82,7 @@ snapshots["sbb-option selected Firefox"] =
 `;
 /* end snapshot sbb-option selected Firefox */
 
-snapshots["sbb-option disabled Chrome"] = 
+snapshots["sbb-option disabled Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -94,7 +92,7 @@ snapshots["sbb-option disabled Chrome"] =
 `;
 /* end snapshot sbb-option disabled Chrome */
 
-snapshots["sbb-option disabled Firefox"] = 
+snapshots["sbb-option disabled Firefox"] =
 `<p>
   {
   "role": "document",

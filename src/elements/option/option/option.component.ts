@@ -128,12 +128,6 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     `;
   }
 
-  protected override renderLabel(): TemplateResult | typeof nothing {
-    return this._variant === 'autocomplete' && this.label && !this.disableLabelHighlight
-      ? this.getHighlightedLabel()
-      : nothing;
-  }
-
   protected override renderTick(): TemplateResult | typeof nothing {
     return this._variant === 'select' && !this._isMultiple && this.selected
       ? html`<sbb-icon name="tick-small"></sbb-icon>`

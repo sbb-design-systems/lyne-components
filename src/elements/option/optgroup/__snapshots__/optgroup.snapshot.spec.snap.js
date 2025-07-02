@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-optgroup autocomplete renders Safari DOM"] = 
+snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
 `<sbb-optgroup
   data-variant="autocomplete"
   label="Label"
@@ -30,7 +30,7 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders Safari DOM */
 
-snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] = 
+snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] =
 `<div class="sbb-optgroup__divider">
   <sbb-divider orientation="horizontal">
   </sbb-divider>
@@ -50,7 +50,7 @@ snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders Safari Shadow DOM */
 
-snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] = 
+snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
 `<sbb-optgroup
   data-variant="autocomplete"
   disabled=""
@@ -84,7 +84,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders disabled Safari DOM */
 
-snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] = 
+snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] =
 `<div class="sbb-optgroup__divider">
   <sbb-divider orientation="horizontal">
   </sbb-divider>
@@ -104,7 +104,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders disabled Safari Shadow DOM */
 
-snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] = 
+snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
 `<sbb-optgroup
   data-variant="autocomplete"
   label="Label"
@@ -131,7 +131,7 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders Chrome-Firefox DOM */
 
-snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-optgroup__divider">
   <sbb-divider orientation="horizontal">
   </sbb-divider>
@@ -151,7 +151,7 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] = 
+snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -176,7 +176,7 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders A11y tree Chrome */
 
-snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] = 
+snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
 `<sbb-optgroup
   data-variant="autocomplete"
   disabled=""
@@ -208,7 +208,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM */
 
-snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-optgroup__divider">
   <sbb-divider orientation="horizontal">
   </sbb-divider>
@@ -228,7 +228,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"
 `;
 /* end snapshot sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-optgroup autocomplete renders A11y tree Firefox"] = 
+snapshots["sbb-optgroup autocomplete renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

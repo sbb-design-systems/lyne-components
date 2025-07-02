@@ -21,13 +21,6 @@
   --sbb-option-icon-color: var(--sbb-color-smoke);
 }
 
-// If highlighting is enabled, hide the original slot content
-:host(:not([data-disable-highlight])) {
-  .sbb-option__label slot {
-    display: none;
-  }
-}
-
 :host([data-active]) {
   --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
 }

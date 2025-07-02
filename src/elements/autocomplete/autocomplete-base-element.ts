@@ -499,7 +499,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (searchTerm === null || searchTerm === undefined) {
       return;
     }
-    this.options.forEach((option) => option.highlight(searchTerm));
+    const ranges = this.options.flatMap((option) => option.getRangesToHighlight(searchTerm));
+    CSS.highlights.set('sbb-option__label--highlight', new Highlight(...ranges));
   }
 
   protected override render(): TemplateResult {
