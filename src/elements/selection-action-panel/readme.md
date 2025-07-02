@@ -15,9 +15,32 @@ or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-p
 </sbb-selection-action-panel>
 ```
 
+## With expansion panel
+
+It is possible to combine the usage of the `sbb-selection-action-panel` and the `sbb-selection-expansion-panel`.
+Be aware that the `color` and the `borderless` properties need to be set on the expansion panel component.
+
+```html
+<sbb-selection-expansion-panel color="..." borderless>
+  <sbb-selection-action-panel>
+    <sbb-radio-button-panel>
+      Value
+      <span slot="subtext">Subtext</span>
+    </sbb-radio-button-panel>
+
+    <sbb-secondary-button icon-name="arrow-right-small">...</sbb-secondary-button>
+  </sbb-selection-action-panel>
+
+  <!-- inner content -->
+  <div slot="content">Inner Content</div>
+</sbb-selection-expansion-panel>
+```
+
+## In a group
+
 The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-sbb-radio-button-sbb-radio-button-group--docs) or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 
-### With `sbb-radio-button-group`
+With `sbb-radio-button-group`:
 
 ```html
 <sbb-radio-button-group>
@@ -29,10 +52,11 @@ The selection panel can also be used inside a [sbb-radio-button-group](/docs/ele
     <sbb-secondary-button icon-name="arrow-right-small"></sbb-secondary-button>
     <sbb-card-badge>%</sbb-card-badge>
   </sbb-selection-action-panel>
+  ...
 </sbb-radio-button-group>
 ```
 
-### With `sbb-checkbox-group`
+With `sbb-checkbox-group`:
 
 ```html
 <sbb-checkbox-group>
@@ -44,6 +68,7 @@ The selection panel can also be used inside a [sbb-radio-button-group](/docs/ele
     <sbb-secondary-button icon-name="arrow-right-small"></sbb-secondary-button>
     <sbb-card-badge>%</sbb-card-badge>
   </sbb-selection-action-panel>
+  ...
 </sbb-checkbox-group>
 ```
 

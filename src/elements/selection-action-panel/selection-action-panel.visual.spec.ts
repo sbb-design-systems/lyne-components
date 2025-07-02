@@ -5,7 +5,6 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-  visualRegressionFixture,
 } from '../core/testing/private.js';
 
 import './selection-action-panel.component.js';
@@ -17,10 +16,9 @@ import '../icon.js';
 import '../link/block-link-button.js';
 import '../radio-button/radio-button-panel.js';
 import '../radio-button/radio-button-group.js';
+import '../selection-expansion-panel.js';
 
 describe(`sbb-selection-action-panel`, () => {
-  let root: HTMLElement;
-
   const cases = {
     borderless: [false, true],
     checked: [false, true],
@@ -78,17 +76,32 @@ describe(`sbb-selection-action-panel`, () => {
     for (const input of ['checkbox', 'radio']) {
       describe(`with ${input}`, () => {
         describeEach(cases, (params) => {
-          beforeEach(async function () {
-            root = await visualRegressionFixture(html`
-              ${input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params)}
-            `);
-          });
-
           for (const state of [visualDiffDefault, visualDiffFocus]) {
             it(
               state.name,
               state.with((setup) => {
-                setup.withSnapshotElement(root);
+                setup.withFixture(
+                  input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params),
+                );
+              }),
+            );
+
+            it(
+              `expansion-panel ${state.name}`,
+              state.with((setup) => {
+                setup.withFixture(html`
+                  <sbb-selection-expansion-panel
+                    ?borderless=${params.borderless}
+                    color=${params.color || nothing}
+                  >
+                    ${input === 'checkbox'
+                      ? withCheckboxPanel({ ...params, borderless: false, color: undefined })
+                      : withRadioPanel({ ...params, borderless: false, color: undefined })}
+                  </sbb-selection-expansion-panel>
+                `);
+                setup.withStateElement(
+                  setup.snapshotElement.querySelector('sbb-secondary-button')!,
+                );
               }),
             );
           }
@@ -96,8 +109,10 @@ describe(`sbb-selection-action-panel`, () => {
           it(
             `action ${visualDiffFocus.name}`,
             visualDiffFocus.with((setup) => {
-              setup.withSnapshotElement(root);
-              setup.withStateElement(root.querySelector('sbb-secondary-button')!);
+              setup.withFixture(
+                input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params),
+              );
+              setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
             }),
           );
         });

@@ -24,6 +24,15 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
     this.addEventListener?.('statechange', (e) => this.onInputStateChange(e));
   }
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.toggleState(
+      'with-expansion-panel',
+      this.parentElement?.localName === 'sbb-selection-expansion-panel',
+    );
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-action-panel__wrapper">

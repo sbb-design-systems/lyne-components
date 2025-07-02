@@ -10,7 +10,9 @@ import '../button/secondary-button.js';
 import '../card.js';
 import '../checkbox.js';
 import '../form-error.js';
+import '../link/block-link-button.js';
 import '../radio-button.js';
+import '../selection-expansion-panel.js';
 
 import readme from './readme.md?raw';
 
@@ -123,6 +125,29 @@ const Template = ({
   </sbb-selection-action-panel>
 `;
 
+const WithExpansionPanelTemplate = ({
+  checkedInput,
+  disabledInput,
+  input,
+  size,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-selection-expansion-panel ${sbbSpread(args)}>
+    <sbb-selection-action-panel>
+      ${input === 'checkbox'
+        ? checkboxPanel(checkedInput, disabledInput, size)
+        : radioButtonPanel(checkedInput, disabledInput, size)}
+      ${actionButton(size, disabledInput)} ${cardBadge()}
+    </sbb-selection-action-panel>
+    <div slot="content">
+      Inner Content
+      <sbb-block-link-button icon-name="chevron-small-right-small" icon-placement="end">
+        Link
+      </sbb-block-link-button>
+    </div>
+  </sbb-selection-expansion-panel>
+`;
+
 const WithCheckboxGroupTemplate = ({
   checkedInput,
   disabledInput,
@@ -223,6 +248,12 @@ export const Borderless: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: { ...basicArgs, borderless: true },
+};
+
+export const WithExpansionPanel: StoryObj = {
+  render: WithExpansionPanelTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
 const groupArgTypes = { ...basicArgTypes };

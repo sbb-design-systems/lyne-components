@@ -35,6 +35,11 @@
   --sbb-selection-action-panel-border-color: transparent;
 }
 
+:host(:is(:state(with-expansion-panel), [state--with-expansion-panel])) {
+  --sbb-selection-action-panel-background: transparent;
+  --sbb-selection-action-panel-border-color: transparent;
+}
+
 ::slotted(:is(sbb-checkbox-panel, sbb-radio-button-panel)) {
   flex: auto;
 }

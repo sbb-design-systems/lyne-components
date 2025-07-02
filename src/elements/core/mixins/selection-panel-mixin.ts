@@ -9,7 +9,10 @@ import { forceType } from '../decorators.js';
 import type { SbbStateChange } from '../interfaces/types.js';
 
 import type { AbstractConstructor } from './constructor.js';
-import { SbbElementInternalsMixin } from './element-internals-mixin.js';
+import {
+  SbbElementInternalsMixin,
+  type SbbElementInternalsMixinType,
+} from './element-internals-mixin.js';
 
 export declare class SbbSelectionPanelMixinType {
   public accessor color: 'white' | 'milk';
@@ -35,7 +38,7 @@ export declare class SbbSelectionPanelMixinType {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): AbstractConstructor<SbbSelectionPanelMixinType> & T => {
+): AbstractConstructor<SbbSelectionPanelMixinType & SbbElementInternalsMixinType> & T => {
   abstract class SbbSelectionPanelElement
     extends SbbElementInternalsMixin(superClass)
     implements Partial<SbbSelectionPanelMixinType>
@@ -121,5 +124,8 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
     }
   }
 
-  return SbbSelectionPanelElement as unknown as AbstractConstructor<SbbSelectionPanelMixinType> & T;
+  return SbbSelectionPanelElement as unknown as AbstractConstructor<
+    SbbSelectionPanelMixinType & SbbElementInternalsMixinType
+  > &
+    T;
 };
