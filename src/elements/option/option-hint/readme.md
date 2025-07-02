@@ -22,6 +22,12 @@ The `sbb-option-hint` has a `negative` property which will be automatically inhe
 </sbb-autocomplete>
 ```
 
+## A11y
+
+By default, the `sbb-option-hint` is treated as a simple text from screen readers, and it is not easily accessible by screen reader users.
+
+If deemed necessary, the `sbb-option-hint` can be marked with the [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live) attribute.
+
 <!-- Auto Generated Below -->
 
 ## Properties
