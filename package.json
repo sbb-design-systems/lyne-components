@@ -91,7 +91,7 @@
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/addon-links": "9.0.14",
     "@storybook/web-components-vite": "9.0.14",
-    "@types/glob": "8.1.0",
+    "@types/glob": "9.0.0",
     "@types/mocha": "10.0.10",
     "@types/node": "22.15.34",
     "@types/react": "19.1.8",
