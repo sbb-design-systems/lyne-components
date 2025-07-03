@@ -16,7 +16,7 @@ The `sbb-option-hint` has a `negative` property which will be automatically inhe
 
 ```html
 <sbb-autocomplete>
-  <sbb-option value="1"> Option 1 </sbb-option>
+  <sbb-option value="1">Option 1</sbb-option>
   ...
   <sbb-option-hint>42 more hits</sbb-option-hint>
 </sbb-autocomplete>
