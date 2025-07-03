@@ -93,35 +93,41 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const coachItems = JSON.parse(JSON.stringify(this.seatReservation?.coachItems));
     const classAlignVertical = this.alignVertical ? 'sbb-sr__grid--vertical' : '';
     this._coachesHtmlTemplate = html`
-      <div class="sbb-sr sbb-sr__grid ${classAlignVertical}">
-        <div class="sbb-sr-navigation-first-grid">
-          ${this.hasNavigation ? this._renderNavigationControlButton('DIRECTION_LEFT') : nothing}
-        </div>
-        <div
-          class="sbb-sr__component"
-          @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
-        >
-          <div class="sbb-sr-grid-inner">
-            <div class="nav-grid">${this._renderNavigation()}</div>
-            <div class="coaches-grid">
-              <div class="sbb-sr__wrapper">
-                <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
-                  <ul class="sbb-sr__list-coaches" role="presentation">
-                    ${this._renderCoaches(coachItems)}
-                  </ul>
+      <div class="sbb-sr__container">
+        <div class="sbb-sr sbb-sr__grid ${classAlignVertical}">
+          <div class="sbb-sr-navigation-first-grid">
+            ${this._renderNavigationControlButton('DIRECTION_LEFT')}
+          </div>
+          <div
+            class="sbb-sr__component"
+            @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
+          >
+            <div class="sbb-sr-grid-inner">
+              <div class="nav-grid">${this._renderNavigation()}</div>
+              <div class="coaches-grid">
+                <div class="sbb-sr__wrapper">
+                  <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
+                    <ul class="sbb-sr__list-coaches" role="presentation">
+                      ${this._renderCoaches(coachItems)}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="sbb-sr-navigation-last-grid">
-          ${this.hasNavigation ? this._renderNavigationControlButton('DIRECTION_RIGHT') : nothing}
+          <div class="sbb-sr-navigation-last-grid">
+            ${this._renderNavigationControlButton('DIRECTION_RIGHT')}
+          </div>
         </div>
       </div>
     `;
   }
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
+    if (!this.hasNavigation) {
+      return null;
+    }
+
     const btnId = btnDirection == 'DIRECTION_RIGHT' ? 'last-tab-element' : 'first-tab-element';
     const btnIcon = btnDirection == 'DIRECTION_RIGHT' ? 'arrow-right-small' : 'arrow-left-small';
     const btnAriaDescription =
@@ -392,7 +398,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // Due to different heights and widths, it wouldn't show correctly. To correct this, we would
     // need difficult calculations for position, rotation and dimension.
     const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
-
     const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
     const stretchHeight = areaProperty !== 'ENTRY_EXIT';
     const ariaLabelForArea = graphicalElement.icon
