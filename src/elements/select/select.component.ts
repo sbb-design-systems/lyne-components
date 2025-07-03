@@ -166,9 +166,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
-    this.addEventListener?.('optionselectionchange', (e: CustomEvent<void>) =>
-      this._onOptionChanged(e),
-    );
+    this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;

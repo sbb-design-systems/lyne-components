@@ -40,7 +40,7 @@ describe(`sbb-option`, () => {
       const selectionChangeSpy = new EventSpy(SbbOptionElement.events.optionselectionchange);
       const optionOne = element.querySelector<SbbOptionElement>('sbb-option')!;
 
-      optionOne.dispatchEvent(new CustomEvent('click'));
+      optionOne.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(optionOne.selected).to.be.equal(true);

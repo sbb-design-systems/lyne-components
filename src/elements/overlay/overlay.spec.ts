@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../button.js';
 import { i18nDialog } from '../core/i18n.js';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 import { tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
@@ -152,7 +153,7 @@ describe('sbb-overlay', () => {
       const overlay = element.querySelector('sbb-overlay')!;
       const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
       const form = element.querySelector<HTMLFormElement>('form')!;
-      const beforeCloseSpy = new EventSpy<CustomEvent>(
+      const beforeCloseSpy = new EventSpy<CustomEvent<SbbOverlayCloseEventDetails>>(
         SbbOverlayElement.events.beforeclose,
         overlay,
       );

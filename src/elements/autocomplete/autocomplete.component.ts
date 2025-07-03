@@ -38,7 +38,7 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
 
   public constructor() {
     super();
-    this.addEventListener?.('optionselected', (e: CustomEvent<void>) => this.onOptionSelected(e));
+    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
   }
 
   protected syncNegative(): void {

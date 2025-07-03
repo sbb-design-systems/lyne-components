@@ -13,10 +13,10 @@ import '../container.js';
 describe(`sbb-sticky-bar`, () => {
   let container: SbbContainerElement;
   let stickyBar: SbbStickyBarElement;
-  let beforeStickSpy: EventSpy<CustomEvent>;
-  let stickSpy: EventSpy<CustomEvent>;
-  let beforeUnstickSpy: EventSpy<CustomEvent>;
-  let unstickSpy: EventSpy<CustomEvent>;
+  let beforeStickSpy: EventSpy<Event>;
+  let stickSpy: EventSpy<Event>;
+  let beforeUnstickSpy: EventSpy<Event>;
+  let unstickSpy: EventSpy<Event>;
 
   const isSticking = (): boolean => stickyBar.hasAttribute('data-sticking');
 
