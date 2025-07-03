@@ -1,0 +1,31 @@
+@use '../../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-header-environment-color: red;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 2.375rem;
+  height: 2.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sbb-header-environment__ribbon {
+  position: absolute;
+  border-top: 2.375rem solid var(--sbb-header-environment-color);
+  border-left: 2.375rem solid transparent;
+}
+
+.sbb-header-environment__text {
+  position: absolute;
+  color: white;
+  transform: rotateZ(45deg);
+  padding-bottom: 1rem;
+  @include sbb.text-xxs--bold;
+}
