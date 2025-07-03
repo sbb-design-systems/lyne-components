@@ -135,8 +135,8 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSeatReservationNavigationCoachElement.events.selectCoach,
-        SbbSeatReservationNavigationCoachElement.events.focusCoach,
+        SbbSeatReservationNavigationCoachElement.events.selectcoach,
+        SbbSeatReservationNavigationCoachElement.events.focuscoach,
       ],
     },
     docs: {

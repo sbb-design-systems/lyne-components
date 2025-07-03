@@ -25,8 +25,8 @@ export
 class SbbSeatReservationNavigationCoachElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectCoach: 'selectCoach',
-    focusCoach: 'focusCoach',
+    selectcoach: 'selectcoach',
+    focuscoach: 'focuscoach',
   } as const;
 
   /** Coach ID, which is used to identify the coach in the navigation */
@@ -93,7 +93,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       if (this.selected && selectedNavButtonElement) {
         selectedNavButtonElement.focus();
         /** Emits when a nav coach has the focus */
-        this.dispatchEvent(new Event('focusCoach', { bubbles: true, composed: true }));
+        this.dispatchEvent(new Event('focuscoach', { bubbles: true, composed: true }));
       }
     }
 
@@ -243,7 +243,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
        * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
        */
       this.dispatchEvent(
-        new CustomEvent<SelectCoachEventDetails>('selectCoach', {
+        new CustomEvent<SelectCoachEventDetails>('selectcoach', {
           bubbles: true,
           composed: true,
           detail: coachIndex,

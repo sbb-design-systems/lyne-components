@@ -157,7 +157,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbSeatReservationPlaceControlElement.events.selectPlace],
+      handles: [SbbSeatReservationPlaceControlElement.events.selectplace],
     },
     docs: {
       extractComponentDescription: () => readme,
