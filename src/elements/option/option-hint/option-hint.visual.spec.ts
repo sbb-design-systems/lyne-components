@@ -12,6 +12,7 @@ import {
 import '../../select.js';
 import '../../form-field.js';
 import '../../autocomplete.js';
+import '../../autocomplete-grid.js';
 import '../optgroup.js';
 import '../option.js';
 import './option-hint.component.js';
@@ -108,6 +109,42 @@ describe('sbb-option-hint', () => {
           setup.withPostSetupAction(() =>
             setup.snapshotElement.querySelector('sbb-select')!.open(),
           );
+        }),
+      );
+
+      it(
+        'Autocomplete-grid',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-form-field ?negative=${negative} size=${size}>
+                <label>Autocomplete</label>
+                <input />
+                <sbb-autocomplete-grid>
+                  <sbb-autocomplete-grid-row>
+                    <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
+                    <sbb-autocomplete-grid-cell>
+                      <sbb-autocomplete-grid-button
+                        icon-name="pen-small"
+                      ></sbb-autocomplete-grid-button>
+                    </sbb-autocomplete-grid-cell>
+                  </sbb-autocomplete-grid-row>
+                  <sbb-autocomplete-grid-row>
+                    <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
+                    <sbb-autocomplete-grid-cell>
+                      <sbb-autocomplete-grid-button
+                        icon-name="pen-small"
+                      ></sbb-autocomplete-grid-button>
+                    </sbb-autocomplete-grid-cell>
+                  </sbb-autocomplete-grid-row>
+                  ${divider ? html`<sbb-divider></sbb-divider>` : nothing}
+                  <sbb-option-hint>42 more hits</sbb-option-hint>
+                </sbb-autocomplete-grid>
+              </sbb-form-field>
+            `,
+            { minHeight: '500px' },
+          );
+          setup.withPostSetupAction(() => openAutocomplete(setup));
         }),
       );
     });
