@@ -37,15 +37,15 @@ export type SeatReservationSelectedPlacesEventDetails = SeatReservationPlaceSele
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
-    selectedPlaces: 'selectedPlaces',
-    selectedCoach: 'selectedCoach',
+    selectedplaces: 'selectedplaces',
+    selectedcoach: 'selectedcoach',
   } as const;
 
   /** The seat reservation object which contains all coaches and places */
   @property({ attribute: 'seat-reservation', type: Object })
   public accessor seatReservation: SeatReservation = null!;
 
-  /** The seat resvervation navigation can be toggled by this property */
+  /** The seat reservation navigation can be toggled by this property */
   @forceType()
   @property({ attribute: 'has-navigation', type: Boolean })
   public accessor hasNavigation: boolean = true;
@@ -187,7 +187,7 @@ export class SeatReservationBaseElement extends LitElement {
         }
       });
 
-      // During initialization we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
+      // During initialization, we check vertical alignment mode. In Vertical mode we have to set the vertical offset manual for the seat reservation area,
       // because we rotate the entire component by 90 degrees and transform the origin point to top left.
       if (this.alignVertical) {
         this._setVerticalAlignmentOffset();
@@ -235,7 +235,7 @@ export class SeatReservationBaseElement extends LitElement {
       }
     }
 
-    // Check if a choach is selected and the arrow key is pressed
+    // Check if a coach is selected and the arrow key is pressed
     if (this.currSelectedCoachIndex !== -1 && isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
 
@@ -431,7 +431,7 @@ export class SeatReservationBaseElement extends LitElement {
     const coach = this.seatReservation?.coachItems[this.currSelectedCoachIndex];
     let closestPlace = null;
     if (coach.places) {
-      //If no place set, then wen use initial the left-top place on the coach
+      // If no place set, then we use initial the left-top place on the coach
       if (!this.currSelectedPlaceElementId) {
         return this._getFirstPlaceInSelecedCoach();
       } else {
@@ -713,7 +713,7 @@ export class SeatReservationBaseElement extends LitElement {
      * Emits when a place was selected and returns a Place array with all selected places.
      */
     this.dispatchEvent(
-      new CustomEvent<SeatReservationPlaceSelection[]>('selectedPlaces', {
+      new CustomEvent<SeatReservationSelectedPlacesEventDetails>('selectedplaces', {
         bubbles: true,
         composed: true,
         detail: this.selectedSeatReservationPlaces,
@@ -747,7 +747,7 @@ export class SeatReservationBaseElement extends LitElement {
        * Emits when a coach was selected and returns a CoachSelection
        */
       this.dispatchEvent(
-        new CustomEvent<SeatReservationCoachSelection>('selectedCoach', {
+        new CustomEvent<SeatReservationCoachSelection>('selectedcoach', {
           bubbles: true,
           composed: true,
           detail: coachSelection,

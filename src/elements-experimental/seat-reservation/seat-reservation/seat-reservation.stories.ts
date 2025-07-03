@@ -103,8 +103,8 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSeatReservationElement.events.selectedPlaces,
-        SbbSeatReservationElement.events.selectedCoach,
+        SbbSeatReservationElement.events.selectedplaces,
+        SbbSeatReservationElement.events.selectedcoach,
       ],
     },
     docs: {
