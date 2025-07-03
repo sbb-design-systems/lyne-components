@@ -93,9 +93,11 @@ export class SeatReservationBaseElement extends LitElement {
   protected coachBorderPadding = 6;
   // Describes the gap between the coaches in pixels
   protected gapBetweenCoaches = 4;
+  // The calculated coachBorderOffset is used to calculate the width and height of coach border graphic,
+  // but also to position other graphics that are aligned directly to the coach border.
+  protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   // Describes the fix width of coach navigation button
   protected coachNavButtonWidth = 80;
-  protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
   protected scrollCoachsAreaWidth: number = 0;
@@ -140,14 +142,14 @@ export class SeatReservationBaseElement extends LitElement {
       if (this.seatReservation.coachItems.length) {
         this.baseGridSize = this.height / this.seatReservation.coachItems[0].dimension.h;
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
-        this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
+        this.style?.setProperty('--sbb-reservation-grid-size', `${this.baseGridSize}px`);
       }
     }
 
     if (changedProperties.has('alignVertical') && this.alignVertical) {
       this.initNavigationSelectionByScrollEvent();
       this.style?.setProperty(
-        '--sbb-seat-reservation-vertical-screen-height',
+        '--sbb-reservation-vertical-screen-height',
         `${window.innerHeight}px`,
       );
     }
