@@ -66,6 +66,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   typeof SbbOpenCloseBaseElement
 >(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
+  public static override readonly role = 'menu';
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
   /**
