@@ -122,24 +122,32 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
 snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
 `<p>
   {
-  "role": "document",
+  "role": "WebArea",
   "name": "",
   "children": [
     {
-      "role": "landmark",
-      "name": "en:Beginn der Grafische Sitzplatzreservierung"
+      "role": "contentinfo",
+      "name": "en:Beginn der Grafische Sitzplatzreservierung",
+      "disabled": true
     },
     {
-      "role": "list",
-      "name": "Seat reservation Navigation"
+      "role": "navigation",
+      "name": "",
+      "children": [
+        {
+          "role": "list",
+          "name": "Seat reservation Navigation"
+        }
+      ]
     },
     {
-      "role": "section",
+      "role": "generic",
       "name": ""
     },
     {
-      "role": "landmark",
-      "name": "en:Verlassen der Grafische Sitzplatzreservierung"
+      "role": "contentinfo",
+      "name": "en:Verlassen der Grafische Sitzplatzreservierung",
+      "disabled": true
     }
   ]
 }
