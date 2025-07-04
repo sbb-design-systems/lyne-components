@@ -128,4 +128,8 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-checkbox-panel': SbbCheckboxPanelElement;
   }
+
+  interface GlobalEventHandlersEventMap {
+    statechange: CustomEvent<SbbStateChange>;
+  }
 }

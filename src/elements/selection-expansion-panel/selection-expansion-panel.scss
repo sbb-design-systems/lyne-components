@@ -14,10 +14,10 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
 
   // Variable used to override background color of selection panels.
-  --sbb-selection-expansion-panel-inner-background: transparent;
+  --sbb-selection-panel-inner-background: transparent;
 
   // Variable used to override border width of selection panels.
-  --sbb-selection-expansion-panel-inner-border-width: 0px;
+  --sbb-selection-panel-inner-border-width: 0px;
   --sbb-selection-expansion-panel-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -42,16 +42,16 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-background: var(--sbb-color-milk);
 }
 
-:host([data-checked]:not([data-disabled])) {
+:host(:where(:state(checked), [state--checked]):not(:where(:state(disabled), [state--disabled]))) {
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
 }
 
-:host([data-slot-names~='content'][data-disabled]) {
+:host([data-slot-names~='content']:where(:state(disabled), [state--disabled])) {
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
 }
 
-:host([borderless]:not([data-checked])) {
+:host([borderless]:not(:where(:state(checked), [state--checked]))) {
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 

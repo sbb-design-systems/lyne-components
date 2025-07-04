@@ -242,8 +242,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(document.activeElement!.id).to.be.equal('sbb-input-4');
 
       // Assert disabled state
-      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).to.have.attribute(
-        'data-disabled',
+      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).to.match(
+        ':state(disabled)',
       );
       expect(disabledInput.tabIndex).to.be.equal(-1);
     });
@@ -252,8 +252,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       disabledInput.disabled = false;
       await waitForLitRender(wrapper);
 
-      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).not.to.have.attribute(
-        'data-disabled',
+      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).not.to.match(
+        ':state(disabled)',
       );
       expect(disabledInput.tabIndex).to.be.equal(0);
     });
@@ -263,26 +263,26 @@ describe(`sbb-selection-expansion-panel`, () => {
       await waitForLitRender(wrapper);
 
       expect(firstInput.tabIndex).to.be.equal(-1);
-      expect(wrapper.querySelector('#sbb-selection-expansion-panel-1')).to.have.attribute(
-        'data-disabled',
+      expect(wrapper.querySelector('#sbb-selection-expansion-panel-1')).to.match(
+        ':state(disabled)',
       );
 
       expect(disabledInput.tabIndex).to.be.equal(-1);
-      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).to.have.attribute(
-        'data-disabled',
+      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).to.match(
+        ':state(disabled)',
       );
 
       wrapper.disabled = false;
       await waitForLitRender(wrapper);
 
       expect(firstInput.tabIndex).to.be.equal(0);
-      expect(wrapper.querySelector('#sbb-selection-expansion-panel-1')).not.to.have.attribute(
-        'data-disabled',
+      expect(wrapper.querySelector('#sbb-selection-expansion-panel-1')).not.to.match(
+        ':state(disabled)',
       );
 
       expect(disabledInput.tabIndex).to.be.equal(-1);
-      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).to.have.attribute(
-        'data-disabled',
+      expect(wrapper.querySelector('#sbb-selection-expansion-panel-3')).to.match(
+        ':state(disabled)',
       );
     });
 

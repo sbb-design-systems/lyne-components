@@ -2,7 +2,7 @@
 
 :host {
   --sbb-selection-panel-background: var(
-    --sbb-selection-expansion-panel-inner-background,
+    --sbb-selection-panel-inner-background,
     var(--sbb-color-white)
   );
   --sbb-selection-panel-border-color: var(--sbb-color-cloud);
@@ -14,7 +14,7 @@
     var(--sbb-border-radius-4x)
   );
   --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
+    --sbb-selection-panel-inner-border-width,
     var(--sbb-border-width-1x)
   );
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
@@ -41,7 +41,7 @@
 
 :host([color='milk']) {
   --sbb-selection-panel-background: var(
-    --sbb-selection-expansion-panel-inner-background,
+    --sbb-selection-panel-inner-background,
     var(--sbb-color-milk)
   );
 }
@@ -53,7 +53,7 @@
 :host(:is([data-checked]):not(:disabled, [disabled])) {
   --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
+    --sbb-selection-panel-inner-border-width,
     var(--sbb-border-width-2x)
   );
 }
