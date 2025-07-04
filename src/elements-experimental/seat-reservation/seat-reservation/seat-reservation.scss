@@ -40,16 +40,18 @@
   grid-template-columns: 20% 1fr 20%;
   grid-template-rows: auto auto;
 
-  .sbb-sr-navigation-first-grid {
-    grid-column: 1 / 2;
+  .sbb-sr-navigation-first-grid,
+  .sbb-sr-navigation-last-grid {
     grid-row-start: 1;
     position: relative;
   }
 
+  .sbb-sr-navigation-first-grid {
+    grid-column: 1 / 2;
+  }
+
   .sbb-sr-navigation-last-grid {
     grid-column: 3 / 4;
-    grid-row-start: 1;
-    position: relative;
   }
 
   .sbb-sr__component {
@@ -177,16 +179,23 @@
 // |     |  V  |
 // |_____|_____|
 .sbb-sr.sbb-sr__grid--vertical {
-  $coach-border-width: 3;
-  $coach-grid-height: calc(
-    calc(var(--sbb-reservation-coach-height) + 28) * var(--sbb-reservation-one-px-rem)
+  // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
+  // and the width of the scrollbar area.
+  $coach-scollbar-width: 28;
+  $coach-grid-width: calc(
+    calc(var(--sbb-reservation-coach-height) + $coach-scollbar-width) *
+      var(--sbb-reservation-one-px-rem)
   );
+
+  // $coach-border-width: Describes the approximate width of the wagon edge in the svg
+  // and is also set here for the optimised rotation pivot point for rotating. 3 is an optimal value here.
+  $coach-border-width: 3;
   $rotation-pivot-point: calc(
     calc(var(--sbb-reservation-coach-height) / 2 - $coach-border-width) *
       var(--sbb-reservation-one-px-rem)
   );
 
-  grid-template-columns: $coach-grid-height 1fr;
+  grid-template-columns: $coach-grid-width 1fr;
   grid-template-rows: 20% 60% 20%;
 
   .sbb-sr-navigation-first-grid {
@@ -224,7 +233,7 @@
   }
 
   .sbb-sr-grid-inner {
-    grid-template-columns: $coach-grid-height 1fr;
+    grid-template-columns: $coach-grid-width 1fr;
     grid-template-rows: 20% 60% 20%;
 
     .nav-grid {

@@ -66,7 +66,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-    this._componentSetup();
+
+    // We need to wait until the first update is complete to init diffrent htlm element dimensions
+    this.updateComplete.then(() => {
+      this.initNavigationSelectionByScrollEvent();
+    });
   }
 
   protected override render(): TemplateResult | null {
@@ -76,10 +80,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     this._initVehicleSeatReservationConstruction();
     return this._coachesHtmlTemplate || null;
-  }
-
-  private _componentSetup(): void {
-    this.initNavigationSelectionByScrollEvent();
   }
 
   private _determineBaseFontSize(): void {
@@ -163,7 +163,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       return null;
     }
 
-    return html` <div class="sbb-sr-navigation-wrapper">
+    return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
         <ul
           id="sbb-sr__navigation-list-coaches"
