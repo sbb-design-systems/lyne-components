@@ -196,28 +196,21 @@ $disabled: '.sbb-reservation-place-control--disabled';
 :host(:dir(rtl)) {
   // For RTL, we need to adjust the text position to the right side
   .sbb-sr-place-ctrl {
-    .sbb-sr-place-ctrl__text {
-      inset-inline-start: 0;
-    }
-
     &--orientation-0 .sbb-sr-place-ctrl__text {
-      inset-inline-end: 50%;
+      inset-inline-start: 3%;
     }
 
-    &--orientation-90 .sbb-sr-place-ctrl__text {
-      inset-inline-end: 50%;
-    }
-
+    &--orientation-90 .sbb-sr-place-ctrl__text,
     &--orientation-180 .sbb-sr-place-ctrl__text {
-      inset-inline-end: 45%;
+      inset-inline-start: 10%;
     }
 
     &--orientation-270 .sbb-sr-place-ctrl__text {
-      inset-inline-end: 45%;
+      inset-inline-start: 5%;
     }
 
     &--type-bicycle .sbb-sr-place-ctrl__text {
-      inset-inline-end: 43%;
+      inset-inline-start: -10%;
     }
   }
 }
