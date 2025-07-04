@@ -87,40 +87,12 @@
   position: absolute;
   z-index: 10;
 
-  &::before {
-    content: '';
-    display: block;
-    width: sbb.px-to-rem-build(42);
-    height: sbb.px-to-rem-build(80);
-    position: absolute;
-    top: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-
   &#first-tab-element {
-    right: sbb.px-to-rem-build(-42);
-
-    &::before {
-      right: 0;
-      background: linear-gradient(
-        -90deg,
-        var(--sbb-color-white-alpha-0) 0%,
-        var(--sbb-color-white) 50%
-      );
-    }
+    inset-inline-end: var(--sbb-spacing-fixed-2x);
   }
 
   &#last-tab-element {
-    left: sbb.px-to-rem-build(-42);
-
-    &::before {
-      background: linear-gradient(
-        90deg,
-        var(--sbb-color-white-alpha-0) 0%,
-        var(--sbb-color-white) 50%
-      );
-    }
+    inset-inline-start: var(--sbb-spacing-fixed-2x);
   }
 }
 
@@ -148,7 +120,7 @@
   display: flex;
   flex-wrap: nowrap;
   gap: var(--sbb-spacing-fixed-1x);
-  padding: sbb.px-to-rem-build(2) sbb.px-to-rem-build(48);
+  padding: sbb.px-to-rem-build(2);
 }
 
 // --------------- Seat Reservation Main Navigation - END ----------------
@@ -205,12 +177,12 @@
 // |     |  V  |
 // |_____|_____|
 .sbb-sr.sbb-sr__grid--vertical {
-  $coach-border-width-2x: 2;
+  $coach-border-width: 3;
   $coach-grid-height: calc(
     calc(var(--sbb-reservation-coach-height) + 28) * var(--sbb-reservation-one-px-rem)
   );
   $rotation-pivot-point: calc(
-    calc(var(--sbb-reservation-coach-height) / 2 - $coach-border-width-2x) *
+    calc(var(--sbb-reservation-coach-height) / 2 - $coach-border-width) *
       var(--sbb-reservation-one-px-rem)
   );
 
@@ -223,14 +195,10 @@
 
     #first-tab-element {
       position: absolute;
-      right: initial;
-      bottom: sbb.px-to-rem-build(-42);
-      left: var(--sbb-spacing-fixed-8x);
+      inset-block-end: var(--sbb-spacing-fixed-4x);
+      inset-inline-start: var(--sbb-spacing-fixed-8x);
+      inset-inline-end: initial;
       rotate: 90deg;
-
-      &::before {
-        top: sbb.px-to-rem-build(-38);
-      }
     }
   }
 
@@ -239,14 +207,9 @@
     grid-row: 3 / 4;
 
     #last-tab-element {
-      top: sbb.px-to-rem-build(-42);
-      left: var(--sbb-spacing-fixed-8x);
+      inset-block-start: var(--sbb-spacing-fixed-4x);
+      inset-inline-start: var(--sbb-spacing-fixed-8x);
       rotate: 90deg;
-
-      &::before {
-        left: sbb.px-to-rem-build(0);
-        top: sbb.px-to-rem-build(-38);
-      }
     }
   }
 
@@ -275,7 +238,7 @@
 
         .sbb-sr-navigation__list-coaches {
           flex-direction: column;
-          padding: sbb.px-to-rem-build(48) sbb.px-to-rem-build(2);
+          padding: sbb.px-to-rem-build(2) sbb.px-to-rem-build(2);
         }
       }
     }

@@ -406,14 +406,10 @@ export class SeatReservationBaseElement extends LitElement {
       this.hoveredScrollCoachIndex = selectedNavCoachIndex;
 
       if (this.hasNavigation && this.navigationScrollArea) {
-        const listNavigationPadding = 24;
         const navigationAreaCenteredPosX = this.scrollNavigationAreaDim / 2;
         const scrollButtonOffsetX = selectedNavCoachIndex * this.coachNavButtonWidth;
         const scrollOffsetX =
-          scrollButtonOffsetX -
-          navigationAreaCenteredPosX +
-          this.coachNavButtonWidth +
-          listNavigationPadding;
+          scrollButtonOffsetX - navigationAreaCenteredPosX + this.coachNavButtonWidth;
 
         this.navigationScrollArea.scrollTo({
           top: this.alignVertical ? scrollOffsetX : 0,
