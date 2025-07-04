@@ -8,47 +8,77 @@ snapshots["sbb-seat-reservation renders DOM"] =
 /* end snapshot sbb-seat-reservation renders DOM */
 
 snapshots["sbb-seat-reservation renders Shadow DOM"] = 
-`<div>
-  <sbb-screen-reader-only>
-    <input
-      aria-label="en:Beginn der Grafische Sitzplatzreservierung"
-      id="first-tab-element"
-      readonly=""
-      role="contentinfo"
-      type="text"
-    >
-  </sbb-screen-reader-only>
-  <div>
-    <nav>
-      <ul
-        aria-label="Seat reservation Navigation"
-        class="sbb-sr-navigation__list-coaches"
+`<div class="sbb-sr__container">
+  <div class="sbb-sr sbb-sr__grid">
+    <div class="sbb-sr-navigation-first-grid">
+      <sbb-secondary-button
+        aria-label="en:Beginn der Grafische Sitzplatzreservierung"
+        class="sbb-sr__navigation-control-button"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
+        disabled-interactive=""
+        icon-name="arrow-left-small"
+        id="first-tab-element"
+        role="contentinfo"
+        size="s"
+        tabindex="0"
+        type="button"
       >
-      </ul>
-    </nav>
-    <div class="sbb-sr__wrapper">
-      <div
-        class="sbb-sr__parent"
-        id="sbb-sr__parent-area"
-        tabindex="-1"
-      >
-        <ul
-          class="sbb-sr__list-coaches"
-          role="presentation"
-        >
-        </ul>
+      </sbb-secondary-button>
+    </div>
+    <div class="sbb-sr__component">
+      <div class="sbb-sr-grid-inner">
+        <div class="nav-grid">
+          <div class="sbb-sr-navigation-wrapper">
+            <nav
+              class="sbb-sr-navigation"
+              id="sbb-sr-navigation"
+            >
+              <ul
+                aria-label="Seat reservation Navigation"
+                class="sbb-sr-navigation__list-coaches"
+                id="sbb-sr__navigation-list-coaches"
+              >
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="coaches-grid">
+          <div class="sbb-sr__wrapper">
+            <div
+              class="sbb-sr__parent"
+              id="sbb-sr__parent-area"
+              tabindex="-1"
+            >
+              <ul
+                class="sbb-sr__list-coaches"
+                role="presentation"
+              >
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="sbb-sr-navigation-last-grid">
+      <sbb-secondary-button
+        aria-label="en:Verlassen der Grafische Sitzplatzreservierung"
+        class="sbb-sr__navigation-control-button"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
+        disabled-interactive=""
+        icon-name="arrow-right-small"
+        id="last-tab-element"
+        role="contentinfo"
+        size="s"
+        tabindex="0"
+        type="button"
+      >
+      </sbb-secondary-button>
+    </div>
   </div>
-  <sbb-screen-reader-only>
-    <input
-      aria-label="en:Verlassen der Grafische Sitzplatzreservierung"
-      id="last-tab-element"
-      readonly=""
-      role="contentinfo"
-      type="text"
-    >
-  </sbb-screen-reader-only>
 </div>
 `;
 /* end snapshot sbb-seat-reservation renders Shadow DOM */
@@ -61,7 +91,8 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
   "children": [
     {
       "role": "contentinfo",
-      "name": "en:Beginn der Grafische Sitzplatzreservierung"
+      "name": "en:Beginn der Grafische Sitzplatzreservierung",
+      "disabled": true
     },
     {
       "role": "list",
@@ -73,7 +104,8 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
     },
     {
       "role": "contentinfo",
-      "name": "en:Verlassen der Grafische Sitzplatzreservierung"
+      "name": "en:Verlassen der Grafische Sitzplatzreservierung",
+      "disabled": true
     }
   ]
 }
@@ -89,11 +121,18 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
   "children": [
     {
       "role": "landmark",
-      "name": "en:Beginn der Grafische Sitzplatzreservierung"
+      "name": "en:Beginn der Grafische Sitzplatzreservierung",
+      "disabled": true
     },
     {
-      "role": "list",
-      "name": "Seat reservation Navigation"
+      "role": "landmark",
+      "name": "",
+      "children": [
+        {
+          "role": "list",
+          "name": "Seat reservation Navigation"
+        }
+      ]
     },
     {
       "role": "section",
@@ -101,7 +140,8 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
     },
     {
       "role": "landmark",
-      "name": "en:Verlassen der Grafische Sitzplatzreservierung"
+      "name": "en:Verlassen der Grafische Sitzplatzreservierung",
+      "disabled": true
     }
   ]
 }

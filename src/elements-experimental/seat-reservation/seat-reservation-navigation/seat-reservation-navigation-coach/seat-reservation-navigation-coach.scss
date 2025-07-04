@@ -15,6 +15,10 @@ $disabled: '[disabled], :disabled';
   --sbb-reservation-navigation-btn-background-color-hover: var(--sbb-color-cloud);
 }
 
+:host(.sbb-sr__navigation-coach--hover-scroll) {
+  --sbb-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
+}
+
 .sbb-sr-navigation__item-coach {
   display: flex;
   flex-direction: column;
