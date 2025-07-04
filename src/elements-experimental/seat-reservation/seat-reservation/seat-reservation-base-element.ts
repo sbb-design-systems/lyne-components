@@ -174,10 +174,12 @@ export class SeatReservationBaseElement extends LitElement {
 
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
-    const borderHeight =
-      (this.seatReservation.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
-      this.baseGridSize;
-    this.style?.setProperty('--sbb-reservation-coach-height', `${borderHeight + 0}`);
+    if (this.seatReservation.coachItems.length > 0) {
+      const borderHeight =
+        (this.seatReservation.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
+        this.baseGridSize;
+      this.style?.setProperty('--sbb-reservation-coach-height', `${borderHeight + 0}`);
+    }
 
     setTimeout(() => {
       this.firstTabElement = this.shadowRoot?.querySelector('#first-tab-element') as HTMLElement;

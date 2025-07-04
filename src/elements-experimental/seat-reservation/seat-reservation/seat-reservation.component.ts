@@ -154,7 +154,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       type="button"
       aria-label="${btnAriaDescription}"
       role="contentinfo"
-      disabled-interactive="${btnDisabled || nothing}"
+      .disabledInteractive="${btnDisabled || nothing}"
     ></sbb-secondary-button>`;
   }
 
