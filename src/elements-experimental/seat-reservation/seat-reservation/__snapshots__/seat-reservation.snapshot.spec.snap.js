@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-seat-reservation renders DOM"] = 
-`<sbb-seat-reservation style="--sbb-reservation-grid-size: 16px; --sbb-reservation-one-px-rem: 0.0625rem;">
+`<sbb-seat-reservation style="--sbb-seat-reservation-grid-size: 16px; --sbb-reservation-one-px-rem: 0.0625rem;">
 </sbb-seat-reservation>
 `;
 /* end snapshot sbb-seat-reservation renders DOM */
@@ -95,8 +95,14 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
       "disabled": true
     },
     {
-      "role": "list",
-      "name": "Seat reservation Navigation"
+      "role": "navigation",
+      "name": "",
+      "children": [
+        {
+          "role": "list",
+          "name": "Seat reservation Navigation"
+        }
+      ]
     },
     {
       "role": "generic",
