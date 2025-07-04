@@ -15,10 +15,19 @@ import './mini-button.component.js';
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;
 
-  const cases = {
+  const basicCases = {
     disabled: [false, true],
     negative: [false, true],
+  };
+
+  const cases = {
+    ...basicCases,
     forcedColors: [false, true],
+  };
+
+  const labelCases = {
+    ...basicCases,
+    hasIcon: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
@@ -55,36 +64,30 @@ describe(`sbb-mini-button`, () => {
     });
 
     describe('with label', () => {
-      for (const negative of [false, true]) {
-        describe(`negative=${negative}`, () => {
-          for (const disabled of [false, true]) {
-            describe(`disabled=${disabled}`, () => {
-              for (const hasIcon of [false, true]) {
-                describe(`hasIcon=${hasIcon}`, () => {
-                  for (const state of visualDiffStandardStates) {
-                    it(
-                      `${state.name}`,
-                      state.with(async (setup) => {
-                        await setup.withFixture(
-                          html`<sbb-mini-button
-                            ?negative=${negative}
-                            ?disabled=${disabled}
-                            icon-name=${hasIcon ? 'dog-small' : nothing}
-                            >Mini Button Demo</sbb-mini-button
-                          >`,
-                          {
-                            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                          },
-                        );
-                      }),
-                    );
-                  }
-                });
-              }
-            });
-          }
+      describeEach(labelCases, ({ disabled, negative, hasIcon }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`<sbb-mini-button
+              ?negative=${negative}
+              ?disabled=${disabled}
+              icon-name=${hasIcon ? 'dog-small' : nothing}
+              >Mini Button Demo</sbb-mini-button
+            >`,
+            {
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            },
+          );
         });
-      }
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     describe(`disabledInteractive`, () => {

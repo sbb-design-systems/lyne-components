@@ -78,21 +78,21 @@ const standaloneArgs: Args = {
   delete miniButtonDefaultArgs[e];
 });
 
-export const Standalone: StoryObj = {
+const StandaloneStory: StoryObj = {
   render: StandaloneTemplate,
   argTypes: standaloneArgTypes,
   args: standaloneArgs,
 };
 
+export const Standalone: StoryObj = { ...StandaloneStory };
+
 export const StandaloneNegative: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: standaloneArgTypes,
+  ...StandaloneStory,
   args: { ...standaloneArgs, negative: true },
 };
 
 export const StandaloneDisabled: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: standaloneArgTypes,
+  ...StandaloneStory,
   args: { ...standaloneArgs, disabled: true },
 };
 
