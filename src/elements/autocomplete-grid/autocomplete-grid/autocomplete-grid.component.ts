@@ -5,7 +5,7 @@ import { getNextElementIndex } from '../../core/a11y.js';
 import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
-import type { SbbOptGroupElement } from '../../option.js';
+import type { SbbOptGroupElement, SbbOptionHintElement } from '../../option.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row.js';
@@ -57,9 +57,11 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
   }
 
   protected syncNegative(): void {
-    this.querySelectorAll?.<SbbDividerElement | SbbAutocompleteGridButtonElement>(
-      'sbb-divider, sbb-autocomplete-grid-button',
-    ).forEach((e) => (e.negative = this.negative));
+    this.querySelectorAll?.<
+      SbbDividerElement | SbbAutocompleteGridButtonElement | SbbOptionHintElement
+    >('sbb-divider, sbb-autocomplete-grid-button, sbb-option-hint').forEach(
+      (e) => (e.negative = this.negative),
+    );
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement<T> | SbbOptGroupElement>(
       'sbb-autocomplete-grid-row, sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
