@@ -122,7 +122,7 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
 snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
 `<p>
   {
-  "role": "WebArea",
+  "role": "document",
   "name": "",
   "children": [
     {
@@ -141,7 +141,7 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
       ]
     },
     {
-      "role": "generic",
+      "role": "section",
       "name": ""
     },
     {
