@@ -22,6 +22,10 @@ import './mini-button.component.js';
 
 import readme from './readme.md?raw';
 
+const StandaloneTemplate = ({ _slot, label, ...args }: Args): TemplateResult => html`
+  <sbb-mini-button ${sbbSpread(args)}>${label}</sbb-mini-button>
+`;
+
 const MiniButtonCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
   <sbb-form-field ?negative=${args.negative}>
     <label>Demo sbb-mini-button</label>
@@ -52,16 +56,45 @@ const miniButtonDefaultArgTypes: ArgTypes = {
   slot,
 };
 
+const standaloneArgTypes: ArgTypes = {
+  ...miniButtonDefaultArgTypes,
+  label: { control: { type: 'text' } },
+};
+
 const miniButtonDefaultArgs: Args = {
   ...buttonDefaultArgs,
   'icon-name': 'pen-small',
   slot: slot.options![0],
 };
 
+const standaloneArgs: Args = {
+  ...buttonDefaultArgs,
+  'icon-name': 'pen-small',
+  label: 'Label',
+};
+
 ['size', 'text', 'tag'].forEach((e: string) => {
   delete miniButtonDefaultArgTypes[e];
   delete miniButtonDefaultArgs[e];
 });
+
+export const Standalone: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: standaloneArgTypes,
+  args: standaloneArgs,
+};
+
+export const StandaloneNegative: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: standaloneArgTypes,
+  args: { ...standaloneArgs, negative: true },
+};
+
+export const StandaloneDisabled: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: standaloneArgTypes,
+  args: { ...standaloneArgs, disabled: true },
+};
 
 export const Prefix: StoryObj = {
   render: MiniButtonCommonTemplate,

@@ -3,12 +3,44 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
+$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+
 :host {
   display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
+
+  --sbb-mini-button-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-mini-button-padding-block: sbb.px-to-rem-build(2);
+  --sbb-mini-button-gap: sbb.px-to-rem-build(2);
 }
 
 @include sbb.icon-button('.sbb-mini-button', '::slotted(sbb-icon), sbb-icon');
+
+.sbb-mini-button {
+  gap: var(--sbb-mini-button-gap);
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--sbb-mini-button-padding-inline);
+  padding-block: var(--sbb-mini-button-padding-block);
+
+  :host(#{$icon-only}) & {
+    --sbb-mini-button-padding-inline: 0;
+    --sbb-mini-button-padding-block: 0;
+  }
+}
+
+.sbb-button__label {
+  @include sbb.text-xxs--regular;
+  @include sbb.ellipsis;
+
+  transition: translate var(--sbb-button-transition-duration)
+    var(--sbb-button-transition-easing-function);
+  translate: 0 var(--sbb-button-translate-y-content-hover, 0);
+
+  :host(#{$icon-only}) & {
+    display: none;
+  }
+}
