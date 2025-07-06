@@ -23,8 +23,8 @@ import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
-import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
-import './seat-reservation-scoped.js';
+import '../seat-reservation-navigation-coach.js';
+import '../seat-reservation-scoped.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
