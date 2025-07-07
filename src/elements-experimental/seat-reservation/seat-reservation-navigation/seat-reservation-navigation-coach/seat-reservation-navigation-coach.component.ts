@@ -7,7 +7,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../../common/translations.js';
-import type { PlaceTravelClass } from '../../common.js';
+import type { CoachNumberOfFreePlaces, PlaceTravelClass } from '../../common.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
@@ -55,6 +55,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @forceType()
   @property({ type: Number })
   public accessor index: number = 0;
+
+  @forceType()
+  public accessor coachNumberOfFreePlaces: CoachNumberOfFreePlaces = {};
 
   /** Travel class of the coach */
   @property({ attribute: 'travel-class', type: Array })
@@ -229,6 +232,13 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       label = label.concat(serviceClassLabel);
     }
 
+    // Expands the number of available seats and bicycle spaces as info
+    const freePlacesTxt = getI18nSeatReservation(
+      'COACH_AVAILABLE_NUMBER_OF_PLACES',
+      this._language.current,
+      [this.coachNumberOfFreePlaces?.seats || 0, this.coachNumberOfFreePlaces?.bicycle || 0],
+    );
+    label = label.concat('. ').concat(freePlacesTxt).concat('. ');
     return label;
   }
 

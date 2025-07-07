@@ -49,6 +49,12 @@ export type ElementPosition = {
   z: number;
 };
 
+/* Info about */
+export type CoachNumberOfFreePlaces = {
+  seats?: number;
+  bicycle?: number;
+};
+
 /** Selection info for a single place. */
 export type PlaceSelection = {
   id: string;
@@ -75,6 +81,7 @@ export type SeatReservationCoachSelection = {
   coachType?: CoachType;
   coachTravelClass: PlaceTravelClass[];
   coachPropertyIds?: string[];
+  coachNumberOfFreePlaces?: CoachNumberOfFreePlaces;
 };
 
 export type PlaceType = 'SEAT' | 'BICYCLE';
