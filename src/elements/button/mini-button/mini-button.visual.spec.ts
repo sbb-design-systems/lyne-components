@@ -47,6 +47,7 @@ describe(`sbb-mini-button`, () => {
           `,
           {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            focusOutlineDark: negative,
             forcedColors,
           },
         );
@@ -75,6 +76,7 @@ describe(`sbb-mini-button`, () => {
             >`,
             {
               backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              focusOutlineDark: negative,
             },
           );
         });
@@ -111,6 +113,7 @@ describe(`sbb-mini-button`, () => {
                   `,
                   {
                     backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    focusOutlineDark: negative,
                   },
                 );
                 setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);

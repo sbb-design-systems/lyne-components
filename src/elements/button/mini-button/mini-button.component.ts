@@ -27,7 +27,7 @@ class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   protected override renderTemplate(): TemplateResult {
     return html`
       ${super.renderIconSlot()}
-      <span class="sbb-button__label">
+      <span class="sbb-mini-button__label">
         <slot></slot>
       </span>
     `;

@@ -1,13 +1,5 @@
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -15,6 +7,7 @@ import {
   buttonDefaultArgs,
   buttonDefaultArgTypes,
 } from '../common/button-common-stories.private.js';
+import { commonDecorators } from '../common/common-stories.private.js';
 
 import '../../form-field.js';
 import '../../icon.js';
@@ -22,8 +15,8 @@ import './mini-button.component.js';
 
 import readme from './readme.md?raw';
 
-const StandaloneTemplate = ({ _slot, label, ...args }: Args): TemplateResult => html`
-  <sbb-mini-button ${sbbSpread(args)}>${label}</sbb-mini-button>
+const StandaloneTemplate = ({ _slot, text, ...args }: Args): TemplateResult => html`
+  <sbb-mini-button ${sbbSpread(args)}>${text}</sbb-mini-button>
 `;
 
 const MiniButtonCommonTemplate = ({ slot, ...args }: Args): TemplateResult => html`
@@ -56,21 +49,20 @@ const miniButtonDefaultArgTypes: ArgTypes = {
   slot,
 };
 
-const standaloneArgTypes: ArgTypes = {
-  ...miniButtonDefaultArgTypes,
-  label: { control: { type: 'text' } },
-};
-
 const miniButtonDefaultArgs: Args = {
   ...buttonDefaultArgs,
   'icon-name': 'pen-small',
   slot: slot.options![0],
 };
 
+const standaloneArgTypes: ArgTypes = {
+  ...buttonDefaultArgTypes,
+};
+
 const standaloneArgs: Args = {
   ...buttonDefaultArgs,
   'icon-name': 'pen-small',
-  label: 'Label',
+  text: 'Label',
 };
 
 ['size', 'text', 'tag'].forEach((e: string) => {
@@ -78,13 +70,24 @@ const standaloneArgs: Args = {
   delete miniButtonDefaultArgs[e];
 });
 
+['size', 'tag', 'slot'].forEach((e: string) => {
+  delete standaloneArgTypes[e];
+  delete standaloneArgs[e];
+});
+
 const StandaloneStory: StoryObj = {
   render: StandaloneTemplate,
   argTypes: standaloneArgTypes,
-  args: standaloneArgs,
 };
 
-export const Standalone: StoryObj = { ...StandaloneStory };
+const FormFieldStory: StoryObj = {
+  argTypes: miniButtonDefaultArgTypes,
+};
+
+export const Standalone: StoryObj = {
+  ...StandaloneStory,
+  args: standaloneArgs,
+};
 
 export const StandaloneNegative: StoryObj = {
   ...StandaloneStory,
@@ -97,48 +100,55 @@ export const StandaloneDisabled: StoryObj = {
 };
 
 export const Prefix: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonCommonTemplate,
+  args: { ...miniButtonDefaultArgs },
 };
 
 export const PrefixNegative: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonCommonTemplate,
-  args: { negative: true },
+  args: { ...miniButtonDefaultArgs, negative: true },
 };
 
 export const PrefixDisabled: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonCommonTemplate,
-  args: { disabled: true },
+  args: { ...miniButtonDefaultArgs, disabled: true },
 };
 
 export const PrefixSlottedIcon: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonSlottedIconCommonTemplate,
-  args: { 'icon-name': undefined },
+  args: { ...miniButtonDefaultArgs, 'icon-name': undefined },
 };
 
 export const Suffix: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonCommonTemplate,
-  args: { slot: slot.options![1] },
+  args: { ...miniButtonDefaultArgs, slot: slot.options![1] },
 };
 
 export const SuffixNegative: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonCommonTemplate,
-  args: { slot: slot.options![1], negative: true },
+  args: { ...miniButtonDefaultArgs, slot: slot.options![1], negative: true },
 };
 
 export const SuffixDisabled: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonCommonTemplate,
-  args: { slot: slot.options![1], disabled: true },
+  args: { ...miniButtonDefaultArgs, slot: slot.options![1], disabled: true },
 };
 
 export const SuffixSlottedIcon: StoryObj = {
+  ...FormFieldStory,
   render: MiniButtonSlottedIconCommonTemplate,
-  args: { slot: slot.options![1], 'icon-name': undefined },
+  args: { ...miniButtonDefaultArgs, slot: slot.options![1], 'icon-name': undefined },
 };
 
 const meta: Meta = {
-  argTypes: miniButtonDefaultArgTypes,
-  args: miniButtonDefaultArgs,
-  decorators: [withActions as Decorator],
+  decorators: commonDecorators,
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
