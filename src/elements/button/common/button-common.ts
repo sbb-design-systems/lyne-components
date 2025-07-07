@@ -48,11 +48,13 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
 
       if (changedProperties.has('loading')) {
         if (this.loading) {
-          this.setAttribute('aria-busy', 'true');
-          this.setAttribute('aria-disabled', 'true');
+          this.internals.ariaBusy = 'true';
+          this.internals.ariaDisabled = 'true';
         } else {
-          this.removeAttribute('aria-busy');
-          this.removeAttribute('aria-disabled');
+          this.internals.ariaBusy = null;
+          if (!this.maybeDisabled) {
+            this.internals.ariaDisabled = null;
+          }
         }
       }
     }

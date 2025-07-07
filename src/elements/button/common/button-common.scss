@@ -43,9 +43,12 @@ $active: ':active, [data-active], [loading]';
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
       var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
       var(--sbb-button-shadow-1-color);
+  --sbb-button-loading-border-width: var(--sbb-border-width-3x);
 
   // Calculated and private variables
   --_width: unset;
+
+  // The min-height modifier is used to adjust height and width for loading state.
   --_min-height-modifier: 0rem;
   --_border-color: var(--sbb-button-color-default-border);
   --_background-color: var(--sbb-button-color-default-background);
@@ -72,6 +75,7 @@ $active: ':active, [data-active], [loading]';
     --sbb-button-color-active-background: Canvas !important;
     --sbb-button-color-disabled-background: Canvas !important;
     --sbb-button-color-disabled-text: GrayText !important;
+    --sbb-button-color-loading-border: Highlight !important;
 
     // For static cases, button and link roles will override it.
     --sbb-button-color-default-text: CanvasText !important;
@@ -166,22 +170,16 @@ $active: ':active, [data-active], [loading]';
 }
 
 :host([loading]:not(#{$disabled})) {
-  --_min-height-modifier: -6px;
+  --_min-height-modifier: calc(-2 * var(--sbb-button-loading-border-width));
   --_border: none;
-
-  .sbb-action-base {
-    margin: 3px;
-    padding-inline: calc(var(--sbb-button-padding-inline) - 3px);
-    transition-property: none;
-  }
 }
 
 .sbb-button-loading-border {
   position: absolute;
-  inset: calc(0.5 * var(--_min-height-modifier));
+  inset: calc(-1 * var(--sbb-button-loading-border-width));
   clip-path: border-box;
   border-radius: var(--sbb-button-border-radius);
-  background: var(--sbb-button-color-active-background);
+  background: var(--sbb-button-color-loading-border);
   z-index: -1;
   container-type: inline-size;
   overflow: hidden;
@@ -196,9 +194,9 @@ $active: ':active, [data-active], [loading]';
   aspect-ratio: 2 / 1;
   position: absolute;
   background: radial-gradient(
-      100% 100% at right,
-      var(--sbb-button-color-active-text),
-      transparent 50%
+    100% 100% at right,
+    var(--sbb-button-color-active-text),
+    transparent 50%
   );
   offset-path: border-box;
   offset-anchor: 100% 50%;
@@ -257,6 +255,12 @@ $active: ':active, [data-active], [loading]';
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, border, box-shadow;
+  }
+
+  :host([loading]:not(#{$disabled})) & {
+    margin: var(--sbb-button-loading-border-width);
+    padding-inline: calc(var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width));
+    transition-property: none;
   }
 
   :host([data-focus-visible]) &,
