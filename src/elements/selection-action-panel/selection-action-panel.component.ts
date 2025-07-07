@@ -9,7 +9,7 @@ import '../divider.js';
 
 /**
  * It displays a panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
- * Can also contain an action element (e.g. an `sbb-button`)
+ * It can also contain an action element (e.g. an `sbb-button`)
  *
  * @slot - Use this slot to render a `sbb-checkbox-panel` or `sbb-radio-button-panel` element and the action element.
  * @slot badge - Use this slot to render a `sbb-card-badge` component.
