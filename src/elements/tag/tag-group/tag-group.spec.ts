@@ -1,16 +1,17 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTagElement } from '../tag.js';
 
-import { SbbTagGroupElement } from './tag-group.js';
+import { SbbTagGroupElement } from './tag-group.component.js';
 
 import '../tag.js';
 
 describe(`sbb-tag-group`, () => {
   let element: SbbTagGroupElement;
+  const elementInternals = elementInternalsSpy();
 
   describe('multiple mode', () => {
     describe('no initialized checked tag', () => {
@@ -44,7 +45,7 @@ describe(`sbb-tag-group`, () => {
         tag1.click();
         await waitForLitRender(element);
 
-        expect(tag1).to.have.attribute('aria-pressed');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         await inputSpy.calledOnce();
         expect(inputSpy.count).to.be.equal(1);
@@ -61,7 +62,7 @@ describe(`sbb-tag-group`, () => {
         tag1.checked = true;
         await waitForLitRender(element);
 
-        expect(tag1).to.have.attribute('aria-pressed');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -75,7 +76,7 @@ describe(`sbb-tag-group`, () => {
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);
 
-        expect(tag1).to.have.attribute('aria-pressed');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -90,7 +91,7 @@ describe(`sbb-tag-group`, () => {
         await waitForLitRender(element);
         tag1.click();
 
-        expect(tag1).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('false');
         expect(tag1.checked).to.be.equal(false);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -118,13 +119,13 @@ describe(`sbb-tag-group`, () => {
         const inputSpy = new EventSpy('input');
         const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
-        expect(tag2).to.have.attribute('aria-pressed', 'true');
+        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('true');
         expect(tag2.checked).to.be.equal(true);
 
         tag2.click();
         await waitForLitRender(element);
 
-        expect(tag2).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
         await inputSpy.calledOnce();
         expect(inputSpy.count).to.be.equal(1);
@@ -141,7 +142,7 @@ describe(`sbb-tag-group`, () => {
         tag2.checked = false;
         await waitForLitRender(element);
 
-        expect(tag2).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -295,7 +296,9 @@ describe(`sbb-tag-group`, () => {
       });
 
       it('should have no default activated tag', async () => {
-        expect(element.querySelectorAll('sbb-tag[aria-pressed="true"]').length).to.be.equal(0);
+        for (const tag of element.querySelectorAll('sbb-tag')) {
+          expect(elementInternals.get(tag)!.ariaPressed).to.not.equal('true');
+        }
         expect(element.value).to.be.equal(null);
       });
 
@@ -304,13 +307,13 @@ describe(`sbb-tag-group`, () => {
         const inputSpy = new EventSpy('input');
         const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
-        expect(tag1).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('false');
         expect(tag1.checked).to.be.equal(false);
 
         tag1.click();
         await waitForLitRender(element);
 
-        expect(tag1).to.have.attribute('aria-pressed', 'true');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         await inputSpy.calledOnce();
         expect(inputSpy.count).to.be.equal(1);
@@ -327,7 +330,7 @@ describe(`sbb-tag-group`, () => {
         tag1.checked = true;
         await waitForLitRender(element);
 
-        expect(tag1).to.have.attribute('aria-pressed', 'true');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -390,7 +393,7 @@ describe(`sbb-tag-group`, () => {
         tag2.checked = false;
         await waitForLitRender(element);
 
-        expect(tag2).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -421,11 +424,11 @@ describe(`sbb-tag-group`, () => {
         tag3.click();
         await waitForLitRender(element);
 
-        expect(tag3).to.have.attribute('aria-pressed', 'true');
-        expect(tag3.checked).to.be.equal(true);
+        expect(elementInternals.get(tag3)!.ariaPressed, 'tag3.ariaPressed').to.equal('true');
+        expect(tag3.checked, 'tag3.checked').to.be.true;
 
-        expect(tag2).to.have.attribute('aria-pressed', 'false');
-        expect(tag2.checked).to.be.equal(false);
+        expect(elementInternals.get(tag2)!.ariaPressed, 'tag2.ariaPressed').to.equal('false');
+        expect(tag2.checked, 'tag2.checked').to.be.false;
 
         await inputSpy.calledOnce();
         expect(inputSpy.count).to.be.equal(1);
@@ -434,7 +437,11 @@ describe(`sbb-tag-group`, () => {
         expect(changeSpy.count).to.be.equal(1);
 
         expect(element.value).to.be.equal('tag3');
-        expect(element.querySelectorAll('sbb-tag[aria-pressed="true"]').length).to.be.equal(1);
+        expect(
+          Array.from(element.querySelectorAll('sbb-tag')).filter(
+            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+          ).length,
+        ).to.be.equal(1);
       });
 
       it('should select another tag (before) manually and uncheck others', async () => {
@@ -446,10 +453,10 @@ describe(`sbb-tag-group`, () => {
         tag1.click();
         await waitForLitRender(element);
 
-        expect(tag1).to.have.attribute('aria-pressed', 'true');
+        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
 
-        expect(tag2).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
 
         await inputSpy.calledOnce();
@@ -459,7 +466,11 @@ describe(`sbb-tag-group`, () => {
         expect(changeSpy.count).to.be.equal(1);
 
         expect(element.value).to.be.equal('tag1');
-        expect(element.querySelectorAll('sbb-tag[aria-pressed="true"]').length).to.be.equal(1);
+        expect(
+          Array.from(element.querySelectorAll('sbb-tag')).filter(
+            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+          ).length,
+        ).to.be.equal(1);
       });
 
       it('should select another tag programmatically and uncheck others', async () => {
@@ -471,17 +482,21 @@ describe(`sbb-tag-group`, () => {
         tag3.checked = true;
         await waitForLitRender(element);
 
-        expect(tag3).to.have.attribute('aria-pressed', 'true');
+        expect(elementInternals.get(tag3)!.ariaPressed).to.equal('true');
         expect(tag3.checked).to.be.equal(true);
 
-        expect(tag2).to.have.attribute('aria-pressed', 'false');
+        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
 
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
 
         expect(element.value).to.be.equal('tag3');
-        expect(element.querySelectorAll('sbb-tag[aria-pressed="true"]').length).to.be.equal(1);
+        expect(
+          Array.from(element.querySelectorAll('sbb-tag')).filter(
+            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+          ).length,
+        ).to.be.equal(1);
       });
     });
 
@@ -547,7 +562,11 @@ describe(`sbb-tag-group`, () => {
             <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
           </sbb-tag-group>
         `);
-        expect(element.querySelectorAll('sbb-tag[aria-pressed="true"]').length).to.be.equal(1);
+        expect(
+          Array.from(element.querySelectorAll('sbb-tag')).filter(
+            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+          ).length,
+        ).to.be.equal(1);
         expect(element.value).to.be.equal('tag1');
       });
     });
@@ -677,6 +696,54 @@ describe(`sbb-tag-group`, () => {
       expect(JSON.stringify(Object.fromEntries(new FormData(form)))).to.be.equal(
         `{"tag1":"Label 1"}`,
       );
+    });
+  });
+
+  describe('with complex value', () => {
+    type ValueType = { value: string; label: string };
+    const values: ValueType[] = [
+      { value: 'tag1', label: 'Tag 1' },
+      { value: 'tag2', label: 'Tag 2' },
+      { value: 'tag3', label: 'Tag 3' },
+    ];
+    let form: HTMLFormElement;
+    let tags: SbbTagElement[];
+    let element: SbbTagGroupElement<ValueType>;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <sbb-tag-group .value=${values[0]}>
+            <sbb-tag name="sbb-tag-1" .value=${values[0]}>values[0].label</sbb-tag>
+            <sbb-tag name="sbb-tag-2" .value=${values[1]}>values[1].label</sbb-tag>
+            <sbb-tag name="sbb-tag-3" .value=${values[2]}>values[2].label</sbb-tag>
+          </sbb-tag-group>
+        </form>
+      `);
+      element = form.querySelector<SbbTagGroupElement<ValueType>>('sbb-tag-group')!;
+      tags = Array.from(element.querySelectorAll('sbb-tag'));
+    });
+
+    it('should init with value', async () => {
+      expect(element.value).to.be.equal(tags[0].value);
+      expect(element.value).to.be.deep.equal(tags[0].value);
+    });
+
+    it('should update value on click', async () => {
+      tags[1].click();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(tags[1].value);
+    });
+
+    it('should set complex value', async () => {
+      element.value = values[1];
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(tags[1].value);
+      expect(tags[0].checked).to.be.false;
+      expect(tags[1].checked).to.be.true;
+      expect(tags[2].checked).to.be.false;
     });
   });
 });

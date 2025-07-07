@@ -3,23 +3,19 @@ export const snapshots = {};
 
 snapshots["sbb-toggle renders DOM"] = 
 `<sbb-toggle
-  role="radiogroup"
+  data-initialized=""
   size="m"
 >
   <sbb-toggle-option
-    aria-checked="true"
     checked=""
     data-slot-names="unnamed"
-    role="radio"
     tabindex="0"
     value="Value one"
   >
     Value one
   </sbb-toggle-option>
   <sbb-toggle-option
-    aria-checked="false"
     data-slot-names="unnamed"
-    role="radio"
     tabindex="-1"
     value="Value two"
   >

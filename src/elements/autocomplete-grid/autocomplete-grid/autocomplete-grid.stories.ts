@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,15 +5,17 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid.js';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
 import readme from './readme.md?raw';
 
 import '../autocomplete-grid-row.js';
@@ -102,6 +102,15 @@ const preserveIconSpace: InputType = {
   },
 };
 
+const autoActiveFirstOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const borderless: InputType = {
   control: {
     type: 'boolean',
@@ -179,6 +188,7 @@ const defaultArgTypes: ArgTypes = {
 
   // Autocomplete args
   preserveIconSpace,
+  autoActiveFirstOption,
 
   // Option args
   optionIconName,
@@ -208,6 +218,7 @@ const defaultArgs: Args = {
 
   // Autocomplete args
   preserveIconSpace: true,
+  autoActiveFirstOption: false,
 
   // Option args
   optionIconName: 'clock-small',
@@ -296,7 +307,10 @@ const Template = (args: Args): TemplateResult => html`
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
-      <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete-grid
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
         ${createRows2(args.buttonIconName, args.disableOption)}
       </sbb-autocomplete-grid>
@@ -327,7 +341,10 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?disabled=${args.disabled}
         ?readonly=${args.readonly}
       />
-      <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete-grid
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         <sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-option value="Current location" icon-name="gps-small"
             >Current location</sbb-autocomplete-grid-option
@@ -498,13 +515,13 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAutocompleteGridElement.events.willOpen,
-        SbbAutocompleteGridElement.events.didOpen,
-        SbbAutocompleteGridElement.events.didClose,
-        SbbAutocompleteGridElement.events.willClose,
+        SbbAutocompleteGridElement.events.beforeopen,
+        SbbAutocompleteGridElement.events.open,
+        SbbAutocompleteGridElement.events.close,
+        SbbAutocompleteGridElement.events.beforeclose,
         'change',
         'click',
-        SbbAutocompleteGridOptionElement.events.optionSelected,
+        SbbAutocompleteGridOptionElement.events.optionselected,
       ],
     },
     backgroundColor: (context: StoryContext) =>

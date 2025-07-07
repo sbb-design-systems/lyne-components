@@ -1,3 +1,4 @@
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.component.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -5,7 +6,6 @@ import { type ScreenshotTestCase } from '../../../screenshots.js';
 
 import style from './test-case-filter.scss?lit&inline';
 
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.js';
 import '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/tag.js';
 
@@ -28,7 +28,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  private _handleViewportChange(event: CustomEvent): void {
+  private _handleViewportChange(event: Event): void {
     this.dispatchEvent(
       new CustomEvent('viewportFilterChange', {
         bubbles: true,
@@ -38,7 +38,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  private _handleBrowserChange(event: CustomEvent): void {
+  private _handleBrowserChange(event: Event): void {
     this.dispatchEvent(
       new CustomEvent('browserFilterChange', {
         bubbles: true,
@@ -48,7 +48,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div class="app-test-case-filter">
         <div>

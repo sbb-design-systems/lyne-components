@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,18 +5,20 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 import { SbbOptionElement } from '../option.js';
 
 import readme from './readme.md?raw';
-import { SbbSelectElement } from './select.js';
+import { SbbSelectElement } from './select.component.js';
 import '../form-error.js';
 import '../form-field.js';
 
@@ -602,11 +602,11 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbSelectElement.events.change,
-        SbbSelectElement.events.didClose,
-        SbbSelectElement.events.didOpen,
-        SbbSelectElement.events.willClose,
-        SbbSelectElement.events.willOpen,
-        SbbOptionElement.events.optionSelected,
+        SbbSelectElement.events.close,
+        SbbSelectElement.events.open,
+        SbbSelectElement.events.beforeclose,
+        SbbSelectElement.events.beforeopen,
+        SbbOptionElement.events.optionselected,
       ],
     },
     docs: {

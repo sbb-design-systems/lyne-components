@@ -8,7 +8,7 @@ import type { SbbFormFieldElement } from '../../form-field.js';
 import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.js';
 import type { SbbAutocompleteGridElement } from '../autocomplete-grid.js';
 
-import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.js';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.js';
 import '../../form-field.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-optgroup.js';
@@ -47,18 +47,16 @@ describe(`sbb-autocomplete-grid-option`, () => {
   });
 
   it('set selected and emits on click', async () => {
-    const selectionChangeSpy = new EventSpy(
-      SbbAutocompleteGridOptionElement.events.selectionChange,
-    );
+    const optionSelectedSpy = new EventSpy(SbbAutocompleteGridOptionElement.events.optionselected);
     const optionOne = element.querySelector<SbbAutocompleteGridOptionElement>(
       'sbb-autocomplete-grid-option',
     )!;
 
-    optionOne.dispatchEvent(new CustomEvent('click'));
+    optionOne.dispatchEvent(new PointerEvent('click'));
     await waitForLitRender(element);
 
     expect(optionOne.selected).to.be.equal(true);
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    expect(optionSelectedSpy.count).to.be.equal(1);
   });
 
   it('highlight on input', async () => {

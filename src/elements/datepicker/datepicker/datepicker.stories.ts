@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,15 +5,18 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
+import type { SbbDateInputElement } from '../../date-input.js';
 
-import { SbbDatepickerElement } from './datepicker.js';
 import readme from './readme.md?raw';
 
+import './datepicker.component.js';
 import '../datepicker-next-day.js';
 import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
@@ -174,15 +175,6 @@ const borderless: InputType = {
   },
 };
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   value,
   form,
@@ -193,7 +185,6 @@ const basicArgTypes: ArgTypes = {
   max,
   wide,
   dateFilter,
-  now,
   'aria-label': ariaLabel,
 };
 
@@ -207,7 +198,6 @@ const basicArgs: Args = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options![0],
-  now: undefined,
   'aria-label': undefined,
 };
 
@@ -235,30 +225,28 @@ const convertMillisecondsToIso8601 = (milliseconds: number): string | typeof not
 
 const changeEventHandler = async (event: Event): Promise<void> => {
   const div = document.createElement('div');
-  div.innerText = `valueAsDate is: ${(event.target as SbbDatepickerElement).valueAsDate}.`;
+  div.innerText = `valueAsDate is: ${(event.target as SbbDateInputElement).valueAsDate}.`;
   document.getElementById('container-value')?.append(div);
 };
 
-const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateResult => {
+const Template = ({ min, max, wide, dateFilter, ...args }: Args): TemplateResult => {
   return html`
     <div style="display: flex; gap: 0.25rem;">
-      <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+      <sbb-datepicker-previous-day input="datepicker-input"></sbb-datepicker-previous-day>
       <sbb-date-input
         ${sbbSpread(args)}
         id="datepicker-input"
         min=${convertMillisecondsToIso8601(min)}
         max=${convertMillisecondsToIso8601(max)}
-      ></sbb-date-input>
-      <sbb-datepicker
-        id="datepicker"
-        input="datepicker-input"
         .dateFilter=${dateFilter}
-        ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        now=${convertMillisecondsToIso8601(now)}
-      ></sbb-datepicker>
-      <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+      ></sbb-date-input>
+      <sbb-datepicker-toggle
+        input="datepicker-input"
+        datepicker="datepicker"
+      ></sbb-datepicker-toggle>
+      <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
+      <sbb-datepicker id="datepicker" input="datepicker-input" ?wide=${wide}></sbb-datepicker>
     </div>
     <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:
@@ -276,7 +264,6 @@ const TemplateFormField = ({
   negative,
   wide,
   dateFilter,
-  now,
   ...args
 }: Args): TemplateResult => {
   return html`
@@ -288,19 +275,16 @@ const TemplateFormField = ({
     >
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-      <sbb-datepicker-next-day></sbb-datepicker-next-day>
-      <sbb-datepicker-toggle></sbb-datepicker-toggle>
       <sbb-date-input
         ${sbbSpread(args)}
         min=${convertMillisecondsToIso8601(min)}
         max=${convertMillisecondsToIso8601(max)}
-      ></sbb-date-input>
-      <sbb-datepicker
         .dateFilter=${dateFilter}
-        ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        now=${convertMillisecondsToIso8601(now)}
-      ></sbb-datepicker>
+      ></sbb-date-input>
+      <sbb-datepicker-toggle></sbb-datepicker-toggle>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      <sbb-datepicker ?wide=${wide}></sbb-datepicker>
     </sbb-form-field>
     <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:
@@ -401,9 +385,6 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-    actions: {
-      handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
-    },
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },

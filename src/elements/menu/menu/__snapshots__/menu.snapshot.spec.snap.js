@@ -48,11 +48,7 @@ snapshots["sbb-menu renders DOM"] =
   >
     Details
   </sbb-menu-button>
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-    role="separator"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
   <sbb-menu-button
     data-action=""

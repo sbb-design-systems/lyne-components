@@ -7,7 +7,7 @@ import { waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbOptionElement } from '../../option.js';
 import { SbbSelectElement } from '../../select.js';
 
-import { SbbFormFieldElement } from './form-field.js';
+import { SbbFormFieldElement } from './form-field.component.js';
 
 describe(`sbb-form-field`, () => {
   describe('with input', () => {
@@ -24,26 +24,26 @@ describe(`sbb-form-field`, () => {
     });
 
     it('should update empty input state', async () => {
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
 
       input.focus();
       await sendKeys({ type: 'v' });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
 
       await sendKeys({ press: 'Backspace' });
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
 
       await sendKeys({ type: 'v' });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
 
       // Clearing value programmatically which does not trigger input event but can be caught by blur event.
       input.value = '';
       input.blur();
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should react to focus state', async () => {
@@ -53,18 +53,18 @@ describe(`sbb-form-field`, () => {
       `);
       input = element.querySelector<HTMLInputElement>('input')!;
 
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
 
       input.focus();
       await sendKeys({ type: 'v' });
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-focused');
+      expect(element).to.have.match(':state(focus)');
 
       input.focus();
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
 
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
     });
 
     it('should assign id to input and reference it in the label', async () => {
@@ -87,10 +87,7 @@ describe(`sbb-form-field`, () => {
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(input)
-        .to.have.attribute('aria-describedby')
-        .match(/^sbb-form-field-error-/);
-      expect(formError.id).to.be.equal(input.getAttribute('aria-describedby'));
+      expect(input.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
@@ -101,26 +98,23 @@ describe(`sbb-form-field`, () => {
       expect(input).not.to.have.attribute('aria-describedby');
     });
 
-    it('should reference sbb-form-error with original aria-describedby', async () => {
-      input.setAttribute('aria-describedby', 'foo');
-      // When adding a sbb-form-error
+    it('should reference sbb-form-error with existing reference', async () => {
+      const description = document.createElement('div');
+      description.textContent = 'Description';
+      element.append(description);
+      input.ariaDescribedByElements = [description];
+
       const formError = document.createElement('sbb-form-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
 
-      // Then input should be linked and original aria-describedby preserved
-      expect(input)
-        .to.have.attribute('aria-describedby')
-        .match(/^foo sbb-form-field-error-/);
-
-      // When removing sbb-form-error
+      expect(input.ariaDescribedByElements).to.have.same.members([description, formError]);
 
       formError.remove();
       await waitForLitRender(element);
 
-      // Then aria-describedby should be set to foo
-      expect(input).to.have.attribute('aria-describedby');
+      expect(input.ariaDescribedByElements).to.have.same.members([description]);
     });
   });
 
@@ -157,26 +151,26 @@ describe(`sbb-form-field`, () => {
     });
 
     it('should update empty input state', async () => {
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
 
       textarea.focus();
       await sendKeys({ type: 'v' });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
 
       await sendKeys({ press: 'Backspace' });
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
 
       await sendKeys({ type: 'v' });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
 
       // Clearing value programmatically which does not trigger input event but can be caught by blur event.
       textarea.value = '';
       textarea.blur();
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should react to focus state', async () => {
@@ -186,18 +180,18 @@ describe(`sbb-form-field`, () => {
       `);
       textarea = element.querySelector<HTMLTextAreaElement>('textarea')!;
 
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
 
       textarea.focus();
       await sendKeys({ type: 'v' });
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-focused');
+      expect(element).to.have.match(':state(focus)');
 
       textarea.focus();
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
 
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
     });
 
     it('should assign id to input and reference it in the label', async () => {
@@ -220,40 +214,15 @@ describe(`sbb-form-field`, () => {
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(textarea)
-        .to.have.attribute('aria-describedby')
-        .match(/^sbb-form-field-error-/);
-      expect(formError.id).to.be.equal(textarea.getAttribute('aria-describedby'));
+      expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
       formError.remove();
       await waitForLitRender(element);
 
-      // Then aria-describedby should be removed
-      expect(textarea).not.to.have.attribute('aria-describedby');
-    });
-
-    it('should reference sbb-form-error with original aria-describedby', async () => {
-      textarea.setAttribute('aria-describedby', 'foo');
-      // When adding a sbb-form-error
-      const formError = document.createElement('sbb-form-error');
-      element.append(formError);
-      await waitForLitRender(element);
-      await nextFrame();
-
-      // Then input should be linked and original aria-describedby preserved
-      expect(textarea)
-        .to.have.attribute('aria-describedby')
-        .match(/^foo sbb-form-field-error-/);
-
-      // When removing sbb-form-error
-
-      formError.remove();
-      await waitForLitRender(element);
-
-      // Then aria-describedby should be set to foo
-      expect(textarea).to.have.attribute('aria-describedby');
+      // Then ariaDescribedByElements should be removed
+      expect(textarea.ariaDescribedByElements).to.be.null;
     });
   });
 
@@ -278,19 +247,20 @@ describe(`sbb-form-field`, () => {
     });
 
     it('should react to focus state', async () => {
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
 
       select.focus();
       await waitForLitRender(element);
-      expect(element).to.have.attribute('data-input-focused');
+      expect(element).to.have.match(':state(focus)');
 
       select.blur();
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
     });
 
     it('should open select on form field click', async () => {
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
+      expect(select).to.not.have.attribute('data-state', 'opened');
 
       const label = element.querySelector('label')!;
       label.click();
@@ -303,20 +273,20 @@ describe(`sbb-form-field`, () => {
       select.toggleAttribute('readonly', true);
       await waitForLitRender(element);
 
-      expect(element).not.to.have.attribute('data-input-focused');
+      expect(element).not.to.have.match(':state(focus)');
 
       const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-input-focused');
+      expect(element).to.have.match(':state(focus)');
     });
 
-    it('should assign id to label and reference it in the sbb-select', async () => {
+    it('should assign id to sbb-select and reference it via label', async () => {
       const label = element.querySelector('label')!;
 
-      expect(label.id).to.match(/^sbb-form-field-label-/);
-      expect(select).to.have.attribute('aria-labelledby', label.id);
+      expect(label.htmlFor).to.not.be.empty;
+      expect(label.htmlFor).to.equal(select.id);
     });
   });
 
@@ -331,7 +301,7 @@ describe(`sbb-form-field`, () => {
         </sbb-form-field>
       `);
 
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should not read native empty select state', async () => {
@@ -343,7 +313,7 @@ describe(`sbb-form-field`, () => {
           </select>
         </sbb-form-field>
       `);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
     });
 
     it('should never be empty if input type is date', async () => {
@@ -351,7 +321,7 @@ describe(`sbb-form-field`, () => {
         html`<sbb-form-field floating-label><input type="date" /></sbb-form-field>`,
       );
 
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
     });
 
     it('should read sbb-select empty state', async () => {
@@ -364,7 +334,7 @@ describe(`sbb-form-field`, () => {
         </sbb-form-field>
       `);
 
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should not read sbb-select empty state', async () => {
@@ -377,7 +347,7 @@ describe(`sbb-form-field`, () => {
         </sbb-form-field>
       `);
 
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
     });
 
     it('should update floating label after clearing', async () => {
@@ -392,7 +362,7 @@ describe(`sbb-form-field`, () => {
       element.querySelector<SbbSelectElement>('sbb-select')!.value = '';
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should update floating label when resetting form', async () => {
@@ -407,13 +377,13 @@ describe(`sbb-form-field`, () => {
       form.querySelector('input')!.focus();
       await sendKeys({ type: 'test' });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
 
       form.reset();
 
       // This is necessary to await for the reset event to be propagated
-      await waitForCondition(() => element.hasAttribute('data-input-empty'));
-      expect(element).to.have.attribute('data-input-empty');
+      await waitForCondition(() => element.matches(':state(empty)'));
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should reset floating label when changing value programmatically', async () => {
@@ -427,14 +397,14 @@ describe(`sbb-form-field`, () => {
       input.focus();
       await sendKeys({ type: 'test' });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-input-empty');
+      expect(element).not.to.have.match(':state(empty)');
 
       // When setting value to empty
       input.value = '';
       await waitForLitRender(element);
 
       // Then the empty state is updated
-      expect(element).to.have.attribute('data-input-empty');
+      expect(element).to.have.match(':state(empty)');
     });
 
     it('should unpatch on input removal', async () => {

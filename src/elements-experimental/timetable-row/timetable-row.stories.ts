@@ -1,8 +1,8 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
@@ -26,8 +26,8 @@ import {
   skippedArrivalStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
-} from './timetable-row.sample-data.js';
-import './timetable-row.js';
+} from './timetable-row.sample-data.private.js';
+import './timetable-row.component.js';
 
 const cardActionLabel: InputType = {
   control: {
@@ -124,7 +124,7 @@ const Template = ({ trip, price, boarding, now, ...args }: Args): TemplateResult
     .trip=${trip}
     .price=${price}
     .boarding=${boarding}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   ></sbb-timetable-row>`;
 

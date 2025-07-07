@@ -1,3 +1,4 @@
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.component.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
@@ -9,7 +10,6 @@ import style from './fullscreen-diff.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.js';
 
 export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 
@@ -25,7 +25,7 @@ class FullscreenDiff extends LitElement {
 
   @property() public accessor selectedFile: DiffFileType = 'failedFile';
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     if (!this.screenshotFiles) {
       return html``;
     }

@@ -70,23 +70,35 @@ The `sbb-popover` automatically calculates where it should place itself, based o
 ## Accessibility
 
 As the popover opens, the focus will automatically be set to the first focusable item within the component.
-If the close button is not hidden, it's the first element and therefore gets focused.
+If the close button is not hidden, it's the first element and therefore gets focused (unless manually specified, see below).
 
 Overlays should always contain a heading level 2 title. It can be visually hidden if necessary.
+
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-popover>
+  <sbb-link href="#">Link</sbb-link>
+  <sbb-link sbb-focus-initial href="#">Link 2</sbb-link>
+</sbb-popover>
+```
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                            | Default | Description                                                                                                     |
-| ------------------------- | --------------------------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                        | `''`    | This will be forwarded as aria-label to the close button element.                                               |
-| `closeDelay`              | `close-delay`               | public  | `number`                        | `0`     | Close the popover after a certain delay.                                                                        |
-| `hideCloseButton`         | `hide-close-button`         | public  | `boolean`                       | `false` | Whether the close button should be hidden.                                                                      |
-| `hoverTrigger`            | `hover-trigger`             | public  | `boolean`                       | `false` | Whether the popover should be triggered on hover.                                                               |
-| `isOpen`                  | -                           | public  | `boolean`                       |         | Whether the element is open.                                                                                    |
-| `openDelay`               | `open-delay`                | public  | `number`                        | `0`     | Open the popover after a certain delay.                                                                         |
-| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. Accepts both a string (id of an element) or an HTML element. |
+| Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                      |
+| ------------------------- | --------------------------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the close button element.                                |
+| `closeDelay`              | `close-delay`               | public  | `number`              | `0`     | Close the popover after a certain delay.                                                         |
+| `hideCloseButton`         | `hide-close-button`         | public  | `boolean`             | `false` | Whether the close button should be hidden.                                                       |
+| `hoverTrigger`            | `hover-trigger`             | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                |
+| `isOpen`                  | -                           | public  | `boolean`             |         | Whether the element is open.                                                                     |
+| `openDelay`               | `open-delay`                | public  | `number`              | `0`     | Open the popover after a certain delay.                                                          |
+| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference. |
 
 ## Methods
 
@@ -97,12 +109,12 @@ Overlays should always contain a heading level 2 title. It can be visually hidde
 
 ## Events
 
-| Name        | Type                                        | Description                                                                      | Inherited From          |
-| ----------- | ------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                                                | Description                                                                  | Inherited From          |
+| ------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`                                             | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`                                             | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

@@ -10,9 +10,9 @@ import {
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
 
-import type { SbbFlipCardElement } from './flip-card.js';
+import type { SbbFlipCardElement } from './flip-card.component.js';
 
-import './flip-card.js';
+import './flip-card.component.js';
 import '../flip-card-summary.js';
 import '../flip-card-details.js';
 import '../../chip-label.js';
@@ -94,7 +94,10 @@ describe(`sbb-flip-card`, () => {
                 </sbb-flip-card>
               `);
 
-              await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+              );
             }),
           );
         }
@@ -107,12 +110,12 @@ describe(`sbb-flip-card`, () => {
         await setup.withFixture(
           html`<sbb-flip-card> ${content('Summary', 'after', false)}</sbb-flip-card>`,
         );
-        setup.withPostSetupAction(() => {
+        setup.withPostSetupAction(async () => {
           const flipCard =
             setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
           flipCard.click();
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         });
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -126,7 +129,9 @@ describe(`sbb-flip-card`, () => {
             )}</sbb-flip-card
           >`,
         );
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -159,12 +164,12 @@ describe(`sbb-flip-card`, () => {
                 </sbb-flip-card>
               </div>`,
             );
-            setup.withPostSetupAction(() => {
+            setup.withPostSetupAction(async () => {
               const flipCard =
                 setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
               flipCard.click();
+              await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
             });
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
           }),
         );
 
@@ -176,7 +181,10 @@ describe(`sbb-flip-card`, () => {
                 ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
               </sbb-flip-card>`,
             );
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
           }),
         );
 
@@ -194,7 +202,12 @@ describe(`sbb-flip-card`, () => {
                   )}
                 </sbb-flip-card>`,
               );
-              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(
+                    setup.snapshotElement.querySelector(testCase.imgSelector)!,
+                  ),
+              );
             }),
           );
         }
@@ -210,7 +223,10 @@ describe(`sbb-flip-card`, () => {
               forcedColors: true,
             });
 
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
           }),
         );
       }

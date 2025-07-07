@@ -6,7 +6,6 @@ snapshots["sbb-step-label renders DOM"] =
   data-action=""
   data-button=""
   id="sbb-step-label-0"
-  role="tab"
   slot="step-label"
   tabindex="-1"
 >
@@ -35,7 +34,6 @@ snapshots["sbb-step-label renders with icon DOM"] =
   data-button=""
   icon-name="tick-small"
   id="sbb-step-label-2"
-  role="tab"
   slot="step-label"
   tabindex="-1"
 >
@@ -49,10 +47,8 @@ snapshots["sbb-step-label renders with icon Shadow DOM"] =
   <span class="sbb-step-label__prefix">
     <slot name="icon">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="tick-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -72,7 +68,6 @@ snapshots["sbb-step-label renders disabled DOM"] =
   data-disabled=""
   disabled=""
   id="sbb-step-label-4"
-  role="tab"
   slot="step-label"
   tabindex="-1"
 >

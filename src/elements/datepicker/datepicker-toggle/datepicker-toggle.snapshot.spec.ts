@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
 
-import type { SbbDatepickerToggleElement } from './datepicker-toggle.js';
+import type { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
 
-import './datepicker-toggle.js';
+import './datepicker-toggle.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field.js';
@@ -36,9 +36,9 @@ describe(`sbb-datepicker-toggle`, () => {
       beforeEach(async () => {
         page = await fixture(html`
           <sbb-form-field>
+            <sbb-date-input></sbb-date-input>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker></sbb-datepicker>
-            <sbb-date-input></sbb-date-input>
           </sbb-form-field>
         `);
         element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -60,9 +60,9 @@ describe(`sbb-datepicker-toggle`, () => {
       beforeEach(async () => {
         page = await fixture(html`
           <sbb-form-field>
+            <sbb-date-input disabled></sbb-date-input>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker></sbb-datepicker>
-            <sbb-date-input disabled></sbb-date-input>
           </sbb-form-field>
         `);
         element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
@@ -84,9 +84,9 @@ describe(`sbb-datepicker-toggle`, () => {
       beforeEach(async () => {
         page = await fixture(html`
           <sbb-form-field>
+            <sbb-date-input min="2020-09-13" max="2023-11-14"></sbb-date-input>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker wide></sbb-datepicker>
-            <sbb-date-input min="2020-09-13" max="2023-11-14"></sbb-date-input>
           </sbb-form-field>
         `);
         element = page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;

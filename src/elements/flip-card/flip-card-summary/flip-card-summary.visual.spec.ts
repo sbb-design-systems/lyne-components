@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
 
-import './flip-card-summary.js';
+import './flip-card-summary.component.js';
 import '../../flip-card.js';
 import '../../title.js';
 import '../../image.js';
@@ -57,7 +57,10 @@ describe(`sbb-flip-card-summary`, () => {
                 </div>
               `);
 
-              await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!),
+              );
             }),
           );
         }

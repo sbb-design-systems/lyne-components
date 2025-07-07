@@ -1,7 +1,7 @@
 name: Bug Report
 description: File a bug report
 title: '[Bug]: '
-labels: 'type: bug 🐛'
+type: Bug
 assignees:
   - octocat
 body:
@@ -110,7 +110,11 @@ body:
     id: steps
     attributes:
       label: Steps to reproduce the issue
-      description: Also tell us, what did you expect to happen?
+      description: |
+        Also tell us, what did you expect to happen? We provide reproduction templates at Stackblitz.<br>
+        [Stackblitz starter for @sbb-esta/lyne-elements](https://stackblitz.com/edit/lyne-elements-starter?file=src%2Fmain.ts)<br>
+        [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts)<br>
+        [Stackblitz starter for @sbb-esta/lyne-react](https://stackblitz.com/edit/lyne-react-starter?file=src%2FApp.tsx)
       placeholder: Tell us what you see!
       value: |
         1. Step one

@@ -6,6 +6,7 @@ snapshots["sbb-header-button renders DOM"] =
   aria-label="a11y label"
   data-action=""
   data-button=""
+  data-slot-names="unnamed"
   expand-from="zero"
   icon-name="pie-small"
   name="test"
@@ -24,10 +25,8 @@ snapshots["sbb-header-button renders Shadow DOM"] =
     <span class="sbb-header-action__icon">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="pie-small"
-          role="img"
         >
         </sbb-icon>
       </slot>

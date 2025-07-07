@@ -6,7 +6,6 @@ snapshots["sbb-paginator renders DOM"] =
   length="4"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -28,9 +27,7 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -73,7 +70,6 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
   length="50"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -95,9 +91,7 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -190,7 +184,6 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
   page-index="10"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -212,9 +205,7 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -307,7 +298,6 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
   page-index="7"
   page-size="4"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -329,9 +319,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -428,7 +416,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox DOM"] =
   length="50"
   page-size="10"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -450,9 +437,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -533,7 +518,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
     </label>
     <sbb-form-field
       borderless=""
-      data-input-type="sbb-select"
       data-slot-names="unnamed"
       error-space="none"
       size="m"
@@ -546,9 +530,8 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         aria-label="Items per page"
         aria-owns="sbb-select-2"
         aria-required="false"
-        class="sbb-screen-reader-only"
+        class="sbb-screen-reader-only sbb-select-trigger"
         role="combobox"
-        style="top: 0px; height: 48px; width: 56px;"
         tabindex="0"
       >
         10
@@ -557,6 +540,7 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"
+        size="m"
         value="10"
       >
         <sbb-option
@@ -565,7 +549,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-3"
-          role="option"
           selected=""
           value="10"
         >
@@ -577,7 +560,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-4"
-          role="option"
           value="25"
         >
           25
@@ -588,7 +570,6 @@ snapshots["sbb-paginator renders with options Chrome-Firefox Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-5"
-          role="option"
           value="50"
         >
           50
@@ -608,7 +589,6 @@ snapshots["sbb-paginator renders with options Safari DOM"] =
   length="50"
   page-size="10"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-paginator>
@@ -630,9 +610,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
       >
       </sbb-mini-button>
       <sbb-divider
-        aria-orientation="vertical"
         orientation="vertical"
-        role="separator"
         slot="li-1"
       >
       </sbb-divider>
@@ -713,7 +691,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
     </label>
     <sbb-form-field
       borderless=""
-      data-input-type="sbb-select"
       data-slot-names="unnamed"
       error-space="none"
       size="m"
@@ -726,9 +703,8 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         aria-label="Items per page"
         aria-owns="sbb-select-2"
         aria-required="false"
-        class="sbb-screen-reader-only"
+        class="sbb-screen-reader-only sbb-select-trigger"
         role="combobox"
-        style="top: 0px; height: 48px; width: 56px;"
         tabindex="0"
       >
         10
@@ -737,7 +713,7 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
         data-option-panel-origin-borderless=""
         data-state="closed"
         id="select"
-        role="listbox"
+        size="m"
         value="10"
       >
         <sbb-option
@@ -746,7 +722,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-3"
-          role="option"
           selected=""
           value="10"
         >
@@ -758,7 +733,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-4"
-          role="option"
           value="25"
         >
           25
@@ -769,7 +743,6 @@ snapshots["sbb-paginator renders with options Safari Shadow DOM"] =
           data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-5"
-          role="option"
           value="50"
         >
           50

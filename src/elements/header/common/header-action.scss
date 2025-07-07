@@ -48,7 +48,7 @@
 }
 
 @include sbb.hover-mq($hover: true) {
-  :host(:hover:not(:active, [data-active], [aria-expanded='true'])) {
+  :host(:hover:not(:active, [data-active])) {
     --sbb-header-action-background-color: var(--sbb-color-milk);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
@@ -79,6 +79,13 @@
   @include sbb.if-forced-colors {
     --sbb-header-action-color: ButtonText;
   }
+}
+
+// If there is no icon and the action is the first in the header, the left offset
+// must be changed (other value than for the icon only variant) to align the text with the container.
+// The value corresponds to the padding of the header action itself.
+:host(:not([data-slot-names~='icon'], [icon-name])) {
+  --sbb-header-first-item-margin-inline-start: var(--_sbb-header-first-item-padding-shift);
 }
 
 .sbb-action-base {
@@ -116,11 +123,10 @@
     }
   }
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  :host(:focus-visible) &,
   // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+  &:focus-visible {
     &::before {
       @include sbb.focus-outline;
     }
@@ -160,6 +166,10 @@
   min-width: var(--sbb-header-action-icon-dimension);
   min-height: var(--sbb-header-action-icon-dimension);
   line-height: 0;
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
+  }
 }
 
 .sbb-header-action__text {
@@ -172,7 +182,7 @@
 // TODO: reevaluate this once 'CSS container queries' is supported
 // https://caniuse.com/css-container-queries-style
 @each $breakpoint, $value in sbb.$mq-breakpoints {
-  :host([expand-from='#{$breakpoint}']) {
+  :host([expand-from='#{$breakpoint}']:is([data-slot-names~='icon'], [icon-name])) {
     @include sbb.mq($to: #{$breakpoint}) {
       // The variable is assigned to the property in the sbb-header component if it is
       // the first element in the header and needs left offset correction (see sbb-header.scss).
@@ -199,4 +209,10 @@
       }
     }
   }
+}
+
+::slotted([slot='icon']:is(sbb-image, img)) {
+  width: var(--sbb-header-action-icon-dimension);
+  height: var(--sbb-header-action-icon-dimension);
+  border-radius: var(--sbb-border-radius-infinity);
 }

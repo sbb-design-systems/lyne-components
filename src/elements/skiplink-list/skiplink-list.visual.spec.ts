@@ -2,7 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
 
-import './skiplink-list.js';
+import './skiplink-list.component.js';
 import '../link/block-link.js';
 
 const template = (title?: string): TemplateResult => html`
@@ -23,6 +23,24 @@ describe(`sbb-skiplink-list`, () => {
         }),
       );
     }
+
+    describe('with one link', () => {
+      for (const state of [visualDiffDefault, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-skiplink-list>
+                  <sbb-block-link href="#">Link 1</sbb-block-link>
+                </sbb-skiplink-list>
+              `,
+              { minHeight: '100px' },
+            );
+          }),
+        );
+      }
+    });
 
     it(
       `title content`,

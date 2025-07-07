@@ -20,7 +20,7 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
     slot="action"
     tabindex="0"
   >
-    Departure: 11:08,   Train,  IR 37,  Direction Basel SBB,       Arrival: 12:13,   Travel time 1 Hour 15 Minutes,
+    Departure: 11:08, Train, IR 37, Direction Basel SBB, Arrival: 12:13, Travel time 1 Hour 15 Minutes,
   </sbb-card-button>
   <div
     class="sbb-timetable__row"
@@ -33,11 +33,9 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:train-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -46,10 +44,8 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
         </span>
         <span class="sbb-timetable__row-transport">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="ir-37"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -99,7 +95,7 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
     slot="action"
     tabindex="0"
   >
-    Departure: 16:30,  on Pl. 4,  Train,  IR 35,  Direction Chur,       Arrival: 17:06,   Travel time 41 Minutes,  2 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
+    Departure: 16:30, on Pl. 4, Train, IR 35, Direction Chur, Arrival: 17:06, Travel time 41 Minutes, 2 changes, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
     class="sbb-timetable__row"
@@ -112,11 +108,9 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:train-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -125,10 +119,8 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
         </span>
         <span class="sbb-timetable__row-transport">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="ic-35"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -197,7 +189,7 @@ snapshots["sbb-timetable-row renders bus strip Shadow DOM"] =
     slot="action"
     tabindex="0"
   >
-    Departure: 16:30,  on Stand 4,  Bus,  B 19,  Direction Spiegel, Blinzern,       Arrival: 17:06,   Travel time 41 Minutes,  2 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
+    Departure: 16:30, on Stand 4, Bus, B 19, Direction Spiegel, Blinzern, Arrival: 17:06, Travel time 41 Minutes, 2 changes, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
     class="sbb-timetable__row"
@@ -210,11 +202,9 @@ snapshots["sbb-timetable-row renders bus strip Shadow DOM"] =
       <div class="sbb-timetable__row-details">
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
-            aria-hidden="true"
             class="sbb-timetable__row-transport-icon"
             data-namespace="picto"
             name="picto:bus-right"
-            role="img"
           >
           </sbb-icon>
           <span class="sbb-screen-reader-only">
@@ -288,7 +278,6 @@ snapshots["sbb-timetable-row renders loading state Shadow DOM"] =
   <sbb-card-badge
     class="sbb-loading__badge"
     color="charcoal"
-    role="text"
     slot="badge"
   >
   </sbb-card-badge>
@@ -411,4 +400,92 @@ snapshots["sbb-timetable-row renders defaultTrip A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-timetable-row renders defaultTrip A11y tree Firefox */
+
+snapshots["sbb-timetable-row renders trip with access leg DOM"] = 
+`<sbb-timetable-row role="rowgroup">
+</sbb-timetable-row>
+`;
+/* end snapshot sbb-timetable-row renders trip with access leg DOM */
+
+snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] = 
+`<sbb-card
+  color="white"
+  data-action-role="button"
+  data-has-action=""
+  size="l"
+>
+  <sbb-card-button
+    data-action=""
+    data-button=""
+    slot="action"
+    tabindex="0"
+  >
+    Departure: 16:30, on platform 4, Bus, B 19, Direction Spiegel, Blinzern, Arrival: 17:06, Travel time 41 Minutes, 1 change, First Class Low to average occupancy expected. Second Class High occupancy expected.
+  </sbb-card-button>
+  <div
+    class="sbb-timetable__row"
+    role="row"
+  >
+    <div
+      class="sbb-timetable__row-header"
+      role="gridcell"
+    >
+      <div class="sbb-timetable__row-details">
+        <span class="sbb-timetable__row-transport-wrapper">
+          <sbb-icon
+            class="sbb-timetable__row-transport-icon"
+            data-namespace="picto"
+            name="picto:bus-right"
+          >
+          </sbb-icon>
+          <span class="sbb-screen-reader-only">
+            Bus
+          </span>
+        </span>
+        <span class="sbb-timetable__row-transportnumber">
+          B 19
+        </span>
+      </div>
+      <p>
+        Direction Spiegel, Blinzern
+      </p>
+    </div>
+    <sbb-pearl-chain-time role="gridcell">
+    </sbb-pearl-chain-time>
+    <div
+      class="sbb-timetable__row-footer"
+      role="gridcell"
+    >
+      <span>
+        <span class="sbb-screen-reader-only">
+          Departure
+        </span>
+        <span class="sbb-timetable__row--quay">
+          <span class="sbb-screen-reader-only">
+            on platform
+          </span>
+          <span
+            aria-hidden="true"
+            class="sbb-timetable__row--quay-type"
+          >
+            platform
+          </span>
+        </span>
+        4
+      </span>
+      <sbb-timetable-occupancy>
+      </sbb-timetable-occupancy>
+      <time>
+        <span class="sbb-screen-reader-only">
+          Travel time 41 Minutes
+        </span>
+        <span aria-hidden="true">
+          41 min
+        </span>
+      </time>
+    </div>
+  </div>
+</sbb-card>
+`;
+/* end snapshot sbb-timetable-row renders trip with access leg Shadow DOM */
 

@@ -1,13 +1,14 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
   describeViewports,
+  visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './date-input.js';
+import './date-input.component.js';
 import '../form-field/form-field.js';
 
 describe('sbb-date-input', () => {
@@ -17,6 +18,12 @@ describe('sbb-date-input', () => {
     disabled: [false, true],
     negative: [false, true],
     forcedColors: [false, true],
+  };
+
+  const sizeCases = {
+    size: ['s', 'm', 'l'],
+    label: [undefined, 'Label'],
+    floatingLabel: [false, true],
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
@@ -76,6 +83,20 @@ describe('sbb-date-input', () => {
           );
         }
       });
+    });
+
+    describeEach(sizeCases, ({ size, label, floatingLabel }) => {
+      it(
+        ``,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-form-field size=${size} ?floating-label=${floatingLabel}>
+              ${label ? html`<label>${label}</label>` : nothing}
+              <sbb-date-input value="2024-12-11"></sbb-date-input>
+            </sbb-form-field>`,
+          );
+        }),
+      );
     });
   });
 });

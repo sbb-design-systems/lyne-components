@@ -7,7 +7,7 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
   id="sbb-autocomplete-1"
   origin="origin"
   popover="manual"
-  role="listbox"
+  size="m"
   trigger="trigger"
 >
   <sbb-option
@@ -15,7 +15,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     1
@@ -25,7 +24,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     2
@@ -68,8 +66,6 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
   data-slot-names="unnamed"
   error-space="none"
   size="m"
@@ -88,14 +84,13 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
     data-state="closed"
     id="sbb-autocomplete-3"
     popover="manual"
-    role="listbox"
+    size="m"
   >
     <sbb-option
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-4"
-      role="option"
       value="1"
     >
       1
@@ -105,7 +100,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
       data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-5"
-      role="option"
       value="2"
     >
       2
@@ -156,6 +150,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
   data-state="closed"
   origin="origin"
   popover="manual"
+  size="m"
   trigger="trigger"
 >
   <sbb-option
@@ -163,7 +158,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     1
@@ -173,7 +167,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     2
@@ -220,8 +213,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
   data-slot-names="unnamed"
   error-space="none"
   size="m"
@@ -239,13 +230,13 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
   <sbb-autocomplete
     data-state="closed"
     popover="manual"
+    size="m"
   >
     <sbb-option
       aria-selected="false"
       data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-4"
-      role="option"
       value="1"
     >
       1
@@ -255,7 +246,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
       data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-5"
-      role="option"
       value="2"
     >
       2

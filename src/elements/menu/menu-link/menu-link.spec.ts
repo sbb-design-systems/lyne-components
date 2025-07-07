@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbMenuLinkElement } from './menu-link.js';
+import { SbbMenuLinkElement } from './menu-link.component.js';
 
 describe(`sbb-menu-link`, () => {
   let element: SbbMenuLinkElement;
@@ -37,7 +37,7 @@ describe(`sbb-menu-link`, () => {
       const clickSpy = new EventSpy('click');
 
       element.dispatchEvent(
-        new CustomEvent('click', { bubbles: true, cancelable: true, composed: true }),
+        new PointerEvent('click', { bubbles: true, cancelable: true, composed: true }),
       );
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });

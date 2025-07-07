@@ -55,7 +55,7 @@ export function setAriaComboBoxAttributes(
 /**
  * Remove aria attributes from trigger elements.
  */
-export function removeAriaComboBoxAttributes(trigger?: HTMLElement): void {
+export function removeAriaComboBoxAttributes(trigger?: HTMLElement | null): void {
   if (!trigger) {
     return;
   }

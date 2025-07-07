@@ -156,7 +156,7 @@ for (const manifestPath of manifestFilePaths) {
       .forEach((declaration) => {
         ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
           (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort(
-            (a, b) => a.name.localeCompare(b.name),
+            (a, b) => (a.name ?? '').localeCompare(b.name ?? ''),
           ),
         );
         declaration.members.forEach((member) => {

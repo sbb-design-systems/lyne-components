@@ -4,14 +4,15 @@ import { html } from 'lit/static-html.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../../link/link.js';
-import './alert.js';
+import './alert.component.js';
+import '../../title.js';
 
 describe(`sbb-alert`, () => {
   const defaultArgs = {
     size: 'm',
     readonly: false,
     icon: 'info',
-    titleContent: 'Interruption between Berne and Olten',
+    title: 'Interruption between Berne and Olten',
     href: 'https://www.sbb.ch' as string | undefined,
   };
 
@@ -23,10 +24,11 @@ describe(`sbb-alert`, () => {
     size,
     readonly,
     icon,
-    titleContent,
+    title,
     href,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-alert size=${size} ?readonly=${readonly} icon-name=${icon} title-content=${titleContent}>
+    <sbb-alert size=${size} ?readonly=${readonly} icon-name=${icon}>
+      <sbb-title>${title}</sbb-title>
       ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>
   `;
@@ -61,7 +63,7 @@ describe(`sbb-alert`, () => {
         await setup.withFixture(
           html`<sbb-alert>
             <sbb-icon name="disruption" slot="icon"></sbb-icon>
-            <span slot="title">Slotted title</span>
+            <sbb-title>Slotted title</sbb-title>
             ${contentSlotText}
           </sbb-alert>`,
         );

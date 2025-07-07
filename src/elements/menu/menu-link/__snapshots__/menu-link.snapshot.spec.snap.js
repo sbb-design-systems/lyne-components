@@ -40,10 +40,9 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
 `;
 /* end snapshot sbb-menu-link renders Shadow DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount DOM"] = 
+snapshots["sbb-menu-link renders component with icon DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
-  amount="123456"
   data-action=""
   data-link=""
   data-slot-names="unnamed"
@@ -54,9 +53,9 @@ snapshots["sbb-menu-link renders component with icon and amount DOM"] =
   Action
 </sbb-menu-link>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount DOM */
+/* end snapshot sbb-menu-link renders component with icon DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] = 
+snapshots["sbb-menu-link renders component with icon Shadow DOM"] = 
 `<a
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
@@ -68,10 +67,8 @@ snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
     <span class="sbb-menu-action__icon">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="menu-small"
-          role="img"
         >
         </sbb-icon>
       </slot>
@@ -80,18 +77,15 @@ snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
       <slot>
       </slot>
     </span>
-    <span class="sbb-menu-action__amount">
-      123456
-    </span>
   </span>
   <sbb-screen-reader-only>
     . Link target opens in a new window.
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount Shadow DOM */
+/* end snapshot sbb-menu-link renders component with icon Shadow DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome"] = 
+snapshots["sbb-menu-link renders component with icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -105,9 +99,9 @@ snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome
 }
 </p>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Chrome */
+/* end snapshot sbb-menu-link renders component with icon A11y tree Chrome */
 
-snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefox"] = 
+snapshots["sbb-menu-link renders component with icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -122,5 +116,5 @@ snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefo
 }
 </p>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Firefox */
+/* end snapshot sbb-menu-link renders component with icon A11y tree Firefox */
 

@@ -1,7 +1,7 @@
 @use '../core/styles' as sbb;
 
 :host {
-  display: inline-block;
+  display: inline-flex;
 
   // With sbb-form-field[width="collapsed"], the default min width of a
   // an inline element is basically nothing (except potentially the placeholder).
@@ -9,6 +9,7 @@
   min-width: #{sbb.px-to-rem-build(150)};
   max-width: 100%;
   cursor: text;
+  align-items: center;
 
   @include sbb.if-forced-colors {
     color: FieldText;

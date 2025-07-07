@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
-import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
 
 import '../breadcrumb.js';
 
@@ -107,7 +107,7 @@ describe(`sbb-breadcrumb-group`, () => {
       expect(li.length).to.be.equal(3);
       expect(li[1]).dom.to.be.equal(`
         <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
-          <sbb-icon aria-hidden="true" class="sbb-breadcrumb-group__divider-icon" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
+          <sbb-icon class="sbb-breadcrumb-group__divider-icon" data-namespace="default" name="chevron-small-right-small"></sbb-icon>
           <button aria-expanded="false" aria-label="Show more breadcrumbs" id="sbb-breadcrumb-ellipsis" type="button">
             ...
           </button>

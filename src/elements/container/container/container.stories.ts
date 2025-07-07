@@ -1,6 +1,6 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import sampleImages from '../../core/images.js';
@@ -9,7 +9,7 @@ import '../../button/secondary-button.js';
 import '../../card.js';
 import '../../image.js';
 import '../../title.js';
-import './container.js';
+import './container.component.js';
 
 import readme from './readme.md?raw';
 

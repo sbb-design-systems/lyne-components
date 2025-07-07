@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,15 +5,17 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import type { SbbFormErrorElement } from '../form-error.js';
 import { SbbOptionElement } from '../option.js';
 
-import { SbbAutocompleteElement } from './autocomplete.js';
+import { SbbAutocompleteElement } from './autocomplete.component.js';
 import readme from './readme.md?raw';
 
 import '../form-field.js';
@@ -49,6 +49,15 @@ const readonly: InputType = {
 };
 
 const preserveIconSpace: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
+const autoActiveFirstOption: InputType = {
   control: {
     type: 'boolean',
   },
@@ -118,6 +127,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   readonly,
   preserveIconSpace,
+  autoActiveFirstOption,
 
   // Option args
   iconName,
@@ -145,6 +155,7 @@ const defaultArgs: Args = {
   // Option args
   iconName: 'clock-small',
   preserveIconSpace: true,
+  autoActiveFirstOption: false,
   disableOption: false,
 
   // Form field args
@@ -225,7 +236,10 @@ const Template = (args: Args): TemplateResult => html`
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
     </sbb-form-field>
@@ -244,7 +258,10 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
@@ -266,7 +283,10 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <sbb-autocomplete
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+      >
         <sbb-option value="Option 1">
           <sbb-icon
             slot="icon"
@@ -317,7 +337,10 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           }}
         />
 
-        <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+        <sbb-autocomplete
+          ?preserve-icon-space=${args.preserveIconSpace}
+          ?auto-active-first-option=${args.autoActiveFirstOption}
+        >
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
             ${createOptionGroup1(args.iconName, args.disableOption)}
           </sbb-optgroup>
@@ -458,12 +481,12 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAutocompleteElement.events.willOpen,
-        SbbAutocompleteElement.events.didOpen,
-        SbbAutocompleteElement.events.didClose,
-        SbbAutocompleteElement.events.willClose,
+        SbbAutocompleteElement.events.beforeopen,
+        SbbAutocompleteElement.events.open,
+        SbbAutocompleteElement.events.close,
+        SbbAutocompleteElement.events.beforeclose,
         'change',
-        SbbOptionElement.events.optionSelected,
+        SbbOptionElement.events.optionselected,
       ],
     },
     backgroundColor: (context: StoryContext) =>

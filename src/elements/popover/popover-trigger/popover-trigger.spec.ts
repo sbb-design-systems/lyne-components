@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbPopoverElement } from '../popover.js';
 
-import { SbbPopoverTriggerElement } from './popover-trigger.js';
+import { SbbPopoverTriggerElement } from './popover-trigger.component.js';
 
 import '../../icon.js';
 import '../../link/link.js';
@@ -33,28 +33,28 @@ describe(`sbb-popover-trigger`, () => {
   });
 
   it('shows popover on popover-trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, popover);
-    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen, popover);
+    const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, popover);
+    const openSpy = new EventSpy(SbbPopoverElement.events.open, popover);
 
     element.click();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(popover).to.have.attribute('data-state', 'opened');
   });
 
   it("doesn't show popover on disabled popover-trigger click", async () => {
-    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen, popover);
+    const beforeOpenSpy = new EventSpy(SbbPopoverElement.events.beforeopen, popover);
     element.disabled = true;
     await waitForLitRender(element);
 
     element.click();
     await waitForLitRender(element);
 
-    expect(willOpenEventSpy.count).to.be.equal(0);
+    expect(beforeOpenSpy.count).to.be.equal(0);
     expect(popover).to.have.attribute('data-state', 'closed');
   });
 

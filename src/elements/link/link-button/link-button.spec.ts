@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbLinkButtonElement } from './link-button.js';
+import { SbbLinkButtonElement } from './link-button.component.js';
 
 describe(`sbb-link-button`, () => {
   let element: SbbLinkButtonElement;
@@ -43,7 +43,7 @@ describe(`sbb-link-button`, () => {
 
       const clickSpy = new EventSpy('click');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(clickSpy.count).not.to.be.greaterThan(0);

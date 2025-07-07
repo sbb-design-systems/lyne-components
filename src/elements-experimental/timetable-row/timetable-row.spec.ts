@@ -12,8 +12,8 @@ import {
   getHimIcon,
   SbbTimetableRowElement,
   sortSituation,
-} from './timetable-row.js';
-import { partiallyCancelled, walkTimeTrip } from './timetable-row.sample-data.js';
+} from './timetable-row.component.js';
+import { partiallyCancelled, walkTimeTrip } from './timetable-row.sample-data.private.js';
 
 describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;

@@ -5,12 +5,11 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
 `<sbb-dialog
   backdrop="opaque"
   data-state="opened"
+  id="sbb-dialog-0"
   popover="manual"
 >
   <sbb-dialog-title
-    aria-level="2"
     level="2"
-    role="heading"
     visual-level="3"
   >
     Title
@@ -24,12 +23,13 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
 
 snapshots["sbb-dialog renders an open dialog Shadow DOM"] = 
 `<div class="sbb-dialog__container">
-  <div
-    class="sbb-dialog"
-    id="sbb-dialog-1"
-  >
+  <div class="sbb-dialog">
     <div class="sbb-dialog__wrapper">
-      <slot>
+      <div class="sbb-dialog-content-container">
+        <slot>
+        </slot>
+      </div>
+      <slot name="actions">
       </slot>
     </div>
   </div>
@@ -46,13 +46,9 @@ snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
+      "role": "heading",
+      "name": "Title",
+      "level": 2
     },
     {
       "role": "text",
@@ -75,13 +71,9 @@ snapshots["sbb-dialog renders an open dialog A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text leaf",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
+      "role": "heading",
+      "name": "Title",
+      "level": 2
     },
     {
       "role": "text leaf",

@@ -7,7 +7,7 @@ import type { SbbExpansionPanelContentElement } from '../expansion-panel-content
 import '../expansion-panel-content.js';
 import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
 
-import { SbbExpansionPanelElement } from './expansion-panel.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.js';
 
 describe(`sbb-expansion-panel`, () => {
   let element: SbbExpansionPanelElement;
@@ -62,39 +62,37 @@ describe(`sbb-expansion-panel`, () => {
     expect(header.getAttribute('aria-expanded')).to.be.equal('false');
     expect(content.getAttribute('aria-hidden')).to.be.equal('true');
 
-    const toggleExpandedEventSpy = new EventSpy(
-      SbbExpansionPanelHeaderElement.events.toggleExpanded,
-    );
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.willClose, element);
-    const didOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
+    const toggleExpandedSpy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleexpanded);
+    const beforeOpenSpy = new EventSpy(SbbExpansionPanelElement.events.beforeopen, element);
+    const beforeCloseSpy = new EventSpy(SbbExpansionPanelElement.events.beforeclose, element);
+    const openSpy = new EventSpy(SbbExpansionPanelElement.events.open, element);
+    const closeSpy = new EventSpy(SbbExpansionPanelElement.events.close, element);
 
     await waitForLitRender(element);
 
     header.click();
-    await toggleExpandedEventSpy.calledOnce();
-    expect(toggleExpandedEventSpy.count).to.be.equal(1);
+    await toggleExpandedSpy.calledOnce();
+    expect(toggleExpandedSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     expect(element.expanded).to.be.equal(true);
     expect(header.getAttribute('aria-expanded')).to.be.equal('true');
     expect(content.getAttribute('aria-hidden')).to.be.equal('false');
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
 
     header.click();
-    await toggleExpandedEventSpy.calledTimes(2);
-    expect(toggleExpandedEventSpy.count).to.be.equal(2);
+    await toggleExpandedSpy.calledTimes(2);
+    expect(toggleExpandedSpy.count).to.be.equal(2);
     await waitForLitRender(element);
     expect(element.expanded).to.be.equal(false);
     expect(header.getAttribute('aria-expanded')).to.be.equal('false');
     expect(content.getAttribute('aria-hidden')).to.be.equal('true');
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
   });
 
   it('disabled property is proxied to header', async () => {
@@ -133,16 +131,16 @@ describe(`sbb-expansion-panel`, () => {
   it('should fire animation events with non-zero animation duration', async () => {
     element.style.setProperty('--sbb-expansion-panel-animation-duration', '1ms');
 
-    const didOpenSpy = new EventSpy(SbbExpansionPanelElement.events.didOpen, element);
-    const didCloseSpy = new EventSpy(SbbExpansionPanelElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbExpansionPanelElement.events.open, element);
+    const closeSpy = new EventSpy(SbbExpansionPanelElement.events.close, element);
 
     element.expanded = true;
 
-    await didOpenSpy.calledOnce();
+    await openSpy.calledOnce();
 
     element.expanded = false;
 
-    await didCloseSpy.calledOnce();
-    expect(didCloseSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
   });
 });

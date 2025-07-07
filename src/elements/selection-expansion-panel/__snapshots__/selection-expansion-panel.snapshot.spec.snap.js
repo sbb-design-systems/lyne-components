@@ -24,7 +24,6 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
     </span>
     <sbb-card-badge
       color="charcoal"
-      role="text"
       slot="badge"
     >
       %
@@ -48,11 +47,7 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
     inert=""
   >
     <div class="sbb-selection-expansion-panel__content">
-      <sbb-divider
-        aria-orientation="horizontal"
-        orientation="horizontal"
-        role="separator"
-      >
+      <sbb-divider orientation="horizontal">
       </sbb-divider>
       <slot name="content">
       </slot>

@@ -1,1 +1,4 @@
-export * from './popover/popover.js';
+/**
+ * @entrypoint
+ */
+export * from './popover/popover.component.js';

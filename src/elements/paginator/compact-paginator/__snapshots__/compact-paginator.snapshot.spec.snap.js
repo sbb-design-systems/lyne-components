@@ -6,7 +6,6 @@ snapshots["sbb-compact-paginator renders DOM"] =
   length="50"
   page-size="5"
   pager-position="start"
-  role="group"
   size="m"
 >
 </sbb-compact-paginator>
@@ -27,9 +26,7 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     >
     </sbb-mini-button>
     <sbb-divider
-      aria-orientation="vertical"
       orientation="vertical"
-      role="separator"
       slot="li-1"
     >
     </sbb-divider>
@@ -48,10 +45,8 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     1
     <sbb-divider
       aria-hidden="true"
-      aria-orientation="vertical"
       class="sbb-compact-paginator__divider"
       orientation="vertical"
-      role="separator"
     >
     </sbb-divider>
     10

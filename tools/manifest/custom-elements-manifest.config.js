@@ -1,3 +1,12 @@
+import { FEATURES } from '@custom-elements-manifest/analyzer/src/features/index.js';
+import {
+  getAllDeclarationsOfKind,
+  getModuleForClassLike,
+  getModuleFromManifests,
+  getInheritanceTree,
+} from '@custom-elements-manifest/analyzer/src/utils/manifest-helpers.js';
+import { resolveModuleOrPackageSpecifier } from '@custom-elements-manifest/analyzer/src/utils/index.js';
+
 const overrideTypeKey = 'overrideType';
 const classGenericsTypeKey = 'classGenerics';
 
@@ -8,18 +17,94 @@ export function createManifestConfig(library = '') {
   return {
     litelement: true,
     globs: [`src/${library}/**/*.ts`],
-    exclude: [
-      '**/*[.-]{stories,spec,test-utils}.ts',
-      '**/private/*',
-      '**/private.ts',
-      'vite.config.ts',
-    ],
+    exclude: ['**/(*.)?{stories,spec,private}.ts', '**/private/*', 'vite.config.ts'],
     outdir: `dist/${library}`,
     dependencies: false,
     packagejson: false,
     /** @type {import('@custom-elements-manifest/analyzer').Plugin[]} */
     plugins: [
       {
+        initialize() {
+          // Patch upstream implementation for types
+          const inheritancePlugin = FEATURES.find((p) => p.name === 'CORE - APPLY-INHERITANCE');
+          inheritancePlugin.packageLinkPhase = ({ customElementsManifest, context }) => {
+            const allManifests = [customElementsManifest, ...(context.thirdPartyCEMs || [])];
+            const classLikes = [];
+
+            allManifests.forEach((manifest) => {
+              const classes = getAllDeclarationsOfKind(manifest, 'class');
+              const mixins = getAllDeclarationsOfKind(manifest, 'mixin');
+              classLikes.push(...[...classes, ...mixins]);
+            });
+
+            classLikes.forEach((customElement) => {
+              const inheritanceChain = getInheritanceTree(allManifests, customElement.name);
+
+              inheritanceChain?.forEach((klass) => {
+                // ignore the current class itself
+                if (klass?.name === customElement.name) {
+                  return;
+                }
+
+                [
+                  'slots',
+                  'cssParts',
+                  'cssProperties',
+                  'attributes',
+                  'members',
+                  'events',
+                  'cssStates',
+                ].forEach((type) => {
+                  klass?.[type]?.forEach((currItem) => {
+                    const containingModulePath = getModuleForClassLike(allManifests, klass.name);
+                    const containingModule = getModuleFromManifests(
+                      allManifests,
+                      containingModulePath,
+                    );
+
+                    const newItem = { ...currItem };
+
+                    /**
+                     * If an attr or member is already present in the base class, but we encounter it here,
+                     * it means that the base has overridden that method from the super class
+                     * So we either add the data to the overridden method, or we add it to the array as a new item
+                     */
+                    const existing = customElement?.[type]?.find(
+                      (item) => newItem.name === item.name,
+                    );
+
+                    if (existing) {
+                      existing.inheritedFrom = {
+                        name: klass.name,
+                        ...resolveModuleOrPackageSpecifier(containingModule, context, klass.name),
+                      };
+
+                      customElement[type] = customElement?.[type]?.map((item) =>
+                        item.name === existing.name
+                          ? {
+                              ...newItem,
+                              ...existing,
+                              ...{
+                                ...(newItem.type && !existing.type ? { type: newItem.type } : {}),
+                                ...(newItem.privacy ? { privacy: newItem.privacy } : {}),
+                              },
+                            }
+                          : item,
+                      );
+                    } else {
+                      newItem.inheritedFrom = {
+                        name: klass.name,
+                        ...resolveModuleOrPackageSpecifier(containingModule, context, klass.name),
+                      };
+
+                      customElement[type] = [...(customElement[type] || []), newItem];
+                    }
+                  });
+                });
+              });
+            });
+          };
+        },
         analyzePhase({ ts, node, moduleDoc }) {
           /* Replace the typeName with the provided typeValue, matching only the word,
            * in a way that 'V | null' could be replaced with 'string | null', but 'ValidityState' is not changed.
@@ -97,9 +182,7 @@ export function createManifestConfig(library = '') {
                 });
               }
             });
-          }
-
-          if (ts.isClassDeclaration(node)) {
+          } else if (ts.isClassDeclaration(node)) {
             const classDeclaration = moduleDoc.declarations.find(
               (declaration) => declaration.name === node.name.getText(),
             );
@@ -153,8 +236,9 @@ export function createManifestConfig(library = '') {
           for (const module of customElementsManifest.modules) {
             fixModulePaths(module, fixTsPaths);
             for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
-              // Abstract base classes are considered components even if they don't have the `customElement` annotation.
-              if (declaration.name.includes('Base')) {
+              // Abstract base classes or mixins are considered components
+              // even if they don't have the `customElement` annotation.
+              if (declaration.name.includes('Base') || declaration.name.includes('MixinType')) {
                 delete declaration.customElement;
               }
 
@@ -211,40 +295,6 @@ export function createManifestConfig(library = '') {
               }
             }
           }
-          const reexportModules = [];
-          const moduleMapping = new Map();
-          for (const moduleEntry of customElementsManifest.modules) {
-            if (
-              !reexportModules.includes(moduleEntry) &&
-              moduleEntry.exports?.length &&
-              moduleEntry.exports.some((e) => e.name !== '*')
-            ) {
-              const reexportPath = moduleEntry.path.replace(/\/[\w-]+\.js/, '.js');
-              const reexportModule = customElementsManifest.modules.find(
-                (m) => m.path === reexportPath,
-              );
-              if (reexportModule) {
-                moduleMapping.set(moduleEntry.path, reexportModule.path);
-                reexportModules.push(reexportModule);
-                reexportModule.declarations.push(...moduleEntry.declarations);
-                for (const entry of moduleEntry.exports) {
-                  entry.declaration.module = reexportModule.path;
-                }
-                reexportModule.exports = reexportModule.exports.filter(
-                  (e) =>
-                    e.name !== '*' ||
-                    moduleEntry.path ===
-                      reexportModule.path.replace(/\/[\w-]+\.js/, '') +
-                        e.declaration.package.substring(2),
-                );
-                reexportModule.exports.push(...moduleEntry.exports);
-                customElementsManifest.modules = customElementsManifest.modules.filter(
-                  (m) => m !== moduleEntry,
-                );
-              }
-            }
-          }
-          fixModulePaths(customElementsManifest, (value) => moduleMapping.get(value) ?? value);
         },
       },
     ],

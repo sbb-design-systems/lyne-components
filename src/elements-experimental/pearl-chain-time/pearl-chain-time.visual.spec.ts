@@ -4,8 +4,8 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, nothing } from 'lit';
 
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.js';
-import './pearl-chain-time.js';
+import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.js';
+import './pearl-chain-time.component.js';
 
 describe(`sbb-pearl-chain-time`, () => {
   const cases = [
@@ -17,14 +17,14 @@ describe(`sbb-pearl-chain-time`, () => {
       legs: [progressLeg],
       departureWalk: '0',
       arrivalWalk: '5',
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
     {
       name: 'extended enter',
       legs: [extendedLeg],
       departureWalk: '10',
       arrivalWalk: '5',
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
   ];
 
@@ -38,7 +38,7 @@ describe(`sbb-pearl-chain-time`, () => {
               arrival-time="2022-12-11T14:11:00"
               departure-time="2022-12-11T12:11:00"
               .legs=${c.legs}
-              now=${(c.now ?? new Date('2022-12-01T12:11:00').valueOf()) / 1000}
+              .now=${c.now ?? new Date('2022-12-01T12:11:00')}
               departure-walk=${c.departureWalk ?? nothing}
               arrival-walk=${c.arrivalWalk ?? nothing}
               disable-animation

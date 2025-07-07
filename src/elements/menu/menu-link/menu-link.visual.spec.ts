@@ -10,7 +10,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './menu-link.js';
+import './menu-link.component.js';
 
 describe(`sbb-menu-link`, () => {
   const defaultArgs = {
@@ -33,13 +33,8 @@ describe(`sbb-menu-link`, () => {
     ${repeat(
       new Array(3),
       (_, index) => html`
-        <!--
-          TODO: remove amount property usage.
-          Until we remove the amount property completely we keep both ways of displaying the badge in the same test.
-        -->
         <sbb-menu-link
           href="#"
-          amount=${badge || nothing}
           sbb-badge=${badge && !disabled && !disabledInteractive ? badge : nothing}
           icon-name=${iconName || nothing}
           ?disabled=${disabled}

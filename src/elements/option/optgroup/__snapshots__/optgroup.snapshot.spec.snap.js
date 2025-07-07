@@ -12,7 +12,6 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     1
@@ -23,7 +22,6 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     2
@@ -34,11 +32,7 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
 
 snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-    role="separator"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
 </div>
 <div
@@ -70,7 +64,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-4"
-    role="option"
     value="1"
   >
     1
@@ -83,7 +76,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-5"
-    role="option"
     value="2"
   >
     2
@@ -94,11 +86,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
 
 snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-    role="separator"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
 </div>
 <div
@@ -118,17 +106,14 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] =
 
 snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] = 
 `<sbb-optgroup
-  aria-label="Label"
   data-variant="autocomplete"
   label="Label"
-  role="group"
 >
   <sbb-option
     aria-selected="false"
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     1
@@ -138,7 +123,6 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     2
@@ -149,11 +133,7 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
 
 snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-    role="separator"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
 </div>
 <div
@@ -198,12 +178,9 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
 
 snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] = 
 `<sbb-optgroup
-  aria-disabled="true"
-  aria-label="Label"
   data-variant="autocomplete"
   disabled=""
   label="Label"
-  role="group"
 >
   <sbb-option
     aria-disabled="true"
@@ -212,7 +189,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-6"
-    role="option"
     value="1"
   >
     1
@@ -224,7 +200,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-7"
-    role="option"
     value="2"
   >
     2
@@ -235,11 +210,7 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
 
 snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-optgroup__divider">
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-    role="separator"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
 </div>
 <div

@@ -7,7 +7,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './datepicker-previous-day.js';
+import './datepicker-previous-day.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field.js';
@@ -36,8 +36,8 @@ describe(`sbb-datepicker-previous-day`, () => {
             await setup.withFixture(
               html`
                 <sbb-form-field ?negative=${negative}>
-                  <sbb-date-input value=${value || nothing}></sbb-date-input>
                   <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+                  <sbb-date-input value=${value || nothing}></sbb-date-input>
                   <sbb-datepicker></sbb-datepicker>
                 </sbb-form-field>
               `,

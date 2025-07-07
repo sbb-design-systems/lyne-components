@@ -1,13 +1,13 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
-import { SbbPopoverElement } from './popover.js';
+import { SbbPopoverElement } from './popover.component.js';
 import readme from './readme.md?raw';
 import '../../link.js';
 import '../../title.js';
@@ -216,10 +216,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbPopoverElement.events.willOpen,
-        SbbPopoverElement.events.didOpen,
-        SbbPopoverElement.events.didClose,
-        SbbPopoverElement.events.willClose,
+        SbbPopoverElement.events.beforeopen,
+        SbbPopoverElement.events.open,
+        SbbPopoverElement.events.close,
+        SbbPopoverElement.events.beforeclose,
       ],
     },
     docs: {

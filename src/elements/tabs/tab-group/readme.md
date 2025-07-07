@@ -72,9 +72,9 @@ type SbbTabChangedEventDetails = {
 
 ## Events
 
-| Name        | Type                                     | Description                            | Inherited From |
-| ----------- | ---------------------------------------- | -------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<SbbTabChangedEventDetails>` | Emits an event on selected tab change. |                |
+| Name        | Type                                     | Description                                               | Inherited From |
+| ----------- | ---------------------------------------- | --------------------------------------------------------- | -------------- |
+| `tabchange` | `CustomEvent<SbbTabChangedEventDetails>` | The tabchange event is dispatched when a tab is selected. |                |
 
 ## Slots
 

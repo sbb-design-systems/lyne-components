@@ -6,8 +6,15 @@ snapshots["sbb-alert should render default properties DOM"] =
   animation="all"
   data-state="opened"
   size="m"
-  title-content="Interruption"
 >
+  <sbb-title
+    level="3"
+    negative=""
+    slot="title"
+    visual-level="5"
+  >
+    Interruption
+  </sbb-title>
   Alert content
 </sbb-alert>
 `;
@@ -20,27 +27,15 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
       <span class="sbb-alert__icon">
         <slot name="icon">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="info"
-            role="img"
           >
           </sbb-icon>
         </slot>
       </span>
       <span class="sbb-alert__content">
-        <sbb-title
-          aria-level="3"
-          class="sbb-alert__title"
-          level="3"
-          negative=""
-          role="heading"
-          visual-level="5"
-        >
-          <slot name="title">
-            Interruption
-          </slot>
-        </sbb-title>
+        <slot name="title">
+        </slot>
         <p class="sbb-alert__content-slot">
           <slot>
           </slot>
@@ -48,11 +43,9 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
       </span>
       <span class="sbb-alert__close-button-wrapper">
         <sbb-divider
-          aria-orientation="vertical"
           class="sbb-alert__close-button-divider"
           negative=""
           orientation="vertical"
-          role="separator"
         >
         </sbb-divider>
         <sbb-transparent-button
@@ -80,10 +73,16 @@ snapshots["sbb-alert should render customized properties DOM"] =
   data-state="opened"
   icon-name="disruption"
   size="l"
-  title-content="Interruption"
-  title-level="2"
 >
-  Alert content
+  <sbb-title
+    level="2"
+    negative=""
+    slot="title"
+    visual-level="3"
+  >
+    Interruption
+  </sbb-title>
+  Alert content Alert content
   <sbb-link
     data-action=""
     data-link=""
@@ -106,27 +105,15 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
       <span class="sbb-alert__icon">
         <slot name="icon">
           <sbb-icon
-            aria-hidden="true"
             data-namespace="default"
             name="disruption"
-            role="img"
           >
           </sbb-icon>
         </slot>
       </span>
       <span class="sbb-alert__content">
-        <sbb-title
-          aria-level="2"
-          class="sbb-alert__title"
-          level="2"
-          negative=""
-          role="heading"
-          visual-level="3"
-        >
-          <slot name="title">
-            Interruption
-          </slot>
-        </sbb-title>
+        <slot name="title">
+        </slot>
         <p class="sbb-alert__content-slot">
           <slot>
           </slot>
@@ -134,11 +121,9 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
       </span>
       <span class="sbb-alert__close-button-wrapper">
         <sbb-divider
-          aria-orientation="vertical"
           class="sbb-alert__close-button-divider"
           negative=""
           orientation="vertical"
-          role="separator"
         >
         </sbb-divider>
         <sbb-transparent-button
@@ -218,4 +203,63 @@ snapshots["sbb-alert A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-alert A11y tree Firefox */
+
+snapshots["sbb-alert should render customized properties A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Interruption",
+      "level": 2
+    },
+    {
+      "role": "text",
+      "name": "Alert content Alert content "
+    },
+    {
+      "role": "link",
+      "name": "Find out more"
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-alert should render customized properties A11y tree Chrome */
+
+snapshots["sbb-alert should render customized properties A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Interruption",
+      "level": 2
+    },
+    {
+      "role": "text leaf",
+      "name": "Alert content Alert content "
+    },
+    {
+      "role": "link",
+      "name": "Find out more",
+      "value": "https://www.sbb.ch/"
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-alert should render customized properties A11y tree Firefox */
 

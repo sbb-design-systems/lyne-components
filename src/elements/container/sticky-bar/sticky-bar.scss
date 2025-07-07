@@ -40,6 +40,10 @@ $intersector-overlapping: 1px;
   display: contents;
 }
 
+:host([size='s']) {
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
+}
+
 :host([data-sticking]:not([data-state='unsticky'])) {
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
@@ -80,9 +84,9 @@ $intersector-overlapping: 1px;
 
 :host(
   [data-sticking]:is(
-      [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
-      [data-state='sticking']
-    )
+    [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
+    [data-state='sticking']
+  )
 ) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-in;
 }

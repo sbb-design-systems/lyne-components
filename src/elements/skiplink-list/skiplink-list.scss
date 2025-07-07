@@ -19,12 +19,17 @@
   z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
+.sbb-skiplink-list-title {
+  @include sbb.screen-reader-only;
+}
+
 .sbb-skiplink-list {
   @include sbb.list-reset;
 
   & > :is(li, span) {
     @include sbb.shadow-level-5-hard;
 
+    display: list-item;
     height: var(--sbb-skiplink-list-height);
     overflow: var(--sbb-skiplink-list-overflow);
     border-radius: var(--sbb-border-radius-4x);

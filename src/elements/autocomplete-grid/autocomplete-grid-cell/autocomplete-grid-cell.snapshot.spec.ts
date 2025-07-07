@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.js';
+import type { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.component.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
-import './autocomplete-grid-cell.js';
+import './autocomplete-grid-cell.component.js';
 import '../autocomplete-grid-button.js';
 
 describe('sbb-autocomplete-grid-cell', () => {
@@ -34,11 +34,11 @@ describe('sbb-autocomplete-grid-cell', () => {
     it('Shadow DOM', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
-
-    testA11yTreeSnapshot(html`
-      <sbb-autocomplete-grid-cell>
-        <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
-      </sbb-autocomplete-grid-cell>
-    `);
   });
+
+  testA11yTreeSnapshot(html`
+    <sbb-autocomplete-grid-cell>
+      <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+    </sbb-autocomplete-grid-cell>
+  `);
 });

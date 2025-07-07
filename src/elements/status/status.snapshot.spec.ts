@@ -3,16 +3,17 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { SbbStatusElement } from './status.js';
+import type { SbbStatusElement } from './status.component.js';
 
-import './status.js';
+import '../title.js';
+import './status.component.js';
 
 describe(`sbb-status`, () => {
   let element: SbbStatusElement;
 
   describe('renders', () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-status type="info"> Status info text </sbb-status>`);
+      element = await fixture(html`<sbb-status type="info">Status info text</sbb-status>`);
     });
 
     it('DOM', async () => {
@@ -29,7 +30,10 @@ describe(`sbb-status`, () => {
   describe('renders with title', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
+        html`<sbb-status type="info">
+          <sbb-title level="3">Title</sbb-title>
+          Status info text
+        </sbb-status>`,
       );
     });
 

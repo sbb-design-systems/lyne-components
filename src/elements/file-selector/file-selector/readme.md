@@ -59,7 +59,7 @@ The component has also two different sizes, `m` (default) and `s`, which can be 
 
 ### Events
 
-Whenever the selection changes, a `fileChanged` event is fired, whose `event.detail` property contains the list
+Whenever the selection changes, a `filechanged` event is fired, whose `event.detail` property contains the list
 of currently selected files. The list can also be retrieved using the public `files` getter.
 
 ## Accessibility
@@ -94,7 +94,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `type`               | -                     | public  | `string`                    | `'file'`           | Form type of element.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `validationMessage`  | -                     | public  | `string`                    |                    | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also a custom validity message (see below) has precedence over native validation messages. |
 | `validity`           | -                     | public  | `ValidityState`             |                    | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `value`              | `value`               | public  | `string \| null`            | `null`             | The path of the first selected file. Empty string ('') if no file is selected                                                                                                                                                                                                                                                                                                                                                                          |
+| `value`              | -                     | public  | `string \| null`            |                    | The path of the first selected file. Empty string ('') if no file is selected                                                                                                                                                                                                                                                                                                                                                                          |
 | `willValidate`       | -                     | public  | `boolean`                   |                    | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Methods
@@ -109,11 +109,11 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Events
 
-| Name          | Type                            | Description                                                                                                                                                                  | Inherited From                    |
-| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `change`      | `Event`                         | An event which is emitted each time the user modifies the value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value | SbbFileSelectorCommonElementMixin |
-| `fileChanged` | `CustomEvent<Readonly<File>[]>` | An event which is emitted each time the file list changes.                                                                                                                   |                                   |
-| `input`       | `Event`                         | An event which is emitted each time the value changes as a direct result of a user action.                                                                                   | SbbFileSelectorCommonElementMixin |
+| Name          | Type                            | Description                                                                                                                                                                        | Inherited From                    |
+| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`      | `Event`                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
+| `filechanged` | `CustomEvent<Readonly<File>[]>` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
+| `input`       | `InputEvent`                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
 
 ## Slots
 

@@ -4,8 +4,8 @@ export const YEARS_PER_ROW: number = 4;
 export const MONTHS_PER_PAGE: number = 12;
 export const YEARS_PER_PAGE: number = 24;
 export const FORMAT_DATE =
-  /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
-export const ISO8601_FORMAT_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
+  /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
+export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
 
 /**
  * Abstract date functionality.
@@ -91,10 +91,10 @@ export abstract class DateAdapter<T = any> {
    * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
    * string). The default implementation does not allow any deserialization, it simply checks that
    * the given value is already a valid date object or null.
-   * @param value Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
+   * @param value Either a date object, ISO string or an empty value.
    * @returns The date if the input is valid, `null` otherwise.
    */
-  public deserialize(value: T | string | number | null | undefined): T | null {
+  public deserialize(value: T | string | null | undefined): T | null {
     if (
       value == null ||
       (this.isDateInstance(value) && this.isValid(value as T | null | undefined))
@@ -139,7 +139,7 @@ export abstract class DateAdapter<T = any> {
    * @param value The date in the format DD.MM.YYYY.
    * @param now The current date as Date.
    */
-  public abstract parse(value: string | null | undefined, now?: T): T | null;
+  public abstract parse(value: string | null | undefined): T | null;
 
   /**
    * Format the given date as string.

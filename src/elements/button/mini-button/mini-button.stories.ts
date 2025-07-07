@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,15 +5,20 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { buttonDefaultArgs, buttonDefaultArgTypes } from '../common/button-common-stories.js';
+import {
+  buttonDefaultArgs,
+  buttonDefaultArgTypes,
+} from '../common/button-common-stories.private.js';
 
 import '../../form-field.js';
 import '../../icon.js';
-import './mini-button.js';
+import './mini-button.component.js';
 
 import readme from './readme.md?raw';
 

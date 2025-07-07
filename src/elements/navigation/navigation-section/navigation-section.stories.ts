@@ -1,7 +1,7 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -12,7 +12,7 @@ import '../navigation-button.js';
 import '../navigation-link.js';
 import '../navigation-marker.js';
 import '../navigation.js';
-import './navigation-section.js';
+import './navigation-section.component.js';
 
 const accessibilityLabel: InputType = {
   control: {

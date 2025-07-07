@@ -6,7 +6,7 @@ import type { SbbMiniButtonElement } from '../../button/mini-button.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
-import { SbbCompactPaginatorElement } from './compact-paginator.js';
+import { SbbCompactPaginatorElement } from './compact-paginator.component.js';
 
 describe('sbb-compact-paginator', () => {
   let element: SbbCompactPaginatorElement;
@@ -93,12 +93,12 @@ describe('sbb-compact-paginator', () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(1);
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(pageEventSpy.count).to.be.equal(0);
+    expect(pageEventSpy.count).to.be.equal(2);
   });
 
   it('handles length change', () => {

@@ -42,6 +42,15 @@ The component has three sizes (`xs`, `s`, which is the default, and `m`).
 <sbb-block-link-button size="m">Refunds</sbb-block-link-button>
 ```
 
+### Active state
+
+To show a currently active link, the CSS class `sbb-active` can be placed on the `sbb-block-link-button`.
+One possible use case would be to use it within the `sbb-sidebar`.
+
+```html
+<sbb-block-link-button class="sbb-active" aria-current="page">Refunds</sbb-block-link-button>
+```
+
 ## Accessibility
 
 ### Interactive disabled buttons
@@ -73,7 +82,7 @@ guard against such cases in your component.
 | `type`                | `type`                 | public  | `SbbButtonType`           | `'button'`          | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `validationMessage`   | -                      | public  | `string`                  |                     | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also a custom validity message (see below) has precedence over native validation messages. |
 | `validity`            | -                      | public  | `ValidityState`           |                     | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `value`               | `value`                | public  | `string \| null`          | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `value`               | `value`                | public  | `string`                  | `''`                | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `willValidate`        | -                      | public  | `boolean`                 |                     | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Methods

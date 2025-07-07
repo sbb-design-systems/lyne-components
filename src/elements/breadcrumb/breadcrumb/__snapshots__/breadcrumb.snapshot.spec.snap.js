@@ -5,6 +5,7 @@ snapshots["sbb-breadcrumb renders with text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
+  data-slot-names="unnamed"
   download=""
   href="https://example.com/test"
   rel="subsection"
@@ -54,18 +55,13 @@ snapshots["sbb-breadcrumb renders with icon Shadow DOM"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb__icon"
       data-namespace="default"
       name="house-small"
-      role="img"
     >
     </sbb-icon>
   </slot>
-  <span
-    class="sbb-breadcrumb__label"
-    hidden=""
-  >
+  <span class="sbb-breadcrumb__label">
     <slot>
     </slot>
   </span>
@@ -77,6 +73,7 @@ snapshots["sbb-breadcrumb renders with icon and text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
+  data-slot-names="unnamed"
   href="/"
   icon-name="house-small"
 >
@@ -92,11 +89,9 @@ snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb__icon"
       data-namespace="default"
       name="house-small"
-      role="img"
     >
     </sbb-icon>
   </slot>

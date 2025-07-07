@@ -27,6 +27,9 @@ export class SbbEscapableOverlayController implements ReactiveController {
 
   // This must be called when the overlay is opened
   public connect(): void {
+    // Due to connect() can be called multiple times for the same host,
+    // we have to remove a potential entry of the host from the stack.
+    this.disconnect();
     this._overlayStack.push(this._host);
   }
 

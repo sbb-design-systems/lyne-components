@@ -25,16 +25,31 @@ should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
 
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-navigation-section trigger="nav1">
+  <sbb-navigation-list label="Label 1.1">
+    <sbb-navigation-link href="...">Label 1.1.1</sbb-navigation-link>
+    <sbb-navigation-link sbb-focus-initial href="...">Label 1.1.2</sbb-navigation-link>
+    ...
+  </sbb-navigation-list>
+</sbb-navigation-section>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                        |
-| ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| `accessibilityBackLabel` | `accessibility-back-label` | public  | `string`                        | `''`    | This will be forwarded as aria-label to the back button element.                                                   |
-| `accessibilityLabel`     | `accessibility-label`      | public  | `string`                        | `''`    | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.          |
-| `titleContent`           | `title-content`            | public  | `string`                        | `''`    | The label to be shown before the action list.                                                                      |
-| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. |
+| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                               |
+| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `accessibilityBackLabel` | `accessibility-back-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the back button element.                                          |
+| `accessibilityLabel`     | `accessibility-label`      | public  | `string`              | `''`    | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section. |
+| `titleContent`           | `title-content`            | public  | `string`              | `''`    | The label to be shown before the action list.                                                             |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the navigation section. For attribute usage, provide an id reference.       |
 
 ## Methods
 

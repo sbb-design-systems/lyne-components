@@ -42,6 +42,12 @@ export const isWebkit =
 export const isIOS =
   !isServer && /iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window);
 
+/**
+ * Whether the device is a mac.
+ * @experimental Avoid using this as this is not reliable.
+ */
+export const isMacOS = !isServer && /(Mac)/i.test(navigator.platform);
+
 // It's difficult to detect the plain Gecko engine, because most of the browsers identify
 // them self as Gecko-like browsers and modify the userAgent's according to that.
 // Since we only cover one explicit Firefox case, we can simply check for Firefox

@@ -99,11 +99,10 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   -webkit-tap-highlight-color: transparent;
   background-color: var(--sbb-menu-background-color);
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & ,
+  :host(:focus-visible) & ,
   // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
+  :focus-visible & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
     @include sbb.focus-outline;
@@ -125,16 +124,5 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
   :host(:is(#{$disabled})) & {
     text-decoration: line-through;
-  }
-}
-
-.sbb-menu-action__amount {
-  @include sbb.badge;
-
-  flex-shrink: 0;
-  margin-inline-start: auto;
-
-  @include sbb.if-forced-colors {
-    color: var(--sbb-menu-action-color);
   }
 }

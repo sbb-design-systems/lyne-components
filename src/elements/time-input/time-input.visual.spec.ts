@@ -8,7 +8,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.js';
 
-import './time-input.js';
+import './time-input.component.js';
 import '../form-field.js';
 import '../form-error.js';
 import '../icon.js';
@@ -42,13 +42,12 @@ describe(`sbb-time-input`, () => {
     >
       <label>Label</label>
       ${!args.noIcons ? html`<sbb-icon slot="prefix" name="clock-small"></sbb-icon>` : nothing}
-      <sbb-time-input></sbb-time-input>
-      <input
-        id="input-id"
+      <sbb-time-input
         value=${args.withError ? '00:99' : '12:00'}
+        class=${args.withError ? 'sbb-invalid' : nothing}
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
-      />
+      ></sbb-time-input>
       ${!args.noIcons
         ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
         : nothing}

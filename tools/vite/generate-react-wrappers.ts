@@ -9,12 +9,18 @@ import {
   rmSync,
   unlinkSync,
 } from 'fs';
-import { pathToFileURL } from 'node:url';
+import { join, relative } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import type { Package, Export, CustomElementDeclaration, Module } from 'custom-elements-manifest';
 import type { PluginOption } from 'vite';
 
 import { distDir } from './build-meta.js';
+
+const entrypointMarker = `/**
+ * @entrypoint
+ */
+`;
 
 export function generateReactWrappers(
   library: string,
@@ -69,21 +75,28 @@ export function generateReactWrappers(
         }
       }
 
-      for (const dirent of readdirSync(packageRoot, { withFileTypes: true }).filter((d) =>
-        d.isDirectory(),
-      )) {
-        const dir = new URL(`./${dirent.name}/`, packageRoot);
-        const entryPoint = `${dirent.name}.ts`;
-        entryPoints[dirent.name] = entryPoint;
-        const dirEntryPoint = new URL(`../${entryPoint}`, dir);
+      for (const dirent of readdirSync(packageRoot, {
+        withFileTypes: true,
+        recursive: true,
+      }).filter((d) => d.isDirectory())) {
+        const dir = join(dirent.parentPath, dirent.name);
+        const relativeDir = relative(fileURLToPath(packageRoot), dir);
+        const entryPoint = `${relativeDir}.ts`;
+        entryPoints[relativeDir] = entryPoint;
+        const dirEntryPoint = new URL(`./${entryPoint}`, packageRoot);
 
         if (!existsSync(dirEntryPoint)) {
           generatedPaths.push(dirEntryPoint);
-          const dirInfo = readdirSync(dir, { withFileTypes: true })
-            .filter((d) => d.isFile())
-            .map((d) => `export * from './${dirent.name}/${d.name.replace(/.ts$/, '.js')}';\n`)
-            .join('');
-          writeFileSync(dirEntryPoint, dirInfo, 'utf8');
+          const directories = readdirSync(dir, { withFileTypes: true }).filter((d) =>
+            d.isDirectory(),
+          );
+          const files = readdirSync(dir, { withFileTypes: true }).filter((d) => d.isFile());
+          const content =
+            entrypointMarker +
+            (directories.length ? directories : files)
+              .map((d) => `export * from './${dirent.name}/${d.name.replace(/\.ts$/, '')}.js';\n`)
+              .join('');
+          writeFileSync(dirEntryPoint, content, 'utf8');
         }
       }
 
@@ -119,7 +132,13 @@ function renderTemplate(
   const coreImportPath = isMainLibrary
     ? `${!dirDepth ? './' : '../'.repeat(dirDepth)}core.js`
     : `@sbb-esta/lyne-react/core.js`;
-  const componentsImports = new Map<string, string[]>().set(module.path, [declaration.name]);
+  const importPath = module.path.substring(0, module.path.lastIndexOf('/')) + '.js';
+  const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
+
+  if (declaration.events?.some((e) => !e.type)) {
+    console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
+  }
+
   const customEventTypes =
     declaration.events
       ?.filter(
@@ -135,7 +154,50 @@ function renderTemplate(
   const interfaces = new Map<string, string>()
     .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
     .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
-    .set('SbbValidationChangeEvent', 'core/interfaces.js');
+    .set('SeatReservationPlaceSelection', 'seat-reservation/common.js')
+    .set('SeatReservationCoachSelection', 'seat-reservation/common.js')
+    .set('PlaceSelection', 'seat-reservation/common.js');
+
+  // In case of properties that are not string, but can be used as an string attribute in
+  // React (e.g. trigger), we need to patch the class property types to allow string as
+  // an additional type. We do this by checking for HTML*Element or Sbb*Element property
+  // types, which usually support id references as attributes. If a class has these
+  // kind of properties, we generate a declaration class, which force string as an
+  // additional type for the property. This is needed, because React does not support
+  // passing a string as a property assignment, if the type does not include string.
+  const idRefProperties =
+    declaration.members?.filter(
+      (m) =>
+        'attribute' in m &&
+        m.kind === 'field' &&
+        m.privacy === 'public' &&
+        !m.readonly &&
+        m.type?.text?.match(/(Sbb|HTML)[a-zA-Z]*Element/),
+    ) ?? [];
+  const patchClassName = declaration.name.replace(/Element$/, 'Component');
+  const memberPatchClass = idRefProperties.length
+    ? `
+
+declare class ${patchClassName}Type extends ${declaration.name} {${idRefProperties
+        .map(
+          (m) =>
+            `
+  // @ts-expect-error Add string to type
+  public set ${m.name}(value: string | ${declaration.name}['${m.name}']) {
+    super.${m.name} = value as any;
+  }
+  // @ts-expect-error Add string to type
+  public get ${m.name}(): string | ${declaration.name}['${m.name}'] {
+    return super.${m.name};
+  }
+`,
+        )
+        .join('')}
+}
+const ${patchClassName} = ${declaration.name} as typeof ${patchClassName}Type;
+`
+    : '';
+
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {
@@ -152,40 +214,40 @@ function renderTemplate(
         componentsImports.get(moduleName)!.push(`type ${customEventType}`);
       }
     } else {
-      componentsImports.get(module.path)!.push(`type ${customEventType}`);
+      componentsImports.get(importPath)!.push(`type ${customEventType}`);
     }
   }
   const reactTemplate = `/* autogenerated */
-  import { createComponent${declaration.events?.length ? ', type EventName' : ''} } from '${coreImportPath}';
-  ${Array.from(componentsImports)
-    .map(([key, imports]) => `import { ${imports.join(', ')} } from '${library}/${key}';`)
-    .join('\n')}
-  import react from 'react';
+import { createComponent${declaration.events?.length ? ', type EventName' : ''} } from '${coreImportPath}';
+${Array.from(componentsImports)
+  .map(([key, imports]) => `import { ${imports.join(', ')} } from '${library}/${key}';`)
+  .join('\n')}
+import react from 'react';${memberPatchClass}
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  export const ${declaration.name.replace(/Element$/, '')} = createComponent({
-    tagName: '${
-      // eslint-disable-next-line lyne/local-name-rule
-      declaration.tagName
-    }',
-    elementClass: ${declaration.name},
-    react,${
-      declaration.events
-        ? `
-    events: {${declaration
-      .events!.map(
-        (e) =>
-          `\n    'on${e.name.charAt(0).toUpperCase() + e.name.slice(1)}': '${e.name}' as EventName<${e.type.text.replace(
-            '<T>',
-            '<any>',
-          )}>,`,
-      )
-      .join('')}
-    },
-  `
-        : ''
-    }
-  });
-  `;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const ${declaration.name.replace(/Element$/, '')} = createComponent({
+  tagName: '${
+    // eslint-disable-next-line lyne/local-name-rule
+    declaration.tagName
+  }',
+  elementClass: ${memberPatchClass ? patchClassName : declaration.name},
+  react,${
+    declaration.events
+      ? `
+  events: {${declaration
+    .events!.map(
+      (e) =>
+        `\n    'on${e.name.charAt(0).toUpperCase() + e.name.slice(1)}': '${e.name}' as EventName<${e.type.text.replace(
+          '<T>',
+          '<any>',
+        )}>,`,
+    )
+    .join('')}
+  },
+`
+      : ''
+  }
+});
+`;
   return reactTemplate;
 }

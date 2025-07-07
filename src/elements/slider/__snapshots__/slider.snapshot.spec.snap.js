@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-slider renders DOM"] = 
 `<sbb-slider
   id="slider-1"
+  style="--sbb-slider-value-fraction: 0.01;"
   tabindex="0"
   value="1"
 >
@@ -16,10 +17,7 @@ snapshots["sbb-slider renders Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
     </slot>
-    <div
-      class="sbb-slider__container"
-      style="--sbb-slider-value-fraction:0.01;"
-    >
+    <div class="sbb-slider__container">
       <input
         class="sbb-slider__range-input"
         max="100"
@@ -48,6 +46,7 @@ snapshots["sbb-slider renders with properties DOM"] =
   max="500"
   min="0"
   start-icon="walk-slow-small"
+  style="--sbb-slider-value-fraction: 0.2;"
   tabindex="0"
   value="100"
 >
@@ -60,17 +59,12 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-slow-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
-    <div
-      class="sbb-slider__container"
-      style="--sbb-slider-value-fraction:0.2;"
-    >
+    <div class="sbb-slider__container">
       <input
         class="sbb-slider__range-input"
         max="500"
@@ -88,10 +82,8 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
     </div>
     <slot name="suffix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-fast-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -107,6 +99,7 @@ snapshots["sbb-slider renders disabled DOM"] =
   max="500"
   min="0"
   start-icon="walk-slow-small"
+  style="--sbb-slider-value-fraction: 0.2;"
   tabindex="0"
   value="100"
 >
@@ -119,17 +112,12 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-slow-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
-    <div
-      class="sbb-slider__container"
-      style="--sbb-slider-value-fraction:0.2;"
-    >
+    <div class="sbb-slider__container">
       <input
         class="sbb-slider__range-input"
         disabled=""
@@ -148,10 +136,8 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
     </div>
     <slot name="suffix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-fast-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -167,6 +153,7 @@ snapshots["sbb-slider renders readonly DOM"] =
   min="0"
   readonly=""
   start-icon="walk-slow-small"
+  style="--sbb-slider-value-fraction: 0.2;"
   tabindex="0"
   value="100"
 >
@@ -179,17 +166,12 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-slow-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
-    <div
-      class="sbb-slider__container"
-      style="--sbb-slider-value-fraction:0.2;"
-    >
+    <div class="sbb-slider__container">
       <input
         class="sbb-slider__range-input"
         disabled=""
@@ -208,10 +190,8 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
     </div>
     <slot name="suffix">
       <sbb-icon
-        aria-hidden="true"
         data-namespace="default"
         name="walk-fast-small"
-        role="img"
       >
       </sbb-icon>
     </slot>
@@ -391,6 +371,7 @@ snapshots["sbb-slider renders in form DOM"] =
   max="10"
   min="0"
   name="sbb-slider"
+  style="--sbb-slider-value-fraction: 0.1;"
   tabindex="0"
   value="1"
 >
@@ -403,10 +384,7 @@ snapshots["sbb-slider renders in form Shadow DOM"] =
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
     </slot>
-    <div
-      class="sbb-slider__container"
-      style="--sbb-slider-value-fraction:0.1;"
-    >
+    <div class="sbb-slider__container">
       <input
         class="sbb-slider__range-input"
         max="10"

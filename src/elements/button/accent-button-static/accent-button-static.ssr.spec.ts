@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
-import { SbbAccentButtonStaticElement } from './accent-button-static.js';
+import { SbbAccentButtonStaticElement } from './accent-button-static.component.js';
 
 describe(`sbb-accent-button-static ssr`, () => {
   let root: SbbAccentButtonStaticElement;
@@ -12,7 +12,7 @@ describe(`sbb-accent-button-static ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-accent-button-static>Button</sbb-accent-button-static>`,
       {
-        modules: ['./accent-button-static.js'],
+        modules: ['./accent-button-static.component.js'],
       },
     );
   });

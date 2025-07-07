@@ -9,9 +9,13 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
-import { isSafari, setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import { forceType } from '../../core/decorators.js';
+import { isSafari } from '../../core/dom.js';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+} from '../../core/mixins.js';
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './optgroup-base-element.scss?lit&inline';
@@ -25,9 +29,10 @@ import '../../divider.js';
  */
 const inertAriaGroups = isSafari;
 
-export
-@hostAttributes({ role: !inertAriaGroups ? 'group' : null })
-abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin(LitElement)) {
+export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
+  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
+) {
+  public static override readonly role = !inertAriaGroups ? 'group' : null;
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
@@ -44,13 +49,15 @@ abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin
   public constructor() {
     super();
 
-    new MutationController(this, {
-      config: {
-        attributes: true,
-        attributeFilter: ['data-negative'],
-      },
-      callback: () => this._onNegativeChange(),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: {
+          attributes: true,
+          attributeFilter: ['data-negative'],
+        },
+        callback: () => this._onNegativeChange(),
+      }),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -72,11 +79,7 @@ abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin
 
     if (changedProperties.has('disabled')) {
       if (!this._inertAriaGroups) {
-        if (this.disabled) {
-          this.setAttribute('aria-disabled', 'true');
-        } else {
-          this.removeAttribute('aria-disabled');
-        }
+        this.internals.ariaDisabled = this.disabled ? 'true' : null;
       }
 
       this.proxyDisabledToOptions();
@@ -97,10 +100,10 @@ abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbHydrationMixin
 
   private _proxyGroupLabelToOptions(): void {
     if (!this._inertAriaGroups) {
-      setOrRemoveAttribute(this, 'aria-label', this.label);
+      this.internals.ariaLabel = this.label;
       return;
     } else if (this.label) {
-      this.removeAttribute('aria-label');
+      this.internals.ariaLabel = null;
       for (const option of this.options) {
         option.setAttribute('data-group-label', this.label);
         option.requestUpdate?.();

@@ -1,4 +1,5 @@
 import {
+  SbbBreakpointMediumMax,
   SbbBreakpointMediumMin,
   SbbBreakpointSmallMax,
   SbbTypoScaleDefault,
@@ -12,6 +13,7 @@ export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
 export const SbbMediaQueryBreakpointMediumAndAbove = `(min-width: ${pxToRem(SbbBreakpointMediumMin)}rem)`;
+export const SbbMediaQueryBreakpointMediumAndBelow = `(max-width: ${pxToRem(SbbBreakpointMediumMax)}rem)`;
 export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${pxToRem(SbbBreakpointSmallMax)}rem)`;
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -56,15 +58,9 @@ export class SbbMediaMatcherController implements ReactiveController {
    * @returns Whether the query matches or null with SSR.
    */
   public matches(query: string): boolean | null {
-    if (isServer) {
-      return null;
-    }
-    const mediaQuery = mediaQueryRegistry.get(query);
-    if (mediaQuery) {
-      return mediaQuery.mediaQueryList.matches;
-    } else {
-      return matchMedia(query).matches;
-    }
+    // If we use the cached instance, Webkit seems to update the state a tick too late.
+    // Due to this we directly use matchMedia here.
+    return isServer ? null : matchMedia(query).matches;
   }
 
   public hostConnected(): void {

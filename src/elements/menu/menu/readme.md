@@ -57,22 +57,37 @@ using `<ul>` and `<li>` items, for more complex scenarios the grouping must be d
 
 ## Accessibility
 
-As the menu opens, the focus will automatically be set to the first focusable item within the component.
+As the menu opens, the focus will automatically be set to the first focusable
+item within the component (unless manually specified, see below).
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
 to identify which actions are active and which are not.
 
 It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
 
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-menu>
+  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+  <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
+    Receives initial focus
+  </sbb-menu-link>
+</sbb-menu>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                                       |
-| ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                 | -                          | public  | `boolean`                       |         | Whether the element is open.                                                                                                      |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`                        | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
-| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
+| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                                                       |
+| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                                                      |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
 
 ## Methods
 
@@ -83,12 +98,12 @@ It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via key
 
 ## Events
 
-| Name        | Type                | Description                                                                   | Inherited From          |
-| ----------- | ------------------- | ----------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

@@ -7,9 +7,9 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
+} from '../common/button-test-utils.private.js';
 
-import { SbbButtonStaticElement } from './button-static.js';
+import { SbbButtonStaticElement } from './button-static.component.js';
 
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;
@@ -50,7 +50,7 @@ describe(`sbb-button-static`, () => {
 
       const clickSpy = new EventSpy('click');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(clickSpy.count).not.to.be.greaterThan(0);

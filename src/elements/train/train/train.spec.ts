@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTrainWagonElement } from '../train-wagon.js';
 
-import { SbbTrainElement } from './train.js';
+import { SbbTrainElement } from './train.component.js';
 
 import '../train-wagon.js';
 
@@ -25,7 +25,7 @@ describe(`sbb-train`, () => {
         <sbb-train-wagon></sbb-train-wagon>
       </sbb-train>
     `);
-    const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainSlotChange);
+    const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainslotchange);
 
     element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
     await waitForLitRender(element);

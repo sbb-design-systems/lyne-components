@@ -1,13 +1,13 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import type { SbbFormErrorElement } from '../../form-error.js';
 
 import readme from './readme.md?raw';
 
-import './form-field.js';
+import './form-field.component.js';
 import '../form-field-clear.js';
 import '../../button/mini-button.js';
 import '../../form-error.js';

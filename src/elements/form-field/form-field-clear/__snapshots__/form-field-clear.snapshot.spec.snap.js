@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-form-field-clear renders form-field DOM"] = 
 `<sbb-form-field
-  data-input-type="input"
   data-slot-names="label suffix unnamed"
   error-space="none"
   size="m"
@@ -22,7 +21,6 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
     value="Input value"
   >
   <sbb-form-field-clear
-    aria-label="Clear input value"
     data-action=""
     data-button=""
     slot="suffix"
@@ -36,10 +34,8 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
 snapshots["sbb-form-field-clear renders form-field-clear Shadow DOM"] = 
 `<span class="sbb-action-base sbb-form-field-clear">
   <sbb-icon
-    aria-hidden="true"
     data-namespace="default"
     name="cross-small"
-    role="img"
   >
   </sbb-icon>
 </span>

@@ -6,7 +6,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
 
-import { SbbRadioButtonGroupElement } from './radio-button-group.js';
+import { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
 
 import '../radio-button.js';
 import '../radio-button-panel.js';
@@ -216,6 +216,51 @@ import '../radio-button-panel.js';
 
         expect(radios[1].checked).to.be.true;
         expect(radios[1].tabIndex).to.be.equal(0);
+      });
+    });
+
+    describe('with complex value', () => {
+      let element: SbbRadioButtonGroupElement<{ value: string; label: string }>;
+      let radios: (SbbRadioButtonElement | SbbRadioButtonPanelElement)[];
+      const values = [
+        { value: '1', label: 'Value 1' },
+        { value: '2', label: 'Value 2' },
+        { value: '3', label: 'Value 3' },
+      ];
+
+      beforeEach(async () => {
+        element = await fixture(html`
+          <sbb-radio-button-group>
+            <${tagSingle} .value=${values[0]}>${values[0].label}</${tagSingle}>
+            <${tagSingle} .value=${values[1]} checked>${values[1].label}</${tagSingle}>
+            <${tagSingle} .value=${values[2]}>${values[2].label}</${tagSingle}>
+          </sbb-radio-button-group>
+        `);
+
+        radios = Array.from(element.querySelectorAll(selector));
+
+        await waitForLitRender(element);
+      });
+
+      it('should init with value', async () => {
+        expect(element.value).to.be.deep.equal(radios[1].value);
+      });
+
+      it('should update value on click', async () => {
+        radios[0].click();
+        await waitForLitRender(element);
+
+        expect(element.value).to.be.deep.equal(radios[0].value);
+      });
+
+      it('should set complex value', async () => {
+        element.value = values[0];
+        await waitForLitRender(element);
+
+        expect(element.value).to.be.deep.equal(radios[0].value);
+        expect(radios[0].checked).to.be.true;
+        expect(radios[1].checked).to.be.false;
+        expect(radios[2].checked).to.be.false;
       });
     });
 

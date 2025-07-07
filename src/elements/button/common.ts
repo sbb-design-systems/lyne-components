@@ -1,3 +1,6 @@
+/**
+ * @entrypoint
+ */
 export * from './common/button-common.js';
 
 export { default as buttonCommonStyle } from './common/button-common.scss?lit&inline';

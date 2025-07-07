@@ -9,7 +9,7 @@ import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter, forwardEvent } from '../../core/eventing.js';
+import { forwardEvent } from '../../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorCurrentlySelected,
@@ -20,28 +20,29 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
   type Constructor,
+  SbbElementInternalsMixin,
 } from '../../core/mixins.js';
 
 import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
 import '../../icon.js';
 
-export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbFormAssociatedMixinType {
+export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+) {
   public accessor size: 's' | 'm';
   public accessor multiple: boolean;
   public accessor multipleMode: 'default' | 'persistent';
   public accessor accept: string;
   public accessor accessibilityLabel: string;
-  public accessor disabled: boolean;
   public accessor files: Readonly<File>[];
-  protected formDisabled: boolean;
+  public override get value(): string | null;
+  public override set value(value: string | null);
   protected loadButton: SbbSecondaryButtonStaticElement;
   protected language: SbbLanguageController;
   protected abstract renderTemplate(input: TemplateResult): TemplateResult;
   protected createFileList(files: FileList): void;
-  protected updateFormValue(): void;
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 }
@@ -51,11 +52,11 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
   superclass: T,
 ): Constructor<SbbFileSelectorCommonElementMixinType> & T => {
   abstract class SbbFileSelectorCommonElement
-    extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
+    extends SbbDisabledMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superclass)))
     implements Partial<SbbFileSelectorCommonElementMixinType>
   {
     public static readonly events = {
-      fileChangedEvent: 'fileChanged',
+      filechanged: 'filechanged',
     } as const;
 
     /**
@@ -85,15 +86,14 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     /** The path of the first selected file. Empty string ('') if no file is selected */
     @property({ attribute: false })
-    public override set value(value: string | null) {
+    public set value(value: string | null) {
       this._hiddenInput.value = value ?? '';
 
       if (!value) {
         this.files = [];
       }
     }
-
-    public override get value(): string | null {
+    public get value(): string | null {
       return this._hiddenInput?.value;
     }
 
@@ -122,12 +122,6 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       return 'file';
     }
 
-    /** An event which is emitted each time the file list changes. */
-    private _fileChangedEvent: EventEmitter<Readonly<File>[]> = new EventEmitter(
-      this,
-      SbbFileSelectorCommonElement.events.fileChangedEvent,
-    );
-
     private _hiddenInput!: HTMLInputElement;
     private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
     private _liveRegion!: HTMLParagraphElement;
@@ -147,9 +141,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       if (!state) {
         return;
       }
-      this.files = (state as [string, FormDataEntryValue][]).map(
-        ([_, value]) => value as Readonly<File>,
-      );
+      this.files = (state as FormData).getAll(this.name) as Readonly<File>[];
     }
 
     protected override updateFormValue(): void {
@@ -173,9 +165,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
 
     private _onBlur(): void {
-      if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-        this.loadButton.removeAttribute('data-focus-visible');
-      }
+      this.loadButton.removeAttribute('data-focus-visible');
     }
 
     private _readFiles(event: Event): void {
@@ -201,7 +191,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
           .concat(this.files);
       }
       this._updateA11yLiveRegion();
-      this._fileChangedEvent.emit(this.files);
+      this._dispatchFileChangedEvent();
     }
 
     private _removeFile(file: Readonly<File>): void {
@@ -209,9 +199,35 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       this._updateA11yLiveRegion();
 
       // Dispatch native events as if the reset is done via the file selection window.
-      this.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
+      /** The input event fires when the value has been changed as a direct result of a user action. */
+      this.dispatchEvent(
+        new InputEvent('input', {
+          bubbles: true,
+          composed: true,
+        }),
+      );
+
+      /**
+       * The change event is fired when the user modifies the element's value.
+       * Unlike the input event, the change event is not necessarily fired
+       * for each alteration to an element's value.
+       */
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this._fileChangedEvent.emit(this.files);
+      this._dispatchFileChangedEvent();
+    }
+
+    private _dispatchFileChangedEvent(): void {
+      /**
+       * @type {CustomEvent<Readonly<File>[]>}
+       * An event which is emitted each time the file list changes.
+       */
+      this.dispatchEvent(
+        new CustomEvent<Readonly<File>[]>('filechanged', {
+          bubbles: true,
+          composed: true,
+          detail: this.files,
+        }),
+      );
     }
 
     /** Calculates the correct unit for the file's size. */

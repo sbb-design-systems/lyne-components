@@ -4,8 +4,8 @@ import { fixture } from '../../core/testing/private.js';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
-import './transparent-button.js';
+} from '../common/button-test-utils.private.js';
+import './transparent-button.component.js';
 
 describe(`sbb-transparent-button`, () => {
   it('should detect icon in sbb-transparent-button', async () => {

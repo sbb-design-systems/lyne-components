@@ -1,9 +1,8 @@
-/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, relative } from 'path';
 
 import * as glob from 'glob';
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 /*
  * Convert e2e test files to use the lit fixture, to enable ssr testing.

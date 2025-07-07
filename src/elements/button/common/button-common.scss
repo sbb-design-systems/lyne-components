@@ -51,7 +51,6 @@ $active: ':active, [data-active], [loading]';
   --_background-color: var(--sbb-button-color-default-background);
   --_color: var(--sbb-button-color-default-text);
   --_button-inset: 0;
-  --_outline-width: 0;
 
   // The overlap-fix closes a small visual gap between border and background color when hovered.
   // As long as the border color corresponds to the background color, we slightly increase the border width.
@@ -166,15 +165,6 @@ $active: ':active, [data-active], [loading]';
   --_border-color: var(--sbb-button-color-active-border);
 }
 
-:host([data-focus-visible]),
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  // Handle focus on the host (button variant)
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])),
-  // Handle focus on the action (link variant)
-:host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) .sbb-action-base:focus-visible {
-  --_outline-width: var(--sbb-focus-outline-width);
-}
-
 :host([loading]:not(#{$disabled})) {
   --_min-height-modifier: -6px;
   --_border: none;
@@ -206,9 +196,9 @@ $active: ':active, [data-active], [loading]';
   aspect-ratio: 2 / 1;
   position: absolute;
   background: radial-gradient(
-    100% 100% at right,
-    var(--sbb-button-color-active-text),
-    transparent 50%
+      100% 100% at right,
+      var(--sbb-button-color-active-text),
+      transparent 50%
   );
   offset-path: border-box;
   offset-anchor: 100% 50%;
@@ -264,11 +254,19 @@ $active: ':active, [data-active], [loading]';
     border-radius: var(--sbb-button-border-radius);
     pointer-events: none;
     box-shadow: var(--sbb-button-box-shadow);
-    outline: var(--sbb-focus-outline-color) solid var(--_outline-width);
-    outline-offset: var(--sbb-focus-outline-offset);
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, border, box-shadow;
+  }
+
+  :host([data-focus-visible]) &,
+    // Handle focus on the host (button variant)
+  :host(:focus-visible) &,
+    // Handle focus on the action (link variant)
+  &:focus-visible {
+    &::before {
+      @include sbb.focus-outline;
+    }
   }
 }
 

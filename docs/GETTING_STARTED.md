@@ -7,6 +7,8 @@ Select your technology to get started.
 <details>
   <summary>Plain Javascript</summary>
 
+> ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-elements](https://stackblitz.com/edit/lyne-elements-starter?file=src%2Fmain.ts).
+
 1. Install the `@sbb-esta/lyne-elements` and `@sbb-esta/lyne-elements-experimental` package:
 
    ```sh
@@ -41,7 +43,9 @@ Select your technology to get started.
 
 > ⓘ We provide a Lyne Angular wrapper which helps to use lyne components in Angular. It's currently in beta state, see
 > https://github.com/sbb-design-systems/lyne-angular for more information.
-> However, it's possible to use Lyne Components in Angular without the wrapper:.
+> However, it's possible to use Lyne Components in Angular without the wrapper.
+
+> ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts).
 
 1. Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
 2. Install the `@sbb-esta/lyne-elements` package:
@@ -102,6 +106,8 @@ bootstrapApplication(App).catch((err) => console.error(err));
 
 <details>
   <summary>React/Next.js</summary>
+
+> ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-react](https://stackblitz.com/edit/lyne-react-starter?file=src%2FApp.tsx).
 
 1. Prepare a React and Next.js setup.
 2. Install the `@sbb-esta/lyne-react` package:
@@ -228,8 +234,9 @@ However, if you like to more specifically pick what you need, consider the follo
 | `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).         |
 |                                 |                                                                                     |
 | `a11y.css`                      | Provides accessibility related CSS classes.                                         |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.          |
 | `badge.css`                     | Provides badge styling.                                                             |
-| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing).                       |
+| `disable-animation.css`         | Disable animations on root level, ideally for a global test setup.                  |
 | `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
 | `lists.css`                     | Provides CSS classes to style lists.                                                |
 | `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                          |

@@ -1,11 +1,11 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, Args, StoryContext, ArgTypes } from '@storybook/web-components';
+import type { Meta, StoryObj, Args, StoryContext, ArgTypes } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import './timetable-occupancy.js';
+import './timetable-occupancy.component.js';
 
 import readme from './readme.md?raw';
 

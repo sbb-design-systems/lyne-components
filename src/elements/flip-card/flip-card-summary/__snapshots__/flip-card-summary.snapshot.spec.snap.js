@@ -23,11 +23,7 @@ snapshots["sbb-flip-card-summary DOM"] =
   image-alignment="below"
   slot="summary"
 >
-  <sbb-title
-    aria-level="4"
-    level="4"
-    role="heading"
-  >
+  <sbb-title level="4">
     Summary
   </sbb-title>
   <sbb-image slot="image">

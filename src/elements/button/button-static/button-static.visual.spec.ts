@@ -7,7 +7,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.js';
 
-import './button-static.js';
+import './button-static.component.js';
 
 // We test only the differences to the sbb-button and sbb-button-link
 describe(`sbb-button-static`, () => {

@@ -6,10 +6,12 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import { EventSpy, waitForCondition } from '../../core/testing.js';
 import { SbbAlertElement } from '../alert.js';
 
-import './alert-group.js';
+import './alert-group.component.js';
+import '../../title.js';
 
 describe(`sbb-alert-group`, () => {
-  const alert = html`<sbb-alert title-content="Interruption between Berne and Olten">
+  const alert = html`<sbb-alert>
+    <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
     Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
     construction work will take place. You have to expect changed travel times and changed
     connections.
@@ -32,7 +34,7 @@ describe(`sbb-alert-group`, () => {
 
         setup.withPostSetupAction(async () => {
           const alert = setup.snapshotElement.querySelector('sbb-alert')!;
-          const didCloseEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert);
+          const closeSpy = new EventSpy(SbbAlertElement.events.close, alert);
 
           // As registering an eventSpy is too late we have to use waitForCondition().
           await waitForCondition(() => alert.getAttribute('data-state') === 'opened');
@@ -44,7 +46,7 @@ describe(`sbb-alert-group`, () => {
           closeButton.focus();
           await sendKeys({ press: 'Enter' });
 
-          await didCloseEventSpy.calledOnce();
+          await closeSpy.calledOnce();
         });
       }),
     );

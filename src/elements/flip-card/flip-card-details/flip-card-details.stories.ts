@@ -1,12 +1,12 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
 
 import readme from './readme.md?raw';
 
 import '../../link.js';
-import './flip-card-details.js';
+import './flip-card-details.component.js';
 
 const Template = (): TemplateResult =>
   html`<sbb-flip-card-details style="--sbb-flip-card-details-opacity: 1">

@@ -6,10 +6,11 @@ import {
   describeViewports,
   visualRegressionFixture,
   visualDiffDefault,
+  visualDiffFocus,
 } from '../../core/testing/private.js';
 import { waitForCondition } from '../../core/testing/wait-for-condition.js';
 
-import './table-wrapper.js';
+import './table-wrapper.component.js';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;
@@ -61,7 +62,9 @@ describe(`sbb-table-wrapper`, () => {
         );
         if (scrollbar) {
           const element = root.querySelector('sbb-table-wrapper')!;
-          await waitForCondition(() => element.hasAttribute('data-has-horizontal-scrollbar'));
+          await waitForCondition(
+            () => !element.classList.contains('sbb-table-wrapper-offset-none'),
+          );
         }
       });
 
@@ -72,5 +75,25 @@ describe(`sbb-table-wrapper`, () => {
         }),
       );
     });
+
+    it(
+      'focusable',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-table-wrapper focusable>
+            <table class="sbb-table">
+              <tr>
+                <td>Content</td>
+                <td>Content</td>
+              </tr>
+              <tr>
+                <td>Content</td>
+                <td>Content</td>
+              </tr>
+            </table>
+          </sbb-table-wrapper>`,
+        );
+      }),
+    );
   });
 });

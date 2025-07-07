@@ -1,7 +1,7 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -10,7 +10,7 @@ import '../../icon.js';
 import '../train.js';
 import '../train-wagon.js';
 import '../train-blocked-passage.js';
-import './train-formation.js';
+import './train-formation.component.js';
 
 const MountedFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation ${sbbSpread(args)}>

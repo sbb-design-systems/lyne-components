@@ -1,7 +1,7 @@
 name: Feature request or enhancement
 description: Request for a new component or enhancement of a component
 title: '[Feature request]: '
-labels: ['type: feature-request 💡']
+type: Feature
 assignees:
   - octocat
 body:

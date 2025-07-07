@@ -1,5 +1,5 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
+import type { InputType } from 'storybook/internal/types';
 
 import {
   commonDecorators,
@@ -19,11 +19,11 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.js';
+} from '../common/common-stories.private.js';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './transparent-button-static.js';
+import './transparent-button-static.component.js';
 
 const disabled: InputType = {
   control: {

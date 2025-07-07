@@ -5,7 +5,7 @@ snapshots["sbb-select renders Safari DOM"] =
 `<sbb-select
   data-state="closed"
   id="sbb-select-1"
-  role="listbox"
+  size="m"
 >
   <sbb-option
     aria-selected="false"
@@ -13,7 +13,6 @@ snapshots["sbb-select renders Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     Option 1
@@ -24,7 +23,6 @@ snapshots["sbb-select renders Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     Option 2
@@ -35,7 +33,6 @@ snapshots["sbb-select renders Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-2"
-    role="option"
     value="3"
   >
     Option 3
@@ -91,7 +88,7 @@ snapshots["sbb-select renders multiple Safari DOM"] =
   data-state="closed"
   id="sbb-select-3"
   multiple=""
-  role="listbox"
+  size="m"
 >
   <sbb-option
     aria-selected="false"
@@ -100,7 +97,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-6"
-    role="option"
     value="1"
   >
     Option 1
@@ -112,7 +108,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-7"
-    role="option"
     value="2"
   >
     Option 2
@@ -124,7 +119,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-8"
-    role="option"
     value="3"
   >
     Option 3
@@ -179,14 +173,16 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 /* end snapshot sbb-select renders multiple Safari Shadow DOM */
 
 snapshots["sbb-select renders Chrome-Firefox DOM"] = 
-`<sbb-select data-state="closed">
+`<sbb-select
+  data-state="closed"
+  size="m"
+>
   <sbb-option
     aria-selected="false"
     data-disable-highlight=""
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     Option 1
@@ -197,7 +193,6 @@ snapshots["sbb-select renders Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     Option 2
@@ -208,7 +203,6 @@ snapshots["sbb-select renders Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-2"
-    role="option"
     value="3"
   >
     Option 3
@@ -284,6 +278,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
 `<sbb-select
   data-state="closed"
   multiple=""
+  size="m"
 >
   <sbb-option
     aria-selected="false"
@@ -292,7 +287,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-9"
-    role="option"
     value="1"
   >
     Option 1
@@ -304,7 +298,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-10"
-    role="option"
     value="2"
   >
     Option 2
@@ -316,7 +309,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
     data-slot-names="unnamed"
     data-variant="select"
     id="sbb-option-11"
-    role="option"
     value="3"
   >
     Option 3

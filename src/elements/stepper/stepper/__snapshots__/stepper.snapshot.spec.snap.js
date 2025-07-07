@@ -9,53 +9,44 @@ snapshots["sbb-stepper renders DOM"] =
   size="m"
 >
   <sbb-step-label
-    aria-controls="sbb-step-0"
     data-action=""
     data-button=""
     data-orientation="horizontal"
     data-selected=""
     data-size="m"
     id="sbb-step-label-0"
-    role="tab"
     slot="step-label"
     tabindex="0"
   >
     Test step label 1
   </sbb-step-label>
   <sbb-step
-    aria-labelledby="sbb-step-label-0"
     data-orientation="horizontal"
     data-selected=""
     id="sbb-step-0"
-    role="tabpanel"
     slot="step"
   >
     Test step content 1
   </sbb-step>
   <sbb-step-label
-    aria-controls="sbb-step-1"
     data-action=""
     data-button=""
     data-orientation="horizontal"
     data-size="m"
     id="sbb-step-label-1"
-    role="tab"
     slot="step-label"
     tabindex="-1"
   >
     Test step label 2
   </sbb-step-label>
   <sbb-step
-    aria-labelledby="sbb-step-label-1"
     data-orientation="horizontal"
     id="sbb-step-1"
-    role="tabpanel"
     slot="step"
   >
     Test step content 2
   </sbb-step>
   <sbb-step-label
-    aria-controls="sbb-step-2"
     data-action=""
     data-button=""
     data-disabled=""
@@ -63,17 +54,14 @@ snapshots["sbb-stepper renders DOM"] =
     data-size="m"
     disabled=""
     id="sbb-step-label-2"
-    role="tab"
     slot="step-label"
     tabindex="-1"
   >
     Test step label 3
   </sbb-step-label>
   <sbb-step
-    aria-labelledby="sbb-step-label-2"
     data-orientation="horizontal"
     id="sbb-step-2"
-    role="tabpanel"
     slot="step"
   >
     Test step content 3
@@ -82,7 +70,6 @@ snapshots["sbb-stepper renders DOM"] =
     data-action=""
     data-button=""
     id="sbb-step-label-3"
-    role="tab"
     slot="step-label"
     tabindex="-1"
   >

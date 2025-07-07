@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { register } from 'node:module';
 import { platform } from 'node:os';
 import { join, relative } from 'node:path';
@@ -16,9 +17,14 @@ export function verifyEntryPoints(): PluginOption {
     },
     async closeBundle() {
       // On windows, the files are not yet written when closeBundle is called.
-      if (viteConfig.command !== 'build' || platform() === 'win32') {
+      if (
+        viteConfig.command !== 'build' ||
+        !existsSync(viteConfig.build.outDir) ||
+        platform() === 'win32'
+      ) {
         return;
       }
+
       const entry = (viteConfig.build.lib as LibraryOptions).entry as Record<string, string>;
       const dir = new URL('./', import.meta.url);
       for (const entryPoint of Object.keys(entry)) {

@@ -5,9 +5,9 @@ import { mergeConfig, readConfig, type SbbIconConfig } from '../core/config.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing.js';
 
-import type { SbbIconElement } from './icon.js';
+import type { SbbIconElement } from './icon.component.js';
 
-import './icon.js';
+import './icon.component.js';
 
 describe(`sbb-icon`, () => {
   let iconConfig: SbbIconConfig;
@@ -98,7 +98,7 @@ describe(`sbb-icon`, () => {
     );
 
     expect(icon).dom.to.be.equal(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default">
+      <sbb-icon name="app-icon-medium" aria-hidden="false" data-namespace="default">
       </sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
@@ -109,7 +109,7 @@ describe(`sbb-icon`, () => {
     await waitForLitRender(icon);
 
     expect(icon).dom.to.be.equal(`
-      <sbb-icon name="pie-medium" aria-hidden="false" aria-label="Icon pie medium" role="img" data-namespace="default">
+      <sbb-icon name="pie-medium" aria-hidden="false" data-namespace="default">
       </sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
@@ -146,7 +146,7 @@ describe(`sbb-icon`, () => {
     const root = await fixture(html`<sbb-icon name="kom:heart-medium"></sbb-icon>`);
 
     expect(root).dom.to.be.equal(`
-      <sbb-icon name="kom:heart-medium" aria-hidden="true" role="img" data-namespace="kom">
+      <sbb-icon name="kom:heart-medium" data-namespace="kom">
       </sbb-icon>
     `);
     await expect(root).shadowDom.to.equalSnapshot();

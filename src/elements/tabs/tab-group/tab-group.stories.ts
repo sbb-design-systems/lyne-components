@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -7,14 +5,16 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.js';
+import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
 
 import '../../link.js';
 import '../../title.js';
@@ -22,8 +22,8 @@ import '../tab-label.js';
 import '../tab.js';
 import '../../card.js';
 
-const changeEventHandler = (event: CustomEvent): void => {
-  const evDetail = event.detail as SbbTabChangedEventDetails;
+const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
+  const evDetail = event.detail;
   const card = document.getElementById('container')!;
   card.innerHTML = `
     The selected tab has index: ${evDetail.activeIndex} and label "${evDetail.activeTabLabel.textContent}";<br/>
@@ -70,7 +70,6 @@ const tabPanelFour = (): TemplateResult => html`
   </sbb-tab>
 `;
 
-// TODO: check whether didChange can be replaced with change
 const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-card
     id="container"
@@ -80,7 +79,7 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
   <sbb-tab-group
     size=${size}
     initial-selected-index="0"
-    @didChange=${(e: CustomEvent) => changeEventHandler(e)}
+    @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
   >
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
@@ -260,7 +259,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbTabGroupElement.events.didChange],
+      handles: [SbbTabGroupElement.events.tabchange],
     },
     docs: {
       extractComponentDescription: () => readme,

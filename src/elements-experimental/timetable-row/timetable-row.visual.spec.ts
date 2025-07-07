@@ -8,8 +8,8 @@ import { html, type TemplateResult } from 'lit';
 
 import type { ITripItem } from '../core/timetable/timetable-properties.js';
 
-import type { Boarding, Price } from './timetable-row.js';
-import './timetable-row.js';
+import type { Boarding, Price } from './timetable-row.component.js';
+import './timetable-row.component.js';
 import {
   busTrip,
   cancelledTrip,
@@ -29,7 +29,7 @@ import {
   trainTrip,
   walkTimeTrip,
   a11yFootpathTrip,
-} from './timetable-row.sample-data.js';
+} from './timetable-row.sample-data.private.js';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
 
@@ -37,7 +37,7 @@ interface Args {
   trip?: DeepPartial<ITripItem>;
   price?: Price;
   boarding?: Boarding;
-  now?: number;
+  now?: Date;
   active?: boolean;
   loadingTrip?: boolean;
   a11yFootpath?: boolean;
@@ -49,24 +49,24 @@ describe(`sbb-timetable-row`, () => {
     { name: 'position', trip: progressTrip },
     { name: 'cancelled', trip: cancelledTrip },
     { name: 'partially cancelled', trip: partiallyCancelled },
-    { name: 'past', trip: pastTrip, now: new Date('2023-12-01T12:11:00').valueOf() },
-    { name: 'disturbance', trip: disturbanceTrip, now: new Date('2022-12-05T12:11:00').valueOf() },
+    { name: 'past', trip: pastTrip, now: new Date('2023-12-01T12:11:00') },
+    { name: 'disturbance', trip: disturbanceTrip, now: new Date('2022-12-05T12:11:00') },
     {
       name: 'skipped departure stop',
       trip: skippedDepartureStopTrip,
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
     {
       name: 'skipped arrival stop',
       trip: skippedArrivalStopTrip,
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
     {
       name: 'skipped last arrival stop',
       trip: skippedLastArrivalStopTrip,
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
-    { name: 'quay changed', trip: quayChangeTrip, now: new Date('2022-12-05T12:11:00').valueOf() },
+    { name: 'quay changed', trip: quayChangeTrip, now: new Date('2022-12-05T12:11:00') },
     { name: 'train', trip: trainTrip },
     { name: 'bus', trip: busTrip },
     { name: 'ship', trip: shipTrip },
@@ -85,7 +85,7 @@ describe(`sbb-timetable-row`, () => {
       ?loading-trip=${args.loadingTrip}
       ?a11y-footpath=${args.a11yFootpath}
       ?loading-price=${args.loadingPrice}
-      now=${(args.now ?? new Date('2022-12-01T12:11:00').valueOf()) / 1000}
+      .now=${args.now ?? new Date('2022-12-01T12:11:00')}
       disable-animation
     ></sbb-timetable-row>
   `;

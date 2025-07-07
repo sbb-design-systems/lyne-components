@@ -9,35 +9,41 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';
 
-import { SbbNavigationElement } from './navigation.js';
+import { SbbNavigationElement } from './navigation.component.js';
 
 import '../navigation-button.js';
 import '../navigation-marker.js';
 import '../navigation-section.js';
 
 describe(`sbb-navigation`, () => {
-  let element: SbbNavigationElement;
+  let element: SbbNavigationElement, trigger: HTMLElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation">
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
-          <sbb-navigation-button>Travel information</sbb-navigation-button>
-          <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
-        </sbb-navigation-marker>
+    const root = await fixture(
+      html`<div>
+        <button id="navigation-trigger"></button>
+        <sbb-navigation trigger="navigation-trigger">
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+            <sbb-navigation-button>Travel information</sbb-navigation-button>
+            <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
+          </sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="action-1" id="first-section">
-          <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-        <sbb-navigation-section trigger="action-2" id="second-section">
-          <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-section trigger="action-1" id="first-section">
+            <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+          <sbb-navigation-section trigger="action-2" id="second-section">
+            <sbb-navigation-button>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+        </sbb-navigation>
+      </div> `,
+    );
+
+    element = root.querySelector('sbb-navigation')!;
+    trigger = root.querySelector('button')!;
   });
 
   it('renders', () => {
@@ -45,39 +51,51 @@ describe(`sbb-navigation`, () => {
   });
 
   it('opens the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
 
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(element).to.match(':popover-open');
   });
 
+  it('focuses the element with sbb-focus-initial', async () => {
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+
+    const action2 = element.querySelector('#action-2')!;
+    action2.toggleAttribute('sbb-focus-initial', true);
+
+    element.open();
+    await openSpy.calledOnce();
+
+    expect(document.activeElement).to.be.equal(action2);
+  });
+
   it('sets the initial active actions and focuses on the close button', async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation">
+      <sbb-navigation>
         <sbb-navigation-marker>
           <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-active-1" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
+          <sbb-navigation-button id="action-active-1" class="sbb-active">
+            Vacations & Recreation
+          </sbb-navigation-button>
         </sbb-navigation-marker>
 
         <sbb-navigation-marker>
-          <sbb-navigation-button id="action-active-2" class="sbb-active"
-            >English</sbb-navigation-button
-          >
+          <sbb-navigation-button id="action-active-2" class="sbb-active">
+            English
+          </sbb-navigation-button>
           <sbb-navigation-button>German</sbb-navigation-button>
         </sbb-navigation-marker>
       </sbb-navigation>
     `);
 
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
     const action2 = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-active-1',
     )!;
@@ -88,8 +106,8 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
     expect(action2).to.have.attribute('data-action-active');
     expect(action3).to.have.attribute('data-action-active');
@@ -98,24 +116,24 @@ describe(`sbb-navigation`, () => {
 
   it('sets the initial active action and opens the connected section', async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation">
+      <sbb-navigation>
         <sbb-navigation-marker>
           <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-active" class="sbb-active"
-            >Vacations & Recreation</sbb-navigation-button
-          >
+          <sbb-navigation-button id="action-active" class="sbb-active">
+            Vacations & Recreation
+          </sbb-navigation-button>
         </sbb-navigation-marker>
 
         <sbb-navigation-section trigger="action-active" id="active-section">
           <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button id="section-action-active" class="sbb-active"
-            >Label</sbb-navigation-button
-          >
+          <sbb-navigation-button id="section-action-active" class="sbb-active">
+            Label
+          </sbb-navigation-button>
         </sbb-navigation-section>
       </sbb-navigation>
     `);
 
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
     const actionActive = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-active',
     )!;
@@ -129,8 +147,8 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
     expect(actionActive).to.have.attribute('data-action-active');
     expect(sectionActionActive).to.have.attribute('data-action-active');
@@ -139,7 +157,7 @@ describe(`sbb-navigation`, () => {
 
   it('resets the markers on navigation close', async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation">
+      <sbb-navigation>
         <sbb-navigation-marker>
           <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
           <sbb-navigation-button id="second-action" class="sbb-active"
@@ -156,8 +174,8 @@ describe(`sbb-navigation`, () => {
       </sbb-navigation>
     `);
 
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
     const action1 = element.querySelector<SbbNavigationButtonElement>('#first-action')!;
     const action2 = element.querySelector<SbbNavigationButtonElement>('#second-action')!;
     const action3 = element.querySelector<SbbNavigationButtonElement>('#third-action')!;
@@ -166,8 +184,8 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
     expect(action2).to.have.attribute('data-action-active');
     expect(action3).to.have.attribute('data-action-active');
@@ -186,70 +204,70 @@ describe(`sbb-navigation`, () => {
     element.close();
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
 
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledTimes(2);
-    expect(didOpenEventSpy.count).to.be.equal(2);
+    await openSpy.calledTimes(2);
+    expect(openSpy.count).to.be.equal(2);
     expect(element).to.have.attribute('data-state', 'opened');
     expect(action1).not.to.have.attribute('data-action-active');
     expect(action4).not.to.have.attribute('data-action-active');
   });
 
   it('closes the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
 
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
     expect(element).not.to.match(':popover-open');
   });
 
   it('closes the navigation on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
     const closeButton: SbbButtonElement =
       element.shadowRoot!.querySelector<SbbButtonElement>('.sbb-navigation__close')!;
 
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
 
     closeButton.click();
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes the navigation on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
 
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -260,14 +278,14 @@ describe(`sbb-navigation`, () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes navigation with sbb-navigation-close', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       'sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -282,8 +300,8 @@ describe(`sbb-navigation`, () => {
     action.click();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -292,8 +310,8 @@ describe(`sbb-navigation`, () => {
     closeEl.click();
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
     expect(section).to.have.attribute('data-state', 'closed');
   });
@@ -301,26 +319,26 @@ describe(`sbb-navigation`, () => {
   it('opens and closes navigation with non-zero animation duration', async () => {
     element.style.setProperty('--sbb-navigation-animation-duration', '1ms');
 
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
 
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('opens navigation and opens section', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -329,8 +347,8 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'closed');
 
@@ -343,7 +361,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('opens navigation and toggles sections', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
     const firstSection = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const secondSection = element.querySelector<SbbNavigationSectionElement>('#second-section')!;
     const firstAction = element.querySelector<SbbNavigationButtonElement>(
@@ -356,8 +374,8 @@ describe(`sbb-navigation`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -378,8 +396,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation and the section on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -395,9 +413,9 @@ describe(`sbb-navigation`, () => {
     await waitForLitRender(element);
     await nextFrame();
 
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
     await waitForCondition(() => section.getAttribute('data-state') === 'opened');
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -405,9 +423,9 @@ describe(`sbb-navigation`, () => {
 
     closeButton.click();
 
-    await didCloseEventSpy.calledOnce();
+    await closeSpy.calledOnce();
     await waitForCondition(() => section.getAttribute('data-state') === 'closed');
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
@@ -415,8 +433,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes the navigation and the section on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const closeSpy = new EventSpy(SbbNavigationElement.events.close, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -428,8 +446,8 @@ describe(`sbb-navigation`, () => {
     action.click();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -441,8 +459,8 @@ describe(`sbb-navigation`, () => {
     await sendKeys({ press: 'Escape' });
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
@@ -450,7 +468,7 @@ describe(`sbb-navigation`, () => {
   });
 
   it('closes section with sbb-navigation-section-close', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
     const section = element.querySelector<SbbNavigationSectionElement>('#first-section')!;
     const action = element.querySelector<SbbNavigationButtonElement>(
       ':scope > sbb-navigation-marker > sbb-navigation-button#action-1',
@@ -465,8 +483,8 @@ describe(`sbb-navigation`, () => {
     action.click();
     await waitForLitRender(element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
@@ -481,44 +499,98 @@ describe(`sbb-navigation`, () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen, element);
+    const beforeOpenSpy = new EventSpy(SbbNavigationElement.events.beforeopen, element);
 
-    element.addEventListener(SbbNavigationElement.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbNavigationElement.events.beforeopen, (ev) => ev.preventDefault());
     element.open();
 
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
-    const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+    const beforeCloseSpy = new EventSpy(SbbNavigationElement.events.beforeclose, element);
 
     element.open();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
     await waitForLitRender(element);
 
-    element.addEventListener(SbbNavigationElement.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbNavigationElement.events.beforeclose, (ev) => ev.preventDefault());
     element.close();
 
-    await willCloseEventSpy.calledOnce();
+    await beforeCloseSpy.calledOnce();
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('should re-enable scrolling when removed from the DOM', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
 
     element.open();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     expect(pageScrollDisabled()).to.be.true;
 
     element.remove();
     expect(pageScrollDisabled()).to.be.false;
+  });
+
+  it('should update trigger connected by id', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).to.be.null;
+
+    trigger.id = 'navigation-trigger';
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).not.to.be.null;
+  });
+
+  it('should accept trigger as HTML Element', async () => {
+    trigger.id = '';
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).to.be.null;
+
+    element.trigger = trigger;
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).not.to.be.null;
+  });
+
+  it('should allow removing the trigger', async () => {
+    expect(trigger.ariaHasPopup).not.to.be.null;
+
+    element.trigger = null;
+    await waitForLitRender(element);
+    expect(trigger.ariaHasPopup).to.be.null;
+  });
+
+  it('init with HtmlElement as trigger', async () => {
+    trigger = await fixture(html`<button>Trigger</button>`);
+    element = await fixture(html`
+      <sbb-navigation id="menu" .trigger=${trigger}>
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+        </sbb-navigation-marker>
+      </sbb-navigation>
+    `);
+
+    const beforeOpenSpy = new EventSpy(SbbNavigationElement.events.beforeopen, element);
+    const openSpy = new EventSpy(SbbNavigationElement.events.open, element);
+
+    trigger.click();
+
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
+
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':popover-open');
   });
 });

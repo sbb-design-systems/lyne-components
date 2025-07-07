@@ -1,12 +1,12 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import './title.js';
+import './title.component.js';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
 const Template = ({ text, ...args }: Args): TemplateResult =>
@@ -36,7 +36,6 @@ const defaultArgs: Args = {
   text: 'Data without insights are trivial, and insights without action are pointless',
   negative: false,
   'visual-level': undefined,
-  'visually-hidden': false,
 };
 
 export const h1: StoryObj = {

@@ -1,9 +1,9 @@
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 
 import {
   buttonLinkDefaultArgs,
   buttonLinkDefaultArgTypes,
-} from '../common/button-link-common-stories.js';
+} from '../common/button-link-common-stories.private.js';
 import {
   commonDecorators,
   fixedWidth,
@@ -20,11 +20,11 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.js';
+} from '../common/common-stories.private.js';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator.js';
-import './transparent-button-link.js';
+import './transparent-button-link.component.js';
 
 const defaultArgTypes: ArgTypes = { ...buttonLinkDefaultArgTypes };
 

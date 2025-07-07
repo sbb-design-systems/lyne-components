@@ -10,9 +10,9 @@ import {
 } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
-import type { SbbStickyBarElement } from './sticky-bar.js';
+import type { SbbStickyBarElement } from './sticky-bar.component.js';
 
-import './sticky-bar.js';
+import './sticky-bar.component.js';
 import '../container.js';
 import '../../action-group.js';
 import '../../button.js';
@@ -100,6 +100,19 @@ describe(`sbb-sticky-bar`, () => {
             html` <sbb-container .color=${color}>
               ${containerContent(color)}
               <sbb-sticky-bar> ${actionGroup(color)}</sbb-sticky-bar>
+            </sbb-container>`,
+            { padding: '0' },
+          );
+        }),
+      );
+
+      it(
+        `color=${color} size=s`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <sbb-container style="overflow: auto; height: 400px;">
+              ${containerContent()} ${containerContent()} ${containerContent()}
+              <sbb-sticky-bar .color=${color} size="s">${actionGroup(color)}</sbb-sticky-bar>
             </sbb-container>`,
             { padding: '0' },
           );

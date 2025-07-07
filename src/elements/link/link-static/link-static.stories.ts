@@ -1,4 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type {
   Args,
   ArgTypes,
@@ -6,17 +5,18 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
+import { withActions } from 'storybook/actions/decorator';
 
 import {
   inline,
   inlineNegative,
   linkCommonDefaultArgs,
   linkCommonDefaultArgTypes,
-} from '../common/link-common-stories.js';
+} from '../common/link-common-stories.private.js';
 
 import readme from './readme.md?raw';
-import './link-static.js';
+import './link-static.component.js';
 
 const defaultArgTypes: ArgTypes = {
   ...linkCommonDefaultArgTypes,

@@ -7,8 +7,9 @@ import type { SbbFormFieldElement } from '../../form-field.js';
 import '../datepicker-next-day.js';
 import '../datepicker-previous-day.js';
 import '../datepicker-toggle.js';
+import '../../date-input.js';
 import '../../form-field.js';
-import './datepicker.js';
+import './datepicker.component.js';
 
 describe(`sbb-datepicker`, () => {
   let formField: SbbFormFieldElement;
@@ -17,11 +18,11 @@ describe(`sbb-datepicker`, () => {
     beforeEach(async () => {
       formField = await fixture(
         html`<sbb-form-field>
-          <input />
-          <sbb-datepicker></sbb-datepicker>
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-          <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-date-input id="datepicker-input" value="2021-12-20"></sbb-date-input>
           <sbb-datepicker-toggle></sbb-datepicker-toggle>
+          <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-datepicker></sbb-datepicker>
         </sbb-form-field> `,
       );
     });

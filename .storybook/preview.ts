@@ -1,7 +1,7 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
-import { makeDecorator } from '@storybook/preview-api';
-import type { Parameters, StoryContext } from '@storybook/types';
-import type { Preview } from '@storybook/web-components';
+import type { Preview } from '@storybook/web-components-vite';
+import type { Parameters, StoryContext } from 'storybook/internal/types';
+import { makeDecorator } from 'storybook/preview-api';
 
 import '../src/elements/core/styles/standard-theme.scss';
 
@@ -86,7 +86,7 @@ const parameters: Parameters = {
     },
     source: { format: 'html' },
   },
-  viewport: { viewports: storybookViewports },
+  viewport: { options: storybookViewports },
   backgrounds: { disable: true },
   options: {
     storySort: {
@@ -122,14 +122,14 @@ export default {
       }
 
       for (const eventName of [
-        'willOpen',
-        'didOpen',
-        'willClose',
-        'didClose',
-        'willStick',
-        'didStick',
-        'willUnstick',
-        'didUnstick',
+        'beforeopen',
+        'open',
+        'beforeclose',
+        'close',
+        'beforestick',
+        'stick',
+        'beforeunstick',
+        'unstick',
       ]) {
         root.removeEventListener(eventName, openCloseEventsForwarder, { capture: true });
         root.addEventListener(eventName, openCloseEventsForwarder, { capture: true });

@@ -1,61 +1,88 @@
-import { html, isServer, type LitElement } from 'lit';
+import {
+  html,
+  isServer,
+  type LitElement,
+  type PropertyDeclaration,
+  type PropertyValues,
+} from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
 import { SbbLanguageController } from '../controllers.js';
-import { isFirefox, isWebkit } from '../dom.js';
+import { isWebkit } from '../dom.js';
 import { i18nInputRequired } from '../i18n.js';
 
-import type { Constructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.js';
+import { SbbDisabledMixin } from './disabled-mixin.js';
+import { SbbElementInternalsMixin } from './element-internals-mixin.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-  type SbbFormAssociatedMixinType,
 } from './form-associated-mixin.js';
-import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
+import { SbbReadonlyMixin } from './readonly-mixin.js';
+import { SbbRequiredMixin } from './required-mixin.js';
 
-export declare abstract class SbbFormAssociatedInputMixinType
-  extends SbbFormAssociatedMixinType
-  implements Partial<SbbRequiredMixinType>
-{
+export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequiredMixin(
+  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public set value(value: string);
+  public get value(): string;
+
   public set disabled(value: boolean);
   public get disabled(): boolean;
 
   public set readOnly(value: boolean);
   public get readOnly(): boolean;
 
-  public set required(value: boolean);
-  public get required(): boolean;
-
   public set placeholder(value: string);
   public get placeholder(): string;
+
+  /**
+   * Makes the selection equal to the current object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select)
+   */
+  public select(): void;
 
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
-  protected withUserInteraction?(): void;
-  protected updateFormValue(): void;
+  protected preparePastedText(text: string): string;
   protected language: SbbLanguageController;
 }
+
+const checkPlaintextOnlySupport = (): boolean => {
+  if (isServer) {
+    return false;
+  }
+
+  const div = document.createElement('div');
+  div.setAttribute('contenteditable', 'PLAINTEXT-ONLY');
+
+  // If plaintext-only is supported, the attribute value is
+  // returned as lower-case from the property access.
+  return div.contentEditable === 'plaintext-only';
+};
+const plaintextOnlySupported = checkPlaintextOnlySupport();
 
 /**
  * The SbbFormAssociatedInputMixin enables native form support for text input controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbFormAssociatedInputMixinType> & T => {
+): AbstractConstructor<SbbFormAssociatedInputMixinType> & T => {
   abstract class SbbFormAssociatedInputElement
-    extends SbbRequiredMixin(SbbFormAssociatedMixin(superClass))
+    extends SbbReadonlyMixin(
+      SbbDisabledMixin(
+        SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
+      ),
+    )
     implements Partial<SbbFormAssociatedInputMixinType>
   {
-    /**
-     * The native text input changes the value property when the value attribute is
-     * changed under the condition that no input event has occured since creation
-     * or the last form reset.
-     */
-    private _interacted = false;
+    public static override readonly role = 'textbox';
+
     /**
      * An element with contenteditable will not emit a change event. To achieve parity
      * with a native text input, we need to track whether a change event should be
@@ -81,47 +108,19 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
     }
 
     /**
-     * The text value of the input element.
+     * The value of the input. Reflects the current text value of this input.
      */
-    public override set value(value: string) {
-      super.value = this._cleanText(value);
+    @property()
+    public set value(value: string) {
+      this._value = this._cleanText(value);
       if (this.hasUpdated) {
-        this.innerHTML = super.value;
+        this.innerHTML = this._value;
       }
     }
-    public override get value(): string {
-      return super.value ?? '';
+    public get value(): string {
+      return this._value ?? '';
     }
-
-    /**
-     * Whether the component is readonly.
-     * @attr readonly
-     * @default false
-     */
-    @property({ type: Boolean })
-    public set readOnly(value: boolean) {
-      this.toggleAttribute('readonly', !!value);
-      this.internals.ariaReadOnly = value ? 'true' : null;
-      this._updateContenteditable();
-    }
-    public get readOnly(): boolean {
-      return this.hasAttribute('readonly');
-    }
-
-    /**
-     * Whether the component is disabled.
-     * @attr disabled
-     * @default false
-     */
-    @property({ type: Boolean })
-    public set disabled(value: boolean) {
-      this.toggleAttribute('disabled', !!value);
-      this.internals.ariaDisabled = value ? 'true' : null;
-      this._updateContenteditable();
-    }
-    public get disabled(): boolean {
-      return this.hasAttribute('disabled');
-    }
+    private _value: string = '';
 
     @property({ attribute: false })
     public set placeholder(value: string) {
@@ -138,15 +137,15 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
 
     protected constructor() {
       super();
-      /** @internal */
-      this.internals.role = 'textbox';
       // We primarily use capture event listeners, as we want
       // our listeners to occur before consumer event listeners.
       this.addEventListener?.(
         'input',
         () => {
-          super.value = this._cleanText(this.textContent ?? '');
-          this._interacted = true;
+          const oldValue = this._value;
+          this._value = this._cleanText(this.textContent ?? '');
+          this.requestUpdate('value', oldValue);
+          this.internals.states.add('interacted');
           this._shouldEmitChange = true;
         },
         { capture: true },
@@ -230,13 +229,14 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
         }
 
         selectedRange.deleteContents();
-        selectedRange.insertNode(document.createTextNode(text));
+        selectedRange.insertNode(document.createTextNode(this.preparePastedText(text)));
         selectedRange.setStart(selectedRange.endContainer, selectedRange.endOffset);
         this._dispatchInputEvent();
       });
       // When focusing a text input via keyboard, the text content should be selected.
       this.addEventListener?.('focus', () => {
         if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+          // TODO: This does not seem to work in Firefox with readonly.
           window.getSelection()?.selectAllChildren(this);
         }
       });
@@ -254,6 +254,10 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       );
     }
 
+    protected override isDisabledExternally(): boolean {
+      return this.formDisabled;
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
       this.internals.ariaMultiLine = 'false';
@@ -268,7 +272,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       // By default, when calling focus on an input element, the cursor is placed
       // at the end of the input text. However, with contenteditable, the cursor
       // is placed at the beginning, so we move it to the end, if that is the case.
-      if (!isServer && !this.disabled && !this.readOnly && this.value) {
+      if (this._canSelect()) {
         const selection = window.getSelection();
         if (!selection) {
           return;
@@ -291,7 +295,12 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       old: string | null,
       value: string | null,
     ): void {
-      if (name !== 'value' || !this._interacted) {
+      /**
+       * The native text input changes the value property when the value attribute is
+       * changed under the condition that no input event has occured since creation
+       * or the last form reset.
+       */
+      if (name !== 'value' || !this.internals.states.has('interacted')) {
         super.attributeChangedCallback(name, old, value);
       }
     }
@@ -302,7 +311,7 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
      * @internal
      */
     public override formResetCallback(): void {
-      this._interacted = false;
+      this.internals.states.delete('interacted');
       this.value = this.getAttribute('value') ?? '';
     }
 
@@ -324,8 +333,37 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
-    protected override updateFormValue(): void {
-      this.internals.setFormValue(this.value, this.value);
+    /**
+     * Makes the selection equal to the current object.
+     *
+     * @link https://developer.mozilla.org/docs/Web/API/HTMLInputElement/select
+     */
+    public select(): void {
+      window.getSelection()?.selectAllChildren(this);
+    }
+
+    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+      super.firstUpdated(changedProperties);
+
+      // If the value was assigned before firstUpdate, we have to
+      // write it the document to be visually seen
+      if (this.value && !this.innerHTML.length) {
+        this.innerHTML = this.value;
+      }
+    }
+
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (
+        this.isConnected &&
+        (name === 'disabled' || name === 'formDisabled' || name === 'readOnly')
+      ) {
+        this._updateContenteditable();
+      }
     }
 
     protected override shouldValidate(name: PropertyKey | undefined): boolean {
@@ -341,9 +379,13 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
+    protected preparePastedText(text: string): string {
+      return text;
+    }
+
     private _cleanText(value: string): string {
       // The native text input removes all newline characters if passed to the value property
-      return `${value}`.replace(/[\n\r]+/g, '');
+      return value === null ? '' : `${value}`.replace(/[\n\r]+/g, '');
     }
 
     private _dispatchInputEvent(): void {
@@ -361,10 +403,16 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
 
     private _updateContenteditable(): void {
       if (!isServer && this.isConnected) {
-        // Firefox does not yet support plaintext-only. Once this is available
-        // for our supported browser range, we can switch to it fully.
+        this.internals.ariaReadOnly = this.readOnly ? 'true' : null;
+        this.internals.ariaDisabled = this.disabled ? 'true' : null;
+        // TODO(2026): Firefox supports plaintext-only since version 136 (March 2025).
+        // Until this is part of our baseline, we should feature check to enable it.
         const value =
-          this.disabled || this.readOnly ? 'false' : isFirefox ? 'true' : 'plaintext-only';
+          this.disabled || this.readOnly
+            ? 'false'
+            : plaintextOnlySupported
+              ? 'plaintext-only'
+              : 'true';
         this.setAttribute('contenteditable', value);
         // In the readonly case, we disable contenteditable, but it still
         // needs to be focusable. We achieve this by setting tabindex in that case.
@@ -383,11 +431,15 @@ export const SbbFormAssociatedInputMixin = <T extends Constructor<LitElement>>(
       }
     }
 
+    private _canSelect(): boolean {
+      return !isServer && !this.disabled && !this.readOnly && !!this.value;
+    }
+
     protected override render(): unknown {
       return html`<slot @slotchange=${this._cleanChildren}></slot>`;
     }
   }
 
-  return SbbFormAssociatedInputElement as unknown as Constructor<SbbFormAssociatedInputMixinType> &
+  return SbbFormAssociatedInputElement as unknown as AbstractConstructor<SbbFormAssociatedInputMixinType> &
     T;
 };

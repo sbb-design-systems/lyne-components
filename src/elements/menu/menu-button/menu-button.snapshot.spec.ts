@@ -3,9 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
-import type { SbbMenuButtonElement } from './menu-button.js';
+import type { SbbMenuButtonElement } from './menu-button.component.js';
 
-import './menu-button.js';
+import './menu-button.component.js';
 
 describe(`sbb-menu-button`, () => {
   describe('renders', () => {
@@ -28,12 +28,12 @@ describe(`sbb-menu-button`, () => {
     });
   });
 
-  describe('renders component with icon and amount', () => {
+  describe('renders component with icon', () => {
     let element: SbbMenuButtonElement;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-menu-button icon-name="menu-small" amount="123456"> Action </sbb-menu-button>
+        <sbb-menu-button icon-name="menu-small">Action</sbb-menu-button>
       `);
     });
 

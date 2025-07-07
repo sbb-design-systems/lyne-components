@@ -45,10 +45,8 @@ snapshots["sbb-tab-label renders correctly an H2 heading tag Shadow DOM"] =
     <span class="sbb-tab-label__icon">
       <slot name="icon">
         <sbb-icon
-          aria-hidden="true"
           data-namespace="default"
           name="pie-small"
-          role="img"
         >
         </sbb-icon>
       </slot>
@@ -105,9 +103,8 @@ snapshots["sbb-tab-label A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "heading",
-      "name": "Tab title",
-      "level": 1
+      "role": "tab",
+      "name": "Tab title"
     }
   ]
 }

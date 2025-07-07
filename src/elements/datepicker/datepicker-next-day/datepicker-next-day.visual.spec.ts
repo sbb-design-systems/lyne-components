@@ -7,7 +7,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import './datepicker-next-day.js';
+import './datepicker-next-day.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
 import '../../form-field.js';
@@ -35,8 +35,8 @@ describe(`sbb-datepicker-next-day`, () => {
               html`
                 <sbb-form-field ?negative=${negative}>
                   <sbb-date-input value=${value || nothing}></sbb-date-input>
-                  <sbb-datepicker></sbb-datepicker>
                   <sbb-datepicker-next-day></sbb-datepicker-next-day>
+                  <sbb-datepicker></sbb-datepicker>
                 </sbb-form-field>
               `,
               { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },

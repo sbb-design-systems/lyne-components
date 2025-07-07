@@ -1,6 +1,6 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
+import type { SbbOpenCloseBaseElement } from '../base-elements.js';
 
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 const inertElements = new Set<HTMLElement>();
@@ -22,7 +22,7 @@ export class SbbInertController implements ReactiveController {
   }
 
   public hostDisconnected(): void {
-    if (this._inertOverlays.has(this._host)) {
+    if (this.isInert()) {
       this.deactivate();
     }
   }
@@ -64,6 +64,11 @@ export class SbbInertController implements ReactiveController {
     }
   }
 
+  /** Whether the assigned host is currently inert */
+  public isInert(): boolean {
+    return this._inertOverlays.has(this._host);
+  }
+
   private _currentOverlay(): HTMLElement | null {
     return [...this._inertOverlays].pop() ?? null;
   }
@@ -96,7 +101,8 @@ export class SbbInertController implements ReactiveController {
           (child): child is HTMLElement =>
             child !== element &&
             child instanceof window.HTMLElement &&
-            !IGNORED_ELEMENTS.includes(child.localName),
+            !IGNORED_ELEMENTS.includes(child.localName) &&
+            !child.classList.contains('sbb-live-announcer-element'),
         )
         .forEach((element) => {
           this._inertElements.add(element);

@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-toggle-option renders DOM"] = 
 `<sbb-toggle-option
-  aria-checked="true"
   checked=""
-  role="radio"
   tabindex="0"
   value="Option 1"
 >
@@ -14,32 +12,19 @@ snapshots["sbb-toggle-option renders DOM"] =
 /* end snapshot sbb-toggle-option renders DOM */
 
 snapshots["sbb-toggle-option renders Shadow DOM"] = 
-`<input
-  aria-hidden="true"
-  id="sbb-toggle-option-id"
-  inert=""
-  tabindex="-1"
-  type="radio"
-  value="Option 1"
->
-<label
-  class="sbb-toggle-option"
-  for="sbb-toggle-option-id"
->
+`<div class="sbb-toggle-option">
   <slot name="icon">
   </slot>
   <span class="sbb-toggle-option__label">
     <slot>
     </slot>
   </span>
-</label>
+</div>
 `;
 /* end snapshot sbb-toggle-option renders Shadow DOM */
 
 snapshots["sbb-toggle-option renders unchecked DOM"] = 
 `<sbb-toggle-option
-  aria-checked="false"
-  role="radio"
   tabindex="-1"
   value="Option 1"
 >
@@ -48,34 +33,22 @@ snapshots["sbb-toggle-option renders unchecked DOM"] =
 /* end snapshot sbb-toggle-option renders unchecked DOM */
 
 snapshots["sbb-toggle-option renders unchecked Shadow DOM"] = 
-`<input
-  aria-hidden="true"
-  id="sbb-toggle-option-id"
-  tabindex="-1"
-  type="radio"
-  value="Option 1"
->
-<label
-  class="sbb-toggle-option"
-  for="sbb-toggle-option-id"
->
+`<div class="sbb-toggle-option">
   <slot name="icon">
   </slot>
   <span class="sbb-toggle-option__label">
     <slot>
     </slot>
   </span>
-</label>
+</div>
 `;
 /* end snapshot sbb-toggle-option renders unchecked Shadow DOM */
 
 snapshots["sbb-toggle-option renders checked disabled DOM"] = 
 `<sbb-toggle-option
-  aria-checked="true"
   aria-disabled="true"
   checked=""
   disabled=""
-  role="radio"
   tabindex="-1"
   value="Option 1"
 >
@@ -84,35 +57,21 @@ snapshots["sbb-toggle-option renders checked disabled DOM"] =
 /* end snapshot sbb-toggle-option renders checked disabled DOM */
 
 snapshots["sbb-toggle-option renders checked disabled Shadow DOM"] = 
-`<input
-  aria-hidden="true"
-  disabled=""
-  id="sbb-toggle-option-id"
-  inert=""
-  tabindex="-1"
-  type="radio"
-  value="Option 1"
->
-<label
-  class="sbb-toggle-option"
-  for="sbb-toggle-option-id"
->
+`<div class="sbb-toggle-option">
   <slot name="icon">
   </slot>
   <span class="sbb-toggle-option__label">
     <slot>
     </slot>
   </span>
-</label>
+</div>
 `;
 /* end snapshot sbb-toggle-option renders checked disabled Shadow DOM */
 
 snapshots["sbb-toggle-option renders unchecked disabled DOM"] = 
 `<sbb-toggle-option
-  aria-checked="false"
   aria-disabled="true"
   disabled=""
-  role="radio"
   tabindex="-1"
   value="Option 1"
 >
@@ -121,25 +80,14 @@ snapshots["sbb-toggle-option renders unchecked disabled DOM"] =
 /* end snapshot sbb-toggle-option renders unchecked disabled DOM */
 
 snapshots["sbb-toggle-option renders unchecked disabled Shadow DOM"] = 
-`<input
-  aria-hidden="true"
-  disabled=""
-  id="sbb-toggle-option-id"
-  tabindex="-1"
-  type="radio"
-  value="Option 1"
->
-<label
-  class="sbb-toggle-option"
-  for="sbb-toggle-option-id"
->
+`<div class="sbb-toggle-option">
   <slot name="icon">
   </slot>
   <span class="sbb-toggle-option__label">
     <slot>
     </slot>
   </span>
-</label>
+</div>
 `;
 /* end snapshot sbb-toggle-option renders unchecked disabled Shadow DOM */
 
