@@ -22,6 +22,7 @@
   }
 }
 
+// rotates the DOM-part "coach-floor" by 180 degrees if the host is in RTL mode.
 @include sbb-sr-mixins.rotate-dom-part(coach-floor);
 
 [popover]:where(sbb-popover) {

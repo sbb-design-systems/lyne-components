@@ -112,6 +112,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
   }
 }
 
+// rotates the DOM-part "svg-place" by 180 degrees if the host is in RTL mode.
 @include sbb-sr-mixins.rotate-dom-part(svg-place);
 
 .sbb-sr-place-ctrl {
