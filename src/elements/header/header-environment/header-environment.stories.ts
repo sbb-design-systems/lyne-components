@@ -62,7 +62,7 @@ const environment: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['dev', 'edu', 'int', 'local', 'test'],
+  options: ['dev', 'edu', 'int', 'loc', 'test', 'any'],
 };
 
 const argTypes: ArgTypes = {

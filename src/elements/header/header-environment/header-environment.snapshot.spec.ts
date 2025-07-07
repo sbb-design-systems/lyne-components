@@ -11,7 +11,7 @@ describe(`sbb-header-environment`, () => {
     let element: SbbHeaderEnvironmentElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-header-environment></sbb-header-environment>`);
+      element = await fixture(html`<sbb-header-environment>dev</sbb-header-environment>`);
     });
 
     it('DOM', async () => {

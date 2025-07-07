@@ -4,22 +4,42 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-header-environment-color: red;
+  --sbb-header-environment-color: var(--sbb-color-red); // TODO ask Manuel for a default
+  --sbb-header-environment-size: 2.375rem;
 
   position: absolute;
   right: 0;
   top: 0;
-  width: 2.375rem;
-  height: 2.375rem;
+  width: var(--sbb-header-environment-size);
+  height: var(--sbb-header-environment-size);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+:host([data-env='dev']) {
+  --sbb-header-environment-color: var(--sbb-color-orange);
+}
+
+:host([data-env='edu']) {
+  --sbb-header-environment-color: var(--sbb-color-green);
+}
+
+:host(:where([data-env='int'], [data-env='inte'])) {
+  --sbb-header-environment-color: var(--sbb-color-granite);
+}
+
+:host([data-env='loc']) {
+  --sbb-header-environment-color: var(--sbb-color-pink);
+}
+
+:host([data-env='test']) {
+  --sbb-header-environment-color: var(--sbb-color-sky);
+}
+
 .sbb-header-environment__ribbon {
-  position: absolute;
-  border-top: 2.375rem solid var(--sbb-header-environment-color);
-  border-left: 2.375rem solid transparent;
+  border-top: var(--sbb-header-environment-size) solid var(--sbb-header-environment-color);
+  border-left: var(--sbb-header-environment-size) solid transparent;
 }
 
 .sbb-header-environment__text {

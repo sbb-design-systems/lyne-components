@@ -9,7 +9,7 @@ describe(`sbb-header-environment ssr`, () => {
   let root: SbbHeaderEnvironmentElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html`<sbb-header-environment></sbb-header-environment>`, {
+    root = await ssrHydratedFixture(html`<sbb-header-environment>dev</sbb-header-environment>`, {
       modules: ['./header-environment.component.js'],
     });
   });

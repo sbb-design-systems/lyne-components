@@ -4,11 +4,11 @@ import { customElement } from 'lit/decorators.js';
 import style from './header-environment.scss?lit&inline';
 
 /**
- * It displays a header section for the page.
+ * It displays a ribbon inside the header to indicate the current environment.
  *
- * @slot - Use the unnamed slot to add actions, content and logo to the header.
- * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
- * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
+ * @slot - Use the unnamed slot to add the environment.
+ *
+ * @cssprop [--sbb-header-environment-color=var(sbb-color-red)] - Can be used change the ribbon color.
  */
 export
 @customElement('sbb-header-environment')
@@ -17,12 +17,18 @@ class SbbHeaderEnvironmentElement extends LitElement {
 
   public constructor() {
     super();
-    const observer = new MutationObserver(() => this._onSlotChange());
+    const observer = new MutationObserver(() => this._slottedTextChange());
     observer.observe(this, { characterData: true, subtree: true });
+    this._slottedTextChange();
   }
 
-  private _onSlotChange(): void {
-    console.log('eee');
+  private _slottedTextChange(): void {
+    const env = this.textContent?.trim();
+    if (env) {
+      this.setAttribute('data-env', env);
+    } else {
+      this.removeAttribute('data-env');
+    }
   }
 
   protected override render(): TemplateResult {
