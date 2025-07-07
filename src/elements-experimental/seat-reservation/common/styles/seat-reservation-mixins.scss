@@ -11,7 +11,7 @@
       .sbb-sr-place-ctrl--state-selected
     ) {
       ::part(#{$part-identifier}) {
-        transform: rotate(calc(#{$concrete-degree} * 1deg));
+        rotate: calc(#{$concrete-degree} * 1deg);
       }
     }
   }
