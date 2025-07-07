@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import style from './header-environment.scss?lit&inline';
@@ -17,9 +17,13 @@ class SbbHeaderEnvironmentElement extends LitElement {
 
   public constructor() {
     super();
+    this._slottedTextChange();
+    if (isServer) {
+      return;
+    }
+
     const observer = new MutationObserver(() => this._slottedTextChange());
     observer.observe(this, { characterData: true, subtree: true });
-    this._slottedTextChange();
   }
 
   private _slottedTextChange(): void {
