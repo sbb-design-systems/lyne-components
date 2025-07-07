@@ -18,6 +18,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **sbb-datepicker:** delay rendering of calendar ([#3890](https://github.com/sbb-design-systems/lyne-components/issues/3890)) ([b6226f2](https://github.com/sbb-design-systems/lyne-components/commit/b6226f2551ad6c1000332bcbb7b0183ca001ad0a))
 
+## [2.11.3](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.2...v2.11.3) (2025-07-07)
+
+
+### Bug Fixes
+
+* **seat-reservation:** fix folder structure ([#3894](https://github.com/sbb-design-systems/lyne-components/issues/3894)) ([a27ae99](https://github.com/sbb-design-systems/lyne-components/commit/a27ae99b98cd43b4833432a3d1d1e8d1721c708b))
+
 ## [3.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0-next.3...v3.0.0) (2025-06-26)
 
 
