@@ -172,6 +172,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           )}"
         >
           ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
+            const coachFreePlaces = this.getAvailableFreePlacesNumFromCoach(index);
             return html`<li>
               <sbb-seat-reservation-navigation-coach
                 @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
@@ -181,6 +182,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 })}"
                 index="${index}"
                 coach-id="${coachItem.id}"
+                .availablePlacesNum="${coachFreePlaces}"
                 .selected=${this.selectedCoachIndex === index}
                 .focused=${this.focusedCoachIndex === index}
                 .propertyIds="${coachItem.propertyIds}"
@@ -215,7 +217,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem, index);
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -607,7 +609,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     this.isAutoScrolling = false;
   }
 
-  private _getDescriptionTableCoach(coachItem: CoachItem): string {
+  private _getDescriptionTableCoach(coachItem: CoachItem, coachIndex: number): string {
     if (!coachItem.places?.length) {
       return getI18nSeatReservation('COACH_BLOCKED_TABLE_CAPTION', this._language.current, [
         coachItem.id,
@@ -621,6 +623,17 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     tableCoachDescription = getI18nSeatReservation('COACH_TABLE_CAPTION', this._language.current, [
       coachItem.id,
     ]);
+
+    if (!this.hasNavigation) {
+      // Expands the number of available seats and bicycle spaces as info
+      const freePlaces = this.getAvailableFreePlacesNumFromCoach(coachIndex);
+      const freePlacesTxt = getI18nSeatReservation(
+        'COACH_AVAILABLE_NUMBER_OF_PLACES',
+        this._language.current,
+        [freePlaces.seats, freePlaces.bicycle],
+      );
+      tableCoachDescription = tableCoachDescription.concat('. ').concat(freePlacesTxt).concat('. ');
+    }
 
     if (!!areaDescriptions || !!serviceDescriptions) {
       tableCoachDescription +=

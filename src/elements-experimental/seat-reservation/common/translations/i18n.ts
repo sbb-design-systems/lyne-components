@@ -62,6 +62,12 @@ const i18nObjects: Record<string, Record<string, string>> = {
     fr: 'Navigation pour la réservation de places',
     it: 'Navigazione per la prenotazione dei posti',
   },
+  COACH_AVAILABLE_NUMBER_OF_PLACES: {
+    de: '_param0_ Sitzplätze und _param1_ Veloplätze sind noch Frei',
+    en: 'en:_param0_ Sitzplätze und _param1_ Veloplätze sind noch Frei',
+    fr: 'fr:_param0_ Sitzplätze und _param1_ Veloplätze sind noch Frei',
+    it: 'it:_param0_ Sitzplätze und _param1_ Veloplätze sind noch Frei',
+  },
   SERVICE_CLASS_FIRST: {
     de: 'erste Klasse',
     en: 'First class',
