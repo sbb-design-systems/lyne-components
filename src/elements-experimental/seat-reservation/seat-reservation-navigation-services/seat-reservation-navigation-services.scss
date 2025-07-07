@@ -9,9 +9,9 @@
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-color-granite);
+}
 
-  &--vertical {
-    align-content: center;
-    height: 100%;
-  }
+.sbb-sr-navigation__signs--vertical {
+  align-content: center;
+  height: 100%;
 }

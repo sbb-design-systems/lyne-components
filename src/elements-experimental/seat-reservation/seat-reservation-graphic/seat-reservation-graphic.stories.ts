@@ -1,5 +1,4 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
@@ -88,11 +87,7 @@ export const availableAssets: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [],
-    },
     docs: {
       extractComponentDescription: () => readme,
     },
