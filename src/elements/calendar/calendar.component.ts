@@ -422,7 +422,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /**
    * Given a date, it returns the week numbers for the month the date belongs to.
-   * TODO check if date-fns can be replaced with custom logic.
+   * TODO: check if date-fns can be replaced with custom logic.
    *
    * Since the calculation is not simple (see https://en.wikipedia.org/wiki/Week#Numbering),
    * the date-fns library has been used this way:
