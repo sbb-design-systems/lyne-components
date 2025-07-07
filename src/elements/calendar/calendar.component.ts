@@ -86,7 +86,7 @@ interface CalendarKeyboardNavigationDayViewParameters {
   secondMonthOffset: number;
 }
 
-// TODO new parameters are optional to avoid breaking changes; make them mandatory right before the next major release
+// TODO: new parameters are optional to avoid breaking changes; make them mandatory right before the next major release
 export interface Day<T = Date> {
   /** Date as ISO string. */
   value: string;
