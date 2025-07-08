@@ -20,12 +20,13 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 :host(#{$icon-only}) {
   --sbb-mini-button-padding-inline: 0;
   --sbb-mini-button-label-display: none;
+  --sbb-mini-button-label-height: var(--sbb-size-icon-ui-small);
 }
 
 @include sbb.icon-button('.sbb-mini-button', '::slotted(sbb-icon), sbb-icon');
 
 .sbb-mini-button {
-  height: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-mini-button-label-height);
   gap: var(--sbb-mini-button-gap);
   align-items: center;
   justify-content: center;
