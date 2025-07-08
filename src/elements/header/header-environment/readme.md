@@ -30,9 +30,10 @@ sbb-header-environment[data-env='dev'] {
 
 ## CSS Properties
 
-| Name                             | Default              | Description                          |
-| -------------------------------- | -------------------- | ------------------------------------ |
-| `--sbb-header-environment-color` | `var(sbb-color-red)` | Can be used change the ribbon color. |
+| Name                                  | Default                | Description                          |
+| ------------------------------------- | ---------------------- | ------------------------------------ |
+| `--sbb-header-environment-color`      | `var(sbb-color-red)`   | Can be used change the ribbon color. |
+| `--sbb-header-environment-text-color` | `var(sbb-color-white)` | Can be used change the text color.   |
 
 ## Slots
 

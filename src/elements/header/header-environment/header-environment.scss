@@ -4,17 +4,23 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-header-environment-color: var(--sbb-color-red); // TODO ask Manuel for a default
+  --sbb-header-environment-color: var(--sbb-color-granite);
+  --sbb-header-environment-text-color: var(--sbb-color-white);
   --sbb-header-environment-size: 2.375rem;
+  --sbb-header-environment-rotate: 45deg;
 
   position: absolute;
-  right: 0;
-  top: 0;
+  inset-inline-end: 0;
+  inset-block-start: 0;
   width: var(--sbb-header-environment-size);
   height: var(--sbb-header-environment-size);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+:host(:dir(rtl)) {
+  --sbb-header-environment-rotate: -45deg;
 }
 
 :host([data-env='dev']) {
@@ -38,14 +44,15 @@
 }
 
 .sbb-header-environment__ribbon {
-  border-top: var(--sbb-header-environment-size) solid var(--sbb-header-environment-color);
-  border-left: var(--sbb-header-environment-size) solid transparent;
+  border-block-start: var(--sbb-header-environment-size) solid var(--sbb-header-environment-color);
+  border-inline-start: var(--sbb-header-environment-size) solid transparent;
 }
 
 .sbb-header-environment__text {
-  position: absolute;
-  color: white;
-  transform: rotateZ(45deg);
-  padding-bottom: 1rem;
   @include sbb.text-xxs--bold;
+
+  position: absolute;
+  color: var(--sbb-header-environment-text-color);
+  rotate: var(--sbb-header-environment-rotate);
+  padding-block-end: var(--sbb-spacing-fixed-4x);
 }

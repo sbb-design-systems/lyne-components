@@ -40,7 +40,7 @@ const template = (env: string): TemplateResult => html`
 
 describe(`sbb-header-environment`, () => {
   describeViewports({ viewports: ['zero', 'large'], viewportHeight: 300 }, () => {
-    for (const env in [`dev`, `edu`, `int`, `loc`, `test`, 'any']) {
+    for (const env of [`dev`, `edu`, `int`, `loc`, `test`, 'any']) {
       it(
         `env=${env}`,
         visualDiffDefault.with(async (setup) => {

@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -9,6 +10,7 @@ import style from './header-environment.scss?lit&inline';
  * @slot - Use the unnamed slot to add the environment.
  *
  * @cssprop [--sbb-header-environment-color=var(sbb-color-red)] - Can be used change the ribbon color.
+ * @cssprop [--sbb-header-environment-text-color=var(sbb-color-white)] - Can be used change the text color.
  */
 export
 @customElement('sbb-header-environment')
@@ -17,13 +19,16 @@ class SbbHeaderEnvironmentElement extends LitElement {
 
   public constructor() {
     super();
-    this._slottedTextChange();
-    if (isServer) {
-      return;
+    if (!isServer) {
+      this.addController(
+        new MutationController(this, {
+          config: { characterData: true, subtree: true },
+          callback: () => {
+            this._slottedTextChange();
+          },
+        }),
+      );
     }
-
-    const observer = new MutationObserver(() => this._slottedTextChange());
-    observer.observe(this, { characterData: true, subtree: true });
   }
 
   private _slottedTextChange(): void {

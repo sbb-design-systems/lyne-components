@@ -14,8 +14,8 @@ describe(`sbb-header-environment`, () => {
     const root = await fixture(html`
       <div>
         <sbb-header>
-          <sbb-header-button id="action-1">Action 1</sbb-header-button>
-          <sbb-header-button id="action-2">Action 2</sbb-header-button>
+          <sbb-header-button>Action 1</sbb-header-button>
+          <sbb-header-button>Action 2</sbb-header-button>
           <sbb-header-environment>dev</sbb-header-environment>
         </sbb-header>
         <div style="height: 300px;"></div>

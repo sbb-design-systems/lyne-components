@@ -53,7 +53,9 @@ const Template = (args: Args): TemplateResult => html`
     <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-logo protective-room="none"></sbb-logo>
     </a>
-    <sbb-header-environment>${args.environment}</sbb-header-environment>
+    <sbb-header-environment aria-label="Environment: ${args.environment}"
+      >${args.environment}</sbb-header-environment
+    >
   </sbb-header>
   <div class="sbb-page-spacing">${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
 `;
