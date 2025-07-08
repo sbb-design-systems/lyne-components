@@ -11,9 +11,10 @@ The `sbb-header-environment` component displays a ribbon inside the header to in
 
 ## Style
 
-We provide default colors for `dev`, `edu`, `int`, `loc` and `test`. Any other environment is by default red.
+We provide default colors for `dev`, `edu`, `int`, `loc` and `test`. Any other environment is by default of color granite.
 
 It is possible to override the ribbon background color by overriding the `--sbb-header-environment-color` css var.
+Furthermore, the `--sbb-header-environment-text-color` var can be used change the text color.
 
 ```scss
 sbb-header-environment {

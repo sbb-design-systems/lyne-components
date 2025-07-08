@@ -9,9 +9,7 @@ snapshots["sbb-header-environment renders DOM"] =
 /* end snapshot sbb-header-environment renders DOM */
 
 snapshots["sbb-header-environment renders Shadow DOM"] = 
-`<div class="sbb-header-environment__ribbon">
-</div>
-<span class="sbb-header-environment__text">
+`<span class="sbb-header-environment__text">
   <slot>
   </slot>
 </span>

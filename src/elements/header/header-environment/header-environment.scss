@@ -6,14 +6,12 @@
 :host {
   --sbb-header-environment-color: var(--sbb-color-granite);
   --sbb-header-environment-text-color: var(--sbb-color-white);
-  --sbb-header-environment-size: 2.375rem;
+  --sbb-header-environment-size: #{sbb.px-to-rem-build(38)};
   --sbb-header-environment-rotate: 45deg;
 
   position: absolute;
   inset-inline-end: 0;
   inset-block-start: 0;
-  width: var(--sbb-header-environment-size);
-  height: var(--sbb-header-environment-size);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +42,9 @@
   --sbb-header-environment-color: var(--sbb-color-sky);
 }
 
-.sbb-header-environment__ribbon {
+// Ribbon
+:host::before {
+  content: '';
   border-block-start: var(--sbb-header-environment-size) solid var(--sbb-header-environment-color);
   border-inline-start: var(--sbb-header-environment-size) solid transparent;
 }
