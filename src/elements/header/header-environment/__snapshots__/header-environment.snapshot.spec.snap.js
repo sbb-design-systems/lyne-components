@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-header-environment renders DOM"] = 
-`<sbb-header-environment data-env="dev">
+`<sbb-header-environment>
   dev
 </sbb-header-environment>
 `;

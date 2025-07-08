@@ -2,6 +2,8 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
+
 import style from './header-environment.scss?lit&inline';
 
 /**
@@ -14,7 +16,7 @@ import style from './header-environment.scss?lit&inline';
  */
 export
 @customElement('sbb-header-environment')
-class SbbHeaderEnvironmentElement extends LitElement {
+class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   public constructor() {
@@ -33,10 +35,9 @@ class SbbHeaderEnvironmentElement extends LitElement {
 
   private _slottedTextChange(): void {
     const env = this.textContent?.trim();
+    this.internals.states.clear();
     if (env) {
-      this.setAttribute('data-env', env);
-    } else {
-      this.removeAttribute('data-env');
+      this.toggleState(`env-${env}`, true);
     }
   }
 

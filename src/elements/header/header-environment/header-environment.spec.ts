@@ -26,6 +26,6 @@ describe(`sbb-header-environment`, () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbHeaderEnvironmentElement);
-    expect(element).to.have.attribute('data-env', 'dev');
+    expect(element).to.match(':state(env-dev)');
   });
 });

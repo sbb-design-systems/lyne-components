@@ -23,23 +23,24 @@
   --sbb-header-environment-rotate: -45deg;
 }
 
-:host([data-env='dev']) {
+:host(:is(:state(env-dev), [state--env-dev])) {
   --sbb-header-environment-color: var(--sbb-color-orange);
 }
 
-:host([data-env='edu']) {
+:host(:is(:state(env-edu), [state--env-edu])) {
   --sbb-header-environment-color: var(--sbb-color-green);
 }
 
-:host(:where([data-env='int'], [data-env='inte'])) {
+:host(:is(:state(env-int), [state--env-int])),
+:host(:is(:state(env-inte), [state--env-inte])) {
   --sbb-header-environment-color: var(--sbb-color-granite);
 }
 
-:host([data-env='loc']) {
+:host(:is(:state(env-loc), [state--env-loc])) {
   --sbb-header-environment-color: var(--sbb-color-pink);
 }
 
-:host([data-env='test']) {
+:host(:is(:state(env-test), [state--env-test])) {
   --sbb-header-environment-color: var(--sbb-color-sky);
 }
 

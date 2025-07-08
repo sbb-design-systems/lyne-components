@@ -19,11 +19,6 @@ It is possible to override the ribbon background color by overriding the `--sbb-
 sbb-header-environment {
   --sbb-header-environment-color: custom-color;
 }
-
-// Or you can override a specific environment color
-sbb-header-environment[data-env='dev'] {
-  --sbb-header-environment-color: custom-color;
-}
 ```
 
 <!-- Auto Generated Below -->
