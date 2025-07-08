@@ -171,6 +171,9 @@ $active: ':active, [data-active], [loading]';
 
 :host([loading]:not(#{$disabled})) {
   --_min-height-modifier: calc(-2 * var(--sbb-button-loading-border-width));
+  --sbb-button-focus-outline-offset-override: calc(
+    var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
+  );
   --_border: none;
 }
 
@@ -179,14 +182,16 @@ $active: ':active, [data-active], [loading]';
   inset: calc(-1 * var(--sbb-button-loading-border-width));
   clip-path: border-box;
   border-radius: var(--sbb-button-border-radius);
-  background: var(--sbb-button-color-loading-border);
+  background: var(--_background-color);
   z-index: -1;
   container-type: inline-size;
   overflow: hidden;
-  transform-style: preserve-3d;
+  animation: color-fade-in var(--sbb-animation-duration-6x) 0.3s linear;
+  animation-fill-mode: forwards;
 }
 
 .sbb-button-loading-trail {
+  // Adapts the trail size depending on the container size.
   width: 64cqmin;
 
   // This avoids displaying the trail on the other side when button labels are very wide.
@@ -200,13 +205,29 @@ $active: ':active, [data-active], [loading]';
   );
   offset-path: border-box;
   offset-anchor: 100% 50%;
-  animation: journey 3s infinite linear;
+  opacity: 0;
+  animation:
+    fade-in var(--sbb-animation-duration-12x) 0.3s var(--sbb-animation-easing),
+    journey 3s infinite linear;
+  animation-fill-mode: forwards;
   transform-style: preserve-3d;
 }
 
 @keyframes journey {
   to {
     offset-distance: 100%;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes color-fade-in {
+  to {
+    background: var(--sbb-button-color-loading-border);
   }
 }
 
@@ -270,6 +291,11 @@ $active: ':active, [data-active], [loading]';
   &:focus-visible {
     &::before {
       @include sbb.focus-outline;
+
+      outline-offset: var(
+        --sbb-button-focus-outline-offset-override,
+        var(--sbb-focus-outline-offset)
+      );
     }
   }
 }

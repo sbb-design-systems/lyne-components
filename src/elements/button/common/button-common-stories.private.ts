@@ -74,15 +74,6 @@ const disabledInteractive: InputType = {
   },
 };
 
-const loading: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const name: InputType = {
   control: {
     type: 'text',
@@ -121,7 +112,6 @@ export const buttonDefaultArgTypes: ArgTypes = {
   type,
   disabled,
   'disabled-interactive': disabledInteractive,
-  loading,
   name,
   value,
   form,
@@ -133,7 +123,6 @@ export const buttonDefaultArgs: Args = {
   type: type.options![0],
   disabled: false,
   'disabled-interactive': false,
-  loading: false,
   name: 'Button Name',
   value: undefined,
   form: undefined,

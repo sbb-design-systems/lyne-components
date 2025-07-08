@@ -33,7 +33,7 @@ describe(`sbb-transparent-button`, () => {
             </sbb-transparent-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },
