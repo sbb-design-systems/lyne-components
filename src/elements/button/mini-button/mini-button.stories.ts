@@ -62,6 +62,7 @@ const standaloneArgTypes: ArgTypes = {
 const standaloneArgs: Args = {
   ...buttonDefaultArgs,
   'icon-name': 'pen-small',
+  text: null,
 };
 
 ['size', 'text', 'tag'].forEach((e: string) => {
@@ -85,7 +86,7 @@ const FormFieldStory: StoryObj = {
 
 export const Standalone: StoryObj = {
   ...StandaloneStory,
-  args: standaloneArgs,
+  args: { ...standaloneArgs },
 };
 
 export const StandaloneNegative: StoryObj = {
