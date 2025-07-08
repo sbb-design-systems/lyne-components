@@ -8,7 +8,6 @@ import { SbbInlineLinkCommonElementMixin } from '../common.js';
  * It displays a link enhanced with the SBB Design, which will behave as a button.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-link-button`.
- * @overrideType value - string
  */
 export
 @customElement('sbb-link-button')

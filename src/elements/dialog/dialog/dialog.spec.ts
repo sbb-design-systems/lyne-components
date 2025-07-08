@@ -22,18 +22,18 @@ import '../dialog-content.js';
 import '../dialog-actions.js';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {
-  const willOpen = new EventSpy(SbbDialogElement.events.willOpen, element);
-  const didOpen = new EventSpy(SbbDialogElement.events.didOpen, element);
+  const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);
+  const openSpy = new EventSpy(SbbDialogElement.events.open, element);
 
   element.open();
   await waitForLitRender(element);
 
-  await willOpen.calledOnce();
-  expect(willOpen.count).to.be.equal(1);
+  await beforeOpenSpy.calledOnce();
+  expect(beforeOpenSpy.count).to.be.equal(1);
   await waitForLitRender(element);
 
-  await didOpen.calledOnce();
-  expect(didOpen.count).to.be.equal(1);
+  await openSpy.calledOnce();
+  expect(openSpy.count).to.be.equal(1);
   await waitForLitRender(element);
 
   expect(element).to.have.attribute('data-state', 'opened');
@@ -67,25 +67,25 @@ describe('sbb-dialog', () => {
     });
 
     it('does not open the dialog if prevented', async () => {
-      const willOpen = new EventSpy(SbbDialogElement.events.willOpen, element);
-      const didOpen = new EventSpy(SbbDialogElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbDialogElement.events.open, element);
 
-      element.addEventListener(SbbDialogElement.events.willOpen, (ev) => ev.preventDefault());
+      element.addEventListener(SbbDialogElement.events.beforeopen, (ev) => ev.preventDefault());
 
       element.open();
       await waitForLitRender(element);
 
-      await willOpen.calledOnce();
-      expect(willOpen.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(didOpen.count).to.be.equal(0);
+      expect(openSpy.count).to.be.equal(0);
       expect(element).to.have.attribute('data-state', 'closed');
     });
 
     it('closes the dialog', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
@@ -94,12 +94,12 @@ describe('sbb-dialog', () => {
       element.close();
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -108,49 +108,49 @@ describe('sbb-dialog', () => {
     });
 
     it('does not close the dialog if prevented', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
-      element.addEventListener(SbbDialogElement.events.willClose, (ev) => ev.preventDefault());
+      element.addEventListener(SbbDialogElement.events.beforeclose, (ev) => ev.preventDefault());
 
       element.close();
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(didClose.count).to.be.equal(0);
+      expect(closeSpy.count).to.be.equal(0);
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
     it('closes the dialog on backdrop click', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
       // Simulate backdrop click
-      element.dispatchEvent(new CustomEvent('pointerdown'));
-      element.dispatchEvent(new CustomEvent('pointerup'));
+      element.dispatchEvent(new PointerEvent('pointerdown'));
+      element.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
     });
 
     it('does not close the dialog on backdrop click', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       element.backdropAction = 'none';
       await waitForLitRender(element);
@@ -158,58 +158,58 @@ describe('sbb-dialog', () => {
       await openDialog(element);
 
       // Simulate backdrop click
-      element.dispatchEvent(new CustomEvent('pointerdown'));
-      element.dispatchEvent(new CustomEvent('pointerup'));
+      element.dispatchEvent(new PointerEvent('pointerdown'));
+      element.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
-      expect(willClose.count).to.be.equal(0);
+      expect(beforeCloseSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
-      expect(didClose.count).to.be.equal(0);
+      expect(closeSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
     it('does not close the dialog on backdrop click if pointerdown is on dialog', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
       // Simulate backdrop click
       element
         .shadowRoot!.querySelector('.sbb-dialog')!
-        .dispatchEvent(new CustomEvent('pointerdown', { bubbles: true, composed: true }));
-      element.dispatchEvent(new CustomEvent('pointerup'));
+        .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      element.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
-      expect(willClose.count).to.be.equal(0);
+      expect(beforeCloseSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
-      expect(didClose.count).to.be.equal(0);
+      expect(closeSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
     it('does not close the dialog on backdrop click if pointerup is on dialog', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
       // Simulate backdrop click
-      element.dispatchEvent(new CustomEvent('pointerdown'));
+      element.dispatchEvent(new PointerEvent('pointerdown'));
       element
         .shadowRoot!.querySelector('.sbb-dialog')!
-        .dispatchEvent(new CustomEvent('pointerup', { bubbles: true, composed: true }));
+        .dispatchEvent(new PointerEvent('pointerup', { bubbles: true, composed: true }));
       await waitForLitRender(element);
 
-      expect(willClose.count).to.be.equal(0);
+      expect(beforeCloseSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
-      expect(didClose.count).to.be.equal(0);
+      expect(closeSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
@@ -217,28 +217,28 @@ describe('sbb-dialog', () => {
 
     it('closes the dialog on close button click with sbb-dialog-close attribute', async () => {
       const closeButton = element.querySelector('[sbb-dialog-close]') as HTMLElement;
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
       closeButton.click();
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
     });
 
     it('closes the dialog on Esc key press', async () => {
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
@@ -248,12 +248,12 @@ describe('sbb-dialog', () => {
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -274,10 +274,14 @@ describe('sbb-dialog', () => {
         </sbb-dialog>
       `);
 
-      const willOpen = new EventSpy(SbbDialogElement.events.willOpen, null, { capture: true });
-      const didOpen = new EventSpy(SbbDialogElement.events.didOpen, null, { capture: true });
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, null, { capture: true });
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, null, { capture: true });
+      const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, null, {
+        capture: true,
+      });
+      const openSpy = new EventSpy(SbbDialogElement.events.open, null, { capture: true });
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, null, {
+        capture: true,
+      });
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, null, { capture: true });
 
       await openDialog(element);
 
@@ -286,12 +290,12 @@ describe('sbb-dialog', () => {
       stackedDialog.open();
       await waitForLitRender(element);
 
-      await willOpen.calledTimes(2);
-      expect(willOpen.count).to.be.equal(2);
+      await beforeOpenSpy.calledTimes(2);
+      expect(beforeOpenSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
-      await didOpen.calledTimes(2);
-      expect(didOpen.count).to.be.equal(2);
+      await openSpy.calledTimes(2);
+      expect(openSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
       expect(stackedDialog).to.have.attribute('data-state', 'opened');
@@ -302,12 +306,12 @@ describe('sbb-dialog', () => {
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(stackedDialog).to.have.attribute('data-state', 'closed');
@@ -319,12 +323,12 @@ describe('sbb-dialog', () => {
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(element);
 
-      await willClose.calledTimes(2);
-      expect(willClose.count).to.be.equal(2);
+      await beforeCloseSpy.calledTimes(2);
+      expect(beforeCloseSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
-      await didClose.calledTimes(2);
-      expect(didClose.count).to.be.equal(2);
+      await closeSpy.calledTimes(2);
+      expect(closeSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
       expect(stackedDialog).to.have.attribute('data-state', 'closed');
@@ -334,20 +338,20 @@ describe('sbb-dialog', () => {
     it('opens and closes the overlay with non-zero animation duration', async () => {
       element.style.setProperty('--sbb-dialog-animation-duration', '1ms');
 
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, element);
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
 
       await openDialog(element);
 
       element.close();
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-state', 'closed');
@@ -366,10 +370,14 @@ describe('sbb-dialog', () => {
           </sbb-dialog>
         </sbb-dialog>
       `);
-      const willOpen = new EventSpy(SbbDialogElement.events.willOpen, null, { capture: true });
-      const didOpen = new EventSpy(SbbDialogElement.events.didOpen, null, { capture: true });
-      const willClose = new EventSpy(SbbDialogElement.events.willClose, null, { capture: true });
-      const didClose = new EventSpy(SbbDialogElement.events.didClose, null, { capture: true });
+      const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, null, {
+        capture: true,
+      });
+      const openSpy = new EventSpy(SbbDialogElement.events.open, null, { capture: true });
+      const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, null, {
+        capture: true,
+      });
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, null, { capture: true });
       const innerElement = element.querySelector('sbb-dialog') as SbbDialogElement;
 
       await openDialog(element);
@@ -377,27 +385,27 @@ describe('sbb-dialog', () => {
       innerElement.open();
       await waitForLitRender(element);
 
-      await willOpen.calledTimes(2);
-      expect(willOpen.count).to.be.equal(2);
+      await beforeOpenSpy.calledTimes(2);
+      expect(beforeOpenSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
-      await didOpen.calledTimes(2);
-      expect(didOpen.count).to.be.equal(2);
+      await openSpy.calledTimes(2);
+      expect(openSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
       expect(innerElement).to.have.attribute('data-state', 'opened');
 
       // Simulate a click on the inner dialog's backdrop
-      innerElement.dispatchEvent(new CustomEvent('pointerdown'));
-      innerElement.dispatchEvent(new CustomEvent('pointerup'));
+      innerElement.dispatchEvent(new PointerEvent('pointerdown'));
+      innerElement.dispatchEvent(new PointerEvent('pointerup'));
       await waitForLitRender(element);
 
-      await willClose.calledOnce();
-      expect(willClose.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didClose.calledOnce();
-      expect(didClose.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
       expect(innerElement).to.have.attribute('data-state', 'closed');
@@ -500,16 +508,16 @@ describe('sbb-dialog', () => {
       trigger = await fixture(html`<sbb-button id="dialog-trigger">Menu trigger</sbb-button>`);
       element = await fixture(html`<sbb-dialog id="dialog" .trigger=${trigger}></sbb-dialog>`);
 
-      const willOpenEventSpy = new EventSpy(SbbDialogElement.events.willOpen, element);
-      const didOpenEventSpy = new EventSpy(SbbDialogElement.events.didOpen, element);
+      const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);
+      const openSpy = new EventSpy(SbbDialogElement.events.open, element);
 
       trigger.click();
 
-      await willOpenEventSpy.calledOnce();
-      expect(willOpenEventSpy.count).to.be.equal(1);
+      await beforeOpenSpy.calledOnce();
+      expect(beforeOpenSpy.count).to.be.equal(1);
 
-      await didOpenEventSpy.calledOnce();
-      expect(didOpenEventSpy.count).to.be.equal(1);
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
       expect(element).to.match(':popover-open');
@@ -713,11 +721,11 @@ describe('sbb-dialog', () => {
       ).to.be.equal('0px');
 
       const stepOne = root.querySelector<SbbStepElement>('sbb-step:nth-of-type(1)')!;
-      const resizeChange = new EventSpy(SbbStepElement.events.resizeChange, stepOne);
+      const resizeChangeSpy = new EventSpy(SbbStepElement.events.resizechange, stepOne);
       await openDialog(root);
       await waitForLitRender(root);
-      await resizeChange.calledOnce();
-      expect(resizeChange.count).to.be.equal(1);
+      await resizeChangeSpy.calledOnce();
+      expect(resizeChangeSpy.count).to.be.equal(1);
       expect(root).to.have.attribute('data-state', 'opened');
 
       // Need to wait for the intersector to kick in; the value is set in px, so we have to remove the unit

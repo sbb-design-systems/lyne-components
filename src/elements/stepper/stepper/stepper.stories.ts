@@ -188,7 +188,7 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         // This is needed to focus and trigger again the error on the first field
         // when getting back to it after resetting the stepper.
         setTimeout(() =>
-          document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+          document.querySelector('input[name="name"]')?.dispatchEvent(new InputEvent('input')),
         );
       }}
     >
@@ -285,7 +285,9 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               // This is needed to focus and trigger again the error on the first field
               // when getting back to it after resetting the stepper.
               setTimeout(() =>
-                document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+                document
+                  .querySelector('input[name="name"]')
+                  ?.dispatchEvent(new InputEvent('input')),
               );
             }}
           >

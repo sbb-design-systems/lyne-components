@@ -9,7 +9,6 @@ snapshots["sbb-stepper renders DOM"] =
   size="m"
 >
   <sbb-step-label
-    aria-controls="sbb-step-0"
     data-action=""
     data-button=""
     data-orientation="horizontal"
@@ -22,7 +21,6 @@ snapshots["sbb-stepper renders DOM"] =
     Test step label 1
   </sbb-step-label>
   <sbb-step
-    aria-labelledby="sbb-step-label-0"
     data-orientation="horizontal"
     data-selected=""
     id="sbb-step-0"
@@ -31,7 +29,6 @@ snapshots["sbb-stepper renders DOM"] =
     Test step content 1
   </sbb-step>
   <sbb-step-label
-    aria-controls="sbb-step-1"
     data-action=""
     data-button=""
     data-orientation="horizontal"
@@ -43,7 +40,6 @@ snapshots["sbb-stepper renders DOM"] =
     Test step label 2
   </sbb-step-label>
   <sbb-step
-    aria-labelledby="sbb-step-label-1"
     data-orientation="horizontal"
     id="sbb-step-1"
     slot="step"
@@ -51,7 +47,6 @@ snapshots["sbb-stepper renders DOM"] =
     Test step content 2
   </sbb-step>
   <sbb-step-label
-    aria-controls="sbb-step-2"
     data-action=""
     data-button=""
     data-disabled=""
@@ -65,7 +60,6 @@ snapshots["sbb-stepper renders DOM"] =
     Test step label 3
   </sbb-step-label>
   <sbb-step
-    aria-labelledby="sbb-step-label-2"
     data-orientation="horizontal"
     id="sbb-step-2"
     slot="step"

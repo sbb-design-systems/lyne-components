@@ -7,6 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import sampleImages from '../core/images.js';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 
 import { SbbOverlayElement } from './overlay.component.js';
 import readme from './readme.md?raw';
@@ -18,12 +19,6 @@ import '../link.js';
 import '../title.js';
 
 const expanded: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const backButton: InputType = {
   control: {
     type: 'boolean',
   },
@@ -53,29 +48,16 @@ const accessibilityCloseLabel: InputType = {
   },
 };
 
-const accessibilityBackLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   expanded,
-  'back-button': backButton,
   accessibilityCloseLabel,
-  accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
 };
 
 const basicArgs: Args = {
   expanded: false,
-  'back-button': false,
   accessibilityCloseLabel: 'Close overlay',
-  accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
 };
@@ -159,7 +141,7 @@ const FormTemplate = (args: Args): TemplateResult => html`
   </div>
   <sbb-overlay
     trigger="overlay-trigger"
-    @willClose=${(event: CustomEvent) => {
+    @beforeclose=${(event: CustomEvent<SbbOverlayCloseEventDetails>) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;
@@ -238,15 +220,6 @@ export const Expanded: StoryObj = {
   },
 };
 
-export const WithBackButton: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'back-button': true,
-  },
-};
-
 export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
@@ -264,11 +237,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbOverlayElement.events.willOpen,
-        SbbOverlayElement.events.didOpen,
-        SbbOverlayElement.events.willClose,
-        SbbOverlayElement.events.didClose,
-        SbbOverlayElement.events.backClick,
+        SbbOverlayElement.events.beforeopen,
+        SbbOverlayElement.events.open,
+        SbbOverlayElement.events.beforeclose,
+        SbbOverlayElement.events.close,
       ],
     },
     docs: {

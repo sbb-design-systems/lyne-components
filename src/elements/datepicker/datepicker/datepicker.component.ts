@@ -4,6 +4,7 @@ import {
   isServer,
   nothing,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -14,6 +15,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.js';
 import { SbbPopoverBaseElement } from '../../popover.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
@@ -26,18 +28,12 @@ let nextId = 0;
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
- *
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-datepicker` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-datepicker` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-datepicker` begins the closing
- * transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-datepicker` is closed.
- * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
+ * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
  */
 export
 @customElement('sbb-datepicker')
 class SbbDatepickerElement<T = Date>
-  extends SbbPopoverBaseElement
+  extends SbbUpdateSchedulerMixin(SbbPopoverBaseElement)
   implements SbbDateInputAssociated<T>
 {
   public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
@@ -63,10 +59,12 @@ class SbbDatepickerElement<T = Date>
   private _inputAbortController?: AbortController;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _language = new SbbLanguageController(this);
+  private _ready = false;
 
   public constructor() {
     super();
-    this.addEventListener(SbbPopoverBaseElement.events.willOpen, () => {
+    this.startUpdate();
+    this.addEventListener(SbbPopoverBaseElement.events.beforeopen, () => {
       this.shadowRoot?.querySelector('sbb-calendar')?.resetPosition?.();
     });
     if (!isServer && this.hydrationRequired) {
@@ -111,6 +109,17 @@ class SbbDatepickerElement<T = Date>
     }
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    setTimeout(() => {
+      // We want to delay the rendering of the calendar to avoid a slow initial render.
+      // The slow render can be a problem if a large amount of datepickers are rendered at once.
+      this._ready = true;
+      this.requestUpdate();
+      this.completeUpdate();
+    });
+  }
+
   private _updateStatus(): void {
     const status = this.shadowRoot?.getElementById('status-container');
     if (!status) {
@@ -140,7 +149,7 @@ class SbbDatepickerElement<T = Date>
         .dateFilter=${this.input?.dateFilter ?? null}
         .selected=${this.input?.valueAsDate ?? null}
         ?wide=${this.wide}
-        @dateSelected=${(d: CustomEvent<T>) => {
+        @dateselected=${(d: CustomEvent<T>) => {
           if (this.input) {
             this.input.valueAsDate = d.detail;
             this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
@@ -155,7 +164,7 @@ class SbbDatepickerElement<T = Date>
   }
 
   protected override render(): TemplateResult {
-    return isServer || this.hydrationRequired ? html`${nothing}` : super.render();
+    return isServer || this.hydrationRequired || !this._ready ? html`${nothing}` : super.render();
   }
 }
 

@@ -121,7 +121,7 @@ The component has no `size` property but, when slotted in a `sbb-form-field`, it
 
 ## Events
 
-The `sbb-autocomplete-grid-option` emits the `optionSelected` event when selected via user interaction.
+The `sbb-autocomplete-grid-option` emits the `autocompleteoptionselected` event when selected via user interaction.
 
 ## Keyboard interaction
 
@@ -204,12 +204,12 @@ const values = [
 
 ## Events
 
-| Name        | Type                | Description                                                                                | Inherited From          |
-| ----------- | ------------------- | ------------------------------------------------------------------------------------------ | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete-grid` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

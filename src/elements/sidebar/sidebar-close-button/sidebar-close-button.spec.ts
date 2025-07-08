@@ -2,13 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { i18nCloseSidebar } from '../../core/i18n.js';
-import { fixture } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing.js';
 
 import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
 
 describe('sbb-sidebar-close-button', () => {
   let element: SbbSidebarCloseButtonElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     document.documentElement.removeAttribute('lang');
@@ -21,12 +22,12 @@ describe('sbb-sidebar-close-button', () => {
   });
 
   it('should update the aria-label when language changes', async () => {
-    expect(element).to.have.attribute('aria-label', i18nCloseSidebar['en']);
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(i18nCloseSidebar['en']);
 
     document.documentElement.setAttribute('lang', 'de');
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('aria-label', i18nCloseSidebar['de']);
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(i18nCloseSidebar['de']);
   });
 
   it('should not update the aria-label when language changes and aria-label is customized', async () => {

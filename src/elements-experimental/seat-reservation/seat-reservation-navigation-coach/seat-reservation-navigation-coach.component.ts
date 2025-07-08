@@ -1,13 +1,12 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { EventEmitter } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { getI18nSeatReservation } from '../../common/translations.js';
-import type { PlaceTravelClass } from '../../common.js';
+import { getI18nSeatReservation } from '../common/translations.js';
+import type { PlaceTravelClass } from '../common.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
@@ -20,17 +19,14 @@ export type SelectCoachEventDetails = number;
 
 /**
  * This component will display the navigation coach item for Seat reservation.
- *
- * @event {CustomEvent<SelectCoachEventDetails>} selectCoach - Emits when a coach within the navigation was selected and returns the clicked coach nav index
- * @event {CustomEvent<void>} focusCoach - Emits when a nav coach has the focus
  */
 export
 @customElement('sbb-seat-reservation-navigation-coach')
 class SbbSeatReservationNavigationCoachElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectCoach: 'selectCoach',
-    focusCoach: 'focusCoach',
+    selectcoach: 'selectcoach',
+    focuscoach: 'focuscoach',
   } as const;
 
   /** Coach ID, which is used to identify the coach in the navigation */
@@ -87,16 +83,6 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   private _language = new SbbLanguageController(this);
 
-  /** Emits when a coach within the navigation was selected */
-  protected selectNavCoach: EventEmitter<SelectCoachEventDetails> = new EventEmitter(
-    this,
-    SbbSeatReservationNavigationCoachElement.events.selectCoach,
-  );
-  protected focusNavCoach: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbSeatReservationNavigationCoachElement.events.focusCoach,
-  );
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -106,7 +92,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       ) as HTMLButtonElement;
       if (this.selected && selectedNavButtonElement) {
         selectedNavButtonElement.focus();
-        this.focusNavCoach.emit();
+        /** Emits when a nav coach has the focus */
+        this.dispatchEvent(new Event('focuscoach', { bubbles: true, composed: true }));
       }
     }
 
@@ -251,7 +238,17 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
    */
   private _selectNavCoach(coachIndex: number): void {
     if (!this.driverArea) {
-      this.selectNavCoach.emit(coachIndex);
+      /**
+       * @type {CustomEvent<SelectCoachEventDetails>}
+       * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
+       */
+      this.dispatchEvent(
+        new CustomEvent<SelectCoachEventDetails>('selectcoach', {
+          bubbles: true,
+          composed: true,
+          detail: coachIndex,
+        }),
+      );
     }
   }
 

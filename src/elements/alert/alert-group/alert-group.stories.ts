@@ -11,14 +11,17 @@ import { SbbAlertGroupElement } from './alert-group.component.js';
 import readme from './readme.md?raw';
 
 import '../../link/link.js';
+import '../../title.js';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-alert-group ${sbbSpread(args)}>
-    <sbb-alert title-content="Interruption between Genève and Lausanne" size="l">
+    <sbb-alert size="l">
+      <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
       The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
       <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
     </sbb-alert>
-    <sbb-alert title-content="Interruption between Berne and Olten">
+    <sbb-alert>
+      <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
       Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
       construction work will take place. You have to expect changed travel times and changed
       connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
@@ -78,10 +81,10 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbAlertGroupElement.events.empty,
-        SbbAlertElement.events.willOpen,
-        SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.willClose,
-        SbbAlertElement.events.didClose,
+        SbbAlertElement.events.beforeopen,
+        SbbAlertElement.events.open,
+        SbbAlertElement.events.beforeclose,
+        SbbAlertElement.events.close,
       ],
     },
     docs: {

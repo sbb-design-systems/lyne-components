@@ -91,12 +91,12 @@ const sidebar = (position: SbbSidebarElement['position'], args: Args): TemplateR
       id="sidebar"
       role="navigation"
       focus-on-open
-      @didOpen=${(event: CustomEvent) =>
+      @open=${(event: Event) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
           ?.parentElement?.querySelector('#toggle-button')
           ?.setAttribute('aria-expanded', 'true')}
-      @didClose=${(event: CustomEvent) =>
+      @close=${(event: Event) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
           ?.parentElement?.querySelector('#toggle-button')

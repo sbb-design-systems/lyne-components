@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { stub, type SinonStub } from 'sinon';
 
+import { SbbCalendarElement } from '../../calendar.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
@@ -132,14 +133,14 @@ describe(`sbb-datepicker`, () => {
     `);
     const datepicker = root.querySelector('sbb-datepicker')!;
     const toggle = root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
-    const didOpenEventSpy = new EventSpy(SbbDatepickerElement.events.didOpen, datepicker);
+    const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
     await waitForLitRender(toggle);
     expect(toggle).not.to.have.attribute('disabled');
     expect(datepicker).to.have.attribute('data-state', 'closed');
 
     datepicker.open();
 
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     expect(datepicker).to.have.attribute('data-state', 'opened');
   });
@@ -156,17 +157,17 @@ describe(`sbb-datepicker`, () => {
     const input = root.querySelector<SbbDateInputElement>('sbb-date-input')!;
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
     expect(datepicker).to.have.attribute('data-state', 'closed');
-    const didOpenEventSpy = new EventSpy(SbbDatepickerElement.events.didOpen, datepicker);
+    const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
     const changeSpy = new EventSpy('change', input);
     const blurSpy = new EventSpy('blur', input);
 
     toggle.click();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
     expect(datepicker).to.have.attribute('data-state', 'opened');
 
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
     calendar.dispatchEvent(
-      new CustomEvent('dateSelected', {
+      new CustomEvent(SbbCalendarElement.events.dateselected, {
         detail: new Date('2022-01-01'),
       }),
     );
@@ -179,8 +180,8 @@ describe(`sbb-datepicker`, () => {
 
     // Clear the input value and expect the calendar to clear the previous selected date
     input.value = '';
-    input.dispatchEvent(new Event('input'));
-    input.dispatchEvent(new Event('change'));
+    input.dispatchEvent(new InputEvent('input'));
+    input.dispatchEvent(new InputEvent('change'));
     await waitForLitRender(toggle);
 
     expect(input.value).to.be.equal('');
@@ -201,12 +202,12 @@ describe(`sbb-datepicker`, () => {
 
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
 
-    const didOpenEventSpy = new EventSpy(SbbDatepickerElement.events.didOpen, datepicker);
-    const didCloseEventSpy = new EventSpy(SbbDatepickerElement.events.didClose, datepicker);
+    const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
+    const closeSpy = new EventSpy(SbbDatepickerElement.events.close, datepicker);
 
     // Open calendar
     datepicker.open();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     // We have to wait another tick
     await aTimeout(0);
@@ -232,11 +233,11 @@ describe(`sbb-datepicker`, () => {
 
     // Expect selected date and closed calendar
     expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2020-05-05');
-    await didCloseEventSpy.calledOnce();
+    await closeSpy.calledOnce();
 
     // Open again
     datepicker.open();
-    await didOpenEventSpy.calledTimes(2);
+    await openSpy.calledTimes(2);
 
     // Should open with year view again
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
@@ -246,7 +247,7 @@ describe(`sbb-datepicker`, () => {
 
     // Close again
     await sendKeys({ press: 'Escape' });
-    await didCloseEventSpy.calledTimes(2);
+    await closeSpy.calledTimes(2);
 
     // Changing to month view
     datepicker.view = 'month';
@@ -254,7 +255,7 @@ describe(`sbb-datepicker`, () => {
 
     // Open again
     datepicker.open();
-    await didOpenEventSpy.calledTimes(3);
+    await openSpy.calledTimes(3);
 
     // Month view should be active and correct year preselected
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-month-view')!).not.to.be.null;
@@ -276,11 +277,11 @@ describe(`sbb-datepicker`, () => {
     );
 
     const datepicker = element.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-    const didOpenEventSpy = new EventSpy(SbbDatepickerElement.events.didOpen, datepicker);
+    const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
 
     // Open calendar
     datepicker.open();
-    await didOpenEventSpy.calledOnce();
+    await openSpy.calledOnce();
 
     // We have to wait another tick
     await aTimeout(0);

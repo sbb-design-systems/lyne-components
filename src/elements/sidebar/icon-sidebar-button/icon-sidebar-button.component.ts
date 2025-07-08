@@ -9,7 +9,6 @@ import { iconSidebarButtonCommonStyle } from '../common.js';
  * Button to be placed inside `sbb-icon-sidebar`.
  *
  * @slot icon - Slot used to display the icon.
- * @overrideType value - string
  */
 export
 @customElement('sbb-icon-sidebar-button')

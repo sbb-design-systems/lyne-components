@@ -103,10 +103,10 @@ The type can be specified using the generic type parameter `T` of `SbbRadioButto
 
 ## Events
 
-| Name     | Type         | Description      | Inherited From                    |
-| -------- | ------------ | ---------------- | --------------------------------- |
-| `change` | `Event`      | Fired on change. | SbbFormAssociatedRadioButtonMixin |
-| `input`  | `InputEvent` | Fired on input.  | SbbFormAssociatedRadioButtonMixin |
+| Name     | Type         | Description                                                                                                                                                                        | Inherited From                    |
+| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedRadioButtonMixin |
+| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedRadioButtonMixin |
 
 ## Slots
 

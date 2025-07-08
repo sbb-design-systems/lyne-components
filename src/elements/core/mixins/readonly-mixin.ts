@@ -21,11 +21,15 @@ export const SbbReadonlyMixin = <T extends AbstractConstructor<LitElement>>(
      */
     @property({ type: Boolean, attribute: 'readonly' })
     public set readOnly(value: boolean) {
-      this.toggleAttribute('readonly', !!value);
+      this.#readOnly = !!value;
+
+      // The attribute needs to be reflected synchronously (like native)
+      this.toggleAttribute('readonly', this.#readOnly);
     }
     public get readOnly(): boolean {
-      return this.hasAttribute('readonly');
+      return this.#readOnly;
     }
+    #readOnly = false;
   }
 
   return SbbReadonlyElement as unknown as AbstractConstructor<SbbReadonlyMixinType> & T;

@@ -96,7 +96,7 @@ describe('sbb-paginator', () => {
     });
 
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
-    pages[2].dispatchEvent(new Event('click'));
+    pages[2].dispatchEvent(new PointerEvent('click'));
     await waitForLitRender(element);
     const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
     expect(pageEventSpy).to.have.been.calledOnce;
@@ -112,9 +112,9 @@ describe('sbb-paginator', () => {
     const select: SbbSelectElement = element.shadowRoot!.querySelector('sbb-select')!;
     expect(select).not.to.be.null;
 
-    const didOpen = new EventSpy(SbbSelectElement.events.didOpen, select);
+    const openSpy = new EventSpy(SbbSelectElement.events.open, select);
     select.click();
-    await didOpen.calledOnce();
+    await openSpy.calledOnce();
     await waitForLitRender(element);
 
     const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;

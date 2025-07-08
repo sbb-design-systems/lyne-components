@@ -27,7 +27,6 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime.js';
 import { forceType, plainDate } from '../core/decorators.js';
-import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -107,15 +106,13 @@ export type CalendarView = 'day' | 'month' | 'year';
 
 /**
  * It displays a calendar which allows to choose a date.
- *
- * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    dateSelected: 'dateSelected',
+    dateselected: 'dateselected',
   } as const;
 
   /** If set to true, two months are displayed */
@@ -170,12 +167,6 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     'horizontal';
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
-
-  /** Event emitted on date selection. */
-  private _dateSelected: EventEmitter<T> = new EventEmitter(
-    this,
-    SbbCalendarElement.events.dateSelected,
-  );
 
   /** The currently active date. */
   @state() private accessor _activeDate: T = this._dateAdapter.today();
@@ -623,7 +614,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._setChosenYear();
     if (this._selected !== day) {
       this._selected = day;
-      this._dateSelected.emit(this._dateAdapter.deserialize(day)!);
+
+      /** @type {CustomEvent<T>} Event emitted on date selection. */
+      this.dispatchEvent(
+        new CustomEvent<T>('dateselected', {
+          detail: this._dateAdapter.deserialize(day)!,
+          composed: true,
+          bubbles: true,
+        }),
+      );
     }
   }
 

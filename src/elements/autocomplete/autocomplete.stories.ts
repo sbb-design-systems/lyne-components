@@ -481,12 +481,12 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAutocompleteElement.events.willOpen,
-        SbbAutocompleteElement.events.didOpen,
-        SbbAutocompleteElement.events.didClose,
-        SbbAutocompleteElement.events.willClose,
+        SbbAutocompleteElement.events.beforeopen,
+        SbbAutocompleteElement.events.open,
+        SbbAutocompleteElement.events.close,
+        SbbAutocompleteElement.events.beforeclose,
         'change',
-        SbbOptionElement.events.optionSelected,
+        SbbOptionElement.events.optionselected,
       ],
     },
     backgroundColor: (context: StoryContext) =>

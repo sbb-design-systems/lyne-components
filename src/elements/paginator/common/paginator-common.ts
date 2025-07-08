@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import {
@@ -102,12 +101,6 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
      */
     @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
-    private _page: EventEmitter<SbbPaginatorPageEventDetails> = new EventEmitter(
-      this,
-      SbbPaginatorCommonElement.events.page,
-      { composed: true, bubbles: true },
-    );
-
     protected language = new SbbLanguageController(this);
     private _previousPageSize: number = this._pageSize;
     protected abstract renderPaginator(): TemplateResult;
@@ -191,12 +184,22 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
         return;
       }
 
-      this._page.emit({
-        previousPageIndex,
-        pageIndex: this.pageIndex,
-        length: this.length,
-        pageSize: this.pageSize,
-      });
+      /**
+       * @type {CustomEvent<SbbPaginatorPageEventDetails>}
+       * The page event is dispatched when the page index changes.
+       */
+      this.dispatchEvent(
+        new CustomEvent<SbbPaginatorPageEventDetails>('page', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            previousPageIndex,
+            pageIndex: this.pageIndex,
+            length: this.length,
+            pageSize: this.pageSize,
+          },
+        }),
+      );
     }
 
     protected renderPrevNextButtons(): TemplateResult {

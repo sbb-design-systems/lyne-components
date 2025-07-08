@@ -7,6 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import sampleImages from '../../core/images.js';
+import type { SbbOverlayCloseEventDetails } from '../../core/interfaces.js';
 import type { SbbTitleLevel } from '../../title.js';
 
 import { SbbDialogElement } from './dialog.component.js';
@@ -200,7 +201,7 @@ const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
   </div>
   <sbb-dialog
     trigger="dialog-trigger"
-    @willClose=${(event: CustomEvent) => {
+    @beforeclose=${(event: CustomEvent<SbbOverlayCloseEventDetails>) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;
@@ -390,10 +391,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbDialogElement.events.willOpen,
-        SbbDialogElement.events.didOpen,
-        SbbDialogElement.events.willClose,
-        SbbDialogElement.events.didClose,
+        SbbDialogElement.events.beforeopen,
+        SbbDialogElement.events.open,
+        SbbDialogElement.events.beforeclose,
+        SbbDialogElement.events.close,
       ],
     },
     docs: {

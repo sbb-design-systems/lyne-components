@@ -10,7 +10,6 @@ import {
 } from '../core/controllers.js';
 import { forceType, idReference } from '../core/decorators.js';
 import { SbbScrollHandler } from '../core/dom.js';
-import { EventEmitter } from '../core/eventing.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
@@ -47,13 +46,6 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   @property({ type: Boolean })
   public accessor skipFocusRestoration: boolean = false;
 
-  /** Emits whenever the component is closed. */
-  protected override didClose: EventEmitter<SbbOverlayCloseEventDetails> = new EventEmitter(
-    this,
-    SbbOverlayBaseElement.events.didClose,
-    { cancelable: true },
-  );
-
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
   protected overlayCloseElement?: HTMLElement;
@@ -82,7 +74,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
     this.lastFocusedElement = document.activeElement as HTMLElement;
 
-    if (!this.willOpen.emit()) {
+    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -116,7 +108,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       closeTarget: this.overlayCloseElement,
     };
 
-    if (!this.willClose.emit(eventData)) {
+    if (!this.dispatchBeforeCloseEvent(eventData)) {
       return;
     }
     this.state = 'closing';
@@ -253,5 +245,17 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }
+  }
+
+  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component begins the closing transition. Can be canceled. */
+    return this.dispatchEvent(
+      new CustomEvent<SbbOverlayCloseEventDetails>('beforeclose', { detail, cancelable: true }),
+    );
+  }
+
+  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component is closed. */
+    return this.dispatchEvent(new CustomEvent<SbbOverlayCloseEventDetails>('close', { detail }));
   }
 }

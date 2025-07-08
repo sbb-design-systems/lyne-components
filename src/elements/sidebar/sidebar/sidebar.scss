@@ -123,7 +123,7 @@
 
 ::slotted(sbb-sidebar-title) {
   flex-grow: 1;
-  padding-block: var(--sbb-sidebar-title-padding-block);
+  margin-block: var(--sbb-sidebar-title-padding-block);
 }
 
 ::slotted(sbb-sidebar-close-button) {

@@ -4,7 +4,6 @@ import { property, state } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
-import type { EventEmitter } from '../../core/eventing.js';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
@@ -37,6 +36,10 @@ export
 abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
+  public static readonly events = {
+    optionselected: 'optionselected',
+  } as const;
+
   protected abstract optionId: string;
 
   /**
@@ -68,9 +71,6 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   public get selected(): boolean {
     return this.hasAttribute('selected');
   }
-
-  /** Emits when an option was selected by user. */
-  protected abstract optionSelected: EventEmitter;
 
   /** Whether to apply the negative styling */
   @state() protected accessor negative = false;
@@ -132,7 +132,8 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
     if (this.selected) {
-      this.optionSelected.emit();
+      /** Emits when an option was selected by user. */
+      this.dispatchEvent(new Event('optionselected', { bubbles: true, composed: true }));
     }
   }
 
@@ -292,5 +293,11 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    optionselected: Event;
   }
 }

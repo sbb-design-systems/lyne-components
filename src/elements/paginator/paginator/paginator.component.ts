@@ -25,8 +25,6 @@ const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 
 /**
  * It displays a paginator component.
- *
- * @event {CustomEvent<SbbPaginatorPageEventDetails>} page - Emits when the pageIndex changes.
  */
 export
 @customElement('sbb-paginator')
@@ -135,7 +133,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                 ?disabled=${this.disabled}
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
-                @change=${(e: CustomEvent) =>
+                @change=${(e: Event) =>
                   (this.pageSize = +((e.target as SbbSelectElement).value as string))}
               >
                 ${repeat(

@@ -17,10 +17,8 @@ snapshots["sbb-icon-sidebar-button renders Shadow DOM"] =
 `<span class="sbb-action-base sbb-icon-sidebar-button">
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       data-namespace="default"
       name="glass-cocktail-small"
-      role="img"
     >
     </sbb-icon>
   </slot>

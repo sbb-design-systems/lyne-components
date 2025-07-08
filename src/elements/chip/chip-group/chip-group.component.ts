@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.js';
 import {
   type FormRestoreReason,
@@ -48,9 +47,6 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
  *
- * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
- * @event {CustomEvent<void>} input - Notifies that the component's value has changed.
- * @event {CustomEvent<SbbChipInputTokenEndEventDetails>} chipInputTokenEnd - Notifies that a chip is about to be created. Can be used to customize the value and the label. Can be prevented.
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
  * @overrideType value - (T = string[]) | null
  */
@@ -64,7 +60,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   public static readonly events = {
     input: 'input',
     change: 'change',
-    chipInputTokenEnd: 'chipInputTokenEnd',
+    chipinputtokenend: 'chipinputtokenend',
   } as const;
 
   /** Value of the form element. */
@@ -105,21 +101,9 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   @property({ attribute: false })
   public accessor displayWith: ((value: T) => string) | null = null;
 
-  /** The array of keys that will trigger a `chipInputTokenEnd` event. Default `['Enter']` */
+  /** The array of keys that will trigger a `chipinputtokenend` event. Default `['Enter']` */
   @property({ attribute: 'separator-keys', type: Array })
   public accessor separatorKeys: string[] = ['Enter'];
-
-  /** Notifies that the component's value has changed. */
-  private _change: EventEmitter = new EventEmitter(this, SbbChipGroupElement.events.change);
-
-  /** Notifies that the component's value has changed. */
-  private _input: EventEmitter = new EventEmitter(this, SbbChipGroupElement.events.input);
-
-  /** Notifies that a chip is about to be created. Can be prevented. */
-  private _chipInputTokenEnd = new EventEmitter<SbbChipInputTokenEndEventDetails<T>>(
-    this,
-    SbbChipGroupElement.events.chipInputTokenEnd,
-  );
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -142,7 +126,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   public constructor() {
     super();
 
-    this.addEventListener?.(SbbChipElement.events.requestDelete, (ev) =>
+    this.addEventListener?.(SbbChipElement.events.requestdelete, (ev) =>
       this._deleteChip(ev.target as SbbChipElement<T>),
     );
 
@@ -307,7 +291,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
         break;
     }
 
-    // if the user typed one of the separator keys, trigger a chipInputTokenEnd event
+    // if the user typed one of the separator keys, trigger a 'chipinputtokenend' event
     if (this.separatorKeys.includes(event.key)) {
       event.preventDefault(); // prevent typing the separator key into the input
       this._createChipFromInput('input');
@@ -331,13 +315,28 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       setLabel: (label: string) => (eventDetail.label = label),
     };
 
-    if (!this._chipInputTokenEnd.emit(eventDetail)) {
+    if (!this._dispatchChipInputTokenEnd(eventDetail)) {
       return; // event prevented; do nothing (the consumer has to create the chip)
     }
 
     this._createChipElement(eventDetail.value as T, eventDetail.label);
     this._inputElement!.value = ''; // Empty the input
     this._emitInputEvents();
+  }
+
+  private _dispatchChipInputTokenEnd(eventDetail: SbbChipInputTokenEndEventDetails<T>): boolean {
+    /**
+     * @type {CustomEvent<SbbChipInputTokenEndEventDetails>}
+     * Notifies that a chip is about to be created. Can be prevented.
+     */
+    return this.dispatchEvent(
+      new CustomEvent<SbbChipInputTokenEndEventDetails<T>>('chipinputtokenend', {
+        detail: eventDetail,
+        cancelable: true,
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   private _deleteChip(chip: SbbChipElement<T>): void {
@@ -368,8 +367,15 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   }
 
   private _emitInputEvents(): void {
-    this._input.emit();
-    this._change.emit();
+    /** The input event fires when the value has been changed as a direct result of a user action. */
+    this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   private _createChipElement(value: T | null, label?: string): void {
@@ -441,6 +447,6 @@ declare global {
 
 declare global {
   interface HTMLElementEventMap {
-    chipInputTokenEnd: CustomEvent<SbbChipInputTokenEndEventDetails<any>>;
+    chipinputtokenend: CustomEvent<SbbChipInputTokenEndEventDetails<any>>;
   }
 }

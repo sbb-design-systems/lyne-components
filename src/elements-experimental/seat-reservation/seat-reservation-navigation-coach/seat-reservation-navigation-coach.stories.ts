@@ -4,9 +4,9 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../../storybook/helpers/spread.js';
-import { mapRawDataToSeatReservation } from '../../common/mapper/mapper.js';
-import extraStylesFromParent from '../../seat-reservation/seat-reservation.scss?lit&inline';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { mapRawDataToSeatReservation } from '../common/mapper/mapper.js';
+import extraStylesFromParent from '../seat-reservation/seat-reservation.scss?lit&inline';
 
 import readme from './readme.md?raw';
 import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
@@ -135,16 +135,15 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSeatReservationNavigationCoachElement.events.selectCoach,
-        SbbSeatReservationNavigationCoachElement.events.focusCoach,
+        SbbSeatReservationNavigationCoachElement.events.selectcoach,
+        SbbSeatReservationNavigationCoachElement.events.focuscoach,
       ],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title:
-    'experimental/sbb-seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach',
+  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-navigation-coach',
 };
 
 export default meta;

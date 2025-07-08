@@ -10,7 +10,6 @@ import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } fro
  *
  * @slot - Use the unnamed slot to add content to the accent-button.
  * @slot icon - Slot used to display the icon, if one is set
- * @overrideType value - string
  */
 export
 @customElement('sbb-accent-button')

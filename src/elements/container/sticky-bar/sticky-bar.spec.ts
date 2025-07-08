@@ -13,10 +13,10 @@ import '../container.js';
 describe(`sbb-sticky-bar`, () => {
   let container: SbbContainerElement;
   let stickyBar: SbbStickyBarElement;
-  let willStickSpy: EventSpy<CustomEvent>;
-  let didStickSpy: EventSpy<CustomEvent>;
-  let willUnstickSpy: EventSpy<CustomEvent>;
-  let didUnstickSpy: EventSpy<CustomEvent>;
+  let beforeStickSpy: EventSpy<Event>;
+  let stickSpy: EventSpy<Event>;
+  let beforeUnstickSpy: EventSpy<Event>;
+  let unstickSpy: EventSpy<Event>;
 
   const isSticking = (): boolean => stickyBar.hasAttribute('data-sticking');
 
@@ -42,10 +42,10 @@ describe(`sbb-sticky-bar`, () => {
         </sbb-container>
       `);
       stickyBar = container.querySelector('sbb-sticky-bar')!;
-      willStickSpy = new EventSpy(SbbStickyBarElement.events.willStick, stickyBar);
-      didStickSpy = new EventSpy(SbbStickyBarElement.events.didStick, stickyBar);
-      willUnstickSpy = new EventSpy(SbbStickyBarElement.events.willUnstick, stickyBar);
-      didUnstickSpy = new EventSpy(SbbStickyBarElement.events.didUnstick, stickyBar);
+      beforeStickSpy = new EventSpy(SbbStickyBarElement.events.beforestick, stickyBar);
+      stickSpy = new EventSpy(SbbStickyBarElement.events.stick, stickyBar);
+      beforeUnstickSpy = new EventSpy(SbbStickyBarElement.events.beforeunstick, stickyBar);
+      unstickSpy = new EventSpy(SbbStickyBarElement.events.unstick, stickyBar);
     });
 
     it('renders', async () => {
@@ -76,26 +76,26 @@ describe(`sbb-sticky-bar`, () => {
     it('gets unsticky when calling unstick()', async () => {
       stickyBar.unstick();
 
-      await willUnstickSpy.calledOnce();
-      await didUnstickSpy.calledOnce();
+      await beforeUnstickSpy.calledOnce();
+      await unstickSpy.calledOnce();
 
-      expect(willUnstickSpy.count).to.be.equal(1);
-      expect(didUnstickSpy.count).to.be.equal(1);
+      expect(beforeUnstickSpy.count).to.be.equal(1);
+      expect(unstickSpy.count).to.be.equal(1);
     });
 
     it('doesnt get unsticky when prevented', async () => {
       stickyBar.addEventListener(
-        SbbStickyBarElement.events.willUnstick,
+        SbbStickyBarElement.events.beforeunstick,
         (e) => e.preventDefault(),
         { once: true },
       );
       stickyBar.unstick();
 
-      await willUnstickSpy.calledOnce();
+      await beforeUnstickSpy.calledOnce();
 
       expect(stickyBar).to.have.attribute('data-state', 'sticky');
-      expect(willUnstickSpy.count).to.be.equal(1);
-      expect(didUnstickSpy.count).to.be.equal(0);
+      expect(beforeUnstickSpy.count).to.be.equal(1);
+      expect(unstickSpy.count).to.be.equal(0);
     });
 
     it('send events when sticky but not currently sticking and calling unstick()', async () => {
@@ -104,55 +104,59 @@ describe(`sbb-sticky-bar`, () => {
 
       stickyBar.unstick();
 
-      await willUnstickSpy.calledOnce();
-      await didUnstickSpy.calledOnce();
+      await beforeUnstickSpy.calledOnce();
+      await unstickSpy.calledOnce();
 
-      expect(willUnstickSpy.count).to.be.equal(1);
-      expect(didUnstickSpy.count).to.be.equal(1);
+      expect(beforeUnstickSpy.count).to.be.equal(1);
+      expect(unstickSpy.count).to.be.equal(1);
     });
 
     it('gets sticky when calling stick()', async () => {
       stickyBar.unstick();
-      await didUnstickSpy.calledOnce();
+      await unstickSpy.calledOnce();
 
       stickyBar.stick();
 
-      await willStickSpy.calledOnce();
-      await didStickSpy.calledOnce();
+      await beforeStickSpy.calledOnce();
+      await stickSpy.calledOnce();
 
-      expect(willStickSpy.count).to.be.equal(1);
-      expect(didStickSpy.count).to.be.equal(1);
+      expect(beforeStickSpy.count).to.be.equal(1);
+      expect(stickSpy.count).to.be.equal(1);
     });
 
     it('doesnt get sticky when prevented', async () => {
       stickyBar.unstick();
-      await didUnstickSpy.calledOnce();
+      await unstickSpy.calledOnce();
 
-      stickyBar.addEventListener(SbbStickyBarElement.events.willStick, (e) => e.preventDefault(), {
-        once: true,
-      });
+      stickyBar.addEventListener(
+        SbbStickyBarElement.events.beforestick,
+        (e) => e.preventDefault(),
+        {
+          once: true,
+        },
+      );
       stickyBar.stick();
 
-      await willStickSpy.calledOnce();
+      await beforeStickSpy.calledOnce();
 
       expect(stickyBar).to.have.attribute('data-state', 'unsticky');
-      expect(willStickSpy.count).to.be.equal(1);
-      expect(didStickSpy.count).to.be.equal(0);
+      expect(beforeStickSpy.count).to.be.equal(1);
+      expect(stickSpy.count).to.be.equal(0);
     });
 
     it('works with non-zero animation duration', async () => {
       stickyBar.style.setProperty('--sbb-sticky-bar-slide-vertically-animation-duration', '1ms');
 
       stickyBar.unstick();
-      await didUnstickSpy.calledOnce();
+      await unstickSpy.calledOnce();
 
       stickyBar.stick();
 
-      await willStickSpy.calledOnce();
-      await didStickSpy.calledOnce();
+      await beforeStickSpy.calledOnce();
+      await stickSpy.calledOnce();
 
-      expect(willStickSpy.count).to.be.equal(1);
-      expect(didStickSpy.count).to.be.equal(1);
+      expect(beforeStickSpy.count).to.be.equal(1);
+      expect(stickSpy.count).to.be.equal(1);
     });
   });
 

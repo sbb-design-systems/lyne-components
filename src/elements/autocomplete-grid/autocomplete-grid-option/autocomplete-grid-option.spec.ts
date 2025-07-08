@@ -47,12 +47,12 @@ describe(`sbb-autocomplete-grid-option`, () => {
   });
 
   it('set selected and emits on click', async () => {
-    const optionSelectedSpy = new EventSpy(SbbAutocompleteGridOptionElement.events.optionSelected);
+    const optionSelectedSpy = new EventSpy(SbbAutocompleteGridOptionElement.events.optionselected);
     const optionOne = element.querySelector<SbbAutocompleteGridOptionElement>(
       'sbb-autocomplete-grid-option',
     )!;
 
-    optionOne.dispatchEvent(new CustomEvent('click'));
+    optionOne.dispatchEvent(new PointerEvent('click'));
     await waitForLitRender(element);
 
     expect(optionOne.selected).to.be.equal(true);
