@@ -73,7 +73,9 @@ describe('sbb-calendar', () => {
           );
 
           for (const multiple of [false, true]) {
-            const selected = multiple ? [new Date(2023, 0, 20)] : new Date(2023, 0, 20);
+            const selected = multiple
+              ? [new Date(2023, 0, 20), new Date(2023, 0, 21)]
+              : new Date(2023, 0, 20);
             it(
               `multiple=${multiple} weekNumbers=true`,
               visualDiffDefault.with(async (setup) => {
