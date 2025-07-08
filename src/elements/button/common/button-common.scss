@@ -44,6 +44,7 @@ $active: ':active, [data-active], [loading]';
       var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
       var(--sbb-button-shadow-1-color);
   --sbb-button-loading-border-width: var(--sbb-border-width-3x);
+  --sbb-button-loading-delay: 300ms;
 
   // Calculated and private variables
   --_width: unset;
@@ -186,7 +187,8 @@ $active: ':active, [data-active], [loading]';
   z-index: -1;
   container-type: inline-size;
   overflow: hidden;
-  animation: color-fade-in var(--sbb-animation-duration-6x) 0.3s linear;
+  animation: background-fade-in var(--sbb-animation-duration-6x) var(--sbb-button-loading-delay)
+    linear;
   animation-fill-mode: forwards;
 }
 
@@ -194,7 +196,7 @@ $active: ':active, [data-active], [loading]';
   // Adapts the trail size depending on the container size.
   width: 64cqmin;
 
-  // This avoids displaying the trail on the other side when button labels are very wide.
+  // The max-height avoids displaying the trail on the other side when button labels are very wide.
   max-height: var(--sbb-button-min-height);
   aspect-ratio: 2 / 1;
   position: absolute;
@@ -206,26 +208,30 @@ $active: ':active, [data-active], [loading]';
   offset-path: border-box;
   offset-anchor: 100% 50%;
   opacity: 0;
+
+  // The animation duration is calculated based on the button width that the snake has a constant traveling speed.
+  // However, for the icon only version, we need to set a minimum duration to avoid the snake being too fast.
   animation:
-    fade-in var(--sbb-animation-duration-12x) 0.3s var(--sbb-animation-easing),
-    journey 3s infinite linear;
+    snake-fade-in var(--sbb-animation-duration-12x) calc(var(--sbb-button-loading-delay) + 200ms)
+      var(--sbb-animation-easing),
+    snake-position calc(max(tan(atan2(100cqmin, 1px)) / 136, 0.5) * 3s) infinite linear;
   animation-fill-mode: forwards;
   transform-style: preserve-3d;
 }
 
-@keyframes journey {
+@keyframes snake-position {
   to {
     offset-distance: 100%;
   }
 }
 
-@keyframes fade-in {
+@keyframes snake-fade-in {
   to {
     opacity: 1;
   }
 }
 
-@keyframes color-fade-in {
+@keyframes background-fade-in {
   to {
     background: var(--sbb-button-color-loading-border);
   }

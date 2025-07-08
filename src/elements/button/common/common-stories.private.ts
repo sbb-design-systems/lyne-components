@@ -47,7 +47,14 @@ const LoadingIndicatorTemplate = ({
   return html`
     <${unsafeStatic(tag)}
       ${sbbSpread(args)}
-      @click=${(e: PointerEvent) => ((e.currentTarget as SbbButtonCommonElementMixinType).loading = true)}
+      @click=${(e: PointerEvent) => {
+        const button = e.currentTarget as SbbButtonCommonElementMixinType;
+        button.loading = true;
+
+        setTimeout(() => {
+          button.loading = false;
+        }, 4000);
+      }}
   >
       ${text}
     </${unsafeStatic(tag)}>
