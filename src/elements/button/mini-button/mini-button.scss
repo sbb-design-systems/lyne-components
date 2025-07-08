@@ -25,6 +25,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 @include sbb.icon-button('.sbb-mini-button', '::slotted(sbb-icon), sbb-icon');
 
 .sbb-mini-button {
+  height: var(--sbb-size-icon-ui-small);
   gap: var(--sbb-mini-button-gap);
   align-items: center;
   justify-content: center;
