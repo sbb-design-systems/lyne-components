@@ -195,5 +195,5 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
 
 | Name             | Type                                                     | Description                                                                         | Inherited From             |
 | ---------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedCoach`  | `CustomEvent<SeatReservationCoachSelection>`             | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedPlaces` | `CustomEvent<SeatReservationSelectedPlacesEventDetails>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
+| `selectedcoach`  | `CustomEvent<SeatReservationCoachSelection>`             | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlacesEventDetails>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |

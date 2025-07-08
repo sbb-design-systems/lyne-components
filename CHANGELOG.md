@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0...v3.0.1) (2025-07-07)
+
+
+### Bug Fixes
+
+* add string to property types in the react wrapper ([#3889](https://github.com/sbb-design-systems/lyne-components/issues/3889)) ([64a0db4](https://github.com/sbb-design-systems/lyne-components/commit/64a0db4acf522fd4671796a184a5b31f3109f8a6))
+* fix event types ([#3875](https://github.com/sbb-design-systems/lyne-components/issues/3875)) ([e77794b](https://github.com/sbb-design-systems/lyne-components/commit/e77794b0a5091a075c334d8b64625ac6f4051801))
+* **sbb-popover:** avoid closing popover on iOS ([#3874](https://github.com/sbb-design-systems/lyne-components/issues/3874)) ([8d41806](https://github.com/sbb-design-systems/lyne-components/commit/8d418061e5f17002055047eddb48200fe889abac)), closes [#3870](https://github.com/sbb-design-systems/lyne-components/issues/3870)
+* **seat-reservation:** fix event names ([#3887](https://github.com/sbb-design-systems/lyne-components/issues/3887)) ([9634ac7](https://github.com/sbb-design-systems/lyne-components/commit/9634ac709bb2fcc869dd2d7a4d82e84ee1d8a517))
+* **seat-reservation:** fix folder structure ([#3894](https://github.com/sbb-design-systems/lyne-components/issues/3894)) ([5a2e982](https://github.com/sbb-design-systems/lyne-components/commit/5a2e9820ed15356d605ccafafcabf51898712625)), closes [#3888](https://github.com/sbb-design-systems/lyne-components/issues/3888)
+
+
+### Performance Improvements
+
+* **sbb-datepicker:** delay rendering of calendar ([#3890](https://github.com/sbb-design-systems/lyne-components/issues/3890)) ([b6226f2](https://github.com/sbb-design-systems/lyne-components/commit/b6226f2551ad6c1000332bcbb7b0183ca001ad0a))
+
+## [2.11.3](https://github.com/sbb-design-systems/lyne-components/compare/v2.11.2...v2.11.3) (2025-07-07)
+
+
+### Bug Fixes
+
+* **seat-reservation:** fix folder structure ([#3894](https://github.com/sbb-design-systems/lyne-components/issues/3894)) ([a27ae99](https://github.com/sbb-design-systems/lyne-components/commit/a27ae99b98cd43b4833432a3d1d1e8d1721c708b))
+
 ## [3.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0-next.3...v3.0.0) (2025-06-26)
 
 

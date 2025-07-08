@@ -1,7 +1,6 @@
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -99,11 +98,7 @@ export const mountingUpperToLowerBorder: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [],
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

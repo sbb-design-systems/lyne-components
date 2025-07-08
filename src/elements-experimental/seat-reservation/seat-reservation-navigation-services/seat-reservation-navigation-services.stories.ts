@@ -1,10 +1,9 @@
-import type { Args, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import './seat-reservation-navigation-services.component.js';
@@ -38,14 +37,12 @@ export const MultipleServiceIcons: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title:
-    'experimental/sbb-seat-reservation/seat-reservation-navigation/seat-reservation-navigation-services',
+  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-navigation-services',
 };
 
 export default meta;

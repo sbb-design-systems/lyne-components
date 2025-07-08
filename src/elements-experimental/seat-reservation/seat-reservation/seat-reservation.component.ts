@@ -23,8 +23,8 @@ import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '../seat-reservation-area.js';
 import '../seat-reservation-graphic.js';
 import '../seat-reservation-place-control.js';
-import '../seat-reservation-navigation/seat-reservation-navigation-coach.js';
-import './seat-reservation-scoped.js';
+import '../seat-reservation-navigation-coach.js';
+import '../seat-reservation-scoped.js';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -160,8 +160,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
             return html`<li>
               <sbb-seat-reservation-navigation-coach
-                @selectCoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                @focusCoach=${() => this._onFocusNavCoach()}
+                @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                @focuscoach=${() => this._onFocusNavCoach()}
                 index="${index}"
                 coach-id="${coachItem.id}"
                 .selected=${this.selectedCoachIndex === index}
@@ -301,7 +301,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           cell-id="cell-${coachIndex}-${place.position.y}-${index}"
         >
           <sbb-seat-reservation-place-control
-            @selectPlace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
+            @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
               this._onSelectPlace(selectPlaceEvent)}
             exportparts="sbb-sr-place-part"
             id="seat-reservation__place-button-${coachIndex}-${place.number}"

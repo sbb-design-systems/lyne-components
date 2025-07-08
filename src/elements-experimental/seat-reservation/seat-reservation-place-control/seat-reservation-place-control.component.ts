@@ -19,7 +19,7 @@ export
 class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectPlace: 'selectPlace',
+    selectplace: 'selectplace',
   } as const;
 
   /** placeType of the place, e.g. 'SEAT', 'BICYCLE' */
@@ -185,7 +185,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
        * PlaceSelection object with necessary place information.
        */
       this.dispatchEvent(
-        new CustomEvent<PlaceSelection>('selectPlace', {
+        new CustomEvent<PlaceSelection>('selectplace', {
           detail: placeSelection,
           bubbles: true,
           composed: true,
