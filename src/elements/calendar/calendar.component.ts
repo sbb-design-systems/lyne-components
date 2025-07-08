@@ -721,9 +721,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         this._selected = [day];
       }
 
-      /** @type {CustomEvent<T[]>} Event emitted on date selection. */
+      /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
       this.dispatchEvent(
-        new CustomEvent<T[]>('dateselected', {
+        new CustomEvent<T | T[]>('dateselected', {
           detail: this._selected.map((e) => this._dateAdapter.deserialize(e)!),
           composed: true,
           bubbles: true,
@@ -734,9 +734,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
         this._selected = day;
 
-        /** @type {CustomEvent<T>} Event emitted on date selection. */
+        /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
         this.dispatchEvent(
-          new CustomEvent<T>('dateselected', {
+          new CustomEvent<T | T[]>('dateselected', {
             detail: this._dateAdapter.deserialize(day)!,
             composed: true,
             bubbles: true,
@@ -780,9 +780,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       }
     }
 
-    /** @type {CustomEvent<T[]>} Event emitted on date selection. */
+    /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
     this.dispatchEvent(
-      new CustomEvent<T[]>('dateselected', {
+      new CustomEvent<T | T[]>('dateselected', {
         detail: this._selected.map((e) => this._dateAdapter.deserialize(e)!),
         composed: true,
         bubbles: true,

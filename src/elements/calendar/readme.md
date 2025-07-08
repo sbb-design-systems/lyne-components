@@ -164,6 +164,6 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Events
 
-| Name           | Type               | Description                      | Inherited From |
-| -------------- | ------------------ | -------------------------------- | -------------- |
-| `dateselected` | `CustomEvent<T[]>` | Event emitted on date selection. |                |
+| Name           | Type                    | Description                      | Inherited From |
+| -------------- | ----------------------- | -------------------------------- | -------------- |
+| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection. |                |
