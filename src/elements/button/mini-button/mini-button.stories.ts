@@ -62,7 +62,6 @@ const standaloneArgTypes: ArgTypes = {
 const standaloneArgs: Args = {
   ...buttonDefaultArgs,
   'icon-name': 'pen-small',
-  text: 'Label',
 };
 
 ['size', 'text', 'tag'].forEach((e: string) => {
@@ -97,6 +96,21 @@ export const StandaloneNegative: StoryObj = {
 export const StandaloneDisabled: StoryObj = {
   ...StandaloneStory,
   args: { ...standaloneArgs, disabled: true },
+};
+
+export const StandaloneLabel: StoryObj = {
+  ...StandaloneStory,
+  args: { ...standaloneArgs, text: 'Label' },
+};
+
+export const StandaloneLabelNegative: StoryObj = {
+  ...StandaloneStory,
+  args: { ...standaloneArgs, text: 'Label', negative: true },
+};
+
+export const StandaloneLabelDisabled: StoryObj = {
+  ...StandaloneStory,
+  args: { ...standaloneArgs, text: 'Label', disabled: true },
 };
 
 export const Prefix: StoryObj = {
