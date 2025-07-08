@@ -46,7 +46,7 @@
 
 ::slotted(:is(sbb-secondary-button, [data-action])) {
   align-self: center;
-  padding-inline: var(--sbb-spacing-responsive-xxs);
+  margin-inline: var(--sbb-spacing-responsive-xxs);
 }
 
 .sbb-selection-action-panel__wrapper {

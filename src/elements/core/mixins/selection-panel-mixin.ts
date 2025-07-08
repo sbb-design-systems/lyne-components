@@ -22,13 +22,12 @@ export declare class SbbSelectionPanelMixinType {
   protected get checked(): boolean;
 
   protected set disabled(disabled: boolean);
+  protected get disabled(): boolean;
 
-  protected get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null;
-
+  protected group: SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null;
   protected sizeAttributeObserver: MutationObserver | null;
 
   protected initFromInput(event: Event): void;
-  protected onSizeAttributesChange(mutationsList: MutationRecord[]): void;
   protected onInputStateChange(event: CustomEvent<SbbStateChange>): void;
 }
 
@@ -63,22 +62,26 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
     protected set disabled(disabled: boolean) {
       this.toggleState('disabled', disabled);
     }
-
-    protected get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null {
-      return this.closest('sbb-radio-button-group, sbb-checkbox-group') as
-        | SbbRadioButtonGroupElement
-        | SbbCheckboxGroupElement;
+    protected get disabled(): boolean {
+      return this.internals.states.has('disabled');
     }
+
+    protected group: SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null = null;
 
     protected sizeAttributeObserver = !isServer
       ? new MutationObserver((mutationsList: MutationRecord[]) =>
-          this.onSizeAttributesChange(mutationsList),
+          this._onSizeAttributesChange(mutationsList),
         )
       : null;
 
     protected constructor(...args: any[]) {
       super(args);
       this.addEventListener?.('panelconnected', (e) => this.initFromInput(e));
+    }
+
+    public override connectedCallback(): void {
+      super.connectedCallback();
+      this.group = this.closest('sbb-radio-button-group, sbb-checkbox-group');
     }
 
     public override disconnectedCallback(): void {
@@ -96,6 +99,14 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
       this.sizeAttributeObserver?.observe(input, { attributeFilter: ['size'] });
     }
 
+    protected onInputStateChange(event: CustomEvent<SbbStateChange>): void {
+      if (event.detail.type === 'disabled') {
+        this.disabled = event.detail.disabled;
+      } else if (event.detail.type === 'checked') {
+        this.checked = event.detail.checked;
+      }
+    }
+
     /**
      * Set the data-size in two cases:
      * - if there's no group, so the size change comes directly from a change on the inner panel;
@@ -103,7 +114,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
      *
      * On the other hand, if there's a wrapper group and the size changes on the inner panel, the data-size doesn't change.
      */
-    protected onSizeAttributesChange(mutationsList: MutationRecord[]): void {
+    private _onSizeAttributesChange(mutationsList: MutationRecord[]): void {
       for (const mutation of mutationsList) {
         if (mutation.attributeName === 'size') {
           const group = this.group;
@@ -112,14 +123,6 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
             this.setAttribute('data-size', size);
           }
         }
-      }
-    }
-
-    protected onInputStateChange(event: CustomEvent<SbbStateChange>): void {
-      if (event.detail.type === 'disabled') {
-        this.disabled = event.detail.disabled;
-      } else if (event.detail.type === 'checked') {
-        this.checked = event.detail.checked;
       }
     }
   }
