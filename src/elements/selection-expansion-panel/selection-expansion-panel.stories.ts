@@ -1,10 +1,10 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../form-error.js';
@@ -704,10 +704,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbSelectionExpansionPanelElement.events.didOpen,
-        SbbSelectionExpansionPanelElement.events.didClose,
-        SbbSelectionExpansionPanelElement.events.willOpen,
-        SbbSelectionExpansionPanelElement.events.willClose,
+        SbbSelectionExpansionPanelElement.events.open,
+        SbbSelectionExpansionPanelElement.events.close,
+        SbbSelectionExpansionPanelElement.events.beforeopen,
+        SbbSelectionExpansionPanelElement.events.beforeclose,
       ],
     },
     docs: {

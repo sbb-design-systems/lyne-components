@@ -60,14 +60,14 @@ export const i18nTrains: Record<string, string> = {
 export const i18nWagonsLabel: Record<string, string> = {
   de: 'Wagen des Zuges',
   en: 'Coaches of the train',
-  fr: 'Wagons de train',
+  fr: 'Wagons du train',
   it: 'Carrozze del treno',
 };
 
 export const i18nWagonLabel: Record<string, string> = {
   de: 'Wagen',
   en: 'Train coach',
-  fr: 'Wagon de train',
+  fr: 'Wagon du train',
   it: 'Carrozza del treno',
 };
 
@@ -81,7 +81,7 @@ export const i18nWagonLabelNumber: Record<string, string> = {
 export const i18nClosedCompartmentLabel: Record<string, string> = {
   de: 'Geschlossener Zugwaggon',
   en: 'Closed train coach',
-  fr: 'Wagon de train fermé',
+  fr: 'Wagon du train fermé',
   it: 'Carrozza del treno chiuso',
 };
 
@@ -123,13 +123,13 @@ export const i18nBlockedPassage: Record<string, Record<string, string>> = {
   next: {
     de: 'Kein Durchgang zum nächsten Wagen',
     en: 'No passage to the next train coach',
-    fr: 'Pas de passage au wagon de train suivant',
+    fr: 'Pas de passage au wagon du train suivant',
     it: 'Nessun passaggio alla carrozza del treno successivo',
   },
   both: {
     de: 'Kein Durchgang zum nächsten und vorherigen Wagen',
     en: 'No passage to the next and previous train coach',
-    fr: 'Pas de passage au wagon de train suivant et précédent',
+    fr: 'Pas de passage au wagon du train suivant et précédent',
     it: 'Nessun passaggio alla carrozza del treno successivo e precedente',
   },
 };
@@ -247,7 +247,7 @@ export const i18nTravelhints: Record<string, string> = {
   de: 'Reisehinweise',
   en: 'Travelhints',
   fr: 'Indications sur le voyage',
-  it: 'Idiicazioni di viaggio',
+  it: 'Indicazioni di viaggio',
 };
 
 export const i18nRealTimeInfo: Record<string, string> = {
@@ -301,21 +301,21 @@ export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = 
   },
   low: {
     de: 'Tiefe bis mittlere Belegung erwartet',
-    en: 'Low to medium occupancy expected',
-    fr: "On s'attend à un taux d'occupation faible à moyen",
-    it: "Si prevede un'occupazione medio-bassa",
+    en: 'Low to average occupancy expected',
+    fr: 'Taux d’occupation faible à moyen prévu',
+    it: 'È prevista un’occupazione medio-bassa',
   },
   medium: {
     de: 'Hohe Belegung erwartet',
     en: 'High occupancy expected',
-    fr: "Un taux d'occupation élevé est attendu",
-    it: "Ci si aspetta un'alta occupazione",
+    fr: 'Taux d’occupation élevé prévu',
+    it: 'È prevista un’occupazione elevata',
   },
   high: {
     de: 'Sehr hohe Belegung erwartet',
     en: 'Very high occupancy expected',
-    fr: "Un taux d'occupation très élevé est attendu",
-    it: "Ci si aspetta un'occupazione molto alta",
+    fr: 'Taux d’occupation très élevé prévu',
+    it: 'È prevista un’occupazione molto elevata',
   },
 };
 
@@ -399,7 +399,7 @@ export const i18nTargetOpensInNewWindow: Record<string, string> = {
   de: 'Linkziel öffnet in neuem Fenster.',
   en: 'Link target opens in a new window.',
   fr: "Le lien s'ouvre dans une nouvelle fenêtre.",
-  it: "L'obiettivo del link si apre in una nuova finestra.",
+  it: 'Il link si apre in una nuova finestra.',
 };
 
 export const i18nWalkingDistanceArrival: Record<string, string> = {
@@ -412,21 +412,21 @@ export const i18nWalkingDistanceArrival: Record<string, string> = {
 export const i18nWalkingDistanceDeparture: Record<string, string> = {
   de: 'Minuten Fussweg vor Abfahrt:',
   en: 'minutes of walking time before departure:',
-  fr: 'minutes trajet à pied avant le départ:',
+  fr: 'minutes de trajet à pied avant le départ:',
   it: 'minuti a piedi prima della partenza:',
 };
 
 export const i18nCloseAlert: Record<string, string> = {
   de: 'Meldung schliessen',
   en: 'Close message',
-  fr: 'Fermer message',
+  fr: 'Fermer le message',
   it: 'Chiudere il messaggio',
 };
 
 export const i18nCloseNotification: Record<string, string> = {
   de: 'Nachricht schliessen',
   en: 'Close message',
-  fr: 'Fermer message',
+  fr: 'Fermer le message',
   it: 'Chiudere il messaggio',
 };
 
@@ -469,7 +469,7 @@ export const i18nGoBack: Record<string, string> = {
   de: 'Zurück',
   en: 'Go back',
   fr: 'Retourner',
-  it: 'Vai indietro',
+  it: 'Indietro',
 };
 
 export const i18nToday: Record<string, string> = {
@@ -510,15 +510,15 @@ export const i18nPreviousDay: Record<string, string> = {
 export const i18nYearMonthSelection: Record<string, string> = {
   de: 'Jahr und Monat auswählen',
   en: 'Choose year and month',
-  fr: "Choisissez l'année et le mois",
-  it: 'Seleziona anno e mese',
+  fr: 'Choisir l’année et le mois',
+  it: 'Selezioni anno e mese',
 };
 
 export const i18nCalendarDateSelection: Record<string, string> = {
   de: 'Datum auswählen',
   en: 'Choose date',
   fr: 'Choisir une date',
-  it: 'Seleziona una data',
+  it: 'Selezioni una data',
 };
 
 export const i18nNextYearRange = (yearRange: number): Record<string, string> => ({
@@ -567,7 +567,7 @@ export const i18nShowCalendar: Record<string, string> = {
   de: 'Kalender anzeigen',
   en: 'Show calendar',
   fr: 'Afficher le calendrier',
-  it: 'Visualizzare calendario',
+  it: 'Visualizza il calendario',
 };
 
 export const i18nDatePickerPlaceholder: Record<string, string> = {
@@ -609,7 +609,7 @@ export const i18nExpanded: Record<string, string> = {
   de: 'erweitert',
   en: 'expanded',
   fr: 'est tiré',
-  it: 'esapnso',
+  it: 'espanso',
 };
 
 export const i18nCollapsed: Record<string, string> = {
@@ -633,13 +633,6 @@ export const i18nBreadcrumbEllipsisButtonLabel: Record<string, string> = {
   it: 'Mostra più breadcrumbs',
 };
 
-export const i18nTimeInputChange: Record<string, string> = {
-  de: 'Zeit geändert zu',
-  en: 'Time changed to',
-  fr: 'Heure modifiée:',
-  it: 'Orario modificata alle',
-};
-
 export const i18nClearInput: Record<string, string> = {
   de: 'Feldinhalt löschen',
   en: 'Clear input value',
@@ -651,35 +644,35 @@ export const i18nFlipCard: Record<string, string> = {
   de: 'Klicken Sie auf diese Karte für Details',
   en: 'Click on this card for details',
   fr: 'Cliquez sur cette carte pour plus de détails',
-  it: 'Clicca su questa scheda per i dettagli',
+  it: 'Clicchi su questa scheda per i dettagli',
 };
 
 export const i18nReverseCard: Record<string, string> = {
   de: 'Klicken Sie auf diese Karte, um zurück zur Zusammenfassung zu gelangen',
   en: 'Click on this card to go back to the summary',
   fr: 'Cliquez sur cette carte pour revenir au résumé',
-  it: 'Clicca su questa scheda per tornare al sommario',
+  it: 'Clicchi su questa scheda per tornare al sommario',
 };
 
 export const i18nFileSelectorButtonLabel: Record<string, string> = {
   de: 'Datei auswählen',
   en: 'Choose a file',
   fr: 'Choisissez un fichier',
-  it: 'Scegli un file',
+  it: 'Scelga un file',
 };
 
 export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
-  de: 'Ziehe deine Dateien hier hin (Drag & Drop)',
+  de: 'Ziehen Sie Ihre Dateien hier hin (Drag & Drop)',
   en: 'Drag & Drop your files here',
   fr: 'Faites glisser et déposez vos fichiers ici',
-  it: 'Trascina e rilascia i tuoi file qui',
+  it: 'Trascini e rilasci i suoi file qui',
 };
 
 export const i18nFileSelectorDeleteFile: Record<string, string> = {
   de: 'Datei entfernen',
   en: 'Remove file',
   fr: 'Effacer le fichier',
-  it: 'Rimuovi il file',
+  it: 'Rimuova il file',
 };
 
 export const i18nFileSelectorCurrentlySelected = (filesName: string[]): Record<string, string> => {
@@ -776,11 +769,39 @@ export const i18nDateMax = (max: string): Record<string, string> => ({
   it: `La data non deve essere successiva al ${max}.`,
 });
 
+export const i18nTimeInputChange = (value: string): Record<string, string> => ({
+  de: `Zeit geändert zu ${value}.`,
+  en: `Time changed to ${value}.`,
+  fr: `Heure modifiée: ${value}.`,
+  it: `Orario modificata alle ${value}.`,
+});
+
+export const i18nTimeInvalid: Record<string, string> = {
+  de: 'Bitte gültige Zeit eingeben.',
+  en: 'Please provide a valid time.',
+  fr: 'Veuillez saisir une heure valide.',
+  it: 'Inserisca un orario valido.',
+};
+
+export const i18nTimeMax: Record<string, string> = {
+  de: `Zeit darf nicht nach 23:59 sein.`,
+  en: `Time must not be after 23:59.`,
+  fr: `L’heure ne doit pas être postérieure à 23h59.`,
+  it: `L’orario non può essere successivo alle 23.59.`,
+};
+
+export const i18nTimeMaxLength: Record<string, string> = {
+  de: `Die Zeiteingabe darf nicht mehr als fünf Zeichen haben.`,
+  en: `The time input must not exceed five characters.`,
+  fr: `La saisie de l’heure ne doit pas comporter plus de cinq caractères.`,
+  it: `L’indicazione temporale non può contenere più di cinque caratteri.`,
+};
+
 export const i18nChipDelete: Record<string, string> = {
   de: 'Drücken Sie die Entfernen-Taste um den Chip zu löschen',
   en: 'Press the Delete button to remove the chip',
   fr: 'Appuyez sur la touche Del pour supprimer cette puce',
-  it: 'Premi il tasto Canc per rimuovere questa chip',
+  it: 'Prema il tasto Canc per rimuovere questa chip',
 };
 
 export const i18nChipGroupInputDescription: Record<string, string> = {

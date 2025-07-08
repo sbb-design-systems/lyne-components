@@ -8,7 +8,7 @@ import { ref } from 'lit/directives/ref.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter, throttle } from '../../core/eventing.js';
+import { throttle } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import { SbbTabElement } from '../tab.js';
@@ -52,14 +52,13 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via
  * `sbb-tab-label` and `sbb-tab` instances.
- * @event {CustomEvent<SbbTabChangedEventDetails>} didChange - Emits an event on selected tab change.
  */
 export
 @customElement('sbb-tab-group')
 class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'didChange',
+    tabchange: 'tabchange',
   } as const;
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
@@ -103,12 +102,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   @forceType()
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
-
-  /** Emits an event on selected tab change. */
-  private _selectedTabChanged: EventEmitter<SbbTabChangedEventDetails> = new EventEmitter(
-    this,
-    SbbTabGroupElement.events.didChange,
-  );
 
   public constructor() {
     super();
@@ -313,14 +306,25 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
           this._tabContentResizeObserver.observe(tabLabel.tab!);
           const tabs = this._tabs;
-          this._selectedTabChanged.emit({
-            activeIndex: tabs.findIndex((e) => e === tabLabel),
-            activeTabLabel: tabLabel,
-            activeTab: tabLabel.tab as SbbTabElement,
-            previousIndex: tabs.findIndex((e) => e === prevTab),
-            previousTabLabel: prevTab,
-            previousTab: prevTab?.tab as SbbTabElement,
-          });
+
+          /**
+           * @type {CustomEvent<SbbTabChangedEventDetails>}
+           * The tabchange event is dispatched when a tab is selected.
+           */
+          this.dispatchEvent(
+            new CustomEvent<SbbTabChangedEventDetails>('tabchange', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                activeIndex: tabs.findIndex((e) => e === tabLabel),
+                activeTabLabel: tabLabel,
+                activeTab: tabLabel.tab as SbbTabElement,
+                previousIndex: tabs.findIndex((e) => e === prevTab),
+                previousTabLabel: prevTab,
+                previousTab: prevTab?.tab as SbbTabElement,
+              },
+            }),
+          );
         } else if (import.meta.env.DEV && tabLabel.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
@@ -344,14 +348,12 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     tabLabel.tabIndex = -1;
     tabLabel.disabled = tabLabel.hasAttribute('disabled');
     tabLabel.active = tabLabel.hasAttribute('active') && !tabLabel.disabled;
-    tabLabel.setAttribute('role', 'tab');
     tabLabel.setAttribute('aria-selected', String(tabLabel.active));
     tabLabel.addEventListener('click', () => {
       tabLabel.tabGroupActions?.select();
     });
     if (tabLabel.tab) {
       tabLabel.setAttribute('aria-controls', tabLabel.tab.id);
-      tabLabel.tab.setAttribute('role', 'tabpanel');
       tabLabel.tab.toggleAttribute('active', tabLabel.active);
     }
 

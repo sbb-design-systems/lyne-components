@@ -4,11 +4,9 @@ export const snapshots = {};
 snapshots["sbb-link-list should render named slots if data-ssr-child-count attribute is set"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -116,11 +114,9 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
 snapshots["sbb-link-list rendered with a slotted title Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -234,11 +230,9 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
 snapshots["sbb-link-list rendered with a title from properties Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -351,11 +345,9 @@ snapshots["sbb-link-list rendered without a title DOM"] =
 snapshots["sbb-link-list rendered without a title Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">

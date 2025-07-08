@@ -2,11 +2,10 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes, slotState } from '../../core/decorators.js';
+import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
@@ -20,15 +19,15 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @event {CustomEvent<void>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-radio-button-group')
-@hostAttributes({
-  role: 'radiogroup',
-})
 @slotState()
-class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
+class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
+  SbbElementInternalsMixin(LitElement),
+) {
+  public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -54,7 +53,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
    * The value of the radio group.
    */
   @property()
-  public set value(val: string | null) {
+  public set value(val: T | null) {
     this._fallbackValue = val;
     if (!this.hasUpdated) {
       return;
@@ -68,13 +67,13 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
       toCheck.checked = true;
     }
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue;
   }
   /**
    * Used to preserve the `value` in case the radios are not yet 'loaded'
    */
-  private _fallbackValue: string | null = null;
+  private _fallbackValue: T | null = null;
 
   /**
    * Size variant, either xs, s or m.
@@ -101,23 +100,14 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   /**
    * List of contained radio buttons.
    */
-  public get radioButtons(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] {
+  public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
     return (
       Array.from(this.querySelectorAll?.('sbb-radio-button, sbb-radio-button-panel') ?? []) as (
-        | SbbRadioButtonElement
-        | SbbRadioButtonPanelElement
+        | SbbRadioButtonElement<T>
+        | SbbRadioButtonPanelElement<T>
       )[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
-
-  /**
-   * Emits whenever the `sbb-radio-group` value changes.
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
-   */
-  private _didChange: EventEmitter = new EventEmitter(
-    this,
-    SbbRadioButtonGroupElement.events.didChange,
-  );
 
   public constructor() {
     super();
@@ -129,7 +119,7 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('disabled')) {
@@ -164,7 +154,12 @@ class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     }
 
     this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
-    this._didChange.emit();
+
+    /**
+     * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+     * @deprecated
+     */
+    this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
   /**

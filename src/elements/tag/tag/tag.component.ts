@@ -2,10 +2,9 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbButtonLikeBaseElement } from '../../core/base-elements.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -24,20 +23,24 @@ export type SbbTagSize = 's' | 'm';
  * @slot - Use the unnamed slot to add content to the tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
- * @event {CustomEvent<void>} input - Input event emitter
- * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<void>} change - Change event emitter
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-tag')
 @slotState()
-class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)) {
+class SbbTagElement<T = string> extends SbbIconNameMixin(
+  SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',
     change: 'change',
   } as const;
+
+  /** Value of the form element. */
+  @property()
+  public accessor value: T | null = null;
 
   /** Amount displayed inside the tag. */
   @forceType()
@@ -59,22 +62,6 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
 
   /** Reference to the connected tag group. */
   private _group: SbbTagGroupElement | null = null;
-
-  /** Input event emitter */
-  private _input: EventEmitter = new EventEmitter(this, SbbTagElement.events.input, {
-    bubbles: true,
-    composed: true,
-  });
-
-  /** @deprecated only used for React. Will probably be removed once React 19 is available. */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbTagElement.events.didChange, {
-    bubbles: true,
-  });
-
-  /** Change event emitter */
-  private _change: EventEmitter = new EventEmitter(this, SbbTagElement.events.change, {
-    bubbles: true,
-  });
 
   public constructor() {
     super();
@@ -102,16 +89,34 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
       return;
     }
     this.checked = !this.checked;
-    this._input.emit();
-    this._change.emit();
-    this._didChange.emit();
+
+    /** The input event fires when the value has been changed as a direct result of a user action. */
+    this.dispatchEvent(
+      new InputEvent('input', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
+
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+
+    /**
+     * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+     * @deprecated
+     */
+    this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this.setAttribute('aria-pressed', `${this.checked}`);
+      this.internals.ariaPressed = `${this.checked}`;
       this.toggleAttribute('data-checked', this.checked);
       this.updateFormValue();
     }
@@ -143,10 +148,14 @@ class SbbTagElement extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbB
 
   protected override updateFormValue(): void {
     if (this.checked) {
-      this.internals.setFormValue(this.value, `${this.checked}`);
+      super.updateFormValue();
     } else {
       this.internals.setFormValue(null);
     }
+  }
+
+  protected override formState(): FormRestoreState {
+    return `${this.checked}`;
   }
 
   protected override renderTemplate(): TemplateResult {

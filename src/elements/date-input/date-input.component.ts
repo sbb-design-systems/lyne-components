@@ -1,20 +1,16 @@
-import { isServer, LitElement, type CSSResultGroup, type PropertyDeclaration } from 'lit';
+import { type CSSResultGroup, isServer, LitElement, type PropertyDeclaration } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { readConfig } from '../core/config.js';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.js';
 import { plainDate, plainDateConverter } from '../core/decorators.js';
 import {
+  i18nDateInvalid,
   i18nDateMax,
   i18nDateMin,
-  i18nDateInvalid,
   i18nDatePickerPlaceholder,
 } from '../core/i18n.js';
-import {
-  SbbFormAssociatedInputMixin,
-  type FormRestoreReason,
-  type FormRestoreState,
-} from '../core/mixins.js';
+import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
 import style from './date-input.scss?lit&inline';
@@ -28,6 +24,14 @@ Object.assign(ValidityState.prototype, {
 });
 
 /**
+ * Interface for elements that can be associated with a date input.
+ * Implementing classes must also have a static property `sbbDateInputAssociated` set to `true`.
+ */
+export interface SbbDateInputAssociated<T> {
+  input: SbbDateInputElement<T> | null;
+}
+
+/**
  * Custom input for a date.
  */
 export
@@ -38,7 +42,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   /**
    * The value of the date input. Reflects the current text value
    * of this input.
-   * @attr Accepts ISO8601 formatted values, which will be
+   * The attribute `value` Accepts ISO8601 formatted values, which will be
    * formatted according to the current locale.
    */
   public override set value(value: string) {
@@ -101,13 +105,14 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   @property({ converter: plainDateConverter, reflect: true })
   public accessor max: T | null = null;
 
-  /** A function used to filter out dates. */
+  /**
+   * A function used to filter out dates.
+   * It is strongly recommended to use min and max dates alongside
+   * this filter.
+   */
   @property({ attribute: false })
   public set dateFilter(value: (date: T | null) => boolean) {
     this._dateFilter = value;
-    if (this.datepicker) {
-      this.datepicker.dateFilter = value;
-    }
   }
   public get dateFilter(): (date: T | null) => boolean {
     return this._dateFilter;
@@ -142,6 +147,22 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     this.addEventListener?.('change', () => this._updateValueDateFormat(), { capture: true });
   }
 
+  /**
+   * Attempts to resolve the associated date input with the given element.
+   */
+  public static resolveAssociation<T>(host: HTMLElement & SbbDateInputAssociated<T>): void {
+    if (host.hasAttribute('input') || host.input) {
+      return;
+    }
+
+    const input = host
+      .closest('sbb-form-field')
+      ?.querySelector<SbbDateInputElement<T>>('sbb-date-input');
+    if (input) {
+      host.input = input;
+    }
+  }
+
   private _dateFilter: (date: T | null) => boolean = () => true;
 
   public override connectedCallback(): void {
@@ -149,6 +170,17 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     if (!this.placeholder) {
       this._placeholderMutable = true;
       this.placeholder = i18nDatePickerPlaceholder[this.language.current];
+    }
+    for (const child of Array.from(this.closest('sbb-form-field')?.children ?? [])) {
+      // Elements must be upgraded in order for the constructor to be accessible.
+      customElements.upgrade?.(child);
+      if (
+        (child.constructor as { sbbDateInputAssociated?: boolean }).sbbDateInputAssociated &&
+        !child.hasAttribute('input') &&
+        !(child as Partial<SbbDateInputAssociated<T>>).input
+      ) {
+        (child as Partial<SbbDateInputAssociated<T>>).input = this;
+      }
     }
   }
 
@@ -166,28 +198,10 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     } else if (name === 'weekdayStyle') {
       this._updateValueDateFormat();
     }
-    if (this.hasUpdated) {
-      // Used to notify the datepicker to update its state
+    if (this.isConnected) {
+      // Used to notify associated components to update state
       /** @internal */
       this.dispatchEvent(new Event('ɵchange'));
-    }
-  }
-
-  /**
-   *  Called when the browser is trying to restore element’s state to state in which case
-   *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
-   *  user in which case reason is "autocomplete".
-   *  In the case of "restore", state is a string, File, or FormData object
-   *  previously set as the second argument to setFormValue.
-   *
-   * @internal
-   */
-  public override formStateRestoreCallback(
-    state: FormRestoreState | null,
-    _reason: FormRestoreReason,
-  ): void {
-    if (state && typeof state === 'string') {
-      this.value = state;
     }
   }
 

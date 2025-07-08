@@ -61,6 +61,15 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 </sbb-radio-button-panel>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbRadioButtonPanel<T>`.
+
+```html
+<sbb-radio-button-panel .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-radio-button-panel>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -80,7 +89,7 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 | `type`                | -                       | public  | `string`                             | `'radio'`          | Form type of element.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `validationMessage`   | -                       | public  | `string`                             |                    | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also a custom validity message (see below) has precedence over native validation messages. |
 | `validity`            | -                       | public  | `ValidityState`                      |                    | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `value`               | `value`                 | public  | `string \| null`                     | `null`             | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `value`               | `value`                 | public  | `(T = string) \| null`               | `null`             | The value of the form element                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `willValidate`        | -                       | public  | `boolean`                            |                    | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Methods
@@ -94,10 +103,10 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Events
 
-| Name     | Type         | Description      | Inherited From                    |
-| -------- | ------------ | ---------------- | --------------------------------- |
-| `change` | `Event`      | Fired on change. | SbbFormAssociatedRadioButtonMixin |
-| `input`  | `InputEvent` | Fired on input.  | SbbFormAssociatedRadioButtonMixin |
+| Name     | Type         | Description                                                                                                                                                                        | Inherited From                    |
+| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedRadioButtonMixin |
+| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedRadioButtonMixin |
 
 ## Slots
 

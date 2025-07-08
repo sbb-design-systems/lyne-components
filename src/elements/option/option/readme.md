@@ -52,23 +52,32 @@ If the label slot contains only a **text node**, it is possible to search for te
 </sbb-option>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbOption<T>`.
+
+```html
+<sbb-option .value=${{value: 'value', name: 'name'}}>Option</sbb-option>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type      | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean` | `false` | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string`  | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `selected` | `selected`  | public  | `boolean` |         | Whether the option is selected.                                                                                                  |
-| `value`    | `value`     | public  | `string`  |         | Value of the option.                                                                                                             |
+| Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `(T = string) \| null` | `null`  | Value of the option.                                                                                                             |
 
 ## Events
 
-| Name                    | Type                | Description                                     | Inherited From |
-| ----------------------- | ------------------- | ----------------------------------------------- | -------------- |
-| `optionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
-| `optionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
+| Name                    | Type    | Description                                                                             | Inherited From       |
+| ----------------------- | ------- | --------------------------------------------------------------------------------------- | -------------------- |
+| `optionselected`        | `Event` | Emits when an option was selected by user.                                              | SbbOptionBaseElement |
+| `optionselectionchange` | `Event` | The optionselectionchange event is dispatched when the option selection status changes. |                      |
 
 ## CSS Properties
 

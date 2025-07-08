@@ -8,8 +8,11 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
+import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbElementInternalsMixin,
+} from '../../core/mixins.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 import type { SbbStepperElement } from '../stepper.js';
 
@@ -28,39 +31,18 @@ export type SbbStepValidateEventDetails = {
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
  * @slot - Use the unnamed slot to provide content.
- * @event {CustomEvent<SbbStepValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
  */
 export
 @customElement('sbb-step')
-@hostAttributes({
-  slot: 'step',
-  role: 'tabpanel',
-})
-class SbbStepElement extends LitElement {
+class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     validate: 'validate',
-    resizeChange: 'resizeChange',
+    resizechange: 'resizechange',
   } as const;
 
-  /** Emits whenever step switch is triggered. */
-  private _validate: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
-    this,
-    SbbStepElement.events.validate,
-  );
-
-  /**
-   * @internal
-   * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
-   */
-  private _resizeChange: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbStepElement.events.resizeChange,
-    { bubbles: true },
-  );
-
   private _stepper: SbbStepperElement | null = null;
-  private _label: SbbStepLabelElement | null = null;
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
@@ -76,6 +58,7 @@ class SbbStepElement extends LitElement {
   public get label(): SbbStepLabelElement | null {
     return this._label;
   }
+  private _label: SbbStepLabelElement | null = null;
 
   public constructor() {
     super();
@@ -111,7 +94,18 @@ class SbbStepElement extends LitElement {
    * @internal
    */
   public validate(eventData: SbbStepValidateEventDetails): boolean {
-    return !!this._validate.emit(eventData);
+    /**
+     * @type {CustomEvent<SbbStepValidateEventDetails>}
+     * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
+     */
+    return this.dispatchEvent(
+      new CustomEvent<SbbStepValidateEventDetails>('validate', {
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+        detail: eventData,
+      }),
+    );
   }
 
   /**
@@ -120,10 +114,7 @@ class SbbStepElement extends LitElement {
    */
   public configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
-      this._label = this._getStepLabel();
-    }
-    if (this.label) {
-      this.setAttribute('aria-labelledby', this.label.id);
+      this._assignLabel();
     }
   }
 
@@ -151,22 +142,20 @@ class SbbStepElement extends LitElement {
     if (!this.hasAttribute('data-selected')) {
       return;
     }
-    this._resizeChange.emit();
-  }
 
-  private _getStepLabel(): SbbStepLabelElement | null {
-    let previousSibling = this.previousElementSibling;
-    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
-      previousSibling = previousSibling.previousElementSibling;
-    }
-    return previousSibling as SbbStepLabelElement;
+    /**
+     * @internal
+     * Emits when a resize happens, used to avoid setting the height of the stepper from the step component.
+     */
+    this.dispatchEvent(new Event('resizechange', { bubbles: true }));
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-step-${nextId++}`;
+    this.slot ||= 'step';
     this._stepper = this.closest('sbb-stepper');
-    this._label = this._getStepLabel();
+    this._assignLabel();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -174,6 +163,24 @@ class SbbStepElement extends LitElement {
     this.updateComplete.then(() => {
       this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step') as HTMLElement);
     });
+  }
+
+  private _assignLabel(): void {
+    let previousSibling = this.previousElementSibling;
+    while (previousSibling && previousSibling.localName !== 'sbb-step-label') {
+      previousSibling = previousSibling.previousElementSibling;
+    }
+    const value = previousSibling as SbbStepLabelElement | null;
+
+    this.internals.ariaLabelledByElements = removeAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
+    this._label = value instanceof Element ? value : null;
+    this.internals.ariaLabelledByElements = appendAriaElements(
+      this.internals.ariaLabelledByElements,
+      this._label,
+    );
   }
 
   protected override render(): TemplateResult {
@@ -196,6 +203,6 @@ declare global {
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    resizeChange: CustomEvent<void>;
+    resizechange: Event;
   }
 }

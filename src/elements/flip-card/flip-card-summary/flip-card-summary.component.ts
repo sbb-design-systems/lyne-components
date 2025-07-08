@@ -2,8 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
-
 import style from './flip-card-summary.scss?lit&inline';
 
 export type SbbFlipCardImageAlignment = 'after' | 'below';
@@ -16,15 +14,17 @@ export type SbbFlipCardImageAlignment = 'after' | 'below';
  */
 export
 @customElement('sbb-flip-card-summary')
-@hostAttributes({
-  slot: 'summary',
-})
 class SbbFlipCardSummaryElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The position where to render the image. */
   @property({ attribute: 'image-alignment', reflect: true })
   public accessor imageAlignment: SbbFlipCardImageAlignment = 'after';
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'summary';
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

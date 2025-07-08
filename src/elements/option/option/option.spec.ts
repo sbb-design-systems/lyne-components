@@ -37,10 +37,10 @@ describe(`sbb-option`, () => {
     });
 
     it('set selected and emits on click', async () => {
-      const selectionChangeSpy = new EventSpy(SbbOptionElement.events.selectionChange);
+      const selectionChangeSpy = new EventSpy(SbbOptionElement.events.optionselectionchange);
       const optionOne = element.querySelector<SbbOptionElement>('sbb-option')!;
 
-      optionOne.dispatchEvent(new CustomEvent('click'));
+      optionOne.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(optionOne.selected).to.be.equal(true);

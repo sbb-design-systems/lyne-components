@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -7,9 +5,11 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
@@ -239,11 +239,11 @@ const meta: Meta = {
         : 'var(--sbb-color-white)',
     actions: {
       handles: [
-        SbbExpansionPanelElement.events.willOpen,
-        SbbExpansionPanelElement.events.didOpen,
-        SbbExpansionPanelElement.events.willClose,
-        SbbExpansionPanelElement.events.didClose,
-        SbbExpansionPanelHeaderElement.events.toggleExpanded,
+        SbbExpansionPanelElement.events.beforeopen,
+        SbbExpansionPanelElement.events.open,
+        SbbExpansionPanelElement.events.beforeclose,
+        SbbExpansionPanelElement.events.close,
+        SbbExpansionPanelHeaderElement.events.toggleexpanded,
       ],
     },
     docs: {

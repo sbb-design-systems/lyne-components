@@ -23,10 +23,11 @@ import style from './tag-group.scss?lit&inline';
  * It can be used as a container for one or more `sbb-tag`.
  *
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
+ * @overrideType value - (T = string | (string | null)[]) | null
  */
 export
 @customElement('sbb-tag-group')
-class SbbTagGroupElement extends SbbDisabledMixin(
+class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(LitElement),
 ) {
   public static override styles: CSSResultGroup = style;
@@ -62,48 +63,33 @@ class SbbTagGroupElement extends SbbDisabledMixin(
    * If set multiple to true, the value is an array.
    */
   @property()
-  public set value(value: string | (string | null)[] | null) {
-    const tags = this.tags;
-    if (isServer) {
+  public set value(value: T | (T | null)[] | null) {
+    if (isServer || !this.hasUpdated) {
       this._value = value;
-    } else if (value === null) {
-      tags.forEach((t) => (t.checked = false));
-    } else if (this.multiple) {
-      if (!Array.isArray(value) && tags.every((t) => t.value !== value)) {
-        try {
-          // If it is multiple mode and no tag matches the value, we try to parse the value as JSON.
-          // This allows server side rendering to use array values to be passed to the client side.
-          value = JSON.parse(value);
-        } catch {
-          /* empty */
-        }
-      }
-      const valueAsArray = Array.isArray(value) ? value : [value];
-      tags.forEach((t) => (t.checked = valueAsArray.includes(t.value ?? t.getAttribute('value'))));
-    } else {
-      if (!Array.isArray(value)) {
-        tags.forEach((t) => (t.checked = (t.value ?? t.getAttribute('value')) === value));
-      } else if (import.meta.env.DEV) {
-        console.warn('value must not be set as an array in singular mode.', value);
-      }
+      return;
     }
+    this._applyValueToTags(value);
   }
-  public get value(): string | (string | null)[] | null {
-    return isServer
+  public get value(): T | (T | null)[] | null {
+    return isServer || !this.hasUpdated
       ? this._value
       : this.multiple
         ? this.tags.filter((t) => t.checked).map((t) => t.value)
         : (this.tags.find((t) => t.checked)?.value ?? null);
   }
-  private _value: string | (string | null)[] | null = null;
+  private _value: T | (T | null)[] | null = null;
 
   /** The child instances of sbb-tag as an array. */
-  public get tags(): SbbTagElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []);
+  public get tags(): SbbTagElement<T>[] {
+    return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? []);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
+
+    if (changedProperties.has('value') && !this.hasUpdated && this._value) {
+      this._applyValueToTags(this.value);
+    }
 
     if (changedProperties.has('size')) {
       this.tags.forEach((t) => t.requestUpdate?.('size'));
@@ -130,6 +116,32 @@ class SbbTagGroupElement extends SbbDisabledMixin(
         ? null
         : 'group',
     );
+  }
+
+  private _applyValueToTags(value: any): void {
+    const tags = this.tags;
+
+    if (value === null) {
+      tags.forEach((t) => (t.checked = false));
+    } else if (this.multiple) {
+      if (!Array.isArray(value) && tags.every((t) => t.value !== value)) {
+        try {
+          // If it is multiple mode and no tag matches the value, we try to parse the value as JSON.
+          // This allows server side rendering to use array values to be passed to the client side.
+          value = JSON.parse(value as string);
+        } catch {
+          /* empty */
+        }
+      }
+      const valueAsArray = Array.isArray(value) ? value : [value];
+      tags.forEach((t) => (t.checked = valueAsArray.includes(t.value)));
+    } else {
+      if (!Array.isArray(value)) {
+        tags.forEach((t) => (t.checked = t.value === value));
+      } else if (import.meta.env.DEV) {
+        console.warn('value must not be set as an array in singular mode.', value);
+      }
+    }
   }
 
   protected override render(): TemplateResult {

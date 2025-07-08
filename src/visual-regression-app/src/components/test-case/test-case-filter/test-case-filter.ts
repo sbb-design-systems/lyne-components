@@ -28,7 +28,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  private _handleViewportChange(event: CustomEvent): void {
+  private _handleViewportChange(event: Event): void {
     this.dispatchEvent(
       new CustomEvent('viewportFilterChange', {
         bubbles: true,
@@ -38,7 +38,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  private _handleBrowserChange(event: CustomEvent): void {
+  private _handleBrowserChange(event: Event): void {
     this.dispatchEvent(
       new CustomEvent('browserFilterChange', {
         bubbles: true,
@@ -48,7 +48,7 @@ class TestCaseFilter extends LitElement {
     );
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div class="app-test-case-filter">
         <div>

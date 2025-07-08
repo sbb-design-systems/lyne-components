@@ -1,7 +1,7 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
@@ -21,7 +21,7 @@ export const FileSelectorTemplateWithError = ({ tag, ...args }: Args): TemplateR
     <${unsafeStatic(tag)}
       ${sbbSpread(args)}
       id="sbb-file-selector"
-      @fileChanged=${(event: CustomEvent<File[]>) => {
+      @filechanged=${(event: CustomEvent<File[]>) => {
         if (event.detail && event.detail.length > 0) {
           (event.target as SbbFileSelectorElement | SbbFileSelectorDropzoneElement)!.append(
             sbbFormError,

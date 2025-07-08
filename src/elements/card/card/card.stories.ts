@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -7,9 +5,11 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -19,6 +19,9 @@ import '../card-badge.js';
 import '../card-button.js';
 import '../card-link.js';
 import '../../title.js';
+
+const styleSizeS =
+  '--sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x); --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs)';
 
 const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
@@ -39,7 +42,7 @@ const Template = ({ size, color }: Args): TemplateResult => html`
 `;
 
 const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+  <sbb-card ${sbbSpread({ size, color })} style=${size.includes('s') ? styleSizeS : ''}>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
@@ -260,6 +263,15 @@ export const WithBadge: StoryObj = {
   args: {
     ...defaultArgs,
     size: size.options![2],
+  },
+};
+
+export const WithBadgeS: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![1],
   },
 };
 

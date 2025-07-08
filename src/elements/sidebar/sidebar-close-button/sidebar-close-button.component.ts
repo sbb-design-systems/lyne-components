@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nCloseSidebar } from '../../core/i18n.js';
 
 import style from './sidebar-close-button.scss?lit&inline';
@@ -16,32 +15,25 @@ import style from './sidebar-close-button.scss?lit&inline';
  */
 export
 @customElement('sbb-sidebar-close-button')
-@hostAttributes({ slot: 'title-section' })
 class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
   public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
 
-  private _language?: string;
   private _languageController = new SbbLanguageController(this);
 
   public constructor() {
     super();
     this.iconName = 'cross-small';
-    this.size = 's';
+    this.size = 's' as this['size'];
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'title-section';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
-
-    // Update the aria label of the close button, respecting consumers overrides to aria-label.
-    if (this._language !== this._languageController.current) {
-      if (
-        !this.hasAttribute('aria-label') ||
-        (!!this._language && this.getAttribute('aria-label') === i18nCloseSidebar[this._language])
-      ) {
-        this.setAttribute('aria-label', i18nCloseSidebar[this._languageController.current]);
-      }
-      this._language = this._languageController.current;
-    }
+    this.internals.ariaLabel = i18nCloseSidebar[this._languageController.current];
   }
 
   protected override renderTemplate(): TemplateResult {

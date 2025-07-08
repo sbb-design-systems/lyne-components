@@ -7,8 +7,6 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
-import type { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
-
 import './datepicker-toggle.component.js';
 import '../datepicker.js';
 import '../../date-input.js';
@@ -19,9 +17,9 @@ describe(`sbb-datepicker-toggle`, () => {
     describeEach({ negative: [true, false] }, ({ negative }) => {
       const withFormFieldTemplate = html`
         <sbb-form-field ?negative=${negative}>
-          <sbb-datepicker-toggle id="toggle"></sbb-datepicker-toggle>
-          <sbb-datepicker now="2023-01-12T00:00:00Z"></sbb-datepicker>
           <sbb-date-input></sbb-date-input>
+          <sbb-datepicker-toggle></sbb-datepicker-toggle>
+          <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
       `;
 
@@ -31,13 +29,6 @@ describe(`sbb-datepicker-toggle`, () => {
           await setup.withFixture(withFormFieldTemplate, {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             focusOutlineDark: negative,
-            minHeight: '600px',
-          });
-
-          setup.withPostSetupAction(() => {
-            const toggle =
-              setup.snapshotElement.querySelector<SbbDatepickerToggleElement>('#toggle')!;
-            toggle.open();
           });
         }),
       );
@@ -49,6 +40,8 @@ describe(`sbb-datepicker-toggle`, () => {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             focusOutlineDark: negative,
           });
+
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-datepicker-toggle')!);
         }),
       );
     });

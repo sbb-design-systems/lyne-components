@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-form-field renders input DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
   data-slot-names="label unnamed"
   error-space="none"
   size="m"
@@ -62,9 +60,6 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
 
 snapshots["sbb-form-field renders disabled input DOM"] = 
 `<sbb-form-field
-  data-disabled=""
-  data-input-empty=""
-  data-input-type="input"
   data-slot-names="label unnamed"
   error-space="none"
   size="m"
@@ -124,10 +119,6 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
 
 snapshots["sbb-form-field renders readonly input with error DOM"] = 
 `<sbb-form-field
-  data-has-error=""
-  data-input-empty=""
-  data-input-type="input"
-  data-readonly=""
   data-slot-names="error label unnamed"
   error-space="none"
   size="m"
@@ -140,7 +131,7 @@ snapshots["sbb-form-field renders readonly input with error DOM"] =
     Fill input
   </label>
   <input
-    aria-describedby="error"
+    aria-describedby=""
     class="input"
     id="sbb-form-field-input-4"
     placeholder="This is an input"
@@ -195,7 +186,6 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
 
 snapshots["sbb-form-field should render select without label DOM"] = 
 `<sbb-form-field
-  data-input-type="select"
   data-slot-names="unnamed"
   error-space="none"
   size="m"
@@ -241,11 +231,9 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
         </slot>
       </div>
       <sbb-icon
-        aria-hidden="true"
         class="sbb-form-field__select-input-icon"
         data-namespace="default"
         name="chevron-small-down-small"
-        role="img"
       >
       </sbb-icon>
     </div>
@@ -263,7 +251,6 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
 snapshots["sbb-form-field renders select with optional flag and borderless DOM"] = 
 `<sbb-form-field
   borderless=""
-  data-input-type="select"
   data-slot-names="label unnamed"
   error-space="none"
   optional=""
@@ -319,11 +306,9 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
         </slot>
       </div>
       <sbb-icon
-        aria-hidden="true"
         class="sbb-form-field__select-input-icon"
         data-namespace="default"
         name="chevron-small-down-small"
-        role="img"
       >
       </sbb-icon>
     </div>

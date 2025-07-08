@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-title renders DOM"] = 
 `<sbb-title
-  aria-level="1"
   level="1"
-  role="heading"
   visual-level="2"
 >
   Sample Title Text
@@ -14,10 +12,8 @@ snapshots["sbb-title renders DOM"] =
 /* end snapshot sbb-title renders DOM */
 
 snapshots["sbb-title renders Shadow DOM"] = 
-`<div class="sbb-title">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-title renders Shadow DOM */
 

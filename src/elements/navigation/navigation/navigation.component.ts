@@ -5,6 +5,7 @@ import {
   html,
   isServer,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -17,7 +18,7 @@ import {
   SbbInertController,
   SbbLanguageController,
 } from '../../core/controllers.js';
-import { forceType, hostAttributes, idReference } from '../../core/decorators.js';
+import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
@@ -47,21 +48,14 @@ const DEBOUNCE_TIME = 150;
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
  *
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the sbb-navigation menu.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-navigation` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
  * @cssprop [--sbb-navigation-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 export
 @customElement('sbb-navigation')
-@hostAttributes({
-  role: 'navigation',
-  popover: 'manual',
-})
 class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+  public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -132,7 +126,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (this.state !== 'closed' || !this.hasUpdated) {
       return;
     }
-    if (!this.willOpen.emit()) {
+    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -169,10 +163,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   /** Closes the navigation. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.willClose.emit()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -198,7 +189,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._inertController.deactivate();
     this._triggerElement?.focus();
     this._escapableOverlayController.disconnect();
-    this.didClose.emit();
+    this.dispatchCloseEvent();
     this._navigationResizeObserver.unobserve(this);
     this._resetMarkers();
     this._focusTrapController.enabled = false;
@@ -216,7 +207,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._focusTrapController.focusInitialElement();
     this._focusTrapController.enabled = true;
     this.completeUpdate();
-    this.didOpen.emit();
+    this.dispatchOpenEvent();
   }
 
   // Removes trigger click listener on trigger change.
@@ -327,8 +318,11 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.popover = 'manual';
     this.id ||= `sbb-navigation-${nextId++}`;
-    this._configureTrigger();
+    if (this.hasUpdated) {
+      this._configureTrigger();
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -348,6 +342,11 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._configureTrigger();
   }
 
   protected override render(): TemplateResult {

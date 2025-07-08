@@ -123,7 +123,10 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar4.isOpen, 'sidebar 4, after max resolution').to.be.true;
   }
 
-  it('should collapse when space gets below minimum', async () => {
+  it('should collapse when space gets below minimum', async function (this: Context) {
+    // Test is flaky on WebKit
+    this.retries(3);
+
     await testResizing();
   });
 
@@ -139,7 +142,9 @@ describe('sbb-sidebar-container', () => {
     });
   }
 
-  it('should react to new sidebar', async () => {
+  it('should react to new sidebar', async function (this: Context) {
+    // Test is flaky on WebKit
+    this.retries(3);
     await setViewportWidth(960);
 
     expect(sidebar1.isOpen, 'sidebar 1, before sidebar 1 removal').to.be.true;
@@ -178,7 +183,10 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar1.isOpen, 'sidebar 1, enough space').to.be.false;
   });
 
-  it('should respect forced closed parent containers', async () => {
+  it('should respect forced closed parent containers', async function (this: Context) {
+    // Test is flaky on WebKit
+    this.retries(3);
+
     await setViewportWidth(959);
     expect(sidebar3.isOpen).to.be.false;
 

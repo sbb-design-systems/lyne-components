@@ -28,7 +28,6 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime.js';
 import { forceType, handleDistinctChange, plainDate } from '../core/decorators.js';
-import { EventEmitter } from '../core/eventing.js';
 import {
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
@@ -113,15 +112,13 @@ export type CalendarView = 'day' | 'month' | 'year';
 
 /**
  * It displays a calendar which allows choosing a date.
- *
- * @event {CustomEvent<T>} dateSelected - Event emitted on date selection.
  */
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    dateSelected: 'dateSelected',
+    dateselected: 'dateselected',
   } as const;
 
   /** If set to true, two months are displayed */
@@ -147,14 +144,6 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   @plainDate()
   @property()
   public accessor max: T | null = null;
-
-  /**
-   * A configured date which acts as the current date instead of the real current date.
-   * Only recommended for testing purposes.
-   */
-  @plainDate({ fallback: (a) => a.today() })
-  @property()
-  public accessor now: T = null!;
 
   /** Whether the calendar allows for multiple date selection. */
   @forceType()
@@ -214,14 +203,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  /** Event emitted on date selection. If `multiple`, it emits an array. */
-  private _dateSelected: EventEmitter<T | T[]> = new EventEmitter(
-    this,
-    SbbCalendarElement.events.dateSelected,
-  );
-
   /** The currently active date. */
-  @state() private accessor _activeDate: T = this.now;
+  @state() private accessor _activeDate: T = this._dateAdapter.today();
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
@@ -318,10 +301,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.resetPosition();
-    this.focus = () => {
-      this._resetFocus = true;
-      this._focusCell();
-    };
+  }
+
+  /** @internal */
+  public override focus(): void {
+    this._resetFocus = true;
+    this._focusCell();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -735,12 +720,28 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         }
         this._selected = [day];
       }
-      this._dateSelected.emit(this._selected);
+
+      /** @type {CustomEvent<T[]>} Event emitted on date selection. */
+      this.dispatchEvent(
+        new CustomEvent<T[]>('dateselected', {
+          detail: this._selected.map((e) => this._dateAdapter.deserialize(e)!),
+          composed: true,
+          bubbles: true,
+        }),
+      );
     } else {
       // In single selection, check if the day is already selected
       if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
         this._selected = day;
-        this._dateSelected.emit(day);
+
+        /** @type {CustomEvent<T>} Event emitted on date selection. */
+        this.dispatchEvent(
+          new CustomEvent<T>('dateselected', {
+            detail: this._dateAdapter.deserialize(day)!,
+            composed: true,
+            bubbles: true,
+          }),
+        );
       }
     }
   }
@@ -778,7 +779,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         this._selected = daysToAdd.map((e) => this._dateAdapter.deserialize(e)!);
       }
     }
-    this._dateSelected.emit(this._selected);
+
+    /** @type {CustomEvent<T[]>} Event emitted on date selection. */
+    this.dispatchEvent(
+      new CustomEvent<T[]>('dateselected', {
+        detail: this._selected.map((e) => this._dateAdapter.deserialize(e)!),
+        composed: true,
+        bubbles: true,
+      }),
+    );
   }
 
   /**
@@ -806,7 +815,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       } else {
         selectedDate = this.selected as T;
       }
-      this._chosenYear = this._dateAdapter.getYear(selectedDate ?? this.now);
+      this._chosenYear = this._dateAdapter.getYear(selectedDate ?? this._dateAdapter.today());
     } else {
       this._chosenYear = undefined;
     }
@@ -933,9 +942,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _getFirstFocusable(): HTMLButtonElement {
     let active: T;
     if (this.multiple) {
-      active = (this._selected as T[])?.length ? [...(this._selected as T[])].sort()[0] : this.now;
+      active = (this._selected as T[])?.length
+        ? [...(this._selected as T[])].sort()[0]
+        : this._dateAdapter.today();
     } else {
-      active = (this._selected as T) ?? this.now;
+      active = (this._selected as T) ?? this._dateAdapter.today();
     }
     let firstFocusable =
       this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
@@ -1265,7 +1276,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   private _resetCalendarView(initTransition = false): void {
     this._resetFocus = true;
     this._activeDate =
-      (this.multiple ? (this._selected as T[]).at(-1) : (this._selected as T)) ?? this.now;
+      (this.multiple ? (this._selected as T[]).at(-1) : (this._selected as T)) ??
+      this._dateAdapter.today();
     this._setChosenYear();
     this._chosenMonth = undefined;
     this._nextCalendarView = this._calendarView = this.view;
@@ -1365,7 +1377,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     weekNumbers: number[],
     isWideNextMonth: boolean = false,
   ): TemplateResult {
-    const today: string = this._dateAdapter.toIso8601(this.now);
+    const today: string = this._dateAdapter.toIso8601(this._dateAdapter.today());
     const weeksForSelectMultipleWeekNumbers: Day<T>[] = (
       this._wide
         ? [...this._weeks, ...this._nextMonthWeeks]
@@ -1497,7 +1509,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     weekNumbers: number[],
     nextMonthActiveDate?: T,
   ): TemplateResult {
-    const today: string = this._dateAdapter.toIso8601(this.now);
+    const today: string = this._dateAdapter.toIso8601(this._dateAdapter.today());
     const weekOffset = this._dateAdapter.getFirstWeekOffset(
       nextMonthActiveDate ?? this._activeDate,
     );
@@ -1725,8 +1737,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                   const isOutOfRange = !this._isMonthInRange(month.monthValue, year);
                   const isFilteredOut = !this._isMonthFilteredOut(month.monthValue, year);
                   const isCurrentMonth =
-                    year === this._dateAdapter.getYear(this.now) &&
-                    this._dateAdapter.getMonth(this.now) === month.monthValue;
+                    year === this._dateAdapter.getYear(this._dateAdapter.today()) &&
+                    this._dateAdapter.getMonth(this._dateAdapter.today()) === month.monthValue;
 
                   return html` <td
                     class=${classMap({
@@ -1842,7 +1854,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   /** Creates the table for the year selection view. */
   private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
-    const now = this.now;
+    const now = this._dateAdapter.today();
     return html` <table
       class="sbb-calendar__table"
       @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}

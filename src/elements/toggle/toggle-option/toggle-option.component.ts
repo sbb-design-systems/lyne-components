@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
 
@@ -16,11 +16,15 @@ import style from './toggle-option.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-toggle-option')
 @slotState()
-class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public static override readonly role = 'radio';
   public static override styles: CSSResultGroup = style;
 
   /** Whether the toggle-option is checked. */
@@ -29,18 +33,13 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
   public accessor checked: boolean = false;
 
   /** Value of toggle-option. */
-  @forceType()
   @property()
-  public accessor value: string = '';
+  public accessor value: T | null = null;
 
   private _toggle: SbbToggleElement | null = null;
 
   public constructor() {
     super();
-    const internals: ElementInternals = this.attachInternals();
-    /** @internal */
-    internals.role = 'radio';
-
     // We need to listen input event on host as with keyboard navigation
     // the Input Event is triggered from sbb-toggle.
     this.addEventListener?.('input', () => this._handleInput());
@@ -72,7 +71,7 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
     this._toggle = null;
   }
 
-  public override firstUpdated(changedProperties: PropertyValues<this>): void {
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     this._toggle?.updatePillPosition?.(true);
@@ -82,7 +81,7 @@ class SbbToggleOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElemen
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this.setAttribute('aria-checked', `${this.checked}`);
+      this.internals.ariaChecked = `${this.checked}`;
       this._verifyTabindex();
       if (this.checked) {
         this._uncheckOtherOptions();

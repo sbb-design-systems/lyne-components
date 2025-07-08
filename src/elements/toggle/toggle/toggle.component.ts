@@ -11,11 +11,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
+  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
 } from '../../core/mixins.js';
 import { type SbbToggleOptionElement } from '../toggle-option.js';
@@ -26,11 +26,14 @@ import style from './toggle.scss?lit&inline';
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
- * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-toggle')
-class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElement)) {
+class SbbToggleElement<T = string> extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+) {
+  public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     change: 'change',
@@ -55,43 +58,31 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    * a new option is selected (see the `onToggleOptionSelect()` method).
    */
   @property()
-  public override set value(value: string | null) {
-    if (isServer) {
-      this._value = value;
+  public set value(value: T | null) {
+    if (isServer || !this.hasUpdated) {
+      this._fallbackValue = value;
     } else {
       this._valueChanged(value);
     }
   }
-  public override get value(): string {
+  public get value(): T | null {
     return isServer
-      ? (this._value ?? '')
-      : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? '');
+      ? (this._fallbackValue ?? null)
+      : (this.options.find((o) => o.checked)?.value ?? this.options[0]?.value ?? null);
   }
-  private _value: string | null = null;
+  private _fallbackValue: T | null = null;
 
   /** The child instances of sbb-toggle-option as an array. */
-  public get options(): SbbToggleOptionElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-toggle-option') ?? []);
+  public get options(): SbbToggleOptionElement<T>[] {
+    return Array.from(
+      this.querySelectorAll?.<SbbToggleOptionElement<T>>('sbb-toggle-option') ?? [],
+    );
   }
-
-  /** Emits whenever the toggle value changes. */
-  private _change: EventEmitter = new EventEmitter(this, SbbToggleElement.events.change, {
-    bubbles: true,
-    composed: true,
-  });
 
   public constructor() {
     super();
-    /** @internal */
-    this.internals.role = 'radiogroup';
-
     this.addEventListener?.('input', () => this._handleInput(), { passive: true });
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._updateToggle();
   }
 
   protected override willUpdate(changedProperties: PropertyValues): void {
@@ -99,16 +90,12 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     if (changedProperties.has('disabled') || changedProperties.has('formDisabled')) {
       this._updateDisabled();
     }
-  }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    this.updatePillPosition(false);
-
-    this.updateComplete.then(() => {
-      this.statusChanged();
-    });
+    // Before the first update, init with the fallback value.
+    // The willUpdate hook is safer than the 'value' setter.
+    if (!this.hasUpdated) {
+      this._valueChanged(this._fallbackValue);
+    }
   }
 
   /**
@@ -122,16 +109,31 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
   /**
    * Reset to the init value if present. Select the first option, otherwise.
+   * @internal
    */
   public formResetCallback(): void {
-    this.value = this.getAttribute('value');
+    this.value = (this.hasAttribute('value') ? this.getAttribute('value') : null) as T;
   }
 
+  /**
+   * @internal
+   */
   public formStateRestoreCallback(
     state: FormRestoreState | null,
     _reason: FormRestoreReason,
   ): void {
-    this.value = state as string;
+    if (typeof state === 'string' || state == null) {
+      this.value = (state as T) ?? null;
+    } else if (state instanceof FormData) {
+      this._readFormData(state).then((data) => {
+        this.value = data;
+      });
+    }
+  }
+
+  private async _readFormData(formData: FormData): Promise<T> {
+    const data = formData.get(this.name);
+    return data instanceof Blob ? JSON.parse(await data.text()) : (data as T);
   }
 
   /** @internal */
@@ -172,25 +174,16 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
     this.toggleAttribute('data-initialized', true);
   }
 
-  protected updateFormValue(): void {
-    this.internals.setFormValue(this.value);
-  }
-
   private _updateToggle(): void {
     this._valueChanged(this.value);
     this._updateDisabled();
   }
 
-  private _valueChanged(value: string | null): void {
+  private _valueChanged(value: T | null): void {
     const options = this.options;
-    // If options are not yet defined web components, we can check if attribute is already set as a fallback.
-    // We do this by checking whether value property is available (defined component).
+
     const selectedOption =
-      options.find(
-        (o) => value === ('value' in o ? o.value : (o as HTMLElement).getAttribute('value')),
-      ) ??
-      options.find((o) => o.checked) ??
-      options[0];
+      options.find((o) => value === o.value) ?? options.find((o) => o.checked) ?? options[0];
 
     if (!selectedOption) {
       if (import.meta.env.DEV && !isServer) {
@@ -198,9 +191,7 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
       }
       return;
     }
-    if (!selectedOption.checked) {
-      selectedOption.checked = true;
-    }
+    selectedOption.checked = true;
     this.statusChanged();
   }
 
@@ -215,7 +206,12 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
    */
   private _handleInput(): void {
     this.statusChanged();
-    this._change.emit();
+    /**
+     * The change event is fired when the user modifies the element's value.
+     * Unlike the input event, the change event is not necessarily fired
+     * for each alteration to an element's value.
+     */
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -233,7 +229,7 @@ class SbbToggleElement extends SbbDisabledMixin(SbbFormAssociatedMixin(LitElemen
 
     if (isArrowKeyPressed(evt)) {
       const checked: number = enabledToggleOptions.findIndex(
-        (toggleOption: SbbToggleOptionElement) => toggleOption.checked,
+        (toggleOption: SbbToggleOptionElement<T>) => toggleOption.checked,
       );
       const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {

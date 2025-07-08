@@ -7,6 +7,9 @@ concurrency:
 
 permissions: read-all
 
+env:
+  IMAGE_REPO_STORYBOOK: ghcr.io/sbb-design-systems/lyne-components/storybook
+
 jobs:
   remove-label:
     runs-on: ubuntu-latest
@@ -83,13 +86,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag ${{ vars.IMAGE_REPO_STORYBOOK }}:dev-fat .
+          docker build --tag ${{ env.IMAGE_REPO_STORYBOOK }}:dev-fat .
           mint slim \
-            --target ${{ vars.IMAGE_REPO_STORYBOOK }}:dev-fat \
-            --tag ${{ vars.IMAGE_REPO_STORYBOOK }}:dev \
+            --target ${{ env.IMAGE_REPO_STORYBOOK }}:dev-fat \
+            --tag ${{ env.IMAGE_REPO_STORYBOOK }}:dev \
             --preserve-path /usr/share/nginx/html \
             --include-new false
-          docker push ${{ vars.IMAGE_REPO_STORYBOOK }}:dev
+          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:dev
           docker image list
         env:
           DOCKER_BUILDKIT: 1

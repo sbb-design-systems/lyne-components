@@ -9,7 +9,6 @@ snapshots["sbb-tab-group renders DOM"] =
     aria-selected="true"
     data-size="l"
     data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="0"
   >
@@ -18,7 +17,6 @@ snapshots["sbb-tab-group renders DOM"] =
   <sbb-tab
     active=""
     id="sbb-tab-panel-1"
-    role="tabpanel"
     tabindex="0"
   >
     Test tab content 1
@@ -28,7 +26,6 @@ snapshots["sbb-tab-group renders DOM"] =
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -36,7 +33,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     id="sbb-tab-panel-2"
-    role="tabpanel"
     tabindex="0"
   >
     Test tab content 2
@@ -47,7 +43,6 @@ snapshots["sbb-tab-group renders DOM"] =
     data-size="l"
     data-slot-names="unnamed"
     disabled=""
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -55,7 +50,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     id="sbb-tab-panel-3"
-    role="tabpanel"
     tabindex="0"
   >
     Test tab content 3
@@ -65,7 +59,6 @@ snapshots["sbb-tab-group renders DOM"] =
     aria-selected="false"
     data-size="l"
     data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -73,7 +66,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     id="sbb-tab-panel-4"
-    role="tabpanel"
     tabindex="0"
   >
     Test tab content 4

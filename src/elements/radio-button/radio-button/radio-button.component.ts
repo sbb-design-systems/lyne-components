@@ -16,17 +16,17 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * It displays a radio button enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.
- * @event {Event} change - Fired on change.
- * @event {InputEvent} input - Fired on input.
- * @overrideType value - string | null
+ * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-radio-button')
 @slotState()
-class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement) {
+class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
-    stateChange: 'stateChange',
+    statechange: 'statechange',
     change: 'change',
     input: 'input',
   } as const;
@@ -38,6 +38,12 @@ class SbbRadioButtonElement extends SbbRadioButtonCommonElementMixin(LitElement)
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
   public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
+
+  /**
+   * The value of the form element
+   */
+  @property()
+  public accessor value: T | null = null;
 
   protected override render(): TemplateResult {
     return html`

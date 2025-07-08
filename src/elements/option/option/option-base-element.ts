@@ -4,8 +4,11 @@ import { property, state } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
-import type { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+} from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import '../../screen-reader-only.js';
@@ -30,9 +33,13 @@ const optionObserverConfig: MutationObserverInit = {
 
 export
 @slotState()
-abstract class SbbOptionBaseElement extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbHydrationMixin(LitElement)),
+abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
+  public static readonly events = {
+    optionselected: 'optionselected',
+  } as const;
+
   protected abstract optionId: string;
 
   /**
@@ -42,12 +49,18 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
    * Due to this, it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
    */
   @property()
-  public set value(value: string) {
-    this.setAttribute('value', `${value}`);
+  public set value(value: T) {
+    if (typeof value === 'string') {
+      this.setAttribute('value', `${value}`);
+      this._value = null;
+    } else {
+      this._value = value;
+    }
   }
-  public get value(): string {
-    return this.getAttribute('value') ?? '';
+  public get value(): T {
+    return (this._value ?? this.getAttribute('value') ?? '') as T;
   }
+  private _value: T | null = null;
 
   /** Whether the option is selected. */
   @property({ type: Boolean })
@@ -58,9 +71,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   public get selected(): boolean {
     return this.hasAttribute('selected');
   }
-
-  /** Emits when an option was selected by user. */
-  protected abstract optionSelected: EventEmitter;
 
   /** Whether to apply the negative styling */
   @state() protected accessor negative = false;
@@ -87,7 +97,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     this.addController(
       new MutationController(this, {
         config: optionObserverConfig,
-        callback: (mutationsList) => this.onOptionAttributesChange(mutationsList),
+        callback: (mutationsList) => this.onExternalMutation(mutationsList),
       }),
     );
 
@@ -122,7 +132,8 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
     if (this.selected) {
-      this.optionSelected.emit();
+      /** Emits when an option was selected by user. */
+      this.dispatchEvent(new Event('optionselected', { bubbles: true, composed: true }));
     }
   }
 
@@ -182,11 +193,6 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
 
   private _updateAriaSelected(): void {
     this.setAttribute('aria-selected', `${this.selected}`);
-  }
-
-  /** @deprecated use onExternalMutation() as replacement. Will be removed with next major change. */
-  protected onOptionAttributesChange(mutationsList: MutationRecord[]): void {
-    this.onExternalMutation(mutationsList);
   }
 
   /** Observe changes on data attributes + slotted content and set the appropriate values. */
@@ -287,5 +293,11 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    optionselected: Event;
   }
 }

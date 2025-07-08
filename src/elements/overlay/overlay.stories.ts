@@ -1,12 +1,13 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 import sampleImages from '../core/images.js';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
 
 import { SbbOverlayElement } from './overlay.component.js';
 import readme from './readme.md?raw';
@@ -18,12 +19,6 @@ import '../link.js';
 import '../title.js';
 
 const expanded: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const backButton: InputType = {
   control: {
     type: 'boolean',
   },
@@ -53,48 +48,22 @@ const accessibilityCloseLabel: InputType = {
   },
 };
 
-const accessibilityBackLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   expanded,
-  'back-button': backButton,
   accessibilityCloseLabel,
-  accessibilityBackLabel,
   negative,
   'accessibility-label': accessibilityLabel,
 };
 
 const basicArgs: Args = {
   expanded: false,
-  'back-button': false,
   accessibilityCloseLabel: 'Close overlay',
-  accessibilityBackLabel: 'Go back',
   negative: false,
   'accessibility-label': undefined,
 };
 
-const openOverlay = (_event: PointerEvent, id: string): void => {
-  const overlay = document.getElementById(id) as SbbOverlayElement;
-  overlay.open();
-};
-
-const triggerButton = (overlayId: string): TemplateResult => html`
-  <sbb-button
-    aria-haspopup="dialog"
-    aria-controls=${overlayId}
-    size="m"
-    type="button"
-    @click=${(event: PointerEvent) => openOverlay(event, overlayId)}
-  >
-    Open overlay
-  </sbb-button>
+const triggerButton = (triggerId: string): TemplateResult => html`
+  <sbb-button size="m" id=${triggerId}>Open overlay</sbb-button>
 `;
 
 const codeStyle: Readonly<StyleInfo> = {
@@ -137,8 +106,8 @@ const textBlock = (negative: boolean): TemplateResult => html`
 `;
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('my-overlay-2')}
-  <sbb-overlay id="my-overlay-2" ${sbbSpread(args)}>
+  ${triggerButton('overlay-trigger')}
+  <sbb-overlay ${sbbSpread(args)} trigger="overlay-trigger">
     <div class="overlay-content">
       <sbb-title visual-level="2" ?negative=${args.negative} style="margin-block-start: 0">
         Many Meetings
@@ -163,7 +132,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 `;
 
 const FormTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('my-overlay-3')}
+  ${triggerButton('overlay-trigger')}
   <div id="returned-value">
     <div style=${styleMap(formDetailsStyle)}>
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
@@ -171,8 +140,8 @@ const FormTemplate = (args: Args): TemplateResult => html`
     </div>
   </div>
   <sbb-overlay
-    id="my-overlay-3"
-    @willClose=${(event: CustomEvent) => {
+    trigger="overlay-trigger"
+    @beforeclose=${(event: CustomEvent<SbbOverlayCloseEventDetails>) => {
       if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;
@@ -209,12 +178,12 @@ const FormTemplate = (args: Args): TemplateResult => html`
 `;
 
 const NestedTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('my-overlay-5')}
-  <sbb-overlay id="my-overlay-5" ${sbbSpread(args)}>
+  ${triggerButton('overlay-trigger')}
+  <sbb-overlay ${sbbSpread(args)} trigger="overlay-trigger">
     <div class="overlay-content">
-      Click the button to open a nested overlay.&nbsp;${triggerButton('my-overlay-6')}
+      Click the button to open a nested overlay. ${triggerButton('overlay-trigger-2')}
     </div>
-    <sbb-overlay id="my-overlay-6" ${sbbSpread(args)}>
+    <sbb-overlay ${sbbSpread(args)} trigger="overlay-trigger-2">
       <p class="overlay-content">
         Nested overlay content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -251,15 +220,6 @@ export const Expanded: StoryObj = {
   },
 };
 
-export const WithBackButton: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'back-button': true,
-  },
-};
-
 export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
@@ -277,11 +237,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbOverlayElement.events.willOpen,
-        SbbOverlayElement.events.didOpen,
-        SbbOverlayElement.events.willClose,
-        SbbOverlayElement.events.didClose,
-        SbbOverlayElement.events.backClick,
+        SbbOverlayElement.events.beforeopen,
+        SbbOverlayElement.events.open,
+        SbbOverlayElement.events.beforeclose,
+        SbbOverlayElement.events.close,
       ],
     },
     docs: {

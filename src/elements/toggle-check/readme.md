@@ -60,6 +60,15 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 <sbb-toggle-check aria-label="Subscribed to email message"></sbb-toggle-check>
 ```
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbToggleCheck<T>`.
+
+```html
+<sbb-toggle-check .value=${{value: 'value', name: 'name'}} name="name">Toggle Check</sbb-toggle-check>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -77,7 +86,7 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `type`              | -                | public  | `string`                  | `'checkbox'`        | Form type of element.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `validationMessage` | -                | public  | `string`                  |                     | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also a custom validity message (see below) has precedence over native validation messages. |
 | `validity`          | -                | public  | `ValidityState`           |                     | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `value`             | `value`          | public  | `string \| null`          | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `value`             | `value`          | public  | `(T = string) \| null`    | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `willValidate`      | -                | public  | `boolean`                 |                     | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Methods
@@ -90,10 +99,10 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 
 ## Events
 
-| Name     | Type         | Description            | Inherited From |
-| -------- | ------------ | ---------------------- | -------------- |
-| `change` | `Event`      | Event fired on change. |                |
-| `input`  | `InputEvent` | Event fired on input.  |                |
+| Name     | Type         | Description                                                                                                                                                                        | Inherited From |
+| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
 ## Slots
 

@@ -32,9 +32,3 @@ export interface SbbValueStateChange {
   type: 'value';
   value: string | null;
 }
-
-declare global {
-  interface GlobalEventHandlersEventMap {
-    stateChange: CustomEvent<SbbStateChange>;
-  }
-}

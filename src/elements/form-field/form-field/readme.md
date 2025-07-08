@@ -122,6 +122,19 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 </sbb-form-field>
 ```
 
+### Error state
+
+The form field is displayed in an error state when an input element has been interacted with
+and is in an error state. This checks both for the native validity state (which can be set
+on `<input>`, `<select>` and `<textarea>` via validation attributes like `required` or
+via the `setCustomValidity(message)` method) and for the Angular Forms state classes.
+
+If you want to manually set the error state, you can add the `sbb-invalid` CSS class
+to the input element.
+
+If you want to directly show the error state without having had an interaction, you can use the
+`sbb-show-errors` class on an ancestor (e.g. `<form>`).
+
 ## Accessibility
 
 By itself, the `sbb-form-field` does not apply any additional accessibility treatment to a form
@@ -131,7 +144,7 @@ contained within the form field.
 When you provide a label, the `sbb-form-field` automatically
 associates this label with the form element using the `for`
 attribute to reference the control's ID.
-When using a non-native form element (e.g. `sbb-select`), the `aria-labelledby` is used to connect the
+When using a non-native form element, the `aria-labelledby` is used to connect the
 form element with the label, by setting an id on the label and referencing this id in the
 `aria-labelledby` attribute placed on the form element.
 Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
@@ -140,9 +153,7 @@ consumer to use the correct id references.
 If you like to visually hide a label, but still present it with screen readers, use the `hiddenLabel` property.
 
 When you provide informational text via `sbb-form-error`, it automatically adds these elements' IDs
-to the form element's `aria-describedby` attribute.
-Additionally, `sbb-form-error` is slotted to an element having `aria-live="polite"` so that assistive
-technology will announce errors when they appear.
+to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
 
 <!-- Auto Generated Below -->
 

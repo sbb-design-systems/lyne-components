@@ -1,8 +1,7 @@
-import type { Args } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import type { SbbDialogElement } from '../../../elements/dialog.js';
 import {
   futureLeg,
   pastLeg,
@@ -44,7 +43,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
       <sbb-menu trigger="user-menu-trigger">
         <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
-        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-button icon-name="shopping-cart-small" sbb-badge="1">
           Shopping cart
         </sbb-menu-button>
         <sbb-divider></sbb-divider>
@@ -165,29 +164,22 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
               </sbb-card>
             </li>
           </ul>
-          <sbb-secondary-button
-            class="all-purchased-tickets-button"
-            @click=${() => (document.getElementById('my-dialog') as SbbDialogElement).open()}
-          >
+          <sbb-secondary-button class="all-purchased-tickets-button" id="dialog-trigger">
             All purchased tickets
           </sbb-secondary-button>
 
-          <sbb-dialog id="my-dialog">
-            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
+          <sbb-dialog trigger="dialog-trigger">
+            <sbb-dialog-title>My Dialog</sbb-dialog-title>
 
             <sbb-dialog-content>
-              <p style="margin-top: 0;">
+              <p style="margin-block-start: 0;">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
                 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                 pariatur.
               </p>
-              <sbb-secondary-button
-                size="m"
-                @click=${() =>
-                  (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
-              >
+              <sbb-secondary-button size="m" id="dialog-trigger-stacked">
                 Open stacked dialog
               </sbb-secondary-button>
             </sbb-dialog-content>
@@ -211,12 +203,16 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             </sbb-dialog-actions>
           </sbb-dialog>
 
-          <sbb-dialog id="my-stacked-dialog">
-            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
+          <sbb-dialog trigger="dialog-trigger-stacked">
+            <sbb-dialog-title>Stacked Dialog</sbb-dialog-title>
             <sbb-dialog-content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
             </sbb-dialog-content>
+            <sbb-dialog-actions align-group="end">
+              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close sbb-focus-initial>Button</sbb-button>
+            </sbb-dialog-actions>
           </sbb-dialog>
         </div>
       </div>

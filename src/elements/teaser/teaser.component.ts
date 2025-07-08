@@ -2,27 +2,24 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import type { SbbChipLabelElement } from '../chip-label.js';
 import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
-import type { SbbTitleLevel } from '../title.js';
+import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';
 
-import '../chip-label.js';
 import '../screen-reader-only.js';
-import '../title.js';
 
 /**
  * It displays an interactive image with caption.
  *
  * @slot image - Slot used to render the image.
- * @slot chip - Slot used to render the sbb-chip-label.
- * @slot title - Slot used to render the title.
- * @slot - Use the unnamed slot to render the description.
+ * @slot chip - Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot.
+ * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
+ * @slot - Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.
  */
 export
 @customElement('sbb-teaser')
-@slotState()
 class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
@@ -30,18 +27,41 @@ class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
-  /** Heading level of the sbb-title element (e.g. h1-h6). */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '5';
+  private _handleSlotchange(): void {
+    const chip = Array.from(this.children).find((el) => el.localName === 'sbb-chip-label');
+    if (chip) {
+      chip.slot = 'chip';
+    }
 
-  /** Content of title. */
-  @forceType()
-  @property({ attribute: 'title-content' })
-  public accessor titleContent: string = '';
+    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+    if (title) {
+      title.slot = 'title';
+    }
+  }
 
-  /** Content of chip label. */
-  @forceType()
-  @property({ attribute: 'chip-content', reflect: true, converter: omitEmptyConverter })
-  public accessor chipContent: string = '';
+  private _configureChip(event: Event): void {
+    // We need to check assigned elements because in the image slot it can have labels as well.
+    const chipLabel = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find((e): e is SbbChipLabelElement => e.localName === 'sbb-chip-label');
+
+    if (chipLabel) {
+      customElements.upgrade(chipLabel);
+      chipLabel.color = 'charcoal';
+      chipLabel.size = 'xxs';
+    }
+  }
+
+  private _configureTitle(event: Event): void {
+    const title = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
+
+    if (title) {
+      customElements.upgrade(title);
+      title.visualLevel = '5';
+    }
+  }
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
@@ -63,15 +83,11 @@ class SbbTeaserElement extends SbbLinkBaseElement {
           <slot name="image"></slot>
         </span>
         <span class="sbb-teaser__text">
-          <sbb-chip-label size="xxs" color="charcoal" class="sbb-teaser__chip-label">
-            <slot name="chip">${this.chipContent}</slot>
-          </sbb-chip-label>
-          <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
-            <slot name="title">${this.titleContent}</slot>
-          </sbb-title>
-          <span class="sbb-teaser__description">
-            <slot></slot>
-          </span>
+          <slot name="chip" @slotchange=${this._configureChip}></slot>
+          <slot name="title" @slotchange=${this._configureTitle}></slot>
+          <p class="sbb-teaser__description">
+            <slot @slotchange=${this._handleSlotchange}></slot>
+          </p>
         </span>
       </span>
     `;

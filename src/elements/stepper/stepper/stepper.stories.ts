@@ -1,12 +1,12 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../../form-error.js';
-import { SbbStepElement } from '../step.js';
+import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.js';
 
 import readme from './readme.md?raw';
 
@@ -188,15 +188,19 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         // This is needed to focus and trigger again the error on the first field
         // when getting back to it after resetting the stepper.
         setTimeout(() =>
-          document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+          document.querySelector('input[name="name"]')?.dispatchEvent(new InputEvent('input')),
         );
       }}
     >
       <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
         <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
         <sbb-step
-          @validate=${(e: CustomEvent) => {
-            if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+          @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
+            if (
+              e.detail
+                .currentStep!.querySelector('sbb-form-field')!
+                .inputElement!.matches(':invalid')
+            ) {
               e.preventDefault();
             }
           }}
@@ -267,8 +271,10 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step
-        @validate=${(e: CustomEvent) => {
-          if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+        @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
+          if (
+            e.detail.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')
+          ) {
             e.preventDefault();
           }
         }}
@@ -279,7 +285,9 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               // This is needed to focus and trigger again the error on the first field
               // when getting back to it after resetting the stepper.
               setTimeout(() =>
-                document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+                document
+                  .querySelector('input[name="name"]')
+                  ?.dispatchEvent(new InputEvent('input')),
               );
             }}
           >

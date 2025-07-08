@@ -5,49 +5,40 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
 `<sbb-autocomplete-grid
   data-state="closed"
   popover="manual"
+  size="m"
 >
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-1"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-0"
-      role="gridcell"
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-2"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-1"
-      role="gridcell"
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
@@ -97,50 +88,40 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   data-state="closed"
   id="sbb-autocomplete-grid-1"
   popover="manual"
-  role="grid"
+  size="m"
 >
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-1"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-0"
-      role="gridcell"
     >
       Option 1
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row
-    id="sbb-autocomplete-grid-row-2"
-    role="row"
-  >
+  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
       data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-1"
-      role="gridcell"
     >
       Option 2
     </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell role="gridcell">
+    <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
         data-action=""
         data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
-        role="button"
       >
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>

@@ -1,7 +1,6 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.js';
 import { SbbDatepickerButton } from '../common.js';
 
@@ -12,9 +11,6 @@ import style from './datepicker-previous-day.scss?lit&inline';
  */
 export
 @customElement('sbb-datepicker-previous-day')
-@hostAttributes({
-  slot: 'prefix',
-})
 class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   public static override styles: CSSResultGroup = style;
 
@@ -22,9 +18,27 @@ class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
   protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
 
-  protected findAvailableDate(date: T): T {
-    // When calling findAvailableDate, datepickerElement is always defined.
-    return this.datePickerElement!.findPreviousAvailableDate(date);
+  protected findAvailableDate(date: T): T | null {
+    let availableDate = this.dateAdapter.addCalendarDays(date, -1);
+    if (this._isBeforeMinDate(availableDate)) {
+      return null;
+    }
+
+    const dateFilter = this.input!.dateFilter;
+    if (dateFilter) {
+      while (!dateFilter(availableDate)) {
+        availableDate = this.dateAdapter.addCalendarDays(availableDate, -1);
+        if (this._isBeforeMinDate(availableDate)) {
+          return null;
+        }
+      }
+    }
+
+    return availableDate;
+  }
+
+  private _isBeforeMinDate(date: T): boolean {
+    return !!this.input!.min && this.dateAdapter.compareDate(date, this.input!.min) < 0;
   }
 }
 

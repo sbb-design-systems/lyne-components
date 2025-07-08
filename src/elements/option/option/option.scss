@@ -11,12 +11,14 @@
   --sbb-option-disabled-border-color: var(--sbb-color-graphite);
   --sbb-option-disabled-background-color: var(--sbb-color-milk);
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+  --sbb-option-min-height: var(--sbb-size-element-s);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-justify-content: start;
   --sbb-option-cursor: pointer;
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
   --sbb-option-icon-color: var(--sbb-color-metal);
+  --sbb-option-focus-outline-color: transparent;
+  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
 
   display: block;
 }
@@ -29,10 +31,6 @@
   --sbb-option-disabled-border-color: var(--sbb-color-smoke);
   --sbb-option-disabled-background-color: var(--sbb-color-charcoal);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-}
-
-:host([data-active]) {
-  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
 }
 
 :host(:hover:not([disabled], [data-group-disabled])) {
@@ -69,6 +67,10 @@
   --sbb-option-justify-content: start;
 }
 
+:host([data-active]) {
+  --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
+}
+
 .sbb-option__label--highlight {
   :host(:not(:is([disabled], [data-group-disabled]))) & {
     @include sbb.text--bold;
@@ -85,25 +87,26 @@
 .sbb-option {
   @include sbb.text-s--regular;
 
+  position: relative;
   display: flex;
+  min-height: var(--sbb-option-min-height);
   align-items: center;
   column-gap: var(--sbb-option-column-gap);
   padding-inline: var(--sbb-option-padding-inline);
-  padding-block: var(--sbb-option-padding-block);
   justify-content: var(--sbb-option-justify-content);
   color: var(--sbb-option-color);
-  background-color: var(--sbb-option-background-color);
   cursor: var(--sbb-option-cursor);
   -webkit-tap-highlight-color: transparent;
   -webkit-text-fill-color: var(--sbb-option-color);
 
-  :host([data-active]) & {
-    @include sbb.focus-outline;
-
-    // Basically the focus-outline mixin is made for use with focus-visible.
-    // As we use it here with data-active, we have to ensure that the outline is not overridden when mouse or touch is in use.
-    --sbb-focus-outline-style: initial;
-
+  // We use the pseudo element to display the focus outline (inline in this case)
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: var(--sbb-option-focus-outline-inset);
+    pointer-events: none;
+    border: var(--sbb-focus-outline-width) solid var(--sbb-option-focus-outline-color);
     border-radius: var(--sbb-option-border-radius);
   }
 

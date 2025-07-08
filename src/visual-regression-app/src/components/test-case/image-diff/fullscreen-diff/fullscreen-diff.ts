@@ -25,7 +25,7 @@ class FullscreenDiff extends LitElement {
 
   @property() public accessor selectedFile: DiffFileType = 'failedFile';
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     if (!this.screenshotFiles) {
       return html``;
     }

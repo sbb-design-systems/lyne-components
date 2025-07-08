@@ -100,7 +100,7 @@ describe(`sbb-tab-group`, () => {
 
       it('dispatches event on tab change', async () => {
         const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
-        const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
+        const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
 
         tab.click();
         await changeSpy.calledOnce();
@@ -178,7 +178,7 @@ describe(`sbb-tab-group`, () => {
 
   it('recovers if active tabs are added later', async () => {
     element = await fixture(html`<sbb-tab-group></sbb-tab-group>`);
-    const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
+    const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
 
     const newLabel = document.createElement('sbb-tab-label');
     newLabel.textContent = 'Label 1';

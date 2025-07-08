@@ -1,6 +1,6 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import type { SbbSidebarElement } from '../../sidebar.js';
@@ -91,12 +91,12 @@ const sidebar = (position: SbbSidebarElement['position'], args: Args): TemplateR
       id="sidebar"
       role="navigation"
       focus-on-open
-      @didOpen=${(event: CustomEvent) =>
+      @open=${(event: Event) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
           ?.parentElement?.querySelector('#toggle-button')
           ?.setAttribute('aria-expanded', 'true')}
-      @didClose=${(event: CustomEvent) =>
+      @close=${(event: Event) =>
         (event.currentTarget as HTMLElement)
           .closest('sbb-icon-sidebar-container')
           ?.parentElement?.querySelector('#toggle-button')

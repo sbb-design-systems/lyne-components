@@ -1,4 +1,3 @@
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -6,9 +5,10 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
@@ -161,7 +161,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbAutocompleteGridOptionElement.events.optionSelected],
+      handles: [SbbAutocompleteGridOptionElement.events.optionselected],
     },
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.

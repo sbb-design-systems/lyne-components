@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 
 import style from './expansion-panel-content.scss?lit&inline';
 
@@ -13,12 +13,14 @@ import style from './expansion-panel-content.scss?lit&inline';
  */
 export
 @customElement('sbb-expansion-panel-content')
-@hostAttributes({
-  role: 'region',
-  slot: 'content',
-})
-class SbbExpansionPanelContentElement extends LitElement {
+class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'region';
   public static override styles: CSSResultGroup = style;
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'content';
+  }
 
   protected override render(): TemplateResult {
     return html`

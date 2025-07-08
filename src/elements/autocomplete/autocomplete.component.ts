@@ -1,7 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.js';
-import { hostAttributes } from '../core/decorators.js';
 import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
 import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
@@ -20,37 +19,31 @@ const ariaRoleOnHost = isSafari;
  * Combined with a native input, it displays a panel with a list of available options.
  *
  * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 export
 @customElement('sbb-autocomplete')
-@hostAttributes({
-  role: ariaRoleOnHost ? 'listbox' : null,
-})
-class SbbAutocompleteElement extends SbbAutocompleteBaseElement {
+class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
   private _activeItemIndex = -1;
 
-  protected get options(): SbbOptionElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
+  protected get options(): SbbOptionElement<T>[] {
+    return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
   }
 
   public constructor() {
     super();
-    this.addEventListener?.('optionSelected', (e: CustomEvent<void>) => this.onOptionSelected(e));
+    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
   }
 
   protected syncNegative(): void {
     this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
 
-    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
+    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
     ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }

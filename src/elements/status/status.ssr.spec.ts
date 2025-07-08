@@ -9,7 +9,7 @@ describe(`sbb-status ssr`, () => {
   let root: SbbStatusElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html`<sbb-status> Status info text </sbb-status>`, {
+    root = await ssrHydratedFixture(html`<sbb-status>Status info text</sbb-status>`, {
       modules: ['./status.component.js'],
     });
   });

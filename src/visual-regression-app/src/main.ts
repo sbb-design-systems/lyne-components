@@ -38,7 +38,7 @@ class Main extends LitElement {
     },
   ]);
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`${this._router.outlet()}`;
   }
 }

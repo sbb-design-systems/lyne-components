@@ -37,7 +37,7 @@ describe(`sbb-menu-link`, () => {
       const clickSpy = new EventSpy('click');
 
       element.dispatchEvent(
-        new CustomEvent('click', { bubbles: true, cancelable: true, composed: true }),
+        new PointerEvent('click', { bubbles: true, cancelable: true, composed: true }),
       );
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });

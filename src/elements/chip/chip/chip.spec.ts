@@ -41,7 +41,7 @@ describe('sbb-chip', () => {
   });
 
   it('should focus on click when readonly', async () => {
-    element.readonly = true;
+    element.readOnly = true;
     await waitForLitRender(element);
     await sendMouse({ type: 'click', position: [element.offsetTop + 10, element.offsetLeft + 10] });
 

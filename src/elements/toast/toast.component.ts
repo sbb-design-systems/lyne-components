@@ -1,21 +1,22 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, hostAttributes, slotState } from '../core/decorators.js';
-import { isFirefox, isLean, isZeroAnimationDuration } from '../core/dom.js';
+import { forceType } from '../core/decorators.js';
+import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
+import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 
 import style from './toast.scss?lit&inline';
 
 import '../button/transparent-button.js';
+import '../divider.js';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -30,38 +31,28 @@ const toastRefs = new Set<SbbToastElement>();
  * @slot - Use the unnamed slot to add content to the `sbb-toast`.
  * @slot icon - Assign a custom icon via slot.
  * @slot action - Provide a custom action for this toast.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-toast` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-toast` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
- * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
  * @cssprop [--sbb-toast-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 export
 @customElement('sbb-toast')
-@hostAttributes({
-  popover: 'manual',
-})
-@slotState()
-class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBaseElement)) {
+class SbbToastElement extends SbbIconNameMixin(
+  SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
+) {
   public static override styles: CSSResultGroup = style;
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
-   * If 0, it stays open indefinitely.
+   * If 0 (default), it stays open indefinitely.
+   * From accessibility perspective, it is recommended to set a timeout of at least 20 seconds.
    */
   @forceType()
   @property({ type: Number })
-  public accessor timeout: number = 6000;
+  public accessor timeout: number = 0;
 
   /** The position where to place the toast. */
   @property({ reflect: true }) public accessor position: SbbToastPosition = 'bottom-center';
-
-  /** Whether the toast has a close button. */
-  @forceType()
-  @property({ type: Boolean, reflect: true })
-  public accessor dismissible: boolean = false;
 
   /**
    * The ARIA politeness level.
@@ -72,25 +63,33 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
 
-  /**
-   * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
-   * JAWS does not read out aria-live message.
-   */
-  private get _role(): 'status' | 'alert' | undefined {
-    if (!isFirefox) {
-      return;
-    }
-
-    if (this.politeness === 'polite') {
-      return 'status';
-    } else if (this.politeness === 'assertive') {
-      return 'alert';
-    }
-  }
-
   public constructor() {
     super();
     this.addEventListener?.('click', (e) => this._onClick(e));
+  }
+
+  public override connectedCallback(): void {
+    this.popover = 'manual';
+    super.connectedCallback();
+
+    // Add this toast to the global collection
+    toastRefs.add(this);
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    clearTimeout(this._closeTimeout);
+
+    // Remove this instance
+    toastRefs.delete(this);
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('politeness')) {
+      this.internals.ariaLive = this.politeness;
+    }
   }
 
   /**
@@ -98,11 +97,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
    * If there are other opened toasts in the page, close them first.
    */
   public open(): void {
-    if (this.state !== 'closed') {
-      return;
-    }
-
-    if (!this.willOpen.emit()) {
+    if (this.state !== 'closed' || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -117,21 +112,14 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     }
   }
 
-  private _isZeroAnimationDuration(): boolean {
-    return isZeroAnimationDuration(this, '--sbb-toast-animation-duration');
-  }
-
   /**
    * Close the toast.
    */
   public close(): void {
-    if (this.state !== 'opened') {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
-    if (!this.willClose.emit()) {
-      return;
-    }
     clearTimeout(this._closeTimeout);
     this.state = 'closing';
 
@@ -145,12 +133,12 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
-    this.didClose.emit();
+    this.dispatchCloseEvent();
   }
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this.didOpen.emit();
+    this.dispatchOpenEvent();
 
     // Start the countdown to close it
     if (this.timeout) {
@@ -167,19 +155,8 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Add this toast to the global collection
-    toastRefs.add(this);
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    clearTimeout(this._closeTimeout);
-
-    // Remove this instance
-    toastRefs.delete(this);
+  private _isZeroAnimationDuration(): boolean {
+    return isZeroAnimationDuration(this, '--sbb-toast-animation-duration');
   }
 
   /**
@@ -192,7 +169,7 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
 
     if (slotNodes.some((el) => el.nodeType === Node.TEXT_NODE)) {
       const span = document.createElement('span');
-      this.appendChild(span);
+      this.prepend(span);
       span.append(...slotNodes);
     }
   }
@@ -245,31 +222,30 @@ class SbbToastElement extends SbbIconNameMixin(SbbHydrationMixin(SbbOpenCloseBas
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-toast__overlay-container">
-        ${/* Firefox needs 'role' to enable screen readers */ ''}
-        <div
-          class="sbb-toast"
-          role=${this._role ?? nothing}
-          @animationend=${this._onToastAnimationEnd}
-        >
-          <div class="sbb-toast__icon">${this.renderIconSlot()}</div>
-
-          <div class="sbb-toast__content" aria-live=${this.politeness}>
-            <slot @slotchange=${this._onContentSlotChange}></slot>
+        <div class="sbb-toast" @animationend=${this._onToastAnimationEnd}>
+          <div class="sbb-toast-wrapper">
+            ${this.renderIconSlot()}
+            <div class="sbb-toast__content">
+              <slot @slotchange=${this._onContentSlotChange}></slot>
+            </div>
+            <slot name="action" @slotchange=${this._onActionSlotChange}></slot>
           </div>
-
-          <div class="sbb-toast__action">
-            <slot name="action" @slotchange=${this._onActionSlotChange}>
-              ${this.dismissible
-                ? html` <sbb-transparent-button
-                    class="sbb-toast__action-button"
-                    icon-name="cross-small"
-                    negative
-                    size="m"
-                    aria-label=${i18nCloseAlert[this._language.current]}
-                    sbb-toast-close
-                  ></sbb-transparent-button>`
-                : nothing}
-            </slot>
+          <div class="sbb-toast__close">
+            <sbb-divider
+              class="sbb-toast__close-divider"
+              orientation="vertical"
+              negative
+            ></sbb-divider>
+            ${!this.readOnly
+              ? html`<sbb-transparent-button
+                  class="sbb-toast__close-button"
+                  icon-name="cross-small"
+                  negative
+                  size="m"
+                  aria-label=${i18nCloseAlert[this._language.current]}
+                  sbb-toast-close
+                ></sbb-transparent-button>`
+              : nothing}
           </div>
         </div>
       </div>

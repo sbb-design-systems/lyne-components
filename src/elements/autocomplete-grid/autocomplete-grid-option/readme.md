@@ -50,7 +50,7 @@ If the `sbb-autocomplete-grid-option` is nested in a `sbb-autocomplete-grid-optg
 
 ## Events
 
-Consumers can listen to the `optionSelected` event on the `sbb-autocomplete-grid-option` component to intercept the selected value;
+Consumers can listen to the `optionselected` event on the `sbb-autocomplete-grid-option` component to intercept the selected value;
 the event is triggered if the element has been selected by some user interaction. Alternatively,
 the `selectionChange` event can be listened to, which is triggered if the element has been both selected or deselected.
 
@@ -80,22 +80,31 @@ The `sbb-autocomplete-grid` follows the combobox `grid` pattern;
 this means that the `sbb-autocomplete-grid-option` has a `gridcell` role and its `id` is set from `sbb-autocomplete-grid-row`'s `id`,
 which is needed to correctly set the `aria-activedescendant` on the related `input`.
 
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbAutocompleteGridOption<T>`.
+
+```html
+<sbb-autocomplete-grid-option .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-autocomplete-grid-option>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type      | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean` | `false` | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string`  | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `selected` | `selected`  | public  | `boolean` |         | Whether the option is selected.                                                                                                  |
-| `value`    | `value`     | public  | `string`  |         | Value of the option.                                                                                                             |
+| Name       | Attribute   | Privacy | Type         | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`    | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `selected` | `selected`  | public  | `boolean`    |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `T = string` | `null`  | Value of the option.                                                                                                             |
 
 ## Events
 
-| Name                         | Type                | Description                                | Inherited From |
-| ---------------------------- | ------------------- | ------------------------------------------ | -------------- |
-| `autocompleteOptionSelected` | `CustomEvent<void>` | Emits when an option was selected by user. |                |
+| Name             | Type    | Description                                | Inherited From       |
+| ---------------- | ------- | ------------------------------------------ | -------------------- |
+| `optionselected` | `Event` | Emits when an option was selected by user. | SbbOptionBaseElement |
 
 ## CSS Properties
 

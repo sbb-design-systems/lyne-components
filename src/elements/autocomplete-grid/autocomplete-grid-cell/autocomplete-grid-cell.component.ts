@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 
 import style from './autocomplete-grid-cell.scss?lit&inline';
 
@@ -12,10 +12,8 @@ import style from './autocomplete-grid-cell.scss?lit&inline';
  */
 export
 @customElement('sbb-autocomplete-grid-cell')
-@hostAttributes({
-  role: 'gridcell',
-})
-class SbbAutocompleteGridCellElement extends LitElement {
+class SbbAutocompleteGridCellElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {

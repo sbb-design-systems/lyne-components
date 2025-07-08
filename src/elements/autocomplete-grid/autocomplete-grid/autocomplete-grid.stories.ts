@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,10 +5,12 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
@@ -515,13 +515,13 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAutocompleteGridElement.events.willOpen,
-        SbbAutocompleteGridElement.events.didOpen,
-        SbbAutocompleteGridElement.events.didClose,
-        SbbAutocompleteGridElement.events.willClose,
+        SbbAutocompleteGridElement.events.beforeopen,
+        SbbAutocompleteGridElement.events.open,
+        SbbAutocompleteGridElement.events.close,
+        SbbAutocompleteGridElement.events.beforeclose,
         'change',
         'click',
-        SbbAutocompleteGridOptionElement.events.optionSelected,
+        SbbAutocompleteGridOptionElement.events.optionselected,
       ],
     },
     backgroundColor: (context: StoryContext) =>

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 
 import style from './card-badge.scss?lit&inline';
 
@@ -14,11 +14,8 @@ import style from './card-badge.scss?lit&inline';
  */
 export
 @customElement('sbb-card-badge')
-@hostAttributes({
-  slot: 'badge',
-  role: 'text',
-})
-class SbbCardBadgeElement extends LitElement {
+class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
+  public static override readonly role = 'text';
   public static override styles: CSSResultGroup = style;
 
   /** Color of the card badge. */
@@ -28,6 +25,7 @@ class SbbCardBadgeElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.slot ||= 'badge';
     this._parentElement = this.parentElement;
     if (this._parentElement) {
       this._parentElement.toggleAttribute('data-has-card-badge', true);

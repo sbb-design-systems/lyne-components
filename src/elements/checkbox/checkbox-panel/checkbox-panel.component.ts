@@ -10,7 +10,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { EventEmitter } from '../../core/eventing.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -39,22 +38,21 @@ export type SbbCheckboxPanelStateChange = Extract<
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
  * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
- * @event {Event} change - Event fired on change.
- * @event {InputEvent} input - Event fired on input.
+ * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
+ * @overrideType value - (T = string) | null
  */
 export
 @customElement('sbb-checkbox-panel')
 @slotState()
-class SbbCheckboxPanelElement extends SbbPanelMixin(
+class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
   public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
 
-  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
-  public static readonly events = {
-    stateChange: 'stateChange',
-    panelConnected: 'panelConnected',
-  } as const;
+  /** Value of the form element. */
+  @property()
+  public accessor value: T | null = null;
 
   /**
    * Size variant, either m or s.
@@ -64,16 +62,16 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the checkbox
-   * in relation to the parent selection panel changes.
-   */
-  protected stateChange: EventEmitter<SbbCheckboxPanelStateChange> = new EventEmitter(
-    this,
-    SbbCheckboxPanelElement.events.stateChange,
-    { bubbles: true },
-  );
+  private _dispatchStateChange(detail: SbbCheckboxPanelStateChange): boolean {
+    /**
+     * @internal
+     * Internal event that emits whenever the state of the checkbox
+     * in relation to the parent selection panel changes.
+     */
+    return this.dispatchEvent(
+      new CustomEvent<SbbCheckboxPanelStateChange>('statechange', { detail, bubbles: true }),
+    );
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -83,12 +81,12 @@ class SbbCheckboxPanelElement extends SbbPanelMixin(
       this.toggleAttribute('data-checked', this.checked);
 
       if (this.checked !== changedProperties.get('checked')!) {
-        this.stateChange.emit({ type: 'checked', checked: this.checked });
+        this._dispatchStateChange({ type: 'checked', checked: this.checked });
       }
     }
     if (changedProperties.has('disabled')) {
       if (this.disabled !== changedProperties.get('disabled')!) {
-        this.stateChange.emit({ type: 'disabled', disabled: this.disabled });
+        this._dispatchStateChange({ type: 'disabled', disabled: this.disabled });
       }
     }
   }

@@ -1,8 +1,6 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
-import { EventEmitter } from '../../core/eventing.js';
 import { SbbOptionBaseElement } from '../../option.js';
 
 import style from './autocomplete-grid-option.scss?lit&inline';
@@ -14,28 +12,17 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} autocompleteOptionSelected - Emits when an option was selected by user.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
+ * @overrideType value - T = string
  */
 export
 @customElement('sbb-autocomplete-grid-option')
-@hostAttributes({
-  role: 'gridcell',
-})
-class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
+class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
+  public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    optionSelected: 'autocompleteOptionSelected',
-  } as const;
 
   protected optionId = autocompleteGridOptionId;
-
-  /** Emits when an option was selected by user. */
-  protected optionSelected: EventEmitter = new EventEmitter(
-    this,
-    SbbAutocompleteGridOptionElement.events.optionSelected,
-  );
 
   protected override onExternalMutation(mutationsList: MutationRecord[]): void {
     super.onExternalMutation(mutationsList);
@@ -45,7 +32,7 @@ class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     );
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
@@ -85,9 +72,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-autocomplete-grid-option': SbbAutocompleteGridOptionElement;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    autocompleteOptionSelected: CustomEvent<void>;
   }
 }

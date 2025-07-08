@@ -1,8 +1,8 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { SbbMenuElement } from './menu.component.js';
 import readme from './readme.md?raw';
@@ -240,10 +240,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbMenuElement.events.willOpen,
-        SbbMenuElement.events.didOpen,
-        SbbMenuElement.events.didClose,
-        SbbMenuElement.events.willClose,
+        SbbMenuElement.events.beforeopen,
+        SbbMenuElement.events.open,
+        SbbMenuElement.events.close,
+        SbbMenuElement.events.beforeclose,
       ],
     },
     docs: {

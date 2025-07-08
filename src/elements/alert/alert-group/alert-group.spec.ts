@@ -9,6 +9,8 @@ import { SbbAlertElement } from '../alert.js';
 
 import { SbbAlertGroupElement } from './alert-group.component.js';
 
+import '../../title.js';
+
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;
 
@@ -17,7 +19,7 @@ describe(`sbb-alert-group`, () => {
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';
 
-    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.didOpen, null, {
+    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.open, null, {
       capture: true,
     });
 
@@ -28,16 +30,22 @@ describe(`sbb-alert-group`, () => {
         accessibility-title="${accessibilityTitle}"
         accessibility-title-level="${accessibilityTitleLevel}"
       >
-        <sbb-alert title-content="Interruption" id="alert1">First</sbb-alert>
-        <sbb-alert title-content="Interruption" id="alert2">Second</sbb-alert>
+        <sbb-alert id="alert1">
+          <sbb-title level="3">Interruption</sbb-title>
+          First
+        </sbb-alert>
+        <sbb-alert id="alert2">
+          <sbb-title level="3">Interruption</sbb-title>
+          Second
+        </sbb-alert>
       </sbb-alert-group>
     `);
 
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
     const alert1 = element.querySelector<SbbAlertElement>('sbb-alert#alert1')!;
     const alert2 = element.querySelector<SbbAlertElement>('sbb-alert#alert2')!;
-    const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert1);
-    const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert2);
+    const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.close, alert1);
+    const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.close, alert2);
 
     // Wait until both alerts are opened
     await alertOpenedEventSpy.calledTimes(2);

@@ -9,13 +9,19 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbInputModality } from '../../core/a11y.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
-import { isFirefox, isLean, setOrRemoveAttribute } from '../../core/dom.js';
+import { isLean } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+  SbbNegativeMixin,
+} from '../../core/mixins.js';
 import type { SbbSelectElement } from '../../select.js';
 
 import style from './form-field.scss?lit&inline';
@@ -23,9 +29,9 @@ import style from './form-field.scss?lit&inline';
 import '../../icon.js';
 
 let nextId = 0;
-let nextFormFieldErrorId = 0;
 
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
+const nativeInputElements = ['input', 'textarea', 'select'];
 
 /**
  * It wraps an input element adding label, errors, icon, etc.
@@ -39,21 +45,11 @@ const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 export
 @customElement('sbb-form-field')
 @slotState()
-class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
+class SbbFormFieldElement extends SbbNegativeMixin(
+  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
+) {
   public static override styles: CSSResultGroup = style;
 
-  private readonly _supportedNativeInputElements = [
-    'input',
-    'select',
-    'textarea',
-    'sbb-date-input',
-  ];
-  // List of supported element selectors in unnamed slot
-  private readonly _supportedInputElements = [
-    ...this._supportedNativeInputElements,
-    'sbb-select',
-    'sbb-slider',
-  ];
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];
 
@@ -61,6 +57,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     'input',
     'select',
     'sbb-date-input',
+    'sbb-time-input',
     'sbb-select',
     'textarea',
   ];
@@ -117,11 +114,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   /** It is used internally to get the `error` slot. */
   @state() private accessor _errorElements: Element[] = [];
 
-  /** Original aria-describedby value of the slotted input element. */
-  private _originalInputAriaDescribedby?: string | null;
-
   /** Reference to the slotted input element. */
-  @state() private accessor _input!: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
+  @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
 
   /** Reference to the slotted label elements. */
   @state() private accessor _label!: HTMLLabelElement;
@@ -138,18 +132,65 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
    */
   private _formFieldAttributeObserver = !isServer
     ? new MutationObserver((mutations: MutationRecord[]) => {
-        if (mutations.some((m) => m.type === 'attributes')) {
+        if (mutations.some((m) => m.type === 'attributes') && this._input) {
           this._readInputState();
+          this._registerInputFormListener();
+          this._checkAndUpdateInputEmpty();
         }
       })
     : null;
 
-  private _inputAbortController = new AbortController();
+  private _inputFormAbortController = new AbortController();
+
+  public constructor() {
+    super();
+    this.addEventListener?.(
+      'focusin',
+      (event) => {
+        if (
+          event.target === this.inputElement ||
+          event.target === (this.inputElement as SbbSelectElement | undefined)?.inputElement
+        ) {
+          this.internals.states.add('focus');
+          this.internals.states.add(`focus-origin-${sbbInputModalityDetector.mostRecentModality}`);
+        }
+      },
+      { passive: true },
+    );
+    this.addEventListener?.(
+      'focusout',
+      (event) => {
+        if (
+          event.target === this.inputElement ||
+          event.target === (this.inputElement as SbbSelectElement | undefined)?.inputElement
+        ) {
+          this._checkAndUpdateInputEmpty();
+          this.internals.states.delete('focus');
+          for (const state of this.internals.states) {
+            if (state.startsWith('focus-origin-')) {
+              this.internals.states.delete(state);
+            }
+          }
+        }
+      },
+      { passive: true },
+    );
+    this.addEventListener('input', () => this._checkAndUpdateInputEmpty());
+    this.addEventListener('displayvaluechange', () => this._checkAndUpdateInputEmpty());
+    // We want to prevent the native browser validation message popover
+    // to be shown. This also prevents a bug in WebKit, which would not
+    // allow host as the validity anchor: https://bugs.webkit.org/show_bug.cgi?id=269832
+    // This is duplicated from the form associated mixin for the native
+    // input controls (e.g. <input> or <select>).
+    this.addEventListener('invalid', (e) => e.preventDefault(), { capture: true });
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._registerInputListener();
+    this._assignSlots();
+    this._connectInputElement();
     this._syncNegative();
+    this._syncSize();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -158,12 +199,15 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     if (changedProperties.has('negative')) {
       this._syncNegative();
     }
+    if (changedProperties.has('size')) {
+      this._syncSize();
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._formFieldAttributeObserver?.disconnect();
-    this._inputAbortController.abort();
+    this._inputFormAbortController.abort();
     if (this._input?.localName === 'input') {
       this._unpatchInputValue();
     }
@@ -174,13 +218,13 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       return;
     }
 
-    if (
-      this._input?.localName === 'sbb-select' &&
-      (event.target as HTMLElement).localName !== 'sbb-select'
-    ) {
-      this._input.click();
-      this._input.focus();
-    } else if ((event.target as Element).localName !== 'label') {
+    if ((event.target as Element).localName !== 'label') {
+      if (
+        this._input?.localName === 'sbb-select' &&
+        (event.target as HTMLElement).localName !== 'sbb-select'
+      ) {
+        this._input.click();
+      }
       this._input?.focus();
     }
   }
@@ -211,15 +255,31 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
   private _onSlotInputChange(): void {
-    // Find the slotted 'supportedInputElement', even if it's nested
-    const newInput = this.querySelector<HTMLElement>(
-      `:where(${this._supportedInputElements.join(',')})`,
-    );
-
     this._assignSlots();
+    this._connectInputElement();
+  }
 
-    if (this._input && this._input.localName === 'input' && newInput !== this._input) {
-      this._unpatchInputValue();
+  private _assignSlots(): void {
+    this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
+    this.querySelectorAll('sbb-form-error:not([slot])').forEach((e) =>
+      e.setAttribute('slot', 'error'),
+    );
+  }
+
+  private _connectInputElement(): void {
+    // Find the slotted input element, even if it's nested (e.g. chip group)
+    const inputCandidates = Array.from(
+      this.querySelectorAll<HTMLElement>('*:not([slot],sbb-chip-group)'),
+    );
+    const newInput = inputCandidates.find((e) => this._isInputElement(e)) || inputCandidates[0];
+
+    if (newInput === this._input) {
+      return;
+    } else if (this._input) {
+      this.internals.states.delete(`input-type-${this._input.localName}`);
+      if (this._input.localName === 'input') {
+        this._unpatchInputValue();
+      }
     }
 
     if (!newInput) {
@@ -228,21 +288,30 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     }
 
     this._input = newInput;
-    this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
-    this._applyAriaDescribedby();
+    this._assignErrorMessageElements();
     this._readInputState();
-    this._registerInputListener();
+    this._registerInputFormListener();
+    this._checkAndUpdateInputEmpty();
 
     if (this._input.localName === 'textarea') {
       this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
+    } else if (this._input.localName === 'input') {
+      this._patchInputValue();
+    } else if (
+      (this._input.localName === 'select' || this._input.localName === 'sbb-select') &&
+      !this.hasUpdated
+    ) {
+      // Due to SSR the dropdown icon for selects cannot be rendered in the first render pass.
+      // Due to this we schedule a re-render to render the icon.
+      this.hydrationComplete.then(() => this.requestUpdate());
     }
 
     this._formFieldAttributeObserver?.disconnect();
     this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid', 'data-expanded'],
+      attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded'],
     });
-    this.setAttribute('data-input-type', this._input.localName);
+    this.internals.states.add(`input-type-${this._input.localName}`);
     this._syncLabelInputReferences();
   }
 
@@ -251,20 +320,21 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
       return;
     }
 
-    if (this._supportedNativeInputElements.includes(this._input.localName)) {
+    if (
+      nativeInputElements.includes(this._input.localName) ||
+      (customElements.get(this._input.localName) as { formAssociated: boolean } | undefined)
+        ?.formAssociated
+    ) {
       // For native input elements we use the `for` attribute on the label to reference the input
       // via id reference.
-      if (!this._input.id) {
-        this._input.id = `sbb-form-field-input-${nextId++}`;
-      }
-
+      this._input.id ||= `sbb-form-field-input-${nextId++}`;
       this._label.htmlFor = this._input.id;
     } else {
       // For non-native input elements, that do not support references via the label for attribute,
       // we use aria-labelledby on the input element to reference the label element via id.
-      if (!this._label.id) {
-        this._label.id = `sbb-form-field-label-${nextId++}`;
-      }
+      // TODO: Migrate to ariaLabelledByElements when available:
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaLabelledByElements
+      this._label.id ||= `sbb-form-field-label-${nextId++}`;
       const labelledby =
         this._input
           .getAttribute('aria-labelledby')
@@ -274,96 +344,40 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     }
   }
 
-  private _registerInputListener(): void {
-    if (!this._input) {
-      return;
-    }
-    this._inputAbortController.abort();
-    this._inputAbortController = new AbortController();
-    this._checkAndUpdateInputEmpty();
-
-    // Timeout needed to have value updated
-    this._getInputForm()?.addEventListener('reset', () => setTimeout(() => this.reset()), {
-      signal: this._inputAbortController.signal,
-    });
-
-    this._input.addEventListener('input', () => this._checkAndUpdateInputEmpty(), {
-      signal: this._inputAbortController.signal,
-    });
-
-    this._input.addEventListener('blur', () => this._checkAndUpdateInputEmpty(), {
-      signal: this._inputAbortController.signal,
-    });
-
-    // We want to prevent the native browser validation message popover
-    // to be shown. This also prevents a bug in WebKit, which would not
-    // allow host as the validity anchor: https://bugs.webkit.org/show_bug.cgi?id=269832
-    // This is duplicated from the form associated mixin for the native
-    // input controls (e.g. <input> or <select>).
-    this._input.addEventListener('invalid', (e) => e.preventDefault(), {
-      signal: this._inputAbortController.signal,
-    });
-
-    let inputFocusElement = this._input;
-
-    if (this._input.localName === 'input') {
-      this._patchInputValue();
-    } else if (this._input.localName === 'sbb-select') {
-      this._input.addEventListener('displayValueChange', () => this._checkAndUpdateInputEmpty(), {
-        signal: this._inputAbortController.signal,
-      });
-
-      const selectInput = this._input as SbbSelectElement;
-      inputFocusElement = selectInput.inputElement;
-
-      // If inputElement is not yet ready, try a second time after updating.
-      if (!inputFocusElement) {
-        const controller = {
-          hostUpdated: () => {
-            selectInput.removeController(controller);
-            this._registerInputListener();
-          },
-        };
-
-        selectInput.addController(controller);
-      }
-    }
-
-    inputFocusElement?.addEventListener(
-      'focusin',
-      () => {
-        this.toggleAttribute('data-input-focused', true);
-        this.setAttribute(
-          'data-focus-origin',
-          (sbbInputModalityDetector.mostRecentModality as SbbInputModality) ?? '',
-        );
-      },
-      {
-        signal: this._inputAbortController.signal,
-      },
-    );
-
-    inputFocusElement?.addEventListener(
-      'focusout',
-      () =>
-        ['data-focus-origin', 'data-input-focused'].forEach((name) => this.removeAttribute(name)),
-      {
-        signal: this._inputAbortController.signal,
-      },
+  private _isInputElement(input: Element): boolean {
+    return (
+      nativeInputElements.includes(input.localName) ||
+      !!(customElements.get(input.localName) as { formAssociated: boolean } | undefined)
+        ?.formAssociated
     );
   }
 
-  private _getInputForm(): HTMLFormElement | null | undefined {
-    if (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) {
-      return this._input.form;
-    }
-    return this._input?.closest('form');
+  private _readInputState(): void {
+    this.toggleState('readonly', this._input!.hasAttribute('readonly'));
+    this.toggleState('disabled', this._input!.hasAttribute('disabled'));
+    this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
+  }
+
+  private _registerInputFormListener(): void {
+    this._inputFormAbortController.abort();
+    const { signal } = (this._inputFormAbortController = new AbortController());
+
+    const form =
+      (this._input as HTMLInputElement | HTMLSelectElement | undefined)?.form ??
+      this._input?.closest('form');
+    // Timeout needed to have value updated
+    const resetHandler = (): unknown => setTimeout(() => this.reset());
+    form?.addEventListener('reset', resetHandler, { signal });
   }
 
   // We need to patch the value property of the HTMLInputElement in order
   // to be able to reset the floating label in the empty state.
   private _patchInputValue(): void {
     const inputElement = this._input as HTMLInputElement;
+    if (!inputElement || patchedInputs.has(inputElement)) {
+      return;
+    }
+
     const originalDescriptor = Object.getOwnPropertyDescriptor(
       Object.getPrototypeOf(inputElement),
       'value',
@@ -400,8 +414,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   }
 
   private _checkAndUpdateInputEmpty(): void {
-    this.toggleAttribute(
-      'data-input-empty',
+    this.toggleState(
+      'empty',
       this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
         this._isInputEmpty(),
     );
@@ -410,7 +424,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
   private _isInputEmpty(): boolean {
     const chipGroupElem = this.querySelector('sbb-chip-group');
     if (chipGroupElem) {
-      return this._isInputValueEmpty() && chipGroupElem.value.length === 0;
+      return (
+        this._isInputValueEmpty() &&
+        (Array.isArray(chipGroupElem.value)
+          ? chipGroupElem.value.length === 0
+          : !chipGroupElem.querySelector('sbb-chip'))
+      );
     } else if (this._input instanceof HTMLInputElement) {
       return (
         this._floatingLabelSupportedInputTypes.includes(this._input.type) &&
@@ -419,7 +438,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     } else if (this._input instanceof HTMLSelectElement) {
       return this._input.selectedOptions?.item(0)?.label?.trim() === '';
     } else if (this._input?.localName === 'sbb-select') {
-      return (this._input as SbbSelectElement).getDisplayValue()?.trim() === '';
+      return (this._input as SbbSelectElement).getDisplayValue?.()?.trim() === '';
     } else {
       return this._isInputValueEmpty();
     }
@@ -430,68 +449,36 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     return ['', undefined, null].includes(value) || (Array.isArray(value) && value.length === 0);
   }
 
-  private _assignSlots(): void {
-    this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
-    this.querySelectorAll('sbb-form-error:not([slot])').forEach((e) =>
-      e.setAttribute('slot', 'error'),
-    );
-  }
-
-  private _readInputState(): void {
-    if (!this._input) {
-      return;
-    }
-    this.toggleAttribute('data-readonly', this._input.hasAttribute('readonly'));
-    this.toggleAttribute('data-disabled', this._input.hasAttribute('disabled'));
-    this.toggleAttribute(
-      'data-invalid',
-      this._input.hasAttribute('data-sbb-invalid') ||
-        this._input.classList.contains('sbb-invalid') ||
-        (this._input.classList.contains('ng-touched') &&
-          this._input.classList.contains('ng-invalid')),
-    );
-    this.toggleAttribute('data-has-popup-open', this._input!.hasAttribute('data-expanded'));
-  }
-
   /**
    * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
    */
   private _onSlotErrorChange(event: Event): void {
-    this._errorElements = (event.target as HTMLSlotElement).assignedElements();
-
-    for (const el of this._errorElements) {
-      // Although a form error assigns an id itself, we need to be earlier by creating one here
-      if (!el.id) {
-        el.id = `sbb-form-field-error-${++nextFormFieldErrorId}`;
-      }
-      if (!el.role) {
-        // Instead of defining a container with an aria-live region as expected, we had to change
-        // setting it for every slotted element to properly work in all browsers and screen reader combinations.
-        el.role = 'status';
-        if (isFirefox) {
-          el.setAttribute('role', 'status');
-        }
-      }
+    const errorElements = (event.target as HTMLSlotElement).assignedElements();
+    if (this._input && this._input.ariaDescribedByElements?.length) {
+      this._input.ariaDescribedByElements = removeAriaElements(
+        this._input.ariaDescribedByElements,
+        ...(this._errorElements ?? []),
+      );
     }
-    this._applyAriaDescribedby();
-    this.toggleAttribute('data-has-error', !!this._errorElements.length);
+
+    this._errorElements = errorElements;
+    for (const el of this._errorElements) {
+      // Instead of defining a container with an aria-live region as expected, we had to change
+      // setting it for every slotted element to properly work in all browsers and screen reader combinations.
+      el.role ||= 'status';
+    }
+
+    this._assignErrorMessageElements();
+    this.toggleState('has-error', !!this._errorElements.length);
     this._syncNegative();
   }
 
-  private _applyAriaDescribedby(): void {
-    const ids = [];
-
-    if (this._originalInputAriaDescribedby) {
-      ids.push(this._originalInputAriaDescribedby);
-    }
-
-    if (this._errorElements.length) {
-      this._errorElements.forEach((e) => ids.push(e.id));
-    }
-
-    const ariaDescribedby = ids.join(' ');
+  private _assignErrorMessageElements(): void {
     if (this._input) {
-      setOrRemoveAttribute(this._input, 'aria-describedby', ariaDescribedby);
+      this._input.ariaDescribedByElements = appendAriaElements(
+        this._input.ariaDescribedByElements,
+        ...this._errorElements,
+      );
     }
   }
 
@@ -515,6 +502,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
+  private _syncSize(): void {
+    this.querySelectorAll?.<SbbAutocompleteBaseElement | SbbSelectElement>(
+      'sbb-autocomplete,sbb-autocomplete-grid,sbb-select',
+    ).forEach((element) => (element.size = this.size === 's' ? 's' : 'm'));
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-form-field__space-wrapper">
@@ -534,7 +527,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${['select', 'sbb-select'].includes(this._input?.localName as string)
+            ${this.hasUpdated && ['select', 'sbb-select'].includes(this._input?.localName as string)
               ? html`<sbb-icon
                   name="chevron-small-down-small"
                   class="sbb-form-field__select-input-icon"

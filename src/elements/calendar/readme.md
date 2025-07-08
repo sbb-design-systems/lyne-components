@@ -22,16 +22,8 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1599955200" max="1699920000" selected="1649980800"></sbb-calendar>
 ```
 
-To simulate the current date, the `now` property can be used:
-it accepts a `Date` or a timestamp in seconds (as number or string).
-This is helpful whether a specific state of the component is needed.
-
-```html
-<sbb-calendar selected="1585699200" now="1587945600"></sbb-calendar>
-```
-
 By default, the component takes, in order of priority,
-the `dateSelected` property, the `now` property or the current date to calculate which month it has to show.
+the `dateSelected` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
 It's also possible to select a specific date by clicking on the month label between the buttons:
@@ -108,7 +100,7 @@ so on the left side in `horizontal` and on top in `vertical`.
 
 ## Events
 
-Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date
+Consumers can listen to the `dateselected` event on the `sbb-calendar` component to intercept the selected date
 which can be read from `event.detail`.
 
 ## Keyboard interaction
@@ -158,7 +150,6 @@ For accessibility purposes, the component is rendered as a native table element 
 | `max`         | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
 | `min`         | `min`          | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
 | `multiple`    | `multiple`     | public  | `boolean`                                | `false`        | Whether the calendar allows for multiple date selection.                                                                   |
-| `now`         | `now`          | public  | `T`                                      | `null!`        | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.  |
 | `orientation` | `orientation`  | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                                   |
 | `selected`    | `selected`     | public  | `T \| T[] \| null`                       | `null`         | The selected date: accepts a date object, or, if `multiple`, an array of dates.                                            |
 | `view`        | `view`         | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                     |
@@ -173,6 +164,6 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Events
 
-| Name           | Type             | Description                      | Inherited From |
-| -------------- | ---------------- | -------------------------------- | -------------- |
-| `dateSelected` | `CustomEvent<T>` | Event emitted on date selection. |                |
+| Name           | Type               | Description                      | Inherited From |
+| -------------- | ------------------ | -------------------------------- | -------------- |
+| `dateselected` | `CustomEvent<T[]>` | Event emitted on date selection. |                |
