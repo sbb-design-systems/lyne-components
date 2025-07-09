@@ -52,10 +52,11 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
           this.internals.ariaBusy = 'true';
           this.internals.ariaDisabled = 'true';
           // For performance reasons, we only set the width if the button is loading and don't track width changes during active loading state.
-          this.style?.setProperty('--sbb-button-button-width', `${this.offsetWidth}px`);
+          const offsetWidth = this.offsetWidth;
+          this.style?.setProperty('--sbb-button-width', `${offsetWidth || 136}px`);
         } else {
           this.internals.ariaBusy = null;
-          this.style?.removeProperty('--sbb-button-button-width');
+          this.style?.removeProperty('--sbb-button-width');
           if (!this.maybeDisabled) {
             this.internals.ariaDisabled = null;
           }

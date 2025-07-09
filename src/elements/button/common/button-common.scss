@@ -274,7 +274,7 @@ sbb-icon {
   contain: paint;
   animation: background-fade-in
     var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x))
-    var(--sbb-button-loading-delay) linear;
+    var(--sbb-disable-animation-duration, var(--sbb-button-loading-delay)) linear;
   animation-fill-mode: forwards;
 
   &::before {
@@ -299,12 +299,16 @@ sbb-icon {
     // However, for the icon only version, we need to set a minimum duration to avoid the snake traveling too fast.
     animation:
       snake-fade-in
-        var(--sbb-disable-animation-duration, calc(2 * var(--sbb-animation-duration-12x)))
-        calc(var(--sbb-button-loading-delay) + 200ms) var(--sbb-animation-easing),
+        var(--sbb-disable-animation-duration, calc(var(--sbb-animation-duration-12x) * 2))
+        var(
+          --sbb-disable-animation-duration,
+          calc(var(--sbb-button-loading-delay) + var(--sbb-animation-duration-5x))
+        )
+        var(--sbb-animation-easing),
       snake-position
         var(
           --sbb-disable-animation-duration,
-          calc(max(tan(atan2(var(--sbb-button-button-width), 1px)) / 136, 0.5) * 3s)
+          calc(max(tan(atan2(var(--sbb-button-width), 1px)) / 136, 0.5) * 3s)
         )
         infinite linear;
     animation-fill-mode: forwards;
