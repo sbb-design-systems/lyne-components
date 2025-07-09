@@ -14,10 +14,18 @@ export interface SbbDatetimeConfig {
   dateAdapter?: DateAdapter;
 }
 
+export interface SbbPopoverConfig {
+  /* Delay in milliseconds until the popover is opened. */
+  openDelay?: number;
+  /* Delay in milliseconds until the popover is closed. */
+  closeDelay?: number;
+}
+
 export interface SbbConfig {
   language?: string;
   icon?: SbbIconConfig;
   datetime?: SbbDatetimeConfig;
+  popover?: SbbPopoverConfig;
 }
 
 export function readConfig(): SbbConfig {
