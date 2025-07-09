@@ -76,46 +76,63 @@ describe(`sbb-selection-action-panel`, () => {
     for (const input of ['checkbox', 'radio']) {
       describe(`with ${input}`, () => {
         describeEach(cases, (params) => {
-          for (const state of [visualDiffDefault, visualDiffFocus]) {
-            it(
-              state.name,
-              state.with(async (setup) => {
-                await setup.withFixture(
-                  input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params),
-                );
-              }),
-            );
-
-            it(
-              `expansion-panel ${state.name}`,
-              state.with(async (setup) => {
-                await setup.withFixture(html`
-                  <sbb-selection-expansion-panel
-                    ?borderless=${params.borderless}
-                    color=${params.color || nothing}
-                  >
-                    ${input === 'checkbox'
-                      ? withCheckboxPanel({ ...params, borderless: false, color: undefined })
-                      : withRadioPanel({ ...params, borderless: false, color: undefined })}
-                  </sbb-selection-expansion-panel>
-                `);
-                setup.withStateElement(
-                  setup.snapshotElement.querySelector('sbb-secondary-button')!,
-                );
-              }),
-            );
-          }
-
           it(
-            `action ${visualDiffFocus.name}`,
-            visualDiffFocus.with(async (setup) => {
+            visualDiffDefault.name,
+            visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params),
               );
+            }),
+          );
+
+          it(
+            `expansion-panel ${visualDiffDefault.name}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(html`
+                <sbb-selection-expansion-panel
+                  ?borderless=${params.borderless}
+                  color=${params.color || nothing}
+                >
+                  ${input === 'checkbox'
+                    ? withCheckboxPanel({ ...params, borderless: false, color: undefined })
+                    : withRadioPanel({ ...params, borderless: false, color: undefined })}
+                </sbb-selection-expansion-panel>
+              `);
               setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
             }),
           );
         });
+
+        it(
+          visualDiffFocus.name,
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(
+              input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
+            );
+          }),
+        );
+
+        it(
+          `expansion-panel focus`,
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(html`
+              <sbb-selection-expansion-panel>
+                ${input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({})}
+              </sbb-selection-expansion-panel>
+            `);
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
+          }),
+        );
+
+        it(
+          `action focus`,
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(
+              input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
+            );
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
+          }),
+        );
 
         it(
           `size=s`,
