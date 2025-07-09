@@ -79,8 +79,8 @@ describe(`sbb-selection-action-panel`, () => {
           for (const state of [visualDiffDefault, visualDiffFocus]) {
             it(
               state.name,
-              state.with((setup) => {
-                setup.withFixture(
+              state.with(async (setup) => {
+                await setup.withFixture(
                   input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params),
                 );
               }),
@@ -88,8 +88,8 @@ describe(`sbb-selection-action-panel`, () => {
 
             it(
               `expansion-panel ${state.name}`,
-              state.with((setup) => {
-                setup.withFixture(html`
+              state.with(async (setup) => {
+                await setup.withFixture(html`
                   <sbb-selection-expansion-panel
                     ?borderless=${params.borderless}
                     color=${params.color || nothing}
@@ -108,8 +108,8 @@ describe(`sbb-selection-action-panel`, () => {
 
           it(
             `action ${visualDiffFocus.name}`,
-            visualDiffFocus.with((setup) => {
-              setup.withFixture(
+            visualDiffFocus.with(async (setup) => {
+              await setup.withFixture(
                 input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params),
               );
               setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
