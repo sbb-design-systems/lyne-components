@@ -51,9 +51,7 @@ const LoadingIndicatorTemplate = ({
         const button = e.currentTarget as SbbButtonCommonElementMixinType;
         button.loading = true;
 
-        setTimeout(() => {
-          button.loading = false;
-        }, 4000);
+        setTimeout(() => (button.loading = false), 4000);
       }}
   >
       ${text}

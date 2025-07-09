@@ -38,6 +38,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
 
     /**
      * Whether the button indicates a loading state.
+     * The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable.
      */
     @forceType()
     @property({ reflect: true, type: Boolean })
@@ -50,10 +51,11 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         if (this.loading) {
           this.internals.ariaBusy = 'true';
           this.internals.ariaDisabled = 'true';
-          this.style.setProperty('--sbb-button-button-width', `${this.offsetWidth}px`);
+          // For performance reasons, we only set the width if the button is loading and don't track width changes during active loading state.
+          this.style?.setProperty('--sbb-button-button-width', `${this.offsetWidth}px`);
         } else {
           this.internals.ariaBusy = null;
-          this.style.removeProperty('--sbb-button-button-width');
+          this.style?.removeProperty('--sbb-button-button-width');
           if (!this.maybeDisabled) {
             this.internals.ariaDisabled = null;
           }
