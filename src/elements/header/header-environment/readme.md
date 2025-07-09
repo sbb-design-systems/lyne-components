@@ -26,10 +26,10 @@ sbb-header-environment {
 
 ## CSS Properties
 
-| Name                                  | Default                | Description                          |
-| ------------------------------------- | ---------------------- | ------------------------------------ |
-| `--sbb-header-environment-color`      | `var(sbb-color-red)`   | Can be used change the ribbon color. |
-| `--sbb-header-environment-text-color` | `var(sbb-color-white)` | Can be used change the text color.   |
+| Name                                  | Default                  | Description                          |
+| ------------------------------------- | ------------------------ | ------------------------------------ |
+| `--sbb-header-environment-color`      | `var(sbb-color-granite)` | Can be used change the ribbon color. |
+| `--sbb-header-environment-text-color` | `var(sbb-color-white)`   | Can be used change the text color.   |
 
 ## Slots
 
