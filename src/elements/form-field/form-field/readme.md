@@ -122,6 +122,19 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 </sbb-form-field>
 ```
 
+### Reflected state from input
+
+The form field reflects certain states as custom states. This includes `focus`, `disabled`,
+`readonly`, `empty`, `has-error`, `has-popup-open` and `input-type-{tag name of the input}`.
+
+This can be targeted via CSS via the `:state()` pseudo-class:
+
+```css
+sbb-form-field:state(disabled) {
+  // Additional rules to apply when the input of the form field is disabled
+}
+```
+
 ### Error state
 
 The form field is displayed in an error state when an input element has been interacted with
@@ -134,6 +147,16 @@ to the input element.
 
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
+
+## Custom form control
+
+If you want to use a custom form control (e.g. Angular), that is not a native input element or a form
+associated custom element, you need to provide an integration layer, which is defined
+as the `SbbFormFieldElementControl` interface.
+
+To initially connect the custom form control and to update the state, whenever one of
+the property of the interface changes, the `SbbFormFieldControlEvent` needs to be dispatched
+on the `<sbb-form-field>` instance.
 
 ## Accessibility
 
@@ -159,17 +182,17 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 ## Properties
 
-| Name            | Attribute        | Privacy | Type                                                                | Default            | Description                                                                                                                                                           |
-| --------------- | ---------------- | ------- | ------------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderless`    | `borderless`     | public  | `boolean`                                                           | `false`            | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                               | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
-| `floatingLabel` | `floating-label` | public  | `boolean`                                                           | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
-| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                           | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
-| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| undefined` |                    | Returns the input element.                                                                                                                                            |
-| `negative`      | `negative`       | public  | `boolean`                                                           | `false`            | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                           | `false`            | Indicates whether the input is optional.                                                                                                                              |
-| `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                                 | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
-| `width`         | `width`          | public  | `'default' \| 'collapse'`                                           | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
+| Name            | Attribute        | Privacy | Type                                                           | Default            | Description                                                                                                                                                           |
+| --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`            | Whether to display the form field without a border.                                                                                                                   |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
+| `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
+| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
+| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
+| `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
+| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.                                                                                                                              |
+| `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
+| `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
 ## Methods
 
