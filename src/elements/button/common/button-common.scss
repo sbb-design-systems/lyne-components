@@ -178,65 +178,6 @@ $active: ':active, [data-active], [loading]';
   --_border: none;
 }
 
-.sbb-button-loading-border {
-  position: absolute;
-  inset: calc(-1 * var(--sbb-button-loading-border-width));
-  clip-path: border-box;
-  border-radius: var(--sbb-button-border-radius);
-  background: var(--_background-color);
-  z-index: -1;
-  container-type: inline-size;
-  overflow: hidden;
-  animation: background-fade-in var(--sbb-animation-duration-6x) var(--sbb-button-loading-delay)
-    linear;
-  animation-fill-mode: forwards;
-}
-
-.sbb-button-loading-trail {
-  // Adapts the trail size depending on the container size.
-  width: 64cqmin;
-
-  // The max-height avoids displaying the trail on the other side when button labels are very wide.
-  max-height: var(--sbb-button-min-height);
-  aspect-ratio: 2 / 1;
-  position: absolute;
-  background: radial-gradient(
-    100% 100% at right,
-    var(--sbb-button-color-active-text),
-    transparent 50%
-  );
-  offset-path: border-box;
-  offset-anchor: 100% 50%;
-  opacity: 0;
-
-  // The animation duration is calculated based on the button width that the snake has a constant traveling speed.
-  // However, for the icon only version, we need to set a minimum duration to avoid the snake being too fast.
-  animation:
-    snake-fade-in var(--sbb-animation-duration-12x) calc(var(--sbb-button-loading-delay) + 200ms)
-      var(--sbb-animation-easing),
-    snake-position calc(max(tan(atan2(100cqmin, 1px)) / 136, 0.5) * 3s) infinite linear;
-  animation-fill-mode: forwards;
-  transform-style: preserve-3d;
-}
-
-@keyframes snake-position {
-  to {
-    offset-distance: 100%;
-  }
-}
-
-@keyframes snake-fade-in {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes background-fade-in {
-  to {
-    background: var(--sbb-button-color-loading-border);
-  }
-}
-
 .sbb-action-base {
   @include sbb.text-xs--bold;
 
@@ -320,4 +261,71 @@ sbb-icon {
   transition: translate var(--sbb-button-transition-duration)
     var(--sbb-button-transition-easing-function);
   translate: 0 var(--sbb-button-translate-y-content-hover, 0);
+}
+
+.sbb-button-loading-border {
+  position: absolute;
+  inset: calc(-1 * var(--sbb-button-loading-border-width));
+  clip-path: border-box;
+  border-radius: var(--sbb-button-border-radius);
+  background: var(--_background-color);
+  z-index: -1;
+  container-type: inline-size;
+  contain: paint;
+  animation: background-fade-in
+    var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x))
+    var(--sbb-button-loading-delay) linear;
+  animation-fill-mode: forwards;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 64cqmin;
+
+    // The max-height avoids displaying the trail on the other side when button labels are very wide.
+    max-height: var(--sbb-button-min-height);
+    aspect-ratio: 2 / 1;
+    position: absolute;
+    background: radial-gradient(
+      100% 100% at right,
+      var(--sbb-button-color-active-text),
+      transparent 50%
+    );
+    offset-path: border-box;
+    offset-anchor: 100% 50%;
+    opacity: 0;
+
+    // The animation duration is calculated based on the button width in order that the snake has a constant traveling speed.
+    // However, for the icon only version, we need to set a minimum duration to avoid the snake traveling too fast.
+    animation:
+      snake-fade-in
+        var(--sbb-disable-animation-duration, calc(2 * var(--sbb-animation-duration-12x)))
+        calc(var(--sbb-button-loading-delay) + 200ms) var(--sbb-animation-easing),
+      snake-position
+        var(
+          --sbb-disable-animation-duration,
+          calc(max(tan(atan2(var(--sbb-button-button-width), 1px)) / 136, 0.5) * 3s)
+        )
+        infinite linear;
+    animation-fill-mode: forwards;
+    transform-style: preserve-3d;
+  }
+}
+
+@keyframes snake-position {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes snake-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes background-fade-in {
+  to {
+    background: var(--sbb-button-color-loading-border);
+  }
 }

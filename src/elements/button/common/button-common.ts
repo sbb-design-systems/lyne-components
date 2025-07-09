@@ -50,8 +50,10 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         if (this.loading) {
           this.internals.ariaBusy = 'true';
           this.internals.ariaDisabled = 'true';
+          this.style.setProperty('--sbb-button-button-width', `${this.offsetWidth}px`);
         } else {
           this.internals.ariaBusy = null;
+          this.style.removeProperty('--sbb-button-button-width');
           if (!this.maybeDisabled) {
             this.internals.ariaDisabled = null;
           }
@@ -66,9 +68,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
           <slot></slot>
         </span>
         ${this.loading && !this.maybeDisabled
-          ? html`<div class="sbb-button-loading-border">
-              <div class="sbb-button-loading-trail"></div>
-            </div>`
+          ? html`<div class="sbb-button-loading-border"></div>`
           : nothing}
       `;
     }
