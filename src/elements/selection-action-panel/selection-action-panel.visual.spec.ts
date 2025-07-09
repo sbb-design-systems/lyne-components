@@ -96,9 +96,9 @@ describe(`sbb-selection-action-panel`, () => {
                   ${input === 'checkbox'
                     ? withCheckboxPanel({ ...params, borderless: false, color: undefined })
                     : withRadioPanel({ ...params, borderless: false, color: undefined })}
+                  <div slot="content">Inner Content</div>
                 </sbb-selection-expansion-panel>
               `);
-              setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
             }),
           );
         });
@@ -117,10 +117,12 @@ describe(`sbb-selection-action-panel`, () => {
           visualDiffFocus.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-selection-expansion-panel>
-                ${input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({})}
+                ${input === 'checkbox'
+                  ? withCheckboxPanel({ checked: true })
+                  : withRadioPanel({ checked: true })}
+                <div slot="content">Inner Content</div>
               </sbb-selection-expansion-panel>
             `);
-            setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
           }),
         );
 
