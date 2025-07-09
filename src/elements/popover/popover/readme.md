@@ -20,6 +20,22 @@ the [sbb-popover-trigger](/docs/elements-sbb-popover-sbb-popover-trigger--docs) 
 </sbb-popover>
 ```
 
+## Configuration
+
+The open and close delays can be configured in milliseconds via global configuration. This is then
+used as default, if not explicitely defined on the element.
+
+```ts
+import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+
+mergeConfig({
+  popover: {
+    openDelay: 50,
+    closeDelay: 50,
+  },
+});
+```
+
 ## Interactions
 
 The `sbb-popover` can be dismissed by clicking on an interactive element within its content,
@@ -90,15 +106,15 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                      |
-| ------------------------- | --------------------------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------ |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the close button element.                                |
-| `closeDelay`              | `close-delay`               | public  | `number`              | `0`     | Close the popover after a certain delay.                                                         |
-| `hideCloseButton`         | `hide-close-button`         | public  | `boolean`             | `false` | Whether the close button should be hidden.                                                       |
-| `hoverTrigger`            | `hover-trigger`             | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                |
-| `isOpen`                  | -                           | public  | `boolean`             |         | Whether the element is open.                                                                     |
-| `openDelay`               | `open-delay`                | public  | `number`              | `0`     | Open the popover after a certain delay.                                                          |
-| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference. |
+| Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                 |
+| ------------------------- | --------------------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the close button element.                                           |
+| `closeDelay`              | `close-delay`               | public  | `number`              | `0`     | Close the popover after a given delay in milliseconds. Global configuration is used as default, if not set. |
+| `hideCloseButton`         | `hide-close-button`         | public  | `boolean`             | `false` | Whether the close button should be hidden.                                                                  |
+| `hoverTrigger`            | `hover-trigger`             | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                           |
+| `isOpen`                  | -                           | public  | `boolean`             |         | Whether the element is open.                                                                                |
+| `openDelay`               | `open-delay`                | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
+| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
 
 ## Methods
 

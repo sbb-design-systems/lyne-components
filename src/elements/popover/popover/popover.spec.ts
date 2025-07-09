@@ -3,6 +3,7 @@ import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
+import { mergeConfig } from '../../core/config.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbLinkElement } from '../../link.js';
@@ -17,6 +18,23 @@ describe(`sbb-popover`, () => {
     trigger: SbbButtonElement,
     openSpy: EventSpy<Event>,
     closeSpy: EventSpy<Event>;
+
+  it('should inherit the delays from global configuration', async () => {
+    element = document.createElement('sbb-popover');
+
+    expect(element.openDelay).to.be.equal(0);
+    expect(element.closeDelay).to.be.equal(0);
+
+    mergeConfig({
+      popover: {
+        openDelay: 100,
+        closeDelay: 200,
+      },
+    });
+
+    expect(element.openDelay).to.be.equal(100);
+    expect(element.closeDelay).to.be.equal(200);
+  });
 
   describe('with interactive content', () => {
     beforeEach(async () => {
