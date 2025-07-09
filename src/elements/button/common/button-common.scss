@@ -176,6 +176,7 @@ $active: ':active, [data-active], [loading]';
     var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
   );
   --_border: none;
+  --_transform-style: preserve-3d;
 }
 
 .sbb-action-base {
@@ -201,6 +202,9 @@ $active: ':active, [data-active], [loading]';
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
   transition-property: color, background-color;
+
+  // Used for loading state
+  transform-style: var(--_transform-style, flat);
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
@@ -269,6 +273,9 @@ sbb-icon {
   clip-path: border-box;
   border-radius: var(--sbb-button-border-radius);
   background: var(--_background-color);
+
+  // Transform and z-index needed to support all browsers.
+  transform: translateZ(-1px);
   z-index: -1;
   container-type: inline-size;
   contain: paint;

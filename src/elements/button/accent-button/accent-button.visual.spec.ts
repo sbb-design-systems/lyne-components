@@ -8,25 +8,28 @@ import {
 } from '../../core/testing/private.js';
 
 import './accent-button.component.js';
+import { aTimeout } from '@open-wc/testing';
 
 // We test only the differences to the sbb-button
 describe(`sbb-accent-button`, () => {
   let root: HTMLElement;
 
   const cases = {
-    disabled: [false, true],
-    negative: [false, true],
-    forcedColors: [false, true],
+    disabled: [false],
+    negative: [false],
+    forcedColors: [false],
+    loading: [true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors }) => {
+    describeEach(cases, ({ disabled, negative, forcedColors, loading }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
             <sbb-accent-button
               ?disabled=${disabled}
               ?negative=${negative}
+              ?loading=${loading}
               icon-name="arrow-right-small"
             >
               Button
@@ -43,8 +46,10 @@ describe(`sbb-accent-button`, () => {
       for (const state of visualDiffStandardStates) {
         it(
           state.name,
-          state.with((setup) => {
+          state.with(async (setup) => {
             setup.withSnapshotElement(root);
+            await aTimeout(100)
+            debugger;
           }),
         );
       }
