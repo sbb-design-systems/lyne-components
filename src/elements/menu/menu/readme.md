@@ -79,6 +79,18 @@ If the attribute is not used, the first focusable element receives focus (recomm
 </sbb-menu>
 ```
 
+### Disabled menu items
+
+Disabled elements do not receive focus, and they can be problematic for screen reader users. It's preferable if the [`disabledInteractive`](/docs/elements-sbb-menu-sbb-menu-button--docs#interactive-disabled-buttons) property is used, instead.
+
+```html
+<sbb-menu>
+  ...
+  <sbb-menu-button disabled-interactive> Edit </sbb-menu-button>
+  ...
+</sbb-menu>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
