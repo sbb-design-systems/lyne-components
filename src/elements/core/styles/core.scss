@@ -565,7 +565,7 @@ sbb-dialog-close-button {
   }
 
   // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) & {
+  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > & {
     // TODO: Adapt to lean size title
     --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
   }
