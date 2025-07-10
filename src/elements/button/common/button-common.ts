@@ -57,7 +57,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         } else {
           this.internals.ariaBusy = null;
           this.style?.removeProperty('--sbb-button-width');
-          if (!this.maybeDisabled) {
+          if (!this.maybeDisabledInteractive) {
             this.internals.ariaDisabled = null;
           }
         }
