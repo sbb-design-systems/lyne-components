@@ -50,8 +50,8 @@ describe(`sbb-dialog`, () => {
       >
         Link
       </sbb-block-link>
-      <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-      <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
+      <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
+      <sbb-button sbb-dialog-close sbb-focus-initial ?negative=${negative}>Confirm</sbb-button>
     </sbb-dialog-actions>
   `;
 

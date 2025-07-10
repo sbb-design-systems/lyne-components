@@ -5,6 +5,7 @@
 
 :host {
   display: block;
-  margin-block: var(--sbb-dialog-padding-block);
+  padding-block: var(--sbb-dialog__padding-block-start, var(--sbb-dialog-padding-block))
+    var(--sbb-dialog-padding-block);
   margin-inline: var(--sbb-dialog-padding-inline);
 }

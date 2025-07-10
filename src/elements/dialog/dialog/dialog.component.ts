@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
@@ -50,6 +50,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _dialogElement?: HTMLElement;
   private _isPointerDownEventOnDialog: boolean = false;
   protected closeAttribute: string = 'sbb-dialog-close';
+  protected closeTag: string = 'sbb-dialog-close-button';
 
   public constructor() {
     super();
@@ -116,22 +117,27 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    this._syncNegative();
+    this._syncTitleNegative();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('negative')) {
-      this._syncNegative();
+      this._syncTitleNegative();
     }
   }
 
-  private _syncNegative(): void {
+  private _syncTitleNegative(): void {
     const dialogTitle = this.querySelector?.('sbb-dialog-title');
+    const closeButton = this.querySelector?.('sbb-dialog-close-button');
 
     if (dialogTitle) {
       dialogTitle.negative = this.negative;
+    }
+
+    if (closeButton) {
+      closeButton.negative = this.negative;
     }
   }
 
@@ -166,6 +172,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     );
   }
 
+  @eventOptions({ passive: true })
+  private _detectScrolledState(): void {
+    this.toggleState('scrolled', (this._dialogContentElement?.scrollTop ?? 0) > 0);
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-dialog__container">
@@ -178,11 +189,15 @@ class SbbDialogElement extends SbbOverlayBaseElement {
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
+            <div class="sbb-dialog-title-section">
+              <slot name="title-section" @slotchange=${() => this._syncTitleNegative()}></slot>
+            </div>
             <div
               class="sbb-dialog-content-container"
+              @scroll=${() => this._detectScrolledState()}
               ${ref((el?: Element) => (this._dialogContentElement = el as HTMLDivElement))}
             >
-              <slot @slotchange=${() => this._syncNegative()}></slot>
+              <slot></slot>
             </div>
             <slot name="actions"></slot>
           </div>

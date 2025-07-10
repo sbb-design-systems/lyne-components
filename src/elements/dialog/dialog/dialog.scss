@@ -16,7 +16,7 @@
   --sbb-dialog-max-height: 100%;
   --sbb-dialog-inset: 0 auto auto 0;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
-  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-dialog-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
@@ -26,6 +26,8 @@
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-dialog-close-button-margin: var(--sbb-spacing-fixed-4x);
 
   display: none;
   position: fixed;
@@ -153,6 +155,20 @@
   max-height: var(--sbb-dialog-max-height);
 }
 
+.sbb-dialog-title-section {
+  display: flex;
+  width: 100%;
+  gap: var(--sbb-dialog-title-gap);
+  background-color: var(--sbb-dialog-background-color);
+  padding-inline: var(--sbb-dialog-padding);
+  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-animation-duration);
+  box-shadow: none;
+
+  :host(:is(:state(scrolled), [state--scrolled])) & {
+    @include sbb.shadow-level-5-soft;
+  }
+}
+
 .sbb-dialog-content-container {
   @include sbb.scrollbar-rules;
 
@@ -186,4 +202,16 @@
     opacity: 0;
     translate: 0 var(--sbb-spacing-fixed-4x);
   }
+}
+
+::slotted(sbb-dialog-title) {
+  flex-grow: 1;
+  margin-block: var(--sbb-dialog-padding-block);
+}
+
+::slotted(sbb-dialog-close-button) {
+  order: 1;
+  margin-inline-end: var(--sbb-dialog-close-button-margin);
+  margin-block-start: var(--sbb-dialog-close-button-margin);
+  inset-inline-end: var(--sbb-dialog-close-button-margin);
 }
