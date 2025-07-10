@@ -288,6 +288,9 @@ sbb-icon {
   &::before {
     content: '';
     display: block;
+
+    // The size adapts to either the container width or height (what is smaller).
+    // The value itself is a design decision of UX and describes the snake length.
     width: 64cqmin;
 
     // The max-height avoids displaying the trail on the other side when button labels are very wide.
