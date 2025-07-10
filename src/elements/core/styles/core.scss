@@ -547,20 +547,34 @@ sbb-dialog-actions {
   }
 }
 
-// If there is no dialog title, the close button should be positioned absolute
-sbb-dialog:not(:has(> sbb-dialog-title)) > sbb-dialog-close-button {
-  position: absolute;
-  z-index: 1;
-}
-
 // If there is a title, remove top spacing for the content
 sbb-dialog:has(> sbb-dialog-title) > sbb-dialog-content {
   padding-block-start: 0;
 }
 
-// Hide margin on the ride side. Distance to button is defined by flex gap already.
+// Hide margin on the right side. Distance to button is defined by flex gap already.
 sbb-dialog:has(> sbb-dialog-close-button) > sbb-dialog-title {
   margin-inline-end: 0;
+}
+
+sbb-dialog-close-button {
+  // If there is no dialog title, the close button should be positioned absolute
+  sbb-dialog:not(:has(> sbb-dialog-title)) > & {
+    position: absolute;
+    z-index: 1;
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
+  }
 }
 
 sbb-notification:has(sbb-title) {

@@ -43,7 +43,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _dialogContentResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => setTimeout(() => this._onContentResize()),
+    callback: () => setTimeout(() => this._updateOverflowState()),
   });
 
   private _dialogContentElement?: HTMLElement;
@@ -163,18 +163,19 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     }
   };
 
-  private _onContentResize(): void {
+  private _updateOverflowState(): void {
     this.toggleState(
       'overflows',
-      this._dialogContentElement
-        ? this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight
-        : false,
+      (this._dialogContentElement?.scrollTop ?? 0) +
+        (this._dialogContentElement?.offsetHeight ?? 0) <
+        (this._dialogContentElement?.scrollHeight ?? 0),
     );
   }
 
   @eventOptions({ passive: true })
   private _detectScrolledState(): void {
     this.toggleState('scrolled', (this._dialogContentElement?.scrollTop ?? 0) > 0);
+    this._updateOverflowState();
   }
 
   protected override render(): TemplateResult {

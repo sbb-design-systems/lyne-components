@@ -21,6 +21,10 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
+  --sbb-dialog-shadow-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-dialog-animation-easing: ease;
   --sbb-dialog-pointer-events: none;
   --sbb-dialog-backdrop-visibility: hidden;
@@ -161,11 +165,15 @@
   gap: var(--sbb-dialog-title-gap);
   background-color: var(--sbb-dialog-background-color);
   padding-inline: var(--sbb-dialog-padding);
-  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-animation-duration);
+  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
   box-shadow: none;
 
-  :host(:is(:state(scrolled), [state--scrolled])) & {
+  :host(:not([negative]):is(:state(scrolled), [state--scrolled])) & {
     @include sbb.shadow-level-5-soft;
+  }
+
+  :host([negative]:is(:state(scrolled), [state--scrolled])) & {
+    @include sbb.shadow-level-5-soft-negative;
   }
 }
 
@@ -212,6 +220,14 @@
 ::slotted(sbb-dialog-close-button) {
   order: 1;
   margin-inline-end: var(--sbb-dialog-close-button-margin);
-  margin-block-start: var(--sbb-dialog-close-button-margin);
+
+  // We have to center the button vertically to the title text.
+  margin-block-start: calc(
+    var(--sbb-dialog-padding-block) + 0.5 *
+      (
+        var(--sbb-typo-line-height-titles) *
+          var(--_sbb-dialog-title-size, var(--sbb-font-size-title-4)) - var(--sbb-size-element-xs)
+      )
+  );
   inset-inline-end: var(--sbb-dialog-close-button-margin);
 }
