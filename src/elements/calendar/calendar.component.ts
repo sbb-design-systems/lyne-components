@@ -721,27 +721,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         this._selected = [day];
       }
 
-      /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
-      this.dispatchEvent(
-        new CustomEvent<T | T[]>('dateselected', {
-          detail: this._selected.map((e) => this._dateAdapter.deserialize(e)!),
-          composed: true,
-          bubbles: true,
-        }),
-      );
+      this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
     } else {
       // In single selection, check if the day is already selected
       if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
         this._selected = day;
-
-        /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
-        this.dispatchEvent(
-          new CustomEvent<T | T[]>('dateselected', {
-            detail: this._dateAdapter.deserialize(day)!,
-            composed: true,
-            bubbles: true,
-          }),
-        );
+        this._emitDateSelectedEvent(this._dateAdapter.deserialize(day)!);
       }
     }
   }
@@ -780,10 +765,17 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       }
     }
 
+    this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
+  }
+
+  /**
+   * Emits the dateselected event given the detail (as T or T[] based on the value of the multiple flag).
+   */
+  private _emitDateSelectedEvent(detail: T | T[]): void {
     /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
     this.dispatchEvent(
       new CustomEvent<T | T[]>('dateselected', {
-        detail: this._selected.map((e) => this._dateAdapter.deserialize(e)!),
+        detail,
         composed: true,
         bubbles: true,
       }),
