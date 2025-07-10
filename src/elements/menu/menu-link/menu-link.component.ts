@@ -16,7 +16,9 @@ export
 @customElement('sbb-menu-link')
 class SbbMenuLinkElement extends SbbDisabledInteractiveMixin(
   SbbMenuActionCommonElementMixin(SbbLinkBaseElement),
-) {}
+) {
+  protected override readonly anchorRole = 'menuitem';
+}
 
 declare global {
   interface HTMLElementTagNameMap {
