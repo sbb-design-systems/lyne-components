@@ -284,6 +284,7 @@ sbb-icon {
     var(--sbb-disable-animation-duration, var(--sbb-button-loading-delay)) linear;
   animation-fill-mode: forwards;
 
+  // Snake
   &::before {
     content: '';
     display: block;

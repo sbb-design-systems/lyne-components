@@ -8,17 +8,16 @@ import {
 } from '../../core/testing/private.js';
 
 import './accent-button.component.js';
-import { aTimeout } from '@open-wc/testing';
 
 // We test only the differences to the sbb-button
 describe(`sbb-accent-button`, () => {
   let root: HTMLElement;
 
   const cases = {
-    disabled: [false],
-    negative: [false],
-    forcedColors: [false],
-    loading: [true],
+    disabled: [false, true],
+    negative: [false, true],
+    forcedColors: [false, true],
+    loading: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
@@ -46,10 +45,8 @@ describe(`sbb-accent-button`, () => {
       for (const state of visualDiffStandardStates) {
         it(
           state.name,
-          state.with(async (setup) => {
+          state.with((setup) => {
             setup.withSnapshotElement(root);
-            await aTimeout(100)
-            debugger;
           }),
         );
       }
