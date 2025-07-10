@@ -89,6 +89,13 @@ export const h6VisualLevel: StoryObj = {
   args: { ...defaultArgs, level: level.options![0], 'visual-level': level.options![5] },
 };
 
+export const sizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  parameters: { isLean: true },
+};
+
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>

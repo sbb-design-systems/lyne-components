@@ -70,6 +70,68 @@ html {
   color: var(--sbb-font-default-color);
 }
 
+html.sbb-lean {
+  sbb-title {
+    &:is([level='1']:not([visual-level]), [visual-level='1']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-2);
+      --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+      --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+    }
+
+    &:is([level='2']:not([visual-level]), [visual-level='2']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-3);
+      --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+      --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+
+      @include mediaqueries.mq($from: medium) {
+        --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+      }
+    }
+
+    &:is([level='3']:not([visual-level]), [visual-level='3']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-4);
+      --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+      --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+
+      @include mediaqueries.mq($from: medium) {
+        --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+      }
+    }
+
+    &:is([level='4']:not([visual-level]), [visual-level='4']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-5);
+      --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+      --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+
+      @include mediaqueries.mq($from: medium) {
+        --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+      }
+    }
+
+    &:is([level='5']:not([visual-level]), [visual-level='5']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-6);
+      --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+      --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+      --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+
+      @include mediaqueries.mq($from: medium) {
+        --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+      }
+    }
+
+    &:is([level='6']:not([visual-level]), [visual-level='6']) {
+      --sbb-title-font-size: var(--sbb-font-size-title-7);
+      --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+      --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
+      --sbb-title-margin-block-end: 0;
+
+      @include mediaqueries.mq($from: medium) {
+        --sbb-title-margin-block-start: var(--sbb-spacing-responsive-s);
+      }
+    }
+  }
+}
+
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 ::placeholder {
   @include typo.placeholder;
