@@ -13,12 +13,12 @@ The `sbb-header-environment` component displays a ribbon inside the header to in
 
 We provide default colors for `dev`, `edu`, `int`, `loc` and `test`. Any other environment is by default of color granite.
 
-It is possible to override the ribbon background color by overriding the `--sbb-header-environment-color` css var.
-Furthermore, the `--sbb-header-environment-text-color` var can be used change the text color.
+It is possible to override the ribbon background color by overriding the `--sbb-header-environment-background-color` css var.
+Furthermore, the `--sbb-header-environment-color` var can be used change the text color.
 
 ```scss
 sbb-header-environment {
-  --sbb-header-environment-color: custom-color;
+  --sbb-header-environment-background-color: custom-color;
 }
 ```
 
@@ -26,10 +26,10 @@ sbb-header-environment {
 
 ## CSS Properties
 
-| Name                                  | Default                  | Description                          |
-| ------------------------------------- | ------------------------ | ------------------------------------ |
-| `--sbb-header-environment-color`      | `var(sbb-color-granite)` | Can be used change the ribbon color. |
-| `--sbb-header-environment-text-color` | `var(sbb-color-white)`   | Can be used change the text color.   |
+| Name                                        | Default                  | Description                          |
+| ------------------------------------------- | ------------------------ | ------------------------------------ |
+| `--sbb-header-environment-background-color` | `var(sbb-color-granite)` | Can be used change the ribbon color. |
+| `--sbb-header-environment-color`            | `var(sbb-color-white)`   | Can be used change the text color.   |
 
 ## Slots
 

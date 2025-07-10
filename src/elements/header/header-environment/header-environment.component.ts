@@ -11,8 +11,8 @@ import style from './header-environment.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add the environment.
  *
- * @cssprop [--sbb-header-environment-color=var(sbb-color-granite)] - Can be used change the ribbon color.
- * @cssprop [--sbb-header-environment-text-color=var(sbb-color-white)] - Can be used change the text color.
+ * @cssprop [--sbb-header-environment-background-color=var(sbb-color-granite)] - Can be used change the ribbon color.
+ * @cssprop [--sbb-header-environment-color=var(sbb-color-white)] - Can be used change the text color.
  */
 export
 @customElement('sbb-header-environment')
