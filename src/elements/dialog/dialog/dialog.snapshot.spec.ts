@@ -26,7 +26,7 @@ describe(`sbb-dialog`, () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
     });
 
     it('Shadow DOM', async () => {
@@ -52,7 +52,7 @@ describe(`sbb-dialog`, () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
     });
 
     it('Shadow DOM', async () => {

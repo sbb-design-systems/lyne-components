@@ -5,7 +5,6 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
 `<sbb-dialog
   backdrop="opaque"
   data-state="opened"
-  id="sbb-dialog-0"
   popover="manual"
 >
   <sbb-dialog-title
@@ -48,7 +47,6 @@ snapshots["sbb-dialog renders an open dialog with close button negative DOM"] =
 `<sbb-dialog
   backdrop="opaque"
   data-state="opened"
-  id="sbb-dialog-3"
   negative=""
   popover="manual"
 >
