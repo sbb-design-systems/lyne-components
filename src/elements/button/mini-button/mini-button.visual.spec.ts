@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -15,10 +15,19 @@ import './mini-button.component.js';
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;
 
-  const cases = {
+  const basicCases = {
     disabled: [false, true],
     negative: [false, true],
+  };
+
+  const cases = {
+    ...basicCases,
     forcedColors: [false, true],
+  };
+
+  const labelCases = {
+    ...basicCases,
+    hasIcon: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
@@ -38,6 +47,7 @@ describe(`sbb-mini-button`, () => {
           `,
           {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            focusOutlineDark: negative,
             forcedColors,
           },
         );
@@ -52,6 +62,34 @@ describe(`sbb-mini-button`, () => {
           }),
         );
       }
+    });
+
+    describe('with label', () => {
+      describeEach(labelCases, ({ disabled, negative, hasIcon }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`<sbb-mini-button
+              ?negative=${negative}
+              ?disabled=${disabled}
+              icon-name=${hasIcon ? 'dog-small' : nothing}
+              >Mini Button Demo</sbb-mini-button
+            >`,
+            {
+              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              focusOutlineDark: negative,
+            },
+          );
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     describe(`disabledInteractive`, () => {
@@ -75,6 +113,7 @@ describe(`sbb-mini-button`, () => {
                   `,
                   {
                     backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    focusOutlineDark: negative,
                   },
                 );
                 setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);
