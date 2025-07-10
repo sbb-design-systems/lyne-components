@@ -41,6 +41,28 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-transparent-button-static disabled>Button</sbb-transparent-button-static>
 ```
 
+### Loading state
+
+The component can be set into a loading state using the `loading` property.
+This should be done by listening to the `click` event on the button and setting
+the loading property to `true` e.g. when waiting for a response from the server.
+After receiving the response, the property should be set back to `false`.
+The loading state will be animated after a delay of 300ms, which can be configured with the
+`--sbb-button-loading-delay` CSS variable.
+
+```html
+<sbb-transparent-button-static
+  @click="${(e: PointerEvent) =>
+  { 
+    const button = e.currentTarget as SbbTransparentButtonStaticElement;
+    button.loading = true;
+    setTimeout(() => (button.loading = false), 4000); 
+  }}"
+>
+  Button
+</sbb-transparent-button-static>
+```
+
 ### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
@@ -60,16 +82,23 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type            | Default            | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean`       | `false`            | Whether the component is disabled.                                                                                               |
-| `iconName` | `icon-name` | public  | `string`        | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `negative` | `negative`  | public  | `boolean`       | `false`            | Negative coloring variant flag.                                                                                                  |
-| `size`     | `size`      | public  | `SbbButtonSize` | `'l' / 's' (lean)` | Size variant, either l, m or s.                                                                                                  |
+| Name       | Attribute   | Privacy | Type            | Default            | Description                                                                                                                                             |
+| ---------- | ----------- | ------- | --------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`       | `false`            | Whether the component is disabled.                                                                                                                      |
+| `iconName` | `icon-name` | public  | `string`        | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                        |
+| `loading`  | `loading`   | public  | `boolean`       | `false`            | Whether the button indicates a loading state. The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable. |
+| `negative` | `negative`  | public  | `boolean`       | `false`            | Negative coloring variant flag.                                                                                                                         |
+| `size`     | `size`      | public  | `SbbButtonSize` | `'l' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                         |
+
+## CSS Properties
+
+| Name                         | Default | Description                                                                                |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `--sbb-button-loading-delay` | `300ms` | The delay before the loading animation starts, when setting the button into loading state. |
 
 ## Slots
 
 | Name   | Description                                                           |
 | ------ | --------------------------------------------------------------------- |
 |        | Use the unnamed slot to add content to the transparent-button-static. |
-| `icon` | Slot used to display the icon, if one is set                          |
+| `icon` | Slot used to display the icon, if one is set.                         |
