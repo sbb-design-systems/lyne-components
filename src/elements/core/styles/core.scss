@@ -548,18 +548,18 @@ sbb-dialog-actions {
 }
 
 // If there is no dialog title, the close button should be positioned absolute
-sbb-dialog:not(:has(sbb-dialog-title)) sbb-dialog-close-button {
+sbb-dialog:not(:has(> sbb-dialog-title)) > sbb-dialog-close-button {
   position: absolute;
   z-index: 1;
 }
 
 // If there is a title, remove top spacing for the content
-sbb-dialog:has(sbb-dialog-title) {
-  --sbb-dialog__padding-block-start: 0;
+sbb-dialog:has(> sbb-dialog-title) > sbb-dialog-content {
+  padding-block-start: 0;
 }
 
 // Hide margin on the ride side. Distance to button is defined by flex gap already.
-sbb-dialog:has(sbb-dialog-close-button) sbb-dialog-title {
+sbb-dialog:has(> sbb-dialog-close-button) > sbb-dialog-title {
   margin-inline-end: 0;
 }
 

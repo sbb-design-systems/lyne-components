@@ -63,7 +63,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   private _triggerAbortController!: AbortController;
 
   protected abstract closeAttribute: string;
-  protected abstract closeTag: string;
+  protected closeTag?: string;
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;

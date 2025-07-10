@@ -19,10 +19,10 @@ class SbbDialogActionsElement extends SbbActionGroupElement {
   public constructor() {
     super();
     /** @default 'm' / 's' (lean) */
-    this.buttonSize = (isLean() ? 's' : 'm') as this['buttonSize'];
+    this.buttonSize = isLean() ? 's' : 'm';
 
     /** @default 's' / 'xs' (lean) */
-    this.linkSize = (isLean() ? 'xs' : 's') as this['linkSize'];
+    this.linkSize = isLean() ? 'xs' : 's';
   }
 
   public override connectedCallback(): void {
