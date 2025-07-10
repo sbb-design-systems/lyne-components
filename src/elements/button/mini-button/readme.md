@@ -111,6 +111,7 @@ guard against such cases in your component.
 
 ## Slots
 
-| Name   | Description                                  |
-| ------ | -------------------------------------------- |
-| `icon` | Slot used to display the icon, if one is set |
+| Name   | Description                                             |
+| ------ | ------------------------------------------------------- |
+|        | Use the unnamed slot to add a label to the mini-button. |
+| `icon` | Slot used to display the icon, if one is set            |
