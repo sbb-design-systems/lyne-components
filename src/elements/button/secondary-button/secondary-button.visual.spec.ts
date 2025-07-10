@@ -17,16 +17,18 @@ describe(`sbb-secondary-button`, () => {
     disabled: [false, true],
     negative: [false, true],
     forcedColors: [false, true],
+    loading: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors }) => {
+    describeEach(cases, ({ disabled, negative, forcedColors, loading }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
             <sbb-secondary-button
               ?disabled=${disabled}
               ?negative=${negative}
+              ?loading=${loading}
               icon-name="arrow-right-small"
             >
               Button

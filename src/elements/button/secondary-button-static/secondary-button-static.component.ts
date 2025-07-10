@@ -9,7 +9,8 @@ import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } 
  * It displays a static button enhanced with the SBB Design in the 'secondary' variant.
  *
  * @slot - Use the unnamed slot to add content to the secondary-button-static.
- * @slot icon - Slot used to display the icon, if one is set
+ * @slot icon - Slot used to display the icon, if one is set.
+ * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
 export
 @customElement('sbb-secondary-button-static')
