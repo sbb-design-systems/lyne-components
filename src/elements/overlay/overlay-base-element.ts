@@ -213,7 +213,11 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
           !target.hasAttribute('disabled'),
       );
 
-    if (!overlayCloseElement || overlayCloseElement.closest(this.localName) !== this) {
+    if (
+      !overlayCloseElement ||
+      (overlayCloseElement.closest(this.localName) !== this &&
+        !this.shadowRoot?.contains(overlayCloseElement))
+    ) {
       return;
     }
 
