@@ -17,23 +17,25 @@ describe(`sbb-transparent-button`, () => {
     disabled: [false, true],
     negative: [false, true],
     forcedColors: [false, true],
+    loading: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors }) => {
+    describeEach(cases, ({ disabled, negative, forcedColors, loading }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
             <sbb-transparent-button
               ?disabled=${disabled}
               ?negative=${negative}
+              ?loading=${loading}
               icon-name="arrow-right-small"
             >
               Button
             </sbb-transparent-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-granite)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },
