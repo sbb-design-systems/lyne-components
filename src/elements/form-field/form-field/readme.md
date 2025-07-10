@@ -150,13 +150,98 @@ If you want to directly show the error state without having had an interaction, 
 
 ## Custom form control
 
-If you want to use a custom form control (e.g. Angular), that is not a native input element or a form
-associated custom element, you need to provide an integration layer, which is defined
+The form field looks for native form controls (i.e. `<input>`, `<select>`
+or `<textarea>`) or form associated custom elements. If nothing matches,
+it assumes the first slotted element is the form control (excluding
+`<label>` and elements with a `slot="*"` attribute).
+
+Once connected, the form field primarily observes the attributes `readonly`,
+`disabled`, `form`, `class` and listens to the `input` and `invalid` event
+on the connected form control to update the internal state accordingly.
+
+If you want to use a custom form control that does not follow that convention
+(e.g. Angular), you need to provide an integration layer, which is defined
 as the `SbbFormFieldElementControl` interface.
 
-To initially connect the custom form control and to update the state, whenever one of
-the property of the interface changes, the `SbbFormFieldControlEvent` needs to be dispatched
-on the `<sbb-form-field>` instance.
+To initially connect the custom form control and to update the state, whenever
+one of the property of the interface changes, the `SbbFormFieldControlEvent`
+needs to be dispatched on the `<sbb-form-field>` instance.
+
+### Example Angular
+
+NOTE: We plan to provide an easier integration for `@sbb-esta/lyne-angular`.
+This example will be adapted once that is available.
+
+```ts
+import { Component, ElementRef, booleanAttribute, OnChanges, SimpleChanges } from '@angular/core';
+import { SbbFormFieldElementControl, SbbFormFieldControlEvent } from '@sbb-esta/lyne-elements/form-field.js';
+
+let nextId = 0;
+
+@Component({
+  selector: 'my-form-control',
+  templateUrl: './my-form-control.html',
+  styleUrl: './my-form-control.scss',
+  host: {
+    '[tabindex]': '0',
+    '[id]': 'id',
+  },
+})
+export class MyFormControl implements SbbFormFieldElementControl, OnChanges {
+  private element = inject(ElementRef<HTMLElement>);
+
+  @Input() id = `my-form-control-${nextId++}`;
+
+  @Input(({ transform: booleanAttribute }) readOnly = false;
+
+  @Input(({ transform: booleanAttribute }) disabled = false;
+
+  get empty() {
+    return Logic to determine whether the control is empty
+  }
+
+  onContainerClick(event: MouseEvent): void {
+    this.element.focus();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.dispatchChange();
+  }
+
+  private dispatchChange(): void {
+    this.element.closest('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
+  }
+}
+```
+
+### Generic example
+
+If you are using another framework or you are using an existing library
+that you need to connect, you can write the integration yourself.
+
+```ts
+import {
+  SbbFormFieldElementControl,
+  SbbFormFieldControlEvent,
+} from '@sbb-esta/lyne-elements/form-field.js';
+
+const formField = document.getElementsByTagName('sbb-form-field')[0];
+const myControl = document.getElementsByTagName('my-form-control')[0];
+
+function onFormControlChange(): void {
+  formField.dispatchEvent(
+    new SbbFormFieldControlEvent({
+      id: myControl.id,
+      disabled: myControl.disabled,
+      empty: myControl.isEmpty,
+      readOnly: myControl.readOnly,
+      onContainerClick: (): void => myControl.focus(),
+    }),
+  );
+}
+
+myControl.addEventListener('custom-change-event', onFormControlChange);
+```
 
 ## Accessibility
 
