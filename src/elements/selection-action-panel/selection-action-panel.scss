@@ -19,7 +19,9 @@
   // to default color for cases where the selection panel is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
-  display: contents;
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
 }
 
 :host([color='milk']) {
@@ -44,15 +46,9 @@
   flex: auto;
 }
 
-::slotted(:is(sbb-secondary-button, [data-action])) {
+::slotted([data-action]) {
   align-self: center;
   margin-inline: var(--sbb-spacing-responsive-xxs);
-}
-
-.sbb-selection-action-panel__wrapper {
-  position: relative;
-  flex: 1 1 auto;
-  width: 100%;
 }
 
 .sbb-selection-action-panel {

@@ -35,13 +35,11 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-selection-action-panel__wrapper">
-        <div class="sbb-selection-action-panel__badge">
-          <slot name="badge"></slot>
-        </div>
-        <div class="sbb-selection-action-panel">
-          <slot></slot>
-        </div>
+      <div class="sbb-selection-action-panel__badge">
+        <slot name="badge"></slot>
+      </div>
+      <div class="sbb-selection-action-panel">
+        <slot></slot>
       </div>
     `;
   }

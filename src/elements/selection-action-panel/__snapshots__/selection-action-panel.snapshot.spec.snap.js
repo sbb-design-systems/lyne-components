@@ -38,15 +38,13 @@ snapshots["sbb-selection-action-panel renders DOM"] =
 /* end snapshot sbb-selection-action-panel renders DOM */
 
 snapshots["sbb-selection-action-panel renders Shadow DOM"] = 
-`<div class="sbb-selection-action-panel__wrapper">
-  <div class="sbb-selection-action-panel__badge">
-    <slot name="badge">
-    </slot>
-  </div>
-  <div class="sbb-selection-action-panel">
-    <slot>
-    </slot>
-  </div>
+`<div class="sbb-selection-action-panel__badge">
+  <slot name="badge">
+  </slot>
+</div>
+<div class="sbb-selection-action-panel">
+  <slot>
+  </slot>
 </div>
 `;
 /* end snapshot sbb-selection-action-panel renders Shadow DOM */
