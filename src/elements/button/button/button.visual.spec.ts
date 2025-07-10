@@ -32,6 +32,10 @@ describe(`sbb-button`, () => {
     negative: [false, true],
   };
 
+  const loadingCases = {
+    negative: [false, true],
+  };
+
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     describeEach(cases, ({ disabled, negative, state }) => {
       beforeEach(async function () {
@@ -56,6 +60,29 @@ describe(`sbb-button`, () => {
           }),
         );
       }
+    });
+
+    describe('loading', () => {
+      describeEach(loadingCases, ({ negative }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html` <sbb-button loading ?negative=${negative}> Loading Button </sbb-button> `,
+            {
+              backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+              focusOutlineDark: negative,
+            },
+          );
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     describeEach(sizeCases, ({ size, icon }) => {
