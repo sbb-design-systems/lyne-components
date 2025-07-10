@@ -6,6 +6,12 @@
   --sbb-title-line-height: var(--sbb-typo-line-height-titles);
   --sbb-title-margin-block-start: 0;
   --sbb-title-margin-block-end: 0;
+  --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
+  --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
+  --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
+  --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
+  --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
+  --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
@@ -22,7 +28,7 @@
 }
 
 @mixin internal-title-1($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-font-size-title-1);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-1);
 }
 
 @mixin title-1($exclude-spacing: false) {
@@ -31,7 +37,7 @@
 }
 
 @mixin internal-title-2($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-font-size-title-2);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-2);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
@@ -44,7 +50,7 @@
 }
 
 @mixin internal-title-3($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-font-size-title-3);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-3);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
@@ -57,7 +63,7 @@
 }
 
 @mixin internal-title-4($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-font-size-title-4);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-4);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
@@ -70,7 +76,7 @@
 }
 
 @mixin internal-title-5($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-font-size-title-5);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-5);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
@@ -83,7 +89,7 @@
 }
 
 @mixin internal-title-6($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-font-size-title-6);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-6);
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 
   @if not($exclude-spacing) {
