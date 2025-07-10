@@ -1,13 +1,22 @@
 import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import { spy } from 'sinon';
 
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { waitForCondition, waitForLitRender } from '../../core/testing.js';
 import { SbbOptionElement } from '../../option.js';
 import { SbbSelectElement } from '../../select.js';
 
-import { SbbFormFieldElement } from './form-field.component.js';
+import {
+  SbbFormFieldControlEvent,
+  SbbFormFieldElement,
+  type SbbFormFieldElementControl,
+} from './form-field.component.js';
+
+type Mutable<T> = {
+  -readonly [P in keyof T]: T[P];
+};
 
 describe(`sbb-form-field`, () => {
   describe('with input', () => {
@@ -455,6 +464,74 @@ describe(`sbb-form-field`, () => {
       await waitForLitRender(element);
 
       expect(Object.getOwnPropertyDescriptor(newInput, 'value')!.set).to.be.equal(originalSetter);
+    });
+  });
+
+  describe('with custom control', () => {
+    let element: SbbFormFieldElement;
+    let input: HTMLElement;
+    let control: Mutable<SbbFormFieldElementControl>;
+
+    beforeEach(async () => {
+      // Workaround for the no-unknown-tag-name error for using sbb-custom-control.
+      (): void => customElements.define('sbb-custom-control', class extends HTMLElement {});
+      // For this test we intentionally use a non defined custom element, which results
+      // in an HTMLUnknownElement.
+      element = await fixture(html`
+        <sbb-form-field>
+          <label>Example</label>
+          <sbb-custom-control></sbb-custom-control>
+        </sbb-form-field>
+      `);
+      input = element.querySelector('sbb-custom-control')!;
+      input.id = 'custom-control-id';
+      input.tabIndex = 0;
+      control = {
+        id: input.id,
+        disabled: false,
+        empty: false,
+        readOnly: false,
+        onContainerClick: (): void => input.focus(),
+      };
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+    });
+
+    it('should reflect correct initial state', async () => {
+      expect(element).to.match(':state(input-type-sbb-custom-control)');
+      expect(element).not.to.match(':state(empty)');
+      expect(element).not.to.match(':state(disabled)');
+      expect(element).not.to.match(':state(readonly)');
+    });
+
+    it('should reflect empty state', async () => {
+      control.empty = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(empty)');
+      expect(element).not.to.match(':state(disabled)');
+      expect(element).not.to.match(':state(readonly)');
+    });
+
+    it('should reflect disabled state', async () => {
+      control.disabled = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).not.to.match(':state(empty)');
+      expect(element).to.match(':state(disabled)');
+      expect(element).not.to.match(':state(readonly)');
+    });
+
+    it('should reflect readOnly state', async () => {
+      control.readOnly = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).not.to.match(':state(empty)');
+      expect(element).not.to.match(':state(disabled)');
+      expect(element).to.match(':state(readonly)');
+    });
+
+    it('should forward container click', async () => {
+      const containerClickSpy = spy(control, 'onContainerClick');
+      element.querySelector('label')!.click();
+      expect(containerClickSpy).to.have.been.calledOnce;
+      expect(input).to.have.focus;
     });
   });
 });
