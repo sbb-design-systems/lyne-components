@@ -50,7 +50,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   private _dialogElement?: HTMLElement;
   private _isPointerDownEventOnDialog: boolean = false;
   protected closeAttribute: string = 'sbb-dialog-close';
-  protected closeTag: string = 'sbb-dialog-close-button';
+  protected override closeTag: string = 'sbb-dialog-close-button';
 
   public constructor() {
     super();
