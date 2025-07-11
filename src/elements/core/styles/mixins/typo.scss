@@ -35,13 +35,12 @@
 
 @mixin internal-title-1($exclude-spacing: false) {
   --sbb-title-font-size: var(--sbb-title-font-size-level-1);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-1);
 }
 
 @mixin title-1($exclude-spacing: false) {
   @include title($exclude-spacing);
   @include internal-title-1($exclude-spacing);
-
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-1);
 }
 
 @mixin internal-title-2($exclude-spacing: false) {
