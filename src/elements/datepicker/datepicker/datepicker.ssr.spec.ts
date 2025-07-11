@@ -16,15 +16,12 @@ import '../../form-field.js';
 describe(`sbb-datepicker ssr`, () => {
   const asIso8601 = (date: Date): string => defaultDateAdapter.toIso8601(date);
 
-  it('renders', async () => {
-    const root = await ssrHydratedFixture(html`<sbb-datepicker></sbb-datepicker>`, {
-      modules: ['./datepicker.component.js'],
-    });
-    assert.instanceOf(root, SbbDatepickerElement);
-  });
+  let root: SbbDatepickerElement;
 
-  it('should render full datepicker component set', async () => {
-    const root = await ssrHydratedFixture(
+  beforeEach(async function () {
+    // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
+    this.timeout(20000);
+    root = await ssrHydratedFixture(
       html`
         <sbb-form-field>
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
@@ -38,6 +35,11 @@ describe(`sbb-datepicker ssr`, () => {
         modules: ['../../date-input.js', '../../datepicker.js', '../../form-field.js'],
       },
     );
+  });
+
+  it('should render full datepicker component set', async () => {
+    const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+    assert.instanceOf(datepicker, SbbDatepickerElement);
 
     const dateInput = root.querySelector<SbbDateInputElement>('sbb-date-input')!;
     expect(asIso8601(dateInput.valueAsDate!)).to.equal(asIso8601(new Date(2023, 0, 1)));
@@ -45,7 +47,6 @@ describe(`sbb-datepicker ssr`, () => {
     const datepickerToggle =
       root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
     await datepickerToggle.updateComplete;
-    const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
     expect(datepickerToggle.datepicker).to.equal(datepicker);
     await waitForLitRender(datepicker);
     expect(datepicker!.shadowRoot?.querySelector('sbb-calendar')).to.not.be.null;
