@@ -9,6 +9,7 @@
   --sbb-expansion-panel-header-cursor: pointer;
   --sbb-expansion-panel-header-text-color: var(--sbb-color-charcoal);
   --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-header-justify-content: space-between;
   --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-6x);
 
@@ -43,7 +44,7 @@
   @include sbb.text-l--regular;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: var(--sbb-expansion-panel-header-justify-content);
   align-items: center;
   gap: var(--sbb-expansion-panel-header-gap);
   width: 100%;
