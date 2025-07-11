@@ -19,7 +19,7 @@ The title can have a `negative` state which is automatically synchronized with t
 | ------------- | -------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
 | `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                                                                        |
 | `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag.                                                    |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'3'`   | Visual level for the title. Optional, if not set, the value of level will be used. |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'4'`   | Visual level for the title. Optional, if not set, the value of level will be used. |
 
 ## Slots
 

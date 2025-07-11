@@ -19,7 +19,12 @@ class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public constructor() {
     super();
     this.level = '2' as this['level'];
-    this.visualLevel = '3' as this['visualLevel'];
+    this.visualLevel = '4' as this['visualLevel'];
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'title-section';
   }
 }
 
