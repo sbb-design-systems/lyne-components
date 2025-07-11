@@ -12,6 +12,12 @@
   --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
   --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
   --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
+  --sbb-title-margin-block-end-level-1: 0;
+  --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
+  --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+  --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
+  --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
+  --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
@@ -34,13 +40,15 @@
 @mixin title-1($exclude-spacing: false) {
   @include title($exclude-spacing);
   @include internal-title-1($exclude-spacing);
+
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-1);
 }
 
 @mixin internal-title-2($exclude-spacing: false) {
   --sbb-title-font-size: var(--sbb-title-font-size-level-2);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-2);
   }
 }
 
@@ -53,7 +61,7 @@
   --sbb-title-font-size: var(--sbb-title-font-size-level-3);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-3);
   }
 }
 
@@ -66,7 +74,7 @@
   --sbb-title-font-size: var(--sbb-title-font-size-level-4);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-4);
   }
 }
 
@@ -79,7 +87,7 @@
   --sbb-title-font-size: var(--sbb-title-font-size-level-5);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-5);
   }
 }
 
@@ -93,7 +101,7 @@
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-6);
   }
 }
 
