@@ -65,7 +65,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    // We need to wait until the first update is complete to init diffrent htlm element dimensions
+    // We need to wait until the first update is complete to init different html element dimensions
     this.updateComplete.then(() => {
       this.initNavigationSelectionByScrollEvent();
     });
