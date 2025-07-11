@@ -18,6 +18,7 @@ import '../../icon.js';
 import '../../option.js';
 import '../../stepper.js';
 import '../dialog-title.js';
+import '../dialog-close-button.js';
 import '../dialog-content.js';
 import '../dialog-actions.js';
 
@@ -594,6 +595,23 @@ describe('sbb-dialog', () => {
       await waitForCondition(() => element.matches(':state(overflows)'));
       expect(element).to.match(':state(overflows)');
     });
+
+    it('should detect scrolled state', async () => {
+      await openDialog(element);
+
+      const scrollContext = element.shadowRoot!.querySelector('.sbb-dialog-content-container')!;
+
+      const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
+
+      await setViewport({ width: 800, height: 200 });
+      await waitForLitRender(element);
+      expect(element).not.to.match(':state(scrolled)');
+
+      scrollContext.scrollTo({ top: 1, behavior: 'instant' });
+      await scrollEventSpy.calledTimes(1);
+
+      expect(element).to.match(':state(scrolled)');
+    });
   });
 
   describe('with autocomplete', () => {
@@ -753,5 +771,53 @@ describe('sbb-dialog', () => {
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
       ).not.to.be.equal('0px');
     });
+  });
+
+  it('should only close most upper dialog when pressing close button', async () => {
+    const root: HTMLElement = await fixture(html`
+      <div>
+        <sbb-button id="button-1">Open dialog</sbb-button>
+        <sbb-dialog id="dialog-1" trigger="button-1">
+          <sbb-dialog-close-button id="close-1"></sbb-dialog-close-button>
+          <sbb-dialog-content>
+            <sbb-button id="button-2">Open nested dialog</sbb-button>
+            <sbb-dialog id="dialog-2" trigger="button-2">
+              <sbb-dialog-close-button id="close-2"></sbb-dialog-close-button>
+            </sbb-dialog>
+          </sbb-dialog-content>
+        </sbb-dialog>
+      </div>
+    `);
+
+    const openButton = root.querySelector<SbbButtonElement>('#button-1')!;
+    const nestedOpenButton = root.querySelector<SbbButtonElement>('#button-2')!;
+    const closeButton = root.querySelector<SbbButtonElement>('#close-1')!;
+    const nestedCloseButton = root.querySelector<SbbButtonElement>('#close-2')!;
+    const dialog = root.querySelector<SbbDialogElement>('#dialog-1')!;
+    const nestedDialog = root.querySelector<SbbDialogElement>('#dialog-2')!;
+    const openSpy = new EventSpy(SbbDialogElement.events.open, dialog);
+    const closeSpy = new EventSpy(SbbDialogElement.events.close, dialog);
+    const nestedOpenSpy = new EventSpy(SbbDialogElement.events.open, nestedDialog);
+    const nestedCloseSpy = new EventSpy(SbbDialogElement.events.close, nestedDialog);
+
+    openButton.click();
+    await openSpy.calledOnce();
+
+    nestedOpenButton.click();
+    await nestedOpenSpy.calledOnce();
+
+    expect(dialog).to.have.attribute('data-state', 'opened');
+    expect(nestedDialog).to.have.attribute('data-state', 'opened');
+
+    nestedCloseButton.click();
+    await nestedCloseSpy.calledOnce();
+
+    expect(dialog).to.have.attribute('data-state', 'opened');
+    expect(nestedDialog).to.have.attribute('data-state', 'closed');
+
+    closeButton.click();
+    await closeSpy.calledOnce();
+    expect(dialog).to.have.attribute('data-state', 'closed');
+    expect(nestedDialog).to.have.attribute('data-state', 'closed');
   });
 });
