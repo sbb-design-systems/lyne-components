@@ -147,33 +147,33 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
 ::part(sbb-sr-place-part) {
 
   // Color definition for text
-  --sbb-reservation-place-control-default-text: var(--sbb-color-black);
-  --sbb-reservation-place-control-hover-text: var(--sbb-color-iron);
-  --sbb-reservation-place-control-focus-text: var(--sbb-color-anthracite);
-  --sbb-reservation-place-control-allocated-text: var(--sbb-color-smoke);
+  --sbb-seat-reservation-place-control-default-text: var(--sbb-color-black);
+  --sbb-seat-reservation-place-control-hover-text: var(--sbb-color-iron);
+  --sbb-seat-reservation-place-control-focus-text: var(--sbb-color-anthracite);
+  --sbb-seat-reservation-place-control-allocated-text: var(--sbb-color-smoke);
 
   // Color background definition for place with state FREE
-  --sbb-reservation-place-control-free-background-default: var(--sbb-color-white);
-  --sbb-reservation-place-control-free-background-hover: var(--sbb-color-cloud);
-  --sbb-reservation-place-control-free-background-focus: var(--sbb-color-silver);
+  --sbb-seat-reservation-place-control-free-background-default: var(--sbb-color-white);
+  --sbb-seat-reservation-place-control-free-background-hover: var(--sbb-color-cloud);
+  --sbb-seat-reservation-place-control-free-background-focus: var(--sbb-color-silver);
 
   // Color background definition for backrest with state FREE
-  --sbb-reservation-place-control-free-backrest-background-default: var(--sbb-color-black);
-  --sbb-reservation-place-control-free-backrest-background-hover: var(--sbb-color-black);
-  --sbb-reservation-place-control-free-backrest-background-focus: var(--sbb-color-black);
+  --sbb-seat-reservation-place-control-free-backrest-background-default: var(--sbb-color-black);
+  --sbb-seat-reservation-place-control-free-backrest-background-hover: var(--sbb-color-black);
+  --sbb-seat-reservation-place-control-free-backrest-background-focus: var(--sbb-color-black);
 
   // Color background definition for place with state SELECTED
-  --sbb-reservation-place-control-selected-background-default: var(--sbb-color-red);
-  --sbb-reservation-place-control-selected-background-hover: var(--sbb-color-red125);
-  --sbb-reservation-place-control-selected-background-focus: var(--sbb-color-red150);
+  --sbb-seat-reservation-place-control-selected-background-default: var(--sbb-color-red);
+  --sbb-seat-reservation-place-control-selected-background-hover: var(--sbb-color-red125);
+  --sbb-seat-reservation-place-control-selected-background-focus: var(--sbb-color-red150);
 
   // Color background definition for backrest with state SELECTED
-  --sbb-reservation-place-control-selected-backrest-background-default: var(--sbb-color-red150);
-  --sbb-reservation-place-control-selected-backrest-background-hover: #7d000f;
-  --sbb-reservation-place-control-selected-backrest-background-focus: #5a000b;
+  --sbb-seat-reservation-place-control-selected-backrest-background-default: var(--sbb-color-red150);
+  --sbb-seat-reservation-place-control-selected-backrest-background-hover: #7d000f;
+  --sbb-seat-reservation-place-control-selected-backrest-background-focus: #5a000b;
 
   // Color background definition for place with state ALLOCATED
-  --sbb-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
+  --sbb-seat-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 }
 ```
 
@@ -181,12 +181,12 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
 
 ```css
 ::part(sbb-sr-place-part) {
-  --sbb-reservation-place-control-selected-background-default: var(--casa-blue);
-  --sbb-reservation-place-control-selected-background-hover: var(--casa-blue);
-  --sbb-reservation-place-control-selected-background-focus: var(--casa-blue);
-  --sbb-reservation-place-control-selected-backrest-background-default: var(--casa-blue-hover);
-  --sbb-reservation-place-control-selected-backrest-background-hover: var(--casa-blue-hover);
-  --sbb-reservation-place-control-selected-backrest-background-focus: var(--casa-blue-hover);
+  --sbb-seat-reservation-place-control-selected-background-default: var(--casa-blue);
+  --sbb-seat-reservation-place-control-selected-background-hover: var(--casa-blue);
+  --sbb-seat-reservation-place-control-selected-background-focus: var(--casa-blue);
+  --sbb-seat-reservation-place-control-selected-backrest-background-default: var(--casa-blue-hover);
+  --sbb-seat-reservation-place-control-selected-backrest-background-hover: var(--casa-blue-hover);
+  --sbb-seat-reservation-place-control-selected-backrest-background-focus: var(--casa-blue-hover);
 }
 ```
 

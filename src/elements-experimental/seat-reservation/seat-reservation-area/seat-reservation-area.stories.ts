@@ -29,7 +29,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  style: '--sbb-reservation-area-width: 100;--sbb-reservation-area-height: 50;',
+  style: '--sbb-seat-reservation-area-width: 100;--sbb-seat-reservation-area-height: 50;',
   background: 'dark',
   mounting: 'free',
 };
@@ -50,7 +50,7 @@ export const width32Height32: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    style: '--sbb-reservation-area-width: 32;--sbb-reservation-area-height: 32;',
+    style: '--sbb-seat-reservation-area-width: 32;--sbb-seat-reservation-area-height: 32;',
   },
 };
 
@@ -59,7 +59,7 @@ export const width160Height64: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    style: '--sbb-reservation-area-width: 160;--sbb-reservation-area-height: 64;',
+    style: '--sbb-seat-reservation-area-width: 160;--sbb-seat-reservation-area-height: 64;',
   },
 };
 
@@ -69,7 +69,7 @@ export const width64Height64Rotation45Deg: StoryObj = {
   args: {
     ...defaultArgs,
     style:
-      '--sbb-reservation-area-width: 64;--sbb-reservation-area-height: 64;--sbb-reservation-area-rotation: 45',
+      '--sbb-seat-reservation-area-width: 64;--sbb-seat-reservation-area-height: 64;--sbb-seat-reservation-area-rotation: 45',
   },
 };
 

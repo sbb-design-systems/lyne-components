@@ -7,8 +7,8 @@
 
 :host {
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
-  --sbb-reservation-grid-size: 16px;
-  --sbb-reservation-coach-height: 0;
+  --sbb-seat-reservation-grid-size: 16px;
+  --sbb-seat-reservation-coach-height: 0;
 
   display: block;
   height: inherit;
@@ -187,16 +187,16 @@
   // and the width of the scrollbar area.
   $coach-scollbar-width: 28;
   $coach-grid-width: calc(
-    calc(var(--sbb-reservation-coach-height) + $coach-scollbar-width) *
-      var(--sbb-reservation-one-px-rem)
+    calc(var(--sbb-seat-reservation-coach-height) + $coach-scollbar-width) *
+      var(--sbb-seat-reservation-one-px-rem)
   );
 
   // $coach-border-width: Describes the approximate width of the wagon edge in the svg
   // and is also set here for the optimised rotation pivot point for rotating. 3 is an optimal value here.
   $coach-border-width: 3;
   $rotation-pivot-point: calc(
-    calc(var(--sbb-reservation-coach-height) / 2 - $coach-border-width) *
-      var(--sbb-reservation-one-px-rem)
+    calc(var(--sbb-seat-reservation-coach-height) / 2 - $coach-border-width) *
+      var(--sbb-seat-reservation-one-px-rem)
   );
 
   grid-template-columns: $coach-grid-width 1fr;

@@ -4,41 +4,41 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-reservation-graphic-width: 16;
-  --sbb-reservation-graphic-height: 16;
-  --sbb-reservation-graphic-rotation: 0;
-  --sbb-reservation-graphic-inverse-rotation: 0;
-  --sbb-reservation-graphic-position: initial;
-  --sbb-reservation-graphic-left: 0;
-  --sbb-reservation-graphic-top: 0;
+  --sbb-seat-reservation-graphic-width: 16;
+  --sbb-seat-reservation-graphic-height: 16;
+  --sbb-seat-reservation-graphic-rotation: 0;
+  --sbb-seat-reservation-graphic-inverse-rotation: 0;
+  --sbb-seat-reservation-graphic-position: initial;
+  --sbb-seat-reservation-graphic-left: 0;
+  --sbb-seat-reservation-graphic-top: 0;
   --sbb-icon-svg-width: calc(
-    var(--sbb-reservation-graphic-width) *
-      var(--sbb-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    var(--sbb-seat-reservation-graphic-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   --sbb-icon-svg-height: calc(
-    var(--sbb-reservation-graphic-height) *
-      var(--sbb-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    var(--sbb-seat-reservation-graphic-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
 
   display: flex;
   justify-content: center;
   align-items: center;
   width: calc(
-    var(--sbb-reservation-graphic-width) *
-      var(--sbb-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    var(--sbb-seat-reservation-graphic-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   height: calc(
-    var(--sbb-reservation-graphic-height) *
-      var(--sbb-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    var(--sbb-seat-reservation-graphic-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
-  position: var(--sbb-reservation-graphic-position);
+  position: var(--sbb-seat-reservation-graphic-position);
   inset-inline-start: calc(
-    var(--sbb-reservation-graphic-left) *
-      var(--sbb-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    var(--sbb-seat-reservation-graphic-left) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   inset-block-start: calc(
-    var(--sbb-reservation-graphic-top) *
-      var(--sbb-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+    var(--sbb-seat-reservation-graphic-top) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
 }
 
@@ -47,13 +47,13 @@
   width: inherit;
   height: inherit;
   transform-origin: center;
-  rotate: calc(var(--sbb-reservation-graphic-rotation) * 1deg);
+  rotate: calc(var(--sbb-seat-reservation-graphic-rotation) * 1deg);
 }
 
 // hover state with pointer cursor for service icons and popover
 .sbb-sr-icon {
   &:hover {
-    cursor: var(--sbb-reservation--cursor-pointer, default);
+    cursor: var(--sbb-seat-reservation--cursor-pointer, default);
   }
 }
 
@@ -69,7 +69,7 @@
 
     .fix-rotation-inverse {
       transform-origin: center;
-      rotate: calc(var(--sbb-reservation-graphic-inverse-rotation) * 1deg);
+      rotate: calc(var(--sbb-seat-reservation-graphic-inverse-rotation) * 1deg);
     }
   }
 
