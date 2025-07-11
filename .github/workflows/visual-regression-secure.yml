@@ -125,8 +125,6 @@ jobs:
             --preserve-path /usr/share/nginx/html \
             --include-new false
           docker push ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER
-          docker tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER-slim
-          docker push ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER-slim
           docker image list
         env:
           DOCKER_BUILDKIT: 1
