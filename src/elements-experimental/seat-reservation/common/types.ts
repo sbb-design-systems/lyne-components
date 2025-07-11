@@ -5,9 +5,9 @@ export type SeatReservation = {
   coachItems: CoachItem[];
 };
 
+/** Describes a coach (wagon) in the reservation. */
 export type CoachItem = {
-  // TODO: All comments in English.
-  // id - Abteilnummer, max 3-stellig; CH-weit eher 2-stellig
+  // id - Compartment number, max. 3 digits; CH-wide usually 2 digits
   id: string;
   number: string;
   dimension: ElementDimension;
@@ -19,6 +19,7 @@ export type CoachItem = {
   propertyIds?: string[];
 };
 
+/** Extends BaseElement with seat-specific data. */
 export interface Place extends BaseElement {
   number: string;
   state: PlaceState;
@@ -29,6 +30,7 @@ export interface Place extends BaseElement {
   selected?: boolean;
 }
 
+/** Base properties for any renderable element within a coach. */
 export type BaseElement = {
   icon?: string | null;
   rotation?: number;
@@ -47,6 +49,7 @@ export type ElementPosition = {
   z: number;
 };
 
+/** Selection info for a single place. */
 export type PlaceSelection = {
   id: string;
   number: string;

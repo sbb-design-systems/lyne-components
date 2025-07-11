@@ -54,20 +54,20 @@ class SbbSeatReservationGraphicElement extends LitElement {
   protected override willUpdate(_changedProperties: PropertyValues): void {
     super.willUpdate(_changedProperties);
     if (_changedProperties.has('width') && !!this.width) {
-      this.style?.setProperty('--sbb-reservation-graphic-width', `${this.width}`);
+      this.style?.setProperty('--sbb-seat-reservation-graphic-width', `${this.width}`);
     }
 
     if (_changedProperties.has('height') && !!this.height) {
-      this.style?.setProperty('--sbb-reservation-graphic-height', `${this.height}`);
+      this.style?.setProperty('--sbb-seat-reservation-graphic-height', `${this.height}`);
     }
 
     if (_changedProperties.has('rotation')) {
-      this.style?.setProperty('--sbb-reservation-graphic-rotation', `${this.rotation}`);
+      this.style?.setProperty('--sbb-seat-reservation-graphic-rotation', `${this.rotation}`);
     }
 
     if (_changedProperties.has('inverseRotation')) {
       this.style?.setProperty(
-        '--sbb-reservation-graphic-inverse-rotation',
+        '--sbb-seat-reservation-graphic-inverse-rotation',
         `${this.inverseRotation}`,
       );
     }

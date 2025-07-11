@@ -306,11 +306,6 @@ const chassisTable = html`
             TODO: check if still in use, may be deleted
           </td>
         </tr>
-        <tr>
-          <td>${svgImageByOSDMCode('TABLE')}</td>
-          <td>Table</td>
-          <td>TABLE</td>
-        </tr>
       </tbody>
     </table>
   </sbb-table-wrapper>

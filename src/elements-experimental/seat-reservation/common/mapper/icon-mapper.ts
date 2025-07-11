@@ -63,8 +63,6 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   SKI_AREA: { svgName: 'sa-sa' },
   SKI_ICON: { svgName: 'sa-sa' },
   STAIR_AREA: { svgName: 'sa-ac' },
-  TABLE: { svg: svgs.interiorTable },
-  TABLE_RESTAURANT: { svg: svgs.interiorTable },
   TOILET_AREA: { svgName: 'sa-wc' },
   TOILET_ICON: { svgName: 'sa-wc' },
   TOILET_WHEELCHAIR_AREA: { svgName: 'sa-rw' },
