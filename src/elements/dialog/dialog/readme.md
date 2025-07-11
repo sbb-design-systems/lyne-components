@@ -1,11 +1,9 @@
-The `sbb-dialog` component provides a way to present content on top of the app's content.
-It offers the following features:
+The `sbb-dialog` component provides a way to present content on top of the app's content mainly to interact with the user.
 
-- creates a backdrop for disabling interaction below the modal;
-- disables scrolling of the page content while open;
-- manages focus properly by setting it on the first focusable element;
-- can host a [sbb-dialog-actions](/docs/elements-sbb-dialog-sbb-dialog-actions--docs) component in the footer;
-- adds the appropriate ARIA roles automatically.
+The component creates a backdrop to prevent interaction with content behind the modal, disables page scrolling while open,
+manages focus by setting it to the first focusable element, and automatically adds the appropriate ARIA roles.
+
+The dialog should always consist of a title and content. Optionally, a close button and actions can be provided.
 
 ```html
 <sbb-dialog>
@@ -14,16 +12,35 @@ It offers the following features:
 </sbb-dialog>
 ```
 
-## Slots
+## Close button
 
-There are three slots: `title`, `content` and `actions`, which can respectively be used to provide an `sbb-dialog-title`, `sbb-dialog-content` and an `sbb-dialog-actions`.
+The close button can optionally be slotted into the `<sbb-dialog>`. Refer to the Accessibility section to check
+how to use the close button effectively.
 
 ```html
 <sbb-dialog>
   <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-close-button></sbb-dialog-close-button>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-actions>
-    <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
+    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
+  </sbb-dialog-actions>
+</sbb-dialog>
+```
+
+## Slots
+
+Consumers don't need to directly assign any slots; the dedicated components take care of assigning the correct slot.
+
+The component supports slotting the `sbb-dialog-title`, `sbb-dialog-close-button`, `sbb-dialog-content` and an `sbb-dialog-actions` elements.
+
+```html
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-close-button></sbb-dialog-close-button>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-actions>
     <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
   </sbb-dialog-actions>
@@ -49,8 +66,8 @@ To dismiss the dialog, you need to call
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
 emit a close event with an optional result as a payload.
 
-The component can also be dismissed by clicking on the backdrop, pressing the `Esc` key,
-or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
+The component can be dismissed by clicking on the backdrop, pressing the `Esc` key or clicking the slotted `sbb-dialog-close-button`.
+Alternatively, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, it can be dismissed by clicking on that element.
 
 ## Style
 
@@ -65,10 +82,19 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Accessibility
 
+We recommend to place at maximum two actions in the `sbb-dialog-actions` component.
+More elements can potentially confuse users.
+
+If there is more complex content than just a simple text / question, we recommend to slot the `sbb-dialog-close-button`.
+This either provides an initial focus at the dialog start and also provides as a second exit possibility.
+
 ### Controlling initial focus
 
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
 If the attribute is not used, the first focusable element receives focus.
+In case there is no `sbb-dialog-close-button` and complex content,
+there should be a focusable element at the dialog start, e.g. the title itself.
+This prevents screen reader users having to navigate backwards from the dialog actions.
 
 ### Focus restoration
 
