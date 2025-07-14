@@ -486,6 +486,7 @@ export class SeatReservationBaseElement extends LitElement {
         if (currPlace.state !== 'FREE') {
           return acc;
         }
+
         // Count up depending on seat type
         if (currPlace.type === 'SEAT') {
           acc.seats++;
