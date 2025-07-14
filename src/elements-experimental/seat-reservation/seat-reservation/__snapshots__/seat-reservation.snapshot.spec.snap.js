@@ -1,18 +1,18 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-seat-reservation renders DOM"] =
+snapshots["sbb-seat-reservation renders DOM"] = 
 `<sbb-seat-reservation style="--sbb-seat-reservation-grid-size: 16px; --sbb-seat-reservation-one-px-rem: 0.0625rem;">
 </sbb-seat-reservation>
 `;
 /* end snapshot sbb-seat-reservation renders DOM */
 
-snapshots["sbb-seat-reservation renders Shadow DOM"] =
+snapshots["sbb-seat-reservation renders Shadow DOM"] = 
 `<div class="sbb-sr__container">
   <div class="sbb-sr sbb-sr__grid">
     <div class="sbb-sr-navigation-first-grid">
       <sbb-secondary-button
-        aria-label="en:Beginn der Grafische Sitzplatzreservierung"
+        aria-label="Start Graphic Seat Reservation"
         class="sbb-sr__navigation-control-button"
         data-action=""
         data-button=""
@@ -36,7 +36,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
               id="sbb-sr-navigation"
             >
               <ul
-                aria-label="Seat reservation Navigation"
+                aria-label="Seat reservation navigation"
                 class="sbb-sr-navigation__list-coaches"
                 id="sbb-sr__navigation-list-coaches"
               >
@@ -63,7 +63,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
     </div>
     <div class="sbb-sr-navigation-last-grid">
       <sbb-secondary-button
-        aria-label="en:Verlassen der Grafische Sitzplatzreservierung"
+        aria-label="Exit Graphic Seat Reservation"
         class="sbb-sr__navigation-control-button"
         data-action=""
         data-button=""
@@ -83,7 +83,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
 `;
 /* end snapshot sbb-seat-reservation renders Shadow DOM */
 
-snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
+snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -91,12 +91,12 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
   "children": [
     {
       "role": "contentinfo",
-      "name": "en:Beginn der Grafische Sitzplatzreservierung",
+      "name": "Start Graphic Seat Reservation",
       "disabled": true
     },
     {
       "role": "list",
-      "name": "Seat reservation Navigation"
+      "name": "Seat reservation navigation"
     },
     {
       "role": "generic",
@@ -104,7 +104,7 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
     },
     {
       "role": "contentinfo",
-      "name": "en:Verlassen der Grafische Sitzplatzreservierung",
+      "name": "Exit Graphic Seat Reservation",
       "disabled": true
     }
   ]
@@ -113,7 +113,7 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-seat-reservation renders A11y tree Chrome */
 
-snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
+snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -121,7 +121,7 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
   "children": [
     {
       "role": "landmark",
-      "name": "en:Beginn der Grafische Sitzplatzreservierung",
+      "name": "Start Graphic Seat Reservation",
       "disabled": true
     },
     {
@@ -130,7 +130,7 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
       "children": [
         {
           "role": "list",
-          "name": "Seat reservation Navigation"
+          "name": "Seat reservation navigation"
         }
       ]
     },
@@ -140,7 +140,7 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
     },
     {
       "role": "landmark",
-      "name": "en:Verlassen der Grafische Sitzplatzreservierung",
+      "name": "Exit Graphic Seat Reservation",
       "disabled": true
     }
   ]
