@@ -1399,8 +1399,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                           class="sbb-calendar__header-cell sbb-calendar__weekday"
                           aria-label=${day.long}
                           @click=${(event: PointerEvent) => {
+                            // NOTE: Sundays have index 7, while their weekDayValue is 0
                             const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
-                              (day: Day<T>) => day.weekDayValue === index + 1,
+                              (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
                             )!;
                             this._selectMultipleDates(event, days);
                           }}
