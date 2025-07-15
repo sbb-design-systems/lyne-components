@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
-import type { __nameUpperCase__ } from './__noPrefixName__.js';
-import './__noPrefixName__.js';
+import type { __nameUpperCase__ } from './__noPrefixName__.component.js';
+import './__noPrefixName__.component.js';
 
 describe(`__name__`, () => {
   describe('renders', () => {
