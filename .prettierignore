@@ -6,4 +6,4 @@ dist
 CHANGELOG.md
 
 # needed for apexes in `HTMLElementTagNameMap`, which otherwise would be stripped
-tools/generate-component/boilerplate/component.ts
+tools/generate-component/boilerplate/component.component.ts
