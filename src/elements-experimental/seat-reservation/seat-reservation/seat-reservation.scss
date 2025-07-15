@@ -1,5 +1,4 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
-@use '@sbb-esta/lyne-elements/core/styles/mixins/popover';
 @use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
@@ -27,7 +26,7 @@
 @include sbb-sr-mixins.rotate-dom-part(coach-floor);
 
 [popover]:where(sbb-popover) {
-  @include popover.popover-reset;
+  @include sbb.popover-reset;
 }
 
 .sbb-sr__container {
