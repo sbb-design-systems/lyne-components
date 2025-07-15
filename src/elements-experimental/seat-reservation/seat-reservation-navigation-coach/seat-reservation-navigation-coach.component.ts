@@ -52,8 +52,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Number })
   public accessor index: number = 0;
 
-  @forceType()
-  public accessor coachNumberOfFreePlaces: CoachNumberOfFreePlaces = {};
+  /** Representation of places available for selecting, counting seat places and bycicle places separetely */
+  @property({ attribute: 'free-places-by-type', type: Object })
+  public accessor freePlacesByType: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
 
   /** Travel class of the coach */
   @property({ attribute: 'travel-class', type: Array })
@@ -223,7 +224,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const freePlacesTxt = getI18nSeatReservation(
       'COACH_AVAILABLE_NUMBER_OF_PLACES',
       this._language.current,
-      [this.coachNumberOfFreePlaces?.seats || 0, this.coachNumberOfFreePlaces?.bicycle || 0],
+      [this.freePlacesByType.seats, this.freePlacesByType.bicycles],
     );
     label = label.concat('. ').concat(freePlacesTxt).concat('. ');
     return label;

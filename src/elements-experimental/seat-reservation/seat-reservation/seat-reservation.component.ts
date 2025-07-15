@@ -182,7 +182,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 })}"
                 index="${index}"
                 coach-id="${coachItem.id}"
-                .availablePlacesNum="${coachFreePlaces}"
+                .freePlacesByType="${coachFreePlaces}"
                 .selected=${this.selectedCoachIndex === index}
                 .focused=${this.focusedCoachIndex === index}
                 .propertyIds="${coachItem.propertyIds}"
@@ -630,7 +630,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const freePlacesTxt = getI18nSeatReservation(
         'COACH_AVAILABLE_NUMBER_OF_PLACES',
         this._language.current,
-        [freePlaces.seats, freePlaces.bicycle],
+        [freePlaces.seats, freePlaces.bicycles],
       );
       tableCoachDescription = tableCoachDescription.concat('. ').concat(freePlacesTxt).concat('. ');
     }

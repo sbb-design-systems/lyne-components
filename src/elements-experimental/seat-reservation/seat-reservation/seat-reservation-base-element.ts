@@ -10,6 +10,7 @@ import {
 } from '../common/mapper.js';
 import type {
   CoachItem,
+  CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
   Place,
@@ -465,27 +466,26 @@ export class SeatReservationBaseElement extends LitElement {
    * Counts all available seats together depending on the seat type
    *
    * @param coachIndex
-   * @returns Array with the numbers of free seats (Array index 0) and free bicycle places (Array index 1)
+   * @returns An Object with count of free seats and free bicycle places
    */
-  protected getAvailableFreePlacesNumFromCoach(
-    coachIndex: number,
-  ): Record<string, number> | undefined {
-    return this.seatReservation.coachItems[coachIndex].places?.reduce(
-      (acc: Record<string, number>, currPlace: Place) => {
+  protected getAvailableFreePlacesNumFromCoach(coachIndex: number): CoachNumberOfFreePlaces {
+    const accumulator: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
+    const freePlaces = this.seatReservation.coachItems[coachIndex].places?.reduce(
+      (accumulator, currPlace: Place) => {
         if (currPlace.state !== 'FREE') {
-          return acc;
+          return accumulator;
         }
-
         // Count up depending on seat type
         if (currPlace.type === 'SEAT') {
-          acc.seats++;
+          accumulator.seats++;
         } else {
-          acc.bicycle++;
+          accumulator.bicycles++;
         }
-        return acc;
+        return accumulator;
       },
-      { seats: 0, bicycle: 0 },
+      accumulator,
     );
+    return freePlaces ? freePlaces : accumulator;
   }
 
   /**
@@ -940,7 +940,8 @@ export class SeatReservationBaseElement extends LitElement {
     if (!this.seatReservation.coachItems[coachIndex]) return null;
 
     const coach = this.seatReservation.coachItems[coachIndex];
-    return mapCoachInfosToCoachSelection(coachIndex, coach);
+    const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coachIndex);
+    return mapCoachInfosToCoachSelection(coachIndex, coach, coachNumberOfFreePlaces);
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {
