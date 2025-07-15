@@ -13,7 +13,7 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
-import { __nameUpperCase__ } from './__noPrefixName__.js';
+import { __nameUpperCase__ } from './__noPrefixName__.component.js';
 import readme from './readme.md?raw';
 
 const myProp: InputType = {
