@@ -51,8 +51,8 @@ export type ElementPosition = {
 
 /* Info about */
 export type CoachNumberOfFreePlaces = {
-  seats?: number;
-  bicycle?: number;
+  seats: number;
+  bicycles: number;
 };
 
 /** Selection info for a single place. */
