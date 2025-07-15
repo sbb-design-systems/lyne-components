@@ -10,6 +10,7 @@ import {
 } from '../common/mapper.js';
 import type {
   CoachItem,
+  CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
   Place,
@@ -386,6 +387,107 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
+  protected focusPlaceElement(place: Place | null, coachIndex?: number): void {
+    this.unfocusPlaceElement();
+    if (place) {
+      this.currSelectedPlace = place;
+      if (coachIndex) {
+        this.currSelectedCoachIndex = coachIndex;
+      }
+
+      this._setCurrSelectedPlaceElementId(place);
+
+      const selectedPlaceElement = this._getPlaceHtmlElement();
+      if (selectedPlaceElement) {
+        selectedPlaceElement.setAttribute('keyfocus', 'focus');
+      }
+    }
+  }
+
+  protected unfocusPlaceElement(): void {
+    const selectedPlaceElement = this._getPlaceHtmlElement();
+    if (selectedPlaceElement) {
+      selectedPlaceElement.setAttribute('keyfocus', 'unfocus');
+      this._setCurrSelectedPlaceElementId(null);
+      this.currSelectedPlace = null;
+    }
+  }
+
+  protected getCalculatedDimension(
+    elementDimension: ElementDimension,
+    coachDimension?: ElementDimension,
+    isOriginHeight?: boolean,
+    isStretchHeight?: boolean,
+  ): ElementDimension {
+    if (coachDimension && !isOriginHeight) {
+      // Since the height of the coach has been visually expanded to maintain a distance between the border of the coach and the places,
+      // some graphics must also be adapted to the height, which end with the borders of the choach
+      elementDimension.h += this.coachBorderOffset * 2;
+    }
+
+    if (isStretchHeight) {
+      // In the case of graphics are assigned directly at the border of the coach,
+      // these graphics must be expanded in height by a coachBorderOffset in order to reach their original visual position
+      elementDimension.h += this.coachBorderOffset;
+    }
+
+    return {
+      w: this.baseGridSize * elementDimension.w,
+      h: this.baseGridSize * elementDimension.h,
+    };
+  }
+
+  protected getCalculatedPosition(
+    elementPosition: ElementPosition,
+    elementDimension?: ElementDimension,
+    coachDimension?: ElementDimension,
+    isOriginHeight?: boolean,
+  ): ElementPosition {
+    if (coachDimension && elementDimension) {
+      const endPosHeight = isOriginHeight
+        ? coachDimension.h
+        : coachDimension.h + this.coachBorderOffset;
+      // If the original element is positioned at the top or bottom of the coach, we need to recalculate the Y coordinate with the additional border padding
+      if (elementPosition.y === 0) {
+        elementPosition.y -= this.coachBorderOffset;
+      } else if (elementPosition.y + elementDimension.h === endPosHeight) {
+        elementPosition.y += this.coachBorderOffset;
+      }
+    }
+
+    return {
+      x: this.baseGridSize * elementPosition.x,
+      y: this.baseGridSize * elementPosition.y,
+      z: elementPosition.z,
+    };
+  }
+
+  /**
+   * Counts all available seats together depending on the seat type
+   *
+   * @param coachIndex
+   * @returns An Object with count of free seats and free bicycle places
+   */
+  protected getAvailableFreePlacesNumFromCoach(coachIndex: number): CoachNumberOfFreePlaces {
+    const accumulator: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
+    const freePlaces = this.seatReservation.coachItems[coachIndex].places?.reduce(
+      (accumulator, currPlace: Place) => {
+        if (currPlace.state !== 'FREE') {
+          return accumulator;
+        }
+        // Count up depending on seat type
+        if (currPlace.type === 'SEAT') {
+          accumulator.seats++;
+        } else {
+          accumulator.bicycles++;
+        }
+        return accumulator;
+      },
+      accumulator,
+    );
+    return freePlaces ? freePlaces : accumulator;
+  }
+
   /**
    * Performs an automatic main navigation scroll to the specified selectedNavCoachIndex.
    * Calculates the central scroll offset of the nav coach to be selected.
@@ -594,81 +696,6 @@ export class SeatReservationBaseElement extends LitElement {
       }
     }
     return closestPlace;
-  }
-
-  protected focusPlaceElement(place: Place | null, coachIndex?: number): void {
-    this.unfocusPlaceElement();
-    if (place) {
-      this.currSelectedPlace = place;
-      if (coachIndex) {
-        this.currSelectedCoachIndex = coachIndex;
-      }
-
-      this._setCurrSelectedPlaceElementId(place);
-
-      const selectedPlaceElement = this._getPlaceHtmlElement();
-      if (selectedPlaceElement) {
-        selectedPlaceElement.setAttribute('keyfocus', 'focus');
-      }
-    }
-  }
-
-  protected unfocusPlaceElement(): void {
-    const selectedPlaceElement = this._getPlaceHtmlElement();
-    if (selectedPlaceElement) {
-      selectedPlaceElement.setAttribute('keyfocus', 'unfocus');
-      this._setCurrSelectedPlaceElementId(null);
-      this.currSelectedPlace = null;
-    }
-  }
-
-  protected getCalculatedDimension(
-    elementDimension: ElementDimension,
-    coachDimension?: ElementDimension,
-    isOriginHeight?: boolean,
-    isStretchHeight?: boolean,
-  ): ElementDimension {
-    if (coachDimension && !isOriginHeight) {
-      // Since the height of the coach has been visually expanded to maintain a distance between the border of the coach and the places,
-      // some graphics must also be adapted to the height, which end with the borders of the choach
-      elementDimension.h += this.coachBorderOffset * 2;
-    }
-
-    if (isStretchHeight) {
-      // In the case of graphics are assigned directly at the border of the coach,
-      // these graphics must be expanded in height by a coachBorderOffset in order to reach their original visual position
-      elementDimension.h += this.coachBorderOffset;
-    }
-
-    return {
-      w: this.baseGridSize * elementDimension.w,
-      h: this.baseGridSize * elementDimension.h,
-    };
-  }
-
-  protected getCalculatedPosition(
-    elementPosition: ElementPosition,
-    elementDimension?: ElementDimension,
-    coachDimension?: ElementDimension,
-    isOriginHeight?: boolean,
-  ): ElementPosition {
-    if (coachDimension && elementDimension) {
-      const endPosHeight = isOriginHeight
-        ? coachDimension.h
-        : coachDimension.h + this.coachBorderOffset;
-      // If the original element is positioned at the top or bottom of the coach, we need to recalculate the Y coordinate with the additional border padding
-      if (elementPosition.y === 0) {
-        elementPosition.y -= this.coachBorderOffset;
-      } else if (elementPosition.y + elementDimension.h === endPosHeight) {
-        elementPosition.y += this.coachBorderOffset;
-      }
-    }
-
-    return {
-      x: this.baseGridSize * elementPosition.x,
-      y: this.baseGridSize * elementPosition.y,
-      z: elementPosition.z,
-    };
   }
 
   // Handling for Tab navigation if an place is selected inside the coach.
@@ -913,7 +940,8 @@ export class SeatReservationBaseElement extends LitElement {
     if (!this.seatReservation.coachItems[coachIndex]) return null;
 
     const coach = this.seatReservation.coachItems[coachIndex];
-    return mapCoachInfosToCoachSelection(coachIndex, coach);
+    const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coachIndex);
+    return mapCoachInfosToCoachSelection(coachIndex, coach, coachNumberOfFreePlaces);
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {

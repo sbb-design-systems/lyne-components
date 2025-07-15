@@ -1,5 +1,6 @@
 import type {
   CoachItem,
+  CoachNumberOfFreePlaces,
   Place,
   PlaceSelection,
   PlaceTravelClass,
@@ -146,11 +147,13 @@ export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
  * Mapped coach information to coach selection
  * @param coachIndex
  * @param coach
+ * @param coachNumberOfFreePlaces
  * @returns PlaceSelection
  */
 export const mapCoachInfosToCoachSelection = (
   coachIndex: number,
   coach: CoachItem,
+  coachNumberOfFreePlaces: CoachNumberOfFreePlaces,
 ): SeatReservationCoachSelection => {
   return {
     coachId: coach.id,
@@ -159,5 +162,6 @@ export const mapCoachInfosToCoachSelection = (
     coachType: coach?.type,
     coachTravelClass: coach?.travelClass,
     coachPropertyIds: coach?.propertyIds,
+    coachNumberOfFreePlaces: coachNumberOfFreePlaces,
   };
 };
