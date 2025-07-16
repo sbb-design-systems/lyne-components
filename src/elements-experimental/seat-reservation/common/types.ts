@@ -61,6 +61,7 @@ export type PlaceSelection = {
   number: string;
   coachIndex: number;
   state: PlaceState;
+  placeType: PlaceType;
 };
 
 export type SeatReservationPlaceSelection = {

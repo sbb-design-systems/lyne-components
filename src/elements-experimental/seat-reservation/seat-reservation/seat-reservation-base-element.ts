@@ -32,7 +32,10 @@ interface CoachScrollTriggerPoint {
   width: number;
 }
 
-export type SeatReservationSelectedPlacesEventDetails = SeatReservationPlaceSelection[];
+export type SeatReservationSelectedPlacesEventDetails = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
+};
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
@@ -66,8 +69,13 @@ export class SeatReservationBaseElement extends LitElement {
 
   /** Maximal number of possible clickable seats */
   @forceType()
-  @property({ attribute: 'max-reservations', type: Number })
-  public accessor maxReservations: number = null!;
+  @property({ attribute: 'max-seat-reservations', type: Number })
+  public accessor maxSeatReservations: number = -1;
+
+  /** Maximal number of possible clickable bicycle places */
+  @forceType()
+  @property({ attribute: 'max-bicycle-reservations', type: Number })
+  public accessor maxBicycleReservations: number = -1;
 
   /** Any click functionality is prevented */
   @forceType()
@@ -105,7 +113,10 @@ export class SeatReservationBaseElement extends LitElement {
   protected currSelectedPlaceElementId: string | null = null;
   protected currSelectedCoachIndex: number = -1;
   protected preventCoachScrollByPlaceClick: boolean = false;
-  protected selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
+  protected selectedSeatReservationPlaces: SeatReservationSelectedPlacesEventDetails = {
+    seats: [],
+    bicycles: [],
+  };
   protected seatReservationWithoutNavigationHasFocus = false;
   protected isCoachGridFocusable = false;
   protected isAutoScrolling = false;
@@ -825,23 +836,18 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   protected updateSelectedSeatReservationPlaces(placeSelection: PlaceSelection): void {
-    // Add selected place to selectedSeatReservationPlaces
-    if (placeSelection.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
-      if (seatReservationSelection) {
-        this.selectedSeatReservationPlaces.push(seatReservationSelection);
-      }
-    }
-    // Remove selected place from selectedSeatReservationPlaces
-    else {
-      this.selectedSeatReservationPlaces = this.selectedSeatReservationPlaces.filter(
-        (_selectedPlace) => _selectedPlace.id !== placeSelection.id,
+    if (placeSelection.placeType === 'SEAT') {
+      this.selectedSeatReservationPlaces.seats = this._updateSelectedSeatReservationPlaces(
+        this.selectedSeatReservationPlaces.seats,
+        this.maxSeatReservations,
+        placeSelection,
       );
-    }
-
-    // Checks whether maxReservation is activated and the maximum number of selected places is reached
-    if (this.maxReservations && this.selectedSeatReservationPlaces.length > this.maxReservations) {
-      this._resetAllPlaceSelections(placeSelection);
+    } else {
+      this.selectedSeatReservationPlaces.bicycles = this._updateSelectedSeatReservationPlaces(
+        this.selectedSeatReservationPlaces.bicycles,
+        this.maxBicycleReservations,
+        placeSelection,
+      );
     }
 
     /**
@@ -855,6 +861,44 @@ export class SeatReservationBaseElement extends LitElement {
         detail: this.selectedSeatReservationPlaces,
       }),
     );
+  }
+
+  private _updateSelectedSeatReservationPlaces(
+    selectedSeatReservationPlaces: SeatReservationPlaceSelection[],
+    maxReservations: number,
+    placeSelection: PlaceSelection,
+  ): SeatReservationPlaceSelection[] {
+    // Add selected place to selectedSeatReservationPlaces
+    if (placeSelection.state === 'SELECTED') {
+      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
+      if (seatReservationSelection) {
+        selectedSeatReservationPlaces.push(seatReservationSelection);
+      }
+    }
+    // Remove selected place from selectedSeatReservationPlaces
+    else {
+      selectedSeatReservationPlaces = selectedSeatReservationPlaces.filter(
+        (_selectedPlace) => _selectedPlace.id !== placeSelection.id,
+      );
+    }
+
+    // Checks whether maxReservation is activated and the maximum number of selected places is reached
+    if (maxReservations > -1 && selectedSeatReservationPlaces.length > maxReservations) {
+      if (maxReservations === 0) {
+        // if maxReservation is 0(not allowed to select any place of given type), resets currently selected place
+        selectedSeatReservationPlaces = this._resetAllPlaceSelections(
+          selectedSeatReservationPlaces,
+        );
+      } else {
+        // otherwise resets all places except given one
+        selectedSeatReservationPlaces = this._resetAllPlaceSelections(
+          selectedSeatReservationPlaces,
+          placeSelection,
+        );
+      }
+    }
+
+    return selectedSeatReservationPlaces;
   }
 
   protected updateCurrentSelectedPlaceInCoach(placeSelection: PlaceSelection): void {
@@ -907,19 +951,27 @@ export class SeatReservationBaseElement extends LitElement {
           );
           const seatReservationPlaceSelection: SeatReservationPlaceSelection | null =
             this._getSeatReservationPlaceSelection(preselectedPlaceSelection);
-          if (seatReservationPlaceSelection)
-            this.selectedSeatReservationPlaces.push(seatReservationPlaceSelection);
+          if (seatReservationPlaceSelection) {
+            if (seatReservationPlaceSelection.placeType === 'SEAT') {
+              this.selectedSeatReservationPlaces.seats.push(seatReservationPlaceSelection);
+            } else {
+              this.selectedSeatReservationPlaces.bicycles.push(seatReservationPlaceSelection);
+            }
+          }
         });
     });
   }
-
   /**
    * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
+   * @param reservationPlaceSelections
    * @param currSelectedPlace
    */
-  private _resetAllPlaceSelections(currSelectedPlace?: PlaceSelection): void {
+  private _resetAllPlaceSelections(
+    reservationPlaceSelections: SeatReservationPlaceSelection[],
+    currSelectedPlace?: PlaceSelection,
+  ): SeatReservationPlaceSelection[] {
     //Find all places to be needed unselect
-    for (const placeSelection of this.selectedSeatReservationPlaces) {
+    for (const placeSelection of reservationPlaceSelections) {
       if (!currSelectedPlace || currSelectedPlace.id !== placeSelection.id) {
         const placeElement = this.shadowRoot?.getElementById(placeSelection.id) as HTMLElement;
         placeElement.setAttribute('state', 'FREE');
@@ -927,12 +979,13 @@ export class SeatReservationBaseElement extends LitElement {
     }
     //Removes all selected places except the currently selected place
     if (currSelectedPlace) {
-      this.selectedSeatReservationPlaces = this.selectedSeatReservationPlaces.filter(
+      reservationPlaceSelections = reservationPlaceSelections.filter(
         (_selectedPlace) => _selectedPlace.id === currSelectedPlace.id,
       );
     } else {
-      this.selectedSeatReservationPlaces = [];
+      reservationPlaceSelections = [];
     }
+    return reservationPlaceSelections;
   }
 
   private _getSeatReservationPlaceSelection(

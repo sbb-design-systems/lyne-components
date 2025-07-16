@@ -18,7 +18,12 @@ const seatReservationType: InputType = {
   description: 'Seat reservation Object',
 };
 
-const maxReservationType: InputType = {
+const maxSeatReservationsType: InputType = {
+  control: { type: 'number' },
+  description: 'Maximal number of possible clickable seats',
+};
+
+const maxBicycleReservationsType: InputType = {
   control: { type: 'number' },
   description: 'Maximal number of possible clickable seats',
 };
@@ -52,7 +57,8 @@ const baseGridSizeType: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   seatReservation: seatReservationType,
-  'max-reservations': maxReservationType,
+  'max-seat-reservations': maxSeatReservationsType,
+  'max-bicycle-reservations': maxBicycleReservationsType,
   'has-navigation': navigationType,
   'align-vertical': alignVerticalType,
   'base-grid-size': baseGridSizeType,
@@ -63,7 +69,8 @@ const defaultArgTypes: ArgTypes = {
 const mappedSeatReservationTrain = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
   seatReservation: mappedSeatReservationTrain,
-  'max-reservations': 4,
+  'max-seat-reservations': 4,
+  'max-bicycle-reservations': 3,
   'has-navigation': true,
   'align-vertical': false,
   'base-grid-size': 16,
@@ -87,7 +94,7 @@ const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');
 const busArgs: Args = {
   seatReservation: mappedSeatReservationBus,
   'has-navigation': true,
-  'max-reservations': 4,
+  'max-seat-reservations': 4,
   'align-vertical': false,
   'prevent-place-click': false,
 };
