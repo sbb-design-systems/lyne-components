@@ -1,23 +1,23 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-seat-reservation-navigation-services renders DOM"] =
+snapshots["sbb-seat-reservation-navigation-services renders DOM"] = 
 `<sbb-seat-reservation-navigation-services>
 </sbb-seat-reservation-navigation-services>
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders DOM */
 
-snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
+snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] = 
 `<div class="sbb-sr-navigation__signs">
   <sbb-screen-reader-only>
-    en:Verfügbare Services:Velozone, Silence area
+    Available services:Bike area, Quiet zone
   </sbb-screen-reader-only>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
     height="20"
     name="BICYCLE"
     style="--sbb-seat-reservation-graphic-width: 20; --sbb-seat-reservation-graphic-height: 20; --sbb-seat-reservation-graphic-rotation: 0; --sbb-seat-reservation-graphic-inverse-rotation: 0;"
-    title="Velozone"
+    title="Bike area"
     width="20"
   >
   </sbb-seat-reservation-graphic>
@@ -26,7 +26,7 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
     height="20"
     name="SILENCE"
     style="--sbb-seat-reservation-graphic-width: 20; --sbb-seat-reservation-graphic-height: 20; --sbb-seat-reservation-graphic-rotation: 0; --sbb-seat-reservation-graphic-inverse-rotation: 0;"
-    title="Silence area"
+    title="Quiet zone"
     width="20"
   >
   </sbb-seat-reservation-graphic>
@@ -34,7 +34,7 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders Shadow DOM */
 
-snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
+snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -42,7 +42,7 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
   "children": [
     {
       "role": "text",
-      "name": "en:Verfügbare Services:Velozone, Silence area"
+      "name": "Available services:Bike area, Quiet zone"
     }
   ]
 }
@@ -50,7 +50,7 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Chrome */
 
-snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] =
+snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -58,7 +58,7 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] 
   "children": [
     {
       "role": "text leaf",
-      "name": "en:Verfügbare Services:Velozone, Silence area"
+      "name": "Available services:Bike area, Quiet zone"
     }
   ]
 }

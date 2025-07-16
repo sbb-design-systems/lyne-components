@@ -226,7 +226,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       this._language.current,
       [this.freePlacesByType.seats, this.freePlacesByType.bicycles],
     );
-    label = label.concat('. ').concat(freePlacesTxt).concat('. ');
+    label = label.concat('. ').concat(freePlacesTxt);
     return label;
   }
 
