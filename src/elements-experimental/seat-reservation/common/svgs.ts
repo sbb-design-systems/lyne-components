@@ -17,7 +17,6 @@ import interiorPlaceSeatDefault from './svgs/interior-place-seat-default.svg?raw
 import interiorPlaceSeatNotBookable from './svgs/interior-place-seat-not-bookable.svg?raw';
 import interiorPlaceSeatSelected from './svgs/interior-place-seat-selected.svg?raw';
 import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable.svg?raw';
-import interiorTable from './svgs/interior-table.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
 
 const svgs = {
@@ -40,7 +39,6 @@ const svgs = {
   interiorPlaceSeatNotBookable,
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
-  interiorTable,
   layoutEntrance,
 };
 
