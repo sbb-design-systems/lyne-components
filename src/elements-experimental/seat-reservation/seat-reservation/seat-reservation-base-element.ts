@@ -185,8 +185,8 @@ export class SeatReservationBaseElement extends LitElement {
       const navCoacheList = this.navigationScrollArea.querySelector('ul > li') as HTMLUListElement;
       const firstLiEleDimension = navCoacheList?.getBoundingClientRect();
       this.coachNavButtonDim = this.alignVertical
-        ? firstLiEleDimension.height
-        : firstLiEleDimension.width;
+        ? firstLiEleDimension?.height
+        : firstLiEleDimension?.width;
     }
 
     if (this.coachScrollArea) {
