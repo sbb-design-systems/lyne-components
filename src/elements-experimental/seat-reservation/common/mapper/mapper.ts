@@ -102,7 +102,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
 };
 
 /**
- * Mapped place and coach informations to place selection
+ * Mapped place and coach information to place selection
  * @param place
  * @param coachIndex
  * @returns PlaceSelection
@@ -114,6 +114,7 @@ export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number):
     number: place.number,
     coachIndex: coachIndex,
     state: place.state,
+    placeType: place.type,
   };
 };
 
