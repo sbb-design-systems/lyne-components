@@ -95,13 +95,13 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
     if (changedProperties.has('textRotation')) {
       this.style?.setProperty(
-        '--sbb-reservation-place-control-text-rotation',
+        '--sbb-seat-reservation-place-control-text-rotation',
         `${this.textRotation}`,
       );
     }
 
     if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--sbb-reservation-place-control-rotation', `${this.rotation}`);
+      this.style?.setProperty('--sbb-seat-reservation-place-control-rotation', `${this.rotation}`);
     }
 
     if (changedProperties.has('keyfocus')) {
