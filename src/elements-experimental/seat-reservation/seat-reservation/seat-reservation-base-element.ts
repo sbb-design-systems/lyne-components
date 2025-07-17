@@ -967,7 +967,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Returns the current selected place HTML element by given placeNumber and coachIndex.
-   * If both doesnt exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
+   * If both doesn't exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
    * @param placeNumber optional as string
    * @param coachIndex optional as string
    * @returns HTMLElement or null
