@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
+
 import style from './carousel-list.scss?lit&inline';
 
 /**
@@ -14,10 +16,18 @@ export
 class SbbCarouselListElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  private _handleSlotchange(): void {
+    const firstItem = Array.from(this.children).find(
+      (el) => el.localName === 'sbb-carousel-item',
+    ) as SbbCarouselItemElement;
+    this.style.height = `${firstItem.clientHeight}px`;
+    this.style.width = `${firstItem.clientWidth}px`;
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-carousel-list" aria-atomic="false" aria-live="polite">
-        <slot></slot>
+        <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;
   }

@@ -24,7 +24,7 @@ const Template = (): TemplateResult => html`
         <img src=${images[2]} alt="SBB image" height="300" width="400" />
       </sbb-carousel-item>
     </sbb-carousel-list>
-    <sbb-paginator></sbb-paginator>
+    <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
 `;
 
