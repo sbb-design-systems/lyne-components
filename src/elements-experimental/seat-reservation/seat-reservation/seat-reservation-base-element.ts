@@ -74,6 +74,10 @@ export class SeatReservationBaseElement extends LitElement {
   @property({ attribute: 'prevent-place-click', type: Boolean })
   public accessor preventPlaceClick: boolean = false;
 
+  @forceType()
+  @property({ attribute: 'preselect-coach-index', type: Number })
+  public accessor preselectCoachIndex: number = -1;
+
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
   //Sets the hover style when scrolling to a coach
@@ -143,6 +147,12 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('alignVertical') && this.alignVertical) {
       this.initNavigationSelectionByScrollEvent();
     }
+
+    if (changedProperties.has('preselectCoachIndex') && this.preselectCoachIndex) {
+      // setTimeout is neccessary because without, _getCoachScrollPositionX() would fail with NPE because
+      // the coachScrollArea is not yet initialized
+      setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
+    }
   }
 
   protected navigateByDirectionBtn(btnDirection: string): void {
@@ -168,7 +178,7 @@ export class SeatReservationBaseElement extends LitElement {
       const borderHeight =
         (this.seatReservation.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
         this.baseGridSize;
-      this.style?.setProperty('--sbb-seat-reservation-coach-height', `${borderHeight + 0}`);
+      this.style?.setProperty('--sbb-seat-reservation-coach-height', `${borderHeight}`);
     }
 
     this.firstTabElement = this.shadowRoot?.querySelector('#first-tab-element') as HTMLElement;
@@ -195,7 +205,7 @@ export class SeatReservationBaseElement extends LitElement {
         ? this.coachScrollArea.getBoundingClientRect().height
         : this.coachScrollArea.getBoundingClientRect().width;
 
-      // Precalculate trigger scroll position array depends from coach width
+      // Precalculate trigger scroll position array depends on coach width
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
@@ -220,7 +230,7 @@ export class SeatReservationBaseElement extends LitElement {
           : this._getCoachIndexByScrollTriggerPosition();
 
         // In case the user uses the scrollbar without interacting with the seat reservation,
-        // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
+        // the currently selected index is -1, and we have to set this value with findScrollCoachIndex.
         if (this.currSelectedCoachIndex === -1) {
           this.currSelectedCoachIndex = findScrollCoachIndex;
         }
@@ -526,16 +536,18 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Returns the scroll start or end position X from the selected coach.
-   * In case the user is curretnly navigate throught places by keyboard and goes to previous coach,
-   * then we return the end position of the coach to get clostest next scroll position of the next focus place.
+   * In case the user is currently navigating through places by keyboard and goes to previous coach,
+   * then we return the end position of the coach to get the closest scroll position of the next focus place.
    * @returns number
    */
   private _getCoachScrollPositionX(): number {
     const coachTriggerPoint = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
+
     const isFocusPlaceFromPreviousCoachPosition =
       this.isKeyboardNavigation &&
       this.currScrollDirection === ScrollDirection.left &&
       coachTriggerPoint.width > this.scrollCoachsAreaWidth;
+
     return isFocusPlaceFromPreviousCoachPosition
       ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
       : coachTriggerPoint.start;
@@ -698,7 +710,7 @@ export class SeatReservationBaseElement extends LitElement {
     return closestPlace;
   }
 
-  // Handling for Tab navigation if an place is selected inside the coach.
+  // Handling for Tab navigation if a place is selected inside the coach.
   // This controls the focused coach from the current selected coach.
   private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
     const currFocusIndex =
