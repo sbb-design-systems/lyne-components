@@ -60,9 +60,9 @@ const defaultArgTypes: ArgTypes = {
   'prevent-place-click': preventPlaceClickType,
 };
 
-const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
+const mappedSeatReservationTrain = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
-  seatReservation: mappedSeatReservationTrainh,
+  seatReservation: mappedSeatReservationTrain,
   'max-reservations': 4,
   'has-navigation': true,
   'align-vertical': false,
@@ -96,6 +96,11 @@ export const Bus: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: busArgs,
+};
+
+export const preSelectedCoachIndexFour: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, 'preselect-coach-index': 4 },
 };
 
 const meta: Meta = {
