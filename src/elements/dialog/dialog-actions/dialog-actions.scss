@@ -10,6 +10,8 @@
   padding-block: var(--sbb-dialog-padding-block);
   margin-block-start: auto;
   background-color: var(--sbb-dialog-background-color);
+  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
+  box-shadow: none;
 
   // Horizontal line has to be absolute positioned because otherwise
   // it interferes with scroll detection of above container.
@@ -18,6 +20,7 @@
     display: block;
     position: absolute;
     border-block-start: var(--sbb-border-width-1x) solid var(--sbb-dialog-actions-border-color);
+    transition: border-color var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
     width: 100%;
     margin-block-start: calc(-1 * var(--sbb-dialog-padding-block));
     margin-inline-start: calc(-1 * var(--sbb-dialog-padding-inline));

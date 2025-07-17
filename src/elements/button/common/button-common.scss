@@ -5,7 +5,7 @@
 
 $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
 $disabled: '[disabled], :disabled, [disabled-interactive]';
-$active: ':active, [data-active]';
+$active: ':active, [data-active], [loading]';
 
 :host {
   display: inline-block;
@@ -43,9 +43,14 @@ $active: ':active, [data-active]';
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
       var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
       var(--sbb-button-shadow-1-color);
+  --sbb-button-loading-border-width: var(--sbb-border-width-3x);
+  --sbb-button-loading-delay: 300ms;
 
   // Calculated and private variables
   --_width: unset;
+
+  // The min-height modifier is used to adjust height and width for loading state.
+  --_min-height-modifier: 0rem;
   --_border-color: var(--sbb-button-color-default-border);
   --_background-color: var(--sbb-button-color-default-background);
   --_color: var(--sbb-button-color-default-text);
@@ -71,6 +76,7 @@ $active: ':active, [data-active]';
     --sbb-button-color-active-background: Canvas !important;
     --sbb-button-color-disabled-background: Canvas !important;
     --sbb-button-color-disabled-text: GrayText !important;
+    --sbb-button-color-loading-border: Highlight !important;
 
     // For static cases, button and link roles will override it.
     --sbb-button-color-default-text: CanvasText !important;
@@ -124,7 +130,7 @@ $active: ':active, [data-active]';
 
 :host(#{$icon-only}) {
   --sbb-button-padding-inline: 0;
-  --_width: var(--sbb-button-min-height);
+  --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
 }
 
 :host(:not(#{$disabled}, #{$active}):hover) {
@@ -164,6 +170,15 @@ $active: ':active, [data-active]';
   --_border-color: var(--sbb-button-color-active-border);
 }
 
+:host([loading]:not(#{$disabled})) {
+  --_min-height-modifier: calc(-2 * var(--sbb-button-loading-border-width));
+  --sbb-button-focus-outline-offset-override: calc(
+    var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
+  );
+  --_border: none;
+  --_transform-style: preserve-3d;
+}
+
 .sbb-action-base {
   @include sbb.text-xs--bold;
 
@@ -174,7 +189,7 @@ $active: ':active, [data-active]';
   text-align: left;
   white-space: nowrap;
   text-decoration: none;
-  min-height: var(--sbb-button-min-height);
+  min-height: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
   outline: none;
 
   // Width is set in icon-only variant
@@ -187,6 +202,9 @@ $active: ':active, [data-active]';
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
   transition-property: color, background-color;
+
+  // Used for loading state
+  transform-style: var(--_transform-style, flat);
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
@@ -211,6 +229,12 @@ $active: ':active, [data-active]';
     transition-property: inset, border, box-shadow;
   }
 
+  :host([loading]:not(#{$disabled})) & {
+    margin: var(--sbb-button-loading-border-width);
+    padding-inline: calc(var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width));
+    transition-property: none;
+  }
+
   :host([data-focus-visible]) &,
     // Handle focus on the host (button variant)
   :host(:focus-visible) &,
@@ -218,6 +242,11 @@ $active: ':active, [data-active]';
   &:focus-visible {
     &::before {
       @include sbb.focus-outline;
+
+      outline-offset: var(
+        --sbb-button-focus-outline-offset-override,
+        var(--sbb-focus-outline-offset)
+      );
     }
   }
 }
@@ -236,4 +265,82 @@ sbb-icon {
   transition: translate var(--sbb-button-transition-duration)
     var(--sbb-button-transition-easing-function);
   translate: 0 var(--sbb-button-translate-y-content-hover, 0);
+}
+
+.sbb-button-loading-border {
+  position: absolute;
+  inset: calc(-1 * var(--sbb-button-loading-border-width));
+  clip-path: border-box;
+  border-radius: var(--sbb-button-border-radius);
+  background: var(--_background-color);
+
+  // Transform and z-index needed to support all browsers.
+  transform: translateZ(-1px);
+  z-index: -1;
+  container-type: inline-size;
+  contain: paint;
+  animation: background-fade-in
+    var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x))
+    var(--sbb-disable-animation-duration, var(--sbb-button-loading-delay)) linear;
+  animation-fill-mode: forwards;
+
+  // Snake
+  &::before {
+    content: '';
+    display: block;
+
+    // The size adapts to either the container width or height (what is smaller).
+    // The value itself is a design decision of UX and describes the snake length.
+    width: 64cqmin;
+
+    // The max-height avoids displaying the trail on the other side when button labels are very wide.
+    max-height: var(--sbb-button-min-height);
+    aspect-ratio: 2 / 1;
+    position: absolute;
+    background: radial-gradient(
+      100% 100% at right,
+      var(--sbb-button-color-active-text),
+      transparent 50%
+    );
+    offset-path: border-box;
+    offset-anchor: 100% 50%;
+    opacity: 0;
+
+    // The animation duration is calculated based on the button width in order that the snake has a constant traveling speed.
+    // However, for the icon only version, we need to set a minimum duration to avoid the snake traveling too fast.
+    animation:
+      snake-fade-in
+        var(--sbb-disable-animation-duration, calc(var(--sbb-animation-duration-12x) * 2))
+        var(
+          --sbb-disable-animation-duration,
+          calc(var(--sbb-button-loading-delay) + var(--sbb-animation-duration-5x))
+        )
+        var(--sbb-animation-easing),
+      snake-position
+        var(
+          --sbb-disable-animation-duration,
+          calc(max(tan(atan2(var(--sbb-button-width), 1px)) / 136, 0.5) * 3s)
+        )
+        infinite linear;
+    animation-fill-mode: forwards;
+    transform-style: preserve-3d;
+  }
+}
+
+@keyframes snake-position {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes snake-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes background-fade-in {
+  to {
+    background: var(--sbb-button-color-loading-border);
+  }
 }

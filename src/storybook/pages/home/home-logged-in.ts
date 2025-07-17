@@ -170,7 +170,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
 
           <sbb-dialog trigger="dialog-trigger">
             <sbb-dialog-title>My Dialog</sbb-dialog-title>
-
+            <sbb-dialog-close-button></sbb-dialog-close-button>
             <sbb-dialog-content>
               <p style="margin-block-start: 0;">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -189,22 +189,14 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
               orientation="vertical"
               horizontal-from="medium"
             >
-              <sbb-block-link
-                size="s"
-                align-self="start"
-                icon-name="chevron-small-left-small"
-                href="https://www.sbb.ch/en/"
-                sbb-dialog-close
-              >
-                Link
-              </sbb-block-link>
-              <sbb-secondary-button size="m" sbb-dialog-close> Cancel </sbb-secondary-button>
-              <sbb-button size="m" sbb-dialog-close> Button </sbb-button>
+              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close>Button</sbb-button>
             </sbb-dialog-actions>
           </sbb-dialog>
 
           <sbb-dialog trigger="dialog-trigger-stacked">
             <sbb-dialog-title>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-close-button></sbb-dialog-close-button>
             <sbb-dialog-content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.

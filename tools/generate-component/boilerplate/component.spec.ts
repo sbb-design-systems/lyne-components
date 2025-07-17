@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
 
-import { __nameUpperCase__ } from './__noPrefixName__.js';
+import { __nameUpperCase__ } from './__noPrefixName__.component.js';
 
 describe('__name__', () => {
   let element: __nameUpperCase__;
