@@ -20,8 +20,11 @@ class SbbCarouselListElement extends LitElement {
     const firstItem = Array.from(this.children).find(
       (el) => el.localName === 'sbb-carousel-item',
     ) as SbbCarouselItemElement;
-    this.style.height = `${firstItem.clientHeight}px`;
-    this.style.width = `${firstItem.clientWidth}px`;
+    if (firstItem) {
+      const innerEl: HTMLDivElement = firstItem.shadowRoot!.querySelector('.sbb-carousel-item')!;
+      this.style.height = `${innerEl.clientHeight}px`;
+      this.style.width = `${innerEl.clientWidth}px`;
+    }
   }
 
   protected override render(): TemplateResult {
