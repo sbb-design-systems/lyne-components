@@ -62,3 +62,33 @@ snapshots["sbb-carousel renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-carousel renders A11y tree Chrome */
 
+snapshots["sbb-carousel renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "section",
+      "name": "",
+      "children": [
+        {
+          "role": "img",
+          "name": "SBB image"
+        },
+        {
+          "role": "img",
+          "name": "SBB image"
+        },
+        {
+          "role": "img",
+          "name": "SBB image"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-carousel renders A11y tree Firefox */
+
