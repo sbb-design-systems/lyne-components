@@ -1,3 +1,4 @@
+import type { PropertyValues } from '@lit/reactive-element';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -15,6 +16,22 @@ export
 @customElement('sbb-carousel-list')
 class SbbCarouselListElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+  private _beforeShowObserver = new IntersectionObserver(
+    (entry) => {
+      entry
+        .filter((e) => e.isIntersecting)
+        .forEach((e) => e.target.dispatchEvent(new Event('beforeshow')));
+    },
+    { root: this, threshold: 0.01 },
+  );
+  private _showObserver = new IntersectionObserver(
+    (entry) => {
+      entry
+        .filter((e) => e.isIntersecting)
+        .forEach((e) => e.target.dispatchEvent(new Event('show')));
+    },
+    { root: this, threshold: 1 },
+  );
 
   private _handleSlotchange(): void {
     const firstItem = Array.from(this.children).find(
@@ -25,6 +42,15 @@ class SbbCarouselListElement extends LitElement {
       this.style.height = `${innerEl.clientHeight}px`;
       this.style.width = `${innerEl.clientWidth}px`;
     }
+  }
+
+  public override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+
+    this.querySelectorAll('sbb-carousel-item').forEach((item) => {
+      this._beforeShowObserver.observe(item);
+      this._showObserver.observe(item);
+    });
   }
 
   protected override render(): TemplateResult {
