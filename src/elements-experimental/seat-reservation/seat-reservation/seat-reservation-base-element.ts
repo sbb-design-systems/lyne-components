@@ -32,7 +32,10 @@ interface CoachScrollTriggerPoint {
   width: number;
 }
 
-export type SeatReservationSelectedPlacesEventDetails = SeatReservationPlaceSelection[];
+export type SeatReservationSelectedPlacesEventDetails = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
+};
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
@@ -66,13 +69,22 @@ export class SeatReservationBaseElement extends LitElement {
 
   /** Maximal number of possible clickable seats */
   @forceType()
-  @property({ attribute: 'max-reservations', type: Number })
-  public accessor maxReservations: number = null!;
+  @property({ attribute: 'max-seat-reservations', type: Number })
+  public accessor maxSeatReservations: number = -1;
+
+  /** Maximal number of possible clickable bicycle places */
+  @forceType()
+  @property({ attribute: 'max-bicycle-reservations', type: Number })
+  public accessor maxBicycleReservations: number = -1;
 
   /** Any click functionality is prevented */
   @forceType()
   @property({ attribute: 'prevent-place-click', type: Boolean })
   public accessor preventPlaceClick: boolean = false;
+
+  @forceType()
+  @property({ attribute: 'preselect-coach-index', type: Number })
+  public accessor preselectCoachIndex: number = -1;
 
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
@@ -101,7 +113,10 @@ export class SeatReservationBaseElement extends LitElement {
   protected currSelectedPlaceElementId: string | null = null;
   protected currSelectedCoachIndex: number = -1;
   protected preventCoachScrollByPlaceClick: boolean = false;
-  protected selectedSeatReservationPlaces: SeatReservationPlaceSelection[] = [];
+  protected selectedSeatReservationPlaces: SeatReservationSelectedPlacesEventDetails = {
+    seats: [],
+    bicycles: [],
+  };
   protected seatReservationWithoutNavigationHasFocus = false;
   protected isCoachGridFocusable = false;
   protected isAutoScrolling = false;
@@ -143,6 +158,12 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('alignVertical') && this.alignVertical) {
       this.initNavigationSelectionByScrollEvent();
     }
+
+    if (changedProperties.has('preselectCoachIndex') && this.preselectCoachIndex) {
+      // setTimeout is neccessary because without, _getCoachScrollPositionX() would fail with NPE because
+      // the coachScrollArea is not yet initialized
+      setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
+    }
   }
 
   protected navigateByDirectionBtn(btnDirection: string): void {
@@ -168,7 +189,7 @@ export class SeatReservationBaseElement extends LitElement {
       const borderHeight =
         (this.seatReservation.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
         this.baseGridSize;
-      this.style?.setProperty('--sbb-seat-reservation-coach-height', `${borderHeight + 0}`);
+      this.style?.setProperty('--sbb-seat-reservation-coach-height', `${borderHeight}`);
     }
 
     this.firstTabElement = this.shadowRoot?.querySelector('#first-tab-element') as HTMLElement;
@@ -195,7 +216,7 @@ export class SeatReservationBaseElement extends LitElement {
         ? this.coachScrollArea.getBoundingClientRect().height
         : this.coachScrollArea.getBoundingClientRect().width;
 
-      // Precalculate trigger scroll position array depends from coach width
+      // Precalculate trigger scroll position array depends on coach width
       this.triggerCoachPositionsCollection = this.seatReservation.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
@@ -220,7 +241,7 @@ export class SeatReservationBaseElement extends LitElement {
           : this._getCoachIndexByScrollTriggerPosition();
 
         // In case the user uses the scrollbar without interacting with the seat reservation,
-        // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
+        // the currently selected index is -1, and we have to set this value with findScrollCoachIndex.
         if (this.currSelectedCoachIndex === -1) {
           this.currSelectedCoachIndex = findScrollCoachIndex;
         }
@@ -526,16 +547,18 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Returns the scroll start or end position X from the selected coach.
-   * In case the user is curretnly navigate throught places by keyboard and goes to previous coach,
-   * then we return the end position of the coach to get clostest next scroll position of the next focus place.
+   * In case the user is currently navigating through places by keyboard and goes to previous coach,
+   * then we return the end position of the coach to get the closest scroll position of the next focus place.
    * @returns number
    */
   private _getCoachScrollPositionX(): number {
     const coachTriggerPoint = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
+
     const isFocusPlaceFromPreviousCoachPosition =
       this.isKeyboardNavigation &&
       this.currScrollDirection === ScrollDirection.left &&
       coachTriggerPoint.width > this.scrollCoachsAreaWidth;
+
     return isFocusPlaceFromPreviousCoachPosition
       ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
       : coachTriggerPoint.start;
@@ -698,7 +721,7 @@ export class SeatReservationBaseElement extends LitElement {
     return closestPlace;
   }
 
-  // Handling for Tab navigation if an place is selected inside the coach.
+  // Handling for Tab navigation if a place is selected inside the coach.
   // This controls the focused coach from the current selected coach.
   private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
     const currFocusIndex =
@@ -813,23 +836,18 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   protected updateSelectedSeatReservationPlaces(placeSelection: PlaceSelection): void {
-    // Add selected place to selectedSeatReservationPlaces
-    if (placeSelection.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
-      if (seatReservationSelection) {
-        this.selectedSeatReservationPlaces.push(seatReservationSelection);
-      }
-    }
-    // Remove selected place from selectedSeatReservationPlaces
-    else {
-      this.selectedSeatReservationPlaces = this.selectedSeatReservationPlaces.filter(
-        (_selectedPlace) => _selectedPlace.id !== placeSelection.id,
+    if (placeSelection.placeType === 'SEAT') {
+      this.selectedSeatReservationPlaces.seats = this._updateSelectedSeatReservationPlaces(
+        this.selectedSeatReservationPlaces.seats,
+        this.maxSeatReservations,
+        placeSelection,
       );
-    }
-
-    // Checks whether maxReservation is activated and the maximum number of selected places is reached
-    if (this.maxReservations && this.selectedSeatReservationPlaces.length > this.maxReservations) {
-      this._resetAllPlaceSelections(placeSelection);
+    } else {
+      this.selectedSeatReservationPlaces.bicycles = this._updateSelectedSeatReservationPlaces(
+        this.selectedSeatReservationPlaces.bicycles,
+        this.maxBicycleReservations,
+        placeSelection,
+      );
     }
 
     /**
@@ -843,6 +861,44 @@ export class SeatReservationBaseElement extends LitElement {
         detail: this.selectedSeatReservationPlaces,
       }),
     );
+  }
+
+  private _updateSelectedSeatReservationPlaces(
+    selectedSeatReservationPlaces: SeatReservationPlaceSelection[],
+    maxReservations: number,
+    placeSelection: PlaceSelection,
+  ): SeatReservationPlaceSelection[] {
+    // Add selected place to selectedSeatReservationPlaces
+    if (placeSelection.state === 'SELECTED') {
+      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
+      if (seatReservationSelection) {
+        selectedSeatReservationPlaces.push(seatReservationSelection);
+      }
+    }
+    // Remove selected place from selectedSeatReservationPlaces
+    else {
+      selectedSeatReservationPlaces = selectedSeatReservationPlaces.filter(
+        (_selectedPlace) => _selectedPlace.id !== placeSelection.id,
+      );
+    }
+
+    // Checks whether maxReservation is activated and the maximum number of selected places is reached
+    if (maxReservations > -1 && selectedSeatReservationPlaces.length > maxReservations) {
+      if (maxReservations === 0) {
+        // if maxReservation is 0(not allowed to select any place of given type), resets currently selected place
+        selectedSeatReservationPlaces = this._resetAllPlaceSelections(
+          selectedSeatReservationPlaces,
+        );
+      } else {
+        // otherwise resets all places except given one
+        selectedSeatReservationPlaces = this._resetAllPlaceSelections(
+          selectedSeatReservationPlaces,
+          placeSelection,
+        );
+      }
+    }
+
+    return selectedSeatReservationPlaces;
   }
 
   protected updateCurrentSelectedPlaceInCoach(placeSelection: PlaceSelection): void {
@@ -895,19 +951,27 @@ export class SeatReservationBaseElement extends LitElement {
           );
           const seatReservationPlaceSelection: SeatReservationPlaceSelection | null =
             this._getSeatReservationPlaceSelection(preselectedPlaceSelection);
-          if (seatReservationPlaceSelection)
-            this.selectedSeatReservationPlaces.push(seatReservationPlaceSelection);
+          if (seatReservationPlaceSelection) {
+            if (seatReservationPlaceSelection.placeType === 'SEAT') {
+              this.selectedSeatReservationPlaces.seats.push(seatReservationPlaceSelection);
+            } else {
+              this.selectedSeatReservationPlaces.bicycles.push(seatReservationPlaceSelection);
+            }
+          }
         });
     });
   }
-
   /**
    * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
+   * @param reservationPlaceSelections
    * @param currSelectedPlace
    */
-  private _resetAllPlaceSelections(currSelectedPlace?: PlaceSelection): void {
+  private _resetAllPlaceSelections(
+    reservationPlaceSelections: SeatReservationPlaceSelection[],
+    currSelectedPlace?: PlaceSelection,
+  ): SeatReservationPlaceSelection[] {
     //Find all places to be needed unselect
-    for (const placeSelection of this.selectedSeatReservationPlaces) {
+    for (const placeSelection of reservationPlaceSelections) {
       if (!currSelectedPlace || currSelectedPlace.id !== placeSelection.id) {
         const placeElement = this.shadowRoot?.getElementById(placeSelection.id) as HTMLElement;
         placeElement.setAttribute('state', 'FREE');
@@ -915,12 +979,13 @@ export class SeatReservationBaseElement extends LitElement {
     }
     //Removes all selected places except the currently selected place
     if (currSelectedPlace) {
-      this.selectedSeatReservationPlaces = this.selectedSeatReservationPlaces.filter(
+      reservationPlaceSelections = reservationPlaceSelections.filter(
         (_selectedPlace) => _selectedPlace.id === currSelectedPlace.id,
       );
     } else {
-      this.selectedSeatReservationPlaces = [];
+      reservationPlaceSelections = [];
     }
+    return reservationPlaceSelections;
   }
 
   private _getSeatReservationPlaceSelection(
@@ -955,7 +1020,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Returns the current selected place HTML element by given placeNumber and coachIndex.
-   * If both doesnt exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
+   * If both doesn't exist, we try to return the place HTML element by the _currentSelectedPlaceElementId
    * @param placeNumber optional as string
    * @param coachIndex optional as string
    * @returns HTMLElement or null
