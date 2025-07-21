@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.1.0...v3.2.0) (2025-07-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-seat-reservation:** The experimental seat reservation components have the following breaking changes
+    - removed properties SbbSeatReservationScopedElement in favor of
+    styleMap
+    - removed properties from SbbSeatReservation: properties are already
+    defined at parent SbbSeatReservationBaseElement
+    - changed custom properties names prefixes to be consistently
+    --sbb-seat-reservation
+    - consuming apps might need replacing properties names mentioned in
+    readme.md, when using them to change color of UI elements
+
+### Features
+
+* **sbb-seat-reservation:** improve implementation ([#3907](https://github.com/sbb-design-systems/lyne-components/issues/3907)) ([0cdf33f](https://github.com/sbb-design-systems/lyne-components/commit/0cdf33fd181bc0ccf4254ca08ed0bde7309f004a))
+* **seat-reservation-preselection:** preselect wagon ([#3922](https://github.com/sbb-design-systems/lyne-components/issues/3922)) ([ba4f9b4](https://github.com/sbb-design-systems/lyne-components/commit/ba4f9b4f6cd411577af2b466c0f6e6917fbd0fd3))
+
+
+### Bug Fixes
+
+* generate script ([#3919](https://github.com/sbb-design-systems/lyne-components/issues/3919)) ([91381a8](https://github.com/sbb-design-systems/lyne-components/commit/91381a8b4000728dc8253316b783fa44f6c6040b))
+
+
+### Miscellaneous Chores
+
+* set next release version ([5d0e483](https://github.com/sbb-design-systems/lyne-components/commit/5d0e4830a2d16b10949421e5acb0d86ae3129972))
+
 ## [3.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.1...v3.1.0) (2025-07-14)
 
 
