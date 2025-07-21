@@ -6,6 +6,11 @@
 :host {
   display: inline-block;
   overflow: hidden;
+  border-radius: var(--sbb-border-radius-4x);
+}
+
+:host([shadow]) {
+  @include sbb.shadow-level-9-hard;
 }
 
 .sbb-carousel {

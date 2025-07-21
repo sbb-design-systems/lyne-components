@@ -43,6 +43,12 @@ The `sbb-carousel` is a component . . .
 
 <!-- Auto Generated Below -->
 
+## Properties
+
+| Name     | Attribute | Privacy | Type      | Default | Description |
+| -------- | --------- | ------- | --------- | ------- | ----------- |
+| `shadow` | `shadow`  | public  | `boolean` | `false` |             |
+
 ## Slots
 
 | Name | Description                                                                             |

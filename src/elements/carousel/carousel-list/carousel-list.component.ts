@@ -1,4 +1,5 @@
 import type { PropertyValues } from '@lit/reactive-element';
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -16,22 +17,22 @@ export
 @customElement('sbb-carousel-list')
 class SbbCarouselListElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  private _beforeShowObserver = new IntersectionObserver(
-    (entry) => {
+  private _beforeShowObserver = new IntersectionController(this, {
+    callback: (entry) => {
       entry
         .filter((e) => e.isIntersecting)
         .forEach((e) => e.target.dispatchEvent(new Event('beforeshow')));
     },
-    { root: this, threshold: 0.01 },
-  );
-  private _showObserver = new IntersectionObserver(
-    (entry) => {
+    config: { threshold: 0.01 },
+  });
+  private _showObserver = new IntersectionController(this, {
+    callback: (entry) => {
       entry
         .filter((e) => e.isIntersecting)
         .forEach((e) => e.target.dispatchEvent(new Event('show')));
     },
-    { root: this, threshold: 1 },
-  );
+    config: { threshold: 1 },
+  });
 
   private _handleSlotchange(): void {
     const firstItem = Array.from(this.children).find(

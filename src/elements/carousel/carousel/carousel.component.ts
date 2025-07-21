@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { forceType } from '../../core/decorators.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
 import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
@@ -19,6 +20,10 @@ export
 class SbbCarouselElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   private _currentItemIndex: number = 0;
+
+  @forceType()
+  @property({ reflect: true, type: Boolean })
+  public accessor shadow: boolean = false;
 
   private _handleSlotchange(): void {
     const paginator: SbbCompactPaginatorElement = Array.from(this.children).find(
