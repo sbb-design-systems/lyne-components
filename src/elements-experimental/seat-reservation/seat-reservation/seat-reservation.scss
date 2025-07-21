@@ -7,7 +7,8 @@
 :host {
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
   --sbb-seat-reservation-grid-size: 16px;
-  --sbb-seat-reservation-coach-height: 0;
+  --sbb-seat-reservation-height: 0;
+  --sbb-seat-reservation-decks: 1;
 
   display: block;
   height: inherit;
@@ -79,10 +80,6 @@
       grid-column: 1 / 4;
       grid-row: 2 / 3;
       display: inherit;
-
-      .sbb-sr__wrapper {
-        overflow: hidden;
-      }
     }
   }
 }
@@ -131,12 +128,60 @@
 // --------------- Seat Reservation Main Navigation - END ----------------
 
 // ------------- Seat Reservation Coaches - START -----------------
-.sbb-sr__parent {
+.sbb-sr__wrapper {
   @include sbb.scrollbar;
 
   & {
     overflow-x: scroll;
     padding-block: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+
+    .sbb-sr__parent {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      position: relative;
+    }
+  }
+}
+
+.sbb-sr__list-decks {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.sbb-sr__list-item-deck {
+  position: relative;
+}
+
+.sbb-sr__list-decks .sbb-sr__deck-label-wrapper {
+  // Coach deck gap value optimized
+  // the height of calculated $coachDeckHeight
+  $coach-deck-gap: 32;
+
+  // Set the coach deck height of a single coach deck to use
+  // fixed position for the centered deck label
+  $coach-deck-height: calc(
+    var(--sbb-seat-reservation-height) / var(--sbb-seat-reservation-decks) - $coach-deck-gap
+  );
+
+  height: calc($coach-deck-height * sbb.px-to-rem-build(1));
+  position: fixed;
+  z-index: 100;
+  writing-mode: vertical-rl;
+  rotate: -180deg;
+  text-align: center;
+  line-height: 1rem;
+  pointer-events: none;
+
+  b.sbb-sr__deck-label {
+    padding: sbb.px-to-rem-build(16) sbb.px-to-rem-build(4) sbb.px-to-rem-build(16)
+      sbb.px-to-rem-build(4);
+    border-radius: var(--sbb-border-radius-2x) 0 0 var(--sbb-border-radius-2x);
+    box-shadow: sbb.px-to-rem-build(-2) 0 sbb.px-to-rem-build(2) 0 var(--sbb-color-platinum);
+    background-color: var(--sbb-color-white);
   }
 }
 
@@ -145,6 +190,10 @@
 
   display: flex;
   gap: sbb.px-to-rem-build(4);
+
+  &--deck-label-offset {
+    margin-inline-start: 32px;
+  }
 }
 
 .sbb-sr__item-coach {
@@ -186,7 +235,7 @@
   // and the width of the scrollbar area.
   $coach-scollbar-width: 28;
   $coach-grid-width: calc(
-    calc(var(--sbb-seat-reservation-coach-height) + $coach-scollbar-width) *
+    calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width) *
       var(--sbb-seat-reservation-one-px-rem)
   );
 
@@ -194,7 +243,7 @@
   // and is also set here for the optimised rotation pivot point for rotating. 3 is an optimal value here.
   $coach-border-width: 3;
   $rotation-pivot-point: calc(
-    calc(var(--sbb-seat-reservation-coach-height) / 2 - $coach-border-width) *
+    calc(var(--sbb-seat-reservation-height) / 2 - $coach-border-width) *
       var(--sbb-seat-reservation-one-px-rem)
   );
 
@@ -267,7 +316,7 @@
       overflow: hidden;
       position: relative;
 
-      .sbb-sr__parent {
+      .sbb-sr__wrapper {
         @include sbb.scrollbar;
 
         & {
@@ -275,11 +324,11 @@
           padding: 0 var(--sbb-spacing-fixed-4x) 0 0;
           height: 100%;
         }
+      }
 
-        .sbb-sr__list-coaches {
-          rotate: 90deg;
-          transform-origin: $rotation-pivot-point $rotation-pivot-point;
-        }
+      .sbb-sr__parent {
+        rotate: 90deg;
+        transform-origin: $rotation-pivot-point $rotation-pivot-point;
       }
     }
   }

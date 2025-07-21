@@ -862,7 +862,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA_FULL',
+          type: 'DRIVER_AREA',
         },
         {
           rectangle: {
@@ -9762,7 +9762,7 @@ export const MOCK_COACHES_RAW_0 = [
             },
           },
           orientation: 180,
-          type: 'DRIVER_AREA_FULL',
+          type: 'DRIVER_AREA',
         },
         {
           rectangle: {
@@ -10175,7 +10175,7 @@ export const MOCK_COACHES_RAW_1 = [
             },
           },
           orientation: 0,
-          type: 'DRIVER_AREA_FULL',
+          type: 'DRIVER_AREA',
         },
         {
           rectangle: {

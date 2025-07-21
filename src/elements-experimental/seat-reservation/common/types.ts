@@ -2,6 +2,7 @@
 export type SeatReservation = {
   vehicleType: VehicleType;
   deckCoachIndex: number;
+  deckCoachLevel: CoachDeckLevel;
   coachItems: CoachItem[];
 };
 
@@ -25,9 +26,7 @@ export interface Place extends BaseElement {
   state: PlaceState;
   type: PlaceType;
   travelClass?: PlaceTravelClass;
-  remarkId?: string;
   propertyIds?: string[];
-  selected?: boolean;
 }
 
 /** Base properties for any renderable element within a coach. */
@@ -59,6 +58,7 @@ export type CoachNumberOfFreePlaces = {
 export type PlaceSelection = {
   id: string;
   number: string;
+  deckIndex: number;
   coachIndex: number;
   state: PlaceState;
   placeType: PlaceType;
@@ -69,6 +69,7 @@ export type SeatReservationPlaceSelection = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
+  deckIndex: number;
   placeNumber: string;
   placeType: PlaceType;
   placeTravelClass: PlaceTravelClass;
@@ -86,6 +87,7 @@ export type SeatReservationCoachSelection = {
 };
 
 export type PlaceType = 'SEAT' | 'BICYCLE';
+export type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
