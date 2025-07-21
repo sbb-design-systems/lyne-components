@@ -177,6 +177,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
         coachIndex: this.coachIndex,
         number: this.text,
         state: this.state,
+        placeType: this.placeType,
       };
 
       /**

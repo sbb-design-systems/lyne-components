@@ -205,15 +205,17 @@ their current position within the reservation area.
 
 ## Properties
 
-| Name                | Attribute             | Privacy | Type              | Default | Description                                                       |
-| ------------------- | --------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------- |
-| `alignVertical`     | `align-vertical`      | public  | `boolean`         | `false` | The seat reservation area is aligned vertically                   |
-| `baseGridSize`      | `base-grid-size`      | public  | `number`          | `16`    | The seat reservation area's base grid size                        |
-| `hasNavigation`     | `has-navigation`      | public  | `boolean`         | `true`  | The seat reservation navigation can be toggled by this property   |
-| `height`            | `height`              | public  | `number`          | `null!` | The seat reservation area's width                                 |
-| `maxReservations`   | `max-reservations`    | public  | `number`          | `null!` | Maximal number of possible clickable seats                        |
-| `preventPlaceClick` | `prevent-place-click` | public  | `boolean`         | `false` | Any click functionality is prevented                              |
-| `seatReservation`   | `seat-reservation`    | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places |
+| Name                     | Attribute                  | Privacy | Type              | Default | Description                                                       |
+| ------------------------ | -------------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------- |
+| `alignVertical`          | `align-vertical`           | public  | `boolean`         | `false` | The seat reservation area is aligned vertically                   |
+| `baseGridSize`           | `base-grid-size`           | public  | `number`          | `16`    | The seat reservation area's base grid size                        |
+| `hasNavigation`          | `has-navigation`           | public  | `boolean`         | `true`  | The seat reservation navigation can be toggled by this property   |
+| `height`                 | `height`                   | public  | `number`          | `null!` | The seat reservation area's width                                 |
+| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`          | `-1`    | Maximal number of possible clickable bicycle places               |
+| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`          | `-1`    | Maximal number of possible clickable seats                        |
+| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`          | `-1`    |                                                                   |
+| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`         | `false` | Any click functionality is prevented                              |
+| `seatReservation`        | `seat-reservation`         | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places |
 
 ## Events
 
