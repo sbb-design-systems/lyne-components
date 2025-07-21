@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { mapRawDataToSeatReservation } from '../common.js';
+import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.js';
 
 import readme from './readme.md?raw';
 import { SbbSeatReservationElement } from './seat-reservation.component.js';
@@ -51,7 +51,7 @@ const baseGridSizeType: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  seatReservation: seatReservationType,
+  seatReservations: seatReservationType,
   'max-reservations': maxReservationType,
   'has-navigation': navigationType,
   'align-vertical': alignVerticalType,
@@ -60,9 +60,9 @@ const defaultArgTypes: ArgTypes = {
   'prevent-place-click': preventPlaceClickType,
 };
 
-const mappedSeatReservationTrainh = mapRawDataToSeatReservation('TRAIN');
+const mappedSeatReservationTrain = mapRawDataToSeatReservation('TRAIN');
 const defaultArgs: Args = {
-  seatReservation: mappedSeatReservationTrainh,
+  seatReservations: [mappedSeatReservationTrain],
   'max-reservations': 4,
   'has-navigation': true,
   'align-vertical': false,
@@ -71,9 +71,9 @@ const defaultArgs: Args = {
   'prevent-place-click': false,
 };
 
-const Template = ({ seatReservation, ...args }: Args): TemplateResult =>
+const Template = ({ seatReservations, ...args }: Args): TemplateResult =>
   html`<sbb-seat-reservation
-    .seatReservation=${seatReservation}
+    .seatReservations=${seatReservations}
     ${sbbSpread(args)}
   ></sbb-seat-reservation>`;
 
@@ -83,9 +83,42 @@ export const Train: StoryObj = {
   args: defaultArgs,
 };
 
+const trainDeckBottom = mappedSeatReservationTrain;
+const deckTwoCoaches: CoachItem[] = [];
+
+//Prepair upper deck by copy from the trainDeckBottom
+const trainDeckUpper = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
+trainDeckUpper.deckCoachIndex = 1;
+trainDeckUpper.deckCoachLevel = 'UPPER_DECK';
+
+//For showcase we adjust the places from the upper deck to get a little variation
+mappedSeatReservationTrain.coachItems.forEach((coachItem) => {
+  const filteredPlaesInCoach =
+    coachItem.places?.filter((place) => Number(place.number) % 2 === 0) || [];
+  deckTwoCoaches.push({ ...coachItem });
+  deckTwoCoaches[deckTwoCoaches.length - 1].places = filteredPlaesInCoach;
+});
+trainDeckUpper.coachItems = deckTwoCoaches;
+
+const trainLayersArgs: Args = {
+  seatReservations: [trainDeckUpper, trainDeckBottom],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+};
+
+export const TrainDecks: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainLayersArgs,
+};
+
 const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');
 const busArgs: Args = {
-  seatReservation: mappedSeatReservationBus,
+  seatReservations: [mappedSeatReservationBus],
   'has-navigation': true,
   'max-reservations': 4,
   'align-vertical': false,

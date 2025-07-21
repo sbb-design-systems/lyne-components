@@ -46,9 +46,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
             },
             rotation: place?.orientation || 0,
             travelClass: placeGroup?.travelClass,
-            remarkId: '',
             propertyIds: place.placeProperties || [],
-            selected: false,
           };
         });
       })
@@ -97,6 +95,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
   return {
     vehicleType: vehicleType,
     deckCoachIndex: 0,
+    deckCoachLevel: 'SINGLE_DECK',
     coachItems: coachsArr,
   };
 };
@@ -107,11 +106,17 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
  * @param coachIndex
  * @returns PlaceSelection
  */
-export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number): PlaceSelection => {
-  const placeId = 'seat-reservation__place-button-' + coachIndex + '-' + place.number;
+export const mapPlaceInfosToPlaceSelection = (
+  place: Place,
+  deckIndex: number,
+  coachIndex: number,
+): PlaceSelection => {
+  const placeId =
+    'seat-reservation__place-button-' + deckIndex + '-' + coachIndex + '-' + place.number;
   return {
     id: placeId,
     number: place.number,
+    deckIndex: deckIndex,
     coachIndex: coachIndex,
     state: place.state,
   };
@@ -128,14 +133,17 @@ export const mapPlaceInfosToPlaceSelection = (place: Place, coachIndex: number):
 export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
   place: Place,
   coach: CoachItem,
+  deckIndex: number,
   coachIndex: number,
 ): SeatReservationPlaceSelection => {
-  const placeId = 'seat-reservation__place-button-' + coachIndex + '-' + place.number;
+  const placeId =
+    'seat-reservation__place-button-' + deckIndex + '-' + coachIndex + '-' + place.number;
   return {
     id: placeId,
     coachId: coach.id,
     coachNumber: coach.number,
     coachIndex: coachIndex,
+    deckIndex: deckIndex,
     placeNumber: place.number,
     placeType: place.type,
     placeTravelClass: place.travelClass || 'ANY_CLASS',
