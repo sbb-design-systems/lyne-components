@@ -21,6 +21,7 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
+  role="menuitem"
   target="_blank"
 >
   <span class="sbb-menu-action__content">
@@ -61,6 +62,7 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
+  role="menuitem"
   target="_blank"
 >
   <span class="sbb-menu-action__content">
@@ -92,7 +94,7 @@ snapshots["sbb-menu-link renders component with icon A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "link",
+      "role": "menuitem",
       "name": "a11y label"
     }
   ]
@@ -108,9 +110,8 @@ snapshots["sbb-menu-link renders component with icon A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "link",
-      "name": "a11y label",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
+      "role": "text container",
+      "name": "a11y label"
     }
   ]
 }

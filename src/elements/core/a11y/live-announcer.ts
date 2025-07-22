@@ -25,7 +25,13 @@ export class SbbLiveAnnouncer {
 
   public constructor() {
     if (!isServer) {
-      this._liveElement = this._createLiveElement();
+      if (document.body) {
+        this._liveElement = this._createLiveElement();
+      } else {
+        document.addEventListener('DOMContentLoaded', () => {
+          this._liveElement = this._createLiveElement();
+        });
+      }
     }
   }
 
@@ -70,7 +76,8 @@ export class SbbLiveAnnouncer {
   ): Promise<void>;
 
   public announce(message: string, ...args: any[]): Promise<void> {
-    if (isServer) {
+    // On the server or when the DOM is not ready yet, we don't do anything.
+    if (!this._liveElement) {
       return Promise.resolve();
     }
 
@@ -98,9 +105,7 @@ export class SbbLiveAnnouncer {
     // - With Chrome and IE11 with NVDA or JAWS, a repeated (identical) message won't be read a
     //   second time without clearing and then using a non-zero delay.
     // (using JAWS 17 at time of this writing).
-    if (!this._currentPromise) {
-      this._currentPromise = new Promise((resolve) => (this._currentResolve = resolve));
-    }
+    this._currentPromise ??= new Promise((resolve) => (this._currentResolve = resolve));
 
     clearTimeout(this._previousTimeout);
     this._previousTimeout = setTimeout(() => {

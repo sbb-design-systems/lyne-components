@@ -13,6 +13,8 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
+import type { SbbButtonCommonElementMixinType } from './button-common.js';
+
 import '../../icon.js';
 import '../../loading-indicator-circle.js';
 
@@ -36,14 +38,26 @@ const IconSlotTemplate = ({
   </${unsafeStatic(tag)}>
 `;
 
-const LoadingIndicatorTemplate = ({ tag, text, ...args }: Args): TemplateResult => html`
-  <${unsafeStatic(tag)} ${sbbSpread(args)}>
-    <sbb-loading-indicator-circle
-      slot="icon"
-    ></sbb-loading-indicator-circle>
-    ${text}
-  </${unsafeStatic(tag)}>
-`;
+const LoadingIndicatorTemplate = ({
+  tag,
+  text,
+  loading: _loading, // Ignore loading as it is handled in the template
+  ...args
+}: Args): TemplateResult => {
+  return html`
+    <${unsafeStatic(tag)}
+      ${sbbSpread(args)}
+      @click=${(e: PointerEvent) => {
+        const button = e.currentTarget as SbbButtonCommonElementMixinType;
+        button.loading = true;
+
+        setTimeout(() => (button.loading = false), 4000);
+      }}
+  >
+      ${text}
+    </${unsafeStatic(tag)}>
+  `;
+};
 
 const FixedWidthTemplate = ({ tag, text, ...args }: Args): TemplateResult => html`
   <div>
@@ -89,6 +103,15 @@ const iconName: InputType = {
   },
 };
 
+const loading: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const tag: InputType = {
   control: {
     type: 'text',
@@ -104,6 +127,7 @@ export const commonDefaultArgTypes: ArgTypes = {
   negative,
   size,
   'icon-name': iconName,
+  loading,
 };
 
 /**
@@ -117,6 +141,7 @@ export const commonDefaultArgs: Args = {
   negative: false,
   size: size.options![0],
   'icon-name': 'arrow-right-small',
+  loading: false,
 };
 
 export const primary: StoryObj = {
@@ -200,7 +225,6 @@ export const withSlottedIcon: StoryObj = {
 
 export const loadingIndicator: StoryObj = {
   render: LoadingIndicatorTemplate,
-  args: { disabled: true },
 };
 
 export const withHiddenSlottedIcon: StoryObj = {

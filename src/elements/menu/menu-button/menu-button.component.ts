@@ -16,7 +16,9 @@ export
 @customElement('sbb-menu-button')
 class SbbMenuButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbMenuActionCommonElementMixin(SbbButtonBaseElement),
-) {}
+) {
+  public static override readonly role: ElementInternals['role'] = 'menuitem';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

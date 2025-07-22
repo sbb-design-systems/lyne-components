@@ -515,15 +515,20 @@ sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
 }
 
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s']
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
   :where(sbb-option, sbb-autocomplete-grid-option) {
-  --sbb-option-min-height: var(--sbb-size-element-xxs);
-  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-  --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
-}
+    --sbb-option-min-height: var(--sbb-size-element-xxs);
+    --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+    --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+  }
 
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
-  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+  sbb-optgroup {
+    --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+  }
+
+  sbb-option-hint {
+    --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
+  }
 }
 
 sbb-dialog-actions {
@@ -539,6 +544,36 @@ sbb-dialog-actions {
 
   sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
     @include shadows.shadow-level-9-soft-negative;
+  }
+}
+
+// If there is a title, remove top spacing for the content
+sbb-dialog:has(> sbb-dialog-title) > sbb-dialog-content {
+  padding-block-start: 0;
+}
+
+// Hide margin on the right side. Distance to button is defined by flex gap already.
+sbb-dialog:has(> sbb-dialog-close-button) > sbb-dialog-title {
+  margin-inline-end: 0;
+}
+
+sbb-dialog-close-button {
+  // If there is no dialog title, the close button should be positioned absolute
+  sbb-dialog:not(:has(> sbb-dialog-title)) > & {
+    position: absolute;
+    z-index: 1;
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
   }
 }
 

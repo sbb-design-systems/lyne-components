@@ -6,6 +6,7 @@ import type { SbbDialogElement } from './dialog.component.js';
 
 import './dialog.component.js';
 import '../dialog-actions.js';
+import '../dialog-close-button.js';
 import '../dialog-content.js';
 import '../dialog-title.js';
 import '../../link/block-link.js';
@@ -50,8 +51,8 @@ describe(`sbb-dialog`, () => {
       >
         Link
       </sbb-block-link>
-      <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-      <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
+      <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
+      <sbb-button sbb-dialog-close sbb-focus-initial ?negative=${negative}>Confirm</sbb-button>
     </sbb-dialog-actions>
   `;
 
@@ -63,7 +64,9 @@ describe(`sbb-dialog`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-dialog ?negative=${negative}>
-              ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
+              ${dialogTitle()}
+              <sbb-dialog-close-button></sbb-dialog-close-button>
+              ${dialogContent()} ${dialogFooter(negative)}
             </sbb-dialog>
           `);
           const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
@@ -86,14 +89,55 @@ describe(`sbb-dialog`, () => {
     );
 
     it(
-      `long content`,
+      `no title with close button`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
+          <sbb-dialog>
+            <sbb-dialog-close-button></sbb-dialog-close-button>
+            ${dialogContent()}
+          </sbb-dialog>
         `);
         const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
         setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `long content`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-dialog>
+            ${dialogTitle()}
+            <sbb-dialog-close-button></sbb-dialog-close-button>
+            ${dialogContent(true)} ${dialogFooter()}
+          </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `long content scrolled`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-dialog>
+            ${dialogTitle()}
+            <sbb-dialog-close-button></sbb-dialog-close-button>
+            ${dialogContent(true)} ${dialogFooter()}
+          </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => {
+          dialog.open();
+          const content = setup.snapshotElement.shadowRoot!.querySelector(
+            '.sbb-dialog-content-container',
+          )!;
+          content.scrollTo(0, content.scrollHeight);
+        });
       }),
     );
 

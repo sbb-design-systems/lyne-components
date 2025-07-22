@@ -8,6 +8,11 @@
   --sbb-button-color-hover-background: var(--sbb-color-red125);
   --sbb-button-color-hover-border: var(--sbb-color-red125);
   --sbb-button-color-hover-text: var(--sbb-color-milk);
+  --sbb-button-color-loading-border: color-mix(
+    in srgb,
+    var(--sbb-button-color-active-background) 50%,
+    var(--sbb-color-white)
+  );
   --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
 }
@@ -22,10 +27,15 @@
   --sbb-button-color-hover-background: var(--sbb-color-red125);
   --sbb-button-color-hover-border: var(--sbb-color-red125);
   --sbb-button-color-hover-text: var(--sbb-color-milk);
+  --sbb-button-color-loading-border: color-mix(
+    in srgb,
+    var(--sbb-button-color-active-background) 70%,
+    var(--sbb-color-white)
+  );
   --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-60);
   --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-60);
 }
 
-:host(:not([disabled], :disabled, [disabled-interactive], :active, [data-active])) {
+:host(:not([disabled], :disabled, [disabled-interactive], :active, [data-active], [loading])) {
   --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
 }

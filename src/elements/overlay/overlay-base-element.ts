@@ -63,6 +63,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   private _triggerAbortController!: AbortController;
 
   protected abstract closeAttribute: string;
+  protected closeTag?: string;
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
@@ -207,10 +208,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
       .find(
-        (target) => target.hasAttribute(this.closeAttribute) && !target.hasAttribute('disabled'),
+        (target) =>
+          (target.hasAttribute(this.closeAttribute) || target.localName === this.closeTag) &&
+          !target.hasAttribute('disabled'),
       );
 
-    if (!overlayCloseElement) {
+    if (
+      !overlayCloseElement ||
+      (overlayCloseElement.closest(this.localName) !== this &&
+        !this.shadowRoot?.contains(overlayCloseElement))
+    ) {
       return;
     }
 
