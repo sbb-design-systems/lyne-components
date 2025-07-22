@@ -1955,21 +1955,6 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@8.37.0":
-  version "8.37.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.37.0.tgz#332392883f936137cd6252c8eb236d298e514e70"
-  integrity sha512-jsuVWeIkb6ggzB+wPCsR4e6loj+rM72ohW6IBn2C+5NCvfUVY8s33iFPySSVXqtm5Hu29Ne/9bnA0JmyLmgenA==
-  dependencies:
-    "@eslint-community/regexpp" "^4.10.0"
-    "@typescript-eslint/scope-manager" "8.37.0"
-    "@typescript-eslint/type-utils" "8.37.0"
-    "@typescript-eslint/utils" "8.37.0"
-    "@typescript-eslint/visitor-keys" "8.37.0"
-    graphemer "^1.4.0"
-    ignore "^7.0.0"
-    natural-compare "^1.4.0"
-    ts-api-utils "^2.1.0"
-
 "@typescript-eslint/eslint-plugin@8.38.0":
   version "8.38.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.38.0.tgz#6e5220d16f2691ab6d983c1737dd5b36e17641b7"
@@ -1984,17 +1969,6 @@
     ignore "^7.0.0"
     natural-compare "^1.4.0"
     ts-api-utils "^2.1.0"
-
-"@typescript-eslint/parser@8.37.0":
-  version "8.37.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-8.37.0.tgz#b87f6b61e25ad5cc5bbf8baf809b8da889c89804"
-  integrity sha512-kVIaQE9vrN9RLCQMQ3iyRlVJpTiDUY6woHGb30JDkfJErqrQEmtdWH3gV0PBAfGZgQXoqzXOO0T3K6ioApbbAA==
-  dependencies:
-    "@typescript-eslint/scope-manager" "8.37.0"
-    "@typescript-eslint/types" "8.37.0"
-    "@typescript-eslint/typescript-estree" "8.37.0"
-    "@typescript-eslint/visitor-keys" "8.37.0"
-    debug "^4.3.4"
 
 "@typescript-eslint/parser@8.38.0":
   version "8.38.0"
@@ -2051,17 +2025,6 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.38.0.tgz#6de4ce224a779601a8df667db56527255c42c4d0"
   integrity sha512-Lum9RtSE3EroKk/bYns+sPOodqb2Fv50XOl/gMviMKNvanETUuUcC9ObRbzrJ4VSd2JalPqgSAavwrPiPvnAiQ==
 
-"@typescript-eslint/type-utils@8.37.0":
-  version "8.37.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-8.37.0.tgz#2a682e4c6ff5886712dad57e9787b5e417124507"
-  integrity sha512-SPkXWIkVZxhgwSwVq9rqj/4VFo7MnWwVaRNznfQDc/xPYHjXnPfLWn+4L6FF1cAz6e7dsqBeMawgl7QjUMj4Ow==
-  dependencies:
-    "@typescript-eslint/types" "8.37.0"
-    "@typescript-eslint/typescript-estree" "8.37.0"
-    "@typescript-eslint/utils" "8.37.0"
-    debug "^4.3.4"
-    ts-api-utils "^2.1.0"
-
 "@typescript-eslint/type-utils@8.38.0":
   version "8.38.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-8.38.0.tgz#a56cd84765fa6ec135fe252b5db61e304403a85b"
@@ -2115,16 +2078,6 @@
     semver "^7.6.0"
     ts-api-utils "^2.1.0"
 
-"@typescript-eslint/utils@8.37.0", "@typescript-eslint/utils@^8.8.1":
-  version "8.37.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-8.37.0.tgz#189ea59b2709f5d898614611f091a776751ee335"
-  integrity sha512-TSFvkIW6gGjN2p6zbXo20FzCABbyUAuq6tBvNRGsKdsSQ6a7rnV6ADfZ7f4iI3lIiXc4F4WWvtUfDw9CJ9pO5A==
-  dependencies:
-    "@eslint-community/eslint-utils" "^4.7.0"
-    "@typescript-eslint/scope-manager" "8.37.0"
-    "@typescript-eslint/types" "8.37.0"
-    "@typescript-eslint/typescript-estree" "8.37.0"
-
 "@typescript-eslint/utils@8.38.0":
   version "8.38.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-8.38.0.tgz#5f10159899d30eb92ba70e642ca6f754bddbf15a"
@@ -2134,6 +2087,16 @@
     "@typescript-eslint/scope-manager" "8.38.0"
     "@typescript-eslint/types" "8.38.0"
     "@typescript-eslint/typescript-estree" "8.38.0"
+
+"@typescript-eslint/utils@^8.8.1":
+  version "8.37.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-8.37.0.tgz#189ea59b2709f5d898614611f091a776751ee335"
+  integrity sha512-TSFvkIW6gGjN2p6zbXo20FzCABbyUAuq6tBvNRGsKdsSQ6a7rnV6ADfZ7f4iI3lIiXc4F4WWvtUfDw9CJ9pO5A==
+  dependencies:
+    "@eslint-community/eslint-utils" "^4.7.0"
+    "@typescript-eslint/scope-manager" "8.37.0"
+    "@typescript-eslint/types" "8.37.0"
+    "@typescript-eslint/typescript-estree" "8.37.0"
 
 "@typescript-eslint/visitor-keys@8.37.0":
   version "8.37.0"
