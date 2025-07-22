@@ -5,6 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { MOCK_REAL_TRAIN } from '../common/mapper/seat-reservation-sample-data.js';
 import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.js';
 
 import readme from './readme.md?raw';
@@ -120,6 +121,22 @@ export const TrainDecks: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: trainLayersArgs,
+};
+
+const trainRealArgs: Args = {
+  seatReservations: [MOCK_REAL_TRAIN],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+};
+
+export const TrainReal: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainRealArgs,
 };
 
 const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');

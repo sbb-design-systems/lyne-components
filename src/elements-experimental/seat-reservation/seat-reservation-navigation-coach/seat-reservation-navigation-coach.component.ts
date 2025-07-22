@@ -56,10 +56,6 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'free-places-by-type', type: Object })
   public accessor freePlacesByType: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
 
-  /** Representation of places available for selecting, counting seat places and bicycle places separetely */
-  @property({ attribute: 'free-places-by-type', type: Object })
-  public accessor freePlacesByType: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
-
   /** Travel class of the coach */
   @property({ attribute: 'travel-class', type: Array })
   public accessor travelClass: PlaceTravelClass[] = ['ANY_CLASS'];

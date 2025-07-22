@@ -136,7 +136,7 @@ export class SeatReservationBaseElement extends LitElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('seatReservations')) {
-      this.hasMultipleDecks = this.seatReservations.length > 1;
+      this.hasMultipleDecks = this.seatReservations?.length > 1;
       this._initSeatReservationPlaceSelection();
     }
 
@@ -189,15 +189,18 @@ export class SeatReservationBaseElement extends LitElement {
 
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
-    const seatReservationLayer = this.seatReservations[this.currSelectedDeckIndex] || null;
-    if (seatReservationLayer.coachItems.length > 0) {
+    const seatReservationDeck = this.seatReservations
+      ? this.seatReservations[this.currSelectedDeckIndex]
+      : null;
+    if (seatReservationDeck && seatReservationDeck.coachItems.length > 0) {
       const borderHeight =
-        (seatReservationLayer.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
+        (seatReservationDeck.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
         this.baseGridSize;
-      const decksGap = this.seatReservations.length * 24;
+      const gapBetweenCoachDecks = this.seatReservations.length * 24;
+
       this.style?.setProperty(
         '--sbb-seat-reservation-height',
-        `${borderHeight * this.seatReservations.length + decksGap}`,
+        `${borderHeight * this.seatReservations.length + gapBetweenCoachDecks}`,
       );
       this.style?.setProperty('--sbb-seat-reservation-decks', `${this.seatReservations.length}`);
     }
@@ -222,14 +225,16 @@ export class SeatReservationBaseElement extends LitElement {
         : firstLiEleDimension.width;
     }
 
-    if (this.coachScrollArea) {
-      let currCalcTriggerPos = 6;
+    if (this.coachScrollArea && seatReservationDeck) {
+      // Set the start offset of the coach scheme, which depends on the multipleDecks
+      // where we need a little more distance because of the deck labels
+      let currCalcTriggerPos = this.hasMultipleDecks ? 6 : 0;
       this.scrollCoachsAreaWidth = this.alignVertical
         ? this.coachScrollArea.getBoundingClientRect().height
         : this.coachScrollArea.getBoundingClientRect().width;
 
       // Precalculate trigger scroll position array depends from coach width
-      this.triggerCoachPositionsCollection = seatReservationLayer.coachItems.map((coach) => {
+      this.triggerCoachPositionsCollection = seatReservationDeck.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
 

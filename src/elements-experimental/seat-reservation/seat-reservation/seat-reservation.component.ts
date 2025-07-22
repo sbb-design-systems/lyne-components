@@ -6,7 +6,14 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
-import type { CoachItem, Place, ElementDimension, BaseElement, PlaceSelection } from '../common.js';
+import type {
+  CoachItem,
+  Place,
+  ElementDimension,
+  BaseElement,
+  PlaceSelection,
+  SeatReservation,
+} from '../common.js';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
 import style from './seat-reservation.scss?lit&inline';
@@ -31,7 +38,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
-
   // Graphics that should not be rendered with an area
   private _notAreaElements = [
     'DRIVER_AREA',
@@ -146,16 +152,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     </div>`;
   }
 
-  /*
-  private _getDeckDescription(deckIndex:number){
-    const deckTransKey =  deckIndex > 0 ? 'COACH_DECK_TOP' : 'COACH_DECK_BOTTOM';
-    return getI18nSeatReservation(deckTransKey, this._language.current);
-  }*/
-
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
-    if (!this.hasNavigation) {
-      return null;
-    }
+    if (!this.hasNavigation || !this.seatReservations) return null;
 
     const btnId = btnDirection == 'DIRECTION_RIGHT' ? 'last-tab-element' : 'first-tab-element';
     const btnIcon = btnDirection == 'DIRECTION_RIGHT' ? 'arrow-right-small' : 'arrow-left-small';
@@ -189,9 +187,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderNavigation(): TemplateResult | null {
-    if (!this.hasNavigation) {
-      return null;
-    }
+    if (!this.hasNavigation || !this.seatReservations) return null;
 
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
@@ -272,14 +268,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
       })}
     >
-      ${this._getRenderedCoachBorders(coachItem, coachIndex)}
+      ${this._getRenderedCoachBorders(coachItem)}
       ${this._getRenderedGraphicalElements(
         coachItem.graphicElements || [],
         coachItem.dimension,
         coachIndex,
         coachDeckIndex,
       )}
-      ${this._getRenderedServiceElements(coachIndex, coachItem.serviceElements)}
+      ${this._getRenderedServiceElements(coachIndex, coachDeckIndex, coachItem.serviceElements)}
 
       <table
         @focus=${() => this.onFocusTableCoachAndPreselectPlace(coachIndex)}
@@ -299,7 +295,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @returns Returns the border graphic (COACH_BORDER_MIDDLE) of a coach with calculated border gap and coach width,
    * depending on whether the coach is with a driver area or without.
    */
-  private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
+  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult {
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
@@ -308,7 +304,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
     const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
     const borderOffsetX =
-      coachIndex === 0 && driverArea
+      driverArea && driverArea.position.x === 0
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
     return html`
@@ -413,9 +409,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachIndex: number,
     coachDeckIndex: number,
   ): TemplateResult[] | null {
-    if (!graphicalElements) {
-      return null;
-    }
+    if (!graphicalElements) return null;
 
     return graphicalElements?.map((graphicalElement: BaseElement) => {
       const icon = graphicalElement.icon ?? '';
@@ -480,8 +474,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     //generate unique index number for the trigger element
     const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
-
     let elementMounting = 'free';
+
     if (graphicalElement.position.y === this.coachBorderOffset * -1) {
       elementMounting = 'upper-border';
     } else if (
@@ -494,6 +488,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return html`
       <sbb-seat-reservation-area
         id="${triggerId}"
+        class="${classMap({ 'sbb-seat-reservation-area--cursor-pointer': areaProperty !== null })}"
         style=${styleMap({
           '--sbb-seat-reservation-area-width': calculatedDimension.w,
           '--sbb-seat-reservation-area-height': calculatedDimension.h,
@@ -507,9 +502,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${areaProperty
           ? html`
               <sbb-seat-reservation-graphic
-                style=${styleMap({
-                  '--sbb-seat-reservation--cursor-pointer': 'pointer',
-                })}
                 name=${areaProperty}
                 width=${this.baseGridSize}
                 height=${this.baseGridSize}
@@ -520,35 +512,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             `
           : nothing}
       </sbb-seat-reservation-area>
-      ${this._popover(triggerId, ariaLabelForArea)}
+      ${areaProperty ? this._popover(triggerId, ariaLabelForArea) : nothing}
     `;
-  }
-
-  /**
-   * Creates a popover for extra service information
-   * @param triggerId
-   * @param popoverContent
-   * @private
-   */
-  private _popover(
-    triggerId: string,
-    popoverContent: string | null | typeof nothing,
-  ): TemplateResult {
-    return html`
-      <sbb-popover trigger="${triggerId}">
-        <p class="sbb-text-s sbb-sr-popover">${popoverContent}</p>
-      </sbb-popover>
-    `;
-  }
-
-  /**
-   * trigger to close all opened popovers (normally only one is opened at a time)
-   * @private
-   */
-  private _closePopover(): void {
-    this.shadowRoot
-      ?.querySelectorAll('sbb-popover[data-state="opened"]')
-      .forEach((popover) => popover.setAttribute('data-state', 'closed'));
   }
 
   private _getRenderElementWithoutArea(
@@ -592,11 +557,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _getRenderedServiceElements(
     coachIndex: number,
+    coachDeckIndex: number,
     serviceElements?: BaseElement[],
   ): TemplateResult[] | null {
-    if (!serviceElements) {
-      return null;
-    }
+    if (!serviceElements) return null;
 
     return serviceElements?.map((serviceElement: BaseElement) => {
       const titleDescription = serviceElement.icon
@@ -608,7 +572,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
 
       //generate unique index number for the trigger element
-      const triggerId = `popover-trigger-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
+      const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
 
       return html`
         <sbb-seat-reservation-graphic
@@ -619,8 +583,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             '--sbb-seat-reservation-graphic-top': calculatedPosition.y,
             '--sbb-seat-reservation-graphic-left': calculatedPosition.x,
             '--sbb-seat-reservation-graphic-position': 'absolute',
-            '--sbb-seat-reservation--cursor-pointer': 'pointer',
           })}
+          class="sbb-seat-reservation-graphic--cursor-pointer"
           name=${serviceElement.icon ?? nothing}
           .rotation=${elementFixedRotation}
           role="img"
@@ -673,6 +637,33 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       this.focusPlaceElement(this.currSelectedPlace);
     }
     this.isAutoScrolling = false;
+  }
+
+  /**
+   * Creates a popover for extra service information
+   * @param triggerId
+   * @param popoverContent
+   * @private
+   */
+  private _popover(
+    triggerId: string,
+    popoverContent: string | null | typeof nothing,
+  ): TemplateResult {
+    return html`
+      <sbb-popover trigger="${triggerId}">
+        <p class="sbb-text-s sbb-sr-popover">${popoverContent}</p>
+      </sbb-popover>
+    `;
+  }
+
+  /**
+   * trigger to close all opened popovers (normally only one is opened at a time)
+   * @private
+   */
+  private _closePopover(): void {
+    this.shadowRoot
+      ?.querySelectorAll('sbb-popover[data-state="opened"]')
+      .forEach((popover) => popover.setAttribute('data-state', 'closed'));
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem, coachIndex: number): string {

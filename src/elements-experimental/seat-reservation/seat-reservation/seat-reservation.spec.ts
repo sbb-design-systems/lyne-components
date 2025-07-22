@@ -9,11 +9,14 @@ import { SbbSeatReservationElement } from './seat-reservation.component.js';
 describe('sbb-seat-reservation', () => {
   let element: SbbSeatReservationElement;
 
-  const data: SeatReservation = {
-    vehicleType: 'TRAIN',
-    deckCoachIndex: 1,
-    coachItems: [],
-  };
+  const data: SeatReservation[] = [
+    {
+      vehicleType: 'TRAIN',
+      deckCoachIndex: 1,
+      deckCoachLevel: 'SINGLE_DECK',
+      coachItems: [],
+    },
+  ];
 
   beforeEach(async () => {
     element = await fixture(
