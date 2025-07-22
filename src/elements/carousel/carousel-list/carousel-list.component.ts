@@ -19,17 +19,19 @@ class SbbCarouselListElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   private _beforeShowObserver = new IntersectionController(this, {
     callback: (entry) => {
-      entry
-        .filter((e) => e.isIntersecting)
-        .forEach((e) => e.target.dispatchEvent(new Event('beforeshow')));
+      const item = entry.filter((e) => e.isIntersecting && e.target !== this);
+      item.forEach((e) =>
+        e.target.dispatchEvent(new Event('beforeshow', { bubbles: true, composed: true })),
+      );
     },
     config: { threshold: 0.01 },
   });
   private _showObserver = new IntersectionController(this, {
     callback: (entry) => {
-      entry
-        .filter((e) => e.isIntersecting)
-        .forEach((e) => e.target.dispatchEvent(new Event('show')));
+      const item = entry.filter((e) => e.isIntersecting && e.target !== this);
+      item.forEach((e) =>
+        e.target.dispatchEvent(new Event('show', { bubbles: true, composed: true })),
+      );
     },
     config: { threshold: 1 },
   });
@@ -40,8 +42,8 @@ class SbbCarouselListElement extends LitElement {
     ) as SbbCarouselItemElement;
     if (firstItem) {
       const innerEl: HTMLDivElement = firstItem.shadowRoot!.querySelector('.sbb-carousel-item')!;
-      this.style.height = `${innerEl.clientHeight}px`;
-      this.style.width = `${innerEl.clientWidth}px`;
+      this.style.setProperty('--sbb-carousel-list-height', `${innerEl.clientHeight}px`);
+      this.style.setProperty('--sbb-carousel-list-width', `${innerEl.clientWidth}px`);
     }
   }
 

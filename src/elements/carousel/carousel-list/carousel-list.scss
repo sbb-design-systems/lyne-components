@@ -9,9 +9,10 @@
 
 .sbb-carousel-list {
   display: flex;
+  height: var(--sbb-carousel-list-height);
+  width: var(--sbb-carousel-list-width);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  border-radius: var(--sbb-border-radius-4x) var(--sbb-border-radius-4x) 0 0;
 }

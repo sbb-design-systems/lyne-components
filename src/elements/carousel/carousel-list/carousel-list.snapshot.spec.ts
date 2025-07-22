@@ -16,13 +16,13 @@ describe(`sbb-carousel-list`, () => {
       element = await fixture(html`
         <sbb-carousel-list>
           <sbb-carousel-item>
-            <img src=${images[0]} alt="SBB image" />
+            <img src=${images[0]} alt="SBB image" height="300" width="400" />
           </sbb-carousel-item>
           <sbb-carousel-item>
-            <img src=${images[1]} alt="SBB image" />
+            <img src=${images[1]} alt="SBB image" height="300" width="400" />
           </sbb-carousel-item>
           <sbb-carousel-item>
-            <img src=${images[2]} alt="SBB image" />
+            <img src=${images[2]} alt="SBB image" height="300" width="400" />
           </sbb-carousel-item>
         </sbb-carousel-list>
       `);

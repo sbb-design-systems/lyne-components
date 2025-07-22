@@ -4,6 +4,7 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import images from '../../core/images.js';
+import '../../image.js';
 
 import { SbbCarouselItemElement } from './carousel-item.component.js';
 import readme from './readme.md?raw';
@@ -23,14 +24,30 @@ const defaultArgs: Args = {
   imageSrc: imageSrc.options![0],
 };
 
-const Template = ({ imageSrc }: Args): TemplateResult => html`
+const TemplateNative = ({ imageSrc }: Args): TemplateResult => html`
   <sbb-carousel-item>
     <img src=${imageSrc} alt="SBB image" height="300" width="400" />
   </sbb-carousel-item>
 `;
 
-export const Default: StoryObj = {
-  render: Template,
+const TemplateLyne = ({ imageSrc }: Args): TemplateResult => html`
+  <sbb-carousel-item>
+    <sbb-image
+      image-src=${imageSrc}
+      alt="SBB image"
+      style="width: 800px; height: 600px;"
+    ></sbb-image>
+  </sbb-carousel-item>
+`;
+
+export const Native: StoryObj = {
+  render: TemplateNative,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const SbbImage: StoryObj = {
+  render: TemplateLyne,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
