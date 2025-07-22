@@ -34,7 +34,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   // Graphics that should not be rendered with an area
   private _notAreaElements = [
-    'DRIVER_AREA_FULL',
+    'DRIVER_AREA',
     'COACH_PASSAGE',
     'COACH_WALL_NO_PASSAGE',
     'COMPARTMENT_PASSAGE',
@@ -88,7 +88,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _initVehicleSeatReservationConstruction(): void {
-    const coachItems = JSON.parse(JSON.stringify(this.seatReservation?.coachItems));
     const classAlignVertical = this.alignVertical ? 'sbb-sr__grid--vertical' : '';
     this._coachesHtmlTemplate = html`
       <div class="sbb-sr__container">
@@ -103,10 +102,25 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             <div class="sbb-sr-grid-inner">
               <div class="nav-grid">${this._renderNavigation()}</div>
               <div class="coaches-grid">
-                <div class="sbb-sr__wrapper">
+                <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
                   <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
-                    <ul class="sbb-sr__list-coaches" role="presentation">
-                      ${this._renderCoaches(coachItems)}
+                    <ul class="sbb-sr__list-decks">
+                      ${this.seatReservations?.map(
+                        (seatReservation: SeatReservation, index: number) => {
+                          return html`<li class="sbb-sr__list-item-deck">
+                            ${this._renderDeckLabels(seatReservation)}
+                            <ul
+                              class="${classMap({
+                                'sbb-sr__list-coaches': true,
+                                'sbb-sr__list-coaches--deck-label-offset': this.hasMultipleDecks,
+                              })}"
+                              role="presentation"
+                            >
+                              ${this._renderCoaches(seatReservation, index)}
+                            </ul>
+                          </li>`;
+                        },
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -120,6 +134,23 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       </div>
     `;
   }
+
+  private _renderDeckLabels(seatReservation: SeatReservation): TemplateResult | null {
+    if (!this.hasMultipleDecks) return null;
+    const deckDescription = getI18nSeatReservation(
+      seatReservation.deckCoachLevel,
+      this._language.current,
+    );
+    return html`<div class="sbb-sr__deck-label-wrapper">
+      <b class="sbb-sr__deck-label" aria-hidden="true">${deckDescription}</b>
+    </div>`;
+  }
+
+  /*
+  private _getDeckDescription(deckIndex:number){
+    const deckTransKey =  deckIndex > 0 ? 'COACH_DECK_TOP' : 'COACH_DECK_BOTTOM';
+    return getI18nSeatReservation(deckTransKey, this._language.current);
+  }*/
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
     if (!this.hasNavigation) {
@@ -138,7 +169,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       btnDisabled = false;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      this.selectedCoachIndex < this.seatReservation.coachItems.length - 1
+      this.selectedCoachIndex <
+        this.seatReservations[this.currSelectedDeckIndex].coachItems.length - 1
     ) {
       btnDisabled = false;
     }
@@ -171,30 +203,34 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             this._language.current,
           )}"
         >
-          ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
-            const coachFreePlaces = this.getAvailableFreePlacesNumFromCoach(index);
-            return html`<li>
-              <sbb-seat-reservation-navigation-coach
-                @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                @focuscoach=${() => this._onFocusNavCoach()}
-                class="${classMap({
-                  'sbb-sr__navigation-coach--hover-scroll': this.hoveredScrollCoachIndex === index,
-                })}"
-                index="${index}"
-                coach-id="${coachItem.id}"
-                .freePlacesByType="${coachFreePlaces}"
-                .selected=${this.selectedCoachIndex === index}
-                .focused=${this.focusedCoachIndex === index}
-                .propertyIds="${coachItem.propertyIds}"
-                .travelClass="${coachItem.travelClass}"
-                ?driver-area="${!coachItem.places?.length}"
-                ?first="${index === 0}"
-                ?last="${index === this.seatReservation?.coachItems.length - 1}"
-                ?vertical="${this.alignVertical}"
-              >
-              </sbb-seat-reservation-navigation-coach>
-            </li>`;
-          })}
+          ${this.seatReservations[this.currSelectedDeckIndex]?.coachItems.map(
+            (coachItem: CoachItem, index: number) => {
+              const coachFreePlaces = this.getAvailableFreePlacesNumFromCoach(index);
+              return html`<li>
+                <sbb-seat-reservation-navigation-coach
+                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                  @focuscoach=${() => this._onFocusNavCoach()}
+                  class="${classMap({
+                    'sbb-sr__navigation-coach--hover-scroll':
+                      this.hoveredScrollCoachIndex === index,
+                  })}"
+                  index="${index}"
+                  coach-id="${coachItem.id}"
+                  .freePlacesByType="${coachFreePlaces}"
+                  .selected=${this.selectedCoachIndex === index}
+                  .focused=${this.focusedCoachIndex === index}
+                  .propertyIds="${coachItem.propertyIds}"
+                  .travelClass="${coachItem.travelClass}"
+                  ?driver-area="${!coachItem.places?.length}"
+                  ?first="${index === 0}"
+                  ?last="${index ===
+                  this.seatReservations[this.currSelectedDeckIndex]?.coachItems.length - 1}"
+                  ?vertical="${this.alignVertical}"
+                >
+                </sbb-seat-reservation-navigation-coach>
+              </li>`;
+            },
+          )}
         </ul>
       </nav>
     </div>`;
@@ -204,20 +240,31 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @param coaches
    * @returns
    */
-  private _renderCoaches(coaches?: CoachItem[]): TemplateResult[] | null {
+  private _renderCoaches(
+    seatReservation: SeatReservation,
+    deckIndex: number,
+  ): TemplateResult[] | null {
+    const coaches = JSON.parse(JSON.stringify(seatReservation?.coachItems));
+
     if (!coaches) {
       return null;
     }
-    return coaches.map((coachItem: CoachItem, index: number) => {
+    return coaches.map((coachItem: CoachItem, coachIndex: number) => {
       return html`
-        <li class="sbb-sr__item-coach">${this._renderCoachElement(coachItem, index)}</li>
+        <li class="sbb-sr__item-coach">
+          ${this._renderCoachElement(coachItem, coachIndex, deckIndex)}
+        </li>
       `;
     });
   }
 
-  private _renderCoachElement(coachItem: CoachItem, index: number): TemplateResult {
+  private _renderCoachElement(
+    coachItem: CoachItem,
+    coachIndex: number,
+    coachDeckIndex: number,
+  ): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem, index);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem, coachIndex);
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -225,24 +272,25 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
       })}
     >
-      ${this._getRenderedCoachBorders(coachItem, index)}
+      ${this._getRenderedCoachBorders(coachItem, coachIndex)}
       ${this._getRenderedGraphicalElements(
         coachItem.graphicElements || [],
         coachItem.dimension,
-        index,
+        coachIndex,
+        coachDeckIndex,
       )}
-      ${this._getRenderedServiceElements(index, coachItem.serviceElements)}
+      ${this._getRenderedServiceElements(coachIndex, coachItem.serviceElements)}
 
       <table
-        @focus=${() => this.onFocusTableCoachAndPreselectPlace(index)}
-        id="sbb-sr-coach-${index}"
+        @focus=${() => this.onFocusTableCoachAndPreselectPlace(coachIndex)}
+        id="sbb-sr-coach-${coachIndex}"
         class="sbb-sr-coach-wrapper__table"
-        aria-describedby="sbb-sr-coach-caption-${index}"
+        aria-describedby="sbb-sr-coach-caption-${coachIndex}"
       >
-        <caption id="sbb-sr-coach-caption-${index}" tabindex="-1">
+        <caption id="sbb-sr-coach-caption-${coachIndex}" tabindex="-1">
           <sbb-screen-reader-only>${descriptionTableCoachWithServices}</sbb-screen-reader-only>
         </caption>
-        ${this._getRenderedRowPlaces(coachItem, index)}
+        ${this._getRenderedRowPlaces(coachItem, coachIndex, coachDeckIndex)}
       </table>
     </sbb-seat-reservation-scoped>`;
   }
@@ -254,9 +302,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _getRenderedCoachBorders(coachItem: CoachItem, coachIndex: number): TemplateResult {
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
-    const driverArea = allElements?.find(
-      (element: BaseElement) => element.icon === 'DRIVER_AREA_FULL',
-    );
+    const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
     const borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
@@ -281,7 +327,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     `;
   }
 
-  private _getRenderedRowPlaces(coach: CoachItem, coachIndex: number): TemplateResult[] | null {
+  private _getRenderedRowPlaces(
+    coach: CoachItem,
+    coachIndex: number,
+    deckIndex: number,
+  ): TemplateResult[] | null {
     if (!coach.places) {
       return null;
     }
@@ -300,14 +350,18 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       .map((rowPlaces: Place[], index) => {
         return html`
           <tr id="row-${coachIndex}-${rowPlaces[0].position.y}" data-row-index=${index}>
-            ${this._getRenderedColumnPlaces(rowPlaces, coachIndex)}
+            ${this._getRenderedColumnPlaces(rowPlaces, coachIndex, deckIndex)}
           </tr>
         `;
       })
       .flatMap((rowTemplate) => rowTemplate);
   }
 
-  private _getRenderedColumnPlaces(places: Place[], coachIndex: number): TemplateResult[] | null {
+  private _getRenderedColumnPlaces(
+    places: Place[],
+    coachIndex: number,
+    deckIndex: number,
+  ): TemplateResult[] | null {
     //Sorts each place by its ascending x coordinate
     places.sort(
       (placeA: Place, placeB: Place) => Number(placeA.position.x) - Number(placeB.position.x),
@@ -319,7 +373,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const textRotation = this.alignVertical ? -90 : 0;
 
       return html`
-        <td id="cell-${coachIndex}-${place.position.y}-${index}" class="graphical-element">
+        <td
+          id="cell-${deckIndex}-${coachIndex}-${place.position.y}-${index}"
+          class="graphical-element"
+        >
           <sbb-seat-reservation-place-control
             style=${styleMap({
               '--sbb-seat-reservation-place-control-width': calculatedDimension.w,
@@ -330,7 +387,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
               this._onSelectPlace(selectPlaceEvent)}
             exportparts="sbb-sr-place-part"
-            id="seat-reservation__place-button-${coachIndex}-${place.number}"
+            id="seat-reservation__place-button-${deckIndex}-${coachIndex}-${place.number}"
             class="seat-reservation-place-control"
             data-cell-id="${coachIndex}-${place.position.y}-${index}"
             text=${place.number}
@@ -341,6 +398,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             rotation=${place.rotation ?? nothing}
             text-rotation=${textRotation}
             coach-index=${coachIndex}
+            deck-index=${deckIndex}
             .propertyIds=${place.propertyIds}
             .preventClick=${this.preventPlaceClick}
           ></sbb-seat-reservation-place-control>
@@ -353,6 +411,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     graphicalElements: BaseElement[],
     coachDimension: ElementDimension,
     coachIndex: number,
+    coachDeckIndex: number,
   ): TemplateResult[] | null {
     if (!graphicalElements) {
       return null;
@@ -377,6 +436,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         elementFixedRotation,
         coachDimension,
         coachIndex,
+        coachDeckIndex,
       );
     });
   }
@@ -394,6 +454,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     rotation: number,
     coachDimension: ElementDimension,
     coachIndex: number,
+    coachDeckIndex: number,
   ): TemplateResult {
     // for TABLE, we use the area component itself to display the table instead of the SVG graphic.
     // Due to different heights and widths, it wouldn't show correctly. To correct this, we would
@@ -418,7 +479,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     );
 
     //generate unique index number for the trigger element
-    const triggerId = `popover-trigger-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
+    const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
 
     let elementMounting = 'free';
     if (graphicalElement.position.y === this.coachBorderOffset * -1) {
@@ -509,7 +570,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const icon =
       graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
         ? graphicalElement.icon
-        : graphicalElement.icon?.concat('_', this.seatReservation.vehicleType);
+        : graphicalElement.icon?.concat(
+            '_',
+            this.seatReservations[this.currSelectedDeckIndex].vehicleType,
+          );
 
     return html` <sbb-seat-reservation-graphic
       style=${styleMap({
@@ -578,6 +642,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     this.preventCoachScrollByPlaceClick = true;
     this.isCoachGridFocusable = false;
     if (!this.preventPlaceClick) {
+      // Set current deck index if a places was selected
+      this.currSelectedDeckIndex = selectedPlace.deckIndex;
       // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);
       this.updateCurrentSelectedPlaceInCoach(selectedPlace);

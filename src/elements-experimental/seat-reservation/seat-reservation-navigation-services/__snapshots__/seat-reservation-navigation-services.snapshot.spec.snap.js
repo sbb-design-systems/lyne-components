@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-seat-reservation-navigation-services renders DOM"] = 
+snapshots["sbb-seat-reservation-navigation-services renders DOM"] =
 `<sbb-seat-reservation-navigation-services>
 </sbb-seat-reservation-navigation-services>
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders DOM */
 
-snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] = 
+snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
 `<div class="sbb-sr-navigation__signs">
   <sbb-screen-reader-only>
     Available services:Bike area, Quiet zone
@@ -34,7 +34,7 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders Shadow DOM */
 
-snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] = 
+snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -50,7 +50,7 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Chrome */
 
-snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] = 
+snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",

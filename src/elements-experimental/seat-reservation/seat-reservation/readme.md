@@ -11,7 +11,9 @@ For the entire presentation, navigation and functionality of such a seat reserva
 > [sbb-seat-reservation-graphics](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphics--docs) => Contains various graphics that are required to render a wagon
 
 ```html
-<sbb-seat-reservation seatReservation="seatReservationObj<SeatReservation>"></sbb-seat-reservation>
+<sbb-seat-reservation
+  seatReservations="seatReservationArray<SeatReservation>[]"
+></sbb-seat-reservation>
 ```
 
 ## Data structure of SeatReservation
@@ -22,6 +24,7 @@ For the entire presentation, navigation and functionality of such a seat reserva
 type SeatReservation = {
   vehicleType: VehicleType;
   deckCoachIndex: number;
+  deckCoachLevel: CoachDeckLevel;
   coachItems: CoachItem[];
 };
 ```
@@ -50,9 +53,7 @@ interface Place extends BaseElement {
   state: PlaceState;
   type: PlaceType;
   travelClass?: PlaceTravelClass;
-  remarkId?: string;
   propertyIds?: string[];
-  selected?: boolean;
 }
 ```
 
@@ -82,6 +83,7 @@ type PlaceSelection = {
   id: string;
   number: string;
   coachIndex: number;
+  deckIndex: number;
   state: PlaceState;
 };
 ```
@@ -94,6 +96,7 @@ type SeatReservationPlaceSelection = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
+  deckIndex: number;
   placeNumber: string;
   placeType: PlaceType;
   placeTravelClass: PlaceTravelClass;
@@ -117,6 +120,7 @@ type SeatReservationCoachSelection = {
 #### Other
 
 ```typescript
+type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 type PlaceType = 'SEAT' | 'BICYCLE';
 type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
@@ -139,7 +143,7 @@ type BaseElement = {
 
 ### Coloring place by css properties
 
-Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors of the background, the backrest and textcolor of the place can be customized. The currently specified values var(--sbb-color-black)) are the built-in default values.
+Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors of the background, the backrest and textcolor of the place can be customized. The currently specified values var(--sbb-color-black) are the built-in default values.
 
 By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the individual custom properties can be overwritten.
 
@@ -176,6 +180,30 @@ By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the indiv
   --sbb-seat-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 }
 ```
+
+### Example of customizing CASA (blue)
+
+```css
+::part(sbb-sr-place-part) {
+  --sbb-seat-reservation-place-control-selected-background-default: var(--casa-blue);
+  --sbb-seat-reservation-place-control-selected-background-hover: var(--casa-blue);
+  --sbb-seat-reservation-place-control-selected-background-focus: var(--casa-blue);
+  --sbb-seat-reservation-place-control-selected-backrest-background-default: var(--casa-blue-hover);
+  --sbb-seat-reservation-place-control-selected-backrest-background-hover: var(--casa-blue-hover);
+  --sbb-seat-reservation-place-control-selected-backrest-background-focus: var(--casa-blue-hover);
+}
+```
+
+## Accessibility
+
+The `sbb-seat-reservation` component is designed to be accessible. It uses ARIA roles and
+properties to ensure that screen readers can interpret the seat reservation structure correctly.
+Each seat and coach is represented with appropriate roles, and the component emits custom events
+to communicate user interactions.
+
+Keyboard navigation is supported, allowing users to navigate through the seat reservation navigation
+with TAB and arrow keys. The component also provides visual focus indicators to help users understand
+their current position within the reservation area.
 
 ### Example of customizing CASA (blue)
 
