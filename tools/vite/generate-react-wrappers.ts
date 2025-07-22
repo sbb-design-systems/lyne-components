@@ -139,12 +139,13 @@ function renderTemplate(
     console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
+  // Generic <T> types are filtered out from imports
   const customEventTypes =
     declaration.events
       ?.filter(
         (e) =>
           e.type.text.startsWith('CustomEvent<') &&
-          ['void', '{', 'File'].every((m) => !e.type.text.includes(`<${m}`)),
+          ['void', '{', 'File', 'T'].every((m) => !e.type.text.includes(`<${m}`)),
       )
       .map((e) => e.type.text.substring(12).slice(0, -1))
       .sort()
@@ -238,7 +239,7 @@ export const ${declaration.name.replace(/Element$/, '')} = createComponent({
     .events!.map(
       (e) =>
         `\n    'on${e.name.charAt(0).toUpperCase() + e.name.slice(1)}': '${e.name}' as EventName<${e.type.text.replace(
-          '<T>',
+          /<T\s*(\|\s*T\[\])?\s*>/g,
           '<any>',
         )}>,`,
     )
