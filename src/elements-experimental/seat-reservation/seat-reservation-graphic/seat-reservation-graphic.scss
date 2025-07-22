@@ -42,19 +42,17 @@
   );
 }
 
+// hover state with pointer cursor for service icons and popover
+:host(.sbb-seat-reservation-graphic--cursor-pointer) {
+  cursor: pointer;
+}
+
 .sbb-sr-icon,
 .sbb-sr-graphic {
   width: inherit;
   height: inherit;
   transform-origin: center;
   rotate: calc(var(--sbb-seat-reservation-graphic-rotation) * 1deg);
-}
-
-// hover state with pointer cursor for service icons and popover
-.sbb-sr-icon {
-  &:hover {
-    cursor: var(--sbb-seat-reservation--cursor-pointer, default);
-  }
 }
 
 .sbb-sr-icon {

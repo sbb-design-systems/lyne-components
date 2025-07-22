@@ -45,16 +45,23 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
           </div>
         </div>
         <div class="coaches-grid">
-          <div class="sbb-sr__wrapper">
+          <div
+            class="sbb-sr__wrapper"
+            id="sbb-sr__wrapper-scrollarea"
+          >
             <div
               class="sbb-sr__parent"
               id="sbb-sr__parent-area"
               tabindex="-1"
             >
-              <ul
-                class="sbb-sr__list-coaches"
-                role="presentation"
-              >
+              <ul class="sbb-sr__list-decks">
+                <li class="sbb-sr__list-item-deck">
+                  <ul
+                    class="sbb-sr__list-coaches"
+                    role="presentation"
+                  >
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>
@@ -95,8 +102,14 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
       "disabled": true
     },
     {
-      "role": "list",
-      "name": "Seat reservation navigation"
+      "role": "navigation",
+      "name": "",
+      "children": [
+        {
+          "role": "list",
+          "name": "Seat reservation navigation"
+        }
+      ]
     },
     {
       "role": "generic",
