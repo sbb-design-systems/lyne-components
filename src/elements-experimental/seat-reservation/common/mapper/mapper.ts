@@ -5,8 +5,8 @@ import type {
   PlaceSelection,
   PlaceTravelClass,
   SeatReservation,
-  SeatReservationCoachSelection,
   SeatReservationPlaceSelection,
+  SeatReservationSelectedCoach,
   VehicleType,
 } from '../types.js';
 
@@ -163,7 +163,7 @@ export const mapCoachInfosToCoachSelection = (
   coachIndex: number,
   coach: CoachItem,
   coachNumberOfFreePlaces: CoachNumberOfFreePlaces,
-): SeatReservationCoachSelection => {
+): SeatReservationSelectedCoach => {
   return {
     coachId: coach.id,
     coachNumber: coach.number,

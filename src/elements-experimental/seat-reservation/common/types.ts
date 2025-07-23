@@ -76,7 +76,7 @@ export type SeatReservationPlaceSelection = {
   propertyIds: string[];
 };
 
-export type SeatReservationCoachSelection = {
+export type SeatReservationSelectedCoach = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
@@ -84,6 +84,11 @@ export type SeatReservationCoachSelection = {
   coachTravelClass: PlaceTravelClass[];
   coachPropertyIds?: string[];
   coachNumberOfFreePlaces?: CoachNumberOfFreePlaces;
+};
+
+export type SeatReservationSelectedPlaces = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
 };
 
 export type PlaceType = 'SEAT' | 'BICYCLE';

@@ -104,16 +104,25 @@ type SeatReservationPlaceSelection = {
 };
 ```
 
-#### SeatReservationCoachSelection
+#### SeatReservationSelectedCoach
 
 ```typescript
-type SeatReservationCoachSelection = {
+type SeatReservationSelectedCoach = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
   coachType?: CoachType;
   coachTravelClass: PlaceTravelClass[];
   coachPropertyIds?: string[];
+};
+```
+
+#### SeatReservationSelectedPlaces
+
+```typescript
+type SeatReservationSelectedPlaces = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
 };
 ```
 
@@ -205,49 +214,4 @@ Keyboard navigation is supported, allowing users to navigate through the seat re
 with TAB and arrow keys. The component also provides visual focus indicators to help users understand
 their current position within the reservation area.
 
-### Example of customizing CASA (blue)
-
-```css
-::part(sbb-sr-place-part) {
-  --sbb-seat-reservation-place-control-selected-background-default: var(--casa-blue);
-  --sbb-seat-reservation-place-control-selected-background-hover: var(--casa-blue);
-  --sbb-seat-reservation-place-control-selected-background-focus: var(--casa-blue);
-  --sbb-seat-reservation-place-control-selected-backrest-background-default: var(--casa-blue-hover);
-  --sbb-seat-reservation-place-control-selected-backrest-background-hover: var(--casa-blue-hover);
-  --sbb-seat-reservation-place-control-selected-backrest-background-focus: var(--casa-blue-hover);
-}
-```
-
-## Accessibility
-
-The `sbb-seat-reservation` component is designed to be accessible. It uses ARIA roles and
-properties to ensure that screen readers can interpret the seat reservation structure correctly.
-Each seat and coach is represented with appropriate roles, and the component emits custom events
-to communicate user interactions.
-
-Keyboard navigation is supported, allowing users to navigate through the seat reservation navigation
-with TAB and arrow keys. The component also provides visual focus indicators to help users understand
-their current position within the reservation area.
-
 <!-- Auto Generated Below -->
-
-## Properties
-
-| Name                     | Attribute                  | Privacy | Type              | Default | Description                                                       |
-| ------------------------ | -------------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------- |
-| `alignVertical`          | `align-vertical`           | public  | `boolean`         | `false` | The seat reservation area is aligned vertically                   |
-| `baseGridSize`           | `base-grid-size`           | public  | `number`          | `16`    | The seat reservation area's base grid size                        |
-| `hasNavigation`          | `has-navigation`           | public  | `boolean`         | `true`  | The seat reservation navigation can be toggled by this property   |
-| `height`                 | `height`                   | public  | `number`          | `null!` | The seat reservation area's width                                 |
-| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`          | `-1`    | Maximal number of possible clickable bicycle places               |
-| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`          | `-1`    | Maximal number of possible clickable seats                        |
-| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`          | `-1`    |                                                                   |
-| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`         | `false` | Any click functionality is prevented                              |
-| `seatReservation`        | `seat-reservation`         | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places |
-
-## Events
-
-| Name             | Type                                                     | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationCoachSelection>`             | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlacesEventDetails>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |

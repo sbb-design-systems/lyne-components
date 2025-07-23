@@ -16,7 +16,8 @@ import type {
   Place,
   PlaceSelection,
   SeatReservation,
-  SeatReservationCoachSelection,
+  SeatReservationSelectedCoach,
+  SeatReservationSelectedPlaces,
   SeatReservationPlaceSelection,
 } from '../common.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
@@ -32,18 +33,13 @@ interface CoachScrollTriggerPoint {
   width: number;
 }
 
-export type SeatReservationSelectedPlacesEventDetails = {
-  seats: SeatReservationPlaceSelection[];
-  bicycles: SeatReservationPlaceSelection[];
-};
-
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
     selectedplaces: 'selectedplaces',
     selectedcoach: 'selectedcoach',
   } as const;
 
-  /** The seat reservation object which contains all coaches and places */
+  /** The seat reservations array contains all coaches and places */
   @property({ attribute: 'seat-reservations', type: Array })
   public accessor seatReservations: SeatReservation[] = null!;
 
@@ -114,7 +110,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected currSelectedCoachIndex: number = -1;
   protected currSelectedDeckIndex: number = 0;
   protected preventCoachScrollByPlaceClick: boolean = false;
-  protected selectedSeatReservationPlaces: SeatReservationSelectedPlacesEventDetails = {
+  protected selectedSeatReservationPlaces: SeatReservationSelectedPlaces = {
     seats: [],
     bicycles: [],
   };
@@ -914,26 +910,24 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   protected updateSelectedSeatReservationPlaces(placeSelection: PlaceSelection): void {
-    if (placeSelection.placeType === 'SEAT') {
-      this.selectedSeatReservationPlaces.seats = this._updateSelectedSeatReservationPlaces(
-        this.selectedSeatReservationPlaces.seats,
-        this.maxSeatReservations,
-        placeSelection,
-      );
-    } else {
-      this.selectedSeatReservationPlaces.bicycles = this._updateSelectedSeatReservationPlaces(
-        this.selectedSeatReservationPlaces.bicycles,
-        this.maxBicycleReservations,
-        placeSelection,
-      );
-    }
+    const placeTypeProp = placeSelection.placeType === 'SEAT' ? 'seats' : 'bicycles';
+    const maxReservations =
+      placeSelection.placeType === 'SEAT' ? this.maxSeatReservations : this.maxBicycleReservations;
+    const currSelectedPlaces = this.selectedSeatReservationPlaces[placeTypeProp];
+    const updatedSelectedPlaces = this._updateSelectedSeatReservationPlaces(
+      currSelectedPlaces,
+      maxReservations,
+      placeSelection,
+    );
+
+    this.selectedSeatReservationPlaces[placeTypeProp] = updatedSelectedPlaces;
 
     /**
-     * @@type {CustomEvent<SeatReservationSelectedPlacesEventDetails>}
+     * @type {CustomEvent<SeatReservationSelectedPlaces>}
      * Emits when a place was selected and returns a Place array with all selected places.
      */
     this.dispatchEvent(
-      new CustomEvent<SeatReservationSelectedPlacesEventDetails>('selectedplaces', {
+      new CustomEvent<SeatReservationSelectedPlaces>('selectedplaces', {
         bubbles: true,
         composed: true,
         detail: this.selectedSeatReservationPlaces,
@@ -961,18 +955,12 @@ export class SeatReservationBaseElement extends LitElement {
     }
     // Checks whether maxReservation is activated and the maximum number of selected places is reached
     if (maxReservations > -1 && selectedSeatReservationPlaces.length > maxReservations) {
-      if (maxReservations === 0) {
-        // if maxReservation is 0(not allowed to select any place of given type), resets currently selected place
-        selectedSeatReservationPlaces = this._resetAllPlaceSelections(
-          selectedSeatReservationPlaces,
-        );
-      } else {
-        // otherwise resets all places except given one
-        selectedSeatReservationPlaces = this._resetAllPlaceSelections(
-          selectedSeatReservationPlaces,
-          placeSelection,
-        );
-      }
+      const resetWithPlaceSelection = maxReservations > 0 ? placeSelection : undefined;
+
+      selectedSeatReservationPlaces = this._resetAllPlaceSelections(
+        selectedSeatReservationPlaces,
+        resetWithPlaceSelection,
+      );
     }
 
     return selectedSeatReservationPlaces;
@@ -997,14 +985,14 @@ export class SeatReservationBaseElement extends LitElement {
   protected updateCurrentSelectedCoach(): void {
     this.selectedCoachIndex = this.currSelectedCoachIndex;
     this.focusedCoachIndex = -1;
-    const coachSelection = this._getSeatReservationCoachSelection(this.selectedCoachIndex);
+    const coachSelection = this._getSeatReservationSelectedCoach(this.selectedCoachIndex);
     if (coachSelection) {
       /**
-       * @type {CustomEvent<SeatReservationCoachSelection>}
+       * @type {CustomEvent<SeatReservationSelectedCoach>}
        * Emits when a coach was selected and returns a CoachSelection
        */
       this.dispatchEvent(
-        new CustomEvent<SeatReservationCoachSelection>('selectedcoach', {
+        new CustomEvent<SeatReservationSelectedCoach>('selectedcoach', {
           bubbles: true,
           composed: true,
           detail: coachSelection,
@@ -1087,9 +1075,9 @@ export class SeatReservationBaseElement extends LitElement {
       : null;
   }
 
-  private _getSeatReservationCoachSelection(
+  private _getSeatReservationSelectedCoach(
     coachIndex: number,
-  ): SeatReservationCoachSelection | null {
+  ): SeatReservationSelectedCoach | null {
     if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) return null;
 
     const coach = this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex];
