@@ -20,12 +20,16 @@ export interface SbbPopoverConfig {
   /* Delay in milliseconds until the popover is closed. */
   closeDelay?: number;
 }
+export interface SbbTooltipConfig extends SbbPopoverConfig {
+  longPressCloseDelay?: number;
+}
 
 export interface SbbConfig {
   language?: string;
   icon?: SbbIconConfig;
   datetime?: SbbDatetimeConfig;
   popover?: SbbPopoverConfig;
+  tooltip?: SbbTooltipConfig;
 }
 
 export function readConfig(): SbbConfig {
