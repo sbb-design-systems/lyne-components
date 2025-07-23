@@ -1,45 +1,44 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-carousel-item` is a component . . .
+The `sbb-carousel-item` represents a single item within a [sbb-carousel](/docs/elements-sbb-carousel-sbb-carousel--docs);
+it is meant to be slotted in a [sbb-carousel-list](/docs/elements-sbb-carousel-sbb-carousel-list--docs).
 
 ```html
-<sbb-carousel-item></sbb-carousel-item>
+<sbb-carousel-item>
+  <img src="../image.jpg" alt="SBB image" height="300" width="400" />
+</sbb-carousel-item>
+
+<sbb-carousel-item>
+  <sbb-image
+    image-src="../image.jpg"
+    alt="SBB image"
+    style="width: 800px; height: 600px;"
+  ></sbb-image>
+</sbb-carousel-item>
+
+<sbb-carousel-item>
+  <div
+    style="display: flex; flex-direction: column; align-items: center; background-color: black; color: white;"
+  >
+    <img src="../image.jpg" alt="SBB image" height="300" width="400" />
+    Caption for picture
+  </div>
+</sbb-carousel-item>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+The content is projected in an unnamed slot.
 
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+The component supports native `img` tags, `sbb-image`, `picture` and also custom content, appropriately formatted;
+since it doesn't have a fixed size, it's important for consumers to define the dimensions of slotted images to correctly render the component.
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+The component provides two events, named `beforeshow` and `show`; their emission is related to scroll events in the `sbb-carousel-list`.
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
+the component has `role="group"` and `aria-roledescription="slide"`.
 
 <!-- Auto Generated Below -->
 

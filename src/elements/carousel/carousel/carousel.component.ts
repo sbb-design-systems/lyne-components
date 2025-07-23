@@ -21,6 +21,9 @@ class SbbCarouselElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   private _currentItemIndex: number = 0;
 
+  /**
+   * Used to display a box-shadow around the component.
+   */
   @forceType()
   @property({ reflect: true, type: Boolean })
   public accessor shadow: boolean = false;

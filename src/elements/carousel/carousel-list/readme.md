@@ -1,45 +1,38 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-carousel-list` is a component . . .
+The `sbb-carousel-list` is a wrapper component for [sbb-carousel-item](/docs/elements-sbb-carousel-sbb-carousel-item--docs),
+and it's meant to be used within a [sbb-carousel](/docs/elements-sbb-carousel-sbb-carousel--docs).
 
 ```html
-<sbb-carousel-list></sbb-carousel-list>
+<sbb-carousel-list>
+  <sbb-carousel-item>
+    <img src="../image-0.jpg" alt="SBB image" height="300" width="400" />
+  </sbb-carousel-item>
+  <sbb-carousel-item>
+    <img src="../image-1.jpg" alt="SBB image" height="300" width="400" />
+  </sbb-carousel-item>
+  <sbb-carousel-item>
+    <img src="../image-2.jpg" alt="SBB image" height="300" width="400" />
+  </sbb-carousel-item>
+</sbb-carousel-list>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+The content is projected in an unnamed slot.
 
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+The component gets its dimensions by setting the `--sbb-carousel-list-height` and `--sbb-carousel-list-width` variables
+looking at the first slotted `sbb-carousel-item`.
+It's a consumers' responsibility to set the correct height/width of the items, and make sure that they are all the same size.
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+The `sbb-carousel-list` component takes care of the emission of the `beforeshow` and `show` events on the slotted `sbb-carousel-item`s.
 
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+An `IntersectionController` manages the emission of both, with different thresholds (0.01 for `beforeshow` and 1 for `show`).
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
+the component has `aria-atomic='false'` and `aria-live='polite'`.
 
 <!-- Auto Generated Below -->
 
