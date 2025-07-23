@@ -2,6 +2,7 @@ import { html } from 'lit';
 
 import images from '../../core/images.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { waitForImageReady } from '../../core/testing.js';
 
 import '../carousel-item/carousel-item.component.js';
 import './carousel-list.component.js';
@@ -24,6 +25,10 @@ describe('sbb-carousel-list', () => {
             </sbb-carousel-item>
           </sbb-carousel-list>
         `);
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+        );
       }),
     );
   });
