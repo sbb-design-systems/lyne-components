@@ -27,6 +27,8 @@ import '../seat-reservation-navigation-coach.js';
 import '../seat-reservation-scoped.js';
 import '@sbb-esta/lyne-elements/popover/popover.js';
 
+export type { SeatReservationSelectedCoach, SeatReservationSelectedPlaces } from '../common.js';
+
 /**
  * Main component for the seat reservation.
  *
