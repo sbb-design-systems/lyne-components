@@ -214,11 +214,13 @@ export class SeatReservationBaseElement extends LitElement {
         : this.navigationScrollArea.getBoundingClientRect().width;
 
       // Init the coachNavButtonDim dimension, which is needed to calculate the correct scroll navigation later
-      const navCoacheList = this.navigationScrollArea.querySelector('ul > li') as HTMLUListElement;
-      const firstLiEleDimension = navCoacheList?.getBoundingClientRect();
-      this.coachNavButtonDim = this.alignVertical
-        ? firstLiEleDimension?.height
-        : firstLiEleDimension?.width;
+      const navCoachesList = this.navigationScrollArea.querySelector('ul > li') as HTMLUListElement;
+      if (navCoachesList) {
+        const firstLiEleDimension = navCoachesList?.getBoundingClientRect();
+        this.coachNavButtonDim = this.alignVertical
+          ? firstLiEleDimension?.height
+          : firstLiEleDimension?.width;
+      }
     }
 
     if (this.coachScrollArea && seatReservationDeck) {
