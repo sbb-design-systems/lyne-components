@@ -20,7 +20,7 @@ describe('sbb-seat-reservation', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<sbb-seat-reservation .seatReservation="${data}"></sbb-seat-reservation>`,
+      html`<sbb-seat-reservation .seatReservations="${data}"></sbb-seat-reservation>`,
     );
   });
 

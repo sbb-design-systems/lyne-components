@@ -104,16 +104,25 @@ type SeatReservationPlaceSelection = {
 };
 ```
 
-#### SeatReservationCoachSelection
+#### SeatReservationSelectedCoach
 
 ```typescript
-type SeatReservationCoachSelection = {
+type SeatReservationSelectedCoach = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
   coachType?: CoachType;
   coachTravelClass: PlaceTravelClass[];
   coachPropertyIds?: string[];
+};
+```
+
+#### SeatReservationSelectedPlaces
+
+```typescript
+type SeatReservationSelectedPlaces = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
 };
 ```
 
@@ -206,24 +215,3 @@ with TAB and arrow keys. The component also provides visual focus indicators to 
 their current position within the reservation area.
 
 <!-- Auto Generated Below -->
-
-## Properties
-
-| Name                     | Attribute                  | Privacy | Type              | Default | Description                                                       |
-| ------------------------ | -------------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------- |
-| `alignVertical`          | `align-vertical`           | public  | `boolean`         | `false` | The seat reservation area is aligned vertically                   |
-| `baseGridSize`           | `base-grid-size`           | public  | `number`          | `16`    | The seat reservation area's base grid size                        |
-| `hasNavigation`          | `has-navigation`           | public  | `boolean`         | `true`  | The seat reservation navigation can be toggled by this property   |
-| `height`                 | `height`                   | public  | `number`          | `null!` | The seat reservation area's width                                 |
-| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`          | `-1`    | Maximal number of possible clickable bicycle places               |
-| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`          | `-1`    | Maximal number of possible clickable seats                        |
-| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`          | `-1`    |                                                                   |
-| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`         | `false` | Any click functionality is prevented                              |
-| `seatReservation`        | `seat-reservation`         | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places |
-
-## Events
-
-| Name             | Type                                                     | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationCoachSelection>`             | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlacesEventDetails>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |

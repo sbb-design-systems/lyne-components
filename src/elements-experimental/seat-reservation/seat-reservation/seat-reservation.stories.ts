@@ -16,7 +16,8 @@ const seatReservationType: InputType = {
   table: {
     disable: false,
   },
-  description: 'Seat reservation Object',
+  description:
+    'Seat Reservations Array<SeatReservation>. It is possible to display several decks from the vehicle scheme. Each SeatReservation object within the array represents one deck.',
 };
 
 const maxSeatReservationsType: InputType = {
@@ -26,7 +27,7 @@ const maxSeatReservationsType: InputType = {
 
 const maxBicycleReservationsType: InputType = {
   control: { type: 'number' },
-  description: 'Maximal number of possible clickable seats',
+  description: 'Maximal number of possible clickable bicycle places',
 };
 
 const navigationType: InputType = {
