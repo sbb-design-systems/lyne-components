@@ -1,0 +1,26 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  display: inline-block;
+  overflow: hidden;
+  border-radius: var(--sbb-border-radius-4x);
+}
+
+:host([shadow]) {
+  @include sbb.shadow-level-9-hard;
+}
+
+.sbb-carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--sbb-color-white);
+}
+
+::slotted(sbb-compact-paginator) {
+  padding: var(--sbb-spacing-responsive-xs);
+}
