@@ -128,6 +128,30 @@
 // --------------- Seat Reservation Main Navigation - END ----------------
 
 // ------------- Seat Reservation Coaches - START -----------------
+.sbb-sr__wrapper-coach-decks {
+  display: flex;
+  overflow: hidden;
+  height: inherit;
+
+  .sbb-sr__wrapper-deck-labels {
+    // Calculated deck label height subtracted from the scollbar height (8)
+    // for optimal representation of the centred deck labels
+    $deck-label-height: calc(var(--sbb-seat-reservation-height) - 8);
+
+    display: flex;
+    justify-content: space-between;
+    height: calc($deck-label-height * sbb.px-to-rem-build(1));
+    writing-mode: vertical-lr;
+
+    b {
+      height: calc(50% - var(--sbb-spacing-fixed-4x));
+      width: 24px;
+      rotate: 180deg;
+      text-align: center;
+    }
+  }
+}
+
 .sbb-sr__wrapper {
   @include sbb.scrollbar;
 
@@ -154,35 +178,6 @@
 
 .sbb-sr__list-item-deck {
   position: relative;
-}
-
-.sbb-sr__list-decks .sbb-sr__deck-label-wrapper {
-  // Coach deck gap value optimized
-  // the height of calculated $coachDeckHeight
-  $coach-deck-gap: 32;
-
-  // Set the coach deck height of a single coach deck to use
-  // fixed position for the centered deck label
-  $coach-deck-height: calc(
-    var(--sbb-seat-reservation-height) / var(--sbb-seat-reservation-decks) - $coach-deck-gap
-  );
-
-  height: calc($coach-deck-height * sbb.px-to-rem-build(1));
-  position: fixed;
-  z-index: 100;
-  writing-mode: vertical-rl;
-  rotate: -180deg;
-  text-align: center;
-  line-height: 1rem;
-  pointer-events: none;
-
-  b.sbb-sr__deck-label {
-    padding: sbb.px-to-rem-build(16) sbb.px-to-rem-build(4) sbb.px-to-rem-build(16)
-      sbb.px-to-rem-build(4);
-    border-radius: var(--sbb-border-radius-2x) 0 0 var(--sbb-border-radius-2x);
-    box-shadow: sbb.px-to-rem-build(-2) 0 sbb.px-to-rem-build(2) 0 var(--sbb-color-platinum);
-    background-color: var(--sbb-color-white);
-  }
 }
 
 .sbb-sr__list-coaches {
@@ -316,19 +311,36 @@
       overflow: hidden;
       position: relative;
 
-      .sbb-sr__wrapper {
-        @include sbb.scrollbar;
+      .sbb-sr__wrapper-coach-decks {
+        flex-direction: column;
 
-        & {
-          overflow: hidden scroll;
-          padding: 0 var(--sbb-spacing-fixed-4x) 0 0;
-          height: 100%;
+        .sbb-sr__wrapper-deck-labels {
+          flex-direction: column-reverse;
+          width: calc(100% - 1rem);
+          height: initial;
+
+          b {
+            width: 50%;
+            height: sbb.px-to-rem-build(24);
+            rotate: initial;
+            writing-mode: initial;
+          }
         }
-      }
 
-      .sbb-sr__parent {
-        rotate: 90deg;
-        transform-origin: $rotation-pivot-point $rotation-pivot-point;
+        .sbb-sr__wrapper {
+          @include sbb.scrollbar;
+
+          & {
+            overflow: hidden scroll;
+            padding: 0 var(--sbb-spacing-fixed-4x) 0 0;
+            height: 100%;
+          }
+        }
+
+        .sbb-sr__parent {
+          rotate: 90deg;
+          transform-origin: $rotation-pivot-point $rotation-pivot-point;
+        }
       }
     }
   }

@@ -11145,7 +11145,7 @@ export const MOCK_COACHES_RAW_REAL_DATA = [
   },
 ];
 
-export const MOCK_REAL_TRAIN = {
+export const MOCK_GIRUNO_TRAIN = {
   vehicleType: 'TRAIN',
   deckCoachIndex: 0,
   coachItems: [

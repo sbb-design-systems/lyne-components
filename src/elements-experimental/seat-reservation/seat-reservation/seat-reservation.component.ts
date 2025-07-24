@@ -27,8 +27,6 @@ import '../seat-reservation-navigation-coach.js';
 import '../seat-reservation-scoped.js';
 import '@sbb-esta/lyne-elements/popover/popover.js';
 
-export type { SeatReservationSelectedCoach, SeatReservationSelectedPlaces } from '../common.js';
-
 /**
  * Main component for the seat reservation.
  *
@@ -110,26 +108,28 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             <div class="sbb-sr-grid-inner">
               <div class="nav-grid">${this._renderNavigation()}</div>
               <div class="coaches-grid">
-                <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
-                  <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
-                    <ul class="sbb-sr__list-decks">
-                      ${this.seatReservations?.map(
-                        (seatReservation: SeatReservation, index: number) => {
-                          return html`<li class="sbb-sr__list-item-deck">
-                            ${this._renderDeckLabels(seatReservation)}
-                            <ul
-                              class="${classMap({
-                                'sbb-sr__list-coaches': true,
-                                'sbb-sr__list-coaches--deck-label-offset': this.hasMultipleDecks,
-                              })}"
-                              role="presentation"
-                            >
-                              ${this._renderCoaches(seatReservation, index)}
-                            </ul>
-                          </li>`;
-                        },
-                      )}
-                    </ul>
+                <div class="sbb-sr__wrapper-coach-decks">
+                  <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
+                  <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
+                    <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
+                      <ul class="sbb-sr__list-decks">
+                        ${this.seatReservations?.map(
+                          (seatReservation: SeatReservation, index: number) => {
+                            return html`<li class="sbb-sr__list-item-deck">
+                              <ul
+                                class="${classMap({
+                                  'sbb-sr__list-coaches': true,
+                                  'sbb-sr__list-coaches--deck-label-offset': this.hasMultipleDecks,
+                                })}"
+                                role="presentation"
+                              >
+                                ${this._renderCoaches(seatReservation, index)}
+                              </ul>
+                            </li>`;
+                          },
+                        )}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -143,15 +143,16 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     `;
   }
 
-  private _renderDeckLabels(seatReservation: SeatReservation): TemplateResult | null {
+  private _renderDeckLabels(): TemplateResult[] | null {
     if (!this.hasMultipleDecks) return null;
-    const deckDescription = getI18nSeatReservation(
-      seatReservation.deckCoachLevel,
-      this._language.current,
-    );
-    return html`<div class="sbb-sr__deck-label-wrapper">
-      <b class="sbb-sr__deck-label" aria-hidden="true">${deckDescription}</b>
-    </div>`;
+
+    return this.seatReservations.map((seatReservation) => {
+      const deckDescription = getI18nSeatReservation(
+        seatReservation.deckCoachLevel,
+        this._language.current,
+      );
+      return html`<b aria-hidden="true">${deckDescription}</b>`;
+    });
   }
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
