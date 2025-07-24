@@ -1,6 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
+
+import { forceType } from '../../core/decorators.js';
 
 import style from './carousel-item.scss?lit&inline';
 
@@ -18,10 +20,19 @@ class SbbCarouselItemElement extends LitElement {
     show: 'show',
   } as const;
 
-  // FIXME: aria-label https://www.w3.org/WAI/ARIA/apg/patterns/carousel/#wai-ariaroles,states,andproperties
+  /** This will be forwarded as aria-label to the inner slideshow element. */
+  @forceType()
+  @property({ attribute: 'accessibility-label' })
+  public accessor accessibilityLabel: string = '';
+
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-carousel-item" role="group" aria-roledescription="slide">
+      <div
+        class="sbb-carousel-item"
+        role="group"
+        aria-roledescription="slide"
+        aria-label=${this.accessibilityLabel}
+      >
         <slot></slot>
       </div>
     `;

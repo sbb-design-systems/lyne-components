@@ -33,6 +33,7 @@ An `IntersectionController` manages the emission of both, with different thresho
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
 the component has `aria-atomic='false'` and `aria-live='polite'`.
+If no `accessibility-label` is provided on the slotted `sbb-carousel-item`s, the component set a default value on them.
 
 <!-- Auto Generated Below -->
 

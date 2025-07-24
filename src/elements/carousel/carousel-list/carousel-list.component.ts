@@ -4,6 +4,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../../core/controllers.js';
+import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
 import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
 
 import style from './carousel-list.scss?lit&inline';
@@ -17,6 +19,9 @@ export
 @customElement('sbb-carousel-list')
 class SbbCarouselListElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
+  private _language = new SbbLanguageController(this);
+
   private _beforeShowObserver = new IntersectionController(this, {
     callback: (entry) => {
       const item = entry.filter((e) => e.isIntersecting && e.target !== this);
@@ -26,6 +31,7 @@ class SbbCarouselListElement extends LitElement {
     },
     config: { threshold: 0.01 },
   });
+
   private _showObserver = new IntersectionController(this, {
     callback: (entry) => {
       const item = entry.filter((e) => e.isIntersecting && e.target !== this);
@@ -37,7 +43,19 @@ class SbbCarouselListElement extends LitElement {
   });
 
   private _handleSlotchange(): void {
-    const firstItem = Array.from(this.children).find(
+    const children = Array.from(this.children) as SbbCarouselItemElement[];
+
+    // Set the aria-label if not provided
+    const childrenLength = children.length;
+    children.forEach(
+      (item, index) =>
+        (item.accessibilityLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
+          this._language.current
+        ]),
+    );
+
+    // Set the component dimensions
+    const firstItem = children.find(
       (el) => el.localName === 'sbb-carousel-item',
     ) as SbbCarouselItemElement;
     if (firstItem) {

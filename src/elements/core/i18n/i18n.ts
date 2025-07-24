@@ -810,3 +810,13 @@ export const i18nChipGroupInputDescription: Record<string, string> = {
   fr: 'Éléments sélectionnés:',
   it: 'Elementi selezionati:',
 };
+
+export const i18nCarouselItemAriaLabel = (
+  index: number,
+  total: number,
+): Record<string, string> => ({
+  de: `${index} von ${total}`,
+  en: `${index} of ${total}`,
+  fr: `${index} sur ${total}`,
+  it: `${index} di ${total}`,
+});

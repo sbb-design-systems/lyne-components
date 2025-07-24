@@ -13,6 +13,7 @@ snapshots["sbb-carousel-item renders DOM"] =
 
 snapshots["sbb-carousel-item renders Shadow DOM"] = 
 `<div
+  aria-label=""
   aria-roledescription="slide"
   class="sbb-carousel-item"
   role="group"
@@ -22,6 +23,31 @@ snapshots["sbb-carousel-item renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-carousel-item renders Shadow DOM */
+
+snapshots["sbb-carousel-item renders with sbb-image DOM"] = 
+`<sbb-carousel-item>
+  <sbb-image
+    alt="SBB image"
+    image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+    style="width: 800px; height: 600px;"
+  >
+  </sbb-image>
+</sbb-carousel-item>
+`;
+/* end snapshot sbb-carousel-item renders with sbb-image DOM */
+
+snapshots["sbb-carousel-item renders with sbb-image Shadow DOM"] = 
+`<div
+  aria-label=""
+  aria-roledescription="slide"
+  class="sbb-carousel-item"
+  role="group"
+>
+  <slot>
+  </slot>
+</div>
+`;
+/* end snapshot sbb-carousel-item renders with sbb-image Shadow DOM */
 
 snapshots["sbb-carousel-item renders A11y tree Chrome"] = 
 `<p>
@@ -39,29 +65,21 @@ snapshots["sbb-carousel-item renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-carousel-item renders A11y tree Chrome */
 
-snapshots["sbb-carousel-item renders with sbb-image DOM"] = 
-`<sbb-carousel-item>
-  <sbb-image
-    alt="SBB image"
-    image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
-    style="width: 800px; height: 600px;"
-  >
-  </sbb-image>
-</sbb-carousel-item>
+snapshots["sbb-carousel-item renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "img",
+      "name": "SBB image"
+    }
+  ]
+}
+</p>
 `;
-/* end snapshot sbb-carousel-item renders with sbb-image DOM */
-
-snapshots["sbb-carousel-item renders with sbb-image Shadow DOM"] = 
-`<div
-  aria-roledescription="slide"
-  class="sbb-carousel-item"
-  role="group"
->
-  <slot>
-  </slot>
-</div>
-`;
-/* end snapshot sbb-carousel-item renders with sbb-image Shadow DOM */
+/* end snapshot sbb-carousel-item renders A11y tree Firefox */
 
 snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] = 
 `<p>
@@ -78,22 +96,6 @@ snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-carousel-item renders with sbb-image A11y tree Chrome */
-
-snapshots["sbb-carousel-item renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "img",
-      "name": "SBB image"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-item renders A11y tree Firefox */
 
 snapshots["sbb-carousel-item renders with sbb-image A11y tree Firefox"] = 
 `<p>

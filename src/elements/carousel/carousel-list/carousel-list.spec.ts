@@ -5,6 +5,7 @@ import { spy } from 'sinon';
 import images from '../../core/images.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition } from '../../core/testing.js';
+import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
 
 import { SbbCarouselListElement } from './carousel-list.component.js';
 
@@ -15,6 +16,8 @@ describe('sbb-carousel-list', () => {
   const loadSpyFirst = spy();
   const loadSpySecond = spy();
   const loadSpyThird = spy();
+  let first: SbbCarouselItemElement, second: SbbCarouselItemElement, third: SbbCarouselItemElement;
+
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-carousel-list>
@@ -31,6 +34,9 @@ describe('sbb-carousel-list', () => {
     `);
     await waitForCondition(() => loadSpyFirst.called);
     expect(loadSpyFirst).to.have.been.called;
+    first = element.querySelector('#first')!;
+    second = element.querySelector('#second')!;
+    third = element.querySelector('#third')!;
   });
 
   it('renders', async () => {
@@ -48,10 +54,14 @@ describe('sbb-carousel-list', () => {
     expect(+elementWidth).to.be.equal(400);
   });
 
+  it('sets accessibility-label on items', async () => {
+    expect(first.accessibilityLabel).to.be.equal('1 of 3');
+    expect(second.accessibilityLabel).to.be.equal('2 of 3');
+    expect(third.accessibilityLabel).to.be.equal('3 of 3');
+  });
+
   it('scroll events', async () => {
     const scrollContext: HTMLDivElement = element.shadowRoot!.querySelector('.sbb-carousel-list')!;
-    const second = element.querySelector('#second')!;
-    const third = element.querySelector('#third')!;
     const beforeShowSpySecond = new EventSpy('beforeshow', second);
     const beforeShowSpyThird = new EventSpy('beforeshow', third);
     const showSpySecond = new EventSpy('show', second);
