@@ -226,7 +226,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (this.coachScrollArea && seatReservationDeck) {
       // Set the start offset of the coach scheme, which depends on the multipleDecks
       // where we need a little more distance because of the deck labels
-      let currCalcTriggerPos = this.hasMultipleDecks ? 6 : 0;
+      let currCalcTriggerPos = 0;
       this.scrollCoachsAreaWidth = this.alignVertical
         ? this.coachScrollArea.getBoundingClientRect().height
         : this.coachScrollArea.getBoundingClientRect().width;
@@ -564,15 +564,15 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _getCoachScrollPositionX(): number {
     const coachTriggerPoint = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
-
+    const coachDeckLabelOffset = this.hasMultipleDecks ? 28 : 0;
     const isFocusPlaceFromPreviousCoachPosition =
       this.isKeyboardNavigation &&
       this.currScrollDirection === ScrollDirection.left &&
       coachTriggerPoint.width > this.scrollCoachsAreaWidth;
 
     return isFocusPlaceFromPreviousCoachPosition
-      ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
-      : coachTriggerPoint.start;
+      ? coachTriggerPoint.end - this.scrollCoachsAreaWidth + coachDeckLabelOffset
+      : coachTriggerPoint.start + coachDeckLabelOffset;
   }
 
   /**

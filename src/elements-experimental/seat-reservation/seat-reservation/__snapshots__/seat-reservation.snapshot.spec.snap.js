@@ -45,24 +45,28 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
           </div>
         </div>
         <div class="coaches-grid">
-          <div
-            class="sbb-sr__wrapper"
-            id="sbb-sr__wrapper-scrollarea"
-          >
+          <div class="sbb-sr__wrapper-coach-decks">
+            <div class="sbb-sr__wrapper-deck-labels">
+            </div>
             <div
-              class="sbb-sr__parent"
-              id="sbb-sr__parent-area"
-              tabindex="-1"
+              class="sbb-sr__wrapper"
+              id="sbb-sr__wrapper-scrollarea"
             >
-              <ul class="sbb-sr__list-decks">
-                <li class="sbb-sr__list-item-deck">
-                  <ul
-                    class="sbb-sr__list-coaches"
-                    role="presentation"
-                  >
-                  </ul>
-                </li>
-              </ul>
+              <div
+                class="sbb-sr__parent"
+                id="sbb-sr__parent-area"
+                tabindex="-1"
+              >
+                <ul class="sbb-sr__list-decks">
+                  <li class="sbb-sr__list-item-deck">
+                    <ul
+                      class="sbb-sr__list-coaches"
+                      role="presentation"
+                    >
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
