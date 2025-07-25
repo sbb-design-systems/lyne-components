@@ -173,6 +173,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         >
           ${this.seatReservation?.coachItems.map((coachItem: CoachItem, index: number) => {
             const coachFreePlaces = this.getAvailableFreePlacesNumFromCoach(index);
+            const driverAreaBeginning = this._coachHasDriverArea(coachItem, 'beginning');
+            const driverAreaEnd = this._coachHasDriverArea(coachItem, 'end');
             return html`<li>
               <sbb-seat-reservation-navigation-coach
                 @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
@@ -188,8 +190,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 .propertyIds="${coachItem.propertyIds}"
                 .travelClass="${coachItem.travelClass}"
                 ?driver-area="${!coachItem.places?.length}"
-                ?first="${index === 0}"
-                ?last="${index === this.seatReservation?.coachItems.length - 1}"
+                ?first="${driverAreaBeginning || index === 0}"
+                ?last="${driverAreaEnd || index === this.seatReservation?.coachItems.length - 1}"
                 ?vertical="${this.alignVertical}"
               >
               </sbb-seat-reservation-navigation-coach>
@@ -667,6 +669,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       })
       .filter((description) => !!description)
       .join(', ');
+  }
+
+  private _coachHasDriverArea(coachItem: CoachItem, position: 'beginning' | 'end'): boolean {
+    const driverArea = coachItem.graphicElements?.find(
+      (element: BaseElement) => element.icon === 'DRIVER_AREA_FULL',
+    );
+    return driverArea ? (position === 'beginning' ? driverArea.position.x === 0 : false) : false;
   }
 }
 
