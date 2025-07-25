@@ -183,6 +183,14 @@ export class SeatReservationBaseElement extends LitElement {
     this.scrollToSelectedNavCoach(navigateToCoachIndex);
   }
 
+  /**
+   * Data can be prepared once for the entire component
+   * in order to avoid recurring iteration processes in rendering.
+   */
+  protected prepairSeatReservationData(): void {
+    this._prepairCoachDriverArea();
+  }
+
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
     const seatReservationDeck = this.seatReservations
@@ -1099,6 +1107,33 @@ export class SeatReservationBaseElement extends LitElement {
     } else {
       this.currSelectedPlaceElementId = null;
     }
+  }
+
+  /**
+   * Prepares all coaches with the values for whether there is a driver area left or right
+   * */
+  private _prepairCoachDriverArea(): void {
+    this.seatReservations.forEach((seatReservation, index) => {
+      this.seatReservations[index].coachItems = seatReservation.coachItems.map((coacItem) => {
+        const coachDriverAreas = coacItem.graphicElements?.filter(
+          (graphicalElements) => graphicalElements.icon === 'DRIVER_AREA',
+        );
+
+        if (coachDriverAreas && coachDriverAreas.length > 0) {
+          // Checking the driver area position whether it is present on the left or right side in a coach
+          const hasLeftDriverArea =
+            coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x === 0) ||
+            false;
+          const hasRightDriverArea =
+            coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x > 0) || false;
+          coacItem.driverArea = {
+            left: !!hasLeftDriverArea,
+            right: !!hasRightDriverArea,
+          };
+        }
+        return coacItem;
+      });
+    });
   }
 
   /**

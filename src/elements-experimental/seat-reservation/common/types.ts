@@ -18,6 +18,7 @@ export type CoachItem = {
   serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
+  driverArea?: Record<string, boolean>;
 };
 
 /** Extends BaseElement with seat-specific data. */
