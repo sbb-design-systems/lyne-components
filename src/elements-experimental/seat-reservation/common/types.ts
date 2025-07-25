@@ -2,6 +2,7 @@
 export type SeatReservation = {
   vehicleType: VehicleType;
   deckCoachIndex: number;
+  deckCoachLevel: CoachDeckLevel;
   coachItems: CoachItem[];
 };
 
@@ -17,6 +18,9 @@ export type CoachItem = {
   serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
+  // driverAreaSide - Is a property that is required internally of the seatReservaation component
+  // and holds information about whether a choas on the left or right side has a driver area
+  driverAreaSide?: Record<string, boolean>;
 };
 
 /** Extends BaseElement with seat-specific data. */
@@ -25,9 +29,7 @@ export interface Place extends BaseElement {
   state: PlaceState;
   type: PlaceType;
   travelClass?: PlaceTravelClass;
-  remarkId?: string;
   propertyIds?: string[];
-  selected?: boolean;
 }
 
 /** Base properties for any renderable element within a coach. */
@@ -59,6 +61,7 @@ export type CoachNumberOfFreePlaces = {
 export type PlaceSelection = {
   id: string;
   number: string;
+  deckIndex: number;
   coachIndex: number;
   state: PlaceState;
   placeType: PlaceType;
@@ -69,13 +72,14 @@ export type SeatReservationPlaceSelection = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
+  deckIndex: number;
   placeNumber: string;
   placeType: PlaceType;
   placeTravelClass: PlaceTravelClass;
   propertyIds: string[];
 };
 
-export type SeatReservationCoachSelection = {
+export type SeatReservationSelectedCoach = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
@@ -85,7 +89,13 @@ export type SeatReservationCoachSelection = {
   coachNumberOfFreePlaces?: CoachNumberOfFreePlaces;
 };
 
+export type SeatReservationSelectedPlaces = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
+};
+
 export type PlaceType = 'SEAT' | 'BICYCLE';
+export type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
