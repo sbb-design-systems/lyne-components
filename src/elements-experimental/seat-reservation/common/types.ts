@@ -18,7 +18,9 @@ export type CoachItem = {
   serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
-  driverArea?: Record<string, boolean>;
+  // driverAreaSide - Is a property that is required internally of the seatReservaation component
+  // and holds information about whether a choas on the left or right side has a driver area
+  driverAreaSide?: Record<string, boolean>;
 };
 
 /** Extends BaseElement with seat-specific data. */

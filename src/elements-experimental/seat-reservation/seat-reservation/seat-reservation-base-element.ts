@@ -187,7 +187,7 @@ export class SeatReservationBaseElement extends LitElement {
    * Data can be prepared once for the entire component
    * in order to avoid recurring iteration processes in rendering.
    */
-  protected prepairSeatReservationData(): void {
+  protected initPrepairSeatReservationData(): void {
     this._prepairCoachDriverArea();
   }
 
@@ -1126,7 +1126,8 @@ export class SeatReservationBaseElement extends LitElement {
             false;
           const hasRightDriverArea =
             coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x > 0) || false;
-          coacItem.driverArea = {
+
+          coacItem.driverAreaSide = {
             left: !!hasLeftDriverArea,
             right: !!hasRightDriverArea,
           };

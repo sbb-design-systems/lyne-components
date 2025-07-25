@@ -73,9 +73,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     // We need to wait until the first update is complete to init different html element dimensions
     this.updateComplete.then(() => {
-      this.prepairSeatReservationData();
+      this.initPrepairSeatReservationData();
       this.initNavigationSelectionByScrollEvent();
 
+      // We have to initiate the render process manually so that the prepared data is applied directly
+      // and not only after an interaction with the component itself
       this.requestUpdate();
     });
   }
@@ -224,8 +226,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                   .propertyIds="${coachItem.propertyIds}"
                   .travelClass="${coachItem.travelClass}"
                   ?driver-area="${!coachItem.places?.length}"
-                  ?first="${coachItem?.driverArea?.left}"
-                  ?last="${coachItem?.driverArea?.right}"
+                  ?first="${coachItem?.driverAreaSide?.left}"
+                  ?last="${coachItem?.driverAreaSide?.right}"
                   ?vertical="${this.alignVertical}"
                 >
                 </sbb-seat-reservation-navigation-coach>
