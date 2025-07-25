@@ -1,14 +1,14 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-seat-reservation renders DOM"] = 
-`<sbb-seat-reservation style="--sbb-seat-reservation-grid-size: 16px; --sbb-seat-reservation-one-px-rem: 0.0625rem;">
+snapshots["sbb-seat-reservation renders DOM"] =
+  `<sbb-seat-reservation style="--sbb-seat-reservation-grid-size: 16px; --sbb-seat-reservation-one-px-rem: 0.0625rem;">
 </sbb-seat-reservation>
 `;
 /* end snapshot sbb-seat-reservation renders DOM */
 
-snapshots["sbb-seat-reservation renders Shadow DOM"] = 
-`<div class="sbb-sr__container">
+snapshots["sbb-seat-reservation renders Shadow DOM"] =
+  `<div class="sbb-sr__container">
   <div class="sbb-sr sbb-sr__grid">
     <div class="sbb-sr-navigation-first-grid">
       <sbb-secondary-button
@@ -94,8 +94,8 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
 `;
 /* end snapshot sbb-seat-reservation renders Shadow DOM */
 
-snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
-`<p>
+snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
+  `<p>
   {
   "role": "WebArea",
   "name": "",
@@ -106,14 +106,8 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
       "disabled": true
     },
     {
-      "role": "navigation",
-      "name": "",
-      "children": [
-        {
-          "role": "list",
-          "name": "Seat reservation navigation"
-        }
-      ]
+      "role": "list",
+      "name": "Seat reservation navigation"
     },
     {
       "role": "generic",
@@ -130,8 +124,8 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-seat-reservation renders A11y tree Chrome */
 
-snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
-`<p>
+snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
+  `<p>
   {
   "role": "document",
   "name": "",
@@ -165,4 +159,3 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-seat-reservation renders A11y tree Firefox */
-
