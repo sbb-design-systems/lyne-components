@@ -156,7 +156,8 @@ function renderTemplate(
     .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
     .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
     .set('SeatReservationPlaceSelection', 'seat-reservation/common.js')
-    .set('SeatReservationCoachSelection', 'seat-reservation/common.js')
+    .set('SeatReservationSelectedCoach', 'seat-reservation/common.js')
+    .set('SeatReservationSelectedPlaces', 'seat-reservation/common.js')
     .set('PlaceSelection', 'seat-reservation/common.js');
 
   // In case of properties that are not string, but can be used as an string attribute in
