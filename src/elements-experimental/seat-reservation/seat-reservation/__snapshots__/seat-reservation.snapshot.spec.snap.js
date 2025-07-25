@@ -106,8 +106,14 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
       "disabled": true
     },
     {
-      "role": "list",
-      "name": "Seat reservation navigation"
+      "role": "navigation",
+      "name": "",
+      "children": [
+        {
+          "role": "list",
+          "name": "Seat reservation navigation"
+        }
+      ]
     },
     {
       "role": "generic",
