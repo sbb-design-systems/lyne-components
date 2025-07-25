@@ -1019,11 +1019,9 @@ export class SeatReservationBaseElement extends LitElement {
             const seatReservationPlaceSelection: SeatReservationPlaceSelection | null =
               this._getSeatReservationPlaceSelection(preselectedPlaceSelection);
             if (seatReservationPlaceSelection) {
-              if (seatReservationPlaceSelection.placeType === 'SEAT') {
-                this.selectedSeatReservationPlaces.seats.push(seatReservationPlaceSelection);
-              } else {
-                this.selectedSeatReservationPlaces.bicycles.push(seatReservationPlaceSelection);
-              }
+              const placeTypeProp =
+                seatReservationPlaceSelection.placeType === 'SEAT' ? 'seats' : 'bicycles';
+              this.selectedSeatReservationPlaces[placeTypeProp].push(seatReservationPlaceSelection);
             }
           });
       }),
