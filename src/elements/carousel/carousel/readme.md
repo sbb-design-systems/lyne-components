@@ -35,7 +35,7 @@ No interaction or keyboard interaction is provided, except from the usage of the
 ## Accessibility
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
-the component has `aria-roledescription="carousel"`.
+the component has `role="region"` and `aria-label="carousel"`.
 
 <!-- Auto Generated Below -->
 

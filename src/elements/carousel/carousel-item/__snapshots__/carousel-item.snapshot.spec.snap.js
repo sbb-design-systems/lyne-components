@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-carousel-item renders DOM"] = 
-`<sbb-carousel-item>
+`<sbb-carousel-item
+  aria-roledescription="slide"
+  role="group"
+>
   <img
     alt="SBB image"
     src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
@@ -12,12 +15,7 @@ snapshots["sbb-carousel-item renders DOM"] =
 /* end snapshot sbb-carousel-item renders DOM */
 
 snapshots["sbb-carousel-item renders Shadow DOM"] = 
-`<div
-  aria-label=""
-  aria-roledescription="slide"
-  class="sbb-carousel-item"
-  role="group"
->
+`<div class="sbb-carousel-item">
   <slot>
   </slot>
 </div>
@@ -25,7 +23,10 @@ snapshots["sbb-carousel-item renders Shadow DOM"] =
 /* end snapshot sbb-carousel-item renders Shadow DOM */
 
 snapshots["sbb-carousel-item renders with sbb-image DOM"] = 
-`<sbb-carousel-item>
+`<sbb-carousel-item
+  aria-roledescription="slide"
+  role="group"
+>
   <sbb-image
     alt="SBB image"
     image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
@@ -37,33 +38,12 @@ snapshots["sbb-carousel-item renders with sbb-image DOM"] =
 /* end snapshot sbb-carousel-item renders with sbb-image DOM */
 
 snapshots["sbb-carousel-item renders with sbb-image Shadow DOM"] = 
-`<div
-  aria-label=""
-  aria-roledescription="slide"
-  class="sbb-carousel-item"
-  role="group"
->
+`<div class="sbb-carousel-item">
   <slot>
   </slot>
 </div>
 `;
 /* end snapshot sbb-carousel-item renders with sbb-image Shadow DOM */
-
-snapshots["sbb-carousel-item renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "image",
-      "name": "SBB image"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-item renders A11y tree Chrome */
 
 snapshots["sbb-carousel-item renders A11y tree Firefox"] = 
 `<p>
@@ -80,6 +60,22 @@ snapshots["sbb-carousel-item renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-carousel-item renders A11y tree Firefox */
+
+snapshots["sbb-carousel-item renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "image",
+      "name": "SBB image"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-carousel-item renders A11y tree Chrome */
 
 snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] = 
 `<p>

@@ -39,16 +39,9 @@ The component provides two events, named `beforeshow` and `show`; their emission
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
 the component has `role="group"` and `aria-roledescription="slide"`.
-The component has a `accessibilityLabel` property that is needed to correctly set the `aria-label` on the inner slideshow element.
-If not provided, the property is set by the `sbb-carousel-list` with a default text.
+If the `aria-label` attribute is not provided, it is set by the `sbb-carousel-list` with a default text.
 
 <!-- Auto Generated Below -->
-
-## Properties
-
-| Name                 | Attribute             | Privacy | Type     | Default | Description                                                          |
-| -------------------- | --------------------- | ------- | -------- | ------- | -------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string` | `''`    | This will be forwarded as aria-label to the inner slideshow element. |
 
 ## Slots
 

@@ -5,7 +5,9 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
 
 import style from './carousel-list.scss?lit&inline';
@@ -17,7 +19,11 @@ import style from './carousel-list.scss?lit&inline';
  */
 export
 @customElement('sbb-carousel-list')
-class SbbCarouselListElement extends LitElement {
+@hostAttributes({
+  'aria-live': 'polite',
+  'aria-atomic': 'true',
+})
+class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private _language = new SbbLanguageController(this);
@@ -33,11 +39,17 @@ class SbbCarouselListElement extends LitElement {
   });
 
   private _showObserver = new IntersectionController(this, {
-    callback: (entry) => {
-      const item = entry.filter((e) => e.isIntersecting && e.target !== this);
-      item.forEach((e) =>
-        e.target.dispatchEvent(new Event('show', { bubbles: true, composed: true })),
-      );
+    callback: (entryArr) => {
+      const entries = entryArr.filter((e) => e.target !== this);
+      entries
+        .filter((e) => !e.isIntersecting)
+        .forEach((e) => ((e.target as SbbCarouselItemElement).ariaHidden = 'true'));
+      entries
+        .filter((e) => e.isIntersecting)
+        .forEach((e) => {
+          (e.target as SbbCarouselItemElement).ariaHidden = 'false';
+          e.target.dispatchEvent(new Event('show', { bubbles: true, composed: true }));
+        });
     },
     config: { threshold: 1 },
   });
@@ -49,7 +61,7 @@ class SbbCarouselListElement extends LitElement {
     const childrenLength = children.length;
     children.forEach(
       (item, index) =>
-        (item.accessibilityLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
+        (item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
           this._language.current
         ]),
     );
@@ -76,7 +88,7 @@ class SbbCarouselListElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-carousel-list" aria-atomic="false" aria-live="polite">
+      <div class="sbb-carousel-list">
         <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;

@@ -2,8 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
+import { forceType, hostAttributes } from '../../core/decorators.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
 import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
 import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.js';
@@ -17,7 +18,11 @@ import style from './carousel.scss?lit&inline';
  */
 export
 @customElement('sbb-carousel')
-class SbbCarouselElement extends LitElement {
+@hostAttributes({
+  role: 'region',
+  'aria-label': 'carousel',
+})
+class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   private _currentItemIndex: number = 0;
 
@@ -63,7 +68,7 @@ class SbbCarouselElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-carousel" aria-roledescription="carousel">
+      <div class="sbb-carousel">
         <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;

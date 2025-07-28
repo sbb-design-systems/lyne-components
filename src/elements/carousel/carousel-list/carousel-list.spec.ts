@@ -55,9 +55,9 @@ describe('sbb-carousel-list', () => {
   });
 
   it('sets accessibility-label on items', async () => {
-    expect(first.accessibilityLabel).to.be.equal('1 of 3');
-    expect(second.accessibilityLabel).to.be.equal('2 of 3');
-    expect(third.accessibilityLabel).to.be.equal('3 of 3');
+    expect(first.ariaLabel).to.be.equal('1 of 3');
+    expect(second.ariaLabel).to.be.equal('2 of 3');
+    expect(third.ariaLabel).to.be.equal('3 of 3');
   });
 
   it('scroll events', async () => {

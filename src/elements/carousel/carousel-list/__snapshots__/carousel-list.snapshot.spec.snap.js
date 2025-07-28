@@ -2,8 +2,16 @@
 export const snapshots = {};
 
 snapshots["sbb-carousel-list renders DOM"] = 
-`<sbb-carousel-list style="--sbb-carousel-list-height: 300px; --sbb-carousel-list-width: 400px;">
-  <sbb-carousel-item>
+`<sbb-carousel-list
+  aria-atomic="true"
+  aria-live="polite"
+  style="--sbb-carousel-list-height: 300px; --sbb-carousel-list-width: 400px;"
+>
+  <sbb-carousel-item
+    aria-label="1 of 3"
+    aria-roledescription="slide"
+    role="group"
+  >
     <img
       alt="SBB image"
       height="300"
@@ -11,7 +19,11 @@ snapshots["sbb-carousel-list renders DOM"] =
       width="400"
     >
   </sbb-carousel-item>
-  <sbb-carousel-item>
+  <sbb-carousel-item
+    aria-label="2 of 3"
+    aria-roledescription="slide"
+    role="group"
+  >
     <img
       alt="SBB image"
       height="300"
@@ -19,7 +31,11 @@ snapshots["sbb-carousel-list renders DOM"] =
       width="400"
     >
   </sbb-carousel-item>
-  <sbb-carousel-item>
+  <sbb-carousel-item
+    aria-label="3 of 3"
+    aria-roledescription="slide"
+    role="group"
+  >
     <img
       alt="SBB image"
       height="300"
@@ -32,11 +48,7 @@ snapshots["sbb-carousel-list renders DOM"] =
 /* end snapshot sbb-carousel-list renders DOM */
 
 snapshots["sbb-carousel-list renders Shadow DOM"] = 
-`<div
-  aria-atomic="false"
-  aria-live="polite"
-  class="sbb-carousel-list"
->
+`<div class="sbb-carousel-list">
   <slot>
   </slot>
 </div>
@@ -49,14 +61,6 @@ snapshots["sbb-carousel-list renders A11y tree Chrome"] =
   "role": "WebArea",
   "name": "",
   "children": [
-    {
-      "role": "image",
-      "name": "SBB image"
-    },
-    {
-      "role": "image",
-      "name": "SBB image"
-    },
     {
       "role": "image",
       "name": "SBB image"
@@ -77,14 +81,6 @@ snapshots["sbb-carousel-list renders A11y tree Firefox"] =
       "role": "section",
       "name": "",
       "children": [
-        {
-          "role": "img",
-          "name": "SBB image"
-        },
-        {
-          "role": "img",
-          "name": "SBB image"
-        },
         {
           "role": "img",
           "name": "SBB image"

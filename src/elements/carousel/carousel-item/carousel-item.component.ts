@@ -1,8 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
+import { hostAttributes } from '../../core/decorators.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 
 import style from './carousel-item.scss?lit&inline';
 
@@ -13,26 +14,20 @@ import style from './carousel-item.scss?lit&inline';
  */
 export
 @customElement('sbb-carousel-item')
-class SbbCarouselItemElement extends LitElement {
+@hostAttributes({
+  role: 'group',
+  'aria-roledescription': 'slide',
+})
+class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',
   } as const;
 
-  /** This will be forwarded as aria-label to the inner slideshow element. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = '';
-
   protected override render(): TemplateResult {
     return html`
-      <div
-        class="sbb-carousel-item"
-        role="group"
-        aria-roledescription="slide"
-        aria-label=${this.accessibilityLabel}
-      >
+      <div class="sbb-carousel-item">
         <slot></slot>
       </div>
     `;
