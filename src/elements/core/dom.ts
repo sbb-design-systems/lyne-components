@@ -3,6 +3,7 @@
  */
 export * from './dom/animation.js';
 export * from './dom/breakpoint.js';
+export * from './dom/contains-pierce-shadow-dom.js';
 export * from './dom/host-context.js';
 export * from './dom/lean-context.js';
 export * from './dom/set-or-remove-attribute.js';

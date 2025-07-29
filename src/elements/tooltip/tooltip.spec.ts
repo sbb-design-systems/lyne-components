@@ -133,6 +133,23 @@ describe('sbb-tooltip', () => {
       expect(closeSpy.count).to.equal(1);
     });
 
+    it('should immediately close the tooltip on user interaction outside of it', async () => {
+      element.closeDelay = 10000;
+      await waitForLitRender(element);
+
+      const position = trigger.getBoundingClientRect();
+      await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
+
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.equal(1);
+
+      // Any click outside the tooltip should close it immediately
+      await sendMouse({ type: 'click', position: [0, 0] });
+
+      await closeSpy.calledOnce(); // Should close automatically after 'longPressCloseDelay'
+      expect(closeSpy.count).to.equal(1);
+    });
+
     it('should inherit the delays from global configuration', async () => {
       mergeConfig({
         tooltip: {

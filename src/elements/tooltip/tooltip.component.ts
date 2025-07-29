@@ -15,7 +15,7 @@ import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
 import { isAndroid, isIOS, isZeroAnimationDuration, queueDomContentLoaded } from '../core/dom.js';
 import { SbbDisabledMixin } from '../core/mixins.js';
-import { getElementPosition } from '../core/overlay.js';
+import { getElementPosition, sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
 
 import style from './tooltip.scss?lit&inline';
 
@@ -125,14 +125,21 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
     // Until the mouse hovers the tooltip, it stays open.
     // On 'mouseleave' (if the mouse is not moved onto the trigger again), close it.
-    this.addEventListener('mouseleave', (event) => {
-      if (
-        (this.state === 'opened' || this.state === 'opening') &&
-        (!event.relatedTarget || !this._triggerElement?.contains(event.relatedTarget as Node))
-      ) {
-        this._delayedClose();
-      }
-    });
+    this.addEventListener(
+      'mouseleave',
+      (event) => {
+        if (
+          (this.state === 'opened' || this.state === 'opening') &&
+          (!event.relatedTarget || !this._triggerElement?.contains(event.relatedTarget as Node))
+        ) {
+          this._delayedClose();
+        }
+      },
+      { passive: true },
+    );
+
+    // Any user interaction outside the tooltip, closes it immediately
+    this.addEventListener('overlayOutsidePointer', () => this.close(), { passive: true });
   }
 
   private static _initializeTooltipOutlet(): void {
@@ -195,6 +202,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     super.connectedCallback();
     this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
+    sbbOverlayOutsidePointerEventListener.connect(this);
 
     if (this.hasUpdated && this.trigger) {
       this._attach(this.trigger);
@@ -203,6 +211,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
+    sbbOverlayOutsidePointerEventListener.disconnect(this);
     this._detach();
   }
 
