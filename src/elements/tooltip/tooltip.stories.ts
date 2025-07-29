@@ -84,6 +84,7 @@ const trigger = (alignment: string, disabled?: boolean): TemplateResult => html`
       position: 'absolute',
       ...alignmentStyles[alignment],
     })}
+    aria-label="info button"
   ></sbb-mini-button>
 `;
 
@@ -109,6 +110,7 @@ const AttributeTemplate = ({ alignment, ...args }: Args): TemplateResult => html
       ...alignmentStyles[alignment],
     })}
     sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
+    aria-label="info button"
   ></sbb-mini-button>
 `;
 

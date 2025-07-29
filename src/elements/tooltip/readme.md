@@ -43,7 +43,10 @@ mergeConfig({
 
 ## Accessibility
 
-TODO
+The `sbb-tooltip` adds an aria-describedby description that provides a reference to an element containing the tooltip's message.
+
+Avoid interactions that exclusively show a tooltip with pointer events like click and mouseenter.
+Always ensure that keyboard users can perform the same set of actions available to mouse and touch users.
 
 <!-- Auto Generated Below -->
 
