@@ -29,7 +29,7 @@ describe('sbb-tooltip', () => {
                   position: 'absolute',
                   ...alignments[alignment],
                 })}
-                sbb-tooltip="I'm a tooltip"
+                sbb-tooltip="I'm a tooltip with a moderate amount of text"
               ></sbb-mini-button>
             </div>
           `);
