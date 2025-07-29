@@ -35,13 +35,18 @@ snapshots["A11y tree Chrome"] =
 
 snapshots["sbb-tooltip DOM"] = 
 `<div>
-  <button id="trigger">
+  <button
+    aria-describedby="sbb-tooltip-1"
+    id="trigger"
+  >
     Button
   </button>
   <sbb-tooltip
-    data-state="closed"
+    data-position="below"
+    data-state="opened"
     id="sbb-tooltip-1"
     popover="manual"
+    style="--sbb-tooltip-position-x: 0px; --sbb-tooltip-position-y: 34px;"
     trigger="trigger"
   >
     Tooltip
@@ -58,7 +63,12 @@ snapshots["sbb-tooltip A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "Button"
+      "name": "Button",
+      "description": "Tooltip"
+    },
+    {
+      "role": "text",
+      "name": "Tooltip"
     }
   ]
 }
@@ -74,7 +84,12 @@ snapshots["sbb-tooltip A11y tree Firefox"] =
   "children": [
     {
       "role": "button",
-      "name": "Button"
+      "name": "Button",
+      "description": "Tooltip"
+    },
+    {
+      "role": "text leaf",
+      "name": "Tooltip"
     }
   ]
 }

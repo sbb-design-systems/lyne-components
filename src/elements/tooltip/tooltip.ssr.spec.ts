@@ -10,7 +10,7 @@ describe(`sbb-tooltip ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-tooltip>Test</sbb-tooltip>`, {
-      modules: ['./tooltip.js'],
+      modules: ['./tooltip.component.js'],
     });
   });
 

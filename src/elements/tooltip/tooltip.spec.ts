@@ -41,7 +41,7 @@ describe('sbb-tooltip', () => {
 
     it('renders', async () => {
       assert.instanceOf(element, SbbTooltipElement);
-      // TODO expect aria attributes on the trigger
+      expect(trigger).to.have.attribute('aria-describedby', element.id);
     });
 
     it('should open on hover', async () => {
@@ -153,8 +153,8 @@ describe('sbb-tooltip', () => {
 
     describe('with delays', () => {
       beforeEach(async () => {
-        element.openDelay = 100;
-        element.closeDelay = 100;
+        element.openDelay = 200;
+        element.closeDelay = 200;
         await waitForLitRender(element);
       });
 
@@ -186,7 +186,7 @@ describe('sbb-tooltip', () => {
         await aTimeout(0);
         await sendMouse({ type: 'move', position: [position.x + 500, position.y + 500] }); // Mouse leaves before the openDelay
 
-        await aTimeout(200); // Wait some time to confirm it doesn't trigger
+        await aTimeout(300); // Wait some time to confirm it doesn't trigger
         expect(openSpy.count).to.equal(0);
       });
 
@@ -201,7 +201,7 @@ describe('sbb-tooltip', () => {
         await sendMouse({ type: 'move', position: [position.x + 500, position.y + 500] }); // Mouse leaves
         await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] }); // Mouse re-enters before closeDelay
 
-        await aTimeout(200); // Wait some time to confirm it doesn't trigger
+        await aTimeout(300); // Wait some time to confirm it doesn't trigger
         expect(closeSpy.count).to.equal(0);
       });
     });
@@ -225,6 +225,7 @@ describe('sbb-tooltip', () => {
 
     it('should link the tooltip to the trigger', async () => {
       expect(element.trigger!.localName).to.equal(trigger.localName);
+      expect(trigger).to.have.attribute('aria-describedby', element.id);
 
       const position = trigger.getBoundingClientRect();
       await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
@@ -238,7 +239,7 @@ describe('sbb-tooltip', () => {
       await aTimeout(50); // wait for the MutationObserver to trigger
 
       expect(tooltipOutlet!.children).to.be.empty;
-      // TODO expect aria attributes on the trigger to be removed
+      expect(trigger).not.to.have.attribute('aria-describedby');
     });
 
     it('should delete the tooltip if the trigger is removed', async () => {

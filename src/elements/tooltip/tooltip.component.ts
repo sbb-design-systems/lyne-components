@@ -42,6 +42,7 @@ let nextId = 0;
 export
 @customElement('sbb-tooltip')
 class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
+  public static override readonly role = 'tooltip';
   public static override styles: CSSResultGroup = style;
 
   private static _tooltipOutlet: Element;
@@ -111,7 +112,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   protected overlay?: HTMLDivElement;
 
   /** A weak reference to the trigger element, to allow the trigger to be garbage collected. */
-  private _triggerElement?: HTMLElement | null;
+  private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -240,7 +241,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     this.showPopover?.();
     this.state = 'opening';
     this._setTooltipPosition();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -257,7 +257,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
     this.dispatchBeforeCloseEvent();
     this.state = 'closing';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -307,14 +306,14 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     }
 
     this._triggerElement = trigger;
-    // TODO a11y
+    this._triggerElement?.setAttribute('aria-describedby', this.id);
     this._addTriggerEventHandlers();
   }
 
   private _detach(): void {
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
-    this._triggerElement?.removeAttribute('aria-expanded');
+    this._triggerElement?.removeAttribute('aria-describedby');
     this._triggerElement = null;
 
     // clear timeouts

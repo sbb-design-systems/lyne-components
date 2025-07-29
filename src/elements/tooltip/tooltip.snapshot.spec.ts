@@ -18,6 +18,7 @@ describe(`sbb-tooltip`, () => {
       </div>
     `);
     element = wrapper.querySelector('sbb-tooltip')!;
+    element.open();
   });
 
   it('DOM', async () => {
