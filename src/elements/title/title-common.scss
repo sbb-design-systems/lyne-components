@@ -4,6 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
+  @include sbb.title($exclude-spacing: true);
+
   --sbb-title-text-color-normal: var(
     --sbb-title-text-color-normal-override,
     var(--sbb-color-charcoal)
@@ -18,25 +20,25 @@
 }
 
 :host(:where([level='1']:not([visual-level]), [visual-level='1'])) {
-  @include sbb.title-1($exclude-spacing: true);
+  @include sbb.internal-title-1($exclude-spacing: true);
 }
 
 :host(:where([level='2']:not([visual-level]), [visual-level='2'])) {
-  @include sbb.title-2($exclude-spacing: true);
+  @include sbb.internal-title-2($exclude-spacing: true);
 }
 
 :host(:where([level='3']:not([visual-level]), [visual-level='3'])) {
-  @include sbb.title-3($exclude-spacing: true);
+  @include sbb.internal-title-3($exclude-spacing: true);
 }
 
 :host(:where([level='4']:not([visual-level]), [visual-level='4'])) {
-  @include sbb.title-4($exclude-spacing: true);
+  @include sbb.internal-title-4($exclude-spacing: true);
 }
 
 :host(:where([level='5']:not([visual-level]), [visual-level='5'])) {
-  @include sbb.title-5($exclude-spacing: true);
+  @include sbb.internal-title-5($exclude-spacing: true);
 }
 
 :host(:where([level='6']:not([visual-level]), [visual-level='6'])) {
-  @include sbb.title-6($exclude-spacing: true);
+  @include sbb.internal-title-6($exclude-spacing: true);
 }
