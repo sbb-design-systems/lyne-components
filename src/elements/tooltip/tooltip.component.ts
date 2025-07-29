@@ -14,7 +14,7 @@ import { readConfig } from '../core/config.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
 import { isAndroid, isIOS, isZeroAnimationDuration, queueDomContentLoaded } from '../core/dom.js';
-import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
+import { SbbDisabledMixin } from '../core/mixins.js';
 import { getElementPosition } from '../core/overlay.js';
 
 import style from './tooltip.scss?lit&inline';
@@ -41,7 +41,7 @@ let nextId = 0;
  */
 export
 @customElement('sbb-tooltip')
-class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBaseElement)) {
+class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   private static _tooltipOutlet: Element;
@@ -173,7 +173,8 @@ class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBa
   private static _handleTooltipTrigger(triggerElement: HTMLElement): void {
     const tooltipMessage = triggerElement.getAttribute('sbb-tooltip');
     let tooltip = tooltipTriggers.get(triggerElement);
-    if (tooltipMessage) {
+
+    if (tooltipMessage && triggerElement.isConnected) {
       if (!tooltip) {
         // Create a new sbb-tooltip in the outlet and attach it to the trigger
         tooltip = document.createElement('sbb-tooltip');
@@ -183,7 +184,7 @@ class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBa
       }
       tooltip.textContent = tooltipMessage;
     } else if (tooltip) {
-      // The trigger has been deleted, also delete the connected tooltip
+      // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
       tooltip._destroy();
     }
@@ -194,12 +195,15 @@ class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBa
     super.connectedCallback();
     this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
+
+    if (this.hasUpdated && this.trigger) {
+      this._attach(this.trigger);
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerAbortController?.abort();
-    this._openStateController?.abort();
+    this._detach();
   }
 
   public override requestUpdate(
@@ -226,6 +230,7 @@ class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBa
     this._resetOpenCloseTimeout();
     if (
       (this.state !== 'closed' && this.state !== 'closing') ||
+      this.disabled ||
       !this.overlay ||
       !this.dispatchBeforeOpenEvent()
     ) {
@@ -302,13 +307,20 @@ class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBa
     }
 
     this._triggerElement = trigger;
+    // TODO a11y
     this._addTriggerEventHandlers();
   }
 
   private _detach(): void {
     this._triggerAbortController?.abort();
+    this._openStateController?.abort();
     this._triggerElement?.removeAttribute('aria-expanded');
     this._triggerElement = null;
+
+    // clear timeouts
+    this._resetOpenCloseTimeout();
+    clearTimeout(this._longPressOpenTimeout);
+    clearTimeout(this._longPressCloseTimeout);
   }
 
   private _destroy(): void {
@@ -382,7 +394,6 @@ class SbbTooltipElement extends SbbNegativeMixin(SbbDisabledMixin(SbbOpenCloseBa
     trigger.addEventListener(
       'touchend',
       () => {
-        console.log('touchend');
         clearTimeout(this._longPressOpenTimeout);
         this._longPressCloseTimeout = setTimeout(() => this.close(), this.longPressCloseDelay);
       },

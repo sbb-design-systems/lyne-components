@@ -7,21 +7,26 @@ import type { SbbTooltipElement } from './tooltip.component.js';
 import './tooltip.component.js';
 
 describe(`sbb-tooltip`, () => {
-  it('renders', () => {
-    let element: SbbTooltipElement;
+  let wrapper: HTMLElement;
+  let element: SbbTooltipElement;
 
-    beforeEach(async () => {
-      element = await fixture(html`<sbb-tooltip>Test</sbb-tooltip>`);
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  beforeEach(async () => {
+    wrapper = await fixture(html`
+      <div>
+        <button id="trigger">Button</button>
+        <sbb-tooltip trigger="trigger">Tooltip</sbb-tooltip>
+      </div>
+    `);
+    element = wrapper.querySelector('sbb-tooltip')!;
   });
+
+  it('DOM', async () => {
+    await expect(wrapper).dom.to.be.equalSnapshot();
+  });
+
+  it('Shadow DOM', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });

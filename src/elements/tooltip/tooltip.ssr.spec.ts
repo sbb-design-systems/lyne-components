@@ -6,17 +6,15 @@ import { ssrHydratedFixture } from '../core/testing/private.js';
 import { SbbTooltipElement } from './tooltip.component.js';
 
 describe(`sbb-tooltip ssr`, () => {
+  let root: SbbTooltipElement;
+
+  beforeEach(async () => {
+    root = await ssrHydratedFixture(html`<sbb-tooltip>Test</sbb-tooltip>`, {
+      modules: ['./tooltip.js'],
+    });
+  });
+
   it('renders', () => {
-    let root: SbbTooltipElement;
-
-    beforeEach(async () => {
-      root = await ssrHydratedFixture(html`<sbb-tooltip>Test</sbb-tooltip>`, {
-        modules: ['./tooltip.js'],
-      });
-    });
-
-    it('renders', () => {
-      assert.instanceOf(root, SbbTooltipElement);
-    });
+    assert.instanceOf(root, SbbTooltipElement);
   });
 });

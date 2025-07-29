@@ -1,14 +1,16 @@
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
+import { SbbTooltipElement } from './tooltip.component.js';
 import '../button/mini-button.js';
-import './tooltip.component.js';
 
 const alignment: InputType = {
   control: {
@@ -36,14 +38,30 @@ const closeDelay: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const attributeUsageArgTypes: ArgTypes = {
+  alignment,
+  disabled,
+};
+
 const defaultArgTypes: ArgTypes = {
-  alignment: alignment,
+  ...attributeUsageArgTypes,
   'open-delay': openDelay,
   'close-delay': closeDelay,
 };
 
-const defaultArgs: Args = {
+const attributeUsageArgs: Args = {
   alignment: alignment.options![0],
+  disabled: false,
+};
+
+const defaultArgs: Args = {
+  ...attributeUsageArgs,
   'open-delay': undefined,
   'close-delay': undefined,
 };
@@ -57,10 +75,11 @@ const alignmentStyles: { [x: string]: any } = {
   'above-end': { 'inset-inline-end': '2rem', 'inset-block-end': '2rem' },
 };
 
-const Template = ({ alignment, ..._args }: Args): TemplateResult => html`
+const trigger = (alignment: string, disabled?: boolean): TemplateResult => html`
   <sbb-mini-button
+    id="tooltip-trigger"
     icon-name="circle-information-small"
-    sbb-tooltip="I'm a tooltip!!!"
+    ?disabled=${disabled}
     style=${styleMap({
       position: 'absolute',
       ...alignmentStyles[alignment],
@@ -68,23 +87,45 @@ const Template = ({ alignment, ..._args }: Args): TemplateResult => html`
   ></sbb-mini-button>
 `;
 
+const Template = ({ alignment, ...args }: Args): TemplateResult => html`
+  ${trigger(alignment, args.disabled)}
+  <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}> I'm a tooltip!!! </sbb-tooltip>
+`;
+
 const LongContentTemplate = ({ alignment, ...args }: Args): TemplateResult => html`
-  <sbb-mini-button
-    id="tooltip-trigger"
-    icon-name="circle-information-small"
-    style=${styleMap({
-      position: 'absolute',
-      ...alignmentStyles[alignment],
-    })}
-  ></sbb-mini-button>
+  ${trigger(alignment, args.disabled)}
   <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in
     tincidunt quis, mattis eu quam.
   </sbb-tooltip>
 `;
 
-export const BelowStart: StoryObj = {
+const AttributeTemplate = ({ alignment, ...args }: Args): TemplateResult => html`
+  <sbb-mini-button
+    icon-name="circle-information-small"
+    ?disabled=${args.disabled}
+    style=${styleMap({
+      position: 'absolute',
+      ...alignmentStyles[alignment],
+    })}
+    sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
+  ></sbb-mini-button>
+`;
+
+export const Default: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'below-start' },
+};
+
+export const AttributeUsage: StoryObj = {
+  render: AttributeTemplate,
+  argTypes: attributeUsageArgTypes,
+  args: { ...attributeUsageArgs, alignment: 'below-start' },
+};
+
+export const LongContent: StoryObj = {
+  render: LongContentTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, alignment: 'below-start' },
 };
@@ -119,19 +160,17 @@ export const AboveEnd: StoryObj = {
   args: { ...defaultArgs, alignment: 'above-end' },
 };
 
-export const LongContent: StoryObj = {
-  render: LongContentTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'below-start' },
-};
-
 const meta: Meta = {
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [],
+      handles: [
+        SbbTooltipElement.events.beforeopen,
+        SbbTooltipElement.events.open,
+        SbbTooltipElement.events.beforeclose,
+        SbbTooltipElement.events.close,
+      ],
     },
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

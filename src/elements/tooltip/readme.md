@@ -1,45 +1,49 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-tooltip` component displays contextual information related to an element.
 
-The `sbb-tooltip` is a component . . .
+You can use the tooltip in two ways:
+
+- **By connecting the `sbb-tooltip` component to an element through the `trigger` property**
 
 ```html
-<sbb-tooltip></sbb-tooltip>
+<sbb-button id="tooltip-trigger">Button</sbb-button>
+<sbb-tooltip trigger="tooltip-trigger"> Tooltip message </sbb-tooltip>
 ```
 
-## Slots
+- **Via the `sbb-tooltip` attribute**
 
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+```html
+<sbb-button sbb-tooltip="Tooltip message"> Button </sbb-button>
+```
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+The tooltip opens, optionally after a delay, when the user hovers the trigger element and closes on mouse leave.
 
-## Events
+On touch devices, the tooltip opens on long press and closes automatically after a `longPressCloseDelay` (default: 1500 ms).
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+## Positioning
 
-## Keyboard interaction
+By default, the tooltip appears below the trigger element. If there is insufficient space, it automatically chooses the best available position.
 
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
+## Configuration
 
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+The open and close delays can be configured via global configuration. This values will be used as default, unless explicitly set on the element.
+
+```ts
+import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+
+mergeConfig({
+  tooltip: {
+    openDelay: 0, // Delay before the tooltip opens (in ms)
+    closeDelay: 0, // Delay before the tooltip closes (in ms)
+    longPressCloseDelay: 1500, // Duration before the tooltip auto-closes after a long press (in ms)
+  },
+});
+```
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+TODO
 
 <!-- Auto Generated Below -->
 
@@ -51,7 +55,6 @@ The `sbb-tooltip` is a component . . .
 | `disabled`            | `disabled`               | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                         |
 | `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                               |
 | `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set. |
-| `negative`            | `negative`               | public  | `boolean`             | `false` | Negative coloring variant flag.                                                                                            |
 | `openDelay`           | `open-delay`             | public  | `number`              | `0`     | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
 | `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.                           |
 
