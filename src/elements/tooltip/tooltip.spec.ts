@@ -153,14 +153,14 @@ describe('sbb-tooltip', () => {
     });
 
     describe('with delays', () => {
-      beforeEach(async function (this: Context) {
-        this.retries(3); // This tests involve delays, they can be flaky on ci
+      beforeEach(async () => {
         element.openDelay = 200;
         element.closeDelay = 200;
         await waitForLitRender(element);
       });
 
-      it('should honor open and close delays', async () => {
+      it('should honor open and close delays', async function (this: Context) {
+        this.retries(3); // This test involves delays, it can be flaky on ci
         const position = trigger.getBoundingClientRect();
         await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
 
@@ -182,7 +182,8 @@ describe('sbb-tooltip', () => {
         expect(closeSpy.count).to.equal(1);
       });
 
-      it('should keep tooltip close when the mouse leaves before the openDelay', async () => {
+      it('should keep tooltip close when the mouse leaves before the openDelay', async function (this: Context) {
+        this.retries(3); // This test involves delays, it can be flaky on ci
         const position = trigger.getBoundingClientRect();
         await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] }); // Mouse enters
         await aTimeout(0);
@@ -192,7 +193,8 @@ describe('sbb-tooltip', () => {
         expect(openSpy.count).to.equal(0);
       });
 
-      it('should keep tooltip open when the mouse re-enter before the closeDelay', async () => {
+      it('should keep tooltip open when the mouse re-enter before the closeDelay', async function (this: Context) {
+        this.retries(3); // This test involves delays, it can be flaky on ci
         element.openDelay = 0;
         await waitForLitRender(element);
 
