@@ -46,11 +46,9 @@
   position: var(--sbb-tooltip-position);
   pointer-events: all;
   top: var(--sbb-tooltip-position-y);
-
-  // bottom: unset;
+  bottom: unset;
   left: var(--sbb-tooltip-position-x);
-
-  // right: unset;
+  right: unset;
   border: none;
   border-radius: var(--sbb-tooltip-border-radius);
   padding: var(--sbb-tooltip-padding);

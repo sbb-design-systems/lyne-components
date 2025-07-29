@@ -111,7 +111,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   protected overlay?: HTMLDivElement;
 
-  /** A weak reference to the trigger element, to allow the trigger to be garbage collected. */
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
   private _openStateController!: AbortController;
@@ -395,6 +394,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       () => {
         clearTimeout(this._longPressOpenTimeout);
         this._longPressCloseTimeout = setTimeout(() => this.close(), this.longPressCloseDelay);
+      },
+      options,
+    );
+    trigger.addEventListener(
+      'touchcancel',
+      () => {
+        clearTimeout(this._longPressOpenTimeout);
       },
       options,
     );
