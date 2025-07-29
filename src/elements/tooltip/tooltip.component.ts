@@ -115,10 +115,10 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   private _triggerAbortController?: AbortController;
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _openTimeout?: NodeJS.Timeout;
-  private _closeTimeout?: NodeJS.Timeout;
-  private _longPressOpenTimeout?: NodeJS.Timeout;
-  private _longPressCloseTimeout?: NodeJS.Timeout;
+  private _openTimeout?: ReturnType<typeof setTimeout>;
+  private _closeTimeout?: ReturnType<typeof setTimeout>;
+  private _longPressOpenTimeout?: ReturnType<typeof setTimeout>;
+  private _longPressCloseTimeout?: ReturnType<typeof setTimeout>;
 
   public constructor() {
     super();
