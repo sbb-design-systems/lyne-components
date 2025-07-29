@@ -11,6 +11,31 @@
 
 const i18nObjects: Record<string, Record<string, string>> = {
   // BASICS
+  // COACH DECK LABEL DESCRIPTIONS
+  SINGLE_DECK: {
+    de: 'Unten',
+    en: 'en:Unten',
+    fr: 'fr:Unten',
+    it: 'it:Unten',
+  },
+  LOWER_DECK: {
+    de: 'Unten',
+    en: 'en:Unten',
+    fr: 'fr:Unten',
+    it: 'it:Unten',
+  },
+  MIDDLE_DECK: {
+    de: 'Mitte',
+    en: 'en:Mitte',
+    fr: 'fr:Mitte',
+    it: 'it:Mitte',
+  },
+  UPPER_DECK: {
+    de: 'Oben',
+    en: 'en:Oben',
+    fr: 'fr:Oben',
+    it: 'it:Oben',
+  },
   // CAPTION FOR SCREENREADER INSIDE WAGON
   COACH_TABLE_CAPTION: {
     de: 'Wagen _param0_ selektiert',
@@ -297,6 +322,12 @@ const i18nObjects: Record<string, Record<string, string>> = {
     en: 'Ski area',
     fr: 'Espace ski',
     it: 'Area sci',
+  },
+  STAFF_AREA: {
+    de: 'Zugpersonal',
+    en: 'en:Zugpersonal',
+    fr: 'fr:Zugpersonal',
+    it: 'it:Zugpersonal',
   },
   STAIR_AREA: {
     de: 'Treppenbereich',

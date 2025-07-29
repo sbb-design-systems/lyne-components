@@ -61,6 +61,11 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ attribute: 'text-rotation' })
   public accessor textRotation: number = 0;
 
+  /** Deck Index Prop to identifier the right place to deck */
+  @forceType()
+  @property({ attribute: 'deck-index', type: Number })
+  public accessor deckIndex: number = null!;
+
   /** Coach Index Prop to identifier the right place to coach */
   @forceType()
   @property({ attribute: 'coach-index', type: Number })
@@ -174,9 +179,11 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
       const placeSelection: PlaceSelection = {
         id: this.id,
+        deckIndex: this.deckIndex,
         coachIndex: this.coachIndex,
         number: this.text,
         state: this.state,
+        placeType: this.placeType,
       };
 
       /**

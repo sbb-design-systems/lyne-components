@@ -15,6 +15,7 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 | Name           | Attribute       | Privacy | Type         | Default     | Description                                                     |
 | -------------- | --------------- | ------- | ------------ | ----------- | --------------------------------------------------------------- |
 | `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifier the right place to coach         |
+| `deckIndex`    | `deck-index`    | public  | `number`     | `null!`     | Deck Index Prop to identifier the right place to deck           |
 | `height`       | `height`        | public  | `number`     | `32`        | height of the place in pixels (without unit)                    |
 | `keyfocus`     | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                               |
 | `placeType`    | `type`          | public  | `PlaceType`  | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                  |

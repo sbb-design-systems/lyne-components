@@ -11,7 +11,9 @@ For the entire presentation, navigation and functionality of such a seat reserva
 > [sbb-seat-reservation-graphics](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphics--docs) => Contains various graphics that are required to render a wagon
 
 ```html
-<sbb-seat-reservation seatReservation="seatReservationObj<SeatReservation>"></sbb-seat-reservation>
+<sbb-seat-reservation
+  seatReservations="seatReservationArray<SeatReservation>[]"
+></sbb-seat-reservation>
 ```
 
 ## Data structure of SeatReservation
@@ -22,6 +24,7 @@ For the entire presentation, navigation and functionality of such a seat reserva
 type SeatReservation = {
   vehicleType: VehicleType;
   deckCoachIndex: number;
+  deckCoachLevel: CoachDeckLevel;
   coachItems: CoachItem[];
 };
 ```
@@ -50,9 +53,7 @@ interface Place extends BaseElement {
   state: PlaceState;
   type: PlaceType;
   travelClass?: PlaceTravelClass;
-  remarkId?: string;
   propertyIds?: string[];
-  selected?: boolean;
 }
 ```
 
@@ -82,6 +83,7 @@ type PlaceSelection = {
   id: string;
   number: string;
   coachIndex: number;
+  deckIndex: number;
   state: PlaceState;
 };
 ```
@@ -94,6 +96,7 @@ type SeatReservationPlaceSelection = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
+  deckIndex: number;
   placeNumber: string;
   placeType: PlaceType;
   placeTravelClass: PlaceTravelClass;
@@ -101,10 +104,10 @@ type SeatReservationPlaceSelection = {
 };
 ```
 
-#### SeatReservationCoachSelection
+#### SeatReservationSelectedCoach
 
 ```typescript
-type SeatReservationCoachSelection = {
+type SeatReservationSelectedCoach = {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
@@ -114,9 +117,19 @@ type SeatReservationCoachSelection = {
 };
 ```
 
+#### SeatReservationSelectedPlaces
+
+```typescript
+type SeatReservationSelectedPlaces = {
+  seats: SeatReservationPlaceSelection[];
+  bicycles: SeatReservationPlaceSelection[];
+};
+```
+
 #### Other
 
 ```typescript
+type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 type PlaceType = 'SEAT' | 'BICYCLE';
 type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
@@ -139,7 +152,7 @@ type BaseElement = {
 
 ### Coloring place by css properties
 
-Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors of the background, the backrest and textcolor of the place can be customized. The currently specified values var(--sbb-color-black)) are the built-in default values.
+Custom CSS properties allows you to customize the style of the place. Depending on the current state of the place ("FREE", "SELECTED") and the current state of the place-button ("default," "hover," "focus"), the colors of the background, the backrest and textcolor of the place can be customized. The currently specified values var(--sbb-color-black) are the built-in default values.
 
 By using the pseudo-element ::part(sbb-sr-place-part) in your own css, the individual custom properties can be overwritten.
 
@@ -205,19 +218,21 @@ their current position within the reservation area.
 
 ## Properties
 
-| Name                | Attribute             | Privacy | Type              | Default | Description                                                       |
-| ------------------- | --------------------- | ------- | ----------------- | ------- | ----------------------------------------------------------------- |
-| `alignVertical`     | `align-vertical`      | public  | `boolean`         | `false` | The seat reservation area is aligned vertically                   |
-| `baseGridSize`      | `base-grid-size`      | public  | `number`          | `16`    | The seat reservation area's base grid size                        |
-| `hasNavigation`     | `has-navigation`      | public  | `boolean`         | `true`  | The seat reservation navigation can be toggled by this property   |
-| `height`            | `height`              | public  | `number`          | `null!` | The seat reservation area's width                                 |
-| `maxReservations`   | `max-reservations`    | public  | `number`          | `null!` | Maximal number of possible clickable seats                        |
-| `preventPlaceClick` | `prevent-place-click` | public  | `boolean`         | `false` | Any click functionality is prevented                              |
-| `seatReservation`   | `seat-reservation`    | public  | `SeatReservation` | `null!` | The seat reservation object which contains all coaches and places |
+| Name                     | Attribute                  | Privacy | Type                | Default | Description                                                     |
+| ------------------------ | -------------------------- | ------- | ------------------- | ------- | --------------------------------------------------------------- |
+| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false` | The seat reservation area is aligned vertically                 |
+| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`    | The seat reservation area's base grid size                      |
+| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`  | The seat reservation navigation can be toggled by this property |
+| `height`                 | `height`                   | public  | `number`            | `null!` | The seat reservation area's width                               |
+| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`    | Maximal number of possible clickable bicycle places             |
+| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`    | Maximal number of possible clickable seats                      |
+| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`    |                                                                 |
+| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false` | Any click functionality is prevented                            |
+| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!` | The seat reservations array contains all coaches and places     |
 
 ## Events
 
-| Name             | Type                                                     | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationCoachSelection>`             | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlacesEventDetails>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
+| Name             | Type                                         | Description                                                                         | Inherited From             |
+| ---------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedcoach`  | `CustomEvent<SeatReservationSelectedCoach>`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlaces>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
