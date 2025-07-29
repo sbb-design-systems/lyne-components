@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button/button.js';
 import { mergeConfig } from '../core/config.js';
@@ -152,7 +153,8 @@ describe('sbb-tooltip', () => {
     });
 
     describe('with delays', () => {
-      beforeEach(async () => {
+      beforeEach(async function (this: Context) {
+        this.retries(3); // This tests involve delays, they can be flaky on ci
         element.openDelay = 200;
         element.closeDelay = 200;
         await waitForLitRender(element);

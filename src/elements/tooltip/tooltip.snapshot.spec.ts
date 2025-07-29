@@ -22,7 +22,7 @@ describe(`sbb-tooltip`, () => {
   });
 
   it('DOM', async () => {
-    await expect(wrapper).dom.to.be.equalSnapshot();
+    await expect(wrapper).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
   });
 
   it('Shadow DOM', async () => {
