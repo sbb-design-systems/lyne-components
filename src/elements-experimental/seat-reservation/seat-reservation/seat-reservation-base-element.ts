@@ -232,8 +232,6 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     if (this.coachScrollArea && seatReservationDeck) {
-      // Set the start offset of the coach scheme, which depends on the multipleDecks
-      // where we need a little more distance because of the deck labels
       let currCalcTriggerPos = 0;
       this.scrollCoachsAreaWidth = this.alignVertical
         ? this.coachScrollArea.getBoundingClientRect().height

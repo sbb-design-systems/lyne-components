@@ -1,8 +1,12 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 @use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
+
+// $decks-gap describe the space between each deck wagons (multiple decks)
+$decks-gap: sbb-sr-functions.px-to-rem(48);
 
 :host {
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
@@ -90,7 +94,7 @@
   z-index: 10;
 
   &#first-tab-element {
-    inset-inline-end: var(--sbb-spacing-fixed-2x);
+    inset-inline-end: sbb-sr-functions.px-to-rem(8);
   }
 
   &#last-tab-element {
@@ -100,7 +104,7 @@
 
 .sbb-sr-navigation-wrapper {
   overflow: hidden;
-  padding-block: 0 var(--sbb-spacing-fixed-8x);
+  padding-block: 0 sbb-sr-functions.px-to-rem(32);
 }
 
 .sbb-sr-navigation {
@@ -121,8 +125,8 @@
 
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--sbb-spacing-fixed-1x);
-  padding: sbb.px-to-rem-build(2);
+  gap: sbb-sr-functions.px-to-rem(4);
+  padding: sbb-sr-functions.px-to-rem(2);
 }
 
 // --------------- Seat Reservation Main Navigation - END ----------------
@@ -140,14 +144,15 @@
 
     display: flex;
     justify-content: space-between;
-    height: calc($deck-label-height * sbb.px-to-rem-build(1));
+    height: sbb-sr-functions.px-to-rem($deck-label-height);
     writing-mode: vertical-lr;
 
     b {
-      height: calc(50% - var(--sbb-spacing-fixed-4x));
-      width: 24px;
+      height: calc(50% - calc($decks-gap / 2));
+      width: sbb-sr-functions.px-to-rem(20);
       rotate: 180deg;
       text-align: center;
+      line-height: sbb-sr-functions.px-to-rem(20);
     }
   }
 }
@@ -157,12 +162,12 @@
 
   & {
     overflow-x: scroll;
-    padding-block: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+    padding-block: sbb-sr-functions.px-to-rem(8) sbb-sr-functions.px-to-rem(16);
 
     .sbb-sr__parent {
       display: flex;
       flex-direction: column;
-      gap: 48px;
+      gap: $decks-gap;
       position: relative;
     }
   }
@@ -173,7 +178,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: $decks-gap;
 }
 
 .sbb-sr__list-item-deck {
@@ -184,10 +189,10 @@
   @include sbb.list-reset;
 
   display: flex;
-  gap: sbb.px-to-rem-build(4);
+  gap: sbb-sr-functions.px-to-rem(4);
 
   &--deck-label-offset {
-    margin-inline-start: 32px;
+    margin-inline-start: sbb-sr-functions.px-to-rem(32);
   }
 }
 
@@ -229,20 +234,14 @@
   // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
   // and the width of the scrollbar area.
   $coach-scollbar-width: 28;
-  $coach-grid-width: calc(
-    calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width) *
-      var(--sbb-seat-reservation-one-px-rem)
-  );
+  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
 
   // $coach-border-width: Describes the approximate width of the wagon edge in the svg
   // and is also set here for the optimised rotation pivot point for rotating. 3 is an optimal value here.
   $coach-border-width: 3;
-  $rotation-pivot-point: calc(
-    calc(var(--sbb-seat-reservation-height) / 2 - $coach-border-width) *
-      var(--sbb-seat-reservation-one-px-rem)
-  );
+  $rotation-pivot-point: calc(var(--sbb-seat-reservation-height) / 2 - $coach-border-width);
 
-  grid-template-columns: $coach-grid-width 1fr;
+  grid-template-columns: sbb-sr-functions.px-to-rem($coach-grid-width) 1fr;
   grid-template-rows: 20% 60% 20%;
 
   .sbb-sr-navigation-first-grid {
@@ -251,8 +250,8 @@
 
     #first-tab-element {
       position: absolute;
-      inset-block-end: var(--sbb-spacing-fixed-4x);
-      inset-inline-start: var(--sbb-spacing-fixed-8x);
+      inset-block-end: sbb-sr-functions.px-to-rem(16);
+      inset-inline-start: sbb-sr-functions.px-to-rem(16);
       inset-inline-end: initial;
       rotate: 90deg;
     }
@@ -263,20 +262,15 @@
     grid-row: 3 / 4;
 
     #last-tab-element {
-      inset-block-start: var(--sbb-spacing-fixed-4x);
-      inset-inline-start: var(--sbb-spacing-fixed-8x);
+      inset-block-start: sbb-sr-functions.px-to-rem(16);
+      inset-inline-start: sbb-sr-functions.px-to-rem(16);
       rotate: 90deg;
     }
   }
 
   .sbb-sr-navigation-wrapper {
     padding-block-end: initial;
-    padding-inline-start: var(--sbb-spacing-fixed-8x);
-  }
-
-  .sbb-sr-navigation-wrapper {
-    padding-block-end: initial;
-    padding-inline-start: var(--sbb-spacing-fixed-8x);
+    padding-inline-start: sbb-sr-functions.px-to-rem(16);
   }
 
   .sbb-sr__component {
@@ -285,7 +279,7 @@
   }
 
   .sbb-sr-grid-inner {
-    grid-template-columns: $coach-grid-width 1fr;
+    grid-template-columns: sbb-sr-functions.px-to-rem($coach-grid-width) 1fr;
     grid-template-rows: 20% 60% 20%;
 
     .nav-grid {
@@ -300,7 +294,7 @@
 
         .sbb-sr-navigation__list-coaches {
           flex-direction: column;
-          padding: sbb.px-to-rem-build(2) sbb.px-to-rem-build(2);
+          padding: sbb-sr-functions.px-to-rem(2);
         }
       }
     }
@@ -316,12 +310,12 @@
 
         .sbb-sr__wrapper-deck-labels {
           flex-direction: column-reverse;
-          width: calc(100% - 1rem);
+          width: calc(100% - sbb-sr-functions.px-to-rem(16));
           height: initial;
 
           b {
             width: 50%;
-            height: sbb.px-to-rem-build(24);
+            height: sbb-sr-functions.px-to-rem(20);
             rotate: initial;
             writing-mode: initial;
           }
@@ -332,14 +326,15 @@
 
           & {
             overflow: hidden scroll;
-            padding: 0 var(--sbb-spacing-fixed-4x) 0 0;
+            padding: 0 sbb-sr-functions.px-to-rem(16) 0 0;
             height: 100%;
           }
         }
 
         .sbb-sr__parent {
           rotate: 90deg;
-          transform-origin: $rotation-pivot-point $rotation-pivot-point;
+          transform-origin: sbb-sr-functions.px-to-rem($rotation-pivot-point)
+            sbb-sr-functions.px-to-rem($rotation-pivot-point);
         }
       }
     }
