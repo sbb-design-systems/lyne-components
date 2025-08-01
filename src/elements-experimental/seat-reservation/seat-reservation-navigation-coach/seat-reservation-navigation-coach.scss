@@ -1,4 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 $disabled: '[disabled], :disabled';
 
@@ -6,12 +7,12 @@ $disabled: '[disabled], :disabled';
 @include sbb.box-sizing;
 
 :host {
-  --sbb-seat-reservation-navigation-travelclass-spacing: #{sbb.px-to-rem-build(10)};
+  --sbb-seat-reservation-navigation-travelclass-spacing: 10;
   --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-granite);
-  --sbb-seat-reservation-navigation-btn-outline-width: var(--sbb-border-width-1x);
+  --sbb-seat-reservation-navigation-btn-outline-width: 1;
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-white);
   --sbb-seat-reservation-navigation-btn-outline-color-selected: var(--sbb-color-black);
-  --sbb-seat-reservation-navigation-btn-outline-width-hover: var(--sbb-border-width-2x);
+  --sbb-seat-reservation-navigation-btn-outline-width-hover: 2;
   --sbb-seat-reservation-navigation-btn-background-color-hover: var(--sbb-color-cloud);
 }
 
@@ -23,7 +24,7 @@ $disabled: '[disabled], :disabled';
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-2x);
-  width: var(--sbb-train-formation-wagon-width);
+  width: sbb-sr-functions.px-to-rem(80);
   list-style-type: none;
 
   &.first-coach,
@@ -40,7 +41,9 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation--first-class {
-      margin-inline-start: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      margin-inline-start: sbb-sr-functions.px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
     }
   }
 
@@ -51,11 +54,15 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation__additional-information {
-      padding-inline-end: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      padding-inline-end: sbb-sr-functions.px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
     }
 
     .sbb-sr-navigation--first-class {
-      margin-inline-end: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      margin-inline-end: sbb-sr-functions.px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
     }
   }
 
@@ -70,10 +77,10 @@ $disabled: '[disabled], :disabled';
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: #{sbb.px-to-rem-build(36)};
+  height: sbb-sr-functions.px-to-rem(36);
   position: relative;
-  outline: var(--sbb-seat-reservation-navigation-btn-outline-width) solid
-    var(--sbb-seat-reservation-navigation-btn-outline-color);
+  outline: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-navigation-btn-outline-width))
+    solid var(--sbb-seat-reservation-navigation-btn-outline-color);
   border-radius: var(--sbb-border-radius-2x);
   background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
   cursor: pointer;
@@ -156,8 +163,8 @@ $disabled: '[disabled], :disabled';
   justify-content: space-between;
   align-items: center;
   flex: 1;
-  column-gap: var(--sbb-spacing-fixed-2x);
-  padding-inline: sbb.px-to-rem-build(16) sbb.px-to-rem-build(16);
+  column-gap: sbb-sr-functions.px-to-rem(8);
+  padding-inline: sbb-sr-functions.px-to-rem(16);
   font-family: var(--sbb-typo-font-family);
   font-weight: 700;
   color: var(--sbb-color-granite);
@@ -185,13 +192,13 @@ $disabled: '[disabled], :disabled';
 
 // graphical orientation of FIRST class
 .sbb-sr-navigation--first-class {
-  width: calc(100% - #{sbb.px-to-rem-build(8)});
+  width: calc(100% - sbb-sr-functions.px-to-rem(8));
   position: absolute;
-  inset-block-start: sbb.px-to-rem-build(3);
-  inset-inline-start: sbb.px-to-rem-build(4);
+  inset-block-start: sbb-sr-functions.px-to-rem(3);
+  inset-inline-start: sbb-sr-functions.px-to-rem(4);
 
   // use border instead of height to support force-color modes
-  border: var(--sbb-border-width-1x) solid transparent;
+  border: sbb-sr-functions.px-to-rem(1) solid transparent;
   border-radius: var(--sbb-border-radius-1x);
   margin: auto;
   background-color: var(--sbb-color-lemon);
@@ -202,8 +209,8 @@ $disabled: '[disabled], :disabled';
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: #{sbb.px-to-rem-build(20)};
-  min-width: #{sbb.px-to-rem-build(20)};
+  min-height: sbb-sr-functions.px-to-rem(20);
+  min-width: sbb-sr-functions.px-to-rem(20);
   border-radius: var(--sbb-border-radius-1x);
   text-align: center;
   background-color: var(--sbb-color-granite);
@@ -214,29 +221,29 @@ $disabled: '[disabled], :disabled';
 .sbb-sr-navigation__item-coach.vertical-coach {
   .sbb-sr-navigation__ctrl-button {
     flex-direction: row-reverse;
-    height: #{sbb.px-to-rem-build(80)};
-    min-width: #{sbb.px-to-rem-build(36)};
+    height: sbb-sr-functions.px-to-rem(80);
+    min-width: sbb-sr-functions.px-to-rem(36);
   }
 
   .sbb-sr-navigation__additional-information {
     flex-direction: column-reverse;
-    padding-block: sbb.px-to-rem-build(16) sbb.px-to-rem-build(16);
+    padding-block: sbb-sr-functions.px-to-rem(16);
     padding-inline-start: unset;
     padding-inline-end: unset;
   }
 
   .sbb-sr-navigation--first-class {
-    height: calc(100% - #{sbb.px-to-rem-build(8)});
+    height: calc(100% - sbb-sr-functions.px-to-rem(8));
     width: initial;
-    inset-inline-end: sbb.px-to-rem-build(3);
-    inset-block-start: sbb.px-to-rem-build(4);
+    inset-inline-end: sbb-sr-functions.px-to-rem(3);
+    inset-block-start: sbb-sr-functions.px-to-rem(4);
     inset-inline-start: initial;
   }
 
   &.first-coach,
   &.last-coach {
     .sbb-sr-navigation--first-class {
-      height: calc(100% - #{sbb.px-to-rem-build(18)});
+      height: calc(100% - sbb-sr-functions.px-to-rem(18));
     }
   }
 
@@ -248,7 +255,9 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation--first-class {
-      margin-block-start: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      margin-block-start: sbb-sr-functions.px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
       margin-inline-start: initial;
     }
   }
@@ -260,14 +269,16 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation--first-class {
-      margin-block-end: var(--sbb-seat-reservation-navigation-travelclass-spacing);
+      margin-block-end: sbb-sr-functions.px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
       margin-inline-end: initial;
     }
   }
 
   // Driver area
   .sbb-sr-navigation-driver-area {
-    height: #{sbb.px-to-rem-build(80)};
-    min-width: #{sbb.px-to-rem-build(36)};
+    height: sbb-sr-functions.px-to-rem(80);
+    min-width: sbb-sr-functions.px-to-rem(36);
   }
 }
