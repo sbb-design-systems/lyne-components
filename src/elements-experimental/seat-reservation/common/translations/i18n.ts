@@ -66,7 +66,7 @@ const i18nObjects: Record<string, Record<string, string>> = {
   NAVIGATE_TO_COACH: {
     de: 'Navigiere zu Zugabteil _param0_',
     en: 'Navigate to train compartment _param0_',
-    fr: 'Aller au compartiment _param0_ ',
+    fr: 'Aller au compartiment _param0_',
     it: 'Naviga verso il compartimento del treno _param0_',
   },
   NAVIGATE_TO_COACH_SERVICE_CLASS_SUB: {
