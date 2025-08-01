@@ -22,16 +22,15 @@ the [sbb-popover-trigger](/docs/elements-sbb-popover-sbb-popover-trigger--docs) 
 
 ## Configuration
 
-The open and close delays can be configured in milliseconds via global configuration. This is then
-used as default, if not explicitely defined on the element.
+The open and close delays can be configured via global configuration. This values will be used as default, unless explicitly set on the element.
 
 ```ts
 import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
 
 mergeConfig({
   popover: {
-    openDelay: 50,
-    closeDelay: 50,
+    openDelay: 0, // ms before the popover opens
+    closeDelay: 0, // ms before the popover closes
   },
 });
 ```
