@@ -5,9 +5,6 @@
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
 
-// $decks-gap describe the space between each deck wagons (multiple decks)
-$decks-gap: sbb-sr-functions.px-to-rem(48);
-
 :host {
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
   --sbb-seat-reservation-grid-size: 16px;
@@ -98,7 +95,7 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
   }
 
   &#last-tab-element {
-    inset-inline-start: var(--sbb-spacing-fixed-2x);
+    inset-inline-start: sbb-sr-functions.px-to-rem(8);
   }
 }
 
@@ -138,18 +135,15 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
   height: inherit;
 
   .sbb-sr__wrapper-deck-labels {
-    // Calculated deck label height subtracted from the scollbar height (8)
-    // for optimal representation of the centred deck labels
-    $deck-label-height: calc(var(--sbb-seat-reservation-height) - 8);
-
     display: flex;
     justify-content: space-between;
-    height: sbb-sr-functions.px-to-rem($deck-label-height);
+    height: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-height));
     writing-mode: vertical-lr;
 
     b {
-      height: calc(50% - calc($decks-gap / 2));
+      height: calc(50% - sbb-sr-functions.px-to-rem(16));
       width: sbb-sr-functions.px-to-rem(20);
+      margin-block-end: 16px;
       rotate: 180deg;
       text-align: center;
       line-height: sbb-sr-functions.px-to-rem(20);
@@ -167,7 +161,6 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
     .sbb-sr__parent {
       display: flex;
       flex-direction: column;
-      gap: $decks-gap;
       position: relative;
     }
   }
@@ -178,7 +171,10 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
 
   display: flex;
   flex-direction: column;
-  gap: $decks-gap;
+
+  &--gap {
+    gap: sbb-sr-functions.px-to-rem(48);
+  }
 }
 
 .sbb-sr__list-item-deck {
@@ -190,10 +186,6 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
 
   display: flex;
   gap: sbb-sr-functions.px-to-rem(4);
-
-  &--deck-label-offset {
-    margin-inline-start: sbb-sr-functions.px-to-rem(32);
-  }
 }
 
 .sbb-sr__item-coach {
@@ -233,13 +225,17 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
 .sbb-sr.sbb-sr__grid--vertical {
   // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
   // and the width of the scrollbar area.
-  $coach-scollbar-width: 28;
+  $coach-scollbar-width: 24;
   $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
 
   // $coach-border-width: Describes the approximate width of the wagon edge in the svg
-  // and is also set here for the optimised rotation pivot point for rotating. 3 is an optimal value here.
-  $coach-border-width: 3;
-  $rotation-pivot-point: calc(var(--sbb-seat-reservation-height) / 2 - $coach-border-width);
+  // and is also set here for the optimised rotation pivot point for rotating. 6 is an optimal value here.
+  $coach-border-width: calc(6 * calc(var(--sbb-seat-reservation-decks) - 1));
+
+  // For the calculated pivot point, we only need the width of the visual coach schema without any other elements like border-width and scrollbar.
+  $rotation-pivot-point: calc(
+    calc($coach-grid-width - $coach-scollbar-width - $coach-border-width) / 2
+  );
 
   grid-template-columns: sbb-sr-functions.px-to-rem($coach-grid-width) 1fr;
   grid-template-rows: 20% 60% 20%;
@@ -310,12 +306,13 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
 
         .sbb-sr__wrapper-deck-labels {
           flex-direction: column-reverse;
-          width: calc(100% - sbb-sr-functions.px-to-rem(16));
+          width: calc(100% - sbb-sr-functions.px-to-rem($coach-scollbar-width));
           height: initial;
 
           b {
-            width: 50%;
+            width: calc(50% - sbb-sr-functions.px-to-rem(16));
             height: sbb-sr-functions.px-to-rem(20);
+            margin-bottom: 16px;
             rotate: initial;
             writing-mode: initial;
           }
@@ -326,8 +323,8 @@ $decks-gap: sbb-sr-functions.px-to-rem(48);
 
           & {
             overflow: hidden scroll;
-            padding: 0 sbb-sr-functions.px-to-rem(16) 0 0;
             height: 100%;
+            padding: 0;
           }
         }
 

@@ -13,28 +13,28 @@ const i18nObjects: Record<string, Record<string, string>> = {
   // BASICS
   // COACH DECK LABEL DESCRIPTIONS
   SINGLE_DECK: {
-    de: 'Unten',
-    en: 'en:Unten',
-    fr: 'fr:Unten',
-    it: 'it:Unten',
+    de: 'Einzeldeck',
+    en: 'Single deck',
+    fr: 'Étage unique',
+    it: 'Piano singolo',
   },
   LOWER_DECK: {
-    de: 'Unten',
-    en: 'en:Unten',
-    fr: 'fr:Unten',
-    it: 'it:Unten',
+    de: 'Unterdeck',
+    en: 'Lower deck',
+    fr: 'Salle basse',
+    it: 'Sala bassa',
   },
   MIDDLE_DECK: {
-    de: 'Mitte',
-    en: 'en:Mitte',
-    fr: 'fr:Mitte',
-    it: 'it:Mitte',
+    de: 'Mitteldeck',
+    en: 'Middle deck',
+    fr: 'Niveau du milieu',
+    it: 'Livello centrale',
   },
   UPPER_DECK: {
-    de: 'Oben',
-    en: 'en:Oben',
-    fr: 'fr:Oben',
-    it: 'it:Oben',
+    de: 'Oberdeck',
+    en: 'Upper deck',
+    fr: 'Salle haute',
+    it: 'Sala alta',
   },
   // CAPTION FOR SCREENREADER INSIDE WAGON
   COACH_TABLE_CAPTION: {
@@ -66,14 +66,14 @@ const i18nObjects: Record<string, Record<string, string>> = {
   NAVIGATE_TO_COACH: {
     de: 'Navigiere zu Zugabteil _param0_',
     en: 'Navigate to train compartment _param0_',
-    fr: 'Aller au compartiment _param0_',
+    fr: 'Aller au compartiment _param0_ ',
     it: 'Naviga verso il compartimento del treno _param0_',
   },
   NAVIGATE_TO_COACH_SERVICE_CLASS_SUB: {
     de: ' mit _param0_ Abteil',
-    en: 'with _param0_ compartment',
-    fr: 'avec compartiment _param0_',
-    it: 'con compartimento di _param0_',
+    en: ' with _param0_ compartment',
+    fr: ' avec compartiment _param0_',
+    it: ' con compartimento di _param0_',
   },
   NAVIGATE_COACH_BLOCKED: {
     de: 'Zugabteil _param0_ ist nicht betretbar',
