@@ -6,7 +6,10 @@ import { forceType, hostAttributes } from '../../core/decorators.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
-import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
+import type {
+  SbbCarouselItemElement,
+  SbbCarouselItemEventDetail,
+} from '../carousel-item/carousel-item.component.js';
 import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.js';
 
 import style from './carousel.scss?lit&inline';
@@ -32,6 +35,23 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   @forceType()
   @property({ reflect: true, type: Boolean })
   public accessor shadow: boolean = false;
+
+  private get _paginator(): SbbCompactPaginatorElement | null {
+    return this.querySelector?.('sbb-compact-paginator') || null;
+  }
+
+  public constructor() {
+    super();
+
+    // If the list is scrolled using mouse/keyboard, it keeps the paginator updated.
+    this.addEventListener?.('show', (e: CustomEvent<SbbCarouselItemEventDetail>) => {
+      if (this._paginator) {
+        if (e.detail.index !== this._paginator.pageIndex) {
+          this._paginator.pageIndex = e.detail.index;
+        }
+      }
+    });
+  }
 
   private _handleSlotchange(): void {
     const paginator: SbbCompactPaginatorElement = Array.from(this.children).find(

@@ -8,7 +8,10 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import type { SbbCarouselItemElement } from '../carousel-item/carousel-item.component.js';
+import type {
+  SbbCarouselItemElement,
+  SbbCarouselItemEventDetail,
+} from '../carousel-item/carousel-item.component.js';
 
 import style from './carousel-list.scss?lit&inline';
 
@@ -26,14 +29,26 @@ export
 class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
+  /** Gets the slotted items. */
+  private get _carouselItems(): SbbCarouselItemElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-carousel-item') ?? []);
+  }
+
   private _language = new SbbLanguageController(this);
 
   private _beforeShowObserver = new IntersectionController(this, {
     callback: (entry) => {
       const item = entry.filter((e) => e.isIntersecting && e.target !== this);
-      item.forEach((e) =>
-        e.target.dispatchEvent(new Event('beforeshow', { bubbles: true, composed: true })),
-      );
+      item.forEach((e) => {
+        const target = e.target as SbbCarouselItemElement;
+        target.dispatchEvent(
+          new CustomEvent<SbbCarouselItemEventDetail>('beforeshow', {
+            detail: { index: this._carouselItems.findIndex((e) => e === target) },
+            bubbles: true,
+            composed: true,
+          }),
+        );
+      });
     },
     config: { threshold: 0.01 },
   });
@@ -47,8 +62,15 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
       entries
         .filter((e) => e.isIntersecting)
         .forEach((e) => {
-          (e.target as SbbCarouselItemElement).ariaHidden = 'false';
-          e.target.dispatchEvent(new Event('show', { bubbles: true, composed: true }));
+          const target = e.target as SbbCarouselItemElement;
+          target.ariaHidden = 'false';
+          target.dispatchEvent(
+            new CustomEvent<SbbCarouselItemEventDetail>('show', {
+              detail: { index: this._carouselItems.findIndex((e) => e === target) },
+              bubbles: true,
+              composed: true,
+            }),
+          );
         });
     },
     config: { threshold: 1 },

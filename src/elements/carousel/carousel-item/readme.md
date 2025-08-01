@@ -43,6 +43,13 @@ If the `aria-label` attribute is not provided, it is set by the `sbb-carousel-li
 
 <!-- Auto Generated Below -->
 
+## Events
+
+| Name         | Type                                      | Description                                                  | Inherited From |
+| ------------ | ----------------------------------------- | ------------------------------------------------------------ | -------------- |
+| `beforeshow` | `CustomEvent<SbbCarouselItemEventDetail>` | Event emitted when the item is starting scrolling.           |                |
+| `show`       | `CustomEvent<SbbCarouselItemEventDetail>` | Event emitted when the item is full visible after scrolling. |                |
+
 ## Slots
 
 | Name | Description                                                                                |
