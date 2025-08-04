@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.2.0...v3.3.0) (2025-08-04)
+
+
+### Features
+
+* **sbb-calendar:** multiple selection and week numbers ([#3614](https://github.com/sbb-design-systems/lyne-components/issues/3614)) ([dfd2708](https://github.com/sbb-design-systems/lyne-components/commit/dfd270889d2af05a79fad0f8dfbf199441f2ce15))
+* **seat-reservation-multiple-coach-decks:** implement handling to render multiple coach decks ([#3928](https://github.com/sbb-design-systems/lyne-components/issues/3928)) ([1552baf](https://github.com/sbb-design-systems/lyne-components/commit/1552bafd8f068d2263730ccb5f661d21afdd7b8b))
+
+
+### Documentation
+
+* **sbb-icon:** describe how to use custom namespace ([#3938](https://github.com/sbb-design-systems/lyne-components/issues/3938)) ([1c8312a](https://github.com/sbb-design-systems/lyne-components/commit/1c8312ab4e0f63da95e520f1436f45a3c104f38d)), closes [#3599](https://github.com/sbb-design-systems/lyne-components/issues/3599)
+
+
+### Code Refactoring
+
+* **seat-reservation:** optimize rem size calculation ([#3935](https://github.com/sbb-design-systems/lyne-components/issues/3935)) ([7c5fede](https://github.com/sbb-design-systems/lyne-components/commit/7c5fede2b042eeb175b9941e106d821dbdbb6587))
+
 ## [3.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.1.0...v3.2.0) (2025-07-21)
 
 
