@@ -93,9 +93,13 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
       (el) => el.localName === 'sbb-carousel-item',
     ) as SbbCarouselItemElement;
     if (firstItem) {
-      const innerEl: HTMLDivElement = firstItem.shadowRoot!.querySelector('.sbb-carousel-item')!;
-      this.style.setProperty('--sbb-carousel-list-height', `${innerEl.clientHeight}px`);
-      this.style.setProperty('--sbb-carousel-list-width', `${innerEl.clientWidth}px`);
+      firstItem.updateComplete.then(() => {
+        const innerEl = firstItem.shadowRoot?.querySelector('.sbb-carousel-item');
+        if (innerEl) {
+          this.style.setProperty('--sbb-carousel-list-height', `${innerEl.clientHeight}px`);
+          this.style.setProperty('--sbb-carousel-list-width', `${innerEl.clientWidth}px`);
+        }
+      });
     }
   }
 

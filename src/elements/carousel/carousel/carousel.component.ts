@@ -27,7 +27,6 @@ export
 })
 class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-  private _currentItemIndex: number = 0;
 
   /**
    * Used to display a box-shadow around the component.
@@ -36,9 +35,8 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   @property({ reflect: true, type: Boolean })
   public accessor shadow: boolean = false;
 
-  private get _paginator(): SbbCompactPaginatorElement | null {
-    return this.querySelector?.('sbb-compact-paginator') || null;
-  }
+  private _paginator: SbbCompactPaginatorElement | null = null;
+  private _abortController: AbortController | null = null;
 
   public constructor() {
     super();
@@ -51,6 +49,11 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
         }
       }
     });
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._abortController?.abort();
   }
 
   private _handleSlotchange(): void {
@@ -68,21 +71,20 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
       paginator.length = items.length;
       paginator.pageSize = 1;
     }
-
-    paginator.addEventListener('page', (e) => this._scrollAtPageChange(e));
+    if (paginator !== this._paginator) {
+      this._abortController = new AbortController();
+      paginator.addEventListener('page', (e) => this._scrollAtPageChange(e), {
+        signal: this._abortController.signal,
+      });
+      this._paginator = paginator as SbbCompactPaginatorElement;
+    }
   }
 
   private _scrollAtPageChange(e: CustomEvent<SbbPaginatorPageEventDetails>): void {
-    if (e.detail.previousPageIndex < e.detail.pageIndex) {
-      this._currentItemIndex++;
-    } else {
-      this._currentItemIndex--;
-    }
-
     const list = this.querySelector<SbbCarouselListElement>('sbb-carousel-list');
     if (list) {
       const items = list.querySelectorAll<SbbCarouselItemElement>('sbb-carousel-item');
-      items[this._currentItemIndex].scrollIntoView();
+      items[e.detail.pageIndex]?.scrollIntoView();
     }
   }
 
