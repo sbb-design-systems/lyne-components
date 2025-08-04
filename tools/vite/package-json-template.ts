@@ -31,6 +31,8 @@ export function packageJsonTemplate(
         rootPackageJson.devDependencies['@lit-labs/observers'].match(/\d+\.\d+\.\d+/);
       const litReactVersion = rootPackageJson.devDependencies['@lit/react'].match(/\d+\.\d+\.\d+/);
       const tslibVersion = rootPackageJson.devDependencies.tslib.match(/\d+\.\d+\.\d+/);
+      const designTokensVersion =
+        rootPackageJson.devDependencies['@sbb-esta/lyne-design-tokens'].match(/\d+\.\d+\.\d+/);
       const packageJsonTemplate = readFileSync(
         join(viteConfig.root, packageJsonTemplatePath),
         'utf8',
@@ -40,7 +42,8 @@ export function packageJsonTemplate(
         .replaceAll('0.0.0-LITOBSERVERS', `^${litObserversVersion}`)
         .replaceAll('0.0.0-LITREACT', `^${litReactVersion}`)
         .replaceAll('0.0.0-TSLIB', `^${tslibVersion}`)
-        .replaceAll('0.0.0-LIT', `^${litVersion}`);
+        .replaceAll('0.0.0-LIT', `^${litVersion}`)
+        .replaceAll('0.0.0-DESIGNTOKENS', `^${designTokensVersion}`);
       const packageJson = JSON.parse(packageJsonContent);
       for (const key of ['author', 'license', 'repository', 'bugs']) {
         packageJson[key] = rootPackageJson[key];
