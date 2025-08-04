@@ -68,11 +68,11 @@ $disabled: '.sbb-reservation-place-control--disabled';
   // Color background definition for place with state ALLOCATED
   --sbb-seat-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 
-  width: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-place-control-width));
-  height: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-place-control-height));
+  width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
+  height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
   position: absolute;
-  inset-block-start: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-place-control-top));
-  inset-inline-start: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-place-control-left));
+  inset-block-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-top));
+  inset-inline-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-left));
   cursor: pointer;
 }
 
@@ -90,7 +90,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
 :host(:focus) {
   border-radius: var(--sbb-border-width-1x);
-  outline: sbb-sr-functions.px-to-rem(2) solid var(--sbb-color-black);
+  outline: sbb-sr-functions.sr-px-to-rem(2) solid var(--sbb-color-black);
 
   .sbb-sr-place-ctrl {
     &--state-free:not(#{$disabled}) {
@@ -111,7 +111,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
   width: max-content;
   position: relative;
-  font-size: sbb-sr-functions.px-to-rem(var(--sbb-seat-reservation-place-control-text-size));
+  font-size: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-text-size));
 
   &--state-free {
     @include colorizePlace('free', 'default');
