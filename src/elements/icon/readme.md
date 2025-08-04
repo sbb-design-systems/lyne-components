@@ -11,7 +11,39 @@ Note that if you do not provide a namespace, the default namespace will be used 
 <sbb-icon name="app-icon-medium"></sbb-icon>
 ```
 
-If using the SBB CDN, ensure that the icon name has the size suffix.
+** Register custom icon namespace **
+
+```ts
+import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+
+mergeConfig({
+  icon: {
+    namespaces: new Map<string, string>().set('your-namespace', 'https://domain-of-your-icons/'),
+  },
+});
+```
+
+** Register custom interceptor **
+
+```ts
+import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+
+mergeConfig({
+  icon: {
+    interceptor: ({ namespace, name, request }) => {
+      if (namespace === 'your-namespace') {
+        // Do your own logic
+        return Promise.resolve(`<svg-fake data-name="${name}"></svg-fake>`);
+      }
+      return request();
+    },
+  },
+});
+```
+
+Custom namespaces and interceptors must be registered globally before the first request is made.
+
+If using the default SBB CDN, ensure that the icon name has the size suffix.
 E.g. if in the Design (Figma) the icon is called 'circle-plus', the icon name will be either 'circle-plus-small' or 'circle-plus-medium'.
 
 ## Accessibility
