@@ -7,6 +7,7 @@ import images from '../../core/images.js';
 import { fixture } from '../../core/testing/private.js';
 import { EventSpy, waitForCondition } from '../../core/testing.js';
 import type { SbbCompactPaginatorElement } from '../../paginator.js';
+import type { SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.component.js';
 
 import { SbbCarouselElement } from './carousel.component.js';
 
@@ -19,6 +20,8 @@ describe('sbb-carousel', () => {
   const loadSpyFirst = spy();
   const loadSpySecond = spy();
   const loadSpyThird = spy();
+  let beforeShowSpy: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
+  let showSpy: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-carousel>
@@ -36,6 +39,8 @@ describe('sbb-carousel', () => {
         <sbb-compact-paginator></sbb-compact-paginator>
       </sbb-carousel>
     `);
+    beforeShowSpy = new EventSpy('beforeshow', element);
+    showSpy = new EventSpy('show', element);
     await waitForCondition(() => loadSpyFirst.called);
     expect(loadSpyFirst).to.have.been.called;
   });
@@ -52,6 +57,11 @@ describe('sbb-carousel', () => {
   });
 
   it('paginator should trigger a scroll', async () => {
+    await beforeShowSpy.calledTimes(1);
+    expect(beforeShowSpy.count).to.be.equal(1);
+    await showSpy.calledTimes(1);
+    expect(showSpy.count).to.be.equal(1);
+
     const paginator: SbbCompactPaginatorElement = element.querySelector('sbb-compact-paginator')!;
     expect(paginator).is.not.null;
     const goToPrev: SbbMiniButtonElement = paginator.shadowRoot!.querySelector(
@@ -60,33 +70,29 @@ describe('sbb-carousel', () => {
     const goToNext: SbbMiniButtonElement = paginator.shadowRoot!.querySelector(
       '#sbb-paginator-next-page',
     )!;
-    const second = element.querySelector('#second')!;
-    const third = element.querySelector('#third')!;
-    const beforeShowSpySecond = new EventSpy('beforeshow', second);
-    const beforeShowSpyThird = new EventSpy('beforeshow', third);
-    const showSpySecond = new EventSpy('show', second);
-    const showSpyThird = new EventSpy('show', third);
 
     await goToNext.click();
     await waitForCondition(() => loadSpySecond.called);
     expect(loadSpySecond).to.have.been.called;
-    await beforeShowSpySecond.calledOnce();
-    expect(beforeShowSpySecond.count).to.be.equal(1);
-    await showSpySecond.calledOnce();
-    expect(showSpySecond.count).to.be.equal(1);
+    await beforeShowSpy.calledTimes(2);
+    expect(beforeShowSpy.count).to.be.equal(2);
+    await showSpy.calledTimes(2);
+    expect(showSpy.count).to.be.equal(2);
 
     await goToNext.click();
     await waitForCondition(() => loadSpyThird.called);
     expect(loadSpyThird).to.have.been.called;
-    await beforeShowSpyThird.calledOnce();
-    expect(beforeShowSpyThird.count).to.be.equal(1);
-    await showSpyThird.calledOnce();
-    expect(showSpyThird.count).to.be.equal(1);
+    await beforeShowSpy.calledTimes(3);
+    expect(beforeShowSpy.count).to.be.equal(3);
+    await showSpy.calledTimes(3);
+    expect(showSpy.count).to.be.equal(3);
 
     await goToPrev.click();
-    await beforeShowSpySecond.calledTimes(2);
-    expect(beforeShowSpySecond.count).to.be.equal(2);
-    await showSpySecond.calledTimes(2);
-    expect(showSpySecond.count).to.be.equal(2);
+    await waitForCondition(() => loadSpyFirst.called);
+    expect(loadSpyFirst).to.have.been.called;
+    await beforeShowSpy.calledTimes(4);
+    expect(beforeShowSpy.count).to.be.equal(4);
+    await showSpy.calledTimes(4);
+    expect(showSpy.count).to.be.equal(4);
   });
 });
