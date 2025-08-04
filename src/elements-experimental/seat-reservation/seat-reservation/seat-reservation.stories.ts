@@ -94,6 +94,8 @@ export const Train: StoryObj = {
 const trainDeckBottom = mappedSeatReservationTrain;
 const deckTwoCoaches: CoachItem[] = [];
 
+trainDeckBottom.deckCoachLevel = 'LOWER_DECK';
+
 //Prepair upper deck by copy from the trainDeckBottom
 const trainDeckUpper = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
 trainDeckUpper.deckCoachIndex = 1;

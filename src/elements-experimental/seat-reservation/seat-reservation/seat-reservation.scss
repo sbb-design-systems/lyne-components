@@ -1,5 +1,6 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 @use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -90,17 +91,17 @@
   z-index: 10;
 
   &#first-tab-element {
-    inset-inline-end: var(--sbb-spacing-fixed-2x);
+    inset-inline-end: sbb-sr-functions.sr-px-to-rem(8);
   }
 
   &#last-tab-element {
-    inset-inline-start: var(--sbb-spacing-fixed-2x);
+    inset-inline-start: sbb-sr-functions.sr-px-to-rem(8);
   }
 }
 
 .sbb-sr-navigation-wrapper {
   overflow: hidden;
-  padding-block: 0 var(--sbb-spacing-fixed-8x);
+  padding-block: 0 sbb-sr-functions.sr-px-to-rem(32);
 }
 
 .sbb-sr-navigation {
@@ -121,8 +122,8 @@
 
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--sbb-spacing-fixed-1x);
-  padding: sbb.px-to-rem-build(2);
+  gap: sbb-sr-functions.sr-px-to-rem(4);
+  padding: sbb-sr-functions.sr-px-to-rem(2);
 }
 
 // --------------- Seat Reservation Main Navigation - END ----------------
@@ -134,20 +135,18 @@
   height: inherit;
 
   .sbb-sr__wrapper-deck-labels {
-    // Calculated deck label height subtracted from the scollbar height (8)
-    // for optimal representation of the centred deck labels
-    $deck-label-height: calc(var(--sbb-seat-reservation-height) - 8);
-
     display: flex;
     justify-content: space-between;
-    height: calc($deck-label-height * sbb.px-to-rem-build(1));
+    height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
     writing-mode: vertical-lr;
 
     b {
-      height: calc(50% - var(--sbb-spacing-fixed-4x));
-      width: 24px;
+      height: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+      width: sbb-sr-functions.sr-px-to-rem(20);
+      margin-block-end: 16px;
       rotate: 180deg;
       text-align: center;
+      line-height: sbb-sr-functions.sr-px-to-rem(20);
     }
   }
 }
@@ -157,12 +156,11 @@
 
   & {
     overflow-x: scroll;
-    padding-block: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+    padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
 
     .sbb-sr__parent {
       display: flex;
       flex-direction: column;
-      gap: 48px;
       position: relative;
     }
   }
@@ -173,7 +171,10 @@
 
   display: flex;
   flex-direction: column;
-  gap: 48px;
+}
+
+.sbb-sr__list-decks--gap {
+  gap: sbb-sr-functions.sr-px-to-rem(48);
 }
 
 .sbb-sr__list-item-deck {
@@ -184,11 +185,7 @@
   @include sbb.list-reset;
 
   display: flex;
-  gap: sbb.px-to-rem-build(4);
-
-  &--deck-label-offset {
-    margin-inline-start: 32px;
-  }
+  gap: sbb-sr-functions.sr-px-to-rem(4);
 }
 
 .sbb-sr__item-coach {
@@ -228,21 +225,19 @@
 .sbb-sr.sbb-sr__grid--vertical {
   // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
   // and the width of the scrollbar area.
-  $coach-scollbar-width: 28;
-  $coach-grid-width: calc(
-    calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width) *
-      var(--sbb-seat-reservation-one-px-rem)
-  );
+  $coach-scollbar-width: 24;
+  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
 
   // $coach-border-width: Describes the approximate width of the wagon edge in the svg
-  // and is also set here for the optimised rotation pivot point for rotating. 3 is an optimal value here.
-  $coach-border-width: 3;
+  // and is also set here for the optimised rotation pivot point for rotating. 6 is an optimal value here.
+  $coach-border-width: calc(6 * calc(var(--sbb-seat-reservation-decks) - 1));
+
+  // For the calculated pivot point, we only need the width of the visual coach schema without any other elements like border-width and scrollbar.
   $rotation-pivot-point: calc(
-    calc(var(--sbb-seat-reservation-height) / 2 - $coach-border-width) *
-      var(--sbb-seat-reservation-one-px-rem)
+    calc($coach-grid-width - $coach-scollbar-width - $coach-border-width) / 2
   );
 
-  grid-template-columns: $coach-grid-width 1fr;
+  grid-template-columns: sbb-sr-functions.sr-px-to-rem($coach-grid-width) 1fr;
   grid-template-rows: 20% 60% 20%;
 
   .sbb-sr-navigation-first-grid {
@@ -251,8 +246,8 @@
 
     #first-tab-element {
       position: absolute;
-      inset-block-end: var(--sbb-spacing-fixed-4x);
-      inset-inline-start: var(--sbb-spacing-fixed-8x);
+      inset-block-end: sbb-sr-functions.sr-px-to-rem(16);
+      inset-inline-start: sbb-sr-functions.sr-px-to-rem(16);
       inset-inline-end: initial;
       rotate: 90deg;
     }
@@ -263,20 +258,15 @@
     grid-row: 3 / 4;
 
     #last-tab-element {
-      inset-block-start: var(--sbb-spacing-fixed-4x);
-      inset-inline-start: var(--sbb-spacing-fixed-8x);
+      inset-block-start: sbb-sr-functions.sr-px-to-rem(16);
+      inset-inline-start: sbb-sr-functions.sr-px-to-rem(16);
       rotate: 90deg;
     }
   }
 
   .sbb-sr-navigation-wrapper {
     padding-block-end: initial;
-    padding-inline-start: var(--sbb-spacing-fixed-8x);
-  }
-
-  .sbb-sr-navigation-wrapper {
-    padding-block-end: initial;
-    padding-inline-start: var(--sbb-spacing-fixed-8x);
+    padding-inline-start: sbb-sr-functions.sr-px-to-rem(16);
   }
 
   .sbb-sr__component {
@@ -285,7 +275,7 @@
   }
 
   .sbb-sr-grid-inner {
-    grid-template-columns: $coach-grid-width 1fr;
+    grid-template-columns: sbb-sr-functions.sr-px-to-rem($coach-grid-width) 1fr;
     grid-template-rows: 20% 60% 20%;
 
     .nav-grid {
@@ -300,7 +290,7 @@
 
         .sbb-sr-navigation__list-coaches {
           flex-direction: column;
-          padding: sbb.px-to-rem-build(2) sbb.px-to-rem-build(2);
+          padding: sbb-sr-functions.sr-px-to-rem(2);
         }
       }
     }
@@ -316,12 +306,13 @@
 
         .sbb-sr__wrapper-deck-labels {
           flex-direction: column-reverse;
-          width: calc(100% - 1rem);
+          width: calc(100% - sbb-sr-functions.sr-px-to-rem($coach-scollbar-width));
           height: initial;
 
           b {
-            width: 50%;
-            height: sbb.px-to-rem-build(24);
+            width: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+            height: sbb-sr-functions.sr-px-to-rem(20);
+            margin-bottom: 16px;
             rotate: initial;
             writing-mode: initial;
           }
@@ -332,14 +323,15 @@
 
           & {
             overflow: hidden scroll;
-            padding: 0 var(--sbb-spacing-fixed-4x) 0 0;
             height: 100%;
+            padding: 0;
           }
         }
 
         .sbb-sr__parent {
           rotate: 90deg;
-          transform-origin: $rotation-pivot-point $rotation-pivot-point;
+          transform-origin: sbb-sr-functions.sr-px-to-rem($rotation-pivot-point)
+            sbb-sr-functions.sr-px-to-rem($rotation-pivot-point);
         }
       }
     }

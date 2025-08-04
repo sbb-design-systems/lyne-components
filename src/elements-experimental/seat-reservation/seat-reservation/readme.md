@@ -1,4 +1,4 @@
-The `sbb-seat-reservation` is a visualized seat/bicycle parking space reservation component, with which the user can view the position of a seat as well as its status (FREE, SELECTED, ALLOCATED, RESTRICTED) within a means of transport/wagon and select it accordingly.
+The `sbb-seat-reservation` is a visualized seat/bicycle parking space reservation component, with which the user can view the position of a seat as well as its state (FREE, SELECTED, ALLOCATED, RESTRICTED) within a means of transport/wagon and select it accordingly.
 Currently, these components are available for all wagons of a means of transport, but only represent one level of it.
 For the entire presentation, navigation and functionality of such a seat reservation, this main component includes the following child components:
 

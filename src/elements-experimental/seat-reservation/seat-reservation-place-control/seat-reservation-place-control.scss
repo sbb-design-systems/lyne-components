@@ -1,5 +1,6 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 @use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -67,23 +68,11 @@ $disabled: '.sbb-reservation-place-control--disabled';
   // Color background definition for place with state ALLOCATED
   --sbb-seat-reservation-place-control-allocated-background-default: var(--sbb-color-milk);
 
-  width: calc(
-    var(--sbb-seat-reservation-place-control-width) *
-      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
-  );
-  height: calc(
-    var(--sbb-seat-reservation-place-control-height) *
-      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
-  );
+  width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
+  height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
   position: absolute;
-  inset-block-start: calc(
-    var(--sbb-seat-reservation-place-control-top) *
-      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
-  );
-  inset-inline-start: calc(
-    var(--sbb-seat-reservation-place-control-left) *
-      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
-  );
+  inset-block-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-top));
+  inset-inline-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-left));
   cursor: pointer;
 }
 
@@ -101,7 +90,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
 :host(:focus) {
   border-radius: var(--sbb-border-width-1x);
-  outline: var(--sbb-border-width-2x) solid var(--sbb-color-black);
+  outline: sbb-sr-functions.sr-px-to-rem(2) solid var(--sbb-color-black);
 
   .sbb-sr-place-ctrl {
     &--state-free:not(#{$disabled}) {
@@ -122,10 +111,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
   width: max-content;
   position: relative;
-  font-size: calc(
-    var(--sbb-seat-reservation-place-control-text-size) *
-      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
-  );
+  font-size: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-text-size));
 
   &--state-free {
     @include colorizePlace('free', 'default');
