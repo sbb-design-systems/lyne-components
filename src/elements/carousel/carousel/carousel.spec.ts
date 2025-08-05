@@ -36,11 +36,11 @@ describe('sbb-carousel', () => {
             <img src=${images[2]} alt="SBB image" height="300" width="400" @load=${(e: Event) => loadSpyThird(e)}></img>
           </sbb-carousel-item>
         </sbb-carousel-list>
-        <sbb-compact-paginator></sbb-compact-paginator>
       </sbb-carousel>
     `);
     beforeShowSpy = new EventSpy('beforeshow', element);
     showSpy = new EventSpy('show', element);
+    element.appendChild(document.createElement('sbb-compact-paginator'));
     await waitForCondition(() => loadSpyFirst.called);
     expect(loadSpyFirst).to.have.been.called;
   });
