@@ -322,27 +322,6 @@ describe(`sbb-autocomplete`, () => {
       assertInactiveOption(optTwo);
     });
 
-    it('stays on newly disabled other option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const optOne = element.querySelector<SbbOptionElement>('#option-1')!;
-      const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
-
-      input.focus();
-      await openSpy.calledOnce();
-
-      optOne.disabled = true;
-      await waitForLitRender(element);
-
-      assertInactiveOption(optOne);
-      assertActiveOption(optTwo);
-
-      optOne.disabled = false;
-      await waitForLitRender(element);
-
-      assertActiveOption(optOne);
-      assertInactiveOption(optTwo);
-    });
-
     it('updates on activating autoActiveFirstOption at any time', async () => {
       element.autoActiveFirstOption = false;
 

@@ -98,7 +98,10 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
       this.activeOption
         ?.closest('sbb-autocomplete-grid-row')
         ?.querySelectorAll('sbb-autocomplete-grid-button')
-        [this._activeColumnIndex - 1]?.click();
+        [
+          // We ignore the option in the selector. Therefore, we have to shift the activeColumnIndex by one.
+          this._activeColumnIndex - 1
+        ]?.click();
     } else {
       this.activeOption?.['selectViaUserInteraction'](true);
     }
@@ -177,9 +180,8 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
         ?.closest('sbb-autocomplete-grid-row')
         ?.querySelectorAll('sbb-autocomplete-grid-button')
         .forEach((e) => e.toggleAttribute('data-focus-visible', false));
-    } else {
-      this.activeOption?.setActive(false);
     }
+    this.activeOption?.setActive(false);
     this.activeOption = null;
     this._activeColumnIndex = 0;
     this.triggerElement?.removeAttribute('aria-activedescendant');
