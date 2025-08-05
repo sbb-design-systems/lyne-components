@@ -16,16 +16,12 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 | -------------- | --------------- | ------- | ------------ | ----------- | --------------------------------------------------------------- |
 | `coachIndex`   | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifier the right place to coach         |
 | `deckIndex`    | `deck-index`    | public  | `number`     | `null!`     | Deck Index Prop to identifier the right place to deck           |
-| `height`       | `height`        | public  | `number`     | `32`        | height of the place in pixels (without unit)                    |
 | `keyfocus`     | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                               |
 | `placeType`    | `type`          | public  | `PlaceType`  | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                  |
 | `preventClick` | `prevent-click` | public  | `boolean`    | `false`     | Prevent click prop prevent any place action                     |
 | `propertyIds`  | `propertyIds`   | public  | `string[]`   | `[]`        | property ids of the place, to display more info about the place |
-| `rotation`     | `rotation`      | public  | `number`     | `0`         | rotation in degrees (without unit)                              |
 | `state`        | `state`         | public  | `PlaceState` | `'FREE'`    | state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED'          |
 | `text`         | `text`          | public  | `string`     | `''`        | label of the place, e.g. '1A', '2B'                             |
-| `textRotation` | `text-rotation` | public  | `number`     | `0`         | Rotation of the text in degrees (without unit)                  |
-| `width`        | `width`         | public  | `number`     | `32`        | width of the place in pixels (without unit)                     |
 
 ## Events
 

@@ -1,6 +1,6 @@
 import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { LitElement, type PropertyValues } from 'lit';
+import { LitElement, isServer, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import {
@@ -190,6 +190,7 @@ export class SeatReservationBaseElement extends LitElement {
    * in order to avoid recurring iteration processes in rendering.
    */
   protected initPrepairSeatReservationData(): void {
+    this._prepairBaseFontSize();
     this._prepairCoachDriverArea();
   }
 
@@ -1109,6 +1110,19 @@ export class SeatReservationBaseElement extends LitElement {
         place.number;
     } else {
       this.currSelectedPlaceElementId = null;
+    }
+  }
+
+  /**
+   * Preparation of the used documents font-size which needs
+   * to be determined in order to correctly calculate css values with rem
+   * */
+  private _prepairBaseFontSize(): void {
+    if (!isServer) {
+      const baseFontSize = parseInt(window.getComputedStyle(document.body).fontSize, 10);
+      //calculate rem of 1px
+      const onePixelInRem = 1 / baseFontSize;
+      this.style?.setProperty('--sbb-seat-reservation-one-px-rem', `${onePixelInRem + 'rem'}`);
     }
   }
 
