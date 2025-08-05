@@ -98,6 +98,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
+  protected activeOption: SbbOptionBaseElement<T> | null = null;
   private _originResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
@@ -155,9 +156,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       );
     }
     this._setOverlayPosition(originElement);
-    if (this.autoActiveFirstOption) {
-      this.setNextActiveOption();
-    }
+    this._setNextActiveOptionIfAutoActiveFirstOption();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -213,6 +212,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
     if (changedProperties.has('negative')) {
       this.syncNegative();
+    }
+
+    if (changedProperties.has('autoActiveFirstOption') && this.isOpen) {
+      this._setNextActiveOptionIfAutoActiveFirstOption();
     }
   }
 
@@ -288,6 +291,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
      */
     if (this.isOpen) {
       this._setOverlayPosition();
+      this._setNextActiveOptionIfAutoActiveFirstOption();
     }
     this._openOnNewOptions();
   }
@@ -302,6 +306,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       } else {
         this.close();
       }
+    }
+  }
+
+  private _setNextActiveOptionIfAutoActiveFirstOption(): void {
+    if (this.autoActiveFirstOption) {
+      this.resetActiveElement();
+      this.setNextActiveOption();
     }
   }
 
@@ -452,6 +463,19 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     window.addEventListener('pointerup', (ev) => this._closeOnBackdropClick(ev), {
       signal: this._openPanelEventsController.signal,
     });
+
+    this.addEventListener(
+      'ɵdisabledchange',
+      () => {
+        if (this.activeOption?.disabled) {
+          this.resetActiveElement();
+        }
+        this._setNextActiveOptionIfAutoActiveFirstOption();
+      },
+      {
+        signal: this._openPanelEventsController.signal,
+      },
+    );
 
     // Keyboard interactions
     this.triggerElement?.addEventListener(
