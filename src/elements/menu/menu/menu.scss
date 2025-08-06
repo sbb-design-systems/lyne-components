@@ -16,11 +16,18 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-menu-animation-easing: ease;
+  --sbb-menu-background-color: var(--sbb-color-black);
   --sbb-menu-transform: translateY(100%);
+  --sbb-menu-transform-x: translateX(0%);
+  --sbb-menu-transform-sideways: translateX(100%);
+  --sbb-menu-transform-sideways-target: translateX(0%);
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
   --sbb-menu-inset: 0 auto auto 0;
   --sbb-menu-container-height: 100dvh;
+  --sbb-menu-open-animation-name: open;
+  --sbb-menu-close-animation-name: close;
+  --sbb-menu-back-button-display: block;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
@@ -33,6 +40,7 @@
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
+    --sbb-menu-back-button-display: none;
   }
 }
 
@@ -45,8 +53,27 @@
   }
 }
 
+:host(:not([data-nested-menu])) {
+  --sbb-menu-back-button-display: none;
+}
+
 :host(:not([data-state='closed'])) {
   --sbb-menu-inset: 0;
+}
+
+@include sbb.mq($to: medium) {
+  :host([data-skip-animation]) {
+    --sbb-disable-animation-duration: 0ms;
+  }
+
+  :host([data-nested-menu-open]) {
+    --sbb-menu-transform-x: translateX(-100%);
+  }
+}
+
+:host([data-nested-menu])::backdrop {
+  display: none;
+  pointer-events: none;
 }
 
 ::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {
@@ -54,10 +81,16 @@
   padding-inline: var(--sbb-spacing-fixed-5x);
 }
 
+sbb-divider,
 ::slotted(sbb-divider) {
   --sbb-divider-color: var(--sbb-color-iron);
 
   margin-block: var(--sbb-spacing-fixed-2x);
+}
+
+sbb-divider,
+.sbb-menu__back-button {
+  display: var(--sbb-menu-back-button-display, block);
 }
 
 .sbb-menu__container {
@@ -76,10 +109,18 @@
     inset: var(--sbb-menu-inset);
     height: var(--sbb-menu-container-height);
     background-color: var(--sbb-menu-backdrop-color);
+
     transition: {
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
       property: background-color, visibility;
+    }
+  }
+
+  :host([data-nested-menu]) & {
+    &::before {
+      content: none;
+      display: none;
     }
   }
 }
@@ -99,16 +140,19 @@
   color: var(--sbb-color-white);
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
-  background-color: var(--sbb-color-black);
+  background-color: var(--sbb-menu-background-color);
   padding: 0;
   overflow: hidden;
+  transform: var(--sbb-menu-transform-x);
+  transition: transform var(--sbb-menu-animation-duration);
 
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
     opacity: 1;
     pointer-events: all;
+
     animation: {
-      name: open;
+      name: var(--sbb-menu-open-animation-name);
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
@@ -116,7 +160,19 @@
 
   :host([data-state][data-state='closing']) & {
     pointer-events: none;
-    animation-name: close;
+    animation-name: var(--sbb-menu-close-animation-name);
+  }
+
+  @include sbb.mq($to: medium) {
+    :host([data-nested-menu][data-state]:not([data-state='closed'])) & {
+      --sbb-menu-open-animation-name: open-sideways;
+    }
+
+    :host([data-state][data-state='closing'][data-nested-menu]:not([data-close-vertically])) & {
+      transform: var(--sbb-menu-transform-sideways);
+
+      --sbb-menu-close-animation-name: close-sideways;
+    }
   }
 
   @include sbb.if-forced-colors {
@@ -196,5 +252,25 @@
   to {
     opacity: 0;
     transform: var(--sbb-menu-transform);
+  }
+}
+
+@keyframes open-sideways {
+  from {
+    transform: var(--sbb-menu-transform-sideways);
+  }
+
+  to {
+    transform: var(--sbb-menu-transform-sideways-target);
+  }
+}
+
+@keyframes close-sideways {
+  from {
+    transform: var(--sbb-menu-transform-sideways-target);
+  }
+
+  to {
+    transform: var(--sbb-menu-transform-sideways);
   }
 }
