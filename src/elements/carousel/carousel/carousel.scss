@@ -4,13 +4,23 @@
 @include sbb.box-sizing;
 
 :host {
+  --sbb-carousel-border-radius: var(--sbb-border-radius-4x);
+
   display: inline-block;
   overflow: hidden;
-  border-radius: var(--sbb-border-radius-4x);
+  border-radius: var(--sbb-carousel-border-radius) var(--sbb-carousel-border-radius) 0 0;
 }
 
 :host([shadow]) {
   @include sbb.shadow-level-9-hard;
+
+  border-radius: var(--sbb-carousel-border-radius);
+}
+
+:host(:not([shadow])) {
+  ::slotted(sbb-carousel-list) {
+    --sbb-carousel-inherit-border-radius: var(--sbb-carousel-border-radius);
+  }
 }
 
 .sbb-carousel {

@@ -1,4 +1,4 @@
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { choose } from 'lit/directives/choose.js';
@@ -58,17 +58,20 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
         (img, index) => html`
           <sbb-carousel-item>
             ${choose(imgType, [
-              ['native', () => html` <img src=${img} alt="SBB image" height="450" width="800" /> `],
+              [
+                'native',
+                () => html` <img src=${img} alt="SBB image ${index}" height="450" width="800" /> `,
+              ],
               [
                 'native-mobile',
-                () => html` <img src=${img} alt="SBB image" height="150" width="267" /> `,
+                () => html` <img src=${img} alt="SBB image ${index}" height="150" width="267" /> `,
               ],
               [
                 'sbb-image',
                 () => html`
                   <sbb-image
                     image-src=${img}
-                    alt="SBB image"
+                    alt="SBB image ${index}"
                     style="width: 800px; height: 450px;"
                   ></sbb-image>
                 `,
@@ -79,7 +82,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <div
                     style="display: flex; flex-direction: column; align-items: center; background-color: black; color: white;"
                   >
-                    <img src=${img} alt="SBB image" width="800" height="450" />
+                    <img src=${img} alt="SBB image ${index}" width="800" height="450" />
                     Caption for picture ${index + 1}
                   </div>
                 `,
@@ -131,7 +134,8 @@ export const NoShadow: StoryObj = {
 
 const meta: Meta = {
   parameters: {
-    backgroundColor: () => 'var(--sbb-color-milk)',
+    backgroundColor: (context: StoryContext) =>
+      context.args.shadow ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
