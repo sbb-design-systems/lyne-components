@@ -73,7 +73,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
           );
         });
     },
-    config: { threshold: 1 },
+    config: { threshold: 0.99 },
   });
 
   private _handleSlotchange(): void {
