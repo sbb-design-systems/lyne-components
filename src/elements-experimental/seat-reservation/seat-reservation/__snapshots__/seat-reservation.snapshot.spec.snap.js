@@ -130,3 +130,39 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-seat-reservation renders A11y tree Chrome */
 
+snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "contentinfo",
+      "name": "Start Graphic Seat Reservation",
+      "disabled": true
+    },
+    {
+      "role": "navigation",
+      "name": "",
+      "children": [
+        {
+          "role": "list",
+          "name": "Seat reservation navigation"
+        }
+      ]
+    },
+    {
+      "role": "generic",
+      "name": ""
+    },
+    {
+      "role": "contentinfo",
+      "name": "Exit Graphic Seat Reservation",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-seat-reservation renders A11y tree Firefox */
+
