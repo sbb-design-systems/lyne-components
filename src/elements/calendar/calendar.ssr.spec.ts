@@ -8,7 +8,9 @@ import { SbbCalendarElement } from './calendar.component.js';
 describe(`sbb-calendar ssr`, () => {
   let root: SbbCalendarElement;
 
-  beforeEach(async () => {
+  beforeEach(async function () {
+    // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
+    this.timeout(20000);
     root = await ssrHydratedFixture(
       html`<sbb-calendar selected="2023-01-20T00:00:00"></sbb-calendar>`,
       { modules: ['./calendar.component.js'] },

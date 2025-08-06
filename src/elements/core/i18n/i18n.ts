@@ -67,7 +67,7 @@ export const i18nWagonsLabel: Record<string, string> = {
 export const i18nWagonLabel: Record<string, string> = {
   de: 'Wagen',
   en: 'Train coach',
-  fr: 'Wagon du train',
+  fr: 'Wagon',
   it: 'Carrozza del treno',
 };
 
@@ -496,7 +496,7 @@ export const i18nPreviousMonth: Record<string, string> = {
 export const i18nNextDay: Record<string, string> = {
   de: 'Nächster Tag',
   en: 'Next day',
-  fr: 'Le prochain jour',
+  fr: 'Jour suivant',
   it: 'Giorno successivo',
 };
 
@@ -608,7 +608,7 @@ export const i18nConnectionRoundtrip = (returnCity: string): Record<string, stri
 export const i18nExpanded: Record<string, string> = {
   de: 'erweitert',
   en: 'expanded',
-  fr: 'est tiré',
+  fr: 'étendu',
   it: 'espanso',
 };
 
@@ -629,7 +629,7 @@ export const i18nMapContainerButtonLabel: Record<string, string> = {
 export const i18nBreadcrumbEllipsisButtonLabel: Record<string, string> = {
   de: 'Mehr Breadcrumbs anzeigen',
   en: 'Show more breadcrumbs',
-  fr: 'Afficher plus breadcrumbs',
+  fr: 'Afficher plus de fils d’Ariane',
   it: 'Mostra più breadcrumbs',
 };
 
@@ -695,7 +695,7 @@ export const i18nFileSelectorCurrentlySelected = (filesName: string[]): Record<s
 export const i18nNextPage: Record<string, string> = {
   de: 'Nächste Seite',
   en: 'Next page',
-  fr: 'Prochaine page',
+  fr: 'Page suivante',
   it: 'Pagina successiva',
 };
 
@@ -730,7 +730,7 @@ export const i18nSelectedPage = (pageNumber: number): Record<string, string> => 
 export const i18nCheckboxRequired: Record<string, string> = {
   de: 'Muss gesetzt sein.',
   en: 'Must be checked.',
-  fr: 'Doit être défini.',
+  fr: 'Doit être cochée.',
   it: 'Deve essere impostato.',
 };
 
@@ -809,6 +809,13 @@ export const i18nChipGroupInputDescription: Record<string, string> = {
   en: 'Selected elements:',
   fr: 'Éléments sélectionnés:',
   it: 'Elementi selezionati:',
+};
+
+export const i18nCalendarWeekNumber: Record<string, string> = {
+  de: 'Woche',
+  en: 'Week',
+  fr: 'Semaine',
+  it: 'Settimana',
 };
 
 export const i18nCarouselItemAriaLabel = (
