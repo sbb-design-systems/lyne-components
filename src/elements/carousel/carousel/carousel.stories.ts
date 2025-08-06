@@ -58,7 +58,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
         (img, index) => html`
           <sbb-carousel-item>
             ${choose(imgType, [
-              ['native', () => html` <img src=${img} alt="SBB image" height="180" width="320" /> `],
+              ['native', () => html` <img src=${img} alt="SBB image" height="450" width="800" /> `],
               [
                 'native-mobile',
                 () => html` <img src=${img} alt="SBB image" height="150" width="267" /> `,
@@ -69,7 +69,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <sbb-image
                     image-src=${img}
                     alt="SBB image"
-                    style="width: 800px; height: 600px;"
+                    style="width: 800px; height: 450px;"
                   ></sbb-image>
                 `,
               ],
@@ -79,7 +79,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <div
                     style="display: flex; flex-direction: column; align-items: center; background-color: black; color: white;"
                   >
-                    <img src=${img} alt="SBB image" height="300" width="400" />
+                    <img src=${img} alt="SBB image" width="800" height="450" />
                     Caption for picture ${index + 1}
                   </div>
                 `,
