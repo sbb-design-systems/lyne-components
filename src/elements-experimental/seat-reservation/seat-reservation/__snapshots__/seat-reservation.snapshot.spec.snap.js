@@ -106,14 +106,8 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
       "disabled": true
     },
     {
-      "role": "navigation",
-      "name": "",
-      "children": [
-        {
-          "role": "list",
-          "name": "Seat reservation navigation"
-        }
-      ]
+      "role": "list",
+      "name": "Seat reservation navigation"
     },
     {
       "role": "generic",
@@ -137,12 +131,12 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "contentinfo",
+      "role": "landmark",
       "name": "Start Graphic Seat Reservation",
       "disabled": true
     },
     {
-      "role": "navigation",
+      "role": "landmark",
       "name": "",
       "children": [
         {
@@ -152,11 +146,11 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
       ]
     },
     {
-      "role": "generic",
+      "role": "section",
       "name": ""
     },
     {
-      "role": "contentinfo",
+      "role": "landmark",
       "name": "Exit Graphic Seat Reservation",
       "disabled": true
     }
