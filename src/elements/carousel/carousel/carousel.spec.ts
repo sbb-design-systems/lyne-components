@@ -1,4 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
+import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
@@ -27,13 +28,13 @@ describe('sbb-carousel', () => {
       <sbb-carousel>
         <sbb-carousel-list>
           <sbb-carousel-item id="first">
-            <img src=${images[0]} alt="SBB image" height="300" width="400" @load=${(e: Event) => loadSpyFirst(e)}></img>
+            <img src=${images[0]} alt="SBB image" height="180" width="320" @load=${(e: Event) => loadSpyFirst(e)}></img>
           </sbb-carousel-item>
           <sbb-carousel-item id="second">
-            <img src=${images[1]} alt="SBB image" height="300" width="400" @load=${(e: Event) => loadSpySecond(e)}></img>
+            <img src=${images[1]} alt="SBB image" height="180" width="320" @load=${(e: Event) => loadSpySecond(e)}></img>
           </sbb-carousel-item>
           <sbb-carousel-item id="third">
-            <img src=${images[2]} alt="SBB image" height="300" width="400" @load=${(e: Event) => loadSpyThird(e)}></img>
+            <img src=${images[2]} alt="SBB image" height="180" width="320" @load=${(e: Event) => loadSpyThird(e)}></img>
           </sbb-carousel-item>
         </sbb-carousel-list>
       </sbb-carousel>
@@ -57,6 +58,7 @@ describe('sbb-carousel', () => {
   });
 
   it('paginator should trigger a scroll', async () => {
+    await setViewport({ width: 1200, height: 800 });
     await beforeShowSpy.calledTimes(1);
     expect(beforeShowSpy.count).to.be.equal(1);
     await showSpy.calledTimes(1);
