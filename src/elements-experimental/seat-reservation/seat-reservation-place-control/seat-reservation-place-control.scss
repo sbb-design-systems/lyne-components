@@ -27,6 +27,7 @@
 $disabled: '.sbb-reservation-place-control--disabled';
 
 :host {
+  --sbb-seat-reservation-place-control-text-scale-value: 1;
   --sbb-seat-reservation-place-control-width: 16;
   --sbb-seat-reservation-place-control-height: 16;
   --sbb-seat-reservation-place-control-top: 0;
@@ -34,7 +35,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
   --sbb-seat-reservation-place-control-rotation: 0;
   --sbb-seat-reservation-place-control-text-rotation: 0;
   --sbb-seat-reservation-place-control-text-size: calc(
-    var(--sbb-place-control-text-scale-value, 1) * 0.5
+    var(--sbb-seat-reservation-place-control-text-scale-value, 1) * 0.5
   );
 
   // Color definition for text

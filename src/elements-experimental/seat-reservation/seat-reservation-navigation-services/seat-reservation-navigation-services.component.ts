@@ -4,6 +4,7 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 
@@ -48,9 +49,11 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
       ${this.propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
+            style=${styleMap({
+              '--sbb-seat-reservation-graphic-width': 20,
+              '--sbb-seat-reservation-graphic-height': 20,
+            })}
             name=${signIcon ?? nothing}
-            width="20"
-            height="20"
             title=${getI18nSeatReservation(signIcon, this._language.current)}
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
