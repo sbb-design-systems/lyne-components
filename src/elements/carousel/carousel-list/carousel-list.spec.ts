@@ -21,13 +21,10 @@ describe('sbb-carousel-list', () => {
   const loadSpySecond = spy();
   const loadSpyThird = spy();
   let first: SbbCarouselItemElement, second: SbbCarouselItemElement, third: SbbCarouselItemElement;
-  let beforeShowSpySecond: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
-  let beforeShowSpyThird: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
-  let showSpySecond: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
-  let showSpyThird: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
+  let beforeShowSpy: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
+  let showSpy: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
 
   beforeEach(async () => {
-    await setViewport({ width: 1200, height: 800 });
     element = await fixture(html`
       <sbb-carousel-list>
         <sbb-carousel-item id="first">
@@ -44,10 +41,8 @@ describe('sbb-carousel-list', () => {
     first = element.querySelector('#first')!;
     second = element.querySelector('#second')!;
     third = element.querySelector('#third')!;
-    beforeShowSpySecond = new EventSpy('beforeshow', second);
-    beforeShowSpyThird = new EventSpy('beforeshow', third);
-    showSpySecond = new EventSpy('show', second);
-    showSpyThird = new EventSpy('show', third);
+    beforeShowSpy = new EventSpy('beforeshow', element);
+    showSpy = new EventSpy('show', element);
     await waitForCondition(() => loadSpyFirst.called);
     expect(loadSpyFirst).to.have.been.called;
   });
@@ -74,31 +69,38 @@ describe('sbb-carousel-list', () => {
   });
 
   it('scroll events', async () => {
+    await setViewport({ width: 1200, height: 800 });
+    await beforeShowSpy.calledTimes(1);
+    expect(beforeShowSpy.count).to.be.equal(1);
+    await showSpy.calledTimes(1);
+    expect(showSpy.count).to.be.equal(1);
     const scrollContext: HTMLDivElement = element.shadowRoot!.querySelector('.sbb-carousel-list')!;
 
     // scroll to second image
     scrollContext.scrollBy({ left: 320 });
     await waitForCondition(() => loadSpySecond.called);
     expect(loadSpySecond).to.have.been.called;
-    await beforeShowSpySecond.calledOnce();
-    expect(beforeShowSpySecond.count).to.be.equal(1);
-    await showSpySecond.calledOnce();
-    expect(showSpySecond.count).to.be.equal(1);
+    await beforeShowSpy.calledTimes(2);
+    expect(beforeShowSpy.count).to.be.equal(2);
+    await showSpy.calledTimes(2);
+    expect(showSpy.count).to.be.equal(2);
 
     // scroll to third image
     scrollContext.scrollBy({ left: 320 });
     await waitForCondition(() => loadSpyThird.called);
     expect(loadSpyThird).to.have.been.called;
-    await beforeShowSpyThird.calledOnce();
-    expect(beforeShowSpyThird.count).to.be.equal(1);
-    await showSpyThird.calledOnce();
-    expect(showSpyThird.count).to.be.equal(1);
+    await beforeShowSpy.calledTimes(3);
+    expect(beforeShowSpy.count).to.be.equal(3);
+    await showSpy.calledTimes(3);
+    expect(showSpy.count).to.be.equal(3);
 
     // scroll back to second image
     scrollContext.scrollBy({ left: -320 });
-    await beforeShowSpySecond.calledTimes(2);
-    expect(beforeShowSpySecond.count).to.be.equal(2);
-    await showSpySecond.calledTimes(2);
-    expect(showSpySecond.count).to.be.equal(2);
+    await waitForCondition(() => loadSpyFirst.called);
+    expect(loadSpyFirst).to.have.been.called;
+    await beforeShowSpy.calledTimes(4);
+    expect(beforeShowSpy.count).to.be.equal(4);
+    await showSpy.calledTimes(4);
+    expect(showSpy.count).to.be.equal(4);
   });
 });
