@@ -587,3 +587,9 @@ sbb-status:has(sbb-title) {
   --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
 }
+
+.sbb-overlay-outlet {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
