@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -45,11 +45,15 @@ class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
   @property({ attribute: 'label-position', reflect: true })
   public accessor labelPosition: 'before' | 'after' = 'after';
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('checked')) {
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+    if (name === 'checked') {
       this.internals.ariaChecked = `${this.checked}`;
+      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
       this.toggleAttribute('data-checked', this.checked);
     }
   }
