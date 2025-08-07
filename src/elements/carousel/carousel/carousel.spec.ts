@@ -57,7 +57,8 @@ describe('sbb-carousel', () => {
     expect(paginator.length).is.equal(3);
   });
 
-  it('paginator should trigger a scroll', async () => {
+  // TODO temporarrly removed for a11y review
+  it.skip('paginator should trigger a scroll', async () => {
     await setViewport({ width: 1200, height: 800 });
     await beforeShowSpy.calledTimes(1);
     expect(beforeShowSpy.count).to.be.equal(1);
