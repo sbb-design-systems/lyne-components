@@ -190,7 +190,7 @@ export class SeatReservationBaseElement extends LitElement {
    * in order to avoid recurring iteration processes in rendering.
    */
   protected initPrepairSeatReservationData(): void {
-    this._prepairBaseFontSize();
+    this._determineBaseFontSize();
     this._prepairCoachDriverArea();
   }
 
@@ -1117,7 +1117,7 @@ export class SeatReservationBaseElement extends LitElement {
    * Preparation of the used documents font-size which needs
    * to be determined in order to correctly calculate css values with rem
    * */
-  private _prepairBaseFontSize(): void {
+  private _determineBaseFontSize(): void {
     if (!isServer) {
       const baseFontSize = parseInt(window.getComputedStyle(document.body).fontSize, 10);
       //calculate rem of 1px

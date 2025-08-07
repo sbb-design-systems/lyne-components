@@ -32,7 +32,6 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   public accessor vertical: boolean = false;
 
   private _language = new SbbLanguageController(this);
-  private _serviceIconDimension = 20;
 
   protected override render(): TemplateResult {
     const serviceLabelDescription = this.propertyIds.length
@@ -51,8 +50,8 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
         return html`
           <sbb-seat-reservation-graphic
             style=${styleMap({
-              '--sbb-seat-reservation-graphic-width': this._serviceIconDimension,
-              '--sbb-seat-reservation-graphic-height': this._serviceIconDimension,
+              '--sbb-seat-reservation-graphic-width': 20,
+              '--sbb-seat-reservation-graphic-height': 20,
             })}
             name=${signIcon ?? nothing}
             title=${getI18nSeatReservation(signIcon, this._language.current)}

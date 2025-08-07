@@ -1,12 +1,18 @@
-The `seat-reservation-place-control` is a component that renders a control element for a seat or a bicycle space. Type, status, dimensions, and transformations can be defined through properties. The graphic is integrated via [sbb-seat-reservation-graphic](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphic--docs). An event `selectPlace` is emitted on click.
+The `seat-reservation-place-control` is a component that renders a control element for a seat or a bicycle space. Type, status and place test can be defined through properties. Other properties such as dimension and rotation can be defined via style custom properties. The graphic is integrated via [sbb-seat-reservation-graphic](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphic--docs). An event `selectplace` is emitted on click.
 
 ```html
 <seat-reservation-place-control></seat-reservation-place-control>
 ```
 
-## Events
+## Style Custom Properties
 
-> @event selectplace - Emits when select a place and returns a PlaceSelection object with necessary place information
+| Name                                                    | Type       | Default | Description                 |
+| ------------------------------------------------------- | ---------- | ------- | --------------------------- |
+| `--sbb-seat-reservation-place-control-width`            | `<number>` | -       | Place control width         |
+| `--sbb-seat-reservation-place-control-height`           | `<number>` | -       | Place control height        |
+| `--sbb-seat-reservation-place-control-rotation`         | `<number>` | 0       | Place control rotation      |
+| `--sbb-seat-reservation-place-control-text-rotation`    | `<number>` | 0       | Place control text rotation |
+| `--sbb-seat-reservation-place-control-text-scale-value` | `<number>` | -       | Place control text scaling  |
 
 <!-- Auto Generated Below -->
 
