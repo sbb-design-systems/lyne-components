@@ -146,6 +146,18 @@ export const Default: StoryObj = {
   args: { ...basicArgs },
 };
 
+export const IconOnly: StoryObj = {
+  render: TemplateSingle,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, text: '' },
+};
+
+export const TextOnly: StoryObj = {
+  render: TemplateSingle,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'icon-name': '' },
+};
+
 export const Active: StoryObj = {
   render: TemplateSingle,
   argTypes: basicArgTypes,
