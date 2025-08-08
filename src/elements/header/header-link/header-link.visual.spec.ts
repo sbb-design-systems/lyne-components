@@ -78,5 +78,22 @@ describe(`sbb-header-link`, () => {
         );
       }
     });
+
+    describe('without text', () => {
+      for (const state of visualDiffStandardStates) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-header-link
+                href=""
+                icon-name="hamburger-menu-small"
+                expand-from="medium"
+              ></sbb-header-link>`,
+            );
+          }),
+        );
+      }
+    });
   });
 });
