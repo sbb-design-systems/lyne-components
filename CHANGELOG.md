@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.0...v3.3.1) (2025-08-09)
+
+
+### Bug Fixes
+
+* (sbb-toggle-check, sbb-checkbox-panel): Handle the 'data-checked' attribute synchronously ([#3947](https://github.com/sbb-design-systems/lyne-components/issues/3947)) ([9151c71](https://github.com/sbb-design-systems/lyne-components/commit/9151c71a1c1d7fe973af08428dd289b223b01969))
+* **sbb-autocomplete:** update active option if autoActiveFirstOption is enabled and options change ([#3943](https://github.com/sbb-design-systems/lyne-components/issues/3943)) ([9ce8690](https://github.com/sbb-design-systems/lyne-components/commit/9ce8690df1fa5f467c94545d05461af3cbc2c510)), closes [#3940](https://github.com/sbb-design-systems/lyne-components/issues/3940)
+
 ## [3.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.2.0...v3.3.0) (2025-08-04)
 
 
