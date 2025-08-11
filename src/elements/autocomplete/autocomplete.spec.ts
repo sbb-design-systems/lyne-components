@@ -471,6 +471,28 @@ describe(`sbb-autocomplete`, () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
   });
 
+  it('stays closed when option count increases', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+    const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+    input.focus();
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    element.close();
+    await closeSpy.calledOnce();
+
+    // Add a new option
+    const newOption = document.createElement('sbb-option');
+    newOption.setAttribute('value', 'value');
+    element.append(newOption);
+    await waitForLitRender(element);
+
+    // Should stay close
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
+  });
+
   it('recalculate position when option list changes', async () => {
     // Set up the autocomplete to the bottom of the page and add a listener on it which removes every option except the first one.
     formField.parentElement?.style.setProperty('inset-block-end', '2rem');
