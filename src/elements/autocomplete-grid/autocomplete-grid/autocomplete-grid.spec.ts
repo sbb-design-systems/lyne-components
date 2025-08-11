@@ -192,7 +192,7 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('opens and closes with non-zero animation duration', async () => {
-    element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
+    element.style.setProperty('--sbb-autocomplete-grid-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
     const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
 
@@ -319,7 +319,6 @@ describe(`sbb-autocomplete-grid`, () => {
     const keydownSpy = new EventSpy('keydown', input);
 
     input.focus();
-
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
 
@@ -573,6 +572,55 @@ describe(`sbb-autocomplete-grid`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('opens when new options are slotted', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+    const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
+
+    input.focus();
+
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    // Remove all the rows
+    const rows = element.querySelectorAll('sbb-autocomplete-grid-row');
+    rows.forEach((option) => option.remove());
+
+    // Should close automatically
+    await closeSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
+
+    // Add a new option
+    element.append(rows[0]);
+
+    // Should open automatically
+    await openSpy.calledTimes(2);
+    expect(input).to.have.attribute('aria-expanded', 'true');
+  });
+
+  it('stays closed when option count increases', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+    const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
+
+    input.focus();
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    element.close();
+    await closeSpy.calledOnce();
+
+    // Add a new option
+    const newOption = document.createElement('sbb-autocomplete-grid-option');
+    newOption.setAttribute('value', 'value');
+    const newRow = document.createElement('sbb-autocomplete-grid-row');
+    newRow.append(newOption);
+    element.append(newRow);
+    await waitForLitRender(element);
+
+    // Should stay close
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
   it('should sync form-field size change', async () => {

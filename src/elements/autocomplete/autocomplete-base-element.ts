@@ -123,6 +123,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _optionsCount = 0;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
@@ -301,12 +302,14 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
    */
   private _openOnNewOptions(): void {
     if (document?.activeElement === this.triggerElement) {
-      if (this.options.length > 0) {
+      if (this._optionsCount === 0 && this.options.length > 0) {
         this.open();
-      } else {
+      } else if (this.options.length === 0) {
         this.close();
       }
     }
+
+    this._optionsCount = this.options.length;
   }
 
   private _setNextActiveOptionIfAutoActiveFirstOption(): void {
