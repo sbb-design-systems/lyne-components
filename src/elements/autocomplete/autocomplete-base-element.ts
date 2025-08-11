@@ -295,10 +295,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._setOverlayPosition();
       this._setNextActiveOptionIfAutoActiveFirstOption();
 
+      // If the autocomplete is open and the option count gets to zero, we close the autocomplete.
       if (this._optionsCount > 0 && this.options.length === 0) {
         this.close();
       }
     } else if (
+      // If the 'input' is focused and the count of options changes from 0 to > 0,
+      // the autocomplete should open automatically.
       document?.activeElement === this.triggerElement &&
       this._optionsCount === 0 &&
       this.options.length > 0
