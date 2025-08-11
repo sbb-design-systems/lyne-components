@@ -286,6 +286,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+
     /**
      * It's possible to filter out options with an opened panel on input change.
      * In this case, the panel's position must be recalculated considering the new option's list.
@@ -293,25 +294,20 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (this.isOpen) {
       this._setOverlayPosition();
       this._setNextActiveOptionIfAutoActiveFirstOption();
-    }
-    this._openOnNewOptions();
-  }
 
-  /**
-   * If the 'input' is focused and there's a change in the number of options, open the autocomplete
-   */
-  private _openOnNewOptions(): void {
-    if (document?.activeElement === this.triggerElement) {
-      if (this._optionsCount === 0 && this.options.length > 0) {
-        this.open();
-      } else if (this.options.length === 0) {
+      if (this._optionsCount > 0 && this.options.length === 0) {
         this.close();
       }
+    } else if (
+      document?.activeElement === this.triggerElement &&
+      this._optionsCount === 0 &&
+      this.options.length > 0
+    ) {
+      this.open();
     }
 
     this._optionsCount = this.options.length;
   }
-
   private _setNextActiveOptionIfAutoActiveFirstOption(): void {
     if (this.autoActiveFirstOption) {
       this.resetActiveElement();
