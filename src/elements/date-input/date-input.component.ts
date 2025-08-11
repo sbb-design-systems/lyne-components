@@ -290,11 +290,8 @@ class SbbDateInputElement<T = Date>
   }
 
   private _dispatchFormFieldChange(): void {
-    const formField = this.closest('sbb-form-field');
-    if (formField) {
-      /* @docs-private */
-      formField.dispatchEvent(new SbbFormFieldControlEvent(this));
-    }
+    /** @internal */
+    this.closest?.('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
   }
 }
 

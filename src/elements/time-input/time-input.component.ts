@@ -243,7 +243,7 @@ class SbbTimeInputElement
 
   private _dispatchFormFieldChange(): void {
     /** @internal */
-    this.closest('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
+    this.closest?.('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
   }
 }
 
