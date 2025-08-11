@@ -123,6 +123,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _optionsCount = 0;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
@@ -285,6 +286,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+
     /**
      * It's possible to filter out options with an opened panel on input change.
      * In this case, the panel's position must be recalculated considering the new option's list.
@@ -292,23 +294,23 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (this.isOpen) {
       this._setOverlayPosition();
       this._setNextActiveOptionIfAutoActiveFirstOption();
-    }
-    this._openOnNewOptions();
-  }
 
-  /**
-   * If the 'input' is focused and there's a change in the number of options, open the autocomplete
-   */
-  private _openOnNewOptions(): void {
-    if (document?.activeElement === this.triggerElement) {
-      if (this.options.length > 0) {
-        this.open();
-      } else {
+      // If the autocomplete is open and the option count gets to zero, we close the autocomplete.
+      if (this._optionsCount > 0 && this.options.length === 0) {
         this.close();
       }
+    } else if (
+      // If the 'input' is focused and the count of options changes from 0 to > 0,
+      // the autocomplete should open automatically.
+      document?.activeElement === this.triggerElement &&
+      this._optionsCount === 0 &&
+      this.options.length > 0
+    ) {
+      this.open();
     }
-  }
 
+    this._optionsCount = this.options.length;
+  }
   private _setNextActiveOptionIfAutoActiveFirstOption(): void {
     if (this.autoActiveFirstOption) {
       this.resetActiveElement();
