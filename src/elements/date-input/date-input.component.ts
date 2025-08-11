@@ -12,6 +12,7 @@ import {
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
+import { SbbFormFieldControlEvent, type SbbFormFieldElementControl } from '../form-field.js';
 
 import style from './date-input.scss?lit&inline';
 
@@ -36,7 +37,10 @@ export interface SbbDateInputAssociated<T> {
  */
 export
 @customElement('sbb-date-input')
-class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
+class SbbDateInputElement<T = Date>
+  extends SbbFormAssociatedInputMixin(LitElement)
+  implements SbbFormFieldElementControl
+{
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -53,6 +57,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
       value = this._formatDate();
     }
     super.value = value;
+    this._dispatchFormFieldChange();
   }
   public override get value(): string {
     return super.value ?? '';
@@ -88,6 +93,11 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     return this._valueAsDate ? this._dateAdapter.clone(this._valueAsDate) : null;
   }
   private _valueAsDate?: T | null;
+
+  /** Whether the input is empty. */
+  public get empty(): boolean {
+    return !this.value || this.value.trim() === '';
+  }
 
   /**
    * The minimum valid date. Accepts a date object or null.
@@ -182,6 +192,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
         (child as Partial<SbbDateInputAssociated<T>>).input = this;
       }
     }
+    this._dispatchFormFieldChange();
   }
 
   public override requestUpdate(
@@ -276,6 +287,14 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     (['badInput', 'rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const).forEach((f) =>
       this.removeValidityFlag(f),
     );
+  }
+
+  private _dispatchFormFieldChange(): void {
+    const formField = this.closest('sbb-form-field');
+    if (formField) {
+      /* @docs-private */
+      formField.dispatchEvent(new SbbFormFieldControlEvent(this));
+    }
   }
 }
 
