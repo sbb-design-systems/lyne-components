@@ -87,7 +87,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private readonly _floatingLabelSupportedInputElements = [
     'input',
     'select',
-    'sbb-time-input',
     'sbb-select',
     'textarea',
   ];
