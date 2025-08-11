@@ -149,7 +149,7 @@ export const Default: StoryObj = {
 export const IconOnly: StoryObj = {
   render: TemplateSingle,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, text: '' },
+  args: { ...basicArgs, text: '', 'accessibility-label': 'hamburger-menu-small' },
 };
 
 export const TextOnly: StoryObj = {
