@@ -2,115 +2,131 @@
 // Typo: Title Style Mixins
 // ----------------------------------------------------------------------------------------------------
 
-@mixin title($exclude-spacing: false) {
-  --sbb-title-line-height: var(--sbb-typo-line-height-titles);
-  --sbb-title-margin-block-start: 0;
-  --sbb-title-margin-block-end: 0;
-  --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
-  --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
-  --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
-  --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
-  --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
-  --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
-  --sbb-title-margin-block-end-level-1: 0;
-  --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
-  --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-  --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
-  --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
-  --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
+@mixin title-rules {
+  margin-block: var(--sbb-title-margin-block-start, 0) var(--sbb-title-margin-block-end, 0);
+  margin-inline: 0;
+  font-family: var(--sbb-typo-font-family);
+  font-weight: bold;
+  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-titles));
+  letter-spacing: var(--sbb-typo-letter-spacing-titles);
+  font-size: var(--sbb-title-font-size);
+}
 
+@mixin title--level-1 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-1);
+}
+
+@mixin title--level-1-spacing {
+  --sbb-title-margin-block-start: var(--sbb-title-margin-block-start-level-1);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-1);
+}
+
+@mixin title--level-2 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-2);
+}
+
+@mixin title--level-2-spacing {
+  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-2);
+}
+
+@mixin title--level-3 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-3);
+}
+
+@mixin title--level-3-spacing {
+  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-3);
+}
+
+@mixin title--level-4 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-4);
+}
+
+@mixin title--level-4-spacing {
+  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-4);
+}
+
+@mixin title--level-5 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-5);
+}
+
+@mixin title--level-5-spacing {
+  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-5);
+}
+
+@mixin title--level-6 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-6);
+  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+}
+
+@mixin title--level-6-spacing {
+  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
+  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-6);
+}
+
+@mixin title-1($exclude-spacing: false) {
+  @include title--level-1;
+  @if not($exclude-spacing) {
+    @include title--level-1-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-2($exclude-spacing: false) {
+  @include title--level-2;
+  @if not($exclude-spacing) {
+    @include title--level-2-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-3($exclude-spacing: false) {
+  @include title--level-3;
+  @if not($exclude-spacing) {
+    @include title--level-3-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-4($exclude-spacing: false) {
+  @include title--level-4;
+  @if not($exclude-spacing) {
+    @include title--level-4-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-5($exclude-spacing: false) {
+  @include title--level-5;
+  @if not($exclude-spacing) {
+    @include title--level-5-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-6($exclude-spacing: false) {
+  @include title--level-6;
+  @if not($exclude-spacing) {
+    @include title--level-6-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title--negative {
+  --sbb-title-text-color-normal: var(--sbb-color-milk);
+}
+
+// @deprecated, non-standard values, title rules combined with title level mixins are the alternative
+@mixin title($exclude-spacing: false) {
   @if not($exclude-spacing) {
     --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
     --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
   }
 
-  margin-inline: 0;
-  margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
-  font-family: var(--sbb-typo-font-family);
-  font-weight: bold;
-  line-height: var(--sbb-title-line-height);
-  letter-spacing: var(--sbb-typo-letter-spacing-titles);
-  font-size: var(--sbb-title-font-size);
-}
-
-@mixin internal-title-1($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-1);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-1);
-}
-
-@mixin title-1($exclude-spacing: false) {
-  @include title($exclude-spacing);
-  @include internal-title-1($exclude-spacing);
-}
-
-@mixin internal-title-2($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-2);
-
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-2);
-  }
-}
-
-@mixin title-2($exclude-spacing: false) {
-  @include title($exclude-spacing);
-  @include internal-title-2($exclude-spacing);
-}
-
-@mixin internal-title-3($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-3);
-
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-3);
-  }
-}
-
-@mixin title-3($exclude-spacing: false) {
-  @include title($exclude-spacing);
-  @include internal-title-3($exclude-spacing);
-}
-
-@mixin internal-title-4($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-4);
-
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-4);
-  }
-}
-
-@mixin title-4($exclude-spacing: false) {
-  @include title($exclude-spacing);
-  @include internal-title-4($exclude-spacing);
-}
-
-@mixin internal-title-5($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-5);
-
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-5);
-  }
-}
-
-@mixin title-5($exclude-spacing: false) {
-  @include title($exclude-spacing);
-  @include internal-title-5($exclude-spacing);
-}
-
-@mixin internal-title-6($exclude-spacing: false) {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-6);
-  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
-
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-6);
-  }
-}
-
-@mixin title-6($exclude-spacing: false) {
-  @include title($exclude-spacing);
-  @include internal-title-6($exclude-spacing);
-}
-
-@mixin title--negative {
-  --sbb-title-text-color-normal: var(--sbb-color-milk);
+  @include title-rules;
 }
 
 // ----------------------------------------------------------------------------------------------------

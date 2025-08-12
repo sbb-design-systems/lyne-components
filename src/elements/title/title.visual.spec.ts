@@ -26,7 +26,7 @@ describe(`sbb-title`, () => {
         }),
       );
 
-      describe('size=s', () => {
+      describe('lean', () => {
         beforeEach(() => {
           document.documentElement.classList.add('sbb-lean');
         });
