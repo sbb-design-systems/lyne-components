@@ -225,18 +225,24 @@ export const SbbFormAssociatedMixin = <
     public formAssociatedCallback?(form: HTMLFormElement | null): void;
 
     /**
-     * Is called whenever a surrounding form / fieldset changes disabled state.
-     * @param disabled
+     * Is called whenever a surrounding fieldset changes disabled state.
      *
      * @internal
      */
-    public formDisabledCallback(disabled: boolean): void {
-      // This callback is triggered if the disabled property changes or the disabled attribute of a fieldset or form changes.
-      // We need to postpone the assignment, otherwise it interferes with disabled status setting
-      // and leads to a wrong state (e.g. embedded sbb-visual-checkbox).
-      Promise.resolve().then(() => {
-        this.formDisabled = disabled;
-      });
+    public formDisabledCallback(_disabled: boolean): void {
+      this.formDisabled = this._hasDisabledAncestor();
+    }
+
+    private _hasDisabledAncestor(): boolean {
+      // Check if any of the fieldset ancestors has the disabled attribute set.
+      let element: HTMLElement | null = this.parentElement;
+      while (element) {
+        if (element.localName === 'fieldset' && element.hasAttribute('disabled')) {
+          return true;
+        }
+        element = element.parentElement;
+      }
+      return false;
     }
 
     /**

@@ -251,6 +251,99 @@ describe(`sbb-time-input`, () => {
     });
   });
 
+  describe('should handle disabled state', () => {
+    let fieldset: HTMLFieldSetElement;
+
+    beforeEach(async () => {
+      fieldset = await fixture(
+        html`<fieldset>
+          <sbb-form-field><sbb-time-input></sbb-time-input></sbb-form-field>
+        </fieldset>`,
+      );
+      element = fieldset.querySelector('sbb-time-input')!;
+    });
+
+    it('should handle disabled by attribute', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      element.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).to.have.attribute('disabled');
+
+      element.removeAttribute('disabled');
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled by property', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      element.disabled = true;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).to.have.attribute('disabled');
+
+      element.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled fieldset by property', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.disabled = true;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled fieldset by attribute', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.removeAttribute('disabled');
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+  });
+
   it('should support asynchronously adding input by element reference', async () => {
     const root = await fixture(html`
       <div>
