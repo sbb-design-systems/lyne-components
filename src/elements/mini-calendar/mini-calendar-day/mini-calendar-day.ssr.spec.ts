@@ -1,0 +1,20 @@
+import { assert } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+
+import { ssrHydratedFixture } from '../../core/testing/private.js';
+
+import { SbbMiniCalendarDayElement } from './mini-calendar-day.component.js';
+
+describe(`sbb-mini-calendar-day ssr`, () => {
+  let root: SbbMiniCalendarDayElement;
+
+  beforeEach(async () => {
+    root = await ssrHydratedFixture(html`<sbb-mini-calendar-day></sbb-mini-calendar-day>`, {
+      modules: ['./mini-calendar-day.component.js'],
+    });
+  });
+
+  it('renders', () => {
+    assert.instanceOf(root, SbbMiniCalendarDayElement);
+  });
+});

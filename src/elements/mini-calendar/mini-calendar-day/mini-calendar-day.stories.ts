@@ -1,0 +1,77 @@
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
+
+import { sbbSpread } from '../../../storybook/helpers/spread.js';
+
+import readme from './readme.md?raw';
+import './mini-calendar-day.component.js';
+
+const marker: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [null, 'circle', 'target', 'slash', 'cross'],
+};
+
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [null, 'charcoal', 'cloud', 'orange', 'red', 'sky'],
+};
+
+const defaultArgTypes: ArgTypes = {
+  marker,
+  color,
+};
+
+const defaultArgs: Args = {
+  marker: marker.options![0],
+  color: color.options![0],
+};
+
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-mini-calendar-day ${sbbSpread(args)}></sbb-mini-calendar-day>`;
+
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const Circle: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, marker: marker.options![1] },
+};
+
+export const Target: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, marker: marker.options![2] },
+};
+
+export const Slash: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, marker: marker.options![3] },
+};
+
+export const Cross: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, marker: marker.options![4] },
+};
+
+const meta: Meta = {
+  parameters: {
+    docs: {
+      extractComponentDescription: () => readme,
+    },
+  },
+  title: 'elements/sbb-mini-calendar/sbb-mini-calendar-day',
+};
+
+export default meta;

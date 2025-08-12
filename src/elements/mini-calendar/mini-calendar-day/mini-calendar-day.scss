@@ -1,0 +1,106 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-mini-calendar-day-scale: 1.333;
+  --sbb-mini-calendar-day-animation-easing: var(--sbb-animation-easing);
+  --sbb-mini-calendar-day-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+
+  display: block;
+  height: sbb.px-to-rem-build(6);
+  width: sbb.px-to-rem-build(6);
+  margin: sbb.px-to-rem-build(1);
+  border-radius: var(--sbb-border-radius-infinity);
+  color: var(--sbb-color-storm);
+  background-color: currentcolor;
+}
+
+:host(:hover) {
+  scale: var(--sbb-mini-calendar-day-scale);
+  transition: scale var(--sbb-mini-calendar-day-animation-easing)
+    var(--sbb-mini-calendar-day-animation-duration);
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+
+  outline-offset: var(--sbb-spacing-fixed-1x);
+}
+
+:host([color='charcoal']) {
+  color: var(--sbb-color-charcoal);
+}
+
+:host([color='cloud']) {
+  color: var(--sbb-color-cloud);
+}
+
+:host([color='orange']) {
+  color: var(--sbb-color-orange);
+}
+
+:host([color='red']) {
+  color: var(--sbb-color-red);
+}
+
+:host([color='sky']) {
+  color: var(--sbb-color-sky);
+}
+
+:host([marker='circle']) {
+  background-color: white;
+  border: sbb.px-to-rem-build(1) solid currentcolor;
+}
+
+:host([marker='target']) {
+  background: radial-gradient(
+    circle,
+    currentcolor 0%,
+    currentcolor 25%,
+    white 25%,
+    white 50%,
+    currentcolor 50%,
+    currentcolor 100%
+  );
+}
+
+:host([marker='slash']) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+      -45deg,
+      transparent 45%,
+      white 45%,
+      white 55%,
+      transparent 55%
+    );
+  }
+}
+
+:host([marker='cross']) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(-45deg, transparent 45%, white 45%, white 55%, transparent 55%),
+      linear-gradient(45deg, transparent 45%, white 45%, white 55%, transparent 55%);
+  }
+}
