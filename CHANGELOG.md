@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.1...v3.3.2) (2025-08-12)
+
+
+### Documentation
+
+* improve language of GETTING_STARTED.md ([2d7c11a](https://github.com/sbb-design-systems/lyne-components/commit/2d7c11acc9b1a3766e0505dc78c8c779fa0967a5))
+
 ## [3.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.0...v3.3.1) (2025-08-12)
 
 
