@@ -25,6 +25,14 @@ export const buttonSlottedIconTestTemplate = (tag: string): TemplateResult => {
   `;
 };
 
+export const buttonLoading = (tag: string): TemplateResult => {
+  return html`
+    <${unsafeStatic(tag)} icon-name="arrow-right-small" loading>
+      Loading Button
+    </${unsafeStatic(tag)}>
+  `;
+};
+
 export const buttonIconTestTemplate = (tag: string): TemplateResult => {
   return html`
     <${unsafeStatic(tag)}><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon></${unsafeStatic(tag)}>

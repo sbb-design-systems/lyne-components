@@ -5,6 +5,7 @@
 @use './mixins/font-face';
 @use './mixins/helpers';
 @use './mixins/inputs';
+@use './mixins/popover';
 @use './mixins/scrollbar';
 @use './mixins/shadows';
 @use './mixins/typo';
@@ -240,14 +241,7 @@ sbb-form-field {
   sbb-popover,
   sbb-toast
 ) {
-  margin: 0;
-  padding: 0;
-  border: none;
-  width: auto;
-  height: auto;
-  background-color: transparent;
-  color: inherit;
-  pointer-events: none;
+  @include popover.popover-reset;
 }
 
 // Ensure stable breadcrumb height during hydrating
@@ -562,6 +556,36 @@ sbb-dialog-actions {
 
   sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
     @include shadows.shadow-level-9-soft-negative;
+  }
+}
+
+// If there is a title, remove top spacing for the content
+sbb-dialog:has(> sbb-dialog-title) > sbb-dialog-content {
+  padding-block-start: 0;
+}
+
+// Hide margin on the right side. Distance to button is defined by flex gap already.
+sbb-dialog:has(> sbb-dialog-close-button) > sbb-dialog-title {
+  margin-inline-end: 0;
+}
+
+sbb-dialog-close-button {
+  // If there is no dialog title, the close button should be positioned absolute
+  sbb-dialog:not(:has(> sbb-dialog-title)) > & {
+    position: absolute;
+    z-index: 1;
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
   }
 }
 

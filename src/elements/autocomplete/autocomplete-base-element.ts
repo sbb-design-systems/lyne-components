@@ -98,6 +98,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
+  protected activeOption: SbbOptionBaseElement<T> | null = null;
   private _originResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
@@ -122,6 +123,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _optionsCount = 0;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
@@ -155,9 +157,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       );
     }
     this._setOverlayPosition(originElement);
-    if (this.autoActiveFirstOption) {
-      this.setNextActiveOption();
-    }
+    this._setNextActiveOptionIfAutoActiveFirstOption();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -213,6 +213,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
     if (changedProperties.has('negative')) {
       this.syncNegative();
+    }
+
+    if (changedProperties.has('autoActiveFirstOption') && this.isOpen) {
+      this._setNextActiveOptionIfAutoActiveFirstOption();
     }
   }
 
@@ -282,26 +286,35 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+
     /**
      * It's possible to filter out options with an opened panel on input change.
      * In this case, the panel's position must be recalculated considering the new option's list.
      */
     if (this.isOpen) {
       this._setOverlayPosition();
-    }
-    this._openOnNewOptions();
-  }
+      this._setNextActiveOptionIfAutoActiveFirstOption();
 
-  /**
-   * If the 'input' is focused and there's a change in the number of options, open the autocomplete
-   */
-  private _openOnNewOptions(): void {
-    if (document?.activeElement === this.triggerElement) {
-      if (this.options.length > 0) {
-        this.open();
-      } else {
+      // If the autocomplete is open and the option count gets to zero, we close the autocomplete.
+      if (this._optionsCount > 0 && this.options.length === 0) {
         this.close();
       }
+    } else if (
+      // If the 'input' is focused and the count of options changes from 0 to > 0,
+      // the autocomplete should open automatically.
+      document?.activeElement === this.triggerElement &&
+      this._optionsCount === 0 &&
+      this.options.length > 0
+    ) {
+      this.open();
+    }
+
+    this._optionsCount = this.options.length;
+  }
+  private _setNextActiveOptionIfAutoActiveFirstOption(): void {
+    if (this.autoActiveFirstOption) {
+      this.resetActiveElement();
+      this.setNextActiveOption();
     }
   }
 
@@ -452,6 +465,19 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     window.addEventListener('pointerup', (ev) => this._closeOnBackdropClick(ev), {
       signal: this._openPanelEventsController.signal,
     });
+
+    this.addEventListener(
+      'ɵdisabledchange',
+      () => {
+        if (this.activeOption?.disabled) {
+          this.resetActiveElement();
+        }
+        this._setNextActiveOptionIfAutoActiveFirstOption();
+      },
+      {
+        signal: this._openPanelEventsController.signal,
+      },
+    );
 
     // Keyboard interactions
     this.triggerElement?.addEventListener(

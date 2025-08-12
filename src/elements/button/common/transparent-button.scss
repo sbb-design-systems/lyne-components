@@ -8,6 +8,7 @@
   --sbb-button-color-hover-background: var(--sbb-color-milk);
   --sbb-button-color-hover-border: var(--sbb-color-milk);
   --sbb-button-color-hover-text: var(--sbb-color-midnight);
+  --sbb-button-color-loading-border: var(--sbb-color-silver);
 }
 
 :host([negative]) {
@@ -20,4 +21,5 @@
   --sbb-button-color-hover-background: var(--sbb-color-charcoal);
   --sbb-button-color-hover-border: var(--sbb-color-charcoal);
   --sbb-button-color-hover-text: var(--sbb-color-white);
+  --sbb-button-color-loading-border: var(--sbb-color-granite);
 }

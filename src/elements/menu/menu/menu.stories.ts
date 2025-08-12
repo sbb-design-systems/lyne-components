@@ -77,7 +77,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       icon-name="pen-small"
       sbb-badge=${!args.disabled ? '16' : nothing}
       aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
-      ?disabled=${args.disabled}
+      ?disabled-interactive=${args.disabled}
     >
       Edit
     </sbb-menu-button>
@@ -103,7 +103,7 @@ const ListTemplate = (args: Args): TemplateResult => html`
       icon-name="pen-small"
       sbb-badge=${!args.disabled ? '16' : nothing}
       aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
-      ?disabled=${args.disabled}
+      ?disabled-interactive=${args.disabled}
     >
       Edit
     </sbb-menu-button>
@@ -128,7 +128,7 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="tickets-class-small" ?disabled=${args.disabled}>
+    <sbb-menu-button icon-name="tickets-class-small" ?disabled-interactive=${args.disabled}>
       Tickets
     </sbb-menu-button>
     <sbb-menu-button
@@ -148,7 +148,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-3">
     <sbb-menu-button
       icon-name=${args['icon-name']}
-      ?disabled=${args.disabled}
+      ?disabled-interactive=${args.disabled}
       sbb-badge=${!args.disabled ? args.badge : nothing}
       aria-label=${!args.disabled ? `English, ${args.badge} items` : nothing}
     >
@@ -191,7 +191,9 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" ?disabled=${args.disabled}> Edit </sbb-menu-button>
+    <sbb-menu-button icon-name="pen-small" ?disabled-interactive=${args.disabled}>
+      Edit
+    </sbb-menu-button>
     <sbb-menu-button
       icon-name="swisspass-small"
       sbb-badge=${args.badge}

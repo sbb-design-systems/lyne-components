@@ -7,7 +7,7 @@ import {
   visualDiffStandardStates,
 } from '../core/testing/private.js';
 
-import './__noPrefixName__.js';
+import './__noPrefixName__.component.js';
 
 describe('__name__', () => {
   /**

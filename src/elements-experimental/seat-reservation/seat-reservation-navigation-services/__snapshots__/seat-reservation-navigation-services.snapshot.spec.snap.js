@@ -10,14 +10,14 @@ snapshots["sbb-seat-reservation-navigation-services renders DOM"] =
 snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] = 
 `<div class="sbb-sr-navigation__signs">
   <sbb-screen-reader-only>
-    en:Verfügbare Services:Velozone, Silence area
+    Available services:Bike area, Quiet zone
   </sbb-screen-reader-only>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
     height="20"
     name="BICYCLE"
-    style="--sbb-reservation-graphic-width: 20; --sbb-reservation-graphic-height: 20; --sbb-reservation-graphic-rotation: 0; --sbb-reservation-graphic-inverse-rotation: 0;"
-    title="Velozone"
+    style="--sbb-seat-reservation-graphic-width: 20; --sbb-seat-reservation-graphic-height: 20; --sbb-seat-reservation-graphic-rotation: 0; --sbb-seat-reservation-graphic-inverse-rotation: 0;"
+    title="Bike area"
     width="20"
   >
   </sbb-seat-reservation-graphic>
@@ -25,8 +25,8 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
     aria-hidden="true"
     height="20"
     name="SILENCE"
-    style="--sbb-reservation-graphic-width: 20; --sbb-reservation-graphic-height: 20; --sbb-reservation-graphic-rotation: 0; --sbb-reservation-graphic-inverse-rotation: 0;"
-    title="Silence area"
+    style="--sbb-seat-reservation-graphic-width: 20; --sbb-seat-reservation-graphic-height: 20; --sbb-seat-reservation-graphic-rotation: 0; --sbb-seat-reservation-graphic-inverse-rotation: 0;"
+    title="Quiet zone"
     width="20"
   >
   </sbb-seat-reservation-graphic>
@@ -42,7 +42,7 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
   "children": [
     {
       "role": "text",
-      "name": "en:Verfügbare Services:Velozone, Silence area"
+      "name": "Available services:Bike area, Quiet zone"
     }
   ]
 }
@@ -58,7 +58,7 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] 
   "children": [
     {
       "role": "text leaf",
-      "name": "en:Verfügbare Services:Velozone, Silence area"
+      "name": "Available services:Bike area, Quiet zone"
     }
   ]
 }

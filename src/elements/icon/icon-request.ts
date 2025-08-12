@@ -45,7 +45,7 @@ export const getSvgContent = (
           fetch(url)
             .then(async (response) => {
               if (!response.ok) {
-                throw new Error('Failed to load icon ' + namespace + ':' + name);
+                throw new Error(`Failed to load icon ${namespace}:${name}`);
               }
               return validateContent(await response.text(), sanitize);
             })

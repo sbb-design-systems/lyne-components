@@ -4,9 +4,9 @@ export const snapshots = {};
 snapshots["sbb-dialog-actions renders DOM"] = 
 `<sbb-dialog-actions
   align-group="start"
-  button-size="l"
+  button-size="m"
   horizontal-from="medium"
-  link-size="m"
+  link-size="s"
   orientation="horizontal"
   slot="actions"
 >
