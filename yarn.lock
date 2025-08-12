@@ -1423,10 +1423,10 @@
     "@sinonjs/commons" "^3.0.1"
     type-detect "^4.1.0"
 
-"@storybook/addon-a11y@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-9.1.1.tgz#5f6f2d0d236847af25cdb65b8369f7069a9bec18"
-  integrity sha512-ZCKxYQmHnisAdpjYeRRD41NfA5UlTFpej0xgGLiAc9PGz264RRP5B+pZUHHNIyEKA9JCDcyc4BPe+xnXZgDjSA==
+"@storybook/addon-a11y@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-9.1.2.tgz#a68aa57bfc967a043285ee69612cff88c8c1f0f5"
+  integrity sha512-CwFwpneZO8GvxaMygkNUEJ0ti2U6Q7waZ/NG71tRQzTWGMasbc27rUTvLf654mQen+MkSOt/MbceASkyvK2mdw==
   dependencies:
     "@storybook/global" "^5.0.0"
     axe-core "^4.2.0"
@@ -1445,15 +1445,15 @@
     memoizerific "^1.11.3"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-docs@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-9.1.1.tgz#3d0284c861e7775d99cb1f08ddb6a755b0702450"
-  integrity sha512-CzgvTy3V5X4fe+VPkiZVwPKARlpEBDAKte8ajLAlHJQLFpADdYrBRQ0se6I+kcxva7rZQzdhuH7qjXMDRVcfnw==
+"@storybook/addon-docs@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-9.1.2.tgz#f64e88e6e6602a8d66822f5e774f9790295e9ab8"
+  integrity sha512-U3eHJ8lQFfEZ/OcgdKkUBbW2Y2tpAsHfy8lQOBgs5Pgj9biHEJcUmq+drOS/sJhle673eoBcUFmspXulI4KP1w==
   dependencies:
     "@mdx-js/react" "^3.0.0"
-    "@storybook/csf-plugin" "9.1.1"
+    "@storybook/csf-plugin" "9.1.2"
     "@storybook/icons" "^1.4.0"
-    "@storybook/react-dom-shim" "9.1.1"
+    "@storybook/react-dom-shim" "9.1.2"
     react "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
     react-dom "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
     ts-dedent "^2.0.0"
@@ -1485,10 +1485,10 @@
     polished "^4.2.2"
     ts-dedent "^2.2.0"
 
-"@storybook/addon-links@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-9.1.1.tgz#e26b87228473dc208f9aa126476b650c2df8418a"
-  integrity sha512-fYv0cmUzZluEKFP8iuhqu8Wqlf3demRgES7un1C6T7GilzhnMwLFcFjX40qvTC9WsIJ2Uw1G/SPjwTNXJOO5Ng==
+"@storybook/addon-links@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-9.1.2.tgz#54e944a431bec0c575d4e3eedd6c99b855e82650"
+  integrity sha512-drAWdhn5cRo5WcaORoCYfJ6tgTAw1m+ZJb1ICyNtTU6i/0nErV8jJjt7AziUcUIyzaGVJAkAMNC3+R4uDPSFDA==
   dependencies:
     "@storybook/global" "^5.0.0"
 
@@ -1508,18 +1508,18 @@
     "@storybook/global" "^5.0.0"
     ts-dedent "^2.0.0"
 
-"@storybook/builder-vite@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-9.1.1.tgz#3f5d3148e4e78f01884142bfe617ec7c892c733e"
-  integrity sha512-rM0QOfykr39SFBRQnoAa5PU3xTHnJE1R5tigvjved1o7sumcfjrhqmEyAgNZv1SoRztOO92jwkTi7En6yheOKg==
+"@storybook/builder-vite@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-9.1.2.tgz#3cdc40ddb68b9f0976d327321bede0f7fb670a44"
+  integrity sha512-5Y7e5wnSzFxCGP63UNRRZVoxHe1znU4dYXazJBobAlEcUPBk7A0sH2716tA6bS4oz92oG9tgvn1g996hRrw4ow==
   dependencies:
-    "@storybook/csf-plugin" "9.1.1"
+    "@storybook/csf-plugin" "9.1.2"
     ts-dedent "^2.0.0"
 
-"@storybook/csf-plugin@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-9.1.1.tgz#f358b98fa2682e39421a2967d2fdc2422105b7db"
-  integrity sha512-MwdtvzzFpkard06pCfDrgRXZiBfWAQICdKh7kzpv1L8SwewsRgUr5WZQuEAVfYdSvCFJbWnNN4KirzPhe5ENCg==
+"@storybook/csf-plugin@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-9.1.2.tgz#7bc5f29578ee55b2da8c38daf1815a4fa354c564"
+  integrity sha512-bfMh6r+RieBLPWtqqYN70le2uTE4JzOYPMYSCagHykUti3uM/1vRFaZNkZtUsRy5GwEzE5jLdDXioG1lOEeT2Q==
   dependencies:
     unplugin "^1.3.1"
 
@@ -1533,23 +1533,23 @@
   resolved "https://registry.yarnpkg.com/@storybook/icons/-/icons-1.4.0.tgz#7cf7ab3dfb41943930954c4ef493a73798d8b31d"
   integrity sha512-Td73IeJxOyalzvjQL+JXx72jlIYHgs+REaHiREOqfpo3A2AYYG71AUbcv+lg7mEDIweKVCxsMQ0UKo634c8XeA==
 
-"@storybook/react-dom-shim@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-9.1.1.tgz#92ac1620ccc50492a580680c97e76831c66051ab"
-  integrity sha512-L+HCOXvOP+PwKrVS8od9aF+F4hO7zA0Nt1vnpbg2LeAHCxYghrjFVtioe7gSlzrlYdozQrPLY98a4OkDB7KGrw==
+"@storybook/react-dom-shim@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-9.1.2.tgz#09731ce72de13bf92e439485c628fb093720c5f0"
+  integrity sha512-nw7BLAHCJswPZGsuL0Gs2AvFUWriusCTgPBmcHppSw/AqvT4XRFRDE+5q3j04/XKuZBrAA2sC4L+HuC0uzEChQ==
 
-"@storybook/web-components-vite@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/web-components-vite/-/web-components-vite-9.1.1.tgz#05ccbd8a9f777f3b3e25cff938cd69f2047ec8ca"
-  integrity sha512-F9zWSEGfxnzBJ6OWOj0O5ZdekLSRSgPfATknvI+Hq/Vj2F4jWCUGkhnSzzUNpwgy6JsW/CwWdd1FtdRnjWEuJA==
+"@storybook/web-components-vite@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/web-components-vite/-/web-components-vite-9.1.2.tgz#8480c0cdaa07d184250720f5ae343c45c719931c"
+  integrity sha512-JTv5hjiYAa6DpDPTqW5mLTnpJ9A5U5dOkZWuIgPtendOTXSFjbNzluoQQs2BE9zCT0Vkj7NS+mC/Zi0K73hVog==
   dependencies:
-    "@storybook/builder-vite" "9.1.1"
-    "@storybook/web-components" "9.1.1"
+    "@storybook/builder-vite" "9.1.2"
+    "@storybook/web-components" "9.1.2"
 
-"@storybook/web-components@9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/web-components/-/web-components-9.1.1.tgz#637e2fd5f777f6d9c37ff756fd8dc8aa481631d5"
-  integrity sha512-j/nOO0NAG6ugzkSM0Dgqlptx4emLIshz3oqUpllAMfyt5fvA/6LysHGkdtVxdXzpXbvargCIFdwQruXxWJtgsg==
+"@storybook/web-components@9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/web-components/-/web-components-9.1.2.tgz#c4eea921a845dd4655bce655f98ac4fc12877f09"
+  integrity sha512-LgzbuGFozVlwk6GpcXGTwilQYRmIcs3MQWSv/MgscKwB1IhHTZXY/W8nMPOYdxieud4Rnwg2J4u/vP2ou2wa9g==
   dependencies:
     "@storybook/global" "^5.0.0"
     tiny-invariant "^1.3.1"
@@ -8429,10 +8429,10 @@ stop-iteration-iterator@^1.1.0:
     es-errors "^1.3.0"
     internal-slot "^1.1.0"
 
-storybook@9.1.1:
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/storybook/-/storybook-9.1.1.tgz#43fbd430be8b9d9598ecc1faa8063e3e99533d77"
-  integrity sha512-q6GaGZdVZh6rjOdGnc+4hGTu8ECyhyjQDw4EZNxKtQjDO8kqtuxbFm8l/IP2l+zLVJAatGWKkaX9Qcd7QZxz+Q==
+storybook@9.1.2:
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/storybook/-/storybook-9.1.2.tgz#b81a5d984caba3d88ce6b5cf405cb4970bad8672"
+  integrity sha512-TYcq7WmgfVCAQge/KueGkVlM/+g33sQcmbATlC3X6y/g2FEeSSLGrb6E6d3iemht8oio+aY6ld3YOdAnMwx45Q==
   dependencies:
     "@storybook/global" "^5.0.0"
     "@testing-library/jest-dom" "^6.6.3"
