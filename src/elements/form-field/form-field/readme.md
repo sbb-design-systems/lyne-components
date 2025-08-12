@@ -117,8 +117,7 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 
 ```html
 <sbb-form-field width="collapse">
-  <input value="13:30" />
-  <sbb-time-input></sbb-time-input>
+  <sbb-time-input value="13:30"></sbb-time-input>
 </sbb-form-field>
 ```
 

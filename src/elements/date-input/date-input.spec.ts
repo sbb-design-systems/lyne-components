@@ -6,6 +6,7 @@ import { defaultDateAdapter } from '../core/datetime.js';
 import { isMacOS, isWebkit } from '../core/dom.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import { SbbDateInputElement } from './date-input.component.js';
 
@@ -371,6 +372,52 @@ describe('sbb-date-input', () => {
       element.dispatchEvent(pasteEvent('value'));
       expect(element.value).to.equal('tesvaluet');
       expect(element.textContent).to.equal('tesvaluet');
+    });
+  });
+
+  describe('form field integration', () => {
+    let formField: SbbFormFieldElement;
+
+    beforeEach(async () => {
+      formField = await fixture(
+        html`<sbb-form-field><sbb-date-input></sbb-date-input></sbb-form-field>`,
+      );
+      element = formField.querySelector('sbb-date-input')!;
+    });
+
+    it('should detect empty state', async () => {
+      expect(formField).to.match(':state(empty)');
+    });
+
+    it('detect non empty state, programmatically set', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      await waitForLitRender(formField);
+
+      expect(formField).not.to.match(':state(empty)');
+    });
+
+    it('should detect empty state, programmatically set', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      await waitForLitRender(formField);
+      expect(formField).not.to.match(':state(empty)');
+
+      element.valueAsDate = null;
+      expect(formField).to.match(':state(empty)');
+    });
+
+    it('should detect empty state, manual input', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      await waitForLitRender(formField);
+      expect(formField).not.to.match(':state(empty)');
+
+      element.focus();
+
+      // Delete the date by pressing backspace
+      for (let i = 0; i < 14; i++) {
+        await sendKeys({ press: 'Backspace' });
+      }
+
+      expect(formField).to.match(':state(empty)');
     });
   });
 });
