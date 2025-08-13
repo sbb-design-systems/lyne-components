@@ -33,6 +33,39 @@
     // Overlay
     --sbb-overlay-default-z-index: 1000;
 
+    // Title
+    --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
+    --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
+    --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
+    --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
+    --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
+    --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
+    --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
+    --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
+    --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
+    --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
+    --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+    --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
+    --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
+    --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
+
+    &.sbb-lean {
+      --sbb-title-font-size-level-1: var(--sbb-font-size-title-2);
+      --sbb-title-font-size-level-2: var(--sbb-font-size-title-3);
+      --sbb-title-font-size-level-3: var(--sbb-font-size-title-4);
+      --sbb-title-font-size-level-4: var(--sbb-font-size-title-5);
+      --sbb-title-font-size-level-5: var(--sbb-font-size-title-6);
+      --sbb-title-font-size-level-6: var(--sbb-font-size-title-7);
+      --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
+      --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
+      --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
+      --sbb-title-margin-block-end-level-2: var(--sbb-spacing-fixed-3x);
+      --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+      --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-2x);
+      --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-1x);
+      --sbb-title-margin-block-end-level-6: 0;
+    }
+
     // Infinity border radius, can be used to achieve rounded border on start and end
     // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
     --sbb-border-radius-infinity: 100000em;

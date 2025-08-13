@@ -4,15 +4,9 @@
   display: block;
   margin-block: var(--sbb-dialog-padding-block);
   margin-inline: var(--sbb-dialog-padding-inline);
+  hyphens: auto;
 }
 
 :host([negative]) {
   @include sbb.title--negative;
-}
-
-.sbb-title {
-  hyphens: auto;
-
-  // Overwrite sbb-title default margin
-  margin: 0;
 }

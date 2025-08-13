@@ -23,6 +23,10 @@ The component has a `negative` variant which can be set with the self-named prop
 As a default the `sbb-title` contains spacing on top and bottom on the host.
 This can be removed or customized via simple CSS rules.
 
+## Lean design
+
+In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the title is given smaller sizes and spacings.
+
 <!-- Auto Generated Below -->
 
 ## Properties
