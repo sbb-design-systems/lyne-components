@@ -1,14 +1,16 @@
 import { type CSSResultGroup, LitElement, type TemplateResult } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { forceType, slotState } from '../../core/decorators.js';
-import { i18nFileSelectorButtonLabel, i18nFileSelectorSubtitleLabel } from '../../core/i18n.js';
+import {
+  i18nFileSelectorSubtitleLabel,
+  i18nFileSelectorSubtitleLabelMultiple,
+} from '../../core/i18n.js';
 import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
 
-import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
 import '../../icon.js';
 
@@ -100,7 +102,9 @@ class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(L
             </span>
             <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
             <span class="sbb-file-selector__dropzone-area--subtitle">
-              ${i18nFileSelectorSubtitleLabel[this.language.current]}
+              ${this.multiple
+                ? i18nFileSelectorSubtitleLabelMultiple[this.language.current]
+                : i18nFileSelectorSubtitleLabel[this.language.current]}
             </span>
             <span class="sbb-file-selector__dropzone-area--button">
               <sbb-secondary-button-static
@@ -110,7 +114,7 @@ class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(L
                   this.loadButton = el as SbbSecondaryButtonStaticElement;
                 })}
               >
-                ${i18nFileSelectorButtonLabel[this.language.current]}
+                ${this.getButtonLabel()}
               </sbb-secondary-button-static>
             </span>
           </span>

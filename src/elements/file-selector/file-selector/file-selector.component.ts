@@ -5,12 +5,9 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { slotState } from '../../core/decorators.js';
-import { i18nFileSelectorButtonLabel } from '../../core/i18n.js';
 import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
 
-import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
-import '../../icon.js';
 
 /**
  * It allows to select one or more file from storage devices and display them.
@@ -38,7 +35,7 @@ class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(LitElemen
               this.loadButton = el as SbbSecondaryButtonStaticElement;
             })}
           >
-            ${i18nFileSelectorButtonLabel[this.language.current]}
+            ${this.getButtonLabel()}
           </sbb-secondary-button-static>
           ${input}
         </label>

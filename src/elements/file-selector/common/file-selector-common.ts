@@ -12,21 +12,20 @@ import { isLean } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import {
   i18nFileSelectorButtonLabel,
+  i18nFileSelectorButtonLabelMultiple,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
 } from '../../core/i18n.js';
 import {
+  type Constructor,
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbFormAssociatedMixin,
-  type Constructor,
   SbbElementInternalsMixin,
+  SbbFormAssociatedMixin,
 } from '../../core/mixins.js';
 
 import '../../button/secondary-button.js';
-import '../../button/secondary-button-static.js';
-import '../../icon.js';
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
@@ -43,6 +42,7 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbD
   protected language: SbbLanguageController;
   protected abstract renderTemplate(input: TemplateResult): TemplateResult;
   protected createFileList(files: FileList): void;
+  protected getButtonLabel(): string;
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 }
@@ -177,6 +177,12 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
 
     protected createFileList(files: FileList): void {
+      if (!this.multiple && files.length > 1) {
+        // If multiple files are selected but the selector is not in multiple mode,
+        // ignore the selection (like native behavior).
+        return;
+      }
+
       if (!this.multiple || this.multipleMode !== 'persistent' || this.files.length === 0) {
         this.files = Array.from(files);
       } else {
@@ -271,9 +277,15 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       /* eslint-enable lit/binding-positions */
     }
 
+    protected getButtonLabel(): string {
+      return this.multiple
+        ? i18nFileSelectorButtonLabelMultiple[this.language.current]
+        : i18nFileSelectorButtonLabel[this.language.current];
+    }
+
     protected override render(): TemplateResult {
       const ariaLabel = this.accessibilityLabel
-        ? `${i18nFileSelectorButtonLabel[this.language.current]} - ${this.accessibilityLabel}`
+        ? `${this.getButtonLabel()} - ${this.accessibilityLabel}`
         : undefined;
       return html`
         <div class="sbb-file-selector">

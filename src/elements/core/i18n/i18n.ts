@@ -658,14 +658,28 @@ export const i18nFileSelectorButtonLabel: Record<string, string> = {
   de: 'Datei auswählen',
   en: 'Choose a file',
   fr: 'Choisissez un fichier',
-  it: 'Scelga un file',
+  it: 'Scegli un file',
+};
+
+export const i18nFileSelectorButtonLabelMultiple: Record<string, string> = {
+  de: 'Dateien auswählen',
+  en: 'Choose files',
+  fr: 'Choisissez des fichiers',
+  it: 'Scegli file',
 };
 
 export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
+  de: 'Ziehen Sie Ihre Datei hier hin (Drag & Drop)',
+  en: 'Drag & Drop your file here',
+  fr: 'Faites glisser et déposez votre fichier ici',
+  it: 'Trascina e rilascia il file qui',
+};
+
+export const i18nFileSelectorSubtitleLabelMultiple: Record<string, string> = {
   de: 'Ziehen Sie Ihre Dateien hier hin (Drag & Drop)',
   en: 'Drag & Drop your files here',
   fr: 'Faites glisser et déposez vos fichiers ici',
-  it: 'Trascini e rilasci i suoi file qui',
+  it: 'Trascina e rilascia i file qui',
 };
 
 export const i18nFileSelectorDeleteFile: Record<string, string> = {
