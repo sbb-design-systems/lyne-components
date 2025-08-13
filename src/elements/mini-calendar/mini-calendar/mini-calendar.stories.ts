@@ -12,27 +12,32 @@ import './mini-calendar.component.js';
 import '../mini-calendar-month/mini-calendar-month.component.js';
 import '../mini-calendar-day/mini-calendar-day.component.js';
 
-const createDays = (date: Date): TemplateResult => {
-  const numDays = defaultDateAdapter.getNumDaysInMonth(date);
-  const isoDate = defaultDateAdapter.toIso8601(date);
+const createDays = (year: number, month: number): TemplateResult => {
+  const numDays = defaultDateAdapter.getNumDaysInMonth(new Date(year, month));
   return html`
-    ${repeat(
-      new Array(numDays),
-      () => html` <sbb-mini-calendar-day date=${isoDate}></sbb-mini-calendar-day> `,
-    )}
+    ${repeat(new Array(numDays), (_, index) => {
+      const date = new Date(year, month, index + 1);
+      return html`
+        <sbb-mini-calendar-day
+          date=${defaultDateAdapter.toIso8601(date)}
+          marker=${defaultDateAdapter.getDayOfWeek(date) === 0 ||
+          defaultDateAdapter.getDayOfWeek(date) === 6
+            ? 'circle'
+            : ''}
+        ></sbb-mini-calendar-day>
+      `;
+    })}
   `;
 };
 
 const Template = ({ year }: Args): TemplateResult => html`
   <sbb-mini-calendar>
-    ${repeat(
-      new Array(12),
-      (_, index) => html`
-        <sbb-mini-calendar-month date="${year}-${String(index + 1).padStart(2, '0')}">
-          ${createDays(new Date(year, index))}
-        </sbb-mini-calendar-month>
-      `,
-    )}
+    ${repeat(new Array(12), (_, index) => {
+      const date = `${year}-${String(index + 1).padStart(2, '0')}`;
+      return html`
+        <sbb-mini-calendar-month date=${date}> ${createDays(year, index)} </sbb-mini-calendar-month>
+      `;
+    })}
   </sbb-mini-calendar>
 `;
 
