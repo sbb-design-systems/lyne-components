@@ -32,10 +32,14 @@ const createDays = (year: number, month: number): TemplateResult => {
 
 const Template = ({ year }: Args): TemplateResult => html`
   <sbb-mini-calendar>
-    ${repeat(new Array(12), (_, index) => {
-      const date = `${year}-${String(index + 1).padStart(2, '0')}`;
+    ${repeat(new Array(13), (_, index) => {
+      const realYear = index === 12 ? year + 1 : year;
+      const month = index === 12 ? 0 : index;
+      const date = `${realYear}-${String(month + 1).padStart(2, '0')}`;
       return html`
-        <sbb-mini-calendar-month date=${date}> ${createDays(year, index)} </sbb-mini-calendar-month>
+        <sbb-mini-calendar-month date=${date}>
+          ${createDays(realYear, month)}
+        </sbb-mini-calendar-month>
       `;
     })}
   </sbb-mini-calendar>

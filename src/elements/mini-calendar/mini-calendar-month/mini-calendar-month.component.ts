@@ -26,14 +26,17 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _monthNames = this._dateAdapter.getMonthNames('short');
-  private _monthName: string | null = null;
+  private _monthLabel: string | null = null;
+  private _yearLabel: string | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('date') && this.date) {
       // FIXME improve and restrict the 'date' type, because now is error prone
       const date = this._dateAdapter.deserialize(this.date.concat('-01'))!;
-      this._monthName = `${this._monthNames[this._dateAdapter.getMonth(date) - 1]}.`;
+      const month = this._dateAdapter.getMonth(date);
+      this._monthLabel = `${this._monthNames[month - 1]}.`;
+      this._yearLabel = month === 1 ? String(this._dateAdapter.getYear(date)) : null;
 
       const offset = this._dateAdapter.getFirstWeekOffset(date);
       this.style.setProperty('--sbb-mini-calendar-month-offset', `${offset + 1}`);
@@ -43,10 +46,11 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-mini-calendar-month">
+        <div class="sbb-mini-calendar-month-label">${this._yearLabel}</div>
         <div class="sbb-mini-calendar-month-wrapper">
           <slot></slot>
         </div>
-        <div class="sbb-mini-calendar-month-label">${this._monthName}</div>
+        <div class="sbb-mini-calendar-month-label">${this._monthLabel}</div>
       </div>
     `;
   }
