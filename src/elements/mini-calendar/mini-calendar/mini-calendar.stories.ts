@@ -30,11 +30,11 @@ const createDays = (year: number, month: number): TemplateResult => {
   `;
 };
 
-const Template = ({ year }: Args): TemplateResult => html`
+const Template = ({ year, offset }: Args): TemplateResult => html`
   <sbb-mini-calendar>
     ${repeat(new Array(13), (_, index) => {
-      const realYear = index === 12 ? year + 1 : year;
-      const month = index === 12 ? 0 : index;
+      const realYear = index > 12 - 1 - offset ? year + 1 : year;
+      const month = (index + offset) % 12;
       const date = `${realYear}-${String(month + 1).padStart(2, '0')}`;
       return html`
         <sbb-mini-calendar-month date=${date}>
@@ -51,12 +51,21 @@ const year: InputType = {
   },
 };
 
+const offset: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [0, 4, 8],
+};
+
 const defaultArgTypes: ArgTypes = {
   year,
+  offset,
 };
 
 const defaultArgs: Args = {
   year: 2025,
+  offset: 0,
 };
 
 export const Default: StoryObj = {
