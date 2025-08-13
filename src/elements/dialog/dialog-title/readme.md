@@ -11,10 +11,6 @@ Use it in combination with the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog
 
 The title can have a `negative` state which is automatically synchronized with the negative state of the dialog.
 
-## Lean design
-
-In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the title is given smaller sizes and spacings.
-
 <!-- Auto Generated Below -->
 
 ## Properties
