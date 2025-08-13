@@ -24,7 +24,7 @@
 }
 
 .sbb-lead-container {
-  padding-block-end: var(--sbb-spacing-responsive-l);
+  padding-block-end: var(--sbb-lead-container-padding-block);
 }
 
 ::slotted([slot='image']) {
@@ -73,7 +73,7 @@
 }
 
 .sbb-lead-container-content {
-  z-index: 1;
+  position: relative;
   border-radius: var(--sbb-lead-container-border-radius);
   padding-block: var(--sbb-lead-container-padding-block);
   background-color: var(--sbb-lead-container-background-color);
