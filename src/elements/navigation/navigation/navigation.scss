@@ -23,7 +23,8 @@
   --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
   --sbb-navigation-backdrop-visibility: hidden;
   --sbb-navigation-backdrop-pointer-events: none;
-  --sbb-navigation-backdrop-color: transparent;
+  --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
+  --sbb-navigation-backdrop-animation-name: backdrop-open;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-navigation-inline-start: 0;
   --sbb-navigation-expanded-width: 100%;
@@ -74,12 +75,15 @@
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-navigation-backdrop-visibility: visible;
   --sbb-navigation-backdrop-pointer-events: all;
-  --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
 }
 
 :host(:not([data-state='closed'])) {
   --sbb-navigation-inset: 0;
   --sbb-navigation-transform: translateX(0);
+}
+
+:host([data-state][data-state='closing']) {
+  --sbb-navigation-backdrop-animation-name: backdrop-close;
 }
 
 :host([data-has-navigation-section]) {
@@ -107,7 +111,13 @@
 
     // Navigation backdrop (not visible on mobile)
     &::before {
-      @include transition(background-color, visibility);
+      @include transition(visibility);
+
+      animation: {
+        name: var(--sbb-navigation-backdrop-animation-name);
+        duration: var(--sbb-navigation-animation-duration);
+        timing-function: var(--sbb-navigation-animation-easing);
+      }
 
       content: '';
       visibility: var(--sbb-navigation-backdrop-visibility);
@@ -225,5 +235,17 @@
 
   to {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes backdrop-open {
+  from {
+    background-color: transparent;
+  }
+}
+
+@keyframes backdrop-close {
+  to {
+    background-color: transparent;
   }
 }
