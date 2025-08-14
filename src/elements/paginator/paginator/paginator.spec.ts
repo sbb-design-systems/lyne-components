@@ -230,7 +230,7 @@ describe('sbb-paginator', () => {
 
     const comboBoxElement = element.shadowRoot!.querySelector('[role="combobox"]')!;
 
-    expect(comboBoxElement).to.have.attribute('aria-label', 'Items per page');
+    expect(comboBoxElement).to.have.attribute('aria-label', 'Items per Page');
 
     const lang = document.documentElement.getAttribute('lang')!;
     document.documentElement.setAttribute('lang', 'de');

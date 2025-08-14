@@ -121,7 +121,9 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            <label for="select">${i18nItemsPerPage[this.language.current]}</label>
+            <label for="select"
+              >${`${i18nItemsPerPage[this.language.current]} ${this.accessibilityPageLabel ?? i18nPage[this.language.current]}`}</label
+            >
             <sbb-form-field
               borderless
               width="collapse"
@@ -166,7 +168,8 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                       ?disabled=${this.disabled}
                       class="sbb-paginator__page--number-item"
                       data-index=${item}
-                      aria-label="${i18nPage[this.language.current]} ${item + 1}"
+                      aria-label="${this.accessibilityPageLabel ??
+                      i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       @click=${() => (this.pageIndex = item)}
                       @keyup=${this._handleKeyUp}
