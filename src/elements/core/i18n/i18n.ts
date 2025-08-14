@@ -714,10 +714,10 @@ export const i18nPage: Record<string, string> = {
 };
 
 export const i18nItemsPerPage: Record<string, string> = {
-  de: 'Einträge pro',
-  en: 'Items per',
-  fr: 'Entrées par',
-  it: 'Elementi per',
+  de: 'Einträge pro Seite',
+  en: 'Items per page',
+  fr: 'Entrées par page',
+  it: 'Elementi per pagina',
 };
 
 /** @deprecated */

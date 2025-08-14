@@ -78,38 +78,21 @@ describe(`sbb-paginator`, () => {
     });
   });
 
-  describe('renders accessibility labels', () => {
+  describe('renders with options and accessibility labels', () => {
     let element: SbbPaginatorElement;
 
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-paginator
           length="50"
-          page-size="4"
-          page-index="7"
+          page-size="10"
+          page-index="2"
           accessibility-page-label="Slide"
           accessibility-previous-page-label="Previous slide"
           accessibility-next-page-label="Next slide"
+          accessibility-items-per-page-label="Items per slide"
+          .pageSizeOptions=${[10, 25, 50]}
         ></sbb-paginator>`,
-      );
-    });
-
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-  });
-
-  describe('renders with options', () => {
-    let element: SbbPaginatorElement;
-
-    beforeEach(async () => {
-      const opt = [10, 25, 50];
-      element = await fixture(
-        html`<sbb-paginator length="50" page-size="10" .pageSizeOptions=${opt}></sbb-paginator>`,
       );
     });
 

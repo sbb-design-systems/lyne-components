@@ -33,7 +33,7 @@ class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
         >${this.numberOfPages()}</span
       >
       <sbb-screen-reader-only>
-        ${`${this.accessibilityPageLabel ?? i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorOf[this.language.current]} ${this.numberOfPages()}`}
+        ${`${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorOf[this.language.current]} ${this.numberOfPages()}`}
       </sbb-screen-reader-only>
     `;
   }

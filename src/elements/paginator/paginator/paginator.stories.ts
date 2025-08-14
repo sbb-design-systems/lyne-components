@@ -92,6 +92,12 @@ const accessibilityNextPageLabel: InputType = {
   },
 };
 
+const accessibilityItemsPerPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   length,
   'page-size': pageSize,
@@ -104,6 +110,7 @@ const defaultArgTypes: ArgTypes = {
   'accessibility-page-label': accessibilityPageLabel,
   'accessibility-previous-page-label': accessibilityPreviousPageLabel,
   'accessibility-next-page-label': accessibilityNextPageLabel,
+  'accessibility-items-per-page-label': accessibilityItemsPerPageLabel,
 };
 
 const defaultArgs: Args = {
