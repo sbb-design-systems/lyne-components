@@ -325,9 +325,9 @@ const i18nObjects: Record<string, Record<string, string>> = {
   },
   STAFF_AREA: {
     de: 'Zugpersonal',
-    en: 'en:Zugpersonal',
-    fr: 'fr:Zugpersonal',
-    it: 'it:Zugpersonal',
+    en: 'Train crew',
+    fr: 'Personnel de train',
+    it: 'Personale di treno',
   },
   STAIR_AREA: {
     de: 'Treppenbereich',
