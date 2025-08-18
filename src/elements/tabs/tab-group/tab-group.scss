@@ -21,18 +21,14 @@
   margin-block-start: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 
-  ::slotted(*) {
+  ::slotted(sbb-tab) {
     visibility: hidden;
     opacity: 0;
     height: 0;
     overflow: hidden;
-
-    // If e.g. a block link with an absolute positioned element is slotted, there would be an visible space
-    // below the tab content. Setting position:relative removes the unwanted whitespace.
-    position: relative;
   }
 
-  ::slotted(*[active]) {
+  ::slotted(sbb-tab[active]) {
     visibility: visible;
     opacity: 1;
     height: fit-content;
