@@ -511,14 +511,14 @@ export const i18nYearMonthSelection: Record<string, string> = {
   de: 'Jahr und Monat auswählen',
   en: 'Choose year and month',
   fr: 'Choisir l’année et le mois',
-  it: 'Selezioni anno e mese',
+  it: 'Seleziona anno e mese',
 };
 
 export const i18nCalendarDateSelection: Record<string, string> = {
   de: 'Datum auswählen',
   en: 'Choose date',
   fr: 'Choisir une date',
-  it: 'Selezioni una data',
+  it: 'Seleziona una data',
 };
 
 export const i18nNextYearRange = (yearRange: number): Record<string, string> => ({
@@ -644,14 +644,14 @@ export const i18nFlipCard: Record<string, string> = {
   de: 'Klicken Sie auf diese Karte für Details',
   en: 'Click on this card for details',
   fr: 'Cliquez sur cette carte pour plus de détails',
-  it: 'Clicchi su questa scheda per i dettagli',
+  it: 'Clicca su questa scheda per i dettagli',
 };
 
 export const i18nReverseCard: Record<string, string> = {
   de: 'Klicken Sie auf diese Karte, um zurück zur Zusammenfassung zu gelangen',
   en: 'Click on this card to go back to the summary',
   fr: 'Cliquez sur cette carte pour revenir au résumé',
-  it: 'Clicchi su questa scheda per tornare al sommario',
+  it: 'Clicca su questa scheda per tornare al sommario',
 };
 
 export const i18nFileSelectorButtonLabel: Record<string, string> = {
@@ -672,7 +672,7 @@ export const i18nFileSelectorDeleteFile: Record<string, string> = {
   de: 'Datei entfernen',
   en: 'Remove file',
   fr: 'Effacer le fichier',
-  it: 'Rimuova il file',
+  it: 'Rimuovi il file',
 };
 
 export const i18nFileSelectorCurrentlySelected = (filesName: string[]): Record<string, string> => {
@@ -780,7 +780,7 @@ export const i18nTimeInvalid: Record<string, string> = {
   de: 'Bitte gültige Zeit eingeben.',
   en: 'Please provide a valid time.',
   fr: 'Veuillez saisir une heure valide.',
-  it: 'Inserisca un orario valido.',
+  it: 'Inserisci un orario valido.',
 };
 
 export const i18nTimeMax: Record<string, string> = {
@@ -801,7 +801,7 @@ export const i18nChipDelete: Record<string, string> = {
   de: 'Drücken Sie die Entfernen-Taste um den Chip zu löschen',
   en: 'Press the Delete button to remove the chip',
   fr: 'Appuyez sur la touche Del pour supprimer cette puce',
-  it: 'Prema il tasto Canc per rimuovere questa chip',
+  it: 'Premi il tasto Canc per rimuovere questa chip',
 };
 
 export const i18nChipGroupInputDescription: Record<string, string> = {
