@@ -15,9 +15,6 @@
     "lit": "0.0.0-LIT",
     "tslib": "0.0.0-TSLIB"
   },
-  "peerDependencies": {
-    "@sbb-esta/lyne-design-tokens": "0.0.0-DESIGNTOKENS"
-  },
   "publishConfig": {
     "access": "public"
   }
