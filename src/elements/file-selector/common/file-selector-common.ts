@@ -177,16 +177,24 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     }
 
     protected createFileList(files: FileList): void {
-      if (!this.multiple && files.length > 1) {
+      const fileArray = Array.from(files);
+      if (
+        (!this.multiple && files.length > 1) ||
+        (this.accept &&
+          fileArray.some(
+            (file) => !this.accept.split(',').some((a) => file.name.endsWith(a.trim())),
+          ))
+      ) {
         // If multiple files are selected but the selector is not in multiple mode,
         // ignore the selection (like native behavior).
+        // If the accept attribute is set, check if the selected files match the allowed types.
         return;
       }
 
       if (!this.multiple || this.multipleMode !== 'persistent' || this.files.length === 0) {
-        this.files = Array.from(files);
+        this.files = fileArray;
       } else {
-        this.files = Array.from(files)
+        this.files = fileArray
           .filter(
             // Remove duplicates
             (newFile: Readonly<File>): boolean =>
