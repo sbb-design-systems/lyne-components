@@ -9,9 +9,15 @@ describe(`sbb-tooltip ssr`, () => {
   let root: SbbTooltipElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(html`<sbb-tooltip>Test</sbb-tooltip>`, {
-      modules: ['./tooltip.component.js'],
-    });
+    root = await ssrHydratedFixture(
+      html`
+        <sbb-tooltip trigger="trigger">Test</sbb-tooltip>
+        <button id="trigger">Label</button>
+      `,
+      {
+        modules: ['./tooltip.component.js'],
+      },
+    );
   });
 
   it('renders', () => {

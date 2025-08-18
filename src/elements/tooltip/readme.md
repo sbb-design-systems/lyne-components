@@ -17,7 +17,7 @@ You can use the tooltip in two ways:
 
 ## Interactions
 
-The tooltip opens, optionally after a delay, when the user hovers the trigger element and closes on mouse leave.
+The tooltip opens when the user hovers the trigger element and closes on mouse leave. A delay can be optionally set, both on open and close actions.
 
 On touch devices, the tooltip opens on long press and closes automatically after a `longPressCloseDelay` (default: 1500 ms).
 
@@ -43,7 +43,7 @@ mergeConfig({
 
 ## Accessibility
 
-The `sbb-tooltip` adds an aria-describedby description that provides a reference to an element containing the tooltip's message.
+The `sbb-tooltip` adds an `aria-describedby` description that provides a reference to an element containing the tooltip's message.
 
 Avoid interactions that exclusively show a tooltip with pointer events like click and mouseenter.
 Always ensure that keyboard users can perform the same set of actions available to mouse and touch users.

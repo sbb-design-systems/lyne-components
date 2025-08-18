@@ -176,7 +176,7 @@ describe('sbb-tooltip', () => {
         await waitForLitRender(element);
       });
 
-      it('should honor open and close delays', async function (this: Context) {
+      it('should open and close with delays', async function (this: Context) {
         this.retries(3); // This test involves delays, it can be flaky on ci
         const position = trigger.getBoundingClientRect();
         await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
