@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.1...v3.3.2) (2025-08-12)
+
+
+### Documentation
+
+* improve language of GETTING_STARTED.md ([2d7c11a](https://github.com/sbb-design-systems/lyne-components/commit/2d7c11acc9b1a3766e0505dc78c8c779fa0967a5))
+
+## [3.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.0...v3.3.1) (2025-08-12)
+
+
+### Bug Fixes
+
+* **sbb-toggle-check, sbb-checkbox-panel**: handle the 'data-checked' attribute synchronously ([#3947](https://github.com/sbb-design-systems/lyne-components/issues/3947)) ([9151c71](https://github.com/sbb-design-systems/lyne-components/commit/9151c71a1c1d7fe973af08428dd289b223b01969))
+* fix disabled state handling of form elements ([#3958](https://github.com/sbb-design-systems/lyne-components/issues/3958)) ([e76b434](https://github.com/sbb-design-systems/lyne-components/commit/e76b4343b601691d303f069b50724ed9168c3263))
+* handle empty elements in element internals polyfill ([#3954](https://github.com/sbb-design-systems/lyne-components/issues/3954)) ([6f8f2e2](https://github.com/sbb-design-systems/lyne-components/commit/6f8f2e2e81ed77fca2e2c6b81184f8350c753529)), closes [#3953](https://github.com/sbb-design-systems/lyne-components/issues/3953)
+* **sbb-autocomplete, sbb-autocomplete-grid:** only opening on lazy options if count was 0 ([#3955](https://github.com/sbb-design-systems/lyne-components/issues/3955)) ([8ad6731](https://github.com/sbb-design-systems/lyne-components/commit/8ad6731ff30d0733eb3ea89b73e69c499b815f15))
+* **sbb-autocomplete:** update active option if autoActiveFirstOption is enabled and options change ([#3943](https://github.com/sbb-design-systems/lyne-components/issues/3943)) ([9ce8690](https://github.com/sbb-design-systems/lyne-components/commit/9ce8690df1fa5f467c94545d05461af3cbc2c510)), closes [#3940](https://github.com/sbb-design-systems/lyne-components/issues/3940)
+* **sbb-date-input, sbb-time-input:** handle empty state and floating label ([#3956](https://github.com/sbb-design-systems/lyne-components/issues/3956)) ([16b5ad4](https://github.com/sbb-design-systems/lyne-components/commit/16b5ad425c7d5721ac611719b6ded92a59e62b97)), closes [#3951](https://github.com/sbb-design-systems/lyne-components/issues/3951)
+* **sbb-header-button, sbb-header-link:** hide slot if text is not provided ([#3949](https://github.com/sbb-design-systems/lyne-components/issues/3949)) ([a9c8f0c](https://github.com/sbb-design-systems/lyne-components/commit/a9c8f0ced55de552e933fcbe2f8034acf238030b))
+
+## [3.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.2.0...v3.3.0) (2025-08-04)
+
+
+### Features
+
+* **sbb-calendar:** multiple selection and week numbers ([#3614](https://github.com/sbb-design-systems/lyne-components/issues/3614)) ([dfd2708](https://github.com/sbb-design-systems/lyne-components/commit/dfd270889d2af05a79fad0f8dfbf199441f2ce15))
+* **seat-reservation-multiple-coach-decks:** implement handling to render multiple coach decks ([#3928](https://github.com/sbb-design-systems/lyne-components/issues/3928)) ([1552baf](https://github.com/sbb-design-systems/lyne-components/commit/1552bafd8f068d2263730ccb5f661d21afdd7b8b))
+
+
+### Documentation
+
+* **sbb-icon:** describe how to use custom namespace ([#3938](https://github.com/sbb-design-systems/lyne-components/issues/3938)) ([1c8312a](https://github.com/sbb-design-systems/lyne-components/commit/1c8312ab4e0f63da95e520f1436f45a3c104f38d)), closes [#3599](https://github.com/sbb-design-systems/lyne-components/issues/3599)
+
+
+### Code Refactoring
+
+* **seat-reservation:** optimize rem size calculation ([#3935](https://github.com/sbb-design-systems/lyne-components/issues/3935)) ([7c5fede](https://github.com/sbb-design-systems/lyne-components/commit/7c5fede2b042eeb175b9941e106d821dbdbb6587))
+
 ## [3.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.1.0...v3.2.0) (2025-07-21)
 
 

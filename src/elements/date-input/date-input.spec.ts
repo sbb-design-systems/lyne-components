@@ -6,6 +6,7 @@ import { defaultDateAdapter } from '../core/datetime.js';
 import { isMacOS, isWebkit } from '../core/dom.js';
 import { fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import { SbbDateInputElement } from './date-input.component.js';
 
@@ -332,6 +333,99 @@ describe('sbb-date-input', () => {
     });
   });
 
+  describe('should handle disabled state', () => {
+    let fieldset: HTMLFieldSetElement;
+
+    beforeEach(async () => {
+      fieldset = await fixture(
+        html`<fieldset>
+          <sbb-form-field><sbb-date-input></sbb-date-input></sbb-form-field>
+        </fieldset>`,
+      );
+      element = fieldset.querySelector('sbb-date-input')!;
+    });
+
+    it('should handle disabled by attribute', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      element.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).to.have.attribute('disabled');
+
+      element.removeAttribute('disabled');
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled by property', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      element.disabled = true;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).to.have.attribute('disabled');
+
+      element.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled fieldset by property', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.disabled = true;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled fieldset by attribute', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.removeAttribute('disabled');
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+  });
+
   describe('paste', () => {
     const pasteEvent = (value: string): Event => {
       // Firefox does not support mutating the DataTransfer instance.
@@ -371,6 +465,52 @@ describe('sbb-date-input', () => {
       element.dispatchEvent(pasteEvent('value'));
       expect(element.value).to.equal('tesvaluet');
       expect(element.textContent).to.equal('tesvaluet');
+    });
+  });
+
+  describe('form field integration', () => {
+    let formField: SbbFormFieldElement;
+
+    beforeEach(async () => {
+      formField = await fixture(
+        html`<sbb-form-field><sbb-date-input></sbb-date-input></sbb-form-field>`,
+      );
+      element = formField.querySelector('sbb-date-input')!;
+    });
+
+    it('should detect empty state', async () => {
+      expect(formField).to.match(':state(empty)');
+    });
+
+    it('detect non empty state, programmatically set', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      await waitForLitRender(formField);
+
+      expect(formField).not.to.match(':state(empty)');
+    });
+
+    it('should detect empty state, programmatically set', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      await waitForLitRender(formField);
+      expect(formField).not.to.match(':state(empty)');
+
+      element.valueAsDate = null;
+      expect(formField).to.match(':state(empty)');
+    });
+
+    it('should detect empty state, manual input', async () => {
+      element.valueAsDate = defaultDateAdapter.createDate(2024, 12, 24);
+      await waitForLitRender(formField);
+      expect(formField).not.to.match(':state(empty)');
+
+      element.focus();
+
+      // Delete the date by pressing backspace
+      for (let i = 0; i < 14; i++) {
+        await sendKeys({ press: 'Backspace' });
+      }
+
+      expect(formField).to.match(':state(empty)');
     });
   });
 });

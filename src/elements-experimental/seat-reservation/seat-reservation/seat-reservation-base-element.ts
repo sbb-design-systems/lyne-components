@@ -94,6 +94,8 @@ export class SeatReservationBaseElement extends LitElement {
   // The calculated coachBorderOffset is used to calculate the width and height of coach border graphic,
   // but also to position other graphics that are aligned directly to the coach border.
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
+  // Describes the gap between the coaches decks by multiple deck visualization
+  protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
@@ -193,28 +195,31 @@ export class SeatReservationBaseElement extends LitElement {
 
   /* Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
-    const seatReservationDeck = this.seatReservations
-      ? this.seatReservations[this.currSelectedDeckIndex]
-      : null;
-    if (seatReservationDeck && seatReservationDeck.coachItems.length > 0) {
-      const borderHeight =
-        (seatReservationDeck.coachItems[0].dimension.h + this.coachBorderOffset * 2) *
-        this.baseGridSize;
-      const gapBetweenCoachDecks = this.seatReservations.length * 24;
-
-      this.style?.setProperty(
-        '--sbb-seat-reservation-height',
-        `${borderHeight * this.seatReservations.length + gapBetweenCoachDecks}`,
-      );
-      this.style?.setProperty('--sbb-seat-reservation-decks', `${this.seatReservations.length}`);
-    }
-
     this.firstTabElement = this.shadowRoot?.querySelector('#first-tab-element') as HTMLElement;
     this.lastTabElement = this.shadowRoot?.querySelector('#last-tab-element') as HTMLElement;
     this.coachScrollArea = this.shadowRoot?.querySelector(
       '#sbb-sr__wrapper-scrollarea',
     ) as HTMLElement;
     this.navigationScrollArea = this.shadowRoot?.querySelector('#sbb-sr-navigation') as HTMLElement;
+
+    const seatReservationDeck = this.seatReservations
+      ? this.seatReservations[this.currSelectedDeckIndex]
+      : null;
+    if (seatReservationDeck && seatReservationDeck.coachItems.length > 0) {
+      // Calculates the absolute height of one coach including border padding
+      const coachHeightWithBorderPadding =
+        seatReservationDeck.coachItems[0].dimension.h * this.baseGridSize + this.coachBorderPadding;
+
+      // Calculate each gap between multiple coach the decks.
+      // No gap exist if just one coach deck exist.
+      const gapBetweenCoachDecks = (this.seatReservations.length - 1) * this.gapBetweenCoachDecks;
+
+      this.style?.setProperty(
+        '--sbb-seat-reservation-height',
+        `${coachHeightWithBorderPadding * this.seatReservations.length + gapBetweenCoachDecks}`,
+      );
+      this.style?.setProperty('--sbb-seat-reservation-decks', `${this.seatReservations.length}`);
+    }
 
     if (this.navigationScrollArea) {
       this.scrollNavigationAreaDim = this.alignVertical
@@ -232,8 +237,7 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     if (this.coachScrollArea && seatReservationDeck) {
-      // Set the start offset of the coach scheme, which depends on the multipleDecks
-      // where we need a little more distance because of the deck labels
+      // Init the start offset for the calculation of the coach scroll trigger positions
       let currCalcTriggerPos = 0;
       this.scrollCoachsAreaWidth = this.alignVertical
         ? this.coachScrollArea.getBoundingClientRect().height
@@ -572,15 +576,14 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _getCoachScrollPositionX(): number {
     const coachTriggerPoint = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
-    const coachDeckLabelOffset = this.hasMultipleDecks ? 28 : 0;
     const isFocusPlaceFromPreviousCoachPosition =
       this.isKeyboardNavigation &&
       this.currScrollDirection === ScrollDirection.left &&
       coachTriggerPoint.width > this.scrollCoachsAreaWidth;
 
     return isFocusPlaceFromPreviousCoachPosition
-      ? coachTriggerPoint.end - this.scrollCoachsAreaWidth + coachDeckLabelOffset
-      : coachTriggerPoint.start + coachDeckLabelOffset;
+      ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
+      : coachTriggerPoint.start;
   }
 
   /**

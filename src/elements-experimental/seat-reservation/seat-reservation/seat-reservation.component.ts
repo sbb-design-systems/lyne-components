@@ -117,17 +117,16 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                   <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
                   <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
                     <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
-                      <ul class="sbb-sr__list-decks">
+                      <ul
+                        class="${classMap({
+                          'sbb-sr__list-decks': true,
+                          'sbb-sr__list-decks--gap': this.hasMultipleDecks,
+                        })}"
+                      >
                         ${this.seatReservations?.map(
                           (seatReservation: SeatReservation, index: number) => {
                             return html`<li class="sbb-sr__list-item-deck">
-                              <ul
-                                class="${classMap({
-                                  'sbb-sr__list-coaches': true,
-                                  'sbb-sr__list-coaches--deck-label-offset': this.hasMultipleDecks,
-                                })}"
-                                role="presentation"
-                              >
+                              <ul class="sbb-sr__list-coaches" role="presentation">
                                 ${this._renderCoaches(seatReservation, index)}
                               </ul>
                             </li>`;
