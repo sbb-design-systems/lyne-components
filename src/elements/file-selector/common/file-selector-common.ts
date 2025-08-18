@@ -128,6 +128,11 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     protected loadButton!: SbbSecondaryButtonStaticElement;
     protected language = new SbbLanguageController(this);
 
+    // Safari has a peculiar behavior when dragging files on the inner button in 'dropzone' variant;
+    // this will require a counter to correctly handle the dragEnter/dragLeave.
+    private _counter: number = 0;
+    private _dragTarget?: HTMLElement;
+
     protected abstract renderTemplate(input: TemplateResult): TemplateResult;
 
     public override formResetCallback(): void {
@@ -208,6 +213,12 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       this._dispatchFileChangedEvent();
     }
 
+    protected getButtonLabel(): string {
+      return this.multiple
+        ? i18nFileSelectorButtonLabelMultiple[this.language.current]
+        : i18nFileSelectorButtonLabel[this.language.current];
+    }
+
     private _removeFile(file: Readonly<File>): void {
       this.files = this.files.filter((f: Readonly<File>) => !this._checkFileEquality(file, f));
       this._updateA11yLiveRegion();
@@ -285,10 +296,48 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       /* eslint-enable lit/binding-positions */
     }
 
-    protected getButtonLabel(): string {
-      return this.multiple
-        ? i18nFileSelectorButtonLabelMultiple[this.language.current]
-        : i18nFileSelectorButtonLabel[this.language.current];
+    private _onDragEnter(event: DragEvent): void {
+      this._counter++;
+      if (!this.disabled && !this.formDisabled) {
+        this._setDragState(event.target as HTMLElement, true);
+        this._blockEvent(event);
+      }
+    }
+
+    private _onDragLeave(event: DragEvent): void {
+      this._counter--;
+      if (
+        !this.disabled &&
+        !this.formDisabled &&
+        event.target === this._dragTarget &&
+        this._counter === 0
+      ) {
+        this._setDragState();
+        this._blockEvent(event);
+      }
+    }
+
+    private _onFileDrop(event: DragEvent): void {
+      this._counter = 0;
+      if (!this.disabled && !this.formDisabled) {
+        this._setDragState();
+        this._blockEvent(event);
+        this.createFileList(event.dataTransfer!.files);
+      }
+    }
+
+    private _blockEvent(event: DragEvent): void {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+
+    private _setDragState(
+      dragTarget: HTMLElement | undefined = undefined,
+      isDragEnter: boolean = false,
+    ): void {
+      this._dragTarget = dragTarget;
+      this.toggleState('active', isDragEnter);
+      this.loadButton.toggleAttribute('data-active', isDragEnter);
     }
 
     protected override render(): TemplateResult {
@@ -297,22 +346,30 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
         : undefined;
       return html`
         <div class="sbb-file-selector">
-          ${this.renderTemplate(
-            html`<input
-              class="sbb-file-selector__visually-hidden"
-              type="file"
-              ?disabled="${this.disabled || this.formDisabled}"
-              ?multiple="${this.multiple}"
-              accept="${this.accept || nothing}"
-              aria-label="${ariaLabel || nothing}"
-              @change="${this._readFiles}"
-              @focus="${this._onFocus}"
-              @blur="${this._onBlur}"
-              ${ref((el?: Element): void => {
-                this._hiddenInput = el as HTMLInputElement;
-              })}
-            />`,
-          )}
+          <div
+            class="sbb-file-selector__input-container"
+            @dragenter=${this._onDragEnter}
+            @dragover=${this._blockEvent}
+            @dragleave=${this._onDragLeave}
+            @drop=${this._onFileDrop}
+          >
+            ${this.renderTemplate(
+              html`<input
+                class="sbb-file-selector__visually-hidden"
+                type="file"
+                ?disabled="${this.disabled || this.formDisabled}"
+                ?multiple="${this.multiple}"
+                accept="${this.accept || nothing}"
+                aria-label="${ariaLabel || nothing}"
+                @change="${this._readFiles}"
+                @focus="${this._onFocus}"
+                @blur="${this._onBlur}"
+                ${ref((el?: Element): void => {
+                  this._hiddenInput = el as HTMLInputElement;
+                })}
+              />`,
+            )}
+          </div>
           <p
             role="status"
             class="sbb-file-selector__visually-hidden"

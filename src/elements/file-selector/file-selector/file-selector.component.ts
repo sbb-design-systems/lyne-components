@@ -25,21 +25,19 @@ class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(LitElemen
 
   protected override renderTemplate(input: TemplateResult): TemplateResult {
     return html`
-      <div class="sbb-file-selector__input-container">
-        <label>
-          <sbb-secondary-button-static
-            size=${this.size}
-            icon-name="folder-open-small"
-            ?disabled=${this.disabled || this.formDisabled}
-            ${ref((el?: Element): void => {
-              this.loadButton = el as SbbSecondaryButtonStaticElement;
-            })}
-          >
-            ${this.getButtonLabel()}
-          </sbb-secondary-button-static>
-          ${input}
-        </label>
-      </div>
+      <label>
+        <sbb-secondary-button-static
+          size=${this.size}
+          icon-name="folder-open-small"
+          ?disabled=${this.disabled || this.formDisabled}
+          ${ref((el?: Element): void => {
+            this.loadButton = el as SbbSecondaryButtonStaticElement;
+          })}
+        >
+          ${this.getButtonLabel()}
+        </sbb-secondary-button-static>
+        ${input}
+      </label>
     `;
   }
 }
