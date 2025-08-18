@@ -148,6 +148,9 @@ The type can be specified using the generic type parameter `T` of `SbbChipGroup<
 To render the complex value, the `displayWith` function can be used to map
 the value to a string represented in the created chips.
 
+Please note that the parameter is the assigned value of the selected option which does not necessarily
+align with the type information.
+
 ```html
 <sbb-form-field>
   <label>Label</label>
