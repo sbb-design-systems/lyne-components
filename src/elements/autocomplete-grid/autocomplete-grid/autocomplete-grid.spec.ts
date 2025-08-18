@@ -157,6 +157,40 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
+  it('deactivates later disabled options when already active', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+
+    input.focus();
+    await openSpy.calledOnce();
+
+    await sendKeys({ press: 'ArrowDown' });
+    const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
+
+    expect(optOne).to.have.attribute('data-active');
+    optOne.disabled = true;
+    await waitForLitRender(element);
+
+    expect(optOne).not.to.have.attribute('data-active');
+  });
+
+  it('ignores later removed option', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+    const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
+    const optTwo = element.querySelector<SbbAutocompleteGridOptionElement>('#option-2')!;
+
+    input.focus();
+    await openSpy.calledOnce();
+    await sendKeys({ press: 'ArrowDown' });
+
+    expect(optOne).to.have.attribute('data-active');
+
+    optOne.remove();
+    await waitForLitRender(element);
+
+    await sendKeys({ press: 'ArrowDown' });
+    expect(optTwo).to.have.attribute('data-active');
+  });
+
   it('opens and closes with non-zero animation duration', async () => {
     element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
@@ -285,7 +319,6 @@ describe(`sbb-autocomplete-grid`, () => {
     const keydownSpy = new EventSpy('keydown', input);
 
     input.focus();
-
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
 
@@ -312,20 +345,90 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(input).not.to.have.attribute('aria-activedescendant');
   });
 
-  it('opens with autoActiveFirstOption', async () => {
-    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
-    const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1');
+  describe('autoActiveFirstOption', () => {
+    function assertActiveOption(option: SbbAutocompleteGridOptionElement): void {
+      expect(option).to.have.attribute('data-active');
+      expect(option).not.to.have.attribute('selected');
+      expect(input).to.have.attribute('aria-activedescendant', option.id);
+    }
 
-    element.autoActiveFirstOption = true;
-    await waitForLitRender(element);
+    function assertInactiveOption(option: SbbAutocompleteGridOptionElement): void {
+      expect(option).not.to.have.attribute('data-active');
+      expect(option).not.to.have.attribute('selected');
+      expect(input).not.to.have.attribute('aria-activedescendant', option.id);
+    }
 
-    input.focus();
-    await openSpy.calledOnce();
-    expect(openSpy.count).to.be.equal(1);
+    beforeEach(async () => {
+      element.autoActiveFirstOption = true;
+      await waitForLitRender(element);
+    });
 
-    expect(optOne).to.have.attribute('data-active');
-    expect(optOne).not.to.have.attribute('selected');
-    expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+    it('updates on open', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+      const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
+
+      input.focus();
+      await openSpy.calledOnce();
+
+      assertActiveOption(optOne);
+    });
+
+    it('updates on new option', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+
+      input.focus();
+      await openSpy.calledOnce();
+
+      const newOption = document.createElement('sbb-autocomplete-grid-option');
+      newOption.id = 'option-4';
+      newOption.value = '4';
+      newOption.textContent = 'Option 4';
+      element.prepend(newOption);
+      await waitForLitRender(element);
+
+      assertActiveOption(newOption);
+    });
+
+    it('updates on newly disabled option', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+      const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
+      const optTwo = element.querySelector<SbbAutocompleteGridOptionElement>('#option-2')!;
+
+      input.focus();
+      await openSpy.calledOnce();
+
+      assertActiveOption(optOne);
+      assertInactiveOption(optTwo);
+
+      optOne.disabled = true;
+      await waitForLitRender(element);
+
+      assertInactiveOption(optOne);
+      assertActiveOption(optTwo);
+
+      optOne.disabled = false;
+      await waitForLitRender(element);
+
+      assertActiveOption(optOne);
+      assertInactiveOption(optTwo);
+    });
+
+    it('updates on activating autoActiveFirstOption at any time', async () => {
+      element.autoActiveFirstOption = false;
+
+      const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+      const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
+
+      input.focus();
+      await openSpy.calledOnce();
+
+      assertInactiveOption(optOne);
+
+      element.autoActiveFirstOption = true;
+      await waitForLitRender(element);
+
+      assertActiveOption(optOne);
+    });
   });
 
   it('should not close on disabled option click', async () => {
@@ -469,6 +572,55 @@ describe(`sbb-autocomplete-grid`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('opens when new options are slotted', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+    const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
+
+    input.focus();
+
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    // Remove all the rows
+    const rows = element.querySelectorAll('sbb-autocomplete-grid-row');
+    rows.forEach((option) => option.remove());
+
+    // Should close automatically
+    await closeSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
+
+    // Add a new option
+    element.append(rows[0]);
+
+    // Should open automatically
+    await openSpy.calledTimes(2);
+    expect(input).to.have.attribute('aria-expanded', 'true');
+  });
+
+  it('stays closed when option count increases', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+    const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
+
+    input.focus();
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'true');
+
+    element.close();
+    await closeSpy.calledOnce();
+
+    // Add a new option
+    const newOption = document.createElement('sbb-autocomplete-grid-option');
+    newOption.setAttribute('value', 'value');
+    const newRow = document.createElement('sbb-autocomplete-grid-row');
+    newRow.append(newOption);
+    element.append(newRow);
+    await waitForLitRender(element);
+
+    // Should stay close
+    await openSpy.calledOnce();
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
   it('should sync form-field size change', async () => {

@@ -5,6 +5,7 @@ import type { Context } from 'mocha';
 
 import { clearElement, fixture, typeInElement } from '../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbFormFieldElement } from '../form-field.js';
 
 import { SbbTimeInputElement } from './time-input.component.js';
 
@@ -198,18 +199,149 @@ describe(`sbb-time-input`, () => {
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });
 
-  it('should work with sbb-form-field', async () => {
-    const root = await fixture(html`
-      <sbb-form-field>
-        <sbb-time-input></sbb-time-input>
-        <input />
-      </sbb-form-field>
-    `);
-    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+  describe('form field integration', () => {
+    let formField: SbbFormFieldElement;
 
-    element.valueAsDate = new Date('2023-01-01T15:00:00');
-    await waitForLitRender(element);
-    expect(element.value).to.be.equal('15:00');
+    beforeEach(async () => {
+      formField = await fixture(
+        html`<sbb-form-field><sbb-time-input></sbb-time-input></sbb-form-field>`,
+      );
+      element = formField.querySelector('sbb-time-input')!;
+    });
+
+    it('should work with sbb-form-field', async () => {
+      element.valueAsDate = new Date('2023-01-01T15:00:00');
+      await waitForLitRender(element);
+      expect(element.value).to.be.equal('15:00');
+    });
+
+    it('should detect empty state', async () => {
+      expect(formField).to.match(':state(empty)');
+    });
+
+    it('detect non empty state, programmatically set', async () => {
+      element.valueAsDate = new Date();
+      await waitForLitRender(formField);
+
+      expect(formField).not.to.match(':state(empty)');
+    });
+
+    it('should detect empty state, programmatically set', async () => {
+      element.valueAsDate = new Date();
+      await waitForLitRender(formField);
+      expect(formField).not.to.match(':state(empty)');
+
+      element.valueAsDate = null;
+      expect(formField).to.match(':state(empty)');
+    });
+
+    it('should detect empty state, manual input', async () => {
+      element.valueAsDate = new Date();
+      await waitForLitRender(formField);
+      expect(formField).not.to.match(':state(empty)');
+
+      element.focus();
+
+      // Delete the date by pressing backspace
+      for (let i = 0; i < 5; i++) {
+        await sendKeys({ press: 'Backspace' });
+      }
+
+      expect(formField).to.match(':state(empty)');
+    });
+  });
+
+  describe('should handle disabled state', () => {
+    let fieldset: HTMLFieldSetElement;
+
+    beforeEach(async () => {
+      fieldset = await fixture(
+        html`<fieldset>
+          <sbb-form-field><sbb-time-input></sbb-time-input></sbb-form-field>
+        </fieldset>`,
+      );
+      element = fieldset.querySelector('sbb-time-input')!;
+    });
+
+    it('should handle disabled by attribute', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      element.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).to.have.attribute('disabled');
+
+      element.removeAttribute('disabled');
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled by property', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      element.disabled = true;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).to.have.attribute('disabled');
+
+      element.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled fieldset by property', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.disabled = true;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.disabled = false;
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
+
+    it('should handle disabled fieldset by attribute', async () => {
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.toggleAttribute('disabled', true);
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element).to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+
+      fieldset.removeAttribute('disabled');
+      await waitForLitRender(element);
+
+      expect(element.disabled).to.be.false;
+      expect(element).not.to.match(':disabled');
+      expect(element).not.to.have.attribute('disabled');
+    });
   });
 
   it('should support asynchronously adding input by element reference', async () => {
