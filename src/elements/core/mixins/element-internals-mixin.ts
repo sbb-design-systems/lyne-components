@@ -195,9 +195,9 @@ if (!isServer) {
             if (value === null) {
               if (entry) {
                 delete entry.elements[type.name];
-                if (!Object.keys(entry).length) {
+                if (!Object.keys(entry.elements).length) {
                   storage.delete(host);
-                } else if (entry.elements?.length) {
+                } else {
                   Object.values(entry.elements)
                     .reduce((current, next) => current.concat(next))
                     .forEach((e) => entry.observer.observe(e, observerOptions));
