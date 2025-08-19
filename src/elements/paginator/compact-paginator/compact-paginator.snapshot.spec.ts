@@ -26,4 +26,30 @@ describe(`sbb-compact-paginator`, () => {
 
     testA11yTreeSnapshot();
   });
+
+  describe('renders accessibility labels', () => {
+    let element: SbbCompactPaginatorElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-compact-paginator
+          length="50"
+          page-size="5"
+          accessibility-page-label="Slide"
+          accessibility-previous-page-label="Previous slide"
+          accessibility-next-page-label="Next slide"
+        ></sbb-compact-paginator>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
 });
