@@ -116,6 +116,8 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       if (this.hasUpdated) {
         this.innerHTML = this._value;
       }
+      /** @internal */
+      this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
     }
     public get value(): string {
       return this._value ?? '';
