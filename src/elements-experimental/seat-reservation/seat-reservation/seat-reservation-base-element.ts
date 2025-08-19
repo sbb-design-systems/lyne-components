@@ -5,6 +5,7 @@ import { property, state } from 'lit/decorators.js';
 
 import {
   mapCoachInfosToCoachSelection,
+  mapElementPositionByCoachTravelDirection,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
 } from '../common/mapper.js';
@@ -130,6 +131,17 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
+  // Graphics that should not be rendered with an area
+  protected notAreaElements = [
+    'DRIVER_AREA',
+    'COACH_PASSAGE',
+    'COACH_WALL_NO_PASSAGE',
+    'COMPARTMENT_PASSAGE',
+    'COMPARTMENT_PASSAGE_HIGH',
+    'COMPARTMENT_PASSAGE_MIDDLE',
+    'COMPARTMENT_PASSAGE_LOW',
+  ];
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -190,6 +202,7 @@ export class SeatReservationBaseElement extends LitElement {
    * in order to avoid recurring iteration processes in rendering.
    */
   protected initPrepairSeatReservationData(): void {
+    this._prepairElementPositions();
     this._prepairCoachDriverArea();
   }
 
@@ -1110,6 +1123,48 @@ export class SeatReservationBaseElement extends LitElement {
     } else {
       this.currSelectedPlaceElementId = null;
     }
+  }
+
+  private _prepairElementPositions(): void {
+    this.seatReservations.forEach((seatReservation) => {
+      seatReservation.coachItems.forEach((coachItem) => {
+        if (
+          coachItem?.travelDirection === 'OPPOSITE_DIRECTION' ||
+          coachItem?.travelDirection === 'STARTING_OPPOSITE_TO_DIRECTION'
+        ) {
+          //Modify all place positions + rotation
+          const coachDimension = coachItem.dimension;
+
+          coachItem.places?.forEach((place) => {
+            place.position = mapElementPositionByCoachTravelDirection(place, coachDimension);
+
+            if (place.rotation !== 180) {
+              place.rotation = place.rotation + 180;
+            }
+            return place;
+          });
+
+          //Modify all graphical element positions + rotation (only is not a area element)
+          coachItem.graphicElements?.map((element) => {
+            const isGraphicRotatable = this.notAreaElements.indexOf(element.icon!) > -1;
+
+            element.position = mapElementPositionByCoachTravelDirection(element, coachDimension);
+
+            if (isGraphicRotatable && element.rotation !== undefined) {
+              element.rotation = element.rotation + 180;
+            }
+
+            return element;
+          });
+
+          //Modify all service element positions
+          coachItem.serviceElements?.map((element) => {
+            element.position = mapElementPositionByCoachTravelDirection(element, coachDimension);
+            return element;
+          });
+        }
+      });
+    });
   }
 
   /**

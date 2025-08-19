@@ -12,6 +12,7 @@ export type CoachItem = {
   id: string;
   number: string;
   dimension: ElementDimension;
+  travelDirection?: TravelDirection;
   type?: CoachType;
   places?: Place[];
   graphicElements?: BaseElement[];
@@ -35,7 +36,7 @@ export interface Place extends BaseElement {
 /** Base properties for any renderable element within a coach. */
 export type BaseElement = {
   icon?: string | null;
-  rotation?: number;
+  rotation: number;
   position: ElementPosition;
   dimension: ElementDimension;
 };
@@ -100,3 +101,10 @@ export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' |
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';
+export type TravelDirection =
+  | 'IN_DIRECTION'
+  | 'STARTING_IN_DIRECTION'
+  | 'OPPOSITE_DIRECTION'
+  | 'STARTING_OPPOSITE_TO_DIRECTION'
+  | 'UNSPECIFIED'
+  | 'CHANGING';

@@ -1,6 +1,9 @@
 import type {
+  BaseElement,
   CoachItem,
   CoachNumberOfFreePlaces,
+  ElementDimension,
+  ElementPosition,
   Place,
   PlaceSelection,
   PlaceTravelClass,
@@ -17,8 +20,11 @@ import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sampl
  */
 export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReservation => {
   const MOCK_DATA = vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_0 : MOCK_COACHES_RAW_1;
+
   const coachsArr = MOCK_DATA.map((coachDeckLayout) => {
     const coachLayout = coachDeckLayout?.coachDeckLayout;
+    const travelDirection = coachLayout.travelDirection ?? 'STARTING_IN_DIRECTION';
+
     const coachTravelClasses: PlaceTravelClass[] = [];
     const coachPropertyIds: string[] = [];
     const places = coachLayout.placeGroups
@@ -87,6 +93,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       places: places,
       serviceElements: signs,
       graphicElements: graphicalElements,
+      travelDirection: travelDirection,
       travelClass: coachTravelClasses,
       propertyIds: coachPropertyIds,
     } as CoachItem;
@@ -173,4 +180,14 @@ export const mapCoachInfosToCoachSelection = (
     coachPropertyIds: coach?.propertyIds,
     coachNumberOfFreePlaces: coachNumberOfFreePlaces,
   };
+};
+
+export const mapElementPositionByCoachTravelDirection = (
+  element: BaseElement,
+  coachDimension: ElementDimension,
+): ElementPosition => {
+  // Invert element X/Y position by coach dimension and element dimension
+  const modX = coachDimension.w - element.position.x - element.dimension.w;
+  const modY = coachDimension.h - element.position.y - element.dimension.h;
+  return { x: modX, y: modY, z: element.position.z };
 };

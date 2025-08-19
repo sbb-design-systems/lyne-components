@@ -12,6 +12,7 @@ export const MOCK_COACHES_RAW_0 = [
       },
       lowFloorEntry: false,
       deckLevel: 'LOWER_DECK',
+      travelDirection: 'STARTING_OPPOSITE_TO_DIRECTION',
       placeGroups: [
         {
           travelClass: 'FIRST',
@@ -9799,6 +9800,7 @@ export const MOCK_COACHES_RAW_1 = [
       },
       lowFloorEntry: false,
       deckLevel: 'LOWER_DECK',
+      travelDirection: 'STARTING_OPPOSITE_TO_DIRECTION',
       placeGroups: [
         {
           travelClass: 'SECOND',

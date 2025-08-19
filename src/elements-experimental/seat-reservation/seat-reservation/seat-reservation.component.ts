@@ -38,16 +38,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
-  // Graphics that should not be rendered with an area
-  private _notAreaElements = [
-    'DRIVER_AREA',
-    'COACH_PASSAGE',
-    'COACH_WALL_NO_PASSAGE',
-    'COMPARTMENT_PASSAGE',
-    'COMPARTMENT_PASSAGE_HIGH',
-    'COMPARTMENT_PASSAGE_MIDDLE',
-    'COMPARTMENT_PASSAGE_LOW',
-  ];
 
   // Area icons that should not be fixed during rotation when vertical mode is selected
   private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
@@ -419,7 +409,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     return graphicalElements?.map((graphicalElement: BaseElement) => {
       const icon = graphicalElement.icon ?? '';
-      const elementRotation = graphicalElement.rotation || 0;
+
+      const elementRotation = graphicalElement.rotation;
       const isNotFixedRotationGraphicalElement =
         this._notFixedRotatableAreaIcons.indexOf(graphicalElement.icon!) === -1;
       const elementFixedRotation =
@@ -428,7 +419,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           : elementRotation;
 
       //check if the current element is not an area element, since this element is drawn without an area component
-      if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
+      if (this.notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
         return this._getRenderElementWithoutArea(graphicalElement, elementRotation, coachDimension);
       }
       return this._getRenderElementWithArea(
@@ -721,7 +712,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         );
         const isValidDescription =
           this._notFixedRotatableAreaIcons.indexOf(icon) === -1 &&
-          this._notAreaElements.indexOf(icon) === -1;
+          this.notAreaElements.indexOf(icon) === -1;
 
         if (!descriptionAlreayExist) {
           uniqueDescriptions.push(descriptionElement.icon!);
