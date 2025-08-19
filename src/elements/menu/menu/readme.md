@@ -101,18 +101,19 @@ Disabled elements do not receive focus, and they can be problematic for screen r
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                                                       |
-| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                                                      |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
-| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
+| Name                     | Attribute                  | Privacy | Type                         | Default | Description                                                                                                                       |
+| ------------------------ | -------------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `isOpen`                 | -                          | public  | `boolean`                    |         | Whether the element is open.                                                                                                      |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`                     | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
+| `nestedList`             | -                          | public  | `SbbNestedMenu \| undefined` |         |                                                                                                                                   |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null`        | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
 
 ## Methods
 
-| Name    | Privacy | Description                      | Parameters | Return | Inherited From          |
-| ------- | ------- | -------------------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the menu.                 |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOpenCloseBaseElement |
+| Name    | Privacy | Description                      | Parameters   | Return | Inherited From          |
+| ------- | ------- | -------------------------------- | ------------ | ------ | ----------------------- |
+| `close` | public  | Closes the menu.                 | `vertically` | `void` | SbbOpenCloseBaseElement |
+| `open`  | public  | Opens the menu on trigger click. |              | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 

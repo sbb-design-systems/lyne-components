@@ -25,16 +25,6 @@ export const SbbMenuActionCommonElementMixin = <
   {
     public static styles: CSSResultGroup = style;
 
-    public override connectedCallback(): void {
-      super.connectedCallback();
-
-      this.addEventListener('pointerup', (event) => {
-        if (this.hasAttribute('data-nested-menu-trigger')) {
-          event.stopImmediatePropagation();
-        }
-      });
-    }
-
     protected override renderTemplate(): TemplateResult {
       return html`
         <span class="sbb-menu-action__content">
