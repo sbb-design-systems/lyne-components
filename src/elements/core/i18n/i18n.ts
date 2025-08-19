@@ -734,12 +734,27 @@ export const i18nItemsPerPage: Record<string, string> = {
   it: 'Elementi per pagina',
 };
 
+/** @deprecated */
 export const i18nSelectedPage = (pageNumber: number): Record<string, string> => ({
   de: `Seite ${pageNumber} ausgewählt.`,
   en: `Page ${pageNumber} selected.`,
   fr: `Page ${pageNumber} sélectionnée.`,
   it: `Pagina ${pageNumber} selezionata.`,
 });
+
+export const i18nPaginatorSelected: Record<string, string> = {
+  de: `ausgewählt`,
+  en: `selected`,
+  fr: `sélectionnée`,
+  it: `selezionata`,
+};
+
+export const i18nPaginatorOf: Record<string, string> = {
+  de: `von`,
+  en: `of`,
+  fr: `sur`,
+  it: `di`,
+};
 
 export const i18nCheckboxRequired: Record<string, string> = {
   de: 'Muss gesetzt sein.',
