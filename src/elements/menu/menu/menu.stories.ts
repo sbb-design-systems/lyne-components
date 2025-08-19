@@ -109,29 +109,26 @@ const NestedTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="circle-cross-small">Cancel Selection</sbb-menu-button>
-
-    <sbb-menu trigger="sub-menu-1">
-      <sbb-menu-button icon-name="employees-sbb-small"> All Users </sbb-menu-button>
-      <sbb-menu-button icon-name="two-users-small"> Group </sbb-menu-button>
-      <sbb-menu-button icon-name="user-small"> Single User </sbb-menu-button>
-      <sbb-divider></sbb-divider>
-      <sbb-menu-button icon-name="filter-small" id="sub-menu-3">
-        Custom User Permission
-      </sbb-menu-button>
-
-      <sbb-menu trigger="sub-menu-3">
-        <sbb-menu-button icon-name="hand-small">Hand Select</sbb-menu-button>
-        <sbb-menu-button icon-name="tag-small">Define Permission Criteria</sbb-menu-button>
-        <sbb-menu-button icon-name="link-small">Create Invitation Link</sbb-menu-button>
-      </sbb-menu>
-    </sbb-menu>
-
-    <sbb-menu trigger="sub-menu-2">
-      <sbb-menu-button icon-name="document-pdf-small"> Download as PDF </sbb-menu-button>
-      <sbb-menu-button icon-name="document-doc-small"> Download as DOCX </sbb-menu-button>
-      <sbb-menu-button icon-name="document-xls-small"> Download as XLS </sbb-menu-button>
-      <sbb-menu-button icon-name="document-zip-small"> Download as archive </sbb-menu-button>
-    </sbb-menu>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-1">
+    <sbb-menu-button icon-name="employees-sbb-small"> All Users </sbb-menu-button>
+    <sbb-menu-button icon-name="two-users-small"> Group </sbb-menu-button>
+    <sbb-menu-button icon-name="user-small"> Single User </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="filter-small" id="sub-menu-3">
+      Custom User Permission
+    </sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-2">
+    <sbb-menu-button icon-name="document-pdf-small"> Download as PDF </sbb-menu-button>
+    <sbb-menu-button icon-name="document-doc-small"> Download as DOCX </sbb-menu-button>
+    <sbb-menu-button icon-name="document-xls-small"> Download as XLS </sbb-menu-button>
+    <sbb-menu-button icon-name="document-zip-small"> Download as archive </sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-3">
+    <sbb-menu-button icon-name="hand-small">Hand Select</sbb-menu-button>
+    <sbb-menu-button icon-name="tag-small">Define Permission Criteria</sbb-menu-button>
+    <sbb-menu-button icon-name="link-small">Create Invitation Link</sbb-menu-button>
   </sbb-menu>
 `;
 

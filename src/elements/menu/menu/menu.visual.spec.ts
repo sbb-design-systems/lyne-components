@@ -122,12 +122,12 @@ describe(`sbb-menu`, () => {
                 >First level menu</sbb-menu-button
               >
               <sbb-menu-button icon-name="cross-small">First level menu</sbb-menu-button>
-              <sbb-menu trigger="menu-trigger-2">
-                <sbb-menu-button icon-name="link-small">Second level menu</sbb-menu-button>
-                <sbb-menu-button icon-name="pen-small">Second level menu</sbb-menu-button>
-                <sbb-menu-button icon-name="swisspass-small">Second level menu</sbb-menu-button>
-                <sbb-menu-button icon-name="cross-small">Second level menu</sbb-menu-button>
-              </sbb-menu>
+            </sbb-menu>
+            <sbb-menu trigger="menu-trigger-2">
+              <sbb-menu-button icon-name="link-small">Second level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="pen-small">Second level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="swisspass-small">Second level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="cross-small">Second level menu</sbb-menu-button>
             </sbb-menu>
           `,
           { minHeight: '400px' },

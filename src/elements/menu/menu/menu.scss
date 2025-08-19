@@ -53,7 +53,7 @@
   }
 }
 
-:host(:not([data-nested-menu])) {
+:host(:not(:state(nested))) {
   --sbb-menu-back-button-display: none;
 }
 
@@ -66,12 +66,12 @@
     --sbb-disable-animation-duration: 0ms;
   }
 
-  :host([data-nested-menu-open]) {
+  :host(:state(nested-child)) {
     --sbb-menu-transform-x: translateX(-100%);
   }
 }
 
-:host([data-nested-menu])::backdrop {
+:host(:state(nested))::backdrop {
   display: none;
   pointer-events: none;
 }
@@ -89,7 +89,7 @@ sbb-divider,
 }
 
 sbb-divider,
-.sbb-menu__back-button {
+#sbb-menu__back-button {
   display: var(--sbb-menu-back-button-display, block);
 }
 
@@ -104,7 +104,7 @@ sbb-divider,
   &::before {
     content: '';
     visibility: var(--sbb-menu-visibility);
-    pointer-events: all;
+    pointer-events: none;
     position: fixed;
     inset: var(--sbb-menu-inset);
     height: var(--sbb-menu-container-height);
@@ -117,7 +117,7 @@ sbb-divider,
     }
   }
 
-  :host([data-nested-menu]) & {
+  :host(:state(nested)) & {
     &::before {
       content: none;
       display: none;
@@ -164,11 +164,11 @@ sbb-divider,
   }
 
   @include sbb.mq($to: medium) {
-    :host([data-nested-menu][data-state]:not([data-state='closed'])) & {
+    :host(:state(nested)[data-state]:not([data-state='closed'])) & {
       --sbb-menu-open-animation-name: open-sideways;
     }
 
-    :host([data-state][data-state='closing'][data-nested-menu]:not([data-close-vertically])) & {
+    :host([data-state][data-state='closing']:state(nested):not([data-close-vertically])) & {
       transform: var(--sbb-menu-transform-sideways);
 
       --sbb-menu-close-animation-name: close-sideways;

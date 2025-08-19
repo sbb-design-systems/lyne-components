@@ -50,9 +50,16 @@ const INTERACTIVE_ELEMENTS = [
   'SBB-BLOCK-LINK',
   'SBB-LINK-BUTTON',
   'SBB-BLOCK-LINK-BUTTON',
+  'SBB-MENU-BUTTON',
+  'SBB-MENU-LINK',
 ];
 
 let nextId = 0;
+
+interface SbbNestedMenu {
+  menu: SbbMenuElement;
+  openMenu?: SbbNestedMenu;
+}
 
 /**
  * It displays a contextual menu with one or more action element.
@@ -97,7 +104,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
-  private _inertController = new SbbInertController(this);
+  private _inertController = new SbbInertController(this, undefined, undefined);
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [SbbMediaQueryBreakpointSmallAndBelow]: (matches) => {
       if (matches && (this.state === 'opening' || this.state === 'opened')) {
@@ -108,13 +115,47 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     },
   });
 
-  private get _nested(): boolean {
-    return this.hasAttribute('data-nested-menu');
+  /**
+   * Returns the outermost menu.
+   *
+   * @internal */
+  public get mainMenu(): SbbMenuElement {
+    return this._nested ? (this._triggerElement?.parentElement as SbbMenuElement).mainMenu : this;
   }
+
+  private get _nested(): boolean {
+    return this.internals.states.has('nested');
+  }
+
+  /**
+   * The data structure containing all nested sbb-menus.
+   *
+   * @internal */
+  public set nestedList(list: SbbNestedMenu | undefined) {
+    this._nestedList = list;
+
+    if (list?.openMenu) {
+      this.internals.states.add('nested-child');
+    } else {
+      this.internals.states.delete('nested-child');
+    }
+
+    if (this._nested) {
+      const parentElement = this._triggerElement?.parentElement as SbbMenuElement;
+      parentElement.nestedList = { menu: parentElement, openMenu: list };
+    } else {
+      this._hanldeNestedMenus(list?.openMenu);
+    }
+  }
+
+  public get nestedList(): SbbNestedMenu | undefined {
+    return this._nestedList;
+  }
+
+  private _nestedList?: SbbNestedMenu;
 
   public constructor() {
     super();
-    this.addEventListener?.('click', (e) => this._onClick(e));
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
@@ -136,8 +177,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._nested) {
-      this.parentElement?.toggleAttribute('data-nested-menu-open', true);
       this.toggleAttribute('data-close-vertically', false);
+      this.nestedList = { menu: this };
     }
 
     this.showPopover?.();
@@ -160,31 +201,21 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   /**
    * Closes the menu.
    */
-  public close(): void {
-    this._close(true);
-  }
-
-  /**
-   * @internal
-   * Closes nested menu.
-   */
-  public back(): void {
-    this._close(false);
-  }
-
-  private _close(vertically = false): void {
+  public close(vertically = false): void {
     if ((this.state === 'opening' && !this._nested) || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
-    if (this._nested) {
-      this.parentElement?.toggleAttribute('data-nested-menu-open', false);
-      this.parentElement?.toggleAttribute('data-skip-animation', vertically);
-      this.toggleAttribute('data-close-vertically', vertically);
+    // Close nested menus first
+    if (this.nestedList?.openMenu) {
+      this.nestedList?.openMenu.menu.close(vertically);
     }
 
-    // In case there are nested menus they need to be closed
-    this._closeNestedMenus(!vertically);
+    if (this._nested) {
+      this._triggerElement?.parentElement?.toggleAttribute('data-skip-animation', vertically);
+      this.toggleAttribute('data-close-vertically', vertically);
+      this.nestedList = undefined;
+    }
 
     this.state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
@@ -196,14 +227,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   }
 
-  private _closeNestedMenus(close = true): void {
-    Array.from(this.querySelectorAll<SbbMenuElement>('sbb-menu[data-state*="open"]')).map((e) => {
-      if (close) {
-        e?.close();
-      } else {
-        e?.back();
-      }
-    });
+  private _hanldeNestedMenus(list: SbbNestedMenu | undefined): void {
+    let cursor = list;
+    this._inertController.restoreAllExempted();
+
+    while (cursor) {
+      this._inertController.exempt(cursor.menu);
+      cursor = cursor.openMenu;
+    }
   }
 
   private _isZeroAnimationDuration(): boolean {
@@ -246,20 +277,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     // Starting from breakpoint medium, enable scroll
     this._scrollHandler.enableScroll();
-  }
-
-  /**
-   * Handles click and checks if its target is a sbb-menu-button/sbb-menu-link.
-   */
-  private _onClick(event: Event): void {
-    const target = event.target as HTMLElement | undefined;
-
-    if (
-      (target?.localName === 'sbb-menu-button' || target?.localName === 'sbb-menu-link') &&
-      !target.hasAttribute('data-sbb-menu-trigger')
-    ) {
-      this.back();
-    }
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -402,7 +419,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     });
 
     if (this.listChildLocalNames.includes(this._triggerElement.localName)) {
-      this.toggleAttribute('data-nested-menu', true);
+      this.internals.states.add('nested');
     }
   }
 
@@ -435,8 +452,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _interactiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
-      this.back();
+
+    if (
+      INTERACTIVE_ELEMENTS.includes(target.nodeName) &&
+      !target.hasAttribute('disabled') &&
+      !target.hasAttribute('data-sbb-menu-trigger') &&
+      target.id !== 'sbb-menu__back-button'
+    ) {
+      this.mainMenu.close(true);
     }
   }
 
@@ -449,8 +472,13 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._menu, event)) {
-      this.back();
+    const target = event.target as HTMLElement;
+    if (
+      !this._isPointerDownEventOnMenu &&
+      !isEventOnElement(this._menu, event) &&
+      !(target.localName === 'sbb-menu')
+    ) {
+      this.close(true);
     }
   };
 
@@ -465,10 +493,11 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     // anything other than the container, the container's scrollbar or the trigger itself
     if (
       !isMobile &&
+      this._nestedList?.openMenu &&
       !element.classList.contains('sbb-menu__content') &&
       !(element.getAttribute('aria-expanded') === 'true')
     ) {
-      this._closeNestedMenus();
+      this.nestedList?.openMenu?.menu.close();
     }
 
     if (element.hasAttribute('data-sbb-menu-trigger') && !isMobile) {
@@ -549,8 +578,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
               : html`<slot></slot>`}
             <sbb-divider></sbb-divider>
             <sbb-menu-button
-              class="sbb-menu__back-button"
-              @click=${this.back}
+              id="sbb-menu__back-button"
+              @click=${() => this.close(false)}
               icon-name="chevron-small-left-small"
               >Back</sbb-menu-button
             >
