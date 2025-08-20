@@ -99,10 +99,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _initVehicleSeatReservationConstruction(): void {
-    const classAlignVertical = this.alignVertical ? 'sbb-sr__grid--vertical' : '';
     this._coachesHtmlTemplate = html`
       <div class="sbb-sr__container">
-        <div class="sbb-sr sbb-sr__grid ${classAlignVertical}">
+        <div class="sbb-sr sbb-sr__grid">
           <div class="sbb-sr-navigation-first-grid">
             ${this._renderNavigationControlButton('DIRECTION_LEFT')}
           </div>

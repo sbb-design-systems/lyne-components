@@ -65,10 +65,6 @@ $disabled: '[disabled], :disabled';
       );
     }
   }
-
-  &.vertical-coach {
-    flex-direction: row;
-  }
 }
 
 .sbb-sr-navigation__ctrl-button {
@@ -218,7 +214,10 @@ $disabled: '[disabled], :disabled';
 }
 
 // ################ VERTICAL MODE settings ################
-.sbb-sr-navigation__item-coach.vertical-coach {
+
+:host([vertical]) .sbb-sr-navigation__item-coach {
+  flex-direction: row;
+
   .sbb-sr-navigation__ctrl-button {
     flex-direction: row-reverse;
     height: sbb-sr-functions.sr-px-to-rem(80);
