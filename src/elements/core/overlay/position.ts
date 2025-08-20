@@ -252,8 +252,6 @@ export function getElementPositionHorizontal(
   let elementXPosition = triggerParentRec.right;
   let elementYPosition = triggerRec.top + verticalOffset;
 
-  // Calculate element max-height
-
   // Check if horizontal alignment needs to be changed to "start"
   if (availableSpaceRight < elementXOverflow && triggerRec.left > elementXOverflow) {
     elementXPosition = elementXPosition - triggerParentRec.width - elementRec.offsetWidth;
