@@ -19,12 +19,11 @@ import {
   appendAriaElements,
   removeAriaElements,
   SbbElementInternalsMixin,
+  type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
-import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbSelectElement } from '../../select.js';
-import type { SbbTimeInputElement } from '../../time-input.js';
 
 import style from './form-field.scss?lit&inline';
 
@@ -90,9 +89,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     'input',
     'select',
     'textarea',
-    'sbb-date-input',
     'sbb-select',
-    'sbb-time-input',
   ];
 
   private readonly _floatingLabelSupportedInputTypes = [
@@ -469,7 +466,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.toggleState(
       'empty',
       this._control?.empty ??
-        (this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
+        (((this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) ||
+          (this._input?.constructor as undefined | typeof SbbFormAssociatedInputMixinType)
+            ?.formFieldAssociated) ??
+          false) &&
           this._isInputEmpty()),
     );
   }
@@ -483,11 +483,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
           ? chipGroupElem.value.length === 0
           : !chipGroupElem.querySelector('sbb-chip'))
       );
-    } else if (
-      this._input instanceof HTMLInputElement ||
-      this._isTimeInput(this._input) ||
-      this._isDateInput(this._input)
-    ) {
+    } else if (this._input instanceof HTMLInputElement) {
       return (
         this._floatingLabelSupportedInputTypes.includes(this._input.type) &&
         this._isInputValueEmpty()
@@ -499,14 +495,6 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     } else {
       return this._isInputValueEmpty();
     }
-  }
-
-  private _isTimeInput(e: HTMLElement | null): e is SbbTimeInputElement {
-    return e?.localName === 'sbb-time-input';
-  }
-
-  private _isDateInput(e: HTMLElement | null): e is SbbDateInputElement {
-    return e?.localName === 'sbb-date-input';
   }
 
   private _isInputValueEmpty(): boolean {
