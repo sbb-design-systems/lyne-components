@@ -19,6 +19,7 @@ import {
   appendAriaElements,
   removeAriaElements,
   SbbElementInternalsMixin,
+  type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
@@ -87,8 +88,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private readonly _floatingLabelSupportedInputElements = [
     'input',
     'select',
-    'sbb-select',
     'textarea',
+    'sbb-select',
   ];
 
   private readonly _floatingLabelSupportedInputTypes = [
@@ -465,7 +466,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.toggleState(
       'empty',
       this._control?.empty ??
-        (this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
+        (((this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) ||
+          (this._input?.constructor as undefined | typeof SbbFormAssociatedInputMixinType)
+            ?.formFieldAssociated) ??
+          false) &&
           this._isInputEmpty()),
     );
   }
