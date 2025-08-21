@@ -50,7 +50,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /** The seat reservation area is aligned vertically */
   @forceType()
-  @property({ attribute: 'align-vertical', type: Boolean })
+  @property({ attribute: 'align-vertical', type: Boolean, reflect: true, useDefault: true })
   public accessor alignVertical: boolean = false;
 
   /** The seat reservation area's base grid size */
