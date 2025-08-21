@@ -53,7 +53,7 @@
   }
 }
 
-:host(:not(:state(nested))) {
+:host(:not(:state(nested), [state--nested])) {
   --sbb-menu-back-button-display: none;
 }
 
@@ -66,12 +66,28 @@
     --sbb-disable-animation-duration: 0ms;
   }
 
-  :host(:state(nested-child)) {
+  :host(:is(:state(nested-child), [state--nested-child])) {
     --sbb-menu-transform-x: translateX(-100%);
+  }
+
+  :host(:is(:state(nested), [state--nested])[data-state]:not([data-state='closed'])) {
+    --sbb-menu-open-animation-name: open-sideways;
+  }
+
+  :host(
+    [data-state][data-state='closing']:is(:state(nested), [state--nested]):not(
+        :state(close-vertically),
+        [state--close-vertically]
+      )
+  ) {
+    // TODO: create variable and toggle here
+    transform: var(--sbb-menu-transform-sideways);
+
+    --sbb-menu-close-animation-name: close-sideways;
   }
 }
 
-:host(:state(nested))::backdrop {
+:host(:is(:state(nested), [state--nested]))::backdrop {
   display: none;
   pointer-events: none;
 }
@@ -161,18 +177,6 @@ sbb-divider,
   :host([data-state][data-state='closing']) & {
     pointer-events: none;
     animation-name: var(--sbb-menu-close-animation-name);
-  }
-
-  @include sbb.mq($to: medium) {
-    :host(:state(nested)[data-state]:not([data-state='closed'])) & {
-      --sbb-menu-open-animation-name: open-sideways;
-    }
-
-    :host([data-state][data-state='closing']:state(nested):not([data-close-vertically])) & {
-      transform: var(--sbb-menu-transform-sideways);
-
-      --sbb-menu-close-animation-name: close-sideways;
-    }
   }
 
   @include sbb.if-forced-colors {
