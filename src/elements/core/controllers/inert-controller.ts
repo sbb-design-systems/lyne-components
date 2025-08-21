@@ -71,7 +71,7 @@ export class SbbInertController implements ReactiveController {
     return this._inertOverlays.has(this._host);
   }
 
-  /** Temporarly removes all inert attributes from a given element. */
+  /** Temporarily removes all inert attributes from a given element. */
   public exempt(element: HTMLElement): void {
     if (this._inertElements.has(element) && !this._exemptedElements.has(element)) {
       this._removeInertAttributes(element);
