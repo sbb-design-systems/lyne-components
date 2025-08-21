@@ -23,62 +23,24 @@ const state: InputType = {
   options: ['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'],
 };
 
-const width: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const height: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const rotation: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const graphicRotation: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
 const text: InputType = {
   control: {
     type: undefined,
   },
 };
 
-const textRotation: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   type,
   state,
-  width,
-  height,
-  rotation,
-  'graphic-rotation': graphicRotation,
   text,
-  'text-rotation': textRotation,
 };
 
 const defaultArgs: Args = {
   type: 'SEAT',
   state: 'FREE',
-  width: 32,
-  height: 32,
-  rotation: 0,
-  'graphic-rotation': 0,
   text: '',
-  'text-rotation': 0,
+  style:
+    '--sbb-seat-reservation-place-control-text-scale-value: 32;--sbb-seat-reservation-place-control-width: 32;--sbb-seat-reservation-place-control-height: 32;--sbb-seat-reservation-place-control-rotation: 0; --sbb-seat-reservation-place-control-text-rotation: 0;',
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -106,8 +68,9 @@ export const placeSeatFreeRotation90TextRotationMinus90: StoryObj = {
     text: '123',
     type: 'SEAT',
     state: 'FREE',
-    rotation: 90,
-    'text-rotation': -90,
+    style: defaultArgs.style.concat(
+      '--sbb-seat-reservation-place-control-rotation: 90; --sbb-seat-reservation-place-control-text-rotation:-90',
+    ),
   },
 };
 

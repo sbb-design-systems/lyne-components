@@ -1,18 +1,22 @@
-The `seat-reservation-graphic` is a component used for integrating and displaying the available SVG graphics based on the OSDM code. Dimensions and transformations can be defined through properties.
+The `seat-reservation-graphic` is a component used for integrating and displaying the available SVG graphics based on the OSDM code. Other properties such as dimension and rotation can be defined via style custom properties.
 
 ```html
 <seat-reservation-graphic></seat-reservation-graphic>
 ```
 
+## Style Custom Properties
+
+| Name                                      | Type       | Default | Description      |
+| ----------------------------------------- | ---------- | ------- | ---------------- |
+| `--sbb-seat-reservation-graphic-width`    | `<number>` | 16      | Graphic width    |
+| `--sbb-seat-reservation-graphic-height`   | `<number>` | 16      | Graphic height   |
+| `--sbb-seat-reservation-graphic-rotation` | `<number>` | 0       | Graphic rotation |
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name              | Attribute          | Privacy | Type      | Default | Description                                                                             |
-| ----------------- | ------------------ | ------- | --------- | ------- | --------------------------------------------------------------------------------------- |
-| `height`          | `height`           | public  | `number`  | `null!` | height of the svg in pixels (without unit)                                              |
-| `inverseRotation` | `inverse-roration` | public  | `number`  | `0`     | Inverse rotation for part of an SVG that can be rotated opposite to the normal rotation |
-| `name`            | `name`             | public  | `string`  | `''`    | Name of the SVG graphic to be displayed.                                                |
-| `rotation`        | `rotation`         | public  | `number`  | `0`     | handles the rotation of the SVG graphic                                                 |
-| `stretch`         | `stretch`          | public  | `boolean` | `false` | if true, scale the graphic content of the given element non-uniformly if necessary      |
-| `width`           | `width`            | public  | `number`  | `null!` | width of the svg in pixels (without unit)                                               |
+| Name      | Attribute | Privacy | Type      | Default | Description                                                                        |
+| --------- | --------- | ------- | --------- | ------- | ---------------------------------------------------------------------------------- |
+| `name`    | `name`    | public  | `string`  | `''`    | Name of the SVG graphic to be displayed.                                           |
+| `stretch` | `stretch` | public  | `boolean` | `false` | if true, scale the graphic content of the given element non-uniformly if necessary |

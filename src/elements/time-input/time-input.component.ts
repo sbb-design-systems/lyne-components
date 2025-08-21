@@ -10,7 +10,6 @@ import {
   i18nTimeMaxLength,
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
-import { SbbFormFieldControlEvent, type SbbFormFieldElementControl } from '../form-field.js';
 
 import style from './time-input.scss?lit&inline';
 
@@ -29,10 +28,7 @@ interface Time {
  */
 export
 @customElement('sbb-time-input')
-class SbbTimeInputElement
-  extends SbbFormAssociatedInputMixin(LitElement)
-  implements SbbFormFieldElementControl
-{
+class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -51,7 +47,6 @@ class SbbTimeInputElement
       value = this._formatTime();
     }
     super.value = value;
-    this._dispatchFormFieldChange();
   }
   public override get value(): string {
     return super.value ?? '';
@@ -86,7 +81,10 @@ class SbbTimeInputElement
   }
   private _valueAsTime?: Time | null;
 
-  /** Whether the input is empty. */
+  /**
+   * Whether the input is empty.
+   * @deprecated
+   */
   public get empty(): boolean {
     return !this.value || this.value.trim() === '';
   }
@@ -112,7 +110,6 @@ class SbbTimeInputElement
     super.connectedCallback();
     this.inputMode ||= 'numeric';
     this.placeholder ||= 'HH:MM';
-    this._dispatchFormFieldChange();
   }
 
   public override disconnectedCallback(): void {
@@ -239,11 +236,6 @@ class SbbTimeInputElement
   private _hasSelection(): boolean {
     const range = window.getSelection()?.getRangeAt(0);
     return !!range && range.startOffset !== range.endOffset;
-  }
-
-  private _dispatchFormFieldChange(): void {
-    /** @internal */
-    this.closest?.('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
   }
 }
 

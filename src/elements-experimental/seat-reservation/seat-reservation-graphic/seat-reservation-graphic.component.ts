@@ -1,6 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -29,49 +29,7 @@ class SbbSeatReservationGraphicElement extends LitElement {
   @property({ attribute: 'stretch', type: Boolean })
   public accessor stretch: boolean = false;
 
-  /** handles the rotation of the SVG graphic */
-  @forceType()
-  @property({ attribute: 'rotation', type: Number })
-  public accessor rotation: number = 0;
-
-  /** Inverse rotation for part of an SVG that can be rotated opposite to the normal rotation */
-  @forceType()
-  @property({ attribute: 'inverse-roration', type: Number })
-  public accessor inverseRotation: number = 0;
-
-  /** width of the svg in pixels (without unit) */
-  @forceType()
-  @property({ attribute: 'width', type: Number })
-  public accessor width: number = null!;
-
-  /** height of the svg in pixels (without unit) */
-  @forceType()
-  @property({ attribute: 'height', type: Number })
-  public accessor height: number = null!;
-
   private _language = new SbbLanguageController(this);
-
-  protected override willUpdate(_changedProperties: PropertyValues): void {
-    super.willUpdate(_changedProperties);
-    if (_changedProperties.has('width') && !!this.width) {
-      this.style?.setProperty('--sbb-seat-reservation-graphic-width', `${this.width}`);
-    }
-
-    if (_changedProperties.has('height') && !!this.height) {
-      this.style?.setProperty('--sbb-seat-reservation-graphic-height', `${this.height}`);
-    }
-
-    if (_changedProperties.has('rotation')) {
-      this.style?.setProperty('--sbb-seat-reservation-graphic-rotation', `${this.rotation}`);
-    }
-
-    if (_changedProperties.has('inverseRotation')) {
-      this.style?.setProperty(
-        '--sbb-seat-reservation-graphic-inverse-rotation',
-        `${this.inverseRotation}`,
-      );
-    }
-  }
 
   protected override render(): TemplateResult | null {
     const svgObj = mapIconToSvg[this.name];
