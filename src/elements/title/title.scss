@@ -1,33 +1,29 @@
 @use '../core/styles' as sbb;
 
-:host {
-  --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
-  --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
-
-  margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
-}
-
 :host([negative]) {
   @include sbb.title--negative;
 }
 
 :host(:where([level='1']:not([visual-level]), [visual-level='1'])) {
-  --sbb-title-margin-block-start: var(--sbb-spacing-responsive-l);
+  @include sbb.title--level-1-spacing;
 }
 
-:host(:where([level='2']:not([visual-level]), [visual-level='2'])),
+:host(:where([level='2']:not([visual-level]), [visual-level='2'])) {
+  @include sbb.title--level-2-spacing;
+}
+
 :host(:where([level='3']:not([visual-level]), [visual-level='3'])) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+  @include sbb.title--level-3-spacing;
 }
 
 :host(:where([level='4']:not([visual-level]), [visual-level='4'])) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+  @include sbb.title--level-4-spacing;
 }
 
 :host(:where([level='5']:not([visual-level]), [visual-level='5'])) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+  @include sbb.title--level-5-spacing;
 }
 
 :host(:where([level='6']:not([visual-level]), [visual-level='6'])) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+  @include sbb.title--level-6-spacing;
 }

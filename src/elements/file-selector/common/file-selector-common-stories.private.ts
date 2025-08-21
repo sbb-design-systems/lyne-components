@@ -98,7 +98,6 @@ export const fileSelectorDefaultArgTypes: ArgTypes = {
  * so it must be overridden before use.
  */
 export const fileSelectorDefaultArgs: Args = {
-  tag: 'TBD',
   size: size.options![0],
   disabled: false,
   multiple: false,

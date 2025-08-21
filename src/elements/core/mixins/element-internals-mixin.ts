@@ -195,7 +195,7 @@ if (!isServer) {
             if (value === null) {
               if (entry) {
                 delete entry.elements[type.name];
-                if (!Object.keys(entry).length) {
+                if (!Object.keys(entry.elements).length) {
                   storage.delete(host);
                 } else {
                   Object.values(entry.elements)
