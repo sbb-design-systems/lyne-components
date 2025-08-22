@@ -3,7 +3,6 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
@@ -28,7 +27,7 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
 
   /** If true, the service icons are displayed vertically */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
   private _language = new SbbLanguageController(this);
@@ -37,12 +36,7 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
     const serviceLabelDescription = this.propertyIds.length
       ? this._getServiceLabelDescription()
       : null;
-    return html` <div
-      class="${classMap({
-        'sbb-sr-navigation__signs': true,
-        'sbb-sr-navigation__signs--vertical': this.vertical,
-      })}"
-    >
+    return html` <div class="sbb-sr-navigation__signs">
       <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
         >${serviceLabelDescription}</sbb-screen-reader-only
       >
