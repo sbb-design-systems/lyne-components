@@ -111,8 +111,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
   private _inertController = new SbbInertController(this, undefined, undefined);
+  private _mobileBreakpoint = SbbMediaQueryBreakpointSmallAndBelow;
   private _mediaMatcher = new SbbMediaMatcherController(this, {
-    [SbbMediaQueryBreakpointSmallAndBelow]: (matches) => {
+    [this._mobileBreakpoint]: (matches) => {
       if (matches && (this.state === 'opening' || this.state === 'opened')) {
         this._scrollHandler.disableScroll();
       } else {
@@ -195,7 +196,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
     // From zero to medium, disable scroll
-    if (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow)) {
+    if (this._isMobile()) {
       this._scrollHandler.disableScroll();
     }
 
@@ -507,7 +508,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     event.stopPropagation();
 
     const element = event.target as HTMLElement;
-    const isMobile = this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow);
+    const isMobile = this._isMobile();
 
     // All nested menus should close in desktop mode if the cursor landed on
     // anything other than the container, the container's scrollbar or the trigger itself
@@ -546,12 +547,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
     // Starting from breakpoint medium
-    if (
-      (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow) ?? true) ||
-      !this._menu ||
-      !this._triggerElement ||
-      this.state === 'closing'
-    ) {
+    if (this._isMobile() || !this._menu || !this._triggerElement || this.state === 'closing') {
       return;
     }
 
@@ -581,6 +577,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _parentMenu(): SbbMenuElement | null {
     return this._triggerElement?.closest('sbb-menu') ?? null;
+  }
+
+  private _isMobile(): boolean {
+    return this._mediaMatcher.matches(this._mobileBreakpoint) ?? true;
   }
 
   protected override render(): TemplateResult {
