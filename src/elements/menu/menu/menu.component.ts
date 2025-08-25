@@ -223,8 +223,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      this._parentMenu()?.toggleAttribute('data-skip-animation', closeAll);
-
+      this._parentMenu()?.toggleState('skip-animation', closeAll);
       this.toggleState('close-all', closeAll);
       this.nestedList = null;
     }
@@ -237,18 +236,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     if (this._isZeroAnimationDuration()) {
       this._handleClosing();
     }
-  }
-  /** Converts the linked list into an array of SbbMenuElements */
-  private _nestedMenusArray(): SbbMenuElement[] {
-    const array: SbbMenuElement[] = [];
-    let cursor = this.nestedList?.nestedMenu;
-
-    while (cursor) {
-      array.push(cursor?.menu);
-      cursor = cursor.nestedMenu;
-    }
-
-    return array;
   }
 
   private _isZeroAnimationDuration(): boolean {
@@ -270,7 +257,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.toggleAttribute('data-skip-animation', false);
+    this.toggleState('skip-animation', false);
     this.hidePopover?.();
 
     this._menu?.firstElementChild?.scrollTo(0, 0);
@@ -502,6 +489,19 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       this.close(true);
     }
   };
+
+  /** Converts the linked list into an array of SbbMenuElements */
+  private _nestedMenusArray(): SbbMenuElement[] {
+    const array: SbbMenuElement[] = [];
+    let cursor = this.nestedList?.nestedMenu;
+
+    while (cursor) {
+      array.push(cursor?.menu);
+      cursor = cursor.nestedMenu;
+    }
+
+    return array;
+  }
 
   private _isNested(): boolean {
     // TODO: check if commented check can be re-used in Safari.
