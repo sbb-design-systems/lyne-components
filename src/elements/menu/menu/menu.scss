@@ -61,7 +61,7 @@
 
 @include sbb.mq($to: medium) {
   :host([data-skip-animation]) {
-    --sbb-disable-animation-duration: 0ms;
+    --sbb-menu-animation-duration: 0ms;
   }
 
   :host(:is(:state(nested-child), [state--nested-child])) {
@@ -120,16 +120,14 @@ sbb-divider,
     inset: var(--sbb-menu-inset);
     height: var(--sbb-menu-container-height);
     background-color: var(--sbb-menu-backdrop-color);
-
     transition: {
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
       property: background-color, visibility;
     }
-  }
 
-  :host(:state(nested)) & {
-    &::before {
+    // Hide the backdrop when in nested state
+    :host(:is(:state(nested), [state--nested])) & {
       content: none;
       display: none;
     }
