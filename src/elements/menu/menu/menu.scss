@@ -60,7 +60,7 @@
 }
 
 @include sbb.mq($to: medium) {
-  :host([data-skip-animation]) {
+  :host(:is(:state(skip-animation), [state--skip-animation])) {
     --sbb-menu-animation-duration: 0ms;
   }
 
