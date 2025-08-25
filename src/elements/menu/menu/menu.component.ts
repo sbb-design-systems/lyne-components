@@ -127,7 +127,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    *
    * @internal */
   public get mainMenu(): SbbMenuElement {
-    return this._isNested() ? (this._triggerElement?.closest('sbb-menu')?.mainMenu ?? this) : this;
+    return this._isNested() ? (this._parentMenu()?.mainMenu ?? this) : this;
   }
 
   /**
@@ -144,7 +144,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      const parentMenu = this._triggerElement?.closest('sbb-menu');
+      const parentMenu = this._parentMenu();
       if (parentMenu) {
         parentMenu.nestedList = { menu: parentMenu, nestedMenu: list };
       }
@@ -224,7 +224,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      this._triggerElement?.closest('sbb-menu')?.toggleAttribute('data-skip-animation', closeAll);
+      this._parentMenu()?.toggleAttribute('data-skip-animation', closeAll);
 
       this.toggleState('close-all', closeAll);
       this.nestedList = undefined;
@@ -574,6 +574,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
     this.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
     this.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
+  }
+
+  private _parentMenu(): SbbMenuElement | null {
+    return this._triggerElement?.closest('sbb-menu') ?? null;
   }
 
   protected override render(): TemplateResult {
