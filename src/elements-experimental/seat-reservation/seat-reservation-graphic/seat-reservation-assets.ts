@@ -249,14 +249,14 @@ const chassisTable = html`
           <td>DRIVER_AREA</td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('DRIVER_AREA_FULL_TRAIN')}</td>
+          <td>${svgImageByOSDMCode('DRIVER_AREA_TRAIN')}</td>
           <td>Driver: Train</td>
-          <td>DRIVER_AREA_FULL_TRAIN</td>
+          <td>DRIVER_AREA_TRAIN</td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('DRIVER_AREA_FULL_BUS')}</td>
+          <td>${svgImageByOSDMCode('DRIVER_AREA_BUS')}</td>
           <td>Driver: Bus</td>
-          <td>DRIVER_AREA_FULL_BUS</td>
+          <td>DRIVER_AREA_BUS</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_HIGH')}</td>

@@ -14,20 +14,16 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
   </sbb-screen-reader-only>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
-    height="20"
     name="BICYCLE"
-    style="--sbb-seat-reservation-graphic-width: 20; --sbb-seat-reservation-graphic-height: 20; --sbb-seat-reservation-graphic-rotation: 0; --sbb-seat-reservation-graphic-inverse-rotation: 0;"
+    style="--sbb-seat-reservation-graphic-width:20;--sbb-seat-reservation-graphic-height:20;"
     title="Bike area"
-    width="20"
   >
   </sbb-seat-reservation-graphic>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
-    height="20"
     name="SILENCE"
-    style="--sbb-seat-reservation-graphic-width: 20; --sbb-seat-reservation-graphic-height: 20; --sbb-seat-reservation-graphic-rotation: 0; --sbb-seat-reservation-graphic-inverse-rotation: 0;"
+    style="--sbb-seat-reservation-graphic-width:20;--sbb-seat-reservation-graphic-height:20;"
     title="Quiet zone"
-    width="20"
   >
   </sbb-seat-reservation-graphic>
 </div>

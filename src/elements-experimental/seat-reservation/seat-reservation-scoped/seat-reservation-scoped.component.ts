@@ -13,7 +13,7 @@ class SbbSeatReservationScopedElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
-    return html`<div class="scoped-element"><slot></slot></div>`;
+    return html`<slot></slot>`;
   }
 }
 

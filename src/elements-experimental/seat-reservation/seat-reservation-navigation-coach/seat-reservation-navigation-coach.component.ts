@@ -82,7 +82,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   /** If the coach navigation should be displayed vertically */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
   private _language = new SbbLanguageController(this);
@@ -128,7 +128,6 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           'sbb-sr-navigation__item-coach': true,
           'last-coach': this.last,
           'first-coach': this.first,
-          'vertical-coach': this.vertical,
           'sbb-sr-navigation__item-coach--selected': this.selected,
         })}"
       >

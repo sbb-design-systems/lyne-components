@@ -3,6 +3,7 @@ import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 import type { PlaceSelection, PlaceState, PlaceType } from '../common.js';
@@ -36,30 +37,10 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ attribute: 'propertyIds', type: Array })
   public accessor propertyIds: string[] = [];
 
-  /** rotation in degrees (without unit) */
-  @forceType()
-  @property({ attribute: 'rotation', type: Number })
-  public accessor rotation: number = 0;
-
-  /** width of the place in pixels (without unit) */
-  @forceType()
-  @property({ attribute: 'width', type: Number })
-  public accessor width: number = 32;
-
-  /** height of the place in pixels (without unit) */
-  @forceType()
-  @property({ attribute: 'height', type: Number })
-  public accessor height: number = 32;
-
   /** label of the place, e.g. '1A', '2B' */
   @forceType()
   @property({ attribute: 'text' })
   public accessor text: string = '';
-
-  /** Rotation of the text in degrees (without unit) */
-  @forceType()
-  @property({ attribute: 'text-rotation' })
-  public accessor textRotation: number = 0;
 
   /** Deck Index Prop to identifier the right place to deck */
   @forceType()
@@ -91,24 +72,6 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('width') || changedProperties.has('height')) {
-      this.style?.setProperty(
-        '--sbb-place-control-text-scale-value',
-        `${Math.min(this.width, this.height)}`,
-      );
-    }
-
-    if (changedProperties.has('textRotation')) {
-      this.style?.setProperty(
-        '--sbb-seat-reservation-place-control-text-rotation',
-        `${this.textRotation}`,
-      );
-    }
-
-    if (changedProperties.has('rotation')) {
-      this.style?.setProperty('--sbb-seat-reservation-place-control-rotation', `${this.rotation}`);
-    }
-
     if (changedProperties.has('keyfocus')) {
       if (this.keyfocus === 'focus') {
         this.focus();
@@ -121,9 +84,13 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     const type: string = this.type.toLowerCase();
     const state: string = this.state.toLowerCase();
     const text: string | null = this.text;
-    const width: number = this.width;
-    const height: number = this.height;
-    const inverseRotationPlaceCheckIcon = this.textRotation - this.rotation;
+    const width = this.style?.getPropertyValue('--sbb-seat-reservation-place-control-width');
+    const height = this.style?.getPropertyValue('--sbb-seat-reservation-place-control-height');
+    const rotation = this.style?.getPropertyValue('--sbb-seat-reservation-place-control-rotation');
+    const textRotation = this.style?.getPropertyValue(
+      '--sbb-seat-reservation-place-control-text-rotation',
+    );
+    const inverseRotationPlaceCheckIcon = Number(textRotation) - Number(rotation);
     const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
 
     this.title = this._getTitleDescriptionPlace();
@@ -132,15 +99,16 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     return html`
       <div
         part="sbb-sr-place-part"
-        class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${this
-          .rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
+        class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
       >
         <sbb-seat-reservation-graphic
+          style=${styleMap({
+            '--sbb-seat-reservation-graphic-width': width,
+            '--sbb-seat-reservation-graphic-height': height,
+            '--sbb-seat-reservation-graphic-rotation': rotation,
+            '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
+          })}
           .name=${name}
-          .width=${width}
-          .height=${height}
-          .rotation=${this.rotation}
-          .inverseRotation=${inverseRotationPlaceCheckIcon}
           aria-hidden="true"
         ></sbb-seat-reservation-graphic>
         <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
