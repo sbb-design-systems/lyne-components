@@ -92,7 +92,11 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
         `,
       )}
     </sbb-carousel-list>
-    <sbb-compact-paginator></sbb-compact-paginator>
+    <sbb-compact-paginator
+      accessibility-page-label="Slide"
+      accessibility-previous-page-label="Previous slide"
+      accessibility-next-page-label="Next slide"
+    ></sbb-compact-paginator>
   </sbb-carousel>
   ${imgType === 'native-mobile'
     ? html` <div style=${styleMap(textBlockStyle)}>

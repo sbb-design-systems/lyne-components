@@ -18,7 +18,11 @@ and a [sbb-compact-paginator](/docs/elements-sbb-paginator-sbb-compact-paginator
       <img src="../img-3.jpg" alt="SBB image" height="300" width="400" />
     </sbb-carousel-item>
   </sbb-carousel-list>
-  <sbb-compact-paginator></sbb-compact-paginator>
+  <sbb-compact-paginator
+    accessibility-page-label="Slide"
+    accessibility-previous-page-label="Previous slide"
+    accessibility-next-page-label="Next slide"
+  ></sbb-compact-paginator>
 </sbb-carousel>
 ```
 
@@ -36,6 +40,9 @@ No interaction or keyboard interaction is provided, except from the usage of the
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
 the component has `role="region"` and `aria-label="carousel"`.
+
+It's strongly recommended to set the values of the `accessibilityPageLabel`, `accessibilityPreviousPageLabel` and
+`accessibilityNextPageLabel` properties on the paginator based on the projected content (e.g. using the 'slide' keyword).
 
 <!-- Auto Generated Below -->
 
