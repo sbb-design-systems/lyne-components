@@ -306,17 +306,13 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         if (this._isNested()) {
           this.close();
           evt.stopPropagation();
-          break;
         }
-        nextIndex = getNextElementIndex(evt, current, enabledActions.length);
         break;
 
       case 'ArrowRight':
         if ((evt.target as HTMLElement).hasAttribute('data-sbb-menu-trigger')) {
           (evt.target as HTMLElement).click();
-          break;
         }
-        nextIndex = getNextElementIndex(evt, current, enabledActions.length);
         break;
 
       case 'PageUp':
@@ -328,10 +324,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       case 'PageDown':
         nextIndex = enabledActions.length - 1;
         break;
-
-      // this should never happen since all the case allowed by `isArrowKeyOrPageKeysPressed` should be covered
-      default:
-        nextIndex = 0;
     }
 
     if (nextIndex !== undefined) {
