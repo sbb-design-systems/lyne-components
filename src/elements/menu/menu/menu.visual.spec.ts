@@ -118,9 +118,9 @@ describe(`sbb-menu`, () => {
             <sbb-menu trigger="menu-trigger-1">
               <sbb-menu-button icon-name="link-small">First level menu</sbb-menu-button>
               <sbb-menu-button icon-name="pen-small">First level menu</sbb-menu-button>
-              <sbb-menu-button icon-name="swisspass-small" id="menu-trigger-2"
-                >First level menu</sbb-menu-button
-              >
+              <sbb-menu-button icon-name="swisspass-small" id="menu-trigger-2">
+                First level menu
+              </sbb-menu-button>
               <sbb-menu-button icon-name="cross-small">First level menu</sbb-menu-button>
             </sbb-menu>
             <sbb-menu trigger="menu-trigger-2">

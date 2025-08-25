@@ -69,7 +69,8 @@ to identify which actions are active and which are not.
 
 It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
-If the trigger element for a nested menu is focused <kbd>ArrowRight</kbd> will open and focus the submenu; if the focus is currently on a nested menu <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.
+If the trigger element for a nested menu is focused <kbd>ArrowRight</kbd> will open and focus the submenu;
+if the focus is currently on a nested menu <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.
 
 ### Controlling initial focus
 

@@ -163,8 +163,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
 
     // TODO: check if it has to be unsubscribed
     this._menu.addEventListener?.('mouseover', (e) => this._handleMouseOver(e));
@@ -405,15 +405,16 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
-    this._triggerElement.toggleAttribute('data-sbb-menu-trigger', true);
     this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
     });
 
-    if (this.listChildLocalNames.includes(this._triggerElement.localName)) {
+    // Consider the menu as nested if the trigger is a menu button or menu link.
+    if (['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName)) {
       this.toggleState('nested', true);
     }
+    this._triggerElement.toggleAttribute('data-sbb-menu-trigger', true);
   }
 
   private _attachWindowEvents(): void {
