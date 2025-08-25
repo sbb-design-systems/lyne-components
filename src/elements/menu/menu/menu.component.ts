@@ -186,7 +186,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      this.toggleState('close-vertically', false);
+      this.toggleState('close-all', false);
       this.nestedList = { menu: this };
     }
 
@@ -224,11 +224,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      // toggleState();
       this._triggerElement?.closest('sbb-menu')?.toggleAttribute('data-skip-animation', closeAll);
 
-      // TODO close all renaming
-      this.toggleState('close-vertically', closeAll);
+      this.toggleState('close-all', closeAll);
       this.nestedList = undefined;
     }
 

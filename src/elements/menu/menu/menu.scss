@@ -74,8 +74,8 @@
 
   :host(
     [data-state][data-state='closing']:is(:state(nested), [state--nested]):not(
-        :state(close-vertically),
-        [state--close-vertically]
+        :state(close-all),
+        [state--close-all]
       )
   ) {
     --sbb-menu-close-animation-name: close-sideways;
