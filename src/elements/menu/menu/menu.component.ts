@@ -124,9 +124,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
    *
    * @internal */
   public get mainMenu(): SbbMenuElement {
-    return this._isNested()
-      ? (this._triggerElement?.parentElement as SbbMenuElement).mainMenu
-      : this;
+    return this._isNested() ? (this._triggerElement?.closest('sbb-menu')?.mainMenu ?? this) : this;
   }
 
   /**
@@ -143,8 +141,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      const parentElement = this._triggerElement?.parentElement as SbbMenuElement;
-      parentElement.nestedList = { menu: parentElement, nestedMenu: list };
+      const parentMenu = this._triggerElement?.closest('sbb-menu');
+      if (parentMenu) {
+        parentMenu.nestedList = { menu: parentMenu, nestedMenu: list };
+      }
     } else {
       this._handleNestedMenus(list?.nestedMenu);
     }
@@ -431,7 +431,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     });
 
     if (this.listChildLocalNames.includes(this._triggerElement.localName)) {
-      this.internals.states.add('nested');
+      this.toggleState('nested', true);
     }
   }
 
@@ -495,7 +495,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   };
 
   private _isNested(): boolean {
-    return this.internals.states.has('nested');
+    return this.matches(':is(:state(nested), [state--nested])');
   }
 
   // Check if nested menu should be closed.

@@ -17,10 +17,8 @@
   );
   --sbb-menu-animation-easing: ease;
   --sbb-menu-background-color: var(--sbb-color-black);
-  --sbb-menu-transform: translateY(100%);
-  --sbb-menu-transform-x: translateX(0%);
-  --sbb-menu-transform-sideways: translateX(100%);
-  --sbb-menu-transform-sideways-target: translateX(0%);
+  --sbb-menu-transform-y: 100%;
+  --sbb-menu-transform-x: 0%;
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
   --sbb-menu-inset: 0 auto auto 0;
@@ -37,7 +35,7 @@
   --sbb-menu-backdrop-color: transparent;
 
   @include sbb.mq($from: medium) {
-    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+    --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
     --sbb-menu-back-button-display: none;
@@ -67,7 +65,7 @@
   }
 
   :host(:is(:state(nested-child), [state--nested-child])) {
-    --sbb-menu-transform-x: translateX(-100%);
+    --sbb-menu-transform-x: -100%;
   }
 
   :host(:is(:state(nested), [state--nested])[data-state]:not([data-state='closed'])) {
@@ -80,9 +78,6 @@
         [state--close-vertically]
       )
   ) {
-    // TODO: create variable and toggle here
-    transform: var(--sbb-menu-transform-sideways);
-
     --sbb-menu-close-animation-name: close-sideways;
   }
 }
@@ -159,8 +154,8 @@ sbb-divider,
   background-color: var(--sbb-menu-background-color);
   padding: 0;
   overflow: hidden;
-  transform: var(--sbb-menu-transform-x);
-  transition: transform var(--sbb-menu-animation-duration);
+  translate: var(--sbb-menu-transform-x) 0;
+  transition: translate var(--sbb-menu-animation-duration);
 
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
@@ -238,43 +233,43 @@ sbb-divider,
 @keyframes open {
   from {
     opacity: 0;
-    transform: var(--sbb-menu-transform);
+    translate: 0 var(--sbb-menu-transform-y);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0 0;
   }
 
   to {
     opacity: 0;
-    transform: var(--sbb-menu-transform);
+    translate: 0 var(--sbb-menu-transform-y);
   }
 }
 
 @keyframes open-sideways {
   from {
-    transform: var(--sbb-menu-transform-sideways);
+    translate: 100% 0;
   }
 
   to {
-    transform: var(--sbb-menu-transform-sideways-target);
+    translate: 0 0;
   }
 }
 
 @keyframes close-sideways {
   from {
-    transform: var(--sbb-menu-transform-sideways-target);
+    translate: 0 0;
   }
 
   to {
-    transform: var(--sbb-menu-transform-sideways);
+    translate: 100% 0;
   }
 }
