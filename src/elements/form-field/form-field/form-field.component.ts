@@ -19,6 +19,7 @@ import {
   appendAriaElements,
   removeAriaElements,
   SbbElementInternalsMixin,
+  type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
@@ -35,7 +36,7 @@ const nativeInputElements = ['input', 'textarea', 'select'];
 
 /** An interface which allows a control to work inside of a `SbbFormField`. */
 export interface SbbFormFieldElementControl {
-  /** The id of the form field. */
+  /** The id of the form field control. */
   readonly id: string;
   /** Whether the control is empty. */
   readonly empty: boolean;
@@ -44,8 +45,11 @@ export interface SbbFormFieldElementControl {
   /** Whether the control is disabled. */
   readonly disabled: boolean;
 
-  /** Handles a click on the control's container. */
-  onContainerClick(event: MouseEvent): void;
+  /**
+   * Handles a click on the control's container.
+   * If not implemented, focus() of the element is called.
+   */
+  onContainerClick?(event: MouseEvent): void;
 }
 
 export class SbbFormFieldControlEvent extends Event {
@@ -84,10 +88,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private readonly _floatingLabelSupportedInputElements = [
     'input',
     'select',
-    'sbb-date-input',
-    'sbb-time-input',
-    'sbb-select',
     'textarea',
+    'sbb-select',
   ];
 
   private readonly _floatingLabelSupportedInputTypes = [
@@ -464,7 +466,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.toggleState(
       'empty',
       this._control?.empty ??
-        (this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
+        (((this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) ||
+          (this._input?.constructor as undefined | typeof SbbFormAssociatedInputMixinType)
+            ?.formFieldAssociated) ??
+          false) &&
           this._isInputEmpty()),
     );
   }

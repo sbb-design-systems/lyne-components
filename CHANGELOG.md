@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.1...v3.3.2) (2025-08-12)
+
+
+### Documentation
+
+* improve language of GETTING_STARTED.md ([2d7c11a](https://github.com/sbb-design-systems/lyne-components/commit/2d7c11acc9b1a3766e0505dc78c8c779fa0967a5))
+
+## [3.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.0...v3.3.1) (2025-08-12)
+
+
+### Bug Fixes
+
+* **sbb-toggle-check, sbb-checkbox-panel**: handle the 'data-checked' attribute synchronously ([#3947](https://github.com/sbb-design-systems/lyne-components/issues/3947)) ([9151c71](https://github.com/sbb-design-systems/lyne-components/commit/9151c71a1c1d7fe973af08428dd289b223b01969))
+* fix disabled state handling of form elements ([#3958](https://github.com/sbb-design-systems/lyne-components/issues/3958)) ([e76b434](https://github.com/sbb-design-systems/lyne-components/commit/e76b4343b601691d303f069b50724ed9168c3263))
+* handle empty elements in element internals polyfill ([#3954](https://github.com/sbb-design-systems/lyne-components/issues/3954)) ([6f8f2e2](https://github.com/sbb-design-systems/lyne-components/commit/6f8f2e2e81ed77fca2e2c6b81184f8350c753529)), closes [#3953](https://github.com/sbb-design-systems/lyne-components/issues/3953)
+* **sbb-autocomplete, sbb-autocomplete-grid:** only opening on lazy options if count was 0 ([#3955](https://github.com/sbb-design-systems/lyne-components/issues/3955)) ([8ad6731](https://github.com/sbb-design-systems/lyne-components/commit/8ad6731ff30d0733eb3ea89b73e69c499b815f15))
+* **sbb-autocomplete:** update active option if autoActiveFirstOption is enabled and options change ([#3943](https://github.com/sbb-design-systems/lyne-components/issues/3943)) ([9ce8690](https://github.com/sbb-design-systems/lyne-components/commit/9ce8690df1fa5f467c94545d05461af3cbc2c510)), closes [#3940](https://github.com/sbb-design-systems/lyne-components/issues/3940)
+* **sbb-date-input, sbb-time-input:** handle empty state and floating label ([#3956](https://github.com/sbb-design-systems/lyne-components/issues/3956)) ([16b5ad4](https://github.com/sbb-design-systems/lyne-components/commit/16b5ad425c7d5721ac611719b6ded92a59e62b97)), closes [#3951](https://github.com/sbb-design-systems/lyne-components/issues/3951)
+* **sbb-header-button, sbb-header-link:** hide slot if text is not provided ([#3949](https://github.com/sbb-design-systems/lyne-components/issues/3949)) ([a9c8f0c](https://github.com/sbb-design-systems/lyne-components/commit/a9c8f0ced55de552e933fcbe2f8034acf238030b))
+
 ## [3.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.2.0...v3.3.0) (2025-08-04)
 
 

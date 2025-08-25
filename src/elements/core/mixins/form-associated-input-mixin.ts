@@ -26,6 +26,8 @@ import { SbbRequiredMixin } from './required-mixin.js';
 export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequiredMixin(
   SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
 ) {
+  public static readonly formFieldAssociated = true;
+
   public set value(value: string);
   public get value(): string;
 
@@ -82,6 +84,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     implements Partial<SbbFormAssociatedInputMixinType>
   {
     public static override readonly role = 'textbox';
+    public static readonly formFieldAssociated = true;
 
     /**
      * An element with contenteditable will not emit a change event. To achieve parity
@@ -116,6 +119,8 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       if (this.hasUpdated) {
         this.innerHTML = this._value;
       }
+      /** @internal */
+      this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
     }
     public get value(): string {
       return this._value ?? '';

@@ -177,6 +177,10 @@
   @include sbb.ellipsis;
 
   display: block;
+
+  :host(:not([data-slot-names~='unnamed'])) & {
+    display: none;
+  }
 }
 
 // TODO: reevaluate this once 'CSS container queries' is supported
