@@ -64,7 +64,7 @@ let nextId = 0;
  */
 interface SbbNestedMenu {
   menu: SbbMenuElement;
-  nestedMenu?: SbbNestedMenu;
+  nestedMenu: SbbNestedMenu | null;
 }
 
 /**
@@ -132,9 +132,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   /**
    * The data structure containing all nested sbb-menus.
-   *
-   * @internal */
-  public set nestedList(list: SbbNestedMenu | undefined) {
+   * @internal
+   */
+  public set nestedList(list: SbbNestedMenu | null) {
     this._nestedList = list;
 
     if (list?.nestedMenu) {
@@ -149,15 +149,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         parentMenu.nestedList = { menu: parentMenu, nestedMenu: list };
       }
     } else {
-      this._handleNestedMenus();
+      this._inertController.restoreAllExempted();
+      this._nestedMenusArray().forEach((menu) => this._inertController.exempt(menu));
     }
   }
-
-  public get nestedList(): SbbNestedMenu | undefined {
+  public get nestedList(): SbbNestedMenu | null {
     return this._nestedList;
   }
-
-  private _nestedList?: SbbNestedMenu;
+  private _nestedList: SbbNestedMenu | null = null;
 
   public constructor() {
     super();
@@ -187,7 +186,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     if (this._isNested()) {
       this.toggleState('close-all', false);
-      this.nestedList = { menu: this };
+      this.nestedList = { menu: this, nestedMenu: null };
     }
 
     this.showPopover?.();
@@ -227,7 +226,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       this._parentMenu()?.toggleAttribute('data-skip-animation', closeAll);
 
       this.toggleState('close-all', closeAll);
-      this.nestedList = undefined;
+      this.nestedList = null;
     }
 
     this.state = 'closing';
@@ -239,13 +238,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       this._handleClosing();
     }
   }
-
-  private _handleNestedMenus(): void {
-    this._inertController.restoreAllExempted();
-
-    this._nestedMenusArray().forEach((menu) => this._inertController.exempt(menu));
-  }
-
   /** Converts the linked list into an array of SbbMenuElements */
   private _nestedMenusArray(): SbbMenuElement[] {
     const array: SbbMenuElement[] = [];
