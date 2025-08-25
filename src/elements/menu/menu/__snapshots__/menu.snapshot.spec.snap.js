@@ -79,7 +79,7 @@ snapshots["sbb-menu renders Shadow DOM"] =
         id="sbb-menu__back-button"
         tabindex="0"
       >
-        Back
+        Go back
       </sbb-menu-button>
     </div>
   </div>
@@ -176,7 +176,7 @@ snapshots["sbb-menu renders with list Shadow DOM"] =
         id="sbb-menu__back-button"
         tabindex="0"
       >
-        Back
+        Go back
       </sbb-menu-button>
     </div>
   </div>
@@ -305,7 +305,7 @@ snapshots["sbb-menu renders open Shadow DOM"] =
         id="sbb-menu__back-button"
         tabindex="0"
       >
-        Back
+        Go back
       </sbb-menu-button>
     </div>
   </div>

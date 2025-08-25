@@ -19,12 +19,14 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
   SbbEscapableOverlayController,
   SbbInertController,
+  SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
+import { i18nGoBack } from '../../core/i18n/i18n.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
@@ -118,6 +120,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       }
     },
   });
+  private _language = new SbbLanguageController(this);
 
   /**
    * Returns the outermost menu.
@@ -598,7 +601,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
               @click=${() => this.close()}
               icon-name="chevron-small-left-small"
             >
-              // TODO: translations Back
+              ${i18nGoBack[this._language.current]}
             </sbb-menu-button>
           </div>
         </div>
