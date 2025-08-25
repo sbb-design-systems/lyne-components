@@ -60,14 +60,6 @@ const INTERACTIVE_ELEMENTS = [
 let nextId = 0;
 
 /**
- * Linked List data structure to store nested menus.
- */
-interface SbbNestedMenu {
-  menu: SbbMenuElement;
-  nestedMenu: SbbNestedMenu | null;
-}
-
-/**
  * It displays a contextual menu with one or more action element.
  *
  * @slot - Use the unnamed slot to add `sbb-menu-button`/`sbb-menu-link` or other elements to the menu.
@@ -122,7 +114,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     },
   });
   private _language = new SbbLanguageController(this);
-  private _nestedList: SbbNestedMenu | null = null;
+  private _nestedMenu: SbbMenuElement | null = null;
 
   public constructor() {
     super();
@@ -152,7 +144,15 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     if (this._isNested()) {
       this.toggleState('close-all', false);
-      this._setNestedList({ menu: this, nestedMenu: null });
+      const parentMenu = this._parentMenu()!;
+      parentMenu.toggleState('nested-child', true);
+
+      // In case we change between arrow key navigation and mouse navigation, it can be that another
+      // nested parent menu is still open. We have to close it.
+      if (parentMenu._nestedMenu !== this) {
+        parentMenu._nestedMenu?.close();
+      }
+      parentMenu._nestedMenu = this;
     }
 
     this.showPopover?.();
@@ -184,12 +184,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     // Close nested menus first
-    this._nestedList?.nestedMenu?.menu.close(closeAll);
+    this._nestedMenu?.close(closeAll);
 
     if (this._isNested()) {
-      this._parentMenu()?.toggleState('skip-animation', closeAll);
+      const parentMenu = this._parentMenu()!;
       this.toggleState('close-all', closeAll);
-      this._setNestedList(null);
+      parentMenu.toggleState('skip-animation', closeAll);
+      parentMenu.toggleState('nested-child', false);
+      parentMenu._nestedMenu = null;
     }
 
     this.state = 'closing';
@@ -211,6 +213,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     if (!this._isNested()) {
       this._inertController.activate();
+    } else {
+      this._updateNestedInert();
     }
     this._escapableOverlayController.connect();
     this._focusTrapController.focusInitialElement();
@@ -227,13 +231,15 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._menu?.firstElementChild?.scrollTo(0, 0);
     if (!this._isNested()) {
       this._inertController.deactivate();
+    } else {
+      this._updateNestedInert();
     }
     // Manually focus last focused element
     this._triggerElement?.focus({
       // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
-      preventScroll:
-        this._triggerElement.localName === 'sbb-header-button' ||
-        this._triggerElement.localName === 'sbb-header-link',
+      preventScroll: ['sbb-header-button', 'sbb-header-link'].includes(
+        this._triggerElement.localName,
+      ),
     });
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
@@ -447,40 +453,17 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   };
 
-  /**
-   * The data structure containing all nested sbb-menus.
-   */
-  private _setNestedList(list: SbbNestedMenu | null): void {
-    this._nestedList = list;
-
-    if (list?.nestedMenu) {
-      this.toggleState('nested-child', true);
-    } else {
-      this.toggleState('nested-child', false);
-    }
-
-    if (this._isNested()) {
-      const parentMenu = this._parentMenu();
-      if (parentMenu) {
-        parentMenu._setNestedList({ menu: parentMenu, nestedMenu: list });
-      }
-    } else {
-      this._inertController.restoreAllExempted();
-      this._nestedMenusArray().forEach((menu) => this._inertController.exempt(menu));
-    }
-  }
-
   /** Converts the linked list into an array of SbbMenuElements */
   private _nestedMenusArray(): SbbMenuElement[] {
-    const array: SbbMenuElement[] = [];
-    let cursor = this._nestedList?.nestedMenu;
+    const menus: SbbMenuElement[] = [];
+    let menu = this._nestedMenu;
 
-    while (cursor) {
-      array.push(cursor?.menu);
-      cursor = cursor.nestedMenu;
+    while (menu) {
+      menus.push(menu);
+      menu = menu._nestedMenu;
     }
 
-    return array;
+    return menus;
   }
 
   private _parentMenu(): SbbMenuElement | null {
@@ -493,9 +476,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   private _isNested(): boolean {
-    // TODO: check if commented check can be re-used in Safari.
-    // return this.internals.states.has('nested');
-    return this.matches(':is(:state(nested), [state--nested])');
+    return !!this._parentMenu();
+  }
+
+  private _updateNestedInert(): void {
+    this._inertController.restoreAllExempted();
+    this._mainMenu()
+      ._nestedMenusArray()
+      .forEach((menu) => this._inertController.exempt(menu));
   }
 
   // Check if nested menu should be closed.
@@ -509,11 +497,11 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     // anything other than the container, the container's scrollbar or the trigger itself
     if (
       !isMobile &&
-      this._nestedList?.nestedMenu &&
+      this._nestedMenu &&
       !element.classList.contains('sbb-menu__content') &&
       !(element.getAttribute('aria-expanded') === 'true')
     ) {
-      this._nestedList?.nestedMenu?.menu.close();
+      this._nestedMenu.close();
     }
 
     if (element.hasAttribute('data-sbb-menu-trigger') && !isMobile) {

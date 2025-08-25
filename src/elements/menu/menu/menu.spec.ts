@@ -112,13 +112,13 @@ describe(`sbb-menu`, () => {
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-1');
 
-    // Move down with right arrow; menu-action-2 is disabled, so the next focusable is menu-action-3
-    await sendKeys({ press: 'ArrowRight' });
+    // Move down with down arrow; menu-action-2 is disabled, so the next focusable is menu-action-3
+    await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-3');
 
-    // Move up with left arrow
-    await sendKeys({ press: 'ArrowLeft' });
+    // Move up with up arrow
+    await sendKeys({ press: 'ArrowUp' });
     await waitForLitRender(element);
     expect(document.activeElement!.id).to.be.equal('menu-action-1');
 
