@@ -122,41 +122,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     },
   });
   private _language = new SbbLanguageController(this);
-
-  /**
-   * Returns the outermost menu.
-   *
-   * @internal */
-  public get mainMenu(): SbbMenuElement {
-    return this._isNested() ? (this._parentMenu()?.mainMenu ?? this) : this;
-  }
-
-  /**
-   * The data structure containing all nested sbb-menus.
-   * @internal
-   */
-  public set nestedList(list: SbbNestedMenu | null) {
-    this._nestedList = list;
-
-    if (list?.nestedMenu) {
-      this.toggleState('nested-child', true);
-    } else {
-      this.toggleState('nested-child', false);
-    }
-
-    if (this._isNested()) {
-      const parentMenu = this._parentMenu();
-      if (parentMenu) {
-        parentMenu.nestedList = { menu: parentMenu, nestedMenu: list };
-      }
-    } else {
-      this._inertController.restoreAllExempted();
-      this._nestedMenusArray().forEach((menu) => this._inertController.exempt(menu));
-    }
-  }
-  public get nestedList(): SbbNestedMenu | null {
-    return this._nestedList;
-  }
   private _nestedList: SbbNestedMenu | null = null;
 
   public constructor() {
@@ -187,7 +152,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     if (this._isNested()) {
       this.toggleState('close-all', false);
-      this.nestedList = { menu: this, nestedMenu: null };
+      this._setNestedList({ menu: this, nestedMenu: null });
     }
 
     this.showPopover?.();
@@ -219,14 +184,12 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     // Close nested menus first
-    if (this.nestedList?.nestedMenu) {
-      this.nestedList?.nestedMenu.menu.close(closeAll);
-    }
+    this._nestedList?.nestedMenu?.menu.close(closeAll);
 
     if (this._isNested()) {
       this._parentMenu()?.toggleState('skip-animation', closeAll);
       this.toggleState('close-all', closeAll);
-      this.nestedList = null;
+      this._setNestedList(null);
     }
 
     this.state = 'closing';
@@ -454,7 +417,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       !target.hasAttribute('data-sbb-menu-trigger') &&
       target.id !== 'sbb-menu__back-button'
     ) {
-      this.mainMenu.close(true);
+      this._mainMenu().close(true);
     }
   }
 
@@ -484,10 +447,33 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   };
 
+  /**
+   * The data structure containing all nested sbb-menus.
+   */
+  private _setNestedList(list: SbbNestedMenu | null): void {
+    this._nestedList = list;
+
+    if (list?.nestedMenu) {
+      this.toggleState('nested-child', true);
+    } else {
+      this.toggleState('nested-child', false);
+    }
+
+    if (this._isNested()) {
+      const parentMenu = this._parentMenu();
+      if (parentMenu) {
+        parentMenu._setNestedList({ menu: parentMenu, nestedMenu: list });
+      }
+    } else {
+      this._inertController.restoreAllExempted();
+      this._nestedMenusArray().forEach((menu) => this._inertController.exempt(menu));
+    }
+  }
+
   /** Converts the linked list into an array of SbbMenuElements */
   private _nestedMenusArray(): SbbMenuElement[] {
     const array: SbbMenuElement[] = [];
-    let cursor = this.nestedList?.nestedMenu;
+    let cursor = this._nestedList?.nestedMenu;
 
     while (cursor) {
       array.push(cursor?.menu);
@@ -495,6 +481,15 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     return array;
+  }
+
+  private _parentMenu(): SbbMenuElement | null {
+    return this._triggerElement?.closest('sbb-menu') ?? null;
+  }
+
+  /** The outermost menu. */
+  private _mainMenu(): SbbMenuElement {
+    return this._isNested() ? (this._parentMenu()?._mainMenu() ?? this) : this;
   }
 
   private _isNested(): boolean {
@@ -518,7 +513,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       !element.classList.contains('sbb-menu__content') &&
       !(element.getAttribute('aria-expanded') === 'true')
     ) {
-      this.nestedList?.nestedMenu?.menu.close();
+      this._nestedList?.nestedMenu?.menu.close();
     }
 
     if (element.hasAttribute('data-sbb-menu-trigger') && !isMobile) {
@@ -573,10 +568,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
     this.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
     this.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
-  }
-
-  private _parentMenu(): SbbMenuElement | null {
-    return this._triggerElement?.closest('sbb-menu') ?? null;
   }
 
   private _isMobile(): boolean {
