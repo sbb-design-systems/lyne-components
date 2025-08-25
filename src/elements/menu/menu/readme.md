@@ -69,8 +69,8 @@ to identify which actions are active and which are not.
 
 It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
-If the trigger element for a nested menu is focused <kbd>ArrowRight</kbd> will open and focus the submenu;
-if the focus is currently on a nested menu <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.
+If the trigger element for a nested menu is focused, <kbd>ArrowRight</kbd> will open and focus the submenu;
+if the focus is currently on a nested menu, <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.
 
 ### Controlling initial focus
 
@@ -102,12 +102,11 @@ Disabled elements do not receive focus, and they can be problematic for screen r
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                         | Default | Description                                                                                                                       |
-| ------------------------ | -------------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                 | -                          | public  | `boolean`                    |         | Whether the element is open.                                                                                                      |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`                     | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
-| `nestedList`             | -                          | public  | `SbbNestedMenu \| undefined` |         |                                                                                                                                   |
-| `trigger`                | `trigger`                  | public  | `HTMLElement \| null`        | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
+| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                                                       |
+| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                                                      |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
 
 ## Methods
 
