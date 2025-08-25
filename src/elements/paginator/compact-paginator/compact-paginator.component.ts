@@ -2,10 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { i18nPage, i18nPaginatorOf } from '../../core/i18n.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
-import '../../divider.js';
 
 import style from './compact-paginator.scss?lit&inline';
+
+import '../../divider.js';
+import '../../screen-reader-only.js';
 
 /**
  * It displays a paginator component in compact mode.
@@ -20,15 +23,18 @@ class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
 
   private _renderPageNumbers(): TemplateResult {
     return html`
-      <span class="sbb-paginator__pages"
+      <span class="sbb-paginator__pages" aria-hidden="true"
         >${this.pageIndex + 1}<sbb-divider
-          aria-hidden="true"
           orientation="vertical"
           class="sbb-compact-paginator__divider"
+          style="--sbb-divider-color: currentcolor"
           ?negative=${this.negative}
         ></sbb-divider
         >${this.numberOfPages()}</span
       >
+      <sbb-screen-reader-only>
+        ${`${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorOf[this.language.current]} ${this.numberOfPages()}`}
+      </sbb-screen-reader-only>
     `;
   }
 
