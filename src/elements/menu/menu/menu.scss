@@ -82,11 +82,6 @@
   }
 }
 
-:host(:is(:state(nested), [state--nested]))::backdrop {
-  display: none;
-  pointer-events: none;
-}
-
 ::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {
   display: block;
   padding-inline: var(--sbb-spacing-fixed-5x);
@@ -115,7 +110,7 @@ sbb-divider,
   &::before {
     content: '';
     visibility: var(--sbb-menu-visibility);
-    pointer-events: none;
+    pointer-events: all;
     position: fixed;
     inset: var(--sbb-menu-inset);
     height: var(--sbb-menu-container-height);
@@ -153,6 +148,8 @@ sbb-divider,
   padding: 0;
   overflow: hidden;
   translate: var(--sbb-menu-transform-x) 0;
+
+  // Used when navigating back from nested menu in mobile view
   transition: translate var(--sbb-menu-animation-duration);
 
   :host([data-state]:not([data-state='closed'])) & {

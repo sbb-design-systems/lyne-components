@@ -149,7 +149,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
         parentMenu.nestedList = { menu: parentMenu, nestedMenu: list };
       }
     } else {
-      this._handleNestedMenus(list?.nestedMenu);
+      this._handleNestedMenus();
     }
   }
 
@@ -240,14 +240,23 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   }
 
-  private _handleNestedMenus(list: SbbNestedMenu | undefined): void {
-    let cursor = list;
+  private _handleNestedMenus(): void {
     this._inertController.restoreAllExempted();
 
+    this._nestedMenusArray().forEach((menu) => this._inertController.exempt(menu));
+  }
+
+  /** Converts the linked list into an array of SbbMenuElements */
+  private _nestedMenusArray(): SbbMenuElement[] {
+    const array: SbbMenuElement[] = [];
+    let cursor = this.nestedList?.nestedMenu;
+
     while (cursor) {
-      this._inertController.exempt(cursor.menu);
+      array.push(cursor?.menu);
       cursor = cursor.nestedMenu;
     }
+
+    return array;
   }
 
   private _isZeroAnimationDuration(): boolean {
@@ -478,24 +487,33 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
   // Check if the pointerdown event target is triggered on the menu.
   private _pointerDownListener = (event: PointerEvent): void => {
-    const isOnNestedMenu = (event.target as HTMLElement).assignedSlot != null;
+    const menu = (event.target as HTMLElement).closest('sbb-menu');
 
-    this._isPointerDownEventOnMenu = isEventOnElement(this._menu, event) || isOnNestedMenu;
+    // The pointer down is on the menu or one of its nested menus.
+    this._isPointerDownEventOnMenu =
+      isEventOnElement(this._menu, event) || this._nestedMenusArray().some((el) => menu === el);
   };
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
     const target = event.target as HTMLElement;
+
+    // The backdrop is only listened on the main menu (outermost menu).
+    // To close.
+    // - The pointer down and up need to be outside the menu.
+    // - The target should be not on a nested menu
     if (
       !this._isPointerDownEventOnMenu &&
       !isEventOnElement(this._menu, event) &&
-      !(target.localName === 'sbb-menu')
+      !this._nestedMenusArray().some((el) => el === target)
     ) {
       this.close(true);
     }
   };
 
   private _isNested(): boolean {
+    // TODO: check if commented check can be re-used in Safari.
+    // return this.internals.states.has('nested');
     return this.matches(':is(:state(nested), [state--nested])');
   }
 
