@@ -36,7 +36,7 @@ const imgType: InputType = {
   control: {
     type: 'select',
   },
-  options: ['native', 'native-mobile', 'sbb-image', 'caption'],
+  options: ['native', 'native-mobile', 'sbb-image', 'caption', 'link'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -71,7 +71,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                 () => html`
                   <sbb-image
                     image-src=${img}
-                    alt="SBB image ${index}"
+                    alt="SBB image ${index + 1}"
                     style="width: 800px; height: 450px;"
                   ></sbb-image>
                 `,
@@ -82,9 +82,25 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <div
                     style="display: flex; flex-direction: column; align-items: center; background-color: black; color: white;"
                   >
-                    <img src=${img} alt="SBB image ${index}" width="800" height="450" />
+                    <img src=${img} alt="SBB image ${index + 1}" width="800" height="450" />
                     Caption for picture ${index + 1}
                   </div>
+                `,
+              ],
+              [
+                'link',
+                () => html`
+                  <a
+                    href="https://github.com/sbb-design-systems/lyne-components"
+                    target="_blank"
+                    tabindex="-1"
+                  >
+                    <sbb-image
+                      image-src=${img}
+                      alt="SBB image ${index + 1}"
+                      style="width: 800px; height: 450px;"
+                    ></sbb-image>
+                  </a>
                 `,
               ],
             ])}
@@ -128,6 +144,12 @@ export const Caption: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, imgType: imgType.options![3] },
+};
+
+export const Link: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, imgType: imgType.options![4] },
 };
 
 export const NoShadow: StoryObj = {
