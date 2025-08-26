@@ -267,9 +267,11 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       this.querySelectorAll<SbbMenuButtonElement | SbbMenuLinkElement>(
         'sbb-menu-button, sbb-menu-link',
       ),
-    ).filter(
-      (el) => (!el.disabled || el.disabledInteractive) && interactivityChecker.isVisible(el),
-    );
+    )
+      .concat(this.shadowRoot!.querySelector('sbb-menu-button')!)
+      .filter(
+        (el) => (!el.disabled || el.disabledInteractive) && interactivityChecker.isVisible(el),
+      );
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
 
     let nextIndex;
