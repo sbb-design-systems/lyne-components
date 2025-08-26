@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.2...v3.4.0) (2025-08-25)
+
+
+### Features
+
+* **sbb-title:** lean sizes ([#3759](https://github.com/sbb-design-systems/lyne-components/issues/3759)) ([5b90871](https://github.com/sbb-design-systems/lyne-components/commit/5b9087138c3daa2cababc289d1a23760783a3241))
+
+
+### Bug Fixes
+
+* convert italian translations to informal ([#3976](https://github.com/sbb-design-systems/lyne-components/issues/3976)) ([8ee03ac](https://github.com/sbb-design-systems/lyne-components/commit/8ee03ac7317b392199056180782331a8176da7f5))
+* fix copy sass script ([#3939](https://github.com/sbb-design-systems/lyne-components/issues/3939)) ([2ea4830](https://github.com/sbb-design-systems/lyne-components/commit/2ea48306b7c81cfbca159999d70c6c395af29ac4)), closes [#3932](https://github.com/sbb-design-systems/lyne-components/issues/3932)
+* fix element internals polyfill ([#3978](https://github.com/sbb-design-systems/lyne-components/issues/3978)) ([58ee7b8](https://github.com/sbb-design-systems/lyne-components/commit/58ee7b8e8ab7ee0923025f8c79e1c200eda62702))
+* **sbb-file-selector:** block dropping in wrong multiple mode or for wrong accept types ([#3964](https://github.com/sbb-design-systems/lyne-components/issues/3964)) ([d4530e4](https://github.com/sbb-design-systems/lyne-components/commit/d4530e49e129b3c8c63c2dce08dcfb144637c5c8)), closes [#3963](https://github.com/sbb-design-systems/lyne-components/issues/3963)
+* **sbb-navigation:** fix backdrop fade in animation ([#3968](https://github.com/sbb-design-systems/lyne-components/issues/3968)) ([8b47478](https://github.com/sbb-design-systems/lyne-components/commit/8b47478237e00bdafa0711c2b71d891e1116484c))
+* **sbb-paginator:** fix accessibility issues ([#3966](https://github.com/sbb-design-systems/lyne-components/issues/3966)) ([2ad7afe](https://github.com/sbb-design-systems/lyne-components/commit/2ad7afe30c5115b191d6600da48ad50c655f8bdd)), closes [#3965](https://github.com/sbb-design-systems/lyne-components/issues/3965)
+* **sbb-seat-reservation:** add missing translations ([#3970](https://github.com/sbb-design-systems/lyne-components/issues/3970)) ([ab5d369](https://github.com/sbb-design-systems/lyne-components/commit/ab5d369978d2ddadd67a076eb15e34bf54b5b871))
+* **sbb-tab-group:** remove obsolete relative positioning ([#3974](https://github.com/sbb-design-systems/lyne-components/issues/3974)) ([212d02b](https://github.com/sbb-design-systems/lyne-components/commit/212d02bca2912eab60813188159f1fac8f64e9ea)), closes [#3973](https://github.com/sbb-design-systems/lyne-components/issues/3973)
+
+
+### Documentation
+
+* improve displayWith documentation ([#3977](https://github.com/sbb-design-systems/lyne-components/issues/3977)) ([54b11c0](https://github.com/sbb-design-systems/lyne-components/commit/54b11c07bd87c329ecbedf075c8e37d16569b71b))
+
+
+### Code Refactoring
+
+* **sbb-date-input, sbb-time-input:** dispatch specific internal event ([#3979](https://github.com/sbb-design-systems/lyne-components/issues/3979)) ([da49e4d](https://github.com/sbb-design-systems/lyne-components/commit/da49e4d47728dae37ed699894eb5c37cca3d8807))
+
 ## [3.3.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.1...v3.3.2) (2025-08-12)
 
 

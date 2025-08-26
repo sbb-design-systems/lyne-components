@@ -446,6 +446,17 @@ describe('sbb-dialog', () => {
 
       expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
     });
+
+    it('should announce accessibility label by calling announceTitle()', async () => {
+      await openDialog(element);
+
+      await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Title`);
+
+      element.accessibilityLabel = 'Special Dialog';
+      element.announceTitle();
+
+      expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
+    });
   });
 
   describe('with trigger', () => {
