@@ -9,6 +9,13 @@ import readme from './readme.md?raw';
 import './mini-calendar-month.component.js';
 import '../mini-calendar-day/mini-calendar-day.component.js';
 
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'],
+};
+
 const marker: InputType = {
   control: {
     type: 'inline-radio',
@@ -30,17 +37,19 @@ const color: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  orientation,
   marker,
   color,
 };
 
 const defaultArgs: Args = {
+  orientation: orientation.options![0],
   marker: marker.options![0],
   color: color.options![0],
 };
 
-const Template = ({ marker, color }: Args): TemplateResult => html`
-  <sbb-mini-calendar-month date="2025-01">
+const Template = ({ orientation, marker, color }: Args): TemplateResult => html`
+  <sbb-mini-calendar-month date="2025-01" data-orientation=${orientation}>
     ${repeat(
       new Array(31),
       (_, index) => html`

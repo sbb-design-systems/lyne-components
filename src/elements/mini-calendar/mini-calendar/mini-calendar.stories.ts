@@ -30,8 +30,8 @@ const createDays = (year: number, month: number): TemplateResult => {
   `;
 };
 
-const Template = ({ year, offset }: Args): TemplateResult => html`
-  <sbb-mini-calendar>
+const Template = ({ orientation, year, offset }: Args): TemplateResult => html`
+  <sbb-mini-calendar orientation=${orientation}>
     ${repeat(new Array(13), (_, index) => {
       const realYear = index > 12 - 1 - offset ? year + 1 : year;
       const month = (index + offset) % 12;
@@ -58,20 +58,41 @@ const offset: InputType = {
   options: [0, 4, 8],
 };
 
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'],
+};
+
 const defaultArgTypes: ArgTypes = {
   year,
   offset,
+  orientation,
 };
 
 const defaultArgs: Args = {
   year: 2025,
-  offset: 0,
+  offset: offset.options![0],
+  orientation: orientation.options![0],
 };
 
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Vertical: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options![1] },
+};
+
+export const Offset: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, offset: offset.options![1] },
 };
 
 const meta: Meta = {

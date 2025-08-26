@@ -9,20 +9,39 @@
   display: inline-block;
 }
 
+:host([data-orientation='horizontal']) {
+  --sbb-mini-calendar-grid-auto-flow: row;
+
+  ::slotted(sbb-mini-calendar-day:first-child) {
+    grid-column-start: var(--sbb-mini-calendar-month-offset);
+  }
+}
+
+:host([data-orientation='vertical']) {
+  --sbb-mini-calendar-grid-auto-flow: column;
+
+  ::slotted(sbb-mini-calendar-day:first-child) {
+    grid-row-start: var(--sbb-mini-calendar-month-offset);
+  }
+}
+
 .sbb-mini-calendar-month-wrapper {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  width: sbb.px-to-rem-build(56);
-  height: sbb.px-to-rem-build(48);
+  grid-auto-flow: var(--sbb-mini-calendar-grid-auto-flow);
   grid-auto-rows: sbb.px-to-rem-build(8);
+
+  :host([data-orientation='horizontal']) & {
+    height: sbb.px-to-rem-build(48);
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  :host([data-orientation='vertical']) & {
+    grid-template-rows: repeat(7, 1fr);
+  }
 }
 
 .sbb-mini-calendar-month-label {
   @include sbb.text-xxs--regular;
 
   color: var(--sbb-color-granite);
-}
-
-::slotted(sbb-mini-calendar-day:first-child) {
-  grid-column-start: var(--sbb-mini-calendar-month-offset);
 }

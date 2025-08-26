@@ -49,6 +49,8 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
       );
       if (month === 1 || monthList.findIndex((e) => e === this) === 0) {
         this._yearLabel = String(this._dateAdapter.getYear(date));
+      } else {
+        this._yearLabel = null;
       }
       this._monthLabel = `${this._monthNames[month - 1]}.`;
     }

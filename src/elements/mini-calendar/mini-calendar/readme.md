@@ -43,6 +43,12 @@ The `sbb-mini-calendar` is a component . . .
 
 <!-- Auto Generated Below -->
 
+## Properties
+
+| Name          | Attribute     | Privacy | Type             | Default        | Description                              |
+| ------------- | ------------- | ------- | ---------------- | -------------- | ---------------------------------------- |
+| `orientation` | `orientation` | public  | `SbbOrientation` | `'horizontal'` | The orientation of days in the calendar. |
+
 ## Slots
 
 | Name | Description                                      |

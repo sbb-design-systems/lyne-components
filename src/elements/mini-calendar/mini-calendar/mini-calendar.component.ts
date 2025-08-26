@@ -1,6 +1,10 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
+
+import { handleDistinctChange } from '../../core/decorators.js';
+import type { SbbOrientation } from '../../core/interfaces.js';
+import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month.js';
 
 import style from './mini-calendar.scss?lit&inline';
 
@@ -14,8 +18,27 @@ export
 class SbbMiniCalendarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  /** The orientation of days in the calendar. */
+  @handleDistinctChange((e: SbbMiniCalendarElement) => e._handleSlotchange())
+  @property({ reflect: true })
+  public accessor orientation: SbbOrientation = 'horizontal';
+
+  private get _miniCalendarMonths(): SbbMiniCalendarMonthElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-mini-calendar-month') ?? []);
+  }
+
+  private _handleSlotchange(): void {
+    this._miniCalendarMonths.forEach((month: SbbMiniCalendarMonthElement) =>
+      month.setAttribute('data-orientation', this.orientation),
+    );
+  }
+
   protected override render(): TemplateResult {
-    return html` <div class="sbb-mini-calendar"><slot></slot></div> `;
+    return html`
+      <div class="sbb-mini-calendar">
+        <slot @slotchange=${this._handleSlotchange}></slot>
+      </div>
+    `;
   }
 }
 
