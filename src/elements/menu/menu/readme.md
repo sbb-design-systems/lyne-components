@@ -110,10 +110,11 @@ Disabled elements do not receive focus, and they can be problematic for screen r
 
 ## Methods
 
-| Name    | Privacy | Description                                                                                                               | Parameters | Return | Inherited From          |
-| ------- | ------- | ------------------------------------------------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the menu and all its nested menus. If using the `closeAll` parameter with `true`, it also closes all parent menus. | `closeAll` | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the menu on trigger click.                                                                                          |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                                                               | Parameters | Return | Inherited From          |
+| ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the menu and all its nested menus. If using the `closeAll` parameter with `true`, it also closes all parent menus. | `closeAll` | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close()                                               |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the menu on trigger click.                                                                                          |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 

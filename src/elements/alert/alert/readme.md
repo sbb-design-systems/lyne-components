@@ -74,10 +74,11 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Methods
 
-| Name    | Privacy | Description      | Parameters | Return | Inherited From          |
-| ------- | ------- | ---------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Close the alert. |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Open the alert.  |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Close the alert.                                                            |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Open the alert.                                                             |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
