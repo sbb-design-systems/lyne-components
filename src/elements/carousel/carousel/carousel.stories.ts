@@ -60,11 +60,15 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
             ${choose(imgType, [
               [
                 'native',
-                () => html` <img src=${img} alt="SBB image ${index}" height="450" width="800" /> `,
+                () => html`
+                  <img src=${img} alt="SBB image ${index + 1}" height="450" width="800" />
+                `,
               ],
               [
                 'native-mobile',
-                () => html` <img src=${img} alt="SBB image ${index}" height="150" width="267" /> `,
+                () => html`
+                  <img src=${img} alt="SBB image ${index + 1}" height="150" width="267" />
+                `,
               ],
               [
                 'sbb-image',
