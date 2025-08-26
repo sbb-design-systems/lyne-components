@@ -52,8 +52,21 @@ You can also provide custom content inside the `sbb-menu`:
 
 ## Nesting menus
 
-It is possible to place a `sbb-menu` inside another `sbb-menu`, in order to create submenus.
-When doing so a `sbb-menu-button`/`sbb-menu-link` needs to be used as trigger element. In mobile navigation submenus will automatically display a back button to navigate back to the parent menu.
+It is possible to create submenus by connecting a menu to a `sbb-menu-button`/`sbb-menu-link`
+element via trigger property / attribute of the `sbb-menu`.
+On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
+
+Please note that nesting the menus in DOM is not supported. The `sbb-menu` elements have to be siblings in order to work.
+
+```html
+<sbb-menu>
+  <sbb-menu-button icon="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
+</sbb-menu>
+<sbb-menu trigger="submenu-trigger">
+  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
+</sbb-menu>
+```
 
 ## Style
 
