@@ -130,7 +130,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   public override escapeStrategy(): void {
-    this._mainMenu().close(true);
+    this.closeAll();
   }
 
   /**
@@ -147,7 +147,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
 
     if (this._isNested()) {
-      this.toggleState('close-all', false);
       const parentMenu = this._parentMenu()!;
       parentMenu.toggleState('nested-child', true);
 
@@ -176,19 +175,24 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   }
 
-  /**
-   * Closes the menu and all its nested menus.
-   * If using the `closeAll` parameter with `true`, it also closes all parent menus.
-   *
-   * @param [closeAll='false'] - If true, it closes also parent menus. If false, only closes the current menu and nested menus.
-   */
-  public close(closeAll = false): void {
+  /** Closes the menu and all its nested menus. */
+  public close(): void {
+    this._close();
+  }
+
+  /** Closes the menu and all related menus  nested and parent menus). */
+  public closeAll(): void {
+    this._mainMenu()._close(true);
+  }
+
+  /** @param [closeAll='false'] - If true, it ensures animations are correct by toggling some states when closing all related menus at once. */
+  private _close(closeAll = false): void {
     if ((this.state === 'opening' && !this._isNested()) || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
     // Close nested menus first
-    this._nestedMenu?.close(closeAll);
+    this._nestedMenu?._close(closeAll);
 
     if (this._isNested()) {
       const parentMenu = this._parentMenu()!;
@@ -230,6 +234,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _handleClosing(): void {
     this.state = 'closed';
     this.toggleState('skip-animation', false);
+    this.toggleState('close-all', false);
     this.hidePopover?.();
 
     this._menu?.firstElementChild?.scrollTo(0, 0);
@@ -427,7 +432,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       !target.hasAttribute('data-sbb-menu-trigger') &&
       target.id !== 'sbb-menu__back-button'
     ) {
-      this._mainMenu().close(true);
+      this.closeAll();
     }
   }
 
@@ -453,7 +458,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       !isEventOnElement(this._menu, event) &&
       !this._nestedMenusArray().some((el) => el === target)
     ) {
-      this.close(true);
+      this.closeAll();
     }
   };
 
