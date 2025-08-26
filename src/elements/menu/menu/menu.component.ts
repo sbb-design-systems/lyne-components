@@ -102,7 +102,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   private _scrollHandler = new SbbScrollHandler();
-  private _inertController = new SbbInertController(this, undefined, undefined);
+  private _inertController = new SbbInertController(this);
   private _mobileBreakpoint = SbbMediaQueryBreakpointSmallAndBelow;
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [this._mobileBreakpoint]: (matches) => {
@@ -124,8 +124,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    // TODO: check if it has to be unsubscribed
-    this._menu.addEventListener?.('mouseover', (e) => this._handleMouseOver(e));
     this._configureTrigger();
   }
 
@@ -284,7 +282,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       case 'ArrowLeft':
         if (this._isNested()) {
           this.close();
-          evt.stopPropagation();
         }
         break;
 
@@ -390,9 +387,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     });
 
     // Consider the menu as nested if the trigger is a menu button or menu link.
-    if (['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName)) {
-      this.toggleState('nested', true);
-    }
+    this.toggleState(
+      'nested',
+      ['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName),
+    );
     this._triggerElement.toggleAttribute('data-sbb-menu-trigger', true);
   }
 
@@ -442,7 +440,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     // The pointer down is on the menu or one of its nested menus.
     this._isPointerDownEventOnMenu =
-      isEventOnElement(this._menu, event) || this._nestedMenusArray().some((el) => menu === el);
+      isEventOnElement(this._menu, event) || this._nestedMenus().some((el) => menu === el);
   };
 
   // Close menu on backdrop click.
@@ -456,20 +454,20 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     if (
       !this._isPointerDownEventOnMenu &&
       !isEventOnElement(this._menu, event) &&
-      !this._nestedMenusArray().some((el) => el === target)
+      !this._nestedMenus().some((el) => el === target)
     ) {
       this.closeAll();
     }
   };
 
-  /** Converts the linked list into an array of SbbMenuElements */
-  private _nestedMenusArray(): SbbMenuElement[] {
+  /** Converts the linked list into an array of SbbMenuElement. */
+  private _nestedMenus(): SbbMenuElement[] {
     const menus: SbbMenuElement[] = [];
-    let menu = this._nestedMenu;
+    let current = this._nestedMenu;
 
-    while (menu) {
-      menus.push(menu);
-      menu = menu._nestedMenu;
+    while (current) {
+      menus.push(current);
+      current = current._nestedMenu;
     }
 
     return menus;
@@ -491,14 +489,12 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   private _updateNestedInert(): void {
     this._inertController.restoreAllExempted();
     this._mainMenu()
-      ._nestedMenusArray()
+      ._nestedMenus()
       .forEach((menu) => this._inertController.exempt(menu));
   }
 
   // Check if nested menu should be closed.
   private _handleMouseOver(event: MouseEvent): void {
-    event.stopPropagation();
-
     const element = event.target as HTMLElement;
     const isMobile = this._isMobile();
 
@@ -577,6 +573,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       <div class="sbb-menu__container">
         <div
           @animationend=${this._onMenuAnimationEnd}
+          @mouseover=${(e: MouseEvent) => this._handleMouseOver(e)}
           class="sbb-menu"
           ${ref((el?: Element) => (this._menu = el as HTMLDivElement))}
         >

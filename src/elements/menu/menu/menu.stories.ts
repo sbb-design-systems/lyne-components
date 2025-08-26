@@ -101,9 +101,9 @@ const NestedTemplate = (args: Args): TemplateResult => html`
       Edit
     </sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button icon-name="lock-closed-small" id="sub-menu-1"
-      >Set Document Permissions</sbb-menu-button
-    >
+    <sbb-menu-button icon-name="lock-closed-small" id="sub-menu-1">
+      Set Document Permissions
+    </sbb-menu-button>
     <sbb-menu-button icon-name="download-small" id="sub-menu-2">Download Selected</sbb-menu-button>
     <sbb-menu-button icon-name="trash-small">Delete Selected</sbb-menu-button>
     <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
@@ -120,10 +120,10 @@ const NestedTemplate = (args: Args): TemplateResult => html`
     </sbb-menu-button>
   </sbb-menu>
   <sbb-menu trigger="sub-menu-2">
-    <sbb-menu-button icon-name="document-pdf-small"> Download as PDF </sbb-menu-button>
-    <sbb-menu-button icon-name="document-doc-small"> Download as DOCX </sbb-menu-button>
-    <sbb-menu-button icon-name="document-xls-small"> Download as XLS </sbb-menu-button>
-    <sbb-menu-button icon-name="document-zip-small"> Download as archive </sbb-menu-button>
+    <sbb-menu-button icon-name="document-pdf-small">Download as PDF</sbb-menu-button>
+    <sbb-menu-button icon-name="document-doc-small">Download as DOCX</sbb-menu-button>
+    <sbb-menu-button icon-name="document-xls-small">Download as XLS</sbb-menu-button>
+    <sbb-menu-button icon-name="document-zip-small">Download as archive</sbb-menu-button>
   </sbb-menu>
   <sbb-menu trigger="sub-menu-3">
     <sbb-menu-button icon-name="hand-small">Hand Select</sbb-menu-button>
@@ -162,7 +162,7 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-2">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
