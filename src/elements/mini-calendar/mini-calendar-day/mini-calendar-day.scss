@@ -10,13 +10,14 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
+  --sbb-mini-calendar-color: var(--sbb-color-storm);
 
   display: block;
   height: sbb.px-to-rem-build(6);
   width: sbb.px-to-rem-build(6);
   margin: sbb.px-to-rem-build(1);
   border-radius: var(--sbb-border-radius-infinity);
-  color: var(--sbb-color-storm);
+  color: var(--sbb-mini-calendar-color);
   background-color: currentcolor;
 }
 
@@ -34,23 +35,23 @@
 }
 
 :host([color='charcoal']) {
-  color: var(--sbb-color-charcoal);
+  --sbb-mini-calendar-color: var(--sbb-color-charcoal);
 }
 
 :host([color='cloud']) {
-  color: var(--sbb-color-cloud);
+  --sbb-mini-calendar-color: var(--sbb-color-cloud);
 }
 
 :host([color='orange']) {
-  color: var(--sbb-color-orange);
+  --sbb-mini-calendar-color: var(--sbb-color-orange);
 }
 
 :host([color='red']) {
-  color: var(--sbb-color-red);
+  --sbb-mini-calendar-color: var(--sbb-color-red);
 }
 
 :host([color='sky']) {
-  color: var(--sbb-color-sky);
+  --sbb-mini-calendar-color: var(--sbb-color-sky);
 }
 
 :host([marker='circle']) {
