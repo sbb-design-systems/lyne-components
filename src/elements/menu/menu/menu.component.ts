@@ -129,6 +129,10 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._configureTrigger();
   }
 
+  public override escapeStrategy(): void {
+    this._mainMenu().close(true);
+  }
+
   /**
    * Opens the menu on trigger click.
    */
