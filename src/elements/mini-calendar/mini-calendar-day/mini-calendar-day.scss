@@ -29,7 +29,8 @@
 :host(:focus-visible) {
   @include sbb.focus-outline;
 
-  outline-offset: var(--sbb-spacing-fixed-1x);
+  // FIXME
+  outline-offset: sbb.px-to-rem-build(2);
 }
 
 :host([color='charcoal']) {
