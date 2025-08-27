@@ -206,7 +206,8 @@ sbb-form-field {
   sbb-popover,
   sbb-select,
   sbb-skiplink-list,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ):not(:defined) {
   display: none;
 }
@@ -221,7 +222,8 @@ sbb-form-field {
   sbb-navigation,
   sbb-overlay,
   sbb-popover,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ) {
   @include popover.popover-reset;
 }
