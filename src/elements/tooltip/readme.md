@@ -6,13 +6,13 @@ You can use the tooltip in two ways:
 
 ```html
 <sbb-button id="tooltip-trigger">Button</sbb-button>
-<sbb-tooltip trigger="tooltip-trigger"> Tooltip message </sbb-tooltip>
+<sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
 - **Via the `sbb-tooltip` attribute**
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message"> Button </sbb-button>
+<sbb-button sbb-tooltip="Tooltip message">Button</sbb-button>
 ```
 
 ## Interactions
