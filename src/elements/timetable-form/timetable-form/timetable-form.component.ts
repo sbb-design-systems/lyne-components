@@ -13,12 +13,9 @@ export
 @customElement('sbb-timetable-form')
 class SbbTimetableFormElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    // Add event names or remove
-  } as const;
 
   protected override render(): TemplateResult {
-    return html` <div class="sbb-timetable-form"><slot></slot></div> `;
+    return html` <slot></slot> `;
   }
 }
 

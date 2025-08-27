@@ -4,11 +4,15 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-timetable-form-swap-button-some-color-var: var(--color-black);
+  --sbb-timetable-form-swap-button-margin-inline-end: var(--sbb-spacing-fixed-6x);
 
-  display: block;
+  position: relative;
 }
 
 .sbb-timetable-form-swap-button {
-  color: var(--sbb-timetable-form-swap-button-some-color-var);
+  position: absolute;
+  margin-inline-end: var(--sbb-timetable-form-swap-button-margin-inline-end);
+  right: 0;
+  z-index: 1;
+  translate: 0 -50%;
 }

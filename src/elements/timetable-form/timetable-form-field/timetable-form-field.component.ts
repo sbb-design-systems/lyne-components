@@ -1,6 +1,7 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
+
+import { SbbFormFieldElement } from '../../form-field/form-field.js';
 
 import style from './timetable-form-field.scss?lit&inline';
 
@@ -11,14 +12,22 @@ import style from './timetable-form-field.scss?lit&inline';
  */
 export
 @customElement('sbb-timetable-form-field')
-class SbbTimetableFormFieldElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    // Add event names or remove
-  } as const;
+class SbbTimetableFormFieldElement extends SbbFormFieldElement {
+  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, style];
 
-  protected override render(): TemplateResult {
-    return html` <div class="sbb-timetable-form-field"><slot></slot></div> `;
+  public constructor() {
+    super();
+    this.borderless = true;
+    this.floatingLabel = true;
+    this.width = 'collapse';
+    this.size = 'l';
+  }
+
+  public override render(): TemplateResult {
+    return html`
+      <sbb-icon name="route-circle-start-small"></sbb-icon>
+      ${super.render()}
+    `;
   }
 }
 

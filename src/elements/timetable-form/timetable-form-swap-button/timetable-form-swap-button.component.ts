@@ -1,6 +1,7 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
+
+import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 
 import style from './timetable-form-swap-button.scss?lit&inline';
 
@@ -11,14 +12,12 @@ import style from './timetable-form-swap-button.scss?lit&inline';
  */
 export
 @customElement('sbb-timetable-form-swap-button')
-class SbbTimetableFormSwapButtonElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    // Add event names or remove
-  } as const;
+class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
+  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
 
-  protected override render(): TemplateResult {
-    return html` <div class="sbb-timetable-form-swap-button"><slot></slot></div> `;
+  public constructor() {
+    super();
+    this.iconName = 'arrow-change-small';
   }
 }
 
