@@ -25,7 +25,7 @@ describe(`layout`, () => {
         await setup.withFixture(
           withStyles(
             html`<section class="sbb-page-spacing visualized-page-spacing">
-              <div>Content</div>
+              <div><span>Content</span></div>
             </section>`,
           ),
           wrapperStyles,
@@ -39,7 +39,7 @@ describe(`layout`, () => {
         await setup.withFixture(
           withStyles(
             html`<section class="sbb-page-spacing-expanded visualized-page-spacing">
-              <div>Content</div>
+              <div><span>Content</span></div>
             </section>`,
           ),
           wrapperStyles,

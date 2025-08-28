@@ -28,7 +28,7 @@ describe(`sbb-train-wagon`, () => {
   const trainFormationWrapper = (content: TemplateResult): TemplateResult =>
     html`<sbb-train-formation><sbb-train>${content}</sbb-train></sbb-train-formation>`;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const occupancy of occupancyCases) {
       it(
         `occupancy=${occupancy}`,

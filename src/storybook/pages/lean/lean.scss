@@ -12,7 +12,7 @@
   gap: var(--sbb-spacing-fixed-4x);
   grid-column: 1 / -1;
 
-  @include sbb.mq($to: medium) {
+  @include sbb.mq($to: large) {
     flex-direction: column;
   }
 }

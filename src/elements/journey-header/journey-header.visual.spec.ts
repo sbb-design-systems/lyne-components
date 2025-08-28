@@ -19,7 +19,7 @@ describe(`sbb-journey-header`, () => {
 
   const sizeCases = ['s', 'm', 'l'];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, roundTrip }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

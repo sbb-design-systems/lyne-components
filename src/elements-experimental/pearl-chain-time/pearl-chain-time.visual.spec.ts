@@ -28,7 +28,7 @@ describe(`sbb-pearl-chain-time`, () => {
     },
   ];
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     for (const c of cases) {
       it(
         c.name,

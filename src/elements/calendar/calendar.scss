@@ -38,7 +38,7 @@
   --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal);
   --sbb-calendar-control-view-change-background: var(--sbb-color-white);
 
-  @include sbb.mq($from: micro) {
+  @include sbb.mq($from: small) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
     --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(77)};
     --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};

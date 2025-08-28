@@ -18,7 +18,7 @@ describe(`sbb-datepicker-next-day`, () => {
     value: [null, '2023-02-15'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffFocus]) {
       it(
         `standalone ${state.name}`,

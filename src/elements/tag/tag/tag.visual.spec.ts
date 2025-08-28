@@ -21,7 +21,7 @@ describe(`sbb-tag`, () => {
     amount: [undefined, 123],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const visualDiffStandardState of visualDiffStandardStates) {
       it(
         `state=${visualDiffStandardState.name}`,

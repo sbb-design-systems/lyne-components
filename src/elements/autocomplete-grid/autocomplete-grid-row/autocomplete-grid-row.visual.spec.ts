@@ -43,7 +43,7 @@ describe('sbb-autocomplete-grid-row', () => {
     )}
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       const args = { ...defaultArgs, negative };
       const wrapperStyle = {

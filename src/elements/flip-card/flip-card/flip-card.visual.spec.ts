@@ -81,7 +81,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-flip-card`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const imageAlignment of ['after', 'below']) {
       describe(`image-alignment=${imageAlignment}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {

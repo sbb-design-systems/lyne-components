@@ -1,6 +1,6 @@
 import { isServer } from 'lit';
 
-export const breakpoints = ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'] as const;
+export const breakpoints = ['zero', 'small', 'large', 'ultra'] as const;
 export type Breakpoint = (typeof breakpoints)[number];
 
 /**

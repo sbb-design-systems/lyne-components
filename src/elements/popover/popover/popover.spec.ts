@@ -1,4 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -132,7 +133,7 @@ describe(`sbb-popover`, () => {
     });
 
     it('is correctly positioned on screen', async () => {
-      await setViewport({ width: 1200, height: 800 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 800 });
 
       trigger.click();
 

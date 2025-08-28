@@ -24,7 +24,7 @@ describe(`sbb-menu`, () => {
     fontSize: 'var(--sbb-font-size-text-xxs)',
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {

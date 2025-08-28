@@ -150,7 +150,7 @@ describe(`sbb-form-field`, () => {
     .set('select', basicSelect)
     .set('textarea', basicTextarea);
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // As there are so many special styles for forced color, we apply forcedColors to every case.
     for (const forcedColors of [false, true]) {
       describe(`forcedColors=${forcedColors}`, () => {

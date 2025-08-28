@@ -115,7 +115,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'],
 };
 
 const alignGroup: InputType = {
@@ -274,7 +274,7 @@ export const VerticalAllocation0_0_2FullWidth: StoryObj = {
 export const VerticalToHorizontal3_0_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
   argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+  args: { ...basicArgsVertical, 'horizontal-from': 'large' },
 };
 
 export const HorizontalAllocationSizeS3_0_0: StoryObj = {

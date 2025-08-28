@@ -8,7 +8,7 @@
   }
 }
 
-$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host {
   --sbb-link-list-flex-flow: column nowrap;

@@ -5,7 +5,7 @@ snapshots["sbb-action-group renders renders DOM"] =
 `<sbb-action-group
   align-group="start"
   button-size="l"
-  horizontal-from="medium"
+  horizontal-from="large"
   link-size="m"
   orientation="horizontal"
 >

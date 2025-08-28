@@ -12,7 +12,7 @@
 }
 
 :host {
-  --sbb-navigation-grid-column: 1 / 5;
+  --sbb-navigation-grid-column: 1 / -1;
   --sbb-navigation-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-3x)
@@ -40,10 +40,6 @@
   inset: var(--sbb-navigation-inset);
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
   overflow: hidden;
-
-  @include sbb.mq($from: medium) {
-    --sbb-navigation-grid-column: 1 / 9;
-  }
 
   @include sbb.mq($from: large) {
     --sbb-navigation-grid-column: 1 / 5;
