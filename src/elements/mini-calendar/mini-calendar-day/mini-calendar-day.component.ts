@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { SbbDisabledMixin } from '../../core/mixins.js';
 
 import style from './mini-calendar-day.scss?lit&inline';
 
@@ -11,7 +12,7 @@ import style from './mini-calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-mini-calendar-day')
-class SbbMiniCalendarDayElement extends SbbButtonBaseElement {
+class SbbMiniCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Date as ISO string. */
