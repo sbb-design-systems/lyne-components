@@ -28,6 +28,13 @@ snapshots["sbb-menu-button renders Shadow DOM"] =
       <slot>
       </slot>
     </span>
+    <span class="sbb-menu-submenu__icon">
+      <sbb-icon
+        data-namespace="default"
+        name="chevron-small-right-small"
+      >
+      </sbb-icon>
+    </span>
   </span>
 </span>
 `;
@@ -61,6 +68,13 @@ snapshots["sbb-menu-button renders component with icon Shadow DOM"] =
     <span class="sbb-menu-action__label">
       <slot>
       </slot>
+    </span>
+    <span class="sbb-menu-submenu__icon">
+      <sbb-icon
+        data-namespace="default"
+        name="chevron-small-right-small"
+      >
+      </sbb-icon>
     </span>
   </span>
 </span>

@@ -16,11 +16,16 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-menu-animation-easing: ease;
-  --sbb-menu-transform: translateY(100%);
+  --sbb-menu-background-color: var(--sbb-color-black);
+  --sbb-menu-transform-y: 100%;
+  --sbb-menu-transform-x: 0%;
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
   --sbb-menu-inset: 0 auto auto 0;
   --sbb-menu-container-height: 100dvh;
+  --sbb-menu-open-animation-name: open;
+  --sbb-menu-close-animation-name: close;
+  --sbb-menu-back-button-display: block;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
@@ -30,9 +35,10 @@
   --sbb-menu-backdrop-color: transparent;
 
   @include sbb.mq($from: medium) {
-    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+    --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
+    --sbb-menu-back-button-display: none;
   }
 }
 
@@ -45,8 +51,35 @@
   }
 }
 
+:host(:not(:state(nested), [state--nested])) {
+  --sbb-menu-back-button-display: none;
+}
+
 :host(:not([data-state='closed'])) {
   --sbb-menu-inset: 0;
+}
+
+@include sbb.mq($to: medium) {
+  :host(:is(:state(skip-animation), [state--skip-animation])) {
+    --sbb-menu-animation-duration: 0ms;
+  }
+
+  :host(:is(:state(nested-child), [state--nested-child])) {
+    --sbb-menu-transform-x: -100%;
+  }
+
+  :host(:is(:state(nested), [state--nested])[data-state]:not([data-state='closed'])) {
+    --sbb-menu-open-animation-name: open-sideways;
+  }
+
+  :host(
+    [data-state][data-state='closing']:is(:state(nested), [state--nested]):not(
+        :state(close-all),
+        [state--close-all]
+      )
+  ) {
+    --sbb-menu-close-animation-name: close-sideways;
+  }
 }
 
 ::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {
@@ -54,10 +87,16 @@
   padding-inline: var(--sbb-spacing-fixed-5x);
 }
 
+sbb-divider,
 ::slotted(sbb-divider) {
   --sbb-divider-color: var(--sbb-color-iron);
 
   margin-block: var(--sbb-spacing-fixed-2x);
+}
+
+sbb-divider,
+#sbb-menu__back-button {
+  display: var(--sbb-menu-back-button-display, block);
 }
 
 .sbb-menu__container {
@@ -81,6 +120,12 @@
       timing-function: var(--sbb-menu-animation-easing);
       property: background-color, visibility;
     }
+
+    // Hide the backdrop when in nested state
+    :host(:is(:state(nested), [state--nested])) & {
+      content: none;
+      display: none;
+    }
   }
 }
 
@@ -99,16 +144,21 @@
   color: var(--sbb-color-white);
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
-  background-color: var(--sbb-color-black);
+  background-color: var(--sbb-menu-background-color);
   padding: 0;
   overflow: hidden;
+  translate: var(--sbb-menu-transform-x) 0;
+
+  // Used when navigating back from nested menu in mobile view
+  transition: translate var(--sbb-menu-animation-duration);
 
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
     opacity: 1;
     pointer-events: all;
+
     animation: {
-      name: open;
+      name: var(--sbb-menu-open-animation-name);
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
@@ -116,7 +166,7 @@
 
   :host([data-state][data-state='closing']) & {
     pointer-events: none;
-    animation-name: close;
+    animation-name: var(--sbb-menu-close-animation-name);
   }
 
   @include sbb.if-forced-colors {
@@ -178,23 +228,43 @@
 @keyframes open {
   from {
     opacity: 0;
-    transform: var(--sbb-menu-transform);
+    translate: 0 var(--sbb-menu-transform-y);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0 0;
   }
 
   to {
     opacity: 0;
-    transform: var(--sbb-menu-transform);
+    translate: 0 var(--sbb-menu-transform-y);
+  }
+}
+
+@keyframes open-sideways {
+  from {
+    translate: 100% 0;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes close-sideways {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 100% 0;
   }
 }
