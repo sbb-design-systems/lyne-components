@@ -846,3 +846,13 @@ export const i18nCalendarWeekNumber: Record<string, string> = {
   fr: 'Semaine',
   it: 'Settimana',
 };
+
+export const i18nCarouselItemAriaLabel = (
+  index: number,
+  total: number,
+): Record<string, string> => ({
+  de: `${index} von ${total}`,
+  en: `${index} of ${total}`,
+  fr: `${index} sur ${total}`,
+  it: `${index} di ${total}`,
+});
