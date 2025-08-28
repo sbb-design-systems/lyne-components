@@ -8,7 +8,7 @@ import { SbbDisabledMixin } from '../../core/mixins.js';
 import style from './mini-calendar-day.scss?lit&inline';
 
 /**
- * It displays a day in the mini calendar.
+ * It displays a day in the `sbb-mini-calendar-month`.
  */
 export
 @customElement('sbb-mini-calendar-day')
@@ -18,7 +18,7 @@ class SbbMiniCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
   /** Date as ISO string. */
   @forceType()
   @property()
-  public accessor date: string = '';
+  public accessor date: string = ''; // FIXME initializer?
 
   /** The type of the marker. */
   @forceType()

@@ -1,45 +1,27 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-mini-calendar-month` is a component used to group
+many [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day).
 
-The `sbb-mini-calendar-month` is a component . . .
+The component needs to be wrapped in a [sbb-mini-calendar](/docs/elements-sbb-mini-calendar-sbb-mini-calendar),
+and it requires a `date` property in ISOString format (YYYY-MM).
 
 ```html
-<sbb-mini-calendar-month></sbb-mini-calendar-month>
+<sbb-mini-calendar>
+  <sbb-mini-calendar-month date="2025-01">
+    <sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>
+    ...
+  </sbb-mini-calendar-month>
+</sbb-mini-calendar>
 ```
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+The `sbb-mini-calendar-day` are provided via an unnamed slot.
+Consumers should check the accuracy of the slotted data, since there's no check on missing or wrongly formatted data.
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The month name is displayed at the component's bottom;
+the year is instead displayed on top only for January and for the first slotted month in the `sbb-mini-calendar`.
 
 <!-- Auto Generated Below -->
 
@@ -51,6 +33,6 @@ The `sbb-mini-calendar-month` is a component . . .
 
 ## Slots
 
-| Name | Description                                      |
-| ---- | ------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-TODO` elements. |
+| Name | Description                                                   |
+| ---- | ------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-mini-calendar-day` elements. |

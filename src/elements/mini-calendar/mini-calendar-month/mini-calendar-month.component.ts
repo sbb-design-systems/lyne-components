@@ -11,9 +11,9 @@ import { type SbbMiniCalendarElement } from '../mini-calendar/mini-calendar.comp
 import style from './mini-calendar-month.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * It displays a month in the `sbb-mini-calendar`.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * @slot - Use the unnamed slot to add `sbb-mini-calendar-day` elements.
  */
 export
 @customElement('sbb-mini-calendar-month')
@@ -37,16 +37,18 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('date') && this.date) {
-      // FIXME improve and restrict the 'date' type, because now is error prone
-      const date = this._dateAdapter.deserialize(this.date.concat('-01'))!;
-      const month = this._dateAdapter.getMonth(date);
-
+      if (!this.date.match(/^\d{4}-(0[1-9]|1[0-2])$/)) {
+        return;
+      }
+      const splittedDate = this.date.split('-');
+      const date = this._dateAdapter.createDate(+splittedDate[0], +splittedDate[1], 1);
       const offset = this._dateAdapter.getFirstWeekOffset(date);
       this.style.setProperty('--sbb-mini-calendar-month-offset', `${offset + 1}`);
 
       const monthList = Array.from(
         this._calendarParent?.querySelectorAll('sbb-mini-calendar-month') || [],
       );
+      const month = this._dateAdapter.getMonth(date);
       if (month === 1 || monthList.findIndex((e) => e === this) === 0) {
         this._yearLabel = String(this._dateAdapter.getYear(date));
       } else {

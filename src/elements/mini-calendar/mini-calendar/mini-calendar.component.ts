@@ -14,9 +14,9 @@ import { type SbbMiniCalendarMonthElement } from '../mini-calendar-month.js';
 import style from './mini-calendar.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * It displays a minimal calendar
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * @slot - Use the unnamed slot to add `sbb-mini-calendar-month` elements.
  */
 export
 @customElement('sbb-mini-calendar')

@@ -1,45 +1,40 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-mini-calendar-day` is a component used to display a single day
+in the [sbb-mini-calendar](/docs/elements-sbb-mini-calendar-sbb-mini-calendar).
 
-The `sbb-mini-calendar-day` is a component . . .
+The component needs to be wrapped in a [sbb-mini-calendar-month](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-month),
+and it requires a `date` property in ISOString format (YYYY-MM-DD).
 
 ```html
-<sbb-mini-calendar-day></sbb-mini-calendar-day>
+<sbb-mini-calendar>
+  <sbb-mini-calendar-month date="2025-01">
+    <sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>
+    ...
+  </sbb-mini-calendar-month>
+</sbb-mini-calendar>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
+The component has a `color` property, which is used to change the dot color.
+Default colors are provided for `charcoal`, `cloud`, `orange`, `red` and `sky` values;
+moreover, consumers can write their own CSS rules for custom values.
 
-## Interactions
+```html
+<!-- default style -->
+<sbb-mini-calendar-day date="2025-01-01" color="orange"></sbb-mini-calendar-day>
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+<!-- custom value -->
+<style>
+  sbb-mini-calendar-day[color='my-custom-color'] {
+    color: lightskyblue;
+  }
+</style>
+<sbb-mini-calendar-day date="2025-01-01" color="my-custom-color"></sbb-mini-calendar-day>
+```
 
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Similarly, a property named `marker` determines the shape of the dot.
+Default styles are provided for `target`, `circle`, `slash` and `cross` values.
+Consumers can write their own CSS rules for different values.
 
 <!-- Auto Generated Below -->
 
