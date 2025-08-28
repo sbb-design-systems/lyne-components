@@ -34,7 +34,7 @@ class SbbActionGroupElement extends LitElement {
    * Overrides the behaviour of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public accessor horizontalFrom: SbbHorizontalFrom = 'medium';
+  public accessor horizontalFrom: SbbHorizontalFrom = 'large';
 
   /**
    * Indicates the orientation of the components inside the `<sbb-action-group>`.

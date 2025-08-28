@@ -55,7 +55,7 @@ describe(`sbb-time-input`, () => {
     </sbb-form-field>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffFocus]) {
       describeEach(cases, (params) => {
         beforeEach(async function () {

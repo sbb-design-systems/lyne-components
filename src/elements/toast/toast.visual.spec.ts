@@ -23,7 +23,7 @@ describe(`sbb-toast`, () => {
     'bottom-end',
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 300 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 300 }, () => {
     describeEach(cases, ({ icon, action, readonly, content }) => {
       it(
         '',

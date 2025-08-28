@@ -18,7 +18,7 @@ const cases = {
 };
 
 describe(`sbb-tab-group`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ size, numbersAndIcons }) => {
       it(
         visualDiffDefault.name,

@@ -176,7 +176,7 @@ describe(`sbb-train-formation`, () => {
     ></sbb-train-wagon>
   </sbb-train>`;
 
-  describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
+  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
     it(
       `multiple trains`,
       visualDiffDefault.with(async (setup) => {

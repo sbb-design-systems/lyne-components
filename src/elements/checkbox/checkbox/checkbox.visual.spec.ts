@@ -16,7 +16,7 @@ describe('sbb-checkbox', () => {
     iconPlacement: undefined as string | undefined,
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of ['checked', 'unchecked', 'indeterminate']) {
       const template = ({
         size,

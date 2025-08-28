@@ -9,7 +9,7 @@
 }
 
 .app-compare-link {
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     margin-inline-start: auto;
   }
 }

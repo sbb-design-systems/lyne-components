@@ -24,7 +24,7 @@
   );
   --sbb-panel-animation-easing: var(--sbb-animation-easing);
 
-  @include mediaqueries.mq($from: medium) {
+  @include mediaqueries.mq($from: large) {
     --sbb-panel-width: #{functions.px-to-rem-build(321)};
     --sbb-panel-inner-height: #{functions.px-to-rem-build(240.11)};
     --sbb-panel-triangle-height: #{functions.px-to-rem-build(47.45)};

@@ -24,7 +24,7 @@ export function cardActionVisualSpec(component: string): void {
       color: ['white', 'milk', 'transparent-bordered', 'transparent-bordered-dashed'],
     };
 
-    describeViewports({ viewports: ['medium'] }, () => {
+    describeViewports({ viewports: ['large'] }, () => {
       // Main test cases
       describeEach(cases, ({ active, color, badge }) => {
         beforeEach(async function () {

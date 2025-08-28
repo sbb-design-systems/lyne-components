@@ -20,7 +20,7 @@ describe(`sbb-table-wrapper`, () => {
     scrollbar: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, scrollbar }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

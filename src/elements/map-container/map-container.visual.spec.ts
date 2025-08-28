@@ -65,7 +65,7 @@ describe(`sbb-map-container`, () => {
     window.scrollTo(0, 0);
   });
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {

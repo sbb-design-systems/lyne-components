@@ -58,7 +58,7 @@ describe('sbb-icon-sidebar', () => {
     </p>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     const cases: { color: SbbIconSidebarElement['color'][]; position: ('start' | 'end')[] } = {
       color: ['white', 'milk'],
       position: ['start', 'end'],
@@ -116,7 +116,7 @@ describe('sbb-icon-sidebar', () => {
     );
   });
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 200 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 200 }, () => {
     it(
       'scrolled icons',
       visualDiffDefault.with(async (setup) => {

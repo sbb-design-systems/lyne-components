@@ -37,7 +37,7 @@ class Overview extends LitElement {
             <sbb-action-group
               align-group="stretch"
               orientation="vertical"
-              horizontal-from="medium"
+              horizontal-from="large"
               button-size="s"
               link-size="s"
             >

@@ -38,7 +38,7 @@ describe(`sbb-expansion-panel`, () => {
     { name: 'slotted', icon: 'arrow-right-small', slotted: true, disabled: false },
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Main test cases
     describeEach(cases, ({ borderless, disabled, expanded, color }) => {
       beforeEach(async function () {

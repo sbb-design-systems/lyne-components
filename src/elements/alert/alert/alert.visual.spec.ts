@@ -33,7 +33,7 @@ describe(`sbb-alert`, () => {
     </sbb-alert>
   `;
 
-  describeViewports({ viewports: ['micro', 'small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     for (const size of ['s', 'm', 'l']) {
       it(
         `size=${size}`,

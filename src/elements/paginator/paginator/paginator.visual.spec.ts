@@ -11,7 +11,7 @@ import {
 import './paginator.component.js';
 
 describe('sbb-paginator', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const wrapperStyle = {

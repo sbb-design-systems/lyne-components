@@ -23,7 +23,7 @@ describe(`sbb-block-link-static`, () => {
     slotted: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, active, forcedColors }) => {
       let root: HTMLElement;
 

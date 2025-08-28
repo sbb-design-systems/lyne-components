@@ -31,7 +31,7 @@ describe(`sbb-autocomplete-grid-button`, () => {
     ></sbb-autocomplete-grid-button>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       const wrapperStyle = {
         backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,

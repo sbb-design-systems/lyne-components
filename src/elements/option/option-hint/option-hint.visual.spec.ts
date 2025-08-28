@@ -26,7 +26,7 @@ const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> =>
 };
 
 describe('sbb-option-hint', () => {
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     const cases = {
       divider: [true, false],
       negative: [true, false],

@@ -13,7 +13,7 @@ import '../../date-input.js';
 import '../../form-field.js';
 
 describe(`sbb-datepicker-toggle`, () => {
-  describeViewports({ viewports: ['wide'] }, () => {
+  describeViewports({ viewports: ['ultra'] }, () => {
     describeEach({ negative: [true, false] }, ({ negative }) => {
       const withFormFieldTemplate = html`
         <sbb-form-field ?negative=${negative}>

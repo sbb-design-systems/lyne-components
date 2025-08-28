@@ -10,7 +10,7 @@ import '../../button/secondary-button.js';
 import '../../link/block-link.js';
 
 const Template = (): TemplateResult =>
-  html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+  html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
     <sbb-block-link
       align-self="start"
       icon-name="chevron-small-left-small"

@@ -5,7 +5,7 @@
   --sbb-checkbox-group-checkbox-width: auto;
 }
 
-$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$breakpoints: 'zero', 'small', 'large', 'ultra';
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;

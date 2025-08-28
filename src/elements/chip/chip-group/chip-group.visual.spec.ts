@@ -42,7 +42,7 @@ const template = (
 `;
 
 describe('sbb-chip-group', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative }) => {
       it(
         `${visualDiffDefault.name}`,

@@ -35,7 +35,7 @@ describe('sbb-calendar', () => {
   ];
 
   for (const orientation of ['horizontal', 'vertical']) {
-    describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
+    describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
       describe(`orientation=${orientation}`, () => {
         for (const min of minArray) {
           for (const max of maxArray) {

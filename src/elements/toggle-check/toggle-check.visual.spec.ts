@@ -28,7 +28,7 @@ describe(`sbb-toggle-check`, () => {
     label: ['Label', 'Long label'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ size, label }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`

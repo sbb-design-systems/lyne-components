@@ -16,7 +16,7 @@ import { readConfig } from '../core/config.js';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbMediaQueryBreakpointMediumAndAbove,
+  SbbMediaQueryBreakpointLargeAndAbove,
 } from '../core/controllers.js';
 import type { DateAdapter } from '../core/datetime.js';
 import {
@@ -279,7 +279,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._createMonthRows();
   });
   private _mediaMatcher = new SbbMediaMatcherController(this, {
-    [SbbMediaQueryBreakpointMediumAndAbove]: () => this._init(),
+    [SbbMediaQueryBreakpointLargeAndAbove]: () => this._init(),
   });
 
   public constructor() {
@@ -368,7 +368,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._assignActiveDate(activeDate);
     }
     this._wide =
-      (this._mediaMatcher.matches(SbbMediaQueryBreakpointMediumAndAbove) ?? false) && this.wide;
+      (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
     this._weekNumbers = this._createWeekNumbers(this._activeDate);

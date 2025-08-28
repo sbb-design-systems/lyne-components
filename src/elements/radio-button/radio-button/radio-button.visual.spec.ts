@@ -14,7 +14,7 @@ const longLabel =
   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.";
 
 describe(`sbb-radio-button`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ size, checked, disabled }) => {
       it(
         visualDiffDefault.name,

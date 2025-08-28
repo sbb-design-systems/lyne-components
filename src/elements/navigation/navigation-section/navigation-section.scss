@@ -5,7 +5,7 @@
 
 :host {
   --sbb-navigation-section-display: none;
-  --sbb-navigation-section-column: 1 / 5;
+  --sbb-navigation-section-column: 1 / -1;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
   --sbb-navigation-section-animation-duration: var(
@@ -32,7 +32,7 @@
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
   @include sbb.mq($from: large) {
-    --sbb-navigation-section-column: 5 / 9;
+    --sbb-navigation-section-column: 5 / 13;
     --sbb-navigation-section-animation-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-4x)
@@ -48,10 +48,6 @@
     );
 
     translate: calc(var(--sbb-grid-base-gutter-responsive) * -1) 0;
-  }
-
-  @include sbb.mq($from: wide) {
-    --sbb-navigation-section-column: 5 / 13;
   }
 
   @include sbb.mq($from: ultra) {
@@ -151,7 +147,7 @@
     padding-inline-start: 0;
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     grid-column: 1 / 4;
   }
 }
@@ -196,7 +192,7 @@
     }
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     grid-template-columns: repeat(3, 1fr);
   }
 

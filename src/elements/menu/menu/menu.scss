@@ -29,7 +29,7 @@
   --sbb-menu-visibility: hidden;
   --sbb-menu-backdrop-color: transparent;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
@@ -40,7 +40,7 @@
   --sbb-menu-visibility: visible;
   --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-backdrop-color: transparent;
   }
 }
@@ -123,7 +123,7 @@
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     top: 0;
     bottom: unset;
     left: 0;
@@ -157,7 +157,7 @@
     height: var(--sbb-spacing-fixed-8x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     max-height: fit-content;
 
     :host(:not([data-state='closed'])) & {

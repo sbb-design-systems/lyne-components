@@ -29,7 +29,7 @@ describe(`sbb-action-group`, () => {
     alignGroup: ['start', 'center', 'end'],
   };
 
-  describeViewports({ viewports: ['small', 'wide'] }, () => {
+  describeViewports({ viewports: ['small', 'ultra'] }, () => {
     describe('horizontal', () => {
       for (const state of horizontalCases) {
         it(
@@ -142,10 +142,10 @@ describe(`sbb-action-group`, () => {
     });
 
     it(
-      `orientation=vertical-horizontal-from=medium`,
+      `orientation=vertical-horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-action-group orientation="vertical" horizontal-from="medium">
+          <sbb-action-group orientation="vertical" horizontal-from="large">
             <sbb-secondary-button>Button 1</sbb-secondary-button>
             <sbb-button>Button 2</sbb-button>
             <sbb-block-link

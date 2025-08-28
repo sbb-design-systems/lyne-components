@@ -22,7 +22,7 @@ describe('sbb-mini-button-group', () => {
     </sbb-mini-button-group>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const size of sizeCases) {
       it(
         `size=${size}`,

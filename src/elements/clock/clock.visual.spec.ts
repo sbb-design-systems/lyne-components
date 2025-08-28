@@ -12,7 +12,7 @@ describe(`sbb-clock`, () => {
     { hours: '11', minutes: '60', seconds: '60' },
   ];
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     for (const time of timeCases) {
       const timeStamp = `${time.hours}:${time.minutes}:${time.seconds}`;
 

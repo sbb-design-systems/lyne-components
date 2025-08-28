@@ -12,7 +12,7 @@ import './navigation-link.component.js';
 describe(`sbb-navigation-link`, () => {
   const sizeCases = ['s', 'm', 'l'];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       it(
         state.name,

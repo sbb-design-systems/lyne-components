@@ -38,7 +38,7 @@ describe(`sbb-file-selector-dropzone`, () => {
     ],
   };
 
-  describeViewports({ viewports: ['small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describeEach(states, ({ state }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`

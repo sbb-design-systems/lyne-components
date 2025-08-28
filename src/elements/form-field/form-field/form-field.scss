@@ -55,7 +55,7 @@
   // to default color for cases where the form field is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
   }
 
@@ -94,7 +94,7 @@
   --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
   --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     // Values found by try and error
     --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};

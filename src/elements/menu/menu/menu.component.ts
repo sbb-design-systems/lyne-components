@@ -127,7 +127,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._setMenuPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
-    // From zero to medium, disable scroll
+    // From zero to large, disable scroll
     if (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow)) {
       this._scrollHandler.disableScroll();
     }
@@ -189,7 +189,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this._windowEventsController?.abort();
     this._focusTrapController.enabled = false;
 
-    // Starting from breakpoint medium, enable scroll
+    // Starting from breakpoint large, enable scroll
     this._scrollHandler.enableScroll();
   }
 
@@ -384,9 +384,9 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     }
   }
 
-  // Set menu position and max height if the breakpoint is medium-ultra.
+  // Set menu position and max height if the breakpoint is large-ultra.
   private _setMenuPosition(): void {
-    // Starting from breakpoint medium
+    // Starting from breakpoint large
     if (
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointSmallAndBelow) ?? true) ||
       !this._menu ||

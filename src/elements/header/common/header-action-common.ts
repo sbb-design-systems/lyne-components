@@ -31,11 +31,11 @@ export const SbbHeaderActionCommonElementMixin = <
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.
-     * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
+     * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
     @property({ attribute: 'expand-from', reflect: true })
-    public accessor expandFrom: SbbHorizontalFrom = 'medium';
+    public accessor expandFrom: SbbHorizontalFrom = 'large';
 
     protected override renderTemplate(): TemplateResult {
       return html`

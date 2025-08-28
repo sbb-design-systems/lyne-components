@@ -185,7 +185,7 @@
   }
 
   &:where(.sbb-text-xl) {
-    @include mediaqueries.mq($from: medium) {
+    @include mediaqueries.mq($from: large) {
       --sbb-step-list-dimensions: #{functions.px-to-rem-build(41)};
     }
   }

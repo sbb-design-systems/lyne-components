@@ -9,7 +9,7 @@ import {
 import './link-button.component.js';
 
 describe(`sbb-link-button`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [true, false]) {
       for (const state of visualDiffStandardStates) {
         it(

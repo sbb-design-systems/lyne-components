@@ -65,7 +65,7 @@ describe(`sbb-optgroup`, () => {
     </sbb-form-field>
   `;
 
-  describeViewports({ viewports: ['micro', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describe('standalone', () => {
       it(
         visualDiffDefault.name,
