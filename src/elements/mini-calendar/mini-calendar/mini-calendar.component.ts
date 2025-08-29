@@ -158,6 +158,11 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     });
   }
 
+  /** @internal */
+  public override focus(): void {
+    this._miniCalendarDays?.find((e) => e.tabIndex === 0)?.focus();
+  }
+
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._keydownAbortController?.abort();
