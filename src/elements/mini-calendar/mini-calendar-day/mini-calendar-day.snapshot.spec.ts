@@ -11,7 +11,9 @@ describe(`sbb-mini-calendar-day`, () => {
     let element: SbbMiniCalendarDayElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-mini-calendar-day></sbb-mini-calendar-day>`);
+      element = await fixture(
+        html`<sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>`,
+      );
     });
 
     it('DOM', async () => {

@@ -1,23 +1,42 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffStandardStates } from '../../core/testing/private.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffStandardStates,
+  visualRegressionFixture,
+} from '../../core/testing/private.js';
 
 import './mini-calendar-day.component.js';
 
 describe('sbb-mini-calendar-day', () => {
-  /**
-   * Add the `viewports` param to test only specific viewport;
-   * add the `viewportHeight` param to set a fixed height for the browser.
-   */
-  describeViewports(() => {
-    // Create visual tests considering the implemented states (default, hover, active, focus)
-    for (const state of visualDiffStandardStates) {
-      it(
-        `${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`<sbb-mini-calendar-day></sbb-mini-calendar-day>`);
-        }),
-      );
-    }
+  const states = {
+    marker: ['', 'circle', 'target', 'slash', 'cross'],
+    color: ['', 'charcoal', 'cloud', 'orange', 'red', 'sky'],
+  };
+
+  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+    describeEach(states, ({ marker, color }) => {
+      let root: HTMLElement;
+
+      beforeEach(async function () {
+        root = await visualRegressionFixture(
+          html`<sbb-mini-calendar-day
+            date="2025-01-01"
+            marker=${marker}
+            color=${color}
+          ></sbb-mini-calendar-day>`,
+        );
+      });
+
+      for (const state of visualDiffStandardStates) {
+        it(
+          state.name,
+          state.with((setup) => {
+            setup.withSnapshotElement(root);
+          }),
+        );
+      }
+    });
   });
 });
