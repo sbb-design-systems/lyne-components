@@ -40,7 +40,8 @@
   }
 }
 
-.sbb-mini-calendar-month-label {
+.sbb-mini-calendar-month-label-year,
+.sbb-mini-calendar-month-label-month {
   @include sbb.text-xxs--regular;
 
   color: var(--sbb-color-granite);

@@ -24,7 +24,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The orientation of days in the calendar. */
-  @handleDistinctChange((e: SbbMiniCalendarElement<T>) => e._handleSlotchange())
+  @handleDistinctChange((e: SbbMiniCalendarElement<T>) => e._setMonthsOrientation())
   @property({ reflect: true })
   public accessor orientation: SbbOrientation = 'horizontal';
 

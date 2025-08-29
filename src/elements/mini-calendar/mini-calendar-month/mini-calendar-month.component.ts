@@ -43,7 +43,7 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
       const splittedDate = this.date.split('-');
       const date = this._dateAdapter.createDate(+splittedDate[0], +splittedDate[1], 1);
       const offset = this._dateAdapter.getFirstWeekOffset(date);
-      this.style.setProperty('--sbb-mini-calendar-month-offset', `${offset + 1}`);
+      this.style?.setProperty('--sbb-mini-calendar-month-offset', `${offset + 1}`);
 
       const monthList = Array.from(
         this._calendarParent?.querySelectorAll('sbb-mini-calendar-month') || [],
@@ -61,11 +61,11 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-mini-calendar-month">
-        <div class="sbb-mini-calendar-month-label">${this._yearLabel}</div>
+        <div class="sbb-mini-calendar-month-label-year">${this._yearLabel}</div>
         <div class="sbb-mini-calendar-month-wrapper">
           <slot></slot>
         </div>
-        <div class="sbb-mini-calendar-month-label">${this._monthLabel}</div>
+        <div class="sbb-mini-calendar-month-label-month">${this._monthLabel}</div>
       </div>
     `;
   }

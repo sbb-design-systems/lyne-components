@@ -20,14 +20,14 @@ snapshots["sbb-mini-calendar-month renders DOM"] =
 
 snapshots["sbb-mini-calendar-month renders Shadow DOM"] = 
 `<div class="sbb-mini-calendar-month">
-  <div class="sbb-mini-calendar-month-label">
+  <div class="sbb-mini-calendar-month-label-year">
     2025
   </div>
   <div class="sbb-mini-calendar-month-wrapper">
     <slot>
     </slot>
   </div>
-  <div class="sbb-mini-calendar-month-label">
+  <div class="sbb-mini-calendar-month-label-month">
     Jan.
   </div>
 </div>
