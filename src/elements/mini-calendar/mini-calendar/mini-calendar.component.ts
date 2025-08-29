@@ -122,8 +122,6 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     const newDay = days.find((d) => d.date === newDateString);
     if (!newDay) {
       return day;
-    } else if (newDay.disabled) {
-      return this._findDayArrowKeys(days, newDay, delta);
     }
     return newDay;
   }
@@ -140,7 +138,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     );
     const newDateString = this._dateAdapter.toIso8601(newDate);
     const newDay = days.find((d) => d.date === newDateString);
-    if (!newDay || newDay.disabled) {
+    if (!newDay) {
       this._findDaySpecialKeys(days, day, delta + recursiveDelta, recursiveDelta);
     }
     return newDay!;

@@ -1,9 +1,11 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { readConfig } from '../../core/config/config.js';
+import { type DateAdapter } from '../../core/datetime/date-adapter.js';
+import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
 
 import style from './mini-calendar-day.scss?lit&inline';
 
@@ -12,8 +14,10 @@ import style from './mini-calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-mini-calendar-day')
-class SbbMiniCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
+class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
   public static override styles: CSSResultGroup = style;
+
+  private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   /** Date as ISO string. */
   @forceType()
@@ -29,6 +33,14 @@ class SbbMiniCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor color: 'charcoal' | 'cloud' | 'orange' | 'red' | 'sky' | string = '';
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('date') && this.date) {
+      this.setAttribute('aria-label', this._dateAdapter.getAccessibilityFormatDate(this.date));
+    }
+  }
 
   // FIXME empty template ?
   protected override renderTemplate(): TemplateResult {

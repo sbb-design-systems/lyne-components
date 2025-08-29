@@ -33,7 +33,7 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-mini-calendar-day ${sbbSpread(args)}></sbb-mini-calendar-day>`;
+  html`<sbb-mini-calendar-day date="2025-08-15" ${sbbSpread(args)}></sbb-mini-calendar-day>`;
 
 export const Default: StoryObj = {
   render: Template,
