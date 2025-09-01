@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.4.0...v3.5.0) (2025-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **seat-reservation-v5:** 
+
+### Features
+
+* **sbb-dialog:** expose announceTitle method to announce title at any time ([#3994](https://github.com/sbb-design-systems/lyne-components/issues/3994)) ([3bef7d5](https://github.com/sbb-design-systems/lyne-components/commit/3bef7d548e5cf42ec025fe64609a1b56ebd5301d)), closes [#3982](https://github.com/sbb-design-systems/lyne-components/issues/3982)
+* **seat-reservation-v5:** optimize input props + modify vertical mode ([#3987](https://github.com/sbb-design-systems/lyne-components/issues/3987)) ([7137cc8](https://github.com/sbb-design-systems/lyne-components/commit/7137cc8e3a46c200a9d8ec4b655bd2dc836948b6))
+
+
+### Documentation
+
+* add release documentation ([#3995](https://github.com/sbb-design-systems/lyne-components/issues/3995)) ([f20e948](https://github.com/sbb-design-systems/lyne-components/commit/f20e948f420208b7b99dcb776138776106330932))
+
+
+### Miscellaneous Chores
+
+* fix release version 3.5.0 ([88d3193](https://github.com/sbb-design-systems/lyne-components/commit/88d3193a07657cf967526e324d8c1f8aa48eb14d))
+
 ## [3.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.3.2...v3.4.0) (2025-08-25)
 
 
