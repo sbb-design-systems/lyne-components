@@ -130,7 +130,7 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
-  private _scrollTimeout: null | NodeJS.Timeout = null;
+  private _scrollTimeoutId?: number;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -266,15 +266,15 @@ export class SeatReservationBaseElement extends LitElement {
 
       this.coachScrollArea.addEventListener('scroll', () => {
         // Timeout event handling to check if the scrolling has been completed.  -> scrollend
-        if (this._scrollTimeout) clearTimeout(this._scrollTimeout);
+        if (this._scrollTimeoutId) clearTimeout(this._scrollTimeoutId);
         //If no further scoll event is fired, the last timeout is fired
-        this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollendEvent(), 150);
+        this._scrollTimeoutId = window.setTimeout(() => this._handleCoachAreaScrollendEvent(), 150);
       });
     }
   }
 
   // At the end of a scroll Events to a coach, the reached choach is marked as selected
-  private _handleCoachAreaScrollendEvent() {
+  private _handleCoachAreaScrollendEvent(): void {
     const findScrollCoachIndex = this.isAutoScrolling
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
