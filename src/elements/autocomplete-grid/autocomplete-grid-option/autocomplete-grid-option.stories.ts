@@ -119,7 +119,7 @@ const AutocompleteTemplate = (args: Args): TemplateResult => html`
 `;
 
 const borderDecorator: Decorator = (story) => html`
-  <div style="border: 3px solid red;">${story()}</div>
+  <div style="border: 3px solid var(--sbb-color-primary);">${story()}</div>
 `;
 
 export const Standalone: StoryObj = {

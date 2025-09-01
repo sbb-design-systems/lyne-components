@@ -1,6 +1,4 @@
 @use '../core/styles' as sbb;
-@use 'sass:color';
-@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
 // Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
 @include sbb.box-sizing;
@@ -63,24 +61,20 @@ $open-anim-height-to: calc(
 
 :host([type='info']) {
   --sbb-notification-type-color: var(--sbb-color-smoke);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-smoke, white, 5%)};
   --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='success']) {
-  --sbb-notification-type-color: var(--sbb-color-green);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-green, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-success);
 }
 
 :host([type='warn']) {
-  --sbb-notification-type-color: var(--sbb-color-peach);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-warning);
   --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='error']) {
-  --sbb-notification-type-color: var(--sbb-color-red);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-error);
 }
 
 :host([size='s']) {
@@ -157,14 +151,7 @@ $open-anim-height-to: calc(
   color: var(--sbb-notification-color);
   border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
-
-  // We apply Sass calculated background color as default/fallback for older browsers.
-  background-color: var(--sbb-notification-type-color-sass);
-
-  // If supported, try to mix color with CSS
-  @supports (background-color: color-mix(in srgb, transparent 5%, white)) {
-    background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
-  }
+  background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
 
   @include sbb.mq($from: small) {
     grid-template-columns: auto 1fr auto;

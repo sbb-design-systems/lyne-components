@@ -31,7 +31,7 @@
 }
 
 :host([data-checked]) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-primary);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
   );

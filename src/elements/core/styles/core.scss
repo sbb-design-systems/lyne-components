@@ -211,12 +211,12 @@ sbb-form-field {
     )
   ),
   :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
-    --sbb-form-field-border-color: var(--sbb-color-red125);
-    --sbb-form-field-text-color: var(--sbb-color-red125);
+    --sbb-form-field-border-color: var(--sbb-color-error);
+    --sbb-form-field-text-color: var(--sbb-color-error);
 
     &[negative] {
-      --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
-      --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
+      --sbb-form-field-border-color: var(--sbb-color-red85);
+      --sbb-form-field-text-color: var(--sbb-color-red85);
     }
 
     @include a11y.if-forced-colors {

@@ -11,7 +11,7 @@
   --sbb-pearl-chain-bullet-color: var(--sbb-color-charcoal);
   --sbb-pearl-chain-bullet-color-past: var(--sbb-color-metal);
   --sbb-pearl-chain-bullet-color-irrelevant: var(--sbb-color-metal);
-  --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-red);
+  --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-primary);
   --sbb-pearl-chain-bullet-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-bullet-animation-duration: 1920ms;
   --sbb-pearl-chain-bullet-animation-easing: ease-out;
@@ -119,7 +119,7 @@
     }
 
     50% {
-      box-shadow: 0 0 0 #{functions.px-to-rem-build(3)} var(--sbb-color-red-alpha-20);
+      box-shadow: 0 0 0 #{functions.px-to-rem-build(3)} var(--sbb-color-primary-alpha-20);
     }
 
     100% {
