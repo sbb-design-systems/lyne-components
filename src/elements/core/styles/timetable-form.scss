@@ -1,0 +1,80 @@
+@use 'core/functions';
+@use 'core/mediaqueries';
+
+// TODO move to his own file
+@mixin timetable-form-block {
+  --sbb-form-field-focus-underline-z-index: 1;
+
+  width: 100%;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+    inset-inline: var(--sbb-form-field-padding-inline);
+    inset-block-end: 0;
+  }
+}
+
+.sbb-timetable-form {
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    var(--sbb-color-red) 0 #{functions.px-to-rem-build(177)},
+    var(--sbb-color-milk) #{functions.px-to-rem-build(177)} 100%
+  );
+  display: flex;
+  flex-direction: column;
+  column-gap: var(--sbb-spacing-fixed-3x);
+  border-radius: var(--sbb-border-radius-4x);
+  padding-block: var(--sbb-spacing-fixed-10x) var(--sbb-spacing-responsive-l);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+
+  @include mediaqueries.mq($to: large) {
+    &:has(sbb-signet) {
+      padding-block-start: var(--sbb-spacing-fixed-4x);
+    }
+  }
+
+  sbb-signet {
+    width: var(--sbb-spacing-fixed-16x);
+    align-self: end;
+    margin-block-end: var(--sbb-spacing-fixed-2x);
+    margin-inline: 0;
+
+    @include mediaqueries.mq($from: large) {
+      position: absolute;
+      inset-block-start: var(--sbb-spacing-fixed-6x);
+      inset-inline-end: var(--sbb-spacing-fixed-6x);
+    }
+  }
+
+  sbb-date-input {
+    min-width: unset;
+  }
+
+  & > * {
+    margin-inline: auto;
+    max-width: #{functions.px-to-rem-build(740)};
+    width: 100%;
+  }
+
+  .sbb-timetable-form-block {
+    @include timetable-form-block;
+  }
+
+  .sbb-timetable-form-mobile-block {
+    flex-grow: 1;
+  }
+
+  @include mediaqueries.mq($to: small) {
+    .sbb-timetable-form-mobile-block {
+      @include timetable-form-block;
+    }
+
+    .sbb-timetable-form-mobile-hidden {
+      display: none;
+    }
+  }
+}

@@ -12,7 +12,7 @@ describe(`sbb-timetable-form-swap-button`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-timetable-form-swap-button my-prop="Label"></sbb-timetable-form-swap-button>`,
+        html`<sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>`,
       );
     });
 

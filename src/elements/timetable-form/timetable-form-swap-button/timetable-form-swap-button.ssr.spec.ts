@@ -10,7 +10,7 @@ describe(`sbb-timetable-form-swap-button ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
-      html`<sbb-timetable-form-swap-button my-prop="Label"></sbb-timetable-form-swap-button>`,
+      html`<sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>`,
       {
         modules: ['./timetable-form-swap-button.component.js'],
       },
