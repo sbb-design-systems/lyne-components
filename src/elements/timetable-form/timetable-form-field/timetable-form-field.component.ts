@@ -7,14 +7,6 @@ import style from './timetable-form-field.scss?lit&inline';
 
 /**
  * Extends the `sbb-form-field`. Meant to be used inside a `sbb-timetable-form`.
- *
- * @slot - Use this slot to render an input/select or a supported non-native element.
- * @slot label - Use this slot to render a label.
- * @slot prefix - Use this slot to render an icon on the left side of the input.
- * @slot suffix - Use this slot to render an icon on the right side of the input.
- * @slot error - Use this slot to render an error.
- *
- * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  */
 export
 @customElement('sbb-timetable-form-field')

@@ -256,6 +256,7 @@
           var(--sbb-form-field-border-color);
         inset-inline: var(--sbb-form-field-padding-inline);
         inset-block-end: 0;
+        z-index: var(--sbb-form-field-focus-underline-z-index, initial);
       }
     }
   }

@@ -42,3 +42,9 @@ The `sbb-timetable-form-details` is a component . . .
 > Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
+
+## Slots
+
+| Name | Description                                                 |
+| ---- | ----------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the details section. |

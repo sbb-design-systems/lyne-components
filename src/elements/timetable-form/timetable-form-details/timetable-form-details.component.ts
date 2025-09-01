@@ -5,20 +5,17 @@ import { customElement } from 'lit/decorators.js';
 import style from './timetable-form-details.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Wrapper of the details section of the `sbb-timetable-form`.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * @slot - Use the unnamed slot to add content to the details section.
  */
 export
 @customElement('sbb-timetable-form-details')
 class SbbTimetableFormDetailsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    // Add event names or remove
-  } as const;
 
   protected override render(): TemplateResult {
-    return html` <div class="sbb-timetable-form-details"><slot></slot></div> `;
+    return html`<slot></slot>`;
   }
 }
 

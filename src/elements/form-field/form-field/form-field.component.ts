@@ -75,6 +75,7 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot error - Use this slot to render an error.
  *
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
+ * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
  */
 export
 @customElement('sbb-form-field')

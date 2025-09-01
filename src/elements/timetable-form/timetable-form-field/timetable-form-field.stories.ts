@@ -35,7 +35,6 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  placeholder: undefined,
   disabled: false,
   readonly: false,
 };
@@ -68,6 +67,7 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'elements/sbb-timetable-form/sbb-timetable-form-field',
 };

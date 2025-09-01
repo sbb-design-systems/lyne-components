@@ -66,9 +66,10 @@ The `sbb-timetable-form-field` is a component . . .
 
 ## CSS Properties
 
-| Name                              | Default | Description                           |
-| --------------------------------- | ------- | ------------------------------------- |
-| `--sbb-form-field-outline-offset` |         | To override the focus outline offset, |
+| Name                                       | Default | Description                                            |
+| ------------------------------------------ | ------- | ------------------------------------------------------ |
+| `--sbb-form-field-focus-underline-z-index` |         | To override the z-index of the focus underline effect, |
+| `--sbb-form-field-outline-offset`          |         | To override the focus outline offset,                  |
 
 ## Slots
 
