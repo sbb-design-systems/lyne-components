@@ -1,37 +1,61 @@
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
-import { SbbTimetableFormFieldElement } from './timetable-form-field.component.js';
+import './timetable-form-field.component.js';
+import '../timetable-form.js';
+import '../timetable-form-swap-button.js';
+import '../../signet.js';
 
-const myProp: InputType = {
+const disabled: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
+const readonly: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input attribute',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
+  disabled,
+  readonly,
 };
 
 const defaultArgs: Args = {
-  'my-prop': 'Label',
+  placeholder: undefined,
+  disabled: false,
+  readonly: false,
 };
 
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-timetable-form-field ${sbbSpread(args)}></sbb-timetable-form-field>`;
+const Template = (args: Args): TemplateResult => html`
+  <form class="sbb-timetable-form">
+    <sbb-signet></sbb-signet>
+    <sbb-timetable-form>
+      <sbb-timetable-form-field>
+        <label>From</label>
+        <input type="text" name="from" ${sbbSpread(args)} />
+      </sbb-timetable-form-field>
+      <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
+      <sbb-timetable-form-field>
+        <label>To</label>
+        <input type="text" name="to" />
+      </sbb-timetable-form-field>
+    </sbb-timetable-form>
+  </form>
+`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -40,18 +64,12 @@ export const Default: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [SbbTimetableFormFieldElement.events.myEventName],
-    },
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-timetable-form-field',
+  title: 'elements/sbb-timetable-form/sbb-timetable-form-field',
 };
 
 export default meta;

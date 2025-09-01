@@ -285,6 +285,12 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 | `clear` | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void` |                |
 | `reset` | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void` |                |
 
+## CSS Properties
+
+| Name                              | Default | Description                        |
+| --------------------------------- | ------- | ---------------------------------- |
+| `--sbb-form-field-outline-offset` |         | Overrides the focus outline offset |
+
 ## Slots
 
 | Name     | Description                                                                |
