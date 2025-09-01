@@ -1396,9 +1396,9 @@
     argparse "~1.0.9"
     string-argv "~0.3.1"
 
-"@sbb-esta/lyne-design-tokens@file:./sbb-esta-lyne-design-tokens-next2.tgz":
+"@sbb-esta/lyne-design-tokens@file:./sbb-esta-lyne-design-tokens-next3.tgz":
   version "1.6.1"
-  resolved "file:./sbb-esta-lyne-design-tokens-next2.tgz#29077fe4205c578833f832a038277f6345f9495d"
+  resolved "file:./sbb-esta-lyne-design-tokens-next3.tgz#9d4a13637ef27a630e78bf512a1a17cbafc5600a"
 
 "@sinonjs/commons@^3.0.1":
   version "3.0.1"

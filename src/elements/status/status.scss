@@ -21,7 +21,7 @@
 }
 
 :host([type='warning']) {
-  --sbb-status-color: var(--sbb-color-warning);
+  --sbb-status-color: var(--sbb-color-charcoal);
 }
 
 :host([type='pending']) {
