@@ -97,5 +97,157 @@ describe('sbb-mini-calendar', () => {
       await waitForLitRender(element);
       expect(getActiveElementDate()).to.be.equal('2025-01-31');
     });
+
+    it('it should navigate with arrows', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-02');
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-09');
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-08');
+      await sendKeys({ press: 'ArrowUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+    });
+
+    it('it should navigate to next month if last day is reached', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-02-01');
+    });
+
+    it('it should navigate between months if last week is reached', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-29');
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-02-05');
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-02-04');
+      await sendKeys({ press: 'ArrowUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-28');
+    });
+  });
+
+  describe('keyboard navigation vertical', () => {
+    beforeEach(async () => {
+      element.orientation = 'vertical';
+      await waitForLitRender(element);
+    });
+
+    it('it should focus on first element', () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+    });
+
+    it('it should not navigate when unmapped keys are pressed', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'a' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: '1' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+    });
+
+    it('it should not navigate out of bounds with special keys', async () => {
+      element.focus();
+      // no navigation before
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'Home' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'PageUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      // go to lower bound
+      await sendKeys({ press: 'End' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+      // no navigation after
+      await sendKeys({ press: 'End' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+      await sendKeys({ press: 'PageDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+    });
+
+    it('it should navigate with arrows', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-08');
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-09');
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-02');
+      await sendKeys({ press: 'ArrowUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+    });
+
+    it('it should navigate to next month if last day is reached', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-02-01');
+    });
+
+    it('it should navigate between months if last week is reached', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-29');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-02-05');
+      await sendKeys({ press: 'ArrowUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-02-04');
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-28');
+    });
   });
 });
