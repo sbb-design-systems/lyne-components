@@ -485,8 +485,8 @@ Also define CSS variables in :host.
   --sbb-component-color: var(--sbb-color-standard);
   --sbb-component-padding: var(--sbb-padding-standard);
 
-  @include sbb.mq($from: medium) {
-    --sbb-component-padding: var(--sbb-padding-medium);
+  @include sbb.mq($from: large) {
+    --sbb-component-padding: var(--sbb-padding-large);
   }
 }
 

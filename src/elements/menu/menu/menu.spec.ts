@@ -1,4 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin, SbbBreakpointSmallMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -230,7 +231,7 @@ describe(`sbb-menu`, () => {
   it('is correctly positioned on desktop', async () => {
     const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbMenuElement.events.open, element);
-    await setViewport({ width: 1200, height: 800 });
+    await setViewport({ width: SbbBreakpointLargeMin, height: 800 });
     if (isWebkit) {
       // Needed to let media queries get applied on Webkit
       // TODO: Figure out why
@@ -269,7 +270,7 @@ describe(`sbb-menu`, () => {
     const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbMenuElement.events.open, element);
 
-    await setViewport({ width: 800, height: 600 });
+    await setViewport({ width: SbbBreakpointSmallMin, height: 600 });
     const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
 
     trigger.click();

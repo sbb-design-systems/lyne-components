@@ -17,7 +17,7 @@ describe('sbb-breadcrumb', () => {
     { case: 'label and icon', icon: 'house-small', text: 'Breadcrumb' },
   ];
 
-  describeViewports({ viewports: ['wide'] }, () => {
+  describeViewports({ viewports: ['ultra'] }, () => {
     for (const singleCase of cases) {
       describe(`${singleCase.case}`, () => {
         beforeEach(async function () {

@@ -57,7 +57,7 @@ describe(`sbb-stepper`, () => {
     </sbb-stepper>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ linear, orientation }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(template(linear, orientation));
@@ -74,14 +74,14 @@ describe(`sbb-stepper`, () => {
     });
 
     it(
-      `horizontal-from=medium`,
+      `horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(false, 'vertical', false, 'medium'));
+        await setup.withFixture(template(false, 'vertical', false, 'large'));
       }),
     );
   });
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     for (const orientation of cases.orientation) {
       it(
         `orientation=${orientation}_long labels`,

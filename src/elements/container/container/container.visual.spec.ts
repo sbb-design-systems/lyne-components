@@ -133,7 +133,7 @@ describe(`sbb-container`, () => {
     });
   });
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       `nested`,
       visualDiffDefault.with(async (setup) => {

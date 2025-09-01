@@ -1,4 +1,5 @@
 import { assert, expect, fixture } from '@open-wc/testing';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -46,7 +47,7 @@ describe('sbb-dialog', () => {
     let element: SbbDialogElement, ariaLiveRef: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: 900, height: 600 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -359,7 +360,7 @@ describe('sbb-dialog', () => {
     });
 
     it('does not close the dialog on other overlay click', async () => {
-      await setViewport({ width: 900, height: 600 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-4">
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -463,7 +464,7 @@ describe('sbb-dialog', () => {
     let element: SbbDialogElement, trigger: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: 900, height: 600 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
       const root = await fixture(html`
         <div>
           <button id="trigger"></button>
@@ -570,7 +571,7 @@ describe('sbb-dialog', () => {
     let element: SbbDialogElement;
 
     beforeEach(async () => {
-      await setViewport({ width: 900, height: 300 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 300 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -614,7 +615,7 @@ describe('sbb-dialog', () => {
 
       const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
 
-      await setViewport({ width: 800, height: 200 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 200 });
       await waitForLitRender(element);
       expect(element).not.to.match(':state(scrolled)');
 
@@ -716,7 +717,7 @@ describe('sbb-dialog', () => {
     let root: SbbDialogElement;
 
     beforeEach(async () => {
-      await setViewport({ width: 900, height: 600 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
       root = await fixture(html`
         <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>

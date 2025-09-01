@@ -51,7 +51,7 @@ describe('sbb-slider', () => {
     { name: 'form-field', template: formFieldTemplate },
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const variant of variants) {
       describe(`${variant.name}`, () => {
         for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {

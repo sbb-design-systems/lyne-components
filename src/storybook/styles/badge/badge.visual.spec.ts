@@ -15,7 +15,7 @@ describe(`badge`, () => {
     badgePosition: [undefined, 'before', 'after'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ badgeContent, badgePosition }) => {
       it(
         '',

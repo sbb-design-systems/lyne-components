@@ -59,7 +59,7 @@ describe(`sbb-menu-button`, () => {
     maxWidth: '256px',
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const visualDiffState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       it(
         visualDiffState.name,

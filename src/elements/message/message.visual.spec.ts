@@ -43,7 +43,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-message`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const testCase of imgTestCases) {
       it(
         `default ${testCase.title}`,

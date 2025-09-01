@@ -37,7 +37,7 @@ describe(`sbb-popover`, () => {
     </sbb-popover>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     for (const position of positionCases) {
       it(
         `position=${position.name}`,

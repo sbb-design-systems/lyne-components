@@ -19,7 +19,7 @@ describe(`sbb-icon-sidebar-button`, () => {
     currentPage: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ slottedIcon, forcedColors, currentPage }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

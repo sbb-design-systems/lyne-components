@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { stub, type SinonStub } from 'sinon';
@@ -79,7 +80,7 @@ describe(`sbb-calendar`, () => {
     let element: SbbCalendarElement;
 
     beforeEach(async () => {
-      await setViewport({ width: 1280, height: 640 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 640 });
       element = await fixture(html`
         <sbb-calendar
           selected="2023-01-20T00:00:00"
@@ -103,7 +104,7 @@ describe(`sbb-calendar`, () => {
     let element: SbbCalendarElement;
 
     beforeEach(async () => {
-      await setViewport({ width: 1280, height: 640 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 640 });
       element = await fixture(html`
         <sbb-calendar
           selected="2023-01-20T00:00:00"

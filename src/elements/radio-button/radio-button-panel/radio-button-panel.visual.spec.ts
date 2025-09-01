@@ -19,7 +19,7 @@ const suffixAndSubtext = (size: 's' | 'm' = 'm'): TemplateResult =>
     </span>`;
 
 describe(`sbb-radio-button-panel`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ checked, disabled, size }) => {
       it(
         visualDiffDefault.name,

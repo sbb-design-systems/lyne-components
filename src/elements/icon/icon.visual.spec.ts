@@ -6,7 +6,7 @@ import './icon.component.js';
 
 describe(`sbb-icon`, () => {
   describeViewports({ viewports: ['small'] }, () => {
-    for (const size of ['small', 'medium', 'large']) {
+    for (const size of ['small', 'large', 'large']) {
       it(
         `icon=circle-information size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {

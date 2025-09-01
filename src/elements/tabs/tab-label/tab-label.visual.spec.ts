@@ -20,7 +20,7 @@ const cases = {
 };
 
 describe(`sbb-tab-label`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {
       it(
         state.name,

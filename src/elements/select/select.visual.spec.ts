@@ -88,7 +88,7 @@ describe('sbb-select', () => {
     `;
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     for (const negative of [false, true]) {
       for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
         it(
@@ -116,7 +116,7 @@ describe('sbb-select', () => {
     }
   });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
         it(

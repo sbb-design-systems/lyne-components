@@ -56,7 +56,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
     </sbb-form-field>
   `;
 
-  describeViewports({ viewports: ['micro', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describe('standalone', () => {
       it(
         visualDiffDefault.name,

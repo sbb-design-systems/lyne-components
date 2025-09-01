@@ -40,7 +40,12 @@ const Template = (args: Args): TemplateResult => html`
     >
       Search
     </sbb-header-link>
-    <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+    <sbb-header-button
+      icon-name="globe-small"
+      id="language-menu-trigger"
+      class="last-element"
+      expand-from="small"
+    >
       English
     </sbb-header-button>
     <sbb-menu trigger="language-menu-trigger">
