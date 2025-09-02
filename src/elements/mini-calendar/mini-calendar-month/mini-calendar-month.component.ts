@@ -6,7 +6,6 @@ import { readConfig } from '../../core/config/config.js';
 import { type DateAdapter } from '../../core/datetime/date-adapter.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { forceType } from '../../core/decorators.js';
-import { type SbbMiniCalendarElement } from '../mini-calendar/mini-calendar.component.js';
 
 import style from './mini-calendar-month.scss?lit&inline';
 
@@ -25,10 +24,6 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
   @property()
   public accessor date: string = '';
 
-  private get _calendarParent(): SbbMiniCalendarElement | null {
-    return this.closest?.<SbbMiniCalendarElement>('sbb-mini-calendar') || null;
-  }
-
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _monthNames = this._dateAdapter.getMonthNames('short');
   private _monthLabel: string | null = null;
@@ -45,16 +40,8 @@ class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
       const offset = this._dateAdapter.getFirstWeekOffset(date);
       this.style?.setProperty('--sbb-mini-calendar-month-offset', `${offset + 1}`);
 
-      const monthList = Array.from(
-        this._calendarParent?.querySelectorAll('sbb-mini-calendar-month') || [],
-      );
-      const month = this._dateAdapter.getMonth(date);
-      if (month === 1 || monthList.findIndex((e) => e === this) === 0) {
-        this._yearLabel = String(this._dateAdapter.getYear(date));
-      } else {
-        this._yearLabel = null;
-      }
-      this._monthLabel = `${this._monthNames[month - 1]}.`;
+      this._monthLabel = `${this._monthNames[+splittedDate[1] - 1]}.`;
+      this._yearLabel = String(this._dateAdapter.getYear(date));
     }
   }
 

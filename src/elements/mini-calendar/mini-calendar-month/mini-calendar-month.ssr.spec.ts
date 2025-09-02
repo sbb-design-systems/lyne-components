@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import { SbbMiniCalendarMonthElement } from './mini-calendar-month.component.js';
+import '../mini-calendar-day.js';
 
 describe(`sbb-mini-calendar-month ssr`, () => {
   let root: SbbMiniCalendarMonthElement;

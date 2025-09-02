@@ -5,8 +5,13 @@
 
 :host {
   --sbb-mini-calendar-month-offset: 0;
+  --sbb-mini-calendar-month-display-year: none;
 
   display: inline-block;
+}
+
+:host([data-show-year]) {
+  --sbb-mini-calendar-month-display-year: block;
 }
 
 :host([data-orientation='horizontal']) {
@@ -45,4 +50,8 @@
   @include sbb.text-xxs--regular;
 
   color: var(--sbb-color-granite);
+}
+
+.sbb-mini-calendar-month-label-year {
+  display: var(--sbb-mini-calendar-month-display-year);
 }

@@ -49,6 +49,15 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     );
   }
 
+  private _setMonthsShowYear(): void {
+    this._miniCalendarMonths.forEach((monthElement: SbbMiniCalendarMonthElement, index: number) => {
+      const splittedDate = monthElement.date.split('-');
+      if (splittedDate.length > 0 && (index === 0 || +splittedDate[1] === 1)) {
+        monthElement.toggleAttribute('data-show-year', true);
+      }
+    });
+  }
+
   private _handleKeydownCalendarDay(event: KeyboardEvent): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
@@ -146,6 +155,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
 
   private _handleSlotchange(): void {
     this._setMonthsOrientation();
+    this._setMonthsShowYear();
 
     this._keydownAbortController?.abort();
     this._keydownAbortController = new AbortController();

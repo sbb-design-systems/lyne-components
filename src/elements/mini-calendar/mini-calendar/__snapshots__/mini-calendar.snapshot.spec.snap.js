@@ -5,6 +5,7 @@ snapshots["sbb-mini-calendar renders DOM"] =
 `<sbb-mini-calendar orientation="horizontal">
   <sbb-mini-calendar-month
     data-orientation="horizontal"
+    data-show-year=""
     date="2025-01"
     style="--sbb-mini-calendar-month-offset: 3;"
   >
@@ -29,30 +30,6 @@ snapshots["sbb-mini-calendar renders Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-calendar renders Shadow DOM */
 
-snapshots["sbb-mini-calendar renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "2025"
-    },
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    },
-    {
-      "role": "text leaf",
-      "name": "Jan."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-calendar renders A11y tree Firefox */
-
 snapshots["sbb-mini-calendar renders A11y tree Chrome"] = 
 `<p>
   {
@@ -76,4 +53,28 @@ snapshots["sbb-mini-calendar renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-mini-calendar renders A11y tree Chrome */
+
+snapshots["sbb-mini-calendar renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "2025"
+    },
+    {
+      "role": "button",
+      "name": "January 1, 2025"
+    },
+    {
+      "role": "text leaf",
+      "name": "Jan."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-mini-calendar renders A11y tree Firefox */
 
