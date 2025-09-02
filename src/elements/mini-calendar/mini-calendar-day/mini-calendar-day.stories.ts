@@ -65,6 +65,36 @@ export const Cross: StoryObj = {
   args: { ...defaultArgs, marker: marker.options![4] },
 };
 
+export const Charcoal: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![1] },
+};
+
+export const Cloud: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![2] },
+};
+
+export const Orange: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![3] },
+};
+
+export const Red: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![4] },
+};
+
+export const Sky: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options![5] },
+};
+
 const meta: Meta = {
   parameters: {
     docs: {

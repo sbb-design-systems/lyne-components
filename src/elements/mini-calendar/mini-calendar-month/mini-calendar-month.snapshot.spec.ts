@@ -8,7 +8,7 @@ import './mini-calendar-month.component.js';
 import '../mini-calendar-day.js';
 
 describe(`sbb-mini-calendar-month`, () => {
-  describe('renders', () => {
+  describe('renders January', () => {
     let element: SbbMiniCalendarMonthElement;
 
     beforeEach(async () => {
@@ -28,5 +28,25 @@ describe(`sbb-mini-calendar-month`, () => {
     });
 
     testA11yTreeSnapshot();
+  });
+
+  describe('renders June', () => {
+    let element: SbbMiniCalendarMonthElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-mini-calendar-month date="2025-06">
+          <sbb-mini-calendar-day date="2025-06-01"></sbb-mini-calendar-day>
+        </sbb-mini-calendar-month>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 });

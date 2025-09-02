@@ -1,7 +1,7 @@
 The `sbb-mini-calendar` is a component used to display a minimal calendar.
 
 It must be used in combination with one or more [sbb-mini-calendar-month](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-month),
-each one slotting the requested [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day)
+each one slotting the requested [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day).
 
 ```html
 <sbb-mini-calendar>
@@ -59,10 +59,6 @@ It's possible to move within the component using the keyboard.
 | <kbd>End</kbd>         | Go to the last day of the month.                                                                                    |
 | <kbd>Page Up</kbd>     | Go to the first day of the week (eg. from any day to Monday of the same week).                                      |
 | <kbd>Page Down</kbd>   | Go to the last day of the week (eg. from any day to Sunday of the same week).                                       |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
 

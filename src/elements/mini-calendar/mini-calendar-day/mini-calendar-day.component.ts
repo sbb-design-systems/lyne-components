@@ -22,7 +22,7 @@ class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
   /** Date as ISO string. */
   @forceType()
   @property()
-  public accessor date: string = ''; // FIXME initializer?
+  public accessor date: string = '';
 
   /** The type of the marker. */
   @forceType()
@@ -42,7 +42,6 @@ class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
     }
   }
 
-  // FIXME empty template ?
   protected override renderTemplate(): TemplateResult {
     return html``;
   }

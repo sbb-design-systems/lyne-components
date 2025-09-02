@@ -69,6 +69,12 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const Vertical: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
+};
+
 const meta: Meta = {
   parameters: {
     docs: {
