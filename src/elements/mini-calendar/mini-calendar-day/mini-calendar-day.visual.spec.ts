@@ -1,42 +1,42 @@
 import { html } from 'lit';
 
 import {
-  describeEach,
   describeViewports,
+  visualDiffDefault,
   visualDiffStandardStates,
-  visualRegressionFixture,
 } from '../../core/testing/private.js';
 
 import './mini-calendar-day.component.js';
 
 describe('sbb-mini-calendar-day', () => {
-  const states = {
-    marker: ['', 'circle', 'target', 'slash', 'cross'],
-    color: ['', 'charcoal', 'cloud', 'orange', 'red', 'sky'],
-  };
-
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    describeEach(states, ({ marker, color }) => {
-      let root: HTMLElement;
-
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`<sbb-mini-calendar-day
-            date="2025-01-01"
-            marker=${marker}
-            color=${color}
-          ></sbb-mini-calendar-day>`,
-        );
+    for (const marker of ['', 'circle', 'target', 'slash', 'cross']) {
+      describe(`marker=${marker}`, () => {
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-mini-calendar-day
+                  date="2025-01-01"
+                  marker=${marker}
+                ></sbb-mini-calendar-day>`,
+              );
+            }),
+          );
+        }
       });
+    }
 
-      for (const state of visualDiffStandardStates) {
-        it(
-          state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-          }),
-        );
-      }
-    });
+    for (const color of ['', 'charcoal', 'cloud', 'orange', 'red', 'sky']) {
+      it(
+        `color=${color}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-mini-calendar-day date="2025-01-01" color=${color}></sbb-mini-calendar-day>`,
+          );
+        }),
+      );
+    }
   });
 });
