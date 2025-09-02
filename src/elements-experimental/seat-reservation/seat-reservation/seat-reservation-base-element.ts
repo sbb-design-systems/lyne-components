@@ -3,6 +3,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { LitElement, isServer, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import { throttle } from '../../../elements/core/eventing.js';
 import {
   mapCoachInfosToCoachSelection,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
@@ -264,17 +265,16 @@ export class SeatReservationBaseElement extends LitElement {
       // Set maximum calculated coach width
       this.maxCalcCoachsWidth = currCalcTriggerPos;
 
-      this.coachScrollArea.addEventListener('scroll', () => {
-        // Timeout event handling to check if the scrolling has been completed.  -> scrollend
-        if (this._scrollTimeoutId) clearTimeout(this._scrollTimeoutId);
-        //If no further scoll event is fired, the last timeout is fired
-        this._scrollTimeoutId = window.setTimeout(() => this._handleCoachAreaScrollendEvent(), 150);
-      });
+      this.coachScrollArea.addEventListener(
+        'scroll',
+        () => throttle(this._handleCoachAreaScrollendEvent, 150),
+        { passive: true },
+      );
     }
   }
 
-  // At the end of a scroll Events to a coach, the reached choach is marked as selected
-  private _handleCoachAreaScrollendEvent(): void {
+  // At the end of a scroll Events to a coach, the reached coach is marked as selected
+  private _handleCoachAreaScrollendEvent() {
     const findScrollCoachIndex = this.isAutoScrolling
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
@@ -307,6 +307,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.isAutoScrolling = false;
     }
   }
+
   /**
    * If no navigation exists (property setting -> hasNavigation) and a table coach gets the focus,
    * the first place in the coach must be automatically preselected to control the place navigation via keyboard
