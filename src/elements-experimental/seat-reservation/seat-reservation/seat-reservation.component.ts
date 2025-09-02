@@ -1,4 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { throttle } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -103,7 +104,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               <div class="coaches-grid">
                 <div class="sbb-sr__wrapper-coach-decks">
                   <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
-                  <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
+                  <div
+                    id="sbb-sr__wrapper-scrollarea"
+                    class="sbb-sr__wrapper"
+                    @scroll=${throttle(() => this.handleCoachAreaScrollEvent(), 150)}
+                  >
                     <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
                       <ul
                         class="${classMap({

@@ -1,9 +1,8 @@
 import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { LitElement, isServer, type PropertyValues } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { eventOptions, property, state } from 'lit/decorators.js';
 
-import { throttle } from '../../../elements/core/eventing.js';
 import {
   mapCoachInfosToCoachSelection,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
@@ -131,8 +130,6 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
-  private _scrollTimeoutId?: number;
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -165,7 +162,7 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     if (changedProperties.has('preselectCoachIndex') && this.preselectCoachIndex) {
-      // setTimeout is neccessary because without, _getCoachScrollPositionX() would fail with NPE because
+      // setTimeout is necessary because without, _getCoachScrollPositionX() would fail with NPE because
       // the coachScrollArea is not yet initialized
       setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
     }
@@ -264,17 +261,12 @@ export class SeatReservationBaseElement extends LitElement {
 
       // Set maximum calculated coach width
       this.maxCalcCoachsWidth = currCalcTriggerPos;
-
-      this.coachScrollArea.addEventListener(
-        'scroll',
-        () => throttle(this._handleCoachAreaScrollendEvent, 150),
-        { passive: true },
-      );
     }
   }
 
   // At the end of a scroll Events to a coach, the reached coach is marked as selected
-  private _handleCoachAreaScrollendEvent() {
+  @eventOptions({ passive: true })
+  protected handleCoachAreaScrollEvent(): void {
     const findScrollCoachIndex = this.isAutoScrolling
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
