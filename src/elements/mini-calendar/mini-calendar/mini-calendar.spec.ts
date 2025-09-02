@@ -8,6 +8,8 @@ import { fixture } from '../../core/testing/private.js';
 import { waitForLitRender } from '../../core/testing/wait-for-render.js';
 
 import { SbbMiniCalendarElement } from './mini-calendar.component.js';
+import '../mini-calendar-month.js';
+import '../mini-calendar-day.js';
 
 describe('sbb-mini-calendar', () => {
   let element: SbbMiniCalendarElement;
@@ -115,6 +117,26 @@ describe('sbb-mini-calendar', () => {
       expect(getActiveElementDate()).to.be.equal('2025-01-01');
     });
 
+    it('it should navigate with special keys', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'PageDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-29');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-30');
+      await sendKeys({ press: 'PageUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-02');
+      await sendKeys({ press: 'End' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+      await sendKeys({ press: 'Home' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+    });
+
     it('it should navigate to next month if last day is reached', async () => {
       element.focus();
       expect(getActiveElementDate()).to.be.equal('2025-01-01');
@@ -192,9 +214,6 @@ describe('sbb-mini-calendar', () => {
       await sendKeys({ press: 'End' });
       await waitForLitRender(element);
       expect(getActiveElementDate()).to.be.equal('2025-01-31');
-      await sendKeys({ press: 'PageDown' });
-      await waitForLitRender(element);
-      expect(getActiveElementDate()).to.be.equal('2025-01-31');
     });
 
     it('it should navigate with arrows', async () => {
@@ -210,6 +229,23 @@ describe('sbb-mini-calendar', () => {
       await waitForLitRender(element);
       expect(getActiveElementDate()).to.be.equal('2025-01-02');
       await sendKeys({ press: 'ArrowUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+    });
+
+    it('it should navigate with special keys', async () => {
+      element.focus();
+      expect(getActiveElementDate()).to.be.equal('2025-01-01');
+      await sendKeys({ press: 'PageDown' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-05');
+      await sendKeys({ press: 'End' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-31');
+      await sendKeys({ press: 'PageUp' });
+      await waitForLitRender(element);
+      expect(getActiveElementDate()).to.be.equal('2025-01-27');
+      await sendKeys({ press: 'Home' });
       await waitForLitRender(element);
       expect(getActiveElementDate()).to.be.equal('2025-01-01');
     });

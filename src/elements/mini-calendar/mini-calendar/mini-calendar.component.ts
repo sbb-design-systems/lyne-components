@@ -4,12 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.js';
 import { readConfig } from '../../core/config/config.js';
-import { type DateAdapter } from '../../core/datetime/date-adapter.js';
+import type { DateAdapter } from '../../core/datetime/date-adapter.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { handleDistinctChange } from '../../core/decorators.js';
 import type { SbbOrientation } from '../../core/interfaces.js';
-import { type SbbMiniCalendarDayElement } from '../mini-calendar-day.js';
-import { type SbbMiniCalendarMonthElement } from '../mini-calendar-month.js';
+import type { SbbMiniCalendarDayElement } from '../mini-calendar-day.js';
+import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month.js';
 
 import style from './mini-calendar.scss?lit&inline';
 
@@ -81,6 +81,9 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   ): SbbMiniCalendarDayElement {
     const arrowsOffset =
       this.orientation === 'horizontal' ? { leftRight: 1, upDown: 7 } : { leftRight: 7, upDown: 1 };
+    const fullDate = this._dateAdapter.parse(day.date)!;
+    const dayDate = this._dateAdapter.getDate(fullDate);
+    const offsetForVertical = this._dateAdapter.getFirstWeekOffset(fullDate);
 
     switch (event.key) {
       case 'ArrowUp':
@@ -92,24 +95,33 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
       case 'ArrowRight':
         return this._findDayArrowKeys(days, day, arrowsOffset.leftRight);
       case 'PageUp': {
-        const date = this._dateAdapter.getDate(this._dateAdapter.parse(day.date)!);
-        const delta = date - (date % 7 || 7);
-        return this._findDaySpecialKeys(days, day, -delta, +arrowsOffset.upDown);
+        if (this.orientation === 'horizontal') {
+          const delta = dayDate - (dayDate % 7 || 7);
+          return this._findDaySpecialKeys(days, day, -delta, arrowsOffset.upDown);
+        } else {
+          const weekNumber: number = Math.ceil((dayDate + offsetForVertical) / 7);
+          const firstOfWeek: number = (weekNumber - 1) * 7 - offsetForVertical + 1;
+          const delta: number = firstOfWeek - dayDate;
+          return this._findDaySpecialKeys(days, day, delta, arrowsOffset.upDown);
+        }
       }
       case 'PageDown': {
-        const fullDate = this._dateAdapter.parse(day.date)!;
-        const dayDate = this._dateAdapter.getDate(fullDate);
-        const lastDayMonth = this._dateAdapter.getNumDaysInMonth(fullDate);
-        const delta = lastDayMonth - dayDate - ((lastDayMonth - dayDate) % 7);
-        return this._findDaySpecialKeys(days, day, delta, -arrowsOffset.upDown);
+        if (this.orientation === 'horizontal') {
+          const lastDayMonth = this._dateAdapter.getNumDaysInMonth(fullDate);
+          const delta = lastDayMonth - dayDate - ((lastDayMonth - dayDate) % 7);
+          return this._findDaySpecialKeys(days, day, delta, -arrowsOffset.upDown);
+        } else {
+          const weekNumber: number = Math.ceil((dayDate + offsetForVertical) / 7);
+          const lastOfWeek: number = weekNumber * 7 - offsetForVertical;
+          const delta: number = lastOfWeek - dayDate;
+          return this._findDaySpecialKeys(days, day, delta, -arrowsOffset.upDown);
+        }
       }
       case 'Home': {
-        const date = this._dateAdapter.getDate(this._dateAdapter.parse(day.date)!) - 1;
+        const date = dayDate - 1;
         return this._findDaySpecialKeys(days, day, -date, +1);
       }
       case 'End': {
-        const fullDate = this._dateAdapter.parse(day.date)!;
-        const dayDate = this._dateAdapter.getDate(fullDate);
         const lastDayMonth = this._dateAdapter.getNumDaysInMonth(fullDate);
         return this._findDaySpecialKeys(days, day, lastDayMonth - dayDate, -1);
       }
