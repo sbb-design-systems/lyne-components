@@ -103,7 +103,9 @@ export async function visualRegressionFixture<T extends HTMLElement>(
       id="visual-regression-fixture-wrapper"
       style=${styleMap({
         padding: wrapperStyles?.padding ?? '2rem',
-        'background-color': wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)',
+        'background-color':
+          wrapperStyles?.backgroundColor ??
+          'light-dark(var(--sbb-color-white), var(--sbb-color-midnight))',
         color: wrapperStyles?.color,
         '--sbb-focus-outline-color': wrapperStyles?.focusOutlineDark
           ? 'var(--sbb-focus-outline-color-dark)'
