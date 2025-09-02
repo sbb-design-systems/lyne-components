@@ -143,36 +143,42 @@
   }
 }
 
-:host(:state(disabled)[negative]) {
+// :where is to align specificity
+:host(:where(:state(disabled))[negative]) {
   --sbb-form-field-text-color: var(--sbb-color-smoke);
   --sbb-form-field-label-color: var(--sbb-color-smoke);
   --sbb-form-field-prefix-color: var(--sbb-color-smoke);
 }
 
-:host(:state(readonly):not([negative])) {
+// :where is to align specificity
+:host(:where(:state(readonly)):not([negative])) {
   --sbb-form-field-label-color: var(--sbb-color-granite);
   --sbb-form-field-prefix-color: var(--sbb-color-granite);
 }
 
-:host(:state(focus)) {
+// :where is to align specificity
+:host(:where(:state(focus))) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal);
   --sbb-form-field-border-width: var(--sbb-border-width-2x);
 }
 
-:host(:state(focus)[negative]) {
+// :where is to align specificity
+:host(:where(:state(focus))[negative]) {
   --sbb-form-field-border-color: var(--sbb-color-milk);
   --sbb-form-field-prefix-color: var(--sbb-color-milk);
 }
 
-:host(:state(focus)) {
+// :where is to align specificity
+:host(:where(:state(focus))) {
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
   }
 }
 
-:host(:not(:state(has-error))) {
+// :where is to align specificity
+:host(:not(:where(:state(has-error)))) {
   --sbb-form-field-error-padding-block-start: 0;
 }
 
@@ -190,11 +196,13 @@
 }
 
 // Should be after other definitions to override overflow
-:host(:state(input-type-sbb-slider)) {
+// :where is to align specificity
+:host(:where(:state(input-type-sbb-slider))) {
   --sbb-form-field-overflow: visible;
 }
 
-:host(:state(input-type-textarea)) {
+// :where is to align specificity
+:host(:where(:state(input-type-textarea))) {
   --sbb-form-field-max-height: fit-content;
 }
 
@@ -226,7 +234,8 @@
     border-radius: var(--sbb-form-field-border-radius);
   }
 
-  :host(:state(focus):state(focus-origin-keyboard)) & {
+  // :where is to align specificity
+  :host(:where(:state(focus):state(focus-origin-keyboard))) & {
     @include sbb.focus-outline;
   }
 
@@ -354,18 +363,23 @@
   // If floating-label is activated and there is no focus in it (except for select) and no popup is open
   // and input is empty then apply the label transition.
   // If it is empty and readonly, always apply transition
+  // :where is to align specificity
   :host(
       [floating-label]:is(
-          :not(:state(focus):not(:state(input-type-sbb-select)), :state(has-popup-open)),
-          :state(readonly)
-        ):state(empty)
+          :not(
+            :where(:state(focus)):not(:where(:state(input-type-sbb-select))),
+            :where(:state(has-popup-open))
+          ),
+          :where(:state(readonly))
+        ):where(:state(empty))
     )
     & {
     font-size: var(--sbb-form-field-input-text-size);
     transform: translateY(var(--sbb-form-field-floating-label-transform));
   }
 
-  :host(:state(input-type-textarea)) & {
+  // :where is to align specificity
+  :host(:where(:state(input-type-textarea))) & {
     @include sbb.if-forced-colors {
       // The background of the textarea is set to Canvas and therefore hides the label behind.
       // By setting the z-index to 1, we move the label in front of the textarea.
