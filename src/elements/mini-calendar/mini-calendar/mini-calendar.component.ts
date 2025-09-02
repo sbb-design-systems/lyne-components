@@ -147,6 +147,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   private _handleSlotchange(): void {
     this._setMonthsOrientation();
 
+    this._keydownAbortController?.abort();
     this._keydownAbortController = new AbortController();
     this._miniCalendarDays.forEach((day, index) => {
       day.addEventListener('keydown', (e) => this._handleKeydownCalendarDay(e), {
