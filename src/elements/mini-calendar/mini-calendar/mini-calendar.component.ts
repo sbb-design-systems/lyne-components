@@ -139,7 +139,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     const newDateString = this._dateAdapter.toIso8601(newDate);
     const newDay = days.find((d) => d.date === newDateString);
     if (!newDay) {
-      this._findDaySpecialKeys(days, day, delta + recursiveDelta, recursiveDelta);
+      return this._findDaySpecialKeys(days, day, delta + recursiveDelta, recursiveDelta);
     }
     return newDay!;
   }
