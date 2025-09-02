@@ -98,6 +98,19 @@
 
 @include font-face.font-declarations;
 
+// TODO: discuss where to add these classes
+.sbb-dark {
+  color-scheme: dark;
+}
+
+.sbb-light {
+  color-scheme: light;
+}
+
+.sbb-light.sbb-dark {
+  color-scheme: light dark;
+}
+
 html {
   @include typo.text;
 

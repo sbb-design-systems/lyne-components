@@ -3,6 +3,8 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
+import { SbbDarkModeController } from '../src/elements/core/controllers.js';
+
 import '../src/elements/core/styles/standard-theme.scss';
 
 /**
@@ -20,6 +22,27 @@ const withLeanDecorator = makeDecorator({
     } else {
       document.documentElement.classList.remove('sbb-lean');
     }
+
+    return getStory(context);
+  },
+});
+
+const lightDarkModeDecorator = makeDecorator({
+  name: 'lightOrDarkMode',
+  parameterName: 'darkMode',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context) => {
+    const selectedTheme = context.globals.theme as 'light' | 'dark' | 'auto';
+
+    document.documentElement.classList.remove('sbb-dark', 'sbb-light');
+
+    if (selectedTheme === 'light') {
+      document.documentElement.classList.add('sbb-light');
+    } else if (selectedTheme === 'dark') {
+      document.documentElement.classList.add('sbb-dark');
+    }
+
+    SbbDarkModeController.requestUpdate();
 
     return getStory(context);
   },
@@ -114,6 +137,7 @@ export default {
   decorators: [
     withBackgroundDecorator,
     withLeanDecorator,
+    lightDarkModeDecorator,
     (story) => {
       const root = document && document.getElementById('storybook-root');
 
@@ -138,6 +162,26 @@ export default {
       return story();
     },
   ],
+  globalTypes: {
+    theme: {
+      description: 'Light or dark mode',
+      toolbar: {
+        // The label to show for this toolbar item
+        title: 'Theme',
+        // Array of plain string values or MenuItem shape (see below)
+        items: [
+          { value: 'auto', title: 'auto detect light / dark mode', icon: 'paintbrush' },
+          { value: 'light', title: 'light mode', icon: 'sun' },
+          { value: 'dark', title: 'dark mode', icon: 'moon' },
+        ],
+        // Change title based on selected value
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: 'auto',
+  },
   parameters,
   tags: ['autodocs'],
 } satisfies Preview;
