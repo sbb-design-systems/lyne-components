@@ -116,7 +116,7 @@
 }
 
 @mixin title--negative {
-  --sbb-title-text-color-normal: var(--sbb-color-milk);
+  --sbb-title-text-color-normal: var(--sbb-color-3-negative);
 }
 
 // @deprecated, non-standard values, title rules combined with title level mixins are the alternative

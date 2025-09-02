@@ -88,6 +88,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     minHeight?: string;
     maxWidth?: string;
     forcedColors?: boolean;
+    darkMode?: boolean;
   },
 ): Promise<T> {
   const base = tryFindBase(new Error().stack!);
@@ -95,7 +96,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
 
   await emulateMedia({
     forcedColors: wrapperStyles?.forcedColors ? 'active' : 'none',
-    colorScheme: wrapperStyles?.forcedColors ? 'dark' : 'light',
+    colorScheme: wrapperStyles?.darkMode ? 'dark' : wrapperStyles?.forcedColors ? 'dark' : 'light',
   });
 
   return await fixture<T>(
@@ -103,7 +104,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
       id="visual-regression-fixture-wrapper"
       style=${styleMap({
         padding: wrapperStyles?.padding ?? '2rem',
-        'background-color': wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)',
+        'background-color': wrapperStyles?.backgroundColor ?? 'var(--sbb-background-color-1)',
         color: wrapperStyles?.color,
         '--sbb-focus-outline-color': wrapperStyles?.focusOutlineDark
           ? 'var(--sbb-focus-outline-color-dark)'

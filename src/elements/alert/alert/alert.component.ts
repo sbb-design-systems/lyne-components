@@ -2,7 +2,7 @@ import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateR
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbLanguageController } from '../../core/controllers.js';
+import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
@@ -53,6 +53,11 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   private _language = new SbbLanguageController(this);
+  private _mediaMatcher = new SbbDarkModeController(this, () => {
+    this._syncLinks();
+    this._configureTitle();
+    this.requestUpdate();
+  });
 
   /** Open the alert. */
   public open(): void {
@@ -131,7 +136,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   private _syncLinks(): void {
     Array.from(this.querySelectorAll?.<SbbLinkElement>('sbb-link') ?? []).forEach((link) => {
       customElements.upgrade(link);
-      link.negative = true;
+      link.negative = this._isLightMode();
     });
   }
 
@@ -139,9 +144,13 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
       customElements.upgrade(title);
-      title.negative = true;
+      title.negative = this._isLightMode();
       title.visualLevel = this.size === 'l' ? '3' : '5';
     }
+  }
+
+  private _isLightMode(): boolean {
+    return !this._mediaMatcher.matches();
   }
 
   protected override render(): TemplateResult {
@@ -161,11 +170,11 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
               ? html`<span class="sbb-alert__close-button-wrapper">
                   <sbb-divider
                     orientation="vertical"
-                    negative
+                    ?negative=${this._isLightMode()}
                     class="sbb-alert__close-button-divider"
                   ></sbb-divider>
                   <sbb-transparent-button
-                    negative
+                    ?negative=${this._isLightMode()}
                     size=${this.size === 'l' ? 'm' : this.size}
                     icon-name="cross-small"
                     @click=${() => this.close()}
