@@ -130,7 +130,7 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
-  private _scrollTimeout?: number;
+  private _scrollTimeout: ReturnType<typeof setTimeout> | undefined;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -280,7 +280,7 @@ export class SeatReservationBaseElement extends LitElement {
       clearTimeout(this._scrollTimeout);
     }
     // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollEvent without clearing
-    this._scrollTimeout = window.setTimeout(() => this._handleCoachAreaScrollEvent(), 150);
+    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollEvent(), 150);
   }
 
   /**
