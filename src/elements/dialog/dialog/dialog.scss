@@ -168,11 +168,11 @@
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
   box-shadow: none;
 
-  :host(:not([negative]):is(:state(scrolled), [state--scrolled])) & {
+  :host(:not([negative]):state(scrolled)) & {
     @include sbb.shadow-level-5-soft;
   }
 
-  :host([negative]:is(:state(scrolled), [state--scrolled])) & {
+  :host([negative]:state(scrolled)) & {
     @include sbb.shadow-level-5-soft-negative;
   }
 }
