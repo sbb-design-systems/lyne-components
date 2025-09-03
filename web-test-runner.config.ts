@@ -122,6 +122,10 @@ const testRunnerHtml = (
   }
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
+      /* TODO: Remove once we globally activated dark mode */
+      :root {
+        color-scheme: light dark;
+      }
       ${renderStyles()}
     </style>
     <script type="module">
