@@ -29,16 +29,18 @@
   --sbb-selection-action-panel-background: var(--sbb-color-milk);
 }
 
-:host(:where(:state(checked), [state--checked]):not(:where(:state(disabled), [state--disabled]))) {
+// :where is to align specificity
+:host(:where(:state(checked)):not(:where(:state(disabled)))) {
   --sbb-selection-action-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-action-panel-border-width: var(--sbb-border-width-2x);
 }
 
-:host([borderless]:not(:where(:state(checked), [state--checked]))) {
+// :where is to align specificity
+:host([borderless]:not(:where(:state(checked)))) {
   --sbb-selection-action-panel-border-color: transparent;
 }
 
-:host(:is(:state(with-expansion-panel), [state--with-expansion-panel])) {
+:host(:where(:state(with-expansion-panel))) {
   --sbb-selection-action-panel-background: transparent;
   --sbb-selection-action-panel-border-color: transparent;
 }

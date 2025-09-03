@@ -64,6 +64,13 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     super.connectedCallback();
   }
 
+  /** Announce the accessibility label or dialog title for screen readers. */
+  public announceTitle(): void {
+    this.setAriaLiveRefContent(
+      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.innerText.trim(),
+    );
+  }
+
   protected isZeroAnimationDuration(): boolean {
     return isZeroAnimationDuration(this, '--sbb-dialog-animation-duration');
   }
@@ -102,11 +109,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
-    setTimeout(() =>
-      this.setAriaLiveRefContent(
-        this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.innerText.trim(),
-      ),
-    );
+    setTimeout(() => this.announceTitle());
     this.focusTrapController.enabled = true;
     if (this._dialogContentElement) {
       this._dialogContentResizeObserver.observe(this._dialogContentElement);

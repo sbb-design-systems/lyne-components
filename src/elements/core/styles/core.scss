@@ -206,7 +206,7 @@ sbb-timetable-form-field {
   &:has(
     :is(
       :is(input, textarea, select):user-invalid,
-      :is(:state(interacted), [state--interacted]):invalid,
+      :state(interacted):invalid,
       .ng-touched.ng-invalid,
       .sbb-invalid
     )
@@ -564,13 +564,13 @@ sbb-dialog-actions {
     --sbb-dialog-actions-border-color: var(--sbb-color-iron);
   }
 
-  sbb-dialog:is(:state(overflows), [state--overflows]) & {
+  sbb-dialog:state(overflows) & {
     --sbb-dialog-actions-border-color: transparent;
 
     @include shadows.shadow-level-9-soft;
   }
 
-  sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
+  sbb-dialog[negative]:state(overflows) & {
     @include shadows.shadow-level-9-soft-negative;
   }
 }

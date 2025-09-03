@@ -23,14 +23,14 @@ $disabled: '[disabled], :disabled';
 .sbb-sr-navigation__item-coach {
   display: flex;
   flex-direction: column;
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: sbb-sr-functions.sr-px-to-rem(8);
   width: sbb-sr-functions.sr-px-to-rem(80);
   list-style-type: none;
 
   &.first-coach,
   &.last-coach {
     .sbb-sr-navigation--first-class {
-      width: calc(100% - #{sbb.px-to-rem-build(18)});
+      width: calc(100% - sbb-sr-functions.sr-px-to-rem(18));
     }
   }
 
@@ -64,10 +64,6 @@ $disabled: '[disabled], :disabled';
         var(--sbb-seat-reservation-navigation-travelclass-spacing)
       );
     }
-  }
-
-  &.vertical-coach {
-    flex-direction: row;
   }
 }
 
@@ -218,7 +214,9 @@ $disabled: '[disabled], :disabled';
 }
 
 // ################ VERTICAL MODE settings ################
-.sbb-sr-navigation__item-coach.vertical-coach {
+:host([vertical]) .sbb-sr-navigation__item-coach {
+  flex-direction: row;
+
   .sbb-sr-navigation__ctrl-button {
     flex-direction: row-reverse;
     height: sbb-sr-functions.sr-px-to-rem(80);

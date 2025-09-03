@@ -222,7 +222,7 @@
 // |     |  A  |
 // |     |  V  |
 // |_____|_____|
-.sbb-sr.sbb-sr__grid--vertical {
+:host([align-vertical]) .sbb-sr {
   // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
   // and the width of the scrollbar area.
   $coach-scollbar-width: 24;
