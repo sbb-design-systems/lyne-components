@@ -17,21 +17,12 @@ const level: InputType = {
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const visualLevel: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
 const defaultArgTypes: ArgTypes = {
   level,
-  visualLevel,
 };
 
 const defaultArgs: Args = {
   level: 2,
-  visualLevel: 4,
 };
 
 const Template = (args: Args): TemplateResult =>
