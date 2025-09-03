@@ -4,7 +4,6 @@ import { customElement } from 'lit/decorators.js';
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nTimetableFormSwapButtonLabel } from '../../core/i18n.js';
-import type { SbbTimetableFormFieldElement } from '../timetable-form-field.js';
 
 import style from './timetable-form-swap-button.scss?lit&inline';
 
@@ -22,7 +21,7 @@ class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
   public constructor() {
     super();
     this.iconName = 'arrow-change-small';
-    this.addEventListener('click', () => this._swapSiblingsFieldValues());
+    this.addEventListener('click', () => this._invertFieldValues());
   }
 
   public override connectedCallback(): void {
@@ -36,33 +35,24 @@ class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
   }
 
   /**
-   * If the swap-button is between two `sbb-timetable-form-field`, clicking it swaps the field values and dispatch the respective input and change events
+   * Search for `sbb-timetable-form-field` inputs, invert their values and dispatch the respective input and change events
    */
-  private _swapSiblingsFieldValues(): void {
-    if (
-      this.previousElementSibling?.localName !== 'sbb-timetable-form-field' ||
-      this.nextElementSibling?.localName !== 'sbb-timetable-form-field'
-    ) {
+  private _invertFieldValues(): void {
+    const parentForm = this.closest('sbb-timetable-form');
+    const fields = Array.from(parentForm?.querySelectorAll('sbb-timetable-form-field') || []);
+    const values = fields.map((f) => (f.inputElement as HTMLInputElement)?.value);
+    if (!parentForm || values.length === 0 || values.every((v) => !v)) {
       return;
     }
 
-    const prevInput = (this.previousElementSibling as SbbTimetableFormFieldElement).inputElement;
-    const nextInput = (this.nextElementSibling as SbbTimetableFormFieldElement).inputElement;
-
-    if (
-      prevInput instanceof HTMLInputElement &&
-      nextInput instanceof HTMLInputElement &&
-      (prevInput.value || nextInput.value)
-    ) {
-      const value = prevInput.value;
-      prevInput.value = nextInput.value;
-      nextInput.value = value;
-
-      prevInput.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      nextInput.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      prevInput.dispatchEvent(new Event('change', { bubbles: true }));
-      nextInput.dispatchEvent(new Event('change', { bubbles: true }));
-    }
+    values.reverse().forEach((v, i) => {
+      const input = fields[i].inputElement;
+      if (input instanceof HTMLInputElement) {
+        input.value = v;
+        input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
   }
 }
 

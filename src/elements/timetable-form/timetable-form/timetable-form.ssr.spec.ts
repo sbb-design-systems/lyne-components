@@ -9,12 +9,9 @@ describe(`sbb-timetable-form ssr`, () => {
   let root: SbbTimetableFormElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(
-      html`<sbb-timetable-form my-prop="Label"></sbb-timetable-form>`,
-      {
-        modules: ['./timetable-form.component.js'],
-      },
-    );
+    root = await ssrHydratedFixture(html`<sbb-timetable-form></sbb-timetable-form>`, {
+      modules: ['./timetable-form.component.js'],
+    });
   });
 
   it('renders', () => {

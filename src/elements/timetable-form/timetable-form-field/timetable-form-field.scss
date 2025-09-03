@@ -8,6 +8,8 @@
 
   --sbb-form-field-border-radius: var(--sbb-border-radius-6x);
   --sbb-form-field-outline-offset: #{sbb.px-to-rem-build(-5)};
+  --sbb-timetable-form-field-route-icon-color: var(--sbb-color-black);
+  --sbb-timetable-form-field-route-icon-background-color: var(--sbb-color-white);
 }
 
 :host(:first-of-type) {
@@ -30,7 +32,8 @@
   }
 }
 
-.sbb-timetable-form-field__route-icon {
+// 'Start/End' route icon shape
+.sbb-timetable-form-field__start-route-icon {
   align-self: center;
   margin-inline-start: var(--sbb-form-field-padding-inline);
   rotate: var(--sbb-timetable-form-field-route-icon-rotate);
@@ -45,10 +48,43 @@
 
     content: '';
     position: absolute;
-    top: 50%;
-    border-top: 1px solid var(--sbb-color-black);
+    inset-block-start: 50%;
+    border-block-start: var(--sbb-border-width-1x) solid
+      var(--sbb-timetable-form-field-route-icon-color);
     width: var(--connecting-line-width);
     margin-left: calc(var(--connecting-line-offset) * -1);
+  }
+}
+
+// 'Via' route icon shape
+.sbb-timetable-form-field__via-route-icon {
+  align-self: stretch;
+  position: relative;
+  width: var(--sbb-size-icon-ui-small);
+  margin-inline-start: var(--sbb-form-field-padding-inline);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 50%;
+    height: 100%;
+    margin-inline-start: #{sbb.px-to-rem-build(-1)};
+    border-inline-start: var(--sbb-border-width-1x) solid
+      var(--sbb-timetable-form-field-route-icon-color);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    translate: -50% -50%;
+    width: #{sbb.px-to-rem-build(7)};
+    height: #{sbb.px-to-rem-build(7)};
+    border: var(--sbb-border-width-1x) solid var(--sbb-timetable-form-field-route-icon-color);
+    border-radius: var(--sbb-border-radius-infinity);
+    background-color: var(--sbb-timetable-form-field-route-icon-background-color);
+    margin-inline-start: #{sbb.px-to-rem-build(-0.5)};
   }
 }
 

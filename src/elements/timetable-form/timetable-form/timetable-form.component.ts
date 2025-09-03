@@ -5,9 +5,10 @@ import { customElement } from 'lit/decorators.js';
 import style from './timetable-form.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Serves as a building block of a sbb 'timetable-form'.
+ * It automatically handles the styles and part of its behaviors
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * @slot - Use the unnamed slot to add content to the 'timetable-form'
  */
 export
 @customElement('sbb-timetable-form')
@@ -15,7 +16,7 @@ class SbbTimetableFormElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
 

@@ -1,5 +1,5 @@
 The `sbb-timetable-form-swap-button` is an extension of [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) to be used inside the `sbb-timetable-form`.
-When placed between two `sbb-timetable-form-field` and clicked, it swaps the value of the sibling inputs and dispatch the `input` and `change` events.
+When clicked, it swaps the value of the sibling inputs and dispatch the `input` and `change` events.
 
 ```html
 <form class="sbb-timetable-form">
@@ -53,7 +53,7 @@ The default `aria-label` value is 'Swap from and to', localized in the supported
 
 ## Slots
 
-| Name   | Description                                      |
-| ------ | ------------------------------------------------ |
-|        | Use the unnamed slot to add `sbb-TODO` elements. |
-| `icon` | Slot used to display the icon, if one is set.    |
+| Name   | Description                                                  |
+| ------ | ------------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the secondary-button. |
+| `icon` | Slot used to display the icon, if one is set.                |

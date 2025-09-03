@@ -5,7 +5,7 @@ import { customElement } from 'lit/decorators.js';
 import style from './timetable-form-details.scss?lit&inline';
 
 /**
- * Wrapper of the details section of the `sbb-timetable-form`.
+ * Wraps the details section of the `sbb-timetable-form`.
  *
  * @slot - Use the unnamed slot to add content to the details section.
  */

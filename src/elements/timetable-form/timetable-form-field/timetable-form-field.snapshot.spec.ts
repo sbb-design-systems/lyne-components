@@ -12,7 +12,10 @@ describe(`sbb-timetable-form-field`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-timetable-form-field my-prop="Label"></sbb-timetable-form-field>`,
+        html`<sbb-timetable-form-field>
+          <label>From</label>
+          <input type="text" name="from" />
+        </sbb-timetable-form-field>`,
       );
     });
 

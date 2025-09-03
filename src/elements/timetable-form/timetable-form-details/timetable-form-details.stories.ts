@@ -7,7 +7,7 @@ import '../../card.js';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk">
-    <b>sbb-timetable-form-details</b> is an element to be only used together with 'sbb-timetable-form'. </br>
+    <b>sbb-timetable-form-details</b> is an element meant to be used in combination with the 'sbb-timetable-form'. </br>
     See the <b>sbb-timetable-form</b> examples to see it in action.
   </sbb-card>
 `;

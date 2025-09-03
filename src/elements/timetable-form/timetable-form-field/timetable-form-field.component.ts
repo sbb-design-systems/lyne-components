@@ -13,6 +13,8 @@ export
 class SbbTimetableFormFieldElement extends SbbFormFieldElement {
   public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, style];
 
+  private _routeIcon = false;
+
   public constructor() {
     super();
     this.borderless = true;
@@ -21,12 +23,20 @@ class SbbTimetableFormFieldElement extends SbbFormFieldElement {
     this.size = 'l';
   }
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this._routeIcon = this.matches(':first-of-type, :last-of-type');
+  }
+
   public override render(): TemplateResult {
     return html`
-      <sbb-icon
-        name="route-circle-start-small"
-        class="sbb-timetable-form-field__route-icon"
-      ></sbb-icon>
+      ${this._routeIcon
+        ? html` <sbb-icon
+            name="route-circle-start-small"
+            class="sbb-timetable-form-field__start-route-icon"
+          ></sbb-icon>`
+        : html` <span class="sbb-timetable-form-field__via-route-icon"></span> `}
       ${super.render()}
     `;
   }
