@@ -47,7 +47,7 @@
   --sbb-radio-button-label-color: var(--sbb-color-granite);
   --sbb-radio-button-background-color: var(--sbb-color-milk);
   --sbb-radio-button-border-style: dashed;
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
   --sbb-radio-button-cursor: default;
 
   @include sbb.if-forced-colors {
@@ -55,6 +55,11 @@
     --sbb-radio-button-border-color: GrayText;
     --sbb-radio-button-border-style: solid;
   }
+}
+
+// Disabled definitions have to be after checked definitions
+:host(:disabled[data-checked]) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
 }
 
 :host([size='xs']) {
