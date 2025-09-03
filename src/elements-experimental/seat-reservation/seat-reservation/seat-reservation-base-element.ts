@@ -130,6 +130,8 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
+  private _scrollTimeout?: number;
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -264,40 +266,21 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
-  // At the end of a scroll Events to a coach, the reached coach is marked as selected
+  /**
+   * Scroll event handler managed the end of scrolling inside the coach scroll area.
+   * Timeout event handling to check if the scrolling has been completed.
+   * It is required because the Safari browser does not handle scrollend event
+   * and we therefore imitate this event -> scrollend.
+   */
   @eventOptions({ passive: true })
-  protected handleCoachAreaScrollEvent(): void {
-    const findScrollCoachIndex = this.isAutoScrolling
-      ? this.currSelectedCoachIndex
-      : this._getCoachIndexByScrollTriggerPosition();
-
-    // In case the user uses the scrollbar without interacting with the seat reservation,
-    // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
-    if (this.currSelectedCoachIndex === -1) {
-      this.currSelectedCoachIndex = findScrollCoachIndex;
+  protected coachAreaScrollend(): void {
+    if (this._scrollTimeout) {
+      // First, we cleared the registered timeout, as the scrolling is still running
+      // and thus we prevent the execution of the _handleCoachAreaScrollEvent function
+      clearTimeout(this._scrollTimeout);
     }
-
-    if (this._isScrollableToSelectedCoach()) {
-      this.currSelectedCoachIndex = findScrollCoachIndex;
-    } else {
-      this.currSelectedCoachIndex =
-        findScrollCoachIndex < this.currSelectedCoachIndex
-          ? this.currSelectedCoachIndex
-          : findScrollCoachIndex;
-    }
-
-    if (!this.isAutoScrolling) {
-      //When user is scrolling via scrollbar, it automatically scrolls to the focused coach in the main navigation
-      this._scrollToSelectedNavigationButton(findScrollCoachIndex);
-    }
-
-    this.preventCoachScrollByPlaceClick = false;
-    this.updateCurrentSelectedCoach();
-
-    if (!this.hasNavigation) {
-      this.preselectPlaceInCoach();
-      this.isAutoScrolling = false;
-    }
+    // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollEvent without clearing
+    this._scrollTimeout = window.setTimeout(() => this._handleCoachAreaScrollEvent(), 150);
   }
 
   /**
@@ -468,7 +451,7 @@ export class SeatReservationBaseElement extends LitElement {
   ): ElementDimension {
     if (coachDimension && !isOriginHeight) {
       // Since the height of the coach has been visually expanded to maintain a distance between the border of the coach and the places,
-      // some graphics must also be adapted to the height, which end with the borders of the choach
+      // some graphics must also be adapted to the height, which end with the borders of the coach
       elementDimension.h += this.coachBorderOffset * 2;
     }
 
@@ -532,6 +515,44 @@ export class SeatReservationBaseElement extends LitElement {
       return accumulator;
     }, accumulator);
     return freePlaces ? freePlaces : accumulator;
+  }
+
+  /**
+   * At the end of a scroll Event from the coach scrollable area,
+   * the reached coach is marked as selected
+   */
+  private _handleCoachAreaScrollEvent(): void {
+    const findScrollCoachIndex = this.isAutoScrolling
+      ? this.currSelectedCoachIndex
+      : this._getCoachIndexByScrollTriggerPosition();
+
+    // In case the user uses the scrollbar without interacting with the seat reservation,
+    // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
+    if (this.currSelectedCoachIndex === -1) {
+      this.currSelectedCoachIndex = findScrollCoachIndex;
+    }
+
+    if (this._isScrollableToSelectedCoach()) {
+      this.currSelectedCoachIndex = findScrollCoachIndex;
+    } else {
+      this.currSelectedCoachIndex =
+        findScrollCoachIndex < this.currSelectedCoachIndex
+          ? this.currSelectedCoachIndex
+          : findScrollCoachIndex;
+    }
+
+    if (!this.isAutoScrolling) {
+      //When user is scrolling via scrollbar, it automatically scrolls to the focused coach in the main navigation
+      this._scrollToSelectedNavigationButton(findScrollCoachIndex);
+    }
+
+    this.preventCoachScrollByPlaceClick = false;
+    this.updateCurrentSelectedCoach();
+
+    if (!this.hasNavigation) {
+      this.preselectPlaceInCoach();
+      this.isAutoScrolling = false;
+    }
   }
 
   /**
