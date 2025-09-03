@@ -154,4 +154,18 @@ describe(`sbb-alert`, () => {
     expect(button.negative, 'button not negative').to.be.false;
     expect(alert).to.match(':state(dark)');
   });
+
+  it('should sync negative property changing sbb-dark class', async () => {
+    const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
+    expect(button.negative, 'button negative').to.be.true;
+    expect(alert).not.to.match(':state(dark)');
+
+    document.documentElement.classList.add('sbb-dark');
+    await waitForLitRender(alert);
+
+    expect(button.negative, 'button not negative').to.be.false;
+    expect(alert).to.match(':state(dark)');
+    document.documentElement.classList.remove('sbb-dark');
+    await waitForLitRender(alert);
+  });
 });

@@ -60,7 +60,7 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host(:not(:state(dark), [state--dark])) {
+:host(:not(:state(dark))) {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 

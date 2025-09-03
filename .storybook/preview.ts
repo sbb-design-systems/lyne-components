@@ -3,8 +3,6 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
-import { SbbDarkModeController } from '../src/elements/core/controllers.js';
-
 import '../src/elements/core/styles/standard-theme.scss';
 
 /**
@@ -34,15 +32,15 @@ const lightDarkModeDecorator = makeDecorator({
   wrapper: (getStory, context) => {
     const selectedTheme = context.globals.theme as 'light' | 'dark' | 'auto';
 
-    document.documentElement.classList.remove('sbb-dark', 'sbb-light');
+    document.documentElement.classList.remove('sbb-dark', 'sbb-light', 'sbb-light-dark');
 
     if (selectedTheme === 'light') {
       document.documentElement.classList.add('sbb-light');
     } else if (selectedTheme === 'dark') {
       document.documentElement.classList.add('sbb-dark');
+    } else {
+      document.documentElement.classList.add('sbb-light-dark');
     }
-
-    SbbDarkModeController.requestUpdate();
 
     return getStory(context);
   },

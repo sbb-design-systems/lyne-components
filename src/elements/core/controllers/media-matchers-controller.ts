@@ -108,6 +108,30 @@ export class SbbMediaMatcherController implements ReactiveController {
  * new SbbDarkModeController(this, (isDarkMode) => doSomething(isDarkMode));
  */
 export class SbbDarkModeController extends SbbMediaMatcherController {
+  /** A set of connected components that should be notified on mode change. */
+  private static readonly _listeners = new Set<SbbDarkModeController>();
+
+  /** The current mode based on the class attribute of the <html> element. */
+  private static _currentMode: 'light-dark' | 'light' | 'dark' | null = this._readLightDarkClass();
+
+  /** MutationObserver that observes the "class" attribute of the <html> element. */
+  private static readonly _observer = !isServer
+    ? new MutationObserver((mutations) => {
+        if (mutations[0].oldValue !== document.documentElement.getAttribute('class')) {
+          const newMode = this._readLightDarkClass();
+          if (this._currentMode !== newMode) {
+            SbbDarkModeController.requestUpdate();
+            this._currentMode = newMode;
+          }
+        }
+      })
+    : null;
+
+  private static readonly _observerConfig = {
+    attributeFilter: ['class'],
+    attributeOldValue: true,
+  };
+
   private readonly _onChangeWithStateUpdater: () => void;
 
   public constructor(
@@ -122,6 +146,18 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
       [SbbMediaQueryDarkMode]: onChangeWithStateUpdater,
     });
     this._onChangeWithStateUpdater = onChangeWithStateUpdater;
+  }
+
+  private static _readLightDarkClass(): 'light-dark' | 'light' | 'dark' | null {
+    if (isServer) {
+      return null;
+    }
+    const classList = document.documentElement.classList;
+    return (
+      (['light-dark', 'dark', 'light'] as const).find((mode) =>
+        classList.contains(`sbb-${mode}`),
+      ) ?? null
+    );
   }
 
   /**
@@ -139,7 +175,24 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
   public override hostConnected(): void {
     super.hostConnected();
 
+    if (!SbbDarkModeController._listeners.size) {
+      SbbDarkModeController._observer!.observe(
+        document.documentElement,
+        SbbDarkModeController._observerConfig,
+      );
+    }
+    SbbDarkModeController._listeners.add(this);
+
     this._onChangeWithStateUpdater();
+  }
+
+  public override hostDisconnected(): void {
+    super.hostDisconnected();
+
+    SbbDarkModeController._listeners.delete(this);
+    if (!SbbDarkModeController._listeners.size) {
+      SbbDarkModeController._observer!.disconnect();
+    }
   }
 
   public override matches(): boolean {
