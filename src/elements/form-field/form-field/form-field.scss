@@ -169,8 +169,8 @@
   --sbb-form-field-prefix-color: var(--sbb-color-milk);
 }
 
-// :where is to align specificity
-:host(:where(:state(focus))) {
+// We must not use :where here, as it needs the added specificity to properly work
+:host(:state(focus)) {
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
