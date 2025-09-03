@@ -21,24 +21,24 @@
   --sbb-header-environment-rotate: -45deg;
 }
 
-:host(:is(:state(env-dev), [state--env-dev])) {
+:host(:state(env-dev)) {
   --sbb-header-environment-background-color: var(--sbb-color-orange);
 }
 
-:host(:is(:state(env-edu), [state--env-edu])) {
+:host(:state(env-edu)) {
   --sbb-header-environment-background-color: var(--sbb-color-green);
 }
 
-:host(:is(:state(env-int), [state--env-int])),
-:host(:is(:state(env-inte), [state--env-inte])) {
+:host(:state(env-int)),
+:host(:state(env-inte)) {
   --sbb-header-environment-background-color: var(--sbb-color-granite);
 }
 
-:host(:is(:state(env-loc), [state--env-loc])) {
+:host(:state(env-loc)) {
   --sbb-header-environment-background-color: var(--sbb-color-pink);
 }
 
-:host(:is(:state(env-test), [state--env-test])) {
+:host(:state(env-test)) {
   --sbb-header-environment-background-color: var(--sbb-color-sky);
 }
 
