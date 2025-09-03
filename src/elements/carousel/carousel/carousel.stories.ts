@@ -16,6 +16,7 @@ import '../carousel-list/carousel-list.component.js';
 import '../carousel-item/carousel-item.component.js';
 import '../../paginator.js';
 import '../../image.js';
+import '../../button.js';
 
 const textBlockStyle: Args = {
   position: 'relative',
@@ -24,6 +25,15 @@ const textBlockStyle: Args = {
   backgroundColor: 'var(--sbb-color-white)',
   border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
   borderRadius: 'var(--sbb-border-radius-4x)',
+};
+
+const buttonCarouselStyle: Args = {
+  height: '300px',
+  width: '400px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 const shadow: InputType = {
@@ -126,6 +136,34 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
     : nothing}
 `;
 
+const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
+  <sbb-carousel ?shadow=${shadow}>
+    <sbb-carousel-list>
+      <sbb-carousel-item>
+        <div style=${styleMap(buttonCarouselStyle)}>
+          <p>sbb.ch</p>
+          <p>Animation - Onboarding slides</p>
+        </div>
+      </sbb-carousel-item>
+      <sbb-carousel-item>
+        <div style=${styleMap(buttonCarouselStyle)}>
+          <p>Another slide</p>
+        </div>
+      </sbb-carousel-item>
+      <sbb-carousel-item>
+        <div style=${styleMap(buttonCarouselStyle)}>
+          <p>End</p>
+        </div>
+      </sbb-carousel-item>
+    </sbb-carousel-list>
+    <sbb-compact-paginator
+      accessibility-page-label="Slide"
+      accessibility-previous-page-label="Previous slide"
+      accessibility-next-page-label="Next slide"
+    ></sbb-compact-paginator>
+  </sbb-carousel>
+`;
+
 export const Native: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
@@ -154,6 +192,12 @@ export const Link: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, imgType: imgType.options![4] },
+};
+
+export const Button: StoryObj = {
+  render: buttonTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
 };
 
 export const NoShadow: StoryObj = {
