@@ -130,7 +130,7 @@
   --sbb-form-field-arrow-color: var(--sbb-color-smoke);
 }
 
-:host(:state(disabled)) {
+:host(:where(:state(disabled))) {
   --sbb-form-field-label-color: var(--sbb-color-granite);
   --sbb-form-field-prefix-color: var(--sbb-color-granite);
   --sbb-form-field-border-style: dashed;
