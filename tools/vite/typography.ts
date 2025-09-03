@@ -1,8 +1,11 @@
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import postcss from 'postcss';
 import * as sass from 'sass';
 import type { PluginOption, ResolvedConfig } from 'vite';
+
+import { lightDarkPlugin, statePlugin } from '../postcss/index.js';
 
 import { root } from './build-meta.js';
 
@@ -13,8 +16,8 @@ export function typography(): PluginOption {
     configResolved(config) {
       viteConfig = config;
     },
-    generateBundle() {
-      [
+    async generateBundle() {
+      const sheets = [
         { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
         { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
         { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
@@ -31,16 +34,18 @@ export function typography(): PluginOption {
         { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
         { inputName: 'core/styles/table.scss', outputName: 'table.css' },
         { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
-      ].forEach((entry) => {
+      ];
+      for (const entry of sheets) {
         const compiled = sass.compile(join(viteConfig.root, entry.inputName), {
           loadPaths: [fileURLToPath(root), join(fileURLToPath(root), '/node_modules/')],
         });
+        const result = postcss([lightDarkPlugin, statePlugin]).process(compiled.css);
         this.emitFile({
           type: 'asset',
           fileName: entry.outputName,
-          source: compiled.css,
+          source: result.css,
         });
-      });
+      }
     },
   };
 }
