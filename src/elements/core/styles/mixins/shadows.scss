@@ -3,13 +3,11 @@
     var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-3-soft-2-color),
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-shadow-color-soft-2),
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-3-soft-1-color);
+      var(--sbb-shadow-elevation-level-3-shadow-1-spread) var(--sbb-shadow-color-soft-1);
 }
 
 @mixin shadow-level-3-soft-negative {
@@ -17,13 +15,11 @@
     var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-3-soft-negative-2-color),
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-shadow-color-soft-2-negative),
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-3-soft-negative-1-color);
+      var(--sbb-shadow-elevation-level-3-shadow-1-spread) var(--sbb-shadow-color-soft-1-negative);
 }
 
 @mixin shadow-level-3-hard {
@@ -31,13 +27,11 @@
     var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-3-hard-2-color),
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-shadow-color-hard-2),
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-3-hard-1-color);
+      var(--sbb-shadow-elevation-level-3-shadow-1-spread) var(--sbb-shadow-color-hard-1);
 }
 
 @mixin shadow-level-3-hard-negative {
@@ -45,13 +39,11 @@
     var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-3-hard-negative-2-color),
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-shadow-color-hard-2-negative),
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-3-hard-negative-1-color);
+      var(--sbb-shadow-elevation-level-3-shadow-1-spread) var(--sbb-shadow-color-hard-1-negative);
 }
 
 @mixin shadow-level-5-soft {
@@ -59,13 +51,11 @@
     var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-5-soft-2-color),
+      var(--sbb-shadow-elevation-level-5-shadow-2-spread) var(--sbb-shadow-color-soft-2),
     var(--sbb-shadow-elevation-level-5-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-5-soft-1-color);
+      var(--sbb-shadow-elevation-level-5-shadow-1-spread) var(--sbb-shadow-color-soft-1);
 }
 
 @mixin shadow-level-5-soft-negative {
@@ -73,13 +63,11 @@
     var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-5-soft-negative-2-color),
+      var(--sbb-shadow-elevation-level-5-shadow-2-spread) var(--sbb-shadow-color-soft-2-negative),
     var(--sbb-shadow-elevation-level-5-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-5-soft-negative-1-color);
+      var(--sbb-shadow-elevation-level-5-shadow-1-spread) var(--sbb-shadow-color-soft-1-negative);
 }
 
 @mixin shadow-level-5-hard {
@@ -87,13 +75,11 @@
     var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-5-hard-2-color),
+      var(--sbb-shadow-elevation-level-5-shadow-2-spread) var(--sbb-shadow-color-hard-2),
     var(--sbb-shadow-elevation-level-5-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-5-hard-1-color);
+      var(--sbb-shadow-elevation-level-5-shadow-1-spread) var(--sbb-shadow-color-hard-1);
 }
 
 @mixin shadow-level-5-hard-negative {
@@ -101,13 +87,11 @@
     var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-5-hard-negative-2-color),
+      var(--sbb-shadow-elevation-level-5-shadow-2-spread) var(--sbb-shadow-color-hard-2-negative),
     var(--sbb-shadow-elevation-level-5-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-5-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-5-hard-negative-1-color);
+      var(--sbb-shadow-elevation-level-5-shadow-1-spread) var(--sbb-shadow-color-hard-1-negative);
 }
 
 @mixin shadow-level-9-soft {
@@ -115,13 +99,11 @@
     var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-9-soft-2-color),
+      var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-color-soft-2),
     var(--sbb-shadow-elevation-level-9-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-9-soft-1-color);
+      var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-color-soft-1);
 }
 
 @mixin shadow-level-9-soft-negative {
@@ -129,13 +111,11 @@
     var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-9-soft-negative-2-color),
+      var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-color-soft-2-negative),
     var(--sbb-shadow-elevation-level-9-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-9-soft-negative-1-color);
+      var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-color-soft-1-negative);
 }
 
 @mixin shadow-level-9-hard {
@@ -143,13 +123,11 @@
     var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-9-hard-2-color),
+      var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-color-hard-2),
     var(--sbb-shadow-elevation-level-9-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-9-hard-1-color);
+      var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-color-hard-1);
 }
 
 @mixin shadow-level-9-hard-negative {
@@ -157,13 +135,11 @@
     var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-9-hard-negative-2-color),
+      var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-color-hard-2-negative),
     var(--sbb-shadow-elevation-level-9-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-9-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-9-hard-negative-1-color);
+      var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-color-hard-1-negative);
 }
 
 @mixin shadow-level-11-soft {
@@ -171,13 +147,11 @@
     var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-11-soft-2-color),
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread) var(--sbb-shadow-color-soft-2),
     var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-11-soft-1-color);
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread) var(--sbb-shadow-color-soft-1);
 }
 
 @mixin shadow-level-11-soft-negative {
@@ -185,13 +159,11 @@
     var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-11-soft-negative-2-color),
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread) var(--sbb-shadow-color-soft-2-negative),
     var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-11-soft-negative-1-color);
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread) var(--sbb-shadow-color-soft-1-negative);
 }
 
 @mixin shadow-level-11-hard {
@@ -199,13 +171,11 @@
     var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-11-hard-2-color),
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread) var(--sbb-shadow-color-hard-2),
     var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-11-hard-1-color);
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread) var(--sbb-shadow-color-hard-1);
 }
 
 @mixin shadow-level-11-hard-negative {
@@ -213,11 +183,9 @@
     var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
-      var(--sbb-shadow-elevation-level-11-hard-negative-2-color),
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread) var(--sbb-shadow-color-hard-2-negative),
     var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
       var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
       var(--sbb-shadow-elevation-level-11-shadow-1-blur)
-      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
-      var(--sbb-shadow-elevation-level-11-hard-negative-1-color);
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread) var(--sbb-shadow-color-hard-1-negative);
 }

@@ -50,6 +50,7 @@ export const Paused: StoryObj = {
 const meta: Meta = {
   decorators: [(story) => html`<div style="max-width: 600px;">${story()}</div>`],
   parameters: {
+    backgroundColor: () => 'var(--sbb-background-color-3)',
     docs: {
       extractComponentDescription: () => readme,
     },

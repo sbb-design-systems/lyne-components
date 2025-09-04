@@ -5,10 +5,9 @@
 
 :host {
   display: inline-block;
-}
 
-:host([color='milk']) {
   @include sbb.chip-label-variables--color-milk;
+  @include sbb.chip-label-variables--size-xxs;
 }
 
 :host([color='charcoal']) {
@@ -21,10 +20,6 @@
 
 :host([color='granite']) {
   @include sbb.chip-label-variables--color-granite;
-}
-
-:host([size='xxs']) {
-  @include sbb.chip-label-variables--size-xxs;
 }
 
 :host([size='xs']) {

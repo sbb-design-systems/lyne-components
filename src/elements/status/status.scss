@@ -13,11 +13,11 @@
 }
 
 :host([type='error']) {
-  --sbb-status-color: var(--sbb-color-red125);
+  --sbb-status-color: var(--sbb-color-error);
 }
 
 :host([type='success']) {
-  --sbb-status-color: var(--sbb-color-green);
+  --sbb-status-color: var(--sbb-color-success);
 }
 
 :host([type='warning']) {
@@ -29,7 +29,7 @@
 }
 
 :host([type='incomplete']) {
-  --sbb-status-color: var(--sbb-color-red125);
+  --sbb-status-color: var(--sbb-color-error);
 }
 
 :host([type='not-started']) {

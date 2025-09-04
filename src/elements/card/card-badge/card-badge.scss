@@ -5,20 +5,20 @@
 
 :host {
   --sbb-card-badge-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-card-badge-color: var(--sbb-color-2-inverted);
+  --sbb-card-badge-background-color: var(--sbb-background-color-3-inverted);
+  --sbb-card-badge-border-color: transparent;
 
   display: block;
 }
 
 :host([color='white']) {
-  --sbb-card-badge-color: var(--sbb-color-charcoal);
-  --sbb-card-badge-background-color: var(--sbb-color-white);
-  --sbb-card-badge-border-color: var(--sbb-color-aluminium);
-}
-
-:host([color='charcoal']) {
-  --sbb-card-badge-color: var(--sbb-color-white);
-  --sbb-card-badge-background-color: var(--sbb-color-charcoal);
-  --sbb-card-badge-border-color: transparent;
+  --sbb-card-badge-color: var(--sbb-color-3);
+  --sbb-card-badge-background-color: var(--sbb-background-color-1);
+  --sbb-card-badge-border-color: light-dark(
+    var(--sbb-color-aluminium),
+    var(--sbb-color-anthracite)
+  );
 }
 
 .sbb-card-badge-wrapper {

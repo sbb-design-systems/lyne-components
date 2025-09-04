@@ -47,7 +47,7 @@ $intersector-overlapping: 1px;
 :host([data-sticking]:not([data-state='unsticky'])) {
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
-    var(--sbb-color-white)
+    var(--sbb-background-color-1)
   );
   --_sbb-sticky-bar-intersector-background-color: var(--sbb-sticky-bar-sticky-background-color);
   --_sbb-sticky-bar-background-animation-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
@@ -58,19 +58,19 @@ $intersector-overlapping: 1px;
 }
 
 :host([data-sticking]:not([data-state='unsticky'])[color='white']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white);
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-1);
 }
 
 :host([data-sticking]:not([data-state='unsticky'])[color='milk']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-3);
 }
 
 :host([data-sticking]:not([data-state='unsticky'])[color='midnight']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-midnight);
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-1-negative);
 }
 
 :host([data-sticking]:not([data-state='unsticky'])[color='charcoal']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-charcoal);
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-2-negative);
 }
 
 :host(
