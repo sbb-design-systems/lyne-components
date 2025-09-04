@@ -23,7 +23,10 @@
 
   // As the card has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the card is used in a negative context.
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 
   @include a11y.if-forced-colors {
     --sbb-card-border-color: CanvasText;

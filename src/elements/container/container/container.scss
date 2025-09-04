@@ -10,12 +10,12 @@
   display: block;
 }
 
-:host([color='white']) {
-  --sbb-container-background-color: var(--sbb-color-white);
+:host(:is(:not([color]), [color='white'])) {
+  --sbb-container-background-color: var(--sbb-background-color-1);
 }
 
 :host([color='milk']) {
-  --sbb-container-background-color: var(--sbb-color-milk);
+  --sbb-container-background-color: var(--sbb-background-color-3);
 }
 
 :host([color='midnight']),
@@ -25,11 +25,11 @@
 }
 
 :host([color='midnight']) {
-  --sbb-container-background-color: var(--sbb-color-midnight);
+  --sbb-container-background-color: var(--sbb-background-color-1-negative);
 }
 
 :host([color='charcoal']) {
-  --sbb-container-background-color: var(--sbb-color-charcoal);
+  --sbb-container-background-color: var(--sbb-background-color-2-negative);
 }
 
 :host([data-slot-names~='image']) {
