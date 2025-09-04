@@ -108,9 +108,6 @@ export class SbbMediaMatcherController implements ReactiveController {
  * new SbbDarkModeController(this, (isDarkMode) => doSomething(isDarkMode));
  */
 export class SbbDarkModeController extends SbbMediaMatcherController {
-  /** A set of connected components that should be notified on mode change. */
-  private static readonly _listeners = new Set<SbbDarkModeController>();
-
   /** The current mode based on the class attribute of the <html> element. */
   private static _currentMode: 'light-dark' | 'light' | 'dark' | null = this._readLightDarkClass();
 
@@ -173,15 +170,16 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
   }
 
   public override hostConnected(): void {
+    const isFirstListener =
+      (mediaQueryRegistry.get(SbbMediaQueryDarkMode)?.handlers.size ?? 0) === 0;
     super.hostConnected();
 
-    if (!SbbDarkModeController._listeners.size) {
+    if (isFirstListener) {
       SbbDarkModeController._observer!.observe(
         document.documentElement,
         SbbDarkModeController._observerConfig,
       );
     }
-    SbbDarkModeController._listeners.add(this);
 
     this._onChangeWithStateUpdater();
   }
@@ -189,8 +187,7 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
   public override hostDisconnected(): void {
     super.hostDisconnected();
 
-    SbbDarkModeController._listeners.delete(this);
-    if (!SbbDarkModeController._listeners.size) {
+    if ((mediaQueryRegistry.get(SbbMediaQueryDarkMode)?.handlers.size ?? 0) === 0) {
       SbbDarkModeController._observer!.disconnect();
     }
   }
