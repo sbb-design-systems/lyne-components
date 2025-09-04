@@ -9,15 +9,9 @@ describe(`sbb-timetable-form-field ssr`, () => {
   let root: SbbTimetableFormFieldElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(
-      html`<sbb-timetable-form-field>
-        <label>From</label>
-        <input type="text" name="from" />
-      </sbb-timetable-form-field>`,
-      {
-        modules: ['./timetable-form-field.component.js'],
-      },
-    );
+    root = await ssrHydratedFixture(html`<sbb-timetable-form-field></sbb-timetable-form-field>`, {
+      modules: ['./timetable-form-field.component.js'],
+    });
   });
 
   it('renders', () => {

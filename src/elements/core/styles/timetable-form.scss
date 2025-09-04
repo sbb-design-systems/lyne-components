@@ -1,6 +1,6 @@
-@use 'core/functions';
-@use 'core/mediaqueries';
-@use 'mixins/timetable-form' as mixin;
+@use './core/functions';
+@use './core/mediaqueries';
+@use './mixins/timetable-form' as mixin;
 
 .sbb-timetable-form {
   @include mixin.sbb-timetable-form;

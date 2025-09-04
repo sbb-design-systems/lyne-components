@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbFormFieldElement } from '../../form-field/form-field.js';
@@ -26,7 +26,12 @@ class SbbTimetableFormFieldElement extends SbbFormFieldElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._routeIcon = this.matches(':first-of-type, :last-of-type');
+    if (isServer) {
+      return;
+    }
+    this.hydrationComplete.then(
+      () => (this._routeIcon = this.matches(':first-of-type, :last-of-type')),
+    );
   }
 
   public override render(): TemplateResult {
