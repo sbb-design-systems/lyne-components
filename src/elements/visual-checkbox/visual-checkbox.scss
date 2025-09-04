@@ -7,8 +7,8 @@
   display: block;
 
   --sbb-visual-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-visual-checkbox-background-color: var(--sbb-color-white);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
+  --sbb-visual-checkbox-background-color: var(--sbb-background-color-1);
+  --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
   --sbb-visual-checkbox-border-style: solid;
   --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
   --sbb-visual-checkbox-selection-color: var(--sbb-color-primary);
@@ -25,8 +25,8 @@
 }
 
 :host([negative]) {
-  --sbb-visual-checkbox-background-color: var(--sbb-color-midnight);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
+  --sbb-visual-checkbox-background-color: var(--sbb-background-color-1-negative);
+  --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
   --sbb-visual-checkbox-selection-color: var(--sbb-color-primary);
 
   @include sbb.if-forced-colors {
@@ -35,10 +35,10 @@
 }
 
 :host([disabled]) {
-  --sbb-visual-checkbox-background-color: var(--sbb-color-milk);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
+  --sbb-visual-checkbox-background-color: var(--sbb-background-color-3);
+  --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
   --sbb-visual-checkbox-border-style: dashed;
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-charcoal);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-2);
   --sbb-visual-checkbox-cursor: default;
 
   @include sbb.if-forced-colors {
@@ -47,9 +47,9 @@
 }
 
 :host([disabled][negative]) {
-  --sbb-visual-checkbox-background-color: var(--sbb-color-charcoal);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-white);
+  --sbb-visual-checkbox-background-color: var(--sbb-background-color-3-negative);
+  --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-2-negative);
 
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: Canvas;
