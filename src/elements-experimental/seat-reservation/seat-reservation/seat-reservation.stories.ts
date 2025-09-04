@@ -11,6 +11,9 @@ import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } fro
 import readme from './readme.md?raw';
 import { SbbSeatReservationElement } from './seat-reservation.component.js';
 
+import '@sbb-esta/lyne-elements/button.js';
+import '@sbb-esta/lyne-elements/dialog.js';
+
 const seatReservationType: InputType = {
   control: { type: 'object' },
   table: {
@@ -79,6 +82,23 @@ const defaultArgs: Args = {
   'prevent-place-click': false,
 };
 
+const DialogTemplate = ({ seatReservations, ...args }: Args): TemplateResult => html`
+  <sbb-button id="dialog-trigger" size="m">Open dialog</sbb-button>
+  <sbb-dialog trigger="dialog-trigger">
+    <sbb-dialog-title level="1">A describing title of the dialog</sbb-dialog-title>
+    <sbb-dialog-content>
+      <sbb-seat-reservation
+        .seatReservations=${seatReservations}
+        ${sbbSpread(args)}
+      ></sbb-seat-reservation>
+    </sbb-dialog-content>
+    <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+      <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+      <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    </sbb-dialog-actions>
+  </sbb-dialog>
+`;
+
 const Template = ({ seatReservations, ...args }: Args): TemplateResult =>
   html`<sbb-seat-reservation
     .seatReservations=${seatReservations}
@@ -89,6 +109,12 @@ export const Train: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: defaultArgs,
+};
+
+export const Dialog: StoryObj = {
+  render: DialogTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'align-vertical': true },
 };
 
 const trainDeckBottom = mappedSeatReservationTrain;
