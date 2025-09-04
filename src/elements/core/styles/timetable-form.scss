@@ -1,0 +1,31 @@
+@use './core/functions';
+@use './core/mediaqueries';
+@use './mixins/timetable-form' as mixin;
+
+.sbb-timetable-form {
+  @include mixin.sbb-timetable-form;
+}
+
+sbb-timetable-form {
+  sbb-date-input {
+    min-width: unset;
+  }
+
+  .sbb-timetable-form-block {
+    @include mixin.timetable-form-block;
+  }
+
+  .sbb-timetable-form-mobile-block {
+    flex-grow: 1;
+  }
+
+  @include mediaqueries.mq($to: small) {
+    .sbb-timetable-form-mobile-block {
+      @include mixin.timetable-form-block;
+    }
+
+    .sbb-timetable-form-mobile-hidden {
+      display: none;
+    }
+  }
+}

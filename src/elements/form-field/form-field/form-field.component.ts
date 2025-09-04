@@ -73,6 +73,9 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
+ *
+ * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
+ * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
  */
 export
 @customElement('sbb-form-field')
