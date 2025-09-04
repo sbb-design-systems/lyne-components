@@ -4,6 +4,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
@@ -28,6 +29,8 @@ export
 })
 class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
+
+  private _currentIndex = 0;
 
   /** Gets the slotted items. */
   private get _carouselItems(): SbbCarouselItemElement[] {
@@ -64,9 +67,10 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         .forEach((e) => {
           const target = e.target as SbbCarouselItemElement;
           target.ariaHidden = 'false';
+          this._currentIndex = this._carouselItems.findIndex((e) => e === target);
           target.dispatchEvent(
             new CustomEvent<SbbCarouselItemEventDetail>('show', {
-              detail: { index: this._carouselItems.findIndex((e) => e === target) },
+              detail: { index: this._currentIndex },
               bubbles: true,
               composed: true,
             }),
@@ -103,6 +107,31 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     }
   }
 
+  private _onKeyDown(evt: KeyboardEvent): void {
+    if (!isArrowKeyPressed(evt)) {
+      return;
+    }
+    evt.preventDefault();
+
+    switch (evt.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp': {
+        this._currentIndex = Math.max(--this._currentIndex, 0);
+        break;
+      }
+      case 'ArrowDown':
+      case 'ArrowRight': {
+        this._currentIndex = Math.min(++this._currentIndex, this._carouselItems.length - 1);
+        break;
+      }
+      // this should never happen since all the case allowed by `isArrowKeyOrPageKeysPressed` should be covered
+      default: {
+        this._currentIndex = 0;
+      }
+    }
+    this._carouselItems[this._currentIndex].scrollIntoView();
+  }
+
   public override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
 
@@ -114,7 +143,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-carousel-list">
+      <div class="sbb-carousel-list" @keydown=${this._onKeyDown}>
         <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;
