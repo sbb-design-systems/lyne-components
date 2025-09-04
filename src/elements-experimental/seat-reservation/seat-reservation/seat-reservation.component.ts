@@ -103,7 +103,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               <div class="coaches-grid">
                 <div class="sbb-sr__wrapper-coach-decks">
                   <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
-                  <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
+                  <div
+                    id="sbb-sr__wrapper-scrollarea"
+                    class="sbb-sr__wrapper"
+                    @scroll=${() => this.coachAreaScrollend()}
+                  >
                     <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
                       <ul
                         class="${classMap({
