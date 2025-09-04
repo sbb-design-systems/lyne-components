@@ -11,15 +11,20 @@ Use it in combination with the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog
 
 The title can have a `negative` state which is automatically synchronized with the negative state of the dialog.
 
+## Style
+
+In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
+it is possible to use the `visualLevel` property (default value: `4`).
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name          | Attribute      | Privacy | Type                    | Default | Description                                                                        |
-| ------------- | -------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                                                                        |
-| `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag.                                                    |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'4'`   | Visual level for the title. Optional, if not set, the value of level will be used. |
+| Name          | Attribute      | Privacy | Type                    | Default | Description                     |
+| ------------- | -------------- | ------- | ----------------------- | ------- | ------------------------------- |
+| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                     |
+| `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag. |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'4'`   | Visual level for the title.     |
 
 ## Slots
 
