@@ -167,8 +167,8 @@ sbb-form-field {
 
   // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
   &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
-    color: var(--sbb-color-granite);
-    -webkit-text-fill-color: var(--sbb-color-granite);
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+    -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   }
 
   // Fix positioning issue for select which occurs in Safari
@@ -297,7 +297,7 @@ sbb-breadcrumb-group:not(:defined) {
 
   strong + * {
     font-size: var(--sbb-font-size-text-xxs);
-    color: var(--sbb-color-granite);
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   }
 }
 
@@ -574,7 +574,7 @@ sbb-toggle:has(:focus-visible) {
 
 sbb-dialog-actions {
   sbb-dialog[negative] & {
-    --sbb-dialog-actions-border-color: var(--sbb-color-iron);
+    --sbb-dialog-actions-border-color: var(--sbb-border-color-4-negative-inverted);
   }
 
   sbb-dialog:state(overflows) & {
@@ -630,7 +630,7 @@ sbb-notification:has(sbb-title) {
 
 sbb-status:has(sbb-title) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --_sbb-status-text-color-override: var(--sbb-color-granite);
+  --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
 }
