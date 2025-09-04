@@ -113,23 +113,20 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     }
     evt.preventDefault();
 
-    switch (evt.key) {
-      case 'ArrowLeft':
-      case 'ArrowUp': {
-        this._currentIndex = Math.max(--this._currentIndex, 0);
-        break;
-      }
-      case 'ArrowDown':
-      case 'ArrowRight': {
-        this._currentIndex = Math.min(++this._currentIndex, this._carouselItems.length - 1);
-        break;
-      }
-      // this should never happen since all the case allowed by `isArrowKeyOrPageKeysPressed` should be covered
-      default: {
-        this._currentIndex = 0;
-      }
+    let newIndex = this._currentIndex;
+    const isPrev = evt.key === 'ArrowUp' || evt.key === 'ArrowLeft';
+    const isNext = evt.key === 'ArrowDown' || evt.key === 'ArrowRight';
+
+    if (isPrev) {
+      newIndex = Math.max(0, this._currentIndex - 1);
+    } else if (isNext) {
+      newIndex = Math.min(this._carouselItems.length - 1, this._currentIndex + 1);
     }
-    this._carouselItems[this._currentIndex].scrollIntoView();
+
+    if (newIndex !== this._currentIndex) {
+      this._currentIndex = newIndex;
+      this._carouselItems[this._currentIndex].scrollIntoView();
+    }
   }
 
   public override firstUpdated(_changedProperties: PropertyValues): void {
