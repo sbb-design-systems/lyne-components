@@ -8,13 +8,26 @@
   --sbb-button-color-hover-background: var(--sbb-color-primary-125);
   --sbb-button-color-hover-border: var(--sbb-color-primary-125);
   --sbb-button-color-hover-text: var(--sbb-color-3-negative);
-  --sbb-button-color-loading-border: color-mix(
-    in srgb,
-    var(--sbb-button-color-active-background) 50%,
-    var(--sbb-button-color-default-text)
+  --sbb-button-color-loading-border: light-dark(
+    color-mix(
+      in srgb,
+      var(--sbb-button-color-active-background) 50%,
+      var(--sbb-button-color-default-text)
+    ),
+    color-mix(
+      in srgb,
+      var(--sbb-button-color-active-background) 70%,
+      var(--sbb-button-color-default-text)
+    )
   );
-  --sbb-button-shadow-1-color: var(--sbb-color-primary-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-primary-125-alpha-20);
+  --sbb-button-shadow-1-color: light-dark(
+    var(--sbb-color-primary-alpha-20),
+    var(--sbb-color-primary-alpha-40)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    var(--sbb-color-primary-125-alpha-20),
+    var(--sbb-color-primary-125-alpha-40)
+  );
 }
 
 :host([negative]) {
@@ -32,8 +45,14 @@
     var(--sbb-button-color-active-background) 70%,
     var(--sbb-button-color-default-text)
   );
-  --sbb-button-shadow-1-color: var(--sbb-color-primary-alpha-60);
-  --sbb-button-shadow-2-color: var(--sbb-color-primary-125-alpha-60);
+  --sbb-button-shadow-1-color: light-dark(
+    var(--sbb-color-primary-alpha-60),
+    var(--sbb-color-primary-alpha-40)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    var(--sbb-color-primary-125-alpha-60),
+    var(--sbb-color-primary-125-alpha-40)
+  );
 }
 
 :host(:not([disabled], :disabled, [disabled-interactive], :active, [data-active], [loading])) {

@@ -12,8 +12,14 @@
   --sbb-button-color-hover-border: var(--sbb-border-color-4-inverted);
   --sbb-button-color-hover-text: var(--sbb-color-4);
   --sbb-button-color-loading-border: var(--sbb-border-color-4-inverted);
-  --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
+  --sbb-button-shadow-1-color: light-dark(
+    var(--sbb-color-platinum-alpha-20),
+    var(--sbb-color-black-alpha-30)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    var(--sbb-color-cement-alpha-20),
+    var(--sbb-color-black-alpha-30)
+  );
   --sbb-button-border-overlap-fix: 0rem;
 }
 

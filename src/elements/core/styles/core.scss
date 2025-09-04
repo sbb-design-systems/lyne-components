@@ -115,6 +115,7 @@ html {
   @include typo.text;
 
   color: var(--sbb-font-default-color);
+  background-color: var(--sbb-background-color-1);
 }
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
