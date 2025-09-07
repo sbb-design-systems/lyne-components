@@ -131,7 +131,7 @@
     "sass": "1.92.1",
     "sinon": "21.0.0",
     "storybook": "9.1.5",
-    "stylelint": "16.23.1",
+    "stylelint": "16.24.0",
     "stylelint-config-prettier-scss": "1.0.0",
     "stylelint-config-standard-scss": "15.0.1",
     "stylelint-scss": "6.12.1",
