@@ -66,6 +66,15 @@ const autoActiveFirstOption: InputType = {
   },
 };
 
+const autoSelectActiveOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -128,6 +137,7 @@ const defaultArgTypes: ArgTypes = {
   readonly,
   preserveIconSpace,
   autoActiveFirstOption,
+  autoSelectActiveOption,
 
   // Option args
   iconName,
@@ -151,6 +161,7 @@ const defaultArgs: Args = {
   negative: false,
   disabled: false,
   readonly: false,
+  autoSelectActiveOption: false,
 
   // Option args
   iconName: 'clock-small',
@@ -239,6 +250,7 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-autocomplete
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
       >
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
@@ -261,6 +273,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       <sbb-autocomplete
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
       >
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createOptionGroup1(args.iconName, args.disableOption)}
@@ -286,6 +299,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       <sbb-autocomplete
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
       >
         <sbb-option value="Option 1">
           <sbb-icon
@@ -340,6 +354,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         <sbb-autocomplete
           ?preserve-icon-space=${args.preserveIconSpace}
           ?auto-active-first-option=${args.autoActiveFirstOption}
+          ?auto-select-active-option=${args.autoSelectActiveOption}
         >
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
             ${createOptionGroup1(args.iconName, args.disableOption)}
@@ -430,6 +445,12 @@ export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
+};
+
+export const AutoSelectActiveOption: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, autoSelectActiveOption: true },
 };
 
 export const BorderlessOpenAbove: StoryObj = {

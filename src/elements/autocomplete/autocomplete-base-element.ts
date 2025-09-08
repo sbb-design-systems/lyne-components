@@ -80,6 +80,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
    */
   @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
+  /** Whether the active option should be selected as the user is navigating. */
+  @forceType()
+  @property({ attribute: 'auto-select-active-option', type: Boolean })
+  public accessor autoSelectActiveOption: boolean = false;
+
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
@@ -252,15 +257,25 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   /** When an option is selected, update the input value and close the autocomplete. */
   protected onOptionSelected(event: Event): void {
     const target = event.target as SbbOptionBaseElement<T>;
+    this._setValueAndDispatchEvents(target);
+    this.close();
+  }
 
+  /** When an option is selected, update the input value and close the autocomplete. */
+  protected onOptionArrowsSelected(activeOption: SbbOptionBaseElement<T>): void {
+    activeOption.selected = true;
+    this._setValueAndDispatchEvents(activeOption);
+  }
+
+  private _setValueAndDispatchEvents(selectedOption: SbbOptionBaseElement<T>): void {
     // Deselect the previous options
     this.options
-      .filter((option) => option.id !== target.id && option.selected)
+      .filter((option) => option.id !== selectedOption.id && option.selected)
       .forEach((option) => (option.selected = false));
 
     if (this.triggerElement) {
       // Given a value, returns the string that should be shown within the input.
-      const toDisplay = this.displayWith?.(target.value as T) ?? target.value;
+      const toDisplay = this.displayWith?.(selectedOption.value as T) ?? selectedOption.value;
 
       // Set the option value
       // In order to support React onChange event, we have to get the setter and call it.
@@ -275,13 +290,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       // Custom input event emitted when input value changes after an option is selected
       this.triggerElement.dispatchEvent(
         new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
-          detail: { option: target },
+          detail: { option: selectedOption },
         }),
       );
       this.triggerElement.focus();
     }
-
-    this.close();
   }
 
   private _handleSlotchange(): void {
@@ -311,6 +324,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
     this._optionsCount = this.options.length;
   }
+
   private _setNextActiveOptionIfAutoActiveFirstOption(): void {
     if (this.autoActiveFirstOption) {
       this.resetActiveElement();
