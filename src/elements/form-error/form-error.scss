@@ -25,7 +25,7 @@
 }
 
 :host([negative]) {
-  --sbb-form-error-color: var(--sbb-color-red85);
+  --sbb-form-error-color: var(--sbb-color-primary-85);
 }
 
 .form-error__icon {
