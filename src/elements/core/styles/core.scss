@@ -294,6 +294,7 @@ sbb-breadcrumb-group:not(:defined) {
   padding-inline: var(--sbb-spacing-fixed-4x);
   gap: var(--sbb-spacing-fixed-1x);
   align-items: baseline;
+  color: var(--sbb-color-1);
 
   strong + * {
     font-size: var(--sbb-font-size-text-xxs);
