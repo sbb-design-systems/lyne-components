@@ -20,7 +20,7 @@ describe(`sbb-menu`, () => {
   };
 
   const userInfoStyle = {
-    color: 'var(--sbb-color-graphite)',
+    color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-granite))',
     fontSize: 'var(--sbb-font-size-text-xxs)',
   };
 

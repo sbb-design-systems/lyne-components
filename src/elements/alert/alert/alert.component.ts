@@ -53,7 +53,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
   private _language = new SbbLanguageController(this);
-  private _mediaMatcher = new SbbDarkModeController(this, () => {
+  private _darkModeController = new SbbDarkModeController(this, () => {
     this._syncLinks();
     this._configureTitle();
     this.requestUpdate();
@@ -150,7 +150,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
   }
 
   private _isLightMode(): boolean {
-    return !this._mediaMatcher.matches();
+    return !this._darkModeController.matches();
   }
 
   protected override render(): TemplateResult {
