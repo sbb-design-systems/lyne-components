@@ -54,7 +54,10 @@ class SbbPearlChainVerticalItemElement extends LitElement {
         : `sbb-pearl-chain-vertical-item__bullet--${bulletType}`;
 
     return html`
-      <div class="sbb-pearl-chain-vertical-item__column" style=${styleMap({ height: minHeight })}>
+      <div
+        class="sbb-pearl-chain-vertical-item__column"
+        style=${styleMap({ height: `${minHeight}px` })}
+      >
         <slot name="left"></slot>
       </div>
       <div
