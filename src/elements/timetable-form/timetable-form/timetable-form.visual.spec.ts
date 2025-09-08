@@ -131,7 +131,7 @@ describe('sbb-timetable-form', () => {
     );
 
     it(
-      `with via_expanded datepicker}`,
+      `with via_expanded datepicker`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
           <form class="sbb-timetable-form">

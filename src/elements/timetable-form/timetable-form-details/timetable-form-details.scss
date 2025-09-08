@@ -6,7 +6,7 @@
 :host {
   --sbb-timetable-form-details-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-timetable-form-details-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-timetable-form-details-horizonta-divider-height: 1.5rem;
+  --sbb-timetable-form-details-horizontal-divider-height: 1.5rem;
 
   display: flex;
   flex-wrap: wrap;
@@ -22,7 +22,7 @@
 }
 
 ::slotted(sbb-divider[orientation='vertical']) {
-  height: var(--sbb-timetable-form-details-horizonta-divider-height);
+  height: var(--sbb-timetable-form-details-horizontal-divider-height);
 }
 
 ::slotted(:last-child) {
