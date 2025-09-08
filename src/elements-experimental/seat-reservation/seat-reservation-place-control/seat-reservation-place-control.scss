@@ -89,7 +89,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
   }
 }
 
-:host(:focus) {
+:host(:focus-visible) {
   .sbb-sr-place-ctrl {
     &--state-free:not(#{$disabled}) {
       @include colorizePlace('free', 'focus');
