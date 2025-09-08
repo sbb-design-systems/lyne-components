@@ -108,7 +108,7 @@ const NestedTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-button icon-name="trash-small">Delete Selected</sbb-menu-button>
     <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button icon-name="circle-cross-small">Cancel Selection</sbb-menu-button>
+    <sbb-menu-button icon-name="cross-small">Cancel Selection</sbb-menu-button>
   </sbb-menu>
   <sbb-menu trigger="sub-menu-1">
     <sbb-menu-button icon-name="employees-sbb-small"> All Users </sbb-menu-button>
