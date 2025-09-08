@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.5.0...v3.6.0) (2025-09-08)
+
+
+### Features
+
+* add support for `:state()` in SSR ([#4005](https://github.com/sbb-design-systems/lyne-components/issues/4005)) ([2b02528](https://github.com/sbb-design-systems/lyne-components/commit/2b0252841d602bcf953141dbdef5bfd3585478ac))
+* **seat reservation:** distinguishing active/focus-visited state for place selection ([#4015](https://github.com/sbb-design-systems/lyne-components/issues/4015)) ([a37a0e5](https://github.com/sbb-design-systems/lyne-components/commit/a37a0e51fd4742042dd00968aa8644e5409caa9d))
+
+
+### Bug Fixes
+
+* avoid warnings about inline styles ([#4017](https://github.com/sbb-design-systems/lyne-components/issues/4017)) ([655c54e](https://github.com/sbb-design-systems/lyne-components/commit/655c54e7078a747348f3d9cabc75c86102b1ce82))
+* **sbb-notification:** fix error color ([#4009](https://github.com/sbb-design-systems/lyne-components/issues/4009)) ([c8b465d](https://github.com/sbb-design-systems/lyne-components/commit/c8b465d3c211442668b539d263bd26cb8920342c))
+* **sbb-radio-button:** hide graphical artifact when disabled and zoomed ([#4011](https://github.com/sbb-design-systems/lyne-components/issues/4011)) ([f2a5d35](https://github.com/sbb-design-systems/lyne-components/commit/f2a5d35a113a3929e5ad6b92339e24ff6d343994))
+* **sbb-seat-reservation:** handle scroll event in coach area correctly ([#4000](https://github.com/sbb-design-systems/lyne-components/issues/4000)) ([eb4cabe](https://github.com/sbb-design-systems/lyne-components/commit/eb4cabe5107a8dd14d9adc3139e202e2a9b6fa45))
+* **sbb-secondary-button:** fix text color ([#4008](https://github.com/sbb-design-systems/lyne-components/issues/4008)) ([479b173](https://github.com/sbb-design-systems/lyne-components/commit/479b173bb5ae31088fb1480195d9f5cec64f657e))
+
+
+### Documentation
+
+* improve documentation of sbb-title-base derived components ([#4012](https://github.com/sbb-design-systems/lyne-components/issues/4012)) ([454f856](https://github.com/sbb-design-systems/lyne-components/commit/454f856fd545ce38f3fbc732a979c0149d4642ac)), closes [#4003](https://github.com/sbb-design-systems/lyne-components/issues/4003)
+
 ## [3.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.4.0...v3.5.0) (2025-08-28)
 
 
