@@ -574,7 +574,7 @@ sbb-toggle:has(:focus-visible) {
 
 sbb-dialog-actions {
   sbb-dialog[negative] & {
-    --sbb-dialog-actions-border-color: var(--sbb-border-color-4-negative-inverted);
+    --sbb-dialog-actions-border-color: var(--sbb-background-color-4-negative);
   }
 
   sbb-dialog:state(overflows) & {
