@@ -12,7 +12,6 @@ import {
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
-import { SbbFormFieldControlEvent, type SbbFormFieldElementControl } from '../form-field.js';
 
 import style from './date-input.scss?lit&inline';
 
@@ -37,10 +36,7 @@ export interface SbbDateInputAssociated<T> {
  */
 export
 @customElement('sbb-date-input')
-class SbbDateInputElement<T = Date>
-  extends SbbFormAssociatedInputMixin(LitElement)
-  implements SbbFormFieldElementControl
-{
+class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -57,7 +53,6 @@ class SbbDateInputElement<T = Date>
       value = this._formatDate();
     }
     super.value = value;
-    this._dispatchFormFieldChange();
   }
   public override get value(): string {
     return super.value ?? '';
@@ -94,7 +89,10 @@ class SbbDateInputElement<T = Date>
   }
   private _valueAsDate?: T | null;
 
-  /** Whether the input is empty. */
+  /**
+   * Whether the input is empty
+   * @deprecated
+   */
   public get empty(): boolean {
     return !this.value || this.value.trim() === '';
   }
@@ -192,7 +190,6 @@ class SbbDateInputElement<T = Date>
         (child as Partial<SbbDateInputAssociated<T>>).input = this;
       }
     }
-    this._dispatchFormFieldChange();
   }
 
   public override requestUpdate(
@@ -287,11 +284,6 @@ class SbbDateInputElement<T = Date>
     (['badInput', 'rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const).forEach((f) =>
       this.removeValidityFlag(f),
     );
-  }
-
-  private _dispatchFormFieldChange(): void {
-    /** @internal */
-    this.closest?.('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
   }
 }
 

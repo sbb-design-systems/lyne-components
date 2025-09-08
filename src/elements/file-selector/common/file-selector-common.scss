@@ -26,9 +26,10 @@
   }
 }
 
-:host([data-active]) {
+:host(:state(active)) {
   --sbb-file-selector-background-color: var(--sbb-color-milk);
   --sbb-file-selector-border-color: var(--sbb-color-storm);
+
   @include sbb.if-forced-colors {
     --sbb-file-selector-border-color: Highlight;
   }

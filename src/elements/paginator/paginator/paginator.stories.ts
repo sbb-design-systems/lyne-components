@@ -74,6 +74,30 @@ const disabled: InputType = {
   },
 };
 
+const accessibilityPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityPreviousPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityNextPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityItemsPerPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   length,
   'page-size': pageSize,
@@ -83,6 +107,10 @@ const defaultArgTypes: ArgTypes = {
   size,
   negative,
   disabled,
+  'accessibility-page-label': accessibilityPageLabel,
+  'accessibility-previous-page-label': accessibilityPreviousPageLabel,
+  'accessibility-next-page-label': accessibilityNextPageLabel,
+  'accessibility-items-per-page-label': accessibilityItemsPerPageLabel,
 };
 
 const defaultArgs: Args = {

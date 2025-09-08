@@ -26,7 +26,7 @@ describe(`typography`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-title level=${6 - textSizeIndex}>
-              Titel Level ${6 - textSizeIndex} / Text size ${textSize}
+              Title Level ${6 - textSizeIndex} / Text size ${textSize}
             </sbb-title>
             <p class=${`sbb-text-${textSize}`}>${text}</p>
           `);
@@ -38,7 +38,7 @@ describe(`typography`, () => {
       'text bold',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-title level="6"> Titel Level 6 / Text size xxs </sbb-title>
+          <sbb-title level="6"> Title Level 6 / Text size xxs </sbb-title>
           <p class=${`sbb-text-xxs sbb-text--bold`}>${text}</p>
         `);
       }),

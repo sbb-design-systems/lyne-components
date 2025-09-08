@@ -1,5 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { html, isServer, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -83,26 +83,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   protected override render(): TemplateResult | null {
-    if (!isServer) {
-      this._determineBaseFontSize();
-    }
-
     this._initVehicleSeatReservationConstruction();
     return this._coachesHtmlTemplate || null;
   }
 
-  private _determineBaseFontSize(): void {
-    const baseFontSize = parseInt(window.getComputedStyle(document.body).fontSize, 10);
-    //calculate rem of 1px
-    const onePixelInRem = 1 / baseFontSize;
-    this.style?.setProperty('--sbb-seat-reservation-one-px-rem', `${onePixelInRem + 'rem'}`);
-  }
-
   private _initVehicleSeatReservationConstruction(): void {
-    const classAlignVertical = this.alignVertical ? 'sbb-sr__grid--vertical' : '';
     this._coachesHtmlTemplate = html`
       <div class="sbb-sr__container">
-        <div class="sbb-sr sbb-sr__grid ${classAlignVertical}">
+        <div class="sbb-sr sbb-sr__grid">
           <div class="sbb-sr-navigation-first-grid">
             ${this._renderNavigationControlButton('DIRECTION_LEFT')}
           </div>
@@ -115,7 +103,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               <div class="coaches-grid">
                 <div class="sbb-sr__wrapper-coach-decks">
                   <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
-                  <div id="sbb-sr__wrapper-scrollarea" class="sbb-sr__wrapper">
+                  <div
+                    id="sbb-sr__wrapper-scrollarea"
+                    class="sbb-sr__wrapper"
+                    @scroll=${() => this.coachAreaScrollend()}
+                  >
                     <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
                       <ul
                         class="${classMap({
@@ -372,6 +364,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return places?.map((place: Place, index: number) => {
       const calculatedDimension = this.getCalculatedDimension(place.dimension);
       const calculatedPosition = this.getCalculatedPosition(place.position);
+      const rotation = place.rotation || 0;
       const textRotation = this.alignVertical ? -90 : 0;
 
       return html`
@@ -381,24 +374,25 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         >
           <sbb-seat-reservation-place-control
             style=${styleMap({
+              '--sbb-seat-reservation-place-control-text-scale-value': Math.min(
+                calculatedDimension.w,
+                calculatedDimension.h,
+              ),
               '--sbb-seat-reservation-place-control-width': calculatedDimension.w,
               '--sbb-seat-reservation-place-control-height': calculatedDimension.h,
               '--sbb-seat-reservation-place-control-top': calculatedPosition.y,
               '--sbb-seat-reservation-place-control-left': calculatedPosition.x,
+              '--sbb-seat-reservation-place-control-rotation': rotation,
+              '--sbb-seat-reservation-place-control-text-rotation': textRotation,
             })}
             @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
               this._onSelectPlace(selectPlaceEvent)}
             exportparts="sbb-sr-place-part"
             id="seat-reservation__place-button-${deckIndex}-${coachIndex}-${place.number}"
             class="seat-reservation-place-control"
-            data-cell-id="${coachIndex}-${place.position.y}-${index}"
             text=${place.number}
             type=${place.type}
             state=${place.state}
-            width=${place.dimension.w * this.baseGridSize}
-            height=${place.dimension.h * this.baseGridSize}
-            rotation=${place.rotation ?? nothing}
-            text-rotation=${textRotation}
             coach-index=${coachIndex}
             deck-index=${deckIndex}
             .propertyIds=${place.propertyIds}
@@ -508,10 +502,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${areaProperty
           ? html`
               <sbb-seat-reservation-graphic
+                style=${styleMap({
+                  '--sbb-seat-reservation-graphic-width': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-height': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-rotation': rotation,
+                })}
                 name=${areaProperty}
-                width=${this.baseGridSize}
-                height=${this.baseGridSize}
-                rotation=${rotation}
                 role="img"
                 aria-hidden="true"
               ></sbb-seat-reservation-graphic>
@@ -553,9 +549,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-graphic-top': calculatedPosition.y,
         '--sbb-seat-reservation-graphic-left': calculatedPosition.x,
         '--sbb-seat-reservation-graphic-position': 'absolute',
+        '--sbb-seat-reservation-graphic-rotation': rotation,
       })}
       name=${icon ?? nothing}
-      rotation=${rotation}
       aria-hidden="true"
       ?stretch=${true}
     ></sbb-seat-reservation-graphic>`;
@@ -589,10 +585,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             '--sbb-seat-reservation-graphic-top': calculatedPosition.y,
             '--sbb-seat-reservation-graphic-left': calculatedPosition.x,
             '--sbb-seat-reservation-graphic-position': 'absolute',
+            '--sbb-seat-reservation-graphic-rotation': elementFixedRotation,
           })}
           class="sbb-seat-reservation-graphic--cursor-pointer"
           name=${serviceElement.icon ?? nothing}
-          .rotation=${elementFixedRotation}
           role="img"
           aria-hidden="true"
         ></sbb-seat-reservation-graphic>

@@ -24,38 +24,15 @@ const stretch: InputType = {
   },
 };
 
-const width: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const height: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const rotation: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   name: name,
   stretch,
-  width,
-  height,
-  rotation,
 };
 
 const defaultArgs: Args = {
   name: 'BISTRO',
   stretch: false,
-  width: 32,
-  height: 32,
-  rotation: 0,
+  style: '--sbb-seat-reservation-graphic-width: 32;--sbb-seat-reservation-graphic-height: 32;',
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -69,17 +46,27 @@ export const Default: StoryObj = {
 
 export const pramAreaWidth32Height32: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, name: 'PRAM_AREA', width: 32, height: 32 },
+  args: { ...defaultArgs, name: 'PRAM_AREA' },
 };
 
 export const StairAreaWidth32Height32Rotation315: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, name: 'STAIR_AREA', width: 32, height: 32, rotation: 315 },
+  args: {
+    ...defaultArgs,
+    name: 'STAIR_AREA',
+    style:
+      '--sbb-seat-reservation-graphic-width: 32;--sbb-seat-reservation-graphic-height: 32;--sbb-seat-reservation-graphic-rotation: 315',
+  },
 };
 
 export const coachBorderMiddleWidth20Height128Stretch: StoryObj = {
   render: Template,
-  args: { ...defaultArgs, name: 'COACH_BORDER_MIDDLE', stretch: true, width: 20, height: 128 },
+  args: {
+    ...defaultArgs,
+    name: 'COACH_BORDER_MIDDLE',
+    stretch: true,
+    style: '--sbb-seat-reservation-graphic-width: 20;--sbb-seat-reservation-graphic-height: 128;',
+  },
 };
 
 export const availableAssets: StoryObj = {
