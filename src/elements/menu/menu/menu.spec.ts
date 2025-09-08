@@ -454,6 +454,8 @@ describe(`sbb-menu`, () => {
     it('open nested menu on mouse hover', async () => {
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
       const nestedOpenSpy = new EventSpy(SbbMenuElement.events.open, nestedMenu);
+      const closeSpy = new EventSpy(SbbMenuElement.events.close, nestedMenu);
+      const otherButton = element.querySelector('#menu-action-1')!;
 
       await setViewport({ width: 1280, height: 800 });
 
@@ -465,6 +467,11 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(nestedMenu);
 
       await nestedOpenSpy.calledOnce();
+
+      otherButton.dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitForLitRender(nestedMenu);
+
+      await closeSpy.calledOnce();
     });
 
     it('shows back button in mobile mode', async () => {
