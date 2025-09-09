@@ -2,6 +2,8 @@
 @use '../core/mediaqueries';
 
 @mixin sbb-timetable-form {
+  --sbb-timetable-form-content-max-width: #{functions.px-to-rem-build(740)};
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -36,7 +38,7 @@
 
   & > * {
     margin-inline: auto;
-    max-width: #{functions.px-to-rem-build(740)};
+    max-width: var(--sbb-timetable-form-content-max-width);
     width: 100%;
   }
 }

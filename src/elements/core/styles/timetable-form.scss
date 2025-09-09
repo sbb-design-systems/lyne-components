@@ -8,15 +8,11 @@
 
 sbb-timetable-form {
   sbb-date-input {
-    min-width: unset;
+    min-width: #{functions.px-to-rem-build(133)}; // From FIGMA spec
   }
 
   .sbb-timetable-form-block {
     @include mixin.timetable-form-block;
-  }
-
-  .sbb-timetable-form-mobile-block {
-    flex-grow: 1;
   }
 
   @include mediaqueries.mq($to: small) {
