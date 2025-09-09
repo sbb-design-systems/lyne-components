@@ -13,7 +13,14 @@ import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { readConfig } from '../core/config.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
-import { isAndroid, isIOS, isZeroAnimationDuration, queueDomContentLoaded } from '../core/dom.js';
+import {
+  addToListAttribute,
+  isAndroid,
+  isIOS,
+  isZeroAnimationDuration,
+  queueDomContentLoaded,
+  removeFromListAttribute,
+} from '../core/dom.js';
 import { SbbDisabledMixin } from '../core/mixins.js';
 import { getElementPosition, sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
 
@@ -314,20 +321,27 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     }
 
     this._triggerElement = trigger;
-    this._triggerElement?.setAttribute('aria-describedby', this.id);
+    if (!this._triggerElement) {
+      return;
+    }
+    addToListAttribute(this._triggerElement, 'aria-describedby', this.id);
     this._addTriggerEventHandlers();
   }
 
   private _detach(): void {
     this._triggerAbortController?.abort();
     this._openStateController?.abort();
-    this._triggerElement?.removeAttribute('aria-describedby');
-    this._triggerElement = null;
 
     // clear timeouts
     this._resetOpenCloseTimeout();
     clearTimeout(this._longPressOpenTimeout);
     clearTimeout(this._longPressCloseTimeout);
+
+    if (!this._triggerElement) {
+      return;
+    }
+    removeFromListAttribute(this._triggerElement, 'aria-describedby', this.id);
+    this._triggerElement = null;
   }
 
   private _destroy(): void {
@@ -340,17 +354,12 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       return;
     }
 
-    const position = getElementPosition(
-      this.overlay,
-      this._triggerElement,
-      this.shadowRoot!.querySelector('.sbb-tooltip__container')!,
-      {
-        verticalOffset: VERTICAL_OFFSET,
-        horizontalOffset: HORIZONTAL_OFFSET,
-        centered: true,
-        responsiveHeight: true,
-      },
-    );
+    const position = getElementPosition(this.overlay, this._triggerElement, this, {
+      verticalOffset: VERTICAL_OFFSET,
+      horizontalOffset: HORIZONTAL_OFFSET,
+      centered: true,
+      responsiveHeight: true,
+    });
     this.setAttribute('data-position', position.alignment.vertical);
 
     this.style.setProperty('--sbb-tooltip-position-x', `${position.left}px`);
@@ -441,15 +450,12 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-tooltip__container">
-        <div
-          @animationend=${this._onTooltipAnimationEnd}
-          class="sbb-tooltip"
-          role="tooltip"
-          ${ref((el?: Element) => (this.overlay = el as HTMLDivElement))}
-        >
-          <slot></slot>
-        </div>
+      <div
+        @animationend=${this._onTooltipAnimationEnd}
+        class="sbb-tooltip"
+        ${ref((el?: Element) => (this.overlay = el as HTMLDivElement))}
+      >
+        <slot></slot>
       </div>
     `;
   }

@@ -10,21 +10,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import { SbbTooltipElement } from './tooltip.component.js';
-import '../button/mini-button.js';
-
-const alignment: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: [
-    'below-centred',
-    'below-start',
-    'below-end',
-    'above-centred',
-    'above-start',
-    'above-end',
-  ],
-};
+import '../icon.js';
 
 const openDelay: InputType = {
   control: {
@@ -45,7 +31,6 @@ const disabled: InputType = {
 };
 
 const attributeUsageArgTypes: ArgTypes = {
-  alignment,
   disabled,
 };
 
@@ -56,7 +41,6 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const attributeUsageArgs: Args = {
-  alignment: alignment.options![0],
   disabled: false,
 };
 
@@ -75,91 +59,90 @@ const alignmentStyles: { [x: string]: any } = {
   'above-end': { 'inset-inline-end': '2rem', 'inset-block-end': '2rem' },
 };
 
-const trigger = (alignment: string, disabled?: boolean): TemplateResult => html`
-  <sbb-mini-button
+const trigger = (alignment = 'below-start'): TemplateResult => html`
+  <sbb-icon
     id="tooltip-trigger"
-    icon-name="circle-information-small"
-    ?disabled=${disabled}
+    name="circle-information-small"
     style=${styleMap({
       position: 'absolute',
       ...alignmentStyles[alignment],
     })}
-    aria-label="info button"
-  ></sbb-mini-button>
+  ></sbb-icon>
 `;
 
-const Template = ({ alignment, ...args }: Args): TemplateResult => html`
-  ${trigger(alignment, args.disabled)}
-  <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}> I'm a tooltip!!! </sbb-tooltip>
-`;
+const Template =
+  (alignment?: string) =>
+  (args: Args): TemplateResult => html`
+    ${trigger(alignment)}
+    <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}> I'm a tooltip!!! </sbb-tooltip>
+  `;
 
-const LongContentTemplate = ({ alignment, ...args }: Args): TemplateResult => html`
-  ${trigger(alignment, args.disabled)}
+const LongContentTemplate = (args: Args): TemplateResult => html`
+  ${trigger()}
   <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in
     tincidunt quis, mattis eu quam.
   </sbb-tooltip>
 `;
 
-const AttributeTemplate = ({ alignment, ...args }: Args): TemplateResult => html`
-  <sbb-mini-button
-    icon-name="circle-information-small"
-    ?disabled=${args.disabled}
+const AttributeTemplate = (_args: Args): TemplateResult => html`
+  <sbb-icon
+    name="circle-information-small"
     style=${styleMap({
       position: 'absolute',
-      ...alignmentStyles[alignment],
+      ...alignmentStyles['below-start'],
     })}
     sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
     aria-label="info button"
-  ></sbb-mini-button>
+  ></sbb-icon>
 `;
 
 export const Default: StoryObj = {
-  render: Template,
+  render: Template(),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'below-start' },
+  args: { ...defaultArgs },
 };
 
 export const AttributeUsage: StoryObj = {
   render: AttributeTemplate,
   argTypes: attributeUsageArgTypes,
-  args: { ...attributeUsageArgs, alignment: 'below-start' },
+  args: { ...attributeUsageArgs },
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'below-start' },
+  args: { ...defaultArgs },
 };
 
 export const BelowCentred: StoryObj = {
-  render: Template,
+  render: Template('below-centred'),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'below-centred' },
+  args: { ...defaultArgs },
 };
 
 export const BelowEnd: StoryObj = {
-  render: Template,
+  render: Template('below-end'),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'below-end' },
+  args: { ...defaultArgs },
 };
 
 export const AboveStart: StoryObj = {
-  render: Template,
+  render: Template('above-start'),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'above-start' },
+  args: { ...defaultArgs },
 };
 
 export const AboveCentred: StoryObj = {
-  render: Template,
+  render: Template('above-centred'),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'above-centred' },
+  args: { ...defaultArgs },
 };
 
 export const AboveEnd: StoryObj = {
-  render: Template,
+  render: Template('above-end'),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, alignment: 'above-end' },
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

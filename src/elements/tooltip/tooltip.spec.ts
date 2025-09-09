@@ -27,10 +27,10 @@ describe('sbb-tooltip', () => {
     beforeEach(async () => {
       await fixture(html`
         <div style="padding: 2rem">
-          <a href="#"></a>
+          <a href="#">focus step</a>
           <sbb-button id="test-id">Button</sbb-button>
           <sbb-tooltip trigger="test-id">Test</sbb-tooltip>
-          <a href="#"></a>
+          <a href="#">focus step</a>
         </div>
       `);
       otherElem = document.querySelector('a')!;
@@ -42,7 +42,7 @@ describe('sbb-tooltip', () => {
 
     it('renders', async () => {
       assert.instanceOf(element, SbbTooltipElement);
-      expect(trigger).to.have.attribute('aria-describedby', element.id);
+      expect(trigger).to.have.attribute('aria-describedby').contains(element.id);
     });
 
     it('should open on hover', async () => {
@@ -246,7 +246,7 @@ describe('sbb-tooltip', () => {
 
     it('should link the tooltip to the trigger', async () => {
       expect(element.trigger!.localName).to.equal(trigger.localName);
-      expect(trigger).to.have.attribute('aria-describedby', element.id);
+      expect(trigger).to.have.attribute('aria-describedby').contains(element.id);
 
       const position = trigger.getBoundingClientRect();
       await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });

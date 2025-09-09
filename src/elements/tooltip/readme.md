@@ -9,7 +9,7 @@ You can use the tooltip in two ways:
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
-- **Via the `sbb-tooltip` attribute**
+- **Via the `sbb-tooltip` attribute** (_Note: does not work if used in a Shadow Dom_)
 
 ```html
 <sbb-button sbb-tooltip="Tooltip message">Button</sbb-button>
@@ -24,10 +24,11 @@ On touch devices, the tooltip opens on long press and closes automatically after
 ## Positioning
 
 By default, the tooltip appears below the trigger element. If there is insufficient space, it automatically chooses the best available position.
+Currently, the positioning priority is not configurable (an enhancement is planned soon).
 
 ## Configuration
 
-The open and close delays can be configured via global configuration. This values will be used as default, unless explicitly set on the element.
+The open and close delays can be configured via global configuration. These values will be used as default, unless explicitly set on the element.
 
 ```ts
 import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';

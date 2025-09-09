@@ -23,14 +23,9 @@ snapshots["sbb-tooltip DOM"] =
 /* end snapshot sbb-tooltip DOM */
 
 snapshots["sbb-tooltip Shadow DOM"] = 
-`<div class="sbb-tooltip__container">
-  <div
-    class="sbb-tooltip"
-    role="tooltip"
-  >
-    <slot>
-    </slot>
-  </div>
+`<div class="sbb-tooltip">
+  <slot>
+  </slot>
 </div>
 `;
 /* end snapshot sbb-tooltip Shadow DOM */
