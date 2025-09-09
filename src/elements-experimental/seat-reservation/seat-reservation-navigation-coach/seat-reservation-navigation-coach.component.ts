@@ -13,8 +13,6 @@ import style from './seat-reservation-navigation-coach.scss?lit&inline';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '../seat-reservation-navigation-services.js';
 
-const MAX_SERVICE_PROPERTIES = 3;
-
 export type SelectCoachEventDetails = number;
 
 /**
@@ -112,16 +110,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   /**
-   * Render a maximum of 3 of the service sign icons (slice(0,3)) regardless of the input from Backend,
-   * otherwise the layout could be destroyed. Furthermore, we have to filter out the value ANY_SEAT,
-   * since this is also passed as a property and does not need to be used here
+   * Render a list of service icons provided by a caller
    *
    * @protected
    */
   protected override render(): TemplateResult {
-    this.propertyIds = this.propertyIds
-      .filter((propertyId) => propertyId !== 'ANY_SEAT')
-      .slice(0, MAX_SERVICE_PROPERTIES);
     return html`
       <div
         class="${classMap({
