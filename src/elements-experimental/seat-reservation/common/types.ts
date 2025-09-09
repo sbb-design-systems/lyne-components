@@ -18,8 +18,19 @@ export type CoachItem = {
   serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
-  // driverAreaSide - Is a property that is required internally of the seatReservaation component
-  // and holds information about whether a choas on the left or right side has a driver area
+};
+
+/** Describes a coach (wagon) in the navigation. */
+export type NavigationCoachItem = {
+  // id - Compartment number, max. 3 digits; CH-wide usually 2 digits
+  id: string;
+  // prioritized travel class to be displayed in the navigation
+  travelClass: PlaceTravelClass;
+  // list of distinct propertyIds of all decks
+  propertyIds: string[];
+  // counter for free places by type across all decks
+  freePlaces: CoachNumberOfFreePlaces;
+  // holds information about whether a coach on the left or right side has a driver area
   driverAreaSide?: Record<string, boolean>;
 };
 

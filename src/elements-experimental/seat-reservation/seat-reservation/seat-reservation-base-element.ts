@@ -5,6 +5,7 @@ import { eventOptions, property, state } from 'lit/decorators.js';
 
 import {
   mapCoachInfosToCoachSelection,
+  mapIconToSvg,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
 } from '../common/mapper.js';
@@ -19,6 +20,8 @@ import type {
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
   SeatReservationPlaceSelection,
+  NavigationCoachItem,
+  PlaceTravelClass,
 } from '../common.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 
@@ -32,6 +35,17 @@ interface CoachScrollTriggerPoint {
   end: number;
   width: number;
 }
+
+const MAX_SERVICE_PROPERTIES = 3;
+const ALLOWED_SERVICE_ICONS: string[] = [
+  'sa-vo',
+  'sa-rs',
+  'sa-abteilkinderwagen',
+  'sa-wr',
+  'sa-fa',
+  'sa-bz',
+  'sa-rz',
+];
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
@@ -98,6 +112,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
+  protected coachNavData: NavigationCoachItem[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
   protected scrollCoachsAreaWidth: number = 0;
@@ -191,9 +206,9 @@ export class SeatReservationBaseElement extends LitElement {
    * Data can be prepared once for the entire component
    * in order to avoid recurring iteration processes in rendering.
    */
-  protected initPrepairSeatReservationData(): void {
+  protected initPrepareSeatReservationData(): void {
     this._determineBaseFontSize();
-    this._prepairCoachDriverArea();
+    this._prepareNavigationCoachData();
   }
 
   /* Init scroll event handling for coach navigation */
@@ -495,14 +510,14 @@ export class SeatReservationBaseElement extends LitElement {
   /**
    * Counts all available seats together depending on the seat type
    *
-   * @param coachIndex
+   * @param places
    * @returns An Object with count of free seats and free bicycle places
    */
-  protected getAvailableFreePlacesNumFromCoach(coachIndex: number): CoachNumberOfFreePlaces {
+  protected getAvailableFreePlacesNumFromCoach(
+    places: Place[] | undefined,
+  ): CoachNumberOfFreePlaces {
     const accumulator: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
-    const freePlaces = this.seatReservations[this.currSelectedDeckIndex].coachItems[
-      coachIndex
-    ].places?.reduce((accumulator, currPlace: Place) => {
+    const freePlaces = places?.reduce((accumulator, currPlace: Place) => {
       if (currPlace.state !== 'FREE') {
         return accumulator;
       }
@@ -1117,7 +1132,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) return null;
 
     const coach = this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex];
-    const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coachIndex);
+    const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coach.places);
     return mapCoachInfosToCoachSelection(coachIndex, coach, coachNumberOfFreePlaces);
   }
 
@@ -1149,32 +1164,95 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
-   * Prepares all coaches with the values for whether there is a driver area left or right
+   * Prepares data for displaying navigation area.
+   * Calculates the values which are not going to change during use of a component:
+   *    - coach id
+   *    - list of service icons
+   *    - class (first, second, any)
+   *    - whether there is a driver area left or right
    * */
-  private _prepairCoachDriverArea(): void {
-    this.seatReservations.forEach((seatReservation, index) => {
-      this.seatReservations[index].coachItems = seatReservation.coachItems.map((coacItem) => {
-        const coachDriverAreas = coacItem.graphicElements?.filter(
-          (graphicalElements) => graphicalElements.icon === 'DRIVER_AREA',
-        );
+  private _prepareNavigationCoachData(): void {
+    const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
+    lowerDeck.forEach((coach, index) => {
+      const travelClasses: PlaceTravelClass[] = [];
+      const propertyIds: string[] = [];
+      const places: Place[] = [];
 
-        if (coachDriverAreas && coachDriverAreas.length > 0) {
-          // Checking the driver area position whether it is present on the left or right side in a coach
-          const hasLeftDriverArea =
-            coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x === 0) ||
-            false;
-          const hasRightDriverArea =
-            coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x > 0) || false;
+      this.seatReservations
+        .map((sr) => sr.coachItems[index])
+        .forEach((coach) => {
+          travelClasses.push(...coach.travelClass);
+          propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
+          places.push(...(coach.places ? coach.places : []));
+        });
 
-          coacItem.driverAreaSide = {
-            left: !!hasLeftDriverArea,
-            right: !!hasRightDriverArea,
-          };
-        }
-        return coacItem;
+      this.coachNavData.push({
+        id: coach.id,
+        travelClass: this._prepareTravelClassNavigation(travelClasses),
+        propertyIds: this._prepareServiceIconsNavigation(propertyIds),
+        driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
+        freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
       });
     });
   }
+
+  private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
+    if (travelClasses.indexOf('FIRST') !== -1) return 'FIRST';
+    if (travelClasses.indexOf('SECOND') !== -1) return 'SECOND';
+    return 'ANY_CLASS';
+  }
+
+  private _prepareDriverAreaSideNavigation(
+    coachItem: CoachItem,
+  ): Record<string, boolean> | undefined {
+    const coachDriverAreas = coachItem.graphicElements?.filter(
+      (graphicalElements) => graphicalElements.icon === 'DRIVER_AREA',
+    );
+
+    if (coachDriverAreas && coachDriverAreas.length > 0) {
+      // Checking the driver area position whether it is present on the left or right side in a coach
+      const hasLeftDriverArea =
+        coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x === 0) || false;
+      const hasRightDriverArea =
+        coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x > 0) || false;
+
+      return {
+        left: !!hasLeftDriverArea,
+        right: !!hasRightDriverArea,
+      };
+    }
+    return undefined;
+  }
+
+  private _prepareServiceIconsNavigation = (propertyIds: string[]): string[] => {
+    if (!propertyIds) {
+      return [];
+    }
+
+    const shrinkedPropertyIds = propertyIds
+      ?.map(function (propertyId: string): {
+        pId: string;
+        svgName: string;
+      } {
+        // prepare temporary object mapping property id to it's svgName so that we can compare it to the list of allowed icons
+        return {
+          pId: propertyId,
+          svgName: mapIconToSvg[propertyId]?.svgName ? mapIconToSvg[propertyId]?.svgName : '',
+        };
+      })
+      //filter out objects service icons which are not in ALLOWED_SERVICE_ICONS
+      .filter((propertyToSvg) => ALLOWED_SERVICE_ICONS.indexOf(propertyToSvg.svgName) !== -1)
+      //make it distinct by svgName
+      .filter(
+        (value, index, self) =>
+          self.map((propSvg) => propSvg.svgName).indexOf(value.svgName) === index,
+      )
+      // go back to propertyId string from temporary object
+      .map((propertyToSvg) => propertyToSvg.pId)
+      // take first MAX_SERVICE_PROPERTIES regardless of the input from Backend, otherwise the layout could be destroyed
+      .slice(0, MAX_SERVICE_PROPERTIES);
+    return shrinkedPropertyIds ? shrinkedPropertyIds : [];
+  };
 
   /**
    * Returns the current selected place HTML element by currSelectedPlaceElementId.
