@@ -19,7 +19,7 @@ export abstract class SbbTitleBase extends SbbElementInternalsMixin(LitElement) 
   /** Title level */
   @property({ reflect: true }) public accessor level: SbbTitleLevel = '1';
 
-  /** Visual level for the title. Optional, if not set, the value of level will be used. */
+  /** Visual level for the title. */
   @property({ attribute: 'visual-level', reflect: true })
   public accessor visualLevel: SbbTitleLevel | null = null;
 

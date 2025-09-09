@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { i18nPage, i18nPaginatorOf } from '../../core/i18n.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
@@ -27,7 +28,7 @@ class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
         >${this.pageIndex + 1}<sbb-divider
           orientation="vertical"
           class="sbb-compact-paginator__divider"
-          style="--sbb-divider-color: currentcolor"
+          style=${styleMap({ '--sbb-divider-color': 'currentcolor' })}
           ?negative=${this.negative}
         ></sbb-divider
         >${this.numberOfPages()}</span

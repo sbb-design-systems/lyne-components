@@ -10,7 +10,7 @@ import type { AbstractConstructor } from './constructor.js';
 type CustomStateSetInterface = CustomStateSet;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface) | null =
-  !isServer && !CSS.supports('selector(:state(loading))')
+  isServer || !CSS.supports('selector(:state(loading))')
     ? class CustomStateSet
         extends Set<string>
         implements CustomStateSetInterface, ReactiveController
@@ -283,6 +283,14 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
           configurable: false,
           enumerable: false,
         });
+      } else {
+        // We use the CustomStateSet polyfill in SSR, which renders the state as attributes
+        // which can be transferred to client side, where we can then convert [state--*]
+        // attributes to internal state.
+        for (const name of this.getAttributeNames().filter((n) => n.startsWith('state--'))) {
+          this.internals.states.add(name.slice(7));
+          this.removeAttribute(name);
+        }
       }
       const role = (this.constructor as SbbElementInternalsConstructor).role;
       if (role) {

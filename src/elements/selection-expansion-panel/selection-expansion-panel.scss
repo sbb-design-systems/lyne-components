@@ -42,16 +42,19 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-background: var(--sbb-color-milk);
 }
 
-:host(:where(:state(checked), [state--checked]):not(:where(:state(disabled), [state--disabled]))) {
+// :where is to align specificity
+:host(:where(:state(checked)):not(:where(:state(disabled)))) {
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
 }
 
-:host([data-slot-names~='content']:where(:state(disabled), [state--disabled])) {
+// :where is to align specificity
+:host([data-slot-names~='content']:where(:state(disabled))) {
   --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
 }
 
-:host([borderless]:not(:where(:state(checked), [state--checked]))) {
+// :where is to align specificity
+:host([borderless]:not(:where(:state(checked)))) {
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 
