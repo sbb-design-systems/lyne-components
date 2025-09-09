@@ -2,6 +2,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import style from './pearl-chain-vertical-item.scss?lit&inline';
 
@@ -53,7 +54,10 @@ class SbbPearlChainVerticalItemElement extends LitElement {
         : `sbb-pearl-chain-vertical-item__bullet--${bulletType}`;
 
     return html`
-      <div class="sbb-pearl-chain-vertical-item__column" style="height: ${minHeight}px;">
+      <div
+        class="sbb-pearl-chain-vertical-item__column"
+        style=${styleMap({ height: `${minHeight}px` })}
+      >
         <slot name="left"></slot>
       </div>
       <div
@@ -62,7 +66,7 @@ class SbbPearlChainVerticalItemElement extends LitElement {
       >
         ${!hideLine
           ? html`<div
-              style="--sbb-pearl-chain-vertical-item-leg-status:${position}%;"
+              style=${styleMap({ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` })}
               class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-pearl-chain-vertical-item__line--${lineColor}"
             ></div>`
           : nothing}
@@ -73,7 +77,7 @@ class SbbPearlChainVerticalItemElement extends LitElement {
           : nothing}
         ${position && position > 0
           ? html`<div
-              style="--sbb-pearl-chain-vertical-item-position:${position}%;"
+              style=${styleMap({ '--sbb-pearl-chain-vertical-item-position': `${position}%` })}
               class="sbb-pearl-chain-vertical-item__bullet--position"
             ></div>`
           : nothing}
