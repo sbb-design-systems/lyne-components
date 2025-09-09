@@ -10,6 +10,7 @@
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
+  --sbb-toggle-check-color: var(--sbb-color-2);
   --sbb-toggle-check-checked-color: var(--sbb-color-primary);
   --sbb-toggle-check-background-color: var(--sbb-background-color-4);
   --sbb-toggle-check-icon-color: var(--sbb-toggle-check-checked-color);
@@ -81,7 +82,7 @@
 .sbb-toggle-check {
   position: relative;
   display: flex;
-  color: var(--sbb-color-charcoal);
+  color: var(--sbb-toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
