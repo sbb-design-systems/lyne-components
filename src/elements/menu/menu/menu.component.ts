@@ -420,7 +420,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   }
 
   private _syncNegative(): void {
-    // links and buttons are the most expected contents which have a negative property
+    // Links and buttons are the most expected contents which have a negative property
     this.querySelectorAll('[data-sbb-link], [data-sbb-button]')?.forEach((el: Element) => {
       customElements.upgrade(el);
       (el as Element & SbbNegativeMixinType).negative = !this._darkModeController.matches();
