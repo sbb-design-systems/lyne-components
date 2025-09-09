@@ -42,7 +42,7 @@
 }
 
 :host([data-checked]) {
-  --sbb-toggle-check-background-color: var(--sbb-color-primary);
+  --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-circle-background-color: var(--sbb-background-color-1-negative-inverted);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
   --sbb-toggle-check-icon-opacity: 1;
@@ -63,6 +63,7 @@
 
 :host(:disabled) {
   --sbb-toggle-check-background-color: var(--sbb-background-color-4);
+  --sbb-toggle-check-circle-background-color: var(--sbb-background-color-3);
   --sbb-toggle-check-circle-border-color: var(--sbb-border-color-5);
   --sbb-toggle-check-circle-border-style: dashed;
   --sbb-toggle-check-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
