@@ -137,6 +137,13 @@ it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 | <kbd>Enter</kbd>       | Select the active option/button.                        |
 | <kbd>Escape</kbd>      | Close the autocomplete panel.                           |
 
+Setting the `autoSelectActiveOption` property to true allows users
+to automatically select the option reached via keyboard navigation as the input value,
+without having to press the `Enter` key to confirm.
+
+On the other hand, it's possible to use the `requireSelection` to clear the input
+if the user does not explicitly select a value, via mouse click or keyboard selection.
+
 ## Accessibility
 
 The `sbb-autocomplete-grid` implements the [ARIA combobox-grid interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/grid-combo/).
