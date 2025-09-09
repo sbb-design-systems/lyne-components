@@ -23,9 +23,6 @@
   --sbb-menu-min-width: 100%;
   --sbb-menu-inset: 0 auto auto 0;
   --sbb-menu-container-height: 100dvh;
-  --sbb-menu-open-animation-name: open;
-  --sbb-menu-close-animation-name: close;
-  --sbb-menu-back-button-display: block;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
@@ -157,7 +154,7 @@ sbb-divider,
     pointer-events: all;
 
     animation: {
-      name: var(--sbb-menu-open-animation-name);
+      name: var(--sbb-menu-open-animation-name, open);
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
@@ -165,7 +162,7 @@ sbb-divider,
 
   :host([data-state][data-state='closing']) & {
     pointer-events: none;
-    animation-name: var(--sbb-menu-close-animation-name);
+    animation-name: var(--sbb-menu-close-animation-name, close);
   }
 
   @include sbb.if-forced-colors {
