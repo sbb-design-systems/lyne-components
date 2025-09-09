@@ -381,6 +381,159 @@ describe(`sbb-autocomplete`, () => {
     });
   });
 
+  describe('requireSelection', () => {
+    beforeEach(async () => {
+      element.requireSelection = true;
+      await waitForLitRender(element);
+    });
+
+    it('should clear input if user types without selecting any option', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const changeEventSpy = new EventSpy('change', input);
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendKeys({ press: 'a' });
+      expect(input.value).to.be.equal('a');
+      expect(changeEventSpy.count).to.be.equal(0);
+      await sendKeys({ press: 'Escape' });
+      expect(input.value).to.be.equal('');
+      expect(changeEventSpy.count).to.be.equal(1);
+    });
+
+    it('should clear input if user navigates with keyboard without selecting any option', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const changeEventSpy = new EventSpy('change', input);
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendKeys({ press: 'ArrowDown' });
+      expect(changeEventSpy.count).to.be.equal(0);
+      await sendKeys({ press: 'Escape' });
+      expect(input.value).to.be.equal('');
+      expect(changeEventSpy.count).to.be.equal(0);
+    });
+
+    it('should clear input if user types and navigates without selecting any option', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const changeEventSpy = new EventSpy('change', input);
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendKeys({ press: 'a' });
+      await sendKeys({ press: 'ArrowDown' });
+      expect(input.value).to.be.equal('a');
+      expect(changeEventSpy.count).to.be.equal(0);
+      await sendKeys({ press: 'Escape' });
+      expect(input.value).to.be.equal('');
+      expect(changeEventSpy.count).to.be.equal(1);
+    });
+
+    it('should not clear input with mouse selection', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const changeEventSpy = new EventSpy('change', input);
+      const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
+
+      input.focus();
+      await openSpy.calledOnce();
+
+      const positionRect = optTwo.getBoundingClientRect();
+
+      await sendMouse({
+        type: 'click',
+        position: [
+          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
+          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+        ],
+      });
+      await waitForLitRender(element);
+
+      expect(changeEventSpy.count).to.be.equal(1);
+      await sendKeys({ press: 'Escape' });
+      expect(input.value).to.be.equal('2');
+      expect(changeEventSpy.count).to.be.equal(1);
+    });
+
+    it('should not clear input with keyboard selection', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+      const changeEventSpy = new EventSpy('change', input);
+      const optOne = element.querySelector<SbbOptionElement>('#option-1');
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(optOne).to.have.attribute('data-active');
+      expect(optOne).not.to.have.attribute('selected');
+      expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+
+      await sendKeys({ press: 'Enter' });
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
+      expect(input.value).to.be.equal('1');
+      expect(changeEventSpy.count).to.be.equal(1);
+    });
+
+    it('should not clear input if user select than opens and closes the panel', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+      const changeEventSpy = new EventSpy('change', input);
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
+      expect(input.value).to.be.equal('1');
+      expect(changeEventSpy.count).to.be.equal(1);
+
+      element.open();
+      await openSpy.calledTimes(2);
+      expect(openSpy.count).to.be.equal(2);
+      element.close();
+      await closeSpy.calledTimes(2);
+      expect(closeSpy.count).to.be.equal(2);
+      expect(input.value).to.be.equal('1');
+      expect(changeEventSpy.count).to.be.equal(1);
+    });
+
+    it('should clear input if user types after selection', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+      const changeEventSpy = new EventSpy('change', input);
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await waitForLitRender(element);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
+      expect(input.value).to.be.equal('1');
+      expect(changeEventSpy.count).to.be.equal(1);
+      await sendKeys({ press: 'a' });
+      expect(openSpy.count).to.be.equal(2);
+      await sendKeys({ press: 'Escape' });
+      expect(input.value).to.be.equal('');
+      expect(changeEventSpy.count).to.be.equal(2);
+    });
+  });
+
   it('should not close on disabled option click', async () => {
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
     const optOne = element.querySelector<SbbOptionElement>('#option-1')!;

@@ -85,6 +85,16 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   @property({ attribute: 'auto-select-active-option', type: Boolean })
   public accessor autoSelectActiveOption: boolean = false;
 
+  /**
+   * Whether the user is required to make a selection when they're interacting with the
+   * autocomplete. If the user moves away from the autocomplete without selecting an option from
+   * the list, the value will be reset. If the user opens the panel and closes it without
+   * interacting or selecting a value, the initial value will be kept.
+   */
+  @forceType()
+  @property({ attribute: 'require-selection', type: Boolean })
+  public accessor requireSelection: boolean = false;
+
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
@@ -129,6 +139,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _optionsCount = 0;
+
+  /** Tracks input from keyboard. */
+  private _lastUserInput: string | null = null;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
@@ -287,6 +300,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
+      // Dispatching the input event changes _lastInput, which should stay empty since there's no keyboard interaction.
+      this._lastUserInput = null;
+
       // Custom input event emitted when input value changes after an option is selected
       this.triggerElement.dispatchEvent(
         new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
@@ -391,6 +407,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       (event) => {
         this.open();
         this._highlightOptions((event.target as HTMLInputElement).value);
+        this._lastUserInput = (event.target as HTMLInputElement).value;
       },
       { signal: this._triggerAbortController.signal },
     );
@@ -450,6 +467,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.state = 'closed';
     this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
+    // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
+    if (this.requireSelection && this.triggerElement && this._lastUserInput) {
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this.triggerElement, '');
+      this._highlightOptions('');
+      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+    }
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();
