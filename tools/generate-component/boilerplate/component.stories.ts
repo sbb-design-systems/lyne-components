@@ -45,7 +45,7 @@ const meta: Meta = {
       handles: [__nameUpperCase__.events.myEventName],
     },
     backgroundColor: (context: StoryContext) =>
-            context.args.negative
+      context.args.negative
         ? 'var(--sbb-background-color-1-negative)'
         : 'var(--sbb-background-color-1)',
     docs: {
