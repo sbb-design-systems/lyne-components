@@ -55,7 +55,7 @@ const offset: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [0, 4, 8],
+  options: [0, 3, 6, 9],
 };
 
 const orientation: InputType = {

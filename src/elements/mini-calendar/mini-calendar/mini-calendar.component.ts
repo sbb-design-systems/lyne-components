@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -43,6 +44,17 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     );
   }
 
+  public constructor() {
+    super();
+
+    this.addController(
+      new MutationController(this, {
+        config: { childList: true, subtree: true },
+        callback: () => this._setMonthsShowYear(),
+      }),
+    );
+  }
+
   private _setMonthsOrientation(): void {
     this._miniCalendarMonths.forEach((month: SbbMiniCalendarMonthElement) =>
       month.setAttribute('data-orientation', this.orientation),
@@ -52,8 +64,12 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   private _setMonthsShowYear(): void {
     this._miniCalendarMonths.forEach((monthElement: SbbMiniCalendarMonthElement, index: number) => {
       const splittedDate = monthElement.date.split('-');
-      if (splittedDate.length > 0 && (index === 0 || +splittedDate[1] === 1)) {
-        monthElement.toggleAttribute('data-show-year', true);
+      if (splittedDate.length > 0) {
+        if (index === 0 || +splittedDate[1] === 1) {
+          monthElement.toggleAttribute('data-show-year', true);
+        } else {
+          monthElement.removeAttribute('data-show-year');
+        }
       }
     });
   }
@@ -167,7 +183,6 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
 
   private _handleSlotchange(): void {
     this._setMonthsOrientation();
-    this._setMonthsShowYear();
 
     this._keydownAbortController?.abort();
     this._keydownAbortController = new AbortController();
