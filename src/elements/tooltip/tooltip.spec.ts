@@ -27,10 +27,10 @@ describe('sbb-tooltip', () => {
     beforeEach(async () => {
       await fixture(html`
         <div style="padding: 2rem">
-          <a href="#">focus step</a>
+          <a href="#"></a>
           <sbb-button id="test-id">Button</sbb-button>
           <sbb-tooltip trigger="test-id">Test</sbb-tooltip>
-          <a href="#">focus step</a>
+          <a href="#"></a>
         </div>
       `);
       otherElem = document.querySelector('a')!;

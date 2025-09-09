@@ -10,7 +10,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 import { SbbTooltipElement } from './tooltip.component.js';
-import '../icon.js';
+import '../button/button.js';
 
 const openDelay: InputType = {
   control: {
@@ -60,14 +60,15 @@ const alignmentStyles: { [x: string]: any } = {
 };
 
 const trigger = (alignment = 'below-start'): TemplateResult => html`
-  <sbb-icon
+  <sbb-button
     id="tooltip-trigger"
-    name="circle-information-small"
+    aria-label="info button"
     style=${styleMap({
       position: 'absolute',
       ...alignmentStyles[alignment],
     })}
-  ></sbb-icon>
+    >Button</sbb-button
+  >
 `;
 
 const Template =
@@ -86,15 +87,15 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
 `;
 
 const AttributeTemplate = (_args: Args): TemplateResult => html`
-  <sbb-icon
-    name="circle-information-small"
+  <sbb-button
     style=${styleMap({
       position: 'absolute',
       ...alignmentStyles['below-start'],
     })}
     sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
     aria-label="info button"
-  ></sbb-icon>
+    >Button</sbb-button
+  >
 `;
 
 export const Default: StoryObj = {
