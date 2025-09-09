@@ -44,6 +44,7 @@ import '../../divider.js';
 import '../menu-button.js';
 
 const MENU_OFFSET = 8;
+const NESTED_MENU_OFFSET = -4;
 const INTERACTIVE_ELEMENTS = [
   'A',
   'BUTTON',
@@ -556,7 +557,8 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
           this.shadowRoot!.querySelector('.sbb-menu__container')!,
           {
             horizontalOffset: MENU_OFFSET,
-            verticalOffset: MENU_OFFSET * -0.5,
+            verticalOffset: NESTED_MENU_OFFSET,
+            contentSelector: '.sbb-menu__content',
           },
         );
 

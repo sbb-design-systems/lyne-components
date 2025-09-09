@@ -43,7 +43,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
-:host(:is([data-sbb-menu-trigger])) {
+:host([data-sbb-menu-trigger]) {
   --sbb-menu-action-cursor: default;
 }
 
@@ -108,7 +108,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   background-color: var(--sbb-menu-background-color);
 
   // Handle focus on the host (button variant)
-  :host(:focus-visible) & ,
+  :host(:focus-visible) &,
   // Handle focus on the action (link variant)
   :focus-visible & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);

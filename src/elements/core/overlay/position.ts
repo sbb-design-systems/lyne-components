@@ -226,6 +226,7 @@ export function getElementPositionHorizontal(
     verticalOffset?: number;
     horizontalOffset?: number;
     responsiveHeight?: boolean;
+    contentSelector?: string;
   },
 ): SbbElementPositionInfos {
   const maxHeightOffset = 16;
@@ -236,7 +237,9 @@ export function getElementPositionHorizontal(
   const triggerRec = trigger.getBoundingClientRect();
   const elementRec = getElementRectangle(element);
   const triggerParentRec = trigger
-    .parentElement!.shadowRoot!.querySelector('.sbb-menu__content')!
+    .parentElement!.shadowRoot!.querySelector(
+      properties?.contentSelector ?? `.${element.className}`,
+    )!
     .getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
 

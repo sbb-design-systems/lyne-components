@@ -25,7 +25,7 @@ describe(`sbb-menu`, () => {
     fontSize: 'var(--sbb-font-size-text-xxs)',
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {
@@ -110,7 +110,7 @@ describe(`sbb-menu`, () => {
     );
 
     it(
-      'nested',
+      'nested default',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
@@ -131,6 +131,85 @@ describe(`sbb-menu`, () => {
             </sbb-menu>
           `,
           { minHeight: '400px' },
+        );
+
+        setup.withPostSetupAction(() => {
+          let button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
+          const menu = setup.snapshotElement.querySelector<SbbMenuElement>('sbb-menu')!;
+
+          button.click();
+
+          button = menu.querySelector('#menu-trigger-2')!;
+          button.click();
+        });
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['medium'], viewportHeight: 500 }, () => {
+    it(
+      'nested wrap left',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div style="display: flex;">
+              <sbb-button id="menu-trigger-1" size="m" style="margin-inline-start: auto;"
+                >Menu trigger</sbb-button
+              >
+              <sbb-menu trigger="menu-trigger-1">
+                <sbb-menu-button icon-name="link-small">First level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="pen-small">First level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="swisspass-small" id="menu-trigger-2">
+                  First level menu
+                </sbb-menu-button>
+                <sbb-menu-button icon-name="cross-small">First level menu</sbb-menu-button>
+              </sbb-menu>
+              <sbb-menu trigger="menu-trigger-2">
+                <sbb-menu-button icon-name="link-small">Second level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="pen-small">Second level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="swisspass-small">Second level menu</sbb-menu-button>
+                <sbb-menu-button icon-name="cross-small">Second level menu</sbb-menu-button>
+              </sbb-menu>
+            </div>
+          `,
+          { minHeight: '500px' },
+        );
+
+        setup.withPostSetupAction(() => {
+          let button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
+          const menu = setup.snapshotElement.querySelector<SbbMenuElement>('sbb-menu')!;
+
+          button.click();
+
+          button = menu.querySelector('#menu-trigger-2')!;
+          button.click();
+        });
+      }),
+    );
+  });
+  describeViewports({ viewports: ['medium'], viewportHeight: 300 }, () => {
+    it(
+      'nested short page',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-menu trigger="menu-trigger-1">
+              <sbb-menu-button icon-name="link-small">First level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="pen-small">First level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="swisspass-small" id="menu-trigger-2">
+                First level menu
+              </sbb-menu-button>
+              <sbb-menu-button icon-name="cross-small">First level menu</sbb-menu-button>
+            </sbb-menu>
+            <sbb-menu trigger="menu-trigger-2">
+              <sbb-menu-button icon-name="link-small">Second level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="pen-small">Second level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="swisspass-small">Second level menu</sbb-menu-button>
+              <sbb-menu-button icon-name="cross-small">Second level menu</sbb-menu-button>
+            </sbb-menu>
+          `,
+          { minHeight: '300px' },
         );
 
         setup.withPostSetupAction(() => {

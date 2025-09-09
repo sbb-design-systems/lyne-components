@@ -123,7 +123,6 @@ sbb-divider,
 
     // Hide the backdrop when in nested state
     :host(:is(:state(nested), [state--nested])) & {
-      content: none;
       display: none;
     }
   }
