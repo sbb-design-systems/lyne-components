@@ -8,9 +8,12 @@
 @mixin pearl-chain-bullet-variables {
   --sbb-pearl-chain-bullet-size-start-end: #{functions.px-to-rem-build(10)};
   --sbb-pearl-chain-bullet-size-stop: #{functions.px-to-rem-build(8)};
-  --sbb-pearl-chain-bullet-color: var(--sbb-color-charcoal);
-  --sbb-pearl-chain-bullet-color-past: var(--sbb-color-metal);
-  --sbb-pearl-chain-bullet-color-irrelevant: var(--sbb-color-metal);
+  --sbb-pearl-chain-bullet-color: var(--sbb-background-color-3-inverted);
+  --sbb-pearl-chain-bullet-color-past: light-dark(var(--sbb-color-metal), var(--sbb-color-granite));
+  --sbb-pearl-chain-bullet-color-irrelevant: light-dark(
+    var(--sbb-color-metal),
+    var(--sbb-color-granite)
+  );
   --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-primary);
   --sbb-pearl-chain-bullet-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-bullet-animation-duration: 1920ms;
