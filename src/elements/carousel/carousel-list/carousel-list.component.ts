@@ -6,7 +6,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { hostAttributes } from '../../core/decorators.js';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type {
@@ -23,10 +22,6 @@ import style from './carousel-list.scss?lit&inline';
  */
 export
 @customElement('sbb-carousel-list')
-@hostAttributes({
-  'aria-live': 'polite',
-  'aria-atomic': 'true',
-})
 class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -127,6 +122,13 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
       this._currentIndex = newIndex;
       this._carouselItems[this._currentIndex].scrollIntoView();
     }
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.internals.ariaLive = 'polite';
+    this.internals.ariaAtomic = 'true';
   }
 
   public override firstUpdated(_changedProperties: PropertyValues): void {

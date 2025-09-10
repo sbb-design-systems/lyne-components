@@ -2,16 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-carousel-list renders DOM"] = 
-`<sbb-carousel-list
-  aria-atomic="true"
-  aria-live="polite"
-  style="--sbb-carousel-list-height: 300px; --sbb-carousel-list-width: 400px;"
->
-  <sbb-carousel-item
-    aria-label="1 of 3"
-    aria-roledescription="slide"
-    role="group"
-  >
+`<sbb-carousel-list style="--sbb-carousel-list-height: 300px; --sbb-carousel-list-width: 400px;">
+  <sbb-carousel-item aria-label="1 of 3">
     <img
       alt="SBB image"
       height="300"
@@ -19,11 +11,7 @@ snapshots["sbb-carousel-list renders DOM"] =
       width="400"
     >
   </sbb-carousel-item>
-  <sbb-carousel-item
-    aria-label="2 of 3"
-    aria-roledescription="slide"
-    role="group"
-  >
+  <sbb-carousel-item aria-label="2 of 3">
     <img
       alt="SBB image"
       height="300"
@@ -31,11 +19,7 @@ snapshots["sbb-carousel-list renders DOM"] =
       width="400"
     >
   </sbb-carousel-item>
-  <sbb-carousel-item
-    aria-label="3 of 3"
-    aria-roledescription="slide"
-    role="group"
-  >
+  <sbb-carousel-item aria-label="3 of 3">
     <img
       alt="SBB image"
       height="300"
@@ -54,22 +38,6 @@ snapshots["sbb-carousel-list renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-carousel-list renders Shadow DOM */
-
-snapshots["sbb-carousel-list renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "image",
-      "name": "SBB image"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-list renders A11y tree Chrome */
 
 snapshots["sbb-carousel-list renders A11y tree Firefox"] = 
 `<p>
@@ -92,4 +60,20 @@ snapshots["sbb-carousel-list renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-carousel-list renders A11y tree Firefox */
+
+snapshots["sbb-carousel-list renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "image",
+      "name": "SBB image"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-carousel-list renders A11y tree Chrome */
 

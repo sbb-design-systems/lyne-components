@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
@@ -21,10 +21,6 @@ import style from './carousel.scss?lit&inline';
  */
 export
 @customElement('sbb-carousel')
-@hostAttributes({
-  role: 'region',
-  'aria-label': 'carousel',
-})
 class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
@@ -49,6 +45,13 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
         }
       }
     });
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.internals.role = 'region';
+    this.internals.ariaLabel = 'carousel';
   }
 
   public override disconnectedCallback(): void {

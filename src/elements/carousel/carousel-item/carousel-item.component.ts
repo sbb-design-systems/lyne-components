@@ -2,7 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/decorators.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 
 import style from './carousel-item.scss?lit&inline';
@@ -20,16 +19,19 @@ export type SbbCarouselItemEventDetail = {
  */
 export
 @customElement('sbb-carousel-item')
-@hostAttributes({
-  role: 'group',
-  'aria-roledescription': 'slide',
-})
 class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',
   } as const;
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.internals.role = 'group';
+    this.internals.ariaRoleDescription = 'slide';
+  }
 
   protected override render(): TemplateResult {
     return html`
