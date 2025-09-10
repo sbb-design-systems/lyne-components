@@ -17,13 +17,16 @@
   --sbb-slider-knob-size-active: #{sbb.px-to-rem-build(31)};
   --sbb-slider-knob-border-size: #{sbb.px-to-rem-build(3)};
   --sbb-slider-knob-border-style: solid;
-  --sbb-slider-knob-color: var(--sbb-color-white);
+  --sbb-slider-knob-color: var(--sbb-background-color-1);
   --sbb-slider-knob-border-color: var(--sbb-color-primary);
-  --sbb-slider-icon-color: var(--sbb-color-black);
+  --sbb-slider-icon-color: var(--sbb-color-1);
   --sbb-slider-selected-line-color: var(--sbb-color-primary);
-  --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke);
-  --sbb-slider-line-color: var(--sbb-color-smoke);
-  --sbb-slider-line-disabled-color: var(--sbb-color-graphite);
+  --sbb-slider-selected-line-disabled-color: light-dark(
+    var(--sbb-color-smoke),
+    var(--sbb-color-cement)
+  );
+  --sbb-slider-line-color: var(--sbb-border-color-5);
+  --sbb-slider-line-disabled-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
 
   @include sbb.if-forced-colors {
     --sbb-slider-selected-line-color: Highlight;
@@ -32,14 +35,14 @@
 }
 
 :host(:disabled) {
-  --sbb-slider-icon-color: var(--sbb-color-graphite);
-  --sbb-slider-knob-border-color: var(--sbb-color-smoke);
+  --sbb-slider-icon-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+  --sbb-slider-knob-border-color: var(--sbb-border-color-5);
   --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
   --sbb-slider-knob-border-style: dashed;
 }
 
 :host([readonly]) {
-  --sbb-slider-icon-color: var(--sbb-color-smoke);
+  --sbb-slider-icon-color: var(--sbb-color-5);
   --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
 }
 
