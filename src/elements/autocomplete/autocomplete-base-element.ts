@@ -406,8 +406,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       'input',
       (event) => {
         this.open();
-        this._highlightOptions((event.target as HTMLInputElement).value);
-        this._lastUserInput = (event.target as HTMLInputElement).value;
+        const value: string = (event.target as HTMLInputElement).value;
+        this._highlightOptions(value);
+        this._lastUserInput = value;
       },
       { signal: this._triggerAbortController.signal },
     );
