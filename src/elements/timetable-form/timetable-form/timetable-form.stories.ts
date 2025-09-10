@@ -1,6 +1,5 @@
 import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import '../../button/button.js';
@@ -19,12 +18,18 @@ const defaultArgTypes: ArgTypes = {};
 
 const defaultArgs: Args = {};
 
-const fromToFields = (_args: Args): TemplateResult => html`
+const fromToFields = (_args: Args, opt: { withVia?: boolean } = {}): TemplateResult => html`
   <sbb-timetable-form-field>
     <label>From</label>
     <input type="text" name="from" />
   </sbb-timetable-form-field>
   <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
+  ${opt.withVia
+    ? html` <sbb-timetable-form-field>
+        <label>Via</label>
+        <input type="text" name="via" />
+      </sbb-timetable-form-field>`
+    : nothing}
   <sbb-timetable-form-field>
     <label>To</label>
     <input type="text" name="to" />
@@ -87,6 +92,15 @@ const Template = (args: Args): TemplateResult => html`
   </form>
 `;
 
+const WithViaTemplate = (args: Args): TemplateResult => html`
+  <form class="sbb-timetable-form">
+    <sbb-signet></sbb-signet>
+    <sbb-timetable-form>
+      ${fromToFields(args, { withVia: true })} ${timetableDetails(args)}
+    </sbb-timetable-form>
+  </form>
+`;
+
 const ExpandedDatepickerTemplate = (args: Args): TemplateResult => html`
   <form class="sbb-timetable-form">
     <sbb-signet></sbb-signet>
@@ -108,7 +122,14 @@ export const ExpandedDatepicker: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const WithVia: StoryObj = {
+  render: WithViaTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
 const meta: Meta = {
+  decorators: [(story) => html` <div style="padding: .25rem">${story()}</div> `],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',

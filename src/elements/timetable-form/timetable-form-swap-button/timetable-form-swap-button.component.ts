@@ -26,7 +26,7 @@ class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleState('in-timetable-form', !!this.closest('sbb-timetable-form'));
+    this.toggleState('timetable-form-context', !!this.closest('sbb-timetable-form'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
