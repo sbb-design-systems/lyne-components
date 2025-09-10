@@ -165,6 +165,54 @@ const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
   </sbb-carousel>
 `;
 
+const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
+  <sbb-carousel ?shadow=${shadow}>
+    <sbb-carousel-list>
+      <sbb-carousel-item>
+        <div
+          style="position: relative; width: 800px; height: 450px; display: flex; justify-content: center;"
+        >
+          <div style="position: relative; margin: 50px; z-index: 1;">
+            <div class="sbb-text--bold sbb-text-xl">Title slide 1</div>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies
+              in tincidunt quis, mattis eu quam.
+            </div>
+          </div>
+          <sbb-image
+            image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png"
+            alt="Helpteaser-Background-Landscape"
+            style="position: absolute; inset: 0;"
+          ></sbb-image>
+        </div>
+      </sbb-carousel-item>
+      <sbb-carousel-item>
+        <div
+          style="position: relative; width: 800px; height: 450px; display: flex; justify-content: center;"
+        >
+          <div style="position: relative; margin: 50px; z-index: 1;">
+            <div class="sbb-text--bold sbb-text-xl">Title slide 2</div>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies
+              in tincidunt quis, mattis eu quam.
+            </div>
+          </div>
+          <sbb-image
+            image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png"
+            alt="Helpteaser-Background-Landscape"
+            style="position: absolute; inset: 0;"
+          ></sbb-image>
+        </div>
+      </sbb-carousel-item>
+    </sbb-carousel-list>
+    <sbb-compact-paginator
+      accessibility-page-label="Slide"
+      accessibility-previous-page-label="Previous slide"
+      accessibility-next-page-label="Next slide"
+    ></sbb-compact-paginator>
+  </sbb-carousel>
+`;
+
 export const Native: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
@@ -197,6 +245,12 @@ export const Link: StoryObj = {
 
 export const Button: StoryObj = {
   render: buttonTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+export const ImageAndText: StoryObj = {
+  render: teaserTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
 };
