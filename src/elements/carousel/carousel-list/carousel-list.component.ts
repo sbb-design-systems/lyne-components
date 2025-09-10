@@ -53,7 +53,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         );
       });
     },
-    config: { threshold: 0.01 },
+    config: { threshold: 0.01, root: this, rootMargin: '100% 0% 100% 0%' },
   });
 
   private _showObserver = new IntersectionController(this, {
@@ -77,7 +77,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
           );
         });
     },
-    config: { threshold: 0.99 },
+    config: { threshold: 0.99, root: this, rootMargin: '100% 0% 100% 0%' },
   });
 
   private _handleSlotchange(): void {
