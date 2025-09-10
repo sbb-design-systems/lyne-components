@@ -2,9 +2,14 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbDarkModeController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.js';
+import {
+  SbbElementInternalsMixin,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../core/mixins.js';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
 import type { SbbTitleLevel } from '../title.js';
 
@@ -21,10 +26,11 @@ import style from './skiplink-list.scss?lit&inline';
  */
 export
 @customElement('sbb-skiplink-list')
-class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
-  SbbBlockLinkElement | SbbBlockLinkButtonElement,
-  typeof LitElement
->(LitElement) {
+class SbbSkiplinkListElement extends SbbElementInternalsMixin(
+  SbbNamedSlotListMixin<SbbBlockLinkElement | SbbBlockLinkButtonElement, typeof LitElement>(
+    LitElement,
+  ),
+) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
@@ -36,13 +42,19 @@ class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   /** The semantic level of the title, e.g. 2 = h2. */
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '2';
 
+  private _darkModeController = new SbbDarkModeController(this, () => {
+    for (const child of this.listChildren) {
+      child.negative = !this._darkModeController.matches();
+    }
+  });
+
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('listChildren')) {
       for (const child of this.listChildren) {
         child.size = isLean() ? 'xs' : 'm';
-        child.negative = true;
+        child.negative = !this._darkModeController.matches();
       }
     }
   }
