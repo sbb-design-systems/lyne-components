@@ -856,3 +856,10 @@ export const i18nCarouselItemAriaLabel = (
   fr: `${index} sur ${total}`,
   it: `${index} di ${total}`,
 });
+
+export const i18nCarouselArrowsNavigationHint: Record<string, string> = {
+  de: 'Karussell – Benutzen Sie die Pfeiltasten im Interaktionsmodus, um durch die Folien zu navigieren',
+  en: 'Carousel - Use the arrow keys in interaction mode to navigate through the slides',
+  fr: 'Carrousel – Utilisez les touches fléchées en mode interaction pour naviguer dans les diapositives',
+  it: 'Carosello – Utilizzare i tasti freccia in modalità interazione per navigare tra le diapositive',
+};

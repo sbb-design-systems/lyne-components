@@ -1,8 +1,11 @@
+import type { PropertyValues } from '@lit/reactive-element';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../../core/controllers/language-controller.js';
 import { forceType } from '../../core/decorators.js';
+import { i18nCarouselArrowsNavigationHint } from '../../core/i18n/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
@@ -11,6 +14,7 @@ import type {
   SbbCarouselItemEventDetail,
 } from '../carousel-item/carousel-item.component.js';
 import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.js';
+import '../../screen-reader-only.js';
 
 import style from './carousel.scss?lit&inline';
 
@@ -33,6 +37,7 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
 
   private _paginator: SbbCompactPaginatorElement | null = null;
   private _abortController: AbortController | null = null;
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
@@ -52,6 +57,14 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
 
     this.internals.role = 'region';
     this.internals.ariaLabel = 'carousel';
+  }
+
+  public override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+
+    this.internals.ariaDescribedByElements = [
+      this.shadowRoot!.querySelector('#sbb-carousel-arrows-navigation-hint')!,
+    ];
   }
 
   public override disconnectedCallback(): void {
@@ -94,6 +107,9 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-carousel">
+        <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint"
+          >${i18nCarouselArrowsNavigationHint[this._language.current]}</sbb-screen-reader-only
+        >
         <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;
