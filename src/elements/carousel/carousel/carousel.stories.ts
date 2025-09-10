@@ -143,6 +143,7 @@ const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
         <div style=${styleMap(buttonCarouselStyle)}>
           <p>sbb.ch</p>
           <p>Animation - Onboarding slides</p>
+          <sbb-button>Start</sbb-button>
         </div>
       </sbb-carousel-item>
       <sbb-carousel-item>
