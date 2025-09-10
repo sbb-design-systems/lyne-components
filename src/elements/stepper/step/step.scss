@@ -14,7 +14,7 @@
     var(--sbb-animation-duration-2x)
   );
   --sbb-step-animation-delay: 0;
-  --sbb-step-color: var(--sbb-color-iron);
+  --sbb-step-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 
   display: contents;
 }
