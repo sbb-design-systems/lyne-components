@@ -35,6 +35,9 @@ snapshots["sbb-carousel renders DOM"] =
 
 snapshots["sbb-carousel renders Shadow DOM"] = 
 `<div class="sbb-carousel">
+  <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint">
+    Carousel - Use the arrow keys in interaction mode to navigate through the slides
+  </sbb-screen-reader-only>
   <slot>
   </slot>
 </div>
@@ -47,6 +50,10 @@ snapshots["sbb-carousel renders A11y tree Chrome"] =
   "role": "WebArea",
   "name": "",
   "children": [
+    {
+      "role": "text",
+      "name": "Carousel - Use the arrow keys in interaction mode to navigate through the slides"
+    },
     {
       "role": "image",
       "name": "SBB image"
@@ -63,6 +70,10 @@ snapshots["sbb-carousel renders A11y tree Firefox"] =
   "role": "document",
   "name": "",
   "children": [
+    {
+      "role": "text leaf",
+      "name": "Carousel - Use the arrow keys in interaction mode to navigate through the slides"
+    },
     {
       "role": "section",
       "name": "",
