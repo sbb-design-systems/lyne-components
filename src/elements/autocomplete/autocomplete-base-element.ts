@@ -80,6 +80,21 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
    */
   @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
+  /** Whether the active option should be selected as the user is navigating. */
+  @forceType()
+  @property({ attribute: 'auto-select-active-option', type: Boolean })
+  public accessor autoSelectActiveOption: boolean = false;
+
+  /**
+   * Whether the user is required to make a selection when they're interacting with the
+   * autocomplete. If the user moves away from the autocomplete without selecting an option from
+   * the list, the value will be reset. If the user opens the panel and closes it without
+   * interacting or selecting a value, the initial value will be kept.
+   */
+  @forceType()
+  @property({ attribute: 'require-selection', type: Boolean })
+  public accessor requireSelection: boolean = false;
+
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
@@ -124,6 +139,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _optionsCount = 0;
+
+  /** Tracks input from keyboard. */
+  private _lastUserInput: string | null = null;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
   protected abstract syncNegative(): void;
@@ -252,15 +270,25 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   /** When an option is selected, update the input value and close the autocomplete. */
   protected onOptionSelected(event: Event): void {
     const target = event.target as SbbOptionBaseElement<T>;
+    this._setValueAndDispatchEvents(target);
+    this.close();
+  }
 
+  /** When an option is selected, update the input value and close the autocomplete. */
+  protected onOptionArrowsSelected(activeOption: SbbOptionBaseElement<T>): void {
+    activeOption.selected = true;
+    this._setValueAndDispatchEvents(activeOption);
+  }
+
+  private _setValueAndDispatchEvents(selectedOption: SbbOptionBaseElement<T>): void {
     // Deselect the previous options
     this.options
-      .filter((option) => option.id !== target.id && option.selected)
+      .filter((option) => option.id !== selectedOption.id && option.selected)
       .forEach((option) => (option.selected = false));
 
     if (this.triggerElement) {
       // Given a value, returns the string that should be shown within the input.
-      const toDisplay = this.displayWith?.(target.value as T) ?? target.value;
+      const toDisplay = this.displayWith?.(selectedOption.value as T) ?? selectedOption.value;
 
       // Set the option value
       // In order to support React onChange event, we have to get the setter and call it.
@@ -272,16 +300,17 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
+      // Dispatching the input event changes _lastInput, which should stay empty since there's no keyboard interaction.
+      this._lastUserInput = null;
+
       // Custom input event emitted when input value changes after an option is selected
       this.triggerElement.dispatchEvent(
         new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
-          detail: { option: target },
+          detail: { option: selectedOption },
         }),
       );
       this.triggerElement.focus();
     }
-
-    this.close();
   }
 
   private _handleSlotchange(): void {
@@ -311,6 +340,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
     this._optionsCount = this.options.length;
   }
+
   private _setNextActiveOptionIfAutoActiveFirstOption(): void {
     if (this.autoActiveFirstOption) {
       this.resetActiveElement();
@@ -376,7 +406,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       'input',
       (event) => {
         this.open();
-        this._highlightOptions((event.target as HTMLInputElement).value);
+        const value: string = (event.target as HTMLInputElement).value;
+        this._highlightOptions(value);
+        this._lastUserInput = value;
       },
       { signal: this._triggerAbortController.signal },
     );
@@ -436,6 +468,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.state = 'closed';
     this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
+    // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
+    if (this.requireSelection && this.triggerElement && this._lastUserInput) {
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this.triggerElement, '');
+      this._highlightOptions('');
+      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+    }
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();

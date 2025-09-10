@@ -135,6 +135,9 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     this.activeOption.setActive(true);
     this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
     this.activeOption.scrollIntoView({ block: 'nearest' });
+    if (this.autoSelectActiveOption) {
+      this.onOptionArrowsSelected(this.activeOption);
+    }
   }
 
   private _setNextHorizontalActiveElement(event: KeyboardEvent): void {
