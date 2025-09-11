@@ -214,8 +214,8 @@
 }
 
 @mixin placeholder {
-  color: var(--sbb-color-metal);
-  -webkit-text-fill-color: var(--sbb-color-metal);
+  color: var(--sbb-color-5);
+  -webkit-text-fill-color: var(--sbb-color-5);
   opacity: 1;
 }
 
@@ -230,7 +230,7 @@
   @include text-xs--regular;
 
   padding: 0;
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
 }
 
 %sub-sup {

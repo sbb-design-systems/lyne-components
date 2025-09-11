@@ -4,7 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-step-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  --sbb-step-label-color: var(--sbb-color-4);
   --sbb-step-label-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)

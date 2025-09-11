@@ -65,7 +65,7 @@ $open-anim-height-to: calc(
 :host(:is(:not([type]), [type='info'])) {
   --sbb-notification-type-color: var(--sbb-color-smoke);
   --sbb-notification-icon-color: var(--sbb-notification-color);
-  --sbb-notification-divider-opacity-light: 100%;
+  --sbb-notification-divider-opacity-light: 20%;
   --sbb-notification-divider-opacity-dark: 20%;
 }
 

@@ -14,7 +14,6 @@
   --sbb-popover-border-radius: var(--sbb-border-radius-8x);
   --sbb-popover-padding: var(--sbb-spacing-fixed-4x);
   --sbb-popover-background: var(--sbb-background-color-1);
-  --sbb-popover-color: var(--sbb-color-2);
   --sbb-popover-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -65,7 +64,6 @@
   inset: var(--sbb-popover-inset);
   pointer-events: none;
   z-index: var(--sbb-popover-z-index, var(--sbb-overlay-default-z-index));
-  color: var(--sbb-popover-color);
 }
 
 .sbb-popover {

@@ -160,7 +160,7 @@
 }
 
 @mixin table--theme-iron {
-  --sbb-table-cell-color: var(--sbb-color-iron);
+  --sbb-table-cell-color: var(--sbb-color-4);
 
   tbody > tr > td {
     color: var(--sbb-table-cell-color);

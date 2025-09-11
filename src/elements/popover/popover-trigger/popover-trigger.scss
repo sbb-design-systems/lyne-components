@@ -13,6 +13,7 @@ $active: ':active, [data-active]';
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
+  // TODO: variable should be correctly prefixed (popover-trigger)
   --sbb-popover-color: inherit;
 
   @include sbb.if-forced-colors {

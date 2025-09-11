@@ -12,7 +12,6 @@
   --sbb-toast-animation-timing-function: ease;
   --sbb-toast-text-color: var(--sbb-color-3-inverted);
   --sbb-toast-background-color: var(--sbb-background-color-1-inverted);
-  --sbb-toast-icon-color: var(--sbb-color-1-inverted);
   --sbb-toast-margin: var(--sbb-spacing-responsive-s);
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
@@ -138,11 +137,6 @@ slot:not([name='icon']),
 
 .sbb-toast__close-button {
   margin-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
-sbb-icon,
-::slotted(sbb-icon) {
-  color: var(--sbb-toast-icon-color);
 }
 
 @keyframes open {

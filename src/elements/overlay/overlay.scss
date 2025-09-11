@@ -36,7 +36,7 @@
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-overlay-color: var(--sbb-color-1-negative);
-  --sbb-overlay-background-color: var(--sbb-background-color-1-negative);
+  --sbb-overlay-background-color: var(--sbb-background-color-3-negative);
 }
 
 :host(:not([data-state='closed'])) {
