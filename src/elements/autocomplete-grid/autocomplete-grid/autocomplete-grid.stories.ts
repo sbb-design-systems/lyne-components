@@ -310,7 +310,7 @@ const Template = (args: Args): TemplateResult => html`
     <div
       id="container"
       style=${styleMap({
-        color: args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+        color: args.negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
         paddingBlock: '1rem',
       })}
     ></div>
@@ -353,7 +353,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
     <div
       id="container"
       style=${styleMap({
-        color: args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+        color: args.negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
         paddingBlock: '1rem',
       })}
     ></div>

@@ -207,7 +207,7 @@ const Template = ({
     </sbb-form-field>
     <p
       style=${styleMap({
-        color: negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+        color: negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
       })}
     >
       <sbb-title level="6" ?negative=${negative}>valueAsDate</sbb-title>

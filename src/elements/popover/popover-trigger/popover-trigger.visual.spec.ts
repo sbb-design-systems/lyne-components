@@ -25,7 +25,7 @@ describe(`sbb-popover-trigger`, () => {
                 <span
                   class="sbb-text-s"
                   style="display: flex; align-items: center; ${negative
-                    ? 'color: var(--sbb-color-white)'
+                    ? 'color: var(--sbb-color-1-negative)'
                     : ''}"
                 >
                   <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);">
@@ -37,7 +37,7 @@ describe(`sbb-popover-trigger`, () => {
                   ></sbb-popover-trigger>
                 </span>
               `,
-              { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+              { backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined },
             );
           }),
         );
@@ -53,7 +53,7 @@ describe(`sbb-popover-trigger`, () => {
                   </sbb-popover-trigger>
                 </div>
               `,
-              { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+              { backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined },
             );
           }),
         );
@@ -72,7 +72,7 @@ describe(`sbb-popover-trigger`, () => {
                     <span
                       class="sbb-text-s"
                       style="display: flex; align-items: center; ${negative
-                        ? 'color: var(--sbb-color-white)'
+                        ? 'color: var(--sbb-color-1-negative)'
                         : ''}"
                     >
                       <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);">
@@ -84,7 +84,11 @@ describe(`sbb-popover-trigger`, () => {
                       ></sbb-popover-trigger>
                     </span>
                   `,
-                  { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+                  {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : undefined,
+                  },
                 );
               }),
             );
