@@ -394,7 +394,7 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    backgroundColor: () => 'var(--sbb-color-milk)',
+    backgroundColor: () => 'var(--sbb-background-color-3)',
   },
   title: 'experimental/sbb-timetable-row',
 };

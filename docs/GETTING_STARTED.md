@@ -219,6 +219,114 @@ To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
 </html>
 ```
 
+### Dark Mode
+
+To provide the dark mode theme to the end users, you can set the `sbb-light-dark` CSS class on your `<html>` tag.
+Alternatively, you can force one mode or the other by applying either the `sbb-light` (current default) or `sbb-dark` CSS class.
+This CSS class sets the `color-scheme` CSS property which responds to the end user's preferred color scheme settings.
+
+Please note, that every color on the consumer's side also needs to be set in light and dark modes using the CSS `light-dark()` function.
+See the `Context specific colors` section below for details of the predefined CSS variables we provide.
+
+```css
+.class {
+  color: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
+}
+```
+
+Some colors change their value between light and dark modes for contrast reasons. For example, the red used for errors or all
+colors in the additional color set.
+Note that JavaScript tokens are only available for primitive values. Please use CSS variables whenever possible.
+They automatically adapt their colors. Using JavaScript variables requires you to handle light and dark modes manually.
+
+#### Compatibility
+
+As a browser compatibility fallback, we ship our styles with the light color value defined before `light-dark()`.
+So, whenever you define our own `light-dark()` color pair, consider using this fallback as well for compatibility.
+
+```css
+.class {
+  color: var(--sbb-color-cloud);
+  color: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
+}
+```
+
+We provide CSS variables for the most commonly used color combinations, which can be used directly.
+
+### Context specific colors
+
+We provide a few context-specific colors that can be used for errors, states,
+or simply to make things look right in light and dark modes.
+
+#### General colors
+
+| CSS variable name         | Description                                                                                                          |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-color-primary`     | The primary color (red as standard), also available with alpha 20/40/60/90 (e.g. `--sbb-color-primary-alpha-20`).    |
+| `--sbb-color-primary-85`  | Brighter variation of the primary color.                                                                             |
+| `--sbb-color-primary-125` | Darker variation of the primary color, also available with alpha 20/40/60 (e.g. `--sbb-color-primary-125-alpha-20`). |
+| `--sbb-color-primary-150` | Even darker variation of the primary color.                                                                          |
+| `--sbb-color-error`       | Color to be used for error states.                                                                                   |
+| `--sbb-color-warning`     | Color to be used for warning states.                                                                                 |
+| `--sbb-color-success`     | Color to be used for success states.                                                                                 |
+| `--sbb-color-brand`       | Color to be used for brand, like the logo.                                                                           |
+
+#### Background colors
+
+| CSS variable name          | Description                                                            |
+| -------------------------- | ---------------------------------------------------------------------- |
+| `--sbb-background-color-1` | Level 1 background color, currently `white / midnight` (light / dark). |
+| `--sbb-background-color-2` | Level 2 background color, currently `white / charcoal` (light / dark). |
+| `--sbb-background-color-3` | Level 3 background color, currently `milk / charcoal` (light / dark).  |
+| `--sbb-background-color-4` | Level 4 background color, currently `cloud / iron` (light / dark).     |
+
+All background color CSS variables are also available with suffixes
+`-negative` (taking the dark color of the color pair),
+`-inverted` (swapped dark and light color of the color pair) and
+`-negative-inverted` (taking the light color of the color pair).
+
+#### Text colors
+
+| CSS variable name | Description                                                      |
+| ----------------- | ---------------------------------------------------------------- |
+| `--sbb-color-1`   | Level 1 text color, currently `midnight / white` (light / dark). |
+| `--sbb-color-2`   | Level 2 text color, currently `charcoal / white` (light / dark). |
+| `--sbb-color-3`   | Level 3 text color, currently `charcoal / milk` (light / dark).  |
+| `--sbb-color-4`   | Level 4 text color, currently `iron / cloud` (light / dark).     |
+| `--sbb-color-5`   | Level 5 text color, currently `smoke / smoke` (light / dark).    |
+
+All text color CSS variables (except level 5) are also available with suffixes
+`-negative` (taking the dark color of the color pair),
+`-inverted` (swapped dark and light color of the color pair) and
+`-negative-inverted` (taking the light color of the color pair).
+
+#### Border colors
+
+| CSS variable name      | Description                                                        |
+| ---------------------- | ------------------------------------------------------------------ |
+| `--sbb-border-color-1` | Level 1 border color, currently `midnight / white` (light / dark). |
+| `--sbb-border-color-2` | Level 2 border color, currently `charcoal / white` (light / dark). |
+| `--sbb-border-color-3` | Level 3 border color, currently `charcoal / milk` (light / dark).  |
+| `--sbb-border-color-4` | Level 4 border color, currently `iron / cloud` (light / dark).     |
+| `--sbb-border-color-5` | Level 5 border color, currently `smoke / smoke` (light / dark).    |
+
+All border color CSS variables (except level 5) are also available with suffixes
+`-negative` (taking the dark color of the color pair),
+`-inverted` (swapped dark and light color of the color pair) and
+`-negative-inverted` (taking the light color of the color pair).
+
+#### Shadow colors
+
+Note: All shadow color CSS variables are also available with the suffix `-negative`.
+Please also consider our shadow SASS mixins when including a shadow.
+
+| CSS variable name           | Description                   |
+| --------------------------- | ----------------------------- |
+| `--sbb-shadow-color-soft-1` | Shadow color for soft level 1 |
+| `--sbb-shadow-color-soft-2` | Shadow color for soft level 2 |
+| `--sbb-shadow-color-hard-1` | Shadow color for hard level 1 |
+| `--sbb-shadow-color-hard-2` | Shadow color for hard level 2 |
+
 ### CSS files
 
 Basically, all our styles are included in `standard-theme.css` which should be included in your application.

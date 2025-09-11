@@ -101,7 +101,9 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)}>
-    <sbb-title level="2" style="margin: 0">Container with background image</sbb-title>
+    <sbb-title level="2" style="margin: 0; color: var(--sbb-color-charcoal)"
+      >Container with background image</sbb-title
+    >
     <style>
       .content {
         display: flex;

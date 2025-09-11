@@ -13,6 +13,7 @@ import { SbbOverlayElement } from './overlay.component.js';
 import readme from './readme.md?raw';
 
 import '../button.js';
+import '../card.js';
 import '../form-field.js';
 import '../image.js';
 import '../link.js';
@@ -86,23 +87,13 @@ const formStyle: Readonly<StyleInfo> = {
   gap: 'var(--sbb-spacing-fixed-4x)',
 };
 
-const textBlockStyle = (negative: boolean): Readonly<StyleInfo> => {
-  return {
-    position: 'relative',
-    marginBlockStart: '1rem',
-    padding: '1rem',
-    backgroundColor: negative ? 'var(--sbb-color-metal)' : 'var(--sbb-color-cloud)',
-    borderRadius: 'var(--sbb-border-radius-4x)',
-  };
-};
-
-const textBlock = (negative: boolean): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle(negative))}>
+const textBlock = (): TemplateResult => html`
+  <sbb-card color="transparent-bordered" style="margin-block-start: 1rem">
     J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
     1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
     linguistic brilliance and mythic passion converge in a literary legacy that continues to
     transport readers to magical realms.
-  </div>
+  </sbb-card>
 `;
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
@@ -126,7 +117,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
       of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
       other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
-      the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock(args.negative)}
+      the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock()}
     </div>
   </sbb-overlay>
 `;

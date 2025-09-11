@@ -1,12 +1,15 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
+import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { SbbDarkModeController } from '../../core/controllers.js';
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
 import { SbbAlertElement } from './alert.component.js';
 
 import '../../title.js';
+import '../../link.js';
 
 describe(`sbb-alert`, () => {
   let alert: SbbAlertElement,
@@ -26,9 +29,12 @@ describe(`sbb-alert`, () => {
     alert = await fixture(
       html`<sbb-alert>
         <sbb-title level="3">Disruption</sbb-title>
-        Interruption
+        Interruption <sbb-link href="#">Link</sbb-link>
       </sbb-alert>`,
     );
+
+    await emulateMedia({ colorScheme: 'light' });
+    SbbDarkModeController.requestUpdate();
   });
 
   it('renders', async () => {
@@ -96,5 +102,73 @@ describe(`sbb-alert`, () => {
     await waitForLitRender(alert);
 
     expect(alert.querySelector('sbb-title')!.visualLevel).to.be.equal('3');
+  });
+
+  it('should sync negative property when color scheme changes', async () => {
+    const link = alert.querySelector('sbb-link')!;
+    const title = alert.querySelector('sbb-title')!;
+    const divider = alert.shadowRoot!.querySelector('sbb-divider')!;
+    const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
+
+    expect(alert).not.to.match(':state(dark)');
+    expect(link.negative, 'link negative').to.be.true;
+    expect(title.negative, 'title negative').to.be.true;
+    expect(divider.negative, 'divider negative').to.be.true;
+    expect(button.negative, 'button negative').to.be.true;
+
+    await emulateMedia({ colorScheme: 'dark' });
+    await waitForCondition(() => !link.negative);
+
+    expect(alert).to.match(':state(dark)');
+    expect(link.negative, 'link not negative').to.be.false;
+    expect(title.negative, 'title not negative').to.be.false;
+    expect(divider.negative, 'divider not negative').to.be.false;
+    expect(button.negative, 'button not negative').to.be.false;
+  });
+
+  it('should sync negative property when calling SbbDarkModeController.requestUpdate()', async () => {
+    const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
+    expect(button.negative, 'button negative').to.be.true;
+    expect(alert).not.to.match(':state(dark)');
+
+    alert.style.colorScheme = 'dark';
+    SbbDarkModeController.requestUpdate();
+    await waitForLitRender(alert);
+
+    expect(button.negative, 'button not negative').to.be.false;
+    expect(alert).to.match(':state(dark)');
+  });
+
+  it('should sync negative property when removed from DOM and re-added', async () => {
+    const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
+    expect(button.negative, 'button negative').to.be.true;
+    expect(alert).not.to.match(':state(dark)');
+
+    alert.remove();
+
+    await emulateMedia({ colorScheme: 'dark' });
+
+    document.documentElement.appendChild(alert);
+    await waitForLitRender(alert);
+
+    expect(button.negative, 'button not negative').to.be.false;
+    expect(alert).to.match(':state(dark)');
+  });
+
+  it('should sync negative property changing sbb-dark class', async () => {
+    document.documentElement.classList.remove('sbb-light-dark');
+
+    const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
+    expect(button.negative, 'button negative').to.be.true;
+    expect(alert).not.to.match(':state(dark)');
+
+    document.documentElement.classList.add('sbb-dark');
+    await waitForLitRender(alert);
+
+    expect(button.negative, 'button not negative').to.be.false;
+    expect(alert).to.match(':state(dark)');
+    document.documentElement.classList.remove('sbb-dark');
+    await waitForLitRender(alert);
+    document.documentElement.classList.add('sbb-light-dark');
   });
 });

@@ -4,10 +4,10 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-file-selector-color: var(--sbb-color-black);
-  --sbb-file-selector-subtitle-color: var(--sbb-color-granite);
-  --sbb-file-selector-background-color: var(--sbb-color-white);
-  --sbb-file-selector-border-color: var(--sbb-color-cloud);
+  --sbb-file-selector-color: var(--sbb-color-2);
+  --sbb-file-selector-subtitle-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-file-selector-background-color: var(--sbb-background-color-1);
+  --sbb-file-selector-border-color: var(--sbb-border-color-4-inverted);
   --sbb-file-selector-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
@@ -27,8 +27,8 @@
 }
 
 :host(:state(active)) {
-  --sbb-file-selector-background-color: var(--sbb-color-milk);
-  --sbb-file-selector-border-color: var(--sbb-color-storm);
+  --sbb-file-selector-background-color: var(--sbb-background-color-3);
+  --sbb-file-selector-border-color: light-dark(var(--sbb-color-storm), var(--sbb-color-anthracite));
 
   @include sbb.if-forced-colors {
     --sbb-file-selector-border-color: Highlight;
@@ -77,7 +77,7 @@
 
 .sbb-file-selector__file-size {
   white-space: nowrap;
-  color: var(--sbb-color-metal);
+  color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
 }
 
 .sbb-file-selector__error {

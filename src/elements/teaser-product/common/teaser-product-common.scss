@@ -6,12 +6,18 @@
 :host {
   display: block;
 
-  --sbb-teaser-product-background-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-background-color: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
   --sbb-teaser-product-background-gradient-direction: to right;
   --sbb-teaser-product-background: var(--sbb-teaser-product-background-color);
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
-  --sbb-teaser-product-content-color: var(--sbb-color-iron);
-  --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
+  --sbb-teaser-product-content-color: var(--sbb-color-4);
+  --sbb-teaser-product-footer-color: light-dark(
+    var(--sbb-color-anthracite),
+    var(--sbb-color-cloud)
+  );
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-teaser-product-min-height: #{sbb.px-to-rem-build(600)};
   --sbb-teaser-product-background-gradient-start: 25%;
@@ -27,11 +33,11 @@
 }
 
 :host([negative]) {
-  --sbb-teaser-product-background-color: var(--sbb-color-midnight);
-  --sbb-teaser-product-content-color: var(--sbb-color-cloud);
-  --sbb-teaser-product-footer-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-background-color: var(--sbb-background-color-1-negative);
+  --sbb-teaser-product-content-color: var(--sbb-color-4-negative);
+  --sbb-teaser-product-footer-color: var(--sbb-color-4-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-title-text-color-normal-override: var(--sbb-color-milk);
+  --sbb-title-text-color-normal-override: var(--sbb-color-3-negative);
 }
 
 :host([image-alignment='before']) {
@@ -64,6 +70,9 @@
 }
 
 ::slotted([slot='image']) {
+  // E.g chips or other stuff which is slotted is adapted to the image.
+  // As the image doesn't change, we shouldn't change the colors as well.
+  color-scheme: only light;
   display: flex;
   width: 100%;
   height: 100%;

@@ -5,9 +5,8 @@
 
 :host {
   --sbb-tab-label-height: var(--sbb-size-element-m);
-  --sbb-tab-label-color: var(--sbb-color-granite);
-  --sbb-tab-label-icon-color: var(--sbb-color-black);
-  --sbb-tab-label-background-color: var(--sbb-color-white);
+  --sbb-tab-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  --sbb-tab-label-line-color: var(--sbb-border-color-4-inverted);
   --sbb-tab-label-cursor: pointer;
   --sbb-tab-label-pointer-events: unset;
   --sbb-tab-label-inset: 0;
@@ -19,7 +18,7 @@
     var(--sbb-animation-duration-2x)
   );
   --sbb-tab-label-animation-easing: var(--sbb-animation-easing);
-  --sbb-tab-label-amount-color: var(--sbb-color-metal);
+  --sbb-tab-label-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
 
   display: inline-block;
   max-width: 100%;
@@ -32,7 +31,6 @@
 
   @include sbb.if-forced-colors {
     --sbb-tab-label-color: ButtonText;
-    --sbb-tab-label-icon-color: ButtonText;
     --sbb-tab-label-amount-color: ButtonText;
   }
 }
@@ -43,31 +41,25 @@
 }
 
 :host([disabled]) {
-  --sbb-tab-label-icon-color: var(--sbb-color-granite);
-  --sbb-tab-label-background-color: var(--sbb-color-milk);
   --sbb-tab-label-cursor: unset;
   --sbb-tab-label-pointer-events: none;
   --sbb-tab-label-text-decoration: line-through;
 
   @include sbb.if-forced-colors {
     --sbb-tab-label-color: GrayText;
-    --sbb-tab-label-icon-color: GrayText;
     --sbb-tab-label-amount-color: GrayText;
   }
 }
 
 // If active and not disabled
 :host([active]:not([disabled])) {
-  --sbb-tab-label-color: var(--sbb-color-charcoal);
-  --sbb-tab-label-icon-color: var(--sbb-tab-label-color);
-  --sbb-tab-label-background-color: var(--sbb-color-black);
+  --sbb-tab-label-color: var(--sbb-color-3);
   --sbb-tab-label-cursor: unset;
   --sbb-tab-label-pointer-events: none;
   --sbb-tab-label-marker-transform: scale(1);
 
   @include sbb.if-forced-colors {
     --sbb-tab-label-color: ButtonText;
-    --sbb-tab-label-icon-color: ButtonText;
     --sbb-tab-label-amount-color: ButtonText;
   }
 }
@@ -80,7 +72,7 @@
 
 // Pressed/active state
 :host(:is([data-active], :active)) {
-  --sbb-tab-label-color: var(--sbb-color-charcoal);
+  --sbb-tab-label-color: var(--sbb-color-3);
 }
 
 .sbb-tab-label__wrapper {
@@ -114,7 +106,6 @@
   user-select: none;
   cursor: var(--sbb-tab-label-cursor);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
-  color: var(--sbb-tab-label-icon-color);
 
   // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
   :host([data-has-divider]) & {
@@ -125,7 +116,7 @@
       inset-block-end: 0;
       width: var(--sbb-tab-group-width);
       height: var(--sbb-border-width-1x);
-      background-color: var(--sbb-color-cloud);
+      background-color: var(--sbb-tab-label-line-color);
     }
   }
 

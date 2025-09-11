@@ -8,7 +8,7 @@
   --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
-  --sbb-optgroup-label-color: var(--sbb-color-metal);
+  --sbb-optgroup-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
 
   display: block;
 }
@@ -22,7 +22,7 @@
 }
 
 :host([data-negative]) {
-  --sbb-optgroup-label-color: var(--sbb-color-smoke);
+  --sbb-optgroup-label-color: var(--sbb-color-5);
 }
 
 .sbb-optgroup {

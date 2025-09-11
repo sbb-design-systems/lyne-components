@@ -13,6 +13,7 @@ $active: ':active, [data-active]';
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
+  // TODO: variable should be correctly prefixed (popover-trigger)
   --sbb-popover-color: inherit;
 
   @include sbb.if-forced-colors {
@@ -22,11 +23,11 @@ $active: ':active, [data-active]';
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-popover-color: var(--sbb-color-iron);
+    --sbb-popover-color: var(--sbb-color-4);
   }
 
   :host(:hover[negative]) {
-    --sbb-popover-color: var(--sbb-color-cloud);
+    --sbb-popover-color: var(--sbb-color-4-negative);
   }
 }
 
@@ -35,7 +36,7 @@ $active: ':active, [data-active]';
 }
 
 :host(:is(#{$active})) {
-  --sbb-popover-color: var(--sbb-color-anthracite);
+  --sbb-popover-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cement));
 }
 
 :host(:is(#{$active})[negative]) {
@@ -45,7 +46,7 @@ $active: ':active, [data-active]';
 :host(:is(#{$disabled})) {
   pointer-events: none;
 
-  --sbb-popover-color: var(--sbb-color-graphite);
+  --sbb-popover-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
 
   @include sbb.if-forced-colors {
     --sbb-popover-color: GrayText !important;
@@ -53,7 +54,7 @@ $active: ':active, [data-active]';
 }
 
 :host(:is(#{$disabled})[negative]) {
-  --sbb-popover-color: var(--sbb-color-smoke);
+  --sbb-popover-color: var(--sbb-color-5);
 }
 
 @include sbb.icon-button-base(':host([data-icon-small])', '.sbb-popover-trigger', 'sbb-icon');

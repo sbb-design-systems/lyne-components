@@ -18,6 +18,7 @@
   grid-row: 2;
   grid-column: 1;
   padding-block-start: var(--sbb-spacing-fixed-4x);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
   @include typo.text-xs--regular;
 }
 

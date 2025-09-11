@@ -123,8 +123,8 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.color === 'milk' || context.args.color === 'white'
-        ? 'var(--sbb-color-granite)'
-        : 'var(--sbb-color-white)',
+        ? 'var(--sbb-background-color-4)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

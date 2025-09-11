@@ -7,8 +7,8 @@
   @include sbb.scrollbar-variables;
 
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-dialog-color: var(--sbb-color-black);
-  --sbb-dialog-background-color: var(--sbb-color-white);
+  --sbb-dialog-color: var(--sbb-color-2);
+  --sbb-dialog-background-color: var(--sbb-background-color-1);
   --sbb-dialog-width: 100%;
   --sbb-dialog-height: 100%;
   --sbb-dialog-max-width: 100%;
@@ -62,7 +62,7 @@
 
 :host(:is([data-state='opening'], [data-state='opened'])) {
   --sbb-dialog-pointer-events: all;
-  --sbb-dialog-backdrop-color: var(--sbb-color-milk);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 
   @include sbb.mq($from: medium) {
     --sbb-dialog-backdrop-visibility: visible;
@@ -78,9 +78,9 @@
   @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-dialog-color: var(--sbb-color-white);
-  --sbb-dialog-background-color: var(--sbb-color-midnight);
-  --sbb-dialog-backdrop-color: var(--sbb-color-charcoal);
+  --sbb-dialog-color: var(--sbb-color-2-negative);
+  --sbb-dialog-background-color: var(--sbb-background-color-1-negative);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3-negative);
 }
 
 :host(:not([data-state='closed'])) {
@@ -182,6 +182,15 @@
 
   & {
     overflow: auto;
+  }
+
+  // If there is no scrollable content, the scroll area gets focus.
+  // As it is impossible to place the scrollbar outside of the scroll area,
+  // we need to fix the outline offset to avoid clipping of the focus outline.
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    --sbb-focus-outline-offset: calc(var(--sbb-focus-outline-width) * -1);
   }
 }
 

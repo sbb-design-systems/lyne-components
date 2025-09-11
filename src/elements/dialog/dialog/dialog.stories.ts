@@ -16,6 +16,7 @@ import readme from './readme.md?raw';
 import '../../autocomplete.js';
 import '../../option.js';
 import '../../button.js';
+import '../../card.js';
 import '../../link.js';
 import '../../form-field.js';
 import '../../image.js';
@@ -115,13 +116,6 @@ const codeStyle: Args = {
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const formDetailsStyle: Args = {
-  marginTop: 'var(--sbb-spacing-fixed-4x)',
-  padding: 'var(--sbb-spacing-fixed-4x)',
-  borderRadius: 'var(--sbb-border-radius-8x)',
-  backgroundColor: 'var(--sbb-color-milk)',
-};
-
 const formStyle: Args = {
   display: 'flex',
   flexWrap: 'wrap',
@@ -129,26 +123,17 @@ const formStyle: Args = {
   gap: 'var(--sbb-spacing-fixed-4x)',
 };
 
-const textBlockStyle: Args = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-};
-
 const dialogTitle = (level: SbbTitleLevel): TemplateResult => html`
   <sbb-dialog-title level=${level}>A describing title of the dialog</sbb-dialog-title>
 `;
 
 const textBlock = (): TemplateResult => html`
-  <p style=${styleMap(textBlockStyle)}>
+  <sbb-card color="milk" style="margin-block-start: 1rem">
     J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
     1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
     linguistic brilliance and mythic passion converge in a literary legacy that continues to
     transport readers to magical realms.
-  </p>
+  </sbb-card>
 `;
 
 const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
@@ -198,10 +183,10 @@ const LongContentTemplate = ({ level, includeCloseButton, ...args }: Args): Temp
 const FormTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <div id="returned-value">
-    <div style=${styleMap(formDetailsStyle)}>
+    <sbb-card color="milk" style="margin-block-start: 1rem">
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
       <div>Your favorite animal: <span id="returned-value-animal">Red Panda</span></div>
-    </div>
+    </sbb-card>
   </div>
   <sbb-dialog
     trigger="dialog-trigger"

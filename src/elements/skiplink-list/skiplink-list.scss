@@ -40,8 +40,9 @@
     &:focus-within {
       --sbb-skiplink-list-height: auto;
       --sbb-skiplink-list-overflow: visible;
-      --sbb-skiplink-list-background: var(--sbb-color-black);
-      --sbb-skiplink-list-border: var(--sbb-border-width-2x) solid var(--sbb-color-white);
+      --sbb-skiplink-list-background: var(--sbb-background-color-1-inverted);
+      --sbb-skiplink-list-border: var(--sbb-border-width-2x) solid
+        var(--sbb-border-color-1-inverted);
     }
   }
 }
@@ -49,4 +50,13 @@
 ::slotted([data-sbb-link]) {
   --sbb-focus-outline-color: transparent;
   --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
+}
+
+::slotted(*) {
+  // As the slotted links are displayed on a white background, we need to force light mode for them.
+  color-scheme: only light;
+}
+
+:host(:state(dark)) ::slotted(*) {
+  --sbb-link-color-normal: var(--sbb-color-midnight);
 }

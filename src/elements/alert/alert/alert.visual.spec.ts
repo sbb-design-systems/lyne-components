@@ -1,7 +1,11 @@
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import {
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../../core/testing/private.js';
 
 import '../../link/link.js';
 import './alert.component.js';
@@ -67,6 +71,13 @@ describe(`sbb-alert`, () => {
             ${contentSlotText}
           </sbb-alert>`,
         );
+      }),
+    );
+
+    it(
+      'dark mode focus',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(alertTemplate({ ...defaultArgs }), { darkMode: true });
       }),
     );
   });

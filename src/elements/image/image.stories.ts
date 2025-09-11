@@ -10,7 +10,9 @@ import images from '../core/images.js';
 
 import { SbbImageElement } from './image.component.js';
 import readme from './readme.md?raw';
+
 import '../chip-label.js';
+import '../link.js';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image
@@ -28,8 +30,8 @@ const WithCaptionTemplate = (args: Args): TemplateResult => html`
     ${ImageTemplate(args)}
     <figcaption>
       With the
-      <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html">
-        Half Fare Travelcard</a
+      <sbb-link href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html">
+        Half Fare Travelcard</sbb-link
       >, you can travel for half price on all SBB routes and most other railways as well as on boats
       and Postbuses. You also benefit from discounts on urban transport as well as other additional
       attractive services and discounts.

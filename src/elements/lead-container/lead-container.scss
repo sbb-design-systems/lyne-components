@@ -6,7 +6,7 @@
 :host {
   display: block;
 
-  --sbb-lead-container-background-color: var(--sbb-color-white);
+  --sbb-lead-container-background-color: var(--sbb-background-color-1);
   --sbb-lead-container-image-ratio: 2 / 1;
   --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
   --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l);
@@ -28,6 +28,9 @@
 }
 
 ::slotted([slot='image']) {
+  // E.g chips or other stuff which is slotted is adapted to the image.
+  // As the image doesn't change, we shouldn't change the colors as well.
+  color-scheme: only light;
   display: block;
   width: 100%;
 }
@@ -50,6 +53,7 @@
 
 ::slotted(.sbb-lead-container-lead-text) {
   margin-block: 0 var(--sbb-spacing-responsive-s);
+  color: light-dark(var(--sbb-color-iron), var(--sbb-color-smoke));
 }
 
 .sbb-lead-container-image {

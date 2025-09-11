@@ -10,12 +10,13 @@
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
-  --sbb-toggle-check-checked-color: var(--sbb-color-red);
-  --sbb-toggle-check-background-color: var(--sbb-color-cloud);
+  --sbb-toggle-check-color: var(--sbb-color-2);
+  --sbb-toggle-check-checked-color: var(--sbb-color-primary);
+  --sbb-toggle-check-background-color: var(--sbb-background-color-4);
   --sbb-toggle-check-icon-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-icon-opacity: 0;
-  --sbb-toggle-check-circle-background-color: var(--sbb-color-white);
-  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke);
+  --sbb-toggle-check-circle-background-color: var(--sbb-background-color-1);
+  --sbb-toggle-check-circle-border-color: var(--sbb-border-color-5);
   --sbb-toggle-check-circle-border-style: solid;
   --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
   --sbb-toggle-check-overall-height: var(--sbb-toggle-check-circle-diameter);
@@ -42,6 +43,7 @@
 
 :host([data-checked]) {
   --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
+  --sbb-toggle-check-circle-background-color: var(--sbb-background-color-1-negative-inverted);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
   --sbb-toggle-check-icon-opacity: 1;
 
@@ -60,11 +62,11 @@
 }
 
 :host(:disabled) {
-  --sbb-toggle-check-background-color: var(--sbb-color-cloud);
-  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke);
+  --sbb-toggle-check-background-color: var(--sbb-background-color-4);
+  --sbb-toggle-check-circle-background-color: var(--sbb-background-color-3);
+  --sbb-toggle-check-circle-border-color: var(--sbb-border-color-5);
   --sbb-toggle-check-circle-border-style: dashed;
-  --sbb-toggle-check-circle-background-color: var(--sbb-color-milk);
-  --sbb-toggle-check-icon-color: var(--sbb-color-granite);
+  --sbb-toggle-check-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
   --sbb-toggle-check-cursor: default;
 
   @include sbb.if-forced-colors {
@@ -74,10 +76,6 @@
   }
 }
 
-:host([data-checked]:disabled) {
-  --sbb-toggle-check-circle-background-color: var(--sbb-color-white);
-}
-
 :host([label-position='before']) {
   --sbb-toggle-check-flex-direction: row;
 }
@@ -85,7 +83,7 @@
 .sbb-toggle-check {
   position: relative;
   display: flex;
-  color: var(--sbb-color-charcoal);
+  color: var(--sbb-toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);

@@ -53,7 +53,9 @@ export function cardActionVisualSpec(component: string): void {
             `,
             {
               backgroundColor:
-                color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+                color === 'milk'
+                  ? 'var(--sbb-background-color-1)'
+                  : 'var(--sbb-background-color-3)',
             },
           );
           /* eslint-enable lit/binding-positions */

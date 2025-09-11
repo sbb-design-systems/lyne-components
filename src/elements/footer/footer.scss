@@ -8,9 +8,9 @@
 
   --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
   --sbb-footer-gap-vertical: var(--sbb-spacing-responsive-l);
-  --sbb-footer-background-color: var(--sbb-color-milk);
+  --sbb-footer-background-color: var(--sbb-background-color-3);
   --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
-  --sbb-footer-color: var(--sbb-color-granite);
+  --sbb-footer-color: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
   --sbb-link-text-decoration-line: none;
 
   @include sbb.mq($from: small) {
@@ -19,8 +19,8 @@
 }
 
 :host([negative]) {
-  --sbb-footer-background-color: var(--sbb-color-charcoal);
-  --sbb-footer-color: var(--sbb-color-white);
+  --sbb-footer-background-color: var(--sbb-background-color-2-negative);
+  --sbb-footer-color: var(--sbb-color-1-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 

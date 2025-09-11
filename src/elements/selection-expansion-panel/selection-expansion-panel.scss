@@ -10,8 +10,8 @@ $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
 :host {
-  --sbb-selection-expansion-panel-background: var(--sbb-color-white);
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-expansion-panel-background: var(--sbb-background-color-1);
+  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
 
   // Variable used to override background color of selection panels.
   --sbb-selection-panel-inner-background: transparent;
@@ -29,7 +29,10 @@ $open-anim-opacity-to: 1;
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 
   display: contents;
 }
@@ -39,18 +42,18 @@ $open-anim-opacity-to: 1;
 }
 
 :host([color='milk']) {
-  --sbb-selection-expansion-panel-background: var(--sbb-color-milk);
+  --sbb-selection-expansion-panel-background: var(--sbb-background-color-3);
 }
 
 // :where is to align specificity
 :host(:where(:state(checked)):not(:where(:state(disabled)))) {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-3);
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
 }
 
 // :where is to align specificity
 :host([data-slot-names~='content']:where(:state(disabled))) {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
 }
 
 // :where is to align specificity

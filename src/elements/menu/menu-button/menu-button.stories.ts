@@ -195,7 +195,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    backgroundColor: () => 'var(--sbb-color-black)',
+    backgroundColor: () => 'var(--sbb-background-color-1-inverted)',
     actions: {
       handles: ['click'],
     },

@@ -6,10 +6,7 @@
 :host {
   @include sbb.title-rules;
 
-  --sbb-title-text-color-normal: var(
-    --sbb-title-text-color-normal-override,
-    var(--sbb-color-charcoal)
-  );
+  --sbb-title-text-color-normal: var(--sbb-title-text-color-normal-override, var(--sbb-color-3));
 
   display: block;
   color: var(--sbb-title-text-color-normal);

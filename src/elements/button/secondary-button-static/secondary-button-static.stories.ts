@@ -66,7 +66,9 @@ const meta: Meta = {
   decorators: commonDecorators,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-anthracite)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: ['click'],
     },

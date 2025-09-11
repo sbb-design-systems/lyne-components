@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
@@ -101,22 +101,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   }
 
   protected override render(): TemplateResult {
-    const TAG_NAME = this.negative ? 'sbb-transparent-button' : 'sbb-secondary-button';
-
-    /* eslint-disable lit/binding-positions */
-    const closeButton = html`
-      <${unsafeStatic(TAG_NAME)}
-        class="sbb-overlay__close"
-        aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this.language.current]}
-        ?negative=${this.negative}
-        size="m"
-        type="button"
-        icon-name="cross-small"
-        sbb-overlay-close
-      ></${unsafeStatic(TAG_NAME)}>
-    `;
-    /* eslint-enable lit/binding-positions */
-
     return html`
       <div class="sbb-overlay__container" @animationend=${this.onOverlayAnimationEnd}>
         <div class="sbb-overlay">
@@ -124,7 +108,18 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-overlay__wrapper"
           >
-            <div class="sbb-overlay__header">${closeButton}</div>
+            <div class="sbb-overlay__header">
+              <sbb-secondary-button
+                class="sbb-overlay__close"
+                aria-label="${this.accessibilityCloseLabel ||
+                i18nCloseDialog[this.language.current]}"
+                ?negative=${this.negative}
+                size="m"
+                type="button"
+                icon-name="cross-small"
+                sbb-overlay-close
+              ></sbb-secondary-button>
+            </div>
             <div
               class="sbb-overlay__content"
               ${ref((el?: Element) => (this._overlayContentElement = el as HTMLDivElement))}

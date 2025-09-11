@@ -305,11 +305,11 @@ export const ControlStickyState: StoryObj = {
           style="
             position: fixed;
             inset-block-start: 0;
-            background-color: var(--sbb-color-white);
+            background-color: var(--sbb-background-color-1);
             padding: var(--sbb-spacing-responsive-xs);
             z-index: 1;
-            border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-black);
-            border-inline-end: var(--sbb-border-width-1x) solid var(--sbb-color-black);
+            border-block-end: var(--sbb-border-width-1x) solid var(--sbb-border-color-4);
+            border-inline-end: var(--sbb-border-width-1x) solid var(--sbb-border-color-4);
           "
         >
           Control whether the sticky bar has \`position: sticky\`.

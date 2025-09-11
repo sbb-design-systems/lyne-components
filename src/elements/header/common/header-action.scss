@@ -11,7 +11,7 @@
   outline: none !important;
 
   --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-header-action-color: var(--sbb-color-black);
+  --sbb-header-action-color: var(--sbb-color-1);
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-element-s);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
@@ -26,7 +26,7 @@
   --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
   --sbb-header-action-icon-dimension: var(--sbb-size-icon-ui-small);
   --sbb-header-action-active-border-width: var(--sbb-border-width-2x);
-  --sbb-header-action-active-border-color: var(--sbb-color-black);
+  --sbb-header-action-active-border-color: var(--sbb-header-action-color);
   --sbb-header-action-active-border-margin-inline: var(--sbb-header-action-padding-inline);
   --sbb-header-action-active-border-scale: 0;
 
@@ -49,7 +49,7 @@
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover:not(:active, [data-active])) {
-    --sbb-header-action-background-color: var(--sbb-color-milk);
+    --sbb-header-action-background-color: var(--sbb-background-color-3);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
 
@@ -60,7 +60,7 @@
 }
 
 :host(:is(:active, [data-active])) {
-  --sbb-header-action-background-color: var(--sbb-color-cloud);
+  --sbb-header-action-background-color: var(--sbb-background-color-4);
 
   @include sbb.if-forced-colors {
     --sbb-header-action-border-color: Highlight;

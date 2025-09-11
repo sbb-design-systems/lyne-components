@@ -14,7 +14,6 @@
     var(--sbb-animation-duration-2x)
   );
   --sbb-step-animation-delay: 0;
-  --sbb-step-color: var(--sbb-color-iron);
 
   display: contents;
 }
@@ -72,7 +71,6 @@
   opacity: var(--sbb-step-opacity);
   display: var(--sbb-step-display);
   height: var(--sbb-step-height);
-  color: var(--sbb-step-color);
   transition: {
     property: display, opacity;
     duration: var(--sbb-step-animation-duration);

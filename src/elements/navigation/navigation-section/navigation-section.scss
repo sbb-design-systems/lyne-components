@@ -97,7 +97,7 @@
   margin: 0;
   width: 100%;
   height: 100%;
-  color: var(--sbb-color-white);
+  color: var(--sbb-navigation-color, var(--sbb-color-1-negative));
   background-color: transparent;
   padding: 0;
   overflow: hidden;

@@ -91,7 +91,7 @@ describe(`list`, () => {
             await setup.withFixture(html`
               <ol
                 class=${`sbb-icon-list sbb-text-${textSize}`}
-                style=${`--sbb-icon-list-marker-icon-color: var(--sbb-color-red); --sbb-icon-list-marker-icon: ${url}`}
+                style=${`--sbb-icon-list-marker-icon-color: var(--sbb-color-primary); --sbb-icon-list-marker-icon: ${url}`}
               >
                 ${listContent()}
                 <li>

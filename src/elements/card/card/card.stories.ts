@@ -297,7 +297,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+      context.args.color === 'milk'
+        ? 'var(--sbb-background-color-1)'
+        : 'var(--sbb-background-color-3)',
     actions: {
       handles: ['click'],
     },

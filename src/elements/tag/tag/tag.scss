@@ -15,12 +15,12 @@ $active: ':active, [data-active]';
   max-width: 100%;
 
   --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-tag-background-color: var(--sbb-color-white);
-  --sbb-tag-border-color: var(--sbb-color-cloud);
+  --sbb-tag-background-color: var(--sbb-background-color-1);
+  --sbb-tag-border-color: var(--sbb-border-color-4-inverted);
   --sbb-tag-border-style: solid;
   --sbb-tag-border-width: var(--sbb-border-width-1x);
-  --sbb-tag-text-color: var(--sbb-color-charcoal);
-  --sbb-tag-amount-color: var(--sbb-color-metal);
+  --sbb-tag-text-color: var(--sbb-color-2);
+  --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
   --sbb-tag-cursor: pointer;
@@ -44,7 +44,7 @@ $active: ':active, [data-active]';
 
 // Active state
 :host([data-checked]) {
-  --sbb-tag-border-color: var(--sbb-color-charcoal);
+  --sbb-tag-border-color: var(--sbb-border-color-3);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
   @include sbb.if-forced-colors {
@@ -53,10 +53,10 @@ $active: ':active, [data-active]';
 }
 
 :host(:is(#{$disabled})) {
-  --sbb-tag-text-color: var(--sbb-color-granite);
+  --sbb-tag-text-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
   --sbb-tag-amount-color: var(--sbb-tag-text-color);
-  --sbb-tag-background-color: var(--sbb-color-milk);
-  --sbb-tag-border-color: var(--sbb-color-cement);
+  --sbb-tag-background-color: var(--sbb-background-color-3);
+  --sbb-tag-border-color: light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
   --sbb-tag-border-style: dashed;
   --sbb-tag-cursor: unset;
   --sbb-tag-pointer-events: none;
@@ -69,12 +69,13 @@ $active: ':active, [data-active]';
 }
 
 :host([data-checked]:is(#{$disabled})) {
-  --sbb-tag-border-color: var(--sbb-color-metal);
+  --sbb-tag-border-color: light-dark(var(--sbb-color-metal), var(--sbb-color-cement));
+  --sbb-tag-border-style: dashed;
 }
 
 :host(:hover:not(#{$disabled}, #{$active})) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-tag-background-color: var(--sbb-color-milk);
+    --sbb-tag-background-color: var(--sbb-background-color-3);
     --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
     --sbb-tag-content-shift: translateY(calc(var(--sbb-border-width-1x) * -1));
 
@@ -86,10 +87,10 @@ $active: ':active, [data-active]';
 
 // Pressed state
 :host(:is(#{$active}):not(#{$disabled})) {
-  --sbb-tag-background-color: var(--sbb-color-milk);
-  --sbb-tag-border-color: var(--sbb-color-iron);
+  --sbb-tag-background-color: var(--sbb-background-color-3);
+  --sbb-tag-border-color: light-dark(var(--sbb-color-iron), var(--sbb-color-storm));
   --sbb-tag-border-width: var(--sbb-border-width-2x);
-  --sbb-tag-text-color: var(--sbb-color-iron);
+  --sbb-tag-text-color: var(--sbb-color-4);
 
   @include sbb.if-forced-colors {
     --sbb-tag-border-color: Highlight;

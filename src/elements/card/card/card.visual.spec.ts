@@ -46,7 +46,8 @@ describe(`sbb-card`, () => {
             </sbb-card>
           `,
           {
-            backgroundColor: color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+            backgroundColor:
+              color === 'milk' ? 'var(--sbb-background-color-1)' : 'var(--sbb-background-color-3)',
           },
         );
       });

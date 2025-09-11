@@ -221,7 +221,7 @@ const TemplateSbbTimeInput = ({
       </sbb-secondary-button>
       <sbb-secondary-button size="m" @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
     </div>
-    <div style="color: var(--sbb-color-smoke);">
+    <div style="color: var(--sbb-color-4);">
       <div style="margin-block-start: 1rem;">Time in input:</div>
       <output class="container-value"></output>
     </div>
@@ -317,7 +317,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: ['change', 'input'],
     },
