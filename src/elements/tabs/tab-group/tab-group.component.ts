@@ -260,7 +260,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
         tabLabel.active = true;
         tabLabel.tabIndex = 0;
         tabLabel.setAttribute('aria-selected', 'true');
-        tabLabel.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
         tabLabel.tab?.toggleAttribute('active', true);
       },
       deactivate: (): void => {

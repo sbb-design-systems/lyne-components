@@ -12,13 +12,13 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { SbbTabLabelElement } from '../tab-label.js';
 
 import readme from './readme.md?raw';
 import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
 
 import '../../link.js';
 import '../../title.js';
+import '../tab-label.js';
 import '../tab.js';
 import '../../card.js';
 
@@ -259,7 +259,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbTabGroupElement.events.tabchange, SbbTabLabelElement.events.active],
+      handles: [SbbTabGroupElement.events.tabchange],
     },
     docs: {
       extractComponentDescription: () => readme,
