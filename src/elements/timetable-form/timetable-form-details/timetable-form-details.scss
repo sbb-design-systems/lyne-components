@@ -10,6 +10,7 @@
 
   display: flex;
   flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-1x);
   border-block-start: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
   padding-block: var(--sbb-timetable-form-details-padding-block);
   padding-inline-start: calc(var(--sbb-size-icon-ui-small) + var(--sbb-spacing-responsive-xxxs));

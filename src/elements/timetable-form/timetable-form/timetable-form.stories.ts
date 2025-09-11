@@ -76,7 +76,7 @@ const timetableDetails = (
     <sbb-form-field width="collapse" size="l" borderless>
       <sbb-time-input value="13:30"></sbb-time-input>
     </sbb-form-field>
-    <sbb-toggle size="s" name="departure-arrival" style="margin-inline-start: .25rem">
+    <sbb-toggle size="s" name="departure-arrival">
       <sbb-toggle-option value="departure">Dep</sbb-toggle-option>
       <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
     </sbb-toggle>
