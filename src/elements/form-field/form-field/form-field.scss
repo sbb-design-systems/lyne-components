@@ -237,6 +237,8 @@
   // :where is to align specificity
   :host(:where(:state(focus):state(focus-origin-keyboard))) & {
     @include sbb.focus-outline;
+
+    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
   }
 
   // In high contrast, there is no borderless variant
@@ -255,6 +257,7 @@
           var(--sbb-form-field-border-color);
         inset-inline: var(--sbb-form-field-padding-inline);
         inset-block-end: 0;
+        z-index: var(--sbb-form-field-focus-underline-z-index, initial);
       }
     }
   }

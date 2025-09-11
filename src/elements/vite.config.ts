@@ -63,6 +63,7 @@ export default defineConfig((config) =>
                   'scrollbar.css',
                   'standard-theme.css',
                   'table.css',
+                  'timetable-form.css',
                   'typography.css',
                 ]),
               },
