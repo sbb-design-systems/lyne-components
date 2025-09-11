@@ -21,7 +21,7 @@ import style from './carousel.scss?lit&inline';
 /**
  * It displays a carousel component.
  *
- * @slot - Use the unnamed slot to add the `sbb-carousel-list` and a `sbb-paginator` for controls.
+ * @slot - Use the unnamed slot to add the `sbb-carousel-list` for content and a `sbb-paginator` for controls.
  */
 export
 @customElement('sbb-carousel')

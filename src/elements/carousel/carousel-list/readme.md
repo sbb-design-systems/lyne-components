@@ -27,12 +27,12 @@ It's a consumers' responsibility to set the correct height/width of the items, a
 
 The `sbb-carousel-list` component takes care of the emission of the `beforeshow` and `show` events on the slotted `sbb-carousel-item`s.
 
-An `IntersectionController` manages the emission of both, with different thresholds (0.01 for `beforeshow` and 1 for `show`).
+An `IntersectionController` manages the emission of both, with different thresholds (0.01 for `beforeshow` and 0.99 for `show`).
 
 ## Accessibility
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
-the component has `aria-atomic='false'` and `aria-live='polite'`.
+the component has `aria-atomic='true'` and `aria-live='polite'`.
 If no `aria-label` is provided on the slotted `sbb-carousel-item`s, the component set a default value on them.
 
 <!-- Auto Generated Below -->

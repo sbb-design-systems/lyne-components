@@ -33,7 +33,12 @@ The `length` and the `pageSize` properties of the `sbb-compact-paginator` are au
 
 ## Interactions
 
-No interaction or keyboard interaction is provided, except from the usage of the paginator to switch between items.
+It's possible to switch between items using the paginator controls, or, if the component is focused, using the arrow keys.
+
+| Keyboard                            | Action                         |
+| ----------------------------------- | ------------------------------ |
+| <kbd>Down Arrow / Right Arrow</kbd> | Navigate to the next item.     |
+| <kbd>Up Arrow / Left Arrow</kbd>    | Navigate to the previous item. |
 
 ## Accessibility
 
@@ -67,6 +72,6 @@ To not break the accessibility when links are used together with images, please 
 
 ## Slots
 
-| Name | Description                                                                             |
-| ---- | --------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add the `sbb-carousel-list` and a `sbb-paginator` for controls. |
+| Name | Description                                                                                         |
+| ---- | --------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add the `sbb-carousel-list` for content and a `sbb-paginator` for controls. |
