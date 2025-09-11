@@ -53,6 +53,7 @@
 }
 
 ::slotted(*) {
+  // As the slotted links are displayed on a white background, we need to force light mode for them.
   color-scheme: only light;
 }
 
