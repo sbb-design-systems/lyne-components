@@ -32,7 +32,7 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
       this._setNameAndAriaLabel();
     },
   });
-  private _darkMode = new SbbDarkModeController(this, () => this._setNameAndAriaLabel());
+  private _darkModeController = new SbbDarkModeController(this, () => this._setNameAndAriaLabel());
 
   private _forcedColors: boolean = this._mediaMatcher.matches(SbbMediaQueryForcedColors) ?? false;
 
@@ -44,7 +44,7 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
     let icon = `utilization-${this.occupancy}`;
     if (this._forcedColors) {
       icon += '-high-contrast';
-    } else if (this.negative || this._darkMode.matches()) {
+    } else if (this.negative || this._darkModeController.matches()) {
       icon += '-negative';
     }
 

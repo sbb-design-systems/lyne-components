@@ -184,7 +184,7 @@ class SbbToastElement extends SbbIconNameMixin(
     this.querySelectorAll<SbbTransparentButtonElement | SbbTransparentButtonLinkElement>(
       'sbb-transparent-button, sbb-transparent-button-link',
     ).forEach((btn) => {
-      btn.negative = !this._darkModeController.matches();
+      btn.negative = this._isLightMode();
       btn.size = isLean() ? 's' : 'm';
     });
 
@@ -192,7 +192,7 @@ class SbbToastElement extends SbbIconNameMixin(
     this.querySelectorAll<SbbLinkElement | SbbLinkButtonElement | SbbLinkStaticElement>(
       'sbb-link, sbb-link-button, sbb-link-static',
     ).forEach((link) => {
-      link.negative = !this._darkModeController.matches();
+      link.negative = this._isLightMode();
     });
   }
 
@@ -218,6 +218,10 @@ class SbbToastElement extends SbbIconNameMixin(
     });
   }
 
+  private _isLightMode(): boolean {
+    return !this._darkModeController.matches();
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-toast__overlay-container">
@@ -233,13 +237,13 @@ class SbbToastElement extends SbbIconNameMixin(
             <sbb-divider
               class="sbb-toast__close-divider"
               orientation="vertical"
-              ?negative=${!this._darkModeController.matches()}
+              ?negative=${this._isLightMode()}
             ></sbb-divider>
             ${!this.readOnly
               ? html`<sbb-transparent-button
                   class="sbb-toast__close-button"
                   icon-name="cross-small"
-                  ?negative=${!this._darkModeController.matches()}
+                  ?negative=${this._isLightMode()}
                   size="m"
                   aria-label=${i18nCloseAlert[this._language.current]}
                   sbb-toast-close

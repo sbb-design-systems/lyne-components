@@ -44,7 +44,7 @@ class SbbSkiplinkListElement extends SbbElementInternalsMixin(
 
   private _darkModeController = new SbbDarkModeController(this, () => {
     for (const child of this.listChildren) {
-      child.negative = !this._darkModeController.matches();
+      child.negative = this._isLightMode();
     }
   });
 
@@ -54,9 +54,13 @@ class SbbSkiplinkListElement extends SbbElementInternalsMixin(
     if (changedProperties.has('listChildren')) {
       for (const child of this.listChildren) {
         child.size = isLean() ? 'xs' : 'm';
-        child.negative = !this._darkModeController.matches();
+        child.negative = this._isLightMode();
       }
     }
+  }
+
+  private _isLightMode(): boolean {
+    return !this._darkModeController.matches();
   }
 
   protected override render(): TemplateResult {

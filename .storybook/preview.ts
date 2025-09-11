@@ -30,13 +30,13 @@ const lightDarkModeDecorator = makeDecorator({
   parameterName: 'darkMode',
   skipIfNoParametersOrOptions: false,
   wrapper: (getStory, context) => {
-    const selectedTheme = context.globals.theme as 'light' | 'dark' | 'auto';
+    const selectedMode = context.globals.mode as 'light' | 'dark' | 'auto';
 
     document.documentElement.classList.remove('sbb-dark', 'sbb-light', 'sbb-light-dark');
 
-    if (selectedTheme === 'light') {
+    if (selectedMode === 'light') {
       document.documentElement.classList.add('sbb-light');
-    } else if (selectedTheme === 'dark') {
+    } else if (selectedMode === 'dark') {
       document.documentElement.classList.add('sbb-dark');
     } else {
       document.documentElement.classList.add('sbb-light-dark');
@@ -161,14 +161,14 @@ export default {
     },
   ],
   globalTypes: {
-    theme: {
+    mode: {
       description: 'Light or dark mode',
       toolbar: {
         // The label to show for this toolbar item
-        title: 'Theme',
+        title: 'Mode',
         // Array of plain string values or MenuItem shape (see below)
         items: [
-          { value: 'auto', title: 'auto detect light / dark mode', icon: 'paintbrush' },
+          { value: 'auto', title: 'light dark mode', icon: 'paintbrush' },
           { value: 'light', title: 'light mode', icon: 'sun' },
           { value: 'dark', title: 'dark mode', icon: 'moon' },
         ],
@@ -178,7 +178,7 @@ export default {
     },
   },
   initialGlobals: {
-    theme: 'auto',
+    mode: 'auto',
   },
   parameters,
   tags: ['autodocs'],
