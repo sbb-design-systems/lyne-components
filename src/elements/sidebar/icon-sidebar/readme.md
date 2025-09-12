@@ -67,12 +67,12 @@ The `<sbb-sidebar-content>` should be given a role based on what it contains. If
 represents the primary content of the page, it may make sense to mark it `role="main"`. If no more
 specific role makes sense, `role="region"` is a good fallback.
 
-Like described in [sbb-icon-sidebar-link](/docs/elements-sbb-sidebar-sbb-icon-sidebar-link--docs) and
-[sbb-icon-sidebar-button](/docs/elements-sbb-sidebar-sbb-icon-sidebar-button--docs) it's important to set
+As described in [sbb-icon-sidebar-link](/docs/elements-sbb-sidebar-sbb-icon-sidebar-link--docs) and
+[sbb-icon-sidebar-button](/docs/elements-sbb-sidebar-sbb-icon-sidebar-button--docs), it's important to set
 a label to the action elements. It's also described how to set the current icon as active (aria-current).
 
-> ⓘ When the `sbb-tooltip` component is available, we strongly recommend to append a tooltip to
-> every item to describe the icon for all users.
+> ⓘ It is recommended to wait for the [tooltip placement](https://github.com/sbb-design-systems/lyne-components/issues/3981)
+> feature to be implemented before using tooltips to describe a sidebar element.
 
 ## Combine with `sbb-sidebar`
 
