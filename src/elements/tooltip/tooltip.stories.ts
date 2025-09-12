@@ -62,7 +62,6 @@ const alignmentStyles: { [x: string]: any } = {
 const trigger = (alignment = 'below-start'): TemplateResult => html`
   <sbb-button
     id="tooltip-trigger"
-    aria-label="info button"
     style=${styleMap({
       position: 'absolute',
       ...alignmentStyles[alignment],
@@ -93,7 +92,6 @@ const AttributeTemplate = (_args: Args): TemplateResult => html`
       ...alignmentStyles['below-start'],
     })}
     sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
-    aria-label="info button"
     >Button</sbb-button
   >
 `;
