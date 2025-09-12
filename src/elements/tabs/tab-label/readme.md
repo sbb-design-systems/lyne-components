@@ -51,11 +51,16 @@ It is possible to display the component in `disabled` state by using the self-na
 
 | Name         | Privacy | Description                                                                              | Parameters | Return | Inherited From |
 | ------------ | ------- | ---------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `activate`   | public  | Activate the tab.                                                                        |            | `void` |                |
 | `deactivate` | public  | Deactivate the tab.                                                                      |            | `void` |                |
 | `disable`    | public  | Disable the tab; if it's active, select the first tab in the group.                      |            | `void` |                |
 | `enable`     | public  | Enable the tab.                                                                          |            | `void` |                |
 | `select`     | public  | Select the tab, deactivating the current selected one, and dispatch the tabchange event. |            | `void` |                |
+
+## Events
+
+| Name     | Type    | Description                                                                  | Inherited From |
+| -------- | ------- | ---------------------------------------------------------------------------- | -------------- |
+| `active` | `Event` | The `active` event fires when the tab has been activated via user selection. |                |
 
 ## Slots
 
