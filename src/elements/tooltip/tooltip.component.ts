@@ -205,8 +205,8 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   }
 
   public override connectedCallback(): void {
-    this.popover = 'manual';
     super.connectedCallback();
+    this.popover = 'manual';
     this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
     sbbOverlayOutsidePointerEventListener.connect(this);

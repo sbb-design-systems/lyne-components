@@ -85,7 +85,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
   </sbb-tooltip>
 `;
 
-const AttributeTemplate = (_args: Args): TemplateResult => html`
+const AttributeTemplate = (): TemplateResult => html`
   <sbb-button
     style=${styleMap({
       position: 'absolute',

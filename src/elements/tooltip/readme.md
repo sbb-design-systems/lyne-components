@@ -9,7 +9,7 @@ You can use the tooltip in two ways:
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
-- **Via the `sbb-tooltip` attribute** (_Note: does not work if used in a Shadow Dom_)
+- **Via the `sbb-tooltip` attribute** (_Note: it does not work if used in a Shadow DOM_)
 
 ```html
 <sbb-button sbb-tooltip="Tooltip message">Button</sbb-button>
