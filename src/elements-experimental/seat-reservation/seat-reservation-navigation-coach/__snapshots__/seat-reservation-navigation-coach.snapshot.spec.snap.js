@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"] = 
+snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"] =
 `<sbb-seat-reservation-navigation-coach
   coach-id="85"
   travel-class="['FIRST']"
@@ -10,12 +10,12 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach DOM */
 
-snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shadow DOM"] = 
+snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shadow DOM"] =
 `<div class="sbb-sr-navigation__item-coach">
   <button
     aria-describedby="nav-coach-service-descriptions-0"
     class="sbb-sr-navigation__ctrl-button"
-    title="Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces."
+    title="Navigate to coach 85. 0 seats available. 0 available bicycle spaces."
     type="button"
   >
     <div class="sbb-sr-navigation__additional-information">
@@ -41,7 +41,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach Shadow DOM */
 
-snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Chrome"] = 
+snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -49,7 +49,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces.",
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
       "description": "Available services: Bike area,Quiet zone"
     },
     {
@@ -66,7 +66,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Chrome */
 
-snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Firefox"] = 
+snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -74,7 +74,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces.",
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
       "description": "Available services: Bike area,Quiet zone"
     },
     {
