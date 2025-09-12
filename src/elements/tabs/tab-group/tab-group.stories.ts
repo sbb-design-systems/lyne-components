@@ -12,13 +12,13 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { SbbTabLabelElement } from '../tab-label.js';
 
 import readme from './readme.md?raw';
 import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
 
 import '../../link.js';
 import '../../title.js';
-import '../tab-label.js';
 import '../tab.js';
 import '../../card.js';
 
@@ -146,6 +146,36 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   </sbb-tab-group>
 `;
 
+const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group size=${size} initial-selected-index="0">
+    <sbb-tab-label
+      ${sbbSpread(args)}
+      @active=${() => {
+        const tabContent = document.getElementById('dynamic');
+        const article = document.createElement('article');
+        article.innerHTML = `<p id="dynamic">Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.</p>`;
+        setTimeout(() => tabContent?.replaceWith(article), 3000);
+      }}
+      >${label}</sbb-tab-label
+    >
+    <sbb-tab>
+      <article id="dynamic">Loading...</article>
+    </sbb-tab>
+
+    <sbb-tab-label>Tab title two</sbb-tab-label>
+    ${tabPanelTwo()}
+
+    <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
+    <sbb-tab>I was disabled.</sbb-tab>
+
+    <sbb-tab-label>Tab title four</sbb-tab-label>
+    ${tabPanelFour()}
+  </sbb-tab-group>
+`;
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -253,13 +283,19 @@ export const tintedBackground: StoryObj = {
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], negative: true },
 };
 
+export const ContentOnActiveEvent: StoryObj = {
+  render: DynamicTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbTabGroupElement.events.tabchange],
+      handles: [SbbTabGroupElement.events.tabchange, SbbTabLabelElement.events.active],
     },
     docs: {
       extractComponentDescription: () => readme,
