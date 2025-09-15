@@ -15,6 +15,7 @@ import './carousel.component.js';
 import '../carousel-list/carousel-list.component.js';
 import '../carousel-item/carousel-item.component.js';
 import '../../button.js';
+import '../../chip-label.js';
 import '../../card.js';
 import '../../image.js';
 import '../../paginator.js';
@@ -38,7 +39,7 @@ const imgType: InputType = {
   control: {
     type: 'select',
   },
-  options: ['native', 'native-mobile', 'sbb-image', 'caption', 'link'],
+  options: ['native', 'native-mobile', 'sbb-image', 'figure', 'link'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -83,14 +84,17 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                 `,
               ],
               [
-                'caption',
+                'figure',
                 () => html`
-                  <div class="sbb-image">
-                    <img src=${img} alt="SBB image ${index + 1}" width="800" height="450" />
+                  <figure class="sbb-figure" style="width: 800px; height: 500px;">
+                    <sbb-chip-label class="sbb-figure-overlap-start-start">
+                      Chip label
+                    </sbb-chip-label>
+                    <img src=${img} alt="SBB image ${index + 1}" />
                     <figcaption style="text-align: center;">
                       Caption for picture ${index + 1}
                     </figcaption>
-                  </div>
+                  </figure>
                 `,
               ],
               [
@@ -211,7 +215,7 @@ export const SbbImage: StoryObj = {
   args: { ...defaultArgs, imgType: imgType.options![2] },
 };
 
-export const Caption: StoryObj = {
+export const Figure: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, imgType: imgType.options![3] },
@@ -244,7 +248,7 @@ export const NoShadow: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.shadow ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
+      context.args.shadow ? 'var(--sbb-background-color-3)' : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },
