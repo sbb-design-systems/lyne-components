@@ -17,11 +17,7 @@ which accepts one or more [sbb-carousel-item](/docs/elements-sbb-carousel-sbb-ca
       <img src="../img-3.jpg" alt="Image 3" height="300" width="400" />
     </sbb-carousel-item>
   </sbb-carousel-list>
-  <sbb-compact-paginator
-    accessibility-page-label="Slide"
-    accessibility-previous-page-label="Previous slide"
-    accessibility-next-page-label="Next slide"
-  ></sbb-compact-paginator>
+  <sbb-compact-paginator></sbb-compact-paginator>
 </sbb-carousel>
 ```
 

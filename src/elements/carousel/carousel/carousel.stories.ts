@@ -145,11 +145,7 @@ const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
         </div>
       </sbb-carousel-item>
     </sbb-carousel-list>
-    <sbb-compact-paginator
-      accessibility-page-label="Slide"
-      accessibility-previous-page-label="Previous slide"
-      accessibility-next-page-label="Next slide"
-    ></sbb-compact-paginator>
+    <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
 `;
 
@@ -193,11 +189,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
         </div>
       </sbb-carousel-item>
     </sbb-carousel-list>
-    <sbb-compact-paginator
-      accessibility-page-label="Slide"
-      accessibility-previous-page-label="Previous slide"
-      accessibility-next-page-label="Next slide"
-    ></sbb-compact-paginator>
+    <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
 `;
 
