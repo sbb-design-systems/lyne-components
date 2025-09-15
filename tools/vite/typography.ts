@@ -33,6 +33,7 @@ export function typography(): PluginOption {
         { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
         { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
         { inputName: 'core/styles/table.scss', outputName: 'table.css' },
+        { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
         { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
       ];
       for (const entry of sheets) {

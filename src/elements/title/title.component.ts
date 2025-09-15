@@ -1,9 +1,9 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { SbbNegativeMixin } from '../core/mixins.js';
 
-import { SbbTitleBase } from './title-base.js';
+import { SbbTitleBase, type SbbTitleLevel } from './title-base.js';
 import style from './title.scss?lit&inline';
 
 /**
@@ -16,6 +16,10 @@ export
 @customElement('sbb-title')
 class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+
+  /** Visual level for the title. Optional, if not set, the value of level will be used. */
+  @property({ attribute: 'visual-level', reflect: true })
+  public override accessor visualLevel: SbbTitleLevel | null = null;
 }
 
 declare global {

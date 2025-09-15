@@ -847,6 +847,13 @@ export const i18nCalendarWeekNumber: Record<string, string> = {
   it: 'Settimana',
 };
 
+export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {
+  de: 'Von und Nach tauschen',
+  en: 'Swap from and to',
+  fr: 'Échanger de et à',
+  it: 'Inverti Da e A',
+};
+
 export const i18nCarouselItemAriaLabel = (
   index: number,
   total: number,
