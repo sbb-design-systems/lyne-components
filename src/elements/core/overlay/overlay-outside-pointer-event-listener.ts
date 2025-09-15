@@ -1,4 +1,4 @@
-import { containsPierceShadowDom, isIOS } from '../dom.js';
+import { containsPierceShadowDom, isAndroid, isIOS } from '../dom.js';
 
 /**
  * Listens globally to pointer events that happen outside the overlay area.
@@ -47,10 +47,14 @@ export class SbbOverlayOutsidePointerEventListener {
       passive: true,
       signal: this._abortController.signal,
     };
-    body.addEventListener('pointerdown', this._pointerDownListener, options);
     body.addEventListener('click', this._clickListener, options);
-    body.addEventListener('auxclick', this._clickListener, options);
-    body.addEventListener('contextmenu', this._clickListener, options);
+
+    // These events makes sense only on desktop.
+    if (!isAndroid && !isIOS) {
+      body.addEventListener('pointerdown', this._pointerDownListener, options);
+      body.addEventListener('auxclick', this._clickListener, options);
+      body.addEventListener('contextmenu', this._clickListener, options);
+    }
   }
 
   /** Store pointerdown event target to track origin of click. */
