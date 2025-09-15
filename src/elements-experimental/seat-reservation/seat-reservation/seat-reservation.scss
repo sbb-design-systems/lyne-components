@@ -15,7 +15,7 @@
   height: inherit;
 
   ::part(coach-floor) {
-    fill: var(--sbb-color-white);
+    fill: var(--sbb-background-color-2);
 
     // In High Contrast Mode we set floor color to transparent
     @include sbb.if-forced-colors {
@@ -36,7 +36,7 @@
   height: inherit;
 }
 
-// MAIN SEAT RESERVATRION GRID LAYOUT
+// MAIN SEAT RESERVATION GRID LAYOUT
 // __________________ ________________ ____________________
 // |__LEFT_NAV_BUTTON_|___NAV_COACHES__|_RIGHT_NAV_BUTTON___|
 // |________________________COACHES_________________________|
