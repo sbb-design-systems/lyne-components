@@ -1,0 +1,41 @@
+import { expect } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+
+import images from '../../core/images.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+
+import type { SbbCarouselListElement } from './carousel-list.component.js';
+import './carousel-list.component.js';
+import '../carousel-item/carousel-item.component.js';
+
+describe(`sbb-carousel-list`, () => {
+  describe('renders', () => {
+    let element: SbbCarouselListElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-carousel-list>
+          <sbb-carousel-item>
+            <img src=${images[0]} alt="SBB image" height="300" width="400" />
+          </sbb-carousel-item>
+          <sbb-carousel-item>
+            <img src=${images[1]} alt="SBB image" height="300" width="400" />
+          </sbb-carousel-item>
+          <sbb-carousel-item>
+            <img src=${images[2]} alt="SBB image" height="300" width="400" />
+          </sbb-carousel-item>
+        </sbb-carousel-list>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+});
