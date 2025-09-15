@@ -123,7 +123,7 @@ html {
   @include typo.placeholder;
 }
 
-sbb-form-field {
+:is(sbb-form-field, sbb-timetable-form-field) {
   :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
     @include typo.text-m--regular;
     @include helpers.ellipsis;

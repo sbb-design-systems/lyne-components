@@ -349,6 +349,7 @@ However, if you would like to more specifically pick what you need, consider the
 | `lists.css`                     | Provides CSS classes to style lists.                                                |
 | `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                          |
 | `table.css`                     | Provides CSS classes to style a table.                                              |
+| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                     |
 | `typography.css`                | Provides typography related CSS classes.                                            |
 
 ### Full Font
