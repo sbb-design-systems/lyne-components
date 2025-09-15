@@ -853,3 +853,41 @@ export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {
   fr: 'Échanger de et à',
   it: 'Inverti Da e A',
 };
+
+export const i18nCarouselItemAriaLabel = (
+  index: number,
+  total: number,
+): Record<string, string> => ({
+  de: `${index} von ${total}`,
+  en: `${index} of ${total}`,
+  fr: `${index} sur ${total}`,
+  it: `${index} di ${total}`,
+});
+
+export const i18nCarouselArrowsNavigationHint: Record<string, string> = {
+  de: 'Karussell – Benutzen Sie die Pfeiltasten im Interaktionsmodus, um durch die Folien zu navigieren',
+  en: 'Carousel - Use the arrow keys in interaction mode to navigate through the slides',
+  fr: 'Carrousel – Utilisez les touches fléchées en mode interaction pour naviguer dans les diapositives',
+  it: 'Carosello – Utilizzare i tasti freccia in modalità interazione per navigare tra le slide',
+};
+
+export const i18nNextSlide: Record<string, string> = {
+  de: 'Nächste Folie',
+  en: 'Next slide',
+  fr: 'Diapositive suivante',
+  it: 'Slide successiva',
+};
+
+export const i18nPreviousSlide: Record<string, string> = {
+  de: 'Vorherige Folie',
+  en: 'Previous slide',
+  fr: 'Diapositive précédente',
+  it: 'Slide precedente',
+};
+
+export const i18nSlide: Record<string, string> = {
+  de: 'Folie',
+  en: 'Slide',
+  fr: 'Diapositive',
+  it: 'Slide',
+};
