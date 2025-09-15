@@ -34,11 +34,7 @@ class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-carousel-item">
-        <slot></slot>
-      </div>
-    `;
+    return html`<slot></slot>`;
   }
 }
 

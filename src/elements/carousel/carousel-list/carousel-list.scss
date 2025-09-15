@@ -4,12 +4,8 @@
 @include sbb.box-sizing;
 
 :host {
-  display: block;
-
   --sbb-carousel-list-border-radius: var(--sbb-border-radius-4x);
-}
 
-.sbb-carousel-list {
   display: flex;
   height: var(--sbb-carousel-list-height);
   width: var(--sbb-carousel-list-width);
@@ -19,19 +15,19 @@
   scrollbar-width: none;
   outline: none;
   border-radius: var(--sbb-carousel-inherit-border-radius);
+}
 
-  &:focus-visible {
-    &::before {
-      @include sbb.focus-outline;
+:host(:focus-visible) {
+  &::before {
+    @include sbb.focus-outline;
 
-      content: '';
-      position: absolute;
-      height: var(--sbb-carousel-list-height);
-      width: var(--sbb-carousel-list-width);
-      border-start-start-radius: var(--sbb-carousel-list-border-radius);
-      border-start-end-radius: var(--sbb-carousel-list-border-radius);
-      border-end-start-radius: var(--sbb-carousel-inherit-border-radius);
-      border-end-end-radius: var(--sbb-carousel-inherit-border-radius);
-    }
+    content: '';
+    position: absolute;
+    height: var(--sbb-carousel-list-height);
+    width: var(--sbb-carousel-list-width);
+    border-start-start-radius: var(--sbb-carousel-list-border-radius);
+    border-start-end-radius: var(--sbb-carousel-list-border-radius);
+    border-end-start-radius: var(--sbb-carousel-inherit-border-radius);
+    border-end-end-radius: var(--sbb-carousel-inherit-border-radius);
   }
 }

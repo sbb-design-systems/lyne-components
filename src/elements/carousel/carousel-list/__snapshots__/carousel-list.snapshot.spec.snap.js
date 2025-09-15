@@ -32,34 +32,10 @@ snapshots["sbb-carousel-list renders DOM"] =
 /* end snapshot sbb-carousel-list renders DOM */
 
 snapshots["sbb-carousel-list renders Shadow DOM"] = 
-`<div class="sbb-carousel-list">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-carousel-list renders Shadow DOM */
-
-snapshots["sbb-carousel-list renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "section",
-      "name": "",
-      "children": [
-        {
-          "role": "img",
-          "name": "SBB image"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-list renders A11y tree Firefox */
 
 snapshots["sbb-carousel-list renders A11y tree Chrome"] = 
 `<p>
@@ -76,4 +52,26 @@ snapshots["sbb-carousel-list renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-carousel-list renders A11y tree Chrome */
+
+snapshots["sbb-carousel-list renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text container",
+      "name": "",
+      "children": [
+        {
+          "role": "img",
+          "name": "SBB image"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-carousel-list renders A11y tree Firefox */
 

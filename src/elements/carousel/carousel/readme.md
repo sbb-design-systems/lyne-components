@@ -31,6 +31,10 @@ The content is projected in an unnamed slot.
 
 The `length` and the `pageSize` properties of the `sbb-compact-paginator` are automatically set based on the number of slotted images.
 
+The values of the `accessibilityPageLabel`, `accessibilityPreviousPageLabel` and `accessibilityNextPageLabel` properties
+are also set, in order to automatically override the 'page' keyword to the 'slide' one.
+If needed, consumers can provide their own values.
+
 ## Interactions
 
 It's possible to switch between items using the paginator controls, or, if the component is focused, using the arrow keys.
@@ -44,9 +48,6 @@ It's possible to switch between items using the paginator controls, or, if the c
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
 the component has `role="region"` and `aria-label="carousel"`.
-
-It's strongly recommended to set the values of the `accessibilityPageLabel`, `accessibilityPreviousPageLabel` and
-`accessibilityNextPageLabel` properties on the paginator based on the projected content (e.g. using the 'slide' keyword).
 
 To not break the accessibility when links are used together with images, please place the image within the anchor tag.
 

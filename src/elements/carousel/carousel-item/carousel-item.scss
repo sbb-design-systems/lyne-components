@@ -4,11 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  display: block;
+  display: flex;
   scroll-snap-align: start;
   flex-shrink: 0;
-}
-
-.sbb-carousel-item {
-  display: flex;
 }

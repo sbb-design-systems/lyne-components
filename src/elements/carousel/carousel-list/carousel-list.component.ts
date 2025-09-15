@@ -75,6 +75,12 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     config: { threshold: 0.99, root: this, rootMargin: '100% 0% 100% 0%' },
   });
 
+  public constructor() {
+    super();
+
+    this.addEventListener?.('keydown', (e) => this._onKeyDown(e));
+  }
+
   private _handleSlotchange(): void {
     const children = Array.from(this.children) as SbbCarouselItemElement[];
 
@@ -92,13 +98,8 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
       (el) => el.localName === 'sbb-carousel-item',
     ) as SbbCarouselItemElement;
     if (firstItem) {
-      firstItem.updateComplete.then(() => {
-        const innerEl = firstItem.shadowRoot?.querySelector('.sbb-carousel-item');
-        if (innerEl) {
-          this.style.setProperty('--sbb-carousel-list-height', `${innerEl.clientHeight}px`);
-          this.style.setProperty('--sbb-carousel-list-width', `${innerEl.clientWidth}px`);
-        }
-      });
+      this.style.setProperty('--sbb-carousel-list-height', `${firstItem.clientHeight}px`);
+      this.style.setProperty('--sbb-carousel-list-width', `${firstItem.clientWidth}px`);
     }
   }
 
@@ -141,11 +142,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-carousel-list" @keydown=${this._onKeyDown}>
-        <slot @slotchange=${this._handleSlotchange}></slot>
-      </div>
-    `;
+    return html`<slot @slotchange=${this._handleSlotchange}></slot>`;
   }
 }
 

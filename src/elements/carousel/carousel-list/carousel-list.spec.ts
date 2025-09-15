@@ -74,10 +74,9 @@ describe('sbb-carousel-list', () => {
     expect(beforeShowSpy.count).to.be.equal(1);
     await showSpy.calledTimes(1);
     expect(showSpy.count).to.be.equal(1);
-    const scrollContext: HTMLDivElement = element.shadowRoot!.querySelector('.sbb-carousel-list')!;
 
     // scroll to second image
-    scrollContext.scrollBy({ left: 320 });
+    element.scrollBy({ left: 320 });
     await waitForCondition(() => loadSpySecond.called);
     expect(loadSpySecond).to.have.been.called;
     await beforeShowSpy.calledTimes(2);
@@ -86,7 +85,7 @@ describe('sbb-carousel-list', () => {
     expect(showSpy.count).to.be.equal(2);
 
     // scroll to third image
-    scrollContext.scrollBy({ left: 320 });
+    element.scrollBy({ left: 320 });
     await waitForCondition(() => loadSpyThird.called);
     expect(loadSpyThird).to.have.been.called;
     await beforeShowSpy.calledTimes(3);
@@ -95,7 +94,7 @@ describe('sbb-carousel-list', () => {
     expect(showSpy.count).to.be.equal(3);
 
     // scroll back to second image
-    scrollContext.scrollBy({ left: -320 });
+    element.scrollBy({ left: -320 });
     await waitForCondition(() => loadSpyFirst.called);
     expect(loadSpyFirst).to.have.been.called;
     await beforeShowSpy.calledTimes(4);

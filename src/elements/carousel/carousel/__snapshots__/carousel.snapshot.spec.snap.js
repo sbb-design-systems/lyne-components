@@ -75,7 +75,7 @@ snapshots["sbb-carousel renders A11y tree Firefox"] =
       "name": "Carousel - Use the arrow keys in interaction mode to navigate through the slides"
     },
     {
-      "role": "section",
+      "role": "text container",
       "name": "",
       "children": [
         {

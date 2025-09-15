@@ -12,10 +12,8 @@ snapshots["sbb-carousel-item renders DOM"] =
 /* end snapshot sbb-carousel-item renders DOM */
 
 snapshots["sbb-carousel-item renders Shadow DOM"] = 
-`<div class="sbb-carousel-item">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-carousel-item renders Shadow DOM */
 
@@ -32,28 +30,10 @@ snapshots["sbb-carousel-item renders with sbb-image DOM"] =
 /* end snapshot sbb-carousel-item renders with sbb-image DOM */
 
 snapshots["sbb-carousel-item renders with sbb-image Shadow DOM"] = 
-`<div class="sbb-carousel-item">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-carousel-item renders with sbb-image Shadow DOM */
-
-snapshots["sbb-carousel-item renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "image",
-      "name": "SBB image"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-item renders A11y tree Chrome */
 
 snapshots["sbb-carousel-item renders A11y tree Firefox"] = 
 `<p>
@@ -71,7 +51,7 @@ snapshots["sbb-carousel-item renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-carousel-item renders A11y tree Firefox */
 
-snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] = 
+snapshots["sbb-carousel-item renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -85,7 +65,7 @@ snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-carousel-item renders with sbb-image A11y tree Chrome */
+/* end snapshot sbb-carousel-item renders A11y tree Chrome */
 
 snapshots["sbb-carousel-item renders with sbb-image A11y tree Firefox"] = 
 `<p>
@@ -102,4 +82,20 @@ snapshots["sbb-carousel-item renders with sbb-image A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-carousel-item renders with sbb-image A11y tree Firefox */
+
+snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "image",
+      "name": "SBB image"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-carousel-item renders with sbb-image A11y tree Chrome */
 
