@@ -133,7 +133,7 @@
     "storybook": "9.1.6",
     "stylelint": "16.24.0",
     "stylelint-config-prettier-scss": "1.0.0",
-    "stylelint-config-standard-scss": "15.0.1",
+    "stylelint-config-standard-scss": "16.0.0",
     "stylelint-scss": "6.12.1",
     "ts-lit-plugin": "2.0.2",
     "tslib": "2.8.1",
