@@ -40,9 +40,11 @@
   //  We have to use the `not` selector as Chrome supports both, the -webkit-* and the following properties.
   //  As long as possible we use the -webkit-* approach as we have more styling possibilities there.
   @supports not selector(::-webkit-scrollbar) {
-    scrollbar-width: var(--sbb-scrollbar-width-firefox);
-    scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
-      var(--sbb-scrollbar-track-color, transparent);
+    & {
+      scrollbar-width: var(--sbb-scrollbar-width-firefox);
+      scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
+        var(--sbb-scrollbar-track-color, transparent);
+    }
   }
 }
 
