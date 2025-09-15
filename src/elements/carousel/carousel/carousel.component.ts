@@ -5,7 +5,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers/language-controller.js';
 import { forceType } from '../../core/decorators.js';
-import { i18nCarouselArrowsNavigationHint } from '../../core/i18n/i18n.js';
+import {
+  i18nCarouselArrowsNavigationHint,
+  i18nNextSlide,
+  i18nPreviousSlide,
+  i18nSlide,
+} from '../../core/i18n/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
@@ -87,6 +92,10 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
       paginator.length = items.length;
       paginator.pageSize = 1;
     }
+    paginator.accessibilityNextPageLabel ||= i18nNextSlide[this._language.current];
+    paginator.accessibilityPreviousPageLabel ||= i18nPreviousSlide[this._language.current];
+    paginator.accessibilityPageLabel ||= i18nSlide[this._language.current];
+
     if (paginator !== this._paginator) {
       this._abortController = new AbortController();
       paginator.addEventListener('page', (e) => this._scrollAtPageChange(e), {

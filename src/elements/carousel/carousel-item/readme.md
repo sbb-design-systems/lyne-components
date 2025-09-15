@@ -15,11 +15,9 @@ it is meant to be slotted in a [sbb-carousel-list](/docs/elements-sbb-carousel-s
 </sbb-carousel-item>
 
 <sbb-carousel-item>
-  <div
-    style="display: flex; flex-direction: column; align-items: center; background-color: black; color: white;"
-  >
+  <div class="sbb-image">
     <img src="../image.jpg" alt="SBB image" height="300" width="400" />
-    Caption for picture
+    <figcaption>Caption for picture</figcaption>
   </div>
 </sbb-carousel-item>
 ```

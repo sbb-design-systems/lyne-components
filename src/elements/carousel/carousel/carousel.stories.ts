@@ -14,18 +14,10 @@ import readme from './readme.md?raw';
 import './carousel.component.js';
 import '../carousel-list/carousel-list.component.js';
 import '../carousel-item/carousel-item.component.js';
-import '../../paginator.js';
-import '../../image.js';
 import '../../button.js';
-
-const textBlockStyle: Args = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-white)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-};
+import '../../card.js';
+import '../../image.js';
+import '../../paginator.js';
 
 const buttonCarouselStyle: Args = {
   height: '300px',
@@ -93,11 +85,11 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
               [
                 'caption',
                 () => html`
-                  <div
-                    style="display: flex; flex-direction: column; align-items: center; background-color: black; color: white;"
-                  >
+                  <div class="sbb-image">
                     <img src=${img} alt="SBB image ${index + 1}" width="800" height="450" />
-                    Caption for picture ${index + 1}
+                    <figcaption style="text-align: center;">
+                      Caption for picture ${index + 1}
+                    </figcaption>
                   </div>
                 `,
               ],
@@ -122,17 +114,13 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
         `,
       )}
     </sbb-carousel-list>
-    <sbb-compact-paginator
-      accessibility-page-label="Slide"
-      accessibility-previous-page-label="Previous slide"
-      accessibility-next-page-label="Next slide"
-    ></sbb-compact-paginator>
+    <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
   ${imgType === 'native-mobile'
-    ? html` <div style=${styleMap(textBlockStyle)}>
+    ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
         In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than the
         viewport. Be sure to set the right dimensions for the slotted image.
-      </div>`
+      </sbb-card>`
     : nothing}
 `;
 
