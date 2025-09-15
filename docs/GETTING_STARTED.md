@@ -260,16 +260,16 @@ or simply to make things look right in light and dark modes.
 
 #### General colors
 
-| CSS variable name         | Description                                                                                                          |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-color-primary`     | The primary color (red as standard), also available with alpha 20/40/60/90 (e.g. `--sbb-color-primary-alpha-20`).    |
-| `--sbb-color-primary-85`  | Brighter variation of the primary color.                                                                             |
-| `--sbb-color-primary-125` | Darker variation of the primary color, also available with alpha 20/40/60 (e.g. `--sbb-color-primary-125-alpha-20`). |
-| `--sbb-color-primary-150` | Even darker variation of the primary color.                                                                          |
-| `--sbb-color-error`       | Color to be used for error states.                                                                                   |
-| `--sbb-color-warning`     | Color to be used for warning states.                                                                                 |
-| `--sbb-color-success`     | Color to be used for success states.                                                                                 |
-| `--sbb-color-brand`       | Color to be used for brand, like the logo.                                                                           |
+| CSS variable name         | Description                                 |
+| ------------------------- | ------------------------------------------- |
+| `--sbb-color-primary`     | The primary color (red as standard).        |
+| `--sbb-color-primary-85`  | Brighter variation of the primary color.    |
+| `--sbb-color-primary-125` | Darker variation of the primary color.      |
+| `--sbb-color-primary-150` | Even darker variation of the primary color. |
+| `--sbb-color-error`       | Color to be used for error states.          |
+| `--sbb-color-warning`     | Color to be used for warning states.        |
+| `--sbb-color-success`     | Color to be used for success states.        |
+| `--sbb-color-brand`       | Color to be used for brand, like the logo.  |
 
 #### Background colors
 
@@ -380,6 +380,17 @@ Some design tokens are responsive: they change their value depending on the curr
 > Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
 > There is a corresponding responsive CSS variable without the `-breakpoint` suffix,
 > e.g. `sbb-spacing-responsive-s` which should be used.
+
+#### Alpha values
+
+For alpha values, we recommend to use the CSS color-mix() function.
+
+```css
+.a {
+  /* 40% opacity of primary color */
+  color: color-mix(in srgb, var(--sbb-color-primary) 40%, transparent);
+}
+```
 
 ### Sass Mixins
 
