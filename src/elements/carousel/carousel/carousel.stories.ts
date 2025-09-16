@@ -164,7 +164,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png"
+            image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Helpteaser-Background-Landscape.png"
             alt="Helpteaser-Background-Landscape"
             style="position: absolute; inset: 0;"
           ></sbb-image>
@@ -182,7 +182,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png"
+            image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Helpteaser-Background-Landscape.png"
             alt="Helpteaser-Background-Landscape"
             style="position: absolute; inset: 0;"
           ></sbb-image>

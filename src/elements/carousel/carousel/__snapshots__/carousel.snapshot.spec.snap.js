@@ -8,7 +8,7 @@ snapshots["sbb-carousel renders DOM"] =
       <img
         alt="SBB image"
         height="300"
-        src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+        src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
         width="400"
       >
     </sbb-carousel-item>
@@ -16,7 +16,7 @@ snapshots["sbb-carousel renders DOM"] =
       <img
         alt="SBB image"
         height="300"
-        src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
+        src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
         width="400"
       >
     </sbb-carousel-item>
@@ -24,7 +24,7 @@ snapshots["sbb-carousel renders DOM"] =
       <img
         alt="SBB image"
         height="300"
-        src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Kaufmann-frau.jpg"
+        src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Kaufmann-frau.jpg"
         width="400"
       >
     </sbb-carousel-item>
