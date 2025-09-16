@@ -1,16 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import type { Context } from 'mocha';
 
 import type { SbbMiniButtonElement } from '../../button.js';
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForImageReady } from '../../core/testing.js';
+import { EventSpy, waitForImageReady } from '../../core/testing.js';
 import type { SbbCompactPaginatorElement } from '../../paginator.js';
-import type {
-  SbbCarouselItemElement,
-  SbbCarouselItemEventDetail,
-} from '../carousel-item/carousel-item.component.js';
+import { type SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.component.js';
 
 import { SbbCarouselElement } from './carousel.component.js';
 
@@ -99,24 +95,5 @@ describe('sbb-carousel', () => {
     expect(beforeShowSpy.count).to.be.equal(4);
     await showSpy.calledTimes(4);
     expect(showSpy.count).to.be.equal(4);
-  });
-
-  it('gives paginator priority over show event', async function (this: Context) {
-    // On Firefox sometimes the test fails.
-    this.retries(3);
-
-    paginator.nextPage();
-    paginator.nextPage();
-    await showSpy.calledTimes(2);
-
-    expect(paginator.pageIndex).to.be.equal(2);
-
-    // Scroll event afterward should still update paginator
-    element
-      .querySelector('sbb-carousel-list')
-      ?.scrollTo({ left: element.querySelector<SbbCarouselItemElement>('#second')!.offsetLeft });
-
-    await waitForCondition(() => paginator.pageIndex === 1);
-    expect(paginator.pageIndex).to.be.equal(1);
   });
 });

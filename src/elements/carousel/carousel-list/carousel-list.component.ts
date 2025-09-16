@@ -47,16 +47,14 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
   private _showObserver = new IntersectionController(this, {
     callback: (entryArr) => {
-      const entries = entryArr.filter((e) => e.target !== this);
-      entries
-        .filter((e) => !e.isIntersecting)
-        .forEach((e) => ((e.target as SbbCarouselItemElement).ariaHidden = 'true'));
-      entries
-        .filter((e) => e.isIntersecting)
-        .forEach((e) => {
-          const target = e.target as SbbCarouselItemElement;
+      for (const entry of entryArr) {
+        if (entry.target === this) {
+          continue;
+        }
+        const target = entry.target as SbbCarouselItemElement;
+        if (entry.isIntersecting) {
           target.ariaHidden = null;
-          this._currentIndex = this._carouselItems().findIndex((e) => e === target);
+          this._currentIndex = this._carouselItems().findIndex((el) => el === target);
           target.dispatchEvent(
             new CustomEvent<SbbCarouselItemEventDetail>('show', {
               detail: { index: this._currentIndex },
@@ -64,7 +62,10 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
               composed: true,
             }),
           );
-        });
+        } else {
+          target.ariaHidden = 'true';
+        }
+      }
     },
     config: { threshold: 0.99, root: this, rootMargin: '100% 0% 100% 0%' },
   });
@@ -85,12 +86,12 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
     // Set the aria-label if not provided
     const childrenLength = children.length;
-    children.forEach(
-      (item, index) =>
-        (item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
-          this._language.current
-        ]),
-    );
+    children.forEach((item, index) => {
+      item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
+        this._language.current
+      ];
+      item.ariaHidden = index === this._currentIndex ? null : 'true';
+    });
 
     // Set the component dimensions
     const firstItem = children.find(
