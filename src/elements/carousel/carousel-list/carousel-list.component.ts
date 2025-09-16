@@ -26,12 +26,6 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private _currentIndex = 0;
-
-  /** Gets the slotted items. */
-  private get _carouselItems(): SbbCarouselItemElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-carousel-item') ?? []);
-  }
-
   private _language = new SbbLanguageController(this);
 
   private _beforeShowObserver = new IntersectionController(this, {
@@ -41,7 +35,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         const target = e.target as SbbCarouselItemElement;
         target.dispatchEvent(
           new CustomEvent<SbbCarouselItemEventDetail>('beforeshow', {
-            detail: { index: this._carouselItems.findIndex((e) => e === target) },
+            detail: { index: this._carouselItems().findIndex((e) => e === target) },
             bubbles: true,
             composed: true,
           }),
@@ -62,7 +56,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         .forEach((e) => {
           const target = e.target as SbbCarouselItemElement;
           target.ariaHidden = 'false';
-          this._currentIndex = this._carouselItems.findIndex((e) => e === target);
+          this._currentIndex = this._carouselItems().findIndex((e) => e === target);
           target.dispatchEvent(
             new CustomEvent<SbbCarouselItemEventDetail>('show', {
               detail: { index: this._currentIndex },
@@ -79,6 +73,11 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     super();
 
     this.addEventListener?.('keydown', (e) => this._onKeyDown(e));
+  }
+
+  /** Gets the slotted items. */
+  private _carouselItems(): SbbCarouselItemElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-carousel-item') ?? []);
   }
 
   private _handleSlotchange(): void {
@@ -116,12 +115,12 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     if (isPrev) {
       newIndex = Math.max(0, this._currentIndex - 1);
     } else if (isNext) {
-      newIndex = Math.min(this._carouselItems.length - 1, this._currentIndex + 1);
+      newIndex = Math.min(this._carouselItems().length - 1, this._currentIndex + 1);
     }
 
     if (newIndex !== this._currentIndex) {
       this._currentIndex = newIndex;
-      this._carouselItems[this._currentIndex].scrollIntoView();
+      this.scrollTo({ left: this._carouselItems()[this._currentIndex].offsetLeft });
     }
   }
 

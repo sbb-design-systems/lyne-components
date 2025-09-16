@@ -4,27 +4,33 @@ export const snapshots = {};
 snapshots["sbb-carousel renders DOM"] = 
 `<sbb-carousel>
   <sbb-carousel-list style="--sbb-carousel-list-height: 300px; --sbb-carousel-list-width: 400px;">
-    <sbb-carousel-item aria-label="1 of 3">
+    <sbb-carousel-item
+      aria-hidden="false"
+      aria-label="1 of 3"
+    >
       <img
         alt="SBB image"
         height="300"
-        src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
         width="400"
       >
     </sbb-carousel-item>
-    <sbb-carousel-item aria-label="2 of 3">
+    <sbb-carousel-item
+      aria-hidden="true"
+      aria-label="2 of 3"
+    >
       <img
         alt="SBB image"
         height="300"
-        src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
         width="400"
       >
     </sbb-carousel-item>
-    <sbb-carousel-item aria-label="3 of 3">
+    <sbb-carousel-item
+      aria-hidden="true"
+      aria-label="3 of 3"
+    >
       <img
         alt="SBB image"
         height="300"
-        src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Kaufmann-frau.jpg"
         width="400"
       >
     </sbb-carousel-item>
