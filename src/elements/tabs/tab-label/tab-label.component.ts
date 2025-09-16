@@ -71,7 +71,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.slot ||= 'tab-bar';
+    this.slot = 'tab-bar';
     this.tabIndex = this.active ? 0 : -1;
   }
 
@@ -110,33 +110,35 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     if (this.disabled) {
       return;
     }
-    if (!this.hasAttribute('disabled')) {
-      this.toggleAttribute('disabled', true);
-    }
     this.disabled = true;
     this.tabIndex = -1;
     this.internals.ariaSelected = 'false';
     this.tab?.removeAttribute('active');
     if (this.active) {
-      this.removeAttribute('active');
-      this.active = false;
-      this.tabGroup?.tabLabels[0]?.select();
+      this.deactivate();
+      this.tabGroup?.activateTab(0);
     }
   }
 
   /** Enable the tab. */
   public enable(): void {
     if (this.disabled) {
-      this.removeAttribute('disabled');
       this.disabled = false;
     }
   }
 
   /** Select the tab, deactivating the current selected one, and dispatch the tabchange event. */
   public select(): void {
-    const tabLabels = this.tabGroup?.tabLabels || [];
+    if (this.disabled) {
+      if (import.meta.env.DEV) {
+        console.warn('You cannot activate a disabled tab');
+      }
+      return;
+    }
+
+    const tabLabels: SbbTabLabelElement[] = this.tabGroup?.tabLabels || [];
     const prevActiveTabLabel = tabLabels.find((e) => e._selected);
-    if (prevActiveTabLabel !== this && !this.disabled) {
+    if (prevActiveTabLabel !== this) {
       prevActiveTabLabel?.deactivate();
       this.active = true;
       this._selected = true;
@@ -156,8 +158,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
           },
         }),
       );
-    } else if (import.meta.env.DEV && this.disabled) {
-      console.warn('You cannot activate a disabled tab');
     }
   }
 
@@ -166,11 +166,12 @@ class SbbTabLabelElement extends SbbDisabledMixin(
    */
   public linkToTab(): void {
     if (!this.tab) {
+      if (import.meta.env.DEV) {
+        console.warn(
+          `Missing content: you should provide a related content for the tab ${this.outerHTML}.`,
+        );
+      }
       return;
-    } else if (import.meta.env.DEV) {
-      console.warn(
-        `Missing content: you should provide a related content for the tab ${this.outerHTML}.`,
-      );
     }
     this.setAttribute('aria-controls', this.tab.id);
   }

@@ -31,7 +31,7 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     super.connectedCallback();
 
     this.id ||= `sbb-tab-${nextId++}`;
-    this.tabIndex ||= 0;
+    this.tabIndex = 0;
   }
 
   protected override render(): TemplateResult {

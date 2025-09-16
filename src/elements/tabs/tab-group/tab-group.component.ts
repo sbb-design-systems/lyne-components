@@ -74,7 +74,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
   /** Gets the slotted `sbb-table-label`s. */
   public get tabLabels(): SbbTabLabelElement[] {
-    return Array.from(this.querySelectorAll('sbb-tab-label'));
+    return Array.from(this.children ?? []).filter((child) =>
+      /^sbb-tab-label$/u.test(child.localName),
+    ) as SbbTabLabelElement[];
   }
 
   public constructor() {
@@ -116,7 +118,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _enabledTabs(): SbbTabLabelElement[] {
-    return this.tabLabels.filter((t) => !t.hasAttribute('disabled'));
+    return this.tabLabels.filter((t) => !t.disabled);
   }
 
   private _updateSize(): void {
