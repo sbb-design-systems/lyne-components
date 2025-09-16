@@ -104,6 +104,22 @@ snapshots["sbb-tab-label renders an H1 heading tag if the provided level is grea
 `;
 /* end snapshot sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 Shadow DOM */
 
+snapshots["sbb-tab-label A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "tab",
+      "name": "Tab title"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-label A11y tree Chrome */
+
 snapshots["sbb-tab-label A11y tree Firefox"] = 
 `<p>
   {
@@ -126,20 +142,4 @@ snapshots["sbb-tab-label A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-tab-label A11y tree Firefox */
-
-snapshots["sbb-tab-label A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Tab title"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-label A11y tree Chrome */
 

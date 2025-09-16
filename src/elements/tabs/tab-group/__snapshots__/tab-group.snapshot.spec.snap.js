@@ -16,6 +16,7 @@ snapshots["sbb-tab-group renders DOM"] =
   <sbb-tab
     data-active=""
     id="sbb-tab-0"
+    tabindex="0"
   >
     Test tab content 1
   </sbb-tab>
@@ -28,7 +29,10 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 2
   </sbb-tab-label>
-  <sbb-tab id="sbb-tab-1">
+  <sbb-tab
+    id="sbb-tab-1"
+    tabindex="0"
+  >
     Test tab content 2
   </sbb-tab>
   <sbb-tab-label
@@ -41,7 +45,10 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 3
   </sbb-tab-label>
-  <sbb-tab id="sbb-tab-2">
+  <sbb-tab
+    id="sbb-tab-2"
+    tabindex="0"
+  >
     Test tab content 3
   </sbb-tab>
   <sbb-tab-label
@@ -53,7 +60,10 @@ snapshots["sbb-tab-group renders DOM"] =
   >
     Test tab label 4
   </sbb-tab-label>
-  <sbb-tab id="sbb-tab-3">
+  <sbb-tab
+    id="sbb-tab-3"
+    tabindex="0"
+  >
     Test tab content 4
   </sbb-tab>
 </sbb-tab-group>
@@ -74,39 +84,6 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-tab-group renders Shadow DOM */
-
-snapshots["sbb-tab-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "text leaf",
-      "name": "Test tab content 1 "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-group renders A11y tree Firefox */
 
 snapshots["sbb-tab-group renders A11y tree Chrome"] = 
 `<p>
@@ -132,12 +109,57 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
       "name": "Test tab label 4"
     },
     {
-      "role": "text",
-      "name": "Test tab content 1"
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text",
+          "name": "Test tab content 1"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-tab-group renders A11y tree Chrome */
+
+snapshots["sbb-tab-group renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "tab",
+      "name": "Test tab label 1",
+      "selected": true
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 2"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 3"
+    },
+    {
+      "role": "tab",
+      "name": "Test tab label 4"
+    },
+    {
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Test tab content 1 "
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-group renders A11y tree Firefox */
 
