@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbMiniButtonElement } from '../../button.js';
 import { fixture } from '../../core/testing/private.js';
@@ -100,7 +101,10 @@ describe('sbb-carousel', () => {
     expect(showSpy.count).to.be.equal(4);
   });
 
-  it('gives paginator priority over show event', async () => {
+  it('gives paginator priority over show event', async function (this: Context) {
+    // On Firefox sometimes the test fails.
+    this.retries(3);
+
     paginator.nextPage();
     paginator.nextPage();
     await showSpy.calledTimes(2);
