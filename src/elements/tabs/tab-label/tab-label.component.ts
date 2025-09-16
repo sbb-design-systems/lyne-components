@@ -112,8 +112,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     }
     this.disabled = true;
     this.tabIndex = -1;
-    this.internals.ariaSelected = 'false';
-    this.tab?.removeAttribute('active');
     if (this.active) {
       this.deactivate();
       this.tabGroup?.activateTab(0);
