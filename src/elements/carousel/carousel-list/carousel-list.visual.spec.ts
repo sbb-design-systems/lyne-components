@@ -1,11 +1,12 @@
 import { html } from 'lit';
 
-import images from '../../core/images.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing.js';
 
 import '../carousel-item/carousel-item.component.js';
 import './carousel-list.component.js';
+
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe('sbb-carousel-list', () => {
   describeViewports(() => {
@@ -15,20 +16,24 @@ describe('sbb-carousel-list', () => {
         await setup.withFixture(html`
           <sbb-carousel-list>
             <sbb-carousel-item>
-              <img src=${images[0]} alt="SBB image" height="300" width="400" />
+              <img src=${imageUrl} alt="SBB image" height="300" width="400" />
             </sbb-carousel-item>
             <sbb-carousel-item>
-              <img src=${images[1]} alt="SBB image" height="300" width="400" />
+              <img src=${imageUrl} alt="SBB image" height="300" width="400" />
             </sbb-carousel-item>
             <sbb-carousel-item>
-              <img src=${images[2]} alt="SBB image" height="300" width="400" />
+              <img src=${imageUrl} alt="SBB image" height="300" width="400" />
             </sbb-carousel-item>
           </sbb-carousel-list>
         `);
 
-        setup.withPostSetupAction(
-          async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
-        );
+        setup.withPostSetupAction(async () => {
+          await Promise.all(
+            Array.from(setup.snapshotElement.querySelectorAll<HTMLImageElement>('img')).map((el) =>
+              waitForImageReady(el),
+            ),
+          );
+        });
       }),
     );
   });

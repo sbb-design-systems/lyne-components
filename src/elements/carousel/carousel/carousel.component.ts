@@ -43,17 +43,27 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
   private _paginator: SbbCompactPaginatorElement | null = null;
   private _abortController: AbortController | null = null;
   private _language = new SbbLanguageController(this);
+  private _requestedPageIndexByPaginator = -1;
 
   public constructor() {
     super();
 
     // If the list is scrolled using mouse/keyboard, it keeps the paginator updated.
     this.addEventListener?.('show', (e: CustomEvent<SbbCarouselItemEventDetail>) => {
+      // We have to give priority to the paginator for the case,
+      // if during an animation the next page is called from the paginator, the paginator is reset.
+      if (
+        this._requestedPageIndexByPaginator !== -1 &&
+        this._requestedPageIndexByPaginator !== e.detail.index
+      ) {
+        return;
+      }
       if (this._paginator) {
         if (e.detail.index !== this._paginator.pageIndex) {
           this._paginator.pageIndex = e.detail.index;
         }
       }
+      this._requestedPageIndexByPaginator = -1;
     });
   }
 
@@ -101,15 +111,24 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
       paginator.addEventListener('page', (e) => this._scrollAtPageChange(e), {
         signal: this._abortController.signal,
       });
-      this._paginator = paginator as SbbCompactPaginatorElement;
+      this._paginator = paginator;
     }
   }
 
   private _scrollAtPageChange(e: CustomEvent<SbbPaginatorPageEventDetails>): void {
+    this._requestedPageIndexByPaginator = e.detail.pageIndex;
     const list = this.querySelector<SbbCarouselListElement>('sbb-carousel-list');
+
     if (list) {
       const items = list.querySelectorAll<SbbCarouselItemElement>('sbb-carousel-item');
-      items[e.detail.pageIndex]?.scrollIntoView();
+      const offsetLeft = items[e.detail.pageIndex].offsetLeft;
+
+      // Prevents redundant scrolling when the paginator updates after a scroll event
+      // by checking the distance between the current and target scroll positions.
+      // (show event is triggered slightly before fully scrolled).
+      if (list.clientWidth <= 100 || Math.abs(list.scrollLeft - offsetLeft) > 50) {
+        list.scrollTo({ left: offsetLeft });
+      }
     }
   }
 

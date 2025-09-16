@@ -7,23 +7,26 @@ snapshots["sbb-carousel-list renders DOM"] =
     <img
       alt="SBB image"
       height="300"
-      src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
       width="400"
     >
   </sbb-carousel-item>
-  <sbb-carousel-item aria-label="2 of 3">
+  <sbb-carousel-item
+    aria-hidden="true"
+    aria-label="2 of 3"
+  >
     <img
       alt="SBB image"
       height="300"
-      src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
       width="400"
     >
   </sbb-carousel-item>
-  <sbb-carousel-item aria-label="3 of 3">
+  <sbb-carousel-item
+    aria-hidden="true"
+    aria-label="3 of 3"
+  >
     <img
       alt="SBB image"
       height="300"
-      src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Kaufmann-frau.jpg"
       width="400"
     >
   </sbb-carousel-item>
