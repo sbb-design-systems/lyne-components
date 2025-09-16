@@ -23,7 +23,7 @@
   --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
   --sbb-navigation-backdrop-visibility: hidden;
   --sbb-navigation-backdrop-pointer-events: none;
-  --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
+  --sbb-navigation-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 70%, transparent);
   --sbb-navigation-backdrop-animation-name: backdrop-open;
   --sbb-navigation-background-color: var(--sbb-background-color-1-negative);
   --sbb-navigation-color: var(--sbb-color-1-negative);

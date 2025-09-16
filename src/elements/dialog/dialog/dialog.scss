@@ -71,7 +71,7 @@
 }
 
 :host([backdrop='translucent']:is([data-state='opening'], [data-state='opened'])) {
-  --sbb-dialog-backdrop-color: var(--sbb-color-black-alpha-50);
+  --sbb-dialog-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 50%, transparent);
 }
 
 :host([negative]) {

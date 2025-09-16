@@ -43,7 +43,7 @@
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-menu-visibility: visible;
-  --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
+  --sbb-menu-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 20%, transparent);
 
   @include sbb.mq($from: medium) {
     --sbb-menu-backdrop-color: transparent;
@@ -58,8 +58,8 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   // We have to ensure that the scrollbar is visible in dark mode with non-dark mode values.
-  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
+  --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+  --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
 }
 
 ::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {

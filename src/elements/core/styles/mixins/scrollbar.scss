@@ -62,12 +62,12 @@
 
 @mixin scrollbar-variables--color-positive {
   --sbb-scrollbar-color: light-dark(
-    var(--sbb-color-black-alpha-30),
-    var(--sbb-color-white-alpha-30)
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent),
+    color-mix(in srgb, var(--sbb-color-white) 30%, transparent)
   );
   --sbb-scrollbar-color-hover: light-dark(
-    var(--sbb-color-black-alpha-60),
-    var(--sbb-color-white-alpha-60)
+    color-mix(in srgb, var(--sbb-color-black) 60%, transparent),
+    color-mix(in srgb, var(--sbb-color-white) 60%, transparent)
   );
 }
 
@@ -76,8 +76,8 @@
 }
 
 @mixin scrollbar-variables--color-negative {
-  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+  --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-white) 30%, transparent);
+  --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-white) 60%, transparent);
 }
 
 @mixin scrollbar-variables--color-negative-track-visible {
