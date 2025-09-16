@@ -25,7 +25,7 @@ Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-ima
 <sbb-container>
   <figure class="sbb-figure" slot="image">
     <sbb-image
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
+      image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
       alt="Station of Lucerne from outside"
     ></sbb-image>
     <sbb-chip-label class="sbb-figure-overlap-start-start">...</sbb-chip-label>

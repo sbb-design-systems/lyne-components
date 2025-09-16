@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../core/images.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
 
 import type { SbbTeaserElement } from './teaser.component.js';
@@ -9,6 +8,8 @@ import type { SbbTeaserElement } from './teaser.component.js';
 import '../chip-label.js';
 import '../title.js';
 import './teaser.component.js';
+
+const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
@@ -66,7 +67,7 @@ describe(`sbb-teaser`, () => {
           alignment="below"
         >
           <figure slot="image" class="sbb-figure">
-            <img src=${images[0]} alt="400x300" />
+            <img src=${imageUrl} alt="400x300" />
           </figure>
           <sbb-chip-label>Chip</sbb-chip-label>
           <sbb-title level="2">Title</sbb-title>
@@ -76,7 +77,7 @@ describe(`sbb-teaser`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.equalSnapshot();
+      await expect(element).dom.to.equalSnapshot({ ignoreAttributes: ['src'] });
     });
 
     it('Shadow DOM', async () => {

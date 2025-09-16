@@ -1,11 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../../core/images.js';
 import { ssrHydratedFixture } from '../../core/testing/private.js';
 
 import '../carousel-item/carousel-item.component.js';
 import { SbbCarouselListElement } from './carousel-list.component.js';
+
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-carousel-list ssr`, () => {
   let root: SbbCarouselListElement;
@@ -15,13 +16,13 @@ describe(`sbb-carousel-list ssr`, () => {
       html`
         <sbb-carousel-list>
           <sbb-carousel-item>
-            <img src=${images[0]} alt="SBB image" height="300" width="400" />
+            <img src=${imageUrl} alt="SBB image" height="300" width="400" />
           </sbb-carousel-item>
           <sbb-carousel-item>
-            <img src=${images[1]} alt="SBB image" height="300" width="400" />
+            <img src=${imageUrl} alt="SBB image" height="300" width="400" />
           </sbb-carousel-item>
           <sbb-carousel-item>
-            <img src=${images[2]} alt="SBB image" height="300" width="400" />
+            <img src=${imageUrl} alt="SBB image" height="300" width="400" />
           </sbb-carousel-item>
         </sbb-carousel-list>
       `,

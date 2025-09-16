@@ -141,6 +141,7 @@ const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
       <sbb-carousel-item>
         <div style=${styleMap(buttonCarouselStyle)}>
           <p>Another slide</p>
+          <sbb-button>Another button</sbb-button>
         </div>
       </sbb-carousel-item>
       <sbb-carousel-item>
@@ -168,7 +169,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png"
+            image-src=${images[9]}
             alt="Helpteaser-Background-Landscape"
             style="position: absolute; inset: 0;"
           ></sbb-image>
@@ -186,7 +187,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Helpteaser-Background-Landscape.png"
+            image-src=${images[9]}
             alt="Helpteaser-Background-Landscape"
             style="position: absolute; inset: 0;"
           ></sbb-image>
