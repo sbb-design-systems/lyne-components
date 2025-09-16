@@ -1,3 +1,7 @@
+/**
+ * This demo pictures must not be used in production code.
+ * Internally we should only use them in stories.
+ */
 const sampleImages: string[] = [
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg',
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',

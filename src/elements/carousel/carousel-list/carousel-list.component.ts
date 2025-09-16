@@ -26,12 +26,6 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private _currentIndex = 0;
-
-  /** Gets the slotted items. */
-  private get _carouselItems(): SbbCarouselItemElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-carousel-item') ?? []);
-  }
-
   private _language = new SbbLanguageController(this);
 
   private _beforeShowObserver = new IntersectionController(this, {
@@ -41,7 +35,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         const target = e.target as SbbCarouselItemElement;
         target.dispatchEvent(
           new CustomEvent<SbbCarouselItemEventDetail>('beforeshow', {
-            detail: { index: this._carouselItems.findIndex((e) => e === target) },
+            detail: { index: this._carouselItems().findIndex((e) => e === target) },
             bubbles: true,
             composed: true,
           }),
@@ -53,16 +47,14 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
   private _showObserver = new IntersectionController(this, {
     callback: (entryArr) => {
-      const entries = entryArr.filter((e) => e.target !== this);
-      entries
-        .filter((e) => !e.isIntersecting)
-        .forEach((e) => ((e.target as SbbCarouselItemElement).ariaHidden = 'true'));
-      entries
-        .filter((e) => e.isIntersecting)
-        .forEach((e) => {
-          const target = e.target as SbbCarouselItemElement;
-          target.ariaHidden = 'false';
-          this._currentIndex = this._carouselItems.findIndex((e) => e === target);
+      for (const entry of entryArr) {
+        if (entry.target === this) {
+          continue;
+        }
+        const target = entry.target as SbbCarouselItemElement;
+        if (entry.isIntersecting) {
+          target.ariaHidden = null;
+          this._currentIndex = this._carouselItems().findIndex((el) => el === target);
           target.dispatchEvent(
             new CustomEvent<SbbCarouselItemEventDetail>('show', {
               detail: { index: this._currentIndex },
@@ -70,7 +62,10 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
               composed: true,
             }),
           );
-        });
+        } else {
+          target.ariaHidden = 'true';
+        }
+      }
     },
     config: { threshold: 0.99, root: this, rootMargin: '100% 0% 100% 0%' },
   });
@@ -81,17 +76,22 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     this.addEventListener?.('keydown', (e) => this._onKeyDown(e));
   }
 
+  /** Gets the slotted items. */
+  private _carouselItems(): SbbCarouselItemElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-carousel-item') ?? []);
+  }
+
   private _handleSlotchange(): void {
     const children = Array.from(this.children) as SbbCarouselItemElement[];
 
     // Set the aria-label if not provided
     const childrenLength = children.length;
-    children.forEach(
-      (item, index) =>
-        (item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
-          this._language.current
-        ]),
-    );
+    children.forEach((item, index) => {
+      item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
+        this._language.current
+      ];
+      item.ariaHidden = index === this._currentIndex ? null : 'true';
+    });
 
     // Set the component dimensions
     const firstItem = children.find(
@@ -116,12 +116,12 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     if (isPrev) {
       newIndex = Math.max(0, this._currentIndex - 1);
     } else if (isNext) {
-      newIndex = Math.min(this._carouselItems.length - 1, this._currentIndex + 1);
+      newIndex = Math.min(this._carouselItems().length - 1, this._currentIndex + 1);
     }
 
     if (newIndex !== this._currentIndex) {
       this._currentIndex = newIndex;
-      this._carouselItems[this._currentIndex].scrollIntoView();
+      this.scrollTo({ left: this._carouselItems()[this._currentIndex].offsetLeft });
     }
   }
 
