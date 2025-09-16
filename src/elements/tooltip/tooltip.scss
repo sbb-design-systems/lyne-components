@@ -1,0 +1,108 @@
+@use '../core/styles' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-tooltip-position: absolute;
+  --sbb-tooltip-position-x: 0;
+  --sbb-tooltip-position-y: 0;
+  --sbb-tooltip-pointer-events: all;
+  --sbb-tooltip-max-width: min(
+    #{sbb.px-to-rem-build(400)},
+    calc(100% - var(--sbb-spacing-fixed-2x))
+  );
+  --sbb-tooltip-border-color: var(--sbb-color-midnight);
+  --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
+  --sbb-tooltip-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+  --sbb-tooltip-background-color: var(--sbb-color-midnight);
+  --sbb-tooltip-color: var(--sbb-color-white);
+  --sbb-tooltip-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-tooltip-animation-easing: ease-out;
+  --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
+
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
+}
+
+:host([data-state]:not([data-state='closed'])) {
+  display: block;
+
+  --sbb-tooltip-animation-name: open;
+}
+
+:host([data-state][data-state='closing']) {
+  --sbb-tooltip-animation-name: close;
+  --sbb-tooltip-pointer-events: none;
+}
+
+:host([data-position='below']) {
+  --sbb-tooltip-hover-patch-inset: calc(-1 * var(--sbb-spacing-fixed-4x)) 0;
+}
+
+:host([data-position='above']) {
+  --sbb-tooltip-hover-patch-inset: 0 calc(-1 * var(--sbb-spacing-fixed-4x));
+}
+
+.sbb-tooltip {
+  @include sbb.shadow-level-5-soft;
+  @include sbb.text-xs--regular;
+
+  position: var(--sbb-tooltip-position);
+  pointer-events: var(--sbb-tooltip-pointer-events);
+  top: var(--sbb-tooltip-position-y);
+  bottom: unset;
+  left: var(--sbb-tooltip-position-x);
+  right: unset;
+  border: var(--sbb-border-width-1x) solid var(--sbb-tooltip-border-color);
+  border-radius: var(--sbb-tooltip-border-radius);
+  padding: var(--sbb-tooltip-padding);
+  max-width: var(--sbb-tooltip-max-width);
+  width: max-content;
+  color: var(--sbb-tooltip-color);
+  background-color: var(--sbb-tooltip-background-color);
+  outline: none;
+  animation-name: var(--sbb-tooltip-animation-name);
+  animation-duration: var(--sbb-tooltip-animation-duration);
+  animation-timing-function: var(--sbb-tooltip-animation-easing);
+
+  // Transparent element which increases the hover area (covers the space between the tooltip and the trigger element).
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: transparent;
+    inset-block: var(--sbb-tooltip-hover-patch-inset);
+  }
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    translate: var(--sbb-tooltip-animation-translate);
+  }
+
+  to {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    translate: 0;
+  }
+
+  to {
+    opacity: 0;
+    translate: var(--sbb-tooltip-animation-translate);
+  }
+}
