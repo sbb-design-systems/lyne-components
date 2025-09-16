@@ -70,14 +70,7 @@ const triggerButton = (triggerId: string): TemplateResult => html`
 const codeStyle: Readonly<StyleInfo> = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
-};
-
-const formDetailsStyle: Readonly<StyleInfo> = {
-  marginTop: 'var(--sbb-spacing-fixed-4x)',
-  padding: 'var(--sbb-spacing-fixed-4x)',
-  borderRadius: 'var(--sbb-border-radius-8x)',
-  backgroundColor: 'var(--sbb-color-milk)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const formStyle: Readonly<StyleInfo> = {
@@ -125,10 +118,10 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 const FormTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('overlay-trigger')}
   <div id="returned-value">
-    <div style=${styleMap(formDetailsStyle)}>
+    <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-4x)">
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
       <div>Your favorite animal: <span id="returned-value-animal">Red Panda</span></div>
-    </div>
+    </sbb-card>
   </div>
   <sbb-overlay
     trigger="overlay-trigger"

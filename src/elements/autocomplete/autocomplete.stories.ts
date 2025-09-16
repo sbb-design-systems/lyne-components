@@ -228,7 +228,7 @@ const createOptionGroup2 = (): TemplateResult => {
 const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const textBlock = (): TemplateResult => html`
