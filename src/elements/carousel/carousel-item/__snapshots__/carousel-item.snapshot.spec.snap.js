@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-carousel-item renders DOM"] = 
 `<sbb-carousel-item>
-  <img
-    alt="SBB image"
-    src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
-  >
+  <img alt="SBB image">
 </sbb-carousel-item>
 `;
 /* end snapshot sbb-carousel-item renders DOM */
@@ -21,7 +18,6 @@ snapshots["sbb-carousel-item renders with sbb-image DOM"] =
 `<sbb-carousel-item>
   <sbb-image
     alt="SBB image"
-    image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
     style="width: 800px; height: 600px;"
   >
   </sbb-image>

@@ -15,6 +15,7 @@ import './carousel.component.js';
 import '../carousel-list/carousel-list.component.js';
 import '../carousel-item/carousel-item.component.js';
 import '../../button.js';
+import '../../chip-label.js';
 import '../../card.js';
 import '../../image.js';
 import '../../paginator.js';
@@ -38,7 +39,7 @@ const imgType: InputType = {
   control: {
     type: 'select',
   },
-  options: ['native', 'native-mobile', 'sbb-image', 'caption', 'link'],
+  options: ['native', 'native-mobile', 'sbb-image', 'figure', 'link'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -83,14 +84,17 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                 `,
               ],
               [
-                'caption',
+                'figure',
                 () => html`
-                  <div class="sbb-image">
-                    <img src=${img} alt="SBB image ${index + 1}" width="800" height="450" />
+                  <figure class="sbb-figure" style="width: 800px; height: 500px;">
+                    <sbb-chip-label class="sbb-figure-overlap-start-start">
+                      Chip label
+                    </sbb-chip-label>
+                    <img src=${img} alt="SBB image ${index + 1}" />
                     <figcaption style="text-align: center;">
                       Caption for picture ${index + 1}
                     </figcaption>
-                  </div>
+                  </figure>
                 `,
               ],
               [
@@ -137,6 +141,7 @@ const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
       <sbb-carousel-item>
         <div style=${styleMap(buttonCarouselStyle)}>
           <p>Another slide</p>
+          <sbb-button>Another button</sbb-button>
         </div>
       </sbb-carousel-item>
       <sbb-carousel-item>
@@ -164,7 +169,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Helpteaser-Background-Landscape.png"
+            image-src=${images[9]}
             alt="Helpteaser-Background-Landscape"
             style="position: absolute; inset: 0;"
           ></sbb-image>
@@ -182,7 +187,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Helpteaser-Background-Landscape.png"
+            image-src=${images[9]}
             alt="Helpteaser-Background-Landscape"
             style="position: absolute; inset: 0;"
           ></sbb-image>
@@ -211,7 +216,7 @@ export const SbbImage: StoryObj = {
   args: { ...defaultArgs, imgType: imgType.options![2] },
 };
 
-export const Caption: StoryObj = {
+export const Figure: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, imgType: imgType.options![3] },

@@ -1,13 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../../core/images.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import type { SbbCarouselItemElement } from './carousel-item.component.js';
 
 import './carousel-item.component.js';
 import '../../image.js';
+
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-carousel-item`, () => {
   describe('renders', () => {
@@ -16,13 +17,13 @@ describe(`sbb-carousel-item`, () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-carousel-item>
-          <img src=${images[0]} alt="SBB image" />
+          <img src=${imageUrl} alt="SBB image" />
         </sbb-carousel-item>
       `);
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['src'] });
     });
 
     it('Shadow DOM', async () => {
@@ -39,7 +40,7 @@ describe(`sbb-carousel-item`, () => {
       element = await fixture(html`
         <sbb-carousel-item>
           <sbb-image
-            image-src=${images[0]}
+            image-src=${imageUrl}
             alt="SBB image"
             style="width: 800px; height: 600px;"
           ></sbb-image>
@@ -48,7 +49,7 @@ describe(`sbb-carousel-item`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['image-src'] });
     });
 
     it('Shadow DOM', async () => {

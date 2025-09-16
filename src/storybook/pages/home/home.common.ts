@@ -2,6 +2,8 @@ import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
+import images from '../../../elements/core/images.js';
+
 import '../../../elements/button.js';
 import '../../../elements/card.js';
 import '../../../elements/clock.js';
@@ -209,10 +211,7 @@ export const teaserHero = (): TemplateResult => html`
   <section class="sbb-page-spacing">
     <sbb-teaser-hero class="teaser-hero" link-content="Learn more" href="https://www.sbb.ch">
       Considerate with SBB Green Class.
-      <sbb-image
-        slot="image"
-        image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
-      ></sbb-image>
+      <sbb-image slot="image" image-src="${images[0]}"></sbb-image>
     </sbb-teaser-hero>
   </section>
 `;
