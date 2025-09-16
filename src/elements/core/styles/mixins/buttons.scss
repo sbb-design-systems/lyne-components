@@ -58,7 +58,7 @@ $active: ':active, [data-active]';
 // Variables used in the icon-button
 @mixin icon-button-variables {
   --sbb-button-color-text: var(--sbb-color-3);
-  --sbb-button-color-default-background: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-background: transparent;
   --sbb-button-color-hover-background: var(--sbb-background-color-3);
   --sbb-button-color-active-background: var(--sbb-background-color-4);
   --sbb-button-color-disabled-background: var(--sbb-background-color-3);
@@ -86,7 +86,7 @@ $active: ':active, [data-active]';
 // Variables used in the icon-button negative variant
 @mixin icon-button-variables-negative {
   --sbb-button-color-text: var(--sbb-color-3-negative);
-  --sbb-button-color-default-background: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-background: transparent;
   --sbb-button-color-hover-background: var(--sbb-background-color-3-negative);
   --sbb-button-color-active-background: var(--sbb-background-color-4-negative);
   --sbb-button-color-disabled-background: var(--sbb-background-color-3-negative);

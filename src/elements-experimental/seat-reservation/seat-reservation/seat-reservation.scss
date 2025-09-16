@@ -109,7 +109,7 @@
 
   & {
     // Set sbb scrollbar transparent by default
-    --sbb-scrollbar-color: var(--sbb-color-white-alpha-0);
+    --sbb-scrollbar-color: transparent;
 
     display: flex;
     overflow: scroll hidden;
