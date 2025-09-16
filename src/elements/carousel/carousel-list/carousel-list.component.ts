@@ -55,7 +55,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         .filter((e) => e.isIntersecting)
         .forEach((e) => {
           const target = e.target as SbbCarouselItemElement;
-          target.ariaHidden = 'false';
+          target.ariaHidden = null;
           this._currentIndex = this._carouselItems().findIndex((e) => e === target);
           target.dispatchEvent(
             new CustomEvent<SbbCarouselItemEventDetail>('show', {

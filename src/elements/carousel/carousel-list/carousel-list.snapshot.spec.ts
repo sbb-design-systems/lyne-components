@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing.js';
+import { waitForCondition, waitForImageReady } from '../../core/testing.js';
 
 import type { SbbCarouselListElement } from './carousel-list.component.js';
 
@@ -34,6 +34,11 @@ describe(`sbb-carousel-list`, () => {
         Array.from(element.querySelectorAll<HTMLImageElement>('img')).map((el) =>
           waitForImageReady(el),
         ),
+      );
+
+      // Wait for the intersection observer to be kicked in.
+      await waitForCondition(
+        () => element.querySelectorAll('sbb-carousel-item')[1]!.ariaHidden === 'true',
       );
     });
 

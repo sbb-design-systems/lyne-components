@@ -4,10 +4,7 @@ export const snapshots = {};
 snapshots["sbb-carousel renders DOM"] = 
 `<sbb-carousel>
   <sbb-carousel-list style="--sbb-carousel-list-height: 300px; --sbb-carousel-list-width: 400px;">
-    <sbb-carousel-item
-      aria-hidden="false"
-      aria-label="1 of 3"
-    >
+    <sbb-carousel-item aria-label="1 of 3">
       <img
         alt="SBB image"
         height="300"
