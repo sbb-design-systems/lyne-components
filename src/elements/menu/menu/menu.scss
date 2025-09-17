@@ -52,7 +52,7 @@
   }
 }
 
-:host(:not(:state(nested), [state--nested])) {
+:host(:not(:state(nested))) {
   --sbb-menu-back-button-display: none;
 }
 
@@ -60,26 +60,20 @@
   --sbb-menu-inset: 0;
 }
 
-
 @include sbb.mq($to: medium) {
-  :host(:is(:state(skip-animation), [state--skip-animation])) {
+  :host(:state(skip-animation)) {
     --sbb-menu-animation-duration: 0ms;
   }
 
-  :host(:is(:state(nested-child), [state--nested-child])) {
+  :host(:state(nested-child)) {
     --sbb-menu-transform-x: -100%;
   }
 
-  :host(:is(:state(nested), [state--nested])[data-state]:not([data-state='closed'])) {
+  :host(:state(nested)[data-state]:not([data-state='closed'])) {
     --sbb-menu-open-animation-name: open-sideways;
   }
 
-  :host(
-    [data-state][data-state='closing']:is(:state(nested), [state--nested]):not(
-        :state(close-all),
-        [state--close-all]
-      )
-  ) {
+  :host([data-state][data-state='closing']:state(nested):not(:state(close-all))) {
     --sbb-menu-close-animation-name: close-sideways;
   }
 }
@@ -124,7 +118,7 @@ sbb-divider,
     }
 
     // Hide the backdrop when in nested state
-    :host(:is(:state(nested), [state--nested])) & {
+    :host(:state(nested)) & {
       display: none;
     }
   }

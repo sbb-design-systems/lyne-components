@@ -64,10 +64,11 @@ Always ensure that keyboard users can perform the same set of actions available 
 
 ## Methods
 
-| Name    | Privacy | Description           | Parameters | Return | Inherited From          |
-| ------- | ------- | --------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the component. |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the component.  |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the component.                                                       |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the component.                                                        |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
