@@ -13,7 +13,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
    * Add the `viewports` param to test only specific viewport;
    * add the `viewportHeight` param to set a fixed height for the browser.
    */
-  describeViewports({ viewports: ['large', 'large'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     // todo Create visual tests considering the implemented states (default, hover, active, focus)
     // for (const state of visualDiffStandardStates) {
     //   it(
