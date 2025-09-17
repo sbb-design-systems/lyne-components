@@ -90,6 +90,7 @@
     "@storybook/addon-essentials": "9.0.0-alpha.12",
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/addon-links": "9.1.6",
+    "@storybook/icons": "^1.4.0",
     "@storybook/web-components-vite": "9.1.6",
     "@types/glob": "9.0.0",
     "@types/mocha": "10.0.10",

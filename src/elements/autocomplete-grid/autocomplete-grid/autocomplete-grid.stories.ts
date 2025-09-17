@@ -22,6 +22,7 @@ import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-optgroup.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
+import '../../card.js';
 import '../../form-field.js';
 
 const getOption = (event: Event): void => {
@@ -31,27 +32,17 @@ const getOption = (event: Event): void => {
   (event.currentTarget as HTMLElement).closest('div')!.querySelector('#container')!.prepend(div);
 };
 
-const textBlockStyle: Readonly<StyleInfo> = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
-};
-
 const codeStyle: Readonly<StyleInfo> = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const textBlock = (): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle)}>
+  <sbb-card color="milk" style="margin-block-start: 1rem">
     This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than the form
     field, but it must always be covered by the autocomplete overlay.
-  </div>
+  </sbb-card>
 `;
 
 const aboveDecorator: Decorator = (story) => html`
@@ -319,7 +310,7 @@ const Template = (args: Args): TemplateResult => html`
     <div
       id="container"
       style=${styleMap({
-        color: args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+        color: args.negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
         paddingBlock: '1rem',
       })}
     ></div>
@@ -362,7 +353,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
     <div
       id="container"
       style=${styleMap({
-        color: args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+        color: args.negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
         paddingBlock: '1rem',
       })}
     ></div>
@@ -525,7 +516,9 @@ const meta: Meta = {
       ],
     },
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '500px' },

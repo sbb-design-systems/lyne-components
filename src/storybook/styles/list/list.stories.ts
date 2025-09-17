@@ -89,7 +89,7 @@ const IconListCustomIconTemplate = (): TemplateResult => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol
         class=${`sbb-icon-list sbb-text-${textSize}`}
-        style="--sbb-icon-list-marker-icon-color: var(--sbb-color-red); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
+        style="--sbb-icon-list-marker-icon-color: var(--sbb-color-primary); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
       >
         ${ListContent()}
         <li>

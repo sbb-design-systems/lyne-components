@@ -4,7 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-dialog-actions-border-color: var(--sbb-color-cloud);
+  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
 
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);

@@ -4,7 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-navigation-action-color: var(--sbb-color-cloud);
+  --sbb-navigation-action-color: var(--sbb-color-4-negative);
   --sbb-navigation-action-icon-display: none;
 
   display: block;
@@ -19,7 +19,7 @@
 }
 
 :host([data-action-active]) {
-  --sbb-navigation-action-color: var(--sbb-color-storm);
+  --sbb-navigation-action-color: var(--sbb-color-5);
 
   @include sbb.if-forced-colors {
     --sbb-navigation-action-color: Highlight;
@@ -31,12 +31,12 @@ sbb-icon {
   position: absolute;
   inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
   inset-block-start: calc(1em * (var(--sbb-typo-line-height-body-text) / 2));
-  transform: translateY(-50%);
+  translate: 0 -50%;
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-navigation-action-color: var(--sbb-color-storm);
+    --sbb-navigation-action-color: var(--sbb-color-5);
   }
 }
 

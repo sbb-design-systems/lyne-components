@@ -159,6 +159,7 @@
   --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
   --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
+  --sbb-step-list-color: var(--sbb-color-2);
 
   // Additional space from overall li padding to the text because text
   // has to be centered to marker number.
@@ -174,7 +175,7 @@
   margin: 0;
   padding: 0;
   counter-reset: steps;
-  color: var(--sbb-color-iron);
+  color: var(--sbb-step-list-color);
 
   &:where(.sbb-text-s) {
     --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
@@ -194,7 +195,7 @@
   > li {
     position: relative;
     counter-increment: steps;
-    background-color: var(--sbb-color-milk);
+    background-color: var(--sbb-background-color-3);
     padding-block: calc(
         var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
       )
@@ -218,8 +219,9 @@
       width: var(--sbb-step-list-dimensions);
       margin-block-start: calc(-1 * var(--sbb-step-list-text-to-marker-block-offset));
       inset-inline-start: var(--sbb-step-list-padding-inline);
-      color: var(--sbb-color-charcoal);
-      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
+      color: var(--sbb-step-list-color);
+      border: var(--sbb-border-width-1x) solid
+        light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
       border-radius: 50%;
     }
 
