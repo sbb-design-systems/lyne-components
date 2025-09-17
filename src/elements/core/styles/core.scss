@@ -253,7 +253,8 @@ html {
   sbb-popover,
   sbb-select,
   sbb-skiplink-list,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ):not(:defined) {
   display: none;
 }
@@ -268,7 +269,8 @@ html {
   sbb-navigation,
   sbb-overlay,
   sbb-popover,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ) {
   @include popover.popover-reset;
 }
@@ -634,4 +636,10 @@ sbb-status:has(sbb-title) {
   --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
+}
+
+.sbb-overlay-outlet {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
 }
