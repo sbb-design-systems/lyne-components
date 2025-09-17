@@ -241,12 +241,12 @@ const chassisTable = html`
       <tbody>
         <tr>
           <td>${svgImageByOSDMCode('DRIVER_AREA_TRAIN')}</td>
-          <td>Driver Area (Train)<br>(Dependent on Vehicle-Type)</td>
+          <td>Driver Area<br>(Dependent on Vehicle-Type: TRAIN)</td>
           <td>DRIVER_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('DRIVER_AREA_BUS')}</td>
-          <td>Driver Area (Bus)<br>(Dependent on Vehicle-Type)</td>
+          <td>Driver Area<br>(Dependent on Vehicle-Type: BUS)</td>
           <td>DRIVER_AREA</td>
         </tr>
         <tr>
@@ -276,18 +276,13 @@ const chassisTable = html`
         </tr>
         <tr>
           <td><sbb-seat-reservation-area style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center; background: var(--sbb-color-milk)"></td>
-          <td>Table Restaurant<br>(Displayed with CSS)</td></td>
+          <td>Table Restaurant<br>(Will be rendered as CSS)</td></td>
           <td>TABLE_RESTAURANT</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COACH_WALL_NO_PASSAGE')}</td>
           <td>Coach wall no passage</td>
           <td>COACH_WALL_NO_PASSAGE</td>
-        </tr>
-        <tr>
-          <td>${svgImageByOSDMCode('COACH_BORDER_MIDDLE')}</td>
-          <td>Row-Empty: Middle</td>
-          <td>COACH_BORDER_MIDDLE</td>
         </tr>
       </tbody>
     </table>
