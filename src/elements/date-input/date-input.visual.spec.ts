@@ -37,7 +37,7 @@ describe('sbb-date-input', () => {
               </sbb-form-field>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors,
             },
@@ -65,7 +65,7 @@ describe('sbb-date-input', () => {
               </sbb-form-field>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors,
             },

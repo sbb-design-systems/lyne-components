@@ -54,7 +54,7 @@ describe(`sbb-menu-button`, () => {
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
-    backgroundColor: 'var(--sbb-color-black)',
+    backgroundColor: 'var(--sbb-background-color-1)',
     maxWidth: '256px',
   };
 

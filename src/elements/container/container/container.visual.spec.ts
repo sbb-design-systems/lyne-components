@@ -141,7 +141,7 @@ describe(`sbb-container`, () => {
           html`
             <sbb-container color="white">
               ${containerContent()}
-              <div style="background-color: var(--sbb-color-milk);">
+              <div style="background-color: var(--sbb-background-color-3);">
                 <sbb-container color="transparent">${containerContent()}</sbb-container>
               </div>
             </sbb-container>

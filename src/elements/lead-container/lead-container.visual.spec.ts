@@ -22,7 +22,7 @@ const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-ima
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
 
 describe(`sbb-lead-container`, () => {
-  const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };
+  const wrapperStyles = { backgroundColor: `var(--sbb-background-color-3)`, padding: '0' };
 
   const testCases = [
     {

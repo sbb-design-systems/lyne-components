@@ -18,7 +18,7 @@ describe(`sbb-navigation-button`, () => {
         state.name,
         state.with(async (setup) => {
           await setup.withFixture(html` <sbb-navigation-button>Label</sbb-navigation-button> `, {
-            backgroundColor: 'var(--sbb-color-midnight)',
+            backgroundColor: 'var(--sbb-background-color-1-negative)',
             focusOutlineDark: true,
           });
         }),
@@ -31,7 +31,7 @@ describe(`sbb-navigation-button`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html` <sbb-navigation-button size=${size}>Label</sbb-navigation-button> `,
-            { backgroundColor: 'var(--sbb-color-midnight)', focusOutlineDark: true },
+            { backgroundColor: 'var(--sbb-background-color-1-negative)', focusOutlineDark: true },
           );
         }),
       );

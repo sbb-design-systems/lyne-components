@@ -103,7 +103,7 @@ describe('sbb-sidebar', () => {
                 ${args.position === 'end' ? sidebar(args) : nothing}
               </sbb-sidebar-container>`,
             {
-              backgroundColor: args.color === 'white' ? 'var(--sbb-color-milk)' : undefined,
+              backgroundColor: args.color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
               minHeight: '400px',
             },
           );

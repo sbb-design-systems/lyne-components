@@ -60,7 +60,7 @@ describe(`sbb-time-input`, () => {
       describeEach(cases, (params) => {
         beforeEach(async function () {
           root = await visualRegressionFixture(template(params), {
-            backgroundColor: params.negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: params.negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         });
 
