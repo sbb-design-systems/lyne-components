@@ -276,12 +276,12 @@ const chassisTable = html`
         </tr>
         <tr>
           <td><sbb-seat-reservation-area style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center; background: var(--sbb-color-milk)"></td>
-          <td>Table Restaurant<br>(Will be rendered as CSS)</td></td>
+          <td>Table Restaurant<br>(Will be rendered as CSS)</td>
           <td>TABLE_RESTAURANT</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COACH_WALL_NO_PASSAGE')}</td>
-          <td>Coach wall no passage</td>
+          <td>Coach Wall No Passage</td>
           <td>COACH_WALL_NO_PASSAGE</td>
         </tr>
       </tbody>
