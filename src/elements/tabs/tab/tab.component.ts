@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
 
@@ -12,12 +13,25 @@ let nextId = 0;
  * Combined with a `sbb-tab-group` and `sbb-tab-label`, it displays a tab's content.
  *
  * @slot - Use the unnamed slot to provide content.
+ * @event {Event} active - The `active` event fires when the sbb-tab has been activated via user selection on the sbb-tab-label.
  */
 export
 @customElement('sbb-tab')
 class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   public static override role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
+  public static readonly events = {
+    active: 'active',
+  } as const;
+
+  /**
+   * The `sbb-tab-label` associated with the tab.
+   * @deprecated
+   */
+  public get label(): SbbTabLabelElement | null {
+    return this._label;
+  }
+  private _label: SbbTabLabelElement | null = null;
 
   /**
    * @internal

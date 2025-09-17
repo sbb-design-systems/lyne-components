@@ -35,6 +35,17 @@ export interface InterfaceSbbTabGroupActions {
 }
 
 /**
+ * @deprecated
+ */
+export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
+  active: boolean;
+  disabled: boolean;
+  tab: SbbTabElement | null;
+  index?: number;
+  tabGroupActions?: InterfaceSbbTabGroupActions;
+  size: 's' | 'l' | 'xl';
+}
+/**
  * It displays one or more tabs, each one with a label and some content.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.

@@ -18,7 +18,6 @@ import style from './tab-label.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the tab title.
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.
- * @event {Event} active - The `active` event fires when the tab has been activated via user selection.
  */
 export
 @customElement('sbb-tab-label')
@@ -28,9 +27,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 ) {
   public static override role = 'tab';
   public static override styles: CSSResultGroup = style;
-  public static readonly events = {
-    active: 'active',
-  } as const;
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
@@ -141,7 +137,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
       this.active = true;
       this._selected = true;
       this.tabIndex = 0;
-      this.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
+      this.tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
       this.tabGroup?.dispatchEvent(
         new CustomEvent<SbbTabChangedEventDetails>('tabchange', {
           bubbles: true,

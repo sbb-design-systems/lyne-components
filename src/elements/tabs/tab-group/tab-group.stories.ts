@@ -5,15 +5,15 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { SbbTabLabelElement } from '../tab-label.js';
+import { SbbTabElement } from '../tab.js';
 
 import readme from './readme.md?raw';
 import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
 
+import '../../card.js';
 import '../../link.js';
 import '../../title.js';
-import '../tab.js';
-import '../../card.js';
+import '../tab-label.js';
 
 const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
   const evDetail = event.detail;
@@ -278,7 +278,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbTabGroupElement.events.tabchange, SbbTabLabelElement.events.active],
+      handles: [SbbTabGroupElement.events.tabchange, SbbTabElement.events.active],
     },
     docs: {
       extractComponentDescription: () => readme,

@@ -5,12 +5,11 @@ import { html } from 'lit/static-html.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
-import type { SbbTabElement } from '../tab.js';
+import { SbbTabElement } from '../tab.js';
 
 import { SbbTabGroupElement } from './tab-group.component.js';
 
 import '../tab-label.js';
-import '../tab.js';
 
 describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;
@@ -98,13 +97,22 @@ describe(`sbb-tab-group`, () => {
         expect(tab).to.have.attribute('active');
       });
 
-      it('dispatches event on tab change', async () => {
+      it('dispatches tabchange event on tab change', async () => {
         const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
         const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
 
         tab.click();
         await changeSpy.calledOnce();
         expect(changeSpy.count).to.be.equal(1);
+      });
+
+      it('dispatches active event on tab change', async () => {
+        const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
+        const activeSpy = new EventSpy(SbbTabElement.events.active);
+
+        tab.click();
+        await activeSpy.calledOnce();
+        expect(activeSpy.count).to.be.equal(1);
       });
 
       it('selects tab on left arrow key pressed', async () => {
