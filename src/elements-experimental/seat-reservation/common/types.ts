@@ -30,6 +30,8 @@ export type NavigationCoachItem = {
   propertyIds: string[];
   // counter for free places by type across all decks
   freePlaces: CoachNumberOfFreePlaces;
+  // coach is driver area
+  isDriverArea: boolean;
   // holds information about whether a coach on the left or right side has a driver area
   driverAreaSide?: Record<string, boolean>;
 };
