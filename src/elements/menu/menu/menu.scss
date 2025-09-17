@@ -60,6 +60,14 @@
   --sbb-menu-inset: 0;
 }
 
+:host(:state(dark)) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  // We have to ensure that the scrollbar is visible in dark mode with non-dark mode values.
+  --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+  --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
+}
+
 @include sbb.mq($to: medium) {
   :host(:state(skip-animation)) {
     --sbb-menu-animation-duration: 0ms;
