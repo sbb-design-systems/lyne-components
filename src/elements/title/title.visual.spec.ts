@@ -17,7 +17,7 @@ describe(`sbb-title`, () => {
     </article>
   `;
 
-  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
+  describeViewports(() => {
     for (const level of ['1', '2', '3', '4', '5', '6']) {
       it(
         `level=${level}`,
