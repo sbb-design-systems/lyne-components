@@ -74,7 +74,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces.",
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
       "description": "Available services: Bike area,Quiet zone"
     },
     {
@@ -90,4 +90,3 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
 </p>
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Firefox */
-

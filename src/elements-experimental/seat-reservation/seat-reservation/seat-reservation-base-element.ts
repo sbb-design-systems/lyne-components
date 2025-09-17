@@ -152,6 +152,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (changedProperties.has('seatReservations')) {
       this.hasMultipleDecks = this.seatReservations?.length > 1;
+
+      this._initPrepareSeatReservationData();
       this._initSeatReservationPlaceSelection();
     }
 
@@ -206,8 +208,15 @@ export class SeatReservationBaseElement extends LitElement {
    * Data can be prepared once for the entire component
    * in order to avoid recurring iteration processes in rendering.
    */
-  protected initPrepareSeatReservationData(): void {
+  private _initPrepareSeatReservationData(): void {
     this._determineBaseFontSize();
+
+    if (this.hasMultipleDecks) {
+      // If there are multiple decks, we need to check
+      // whether empty coaches need to be added on different deck levels
+      this._initEmptyCoachDeckOffsets();
+    }
+
     this._prepareNavigationCoachData();
   }
 
@@ -1053,6 +1062,45 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
+   * In the case of coach layouts with different decks,
+   * it is necessary to extend the offset with empty coaches
+   * in order to create a stable vehicle layout.
+   *
+   *             [ooo]-[ooo]-[ooo]
+   * [ooo]-[ooo]-[ooo]-[ooo]-[ooo]
+   */
+  private _initEmptyCoachDeckOffsets(): void {
+    // Prefill offset counters with 0 start index
+    const coachOffsetIndexCounter = Array(this.seatReservations.length - 1).fill(0);
+    // Takes the lower deck which contains the max numbers of coaches
+    const lowerDeck = this.seatReservations[this.seatReservations.length - 1];
+
+    lowerDeck.coachItems.forEach((lowerCoachItem: CoachItem) => {
+      for (let i = 0; i < this.seatReservations.length - 1; i++) {
+        const deckCoachItem = this.seatReservations[i].coachItems[coachOffsetIndexCounter[i]];
+        if (lowerCoachItem.id != deckCoachItem?.id) {
+          // Add Empty offset coach to specified index position
+          const emptyOffsetCoach = {
+            ...lowerCoachItem,
+            places: undefined,
+            propertyIds: undefined,
+            graphicElements: undefined,
+            serviceElements: undefined,
+            travelClass: [],
+          };
+          this.seatReservations[i].coachItems.splice(
+            coachOffsetIndexCounter[i],
+            0,
+            emptyOffsetCoach,
+          );
+        }
+
+        coachOffsetIndexCounter[i]++;
+      }
+    });
+  }
+
+  /**
    * Initialization of SeatReservationPlaceSelection Array based on the transferred places
    * that have the state SELECTED within the seatReservation object
    */
@@ -1173,14 +1221,18 @@ export class SeatReservationBaseElement extends LitElement {
    * */
   private _prepareNavigationCoachData(): void {
     const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
+
     lowerDeck.forEach((coach, index) => {
       const travelClasses: PlaceTravelClass[] = [];
       const propertyIds: string[] = [];
       const places: Place[] = [];
 
+      // Collect all important navigation data to be rendered
       this.seatReservations
-        .map((sr) => sr.coachItems[index])
-        .forEach((coach) => {
+        .map((sr) => {
+          return sr.coachItems[index];
+        })
+        .forEach((coach: CoachItem) => {
           travelClasses.push(...coach.travelClass);
           propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
           places.push(...(coach.places ? coach.places : []));
@@ -1190,6 +1242,7 @@ export class SeatReservationBaseElement extends LitElement {
         id: coach.id,
         travelClass: this._prepareTravelClassNavigation(travelClasses),
         propertyIds: this._prepareServiceIconsNavigation(propertyIds),
+        isDriverArea: coach.places ? coach.places.length === 0 : true,
         driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
         freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
       });

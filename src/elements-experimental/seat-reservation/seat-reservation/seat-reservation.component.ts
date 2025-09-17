@@ -13,6 +13,7 @@ import type {
   BaseElement,
   PlaceSelection,
   SeatReservation,
+  NavigationCoachItem,
 } from '../common.js';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
@@ -68,13 +69,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.initPrepareSeatReservationData();
-  }
-
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
     // We need to wait until the first update is complete to init different html element dimensions
     this.updateComplete.then(() => {
       this.initNavigationSelectionByScrollEvent();
@@ -197,33 +194,29 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             this._language.current,
           )}"
         >
-          ${this.seatReservations[this.seatReservations.length - 1]?.coachItems.map(
-            (coachItem: CoachItem, index: number) => {
-              const navigationCoach = this.coachNavData[index];
-              return html`<li>
-                <sbb-seat-reservation-navigation-coach
-                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                  @focuscoach=${() => this._onFocusNavCoach()}
-                  class="${classMap({
-                    'sbb-sr__navigation-coach--hover-scroll':
-                      this.hoveredScrollCoachIndex === index,
-                  })}"
-                  index="${index}"
-                  coach-id="${navigationCoach.id}"
-                  .freePlacesByType="${navigationCoach.freePlaces}"
-                  .selected=${this.selectedCoachIndex === index}
-                  .focused=${this.focusedCoachIndex === index}
-                  .propertyIds="${navigationCoach.propertyIds}"
-                  .travelClass="${navigationCoach.travelClass}"
-                  ?driver-area="${!coachItem.places?.length}"
-                  ?first="${navigationCoach?.driverAreaSide?.left}"
-                  ?last="${navigationCoach?.driverAreaSide?.right}"
-                  ?vertical="${this.alignVertical}"
-                >
-                </sbb-seat-reservation-navigation-coach>
-              </li>`;
-            },
-          )}
+          ${this.coachNavData.map((navigationCoach: NavigationCoachItem, index: number) => {
+            return html`<li>
+              <sbb-seat-reservation-navigation-coach
+                @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                @focuscoach=${() => this._onFocusNavCoach()}
+                class="${classMap({
+                  'sbb-sr__navigation-coach--hover-scroll': this.hoveredScrollCoachIndex === index,
+                })}"
+                index="${index}"
+                coach-id="${navigationCoach.id}"
+                .freePlacesByType="${navigationCoach.freePlaces}"
+                .selected=${this.selectedCoachIndex === index}
+                .focused=${this.focusedCoachIndex === index}
+                .propertyIds="${navigationCoach.propertyIds}"
+                .travelClass="${navigationCoach.travelClass}"
+                ?driver-area="${navigationCoach.isDriverArea}"
+                ?first="${navigationCoach?.driverAreaSide?.left}"
+                ?last="${navigationCoach?.driverAreaSide?.right}"
+                ?vertical="${this.alignVertical}"
+              >
+              </sbb-seat-reservation-navigation-coach>
+            </li>`;
+          })}
         </ul>
       </nav>
     </div>`;
@@ -292,7 +285,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @returns Returns the border graphic (COACH_BORDER_MIDDLE) of a coach with calculated border gap and coach width,
    * depending on whether the coach is with a driver area or without.
    */
-  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult {
+  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult | null {
+    if (!coachItem.graphicElements) return null;
+
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');

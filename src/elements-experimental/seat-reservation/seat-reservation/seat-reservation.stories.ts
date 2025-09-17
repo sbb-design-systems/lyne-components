@@ -126,6 +126,31 @@ export const TrainDecks: StoryObj = {
   args: trainLayersArgs,
 };
 
+//Reduce coaches from  upper deck to get diff
+const trainDeckUpperDiff = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
+trainDeckUpperDiff.coachItems = trainDeckUpperDiff.coachItems.slice(2, 3);
+trainDeckUpperDiff.deckCoachLevel = 'UPPER_DECK';
+
+//Reduce coachesfrom middle deck to get diff
+const trainDeckMiddleDiff = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
+trainDeckMiddleDiff.coachItems = trainDeckMiddleDiff.coachItems.slice(1, 5);
+trainDeckMiddleDiff.deckCoachLevel = 'MIDDLE_DECK';
+
+const trainDecksDiff: Args = {
+  seatReservations: [trainDeckUpperDiff, trainDeckMiddleDiff, trainDeckBottom],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+};
+export const TrainDifferentDecks: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainDecksDiff,
+};
+
 const trainGirunoArgs: Args = {
   seatReservations: [MOCK_GIRUNO_TRAIN],
   'has-navigation': true,
