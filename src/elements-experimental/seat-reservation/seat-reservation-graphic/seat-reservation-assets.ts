@@ -275,7 +275,8 @@ const chassisTable = html`
           <td>COMPARTMENT_WALL</td>
         </tr>
         <tr>
-          <td><sbb-seat-reservation-area style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center; background: var(--sbb-color-milk)"></td>
+          <td><sbb-seat-reservation-area style="--sbb-seat-reservation-area-width: 100;--sbb-seat-reservation-area-height:50;
+          align-self: center;background: var(--sbb-color-milk)"></sbb-seat-reservation-area></td>
           <td>Table Restaurant<br>(Displayed with CSS)</td></td>
           <td>TABLE_RESTAURANT</td>
         </tr>
