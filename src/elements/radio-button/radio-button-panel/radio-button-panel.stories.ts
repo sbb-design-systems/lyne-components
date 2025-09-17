@@ -63,6 +63,12 @@ const size: InputType = {
   options: ['m', 's'],
 };
 
+const allowEmptySelection: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   checked,
@@ -72,6 +78,7 @@ const defaultArgTypes: ArgTypes = {
   color,
   borderless,
   size,
+  'allow-empty-selection': allowEmptySelection,
 };
 
 const defaultArgs: Args = {
@@ -83,6 +90,7 @@ const defaultArgs: Args = {
   color: color.options![0],
   borderless: false,
   size: size.options![0],
+  'allow-empty-selection': false,
 };
 
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;

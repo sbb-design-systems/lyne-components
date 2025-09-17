@@ -86,7 +86,7 @@ const meta: Meta = {
     (story, context) => {
       if (context.args.color === 'white') {
         return html`<div
-          style="color: var(--sbb-color-white); --sbb-title-text-color-normal-override: var(--sbb-color-white)"
+          style="color: var(--sbb-color-1-negative); --sbb-title-text-color-normal-override: var(--sbb-color-1-negative)"
         >
           ${story()}
         </div>`;
@@ -96,7 +96,9 @@ const meta: Meta = {
   ],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.color === 'white' ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
+      context.args.color === 'white'
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

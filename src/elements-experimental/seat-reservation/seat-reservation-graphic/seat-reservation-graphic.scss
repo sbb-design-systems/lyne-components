@@ -57,7 +57,7 @@
 
 .sbb-sr-icon {
   // override color directly set in the SVG file coming from CDN
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 }
 
 .sbb-sr-graphic {

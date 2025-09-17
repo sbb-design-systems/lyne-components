@@ -11,7 +11,7 @@
   outline: none !important;
 
   --sbb-teaser-scale-hover: 1.02;
-  --sbb-teaser-description-color: var(--sbb-color-granite);
+  --sbb-teaser-description-color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
   --sbb-teaser-flex-direction: row;
   --sbb-teaser-align-items: center;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
@@ -90,6 +90,9 @@
 }
 
 ::slotted([slot='image']) {
+  // E.g chips or other stuff which is slotted is adapted to the image.
+  // As the image doesn't change, we shouldn't change the colors as well.
+  color-scheme: only light;
   width: #{sbb.px-to-rem-build(300)};
   display: block;
 }

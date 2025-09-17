@@ -5,6 +5,7 @@
 
 :host {
   --sbb-carousel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-carousel-background-color: var(--sbb-background-color-1);
 
   display: inline-block;
   overflow: hidden;
@@ -28,7 +29,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--sbb-color-white);
+  background-color: var(--sbb-carousel-background-color);
 }
 
 ::slotted(sbb-compact-paginator) {

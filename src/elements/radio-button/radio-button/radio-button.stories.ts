@@ -51,6 +51,12 @@ const labelBoldClass: InputType = {
   },
 };
 
+const allowEmptySelection: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   checked,
@@ -58,6 +64,7 @@ const defaultArgTypes: ArgTypes = {
   size,
   'aria-label': ariaLabel,
   labelBoldClass,
+  'allow-empty-selection': allowEmptySelection,
 };
 
 const defaultArgs: Args = {
@@ -67,6 +74,7 @@ const defaultArgs: Args = {
   size: size.options![0],
   'aria-label': undefined,
   labelBoldClass: false,
+  'allow-empty-selection': false,
 };
 
 const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>

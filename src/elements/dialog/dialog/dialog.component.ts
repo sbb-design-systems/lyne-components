@@ -21,6 +21,7 @@ let nextId = 0;
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * @csspart scroll-container - Can be used to change styles of the scroll container of the content.
  */
 export
 @customElement('sbb-dialog')
@@ -198,6 +199,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
             </div>
             <div
               class="sbb-dialog-content-container"
+              part="scroll-container"
               @scroll=${() => this._detectScrolledState()}
               ${ref((el?: Element) => (this._dialogContentElement = el as HTMLDivElement))}
             >
