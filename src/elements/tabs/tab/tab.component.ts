@@ -3,7 +3,6 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
 
@@ -20,12 +19,11 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   public static override role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
 
-  /** The `sbb-tab-label` associated with the tab. */
-  public get label(): SbbTabLabelElement | null {
-    return this.previousElementSibling?.localName === 'sbb-tab-label'
-      ? (this.previousElementSibling as SbbTabLabelElement)
-      : null;
-  }
+  /**
+   * @internal
+   * @deprecated
+   */
+  public configure(): void {}
 
   public override connectedCallback(): void {
     super.connectedCallback();

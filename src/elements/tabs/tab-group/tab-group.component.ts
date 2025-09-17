@@ -24,6 +24,17 @@ export type SbbTabChangedEventDetails = {
 };
 
 /**
+ * @deprecated
+ */
+export interface InterfaceSbbTabGroupActions {
+  activate(): void;
+  deactivate(): void;
+  enable(): void;
+  disable(): void;
+  select(): void;
+}
+
+/**
  * It displays one or more tabs, each one with a label and some content.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
@@ -74,6 +85,10 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
   /** Gets the slotted `sbb-table-label`s. */
   public get tabLabels(): SbbTabLabelElement[] {
+    /**
+     * The querySelector API is not used because when nested tabs are used,
+     * the returned array contains the inner tabs too, and this breaks the keyboard navigation.
+     */
     return Array.from(this.children ?? []).filter((child) =>
       /^sbb-tab-label$/u.test(child.localName),
     ) as SbbTabLabelElement[];
@@ -87,7 +102,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    this.tabLabels.forEach((tabLabel) => tabLabel.linkToTab());
+    this.tabLabels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
     this._tabContentResizeObserver.observe(this._tabContentElement);
@@ -118,35 +133,42 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   }
 
   private _enabledTabs(): SbbTabLabelElement[] {
-    return this.tabLabels.filter((t) => !t.disabled);
+    return this.tabLabels.filter((t) => {
+      customElements.upgrade(t);
+      return !t.disabled;
+    });
   }
 
   private _updateSize(): void {
-    for (const tab of this.tabLabels) {
-      tab.setAttribute('data-size', this.size);
-    }
+    this.tabLabels.forEach((tabLabel: SbbTabLabelElement) =>
+      tabLabel.setAttribute('data-size', this.size),
+    );
   }
 
   private _onContentSlotChange = (): void => {
-    this.tabLabels.forEach((tab) => tab.linkToTab());
-    this.tabLabels.find((tab) => tab.active)?.select();
+    this.tabLabels.forEach((tabLabel) => tabLabel['linkToTab']());
+    this.tabLabels.find((tabLabel) => tabLabel.active)?.select();
   };
 
   private _onLabelSlotChange = (): void => {
-    this.tabLabels.forEach((tab: SbbTabLabelElement) => tab.setAttribute('data-size', this.size));
-    this.tabLabels.forEach((tabLabel) => tabLabel.linkToTab());
+    this._updateSize();
+    this.tabLabels.forEach((tabLabel) => tabLabel['linkToTab']());
   };
 
   private _initSelection(): void {
-    if (
-      this.initialSelectedIndex >= 0 &&
-      this.initialSelectedIndex < this.tabLabels.length &&
-      !this.tabLabels[this.initialSelectedIndex].disabled
-    ) {
-      this.tabLabels[this.initialSelectedIndex]?.select();
-    } else {
-      this._enabledTabs()[0]?.select();
+    const selectedTabLabel = this.tabLabels[this.initialSelectedIndex];
+    if (selectedTabLabel) {
+      customElements.upgrade(selectedTabLabel);
+      if (
+        this.initialSelectedIndex >= 0 &&
+        this.initialSelectedIndex < this.tabLabels.length &&
+        !selectedTabLabel.disabled
+      ) {
+        selectedTabLabel.select();
+        return;
+      }
     }
+    this._enabledTabs()[0]?.select();
   }
 
   private _onTabGroupElementResize(entries: ResizeObserverEntry[]): void {

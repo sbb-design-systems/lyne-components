@@ -159,10 +159,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     }
   }
 
-  /**
-   * @internal
-   */
-  public linkToTab(): void {
+  protected linkToTab(): void {
     if (!this.tab) {
       if (import.meta.env.DEV) {
         console.warn(
@@ -171,7 +168,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
       }
       return;
     }
-    this.setAttribute('aria-controls', this.tab.id);
+    this.internals.ariaControlsElements = [this.tab];
   }
 
   protected override render(): TemplateResult {
