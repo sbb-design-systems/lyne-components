@@ -241,12 +241,12 @@ const chassisTable = html`
       <tbody>
         <tr>
           <td>${svgImageByOSDMCode('DRIVER_AREA_TRAIN')}</td>
-          <td>Driver Area<br>(Dependent on Vehicle-Type: TRAIN)</td>
+          <td>Driver Area<br />(Dependent on Vehicle-Type: TRAIN)</td>
           <td>DRIVER_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('DRIVER_AREA_BUS')}</td>
-          <td>Driver Area<br>(Dependent on Vehicle-Type: BUS)</td>
+          <td>Driver Area<br />(Dependent on Vehicle-Type: BUS)</td>
           <td>DRIVER_AREA</td>
         </tr>
         <tr>
@@ -275,8 +275,13 @@ const chassisTable = html`
           <td>COMPARTMENT_WALL</td>
         </tr>
         <tr>
-          <td><sbb-seat-reservation-area style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center; background: var(--sbb-color-milk)"></td>
-          <td>Table Restaurant<br>(Will be rendered as CSS)</td>
+          <td>
+            <sbb-seat-reservation-area
+              style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center;
+          background: var(--sbb-color-milk)"
+            ></sbb-seat-reservation-area>
+          </td>
+          <td>Table Restaurant<br />(Will be rendered as CSS)</td>
           <td>TABLE_RESTAURANT</td>
         </tr>
         <tr>
