@@ -90,3 +90,4 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
 </p>
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Firefox */
+
