@@ -4,7 +4,7 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-timetable-form-background-color: var(--sbb-color-white);
+  --sbb-timetable-form-background-color: var(--sbb-background-color-1);
   --sbb-timetable-form-border-radius: var(--sbb-border-radius-4x);
 
   border-radius: var(--sbb-timetable-form-border-radius);

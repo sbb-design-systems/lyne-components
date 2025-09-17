@@ -249,7 +249,7 @@ export const NoShadow: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.shadow ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
+      context.args.shadow ? 'var(--sbb-background-color-3)' : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

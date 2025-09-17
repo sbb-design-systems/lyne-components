@@ -326,12 +326,12 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-5.0.0.tgz#037817b574262134cabd68fc4ec1a454f168407b"
   integrity sha512-PCqQV3c4CoVm3kdPhyeZ07VmBRdH2EpMFA/pd9OASpOEC3aXNGoqPDAZ80D0cLpMBxnmk0+yNhGsEx31hq7Gtw==
 
-"@custom-elements-manifest/analyzer@0.10.5":
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/@custom-elements-manifest/analyzer/-/analyzer-0.10.5.tgz#4706cfc84c7bd335c967eb7b9c09764fbacf3c66"
-  integrity sha512-Y9iUIhTDtcoaiH9XLwkK5POTxVJkcDuN9buCH4kQJmPmTMdm8Fhq7yk0l8Pu3TYC+RuXy6xA49+1IwvFJLF5mg==
+"@custom-elements-manifest/analyzer@0.10.6":
+  version "0.10.6"
+  resolved "https://registry.yarnpkg.com/@custom-elements-manifest/analyzer/-/analyzer-0.10.6.tgz#bdf8efc20cd11743878dfe65c2d5e3467852f3be"
+  integrity sha512-zWz7BIjY1o7DUrHZPFpsSNtQjkEbLPbEkH1zxSJB3RX/SvyKnw8mvdkTl7nDYgVYEzokIDMZhdPrPzqpV0OXYg==
   dependencies:
-    "@custom-elements-manifest/find-dependencies" "^0.0.5"
+    "@custom-elements-manifest/find-dependencies" "^0.0.6"
     "@github/catalyst" "^1.6.0"
     "@web/config-loader" "0.1.3"
     chokidar "3.5.2"
@@ -342,12 +342,12 @@
     globby "11.0.4"
     typescript "~5.4.2"
 
-"@custom-elements-manifest/find-dependencies@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@custom-elements-manifest/find-dependencies/-/find-dependencies-0.0.5.tgz#ebc11672019de3d52bb8f29f76efe510b8401fbd"
-  integrity sha512-fKIMMZCDFSoL2ySUoz8knWgpV4jpb0lUXgLOvdZQMQFHxgxz1PqOJpUIypwvEVyKk3nEHRY4f10gNol02HjeCg==
+"@custom-elements-manifest/find-dependencies@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@custom-elements-manifest/find-dependencies/-/find-dependencies-0.0.6.tgz#1cc6efcc564a091ddacc3e1d2735447799f3093b"
+  integrity sha512-2iVksJ156XuaeeC6jB6oMG6k9ROHS3W1delwJLL804yQMri9NnQW78JDCYMtFfW8b4locUG+3+hrtAHxk+fNGg==
   dependencies:
-    es-module-lexer "^0.9.3"
+    rs-module-lexer "^2.5.1"
 
 "@custom-elements-manifest/to-markdown@0.1.0":
   version "0.1.0"
@@ -1396,10 +1396,10 @@
     argparse "~1.0.9"
     string-argv "~0.3.1"
 
-"@sbb-esta/lyne-design-tokens@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.6.1.tgz#6f5b4ba0b6e87a0d0c449c697d582b86794f4555"
-  integrity sha512-YV4y67dwc9/agotkYd1LAAHgYQulgaO6Yq4c/00AvhmSf/+LDdLwLQQjGVYVhEfZbg+ww1aZIYLA6skY8wonQA==
+"@sbb-esta/lyne-design-tokens@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.7.0.tgz#f51db1aa60b91c83e702be0f6f59292bee2741d3"
+  integrity sha512-HM+6J0vwsdNT+Fa/arTxpepI1WthsUPl6fZy2lKZpYFmFbNHL0kEchHoJBMB09tKbRWdLTn28Uc2FIpzsfTwWw==
 
 "@sinonjs/commons@^3.0.1":
   version "3.0.1"
@@ -2613,6 +2613,51 @@
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/template-shadowroot/-/template-shadowroot-0.2.1.tgz#b20182f25f3af9baa9b7cbecce8dd6a7ab7fc39f"
   integrity sha512-fXL/vIUakyZL62hyvUh+EMwbVoTc0hksublmRz6ai6et8znHkJa6gtqMUZo1oc7dIz46exHSIImml9QTdknMHg==
+
+"@xn-sakina/rml-darwin-arm64@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-darwin-arm64/-/rml-darwin-arm64-2.5.1.tgz#5c2b901e2d8c53b8c2b18e6cf753e3a87fd8ddfa"
+  integrity sha512-opF0AyFOYXkVoibAFh6tLgYHETduN3/aubxGJXOYkAcW4b4YMmDKXqU7UDjsNse3D/5T+8XFxUIl4E0+lHPRxg==
+
+"@xn-sakina/rml-darwin-x64@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-darwin-x64/-/rml-darwin-x64-2.5.1.tgz#c670e0040db88d739011a856eebb756494c9012b"
+  integrity sha512-kWcLQgAZ7aNP10URYxzsWFJH6rMZvGmX904644TEMzTrv1EaqZj0qQwQ34aFq5WX9ze0/MpzlvZ/w0hJIqQH8Q==
+
+"@xn-sakina/rml-linux-arm-gnueabihf@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-linux-arm-gnueabihf/-/rml-linux-arm-gnueabihf-2.5.1.tgz#c4640776b8fe79485eeb4afa10b1368b267a0b9d"
+  integrity sha512-HlQ85PvF+MyOeAScdarAkPpI+PS0u8qh9AAvsRRolhQ8kehHvTzMYFiLAerIZEaRHTHMpgVIhttcZ6ZWKdTUpQ==
+
+"@xn-sakina/rml-linux-arm64-gnu@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-linux-arm64-gnu/-/rml-linux-arm64-gnu-2.5.1.tgz#9eac6c81df31f1fa7c5fb9e64a2b256b1188cc99"
+  integrity sha512-9GQDgAUNqErwC/OftCCch0199zjALgVopTu+FSwQS2ECW4n+sumeyF18xtGQAj4NQUYNn9HseT+7cn3gk7f7HA==
+
+"@xn-sakina/rml-linux-arm64-musl@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-linux-arm64-musl/-/rml-linux-arm64-musl-2.5.1.tgz#310785ed1323ae9751ae5268fc34e93100ec7a18"
+  integrity sha512-pN+F/V9H/HZvlovD9T/zeAvXE45qvzti8WD9m7T+fa9A6qdmBwSJTFZeEa0c+lP66r+1OSv9BIir1iMi99wvHw==
+
+"@xn-sakina/rml-linux-x64-gnu@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-linux-x64-gnu/-/rml-linux-x64-gnu-2.5.1.tgz#c4601d7d1027e23e767aacfafdde61602732a8d7"
+  integrity sha512-9y5LnhD0N9Hh36CwhlYwO/AiAz+LGAQvYLt9JfGuSTy/m5A4npqSOC4zaGx3hjAIu56FyxfHP3PJHW3opw0mzg==
+
+"@xn-sakina/rml-linux-x64-musl@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-linux-x64-musl/-/rml-linux-x64-musl-2.5.1.tgz#19ede278b11554caae73d2d3c385ec73799eddfc"
+  integrity sha512-x5TJC6KRG9ATZvVqL5TJBUGN3sVjbw00TCulrdVcxWAv352sxM+yYvxZsMq6yxbU8Y3jAOX36mbZSKcAkR4XYg==
+
+"@xn-sakina/rml-win32-arm64-msvc@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-win32-arm64-msvc/-/rml-win32-arm64-msvc-2.5.1.tgz#6bc003a7b73c5ed1f0e219469e567251ff003f13"
+  integrity sha512-KCe+wursdZFNM3yfQgwX+6Bgs40t4bg2LLz1DXslZ35dEM64bbAngi4anqr5tdllS4146+Gn5L71DGrxytR8Kw==
+
+"@xn-sakina/rml-win32-x64-msvc@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@xn-sakina/rml-win32-x64-msvc/-/rml-win32-x64-msvc-2.5.1.tgz#62a1610a62a2b15c689df7a10760fc623aa7c772"
+  integrity sha512-v56lTBAmggAppgohjSVwxbhWniaN+KP5HK/zTQO2OaTdSBUHzufFp9Wt/M/bMRvuhjZzkAp2WNkiYWLJyB3sXg==
 
 JSONStream@^1.3.5:
   version "1.3.5"
@@ -4202,11 +4247,6 @@ es-iterator-helpers@^1.2.1:
     internal-slot "^1.1.0"
     iterator.prototype "^1.1.4"
     safe-array-concat "^1.1.3"
-
-es-module-lexer@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz#6f13db00cc38417137daf74366f535c8eb438f19"
-  integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
 
 es-module-lexer@^1.0.0:
   version "1.7.0"
@@ -8050,6 +8090,21 @@ rollup@^4.4.0, rollup@^4.43.0:
     "@rollup/rollup-win32-ia32-msvc" "4.50.1"
     "@rollup/rollup-win32-x64-msvc" "4.50.1"
     fsevents "~2.3.2"
+
+rs-module-lexer@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/rs-module-lexer/-/rs-module-lexer-2.5.1.tgz#695ce1ad3450bc2812a5fd8495b0c295ace34f86"
+  integrity sha512-Zud7if8vr+tCEf7LjGY7ReHyjCrSZrM4feQbWrUtrQ3c1ljDRSQ8zpdc89DCCgWyZyvMTIcInu9BxkrSUtFGyA==
+  optionalDependencies:
+    "@xn-sakina/rml-darwin-arm64" "2.5.1"
+    "@xn-sakina/rml-darwin-x64" "2.5.1"
+    "@xn-sakina/rml-linux-arm-gnueabihf" "2.5.1"
+    "@xn-sakina/rml-linux-arm64-gnu" "2.5.1"
+    "@xn-sakina/rml-linux-arm64-musl" "2.5.1"
+    "@xn-sakina/rml-linux-x64-gnu" "2.5.1"
+    "@xn-sakina/rml-linux-x64-musl" "2.5.1"
+    "@xn-sakina/rml-win32-arm64-msvc" "2.5.1"
+    "@xn-sakina/rml-win32-x64-msvc" "2.5.1"
 
 run-parallel@^1.1.9:
   version "1.2.0"

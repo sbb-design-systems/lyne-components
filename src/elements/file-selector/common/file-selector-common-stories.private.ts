@@ -4,7 +4,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error.js';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { SbbFormErrorElement } from '../../form-error.js';
 import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.js';
 import type { SbbFileSelectorElement } from '../file-selector.js';
 

@@ -236,7 +236,7 @@ const meta: Meta = {
   decorators: [withActions],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.borderless ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
+      context.args.borderless ? 'var(--sbb-background-color-4)' : 'var(--sbb-background-color-1)',
     actions: {
       handles: [
         SbbExpansionPanelElement.events.beforeopen,

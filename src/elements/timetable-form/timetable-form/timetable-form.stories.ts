@@ -1,4 +1,4 @@
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
@@ -131,8 +131,6 @@ export const WithVia: StoryObj = {
 const meta: Meta = {
   decorators: [(story) => html` <div style="padding: .25rem">${story()}</div> `],
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
     docs: {
       extractComponentDescription: () => readme,
     },

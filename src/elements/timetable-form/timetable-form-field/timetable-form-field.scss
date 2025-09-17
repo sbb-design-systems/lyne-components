@@ -8,8 +8,8 @@
 
   --sbb-form-field-border-radius: var(--sbb-border-radius-6x);
   --sbb-form-field-outline-offset: #{sbb.px-to-rem-build(-5)};
-  --sbb-timetable-form-field-route-icon-color: var(--sbb-color-black);
-  --sbb-timetable-form-field-route-icon-background-color: var(--sbb-color-white);
+  --sbb-timetable-form-field-route-icon-color: var(--sbb-color-2);
+  --sbb-timetable-form-field-route-icon-background-color: var(--sbb-background-color-1);
 }
 
 :host(:first-of-type) {
@@ -26,7 +26,7 @@
     content: '';
     position: absolute;
     border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
-      var(--sbb-color-cloud);
+      var(--sbb-border-color-4-inverted);
     inset-inline: var(--sbb-form-field-padding-inline);
     inset-block-end: 0;
   }

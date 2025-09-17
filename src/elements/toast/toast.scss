@@ -10,8 +10,8 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-toast-animation-timing-function: ease;
-  --sbb-toast-text-color: var(--sbb-color-milk);
-  --sbb-toast-background-color: var(--sbb-color-midnight);
+  --sbb-toast-text-color: var(--sbb-color-3-inverted);
+  --sbb-toast-background-color: var(--sbb-background-color-1-inverted);
   --sbb-toast-margin: var(--sbb-spacing-responsive-s);
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
@@ -66,6 +66,10 @@
   --sbb-toast-vertical-position: flex-start;
 }
 
+:host(:state(dark)) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+}
+
 .sbb-toast__overlay-container {
   position: var(--sbb-toast-container-position);
   pointer-events: none;
@@ -108,6 +112,12 @@
   gap: var(--sbb-toast-gap);
   padding-block: var(--sbb-toast-padding-block);
   padding-inline: var(--sbb-toast-padding-inline);
+}
+
+slot:not([name='icon']),
+.sbb-toast__close {
+  // As the slotted content is displayed on a white background, we need to force light mode for them.
+  color-scheme: only light;
 }
 
 .sbb-toast__content {
