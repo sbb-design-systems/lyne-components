@@ -1,11 +1,4 @@
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components-vite';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -181,21 +174,11 @@ const size: InputType = {
   options: ['s', 'l', 'xl'],
 };
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    disable: true,
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   amount: amount,
   size: size,
-  negative,
 };
 
 const basicArgs: Args = {
@@ -203,7 +186,6 @@ const basicArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   size: size.options![1],
-  negative: false,
 };
 
 export const defaultTabsSizeL: StoryObj = {
@@ -250,14 +232,15 @@ export const nestedTabGroups: StoryObj = {
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], negative: true },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
+  parameters: {
+    backgroundColor: () => 'var(--sbb-background-color-3)',
+  },
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
       handles: [SbbTabGroupElement.events.tabchange],
     },

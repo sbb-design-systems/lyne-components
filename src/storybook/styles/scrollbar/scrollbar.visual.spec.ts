@@ -52,7 +52,7 @@ describe(`scrollbar`, () => {
           `,
           {
             backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            color: negative ? 'var(--sbb-color-white)' : undefined,
+            color: negative ? 'var(--sbb-color-1-negative)' : undefined,
           },
         );
       });

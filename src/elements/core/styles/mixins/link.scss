@@ -4,9 +4,12 @@
 @use '../core/functions';
 
 @mixin link-common-variables {
-  --sbb-link-color-hover: var(--sbb-color-red125);
-  --sbb-link-color-active: var(--sbb-color-red150);
-  --sbb-link-text-decoration-color: color-mix(in srgb, currentcolor 80%, white);
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary-125), var(--sbb-color-graphite));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary-150), var(--sbb-color-metal));
+  --sbb-link-text-decoration-color: light-dark(
+    color-mix(in srgb, currentcolor 80%, white),
+    color-mix(in srgb, currentcolor 80%, black)
+  );
   --sbb-link-text-decoration-color-hover: currentcolor;
 }
 
@@ -19,20 +22,22 @@
 @mixin block-link-variables {
   @include link-common-variables;
 
-  --sbb-link-color-normal: var(--sbb-color-granite);
+  --sbb-link-color-normal: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary-125), var(--sbb-color-cloud));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary-150), var(--sbb-color-silver));
 }
 
 @mixin block-link-variables--negative {
   @include link-common-variables--negative;
 
-  --sbb-link-color-normal: var(--sbb-color-white);
-  --sbb-link-color-hover: var(--sbb-color-cloud);
+  --sbb-link-color-normal: var(--sbb-color-1-negative);
+  --sbb-link-color-hover: var(--sbb-color-4-negative);
   --sbb-link-color-active: var(--sbb-color-silver);
 }
 
 // To display a current active page, e.g. if the CSS class sbb-active is set
 @mixin block-link-variables--active {
-  --sbb-link-color-normal: var(--sbb-color-black);
+  --sbb-link-color-normal: light-dark(var(--sbb-color-black), var(--sbb-color-cement));
   --sbb-link-text-decoration-line: underline;
   --sbb-link-text-decoration-color: currentcolor;
 }
