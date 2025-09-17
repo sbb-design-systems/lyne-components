@@ -34,7 +34,7 @@
 
   @include sbb.scrollbar-variables($negative: true);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
@@ -45,7 +45,7 @@
   --sbb-menu-visibility: visible;
   --sbb-menu-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 20%, transparent);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-backdrop-color: transparent;
   }
 }
@@ -136,7 +136,7 @@
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     top: 0;
     bottom: unset;
     left: 0;
@@ -170,7 +170,7 @@
     height: var(--sbb-spacing-fixed-8x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     max-height: fit-content;
 
     :host(:not([data-state='closed'])) & {

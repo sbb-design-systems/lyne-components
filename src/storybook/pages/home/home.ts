@@ -30,7 +30,12 @@ export const homeTemplate = (args: Args): TemplateResult => html`
       <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Sign in
       </sbb-header-button>
-      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button
+        icon-name="globe-small"
+        id="language-menu-trigger"
+        class="last-element"
+        expand-from="small"
+      >
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">

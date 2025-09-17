@@ -175,7 +175,7 @@ describe(`sbb-journey-summary`, () => {
     },
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const example of cases) {
       it(
         example.name,

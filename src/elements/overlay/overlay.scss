@@ -97,7 +97,7 @@
   outline: none;
   position: fixed;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     position: sticky;
     inset-block-start: 0;
     height: auto;

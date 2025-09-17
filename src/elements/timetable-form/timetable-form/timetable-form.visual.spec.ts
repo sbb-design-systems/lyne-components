@@ -92,8 +92,7 @@ const defaultTemplate = (): TemplateResult => html`
 `;
 
 describe('sbb-timetable-form', () => {
-  // TODO: Remove the viewports when the 4 breakpoint PR is merged
-  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
+  describeViewports(() => {
     it(
       `${visualDiffDefault.name}`,
       visualDiffDefault.with(async (setup) => {

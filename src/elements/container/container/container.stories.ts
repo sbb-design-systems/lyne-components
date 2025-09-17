@@ -112,8 +112,8 @@ const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): Temp
         justify-content: center;
         flex-direction: column;
 
-        /* Starting from breakpoint medium. Please use design token. */
-        @media screen and (width >= 840px) {
+        /* Starting from breakpoint large. Please use design token. */
+        @media screen and (width >= 1024px) {
           flex-direction: row;
         }
       }

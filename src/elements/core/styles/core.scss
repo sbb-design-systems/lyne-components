@@ -82,7 +82,7 @@
       --sbb-focus-outline-style: none;
     }
 
-    @include mediaqueries.mq($from: medium) {
+    @include mediaqueries.mq($from: large) {
       // Header
       --sbb-header-height: var(--sbb-spacing-fixed-24x);
 

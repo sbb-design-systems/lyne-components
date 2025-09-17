@@ -67,8 +67,8 @@ describe(`sbb-teaser`, () => {
   };
 
   const screenCombinations = [
-    { viewport: 'micro' as const, alignments: ['below'] },
-    { viewport: 'medium' as const, alignments: ['after-centered', 'after', 'below'] },
+    { viewport: 'small' as const, alignments: ['below'] },
+    { viewport: 'large' as const, alignments: ['after-centered', 'after', 'below'] },
   ];
 
   for (const screenCombination of screenCombinations) {
@@ -204,7 +204,7 @@ describe(`sbb-teaser`, () => {
           await setup.withFixture(
             html`
               <sbb-teaser
-                style="width: ${screenCombination.viewport === 'micro' ? '300px' : '400px'};"
+                style="width: ${screenCombination.viewport === 'small' ? '300px' : '400px'};"
                 href="#"
                 alignment="below"
               >

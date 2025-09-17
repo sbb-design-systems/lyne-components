@@ -32,7 +32,7 @@ const images = [
 ];
 
 describe(`sbb-flip-card-summary`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const image of images) {
       describe(`image=${image.selector}`, () => {
         for (const imageAlignment of ['after', 'below']) {

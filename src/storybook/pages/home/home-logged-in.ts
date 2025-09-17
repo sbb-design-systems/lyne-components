@@ -32,7 +32,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-link icon-name="magnifying-glass-small" href="/">Search</sbb-header-link>
       <sbb-header-button
         icon-name="user-small"
         id="user-menu-trigger"
@@ -41,7 +41,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
         Christina Müller
       </sbb-header-button>
       <sbb-menu trigger="user-menu-trigger">
-        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-link icon-name="user-small" href="/">Account</sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
         <sbb-menu-button icon-name="shopping-cart-small" sbb-badge="1">
           Shopping cart
@@ -49,14 +49,19 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
         <sbb-divider></sbb-divider>
         <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
-      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button
+        icon-name="globe-small"
+        id="language-menu-trigger"
+        class="last-element"
+        expand-from="small"
+      >
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
         <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
-        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true">English</sbb-menu-button>
       </sbb-menu>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       <a href="https://www.sbb.ch" class="sbb-header-logo">
@@ -187,7 +192,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             <sbb-dialog-actions
               align-group="stretch"
               orientation="vertical"
-              horizontal-from="medium"
+              horizontal-from="large"
             >
               <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
               <sbb-button size="m" sbb-dialog-close>Button</sbb-button>

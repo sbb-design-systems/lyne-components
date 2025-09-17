@@ -7,7 +7,7 @@ import '../tag.js';
 import './tag-group.component.js';
 
 describe(`sbb-tag-group`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const size of ['s', 'm']) {
       it(
         `size=${size}`,

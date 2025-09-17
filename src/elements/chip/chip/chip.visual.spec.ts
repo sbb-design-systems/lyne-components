@@ -16,7 +16,7 @@ const cases = {
 };
 
 describe('sbb-chip', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative }) => {
       for (const state of [visualDiffDefault, visualDiffFocus]) {
         it(
