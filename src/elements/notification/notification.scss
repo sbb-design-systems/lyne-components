@@ -79,8 +79,8 @@ $open-anim-height-to: calc(
 }
 
 :host([type='error']) {
-  --sbb-notification-type-color: var(--sbb-color-red);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-red125);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red125, white, 5%)};
 }
 
 :host([size='s']) {

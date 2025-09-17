@@ -89,15 +89,16 @@ $disabled: '.sbb-reservation-place-control--disabled';
   }
 }
 
-:host(:focus) {
-  border-radius: var(--sbb-border-width-1x);
-  outline: sbb-sr-functions.sr-px-to-rem(2) solid var(--sbb-color-black);
-
+:host(:focus-visible) {
   .sbb-sr-place-ctrl {
     &--state-free:not(#{$disabled}) {
       @include colorizePlace('free', 'focus');
     }
+  }
+}
 
+:host(:active) {
+  .sbb-sr-place-ctrl {
     &--state-selected:not(#{$disabled}) {
       @include colorizePlace('selected', 'focus');
     }

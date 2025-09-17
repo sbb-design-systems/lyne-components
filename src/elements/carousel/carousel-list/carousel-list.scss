@@ -1,0 +1,33 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-carousel-list-border-radius: var(--sbb-border-radius-4x);
+
+  display: flex;
+  height: var(--sbb-carousel-list-height);
+  width: var(--sbb-carousel-list-width);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  outline: none;
+  border-radius: var(--sbb-carousel-inherit-border-radius);
+}
+
+:host(:focus-visible) {
+  &::before {
+    @include sbb.focus-outline;
+
+    content: '';
+    position: absolute;
+    height: var(--sbb-carousel-list-height);
+    width: var(--sbb-carousel-list-width);
+    border-start-start-radius: var(--sbb-carousel-list-border-radius);
+    border-start-end-radius: var(--sbb-carousel-list-border-radius);
+    border-end-start-radius: var(--sbb-carousel-inherit-border-radius);
+    border-end-end-radius: var(--sbb-carousel-inherit-border-radius);
+  }
+}

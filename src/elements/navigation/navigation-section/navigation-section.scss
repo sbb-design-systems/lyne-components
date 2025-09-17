@@ -173,7 +173,7 @@
 .sbb-navigation-section__content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
+  gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
   padding-inline: var(--sbb-navigation-section-padding-inline);
 
   @include sbb.mq($from: large) {

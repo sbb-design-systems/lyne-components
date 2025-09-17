@@ -35,6 +35,11 @@ describe(`sbb-popover`, () => {
 
     expect(element.openDelay).to.be.equal(100);
     expect(element.closeDelay).to.be.equal(200);
+
+    // reset global config
+    mergeConfig({
+      popover: undefined,
+    });
   });
 
   describe('with interactive content', () => {

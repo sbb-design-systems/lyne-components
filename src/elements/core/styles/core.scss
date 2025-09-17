@@ -109,7 +109,7 @@ html {
   @include typo.placeholder;
 }
 
-sbb-form-field {
+:is(sbb-form-field, sbb-timetable-form-field) {
   :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
     @include typo.text-m--regular;
     @include helpers.ellipsis;
@@ -205,7 +205,7 @@ sbb-form-field {
   &:has(
     :is(
       :is(input, textarea, select):user-invalid,
-      :is(:state(interacted), [state--interacted]):invalid,
+      :state(interacted):invalid,
       .ng-touched.ng-invalid,
       .sbb-invalid
     )
@@ -239,7 +239,8 @@ sbb-form-field {
   sbb-popover,
   sbb-select,
   sbb-skiplink-list,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ):not(:defined) {
   display: none;
 }
@@ -254,7 +255,8 @@ sbb-form-field {
   sbb-navigation,
   sbb-overlay,
   sbb-popover,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ) {
   @include popover.popover-reset;
 }
@@ -563,13 +565,13 @@ sbb-dialog-actions {
     --sbb-dialog-actions-border-color: var(--sbb-color-iron);
   }
 
-  sbb-dialog:is(:state(overflows), [state--overflows]) & {
+  sbb-dialog:state(overflows) & {
     --sbb-dialog-actions-border-color: transparent;
 
     @include shadows.shadow-level-9-soft;
   }
 
-  sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
+  sbb-dialog[negative]:state(overflows) & {
     @include shadows.shadow-level-9-soft-negative;
   }
 }
@@ -619,4 +621,10 @@ sbb-status:has(sbb-title) {
   --_sbb-status-text-color-override: var(--sbb-color-granite);
   --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
+}
+
+.sbb-overlay-outlet {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
 }
