@@ -24,6 +24,11 @@ describe(`sbb-timetable-occupancy-icon`, () => {
 
   beforeEach(() => {
     matchMediaStub = stub(window, 'matchMedia');
+    matchMediaStub.withArgs('(prefers-color-scheme: dark)').returns({
+      ...mediaQueryListArgs,
+      matches: false,
+      media: '(forced-colors: active)',
+    });
   });
 
   afterEach(() => {

@@ -1,12 +1,12 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { SbbBreakpointLargeMin, SbbBreakpointSmallMin } from '@sbb-esta/lyne-design-tokens';
-import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { emulateMedia, sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
 import { isWebkit } from '../../core/dom.js';
 import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 
 import { SbbMenuElement } from './menu.component.js';
 
@@ -23,7 +23,7 @@ describe(`sbb-menu`, () => {
       <div>
         <sbb-button id="menu-trigger">Menu trigger</sbb-button>
         <sbb-menu id="menu" trigger="menu-trigger">
-          <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
+          <sbb-block-link id="menu-link" href="#" size="xs" negative>Profile</sbb-block-link>
           <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
           <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled>
             Edit
@@ -408,5 +408,22 @@ describe(`sbb-menu`, () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(element).to.match(':popover-open');
+  });
+
+  it('it syncs slotted negative property', async () => {
+    const link = element.querySelector('sbb-block-link')!;
+
+    expect(link.negative).to.be.true;
+
+    await emulateMedia({ colorScheme: 'dark' });
+    await waitForCondition(() => !link.negative);
+
+    expect(element).to.match(':state(dark)');
+    expect(link.negative).to.be.false;
+
+    await emulateMedia({ colorScheme: 'light' });
+    await waitForCondition(() => link.negative);
+
+    expect(link.negative).to.be.true;
   });
 });

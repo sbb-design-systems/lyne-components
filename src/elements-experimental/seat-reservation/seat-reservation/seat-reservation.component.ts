@@ -652,7 +652,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     popoverContent: string | null | typeof nothing,
   ): TemplateResult {
     return html`
-      <sbb-popover trigger="${triggerId}">
+      <sbb-popover trigger="${triggerId}" hover-trigger="">
         <p class="sbb-text-s sbb-sr-popover">${popoverContent}</p>
       </sbb-popover>
     `;

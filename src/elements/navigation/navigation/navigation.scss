@@ -23,14 +23,16 @@
   --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
   --sbb-navigation-backdrop-visibility: hidden;
   --sbb-navigation-backdrop-pointer-events: none;
-  --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
+  --sbb-navigation-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 70%, transparent);
   --sbb-navigation-backdrop-animation-name: backdrop-open;
+  --sbb-navigation-background-color: var(--sbb-background-color-1-negative);
+  --sbb-navigation-color: var(--sbb-color-1-negative);
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-navigation-inline-start: 0;
   --sbb-navigation-expanded-width: 100%;
   --sbb-navigation-inset: 0 auto auto 0;
-  --sbb-navigation-transform: translateX(-100%);
-  --sbb-navigation-content-transform: translateX(0);
+  --sbb-navigation-translate: -100% 0;
+  --sbb-navigation-content-translate: 0;
   --sbb-navigation-width: 100%;
   --sbb-navigation-height: 100dvh;
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -75,7 +77,7 @@
 
 :host(:not([data-state='closed'])) {
   --sbb-navigation-inset: 0;
-  --sbb-navigation-transform: translateX(0);
+  --sbb-navigation-translate: ;
 }
 
 :host([data-state][data-state='closing']) {
@@ -83,11 +85,11 @@
 }
 
 :host([data-has-navigation-section]) {
-  --sbb-navigation-content-transform: translateX(-100%);
+  --sbb-navigation-content-translate: -100% 0;
 
   @include sbb.mq($from: 'large') {
     --sbb-navigation-expanded-width: 100dvw;
-    --sbb-navigation-content-transform: translateX(0%);
+    --sbb-navigation-content-translate: 0;
   }
 }
 
@@ -100,7 +102,7 @@
 
   padding-inline: 0;
   pointer-events: none;
-  transform: var(--sbb-navigation-transform);
+  translate: var(--sbb-navigation-translate);
 
   @include sbb.mq($from: large) {
     padding-inline: var(--sbb-layout-base-offset-responsive);
@@ -139,8 +141,8 @@
   border: none;
   pointer-events: none;
   height: var(--sbb-navigation-height);
-  color: var(--sbb-color-white);
-  background-color: var(--sbb-color-midnight);
+  color: var(--sbb-navigation-color);
+  background-color: var(--sbb-navigation-background-color);
 
   &::before {
     @include transition(width);
@@ -149,7 +151,7 @@
     position: absolute;
     width: var(--sbb-navigation-expanded-width);
     height: var(--sbb-navigation-height);
-    background: var(--sbb-color-midnight);
+    background: var(--sbb-navigation-background-color);
   }
 
   :host([data-state]:not([data-state='closed'])) & {
@@ -194,7 +196,7 @@
 }
 
 .sbb-navigation__content {
-  @include transition(transform);
+  @include transition(translate);
   @include sbb.scrollbar($negative: true);
 
   & {
@@ -206,7 +208,7 @@
     padding-inline: var(--sbb-navigation-padding-inline);
     padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
     overflow-y: auto;
-    transform: var(--sbb-navigation-content-transform);
+    translate: var(--sbb-navigation-content-translate);
   }
 }
 
@@ -216,21 +218,21 @@
 
 @keyframes open {
   from {
-    transform: translateX(-100%);
+    translate: -100% 0;
   }
 
   to {
-    transform: translateX(0%);
+    translate: 0;
   }
 }
 
 @keyframes close {
   from {
-    transform: translateX(0%);
+    translate: 0;
   }
 
   to {
-    transform: translateX(-100%);
+    translate: -100% 0;
   }
 }
 

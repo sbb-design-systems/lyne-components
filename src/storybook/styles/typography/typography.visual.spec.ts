@@ -74,7 +74,7 @@ describe(`typography`, () => {
               </p> `,
             {
               backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
-              color: negative ? 'var(--sbb-color-white)' : '',
+              color: negative ? 'var(--sbb-color-1-negative)' : '',
             },
           );
         });

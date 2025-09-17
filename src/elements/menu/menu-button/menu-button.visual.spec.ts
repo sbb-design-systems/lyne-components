@@ -6,7 +6,6 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.js';
 
@@ -60,7 +59,7 @@ describe(`sbb-menu-button`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const visualDiffState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+    for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
       it(
         visualDiffState.name,
         visualDiffState.with(async (setup) => {

@@ -25,6 +25,27 @@ const withLeanDecorator = makeDecorator({
   },
 });
 
+const lightDarkModeDecorator = makeDecorator({
+  name: 'lightOrDarkMode',
+  parameterName: 'darkMode',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context) => {
+    const selectedMode = context.globals.mode as 'light' | 'dark' | 'auto';
+
+    document.documentElement.classList.remove('sbb-dark', 'sbb-light', 'sbb-light-dark');
+
+    if (selectedMode === 'light') {
+      document.documentElement.classList.add('sbb-light');
+    } else if (selectedMode === 'dark') {
+      document.documentElement.classList.add('sbb-dark');
+    } else {
+      document.documentElement.classList.add('sbb-light-dark');
+    }
+
+    return getStory(context);
+  },
+});
+
 const withBackgroundDecorator = makeDecorator({
   name: 'withContextSpecificBackgroundColor',
   parameterName: 'backgroundColor',
@@ -114,6 +135,7 @@ export default {
   decorators: [
     withBackgroundDecorator,
     withLeanDecorator,
+    lightDarkModeDecorator,
     (story) => {
       const root = document && document.getElementById('storybook-root');
 
@@ -138,6 +160,26 @@ export default {
       return story();
     },
   ],
+  globalTypes: {
+    mode: {
+      description: 'Light or dark mode',
+      toolbar: {
+        // The label to show for this toolbar item
+        title: 'Mode',
+        // Array of plain string values or MenuItem shape (see below)
+        items: [
+          { value: 'auto', title: 'light dark mode', icon: 'paintbrush' },
+          { value: 'light', title: 'light mode', icon: 'sun' },
+          { value: 'dark', title: 'dark mode', icon: 'moon' },
+        ],
+        // Change title based on selected value
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    mode: 'auto',
+  },
   parameters,
   tags: ['autodocs'],
 } satisfies Preview;

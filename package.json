@@ -73,7 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "@custom-elements-manifest/analyzer": "0.10.5",
+    "@custom-elements-manifest/analyzer": "0.10.6",
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.35.0",
@@ -90,6 +90,7 @@
     "@storybook/addon-essentials": "9.0.0-alpha.12",
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/addon-links": "9.1.6",
+    "@storybook/icons": "^1.4.0",
     "@storybook/web-components-vite": "9.1.6",
     "@types/glob": "9.0.0",
     "@types/mocha": "10.0.10",

@@ -44,7 +44,7 @@ sbb-title {
   inset-block-start: 0;
   inset-inline-start: 0;
   height: var(--sbb-border-radius-2x);
-  background-color: var(--sbb-color-black);
+  background-color: var(--sbb-border-color-1);
   width: calc(var(--app-progress) * 100%);
 }
 
