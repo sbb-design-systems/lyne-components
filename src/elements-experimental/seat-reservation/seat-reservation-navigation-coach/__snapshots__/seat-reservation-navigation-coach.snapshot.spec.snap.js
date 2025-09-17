@@ -15,7 +15,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
   <button
     aria-describedby="nav-coach-service-descriptions-0"
     class="sbb-sr-navigation__ctrl-button"
-    title="Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces."
+    title="Navigate to coach 85. 0 seats available. 0 available bicycle spaces."
     type="button"
   >
     <div class="sbb-sr-navigation__additional-information">
@@ -49,7 +49,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces.",
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
       "description": "Available services: Bike area,Quiet zone"
     },
     {
@@ -74,7 +74,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85. 0 seats available. 0 available bicycle spaces.",
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
       "description": "Available services: Bike area,Quiet zone"
     },
     {

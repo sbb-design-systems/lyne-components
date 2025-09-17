@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.6.0...v3.7.0) (2025-09-15)
+
+
+### Features
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** add requireSelection and autoSelectActiveOption ([#4018](https://github.com/sbb-design-systems/lyne-components/issues/4018)) ([87654ae](https://github.com/sbb-design-systems/lyne-components/commit/87654ae7f0f2cd093847734dc344b26825281c58))
+* **sbb-carousel:** add carousel component ([#3926](https://github.com/sbb-design-systems/lyne-components/issues/3926)) ([c97db55](https://github.com/sbb-design-systems/lyne-components/commit/c97db551b3f95032af0c9beb104a5d5512deb732))
+* **sbb-timetable-form:** component implementation ([#4013](https://github.com/sbb-design-systems/lyne-components/issues/4013)) ([c0d9b7c](https://github.com/sbb-design-systems/lyne-components/commit/c0d9b7c2a0a4f4dcd525ef668773e6c4d14a375b))
+
+
+### Bug Fixes
+
+* **sbb-seat-reservation:** update mouseover descriptions ([#4023](https://github.com/sbb-design-systems/lyne-components/issues/4023)) ([2e08cd4](https://github.com/sbb-design-systems/lyne-components/commit/2e08cd484295c169f751938a47bc0b916b4243ba))
+
 ## [3.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.5.0...v3.6.0) (2025-09-08)
 
 
