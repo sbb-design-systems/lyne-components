@@ -1,3 +1,4 @@
+import { aTimeout } from '@open-wc/testing';
 import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
@@ -38,6 +39,10 @@ describe('sbb-carousel', () => {
               waitForImageReady(el),
             ),
           );
+          setup.snapshotElement
+            .querySelectorAll('sbb-carousel-item')[0]!
+            .scrollIntoView({ behavior: 'instant' });
+          await aTimeout(10);
         });
       }),
     );
