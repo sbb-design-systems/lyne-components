@@ -47,11 +47,11 @@ class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin
 
   protected override render(): TemplateResult {
     return html`
-      <label class="sbb-radio-button">
+      <div class="sbb-radio-button">
         <span class="sbb-radio-button__label-slot">
           <slot></slot>
         </span>
-      </label>
+      </div>
     `;
   }
 }

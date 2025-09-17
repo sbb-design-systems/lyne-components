@@ -142,6 +142,12 @@ an alternative element by listening to the `didClose` event.
 | ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-dialog-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
+## CSS Parts
+
+| Name               | Description                                                          |
+| ------------------ | -------------------------------------------------------------------- |
+| `scroll-container` | Can be used to change styles of the scroll container of the content. |
+
 ## Slots
 
 | Name      | Description                                                                                                      |

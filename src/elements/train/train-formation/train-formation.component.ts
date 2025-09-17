@@ -7,6 +7,7 @@ import {
   type TemplateResult,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
@@ -109,9 +110,11 @@ class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, ty
                 (aggregatedSector) =>
                   html`<span
                     class="sbb-train-formation__sector"
-                    style="
-                --sbb-train-formation-wagon-count: ${aggregatedSector.wagonCount};
-                --sbb-train-formation-wagon-blocked-passage-count: ${aggregatedSector.blockedPassageCount}"
+                    style=${styleMap({
+                      '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount,
+                      '--sbb-train-formation-wagon-blocked-passage-count':
+                        aggregatedSector.blockedPassageCount,
+                    })}
                   >
                     <span class="sbb-train-formation__sector-sticky-wrapper">
                       ${`${

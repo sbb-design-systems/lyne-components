@@ -6,6 +6,16 @@
 :host {
   --sbb-breadcrumb-group-wrap: nowrap;
   --sbb-breadcrumb-group-visibility: hidden;
+  --sbb-breadcrumb-group-ellipsis-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-cloud)
+  );
+  --sbb-breadcrumb-group-ellipsis-background-color: transparent;
+  --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-1x);
+  --sbb-breadcrumb-group-ellipsis-border-color: light-dark(
+    var(--sbb-color-silver),
+    var(--sbb-color-anthracite)
+  );
 
   display: block;
 }
@@ -34,15 +44,10 @@
 }
 
 .sbb-breadcrumb-group__divider-icon {
-  color: var(--sbb-color-granite);
+  color: var(--sbb-breadcrumb-group-ellipsis-color);
 }
 
 #sbb-breadcrumb-ellipsis {
-  --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-granite);
-  --sbb-breadcrumb-group-ellipsis-background-color: transparent;
-  --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-1x);
-  --sbb-breadcrumb-group-ellipsis-border-color: var(--sbb-color-silver);
-
   @include sbb.button-reset;
   @include sbb.text-xxs--regular;
 
@@ -69,8 +74,8 @@
 
   @include sbb.hover-mq($hover: true) {
     &:hover {
-      --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-charcoal);
-      --sbb-breadcrumb-group-ellipsis-background-color: var(--sbb-color-milk);
+      --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-2);
+      --sbb-breadcrumb-group-ellipsis-background-color: var(--sbb-background-color-3);
 
       @include sbb.if-forced-colors {
         --sbb-breadcrumb-group-ellipsis-border-color: Highlight;

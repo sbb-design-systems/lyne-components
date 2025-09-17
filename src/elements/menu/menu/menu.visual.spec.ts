@@ -1,9 +1,10 @@
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import type { SbbButtonElement } from '../../button/button.js';
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, tabKey, visualDiffDefault } from '../../core/testing/private.js';
 
 import '../../button/button.js';
 import '../../divider.js';
@@ -21,7 +22,7 @@ describe(`sbb-menu`, () => {
   };
 
   const userInfoStyle = {
-    color: 'var(--sbb-color-graphite)',
+    color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-granite))',
     fontSize: 'var(--sbb-font-size-text-xxs)',
   };
 
@@ -46,9 +47,12 @@ describe(`sbb-menu`, () => {
           `,
           { minHeight: '400px' },
         );
-        setup.withPostSetupAction(() => {
+        setup.withPostSetupAction(async () => {
           const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
           button.click();
+
+          // Test focus outline
+          await sendKeys({ press: tabKey });
         });
       }),
     );

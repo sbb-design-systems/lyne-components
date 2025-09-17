@@ -17,6 +17,7 @@ import {
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import {
+  SbbDarkModeController,
   SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
@@ -27,7 +28,7 @@ import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import { i18nGoBack } from '../../core/i18n/i18n.js';
-import { SbbNamedSlotListMixin } from '../../core/mixins.js';
+import { SbbNamedSlotListMixin, type SbbNegativeMixinType } from '../../core/mixins.js';
 import {
   getElementPosition,
   getElementPositionHorizontal,
@@ -114,6 +115,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
       }
     },
   });
+  private _darkModeController = new SbbDarkModeController(this, () => this._syncNegative());
   private _language = new SbbLanguageController(this);
   private _nestedMenu: SbbMenuElement | null = null;
 
@@ -316,9 +318,16 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     // Due to the fact that menu can both be a list and just a container, we need to check its
     // state before the SbbNamedSlotListMixin handles the slotchange event, in order to avoid
     // it interpreting the non list case as a list.
-    this.shadowRoot?.addEventListener('slotchange', (e) => this._checkListCase(e), {
-      capture: true,
-    });
+    this.shadowRoot?.addEventListener(
+      'slotchange',
+      (e) => {
+        this._syncNegative();
+        this._checkListCase(e);
+      },
+      {
+        capture: true,
+      },
+    );
     return renderRoot;
   }
 
@@ -565,6 +574,14 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     this.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
     this.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
     this.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
+  }
+
+  private _syncNegative(): void {
+    // Links and buttons are the most expected contents which have a negative property
+    this.querySelectorAll('[data-sbb-link], [data-sbb-button]')?.forEach((el: Element) => {
+      customElements.upgrade(el);
+      (el as Element & SbbNegativeMixinType).negative = !this._darkModeController.matches();
+    });
   }
 
   private _isMobile(): boolean {

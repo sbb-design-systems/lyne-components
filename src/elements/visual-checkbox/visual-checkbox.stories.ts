@@ -157,7 +157,9 @@ export const SizeXSNegative: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

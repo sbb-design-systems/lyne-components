@@ -26,9 +26,7 @@ snapshots["sbb-train-formation should render with one train Shadow DOM"] =
   >
     <span
       class="sbb-train-formation__sector"
-      style="
-                --sbb-train-formation-wagon-count: 1;
-                --sbb-train-formation-wagon-blocked-passage-count: 0"
+      style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
     >
       <span class="sbb-train-formation__sector-sticky-wrapper">
         Sec. A
@@ -90,9 +88,7 @@ snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
   >
     <span
       class="sbb-train-formation__sector"
-      style="
-                --sbb-train-formation-wagon-count: 1;
-                --sbb-train-formation-wagon-blocked-passage-count: 0"
+      style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
     >
       <span class="sbb-train-formation__sector-sticky-wrapper">
         Sec. A
@@ -100,9 +96,7 @@ snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] =
     </span>
     <span
       class="sbb-train-formation__sector"
-      style="
-                --sbb-train-formation-wagon-count: 1;
-                --sbb-train-formation-wagon-blocked-passage-count: 0"
+      style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
     >
       <span class="sbb-train-formation__sector-sticky-wrapper">
         Sec. B

@@ -15,6 +15,7 @@ snapshots["sbb-menu renders DOM"] =
     data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
+    negative=""
     size="s"
   >
     Profile
@@ -241,6 +242,7 @@ snapshots["sbb-menu renders open DOM"] =
     data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
+    negative=""
     size="s"
   >
     Profile

@@ -59,7 +59,7 @@ const userNameStyle: Args = {
 };
 
 const userInfoStyle: Args = {
-  color: 'var(--sbb-color-graphite)',
+  color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke))',
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };
 
@@ -162,7 +162,7 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-2">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
@@ -225,7 +225,7 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-4">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" size="xs"> Profile </sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View

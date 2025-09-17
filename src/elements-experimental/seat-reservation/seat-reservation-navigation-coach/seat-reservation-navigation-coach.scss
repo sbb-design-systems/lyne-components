@@ -8,16 +8,28 @@ $disabled: '[disabled], :disabled';
 
 :host {
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
-  --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-granite);
+  --sbb-seat-reservation-navigation-btn-outline-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-graphite)
+  );
   --sbb-seat-reservation-navigation-btn-outline-width: 1;
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-white);
-  --sbb-seat-reservation-navigation-btn-outline-color-selected: var(--sbb-color-black);
+  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-backgorund-color-2);
+  --sbb-seat-reservation-navigation-btn-outline-color-selected: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
   --sbb-seat-reservation-navigation-btn-outline-width-hover: 2;
-  --sbb-seat-reservation-navigation-btn-background-color-hover: var(--sbb-color-cloud);
+  --sbb-seat-reservation-navigation-btn-background-color-hover: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
 }
 
 :host(.sbb-sr__navigation-coach--hover-scroll) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
 }
 
 .sbb-sr-navigation__item-coach {
@@ -94,63 +106,78 @@ $disabled: '[disabled], :disabled';
   --sbb-seat-reservation-navigation-btn-outline-width: var(
     --sbb-seat-reservation-navigation-btn-outline-width-hover
   );
-  --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-black);
+  --sbb-seat-reservation-navigation-btn-outline-color: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
 }
 
 // focus but not selected, i.e. with keyboard navigation for example (FIGMA State:Active)
 // don't move this block beneath selected if you don't want to mess up specificity
 .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-silver);
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-silver),
+    var(--sbb-color-black)
+  );
 
   .sbb-sr-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-metal);
+    background-color: light-dark(var(--sbb-color-metal), var(--sbb-color-storm));
   }
 
   .sbb-sr-navigation__item-coach-number {
-    color: var(--sbb-color-anthracite);
+    color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-graphite));
   }
 }
 
 // selected, i.e. the coach within the train is selected (FIGMA State:Selected)
 .sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-milk);
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-milk),
+    var(--sbb-color-iron)
+  );
 
   .sbb-sr-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-black);
+    background-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
   }
 
   .sbb-sr-navigation__item-coach-number {
-    color: var(--sbb-color-black);
+    color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
   }
 }
 
 // hover (FIGMA State:hover)
 .sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}, .sbb-sr-navigation-driver-area) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-cloud);
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
 
   .sbb-sr-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-smoke);
+    background-color: var(--sbb-color-5);
   }
 
   .sbb-sr-navigation__item-coach-number {
-    color: var(--sbb-color-iron);
+    color: light-dark(var(--sbb-color-iron), var(--sbb-color-silver));
   }
 }
 
 // disabled (FIGMA State:disabled)
 .sbb-sr-navigation__ctrl-button:is(#{$disabled}) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-color-white);
-  --sbb-seat-reservation-navigation-btn-outline-color: var(--sbb-color-platinum);
+  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-background-color-2);
+  --sbb-seat-reservation-navigation-btn-outline-color: light-dark(
+    var(--sbb-color-platinum),
+    var(--sbb-color-iron)
+  );
 
   cursor: unset;
   pointer-events: unset;
 
   .sbb-sr-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-graphite);
+    background-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
   }
 
   .sbb-sr-navigation__item-coach-number {
-    color: var(--sbb-color-graphite);
+    color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
   }
 }
 
@@ -163,7 +190,7 @@ $disabled: '[disabled], :disabled';
   padding-inline: sbb-sr-functions.sr-px-to-rem(16);
   font-family: var(--sbb-typo-font-family);
   font-weight: 700;
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-granite));
 
   @include sbb.if-forced-colors {
     color: var(--sbb-color-milk);
@@ -171,18 +198,18 @@ $disabled: '[disabled], :disabled';
 }
 
 .sbb-sr-navigation__item-coach-number {
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 
   @include sbb.if-forced-colors {
     @include sbb.if-forced-colors {
       color: inherit;
     }
 
-    color: var(--sbb-color-granite);
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   }
 
   .sbb-sr-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-charcoal);
+    background-color: var(--sbb-background-color-2-inverted);
   }
 }
 
@@ -209,8 +236,8 @@ $disabled: '[disabled], :disabled';
   min-width: sbb-sr-functions.sr-px-to-rem(20);
   border-radius: var(--sbb-border-radius-1x);
   text-align: center;
-  background-color: var(--sbb-color-granite);
-  color: var(--sbb-color-white);
+  background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  color: light-dark(var(--sbb-color-white), var(--sbb-color-black));
 }
 
 // ################ VERTICAL MODE settings ################

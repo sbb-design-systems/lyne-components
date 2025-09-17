@@ -87,7 +87,7 @@ than the text, the CSS variable `--sbb-icon-list-marker-icon-color` can be used.
 ```html
 <ul
   class="sbb-icon-list sbb-text-m"
-  style="color: var(--sbb-color-iron); --sbb-icon-list-marker-icon-color: var(--sbb-color-green)"
+  style="color: var(--sbb-color-2); --sbb-icon-list-marker-icon-color: var(--sbb-color-green)"
 >
   <li>Content</li>
 </ul>

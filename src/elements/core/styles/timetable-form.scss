@@ -1,0 +1,27 @@
+@use './core/functions';
+@use './core/mediaqueries';
+@use './mixins/timetable-form' as mixin;
+
+.sbb-timetable-form {
+  @include mixin.sbb-timetable-form;
+}
+
+sbb-timetable-form {
+  sbb-date-input {
+    min-width: #{functions.px-to-rem-build(133)}; // From FIGMA spec
+  }
+
+  .sbb-timetable-form-block {
+    @include mixin.timetable-form-block;
+  }
+
+  @include mediaqueries.mq($to: small) {
+    .sbb-timetable-form-mobile-block {
+      @include mixin.timetable-form-block;
+    }
+
+    .sbb-timetable-form-mobile-hidden {
+      display: none;
+    }
+  }
+}

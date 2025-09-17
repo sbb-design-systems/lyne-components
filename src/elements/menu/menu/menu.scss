@@ -16,7 +16,6 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-menu-animation-easing: ease;
-  --sbb-menu-background-color: var(--sbb-color-black);
   --sbb-menu-transform-y: 100%;
   --sbb-menu-transform-x: 0%;
   --sbb-menu-max-width: 100%;
@@ -30,6 +29,11 @@
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-visibility: hidden;
   --sbb-menu-backdrop-color: transparent;
+  --sbb-menu-color: var(--sbb-color-2-inverted);
+  --sbb-menu-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+  @include sbb.scrollbar-variables($negative: true);
 
   @include sbb.mq($from: medium) {
     --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
@@ -41,7 +45,7 @@
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-menu-visibility: visible;
-  --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
+  --sbb-menu-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 20%, transparent);
 
   @include sbb.mq($from: medium) {
     --sbb-menu-backdrop-color: transparent;
@@ -55,6 +59,7 @@
 :host(:not([data-state='closed'])) {
   --sbb-menu-inset: 0;
 }
+
 
 @include sbb.mq($to: medium) {
   :host(:is(:state(skip-animation), [state--skip-animation])) {
@@ -86,7 +91,7 @@
 
 sbb-divider,
 ::slotted(sbb-divider) {
-  --sbb-divider-color: var(--sbb-color-iron);
+  --sbb-divider-color: var(--sbb-background-color-4-inverted);
 
   margin-block: var(--sbb-spacing-fixed-2x);
 }
@@ -137,7 +142,7 @@ sbb-divider,
   inset-block-start: unset;
   inset-block-end: 0;
   inset-inline-end: unset;
-  color: var(--sbb-color-white);
+  color: var(--sbb-menu-color);
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
   background-color: var(--sbb-menu-background-color);
@@ -187,7 +192,7 @@ sbb-divider,
 }
 
 .sbb-menu__content {
-  @include sbb.scrollbar($negative: true);
+  @include sbb.scrollbar-rules;
 
   & {
     max-height: var(--sbb-menu-max-height);
@@ -219,6 +224,11 @@ sbb-divider,
 
 .sbb-menu-list {
   @include sbb.list-reset;
+}
+
+::slotted(:is([data-sbb-link], [data-sbb-button])) {
+  // As the background turns white, we need to ensure that buttons and links are displayed in positive.
+  color-scheme: only light;
 }
 
 @keyframes open {

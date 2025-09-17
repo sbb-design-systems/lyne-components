@@ -184,7 +184,7 @@ const TemplateGrid = ({ description, ...remainingArgs }: Args): TemplateResult =
       () => html`
         <sbb-teaser ${sbbSpread(remainingArgs)} style="--sbb-teaser-align-items: stretch;">
           <figure slot="image" class="sbb-figure" style="width: 100%;">
-            <sbb-image image-src=${images[10]} alt="400x300"></sbb-image>
+            <sbb-image image-src=${images[6]} alt="400x300"></sbb-image>
           </figure>
           ${description}
         </sbb-teaser>

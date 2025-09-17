@@ -154,7 +154,7 @@ for (const manifestPath of manifestFilePaths) {
         (declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class',
       )
       .forEach((declaration) => {
-        ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
+        ['members', 'slots', 'cssProperties', 'events', 'cssParts'].forEach((type) =>
           (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort(
             (a, b) => (a.name ?? '').localeCompare(b.name ?? ''),
           ),
@@ -174,14 +174,7 @@ for (const manifestPath of manifestFilePaths) {
     headingOffset: -1, // Default heading is '###'
     private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.
     omitDeclarations: ['exports'],
-    omitSections: [
-      'super-class',
-      'css-parts',
-      'main-heading',
-      'static-fields',
-      'attributes',
-      'mixins',
-    ],
+    omitSections: ['super-class', 'main-heading', 'static-fields', 'attributes', 'mixins'],
   });
   const manifestDeclarations = manifest.modules.flatMap((m) => m.declarations);
 

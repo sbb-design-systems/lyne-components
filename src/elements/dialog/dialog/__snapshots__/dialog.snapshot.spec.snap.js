@@ -29,7 +29,10 @@ snapshots["sbb-dialog renders an open dialog Shadow DOM"] =
         <slot name="title-section">
         </slot>
       </div>
-      <div class="sbb-dialog-content-container">
+      <div
+        class="sbb-dialog-content-container"
+        part="scroll-container"
+      >
         <slot>
         </slot>
       </div>
@@ -84,7 +87,10 @@ snapshots["sbb-dialog renders an open dialog with close button negative Shadow D
         <slot name="title-section">
         </slot>
       </div>
-      <div class="sbb-dialog-content-container">
+      <div
+        class="sbb-dialog-content-container"
+        part="scroll-container"
+      >
         <slot>
         </slot>
       </div>
