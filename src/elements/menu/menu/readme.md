@@ -38,7 +38,7 @@ You can also provide custom content inside the `sbb-menu`:
 <sbb-menu trigger="menu-trigger">
   <div>Christina Müller</div>
   <span>UIS9057</span>
-  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
   <sbb-divider></sbb-divider>
   <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
   <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
@@ -92,7 +92,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ```html
 <sbb-menu>
-  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
   <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
     Receives initial focus
   </sbb-menu-link>

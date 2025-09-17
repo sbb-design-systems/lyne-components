@@ -88,9 +88,7 @@ describe(`sbb-menu`, () => {
             <sbb-menu trigger="menu-trigger-3">
               <div style=${styleMap(userNameStyle)}>Christina Müller</div>
               <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-              <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">
-                Profile
-              </sbb-block-link>
+              <sbb-block-link href="https://www.sbb.ch/en" size="xs"> Profile </sbb-block-link>
               <sbb-divider></sbb-divider>
               <sbb-menu-button icon-name="swisspass-small">
                 Very long label that exceeds the maximum width of the menu
