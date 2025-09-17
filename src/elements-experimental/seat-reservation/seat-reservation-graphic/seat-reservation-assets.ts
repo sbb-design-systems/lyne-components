@@ -1,10 +1,11 @@
 import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import { svgs, mapIconToSvg } from '../common.js';
+import { mapIconToSvg } from '../common.js';
 
 import '@sbb-esta/lyne-elements/table.js';
 import '../seat-reservation-graphic.js';
+import '../seat-reservation-area/seat-reservation-area.component.js';
 
 const svgImage = (src: string): TemplateResult => {
   return html`
@@ -184,11 +185,6 @@ const serviceIconTable = html`
           <td>LUGGAGE_AREA</td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('MULTI_FUNCTION_AREA')}</td>
-          <td>Multifunction</td>
-          <td>MULTI_FUNCTION_AREA</td>
-        </tr>
-        <tr>
           <td>${svgImageByOSDMCode('PRAM_ICON')}</td>
           <td>Pram</td>
           <td>PRAM_ICON</td>
@@ -244,67 +240,54 @@ const chassisTable = html`
       </thead>
       <tbody>
         <tr>
-          <td>${svgImageByOSDMCode('DRIVER_AREA')}</td>
-          <td>Driver: Train</td>
+          <td>${svgImageByOSDMCode('DRIVER_AREA_TRAIN')}</td>
+          <td>Driver Area (Train)<br>(Dependent on Vehicle-Type)</td>
           <td>DRIVER_AREA</td>
         </tr>
         <tr>
-          <td>${svgImageByOSDMCode('DRIVER_AREA_TRAIN')}</td>
-          <td>Driver: Train</td>
-          <td>DRIVER_AREA_TRAIN</td>
-        </tr>
-        <tr>
           <td>${svgImageByOSDMCode('DRIVER_AREA_BUS')}</td>
-          <td>Driver: Bus</td>
-          <td>DRIVER_AREA_BUS</td>
+          <td>Driver Area (Bus)<br>(Dependent on Vehicle-Type)</td>
+          <td>DRIVER_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_HIGH')}</td>
-          <td>Passage-Compartment: Top</td>
-          <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_HIGH</td>
+          <td>Compartment Passage High</td>
+          <td>COMPARTMENT_PASSAGE_HIGH</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE')}</td>
-          <td>Passage-Compartment: Middle</td>
-          <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_MIDDLE</td>
+          <td>Compartment Passage</td>
+          <td>COMPARTMENT_PASSAGE</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_LOW')}</td>
-          <td>Passage-Compartment: Bottom</td>
-          <td>COMPARTMENT_PASSAGE<br />COMPARTMENT_PASSAGE_LOW</td>
+          <td>Compartment Passage Low</td>
+          <td>COMPARTMENT_PASSAGE_LOW</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COACH_PASSAGE')}</td>
-          <td>Passage-Waggon Type: Left</td>
+          <td>Coach Passage</td>
           <td>COACH_PASSAGE</td>
         </tr>
         <tr>
-          <td>${svgImage(svgs.chassisPassageWaggonBottomRight)}</td>
-          <td>Passage-Waggon Type: Right</td>
-          <td
-            style="background: linear-gradient(90deg, var(--sbb-color-white) 5%, var(--sbb-color-red));"
-          >
-            TODO: check if still in use, may be deleted
-          </td>
+          <td>${svgImageByOSDMCode('COMPARTMENT_WALL')}</td>
+          <td>Compartment Wall</td>
+          <td>COMPARTMENT_WALL</td>
+        </tr>
+        <tr>
+          <td><sbb-seat-reservation-area style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center; background: var(--sbb-color-milk)"></td>
+          <td>Table Restaurant<br>(Displayed with CSS)</td></td>
+          <td>TABLE_RESTAURANT</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COACH_WALL_NO_PASSAGE')}</td>
-          <td>Row-Empty: Top/Left</td>
+          <td>Coach wall no passage</td>
           <td>COACH_WALL_NO_PASSAGE</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('COACH_BORDER_MIDDLE')}</td>
           <td>Row-Empty: Middle</td>
           <td>COACH_BORDER_MIDDLE</td>
-        </tr>
-        <tr>
-          <td>${svgImage(svgs.chassisSeparator)}</td>
-          <td>Separator</td>
-          <td
-            style="background: linear-gradient(90deg, var(--sbb-color-white) 5%, var(--sbb-color-red))"
-          >
-            TODO: check if still in use, may be deleted
-          </td>
         </tr>
       </tbody>
     </table>
