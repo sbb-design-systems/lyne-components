@@ -39,8 +39,10 @@ describe('sbb-carousel', () => {
               waitForImageReady(el),
             ),
           );
-          setup.snapshotElement.querySelectorAll('sbb-carousel-item')[0]!.scrollIntoView();
-          await aTimeout(500);
+          setup.snapshotElement
+            .querySelectorAll('sbb-carousel-item')[0]!
+            .scrollIntoView({ behavior: 'instant' });
+          await aTimeout(10);
         });
       }),
     );
