@@ -143,12 +143,10 @@
 .sbb-menu__content {
   @include sbb.scrollbar($negative: true);
 
-  & {
-    max-height: var(--sbb-menu-max-height);
-    padding-block: var(--sbb-spacing-fixed-1x);
-    overflow: auto;
-    outline: none;
-  }
+  max-height: var(--sbb-menu-max-height);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  overflow: auto;
+  outline: none;
 
   // Margin bottom in mobile variant
   &::after {

@@ -20,24 +20,21 @@
 }
 
 .sbb-breadcrumb {
-  --sbb-link-text-decoration-line: none;
-
   @include sbb.text-xs--regular;
   @include sbb.link-base;
-
-  & {
-    display: flex;
-    cursor: pointer;
-    gap: var(--sbb-spacing-fixed-2x);
-    color: var(--sbb-breadcrumb-color);
-    align-items: center;
-    overflow: hidden;
-    outline: none;
-  }
-
   @include sbb.if-forced-colors {
     --sbb-breadcrumb-color: ButtonText;
   }
+
+  --sbb-link-text-decoration-line: none;
+
+  display: flex;
+  cursor: pointer;
+  gap: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-breadcrumb-color);
+  align-items: center;
+  overflow: hidden;
+  outline: none;
 
   &:focus-visible {
     @include sbb.focus-outline;

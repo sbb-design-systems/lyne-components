@@ -180,9 +180,7 @@
 .sbb-dialog-content-container {
   @include sbb.scrollbar-rules;
 
-  & {
-    overflow: auto;
-  }
+  overflow: auto;
 }
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter

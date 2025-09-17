@@ -18,14 +18,12 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 .sbb-action-base {
   @include sbb.link-base;
 
-  & {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-    padding: var(--sbb-link-padding, 0);
-    outline: none;
-  }
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: var(--sbb-link-padding, 0);
+  outline: none;
 
   :host(:is(#{$disabled})) & {
     pointer-events: none;

@@ -35,13 +35,10 @@
 }
 
 .sbb-teaser-hero__panel {
-  z-index: 1;
-
   @include sbb.panel;
+  @include sbb.absolute-center-y;
 
-  & {
-    @include sbb.absolute-center-y;
-  }
+  z-index: 1;
 
   // Hide panel when no content or link-content is provided.
   :host(:not([data-slot-names~='unnamed'], [data-slot-names~='link-content'], [link-content])) & {

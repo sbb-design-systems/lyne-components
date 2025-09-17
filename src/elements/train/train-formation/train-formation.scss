@@ -20,19 +20,17 @@
 .sbb-train-formation {
   @include sbb.scrollbar;
 
-  & {
-    display: grid;
-    grid-template:
-      'start sectors end' auto
-      'start trains end' auto / auto 1fr auto;
-    position: relative;
-    overflow-x: auto;
-    row-gap: calc(
-      var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
-    );
-    padding-block-end: var(--sbb-train-formation-vertical-gap);
-    color: var(--sbb-train-formation-text-color);
-  }
+  display: grid;
+  grid-template:
+    'start sectors end' auto
+    'start trains end' auto / auto 1fr auto;
+  position: relative;
+  overflow-x: auto;
+  row-gap: calc(
+    var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
+  );
+  padding-block-end: var(--sbb-train-formation-vertical-gap);
+  color: var(--sbb-train-formation-text-color);
 
   &:focus-visible {
     @include sbb.focus-outline;
