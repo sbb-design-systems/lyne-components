@@ -16,7 +16,7 @@ describe('sbb-tooltip', () => {
     'above-end': { 'inset-inline-end': '2rem', 'inset-block-end': '2rem' },
   };
 
-  describeViewports({ viewports: ['medium'], viewportHeight: 200 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 200 }, () => {
     for (const alignment of Object.keys(alignments)) {
       it(
         `alignment=${alignment} ${visualDiffDefault.name}`,
