@@ -141,8 +141,8 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
 
 const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-tab-group size=${size} initial-selected-index="0">
-    <sbb-tab-label
-      ${sbbSpread(args)}
+    <sbb-tab-label ${sbbSpread(args)}>${label}</sbb-tab-label>
+    <sbb-tab
       @active=${() => {
         const tabContent = document.getElementById('dynamic');
         const article = document.createElement('article');
@@ -152,9 +152,7 @@ const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html
       turpis in eu mi bibendum neque egestas congue.</p>`;
         setTimeout(() => tabContent?.replaceWith(article), 3000);
       }}
-      >${label}</sbb-tab-label
     >
-    <sbb-tab>
       <article id="dynamic">Loading...</article>
     </sbb-tab>
 
