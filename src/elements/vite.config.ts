@@ -60,6 +60,8 @@ export default defineConfig((config) =>
                   'layout.css',
                   'lists.css',
                   'normalize.css',
+                  'off-brand-theme.css',
+                  'safety-theme.css',
                   'scrollbar.css',
                   'standard-theme.css',
                   'table.css',

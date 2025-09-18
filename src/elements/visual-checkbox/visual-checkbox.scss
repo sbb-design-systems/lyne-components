@@ -27,7 +27,7 @@
 :host([negative]) {
   --sbb-visual-checkbox-background-color: var(--sbb-background-color-1-negative);
   --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-primary-85);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-primary85);
 
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: Canvas;

@@ -1,4 +1,8 @@
-@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens;
+$theme: 'standard' !default;
+
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens with (
+  $theme: $theme
+);
 @use './core/mediaqueries';
 @use './core/functions';
 @use './mixins/a11y';
@@ -229,8 +233,8 @@ html {
     --sbb-form-field-text-color: var(--sbb-color-error);
 
     &[negative] {
-      --sbb-form-field-border-color: var(--sbb-color-primary-85);
-      --sbb-form-field-text-color: var(--sbb-color-primary-85);
+      --sbb-form-field-border-color: var(--sbb-color-red85);
+      --sbb-form-field-text-color: var(--sbb-color-red85);
     }
 
     @include a11y.if-forced-colors {
