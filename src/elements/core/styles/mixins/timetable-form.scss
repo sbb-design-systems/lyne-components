@@ -13,7 +13,7 @@
   padding-inline: var(--sbb-spacing-fixed-5x);
   background: linear-gradient(
     to bottom,
-    var(--sbb-color-red) 0 #{functions.px-to-rem-build(178)},
+    var(--sbb-color-primary) 0 #{functions.px-to-rem-build(178)},
     var(--sbb-background-color-3) #{functions.px-to-rem-build(178)} 100%
   );
 
