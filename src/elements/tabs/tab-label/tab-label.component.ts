@@ -48,14 +48,14 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   public accessor amount: string = '';
 
   /** Get the `sbb-tab` related to the `sbb-tab-label`. */
-  public get tab(): SbbTabElement | null {
+  private get _tab(): SbbTabElement | null {
     return this.nextElementSibling?.localName === 'sbb-tab'
       ? (this.nextElementSibling as SbbTabElement)
       : null;
   }
 
   /** Get the parent `sbb-tab-group`. */
-  public get tabGroup(): SbbTabGroupElement | null {
+  private get _tabGroup(): SbbTabGroupElement | null {
     return this.closest('sbb-tab-group');
   }
 
@@ -76,7 +76,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
     if (changedProperties.has('active')) {
       this.internals.ariaSelected = `${this.active}`;
-      this.tab?.toggleAttribute('data-active', this.active);
+      this._tab?.toggleAttribute('data-active', this.active);
 
       if (this.active && !this.disabled) {
         this.select();
@@ -110,7 +110,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     this.tabIndex = -1;
     if (this.active) {
       this.deactivate();
-      this.tabGroup?.activateTab(0);
+      this._tabGroup?.activateTab(0);
     }
   }
 
@@ -130,25 +130,25 @@ class SbbTabLabelElement extends SbbDisabledMixin(
       return;
     }
 
-    const tabLabels: SbbTabLabelElement[] = this.tabGroup?.tabLabels || [];
+    const tabLabels: SbbTabLabelElement[] = this._tabGroup?.tabLabels || [];
     const prevActiveTabLabel = tabLabels.find((e) => e._selected);
     if (prevActiveTabLabel !== this) {
       prevActiveTabLabel?.deactivate();
       this.active = true;
       this._selected = true;
       this.tabIndex = 0;
-      this.tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
-      this.tabGroup?.dispatchEvent(
+      this._tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
+      this._tabGroup?.dispatchEvent(
         new CustomEvent<SbbTabChangedEventDetails>('tabchange', {
           bubbles: true,
           composed: true,
           detail: {
             activeIndex: tabLabels.findIndex((e) => e === this),
             activeTabLabel: this,
-            activeTab: this.tab as SbbTabElement,
+            activeTab: this._tab as SbbTabElement,
             previousIndex: tabLabels.findIndex((e) => e === prevActiveTabLabel),
             previousTabLabel: prevActiveTabLabel,
-            previousTab: prevActiveTabLabel?.tab as SbbTabElement,
+            previousTab: prevActiveTabLabel?._tab as SbbTabElement,
           },
         }),
       );
@@ -156,7 +156,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   }
 
   protected linkToTab(): void {
-    if (!this.tab) {
+    if (!this._tab) {
       if (import.meta.env.DEV) {
         console.warn(
           `Missing content: you should provide a related content for the tab ${this.outerHTML}.`,
@@ -164,7 +164,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
       }
       return;
     }
-    this.internals.ariaControlsElements = [this.tab];
+    this.internals.ariaControlsElements = [this._tab];
   }
 
   protected override render(): TemplateResult {
