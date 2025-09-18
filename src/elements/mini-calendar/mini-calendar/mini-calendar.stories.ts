@@ -24,7 +24,6 @@ const createDays = (year: number, month: number, withTooltip: boolean): Template
             'sbb-tooltip': defaultDateAdapter.format(date, { weekdayStyle: 'none' }),
           }
         : {};
-      console.log(withTooltip);
       return html`
         <sbb-mini-calendar-day
           ${sbbSpread(tooltipAttributes)}
