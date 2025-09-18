@@ -49,7 +49,7 @@
 .sbb-mini-calendar-month-label-month {
   @include sbb.text-xxs--regular;
 
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
 }
 
 .sbb-mini-calendar-month-label-year {
