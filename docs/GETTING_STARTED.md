@@ -260,16 +260,16 @@ or simply to make things look right in light and dark modes.
 
 #### General colors
 
-| CSS variable name         | Description                                 |
-| ------------------------- | ------------------------------------------- |
-| `--sbb-color-primary`     | The primary color (red as standard).        |
-| `--sbb-color-primary-85`  | Brighter variation of the primary color.    |
-| `--sbb-color-primary-125` | Darker variation of the primary color.      |
-| `--sbb-color-primary-150` | Even darker variation of the primary color. |
-| `--sbb-color-error`       | Color to be used for error states.          |
-| `--sbb-color-warning`     | Color to be used for warning states.        |
-| `--sbb-color-success`     | Color to be used for success states.        |
-| `--sbb-color-brand`       | Color to be used for brand, like the logo.  |
+| CSS variable name        | Description                                 |
+| ------------------------ | ------------------------------------------- |
+| `--sbb-color-primary`    | The primary color (red as standard).        |
+| `--sbb-color-primary85`  | Brighter variation of the primary color.    |
+| `--sbb-color-primary125` | Darker variation of the primary color.      |
+| `--sbb-color-primary150` | Even darker variation of the primary color. |
+| `--sbb-color-error`      | Color to be used for error states.          |
+| `--sbb-color-warning`    | Color to be used for warning states.        |
+| `--sbb-color-success`    | Color to be used for success states.        |
+| `--sbb-color-brand`      | Color to be used for brand, like the logo.  |
 
 #### Background colors
 
