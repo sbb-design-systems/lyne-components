@@ -96,7 +96,7 @@ describe(`sbb-safety`, () => {
           `brands`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-clock></sbb-clock><br />
+              html`<sbb-clock now="12:12:12"></sbb-clock><br />
                 <sbb-logo></sbb-logo><br />
                 <sbb-signet></sbb-signet>`,
               {
