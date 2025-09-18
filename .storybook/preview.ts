@@ -46,6 +46,40 @@ const lightDarkModeDecorator = makeDecorator({
   },
 });
 
+const styleElementMap: Record<string, HTMLLinkElement | HTMLStyleElement | null> = {
+  standard: null,
+  'off-brand': null,
+  safety: null,
+};
+
+const themeDecorator = makeDecorator({
+  name: 'theme',
+  parameterName: 'theme',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context) => {
+    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety';
+
+    function findStyleElement(key: string): HTMLLinkElement | HTMLStyleElement | null {
+      return (
+        document.querySelector<HTMLLinkElement>(`link[rel=stylesheet][href*="${key}-"]`) ??
+        document.querySelector<HTMLStyleElement>(`style[data-vite-dev-id*="${key}-"]`) ??
+        null
+      );
+    }
+
+    if (!styleElementMap[selectedTheme]) {
+      import(`../src/elements/core/styles/${selectedTheme}-theme.scss`).then(() => {
+        styleElementMap[selectedTheme] = findStyleElement(selectedTheme);
+      });
+    } else {
+      Object.values(styleElementMap).forEach((entry) => entry?.remove());
+      document.head.appendChild(styleElementMap[selectedTheme]);
+    }
+
+    return getStory(context);
+  },
+});
+
 const withBackgroundDecorator = makeDecorator({
   name: 'withContextSpecificBackgroundColor',
   parameterName: 'backgroundColor',
@@ -136,6 +170,7 @@ export default {
     withBackgroundDecorator,
     withLeanDecorator,
     lightDarkModeDecorator,
+    themeDecorator,
     (story) => {
       const root = document && document.getElementById('storybook-root');
 
@@ -176,9 +211,25 @@ export default {
         dynamicTitle: true,
       },
     },
+    theme: {
+      description: 'Themes',
+      toolbar: {
+        // The label to show for this toolbar item
+        title: 'Mode',
+        // Array of plain string values or MenuItem shape (see below)
+        items: [
+          { value: 'standard', title: 'standard', icon: 'paintbrush' },
+          { value: 'off-brand', title: 'off-brand', icon: 'sun' },
+          { value: 'safety', title: 'safety', icon: 'moon' },
+        ],
+        // Change title based on selected value
+        dynamicTitle: true,
+      },
+    },
   },
   initialGlobals: {
     mode: 'auto',
+    theme: 'standard',
   },
   parameters,
   tags: ['autodocs'],
