@@ -18,9 +18,9 @@ import '../../radio-button.js';
 import '../../slider.js';
 import '../../toggle-check.js';
 
-import './safety-relevant-theme.scss';
+import './off-brand-theme.scss';
 
-describe(`sbb-safety-relevant`, () => {
+describe(`sbb-off-brand`, () => {
   describeViewports({ viewports: ['micro'] }, () => {
     for (const darkMode of [false, true]) {
       describe(`dark=${darkMode}`, () => {
@@ -29,7 +29,7 @@ describe(`sbb-safety-relevant`, () => {
             `button ${state.name}`,
             state.with(async (setup) => {
               await setup.withFixture(
-                html`<sbb-button sbb-badge="2">Safety relevant Button</sbb-button>`,
+                html`<sbb-button sbb-badge="2">Off-Brand Button</sbb-button>`,
                 {
                   darkMode,
                 },
@@ -42,7 +42,7 @@ describe(`sbb-safety-relevant`, () => {
           it(
             `link ${state.name}`,
             state.with(async (setup) => {
-              await setup.withFixture(html`<sbb-link href="#">Safety relevant Link</sbb-link>`, {
+              await setup.withFixture(html`<sbb-link href="#">Off-Brand Link</sbb-link>`, {
                 darkMode,
               });
             }),

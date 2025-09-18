@@ -9,18 +9,21 @@ import {
 
 import '../../button.js';
 import '../../checkbox.js';
+import '../../clock.js';
 import '../../container.js';
-import '../../teaser-hero.js';
 import '../../link.js';
 import '../../loading-indicator.js';
 import '../../loading-indicator-circle.js';
+import '../../logo.js';
 import '../../radio-button.js';
+import '../../signet.js';
 import '../../slider.js';
+import '../../teaser-hero.js';
 import '../../toggle-check.js';
 
-import './brandless-theme.scss';
+import './safety-theme.scss';
 
-describe(`sbb-brandless`, () => {
+describe(`sbb-safety`, () => {
   describeViewports({ viewports: ['micro'] }, () => {
     for (const darkMode of [false, true]) {
       describe(`dark=${darkMode}`, () => {
@@ -29,7 +32,7 @@ describe(`sbb-brandless`, () => {
             `button ${state.name}`,
             state.with(async (setup) => {
               await setup.withFixture(
-                html`<sbb-button sbb-badge="2">Brandless Button</sbb-button>`,
+                html`<sbb-button sbb-badge="2">Safety relevant Button</sbb-button>`,
                 {
                   darkMode,
                 },
@@ -42,7 +45,7 @@ describe(`sbb-brandless`, () => {
           it(
             `link ${state.name}`,
             state.with(async (setup) => {
-              await setup.withFixture(html`<sbb-link href="#">Brandless Link</sbb-link>`, {
+              await setup.withFixture(html`<sbb-link href="#">Safety relevant Link</sbb-link>`, {
                 darkMode,
               });
             }),
@@ -82,6 +85,20 @@ describe(`sbb-brandless`, () => {
                 <sbb-checkbox checked></sbb-checkbox><br />
                 <sbb-toggle-check checked></sbb-toggle-check><br />
                 <sbb-slider></sbb-slider> `,
+              {
+                darkMode,
+              },
+            );
+          }),
+        );
+
+        it(
+          `brands`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-clock></sbb-clock><br />
+                <sbb-logo></sbb-logo><br />
+                <sbb-signet></sbb-signet>`,
               {
                 darkMode,
               },
