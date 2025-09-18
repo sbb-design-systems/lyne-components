@@ -13,6 +13,17 @@ and it requires a `date` property in ISOString format (YYYY-MM-DD).
 </sbb-mini-calendar>
 ```
 
+It's also possible to display a tooltip on hover using the `sbb-tooltip` attribute, passing the date with the correct format.
+
+```html
+<sbb-mini-calendar>
+  <sbb-mini-calendar-month date="2025-01">
+    <sbb-mini-calendar-day date="2025-01-01" sbb-tooltip="01.01.2025"></sbb-mini-calendar-day>
+    ...
+  </sbb-mini-calendar-month>
+</sbb-mini-calendar>
+```
+
 ## Style
 
 The component has a `color` property, which is used to change the dot color.
