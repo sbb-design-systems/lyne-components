@@ -5,6 +5,7 @@
 
 :host {
   display: inline-block;
+  color: var(--sbb-form-field-text-color);
 
   --sbb-form-field-background-color: var(--sbb-background-color-1);
   --sbb-form-field-border-color: var(--sbb-border-color-5);
