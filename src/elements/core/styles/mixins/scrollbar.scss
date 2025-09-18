@@ -40,9 +40,11 @@
   //  We have to use the `not` selector as Chrome supports both, the -webkit-* and the following properties.
   //  As long as possible we use the -webkit-* approach as we have more styling possibilities there.
   @supports not selector(::-webkit-scrollbar) {
-    scrollbar-width: var(--sbb-scrollbar-width-firefox);
-    scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
-      var(--sbb-scrollbar-track-color, transparent);
+    & {
+      scrollbar-width: var(--sbb-scrollbar-width-firefox);
+      scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
+        var(--sbb-scrollbar-track-color, transparent);
+    }
   }
 }
 
@@ -59,21 +61,27 @@
 }
 
 @mixin scrollbar-variables--color-positive {
-  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
+  --sbb-scrollbar-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent),
+    color-mix(in srgb, var(--sbb-color-white) 30%, transparent)
+  );
+  --sbb-scrollbar-color-hover: light-dark(
+    color-mix(in srgb, var(--sbb-color-black) 60%, transparent),
+    color-mix(in srgb, var(--sbb-color-white) 60%, transparent)
+  );
 }
 
 @mixin scrollbar-variables--color-positive-track-visible {
-  --sbb-scrollbar-track-color: var(--sbb-color-cloud);
+  --sbb-scrollbar-track-color: var(--sbb-background-color-4);
 }
 
 @mixin scrollbar-variables--color-negative {
-  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+  --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-white) 30%, transparent);
+  --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-white) 60%, transparent);
 }
 
 @mixin scrollbar-variables--color-negative-track-visible {
-  --sbb-scrollbar-track-color: var(--sbb-color-iron);
+  --sbb-scrollbar-track-color: var(--sbb-background-color-4-negative);
 }
 
 @mixin scrollbar-variables--track-invisible {

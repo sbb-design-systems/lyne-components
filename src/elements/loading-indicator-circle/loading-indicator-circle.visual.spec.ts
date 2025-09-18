@@ -22,7 +22,10 @@ describe(`sbb-loading-indicator-circle`, () => {
                 style=${size === 'l' ? 'font-size: var(--sbb-font-size-text-xl);' : nothing}
               ></sbb-loading-indicator-circle>
             `,
-            { backgroundColor: color === 'white' ? 'var(--sbb-color-charcoal)' : undefined },
+            {
+              backgroundColor:
+                color === 'white' ? 'var(--sbb-background-color-1-negative)' : undefined,
+            },
           );
         }),
       );

@@ -47,7 +47,7 @@ describe('sbb-autocomplete-grid-row', () => {
     for (const negative of [false, true]) {
       const args = { ...defaultArgs, negative };
       const wrapperStyle = {
-        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+        backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
       };
 
       it(

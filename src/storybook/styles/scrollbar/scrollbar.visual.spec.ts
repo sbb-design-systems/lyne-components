@@ -51,8 +51,8 @@ describe(`scrollbar`, () => {
             </div>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            color: negative ? 'var(--sbb-color-white)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            color: negative ? 'var(--sbb-color-1-negative)' : undefined,
           },
         );
       });

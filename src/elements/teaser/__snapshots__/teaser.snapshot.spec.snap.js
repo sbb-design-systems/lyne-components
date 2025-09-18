@@ -102,10 +102,7 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
     class="sbb-figure"
     slot="image"
   >
-    <img
-      alt="400x300"
-      src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
-    >
+    <img alt="400x300">
   </figure>
   <sbb-chip-label
     color="charcoal"

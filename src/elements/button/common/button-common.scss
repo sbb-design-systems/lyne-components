@@ -19,9 +19,12 @@ $active: ':active, [data-active], [loading]';
   --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
   --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
   --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
-  --sbb-button-color-disabled-background: var(--sbb-color-milk);
-  --sbb-button-color-disabled-border: var(--sbb-color-smoke);
-  --sbb-button-color-disabled-text: var(--sbb-color-granite);
+  --sbb-button-color-disabled-background: var(--sbb-background-color-3);
+  --sbb-button-color-disabled-border: var(--sbb-border-color-5);
+  --sbb-button-color-disabled-text: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-aluminium)
+  );
   --sbb-button-border-disabled-style: dashed;
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
@@ -105,7 +108,7 @@ $active: ':active, [data-active], [loading]';
 }
 
 :host([negative]) {
-  --sbb-button-color-disabled-background: var(--sbb-color-charcoal);
+  --sbb-button-color-disabled-background: var(--sbb-background-color-3-negative);
   --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
 }
 

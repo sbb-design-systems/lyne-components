@@ -89,7 +89,7 @@ describe(`table`, () => {
             'sbb-table--unstriped': !striped,
           }),
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           },
         );
       });
@@ -143,7 +143,7 @@ describe(`table`, () => {
                 'sbb-table--negative': negative,
               }),
               {
-                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               },
             );
           }),
