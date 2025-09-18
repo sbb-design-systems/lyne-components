@@ -327,6 +327,14 @@ Please also consider our shadow SASS mixins when including a shadow.
 | `--sbb-shadow-color-hard-1` | Shadow color for hard level 1 |
 | `--sbb-shadow-color-hard-2` | Shadow color for hard level 2 |
 
+### Themes
+
+We provide the following themes.
+
+- `standard`: for SBB applications.
+- `brandless`: for non SBB applications, where the primary color is set to an alternative color (blue).
+- `safety-relevant`: for safety relevant applications, where the primary color is set to an alternative color (grey).
+
 ### CSS files
 
 Basically, all our styles are included in `standard-theme.css` which should be included in your application.
@@ -335,6 +343,8 @@ However, if you would like to more specifically pick what you need, consider the
 | File name                       | Description                                                                         |
 | ------------------------------- | ----------------------------------------------------------------------------------- |
 | `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                        |
+| `brandless-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).  |
+| `safety-relevant-theme.css`     | Contains the standard theme with primary color set to an alternative color (gray).  |
 | `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.               |
 |                                 |                                                                                     |
 | `normalize.css`                 | Contains general browser resetting styles which can be useful for your application. |

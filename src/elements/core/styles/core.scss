@@ -229,8 +229,8 @@ html {
     --sbb-form-field-text-color: var(--sbb-color-error);
 
     &[negative] {
-      --sbb-form-field-border-color: var(--sbb-color-primary-85);
-      --sbb-form-field-text-color: var(--sbb-color-primary-85);
+      --sbb-form-field-border-color: var(--sbb-color-red85);
+      --sbb-form-field-text-color: var(--sbb-color-red85);
     }
 
     @include a11y.if-forced-colors {

@@ -1,0 +1,8 @@
+@use './standard-theme';
+
+:root {
+  --sbb-color-primary: var(--sbb-color-royal);
+  --sbb-color-primary-85: var(--sbb-color-royal85);
+  --sbb-color-primary-125: var(--sbb-color-royal125);
+  --sbb-color-primary-150: var(--sbb-color-royal150);
+}
