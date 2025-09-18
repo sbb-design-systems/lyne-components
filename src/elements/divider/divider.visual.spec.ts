@@ -26,7 +26,7 @@ describe(`sbb-divider`, () => {
               <sbb-divider ?negative=${negative} orientation=${orientation}></sbb-divider>
             </div>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
       });
 

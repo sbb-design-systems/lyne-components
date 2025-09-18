@@ -89,7 +89,7 @@ describe(`sbb-timetable-row`, () => {
       disable-animation
     ></sbb-timetable-row>
   `;
-  const wrapperStyle = { backgroundColor: 'var(--sbb-color-milk)' };
+  const wrapperStyle = { backgroundColor: 'var(--sbb-background-color-3)' };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
     for (const c of cases) {

@@ -35,7 +35,7 @@ describe(`sbb-block-link-button`, () => {
             Travelcards & tickets
           </sbb-block-link-button>`,
           {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             forcedColors,
           },
         );

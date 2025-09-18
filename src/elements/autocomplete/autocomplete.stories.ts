@@ -232,7 +232,7 @@ const codeStyle: Args = {
 };
 
 const textBlock = (): TemplateResult => html`
-  <sbb-card color="milk" style="margin-block-start: 1rem">
+  <sbb-card color="milk" style="margin-block-start: 1rem; z-index: 100">
     This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than the form
     field, but it must always be covered by the autocomplete overlay.
   </sbb-card>

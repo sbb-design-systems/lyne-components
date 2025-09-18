@@ -29,7 +29,7 @@ describe(`sbb-journey-header`, () => {
             origin="Origin"
             destination="Destination"
           ></sbb-journey-header>`,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
       });
 

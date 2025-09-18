@@ -40,7 +40,7 @@ describe(`sbb-accordion`, () => {
             </sbb-accordion>
           `,
           {
-            backgroundColor: borderless ? 'var(--sbb-color-cement)' : undefined,
+            backgroundColor: borderless ? 'var(--sbb-background-color-4)' : undefined,
           },
         );
       });

@@ -46,7 +46,7 @@ describe(`sbb-button`, () => {
             </sbb-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
           },
         );
@@ -68,7 +68,7 @@ describe(`sbb-button`, () => {
           root = await visualRegressionFixture(
             html` <sbb-button loading ?negative=${negative}> Loading Button </sbb-button> `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
             },
           );
@@ -106,7 +106,9 @@ describe(`sbb-button`, () => {
                 await setup.withFixture(
                   html`<sbb-button disabled-interactive ?negative=${negative}>Button</sbb-button>`,
                   {
-                    backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                     focusOutlineDark: negative,
                   },
                 );
@@ -127,7 +129,7 @@ describe(`sbb-button`, () => {
               </sbb-button>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors: true,
             },
