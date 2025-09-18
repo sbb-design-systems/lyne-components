@@ -102,7 +102,7 @@ describe('sbb-select', () => {
               `,
               {
                 minHeight: '400px',
-                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
               },
             );
             setup.withPostSetupAction(() => {

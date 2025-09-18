@@ -35,7 +35,7 @@ describe(`sbb-secondary-button`, () => {
             </sbb-secondary-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-4-negative)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },

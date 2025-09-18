@@ -107,7 +107,7 @@ describe('sbb-teaser-product-static', () => {
                 visualState.with(async (setup) => {
                   await setup.withFixture(template({ negative, showFooter: true, slottedImg }), {
                     backgroundColor: negative
-                      ? 'var(--sbb-background-color-1-negative)'
+                      ? 'var(--sbb-background-color-2-negative)'
                       : undefined,
                   });
                   setup.withPostSetupAction(
@@ -126,7 +126,7 @@ describe('sbb-teaser-product-static', () => {
                     withChipTemplate({ negative, showFooter: true, slottedImg }),
                     {
                       backgroundColor: negative
-                        ? 'var(--sbb-background-color-1-negative)'
+                        ? 'var(--sbb-background-color-2-negative)'
                         : undefined,
                     },
                   );
