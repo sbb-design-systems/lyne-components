@@ -88,10 +88,11 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Methods
 
-| Name    | Privacy | Description            | Parameters | Return | Inherited From          |
-| ------- | ------- | ---------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the navigation. |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the navigation.  |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the navigation.                                                      |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the navigation.                                                       |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 

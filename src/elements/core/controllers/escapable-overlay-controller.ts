@@ -8,7 +8,7 @@ if (!isServer) {
   window.addEventListener('keydown', (event: KeyboardEvent) => {
     if (event.key === 'Escape' && !event.defaultPrevented) {
       event.preventDefault();
-      overlayStack.at(-1)?.close();
+      overlayStack.at(-1)?.escapeStrategy();
     }
   });
 }

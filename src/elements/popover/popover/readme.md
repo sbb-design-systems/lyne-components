@@ -117,10 +117,11 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Methods
 
-| Name    | Privacy | Description                         | Parameters            | Return | Inherited From          |
-| ------- | ------- | ----------------------------------- | --------------------- | ------ | ----------------------- |
-| `close` | public  | Closes the popover.                 | `target: HTMLElement` | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the popover on trigger click. |                       | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters            | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | --------------------- | ------ | ----------------------- |
+| `close`          | public  | Closes the popover.                                                         | `target: HTMLElement` | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                       | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the popover on trigger click.                                         |                       | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
