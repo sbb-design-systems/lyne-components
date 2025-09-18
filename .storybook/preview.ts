@@ -5,6 +5,43 @@ import { makeDecorator } from 'storybook/preview-api';
 
 import '../src/elements/core/styles/standard-theme.scss';
 
+import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
+import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
+
+const originaltyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
+  Array.from(stylesheet.cssRules).find((value) =>
+    // We assume that we target the standard theme file if this variable is included.
+    value.cssText.includes('--sbb-font-default-color'),
+  ),
+);
+
+const standardTheme = Array.from(originaltyleSheet?.cssRules ?? [])
+  .map((rule) => rule.cssText)
+  .join('');
+
+// We need a created stylesheet to manipulate it.
+// So we copy the content of the preloaded standard
+// theme into the constructed one then we remove the original one.
+const themeStyleSheet = new CSSStyleSheet();
+themeStyleSheet.replaceSync(standardTheme);
+document.adoptedStyleSheets.push(themeStyleSheet);
+originaltyleSheet?.ownerNode?.remove();
+
+const themeMap = { standard: standardTheme, 'off-brand': offBrandTheme, safety: safetyTheme };
+
+const themeDecorator = makeDecorator({
+  name: 'theme',
+  parameterName: 'theme',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context) => {
+    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety';
+
+    themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
+
+    return getStory(context);
+  },
+});
+
 /**
  * The Lean design is applied by adding the 'sbb-lean' class to the document.
  */
@@ -40,40 +77,6 @@ const lightDarkModeDecorator = makeDecorator({
       document.documentElement.classList.add('sbb-dark');
     } else {
       document.documentElement.classList.add('sbb-light-dark');
-    }
-
-    return getStory(context);
-  },
-});
-
-const styleElementMap: Record<string, HTMLLinkElement | HTMLStyleElement | null> = {
-  standard: null,
-  'off-brand': null,
-  safety: null,
-};
-
-const themeDecorator = makeDecorator({
-  name: 'theme',
-  parameterName: 'theme',
-  skipIfNoParametersOrOptions: false,
-  wrapper: (getStory, context) => {
-    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety';
-
-    function findStyleElement(key: string): HTMLLinkElement | HTMLStyleElement | null {
-      return (
-        document.querySelector<HTMLLinkElement>(`link[rel=stylesheet][href*="${key}-"]`) ??
-        document.querySelector<HTMLStyleElement>(`style[data-vite-dev-id*="${key}-"]`) ??
-        null
-      );
-    }
-
-    if (!styleElementMap[selectedTheme]) {
-      import(`../src/elements/core/styles/${selectedTheme}-theme.scss`).then(() => {
-        styleElementMap[selectedTheme] = findStyleElement(selectedTheme);
-      });
-    } else {
-      Object.values(styleElementMap).forEach((entry) => entry?.remove());
-      document.head.appendChild(styleElementMap[selectedTheme]);
     }
 
     return getStory(context);
@@ -203,7 +206,7 @@ export default {
         title: 'Mode',
         // Array of plain string values or MenuItem shape (see below)
         items: [
-          { value: 'auto', title: 'light dark mode', icon: 'paintbrush' },
+          { value: 'auto', title: 'light dark mode', icon: 'mirror' },
           { value: 'light', title: 'light mode', icon: 'sun' },
           { value: 'dark', title: 'dark mode', icon: 'moon' },
         ],
@@ -215,12 +218,12 @@ export default {
       description: 'Themes',
       toolbar: {
         // The label to show for this toolbar item
-        title: 'Mode',
+        title: 'Theme',
         // Array of plain string values or MenuItem shape (see below)
         items: [
-          { value: 'standard', title: 'standard', icon: 'paintbrush' },
-          { value: 'off-brand', title: 'off-brand', icon: 'sun' },
-          { value: 'safety', title: 'safety', icon: 'moon' },
+          { value: 'standard', title: 'standard', icon: 'photo' },
+          { value: 'off-brand', title: 'off-brand', icon: 'paintbrush' },
+          { value: 'safety', title: 'safety', icon: 'alert' },
         ],
         // Change title based on selected value
         dynamicTitle: true,
