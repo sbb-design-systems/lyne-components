@@ -102,7 +102,7 @@ describe('sbb-select', () => {
               `,
               {
                 minHeight: '400px',
-                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
               },
             );
             setup.withPostSetupAction(() => {
@@ -123,7 +123,7 @@ describe('sbb-select', () => {
           `state=${visualDiffState.name} negative=${negative}`,
           visualDiffState.with(async (setup) => {
             await setup.withFixture(template({ ...defaultArgs, negative }), {
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
             });
           }),
         );
@@ -133,7 +133,7 @@ describe('sbb-select', () => {
         `state=required negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, required: true }), {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
           });
         }),
       );
@@ -142,7 +142,7 @@ describe('sbb-select', () => {
         `state=disabled negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, disabled: true }), {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
           });
         }),
       );
@@ -153,7 +153,7 @@ describe('sbb-select', () => {
           await setup.withFixture(
             html` <fieldset disabled>${template({ ...defaultArgs, negative })}</fieldset> `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
             },
           );
         }),
@@ -163,7 +163,7 @@ describe('sbb-select', () => {
         `state=readonly negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, readonly: true }), {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
           });
         }),
       );
@@ -172,7 +172,7 @@ describe('sbb-select', () => {
         `state=borderless negative=${negative}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, borderless: true }), {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
           });
         }),
       );
@@ -183,7 +183,7 @@ describe('sbb-select', () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(template({ ...defaultArgs, negative, multiple }), {
               minHeight: '400px',
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
             });
             setup.withPostSetupAction(() => {
               const select = setup.snapshotElement.querySelector('sbb-select')!;
@@ -200,7 +200,7 @@ describe('sbb-select', () => {
               template({ ...defaultArgs, negative, multiple, withEllipsis: true }),
               {
                 minHeight: '600px',
-                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
               },
             );
             setup.withPostSetupAction(() => {
@@ -225,7 +225,7 @@ describe('sbb-select', () => {
                 }),
                 {
                   minHeight: '600px',
-                  backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
                 },
               );
               setup.withPostSetupAction(() => {
@@ -243,7 +243,7 @@ describe('sbb-select', () => {
               template({ ...defaultArgs, negative, multiple, disableOption: true }),
               {
                 minHeight: '400px',
-                backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
               },
             );
             setup.withPostSetupAction(() => {
@@ -268,7 +268,7 @@ describe('sbb-select', () => {
                 }),
                 {
                   minHeight: '800px',
-                  backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
                 },
               );
               setup.withPostSetupAction(() => {

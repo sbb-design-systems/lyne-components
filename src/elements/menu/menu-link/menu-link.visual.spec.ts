@@ -55,7 +55,7 @@ describe(`sbb-menu-link`, () => {
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
-    backgroundColor: 'var(--sbb-color-black)',
+    backgroundColor: 'var(--sbb-background-color-1-inverted)',
     maxWidth: '256px',
   };
 

@@ -28,7 +28,8 @@ describe(`sbb-timetable-occupancy-icon`, () => {
             </sbb-timetable-occupancy-icon>
           `,
           {
-            backgroundColor: forcedColors || negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor:
+              forcedColors || negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             forcedColors,
           },
         );

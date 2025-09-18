@@ -170,7 +170,9 @@ describe(`sbb-form-field`, () => {
                     `slot=none ${visualDiffState.name}`,
                     visualDiffState.with(async (setup) => {
                       await setup.withFixture(html`${formField(args, template(args))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
                         focusOutlineDark: negative,
                         forcedColors,
                       });
@@ -182,7 +184,9 @@ describe(`sbb-form-field`, () => {
                     visualDiffState.with(async (setup) => {
                       const templateResult: TemplateResult = html`${template(args)} ${icons}`;
                       await setup.withFixture(html`${formField(args, templateResult)}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
                         focusOutlineDark: negative,
                         forcedColors,
                       });
@@ -196,7 +200,9 @@ describe(`sbb-form-field`, () => {
                     const templateResult: TemplateResult = html`${template(args)}
                     ${buttonsAndPopover(args)}`;
                     await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-1-negative)'
+                        : undefined,
                       focusOutlineDark: negative,
                       forcedColors,
                     });
@@ -209,7 +215,9 @@ describe(`sbb-form-field`, () => {
                     const templateResult: TemplateResult = html`${template(args)}
                     ${buttonsAndPopover(args)}`;
                     await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-1-negative)'
+                        : undefined,
                       focusOutlineDark: negative,
                       forcedColors,
                     });
@@ -222,7 +230,9 @@ describe(`sbb-form-field`, () => {
                     const templateResult: TemplateResult = html`${template(args)}
                     ${buttonsAndPopover(args)}`;
                     await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-1-negative)'
+                        : undefined,
                       focusOutlineDark: negative,
                       forcedColors,
                     });
@@ -245,7 +255,9 @@ describe(`sbb-form-field`, () => {
                 `slot=none`,
                 visualDiffDefault.with(async (setup) => {
                   await setup.withFixture(html`${formField(args, template(args))}`, {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                     focusOutlineDark: negative,
                     forcedColors,
                   });
@@ -258,7 +270,9 @@ describe(`sbb-form-field`, () => {
                   const templateResult: TemplateResult = html`${template(args)}
                   ${buttonsAndPopover(args)}`;
                   await setup.withFixture(html`${formField(args, templateResult)}`, {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                     focusOutlineDark: negative,
                     forcedColors,
                   });
@@ -309,7 +323,9 @@ describe(`sbb-form-field`, () => {
                     visualDiffDefault.with(async (setup) => {
                       const noLabel = { ...basicArgs, negative, borderless: true };
                       await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
                         focusOutlineDark: negative,
                         forcedColors,
                       });
@@ -321,7 +337,9 @@ describe(`sbb-form-field`, () => {
                     visualDiffDefault.with(async (setup) => {
                       const noLabel = { ...basicArgs, negative, borderless: true, disabled: true };
                       await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
                         focusOutlineDark: negative,
                         forcedColors,
                       });
@@ -338,7 +356,9 @@ describe(`sbb-form-field`, () => {
                         cssClass: 'sbb-invalid',
                       };
                       await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
                         focusOutlineDark: negative,
                         forcedColors,
                       });
@@ -350,7 +370,9 @@ describe(`sbb-form-field`, () => {
                     visualDiffFocus.with(async (setup) => {
                       const noLabel = { ...basicArgs, negative, borderless: true };
                       await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
                         focusOutlineDark: negative,
                         forcedColors,
                       });

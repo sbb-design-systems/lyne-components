@@ -15,7 +15,7 @@ describe('sbb-paginator', () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const wrapperStyle = {
-          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
         for (const forcedColors of [false, true]) {

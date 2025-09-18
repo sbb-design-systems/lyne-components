@@ -38,7 +38,7 @@ describe(`sbb-visual-checkbox`, () => {
           ></sbb-visual-checkbox>`,
           {
             forcedColors,
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           },
         );
       });

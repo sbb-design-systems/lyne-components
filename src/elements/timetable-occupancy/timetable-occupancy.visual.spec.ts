@@ -31,7 +31,8 @@ describe(`sbb-timetable-occupancy`, () => {
             ></sbb-timetable-occupancy>
           `,
           {
-            backgroundColor: forcedColors || negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor:
+              forcedColors || negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             forcedColors,
           },
         );
