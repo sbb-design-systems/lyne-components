@@ -83,7 +83,7 @@
     "@lit/react": "1.0.8",
     "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
-    "@sbb-esta/lyne-design-tokens": "1.7.0",
+    "@sbb-esta/lyne-design-tokens": "1.8.0",
     "@storybook/addon-a11y": "9.1.6",
     "@storybook/addon-actions": "9.0.8",
     "@storybook/addon-docs": "9.1.6",
