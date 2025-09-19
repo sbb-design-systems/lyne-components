@@ -154,24 +154,50 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     this._tooltipOutlet.classList.add('sbb-overlay-outlet');
     document.body.appendChild(this._tooltipOutlet);
 
-    // We are using MutationObserver directly here, as it will only be called on client side
+    // Key: trigger attribute, value: tooltip attribute
+    const delayAttributeMap = new Map<string, string>([
+      ['sbb-tooltip-open-delay', 'open-delay'],
+      ['sbb-tooltip-close-delay', 'close-delay'],
+    ]);
+
+    // We are using MutationObserver directly here, as it will only be called on client side,
     // and we do not need to disconnect it, as we want it to work during the full lifetime
     // of the page.
     new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (mutation.type === 'attributes') {
-          this._handleTooltipTrigger(mutation.target as HTMLElement);
+          const target = mutation.target as HTMLElement;
+          if (mutation.attributeName === 'sbb-tooltip') {
+            this._handleTooltipTrigger(target);
+          } else if (delayAttributeMap.has(mutation.attributeName!)) {
+            this._setDelayProperty(
+              target,
+              mutation.attributeName!,
+              delayAttributeMap.get(mutation.attributeName!)!,
+            );
+          }
         } else if (mutation.type === 'childList') {
           for (const node of [...mutation.addedNodes, ...mutation.removedNodes].filter(
             (n): n is HTMLElement => n.nodeType === n.ELEMENT_NODE,
           )) {
             this._handleTooltipTrigger(node);
             this._findAndHandleTooltipTriggers(node);
+
+            delayAttributeMap.forEach((_, attr) => {
+              if (node.hasAttribute(attr)) {
+                this._setDelayProperty(node, attr, delayAttributeMap.get(attr)!);
+              }
+              node
+                .querySelectorAll<HTMLElement>(`[${attr}]`)
+                .forEach((tooltipTrigger) =>
+                  this._setDelayProperty(tooltipTrigger, attr, delayAttributeMap.get(attr)!),
+                );
+            });
           }
         }
       }
     }).observe(document.documentElement, {
-      attributeFilter: ['sbb-tooltip'],
+      attributeFilter: ['sbb-tooltip', 'sbb-tooltip-open-delay', 'sbb-tooltip-close-delay'],
       childList: true,
       subtree: true,
     });
@@ -201,6 +227,24 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
       tooltip._destroy();
+    }
+  }
+
+  private static _setDelayProperty(
+    tooltipTrigger: HTMLElement,
+    triggerAttr: string,
+    tooltipAttr: string,
+  ): void {
+    if (tooltipTrigger.hasAttribute('sbb-tooltip')) {
+      const tooltip = tooltipTriggers.get(tooltipTrigger);
+      if (tooltip) {
+        const delay = tooltipTrigger.getAttribute(triggerAttr);
+        if (delay) {
+          tooltip.setAttribute(tooltipAttr, delay);
+        } else {
+          tooltip.removeAttribute(tooltipAttr);
+        }
+      }
     }
   }
 

@@ -70,7 +70,9 @@
           "sbb-toast-close",
           "sbb-stepper-next",
           "sbb-stepper-previous",
-          "sbb-tooltip"
+          "sbb-tooltip",
+          "sbb-tooltip-open-delay",
+          "sbb-tooltip-close-delay"
         ]
       }
     ]
