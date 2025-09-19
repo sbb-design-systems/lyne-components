@@ -154,8 +154,11 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     this._tooltipOutlet.classList.add('sbb-overlay-outlet');
     document.body.appendChild(this._tooltipOutlet);
 
-    const tooltipAttributes = ['sbb-tooltip', 'sbb-tooltip-open-delay', 'sbb-tooltip-close-delay'];
-    const delayAttributes = ['sbb-tooltip-open-delay', 'sbb-tooltip-close-delay'];
+    // Key: trigger attribute, value: tooltip attribute
+    const delayAttributeMap = new Map<string, string>([
+      ['sbb-tooltip-open-delay', 'open-delay'],
+      ['sbb-tooltip-close-delay', 'close-delay'],
+    ]);
 
     // We are using MutationObserver directly here, as it will only be called on client side,
     // and we do not need to disconnect it, as we want it to work during the full lifetime
@@ -166,11 +169,11 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
           const target = mutation.target as HTMLElement;
           if (mutation.attributeName === 'sbb-tooltip') {
             this._handleTooltipTrigger(target);
-          } else if (delayAttributes.includes(mutation.attributeName!)) {
+          } else if (delayAttributeMap.has(mutation.attributeName!)) {
             this._setDelayProperty(
               target,
               mutation.attributeName!,
-              mutation.attributeName!.replace('sbb-tooltip-', ''),
+              delayAttributeMap.get(mutation.attributeName!)!,
             );
           }
         } else if (mutation.type === 'childList') {
@@ -180,18 +183,18 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
             this._handleTooltipTrigger(node);
             this._findAndHandleTooltipTriggers(node);
 
-            delayAttributes.forEach((attr) => {
+            Array.from(delayAttributeMap.keys()).forEach((attr) => {
               node
                 .querySelectorAll<HTMLElement>(`[${attr}]`)
                 .forEach((tooltipTrigger) =>
-                  this._setDelayProperty(tooltipTrigger, attr, attr.replace('sbb-tooltip-', '')),
+                  this._setDelayProperty(tooltipTrigger, attr, delayAttributeMap.get(attr)!),
                 );
             });
           }
         }
       }
     }).observe(document.documentElement, {
-      attributeFilter: tooltipAttributes,
+      attributeFilter: ['sbb-tooltip', 'sbb-tooltip-open-delay', 'sbb-tooltip-close-delay'],
       childList: true,
       subtree: true,
     });
