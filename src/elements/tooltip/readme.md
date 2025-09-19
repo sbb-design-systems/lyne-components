@@ -42,6 +42,14 @@ mergeConfig({
 });
 ```
 
+If the component is used via attribute usage, it's possible to set the delays using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
+
+```html
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-open-delay="250" sbb-tooltip-close-delay="250"
+  >Button</sbb-button
+>
+```
+
 ## Accessibility
 
 The `sbb-tooltip` adds an `aria-describedby` description that provides a reference to an element containing the tooltip's message.

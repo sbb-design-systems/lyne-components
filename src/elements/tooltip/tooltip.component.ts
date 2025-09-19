@@ -176,6 +176,31 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       subtree: true,
     });
     this._findAndHandleTooltipTriggers(document.body);
+
+    ['open-delay', 'close-delay'].forEach((tooltipAttr) => {
+      const triggerAttr = `sbb-tooltip-${tooltipAttr}`;
+      new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          if (mutation.type === 'attributes') {
+            this._setDelayProperty(mutation.target as HTMLElement, triggerAttr, tooltipAttr);
+          } else if (mutation.type === 'childList') {
+            for (const node of [...mutation.addedNodes, ...mutation.removedNodes].filter(
+              (n): n is HTMLElement => n.nodeType === n.ELEMENT_NODE,
+            )) {
+              node
+                .querySelectorAll<HTMLElement>(`[${triggerAttr}]`)
+                .forEach((tooltipTrigger) =>
+                  this._setDelayProperty(tooltipTrigger, triggerAttr, tooltipAttr),
+                );
+            }
+          }
+        }
+      }).observe(document.documentElement, {
+        attributeFilter: [triggerAttr],
+        childList: true,
+        subtree: true,
+      });
+    });
   }
 
   private static _findAndHandleTooltipTriggers(root: HTMLElement): void {
@@ -201,6 +226,23 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
       tooltip._destroy();
+    }
+  }
+
+  private static _setDelayProperty(
+    tooltipTrigger: HTMLElement,
+    triggerAttr: string,
+    tooltipAttr: string,
+  ): void {
+    if (tooltipTrigger.hasAttribute('sbb-tooltip')) {
+      const tooltip = tooltipTriggers.get(tooltipTrigger);
+      const delay = tooltipTrigger.getAttribute(triggerAttr);
+      if (tooltip)
+        if (delay) {
+          tooltip.setAttribute(tooltipAttr, delay);
+        } else {
+          tooltip.removeAttribute(tooltipAttr);
+        }
     }
   }
 

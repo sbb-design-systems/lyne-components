@@ -284,4 +284,54 @@ describe('sbb-tooltip', () => {
       expect(tooltipOutlet!.children[0].localName).to.equal('sbb-tooltip');
     });
   });
+
+  describe('delay attributes', () => {
+    beforeEach(async () => {
+      await fixture(html`
+        <div style="padding: 2rem">
+          <sbb-button
+            sbb-tooltip="Tooltip message"
+            sbb-tooltip-open-delay="300"
+            sbb-tooltip-close-delay="300"
+            >Button</sbb-button
+          >
+        </div>
+      `);
+      trigger = document.querySelector('sbb-button')!;
+      element = document.querySelector('.sbb-overlay-outlet sbb-tooltip')!;
+    });
+
+    it('should have the delays set', async () => {
+      expect(element.openDelay).to.be.equal(300);
+      expect(element.closeDelay).to.be.equal(300);
+    });
+
+    it('should update delays on attribute changes', async () => {
+      trigger.setAttribute('sbb-tooltip-open-delay', '1000');
+      trigger.setAttribute('sbb-tooltip-close-delay', '500');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      expect(element.openDelay).to.be.equal(1000);
+      expect(element.closeDelay).to.be.equal(500);
+    });
+
+    it('should not update delays if the sbb-tooltip attribute is removed', async () => {
+      trigger.removeAttribute('sbb-tooltip');
+      trigger.setAttribute('sbb-tooltip-close-delay', '0');
+      trigger.setAttribute('sbb-tooltip-close-delay', '0');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      expect(element.openDelay).to.be.equal(300);
+      expect(element.closeDelay).to.be.equal(300);
+    });
+
+    it('should reset delays if attributes are removed', async () => {
+      trigger.removeAttribute('sbb-tooltip-open-delay');
+      trigger.removeAttribute('sbb-tooltip-close-delay');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      expect(element.openDelay).to.be.equal(0);
+      expect(element.closeDelay).to.be.equal(0);
+    });
+  });
 });

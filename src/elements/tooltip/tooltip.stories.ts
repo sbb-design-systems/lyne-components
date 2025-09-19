@@ -12,6 +12,12 @@ import readme from './readme.md?raw';
 import { SbbTooltipElement } from './tooltip.component.js';
 import '../button/button.js';
 
+const tooltipMessage: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const openDelay: InputType = {
   control: {
     type: 'number',
@@ -31,21 +37,25 @@ const disabled: InputType = {
 };
 
 const attributeUsageArgTypes: ArgTypes = {
-  disabled,
+  'sbb-tooltip': tooltipMessage,
+  'sbb-tooltip-open-delay': openDelay,
+  'sbb-tooltip-close-delay': closeDelay,
 };
 
 const defaultArgTypes: ArgTypes = {
-  ...attributeUsageArgTypes,
+  disabled,
   'open-delay': openDelay,
   'close-delay': closeDelay,
 };
 
 const attributeUsageArgs: Args = {
-  disabled: false,
+  'sbb-tooltip': "I'm a tooltip from the [sbb-tooltip] attribute",
+  'sbb-tooltip-open-delay': 250,
+  'sbb-tooltip-close-delay': 250,
 };
 
 const defaultArgs: Args = {
-  ...attributeUsageArgs,
+  disabled: false,
   'open-delay': undefined,
   'close-delay': undefined,
 };
@@ -85,13 +95,13 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
   </sbb-tooltip>
 `;
 
-const AttributeTemplate = (): TemplateResult => html`
+const AttributeTemplate = (args: Args): TemplateResult => html`
   <sbb-button
     style=${styleMap({
       position: 'absolute',
       ...alignmentStyles['below-start'],
     })}
-    sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
+    ${sbbSpread(args)}
     >Button</sbb-button
   >
 `;
