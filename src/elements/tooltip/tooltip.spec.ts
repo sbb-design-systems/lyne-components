@@ -317,7 +317,7 @@ describe('sbb-tooltip', () => {
 
     it('should not update delays if the sbb-tooltip attribute is removed', async () => {
       trigger.removeAttribute('sbb-tooltip');
-      trigger.setAttribute('sbb-tooltip-close-delay', '0');
+      trigger.setAttribute('sbb-tooltip-open-delay', '0');
       trigger.setAttribute('sbb-tooltip-close-delay', '0');
       await aTimeout(50); // wait for the MutationObserver to trigger
 
