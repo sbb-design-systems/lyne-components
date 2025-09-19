@@ -13,6 +13,7 @@ import type {
   BaseElement,
   PlaceSelection,
   SeatReservation,
+  NavigationCoachItem,
 } from '../common.js';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
@@ -73,12 +74,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     // We need to wait until the first update is complete to init different html element dimensions
     this.updateComplete.then(() => {
-      this.initPrepairSeatReservationData();
       this.initNavigationSelectionByScrollEvent();
-
-      // We have to initiate the render process manually so that the prepared data is applied directly
-      // and not only after an interaction with the component itself
-      this.requestUpdate();
     });
   }
 
@@ -198,33 +194,29 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             this._language.current,
           )}"
         >
-          ${this.seatReservations[this.currSelectedDeckIndex]?.coachItems.map(
-            (coachItem: CoachItem, index: number) => {
-              const coachFreePlaces = this.getAvailableFreePlacesNumFromCoach(index);
-              return html`<li>
-                <sbb-seat-reservation-navigation-coach
-                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                  @focuscoach=${() => this._onFocusNavCoach()}
-                  class="${classMap({
-                    'sbb-sr__navigation-coach--hover-scroll':
-                      this.hoveredScrollCoachIndex === index,
-                  })}"
-                  index="${index}"
-                  coach-id="${coachItem.id}"
-                  .freePlacesByType="${coachFreePlaces}"
-                  .selected=${this.selectedCoachIndex === index}
-                  .focused=${this.focusedCoachIndex === index}
-                  .propertyIds="${coachItem.propertyIds}"
-                  .travelClass="${coachItem.travelClass}"
-                  ?driver-area="${!coachItem.places?.length}"
-                  ?first="${coachItem?.driverAreaSide?.left}"
-                  ?last="${coachItem?.driverAreaSide?.right}"
-                  ?vertical="${this.alignVertical}"
-                >
-                </sbb-seat-reservation-navigation-coach>
-              </li>`;
-            },
-          )}
+          ${this.coachNavData.map((navigationCoach: NavigationCoachItem, index: number) => {
+            return html`<li>
+              <sbb-seat-reservation-navigation-coach
+                @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                @focuscoach=${() => this._onFocusNavCoach()}
+                class="${classMap({
+                  'sbb-sr__navigation-coach--hover-scroll': this.hoveredScrollCoachIndex === index,
+                })}"
+                index="${index}"
+                coach-id="${navigationCoach.id}"
+                .freePlacesByType="${navigationCoach.freePlaces}"
+                .selected=${this.selectedCoachIndex === index}
+                .focused=${this.focusedCoachIndex === index}
+                .propertyIds="${navigationCoach.propertyIds}"
+                .travelClass="${navigationCoach.travelClass}"
+                ?driver-area="${navigationCoach.isDriverArea}"
+                ?first="${navigationCoach?.driverAreaSide?.left}"
+                ?last="${navigationCoach?.driverAreaSide?.right}"
+                ?vertical="${this.alignVertical}"
+              >
+              </sbb-seat-reservation-navigation-coach>
+            </li>`;
+          })}
         </ul>
       </nav>
     </div>`;
@@ -258,7 +250,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachDeckIndex: number,
   ): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem, coachIndex);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -293,7 +285,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @returns Returns the border graphic (COACH_BORDER_MIDDLE) of a coach with calculated border gap and coach width,
    * depending on whether the coach is with a driver area or without.
    */
-  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult {
+  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult | null {
+    if (!coachItem.graphicElements) return null;
+
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
@@ -668,7 +662,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       .forEach((popover) => popover.setAttribute('data-state', 'closed'));
   }
 
-  private _getDescriptionTableCoach(coachItem: CoachItem, coachIndex: number): string {
+  private _getDescriptionTableCoach(coachItem: CoachItem): string {
     if (!coachItem.places?.length) {
       return getI18nSeatReservation('COACH_BLOCKED_TABLE_CAPTION', this._language.current, [
         coachItem.id,
@@ -685,7 +679,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     if (!this.hasNavigation) {
       // Expands the number of available seats and bicycle spaces as info
-      const freePlaces = this.getAvailableFreePlacesNumFromCoach(coachIndex);
+      const freePlaces = this.getAvailableFreePlacesNumFromCoach(coachItem.places);
       const freePlacesTxt = getI18nSeatReservation(
         'COACH_AVAILABLE_NUMBER_OF_PLACES',
         this._language.current,

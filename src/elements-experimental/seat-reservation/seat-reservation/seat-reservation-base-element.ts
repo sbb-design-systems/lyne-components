@@ -5,6 +5,7 @@ import { eventOptions, property, state } from 'lit/decorators.js';
 
 import {
   mapCoachInfosToCoachSelection,
+  mapIconToSvg,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
 } from '../common/mapper.js';
@@ -19,6 +20,8 @@ import type {
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
   SeatReservationPlaceSelection,
+  NavigationCoachItem,
+  PlaceTravelClass,
 } from '../common.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 
@@ -32,6 +35,17 @@ interface CoachScrollTriggerPoint {
   end: number;
   width: number;
 }
+
+const MAX_SERVICE_PROPERTIES = 3;
+const ALLOWED_SERVICE_ICONS: string[] = [
+  'sa-vo',
+  'sa-rs',
+  'sa-abteilkinderwagen',
+  'sa-wr',
+  'sa-fa',
+  'sa-bz',
+  'sa-rz',
+];
 
 export class SeatReservationBaseElement extends LitElement {
   public static readonly events = {
@@ -98,6 +112,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
+  protected coachNavData: NavigationCoachItem[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachsWidth: number = 0;
   protected scrollCoachsAreaWidth: number = 0;
@@ -137,6 +152,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (changedProperties.has('seatReservations')) {
       this.hasMultipleDecks = this.seatReservations?.length > 1;
+
+      this._initPrepareSeatReservationData();
       this._initSeatReservationPlaceSelection();
     }
 
@@ -191,9 +208,16 @@ export class SeatReservationBaseElement extends LitElement {
    * Data can be prepared once for the entire component
    * in order to avoid recurring iteration processes in rendering.
    */
-  protected initPrepairSeatReservationData(): void {
+  private _initPrepareSeatReservationData(): void {
     this._determineBaseFontSize();
-    this._prepairCoachDriverArea();
+
+    if (this.hasMultipleDecks) {
+      // If there are multiple decks, we need to check
+      // whether empty coaches need to be added on different deck levels
+      this._initEmptyCoachDeckOffsets();
+    }
+
+    this._prepareNavigationCoachData();
   }
 
   /* Init scroll event handling for coach navigation */
@@ -495,14 +519,14 @@ export class SeatReservationBaseElement extends LitElement {
   /**
    * Counts all available seats together depending on the seat type
    *
-   * @param coachIndex
+   * @param places
    * @returns An Object with count of free seats and free bicycle places
    */
-  protected getAvailableFreePlacesNumFromCoach(coachIndex: number): CoachNumberOfFreePlaces {
+  protected getAvailableFreePlacesNumFromCoach(
+    places: Place[] | undefined,
+  ): CoachNumberOfFreePlaces {
     const accumulator: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
-    const freePlaces = this.seatReservations[this.currSelectedDeckIndex].coachItems[
-      coachIndex
-    ].places?.reduce((accumulator, currPlace: Place) => {
+    const freePlaces = places?.reduce((accumulator, currPlace: Place) => {
       if (currPlace.state !== 'FREE') {
         return accumulator;
       }
@@ -1038,6 +1062,45 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
+   * In the case of coach layouts with different decks,
+   * it is necessary to extend the offset with empty coaches
+   * in order to create a stable vehicle layout.
+   *
+   *             [ooo]-[ooo]-[ooo]
+   * [ooo]-[ooo]-[ooo]-[ooo]-[ooo]
+   */
+  private _initEmptyCoachDeckOffsets(): void {
+    // Prefill offset counters with 0 start index
+    const coachOffsetIndexCounter = Array(this.seatReservations.length - 1).fill(0);
+    // Takes the lower deck which contains the max numbers of coaches
+    const lowerDeck = this.seatReservations[this.seatReservations.length - 1];
+
+    lowerDeck.coachItems.forEach((lowerCoachItem: CoachItem) => {
+      for (let i = 0; i < this.seatReservations.length - 1; i++) {
+        const deckCoachItem = this.seatReservations[i].coachItems[coachOffsetIndexCounter[i]];
+        if (lowerCoachItem.id != deckCoachItem?.id) {
+          // Add Empty offset coach to specified index position
+          const emptyOffsetCoach = {
+            ...lowerCoachItem,
+            places: undefined,
+            propertyIds: undefined,
+            graphicElements: undefined,
+            serviceElements: undefined,
+            travelClass: [],
+          };
+          this.seatReservations[i].coachItems.splice(
+            coachOffsetIndexCounter[i],
+            0,
+            emptyOffsetCoach,
+          );
+        }
+
+        coachOffsetIndexCounter[i]++;
+      }
+    });
+  }
+
+  /**
    * Initialization of SeatReservationPlaceSelection Array based on the transferred places
    * that have the state SELECTED within the seatReservation object
    */
@@ -1117,7 +1180,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) return null;
 
     const coach = this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex];
-    const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coachIndex);
+    const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coach.places);
     return mapCoachInfosToCoachSelection(coachIndex, coach, coachNumberOfFreePlaces);
   }
 
@@ -1149,32 +1212,100 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
-   * Prepares all coaches with the values for whether there is a driver area left or right
+   * Prepares data for displaying navigation area.
+   * Calculates the values which are not going to change during use of a component:
+   *    - coach id
+   *    - list of service icons
+   *    - class (first, second, any)
+   *    - whether there is a driver area left or right
    * */
-  private _prepairCoachDriverArea(): void {
-    this.seatReservations.forEach((seatReservation, index) => {
-      this.seatReservations[index].coachItems = seatReservation.coachItems.map((coacItem) => {
-        const coachDriverAreas = coacItem.graphicElements?.filter(
-          (graphicalElements) => graphicalElements.icon === 'DRIVER_AREA',
-        );
+  private _prepareNavigationCoachData(): void {
+    const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-        if (coachDriverAreas && coachDriverAreas.length > 0) {
-          // Checking the driver area position whether it is present on the left or right side in a coach
-          const hasLeftDriverArea =
-            coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x === 0) ||
-            false;
-          const hasRightDriverArea =
-            coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x > 0) || false;
+    lowerDeck.forEach((coach, index) => {
+      const travelClasses: PlaceTravelClass[] = [];
+      const propertyIds: string[] = [];
+      const places: Place[] = [];
 
-          coacItem.driverAreaSide = {
-            left: !!hasLeftDriverArea,
-            right: !!hasRightDriverArea,
-          };
-        }
-        return coacItem;
+      // Collect all important navigation data to be rendered
+      this.seatReservations
+        .map((sr) => {
+          return sr.coachItems[index];
+        })
+        .forEach((coach: CoachItem) => {
+          travelClasses.push(...coach.travelClass);
+          propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
+          places.push(...(coach.places ? coach.places : []));
+        });
+
+      this.coachNavData.push({
+        id: coach.id,
+        travelClass: this._prepareTravelClassNavigation(travelClasses),
+        propertyIds: this._prepareServiceIconsNavigation(propertyIds),
+        isDriverArea: coach.places ? coach.places.length === 0 : true,
+        driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
+        freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
       });
     });
   }
+
+  private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
+    if (travelClasses.indexOf('FIRST') !== -1) return 'FIRST';
+    if (travelClasses.indexOf('SECOND') !== -1) return 'SECOND';
+    return 'ANY_CLASS';
+  }
+
+  private _prepareDriverAreaSideNavigation(
+    coachItem: CoachItem,
+  ): Record<string, boolean> | undefined {
+    const coachDriverAreas = coachItem.graphicElements?.filter(
+      (graphicalElements) => graphicalElements.icon === 'DRIVER_AREA',
+    );
+
+    if (coachDriverAreas && coachDriverAreas.length > 0) {
+      // Checking the driver area position whether it is present on the left or right side in a coach
+      const hasLeftDriverArea =
+        coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x === 0) || false;
+      const hasRightDriverArea =
+        coachDriverAreas.find((driverAreaElement) => driverAreaElement.position.x > 0) || false;
+
+      return {
+        left: !!hasLeftDriverArea,
+        right: !!hasRightDriverArea,
+      };
+    }
+    return undefined;
+  }
+
+  private _prepareServiceIconsNavigation = (propertyIds: string[]): string[] => {
+    if (!propertyIds) {
+      return [];
+    }
+
+    const shrinkedPropertyIds = propertyIds
+      ?.map(function (propertyId: string): {
+        pId: string;
+        svgName: string;
+      } {
+        // prepare temporary object mapping property id to it's svgName so that we can compare it to the list of allowed icons
+        return {
+          pId: propertyId,
+          svgName: mapIconToSvg[propertyId]?.svgName ? mapIconToSvg[propertyId]?.svgName : '',
+        };
+      })
+      //filter out objects service icons which are not in ALLOWED_SERVICE_ICONS
+      .filter((propertyToSvg) => ALLOWED_SERVICE_ICONS.indexOf(propertyToSvg.svgName) !== -1)
+      //make it distinct by svgName
+      .filter(
+        (value, index, self) =>
+          self.map((propSvg) => propSvg.svgName).indexOf(value.svgName) === index,
+      )
+      // go back to propertyId string from temporary object
+      .map((propertyToSvg) => propertyToSvg.pId)
+      // take first MAX_SERVICE_PROPERTIES regardless of the input from Backend, otherwise the layout could be destroyed
+      .slice(0, MAX_SERVICE_PROPERTIES);
+    return shrinkedPropertyIds ? shrinkedPropertyIds : [];
+  };
 
   /**
    * Returns the current selected place HTML element by currSelectedPlaceElementId.
