@@ -2,7 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-tab renders DOM"] = 
-`<sbb-tab>
+`<sbb-tab
+  id="sbb-tab-0"
+  tabindex="0"
+>
   Content
 </sbb-tab>
 `;
@@ -23,8 +26,14 @@ snapshots["sbb-tab renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Content"
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text",
+          "name": "Content"
+        }
+      ]
     }
   ]
 }
@@ -39,8 +48,14 @@ snapshots["sbb-tab renders A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "text leaf",
-      "name": "Content"
+      "role": "tabpanel",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Content"
+        }
+      ]
     }
   ]
 }

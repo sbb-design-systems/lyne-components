@@ -25,9 +25,15 @@ The role and the id for the `aria-controls` attribute is managed directly by the
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                         | Default | Description                                  |
-| ------- | --------- | ------- | ---------------------------- | ------- | -------------------------------------------- |
-| `label` | -         | public  | `SbbTabLabelElement \| null` | `null`  | The `sbb-tab-label` associated with the tab. |
+| Name    | Attribute | Privacy | Type                         | Default | Description                                                                       |
+| ------- | --------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------- |
+| `label` | -         | public  | `SbbTabLabelElement \| null` | `null`  | The `sbb-tab-label` associated with the tab.<br><strong>Deprecated</strong>: true |
+
+## Events
+
+| Name     | Type    | Description                                                                                           | Inherited From |
+| -------- | ------- | ----------------------------------------------------------------------------------------------------- | -------------- |
+| `active` | `Event` | The `active` event fires when the sbb-tab has been activated via user selection on the sbb-tab-label. |                |
 
 ## Slots
 

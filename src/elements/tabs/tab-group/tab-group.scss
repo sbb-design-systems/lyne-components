@@ -12,12 +12,12 @@
   display: block;
 }
 
-.tab-group {
+.sbb-tab-group {
   display: flex;
   flex-wrap: wrap;
 }
 
-.tab-content {
+.sbb-tab-group-content {
   margin-block-start: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 
@@ -28,7 +28,7 @@
     overflow: hidden;
   }
 
-  ::slotted(sbb-tab[active]) {
+  ::slotted(sbb-tab[data-active]) {
     visibility: visible;
     opacity: 1;
     height: fit-content;
