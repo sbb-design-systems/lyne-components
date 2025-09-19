@@ -183,7 +183,10 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
             this._handleTooltipTrigger(node);
             this._findAndHandleTooltipTriggers(node);
 
-            Array.from(delayAttributeMap.keys()).forEach((attr) => {
+            delayAttributeMap.forEach((_, attr) => {
+              if (node.hasAttribute(attr)) {
+                this._setDelayProperty(node, attr, delayAttributeMap.get(attr)!);
+              }
               node
                 .querySelectorAll<HTMLElement>(`[${attr}]`)
                 .forEach((tooltipTrigger) =>
