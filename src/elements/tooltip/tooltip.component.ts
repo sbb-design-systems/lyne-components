@@ -231,13 +231,14 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   ): void {
     if (tooltipTrigger.hasAttribute('sbb-tooltip')) {
       const tooltip = tooltipTriggers.get(tooltipTrigger);
-      const delay = tooltipTrigger.getAttribute(triggerAttr);
-      if (tooltip)
+      if (tooltip) {
+        const delay = tooltipTrigger.getAttribute(triggerAttr);
         if (delay) {
           tooltip.setAttribute(tooltipAttr, delay);
         } else {
           tooltip.removeAttribute(tooltipAttr);
         }
+      }
     }
   }
 
