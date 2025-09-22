@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.7.0...v3.8.0) (2025-09-22)
+
+
+### Features
+
+* add off-brand and safety relevant themes ([#4046](https://github.com/sbb-design-systems/lyne-components/issues/4046)) ([5ca7db1](https://github.com/sbb-design-systems/lyne-components/commit/5ca7db18a116566e8c11b28213868e54ae139dd0))
+* dark mode and context specific colors ([#4001](https://github.com/sbb-design-systems/lyne-components/issues/4001)) ([b87de53](https://github.com/sbb-design-systems/lyne-components/commit/b87de53eeb711d8e4204e0aba18a9fbd71daf2a4))
+* **sbb-dialog:** expose CSS part of scroll-container ([#4035](https://github.com/sbb-design-systems/lyne-components/issues/4035)) ([4a17f17](https://github.com/sbb-design-systems/lyne-components/commit/4a17f171df7e19dc71fad6040cfecaff2217acb9))
+* **sbb-seat-reservation:** add hover-trigger to popovers ([#4041](https://github.com/sbb-design-systems/lyne-components/issues/4041)) ([4a466cf](https://github.com/sbb-design-systems/lyne-components/commit/4a466cf11b1173ffdf8a7b1a0766e960d80dc32f))
+* **sbb-tooltip:** initial implementation ([#3925](https://github.com/sbb-design-systems/lyne-components/issues/3925)) ([e070373](https://github.com/sbb-design-systems/lyne-components/commit/e0703730d492e6088490c702159dfc21e2ae2dd5))
+* **seat-reservation:** navigation preload and squash icons ([#4054](https://github.com/sbb-design-systems/lyne-components/issues/4054)) ([11cba3e](https://github.com/sbb-design-systems/lyne-components/commit/11cba3e22f3955b362f6890c336fa775e17874b7))
+
+
+### Bug Fixes
+
+* **sbb-carousel:** improve scrolling behavior ([#4028](https://github.com/sbb-design-systems/lyne-components/issues/4028)) ([de31c87](https://github.com/sbb-design-systems/lyne-components/commit/de31c878fd34e776cfadbcb350449125b9967835))
+* **sbb-form-field:** fix text color for suffix slot ([#4044](https://github.com/sbb-design-systems/lyne-components/issues/4044)) ([cf1682d](https://github.com/sbb-design-systems/lyne-components/commit/cf1682d6e2428cc60e90252f9ba0e97a49ae33be))
+* **sbb-radio-button, sbb-radio-button-panel:** remove label tag from Shadow DOM ([#4039](https://github.com/sbb-design-systems/lyne-components/issues/4039)) ([4d1241c](https://github.com/sbb-design-systems/lyne-components/commit/4d1241c46349a2682f7f6ae08bf1217583eaf331))
+* **sbb-seat-reservation:** update and clean OSDM-Code table ([#4040](https://github.com/sbb-design-systems/lyne-components/issues/4040)) ([864cdf0](https://github.com/sbb-design-systems/lyne-components/commit/864cdf0b889e5684990df0376b25f0aac94c0663))
+* **sbb-toast:** check for zone.js in close timeout ([#4058](https://github.com/sbb-design-systems/lyne-components/issues/4058)) ([b791820](https://github.com/sbb-design-systems/lyne-components/commit/b7918206143b5d2783b9a7a9d2f4058828a078f9))
+
 ## [3.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.6.0...v3.7.0) (2025-09-15)
 
 
