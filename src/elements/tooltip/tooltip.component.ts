@@ -155,7 +155,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     document.body.appendChild(this._tooltipOutlet);
 
     // Key: trigger attribute, value: tooltip attribute
-    const delayAttributeMap = new Map<string, string>([
+    const attributeMap = new Map<string, string>([
       ['sbb-tooltip-open-delay', 'open-delay'],
       ['sbb-tooltip-close-delay', 'close-delay'],
     ]);
@@ -169,11 +169,11 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
           const target = mutation.target as HTMLElement;
           if (mutation.attributeName === 'sbb-tooltip') {
             this._handleTooltipTrigger(target);
-          } else if (delayAttributeMap.has(mutation.attributeName!)) {
+          } else if (attributeMap.has(mutation.attributeName!)) {
             this._setDelayProperty(
               target,
               mutation.attributeName!,
-              delayAttributeMap.get(mutation.attributeName!)!,
+              attributeMap.get(mutation.attributeName!)!,
             );
           }
         } else if (mutation.type === 'childList') {
@@ -183,21 +183,19 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
             this._handleTooltipTrigger(node);
             this._findAndHandleTooltipTriggers(node);
 
-            delayAttributeMap.forEach((_, attr) => {
+            attributeMap.forEach((value, attr) => {
               if (node.hasAttribute(attr)) {
-                this._setDelayProperty(node, attr, delayAttributeMap.get(attr)!);
+                this._setDelayProperty(node, attr, value);
               }
               node
                 .querySelectorAll<HTMLElement>(`[${attr}]`)
-                .forEach((tooltipTrigger) =>
-                  this._setDelayProperty(tooltipTrigger, attr, delayAttributeMap.get(attr)!),
-                );
+                .forEach((tooltipTrigger) => this._setDelayProperty(tooltipTrigger, attr, value));
             });
           }
         }
       }
     }).observe(document.documentElement, {
-      attributeFilter: ['sbb-tooltip', 'sbb-tooltip-open-delay', 'sbb-tooltip-close-delay'],
+      attributeFilter: ['sbb-tooltip', ...attributeMap.keys()],
       childList: true,
       subtree: true,
     });

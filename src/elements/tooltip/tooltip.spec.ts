@@ -285,7 +285,7 @@ describe('sbb-tooltip', () => {
     });
   });
 
-  describe('delay attributes', () => {
+  describe('attribute usages - delay attributes', () => {
     beforeEach(async () => {
       await fixture(html`
         <div style="padding: 2rem">

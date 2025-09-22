@@ -1,18 +1,29 @@
 The `sbb-tooltip` component displays contextual information related to an element.
 
-You can use the tooltip in two ways:
-
-- **By connecting the `sbb-tooltip` component to an element through the `trigger` property**
+The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
 
 ```html
 <sbb-button id="tooltip-trigger">Button</sbb-button>
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
-- **Via the `sbb-tooltip` attribute** (_Note: it does not work if used in a Shadow DOM_)
+## Attribute usage
+
+It's also possible use the component by setting the `sbb-tooltip` attribute on the trigger element.  
+The attribute's value is the tooltip's rendered message
+(_Note: it does not work if used in a Shadow DOM_).
 
 ```html
 <sbb-button sbb-tooltip="Tooltip message">Button</sbb-button>
+```
+
+If the component is used this way, it's also possible to set the open and close delays
+using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
+
+```html
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-open-delay="250" sbb-tooltip-close-delay="250"
+  >Button</sbb-button
+>
 ```
 
 ## Interactions
@@ -40,14 +51,6 @@ mergeConfig({
     longPressCloseDelay: 1500, // Duration before the tooltip auto-closes after a long press (in ms)
   },
 });
-```
-
-If the component is used via attribute usage, it's possible to set the delays using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
-
-```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-open-delay="250" sbb-tooltip-close-delay="250"
-  >Button</sbb-button
->
 ```
 
 ## Accessibility
