@@ -43,6 +43,7 @@ const attributeUsageArgTypes: ArgTypes = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  tooltipMessage,
   disabled,
   'open-delay': openDelay,
   'close-delay': closeDelay,
@@ -55,6 +56,7 @@ const attributeUsageArgs: Args = {
 };
 
 const defaultArgs: Args = {
+  tooltipMessage: 'I am a tooltip',
   disabled: false,
   'open-delay': undefined,
   'close-delay': undefined,
@@ -82,18 +84,10 @@ const trigger = (alignment = 'below-start'): TemplateResult => html`
 
 const Template =
   (alignment?: string) =>
-  (args: Args): TemplateResult => html`
+  ({ tooltipMessage, ...args }: Args): TemplateResult => html`
     ${trigger(alignment)}
-    <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}> I'm a tooltip!!! </sbb-tooltip>
+    <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}>${tooltipMessage}</sbb-tooltip>
   `;
-
-const LongContentTemplate = (args: Args): TemplateResult => html`
-  ${trigger()}
-  <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in
-    tincidunt quis, mattis eu quam.
-  </sbb-tooltip>
-`;
 
 const AttributeTemplate = (args: Args): TemplateResult => html`
   <sbb-button
@@ -119,9 +113,12 @@ export const AttributeUsage: StoryObj = {
 };
 
 export const LongContent: StoryObj = {
-  render: LongContentTemplate,
+  render: Template(),
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: {
+    ...defaultArgs,
+    tooltipMessage: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`,
+  },
 };
 
 export const BelowCentred: StoryObj = {
