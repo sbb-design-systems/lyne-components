@@ -47,7 +47,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor amount: string = '';
 
-  /** Get the related `sbb-tab`. */
+  /** Get the `sbb-tab` related to the `sbb-tab-label`. */
   public get tab(): SbbTabElement | null {
     return this.nextElementSibling?.localName === 'sbb-tab'
       ? (this.nextElementSibling as SbbTabElement)

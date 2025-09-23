@@ -24,14 +24,12 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     active: 'active',
   } as const;
 
-  /**
-   * The `sbb-tab-label` associated with the tab.
-   * @deprecated
-   */
+  /** The `sbb-tab-label` associated with the tab. */
   public get label(): SbbTabLabelElement | null {
-    return this._label;
+    return this.previousElementSibling?.localName === 'sbb-tab-label'
+      ? (this.previousElementSibling as SbbTabLabelElement)
+      : null;
   }
-  private _label: SbbTabLabelElement | null = null;
 
   /**
    * @internal

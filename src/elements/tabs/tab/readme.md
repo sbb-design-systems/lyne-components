@@ -17,6 +17,10 @@ to improve screen-reader usability due to its implicit role.
 </sbb-tab>
 ```
 
+## Events
+
+Consumers can listen to the `active` event on the `sbb-tab` component to intercept the activation event.
+
 ## Accessibility
 
 The role and the id for the `aria-controls` attribute is managed directly by the `sbb-tab-group` component.
@@ -25,9 +29,9 @@ The role and the id for the `aria-controls` attribute is managed directly by the
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                         | Default | Description                                                                       |
-| ------- | --------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------- |
-| `label` | -         | public  | `SbbTabLabelElement \| null` | `null`  | The `sbb-tab-label` associated with the tab.<br><strong>Deprecated</strong>: true |
+| Name    | Attribute | Privacy | Type                         | Default | Description                                  |
+| ------- | --------- | ------- | ---------------------------- | ------- | -------------------------------------------- |
+| `label` | -         | public  | `SbbTabLabelElement \| null` |         | The `sbb-tab-label` associated with the tab. |
 
 ## Events
 
