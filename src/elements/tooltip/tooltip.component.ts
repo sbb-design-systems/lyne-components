@@ -78,11 +78,11 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
    * @default 0
    */
   @property({ attribute: 'open-delay', type: Number })
-  public set openDelay(value: number) {
-    this._openDelay = +value;
+  public set openDelay(value: number | undefined) {
+    this._openDelay = value;
   }
   public get openDelay(): number {
-    return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
+    return this._openDelay !== undefined ? this._openDelay : (readConfig().tooltip?.openDelay ?? 0);
   }
   private _openDelay?: number;
 
@@ -93,11 +93,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
    * @default 0
    */
   @property({ attribute: 'close-delay', type: Number })
-  public set closeDelay(value: number) {
-    this._closeDelay = +value;
+  public set closeDelay(value: number | undefined) {
+    this._closeDelay = value;
   }
   public get closeDelay(): number {
-    return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
+    return this._closeDelay !== undefined
+      ? this._closeDelay
+      : (readConfig().tooltip?.closeDelay ?? 0);
   }
   private _closeDelay?: number;
 
@@ -166,33 +168,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (mutation.type === 'attributes') {
-          const target = mutation.target as HTMLElement;
-          if (mutation.attributeName === 'sbb-tooltip') {
-            this._handleTooltipTrigger(target);
-          } else if (attributeMap.has(mutation.attributeName!)) {
-            this._setDelayProperty(
-              target,
-              mutation.attributeName!,
-              attributeMap.get(mutation.attributeName!)!,
-            );
-          }
+          this._handleTooltipTrigger(mutation.target as HTMLElement);
         } else if (mutation.type === 'childList') {
           for (const node of [...mutation.addedNodes, ...mutation.removedNodes].filter(
             (n): n is HTMLElement => n.nodeType === n.ELEMENT_NODE,
           )) {
             this._handleTooltipTrigger(node);
             this._findAndHandleTooltipTriggers(node);
-
-            attributeMap.forEach((tooltipAttr: string, triggerAttr: string) => {
-              if (node.hasAttribute(triggerAttr)) {
-                this._setDelayProperty(node, triggerAttr, tooltipAttr);
-              }
-              node
-                .querySelectorAll<HTMLElement>(`[${triggerAttr}]`)
-                .forEach((tooltipTrigger) =>
-                  this._setDelayProperty(tooltipTrigger, triggerAttr, tooltipAttr),
-                );
-            });
           }
         }
       }
@@ -222,29 +204,18 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
         this._tooltipOutlet.appendChild(tooltip);
         tooltip.trigger = triggerElement;
       }
+
       tooltip.textContent = tooltipMessage;
+      tooltip.openDelay = triggerElement.hasAttribute('sbb-tooltip-open-delay')
+        ? +triggerElement.getAttribute('sbb-tooltip-open-delay')!
+        : undefined;
+      tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
+        ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
+        : undefined;
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
       tooltip._destroy();
-    }
-  }
-
-  private static _setDelayProperty(
-    tooltipTrigger: HTMLElement,
-    triggerAttr: string,
-    tooltipAttr: string,
-  ): void {
-    if (tooltipTrigger.hasAttribute('sbb-tooltip')) {
-      const tooltip = tooltipTriggers.get(tooltipTrigger);
-      if (tooltip) {
-        const delay = tooltipTrigger.getAttribute(triggerAttr);
-        if (delay) {
-          tooltip.setAttribute(tooltipAttr, delay);
-        } else {
-          tooltip.removeAttribute(tooltipAttr);
-        }
-      }
     }
   }
 
