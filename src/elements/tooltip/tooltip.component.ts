@@ -78,13 +78,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
    * @default 0
    */
   @property({ attribute: 'open-delay', type: Number })
-  public set openDelay(value: number | undefined) {
+  public set openDelay(value: number | null) {
     this._openDelay = value;
   }
   public get openDelay(): number {
-    return this._openDelay !== undefined ? this._openDelay : (readConfig().tooltip?.openDelay ?? 0);
+    return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay?: number;
+  private _openDelay: number | null = null;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
@@ -93,15 +93,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
    * @default 0
    */
   @property({ attribute: 'close-delay', type: Number })
-  public set closeDelay(value: number | undefined) {
+  public set closeDelay(value: number | null) {
     this._closeDelay = value;
   }
   public get closeDelay(): number {
-    return this._closeDelay !== undefined
-      ? this._closeDelay
-      : (readConfig().tooltip?.closeDelay ?? 0);
+    return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay?: number;
+  private _closeDelay: number | null = null;
 
   /**
    * Automatically close the tooltip after it has been open by long press.
@@ -208,10 +206,10 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       tooltip.textContent = tooltipMessage;
       tooltip.openDelay = triggerElement.hasAttribute('sbb-tooltip-open-delay')
         ? +triggerElement.getAttribute('sbb-tooltip-open-delay')!
-        : undefined;
+        : null;
       tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
-        : undefined;
+        : null;
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);

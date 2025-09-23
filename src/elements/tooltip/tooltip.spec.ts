@@ -307,6 +307,13 @@ describe('sbb-tooltip', () => {
     });
 
     it('should update delays on attribute changes', async () => {
+      trigger.setAttribute('sbb-tooltip-open-delay', '0');
+      trigger.setAttribute('sbb-tooltip-close-delay', '0');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      expect(element.openDelay).to.be.equal(0);
+      expect(element.closeDelay).to.be.equal(0);
+
       trigger.setAttribute('sbb-tooltip-open-delay', '1000');
       trigger.setAttribute('sbb-tooltip-close-delay', '500');
       await aTimeout(50); // wait for the MutationObserver to trigger
