@@ -60,8 +60,8 @@ type SbbTabChangedEventDetails = {
 | Name                   | Attribute                | Privacy | Type                   | Default            | Description                                                                                                                        |
 | ---------------------- | ------------------------ | ------- | ---------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `initialSelectedIndex` | `initial-selected-index` | public  | `number`               | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. |
+| `labels`               | -                        | public  | `SbbTabLabelElement[]` |                    | Gets the slotted `sbb-tab-label`s.                                                                                                 |
 | `size`                 | `size`                   | public  | `'s' \| 'l' \| 'xl'`   | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                   |
-| `tabLabels`            | -                        | public  | `SbbTabLabelElement[]` |                    | Gets the slotted `sbb-table-label`s.                                                                                               |
 
 ## Methods
 

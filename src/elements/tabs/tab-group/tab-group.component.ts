@@ -45,6 +45,7 @@ export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
   tabGroupActions?: InterfaceSbbTabGroupActions;
   size: 's' | 'l' | 'xl';
 }
+
 /**
  * It displays one or more tabs, each one with a label and some content.
  *
@@ -94,8 +95,8 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
 
-  /** Gets the slotted `sbb-table-label`s. */
-  public get tabLabels(): SbbTabLabelElement[] {
+  /** Gets the slotted `sbb-tab-label`s. */
+  public get labels(): SbbTabLabelElement[] {
     /**
      * The querySelector API is not used because when nested tabs are used,
      * the returned array contains the inner tabs too, and this breaks the keyboard navigation.
@@ -113,7 +114,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    this.tabLabels.forEach((tabLabel) => tabLabel['linkToTab']());
+    this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
     this._tabContentResizeObserver.observe(this._tabContentElement);
@@ -124,7 +125,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * @param tabIndex The index of the tab you want to disable.
    */
   public disableTab(tabIndex: number): void {
-    this.tabLabels[tabIndex]?.disable();
+    this.labels[tabIndex]?.disable();
   }
 
   /**
@@ -132,7 +133,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * @param tabIndex The index of the tab you want to enable.
    */
   public enableTab(tabIndex: number): void {
-    this.tabLabels[tabIndex]?.enable();
+    this.labels[tabIndex]?.enable();
   }
 
   /**
@@ -140,39 +141,39 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * @param tabIndex The index of the tab you want to activate.
    */
   public activateTab(tabIndex: number): void {
-    this.tabLabels[tabIndex]?.select();
+    this.labels[tabIndex]?.select();
   }
 
   private _enabledTabs(): SbbTabLabelElement[] {
-    return this.tabLabels.filter((t) => {
+    return this.labels.filter((t) => {
       customElements.upgrade(t);
       return !t.disabled;
     });
   }
 
   private _updateSize(): void {
-    this.tabLabels.forEach((tabLabel: SbbTabLabelElement) =>
+    this.labels.forEach((tabLabel: SbbTabLabelElement) =>
       tabLabel.setAttribute('data-size', this.size),
     );
   }
 
   private _onContentSlotChange = (): void => {
-    this.tabLabels.forEach((tabLabel) => tabLabel['linkToTab']());
-    this.tabLabels.find((tabLabel) => tabLabel.active)?.select();
+    this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
+    this.labels.find((tabLabel) => tabLabel.active)?.select();
   };
 
   private _onLabelSlotChange = (): void => {
     this._updateSize();
-    this.tabLabels.forEach((tabLabel) => tabLabel['linkToTab']());
+    this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
   };
 
   private _initSelection(): void {
-    const selectedTabLabel = this.tabLabels[this.initialSelectedIndex];
+    const selectedTabLabel = this.labels[this.initialSelectedIndex];
     if (selectedTabLabel) {
       customElements.upgrade(selectedTabLabel);
       if (
         this.initialSelectedIndex >= 0 &&
-        this.initialSelectedIndex < this.tabLabels.length &&
+        this.initialSelectedIndex < this.labels.length &&
         !selectedTabLabel.disabled
       ) {
         selectedTabLabel.select();
@@ -221,7 +222,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     }
 
     if (isArrowKeyPressed(evt)) {
-      const current: number = enabledTabs.findIndex((t: SbbTabLabelElement) => t.active);
+      const current: number = enabledTabs.findIndex((t) => t.active);
       const nextIndex: number = getNextElementIndex(evt, current, enabledTabs.length);
       enabledTabs[nextIndex]?.select();
       enabledTabs[nextIndex]?.focus();
