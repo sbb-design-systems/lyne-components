@@ -62,7 +62,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   public constructor() {
     super();
 
-    this.addEventListener('click', () => this.select());
+    this.addEventListener('click', () => this.activate());
   }
 
   public override connectedCallback(): void {
@@ -79,17 +79,17 @@ class SbbTabLabelElement extends SbbDisabledMixin(
       this.tab?.toggleAttribute('data-active', this.active);
 
       if (this.active && !this.disabled) {
-        this.select();
+        this.activate();
       } else {
         this.deactivate();
       }
     }
 
-    if (changedProperties.has('disabled')) {
-      if (this.disabled) {
-        this.disable();
-      } else {
-        this.enable();
+    if (changedProperties.has('disabled') && this.disabled) {
+      this.tabIndex = -1;
+      if (this.active) {
+        this.deactivate();
+        this.group?.activateTab(0);
       }
     }
   }
@@ -101,28 +101,8 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     this.tabIndex = -1;
   }
 
-  /** Disable the tab; if it's active, select the first tab in the group. */
-  public disable(): void {
-    if (this.disabled) {
-      return;
-    }
-    this.disabled = true;
-    this.tabIndex = -1;
-    if (this.active) {
-      this.deactivate();
-      this.group?.activateTab(0);
-    }
-  }
-
-  /** Enable the tab. */
-  public enable(): void {
-    if (this.disabled) {
-      this.disabled = false;
-    }
-  }
-
   /** Select the tab, deactivating the current selected one, and dispatch the tabchange event. */
-  public select(): void {
+  public activate(): void {
     if (this.disabled) {
       if (import.meta.env.DEV) {
         console.warn('You cannot activate a disabled tab');

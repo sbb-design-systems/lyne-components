@@ -125,7 +125,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * @param tabIndex The index of the tab you want to disable.
    */
   public disableTab(tabIndex: number): void {
-    this.labels[tabIndex]?.disable();
+    if (this.labels[tabIndex]) {
+      this.labels[tabIndex].disabled = true;
+    }
   }
 
   /**
@@ -133,7 +135,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * @param tabIndex The index of the tab you want to enable.
    */
   public enableTab(tabIndex: number): void {
-    this.labels[tabIndex]?.enable();
+    if (this.labels[tabIndex]) {
+      this.labels[tabIndex].disabled = false;
+    }
   }
 
   /**
@@ -141,7 +145,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
    * @param tabIndex The index of the tab you want to activate.
    */
   public activateTab(tabIndex: number): void {
-    this.labels[tabIndex]?.select();
+    this.labels[tabIndex]?.activate();
   }
 
   private _enabledTabs(): SbbTabLabelElement[] {
@@ -159,7 +163,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
   private _onContentSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
-    this.labels.find((tabLabel) => tabLabel.active)?.select();
+    this.labels.find((tabLabel) => tabLabel.active)?.activate();
   };
 
   private _onLabelSlotChange = (): void => {
@@ -176,11 +180,11 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
         this.initialSelectedIndex < this.labels.length &&
         !selectedTabLabel.disabled
       ) {
-        selectedTabLabel.select();
+        selectedTabLabel.activate();
         return;
       }
     }
-    this._enabledTabs()[0]?.select();
+    this._enabledTabs()[0]?.activate();
   }
 
   private _onTabGroupElementResize(entries: ResizeObserverEntry[]): void {
@@ -224,7 +228,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     if (isArrowKeyPressed(evt)) {
       const current: number = enabledTabs.findIndex((t) => t.active);
       const nextIndex: number = getNextElementIndex(evt, current, enabledTabs.length);
-      enabledTabs[nextIndex]?.select();
+      enabledTabs[nextIndex]?.activate();
       enabledTabs[nextIndex]?.focus();
       evt.preventDefault();
     }
