@@ -84,7 +84,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay: number | null = null;
+  private _openDelay: number | null = 0;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
@@ -99,7 +99,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay: number | null = null;
+  private _closeDelay: number | null = 0;
 
   /**
    * Automatically close the tooltip after it has been open by long press.
