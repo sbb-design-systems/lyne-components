@@ -90,9 +90,6 @@
 }
 
 ::slotted([slot='image']) {
-  // E.g chips or other stuff which is slotted is adapted to the image.
-  // As the image doesn't change, we shouldn't change the colors as well.
-  color-scheme: only light;
   width: #{sbb.px-to-rem-build(300)};
   display: block;
 }

@@ -30,6 +30,11 @@ export function typography(): PluginOption {
         { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
         { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
         { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
+        { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
+        {
+          inputName: 'core/styles/safety-theme.scss',
+          outputName: 'safety-theme.css',
+        },
         { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
         { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
         { inputName: 'core/styles/table.scss', outputName: 'table.css' },

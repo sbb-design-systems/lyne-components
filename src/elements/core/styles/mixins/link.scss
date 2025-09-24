@@ -4,8 +4,8 @@
 @use '../core/functions';
 
 @mixin link-common-variables {
-  --sbb-link-color-hover: light-dark(var(--sbb-color-primary-125), var(--sbb-color-graphite));
-  --sbb-link-color-active: light-dark(var(--sbb-color-primary-150), var(--sbb-color-metal));
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-graphite));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-metal));
   --sbb-link-text-decoration-color: light-dark(
     color-mix(in srgb, currentcolor 80%, white),
     color-mix(in srgb, currentcolor 80%, black)
@@ -23,8 +23,8 @@
   @include link-common-variables;
 
   --sbb-link-color-normal: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
-  --sbb-link-color-hover: light-dark(var(--sbb-color-primary-125), var(--sbb-color-cloud));
-  --sbb-link-color-active: light-dark(var(--sbb-color-primary-150), var(--sbb-color-silver));
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-cloud));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-silver));
 }
 
 @mixin block-link-variables--negative {
