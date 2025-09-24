@@ -4,9 +4,17 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { defaultDateAdapter } from '../../core/datetime.js';
 
-import readme from './readme.md?raw';
+import '../../tooltip.js';
 import './mini-calendar-day.component.js';
+import readme from './readme.md?raw';
+
+const date: InputType = {
+  control: {
+    type: 'date',
+  },
+};
 
 const marker: InputType = {
   control: {
@@ -22,18 +30,46 @@ const color: InputType = {
   options: [null, 'charcoal', 'cloud', 'orange', 'red', 'sky'],
 };
 
+const withTooltip: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
+  date,
   marker,
   color,
+  withTooltip,
 };
 
 const defaultArgs: Args = {
+  date: new Date('08-15-2025'),
   marker: marker.options![0],
   color: color.options![0],
+  withTooltip: false,
 };
 
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-mini-calendar-day date="2025-08-15" ${sbbSpread(args)}></sbb-mini-calendar-day>`;
+const Template = ({ date, withTooltip, ...args }: Args): TemplateResult => {
+  date = new Date(date);
+  const tooltipAttributes = withTooltip
+    ? {
+        'sbb-tooltip': defaultDateAdapter.format(date, { weekdayStyle: 'none' }),
+        'sbb-tooltip-open-delay': 200,
+      }
+    : {};
+  return html`
+    <style>
+      sbb-tooltip {
+        --sbb-tooltip-hover-patch-inset: 0;
+      }
+    </style>
+    <sbb-mini-calendar-day
+      date="${defaultDateAdapter.toIso8601(date)}"
+      ${sbbSpread({ ...args, ...tooltipAttributes })}
+    ></sbb-mini-calendar-day>
+  `;
+};
 
 export const Default: StoryObj = {
   render: Template,
@@ -93,6 +129,12 @@ export const Sky: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options![5] },
+};
+
+export const WithTooltip: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withTooltip: true },
 };
 
 const meta: Meta = {

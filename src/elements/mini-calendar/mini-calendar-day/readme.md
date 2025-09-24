@@ -13,7 +13,7 @@ and it requires a `date` property in ISOString format (YYYY-MM-DD).
 </sbb-mini-calendar>
 ```
 
-It's also possible to display a tooltip on hover using the `sbb-tooltip` attribute, passing the date with the correct format.
+It's also possible to display a tooltip on hover using the `sbb-tooltip` attribute, passing the date with the desired format.
 
 ```html
 <sbb-mini-calendar>
@@ -23,6 +23,9 @@ It's also possible to display a tooltip on hover using the `sbb-tooltip` attribu
   </sbb-mini-calendar-month>
 </sbb-mini-calendar>
 ```
+
+For a better usability, it's suggested to set the `sbb-tooltip-open-delay` attribute,
+and to change the `--sbb-tooltip-hover-patch-inset` variable to 0.
 
 ## Style
 
