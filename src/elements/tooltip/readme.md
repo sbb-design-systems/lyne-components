@@ -1,18 +1,29 @@
 The `sbb-tooltip` component displays contextual information related to an element.
 
-You can use the tooltip in two ways:
-
-- **By connecting the `sbb-tooltip` component to an element through the `trigger` property**
+The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
 
 ```html
 <sbb-button id="tooltip-trigger">Button</sbb-button>
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
-- **Via the `sbb-tooltip` attribute** (_Note: it does not work if used in a Shadow DOM_)
+## Attribute usage
+
+It's also possible use the component by setting the `sbb-tooltip` attribute on the trigger element.  
+The attribute's value is the tooltip's rendered message
+(_Note: it does not work if used in a Shadow DOM_).
 
 ```html
 <sbb-button sbb-tooltip="Tooltip message">Button</sbb-button>
+```
+
+If the component is used this way, it's also possible to set the open and close delays
+using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
+
+```html
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-open-delay="250" sbb-tooltip-close-delay="250"
+  >Button</sbb-button
+>
 ```
 
 ## Interactions
@@ -55,11 +66,11 @@ Always ensure that keyboard users can perform the same set of actions available 
 
 | Name                  | Attribute                | Privacy | Type                  | Default | Description                                                                                                                |
 | --------------------- | ------------------------ | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `closeDelay`          | `close-delay`            | public  | `number`              | `0`     | Close the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                |
+| `closeDelay`          | `close-delay`            | public  | `number`              | `null`  | Close the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                |
 | `disabled`            | `disabled`               | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                         |
 | `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                               |
 | `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set. |
-| `openDelay`           | `open-delay`             | public  | `number`              | `0`     | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
+| `openDelay`           | `open-delay`             | public  | `number`              | `null`  | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
 | `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.                           |
 
 ## Methods
