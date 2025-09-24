@@ -59,11 +59,6 @@ const Template = ({ date, withTooltip, ...args }: Args): TemplateResult => {
       }
     : {};
   return html`
-    <style>
-      sbb-tooltip {
-        --sbb-tooltip-hover-patch-inset: 0;
-      }
-    </style>
     <sbb-mini-calendar-day
       date="${defaultDateAdapter.toIso8601(date)}"
       ${sbbSpread({ ...args, ...tooltipAttributes })}

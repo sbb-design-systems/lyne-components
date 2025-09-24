@@ -40,11 +40,6 @@ const createDays = (year: number, month: number, withTooltip: boolean): Template
 };
 
 const Template = ({ orientation, year, offset, withTooltip }: Args): TemplateResult => html`
-  <style>
-    sbb-tooltip {
-      --sbb-tooltip-hover-patch-inset: 0;
-    }
-  </style>
   <sbb-mini-calendar orientation=${orientation}>
     ${repeat(new Array(13), (_, index) => {
       const realYear = index > 12 - 1 - offset ? year + 1 : year;
