@@ -66,11 +66,11 @@ Always ensure that keyboard users can perform the same set of actions available 
 
 | Name                  | Attribute                | Privacy | Type                  | Default | Description                                                                                                                |
 | --------------------- | ------------------------ | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `closeDelay`          | `close-delay`            | public  | `number`              | `0`     | Close the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                |
+| `closeDelay`          | `close-delay`            | public  | `number`              | `null`  | Close the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                |
 | `disabled`            | `disabled`               | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                         |
 | `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                               |
 | `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set. |
-| `openDelay`           | `open-delay`             | public  | `number`              | `0`     | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
+| `openDelay`           | `open-delay`             | public  | `number`              | `null`  | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
 | `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.                           |
 
 ## Methods

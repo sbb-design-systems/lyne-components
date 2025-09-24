@@ -75,7 +75,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
    * Open the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default 0
+   * @default null
    */
   @property({ attribute: 'open-delay', type: Number })
   public set openDelay(value: number | null) {
@@ -84,13 +84,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay: number | null = 0;
+  private _openDelay: number | null = null;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default 0
+   * @default null
    */
   @property({ attribute: 'close-delay', type: Number })
   public set closeDelay(value: number | null) {
@@ -99,7 +99,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay: number | null = 0;
+  private _closeDelay: number | null = null;
 
   /**
    * Automatically close the tooltip after it has been open by long press.

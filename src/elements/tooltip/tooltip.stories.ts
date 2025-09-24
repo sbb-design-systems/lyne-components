@@ -58,8 +58,8 @@ const attributeUsageArgs: Args = {
 const defaultArgs: Args = {
   tooltipMessage: 'I am a tooltip',
   disabled: false,
-  'open-delay': undefined,
-  'close-delay': undefined,
+  'open-delay': null,
+  'close-delay': null,
 };
 
 const alignmentStyles: { [x: string]: any } = {
