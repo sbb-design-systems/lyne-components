@@ -44,8 +44,8 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
         return html`
           <sbb-seat-reservation-graphic
             style=${styleMap({
-              '--sbb-seat-reservation-graphic-width': 20,
-              '--sbb-seat-reservation-graphic-height': 20,
+              '--sbb-seat-reservation-graphic-width': 'auto',
+              '--sbb-seat-reservation-graphic-height': 16,
             })}
             name=${signIcon ?? nothing}
             title=${getI18nSeatReservation(signIcon, this._language.current)}
