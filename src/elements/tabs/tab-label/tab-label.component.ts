@@ -135,6 +135,9 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     }
   }
 
+  /**
+   * @internal
+   */
   protected linkToTab(): void {
     if (!this.tab) {
       if (import.meta.env.DEV) {
