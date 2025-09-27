@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.8.0...v3.9.0) (2025-09-27)
+
+
+### Features
+
+* **sbb-menu:** implement nested variant ([#3883](https://github.com/sbb-design-systems/lyne-components/issues/3883)) ([836427a](https://github.com/sbb-design-systems/lyne-components/commit/836427a92592c19f914e1a549bb05be91852517e))
+* **sbb-tooltip:** add global delay attributes ([#4053](https://github.com/sbb-design-systems/lyne-components/issues/4053)) ([75d862c](https://github.com/sbb-design-systems/lyne-components/commit/75d862c43bcbdbca9a1289f673507f5357e3ff2e))
+
 ## [3.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.7.0...v3.8.0) (2025-09-22)
 
 
