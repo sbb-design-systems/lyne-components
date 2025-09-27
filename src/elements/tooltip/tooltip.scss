@@ -23,6 +23,7 @@
   );
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
+  --sbb-tooltip-hover-inset: sbb.px-to-rem-build(9); // VERTICAL_OFFSET + 1px
 
   display: none;
   position: fixed;
@@ -42,11 +43,11 @@
 }
 
 :host([data-position='below']) {
-  --sbb-tooltip-hover-patch-inset: calc(-1 * var(--sbb-spacing-fixed-4x)) 0;
+  --sbb-tooltip-hover-patch-inset: calc(-1 * var(--sbb-tooltip-hover-inset)) 0;
 }
 
 :host([data-position='above']) {
-  --sbb-tooltip-hover-patch-inset: 0 calc(-1 * var(--sbb-spacing-fixed-4x));
+  --sbb-tooltip-hover-patch-inset: 0 calc(-1 * var(--sbb-tooltip-hover-inset));
 }
 
 .sbb-tooltip {
