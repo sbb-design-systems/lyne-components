@@ -73,7 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "20.0.0",
     "@commitlint/config-conventional": "20.0.0",
-    "@custom-elements-manifest/analyzer": "0.10.6",
+    "@custom-elements-manifest/analyzer": "0.10.8",
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.36.0",
