@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.8.0...v3.9.0) (2025-09-29)
+
+
+### Features
+
+* **sbb-autocomplete:** provide ellipsis CSS class ([#4070](https://github.com/sbb-design-systems/lyne-components/issues/4070)) ([3318428](https://github.com/sbb-design-systems/lyne-components/commit/3318428be4d7e0f36625af26754722c648e54ec8))
+* **sbb-menu:** implement nested variant ([#3883](https://github.com/sbb-design-systems/lyne-components/issues/3883)) ([836427a](https://github.com/sbb-design-systems/lyne-components/commit/836427a92592c19f914e1a549bb05be91852517e))
+* **sbb-tab-group, sbb-tab, sbb-tab-label:** refactor components and add 'active' event ([#4024](https://github.com/sbb-design-systems/lyne-components/issues/4024)) ([fc09905](https://github.com/sbb-design-systems/lyne-components/commit/fc099052b0e311c4a0e43527fa439884e9b74341))
+* **sbb-tooltip:** add global delay attributes ([#4053](https://github.com/sbb-design-systems/lyne-components/issues/4053)) ([75d862c](https://github.com/sbb-design-systems/lyne-components/commit/75d862c43bcbdbca9a1289f673507f5357e3ff2e))
+
 ## [3.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.7.0...v3.8.0) (2025-09-22)
 
 
