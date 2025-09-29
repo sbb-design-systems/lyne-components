@@ -82,8 +82,8 @@ The component has no `size` property but, when slotted in a `sbb-form-field`, it
 
 ### Ellipsis
 
-It's possible to truncate the label (apply ellipsis) of slotted `sbb-option`s with the `sbb-options-nowrap` CSS class.
-To select which elements should be affected the consumer can set the class to either the `html` tag, the `sbb-autocomplete`, or the singular `sbb-option`.
+It's possible to truncate the label (apply ellipsis) of slotted `sbb-option` elements with the `sbb-options-nowrap` CSS class.
+To select which elements should be affected the consumer can set the class on either the `html` tag, the `sbb-autocomplete`, or the singular `sbb-option`.
 
 ## Events
 
