@@ -7,11 +7,10 @@ import {
   type PropertyValues,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { readConfig } from '../core/config.js';
-import { SbbEscapableOverlayController } from '../core/controllers.js';
+import { SbbEscapableOverlayController, SbbOverlayController } from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
 import {
   addToListAttribute,
@@ -22,7 +21,7 @@ import {
   removeFromListAttribute,
 } from '../core/dom.js';
 import { SbbDisabledMixin } from '../core/mixins.js';
-import { getElementPosition, sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
+import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
 
 import style from './tooltip.scss?lit&inline';
 
@@ -31,8 +30,8 @@ import style from './tooltip.scss?lit&inline';
  * trigger and the long press event being fired.
  */
 const LONGPRESS_DELAY = 500;
-const VERTICAL_OFFSET = 8;
-const HORIZONTAL_OFFSET = 16;
+// const VERTICAL_OFFSET = 8; // TODO: remove
+// const HORIZONTAL_OFFSET = 16;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
@@ -116,12 +115,11 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   }
   private _longPressCloseDelay?: number;
 
-  protected overlay?: HTMLDivElement;
-
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _overlayController = new SbbOverlayController(this);
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _longPressOpenTimeout?: ReturnType<typeof setTimeout>;
@@ -145,8 +143,10 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       { passive: true },
     );
 
-    // Any user interaction outside the tooltip, closes it immediately
+    // Any user interaction outside the tooltip closes it immediately
     this.addEventListener('overlayOutsidePointer', () => this.close(), { passive: true });
+
+    this.addEventListener('animationend', (e) => this._onTooltipAnimationEnd(e), { passive: true });
   }
 
   private static _initializeTooltipOutlet(): void {
@@ -247,7 +247,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     if (
       (this.state !== 'closed' && this.state !== 'closing') ||
       this.disabled ||
-      !this.overlay ||
+      !this.trigger ||
       !this.dispatchBeforeOpenEvent()
     ) {
       return;
@@ -255,7 +255,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
     this.showPopover?.();
     this.state = 'opening';
-    this._setTooltipPosition();
+    this._overlayController.connect(this.trigger);
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -287,7 +287,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._attachWindowEvents();
     this._escapableOverlayController.connect();
     this.dispatchOpenEvent();
   }
@@ -300,6 +299,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
+    this._overlayController.disconnect();
 
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
@@ -347,23 +347,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   private _destroy(): void {
     this._detach();
     this.remove();
-  }
-
-  private _setTooltipPosition(): void {
-    if (!this.overlay || !this._triggerElement) {
-      return;
-    }
-
-    const position = getElementPosition(this.overlay, this._triggerElement, this, {
-      verticalOffset: VERTICAL_OFFSET,
-      horizontalOffset: HORIZONTAL_OFFSET,
-      centered: true,
-      responsiveHeight: true,
-    });
-    this.setAttribute('data-position', position.alignment.vertical);
-
-    this.style.setProperty('--sbb-tooltip-position-x', `${position.left}px`);
-    this.style.setProperty('--sbb-tooltip-position-y', `${position.top}px`);
   }
 
   private _addTriggerEventHandlers(): void {
@@ -424,21 +407,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     );
   }
 
-  private _attachWindowEvents(): void {
-    this._openStateController = new AbortController();
-    document.addEventListener('scroll', () => this._setTooltipPosition(), {
-      passive: true,
-      signal: this._openStateController.signal,
-      // Without capture, other scroll contexts would not bubble to this event listener.
-      // Capture allows us to react to all scroll contexts in this DOM.
-      capture: true,
-    });
-    window.addEventListener('resize', () => this._setTooltipPosition(), {
-      passive: true,
-      signal: this._openStateController.signal,
-    });
-  }
-
   private _isZeroAnimationDuration(): boolean {
     return isZeroAnimationDuration(this, '--sbb-tooltip-animation-duration');
   }
@@ -450,11 +418,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        @animationend=${this._onTooltipAnimationEnd}
-        class="sbb-tooltip"
-        ${ref((el?: Element) => (this.overlay = el as HTMLDivElement))}
-      >
+      <div class="sbb-tooltip">
         <slot></slot>
       </div>
     `;

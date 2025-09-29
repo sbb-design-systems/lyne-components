@@ -13,6 +13,9 @@ if (!isServer) {
   });
 }
 
+/**
+ * Handles the stack of overlays and closes the last opened one when pressing Escape.
+ */
 export class SbbEscapableOverlayController implements ReactiveController {
   public constructor(
     private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,

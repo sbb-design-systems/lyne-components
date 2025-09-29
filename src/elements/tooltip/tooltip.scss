@@ -4,9 +4,6 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-tooltip-position: absolute;
-  --sbb-tooltip-position-x: 0;
-  --sbb-tooltip-position-y: 0;
   --sbb-tooltip-pointer-events: all;
   --sbb-tooltip-max-width: min(
     #{sbb.px-to-rem-build(400)},
@@ -23,11 +20,38 @@
   );
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
+}
 
+:host {
+  --sbb-overlay-controller-position-area: block-end;
+  --sbb-overlay-controller-position-try-fallbacks:
+    block-end span-inline-end, block-end span-inline-start, block-start,
+    block-start span-inline-end, block-start span-inline-start;
+
+  position-area: var(--sbb-overlay-controller-position-area);
+  position-try-fallbacks: var(--sbb-overlay-controller-position-try-fallbacks);
   display: none;
   position: fixed;
-  inset: 0;
+  border: none;
+  inset: initial;
+  margin: 0;
+  pointer-events: var(--sbb-tooltip-pointer-events) !important;
+  max-width: var(--sbb-tooltip-max-width);
   z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
+  animation-name: var(--sbb-tooltip-animation-name);
+  animation-duration: var(--sbb-tooltip-animation-duration);
+  animation-timing-function: var(--sbb-tooltip-animation-easing);
+
+  // Transparent element which increases the hover area (covers the space between the tooltip and the trigger element).
+  // &::before {
+  //  content: '';
+  //  display: block;
+  //  position: absolute;
+  //  inset: 0;
+  //  z-index: -1;
+  //  background-color: transparent;
+  //  inset-block: var(--sbb-tooltip-hover-patch-inset);
+  // }
 }
 
 :host([data-state]:not([data-state='closed'])) {
@@ -53,34 +77,11 @@
   @include sbb.shadow-level-5-soft;
   @include sbb.text-xs--regular;
 
-  position: var(--sbb-tooltip-position);
-  pointer-events: var(--sbb-tooltip-pointer-events);
-  top: var(--sbb-tooltip-position-y);
-  bottom: unset;
-  left: var(--sbb-tooltip-position-x);
-  right: unset;
   border: var(--sbb-border-width-1x) solid var(--sbb-tooltip-border-color);
   border-radius: var(--sbb-tooltip-border-radius);
   padding: var(--sbb-tooltip-padding);
-  max-width: var(--sbb-tooltip-max-width);
-  width: max-content;
   color: var(--sbb-tooltip-color);
   background-color: var(--sbb-tooltip-background-color);
-  outline: none;
-  animation-name: var(--sbb-tooltip-animation-name);
-  animation-duration: var(--sbb-tooltip-animation-duration);
-  animation-timing-function: var(--sbb-tooltip-animation-easing);
-
-  // Transparent element which increases the hover area (covers the space between the tooltip and the trigger element).
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-color: transparent;
-    inset-block: var(--sbb-tooltip-hover-patch-inset);
-  }
 }
 
 @keyframes open {
