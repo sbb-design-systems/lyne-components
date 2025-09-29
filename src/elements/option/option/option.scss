@@ -145,5 +145,7 @@
 }
 
 .sbb-option__label {
-  white-space: initial;
+  text-overflow: var(--sbb-option-text-overflow);
+  overflow: var(--sbb-option-overflow);
+  white-space: var(--sbb-option-white-space, initial);
 }
