@@ -7,34 +7,41 @@ import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
 
+let nextId = 0;
+
 /**
- * Combined with a `sbb-tab-group`, it displays a tab's content.
+ * Combined with a `sbb-tab-group` and `sbb-tab-label`, it displays a tab's content.
  *
  * @slot - Use the unnamed slot to provide content.
+ * @event {Event} active - The `active` event fires when the sbb-tab has been activated via user selection on the sbb-tab-label.
  */
 export
 @customElement('sbb-tab')
 class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   public static override role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
+  public static readonly events = {
+    active: 'active',
+  } as const;
 
   /** The `sbb-tab-label` associated with the tab. */
   public get label(): SbbTabLabelElement | null {
-    return this._label;
-  }
-  private _label: SbbTabLabelElement | null = null;
-
-  private _getTabLabel(): SbbTabLabelElement | null {
-    let previousSibling = this.previousElementSibling;
-    while (previousSibling && previousSibling.localName !== 'sbb-tab-label') {
-      previousSibling = previousSibling.previousElementSibling;
-    }
-    return previousSibling as SbbTabLabelElement;
+    return this.previousElementSibling?.localName === 'sbb-tab-label'
+      ? (this.previousElementSibling as SbbTabLabelElement)
+      : null;
   }
 
-  /** @internal */
-  public configure(): void {
-    this._label = this._getTabLabel();
+  /**
+   * @internal
+   * @deprecated
+   */
+  public configure(): void {}
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.id ||= `sbb-tab-${nextId++}`;
+    this.tabIndex = 0;
   }
 
   protected override render(): TemplateResult {
