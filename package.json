@@ -95,7 +95,7 @@
     "@types/glob": "9.0.0",
     "@types/mocha": "10.0.10",
     "@types/node": "22.18.7",
-    "@types/react": "19.1.15",
+    "@types/react": "19.1.16",
     "@typescript-eslint/eslint-plugin": "8.44.1",
     "@typescript-eslint/parser": "8.44.1",
     "@web/test-runner": "0.20.2",
