@@ -5,9 +5,10 @@
 
 :host {
   --sbb-tooltip-pointer-events: all;
+  --sbb-tooltip-min-width: var(--sbb-spacing-fixed-8x);
   --sbb-tooltip-max-width: min(
     #{sbb.px-to-rem-build(400)},
-    calc(100% - var(--sbb-spacing-fixed-2x))
+    calc(100vw - var(--sbb-spacing-fixed-2x))
   );
   --sbb-tooltip-border-color: var(--sbb-color-midnight);
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
@@ -20,9 +21,7 @@
   );
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
-}
-
-:host {
+  --sbb-tooltip-gap: var(--sbb-spacing-fixed-2x);
   --sbb-overlay-controller-position-area: block-end;
   --sbb-overlay-controller-position-try-fallbacks:
     block-end span-inline-end, block-end span-inline-start, block-start,
@@ -34,24 +33,15 @@
   position: fixed;
   border: none;
   inset: initial;
+  padding: 0;
   margin: 0;
-  pointer-events: var(--sbb-tooltip-pointer-events) !important;
-  max-width: var(--sbb-tooltip-max-width);
+  background-color: transparent;
+  color: inherit;
+  pointer-events: var(--sbb-tooltip-pointer-events);
   z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
   animation-name: var(--sbb-tooltip-animation-name);
   animation-duration: var(--sbb-tooltip-animation-duration);
   animation-timing-function: var(--sbb-tooltip-animation-easing);
-
-  // Transparent element which increases the hover area (covers the space between the tooltip and the trigger element).
-  // &::before {
-  //  content: '';
-  //  display: block;
-  //  position: absolute;
-  //  inset: 0;
-  //  z-index: -1;
-  //  background-color: transparent;
-  //  inset-block: var(--sbb-tooltip-hover-patch-inset);
-  // }
 }
 
 :host([data-state]:not([data-state='closed'])) {
@@ -65,12 +55,28 @@
   --sbb-tooltip-pointer-events: none;
 }
 
-:host([data-position='below']) {
-  --sbb-tooltip-hover-patch-inset: calc(-1 * var(--sbb-spacing-fixed-4x)) 0;
+:host(:is([data-position^='block-end'], [data-position^='bottom'])) {
+  padding-block-start: var(--sbb-tooltip-gap);
 }
 
-:host([data-position='above']) {
-  --sbb-tooltip-hover-patch-inset: 0 calc(-1 * var(--sbb-spacing-fixed-4x));
+:host(:is([data-position^='block-start'], [data-position^='top'])) {
+  padding-block-end: var(--sbb-tooltip-gap);
+}
+
+:host([data-position^='inline-start']) {
+  padding-inline-end: var(--sbb-tooltip-gap);
+}
+
+:host([data-position^='inline-end']) {
+  padding-inline-start: var(--sbb-tooltip-gap);
+}
+
+:host([data-position^='left']) {
+  padding-right: var(--sbb-tooltip-gap);
+}
+
+:host([data-position^='right']) {
+  padding-left: var(--sbb-tooltip-gap);
 }
 
 .sbb-tooltip {
@@ -82,6 +88,8 @@
   padding: var(--sbb-tooltip-padding);
   color: var(--sbb-tooltip-color);
   background-color: var(--sbb-tooltip-background-color);
+  min-width: var(--sbb-tooltip-min-width);
+  max-width: var(--sbb-tooltip-max-width);
 }
 
 @keyframes open {

@@ -30,8 +30,6 @@ import style from './tooltip.scss?lit&inline';
  * trigger and the long press event being fired.
  */
 const LONGPRESS_DELAY = 500;
-// const VERTICAL_OFFSET = 8; // TODO: remove
-// const HORIZONTAL_OFFSET = 16;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
@@ -62,7 +60,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   }
 
   /**
-   * The element that will trigger the popover overlay.
+   * The element that will trigger the tooltip overlay.
    *
    * For attribute usage, provide an id reference.
    */

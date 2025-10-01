@@ -12,6 +12,22 @@ import readme from './readme.md?raw';
 import { SbbTooltipElement } from './tooltip.component.js';
 import '../button/button.js';
 
+const position: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: [
+    'block-end',
+    'block-start',
+    'inline-start',
+    'inline-end',
+    'bottom',
+    'top',
+    'left',
+    'right',
+  ],
+};
+
 const openDelay: InputType = {
   control: {
     type: 'number',
@@ -35,9 +51,10 @@ const attributeUsageArgTypes: ArgTypes = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  ...attributeUsageArgTypes,
+  position,
   'open-delay': openDelay,
   'close-delay': closeDelay,
+  ...attributeUsageArgTypes,
 };
 
 const attributeUsageArgs: Args = {
@@ -45,59 +62,47 @@ const attributeUsageArgs: Args = {
 };
 
 const defaultArgs: Args = {
-  ...attributeUsageArgs,
+  position: position.options![0],
   'open-delay': undefined,
   'close-delay': undefined,
+  ...attributeUsageArgs,
 };
 
-const alignmentStyles: { [x: string]: any } = {
-  'below-centred': { 'inset-inline-start': 'calc(50% - 44px)' },
-  'below-start': { 'inset-inline-start': '2rem' },
-  'below-end': { 'inset-inline-end': '2rem' },
-  'above-centred': { 'inset-inline-start': 'calc(50% - 44px)', 'inset-block-end': '2rem' },
-  'above-start': { 'inset-block-end': '2rem' },
-  'above-end': { 'inset-inline-end': '2rem', 'inset-block-end': '2rem' },
-};
-
-const trigger = (alignment = 'below-start'): TemplateResult => html`
-  <sbb-button
-    id="tooltip-trigger"
-    style=${styleMap({
-      position: 'absolute',
-      ...alignmentStyles[alignment],
-    })}
+const trigger = (): TemplateResult => html`
+  <sbb-button id="tooltip-trigger" style="margin-block-start: 10rem; margin-inline-start: 10rem;"
     >Button</sbb-button
   >
 `;
 
-const Template =
-  (alignment?: string) =>
-  (args: Args): TemplateResult => html`
-    ${trigger(alignment)}
-    <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}> I'm a tooltip!!! </sbb-tooltip>
-  `;
-
-const LongContentTemplate = (args: Args): TemplateResult => html`
+const Template = ({ position, ...args }: Args): TemplateResult => html`
   ${trigger()}
-  <sbb-tooltip trigger="tooltip-trigger" ${sbbSpread(args)}>
+  <sbb-tooltip
+    trigger="tooltip-trigger"
+    style=${styleMap({ '--sbb-overlay-controller-position-area': `${position}` })}
+    ${sbbSpread(args)}
+  >
+    I'm a tooltip!!!!!!
+  </sbb-tooltip>
+`;
+
+const LongContentTemplate = ({ position, ...args }: Args): TemplateResult => html`
+  ${trigger()}
+  <sbb-tooltip
+    trigger="tooltip-trigger"
+    style=${styleMap({ '--sbb-overlay-controller-position-area': `${position}` })}
+    ${sbbSpread(args)}
+  >
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in
     tincidunt quis, mattis eu quam.
   </sbb-tooltip>
 `;
 
 const AttributeTemplate = (): TemplateResult => html`
-  <sbb-button
-    style=${styleMap({
-      position: 'absolute',
-      ...alignmentStyles['below-start'],
-    })}
-    sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute"
-    >Button</sbb-button
-  >
+  <sbb-button sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute">Button</sbb-button>
 `;
 
 export const Default: StoryObj = {
-  render: Template(),
+  render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
@@ -114,34 +119,28 @@ export const LongContent: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const BelowCentred: StoryObj = {
-  render: Template('below-centred'),
+export const Below: StoryObj = {
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, position: 'block-end' },
 };
 
-export const BelowEnd: StoryObj = {
-  render: Template('below-end'),
+export const Above: StoryObj = {
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, position: 'block-start' },
 };
 
-export const AboveStart: StoryObj = {
-  render: Template('above-start'),
+export const OnTheLeft: StoryObj = {
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, position: 'inline-start' },
 };
 
-export const AboveCentred: StoryObj = {
-  render: Template('above-centred'),
+export const OnTheRight: StoryObj = {
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const AboveEnd: StoryObj = {
-  render: Template('above-end'),
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, position: 'inline-end' },
 };
 
 const meta: Meta = {

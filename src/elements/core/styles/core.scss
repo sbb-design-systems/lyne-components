@@ -255,8 +255,7 @@ html {
   sbb-navigation,
   sbb-overlay,
   sbb-popover,
-  sbb-toast,
-  sbb-tooltip
+  sbb-toast
 ) {
   @include popover.popover-reset;
 }

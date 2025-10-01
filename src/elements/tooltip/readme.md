@@ -23,8 +23,39 @@ On touch devices, the tooltip opens on long press and closes automatically after
 
 ## Positioning
 
-By default, the tooltip appears below the trigger element. If there is insufficient space, it automatically chooses the best available position.
-Currently, the positioning priority is not configurable (an enhancement is planned soon).
+The tooltip uses the [CSS anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Using) to anchor itself to the trigger element.
+Specifically, it uses the "[position-area](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Using#setting_a_position-area)"
+and "[position-try-fallbacks](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Try_options_hiding#using_position-area_try_fallback_options)" CSS properties to define where the tooltip should be positioned.
+
+You can control the positioning of the tooltip by overriding the `--sbb-overlay-controller-position-area` and `--sbb-overlay-controller-position-try-fallbacks` CSS variables.
+By default, it appears below the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+
+```scss
+// Primary position
+--sbb-overlay-controller-position-area: block-end;
+
+// Fallback positions. The first one that fits will be used.
+--sbb-overlay-controller-position-try-fallbacks:
+  block-end span-inline-end, block-end span-inline-start, block-start, block-start span-inline-end,
+  block-start span-inline-start;
+```
+
+**Note:** The CSS anchor positioning feature is not yet fully [supported](https://caniuse.com/css-anchor-positioning) by all browsers. Therefore, a polyfill is used which limits the possible positions to the following:
+
+| Logical positions               | Physical positions  |
+| ------------------------------- | ------------------- |
+| `block-start`                   | `top`               |
+| `block-end`                     | `bottom`            |
+| `inline-start`                  | `left`              |
+| `inline-end`                    | `right`             |
+| `block-start span-inline-start` | `top span-left`     |
+| `block-start span-inline-end`   | `top span-right`    |
+| `block-end span-inline-start`   | `bottom span-left`  |
+| `block-end span-inline-end`     | `bottom span-right` |
+| `inline-start span-block-start` | `left span-top`     |
+| `inline-start span-block-end`   | `left span-bottom`  |
+| `inline-end span-block-start`   | `right span-top`    |
+| `inline-end span-block-end`     | `right span-bottom` |
 
 ## Configuration
 
@@ -60,7 +91,7 @@ Always ensure that keyboard users can perform the same set of actions available 
 | `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                               |
 | `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set. |
 | `openDelay`           | `open-delay`             | public  | `number`              | `0`     | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
-| `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.                           |
+| `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the tooltip overlay. For attribute usage, provide an id reference.                           |
 
 ## Methods
 
