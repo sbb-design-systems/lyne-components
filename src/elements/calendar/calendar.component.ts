@@ -700,8 +700,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
         );
         // If the selected date is already in the _selected array, remove it, otherwise add it
         if (indexOfSelectedDay !== -1) {
-          (this._selected as T[]).splice(indexOfSelectedDay, 1);
-          this._selected = [...(this._selected as T[])];
+          this._selected = (this._selected as T[]).filter((_, i) => i !== indexOfSelectedDay);
         } else {
           this._selected = [...(this._selected as T[]), day];
         }
