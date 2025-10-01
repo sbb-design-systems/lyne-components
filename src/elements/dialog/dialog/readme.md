@@ -120,11 +120,12 @@ an alternative element by listening to the `didClose` event.
 
 ## Methods
 
-| Name            | Privacy | Description                                                          | Parameters                         | Return | Inherited From          |
-| --------------- | ------- | -------------------------------------------------------------------- | ---------------------------------- | ------ | ----------------------- |
-| `announceTitle` | public  | Announce the accessibility label or dialog title for screen readers. |                                    | `void` |                         |
-| `close`         | public  | Closes the component.                                                | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
-| `open`          | public  | Opens the component.                                                 |                                    | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters                         | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------------------------------- | ------ | ----------------------- |
+| `announceTitle`  | public  | Announce the accessibility label or dialog title for screen readers.        |                                    | `void` |                         |
+| `close`          | public  | Closes the component.                                                       | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                                    | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the component.                                                        |                                    | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
@@ -140,6 +141,12 @@ an alternative element by listening to the `didClose` event.
 | Name                   | Default                              | Description                                                                                                                                                                                                   |
 | ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-dialog-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
+
+## CSS Parts
+
+| Name               | Description                                                          |
+| ------------------ | -------------------------------------------------------------------- |
+| `scroll-container` | Can be used to change styles of the scroll container of the content. |
 
 ## Slots
 

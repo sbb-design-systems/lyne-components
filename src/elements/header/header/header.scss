@@ -57,7 +57,7 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 var(--sbb-header-inset-inline-end) auto 0;
-  background: var(--sbb-color-white);
+  background: var(--sbb-background-color-1);
   z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
   transition: {

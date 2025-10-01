@@ -5,14 +5,14 @@
 
 :host {
   --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-label-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-label-icon-color: var(--sbb-color-charcoal);
+  --sbb-checkbox-label-color: var(--sbb-color-color-3);
+  --sbb-checkbox-label-icon-color: var(--sbb-checkbox-label-color);
   --sbb-checkbox-cursor: pointer;
 }
 
 :host(:disabled) {
   --sbb-checkbox-cursor: default;
-  --sbb-checkbox-label-color: var(--sbb-color-granite);
+  --sbb-checkbox-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
 .sbb-checkbox-wrapper {

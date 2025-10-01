@@ -72,31 +72,31 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
    * Open the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default 0
+   * @default null
    */
   @property({ attribute: 'open-delay', type: Number })
-  public set openDelay(value: number) {
-    this._openDelay = +value;
+  public set openDelay(value: number | null) {
+    this._openDelay = value;
   }
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay?: number;
+  private _openDelay: number | null = null;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default 0
+   * @default null
    */
   @property({ attribute: 'close-delay', type: Number })
-  public set closeDelay(value: number) {
-    this._closeDelay = +value;
+  public set closeDelay(value: number | null) {
+    this._closeDelay = value;
   }
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay?: number;
+  private _closeDelay: number | null = null;
 
   /**
    * Automatically close the tooltip after it has been open by long press.
@@ -152,7 +152,13 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     this._tooltipOutlet.classList.add('sbb-overlay-outlet');
     document.body.appendChild(this._tooltipOutlet);
 
-    // We are using MutationObserver directly here, as it will only be called on client side
+    // Key: trigger attribute, value: tooltip attribute
+    const attributeMap = new Map<string, string>([
+      ['sbb-tooltip-open-delay', 'open-delay'],
+      ['sbb-tooltip-close-delay', 'close-delay'],
+    ]);
+
+    // We are using MutationObserver directly here, as it will only be called on client side,
     // and we do not need to disconnect it, as we want it to work during the full lifetime
     // of the page.
     new MutationObserver((mutations) => {
@@ -169,7 +175,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
         }
       }
     }).observe(document.documentElement, {
-      attributeFilter: ['sbb-tooltip'],
+      attributeFilter: ['sbb-tooltip', ...attributeMap.keys()],
       childList: true,
       subtree: true,
     });
@@ -194,7 +200,14 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
         this._tooltipOutlet.appendChild(tooltip);
         tooltip.trigger = triggerElement;
       }
+
       tooltip.textContent = tooltipMessage;
+      tooltip.openDelay = triggerElement.hasAttribute('sbb-tooltip-open-delay')
+        ? +triggerElement.getAttribute('sbb-tooltip-open-delay')!
+        : null;
+      tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
+        ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
+        : null;
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);

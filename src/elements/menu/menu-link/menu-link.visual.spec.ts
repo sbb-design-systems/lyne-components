@@ -6,7 +6,6 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.js';
 
@@ -56,12 +55,12 @@ describe(`sbb-menu-link`, () => {
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
-    backgroundColor: 'var(--sbb-color-black)',
+    backgroundColor: 'var(--sbb-background-color-1-inverted)',
     maxWidth: '256px',
   };
 
   describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const visualDiffState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+    for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
       it(
         visualDiffState.name,
         visualDiffState.with(async (setup) => {

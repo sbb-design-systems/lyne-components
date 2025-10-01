@@ -28,6 +28,12 @@ const position: InputType = {
   ],
 };
 
+const tooltipMessage: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const openDelay: InputType = {
   control: {
     type: 'number',
@@ -47,25 +53,31 @@ const disabled: InputType = {
 };
 
 const attributeUsageArgTypes: ArgTypes = {
-  disabled,
+  'sbb-tooltip': tooltipMessage,
+  'sbb-tooltip-open-delay': openDelay,
+  'sbb-tooltip-close-delay': closeDelay,
 };
 
 const defaultArgTypes: ArgTypes = {
   position,
+  tooltipMessage,
   'open-delay': openDelay,
   'close-delay': closeDelay,
-  ...attributeUsageArgTypes,
+  disabled,
 };
 
 const attributeUsageArgs: Args = {
-  disabled: false,
+  'sbb-tooltip': "I'm a tooltip from the [sbb-tooltip] attribute",
+  'sbb-tooltip-open-delay': 250,
+  'sbb-tooltip-close-delay': 250,
 };
 
 const defaultArgs: Args = {
   position: position.options![0],
+  tooltipMessage: 'I am a tooltip',
   'open-delay': undefined,
   'close-delay': undefined,
-  ...attributeUsageArgs,
+  disabled: false,
 };
 
 const trigger = (): TemplateResult => html`
@@ -74,31 +86,19 @@ const trigger = (): TemplateResult => html`
   >
 `;
 
-const Template = ({ position, ...args }: Args): TemplateResult => html`
+const Template = ({ position, tooltipMessage, ...args }: Args): TemplateResult => html`
   ${trigger()}
   <sbb-tooltip
     trigger="tooltip-trigger"
     style=${styleMap({ '--sbb-overlay-controller-position-area': `${position}` })}
     ${sbbSpread(args)}
   >
-    I'm a tooltip!!!!!!
+    ${tooltipMessage}
   </sbb-tooltip>
 `;
 
-const LongContentTemplate = ({ position, ...args }: Args): TemplateResult => html`
-  ${trigger()}
-  <sbb-tooltip
-    trigger="tooltip-trigger"
-    style=${styleMap({ '--sbb-overlay-controller-position-area': `${position}` })}
-    ${sbbSpread(args)}
-  >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in
-    tincidunt quis, mattis eu quam.
-  </sbb-tooltip>
-`;
-
-const AttributeTemplate = (): TemplateResult => html`
-  <sbb-button sbb-tooltip="I'm a tooltip from the [sbb-tooltip] attribute">Button</sbb-button>
+const AttributeTemplate = (args: Args): TemplateResult => html`
+  <sbb-button ${sbbSpread(args)}>Button</sbb-button>
 `;
 
 export const Default: StoryObj = {
@@ -114,9 +114,12 @@ export const AttributeUsage: StoryObj = {
 };
 
 export const LongContent: StoryObj = {
-  render: LongContentTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: {
+    ...defaultArgs,
+    tooltipMessage: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`,
+  },
 };
 
 export const Below: StoryObj = {

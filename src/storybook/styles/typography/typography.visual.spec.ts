@@ -73,8 +73,8 @@ describe(`typography`, () => {
                 It should adapt to the text but have an underline and hover colors.
               </p> `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
-              color: negative ? 'var(--sbb-color-white)' : '',
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              color: negative ? 'var(--sbb-color-1-negative)' : '',
             },
           );
         });

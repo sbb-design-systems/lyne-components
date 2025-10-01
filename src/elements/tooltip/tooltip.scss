@@ -10,11 +10,11 @@
     #{sbb.px-to-rem-build(400)},
     calc(100vw - var(--sbb-spacing-fixed-2x))
   );
-  --sbb-tooltip-border-color: var(--sbb-color-midnight);
+  --sbb-tooltip-border-color: var(--sbb-background-color-1-inverted);
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
   --sbb-tooltip-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
-  --sbb-tooltip-background-color: var(--sbb-color-midnight);
-  --sbb-tooltip-color: var(--sbb-color-white);
+  --sbb-tooltip-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-tooltip-color: var(--sbb-color-2-inverted);
   --sbb-tooltip-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)

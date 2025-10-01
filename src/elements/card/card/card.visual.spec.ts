@@ -46,7 +46,8 @@ describe(`sbb-card`, () => {
             </sbb-card>
           `,
           {
-            backgroundColor: color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+            backgroundColor:
+              color === 'milk' ? 'var(--sbb-background-color-1)' : 'var(--sbb-background-color-3)',
           },
         );
       });
@@ -79,7 +80,7 @@ describe(`sbb-card`, () => {
             </sbb-card>
           `,
           {
-            backgroundColor: 'var(--sbb-color-milk)',
+            backgroundColor: 'var(--sbb-background-color-3)',
           },
         );
       });
@@ -101,7 +102,7 @@ describe(`sbb-card`, () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
             </sbb-card>
           `,
-          { backgroundColor: 'var(--sbb-color-milk)' },
+          { backgroundColor: 'var(--sbb-background-color-3)' },
         );
       }),
     );

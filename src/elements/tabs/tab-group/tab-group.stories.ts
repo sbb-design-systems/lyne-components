@@ -1,26 +1,19 @@
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components-vite';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { SbbTabElement } from '../tab.js';
 
 import readme from './readme.md?raw';
 import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
 
+import '../../card.js';
 import '../../link.js';
 import '../../title.js';
 import '../tab-label.js';
-import '../tab.js';
-import '../../card.js';
 
 const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
   const evDetail = event.detail;
@@ -146,6 +139,34 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   </sbb-tab-group>
 `;
 
+const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group size=${size} initial-selected-index="0">
+    <sbb-tab-label ${sbbSpread(args)}>${label}</sbb-tab-label>
+    <sbb-tab
+      @active=${() => {
+        const tabContent = document.getElementById('dynamic');
+        const article = document.createElement('article');
+        article.innerHTML = `<p id="dynamic">Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.</p>`;
+        setTimeout(() => tabContent?.replaceWith(article), 3000);
+      }}
+    >
+      <article id="dynamic">Loading...</article>
+    </sbb-tab>
+
+    <sbb-tab-label>Tab title two</sbb-tab-label>
+    ${tabPanelTwo()}
+
+    <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
+    <sbb-tab>I was disabled.</sbb-tab>
+
+    <sbb-tab-label>Tab title four</sbb-tab-label>
+    ${tabPanelFour()}
+  </sbb-tab-group>
+`;
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -181,21 +202,11 @@ const size: InputType = {
   options: ['s', 'l', 'xl'],
 };
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    disable: true,
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   amount: amount,
   size: size,
-  negative,
 };
 
 const basicArgs: Args = {
@@ -203,7 +214,6 @@ const basicArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   size: size.options![1],
-  negative: false,
 };
 
 export const defaultTabsSizeL: StoryObj = {
@@ -250,16 +260,23 @@ export const nestedTabGroups: StoryObj = {
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], negative: true },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
+  parameters: {
+    backgroundColor: () => 'var(--sbb-background-color-3)',
+  },
+};
+
+export const ContentOnActiveEvent: StoryObj = {
+  render: DynamicTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbTabGroupElement.events.tabchange],
+      handles: [SbbTabGroupElement.events.tabchange, SbbTabElement.events.active],
     },
     docs: {
       extractComponentDescription: () => readme,

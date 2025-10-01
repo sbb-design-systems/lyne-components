@@ -6,10 +6,13 @@
 :host {
   display: block;
 
-  --sbb-train-formation-sector-line-color: var(--sbb-color-cement);
+  --sbb-train-formation-sector-line-color: light-dark(
+    var(--sbb-color-cement),
+    var(--sbb-color-smoke)
+  );
   --sbb-train-formation-sector-line-width: var(--sbb-border-width-1x);
   --sbb-train-formation-blocked-passage-width: #{sbb.px-to-rem-build(16)};
-  --sbb-train-formation-text-color: var(--sbb-color-charcoal);
+  --sbb-train-formation-text-color: var(--sbb-color-3);
   --sbb-train-formation-vertical-gap: var(--sbb-spacing-fixed-2x);
 
   @include sbb.if-forced-colors {

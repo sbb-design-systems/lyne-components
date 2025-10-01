@@ -8,6 +8,7 @@ import type {
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -215,20 +216,28 @@ const TemplateSbbTimeInput = ({
       <sbb-time-input @input=${handleInput} value="12:00" ${sbbSpread(args)}></sbb-time-input>
       ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
     </sbb-form-field>
-    <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-      <sbb-secondary-button size="m" @click=${setValueAsDate}>
-        Set valueAsDate to current time
-      </sbb-secondary-button>
-      <sbb-secondary-button size="m" @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
+    <div
+      style=${styleMap({
+        color: negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
+      })}
+    >
+      <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
+        <sbb-secondary-button size="m" @click=${setValueAsDate}>
+          Set valueAsDate to current time
+        </sbb-secondary-button>
+        <sbb-secondary-button size="m" @click=${setValue}>
+          Set value to 00:00
+        </sbb-secondary-button>
+      </div>
+      <p style="margin-block-start: 1rem;">
+        Time in input:
+        <output class="container-value"></output>
+      </p>
+      <p>
+        <strong>Note:</strong> In order for an error to be displayed, you need to enter an invalid
+        value (e.g. 99:99) manually into the input field.
+      </p>
     </div>
-    <div style="color: var(--sbb-color-smoke);">
-      <div style="margin-block-start: 1rem;">Time in input:</div>
-      <output class="container-value"></output>
-    </div>
-    <p>
-      <strong>Note:</strong> In order for an error to be displayed, you need to enter an invalid
-      value (e.g. 99:99) manually into the input field.
-    </p>
   </div>
 `;
 
@@ -317,7 +326,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: ['change', 'input'],
     },

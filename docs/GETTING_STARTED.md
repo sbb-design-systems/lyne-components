@@ -219,30 +219,149 @@ To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
 </html>
 ```
 
+### Dark Mode
+
+To provide the dark mode theme to the end users, you can set the `sbb-light-dark` CSS class on your `<html>` tag.
+Alternatively, you can force one mode or the other by applying either the `sbb-light` (current default) or `sbb-dark` CSS class.
+This CSS class sets the `color-scheme` CSS property which responds to the end user's preferred color scheme settings.
+
+Please note, that every color on the consumer's side also needs to be set in light and dark modes using the CSS `light-dark()` function.
+See the `Context specific colors` section below for details of the predefined CSS variables we provide.
+
+```css
+.class {
+  color: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
+}
+```
+
+Some colors change their value between light and dark modes for contrast reasons. For example, the red used for errors or all
+colors in the additional color set.
+Note that JavaScript tokens are only available for primitive values. Please use CSS variables whenever possible.
+They automatically adapt their colors. Using JavaScript variables requires you to handle light and dark modes manually.
+
+#### Compatibility
+
+As a browser compatibility fallback, we ship our styles with the light color value defined before `light-dark()`.
+So, whenever you define our own `light-dark()` color pair, consider using this fallback as well for compatibility.
+
+```css
+.class {
+  color: var(--sbb-color-cloud);
+  color: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
+}
+```
+
+We provide CSS variables for the most commonly used color combinations, which can be used directly.
+
+### Context specific colors
+
+We provide a few context-specific colors that can be used for errors, states,
+or simply to make things look right in light and dark modes.
+
+#### General colors
+
+| CSS variable name        | Description                                 |
+| ------------------------ | ------------------------------------------- |
+| `--sbb-color-primary`    | The primary color (red as standard).        |
+| `--sbb-color-primary85`  | Brighter variation of the primary color.    |
+| `--sbb-color-primary125` | Darker variation of the primary color.      |
+| `--sbb-color-primary150` | Even darker variation of the primary color. |
+| `--sbb-color-error`      | Color to be used for error states.          |
+| `--sbb-color-warning`    | Color to be used for warning states.        |
+| `--sbb-color-success`    | Color to be used for success states.        |
+| `--sbb-color-brand`      | Color to be used for brand, like the logo.  |
+
+#### Background colors
+
+| CSS variable name          | Description                                                            |
+| -------------------------- | ---------------------------------------------------------------------- |
+| `--sbb-background-color-1` | Level 1 background color, currently `white / midnight` (light / dark). |
+| `--sbb-background-color-2` | Level 2 background color, currently `white / charcoal` (light / dark). |
+| `--sbb-background-color-3` | Level 3 background color, currently `milk / charcoal` (light / dark).  |
+| `--sbb-background-color-4` | Level 4 background color, currently `cloud / iron` (light / dark).     |
+
+All background color CSS variables are also available with suffixes
+`-negative` (taking the dark color of the color pair),
+`-inverted` (swapped dark and light color of the color pair) and
+`-negative-inverted` (taking the light color of the color pair).
+
+#### Text colors
+
+| CSS variable name | Description                                                      |
+| ----------------- | ---------------------------------------------------------------- |
+| `--sbb-color-1`   | Level 1 text color, currently `midnight / white` (light / dark). |
+| `--sbb-color-2`   | Level 2 text color, currently `charcoal / white` (light / dark). |
+| `--sbb-color-3`   | Level 3 text color, currently `charcoal / milk` (light / dark).  |
+| `--sbb-color-4`   | Level 4 text color, currently `iron / cloud` (light / dark).     |
+| `--sbb-color-5`   | Level 5 text color, currently `smoke / smoke` (light / dark).    |
+
+All text color CSS variables (except level 5) are also available with suffixes
+`-negative` (taking the dark color of the color pair),
+`-inverted` (swapped dark and light color of the color pair) and
+`-negative-inverted` (taking the light color of the color pair).
+
+#### Border colors
+
+| CSS variable name      | Description                                                        |
+| ---------------------- | ------------------------------------------------------------------ |
+| `--sbb-border-color-1` | Level 1 border color, currently `midnight / white` (light / dark). |
+| `--sbb-border-color-2` | Level 2 border color, currently `charcoal / white` (light / dark). |
+| `--sbb-border-color-3` | Level 3 border color, currently `charcoal / milk` (light / dark).  |
+| `--sbb-border-color-4` | Level 4 border color, currently `iron / cloud` (light / dark).     |
+| `--sbb-border-color-5` | Level 5 border color, currently `smoke / smoke` (light / dark).    |
+
+All border color CSS variables (except level 5) are also available with suffixes
+`-negative` (taking the dark color of the color pair),
+`-inverted` (swapped dark and light color of the color pair) and
+`-negative-inverted` (taking the light color of the color pair).
+
+#### Shadow colors
+
+Note: All shadow color CSS variables are also available with the suffix `-negative`.
+Please also consider our shadow SASS mixins when including a shadow.
+
+| CSS variable name           | Description                   |
+| --------------------------- | ----------------------------- |
+| `--sbb-shadow-color-soft-1` | Shadow color for soft level 1 |
+| `--sbb-shadow-color-soft-2` | Shadow color for soft level 2 |
+| `--sbb-shadow-color-hard-1` | Shadow color for hard level 1 |
+| `--sbb-shadow-color-hard-2` | Shadow color for hard level 2 |
+
+### Themes
+
+We provide the following themes.
+
+- `standard`: for SBB applications.
+- `off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
+- `safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (grey).
+
 ### CSS files
 
-Basically, all our styles are included in `standard-theme.css` which should be included in your application.
+Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.
 However, if you would like to more specifically pick what you need, consider the following CSS files available.
 
-| File name                       | Description                                                                         |
-| ------------------------------- | ----------------------------------------------------------------------------------- |
-| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                        |
-| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.               |
-|                                 |                                                                                     |
-| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application. |
-|                                 |                                                                                     |
-| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).         |
-|                                 |                                                                                     |
-| `a11y.css`                      | Provides accessibility related CSS classes.                                         |
-| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.          |
-| `badge.css`                     | Provides badge styling.                                                             |
-| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                 |
-| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                      |
-| `lists.css`                     | Provides CSS classes to style lists.                                                |
-| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                          |
-| `table.css`                     | Provides CSS classes to style a table.                                              |
-| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                     |
-| `typography.css`                | Provides typography related CSS classes.                                            |
+| File name                       | Description                                                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------- |
+| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                                  |
+| `off-brand-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).            |
+| `safety-theme.css`              | Contains the standard theme with primary and brand colors set to an alternative color (gray). |
+|                                 |                                                                                               |
+| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.                         |
+|                                 |                                                                                               |
+| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application.           |
+|                                 |                                                                                               |
+| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).                   |
+|                                 |                                                                                               |
+| `a11y.css`                      | Provides accessibility related CSS classes.                                                   |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.                    |
+| `badge.css`                     | Provides badge styling.                                                                       |
+| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                           |
+| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                                |
+| `lists.css`                     | Provides CSS classes to style lists.                                                          |
+| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                                    |
+| `table.css`                     | Provides CSS classes to style a table.                                                        |
+| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                               |
+| `typography.css`                | Provides typography related CSS classes.                                                      |
 
 ### Full Font
 
@@ -272,6 +391,17 @@ Some design tokens are responsive: they change their value depending on the curr
 > Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
 > There is a corresponding responsive CSS variable without the `-breakpoint` suffix,
 > e.g. `sbb-spacing-responsive-s` which should be used.
+
+#### Alpha values
+
+For alpha values, we recommend to use the CSS color-mix() function.
+
+```css
+.a {
+  /* 40% opacity of primary color */
+  color: color-mix(in srgb, var(--sbb-color-primary) 40%, transparent);
+}
+```
 
 ### Sass Mixins
 

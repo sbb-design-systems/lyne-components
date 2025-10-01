@@ -131,7 +131,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <label class="sbb-selection-panel">
+      <div class="sbb-selection-panel">
         <div class="sbb-selection-panel__badge">
           <slot name="badge"></slot>
         </div>
@@ -145,7 +145,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
             ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
             : nothing}
         </span>
-      </label>
+      </div>
     `;
   }
 }

@@ -13,7 +13,7 @@ import './popover-trigger.component.js';
 import '../../title.js';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  color: context.args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
+  color: context.args.negative ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)',
 });
 
 const negative: InputType = {
@@ -155,7 +155,9 @@ const meta: Meta = {
   ],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },
