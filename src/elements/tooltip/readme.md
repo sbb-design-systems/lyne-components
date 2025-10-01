@@ -51,22 +51,24 @@ By default, it appears below the trigger element and, if there is insufficient s
   block-start span-inline-start;
 ```
 
-**Note:** The CSS anchor positioning feature is not yet fully [supported](https://caniuse.com/css-anchor-positioning) by all browsers. Therefore, a polyfill is used which limits the possible positions to the following:
-
-| Logical positions               | Physical positions  |
-| ------------------------------- | ------------------- |
-| `block-start`                   | `top`               |
-| `block-end`                     | `bottom`            |
-| `inline-start`                  | `left`              |
-| `inline-end`                    | `right`             |
-| `block-start span-inline-start` | `top span-left`     |
-| `block-start span-inline-end`   | `top span-right`    |
-| `block-end span-inline-start`   | `bottom span-left`  |
-| `block-end span-inline-end`     | `bottom span-right` |
-| `inline-start span-block-start` | `left span-top`     |
-| `inline-start span-block-end`   | `left span-bottom`  |
-| `inline-end span-block-start`   | `right span-top`    |
-| `inline-end span-block-end`     | `right span-bottom` |
+> ⓘ The CSS anchor positioning feature is not yet fully [supported](https://caniuse.com/css-anchor-positioning) by all browsers.
+>
+> Therefore, a polyfill is used which limits the possible positions to the following:
+>
+> | Logical positions               | Physical positions  |
+> | ------------------------------- | ------------------- |
+> | `block-start`                   | `top`               |
+> | `block-end`                     | `bottom`            |
+> | `inline-start`                  | `left`              |
+> | `inline-end`                    | `right`             |
+> | `block-start span-inline-start` | `top span-left`     |
+> | `block-start span-inline-end`   | `top span-right`    |
+> | `block-end span-inline-start`   | `bottom span-left`  |
+> | `block-end span-inline-end`     | `bottom span-right` |
+> | `inline-start span-block-start` | `left span-top`     |
+> | `inline-start span-block-end`   | `left span-bottom`  |
+> | `inline-end span-block-start`   | `right span-top`    |
+> | `inline-end span-block-end`     | `right span-bottom` |
 
 ## Configuration
 
