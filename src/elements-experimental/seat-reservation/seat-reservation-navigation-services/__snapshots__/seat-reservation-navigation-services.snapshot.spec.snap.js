@@ -14,15 +14,15 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
   </sbb-screen-reader-only>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
+    class="auto-width"
     name="BICYCLE"
-    style="--sbb-seat-reservation-graphic-width:auto;--sbb-seat-reservation-graphic-height:16;"
     title="Bike area"
   >
   </sbb-seat-reservation-graphic>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
+    class="auto-width"
     name="SILENCE"
-    style="--sbb-seat-reservation-graphic-width:auto;--sbb-seat-reservation-graphic-height:16;"
     title="Quiet zone"
   >
   </sbb-seat-reservation-graphic>
@@ -45,20 +45,4 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Chrome */
-
-snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Available services:Bike area, Quiet zone"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Firefox */
 
