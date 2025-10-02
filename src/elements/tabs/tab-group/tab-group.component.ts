@@ -124,7 +124,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
-    this._tabContentResizeObserver.observe(this._tabContentElement);
   }
 
   /**
