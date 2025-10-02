@@ -203,8 +203,13 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     }
 
     protected emitPageEvent(previousPageIndex: number): void {
+      // When the paginator is used in a routed component,
+      // the hasUpdated flag is true after the first property's set is called.
+      // Adding the check on `this.isUpdatePending` seems to solve the issue.
+      // https://github.com/sbb-design-systems/lyne-components/issues/4059
       if (
         !this.hasUpdated ||
+        this.isUpdatePending ||
         (this.pageIndex === previousPageIndex && this._previousPageSize === this.pageSize)
       ) {
         // When emitting the page event is skipped during initialization,
