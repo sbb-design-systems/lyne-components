@@ -143,45 +143,56 @@ describe('sbb-paginator', () => {
     expect(pageEventSpy).to.have.been.calledTwice;
   });
 
-  it('handles length change', () => {
+  it('handles length change', async () => {
     element.pageIndex = 9;
     element.length = 100;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
 
     element.length = 10;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(1);
 
     element.length = -1;
+    await waitForLitRender(element);
     expect(element.length).to.be.equal(0);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('handles pageSize change', () => {
+  it('handles pageSize change', async () => {
     element.pageIndex = 9;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
 
     element.pageSize = 1;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(45);
 
     element.pageSize = 10;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
 
     element.pageSize = -1;
+    await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(0);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('handles pageIndex change', () => {
+  it('handles pageIndex change', async () => {
     element.pageIndex = 10;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
 
     element.pageIndex = -1;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
 
     element.pageIndex = 0;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
 
     element.pageIndex = 5;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(5);
   });
 
@@ -245,58 +256,66 @@ describe('sbb-paginator', () => {
     document.documentElement.setAttribute('lang', lang);
   });
 
-  it('should handle nextPage() call', () => {
+  it('should handle nextPage() call', async () => {
     element.nextPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(1);
   });
 
-  it('should bound nextPage() call', () => {
+  it('should bound nextPage() call', async () => {
     element.pageIndex = 9;
     element.nextPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
   });
 
-  it('should handle previousPage() call', () => {
+  it('should handle previousPage() call', async () => {
     element.pageIndex = 1;
-
     element.previousPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('should bound previousPage() call', () => {
+  it('should bound previousPage() call', async () => {
     element.previousPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('should handle firstPage() call', () => {
+  it('should handle firstPage() call', async () => {
     element.pageIndex = 9;
-
     element.firstPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('should handle lastPage() call', () => {
+  it('should handle lastPage() call', async () => {
     element.lastPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
   });
 
-  it('should handle selectPage() call', () => {
+  it('should handle selectPage() call', async () => {
     element.selectPage(2);
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(2);
   });
 
-  it('should bound selectPage() call', () => {
+  it('should bound selectPage() call', async () => {
     element.selectPage(-1);
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
 
     element.selectPage(10);
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
   });
 
-  it('should handle hasPreviousPage() call', () => {
+  it('should handle hasPreviousPage() call', async () => {
     expect(element.hasPreviousPage()).to.be.false;
 
     element.selectPage(1);
+    await waitForLitRender(element);
     expect(element.hasPreviousPage()).to.be.true;
   });
 
