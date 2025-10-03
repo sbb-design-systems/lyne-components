@@ -4089,6 +4089,11 @@ didyoumean2@4.1.0:
     leven "^3.1.0"
     lodash.deburr "^4.1.0"
 
+diff-sequences@^27.5.1:
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-27.5.1.tgz#eaecc0d327fd68c8d9672a1e64ab8dccb2ef5327"
+  integrity sha512-k1gCAXAsNgLwEL+Y8Wvl+M6oEFj5bgazfZULpS5CneoPPXRaCCW7dm+q21Ky2VEE5X+VeRDBVg1Pcvvsr4TtNQ==
+
 diff@^5.0.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-5.2.0.tgz#26ded047cd1179b78b9537d5ef725503ce1ae531"
@@ -4503,12 +4508,13 @@ eslint-plugin-storybook@9.1.10:
   dependencies:
     "@typescript-eslint/utils" "^8.8.1"
 
-eslint-plugin-yml@1.18.0:
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-yml/-/eslint-plugin-yml-1.18.0.tgz#bc3cc31d300de93d856b53f56012774c8287d36c"
-  integrity sha512-9NtbhHRN2NJa/s3uHchO3qVVZw0vyOIvWlXWGaKCr/6l3Go62wsvJK5byiI6ZoYztDsow4GnS69BZD3GnqH3hA==
+eslint-plugin-yml@1.19.0:
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-yml/-/eslint-plugin-yml-1.19.0.tgz#2a7e3e042ddbfb67f8e09d269f3ed1f9151d139b"
+  integrity sha512-S+4GbcCWksFKAvFJtf0vpdiCkZZvDJCV4Zsi9ahmYkYOYcf+LRqqzvzkb/ST7vTYV6sFwXOvawzYyL/jFT2nQA==
   dependencies:
     debug "^4.3.2"
+    diff-sequences "^27.5.1"
     escape-string-regexp "4.0.0"
     eslint-compat-utils "^0.6.0"
     natural-compare "^1.4.0"
