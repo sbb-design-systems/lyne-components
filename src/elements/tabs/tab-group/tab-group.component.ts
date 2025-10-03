@@ -106,6 +106,13 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     ) as SbbTabLabelElement[];
   }
 
+  /** Gets the slotted `sbb-tab`s. */
+  public get tabs(): SbbTabElement[] {
+    return Array.from(this.children ?? []).filter((child) =>
+      /^sbb-tab$/u.test(child.localName),
+    ) as SbbTabElement[];
+  }
+
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
@@ -117,7 +124,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
-    this._tabContentResizeObserver.observe(this._tabContentElement);
   }
 
   /**
@@ -164,6 +170,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   private _onContentSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this.labels.find((tabLabel) => tabLabel.active)?.activate();
+    this.tabs.forEach((tab) => this._tabContentResizeObserver.observe(tab));
   };
 
   private _onLabelSlotChange = (): void => {
@@ -207,7 +214,9 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     if (!this._tabContentElement) {
       return;
     }
-    for (const entry of entries) {
+    for (const entry of entries.filter((e) =>
+      (e.target as SbbTabElement).hasAttribute('data-active'),
+    )) {
       const contentHeight = Math.floor(entry.contentRect.height);
 
       this._tabContentElement.style.height = `${contentHeight}px`;

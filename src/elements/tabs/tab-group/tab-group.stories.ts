@@ -45,12 +45,16 @@ const tabPanelOne = (): TemplateResult => html`
 
 const tabPanelTwo = (): TemplateResult => html`
   <sbb-tab>
-    <section>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-      urna neque viverra justo nec.
-      <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
-    </section>
+    ${new Array(5).fill(null).map(
+      () => html`
+        <section>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna neque viverra justo nec.
+          <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+        </section>
+      `,
+    )}
   </sbb-tab>
 `;
 
@@ -85,6 +89,9 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
     <sbb-tab-label>Tab title four</sbb-tab-label>
     ${tabPanelFour()}
   </sbb-tab-group>
+  <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)"
+    >Some content used to check the tabs height</sbb-card
+  >
 `;
 
 const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
@@ -165,6 +172,9 @@ const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html
     <sbb-tab-label>Tab title four</sbb-tab-label>
     ${tabPanelFour()}
   </sbb-tab-group>
+  <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)"
+    >Some content used to check the tabs height</sbb-card
+  >
 `;
 
 const label: InputType = {
