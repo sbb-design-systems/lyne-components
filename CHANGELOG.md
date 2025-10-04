@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.9.0...v3.10.0) (2025-10-04)
+
+
+### Features
+
+* **sbb-calendar:** improve 'multiple' implementation ([#4072](https://github.com/sbb-design-systems/lyne-components/issues/4072)) ([451b5a9](https://github.com/sbb-design-systems/lyne-components/commit/451b5a9508d4b0a669a9b8e42bd9ba776116a058))
+
 ## [3.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.8.0...v3.9.0) (2025-09-29)
 
 
