@@ -12,7 +12,7 @@ describe(`sbb-tooltip`, () => {
 
   beforeEach(async () => {
     wrapper = await fixture(html`
-      <div>
+      <div style="padding: 2rem">
         <button id="trigger">Button</button>
         <sbb-tooltip trigger="trigger">Tooltip</sbb-tooltip>
       </div>
