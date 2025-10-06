@@ -55,27 +55,27 @@
   --sbb-tooltip-pointer-events: none;
 }
 
-:host(:is([data-position^='block-end'], [data-position^='bottom'])) {
+:host(:is([data-position~='block-end'], [data-position~='bottom'])) {
   padding-block-start: var(--sbb-tooltip-gap);
 }
 
-:host(:is([data-position^='block-start'], [data-position^='top'])) {
+:host(:is([data-position~='block-start'], [data-position~='top'])) {
   padding-block-end: var(--sbb-tooltip-gap);
 }
 
-:host([data-position^='inline-start']) {
+:host([data-position~='inline-start']) {
   padding-inline-end: var(--sbb-tooltip-gap);
 }
 
-:host([data-position^='inline-end']) {
+:host([data-position~='inline-end']) {
   padding-inline-start: var(--sbb-tooltip-gap);
 }
 
-:host([data-position^='left']) {
+:host([data-position~='left']) {
   padding-right: var(--sbb-tooltip-gap);
 }
 
-:host([data-position^='right']) {
+:host([data-position~='right']) {
   padding-left: var(--sbb-tooltip-gap);
 }
 
