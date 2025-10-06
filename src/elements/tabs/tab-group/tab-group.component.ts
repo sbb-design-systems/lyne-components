@@ -108,6 +108,10 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
   /** Gets the slotted `sbb-tab`s. */
   public get tabs(): SbbTabElement[] {
+    /**
+     * The querySelector API is not used because when nested tabs are used,
+     * the returned array contains the inner tabs too, and this breaks the keyboard navigation.
+     */
     return Array.from(this.children ?? []).filter((child) =>
       /^sbb-tab$/u.test(child.localName),
     ) as SbbTabElement[];
@@ -214,11 +218,10 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     if (!this._tabContentElement) {
       return;
     }
-    for (const entry of entries.filter((e) =>
-      (e.target as SbbTabElement).hasAttribute('data-active'),
-    )) {
-      const contentHeight = Math.floor(entry.contentRect.height);
-
+    // The `entries` array contains the previous tab and the clicked one, which is the active one
+    const activeTab = entries.find((e) => (e.target as SbbTabElement).hasAttribute('data-active'));
+    if (activeTab) {
+      const contentHeight = Math.floor(activeTab.contentRect.height);
       this._tabContentElement.style.height = `${contentHeight}px`;
     }
   }
