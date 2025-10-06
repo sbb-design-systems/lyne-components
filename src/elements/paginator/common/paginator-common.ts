@@ -1,6 +1,7 @@
 import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
@@ -245,7 +246,15 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
               : i18nPreviousPage[this.language.current]}
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
-            @click=${() => this.previousPage()}
+            @click=${() => {
+              this.previousPage();
+              if (
+                !this.hasPreviousPage() &&
+                sbbInputModalityDetector.mostRecentModality === 'keyboard'
+              ) {
+                this.shadowRoot?.getElementById('sbb-paginator-next-page')!.focus();
+              }
+            }}
           ></sbb-mini-button>
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button
@@ -255,7 +264,15 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
               : i18nNextPage[this.language.current]}
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
-            @click=${() => this.nextPage()}
+            @click=${() => {
+              this.nextPage();
+              if (
+                !this.hasNextPage() &&
+                sbbInputModalityDetector.mostRecentModality === 'keyboard'
+              ) {
+                this.shadowRoot?.getElementById('sbb-paginator-prev-page')!.focus();
+              }
+            }}
           ></sbb-mini-button>
         </sbb-mini-button-group>
       `;
