@@ -177,6 +177,10 @@ export class SbbOverlayPositionController implements ReactiveController {
   }
 
   private _calculatePosition(): void {
+    if (!this._anchor) {
+      return;
+    }
+
     if (this._usePolyfill) {
       const position = this._getOptimalPosition(this._positions);
       this._applyOverlayPosition(position.position, position.left, position.top);
