@@ -96,4 +96,20 @@ describe('sbb-carousel', () => {
     await showSpy.calledTimes(4);
     expect(showSpy.count).to.be.equal(4);
   });
+
+  it('paginator should trigger a scroll with offset container', async () => {
+    const goToNext: SbbMiniButtonElement = paginator.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    await setViewport({ width: 1200, height: 800 });
+    element.style.marginLeft = '500px';
+
+    await goToNext.click();
+    await showSpy.calledTimes(2);
+
+    await goToNext.click();
+    await showSpy.calledTimes(3);
+    expect(showSpy.count).to.be.equal(3);
+  });
 });
