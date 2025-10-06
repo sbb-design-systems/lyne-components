@@ -76,3 +76,9 @@
     display: var(--sbb-option-icon-container-display, none);
   }
 }
+
+.sbb-option__label {
+  text-overflow: var(--sbb-option-text-overflow);
+  overflow: var(--sbb-option-overflow);
+  white-space: var(--sbb-option-white-space, initial);
+}

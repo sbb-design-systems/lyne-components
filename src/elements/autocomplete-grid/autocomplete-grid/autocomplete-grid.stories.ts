@@ -148,6 +148,15 @@ const disableOption: InputType = {
   },
 };
 
+const ellipsis: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
 const buttonIconName: InputType = {
   control: {
     type: 'text',
@@ -184,6 +193,7 @@ const defaultArgTypes: ArgTypes = {
   // Option args
   optionIconName,
   disableOption,
+  ellipsis,
 
   // Button args
   buttonIconName,
@@ -214,6 +224,7 @@ const defaultArgs: Args = {
   // Option args
   optionIconName: 'clock-small',
   disableOption: false,
+  ellipsis: false,
 
   // Button args
   buttonIconName: 'pen-small',
@@ -239,7 +250,9 @@ const createRows1 = (
           value=${`1-${i + 1}`}
           icon-name=${optionIconName || nothing}
           ?disabled=${disableOption && i === 1}
-          >${`Option 1-${i + 1}`}</sbb-autocomplete-grid-option
+          >${`Option 1-${i + 1}`}${i === 2
+            ? ` with a long text which can wrap`
+            : ``}</sbb-autocomplete-grid-option
         >
         <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button
@@ -502,7 +515,11 @@ export const Scroll: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [
+    withActions as Decorator,
+    (story, context) =>
+      html`<div class=${context.args.ellipsis ? `sbb-options-nowrap` : ``}>${story()}</div>`,
+  ],
   parameters: {
     actions: {
       handles: [

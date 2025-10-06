@@ -37,7 +37,7 @@ describe('sbb-autocomplete', () => {
 
   const createOptionBlockOne = (withIcon: boolean, disableOption: boolean): TemplateResult => html`
     <sbb-option value="Option 1" icon-name=${withIcon ? 'clock-small' : nothing}>
-      Option 1
+      Option 1 with a longer text which can wrap.
     </sbb-option>
     <sbb-option
       value="Option 2"
@@ -303,6 +303,17 @@ describe('sbb-autocomplete', () => {
 
           setup.snapshotElement.querySelector('input')!.style.height = '60px';
         });
+      }),
+    );
+
+    it(
+      `with ellipsis`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div class="sbb-options-nowrap">${template(defaultArgs)}</div>`,
+        );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );
   });
