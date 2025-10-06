@@ -10,7 +10,10 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { readConfig } from '../core/config.js';
-import { SbbEscapableOverlayController, SbbOverlayController } from '../core/controllers.js';
+import {
+  SbbEscapableOverlayController,
+  SbbOverlayPositionController,
+} from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
 import {
   addToListAttribute,
@@ -117,7 +120,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   private _triggerAbortController?: AbortController;
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _overlayController = new SbbOverlayController(this);
+  private _overlayController = new SbbOverlayPositionController(this);
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _longPressOpenTimeout?: ReturnType<typeof setTimeout>;

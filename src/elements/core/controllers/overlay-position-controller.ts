@@ -70,7 +70,7 @@ let nextId = 0;
  *   position-try-fallbacks: var(--sbb-overlay-controller-position-try-fallbacks);
  * ```
  */
-export class SbbOverlayController implements ReactiveController {
+export class SbbOverlayPositionController implements ReactiveController {
   private readonly _resizeObserver = !isServer
     ? new ResizeObserver(() => this._requestCalculatePosition())
     : null!;
