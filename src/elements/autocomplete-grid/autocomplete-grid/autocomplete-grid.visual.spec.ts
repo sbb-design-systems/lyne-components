@@ -67,6 +67,7 @@ describe('sbb-autocomplete-grid', () => {
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="Option 3">
         ${withIcon ? html`<sbb-icon slot="icon" name="clock-small"></sbb-icon>` : nothing} Option 3
+        with a long text which can wrap
       </sbb-autocomplete-grid-option>
       <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
@@ -328,5 +329,15 @@ describe('sbb-autocomplete-grid', () => {
         });
       });
     }
+
+    it(
+      `with ellipsis`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div class="sbb-options-nowrap">${template({ ...defaultArgs })}</div>`,
+        );
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
   });
 });
