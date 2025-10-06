@@ -53,7 +53,7 @@ By default, it appears below the trigger element and, if there is insufficient s
 
 > ⓘ The CSS anchor positioning feature is not yet fully [supported](https://caniuse.com/css-anchor-positioning) by all browsers.
 >
-> Therefore, a polyfill is used which limits the possible positions to the following:
+> Therefore, a polyfill is used which limits the available positions to the following:
 >
 > | Logical positions               | Physical positions  |
 > | ------------------------------- | ------------------- |
