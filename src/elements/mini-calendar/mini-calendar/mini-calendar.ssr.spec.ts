@@ -22,8 +22,8 @@ describe(`sbb-mini-calendar ssr`, () => {
       {
         modules: [
           './mini-calendar.component.js',
-          '../mini-calendar-month.component.js',
-          '../mini-calendar-day.component.js',
+          '../mini-calendar-month.js',
+          '../mini-calendar-day.js',
         ],
       },
     );
