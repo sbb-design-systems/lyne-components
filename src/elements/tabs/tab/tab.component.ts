@@ -74,11 +74,7 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-tab">
-        <slot></slot>
-      </div>
-    `;
+    return html`<slot></slot>`;
   }
 }
 

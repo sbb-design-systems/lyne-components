@@ -12,10 +12,8 @@ snapshots["sbb-tab renders DOM"] =
 /* end snapshot sbb-tab renders DOM */
 
 snapshots["sbb-tab renders Shadow DOM"] = 
-`<div class="sbb-tab">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-tab renders Shadow DOM */
 
@@ -23,19 +21,7 @@ snapshots["sbb-tab renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text",
-          "name": "Content"
-        }
-      ]
-    }
-  ]
+  "name": ""
 }
 </p>
 `;
@@ -45,19 +31,7 @@ snapshots["sbb-tab renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Content"
-        }
-      ]
-    }
-  ]
+  "name": ""
 }
 </p>
 `;
