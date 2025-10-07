@@ -68,7 +68,7 @@
   --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
 }
 
-@include sbb.mq($to: medium) {
+@include sbb.mq($to: large) {
   :host(:state(skip-animation)) {
     --sbb-menu-animation-duration: 0ms;
   }

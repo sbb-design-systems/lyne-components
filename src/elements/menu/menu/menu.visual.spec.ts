@@ -148,7 +148,7 @@ describe(`sbb-menu`, () => {
     );
   });
 
-  describeViewports({ viewports: ['medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 500 }, () => {
     it(
       'nested wrap left',
       visualDiffDefault.with(async (setup) => {
@@ -189,7 +189,7 @@ describe(`sbb-menu`, () => {
       }),
     );
   });
-  describeViewports({ viewports: ['medium'], viewportHeight: 300 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 300 }, () => {
     it(
       'nested short page',
       visualDiffDefault.with(async (setup) => {
