@@ -122,6 +122,8 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
+
+    // To avoid animations on initialization, we have to mark the component as initialized and wait a tick.
     Promise.resolve().then(() => this.toggleState('initialized', true));
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
@@ -232,7 +234,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   /**
    * @internal
    */
-  protected setHeightResizeTab(contentHeight: number): void {
+  protected setTabContentHeight(contentHeight: number): void {
     this._tabContentElement.style.height = `${contentHeight}px`;
   }
 

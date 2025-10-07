@@ -70,7 +70,7 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _onTabContentElementResize(): void {
-    this.group?.['setHeightResizeTab'](Math.floor(this.getBoundingClientRect().height));
+    this.group?.['setTabContentHeight'](Math.floor(this.getBoundingClientRect().height));
   }
 
   protected override render(): TemplateResult {
