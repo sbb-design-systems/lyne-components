@@ -8,14 +8,21 @@
   "nvm": {
     "enabled": false
   },
-  "baseBranches": ["main", "3.x"],
+  "baseBranchPatterns": ["main", "3.x"],
   "lockFileMaintenance": {
     "schedule": ["before 7am on monday"],
     "enabled": true
   },
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "bump"
+      ],
       "automerge": true,
       "automergeType": "branch",
       "automergeStrategy": "squash"
