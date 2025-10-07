@@ -67,11 +67,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     skipInitial: true,
     callback: (entries) => this._onTabGroupElementResize(entries),
   });
-  private _tabContentResizeObserver = new ResizeController(this, {
-    target: null,
-    skipInitial: true,
-    callback: (entries) => this._onTabContentElementResize(entries),
-  });
 
   /**
    * Size variant, either s, l or xl.
@@ -174,7 +169,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
   private _onContentSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this.labels.find((tabLabel) => tabLabel.active)?.activate();
-    this.tabs.forEach((tab) => this._tabContentResizeObserver.observe(tab));
   };
 
   private _onLabelSlotChange = (): void => {
@@ -214,18 +208,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  private _onTabContentElementResize(entries: ResizeObserverEntry[]): void {
-    if (!this._tabContentElement) {
-      return;
-    }
-    // The `entries` array contains the previous tab and the clicked one, which is the active one
-    const activeTab = entries.find((e) => (e.target as SbbTabElement).hasAttribute('data-active'));
-    if (activeTab) {
-      const contentHeight = Math.floor(activeTab.contentRect.height);
-      this._tabContentElement.style.height = `${contentHeight}px`;
-    }
-  }
-
   private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledTabs: SbbTabLabelElement[] = this._enabledTabs();
 
@@ -244,6 +226,13 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
       enabledTabs[nextIndex]?.focus();
       evt.preventDefault();
     }
+  }
+
+  /**
+   * @internal
+   */
+  protected setHeightResizeTab(contentHeight: number): void {
+    this._tabContentElement.style.height = `${contentHeight}px`;
   }
 
   protected override render(): TemplateResult {
