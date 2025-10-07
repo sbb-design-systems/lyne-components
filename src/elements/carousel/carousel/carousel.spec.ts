@@ -104,6 +104,7 @@ describe('sbb-carousel', () => {
 
     await setViewport({ width: 1200, height: 800 });
     element.style.marginLeft = '500px';
+    await showSpy.calledTimes(1);
 
     await goToNext.click();
     await showSpy.calledTimes(2);
