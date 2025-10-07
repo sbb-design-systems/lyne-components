@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.9.0...v3.10.0) (2025-10-06)
+
+
+### Features
+
+* **sbb-autocomplete-grid:** enable `sbb-options-nowrap` class ([#4085](https://github.com/sbb-design-systems/lyne-components/issues/4085)) ([598b8a8](https://github.com/sbb-design-systems/lyne-components/commit/598b8a89d973cfded28cac4947a5d5c8401ee24a))
+* **sbb-calendar:** improve 'multiple' implementation ([#4072](https://github.com/sbb-design-systems/lyne-components/issues/4072)) ([451b5a9](https://github.com/sbb-design-systems/lyne-components/commit/451b5a9508d4b0a669a9b8e42bd9ba776116a058))
+
+
+### Bug Fixes
+
+* **sbb-carousel:** fix scrolling when carousel is offset ([#4087](https://github.com/sbb-design-systems/lyne-components/issues/4087)) ([221b56c](https://github.com/sbb-design-systems/lyne-components/commit/221b56c2fb97053ddd05dbf348f40910b55a8670)), closes [#4080](https://github.com/sbb-design-systems/lyne-components/issues/4080)
+* **sbb-paginator,sbb-compact-paginator:** fix focus of arrows for keyboard navigation ([#4090](https://github.com/sbb-design-systems/lyne-components/issues/4090)) ([6e9a507](https://github.com/sbb-design-systems/lyne-components/commit/6e9a507ca753dd3872c067f4f6319e23d0f3fe69))
+
+## [3.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.8.0...v3.9.0) (2025-09-29)
+
+
+### Features
+
+* **sbb-autocomplete:** provide ellipsis CSS class ([#4070](https://github.com/sbb-design-systems/lyne-components/issues/4070)) ([3318428](https://github.com/sbb-design-systems/lyne-components/commit/3318428be4d7e0f36625af26754722c648e54ec8))
+* **sbb-menu:** implement nested variant ([#3883](https://github.com/sbb-design-systems/lyne-components/issues/3883)) ([836427a](https://github.com/sbb-design-systems/lyne-components/commit/836427a92592c19f914e1a549bb05be91852517e))
+* **sbb-tab-group, sbb-tab, sbb-tab-label:** refactor components and add 'active' event ([#4024](https://github.com/sbb-design-systems/lyne-components/issues/4024)) ([fc09905](https://github.com/sbb-design-systems/lyne-components/commit/fc099052b0e311c4a0e43527fa439884e9b74341))
+* **sbb-tooltip:** add global delay attributes ([#4053](https://github.com/sbb-design-systems/lyne-components/issues/4053)) ([75d862c](https://github.com/sbb-design-systems/lyne-components/commit/75d862c43bcbdbca9a1289f673507f5357e3ff2e))
+
 ## [3.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.7.0...v3.8.0) (2025-09-22)
 
 

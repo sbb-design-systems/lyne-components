@@ -2,7 +2,11 @@
 export const snapshots = {};
 
 snapshots["sbb-tab-label renders DOM"] = 
-`<sbb-tab-label data-slot-names="unnamed">
+`<sbb-tab-label
+  data-slot-names="unnamed"
+  slot="tab-bar"
+  tabindex="-1"
+>
   Label
 </sbb-tab-label>
 `;
@@ -33,6 +37,8 @@ snapshots["sbb-tab-label renders correctly an H2 heading tag DOM"] =
   data-slot-names="unnamed"
   icon-name="pie-small"
   level="2"
+  slot="tab-bar"
+  tabindex="-1"
 >
   Label
 </sbb-tab-label>
@@ -69,6 +75,8 @@ snapshots["sbb-tab-label renders an H1 heading tag if the provided level is grea
   amount="78"
   data-slot-names="unnamed"
   level="7"
+  slot="tab-bar"
+  tabindex="-1"
 >
   Label
 </sbb-tab-label>
@@ -119,9 +127,15 @@ snapshots["sbb-tab-label A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "heading",
-      "name": "Tab title",
-      "level": 1
+      "role": "text container",
+      "name": "",
+      "children": [
+        {
+          "role": "heading",
+          "name": "Tab title",
+          "level": 1
+        }
+      ]
     }
   ]
 }

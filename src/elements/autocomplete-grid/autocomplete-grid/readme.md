@@ -215,10 +215,11 @@ align with the type information.
 
 ## Methods
 
-| Name    | Privacy | Description              | Parameters | Return | Inherited From          |
-| ------- | ------- | ------------------------ | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the autocomplete. |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the autocomplete.  |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the autocomplete.                                                    |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the autocomplete.                                                     |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
