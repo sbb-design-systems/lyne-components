@@ -20,7 +20,11 @@ describe(`sbb-mini-calendar ssr`, () => {
         </sbb-mini-calendar>
       `,
       {
-        modules: ['./mini-calendar.component.js'],
+        modules: [
+          './mini-calendar.component.js',
+          '../mini-calendar-month.component.js',
+          '../mini-calendar-day.component.js',
+        ],
       },
     );
   });
