@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tab-group renders DOM"] = 
+snapshots["sbb-tab-group renders DOM"] =
 `<sbb-tab-group initial-selected-index="0">
   <sbb-tab-label
     active=""
@@ -13,7 +13,6 @@ snapshots["sbb-tab-group renders DOM"] =
     Test tab label 1
   </sbb-tab-label>
   <sbb-tab
-    data-active=""
     id="sbb-tab-0"
     tabindex="0"
   >
@@ -66,7 +65,7 @@ snapshots["sbb-tab-group renders DOM"] =
 `;
 /* end snapshot sbb-tab-group renders DOM */
 
-snapshots["sbb-tab-group renders Shadow DOM"] = 
+snapshots["sbb-tab-group renders Shadow DOM"] =
 `<div
   class="sbb-tab-group"
   role="tablist"
@@ -81,7 +80,7 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
 `;
 /* end snapshot sbb-tab-group renders Shadow DOM */
 
-snapshots["sbb-tab-group renders A11y tree Firefox"] = 
+snapshots["sbb-tab-group renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -120,7 +119,7 @@ snapshots["sbb-tab-group renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-tab-group renders A11y tree Firefox */
 
-snapshots["sbb-tab-group renders A11y tree Chrome"] = 
+snapshots["sbb-tab-group renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

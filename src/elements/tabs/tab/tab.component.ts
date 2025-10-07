@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
@@ -45,27 +44,6 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     return this.closest('sbb-tab-group');
   }
 
-  public constructor() {
-    super();
-
-    this.addController(
-      new MutationController(this, {
-        config: { attributeFilter: ['data-active'] },
-        callback: (mutationsList) => {
-          for (const mutation of mutationsList) {
-            if (mutation.attributeName === 'data-active') {
-              if (this.hasAttribute('data-active')) {
-                this._tabContentResizeObserver.observe(this);
-              } else {
-                this._tabContentResizeObserver.unobserve(this);
-              }
-            }
-          }
-        },
-      }),
-    );
-  }
-
   /**
    * @internal
    * @deprecated
@@ -79,10 +57,20 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     this.tabIndex = 0;
   }
 
+  /** @internal */
+  protected activate(): void {
+    this.toggleState('active', true);
+    this._tabContentResizeObserver.observe(this);
+  }
+
+  /** @internal */
+  protected deactivate(): void {
+    this._tabContentResizeObserver.unobserve(this);
+    this.toggleState('active', false);
+  }
+
   private _onTabContentElementResize(): void {
-    if (this.hasAttribute('data-active')) {
-      this.group?.['setHeightResizeTab'](Math.floor(this.getBoundingClientRect().height));
-    }
+    this.group?.['setHeightResizeTab'](Math.floor(this.getBoundingClientRect().height));
   }
 
   protected override render(): TemplateResult {

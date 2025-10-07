@@ -8,7 +8,7 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { throttle } from '../../core/eventing.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import type { SbbTabElement } from '../tab.js';
 
@@ -54,7 +54,7 @@ export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
  */
 export
 @customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
+class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     tabchange: 'tabchange',
@@ -122,6 +122,7 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
+    Promise.resolve().then(() => this.toggleState('initialized', true));
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
 
