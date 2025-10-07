@@ -32,6 +32,9 @@ export const SbbMenuActionCommonElementMixin = <
           <span class="sbb-menu-action__label">
             <slot></slot>
           </span>
+          <span class="sbb-menu-submenu__icon">
+            <sbb-icon name="chevron-small-right-small"></sbb-icon>
+          </span>
         </span>
       `;
     }

@@ -65,7 +65,7 @@ describe(`sbb-sticky-bar`, () => {
             <div id="scroll-container" style="overflow: auto; height: 400px;">
               <sbb-container
                 ?expanded=${containerExpanded}
-                style="--sbb-container-background-color: var(--sbb-color-cloud)"
+                style="--sbb-container-background-color: var(--sbb-background-color-4)"
               >
                 ${containerContent()} ${containerContent()} ${containerContent()}
                 <p>Content end</p>

@@ -83,12 +83,12 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
   // Color background definition for place with state SELECTED
   --sbb-seat-reservation-place-control-selected-background-default: var(--sbb-color-primary);
-  --sbb-seat-reservation-place-control-selected-background-hover: var(--sbb-color-primary-125);
-  --sbb-seat-reservation-place-control-selected-background-focus: var(--sbb-color-primary-150);
+  --sbb-seat-reservation-place-control-selected-background-hover: var(--sbb-color-primary125);
+  --sbb-seat-reservation-place-control-selected-background-focus: var(--sbb-color-primary150);
 
   // Color background definition for backrest with state SELECTED
   --sbb-seat-reservation-place-control-selected-backrest-background-default: var(
-    --sbb-color-primary-150
+    --sbb-color-primary150
   );
   --sbb-seat-reservation-place-control-selected-backrest-background-hover: #7d000f;
   --sbb-seat-reservation-place-control-selected-backrest-background-focus: #5a000b;

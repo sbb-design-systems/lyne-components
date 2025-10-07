@@ -17,7 +17,10 @@ describe(`sbb-loading-indicator`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-loading-indicator color=${color} size=${size}></sbb-loading-indicator>`,
-            { backgroundColor: color === 'white' ? 'var(--sbb-color-charcoal)' : undefined },
+            {
+              backgroundColor:
+                color === 'white' ? 'var(--sbb-background-color-1-negative)' : undefined,
+            },
           );
         }),
       );

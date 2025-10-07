@@ -37,7 +37,7 @@ describe('sbb-mini-button-group', () => {
         `${visualDiffFocus.name} negative=${negative}`,
         visualDiffFocus.with(async (setup) => {
           await setup.withFixture(template(undefined, negative), {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
           });
         }),

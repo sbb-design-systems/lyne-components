@@ -80,7 +80,7 @@ describe(`sbb-card`, () => {
             </sbb-card>
           `,
           {
-            backgroundColor: 'var(--sbb-color-milk)',
+            backgroundColor: 'var(--sbb-background-color-3)',
           },
         );
       });
@@ -102,7 +102,7 @@ describe(`sbb-card`, () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
             </sbb-card>
           `,
-          { backgroundColor: 'var(--sbb-color-milk)' },
+          { backgroundColor: 'var(--sbb-background-color-3)' },
         );
       }),
     );

@@ -70,6 +70,18 @@ snapshots["sbb-menu renders Shadow DOM"] =
     <div class="sbb-menu__content">
       <slot>
       </slot>
+      <sbb-divider orientation="horizontal">
+      </sbb-divider>
+      <sbb-menu-button
+        data-action=""
+        data-button=""
+        data-slot-names="unnamed"
+        icon-name="chevron-small-left-small"
+        id="sbb-menu__back-button"
+        tabindex="0"
+      >
+        Go back
+      </sbb-menu-button>
     </div>
   </div>
 </div>
@@ -155,6 +167,18 @@ snapshots["sbb-menu renders with list Shadow DOM"] =
         <slot>
         </slot>
       </span>
+      <sbb-divider orientation="horizontal">
+      </sbb-divider>
+      <sbb-menu-button
+        data-action=""
+        data-button=""
+        data-slot-names="unnamed"
+        icon-name="chevron-small-left-small"
+        id="sbb-menu__back-button"
+        tabindex="0"
+      >
+        Go back
+      </sbb-menu-button>
     </div>
   </div>
 </div>
@@ -273,6 +297,18 @@ snapshots["sbb-menu renders open Shadow DOM"] =
     <div class="sbb-menu__content">
       <slot>
       </slot>
+      <sbb-divider orientation="horizontal">
+      </sbb-divider>
+      <sbb-menu-button
+        data-action=""
+        data-button=""
+        data-slot-names="unnamed"
+        icon-name="chevron-small-left-small"
+        id="sbb-menu__back-button"
+        tabindex="0"
+      >
+        Go back
+      </sbb-menu-button>
     </div>
   </div>
 </div>

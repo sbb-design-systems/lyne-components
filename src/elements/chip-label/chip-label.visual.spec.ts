@@ -33,7 +33,8 @@ describe(`sbb-chip-label`, () => {
               </sbb-chip-label>
             `,
             {
-              backgroundColor: color === 'white' ? 'var(--sbb-color-granite)' : undefined,
+              backgroundColor:
+                color === 'milk' || color === 'white' ? 'var(--sbb-background-color-4)' : undefined,
             },
           );
         }),

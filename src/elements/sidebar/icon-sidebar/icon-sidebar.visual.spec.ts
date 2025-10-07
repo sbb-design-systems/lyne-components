@@ -75,7 +75,7 @@ describe('sbb-icon-sidebar', () => {
                 ${position === 'end' ? iconSidebar(color) : nothing}
               </sbb-icon-sidebar-container>`,
             {
-              backgroundColor: color === 'white' ? 'var(--sbb-color-milk)' : undefined,
+              backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
               minHeight: '400px',
             },
           );

@@ -5,6 +5,7 @@
 
 :host {
   display: inline-block;
+  color: var(--sbb-color-3);
 
   --sbb-form-field-background-color: var(--sbb-background-color-1);
   --sbb-form-field-border-color: var(--sbb-border-color-5);
@@ -73,6 +74,8 @@
 }
 
 :host([negative]) {
+  color: var(--sbb-color-3-negative);
+
   --sbb-form-field-background-color: var(--sbb-background-color-1-negative);
   --sbb-form-field-border-color: var(--sbb-border-color-5);
   --sbb-form-field-label-color: var(--sbb-color-5);

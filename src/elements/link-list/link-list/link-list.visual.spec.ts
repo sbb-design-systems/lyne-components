@@ -38,7 +38,7 @@ describe(`sbb-link-list`, () => {
               ${linksTemplate()}
             </sbb-link-list>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
       });
 

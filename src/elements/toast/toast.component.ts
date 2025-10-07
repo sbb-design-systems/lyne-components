@@ -146,6 +146,15 @@ class SbbToastElement extends SbbIconNameMixin(
 
     // Start the countdown to close it
     if (this.timeout) {
+      // Workaround for https://github.com/sbb-design-systems/lyne-angular/issues/190
+      // If zone.js is loaded, setTimeout is wrapped and tracked which will mark
+      // anything in Angular as unstable as long as setTimeout is not finished.
+      // This only needs to be fixed in places where we actually want to wait a
+      // specific amount of time without an interaction (e.g. for this case).
+      const global = globalThis as any;
+      const setTimeout: typeof globalThis.setTimeout =
+        global[global.Zone?.__symbol__?.('setTimeout') as string] ?? global.setTimeout;
+
       this._closeTimeout = setTimeout(() => this.close(), this.timeout);
     }
   }

@@ -23,7 +23,7 @@ describe(`sbb-link-static`, () => {
                 <sbb-link-static ?negative="${negative}">Show more.</sbb-link-static>
               </p>`,
               {
-                backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 color: negative ? 'var(--sbb-color-aluminium)' : undefined,
               },
             );

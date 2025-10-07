@@ -55,6 +55,9 @@
 ::slotted(sbb-autocomplete-grid-option) {
   flex: 1 1 auto;
   margin-right: calc(-1 * var(--sbb-spacing-fixed-2x));
+
+  // Used to enable ellipsis
+  overflow-x: hidden;
 }
 
 .sbb-autocomplete-grid-row {

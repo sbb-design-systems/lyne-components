@@ -46,7 +46,7 @@ describe(`sbb-mini-button`, () => {
             </sbb-form-field>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },
@@ -75,7 +75,7 @@ describe(`sbb-mini-button`, () => {
               >Mini Button Demo</sbb-mini-button
             >`,
             {
-              backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
             },
           );
@@ -112,7 +112,9 @@ describe(`sbb-mini-button`, () => {
                     </sbb-form-field>
                   `,
                   {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                     focusOutlineDark: negative,
                   },
                 );

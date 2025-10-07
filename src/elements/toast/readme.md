@@ -114,10 +114,11 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Methods
 
-| Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
-| ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Close the toast.                                                                |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
+| ---------------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Close the toast.                                                                |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close()     |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 

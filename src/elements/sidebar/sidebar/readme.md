@@ -251,11 +251,12 @@ position and connect the `<sbb-header>` with the sidebar.
 
 ## Methods
 
-| Name     | Privacy | Description                     | Parameters | Return | Inherited From          |
-| -------- | ------- | ------------------------------- | ---------- | ------ | ----------------------- |
-| `close`  | public  | Closes the sidebar.             |            | `void` | SbbOpenCloseBaseElement |
-| `open`   | public  | Opens the sidebar.              |            | `void` | SbbOpenCloseBaseElement |
-| `toggle` | public  | Toggles the sidebar visibility. |            | `void` |                         |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the sidebar.                                                         |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the sidebar.                                                          |            | `void` | SbbOpenCloseBaseElement |
+| `toggle`         | public  | Toggles the sidebar visibility.                                             |            | `void` |                         |
 
 ## Events
 

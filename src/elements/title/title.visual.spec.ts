@@ -53,7 +53,7 @@ describe(`sbb-title`, () => {
               Data without insights are trivial, and insights without action are pointless
             </sbb-title>
           `,
-          { backgroundColor: 'var(--sbb-color-charcoal)' },
+          { backgroundColor: 'var(--sbb-background-color-1-negative)' },
         );
       }),
     );

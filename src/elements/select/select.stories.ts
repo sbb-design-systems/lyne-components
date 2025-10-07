@@ -591,8 +591,8 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative
-        ? 'var(--sbb-background-color-1-negative)'
-        : 'var(--sbb-background-color-1)',
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     actions: {
       handles: [
         SbbSelectElement.events.change,

@@ -36,7 +36,7 @@ describe(`sbb-form-error`, () => {
               ${errorText === 'short' ? 'Required field.' : longText}
             </sbb-form-error>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
       });
 

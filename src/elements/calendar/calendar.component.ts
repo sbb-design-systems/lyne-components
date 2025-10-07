@@ -689,38 +689,25 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(event: PointerEvent, day: T): void {
+  private _selectDate(day: T): void {
     this._chosenMonth = undefined;
     this._setChosenYear();
     if (this.multiple) {
-      if (event.ctrlKey || event.metaKey) {
-        // If the user is selecting dates with cmd/ctrl, check if _selected has elements
-        if (this._selected && (this._selected as T[]).length > 0) {
-          const indexOfSelectedDay: number = (this._selected as T[]).findIndex(
-            (sel) => this._dateAdapter.compareDate(sel, day) === 0,
-          );
-          // If the selected date is already in the _selected array, remove it, otherwise add it
-          if (indexOfSelectedDay !== -1) {
-            (this._selected as T[]).splice(indexOfSelectedDay, 1);
-            this._selected = [...(this._selected as T[])];
-          } else {
-            this._selected = [...(this._selected as T[]), day];
-          }
+      // Check if _selected has elements
+      if (this._selected && (this._selected as T[]).length > 0) {
+        const indexOfSelectedDay: number = (this._selected as T[]).findIndex(
+          (sel) => this._dateAdapter.compareDate(sel, day) === 0,
+        );
+        // If the selected date is already in the _selected array, remove it, otherwise add it
+        if (indexOfSelectedDay !== -1) {
+          this._selected = (this._selected as T[]).filter((_, i) => i !== indexOfSelectedDay);
         } else {
-          // If _selected is empty, set it
-          this._selected = [day];
+          this._selected = [...(this._selected as T[]), day];
         }
       } else {
-        // Prevent changes if _selected has exactly the element the user wants to add
-        if (
-          (this._selected as T[])?.length === 1 &&
-          this._dateAdapter.compareDate((this._selected as T[])[0], day) === 0
-        ) {
-          return;
-        }
+        // If _selected is empty, set it
         this._selected = [day];
       }
-
       this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
     } else {
       // In single selection, check if the day is already selected
@@ -738,7 +725,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
    *     - if the new dates are the same of the current ones, it means that the same button has been clicked twice, so do nothing;
    *     - if not, the selected dates are the new ones.
    */
-  private _selectMultipleDates(event: PointerEvent, days: Day<T>[]): void {
+  private _selectMultipleDates(days: Day<T>[]): void {
     // Filter disabled days by matching the provided `days` parameter against the enabled cells.
     // Since the buttons' value is set to the Day's interface value (ISO string), there's no need to deserialize it.
     const enabledDays: string[] = this._cells.filter((e) => !e.disabled).map((e) => e.value);
@@ -747,23 +734,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       .filter((isoDate: string) => enabledDays.includes(isoDate));
     const daysToAddSet = new Set(daysToAdd);
     const selectedSet = new Set((this._selected as T[]).map((s) => this._dateAdapter.toIso8601(s)));
-    if (event.ctrlKey || event.metaKey) {
-      const selStrings = this._updateSelectedWithMultipleDates(
-        daysToAdd,
-        daysToAddSet,
-        selectedSet,
-      );
-      this._selected = selStrings.map((s) => this._dateAdapter.deserialize(s)!);
-    } else {
-      if (
-        daysToAddSet.size === selectedSet.size &&
-        [...daysToAddSet].every((item) => selectedSet.has(item))
-      ) {
-        return;
-      } else {
-        this._selected = daysToAdd.map((e) => this._dateAdapter.deserialize(e)!);
-      }
-    }
+    const selStrings = this._updateSelectedWithMultipleDates(daysToAdd, daysToAddSet, selectedSet);
+    this._selected = selStrings.map((s) => this._dateAdapter.deserialize(s)!);
 
     this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
   }
@@ -1398,12 +1370,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                         <button
                           class="sbb-calendar__header-cell sbb-calendar__weekday"
                           aria-label=${day.long}
-                          @click=${(event: PointerEvent) => {
+                          @click=${() => {
                             // NOTE: Sundays have index 7, while their weekDayValue is 0
                             const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
                               (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
                             )!;
-                            this._selectMultipleDates(event, days);
+                            this._selectMultipleDates(days);
                           }}
                         >
                           ${day.narrow}
@@ -1432,11 +1404,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                                 <button
                                   class="sbb-calendar__header-cell sbb-calendar__weekday"
                                   aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}
-                                  @click=${(event: PointerEvent) => {
+                                  @click=${() => {
                                     const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                       (day: Day<T>) => day.weekValue === weekNumbers[0],
                                     )!;
-                                    this._selectMultipleDates(event, days);
+                                    this._selectMultipleDates(days);
                                   }}
                                 >
                                   ${weekNumbers[0]}
@@ -1468,11 +1440,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                               <button
                                 class="sbb-calendar__header-cell sbb-calendar__weekday"
                                 aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}
-                                @click=${(event: PointerEvent) => {
+                                @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                     (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
                                   )!;
-                                  this._selectMultipleDates(event, days);
+                                  this._selectMultipleDates(days);
                                 }}
                               >
                                 ${weekNumbers[rowIndex]}
@@ -1535,11 +1507,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                               <button
                                 class="sbb-calendar__header-cell sbb-calendar__weekday"
                                 aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}
-                                @click=${(event: PointerEvent) => {
+                                @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                     (day: Day<T>) => day.weekValue === weekNumber,
                                   )!;
-                                  this._selectMultipleDates(event, days);
+                                  this._selectMultipleDates(days);
                                 }}
                               >
                                 ${weekNumber}
@@ -1573,8 +1545,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
                               <button
                                 class="sbb-calendar__header-cell sbb-calendar__weekday"
                                 aria-label=${weekday.long}
-                                @click=${(event: PointerEvent) =>
-                                  this._selectMultipleDates(event, selectableDays)}
+                                @click=${() => this._selectMultipleDates(selectableDays)}
                               >
                                 ${weekday.narrow}
                               </button>
@@ -1629,7 +1600,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
               'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             })}
-            @click=${(event: PointerEvent) => this._selectDate(event, day.dateValue!)}
+            @click=${() => this._selectDate(day.dateValue!)}
             ?disabled=${isOutOfRange || isFilteredOut}
             value=${day.value}
             type="button"

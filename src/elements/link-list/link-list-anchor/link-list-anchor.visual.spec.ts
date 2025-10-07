@@ -40,7 +40,7 @@ describe(`sbb-link-list-anchor`, () => {
 
       beforeEach(async function () {
         root = await visualRegressionFixture(listAnchor(negative, 's', true), {
-          backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         });
       });
 
@@ -59,7 +59,7 @@ describe(`sbb-link-list-anchor`, () => {
         'title',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(listAnchor(negative, size, true), {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         }),
       );
@@ -68,7 +68,7 @@ describe(`sbb-link-list-anchor`, () => {
         'no title',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(listAnchor(negative, size), {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         }),
       );
@@ -77,7 +77,7 @@ describe(`sbb-link-list-anchor`, () => {
         'slotted title',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(listAnchor(negative, size, false, true), {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         }),
       );

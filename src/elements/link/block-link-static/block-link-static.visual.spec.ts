@@ -36,7 +36,7 @@ describe(`sbb-block-link-static`, () => {
             Travelcards & tickets
           </sbb-block-link-static>`,
           {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             forcedColors,
           },
         );

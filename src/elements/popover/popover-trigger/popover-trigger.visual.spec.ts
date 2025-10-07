@@ -37,7 +37,7 @@ describe(`sbb-popover-trigger`, () => {
                   ></sbb-popover-trigger>
                 </span>
               `,
-              { backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined },
+              { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
             );
           }),
         );
@@ -53,7 +53,7 @@ describe(`sbb-popover-trigger`, () => {
                   </sbb-popover-trigger>
                 </div>
               `,
-              { backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined },
+              { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
             );
           }),
         );
@@ -86,7 +86,7 @@ describe(`sbb-popover-trigger`, () => {
                   `,
                   {
                     backgroundColor: negative
-                      ? 'var(--sbb-background-color-2-negative)'
+                      ? 'var(--sbb-background-color-1-negative)'
                       : undefined,
                   },
                 );

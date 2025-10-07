@@ -121,7 +121,10 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
 
     if (list) {
       const items = list.querySelectorAll<SbbCarouselItemElement>('sbb-carousel-item');
-      const offsetLeft = items[e.detail.pageIndex].offsetLeft;
+
+      // As the offsetLeft is always rendered from the viewport boundaries, we need to subtract the offsetLeft
+      // from the carousel to get the offset inside the scroll area.
+      const offsetLeft = items[e.detail.pageIndex].offsetLeft - this.offsetLeft;
 
       // Prevents redundant scrolling when the paginator updates after a scroll event
       // by checking the distance between the current and target scroll positions.
