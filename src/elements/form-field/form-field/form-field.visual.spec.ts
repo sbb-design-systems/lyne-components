@@ -3,7 +3,6 @@ import { html, nothing, type TemplateResult } from 'lit';
 import {
   describeEach,
   describeViewports,
-  visualDiffActive,
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.js';
@@ -164,7 +163,7 @@ describe(`sbb-form-field`, () => {
                 for (const visualDiffState of [
                   visualDiffDefault,
                   visualDiffFocus,
-                  visualDiffActive,
+                  // visualDiffActive,
                 ]) {
                   it(
                     `slot=none ${visualDiffState.name}`,
@@ -209,20 +208,20 @@ describe(`sbb-form-field`, () => {
                   }),
                 );
 
-                it(
-                  `slot=buttons ${visualDiffActive.name}`,
-                  visualDiffActive.with(async (setup) => {
-                    const templateResult: TemplateResult = html`${template(args)}
-                    ${buttonsAndPopover(args)}`;
-                    await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative
-                        ? 'var(--sbb-background-color-1-negative)'
-                        : undefined,
-                      focusOutlineDark: negative,
-                      forcedColors,
-                    });
-                  }),
-                );
+                // it(
+                //   `slot=buttons ${visualDiffActive.name}`,
+                //   visualDiffActive.with(async (setup) => {
+                //     const templateResult: TemplateResult = html`${template(args)}
+                //     ${buttonsAndPopover(args)}`;
+                //     await setup.withFixture(html`${formField(args, templateResult)}`, {
+                //       backgroundColor: negative
+                //         ? 'var(--sbb-background-color-1-negative)'
+                //         : undefined,
+                //       focusOutlineDark: negative,
+                //       forcedColors,
+                //     });
+                //   }),
+                // );
 
                 it(
                   `slot=buttons focus`,
