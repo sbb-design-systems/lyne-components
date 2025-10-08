@@ -42,6 +42,9 @@ let nextId = 0;
  * It displays text content within a tooltip.
  *
  * @slot - Use the unnamed slot to add the text into the tooltip.
+ * @cssprop [--sbb-overlay-controller-position-area=block-end] - The primary position for the tooltip.
+ * @cssprop [----sbb-overlay-controller-position-try-fallbacks=block-end span-inline-end, block-end span-inline-start, block-start, block-start span-inline-end, block-start span-inline-start] -
+ * The list of fallback positions, separated by ',', for the tooltip
  * @cssprop [--sbb-tooltip-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.

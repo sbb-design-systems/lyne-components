@@ -125,9 +125,11 @@ Always ensure that keyboard users can perform the same set of actions available 
 
 ## CSS Properties
 
-| Name                    | Default                              | Description                                                                                                                                                                                                   |
-| ----------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-tooltip-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
+| Name                                                | Default                                                                                                                           | Description                                                                                                                                                                                                   |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `----sbb-overlay-controller-position-try-fallbacks` | `block-end span-inline-end, block-end span-inline-start, block-start, block-start span-inline-end, block-start span-inline-start` | The list of fallback positions, separated by ',', for the tooltip                                                                                                                                             |
+| `--sbb-overlay-controller-position-area`            | `block-end`                                                                                                                       | The primary position for the tooltip.                                                                                                                                                                         |
+| `--sbb-tooltip-z-index`                             | `var(--sbb-overlay-default-z-index)`                                                                                              | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
 ## Slots
 

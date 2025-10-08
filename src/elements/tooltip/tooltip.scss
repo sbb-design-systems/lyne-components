@@ -63,20 +63,16 @@
   padding-block-end: var(--sbb-tooltip-gap);
 }
 
-:host([data-position~='inline-start']) {
-  padding-inline-end: var(--sbb-tooltip-gap);
-}
-
-:host([data-position~='inline-end']) {
-  padding-inline-start: var(--sbb-tooltip-gap);
-}
-
-:host([data-position~='left']) {
-  padding-right: var(--sbb-tooltip-gap);
-}
-
-:host([data-position~='right']) {
-  padding-left: var(--sbb-tooltip-gap);
+:host(
+  :is(
+    [data-position~='inline-start'],
+    [data-position~='inline-end'],
+    [data-position~='left'],
+    [data-position~='right']
+  )
+) {
+  // Add a gap on both sides to distance the tooltip from the trigger and the edge of the viewport.
+  padding-inline: var(--sbb-tooltip-gap);
 }
 
 .sbb-tooltip {
