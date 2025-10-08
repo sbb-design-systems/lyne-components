@@ -208,7 +208,7 @@ export class SbbOverlayPositionController implements ReactiveController {
       width: triggerWidth,
     } = this._anchor!.getBoundingClientRect();
 
-    const isRtl = document.documentElement.matches(':dir(rtl)');
+    const isRtl = this._overlay.matches(':dir(rtl)');
     const topSpace = triggerOffsetTop;
     const bottomSpace = viewportHeight - triggerHeight - triggerOffsetTop;
     const leftSpace = triggerOffsetLeft;

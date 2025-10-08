@@ -31,17 +31,18 @@
   position-try-fallbacks: var(--sbb-overlay-position-try-fallbacks);
   display: none;
   position: fixed;
-  border: none;
-  inset: initial;
-  padding: 0;
-  margin: 0;
   background-color: transparent;
-  color: inherit;
   pointer-events: var(--sbb-tooltip-pointer-events);
   z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
   animation-name: var(--sbb-tooltip-animation-name);
   animation-duration: var(--sbb-tooltip-animation-duration);
   animation-timing-function: var(--sbb-tooltip-animation-easing);
+
+  // Reset [popover] styles
+  border: none;
+  inset: initial;
+  padding: 0;
+  margin: 0;
 }
 
 :host([data-state]:not([data-state='closed'])) {
