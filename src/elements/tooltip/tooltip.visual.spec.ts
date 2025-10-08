@@ -51,9 +51,7 @@ describe('sbb-tooltip', () => {
           await setup.withFixture(html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
               <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
-              <sbb-tooltip
-                trigger="trigger"
-                style="--sbb-overlay-controller-position-area: ${position}"
+              <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}"
                 >I am a tooltip with a message</sbb-tooltip
               >
             </div>
@@ -73,9 +71,7 @@ describe('sbb-tooltip', () => {
           await setup.withFixture(html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
               <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
-              <sbb-tooltip
-                trigger="trigger"
-                style="--sbb-overlay-controller-position-area: ${position}"
+              <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}"
                 >I am a tooltip with a message</sbb-tooltip
               >
             </div>

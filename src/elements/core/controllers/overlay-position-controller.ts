@@ -63,11 +63,11 @@ let nextId = 0;
  * ### Implementation
  * Define and apply the following CSS variables on the overlay element:
  * ```scss
- *   --sbb-overlay-controller-position-area: block-end; // Default
- *   --sbb-overlay-controller-position-try-fallbacks: block-start, inline-end, inline-start; // Fallbacks
+ *   --sbb-overlay-position-area: block-end; // Default
+ *   --sbb-overlay-position-try-fallbacks: block-start, inline-end, inline-start; // Fallbacks
  *
- *   position-area: var(--sbb-overlay-controller-position-area);
- *   position-try-fallbacks: var(--sbb-overlay-controller-position-try-fallbacks);
+ *   position-area: var(--sbb-overlay-position-area);
+ *   position-try-fallbacks: var(--sbb-overlay-position-try-fallbacks);
  * ```
  */
 export class SbbOverlayPositionController implements ReactiveController {
@@ -387,9 +387,9 @@ export class SbbOverlayPositionController implements ReactiveController {
     }
     this._overlayStyles ??= getComputedStyle(this._overlay);
     const positions = [
-      this._overlayStyles.getPropertyValue('--sbb-overlay-controller-position-area') || 'block-end',
+      this._overlayStyles.getPropertyValue('--sbb-overlay-position-area') || 'block-end',
       ...this._overlayStyles
-        .getPropertyValue('--sbb-overlay-controller-position-try-fallbacks')
+        .getPropertyValue('--sbb-overlay-position-try-fallbacks')
         .split(',')
         .map((f) => f.trim())
         .filter((f) => !!f),

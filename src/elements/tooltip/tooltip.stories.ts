@@ -90,7 +90,7 @@ const Template = ({ position, tooltipMessage, ...args }: Args): TemplateResult =
   ${trigger()}
   <sbb-tooltip
     trigger="tooltip-trigger"
-    style=${styleMap({ '--sbb-overlay-controller-position-area': `${position}` })}
+    style=${styleMap({ '--sbb-overlay-position-area': `${position}` })}
     ${sbbSpread(args)}
   >
     ${tooltipMessage}
