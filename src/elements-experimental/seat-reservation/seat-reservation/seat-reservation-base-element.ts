@@ -183,7 +183,6 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('preselectCoachIndex')) {
       // setTimeout is necessary because without, _getCoachScrollPositionX() would fail with NPE because
       // the coachScrollArea is not yet initialized
-      console.log(this.preselectCoachIndex);
       setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
     }
   }
