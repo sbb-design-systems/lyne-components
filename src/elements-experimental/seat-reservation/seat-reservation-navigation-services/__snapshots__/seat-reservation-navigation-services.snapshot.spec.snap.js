@@ -46,3 +46,19 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Chrome */
 
+snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Available services:Bike area, Quiet zone"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Firefox */
+
