@@ -4,12 +4,16 @@
 @include sbb.box-sizing;
 
 :host {
+  display: block;
+
+  --sbb-tab-group-animation-duration: 0s;
+}
+
+:host(:state(initialized)) {
   --sbb-tab-group-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-
-  display: block;
 }
 
 .sbb-tab-group {
@@ -20,28 +24,4 @@
 .sbb-tab-group-content {
   margin-block-start: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
-
-  ::slotted(sbb-tab) {
-    visibility: hidden;
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-  }
-
-  ::slotted(sbb-tab[data-active]) {
-    visibility: visible;
-    opacity: 1;
-    height: fit-content;
-    overflow: unset;
-    transition: {
-      duration: var(--sbb-tab-group-animation-duration);
-      delay: var(--sbb-tab-group-animation-duration);
-      timing-function: var(--sbb-animation-easing);
-      property: opacity, visibility;
-    }
-  }
-
-  ::slotted(sbb-tab:focus-visible) {
-    @include sbb.focus-outline;
-  }
 }

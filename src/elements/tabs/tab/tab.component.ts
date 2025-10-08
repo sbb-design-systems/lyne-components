@@ -1,8 +1,10 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import type { SbbTabGroupElement } from '../tab-group/tab-group.component.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 
 import style from './tab.scss?lit&inline';
@@ -24,11 +26,22 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     active: 'active',
   } as const;
 
+  private _tabContentResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => this._onTabContentElementResize(),
+  });
+
   /** The `sbb-tab-label` associated with the tab. */
   public get label(): SbbTabLabelElement | null {
     return this.previousElementSibling?.localName === 'sbb-tab-label'
       ? (this.previousElementSibling as SbbTabLabelElement)
       : null;
+  }
+
+  /** Get the parent `sbb-tab-group`. */
+  public get group(): SbbTabGroupElement | null {
+    return this.closest('sbb-tab-group');
   }
 
   /**
@@ -44,12 +57,24 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     this.tabIndex = 0;
   }
 
+  /** @internal */
+  protected activate(): void {
+    this.toggleState('active', true);
+    this._tabContentResizeObserver.observe(this);
+  }
+
+  /** @internal */
+  protected deactivate(): void {
+    this._tabContentResizeObserver.unobserve(this);
+    this.toggleState('active', false);
+  }
+
+  private _onTabContentElementResize(): void {
+    this.group?.['setTabContentHeight'](Math.floor(this.getBoundingClientRect().height));
+  }
+
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-tab">
-        <slot></slot>
-      </div>
-    `;
+    return html`<slot></slot>`;
   }
 }
 
