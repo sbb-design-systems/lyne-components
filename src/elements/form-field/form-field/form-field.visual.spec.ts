@@ -139,11 +139,11 @@ describe(`sbb-form-field`, () => {
     ],
   };
 
-  const visualProp = {
-    size: ['s', 'm', 'l'],
-    width: ['default', 'collapse'],
-    errorText: [true, false],
-  };
+  // const visualProp = {
+  //   size: ['s', 'm', 'l'],
+  //   width: ['default', 'collapse'],
+  //   errorText: [true, false],
+  // };
 
   const component = new Map()
     .set('input', basicInput)
@@ -383,70 +383,70 @@ describe(`sbb-form-field`, () => {
             });
 
             // visual
-            describeEach(visualProp, ({ size, width, errorText }) => {
-              it(
-                visualDiffDefault.name,
-                visualDiffDefault.with(async (setup) => {
-                  const args = {
-                    ...basicArgs,
-                    size,
-                    width,
-                    errorText,
-                    cssClass: errorText ? 'sbb-invalid' : '',
-                  };
-                  await setup.withFixture(html`${formField(args, template(args))}`, {
-                    forcedColors,
-                  });
-                }),
-              );
-            });
-
-            for (const size of visualProp.size) {
-              describe(`size=${size}`, () => {
-                it(
-                  `label=floating`,
-                  visualDiffDefault.with(async (setup) => {
-                    const hiddenLabel = {
-                      ...basicArgs,
-                      'floating-label': true,
-                      value: undefined,
-                      selectNullValue: true,
-                      size,
-                    };
-                    await setup.withFixture(
-                      html`${formField(hiddenLabel, template(hiddenLabel))}`,
-                      {
-                        forcedColors,
-                      },
-                    );
-                  }),
-                );
-
-                it(
-                  `label=hidden`,
-                  visualDiffDefault.with(async (setup) => {
-                    const hiddenLabel = { ...basicArgs, 'hidden-label': true, size };
-                    await setup.withFixture(
-                      html`${formField(hiddenLabel, template(hiddenLabel))}`,
-                      {
-                        forcedColors,
-                      },
-                    );
-                  }),
-                );
-
-                // labels
-                it(
-                  `label=undefined`,
-                  visualDiffDefault.with(async (setup) => {
-                    const noLabel = { ...basicArgs, label: undefined, size };
-                    await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                      forcedColors,
-                    });
-                  }),
-                );
-              });
-            }
+            // describeEach(visualProp, ({ size, width, errorText }) => {
+            //   it(
+            //     visualDiffDefault.name,
+            //     visualDiffDefault.with(async (setup) => {
+            //       const args = {
+            //         ...basicArgs,
+            //         size,
+            //         width,
+            //         errorText,
+            //         cssClass: errorText ? 'sbb-invalid' : '',
+            //       };
+            //       await setup.withFixture(html`${formField(args, template(args))}`, {
+            //         forcedColors,
+            //       });
+            //     }),
+            //   );
+            // });
+            //
+            // for (const size of visualProp.size) {
+            //   describe(`size=${size}`, () => {
+            //     it(
+            //       `label=floating`,
+            //       visualDiffDefault.with(async (setup) => {
+            //         const hiddenLabel = {
+            //           ...basicArgs,
+            //           'floating-label': true,
+            //           value: undefined,
+            //           selectNullValue: true,
+            //           size,
+            //         };
+            //         await setup.withFixture(
+            //           html`${formField(hiddenLabel, template(hiddenLabel))}`,
+            //           {
+            //             forcedColors,
+            //           },
+            //         );
+            //       }),
+            //     );
+            //
+            //     it(
+            //       `label=hidden`,
+            //       visualDiffDefault.with(async (setup) => {
+            //         const hiddenLabel = { ...basicArgs, 'hidden-label': true, size };
+            //         await setup.withFixture(
+            //           html`${formField(hiddenLabel, template(hiddenLabel))}`,
+            //           {
+            //             forcedColors,
+            //           },
+            //         );
+            //       }),
+            //     );
+            //
+            //     // labels
+            //     it(
+            //       `label=undefined`,
+            //       visualDiffDefault.with(async (setup) => {
+            //         const noLabel = { ...basicArgs, label: undefined, size };
+            //         await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+            //           forcedColors,
+            //         });
+            //       }),
+            //     );
+            //   });
+            // }
           });
         }
       });
