@@ -29,6 +29,13 @@ import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
 import style from './tooltip.scss?lit&inline';
 
 /**
+ * Defines the default position for the tooltip if this element is used as a trigger.
+ */
+export interface SbbTooltipDefaultPositions {
+  readonly tooltipPositions: string[];
+}
+
+/**
  * Time between the user putting the pointer on a tooltip
  * trigger and the long press event being fired.
  */
@@ -158,12 +165,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     this._tooltipOutlet.classList.add('sbb-overlay-outlet');
     document.body.appendChild(this._tooltipOutlet);
 
-    // Key: trigger attribute, value: tooltip attribute
-    const attributeMap = new Map<string, string>([
-      ['sbb-tooltip-open-delay', 'open-delay'],
-      ['sbb-tooltip-close-delay', 'close-delay'],
-    ]);
-
     // We are using MutationObserver directly here, as it will only be called on client side,
     // and we do not need to disconnect it, as we want it to work during the full lifetime
     // of the page.
@@ -181,7 +182,12 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
         }
       }
     }).observe(document.documentElement, {
-      attributeFilter: ['sbb-tooltip', ...attributeMap.keys()],
+      attributeFilter: [
+        'sbb-tooltip',
+        'sbb-tooltip-open-delay',
+        'sbb-tooltip-close-delay',
+        'sbb-tooltip-position',
+      ],
       childList: true,
       subtree: true,
     });
@@ -214,6 +220,22 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
+
+      // Read the positions from the trigger (either from the attribute or the property)
+      const positions = triggerElement.hasAttribute('sbb-tooltip-position')
+        ? triggerElement.getAttribute('sbb-tooltip-position')!.split(',')
+        : (triggerElement as unknown as SbbTooltipDefaultPositions).tooltipPositions;
+
+      if (positions && positions.length > 0) {
+        tooltip.style.setProperty('--sbb-overlay-position-area', positions[0]);
+        tooltip.style.setProperty(
+          '--sbb-overlay-position-try-fallbacks',
+          positions.slice(1).join(','),
+        );
+      } else {
+        tooltip.style.removeProperty('--sbb-overlay-position-area');
+        tooltip.style.removeProperty('--sbb-overlay-position-try-fallbacks');
+      }
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);

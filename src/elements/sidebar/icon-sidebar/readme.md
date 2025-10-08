@@ -69,7 +69,7 @@ specific role makes sense, `role="region"` is a good fallback.
 
 As described in [sbb-icon-sidebar-link](/docs/elements-sbb-sidebar-sbb-icon-sidebar-link--docs) and
 [sbb-icon-sidebar-button](/docs/elements-sbb-sidebar-sbb-icon-sidebar-button--docs), it's important to set
-a label to the action elements (consider using a `sbb-tooltip`).
+a label to the action elements (consider also using a `sbb-tooltip`).
 It's also described how to set the current icon as active (aria-current).
 
 ## Combine with `sbb-sidebar`

@@ -14,6 +14,7 @@ import '../../link-list.js';
 import '../../logo.js';
 import '../../sidebar.js';
 import '../../title.js';
+import '../../tooltip.js';
 
 const position: InputType = {
   control: {
@@ -62,14 +63,17 @@ const header = (toggleButton = false): TemplateResult =>
     </a>
   </sbb-header>`;
 
-const iconSidebar = (args: Args): TemplateResult =>
+const iconSidebar = (args: Args, hasTooltip = false): TemplateResult =>
   html`<sbb-icon-sidebar ${sbbSpread(args)}>
     <sbb-icon-sidebar-link
+      sbb-tooltip=${hasTooltip ? 'Go to the party' : nothing}
       accessibility-label="Go to the party"
       icon-name="glass-cocktail-small"
       href="#"
     ></sbb-icon-sidebar-link>
+
     <sbb-icon-sidebar-link
+      sbb-tooltip=${hasTooltip ? 'Be a unicorn' : nothing}
       accessibility-label="Be a unicorn"
       icon-name="unicorn-small"
       href="#"
@@ -77,6 +81,7 @@ const iconSidebar = (args: Args): TemplateResult =>
       accessibility-current="page"
     ></sbb-icon-sidebar-link>
     <sbb-icon-sidebar-button
+      sbb-tooltip=${hasTooltip ? 'Be happy' : nothing}
       aria-label="Be happy"
       icon-name="face-grinning-small"
     ></sbb-icon-sidebar-button>
@@ -195,19 +200,21 @@ const content = html`
   </p>
 `;
 
-const Template = ({ position, ...args }: Args): TemplateResult =>
-  html`${header()}
-    <sbb-icon-sidebar-container>
-      ${position === 'start' ? iconSidebar(args) : nothing}
-      <sbb-icon-sidebar-content
-        id="content"
-        role="main"
-        style="padding: var(--sbb-spacing-fixed-4x)"
-      >
-        ${content}
-      </sbb-icon-sidebar-content>
-      ${position === 'end' ? iconSidebar(args) : nothing}
-    </sbb-icon-sidebar-container>`;
+const Template =
+  (hasTooltip = false) =>
+  ({ position, ...args }: Args): TemplateResult =>
+    html`${header()}
+      <sbb-icon-sidebar-container>
+        ${position === 'start' ? iconSidebar(args, hasTooltip) : nothing}
+        <sbb-icon-sidebar-content
+          id="content"
+          role="main"
+          style="padding: var(--sbb-spacing-fixed-4x)"
+        >
+          ${content}
+        </sbb-icon-sidebar-content>
+        ${position === 'end' ? iconSidebar(args, hasTooltip) : nothing}
+      </sbb-icon-sidebar-container>`;
 
 const NestedTemplate = ({ position, ...args }: Args): TemplateResult =>
   html`${header(true)}
@@ -230,19 +237,25 @@ const NestedTemplate = ({ position, ...args }: Args): TemplateResult =>
     </sbb-icon-sidebar-container>`;
 
 export const Default: StoryObj = {
-  render: Template,
+  render: Template(),
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const WithTooltip: StoryObj = {
+  render: Template(true),
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
 export const Milk: StoryObj = {
-  render: Template,
+  render: Template(),
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: 'milk' },
 };
 
 export const MilkEnd: StoryObj = {
-  render: Template,
+  render: Template(),
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: 'milk', position: 'end' },
 };

@@ -70,6 +70,17 @@ By default, it appears below the trigger element and, if there is insufficient s
 > | `inline-end span-block-start`   | `right span-top`    |
 > | `inline-end span-block-end`     | `right span-bottom` |
 
+### Attribute usage
+
+When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute.
+The value of the attribute is a comma-separated list of positions.
+
+```html
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end"
+  >Button</sbb-button
+>
+```
+
 ## Configuration
 
 The open and close delays can be configured via global configuration. These values will be used as default, unless explicitly set on the element.
