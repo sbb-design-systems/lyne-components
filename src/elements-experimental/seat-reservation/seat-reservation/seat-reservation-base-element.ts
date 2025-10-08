@@ -93,13 +93,7 @@ export class SeatReservationBaseElement extends LitElement {
   public accessor preventPlaceClick: boolean = false;
 
   @forceType()
-  @property({
-    attribute: 'preselect-coach-index',
-    type: Number,
-    converter(value) {
-      return Number(value);
-    },
-  })
+  @property({ attribute: 'preselect-coach-index', type: Number })
   public accessor preselectCoachIndex: number = -1;
 
   @state() protected accessor selectedCoachIndex: number = -1;
@@ -189,6 +183,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('preselectCoachIndex')) {
       // setTimeout is necessary because without, _getCoachScrollPositionX() would fail with NPE because
       // the coachScrollArea is not yet initialized
+      console.log(this.preselectCoachIndex);
       setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
     }
   }
