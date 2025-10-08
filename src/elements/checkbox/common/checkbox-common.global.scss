@@ -1,0 +1,17 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base() {
+  --sbb-checkbox-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-font-size-text-m),
+        'lean': var(--sbb-font-size-text-xs),
+      ),
+      $theme
+    )};
+  --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-checkbox-label-color: var(--sbb-color-color-3);
+  --sbb-checkbox-label-icon-color: var(--sbb-checkbox-label-color);
+  --sbb-checkbox-cursor: pointer;
+}

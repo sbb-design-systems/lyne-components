@@ -58,7 +58,7 @@ class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
                 ?checked=${this.checked}
                 ?indeterminate=${this.indeterminate}
                 ?disabled=${this.disabled || this.formDisabled}
-                size=${this.size}
+                .size=${this.size}
               ></sbb-visual-checkbox>
             </span>
             <span class="sbb-checkbox__label">

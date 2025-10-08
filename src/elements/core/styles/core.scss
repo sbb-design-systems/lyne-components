@@ -14,6 +14,13 @@ $theme: 'standard' !default;
 @use './mixins/shadows';
 @use './mixins/typo';
 
+@use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
+  $theme: $theme
+);
+@use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
+  $theme: $theme
+);
+
 @include helpers.box-sizing;
 
 // Core variables, are always needed
@@ -22,6 +29,15 @@ $theme: 'standard' !default;
   @include sbb-css-tokens.lyne-design-tokens-css-variables;
 
   & {
+    @include checkbox-common.base;
+    @include visual-checkbox.base;
+
+    @include a11y.if-forced-colors {
+      @include visual-checkbox.base-forced-colors;
+    }
+
+    // TODO: block for breakpoints
+
     // Train formation
     --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
     --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
