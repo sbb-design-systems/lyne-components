@@ -1,6 +1,6 @@
 $theme: 'standard' !default;
 
-@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens with (
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
 @use './core/mediaqueries';
@@ -14,89 +14,95 @@ $theme: 'standard' !default;
 @use './mixins/shadows';
 @use './mixins/typo';
 
-@include helpers.box-sizing;
-
-// Core variables, are always needed
+// Core variables
 :root {
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
-  @include sbb-css-tokens.lyne-design-tokens-css-variables;
+  @include sbb-css-tokens.base;
 
-  & {
-    // Train formation
-    --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
-    --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
-    --sbb-train-formation-wagon-border-radius: #{functions.px-to-rem-build(12)};
-    --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
+  // Train formation
+  --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
+  --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
+  --sbb-train-formation-wagon-border-radius: #{functions.px-to-rem-build(12)};
+  --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
+
+  // Header
+  --sbb-header-height: var(--sbb-spacing-fixed-14x);
+
+  // Time Input
+  --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
+
+  // Overlay
+  --sbb-overlay-default-z-index: 1000;
+
+  // Title
+  --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
+  --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
+  --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
+  --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
+  --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
+  --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
+  --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
+  --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
+  --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
+  --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
+  --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+  --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
+  --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
+  --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
+
+  &.sbb-lean {
+    --sbb-title-font-size-level-1: var(--sbb-font-size-title-2);
+    --sbb-title-font-size-level-2: var(--sbb-font-size-title-3);
+    --sbb-title-font-size-level-3: var(--sbb-font-size-title-4);
+    --sbb-title-font-size-level-4: var(--sbb-font-size-title-5);
+    --sbb-title-font-size-level-5: var(--sbb-font-size-title-6);
+    --sbb-title-font-size-level-6: var(--sbb-font-size-title-7);
+    --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
+    --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
+    --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
+    --sbb-title-margin-block-end-level-2: var(--sbb-spacing-fixed-3x);
+    --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+    --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-2x);
+    --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-1x);
+    --sbb-title-margin-block-end-level-6: 0;
+  }
+
+  // Infinity border radius, can be used to achieve rounded border on start and end
+  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
+  --sbb-border-radius-infinity: 100000em;
+
+  &:has(sbb-header[size='s']) {
+    --sbb-header-height: #{functions.px-to-rem-build(52)};
+  }
+
+  // When the input modality is either mouse or touch,
+  // the focus outline should be hidden.
+  // We achieve this by setting the outline style to none.
+  // This is primarily to work around Safari bugs.
+  &:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
+    --sbb-focus-outline-style: none;
+  }
+
+  @include mediaqueries.mq($from: small) {
+    @include sbb-css-tokens.breakpoint-small;
+  }
+
+  @include mediaqueries.mq($from: large) {
+    @include sbb-css-tokens.breakpoint-large;
 
     // Header
-    --sbb-header-height: var(--sbb-spacing-fixed-14x);
+    --sbb-header-height: var(--sbb-spacing-fixed-24x);
 
     // Time Input
-    --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
-
-    // Overlay
-    --sbb-overlay-default-z-index: 1000;
-
-    // Title
-    --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
-    --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
-    --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
-    --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
-    --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
-    --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
-    --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
-    --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
-    --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
-    --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
-    --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-    --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
-    --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
-    --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
-
-    &.sbb-lean {
-      --sbb-title-font-size-level-1: var(--sbb-font-size-title-2);
-      --sbb-title-font-size-level-2: var(--sbb-font-size-title-3);
-      --sbb-title-font-size-level-3: var(--sbb-font-size-title-4);
-      --sbb-title-font-size-level-4: var(--sbb-font-size-title-5);
-      --sbb-title-font-size-level-5: var(--sbb-font-size-title-6);
-      --sbb-title-font-size-level-6: var(--sbb-font-size-title-7);
-      --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
-      --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
-      --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
-      --sbb-title-margin-block-end-level-2: var(--sbb-spacing-fixed-3x);
-      --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-      --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-2x);
-      --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-1x);
-      --sbb-title-margin-block-end-level-6: 0;
-    }
-
-    // Infinity border radius, can be used to achieve rounded border on start and end
-    // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
-    --sbb-border-radius-infinity: 100000em;
+    --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
 
     &:has(sbb-header[size='s']) {
-      --sbb-header-height: #{functions.px-to-rem-build(52)};
+      --sbb-header-height: var(--sbb-spacing-fixed-14x);
     }
+  }
 
-    // When the input modality is either mouse or touch,
-    // the focus outline should be hidden.
-    // We achieve this by setting the outline style to none.
-    // This is primarily to work around Safari bugs.
-    &:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
-      --sbb-focus-outline-style: none;
-    }
-
-    @include mediaqueries.mq($from: large) {
-      // Header
-      --sbb-header-height: var(--sbb-spacing-fixed-24x);
-
-      // Time Input
-      --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
-
-      &:has(sbb-header[size='s']) {
-        --sbb-header-height: var(--sbb-spacing-fixed-14x);
-      }
-    }
+  @include mediaqueries.mq($from: ultra) {
+    @include sbb-css-tokens.breakpoint-ultra;
   }
 }
 
