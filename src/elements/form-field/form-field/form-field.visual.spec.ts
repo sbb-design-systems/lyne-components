@@ -1,5 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import { isChromium } from '../../core/dom.js';
 import {
   describeEach,
   describeViewports,
@@ -166,32 +167,39 @@ describe(`sbb-form-field`, () => {
                   visualDiffFocus,
                   visualDiffActive,
                 ]) {
-                  it(
-                    `slot=none ${visualDiffState.name}`,
-                    visualDiffState.with(async (setup) => {
-                      await setup.withFixture(html`${formField(args, template(args))}`, {
-                        backgroundColor: negative
-                          ? 'var(--sbb-background-color-1-negative)'
-                          : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
+                  // Skip the active tests for native select on Chromium because of a bug.
+                  if (
+                    !isChromium ||
+                    template !== basicSelect ||
+                    visualDiffState !== visualDiffActive
+                  ) {
+                    it(
+                      `slot=none ${visualDiffState.name}`,
+                      visualDiffState.with(async (setup) => {
+                        await setup.withFixture(html`${formField(args, template(args))}`, {
+                          backgroundColor: negative
+                            ? 'var(--sbb-background-color-1-negative)'
+                            : undefined,
+                          focusOutlineDark: negative,
+                          forcedColors,
+                        });
+                      }),
+                    );
 
-                  it(
-                    `slot=icons ${visualDiffState.name}`,
-                    visualDiffState.with(async (setup) => {
-                      const templateResult: TemplateResult = html`${template(args)} ${icons}`;
-                      await setup.withFixture(html`${formField(args, templateResult)}`, {
-                        backgroundColor: negative
-                          ? 'var(--sbb-background-color-1-negative)'
-                          : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
+                    it(
+                      `slot=icons ${visualDiffState.name}`,
+                      visualDiffState.with(async (setup) => {
+                        const templateResult: TemplateResult = html`${template(args)} ${icons}`;
+                        await setup.withFixture(html`${formField(args, templateResult)}`, {
+                          backgroundColor: negative
+                            ? 'var(--sbb-background-color-1-negative)'
+                            : undefined,
+                          focusOutlineDark: negative,
+                          forcedColors,
+                        });
+                      }),
+                    );
+                  }
                 }
 
                 it(
@@ -209,20 +217,23 @@ describe(`sbb-form-field`, () => {
                   }),
                 );
 
-                it(
-                  `slot=buttons ${visualDiffActive.name}`,
-                  visualDiffActive.with(async (setup) => {
-                    const templateResult: TemplateResult = html`${template(args)}
-                    ${buttonsAndPopover(args)}`;
-                    await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative
-                        ? 'var(--sbb-background-color-1-negative)'
-                        : undefined,
-                      focusOutlineDark: negative,
-                      forcedColors,
-                    });
-                  }),
-                );
+                // Skip the active tests for native select on Chromium because of a bug.
+                if (!isChromium || template !== basicSelect) {
+                  it(
+                    `slot=buttons ${visualDiffActive.name}`,
+                    visualDiffActive.with(async (setup) => {
+                      const templateResult: TemplateResult = html`${template(args)}
+                      ${buttonsAndPopover(args)}`;
+                      await setup.withFixture(html`${formField(args, templateResult)}`, {
+                        backgroundColor: negative
+                          ? 'var(--sbb-background-color-1-negative)'
+                          : undefined,
+                        focusOutlineDark: negative,
+                        forcedColors,
+                      });
+                    }),
+                  );
+                }
 
                 it(
                   `slot=buttons focus`,

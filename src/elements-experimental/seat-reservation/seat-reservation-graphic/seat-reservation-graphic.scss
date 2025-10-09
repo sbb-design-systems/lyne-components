@@ -42,6 +42,13 @@
   );
 }
 
+// auto-width settings for graphics
+:host(.auto-width) {
+  --sbb-icon-svg-width: auto;
+
+  width: auto;
+}
+
 // hover state with pointer cursor for service icons and popover
 :host(.sbb-seat-reservation-graphic--cursor-pointer) {
   cursor: pointer;
