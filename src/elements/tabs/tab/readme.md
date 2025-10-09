@@ -31,6 +31,7 @@ The role and the id for the `aria-controls` attribute is managed directly by the
 
 | Name    | Attribute | Privacy | Type                         | Default | Description                                  |
 | ------- | --------- | ------- | ---------------------------- | ------- | -------------------------------------------- |
+| `group` | -         | public  | `SbbTabGroupElement \| null` |         | Get the parent `sbb-tab-group`.              |
 | `label` | -         | public  | `SbbTabLabelElement \| null` |         | The `sbb-tab-label` associated with the tab. |
 
 ## Events

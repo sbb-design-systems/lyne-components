@@ -8,7 +8,7 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { throttle } from '../../core/eventing.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import type { SbbTabElement } from '../tab.js';
 
@@ -54,7 +54,7 @@ export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
  */
 export
 @customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
+class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     tabchange: 'tabchange',
@@ -66,11 +66,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     target: null,
     skipInitial: true,
     callback: (entries) => this._onTabGroupElementResize(entries),
-  });
-  private _tabContentResizeObserver = new ResizeController(this, {
-    target: null,
-    skipInitial: true,
-    callback: (entries) => this._onTabContentElementResize(entries),
   });
 
   /**
@@ -106,6 +101,17 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     ) as SbbTabLabelElement[];
   }
 
+  /** Gets the slotted `sbb-tab`s. */
+  public get tabs(): SbbTabElement[] {
+    /**
+     * The querySelector API is not used because when nested tabs are used,
+     * the returned array contains the inner tabs too, and this breaks the keyboard navigation.
+     */
+    return Array.from(this.children ?? []).filter((child) =>
+      /^sbb-tab$/u.test(child.localName),
+    ) as SbbTabElement[];
+  }
+
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
@@ -116,8 +122,10 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
 
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._initSelection();
+
+    // To avoid animations on initialization, we have to mark the component as initialized and wait a tick.
+    Promise.resolve().then(() => this.toggleState('initialized', true));
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
-    this._tabContentResizeObserver.observe(this._tabContentElement);
   }
 
   /**
@@ -203,17 +211,6 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
     }
   }
 
-  private _onTabContentElementResize(entries: ResizeObserverEntry[]): void {
-    if (!this._tabContentElement) {
-      return;
-    }
-    for (const entry of entries) {
-      const contentHeight = Math.floor(entry.contentRect.height);
-
-      this._tabContentElement.style.height = `${contentHeight}px`;
-    }
-  }
-
   private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledTabs: SbbTabLabelElement[] = this._enabledTabs();
 
@@ -232,6 +229,13 @@ class SbbTabGroupElement extends SbbHydrationMixin(LitElement) {
       enabledTabs[nextIndex]?.focus();
       evt.preventDefault();
     }
+  }
+
+  /**
+   * @internal
+   */
+  protected setTabContentHeight(contentHeight: number): void {
+    this._tabContentElement.style.height = `${contentHeight}px`;
   }
 
   protected override render(): TemplateResult {

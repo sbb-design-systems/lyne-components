@@ -13,7 +13,6 @@ snapshots["sbb-tab-group renders DOM"] =
     Test tab label 1
   </sbb-tab-label>
   <sbb-tab
-    data-active=""
     id="sbb-tab-0"
     tabindex="0"
   >

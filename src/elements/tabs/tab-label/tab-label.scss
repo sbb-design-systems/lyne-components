@@ -71,7 +71,7 @@
 }
 
 // Pressed/active state
-:host(:is([data-active], :active)) {
+:host(:active) {
   --sbb-tab-label-color: var(--sbb-color-3);
 }
 
