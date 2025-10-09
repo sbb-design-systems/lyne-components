@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
 import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './table-wrapper.scss?lit&inline';
 
@@ -24,7 +23,7 @@ export
 @customElement('sbb-table-wrapper')
 class SbbTableWrapperElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
   public static override readonly role = 'section';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   /** Whether the table wrapper is focusable. */
   @forceType()

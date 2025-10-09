@@ -10,7 +10,6 @@ import {
   i18nTimeMaxLength,
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
 
 import style from './time-input.scss?lit&inline';
 
@@ -30,7 +29,7 @@ interface Time {
 export
 @customElement('sbb-time-input')
 class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   /**
    * The value of the time input. Reflects the current text value

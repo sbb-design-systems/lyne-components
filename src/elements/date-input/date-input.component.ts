@@ -11,7 +11,6 @@ import {
   i18nDatePickerPlaceholder,
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
 import style from './date-input.scss?lit&inline';
@@ -38,7 +37,7 @@ export interface SbbDateInputAssociated<T> {
 export
 @customElement('sbb-date-input')
 class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   /**
    * The value of the date input. Reflects the current text value

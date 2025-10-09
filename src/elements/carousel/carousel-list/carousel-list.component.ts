@@ -8,7 +8,6 @@ import { isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
@@ -24,7 +23,7 @@ import style from './carousel-list.scss?lit&inline';
 export
 @customElement('sbb-carousel-list')
 class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   private _currentIndex = 0;
   private _language = new SbbLanguageController(this);

@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbElementInternalsMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
 
 import style from './title-common.scss?lit&inline';
 
@@ -15,7 +14,7 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  */
 export abstract class SbbTitleBase extends SbbElementInternalsMixin(LitElement) {
   public static override role = 'heading';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   /** Title level */
   @property({ reflect: true }) public accessor level: SbbTitleLevel = '1';

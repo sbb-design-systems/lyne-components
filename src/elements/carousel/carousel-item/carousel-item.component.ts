@@ -3,7 +3,6 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './carousel-item.scss?lit&inline';
 
@@ -21,7 +20,7 @@ export type SbbCarouselItemEventDetail = {
 export
 @customElement('sbb-carousel-item')
 class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',

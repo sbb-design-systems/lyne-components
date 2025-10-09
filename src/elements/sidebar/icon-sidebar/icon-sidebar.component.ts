@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.js';
 
 import style from './icon-sidebar.scss?lit&inline';
@@ -16,7 +15,7 @@ export
 @customElement('sbb-icon-sidebar')
 class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   /** Background color of the icon sidebar. Either `white` or `milk`. **/
   @property({ reflect: true })

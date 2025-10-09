@@ -4,7 +4,6 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 
@@ -22,7 +21,7 @@ export
 @customElement('sbb-tab')
 class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   public static override role = 'tabpanel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     active: 'active',
   } as const;

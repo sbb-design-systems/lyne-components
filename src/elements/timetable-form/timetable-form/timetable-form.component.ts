@@ -2,8 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.js';
-
 import style from './timetable-form.scss?lit&inline';
 
 /**
@@ -15,7 +13,7 @@ import style from './timetable-form.scss?lit&inline';
 export
 @customElement('sbb-timetable-form')
 class SbbTimetableFormElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

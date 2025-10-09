@@ -1,7 +1,6 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.js';
 import { sidebarContentCommonStyle } from '../common.js';
 
 import style from './icon-sidebar-content.scss?lit&inline';
@@ -14,11 +13,7 @@ import style from './icon-sidebar-content.scss?lit&inline';
 export
 @customElement('sbb-icon-sidebar-content')
 class SbbIconSidebarContentElement extends LitElement {
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    sidebarContentCommonStyle,
-    style,
-  ];
+  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

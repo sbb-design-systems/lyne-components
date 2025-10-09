@@ -5,8 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { SbbNegativeMixin, type AbstractConstructor } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
 
 import style from './link.scss?lit&inline';
 
@@ -26,7 +25,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = style;
 
     /**
      * Text size, the link should get in the non-button variation.
