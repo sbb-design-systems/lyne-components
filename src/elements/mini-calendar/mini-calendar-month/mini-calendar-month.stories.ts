@@ -8,6 +8,7 @@ import readme from './readme.md?raw';
 
 import './mini-calendar-month.component.js';
 import '../mini-calendar-day/mini-calendar-day.component.js';
+import '../mini-calendar/mini-calendar.component.js';
 
 const orientation: InputType = {
   control: {
@@ -49,18 +50,20 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ orientation, marker, color }: Args): TemplateResult => html`
-  <sbb-mini-calendar-month date="2025-01" data-orientation=${orientation}>
-    ${repeat(
-      new Array(31),
-      (_, index) => html`
-        <sbb-mini-calendar-day
-          date=${`2025-01-${String(index + 1).padStart(2, '0')}`}
-          color=${color}
-          marker=${index > 11 && index < 19 ? marker : ''}
-        ></sbb-mini-calendar-day>
-      `,
-    )}
-  </sbb-mini-calendar-month>
+  <sbb-mini-calendar orientation=${orientation}>
+    <sbb-mini-calendar-month date="2025-01">
+      ${repeat(
+        new Array(31),
+        (_, index) => html`
+          <sbb-mini-calendar-day
+            date=${`2025-01-${String(index + 1).padStart(2, '0')}`}
+            color=${color}
+            marker=${index > 11 && index < 19 ? marker : ''}
+          ></sbb-mini-calendar-day>
+        `,
+      )}
+    </sbb-mini-calendar-month>
+  </sbb-mini-calendar>
 `;
 
 export const Default: StoryObj = {
