@@ -8,7 +8,6 @@ import type { AbstractConstructor } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
- 
 import blockStyle from './block-link.scss?lit&inline';
 import { SbbLinkCommonElementMixin } from './link-common.js';
 import style from './link.scss?lit&inline';
