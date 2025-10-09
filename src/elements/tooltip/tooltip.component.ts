@@ -223,7 +223,10 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
       // Read the positions from the trigger (either from the attribute or the property)
       const positions = triggerElement.hasAttribute('sbb-tooltip-position')
-        ? triggerElement.getAttribute('sbb-tooltip-position')!.split(',')
+        ? triggerElement
+            .getAttribute('sbb-tooltip-position')!
+            .split(',')
+            .map((p) => p.trim())
         : (triggerElement as unknown as SbbTooltipDefaultPositions).tooltipPositions;
 
       if (positions && positions.length > 0) {
