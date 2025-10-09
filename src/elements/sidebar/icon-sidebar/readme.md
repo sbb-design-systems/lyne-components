@@ -9,11 +9,13 @@ and `<sbb-icon-sidebar>` which represents the added side content.
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar>
     <sbb-icon-sidebar-link
+      sbb-tooltip="Go to the party"
       accessibility-label="Go to the party"
       icon-name="glass-cocktail-small"
       href="#"
     ></sbb-icon-sidebar-link>
     <sbb-icon-sidebar-link
+      sbb-tooltip="Be a unicorn"
       accessibility-label="Be a unicorn"
       icon-name="unicorn-small"
       href="#"
@@ -69,7 +71,7 @@ specific role makes sense, `role="region"` is a good fallback.
 
 As described in [sbb-icon-sidebar-link](/docs/elements-sbb-sidebar-sbb-icon-sidebar-link--docs) and
 [sbb-icon-sidebar-button](/docs/elements-sbb-sidebar-sbb-icon-sidebar-button--docs), it's important to set
-a label to the action elements (consider also using a `sbb-tooltip`).
+both a label and a tooltip to the action elements.
 It's also described how to set the current icon as active (aria-current).
 
 ## Combine with `sbb-sidebar`

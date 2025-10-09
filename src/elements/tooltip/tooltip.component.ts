@@ -230,7 +230,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
         tooltip.style.setProperty('--sbb-overlay-position-area', positions[0]);
         tooltip.style.setProperty(
           '--sbb-overlay-position-try-fallbacks',
-          positions.slice(1).join(','),
+          positions.slice(1).join(', '),
         );
       } else {
         tooltip.style.removeProperty('--sbb-overlay-position-area');
