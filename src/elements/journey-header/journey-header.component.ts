@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
-import { boxSizingStyles } from '../core/host.js';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import { SbbTitleBase, type SbbTitleLevel } from '../title.js';
@@ -32,7 +31,7 @@ const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
 export
 @customElement('sbb-journey-header')
 class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   /** Origin location for the journey header. */
   @forceType()

@@ -2,12 +2,11 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  SbbMediaQueryForcedColors,
+  SbbDarkModeController,
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbDarkModeController,
+  SbbMediaQueryForcedColors,
 } from '../core/controllers.js';
-import { boxSizingStyles } from '../core/host.js';
 import { i18nOccupancy } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
@@ -21,7 +20,7 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
 export
 @customElement('sbb-timetable-occupancy-icon')
 class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbIconBase.styles, style];
+  public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
 
   /** Wagon occupancy. */
   @property() public accessor occupancy: SbbOccupancy = 'none';

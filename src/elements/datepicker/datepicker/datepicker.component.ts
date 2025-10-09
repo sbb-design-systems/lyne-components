@@ -14,10 +14,9 @@ import { readConfig } from '../../core/config.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType, idReference } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.js';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.js';
 import { SbbPopoverBaseElement } from '../../popover.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 
@@ -37,11 +36,7 @@ class SbbDatepickerElement<T = Date>
   extends SbbUpdateSchedulerMixin(SbbPopoverBaseElement)
   implements SbbDateInputAssociated<T>
 {
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    SbbPopoverBaseElement.styles,
-    style,
-  ];
+  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */

@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import { iconSidebarButtonCommonStyle } from '../common.js';
 
@@ -13,7 +14,7 @@ import { iconSidebarButtonCommonStyle } from '../common.js';
 export
 @customElement('sbb-icon-sidebar-link')
 class SbbIconSidebarLinkElement extends SbbIconNameMixin(SbbLinkBaseElement) {
-  public static override styles: CSSResultGroup = iconSidebarButtonCommonStyle;
+  public static override styles: CSSResultGroup = [boxSizingStyles, iconSidebarButtonCommonStyle];
 
   protected override renderTemplate(): TemplateResult {
     return super.renderIconSlot();

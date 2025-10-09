@@ -1,7 +1,6 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbTitleBase, type SbbTitleLevel } from '../../title.js';
 
 import style from './sidebar-title.scss?lit&inline';
@@ -14,7 +13,7 @@ import style from './sidebar-title.scss?lit&inline';
 export
 @customElement('sbb-sidebar-title')
 class SbbSidebarTitleElement extends SbbTitleBase {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   /** Title level */
   @property({ reflect: true }) public override accessor level: SbbTitleLevel = '2';

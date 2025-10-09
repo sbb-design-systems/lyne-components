@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbActionGroupElement } from '../../action-group.js';
 import { isLean } from '../../core/dom/lean-context.js';
-import { boxSizingStyles } from '../../core/host.js';
 
 import style from './dialog-actions.scss?lit&inline';
 
@@ -15,11 +14,7 @@ import style from './dialog-actions.scss?lit&inline';
 export
 @customElement('sbb-dialog-actions')
 class SbbDialogActionsElement extends SbbActionGroupElement {
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    SbbActionGroupElement.styles,
-    style,
-  ];
+  public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
 
   public constructor() {
     super();

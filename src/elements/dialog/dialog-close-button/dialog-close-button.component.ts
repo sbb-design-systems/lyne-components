@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nCloseDialog } from '../../core/i18n.js';
 
 import style from './dialog-close-button.scss?lit&inline';
@@ -17,11 +16,7 @@ import style from './dialog-close-button.scss?lit&inline';
 export
 @customElement('sbb-dialog-close-button')
 class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    SbbSecondaryButtonElement.styles,
-    style,
-  ];
+  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
 
   private _languageController = new SbbLanguageController(this);
 

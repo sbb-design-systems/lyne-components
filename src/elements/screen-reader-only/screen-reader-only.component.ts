@@ -2,8 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../core/host.js';
-
 import style from './screen-reader-only.scss?lit&inline';
 
 /**
@@ -14,7 +12,7 @@ import style from './screen-reader-only.scss?lit&inline';
 export
 @customElement('sbb-screen-reader-only')
 class SbbScreenReaderOnlyElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

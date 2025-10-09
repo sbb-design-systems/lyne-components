@@ -1,7 +1,6 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import { SbbTitleBase } from '../../title.js';
 
@@ -15,7 +14,7 @@ import style from './dialog-title.scss?lit&inline';
 export
 @customElement('sbb-dialog-title')
 class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   public constructor() {
     super();
