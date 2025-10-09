@@ -22,10 +22,10 @@
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
   --sbb-tooltip-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-overlay-position-area: block-end;
+  --sbb-overlay-position-area: block-start;
   --sbb-overlay-position-try-fallbacks:
-    block-end span-inline-end, block-end span-inline-start, block-start,
-    block-start span-inline-end, block-start span-inline-start;
+    block-start span-inline-end, block-start span-inline-start, block-end,
+    block-end span-inline-end, block-end span-inline-start;
 
   position-area: var(--sbb-overlay-position-area);
   position-try-fallbacks: var(--sbb-overlay-position-try-fallbacks);

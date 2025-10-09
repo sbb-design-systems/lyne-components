@@ -39,16 +39,16 @@ Specifically, it uses the "[position-area](https://developer.mozilla.org/en-US/d
 and "[position-try-fallbacks](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Try_options_hiding#using_position-area_try_fallback_options)" CSS properties to define where the tooltip should be positioned.
 
 You can control the positioning of the tooltip by overriding the `--sbb-overlay-position-area` and `--sbb-overlay-position-try-fallbacks` CSS variables.
-By default, it appears below the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+By default, it appears above the trigger element and, if there is insufficient space, it automatically chooses the best available position.
 
 ```scss
 // Primary position
---sbb-overlay-position-area: block-end;
+--sbb-overlay-position-area: block-start;
 
 // Fallback positions. The first one that fits will be used.
 --sbb-overlay-position-try-fallbacks:
-  block-end span-inline-end, block-end span-inline-start, block-start, block-start span-inline-end,
-  block-start span-inline-start;
+  block-start span-inline-end, block-start span-inline-start, block-end, block-end span-inline-end,
+  block-end span-inline-start;
 ```
 
 > ⓘ The CSS anchor positioning feature is not yet fully [supported](https://caniuse.com/css-anchor-positioning) by all browsers.

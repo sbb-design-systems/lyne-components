@@ -166,11 +166,7 @@ export class SbbOverlayPositionController implements ReactiveController {
   }
 
   private _requestCalculatePosition(): void {
-    if (this._frame) {
-      return;
-    }
-
-    this._frame = requestAnimationFrame(() => {
+    this._frame ??= requestAnimationFrame(() => {
       this._calculatePosition();
       this._frame = undefined;
     });
@@ -363,7 +359,7 @@ export class SbbOverlayPositionController implements ReactiveController {
       if (result.fits) {
         return result;
       }
-      firstPosition = firstPosition ?? result;
+      firstPosition ??= result;
     }
 
     // If no position fits, we return the first one.
