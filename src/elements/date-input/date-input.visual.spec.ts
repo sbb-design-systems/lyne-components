@@ -26,7 +26,7 @@ describe('sbb-date-input', () => {
     floatingLabel: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ disabled, negative, forcedColors }) => {
       describe('with value', () => {
         beforeEach(async function () {

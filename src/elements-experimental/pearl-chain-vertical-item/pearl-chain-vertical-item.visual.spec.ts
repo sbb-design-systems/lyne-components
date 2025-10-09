@@ -26,7 +26,7 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
     <div>more</div>
   `;
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     describe('slot', () => {
       it(
         'right',

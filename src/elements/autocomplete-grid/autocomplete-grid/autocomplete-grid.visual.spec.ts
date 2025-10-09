@@ -151,7 +151,7 @@ describe('sbb-autocomplete-grid', () => {
     await sendKeys({ press: 'O' });
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
@@ -183,7 +183,7 @@ describe('sbb-autocomplete-grid', () => {
     }
   });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const style = {

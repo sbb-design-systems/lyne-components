@@ -12,7 +12,7 @@ import './train.component.js';
 describe(`sbb-train`, () => {
   const cases = { direction: ['left', 'right'], station: [undefined, 'Berne'] };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ direction, station }) => {
       let root: HTMLElement;
 

@@ -8,7 +8,7 @@ describe(`sbb-chip-label`, () => {
   const sizeCases = ['xxs', 'xs', 's'];
   const colorCases = ['milk', 'charcoal', 'white', 'granite'];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Size test
     for (const size of sizeCases) {
       it(

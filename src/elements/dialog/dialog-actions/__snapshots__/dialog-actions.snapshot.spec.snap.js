@@ -5,7 +5,7 @@ snapshots["sbb-dialog-actions renders DOM"] =
 `<sbb-dialog-actions
   align-group="start"
   button-size="m"
-  horizontal-from="medium"
+  horizontal-from="large"
   link-size="s"
   orientation="horizontal"
   slot="actions"

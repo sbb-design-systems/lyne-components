@@ -34,7 +34,7 @@ const listAnchor = (
 describe(`sbb-link-list-anchor`, () => {
   const cases = { negative: [false, true] };
 
-  describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
+  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
     describeEach(cases, ({ negative }) => {
       let root: HTMLElement;
 

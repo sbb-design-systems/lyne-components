@@ -5,7 +5,7 @@ import { describeViewports, visualDiffStandardStates } from '../../core/testing/
 import './link.component.js';
 
 describe(`sbb-link`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [true, false]) {
       for (const state of visualDiffStandardStates) {
         it(

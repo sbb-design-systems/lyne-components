@@ -79,7 +79,7 @@ describe(`table`, () => {
     </table>
   `;
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     describeEach(cases, ({ negative, striped }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

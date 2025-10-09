@@ -1,4 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin, SbbBreakpointSmallMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -33,7 +34,7 @@ describe(`sbb-map-container`, () => {
       </sbb-map-container>`,
     );
 
-    await setViewport({ width: 320, height: 600 });
+    await setViewport({ width: SbbBreakpointSmallMin, height: 600 });
 
     assert.instanceOf(element, SbbMapContainerElement);
 
@@ -74,7 +75,7 @@ describe(`sbb-map-container`, () => {
       </sbb-map-container>`,
     );
 
-    await setViewport({ width: 1000, height: 300 });
+    await setViewport({ width: SbbBreakpointLargeMin, height: 300 });
 
     const scrollSpy = new EventSpy('scroll', document);
     const scrollContext = element.shadowRoot!.querySelector('.sbb-map-container__sidebar')!;

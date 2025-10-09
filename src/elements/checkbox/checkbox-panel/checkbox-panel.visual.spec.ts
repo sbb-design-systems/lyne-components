@@ -49,7 +49,7 @@ describe('sbb-checkbox-panel', () => {
       <sbb-card-badge>%</sbb-card-badge>
     </sbb-checkbox-panel>`;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of ['checked', 'unchecked', 'indeterminate']) {
       const args = { ...defaultArgs, state };
       for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {

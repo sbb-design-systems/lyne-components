@@ -18,7 +18,7 @@ describe(`sbb-accordion`, () => {
     expanded: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Main test cases
     describeEach(cases, ({ borderless, expanded }) => {
       beforeEach(async function () {

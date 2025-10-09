@@ -80,7 +80,7 @@ describe('sbb-sidebar', () => {
       </sbb-link-list>
     </sbb-sidebar>`;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     const cases: {
       color: SbbSidebarElement['color'][];
       position: SbbSidebarElement['position'][];
@@ -169,7 +169,7 @@ describe('sbb-sidebar', () => {
     );
   });
 
-  describeViewports({ viewports: ['medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 400 }, () => {
     it(
       'with long title',
       visualDiffDefault.with(async (setup) => {

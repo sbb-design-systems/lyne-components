@@ -16,7 +16,7 @@ describe(`sbb-footer`, () => {
     negative: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'small', 'medium', 'wide'] }, () => {
+  describeViewports(() => {
     describeEach(cases, ({ expanded, negative }) => {
       it(
         'variant=default',
@@ -24,7 +24,7 @@ describe(`sbb-footer`, () => {
           await setup.withFixture(
             html`
               <sbb-footer ?expanded=${expanded} ?negative=${negative}>
-                <sbb-link-list horizontal-from="medium" ?negative=${negative}>
+                <sbb-link-list horizontal-from="large" ?negative=${negative}>
                   <sbb-block-link> Refunds </sbb-block-link>
                   <sbb-block-link> Lost property office </sbb-block-link>
                 </sbb-link-list>
@@ -74,7 +74,7 @@ describe(`sbb-footer`, () => {
                 </div>
                 <sbb-clock now="01:59:27"></sbb-clock>
                 <sbb-divider ?negative=${negative}></sbb-divider>
-                <sbb-link-list horizontal-from="medium" ?negative=${negative}>
+                <sbb-link-list horizontal-from="large" ?negative=${negative}>
                   <sbb-block-link> Refunds </sbb-block-link>
                   <sbb-block-link> Lost property office </sbb-block-link>
                 </sbb-link-list>

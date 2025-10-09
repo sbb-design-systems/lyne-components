@@ -10,13 +10,13 @@ import './layout.scss';
 
 const PageSpacingTemplate = (): TemplateResult => html`
   <section class="sbb-page-spacing visualized-page-spacing">
-    <div>Content</div>
+    <div><span>Content</span></div>
   </section>
 `;
 
 const PageSpacingExpandedTemplate = (): TemplateResult => html`
   <section class="sbb-page-spacing-expanded visualized-page-spacing">
-    <div>Content</div>
+    <div><span>Content</span></div>
   </section>
 `;
 

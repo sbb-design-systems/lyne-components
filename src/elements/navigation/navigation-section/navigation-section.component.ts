@@ -18,7 +18,7 @@ import {
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbMediaQueryBreakpointMediumAndBelow,
+  SbbMediaQueryBreakpointLargeAndBelow,
 } from '../../core/controllers.js';
 import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
@@ -106,7 +106,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
 
     this.addController(
       new SbbMediaMatcherController(this, {
-        [SbbMediaQueryBreakpointMediumAndBelow]: (matches) => {
+        [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
           if (this._state !== 'closed') {
             this._setNavigationInert(matches);
           }

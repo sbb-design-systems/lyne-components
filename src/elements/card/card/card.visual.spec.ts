@@ -24,7 +24,7 @@ describe(`sbb-card`, () => {
     badge: ['none', 'charcoal'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Main test cases
     describeEach(cases, ({ color, badge }) => {
       beforeEach(async function () {

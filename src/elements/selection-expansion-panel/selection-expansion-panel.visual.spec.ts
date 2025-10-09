@@ -88,7 +88,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     </sbb-selection-expansion-panel>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const input of ['checkbox', 'radio']) {
       describe(`with ${input}`, () => {
         describeEach(cases, (params) => {
@@ -139,11 +139,7 @@ describe(`sbb-selection-expansion-panel`, () => {
                 error ? `with error` : '',
                 visualDiffDefault.with(async (setup) => {
                   await setup.withFixture(html`
-                    <sbb-checkbox-group
-                      orientation="vertical"
-                      horizontal-from="medium"
-                      size=${size}
-                    >
+                    <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
                       ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
                       ${withCheckboxPanel({ size })}
                     </sbb-checkbox-group>
@@ -168,7 +164,7 @@ describe(`sbb-selection-expansion-panel`, () => {
                   await setup.withFixture(html`
                     <sbb-radio-button-group
                       orientation="vertical"
-                      horizontal-from="medium"
+                      horizontal-from="large"
                       size=${size}
                     >
                       ${withRadioPanel({ checked: true, value: '1', size })}

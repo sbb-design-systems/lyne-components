@@ -92,7 +92,7 @@ const withChipTemplate = ({
 `;
 
 describe('sbb-teaser-product', () => {
-  describeViewports({ viewports: ['zero', 'medium', 'large'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const slottedImg of [false, true]) {
       describe(`slottedImg=${slottedImg}`, () => {
         for (const negative of [false, true]) {

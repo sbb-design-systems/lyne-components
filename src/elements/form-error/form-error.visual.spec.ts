@@ -26,7 +26,7 @@ describe(`sbb-form-error`, () => {
     errorText: ['short', 'long'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, iconName, errorText }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

@@ -91,7 +91,7 @@ describe(`sbb-timetable-row`, () => {
   `;
   const wrapperStyle = { backgroundColor: 'var(--sbb-background-color-3)' };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const c of cases) {
       it(
         c.name,
