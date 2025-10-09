@@ -31,7 +31,7 @@ const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
 export
 @customElement('sbb-journey-header')
 class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
 
   /** Origin location for the journey header. */
   @forceType()

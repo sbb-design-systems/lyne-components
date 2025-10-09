@@ -17,7 +17,7 @@ export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
 export
 @customElement('sbb-signet')
 class SbbSignetElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })

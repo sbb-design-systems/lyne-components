@@ -27,7 +27,7 @@ const MIN_WIDTH_BEFORE_COLLAPSE = 320;
 export
 @customElement('sbb-sidebar-container')
 class SbbSidebarContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = [sidebarContainerCommonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, sidebarContainerCommonStyle, style];
 
   /** The sidebar children. */
   public get sidebars(): SbbSidebarElement[] {

@@ -31,7 +31,7 @@ import style from './carousel.scss?lit&inline';
 export
 @customElement('sbb-carousel')
 class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Used to display a box-shadow around the component.

@@ -21,7 +21,7 @@ export type SelectCoachEventDetails = number;
 export
 @customElement('sbb-seat-reservation-navigation-coach')
 class SbbSeatReservationNavigationCoachElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectcoach: 'selectcoach',
     focuscoach: 'focuscoach',

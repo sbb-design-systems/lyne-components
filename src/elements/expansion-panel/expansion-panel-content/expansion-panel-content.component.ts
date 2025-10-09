@@ -15,7 +15,7 @@ export
 @customElement('sbb-expansion-panel-content')
 class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'region';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

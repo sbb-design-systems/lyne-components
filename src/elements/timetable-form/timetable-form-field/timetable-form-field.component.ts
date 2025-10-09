@@ -11,7 +11,7 @@ import style from './timetable-form-field.scss?lit&inline';
 export
 @customElement('sbb-timetable-form-field')
 class SbbTimetableFormFieldElement extends SbbFormFieldElement {
-  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbFormFieldElement.styles, style];
 
   private _routeIcon = false;
 

@@ -21,7 +21,7 @@ export
 @customElement('sbb-tab')
 class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   public static override role = 'tabpanel';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     active: 'active',
   } as const;

@@ -83,7 +83,7 @@ export
 class SbbFormFieldElement extends SbbNegativeMixin(
   SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];

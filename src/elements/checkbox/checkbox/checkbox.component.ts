@@ -30,7 +30,7 @@ export
 class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
   SbbIconNameMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = [checkboxCommonStyle, checkboxStyle];
+  public static override styles: CSSResultGroup = [boxSizingStyles, checkboxCommonStyle, checkboxStyle];
 
   /** Value of the form element. */
   @property()

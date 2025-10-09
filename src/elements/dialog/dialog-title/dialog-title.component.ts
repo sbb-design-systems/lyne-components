@@ -14,7 +14,7 @@ import style from './dialog-title.scss?lit&inline';
 export
 @customElement('sbb-dialog-title')
 class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
 
   public constructor() {
     super();

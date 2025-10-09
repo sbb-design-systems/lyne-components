@@ -40,7 +40,7 @@ export
 class SbbToastElement extends SbbIconNameMixin(
   SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.

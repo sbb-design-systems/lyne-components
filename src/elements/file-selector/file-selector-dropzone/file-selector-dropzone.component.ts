@@ -25,7 +25,7 @@ export
 @customElement('sbb-file-selector-dropzone')
 @slotState()
 class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = [fileSelectorCommonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle, style];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;

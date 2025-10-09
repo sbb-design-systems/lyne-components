@@ -24,7 +24,7 @@ export
 @customElement('sbb-radio-button')
 @slotState()
 class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
+  public static override styles: CSSResultGroup = [boxSizingStyles, radioButtonCommonStyle, radioButtonStyle];
   public static readonly events = {
     statechange: 'statechange',
     change: 'change',

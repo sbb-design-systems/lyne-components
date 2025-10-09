@@ -36,7 +36,7 @@ class SbbDatepickerElement<T = Date>
   extends SbbUpdateSchedulerMixin(SbbPopoverBaseElement)
   implements SbbDateInputAssociated<T>
 {
-  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbPopoverBaseElement.styles, style];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */

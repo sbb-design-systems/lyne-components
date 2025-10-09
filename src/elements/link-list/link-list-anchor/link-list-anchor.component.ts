@@ -14,7 +14,7 @@ import style from './link-list-anchor.scss?lit&inline';
 export
 @customElement('sbb-link-list-anchor')
 class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
-  public static override styles: CSSResultGroup = [linkListBaseStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, linkListBaseStyle, style];
 }
 
 declare global {

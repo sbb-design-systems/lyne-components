@@ -12,7 +12,7 @@ import style from './screen-reader-only.scss?lit&inline';
 export
 @customElement('sbb-screen-reader-only')
 class SbbScreenReaderOnlyElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

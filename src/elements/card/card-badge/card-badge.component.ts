@@ -16,7 +16,7 @@ export
 @customElement('sbb-card-badge')
 class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'text';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Color of the card badge. */
   @property({ reflect: true }) public accessor color: 'charcoal' | 'white' = 'charcoal';

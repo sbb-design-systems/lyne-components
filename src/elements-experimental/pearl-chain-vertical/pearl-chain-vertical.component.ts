@@ -12,7 +12,7 @@ import style from './pearl-chain-vertical.scss?lit&inline';
 export
 @customElement('sbb-pearl-chain-vertical')
 class SbbPearlChainVerticalElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`

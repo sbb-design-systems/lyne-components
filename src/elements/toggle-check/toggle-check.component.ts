@@ -24,7 +24,7 @@ export
 class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
   SbbIconNameMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Value of the form element. */
   @property()

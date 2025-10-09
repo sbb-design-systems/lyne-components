@@ -116,7 +116,7 @@ export type CalendarView = 'day' | 'month' | 'year';
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
   } as const;

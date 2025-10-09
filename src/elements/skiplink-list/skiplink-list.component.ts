@@ -31,7 +31,7 @@ class SbbSkiplinkListElement extends SbbElementInternalsMixin(
     LitElement,
   ),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */

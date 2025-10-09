@@ -12,7 +12,7 @@ import style from './chip-label.scss?lit&inline';
 export
 @customElement('sbb-chip-label')
 class SbbChipLabelElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Size of the chip. */
   @property({ reflect: true })

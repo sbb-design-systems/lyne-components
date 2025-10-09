@@ -34,7 +34,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     change: 'change',
   } as const;

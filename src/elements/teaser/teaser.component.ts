@@ -21,7 +21,7 @@ import '../screen-reader-only.js';
 export
 @customElement('sbb-teaser')
 class SbbTeaserElement extends SbbLinkBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Teaser variant - define the position and the alignment of the text block. */
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =

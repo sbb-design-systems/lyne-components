@@ -23,7 +23,7 @@ import style from './carousel-list.scss?lit&inline';
 export
 @customElement('sbb-carousel-list')
 class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _currentIndex = 0;
   private _language = new SbbLanguageController(this);

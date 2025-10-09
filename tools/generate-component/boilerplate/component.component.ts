@@ -12,7 +12,7 @@ import style from './__noPrefixName__.scss?lit&inline';
 export
 @customElement('__name__')
 class __nameUpperCase__ extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     // Add event names or remove
   } as const;

@@ -19,7 +19,7 @@ export
 @customElement('sbb-breadcrumb')
 @slotState()
 class SbbBreadcrumbElement extends SbbIconNameMixin(SbbHydrationMixin(SbbLinkBaseElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override renderTemplate(): TemplateResult {
     return html`

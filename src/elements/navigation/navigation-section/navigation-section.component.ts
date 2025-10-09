@@ -50,7 +50,7 @@ export
 class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   SbbElementInternalsMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The label to be shown before the action list.

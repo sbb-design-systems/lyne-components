@@ -13,7 +13,7 @@ import style from './timetable-duration.scss?lit&inline';
 export
 @customElement('sbb-timetable-duration')
 class SbbTimetableDurationElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Stringified JSON which defines most of the

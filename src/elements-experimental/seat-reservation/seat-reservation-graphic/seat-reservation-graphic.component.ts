@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/icon.js';
 export
 @customElement('sbb-seat-reservation-graphic')
 class SbbSeatReservationGraphicElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Name of the SVG graphic to be displayed. */
   @forceType()

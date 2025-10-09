@@ -17,7 +17,7 @@ let nextId = 0;
 export
 @customElement('sbb-form-error')
 class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

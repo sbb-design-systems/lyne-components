@@ -16,7 +16,7 @@ import style from './card.scss?lit&inline';
 export
 @customElement('sbb-card')
 class SbbCardElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Size variant, either xs, s, m, l, xl, xxl or xxxl.

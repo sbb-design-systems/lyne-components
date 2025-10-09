@@ -29,7 +29,7 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
 export
 @customElement('sbb-sticky-bar')
 class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public static readonly events = {
     beforestick: 'beforestick',

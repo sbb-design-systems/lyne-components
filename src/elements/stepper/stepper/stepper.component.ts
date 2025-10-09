@@ -28,7 +28,7 @@ const DEBOUNCE_TIME = 150;
 export
 @customElement('sbb-stepper')
 class SbbStepperElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * If the sbb-stepper is used in a sbb-dialog, the marker on the selected element will not appear,

@@ -12,7 +12,7 @@ import style from './dialog-content.scss?lit&inline';
 export
 @customElement('sbb-dialog-content')
 class SbbDialogContentElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

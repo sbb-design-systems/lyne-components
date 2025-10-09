@@ -33,7 +33,7 @@ export const SbbNavigationActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
+    public static styles: CSSResultGroup = [boxSizingStyles, style];
 
     /**
      * Action size variant, either s, m or l.

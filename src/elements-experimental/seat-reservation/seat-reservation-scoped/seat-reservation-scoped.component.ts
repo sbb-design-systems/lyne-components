@@ -10,7 +10,7 @@ import style from './seat-reservation-scoped.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-scoped')
 class SbbSeatReservationScopedElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

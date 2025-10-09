@@ -13,7 +13,7 @@ import style from './icon-sidebar-content.scss?lit&inline';
 export
 @customElement('sbb-icon-sidebar-content')
 class SbbIconSidebarContentElement extends LitElement {
-  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, sidebarContentCommonStyle, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

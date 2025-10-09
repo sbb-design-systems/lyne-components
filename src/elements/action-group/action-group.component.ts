@@ -22,7 +22,7 @@ import style from './action-group.scss?lit&inline';
 export
 @customElement('sbb-action-group')
 class SbbActionGroupElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.

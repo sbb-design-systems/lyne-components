@@ -14,7 +14,7 @@ import style from './timetable-form-swap-button.scss?lit&inline';
 export
 @customElement('sbb-timetable-form-swap-button')
 class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbSecondaryButtonElement.styles, style];
 
   private _languageController = new SbbLanguageController(this);
 

@@ -30,7 +30,7 @@ type DescribeEachItem = {
 export
 @customElement('app-test-title-chip-list')
 class TestTitleChipList extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property()
   public set testCaseName(name: string) {

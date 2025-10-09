@@ -33,7 +33,7 @@ export interface PearlChainVerticalItemAttributes {
 export
 @customElement('sbb-pearl-chain-vertical-item')
 class SbbPearlChainVerticalItemElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })

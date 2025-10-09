@@ -12,7 +12,7 @@ import style from './timetable-form-details.scss?lit&inline';
 export
 @customElement('sbb-timetable-form-details')
 class SbbTimetableFormDetailsElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

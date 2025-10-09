@@ -16,7 +16,7 @@ import style from './dialog-close-button.scss?lit&inline';
 export
 @customElement('sbb-dialog-close-button')
 class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbSecondaryButtonElement.styles, style];
 
   private _languageController = new SbbLanguageController(this);
 

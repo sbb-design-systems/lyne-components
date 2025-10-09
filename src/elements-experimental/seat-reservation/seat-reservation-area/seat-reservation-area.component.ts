@@ -11,7 +11,7 @@ import style from './seat-reservation-area.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-area')
 class SbbSeatReservationAreaElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Mounting Prop */
   @forceType()

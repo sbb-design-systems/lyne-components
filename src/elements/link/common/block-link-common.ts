@@ -26,7 +26,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
     extends SbbLinkCommonElementMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbBlockLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [style, blockStyle];
+    public static styles: CSSResultGroup = [boxSizingStyles, style, blockStyle];
 
     /** Moves the icon to the end of the component if set to true. */
     @property({ attribute: 'icon-placement', reflect: true })

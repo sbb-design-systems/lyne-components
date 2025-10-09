@@ -17,7 +17,7 @@ export
 class SbbSecondaryButtonLinkElement extends SbbButtonCommonElementMixin(
   SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonSecondaryStyle];
+  public static override styles: CSSResultGroup = [boxSizingStyles, buttonCommonStyle, buttonSecondaryStyle];
 }
 
 declare global {

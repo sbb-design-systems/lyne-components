@@ -23,7 +23,7 @@ export
 @customElement('sbb-checkbox-group')
 @slotState()
 class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the checkbox group is required. */
   @forceType()

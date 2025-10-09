@@ -23,7 +23,7 @@ export
 @customElement('sbb-table-wrapper')
 class SbbTableWrapperElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
   public static override readonly role = 'section';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the table wrapper is focusable. */
   @forceType()

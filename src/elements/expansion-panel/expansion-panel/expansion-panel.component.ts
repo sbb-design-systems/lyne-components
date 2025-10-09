@@ -23,7 +23,7 @@ let nextId = 0;
 export
 @customElement('sbb-expansion-panel')
 class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

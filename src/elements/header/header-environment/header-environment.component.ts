@@ -17,7 +17,7 @@ import style from './header-environment.scss?lit&inline';
 export
 @customElement('sbb-header-environment')
 class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {
     super();

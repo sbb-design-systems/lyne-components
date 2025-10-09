@@ -35,7 +35,7 @@ import '@sbb-esta/lyne-elements/popover/popover.js';
 export
 @customElement('sbb-seat-reservation')
 class SbbSeatReservationElement extends SeatReservationBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;

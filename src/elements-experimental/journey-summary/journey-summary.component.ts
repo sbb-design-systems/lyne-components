@@ -38,7 +38,7 @@ export interface InterfaceSbbJourneySummaryAttributes {
 export
 @customElement('sbb-journey-summary')
 class SbbJourneySummaryElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**  The trip prop */
   @property({ type: Object }) public accessor trip: InterfaceSbbJourneySummaryAttributes = null!;

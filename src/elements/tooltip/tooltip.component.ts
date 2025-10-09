@@ -50,7 +50,7 @@ export
 @customElement('sbb-tooltip')
 class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private static _tooltipOutlet: Element;
 

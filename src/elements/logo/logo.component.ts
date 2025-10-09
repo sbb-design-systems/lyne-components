@@ -16,7 +16,7 @@ import style from './logo.scss?lit&inline';
 export
 @customElement('sbb-logo')
 class SbbLogoElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around logo. */
   @property({ attribute: 'protective-room', reflect: true })

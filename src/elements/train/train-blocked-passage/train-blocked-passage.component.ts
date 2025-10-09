@@ -10,7 +10,7 @@ import style from './train-blocked-passage.scss?lit&inline';
 export
 @customElement('sbb-train-blocked-passage')
 class SbbTrainBlockedPassageElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`

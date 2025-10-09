@@ -22,7 +22,7 @@ export
 @customElement('sbb-container')
 @slotState()
 class SbbContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the container is expanded. */
   @forceType()

@@ -12,7 +12,7 @@ import style from './datepicker-previous-day.scss?lit&inline';
 export
 @customElement('sbb-datepicker-previous-day')
 class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected iconName: string = 'chevron-small-left-small';
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;

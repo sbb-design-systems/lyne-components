@@ -29,7 +29,7 @@ let nextId = 0;
 export
 @customElement('sbb-overlay')
 class SbbOverlayElement extends SbbOverlayBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {

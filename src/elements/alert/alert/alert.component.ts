@@ -26,7 +26,7 @@ import '../../divider.js';
 export
 @customElement('sbb-alert')
 class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

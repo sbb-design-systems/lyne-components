@@ -21,7 +21,7 @@ export
 @customElement('sbb-option')
 class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly events = {
     optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',

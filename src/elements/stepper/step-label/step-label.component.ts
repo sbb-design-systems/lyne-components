@@ -21,7 +21,7 @@ export
 @customElement('sbb-step-label')
 class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override readonly role = 'tab';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {

@@ -18,7 +18,7 @@ import '../timetable-occupancy-icon.js';
 export
 @customElement('sbb-timetable-occupancy')
 class SbbTimetableOccupancyElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Occupancy for first class wagons. */
   @property({ attribute: 'first-class-occupancy' })

@@ -16,7 +16,7 @@ import style from './sidebar-close-button.scss?lit&inline';
 export
 @customElement('sbb-sidebar-close-button')
 class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbSecondaryButtonElement.styles, style];
 
   private _languageController = new SbbLanguageController(this);
 

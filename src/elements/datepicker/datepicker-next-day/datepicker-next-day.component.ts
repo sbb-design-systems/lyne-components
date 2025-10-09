@@ -12,7 +12,7 @@ import style from './datepicker-next-day.scss?lit&inline';
 export
 @customElement('sbb-datepicker-next-day')
 class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected iconName: string = 'chevron-small-right-small';
   protected i18nOffBoundaryDay: Record<string, string> = i18nNextDay;

@@ -23,7 +23,7 @@ export
 class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof LitElement>(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-mini-button', 'sbb-divider'];
 
   /** This will be forwarded as aria-label to the list that contains the buttons. */

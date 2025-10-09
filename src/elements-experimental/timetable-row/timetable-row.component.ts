@@ -208,7 +208,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
 export
 @customElement('sbb-timetable-row')
 class SbbTimetableRowElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The trip Prop. */
   @property({ type: Object }) public accessor trip: ITripItem = null!;

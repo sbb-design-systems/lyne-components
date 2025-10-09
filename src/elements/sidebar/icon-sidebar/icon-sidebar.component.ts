@@ -15,7 +15,7 @@ export
 @customElement('sbb-icon-sidebar')
 class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Background color of the icon sidebar. Either `white` or `milk`. **/
   @property({ reflect: true })

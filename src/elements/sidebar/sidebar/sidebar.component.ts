@@ -21,7 +21,7 @@ import style from './sidebar.scss?lit&inline';
 export
 @customElement('sbb-sidebar')
 class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })

@@ -37,7 +37,7 @@ export interface SbbDateInputAssociated<T> {
 export
 @customElement('sbb-date-input')
 class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The value of the date input. Reflects the current text value

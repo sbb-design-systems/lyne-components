@@ -24,7 +24,7 @@ export
   'data-empty': '',
 })
 abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly role = 'img';
 
   @state() private accessor _svgNamespace = defaultNamespace;

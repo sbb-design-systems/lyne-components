@@ -20,7 +20,7 @@ export
 @customElement('sbb-autocomplete-grid-option')
 class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected optionId = autocompleteGridOptionId;
 

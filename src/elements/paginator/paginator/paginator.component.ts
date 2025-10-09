@@ -30,7 +30,7 @@ const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 export
 @customElement('sbb-paginator')
 class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

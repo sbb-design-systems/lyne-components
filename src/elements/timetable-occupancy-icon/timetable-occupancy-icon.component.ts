@@ -20,7 +20,7 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
 export
 @customElement('sbb-timetable-occupancy-icon')
 class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
-  public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbIconBase.styles, style];
 
   /** Wagon occupancy. */
   @property() public accessor occupancy: SbbOccupancy = 'none';

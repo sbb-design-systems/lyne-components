@@ -55,7 +55,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 export
 @customElement('sbb-clock')
 class SbbClockElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Define a specific time which the clock should show statically.

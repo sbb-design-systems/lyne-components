@@ -15,7 +15,7 @@ import style from './title.scss?lit&inline';
 export
 @customElement('sbb-title')
 class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
   @property({ attribute: 'visual-level', reflect: true })

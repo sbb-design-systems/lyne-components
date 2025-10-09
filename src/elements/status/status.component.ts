@@ -31,7 +31,7 @@ export type SbbStatusType =
 export
 @customElement('sbb-status')
 class SbbStatusElement extends SbbIconNameMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
     ['info', 'circle-information-small'],

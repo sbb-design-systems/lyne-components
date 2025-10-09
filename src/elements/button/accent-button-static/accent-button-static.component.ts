@@ -17,7 +17,7 @@ export
 class SbbAccentButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonAccentStyle];
+  public static override styles: CSSResultGroup = [boxSizingStyles, buttonCommonStyle, buttonAccentStyle];
 }
 
 declare global {

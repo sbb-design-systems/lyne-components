@@ -18,7 +18,7 @@ import '../../icon.js';
 export
 @customElement('sbb-form-field-clear')
 class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _formField?: SbbFormFieldElement | null;
   private _language = new SbbLanguageController(this);

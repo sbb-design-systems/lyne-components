@@ -18,7 +18,7 @@ import style from './seat-reservation-navigation-services.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-navigation-services')
 class SbbSeatReservationNavigationServicesElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })

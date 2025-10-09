@@ -21,7 +21,7 @@ export
 @customElement('sbb-teaser-hero')
 @slotState()
 class SbbTeaserHeroElement extends SbbLinkBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Panel link text. */
   @forceType()

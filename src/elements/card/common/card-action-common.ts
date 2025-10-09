@@ -27,7 +27,7 @@ export const SbbCardActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
+    public static styles: CSSResultGroup = [boxSizingStyles, style];
 
     /** Whether the card is active. */
     @property({ reflect: true, type: Boolean })

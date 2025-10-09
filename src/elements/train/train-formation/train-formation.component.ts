@@ -35,7 +35,7 @@ export
 class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, typeof LitElement>(
   LitElement,
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-train'];
 
   /** Whether the view of the wagons is from side or top perspective. */

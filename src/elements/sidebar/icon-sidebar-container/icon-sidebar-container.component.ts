@@ -14,7 +14,7 @@ import style from './icon-sidebar-container.scss?lit&inline';
 export
 @customElement('sbb-icon-sidebar-container')
 class SbbIconSidebarContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = [sidebarContainerCommonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, sidebarContainerCommonStyle, style];
 
   /** The icon-sidebar children. */
   public get sidebars(): SbbIconSidebarElement[] {

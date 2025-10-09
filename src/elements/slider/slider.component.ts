@@ -33,7 +33,7 @@ class SbbSliderElement extends SbbDisabledMixin(
   SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
 ) {
   public static override readonly role = 'slider';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     didChange: 'didChange',
   } as const;

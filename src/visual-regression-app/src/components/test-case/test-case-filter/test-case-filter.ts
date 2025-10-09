@@ -15,7 +15,7 @@ import '@sbb-esta/lyne-elements/tag.js';
 export
 @customElement('app-test-case-filter')
 class TestCaseFilter extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property() public accessor testCase: ScreenshotTestCase | null = null;
 

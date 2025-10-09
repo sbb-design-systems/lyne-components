@@ -17,7 +17,7 @@ import '../../screen-reader-only.js';
 export
 @customElement('sbb-compact-paginator')
 class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

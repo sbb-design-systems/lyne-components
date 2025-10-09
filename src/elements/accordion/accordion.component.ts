@@ -19,7 +19,7 @@ import style from './accordion.scss?lit&inline';
 export
 @customElement('sbb-accordion')
 class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.

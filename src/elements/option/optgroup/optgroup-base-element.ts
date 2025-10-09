@@ -34,7 +34,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
 ) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Option group label. */
   @forceType()

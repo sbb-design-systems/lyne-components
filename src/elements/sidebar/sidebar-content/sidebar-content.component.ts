@@ -14,7 +14,7 @@ import style from './sidebar-content.scss?lit&inline';
 export
 @customElement('sbb-sidebar-content')
 class SbbSidebarContentElement extends LitElement {
-  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, sidebarContentCommonStyle, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

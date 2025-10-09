@@ -18,7 +18,7 @@ export
 class SbbTeaserProductStaticElement extends SbbTeaserProductCommonElementMixin(
   SbbActionBaseElement,
 ) {
-  public static override styles: CSSResultGroup = [teaserProductCommonStyle];
+  public static override styles: CSSResultGroup = [boxSizingStyles, teaserProductCommonStyle];
 }
 
 declare global {

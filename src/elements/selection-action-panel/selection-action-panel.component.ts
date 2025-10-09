@@ -17,7 +17,7 @@ import '../divider.js';
 export
 @customElement('sbb-selection-action-panel')
 class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydrationMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {
     super();

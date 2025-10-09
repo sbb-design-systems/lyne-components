@@ -25,7 +25,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
+    public static styles: CSSResultGroup = [boxSizingStyles, style];
 
     /**
      * Text size, the link should get in the non-button variation.

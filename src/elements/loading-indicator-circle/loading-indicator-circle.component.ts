@@ -13,7 +13,7 @@ export
 @customElement('sbb-loading-indicator-circle')
 class SbbLoadingIndicatorCircleElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'progressbar';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Color variant. */
   @property({ reflect: true }) public accessor color: 'default' | 'smoke' | 'white' = 'default';

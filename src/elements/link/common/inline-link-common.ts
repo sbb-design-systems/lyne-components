@@ -22,7 +22,7 @@ export const SbbInlineLinkCommonElementMixin = <
     extends SbbLinkCommonElementMixin(superClass)
     implements Partial<SbbInlineLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [style, inlineStyle];
+    public static styles: CSSResultGroup = [boxSizingStyles, style, inlineStyle];
   }
   return SbbInlineLinkCommonElement as unknown as AbstractConstructor<SbbInlineLinkCommonElementMixinType> &
     T;

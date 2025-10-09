@@ -25,7 +25,7 @@ import '../../screen-reader-only.js';
 export
 @customElement('sbb-flip-card')
 class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     flip: 'flip',
   } as const;

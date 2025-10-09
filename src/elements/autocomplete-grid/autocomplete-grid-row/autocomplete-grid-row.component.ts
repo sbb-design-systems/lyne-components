@@ -16,7 +16,7 @@ export
 @customElement('sbb-autocomplete-grid-row')
 class SbbAutocompleteGridRowElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'row';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

@@ -13,7 +13,7 @@ export
 @customElement('sbb-loading-indicator')
 class SbbLoadingIndicatorElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'progressbar';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Size variant, either s or m. */
   @property({ reflect: true }) public accessor size: 's' | 'l' | 'xl' | 'xxl' | 'xxxl' = 's';

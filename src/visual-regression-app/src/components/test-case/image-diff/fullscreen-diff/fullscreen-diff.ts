@@ -19,7 +19,7 @@ export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 export
 @customElement('app-fullscreen-diff')
 class FullscreenDiff extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
 

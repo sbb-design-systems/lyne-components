@@ -21,7 +21,7 @@ import '../../screen-reader-only.js';
 export
 @customElement('sbb-teaser-product')
 class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(SbbLinkBaseElement) {
-  public static override styles: CSSResultGroup = [teaserProductCommonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, teaserProductCommonStyle, style];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it

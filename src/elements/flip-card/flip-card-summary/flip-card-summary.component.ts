@@ -15,7 +15,7 @@ export type SbbFlipCardImageAlignment = 'after' | 'below';
 export
 @customElement('sbb-flip-card-summary')
 class SbbFlipCardSummaryElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The position where to render the image. */
   @property({ attribute: 'image-alignment', reflect: true })

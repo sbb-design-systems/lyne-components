@@ -28,7 +28,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 export
 @customElement('sbb-header')
 class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Whether to allow the header content to stretch to full width.

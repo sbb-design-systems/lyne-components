@@ -55,7 +55,7 @@ export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
 export
 @customElement('sbb-tab-group')
 class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;

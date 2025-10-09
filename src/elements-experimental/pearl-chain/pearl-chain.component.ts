@@ -24,7 +24,7 @@ type Time = {
 export
 @customElement('sbb-pearl-chain')
 class SbbPearlChainElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Define the legs of the pearl-chain.

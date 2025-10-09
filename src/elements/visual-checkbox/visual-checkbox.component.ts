@@ -15,7 +15,7 @@ import style from './visual-checkbox.scss?lit&inline';
 export
 @customElement('sbb-visual-checkbox')
 class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Checked state. */
   @forceType()

@@ -28,7 +28,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
   SbbElementInternalsMixin(LitElement),
 ) {
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     didChange: 'didChange',
     change: 'change',

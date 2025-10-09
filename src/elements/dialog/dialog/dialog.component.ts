@@ -26,7 +26,7 @@ let nextId = 0;
 export
 @customElement('sbb-dialog')
 class SbbDialogElement extends SbbOverlayBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Backdrop click action. */
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =

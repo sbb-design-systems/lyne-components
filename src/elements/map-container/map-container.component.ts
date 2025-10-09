@@ -30,7 +30,7 @@ import '../button/accent-button.js';
 export
 @customElement('sbb-map-container')
 class SbbMapContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()

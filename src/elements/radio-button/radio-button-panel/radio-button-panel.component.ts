@@ -48,7 +48,7 @@ export
 class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
+  public static override styles: CSSResultGroup = [boxSizingStyles, radioButtonCommonStyle, panelCommonStyle];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {

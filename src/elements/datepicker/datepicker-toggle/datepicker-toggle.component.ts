@@ -14,7 +14,7 @@ import style from './datepicker-toggle.scss?lit&inline';
 export
 @customElement('sbb-datepicker-toggle')
 class SbbDatepickerToggleElement<T = Date> extends SbbDatepickerButtonBase<T> {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override iconName = 'calendar-small';
 

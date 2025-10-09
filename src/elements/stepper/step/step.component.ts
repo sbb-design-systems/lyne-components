@@ -36,7 +36,7 @@ export
 @customElement('sbb-step')
 class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',

@@ -15,7 +15,7 @@ import style from './flip-card-details.scss?lit&inline';
 export
 @customElement('sbb-flip-card-details')
 class SbbFlipCardDetailsElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {
     super();

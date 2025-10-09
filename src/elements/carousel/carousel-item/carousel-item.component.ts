@@ -20,7 +20,7 @@ export type SbbCarouselItemEventDetail = {
 export
 @customElement('sbb-carousel-item')
 class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',

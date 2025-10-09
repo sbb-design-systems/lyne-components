@@ -25,7 +25,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override readonly role = 'radio';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the toggle-option is checked. */
   @forceType()

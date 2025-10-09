@@ -33,7 +33,7 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElementInternalsMixin(LitElement))),
 ) {
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;

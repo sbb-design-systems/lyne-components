@@ -18,7 +18,7 @@ import style from './seat-reservation-place-control.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-place-control')
 class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;
