@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // We use this rule to make the inner container element to appear as if it were a
   // direct child of the host's parent element. This is useful because the host
