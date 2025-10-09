@@ -2,8 +2,8 @@ import type { CSSResultGroup, PropertyDeclaration } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { idReference } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbDatepickerButtonBase } from '../common.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 

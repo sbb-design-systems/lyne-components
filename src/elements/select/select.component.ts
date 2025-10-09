@@ -17,7 +17,6 @@ import {
   isZeroAnimationDuration,
   setOrRemoveAttribute,
 } from '../core/dom.js';
-import { boxSizingStyles } from '../core/host.js';
 import { i18nSelectionRequired } from '../core/i18n.js';
 import {
   type FormRestoreReason,
@@ -31,6 +30,7 @@ import {
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbDividerElement } from '../divider.js';
 import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
 

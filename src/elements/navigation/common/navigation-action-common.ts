@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
 import type { SbbNavigationMarkerElement } from '../navigation-marker.js';

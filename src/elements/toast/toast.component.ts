@@ -8,9 +8,9 @@ import { SbbDarkModeController, SbbLanguageController } from '../core/controller
 import { forceType } from '../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
-import { boxSizingStyles } from '../core/host.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 

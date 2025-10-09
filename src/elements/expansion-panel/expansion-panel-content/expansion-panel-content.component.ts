@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './expansion-panel-content.scss?lit&inline';
 

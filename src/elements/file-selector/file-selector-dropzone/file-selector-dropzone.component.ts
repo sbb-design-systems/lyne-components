@@ -5,11 +5,11 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { forceType, slotState } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
 import {
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
 } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
 
 import '../../button/secondary-button-static.js';

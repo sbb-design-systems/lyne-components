@@ -1,8 +1,8 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/host.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
 
 import style from './link-list.scss?lit&inline';

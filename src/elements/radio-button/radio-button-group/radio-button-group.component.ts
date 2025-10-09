@@ -4,9 +4,9 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';

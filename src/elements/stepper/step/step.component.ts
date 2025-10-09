@@ -8,12 +8,12 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/host.js';
 import {
   appendAriaElements,
   removeAriaElements,
   SbbElementInternalsMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 import type { SbbStepperElement } from '../stepper.js';
 

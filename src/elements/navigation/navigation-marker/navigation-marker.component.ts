@@ -3,8 +3,8 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
 

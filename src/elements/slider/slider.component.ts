@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/host.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -13,6 +12,7 @@ import {
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
 } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './slider.scss?lit&inline';
 

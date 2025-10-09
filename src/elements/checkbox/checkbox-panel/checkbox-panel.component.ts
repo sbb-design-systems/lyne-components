@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -23,6 +22,7 @@ import {
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';

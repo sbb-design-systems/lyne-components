@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -21,6 +20,7 @@ import {
 } from '../../core/i18n.js';
 import type { SbbOccupancy } from '../../core/interfaces.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbIconElement } from '../../icon.js';
 
 import style from './train-wagon.scss?lit&inline';

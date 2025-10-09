@@ -14,7 +14,6 @@ import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nOptional } from '../../core/i18n.js';
 import {
   appendAriaElements,
@@ -24,6 +23,7 @@ import {
   SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbSelectElement } from '../../select.js';
 
 import style from './form-field.scss?lit&inline';

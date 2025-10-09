@@ -15,7 +15,6 @@ import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, idReference } from '../core/decorators.js';
 import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
-import { boxSizingStyles } from '../core/host.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,
@@ -23,6 +22,7 @@ import {
   removeAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './autocomplete-base-element.scss?lit&inline';

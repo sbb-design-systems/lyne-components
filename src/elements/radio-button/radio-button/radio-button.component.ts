@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import {
   SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,

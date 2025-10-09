@@ -3,9 +3,9 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/host.js';
 import type { SbbProtectiveRoom } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './logo.scss?lit&inline';
 

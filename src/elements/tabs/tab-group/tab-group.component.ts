@@ -8,8 +8,8 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { throttle } from '../../core/eventing.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import type { SbbTabElement } from '../tab.js';
 

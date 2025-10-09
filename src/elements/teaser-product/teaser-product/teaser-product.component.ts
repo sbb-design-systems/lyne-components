@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { boxSizingStyles } from '../../core/host.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
 
 import style from './teaser-product.scss?lit&inline';

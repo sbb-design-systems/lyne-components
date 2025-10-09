@@ -12,8 +12,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './header.scss?lit&inline';
 

@@ -28,7 +28,6 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime.js';
 import { forceType, handleDistinctChange, plainDate } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/host.js';
 import {
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
@@ -41,6 +40,7 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './calendar.scss?lit&inline';
 

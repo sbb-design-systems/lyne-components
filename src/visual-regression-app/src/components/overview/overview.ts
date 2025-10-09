@@ -1,4 +1,4 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved

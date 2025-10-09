@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { isZeroAnimationDuration } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 
 import style from './dialog.scss?lit&inline';

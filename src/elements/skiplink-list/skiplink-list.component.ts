@@ -5,12 +5,12 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { SbbDarkModeController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
-import { boxSizingStyles } from '../core/host.js';
 import {
   SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
 import type { SbbTitleLevel } from '../title.js';
 

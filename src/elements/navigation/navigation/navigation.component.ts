@@ -20,7 +20,6 @@ import {
 } from '../../core/controllers.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nCloseNavigation } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import {
@@ -28,6 +27,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
 import type { SbbNavigationSectionElement } from '../navigation-section.js';

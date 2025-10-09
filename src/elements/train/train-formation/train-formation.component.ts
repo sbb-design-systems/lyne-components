@@ -10,9 +10,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
 import type { SbbTrainWagonElement } from '../train-wagon.js';
 import type { SbbTrainElement } from '../train.js';

@@ -5,8 +5,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbAlertElement } from '../alert.js';
 

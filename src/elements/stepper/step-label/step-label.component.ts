@@ -2,8 +2,8 @@ import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbStepElement } from '../step.js';
 import type { SbbStepperElement } from '../stepper.js';

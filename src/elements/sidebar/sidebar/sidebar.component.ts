@@ -7,8 +7,8 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';

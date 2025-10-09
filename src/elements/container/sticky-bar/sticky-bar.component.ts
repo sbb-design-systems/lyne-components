@@ -9,8 +9,8 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './sticky-bar.scss?lit&inline';
 

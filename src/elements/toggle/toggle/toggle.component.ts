@@ -11,7 +11,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -19,6 +18,7 @@ import {
   SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { type SbbToggleOptionElement } from '../toggle-option.js';
 
 import style from './toggle.scss?lit&inline';

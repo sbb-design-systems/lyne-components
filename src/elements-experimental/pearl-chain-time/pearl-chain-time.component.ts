@@ -1,12 +1,12 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
 import {
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';

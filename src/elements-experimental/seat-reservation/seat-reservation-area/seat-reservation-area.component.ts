@@ -1,5 +1,5 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';

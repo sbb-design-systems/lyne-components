@@ -2,7 +2,6 @@ import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { setOrRemoveAttribute } from '@sbb-esta/lyne-elements/core/dom.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
 import {
   i18nArrival,
   i18nClass,
@@ -21,6 +20,7 @@ import {
   i18nTripQuayChange,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';

@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { readConfig } from '../core/config.js';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.js';
 import { plainDate, plainDateConverter } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/host.js';
 import {
   i18nDateInvalid,
   i18nDateMax,
@@ -12,6 +11,7 @@ import {
   i18nDatePickerPlaceholder,
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbDatepickerElement } from '../datepicker.js';
 
 import style from './date-input.scss?lit&inline';

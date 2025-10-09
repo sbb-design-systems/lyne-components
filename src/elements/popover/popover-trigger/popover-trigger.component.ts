@@ -3,8 +3,8 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { hostContext } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './popover-trigger.scss?lit&inline';

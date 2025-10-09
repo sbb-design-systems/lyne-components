@@ -3,10 +3,10 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
-import { boxSizingStyles } from '../core/host.js';
 import { i18nClass } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './timetable-occupancy.scss?lit&inline';
 

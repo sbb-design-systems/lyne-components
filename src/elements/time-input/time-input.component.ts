@@ -3,7 +3,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { sbbLiveAnnouncer } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { boxSizingStyles } from '../core/host.js';
 import {
   i18nTimeInputChange,
   i18nTimeInvalid,
@@ -11,6 +10,7 @@ import {
   i18nTimeMaxLength,
 } from '../core/i18n.js';
 import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './time-input.scss?lit&inline';
 

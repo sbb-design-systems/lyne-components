@@ -10,12 +10,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
 import { isLean, setOrRemoveAttribute } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import {
   SbbDisabledMixin,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTagElement, SbbTagSize } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';

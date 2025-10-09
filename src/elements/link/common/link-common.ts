@@ -5,8 +5,8 @@ import { html } from 'lit/static-html.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbNegativeMixin, type AbstractConstructor } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './link.scss?lit&inline';
 

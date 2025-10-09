@@ -5,9 +5,9 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';

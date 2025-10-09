@@ -16,13 +16,13 @@ import {
 } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
 import {
   SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';

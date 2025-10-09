@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers/language-controller.js';
 import { forceType } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
 import {
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
@@ -14,6 +13,7 @@ import {
 } from '../../core/i18n/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
 import type {
   SbbCarouselItemElement,

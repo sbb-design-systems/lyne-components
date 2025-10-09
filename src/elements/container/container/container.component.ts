@@ -8,7 +8,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './container.scss?lit&inline';
 

@@ -3,8 +3,8 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nPage, i18nPaginatorOf } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 
 import style from './compact-paginator.scss?lit&inline';

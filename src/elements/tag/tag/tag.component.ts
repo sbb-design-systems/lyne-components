@@ -5,12 +5,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.js';
 import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledTabIndexActionMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTagGroupElement } from '../tag-group.js';
 

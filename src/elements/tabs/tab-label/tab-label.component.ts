@@ -4,8 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbTabElement } from '../tab/tab.component.js';

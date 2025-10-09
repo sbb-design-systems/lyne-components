@@ -1,6 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';

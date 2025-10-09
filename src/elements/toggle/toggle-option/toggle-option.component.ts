@@ -5,8 +5,8 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
 

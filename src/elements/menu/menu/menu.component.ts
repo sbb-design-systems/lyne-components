@@ -27,7 +27,6 @@ import {
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nGoBack } from '../../core/i18n/i18n.js';
 import { SbbNamedSlotListMixin, type SbbNegativeMixinType } from '../../core/mixins.js';
 import {
@@ -37,6 +36,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.js';
 

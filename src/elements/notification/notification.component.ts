@@ -11,10 +11,10 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
-import { boxSizingStyles } from '../core/host.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbReadonlyMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './notification.scss?lit&inline';

@@ -19,7 +19,6 @@ import {
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute } from '../../core/eventing.js';
-import { boxSizingStyles } from '../../core/host.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
@@ -29,6 +28,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './popover.scss?lit&inline';
 

@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../core/base-elements.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/host.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './teaser-hero.scss?lit&inline';
 
