@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.js';
 import { isLean } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
 import type {
   SbbBlockLinkButtonElement,

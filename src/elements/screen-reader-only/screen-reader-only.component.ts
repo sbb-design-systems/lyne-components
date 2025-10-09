@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../core/host.js';
+
 import style from './screen-reader-only.scss?lit&inline';
 
 /**

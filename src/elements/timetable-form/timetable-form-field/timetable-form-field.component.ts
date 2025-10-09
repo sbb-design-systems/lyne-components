@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbFormFieldElement } from '../../form-field/form-field.js';
 
 import style from './timetable-form-field.scss?lit&inline';
@@ -11,7 +12,11 @@ import style from './timetable-form-field.scss?lit&inline';
 export
 @customElement('sbb-timetable-form-field')
 class SbbTimetableFormFieldElement extends SbbFormFieldElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbFormFieldElement.styles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    SbbFormFieldElement.styles,
+    style,
+  ];
 
   private _routeIcon = false;
 

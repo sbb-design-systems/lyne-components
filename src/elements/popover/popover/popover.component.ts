@@ -19,6 +19,7 @@ import {
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute } from '../../core/eventing.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';

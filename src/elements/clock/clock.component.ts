@@ -3,6 +3,7 @@ import { html, isServer, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { boxSizingStyles } from '../core/host.js';
 import type { SbbTime } from '../core/interfaces.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';

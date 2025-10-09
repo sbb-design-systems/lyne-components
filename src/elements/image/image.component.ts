@@ -26,6 +26,7 @@ import {
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/host.js';
 
 import style from './image.scss?lit&inline';
 

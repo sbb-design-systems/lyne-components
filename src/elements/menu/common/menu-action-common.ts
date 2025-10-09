@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 

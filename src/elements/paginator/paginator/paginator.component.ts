@@ -11,6 +11,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nItemsPerPage, i18nPage } from '../../core/i18n.js';
 import type { SbbSelectElement } from '../../select.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';

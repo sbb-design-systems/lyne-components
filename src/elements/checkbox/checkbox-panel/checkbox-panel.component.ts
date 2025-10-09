@@ -11,6 +11,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -49,7 +50,11 @@ export
 class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, checkboxCommonStyle, panelCommonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    checkboxCommonStyle,
+    panelCommonStyle,
+  ];
 
   /** Value of the form element. */
   @property()

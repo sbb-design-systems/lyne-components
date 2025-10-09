@@ -7,6 +7,7 @@ import {
   SbbMediaMatcherController,
   SbbSlotStateController,
 } from '../../core/controllers.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbExpansionPanelElement } from '../expansion-panel.js';

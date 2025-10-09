@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nClearInput } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import type { SbbFormFieldElement } from '../form-field.js';

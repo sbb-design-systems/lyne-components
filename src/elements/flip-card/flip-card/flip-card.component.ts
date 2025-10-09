@@ -6,6 +6,7 @@ import { until } from 'lit/directives/until.js';
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';

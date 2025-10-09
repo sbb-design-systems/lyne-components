@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.js';
 

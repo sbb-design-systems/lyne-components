@@ -10,6 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
@@ -48,7 +49,11 @@ export
 class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, radioButtonCommonStyle, panelCommonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    radioButtonCommonStyle,
+    panelCommonStyle,
+  ];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {

@@ -7,6 +7,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/host.js';
 import { SbbElementInternalsMixin } from '../core/mixins.js';
 
 import { getSvgContent } from './icon-request.js';

@@ -10,6 +10,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.js';
 
 import style from './table-wrapper.scss?lit&inline';

@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbChipLabelElement } from '../chip-label.js';
 import { SbbLinkBaseElement } from '../core/base-elements.js';
+import { boxSizingStyles } from '../core/host.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './teaser.scss?lit&inline';

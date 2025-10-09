@@ -22,6 +22,7 @@ import {
 } from '../../core/controllers.js';
 import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nGoBack } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';

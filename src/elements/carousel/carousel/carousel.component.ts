@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers/language-controller.js';
 import { forceType } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import {
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,

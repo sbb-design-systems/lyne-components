@@ -7,6 +7,7 @@ import {
   SbbMediaMatcherController,
   SbbDarkModeController,
 } from '../core/controllers.js';
+import { boxSizingStyles } from '../core/host.js';
 import { i18nOccupancy } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';

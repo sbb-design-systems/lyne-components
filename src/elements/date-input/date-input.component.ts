@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { readConfig } from '../core/config.js';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.js';
 import { plainDate, plainDateConverter } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/host.js';
 import {
   i18nDateInvalid,
   i18nDateMax,

@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/host.js';
 import {
   type FormRestoreReason,
   type FormRestoreState,

@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { forceType, slotState } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import {
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,

@@ -3,6 +3,7 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import { boxSizingStyles } from '../core/host.js';
 import { SbbElementInternalsMixin } from '../core/mixins.js';
 
 import style from './title-common.scss?lit&inline';

@@ -17,6 +17,7 @@ import {
   isZeroAnimationDuration,
   setOrRemoveAttribute,
 } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import { i18nSelectionRequired } from '../core/i18n.js';
 import {
   type FormRestoreReason,

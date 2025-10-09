@@ -11,6 +11,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType } from '../../core/decorators.js';
 import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';

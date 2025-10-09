@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
 import { SbbLanguageController } from '../../core/controllers.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nCloseSidebar } from '../../core/i18n.js';
 
 import style from './sidebar-close-button.scss?lit&inline';
@@ -16,7 +17,11 @@ import style from './sidebar-close-button.scss?lit&inline';
 export
 @customElement('sbb-sidebar-close-button')
 class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    SbbSecondaryButtonElement.styles,
+    style,
+  ];
 
   private _languageController = new SbbLanguageController(this);
 

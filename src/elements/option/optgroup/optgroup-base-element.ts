@@ -12,6 +12,7 @@ import { property, state } from 'lit/decorators.js';
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { forceType } from '../../core/decorators.js';
 import { isSafari } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,

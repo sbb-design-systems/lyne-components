@@ -6,6 +6,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
 import { forwardEvent } from '../core/eventing.js';
+import { boxSizingStyles } from '../core/host.js';
 import { i18nMapContainerButtonLabel } from '../core/i18n.js';
 
 import style from './map-container.scss?lit&inline';

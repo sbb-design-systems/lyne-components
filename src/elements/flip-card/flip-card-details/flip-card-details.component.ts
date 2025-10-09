@@ -4,6 +4,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
+import { boxSizingStyles } from '../../core/host.js';
 
 import style from './flip-card-details.scss?lit&inline';
 

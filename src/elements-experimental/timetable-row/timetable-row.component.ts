@@ -2,6 +2,7 @@ import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { setOrRemoveAttribute } from '@sbb-esta/lyne-elements/core/dom.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
 import {
   i18nArrival,
   i18nClass,

@@ -6,6 +6,7 @@ import { html } from 'lit/static-html.js';
 import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
 import { forwardEvent } from '../core/eventing.js';
+import { boxSizingStyles } from '../core/host.js';
 import { i18nCloseDialog } from '../core/i18n.js';
 
 import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';

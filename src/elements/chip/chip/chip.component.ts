@@ -8,6 +8,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nChipDelete } from '../../core/i18n.js';
 import {
   SbbDisabledMixin,

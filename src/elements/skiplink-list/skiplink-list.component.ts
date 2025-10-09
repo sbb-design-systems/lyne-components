@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { SbbDarkModeController } from '../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import {
   SbbElementInternalsMixin,
   SbbNamedSlotListMixin,

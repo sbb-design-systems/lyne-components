@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { forceType, handleDistinctChange } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { isEventPrevented } from '../core/eventing.js';
+import { boxSizingStyles } from '../core/host.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
 import type { SbbExpansionPanelElement } from '../expansion-panel.js';
 import type { SbbTitleLevel } from '../title.js';

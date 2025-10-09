@@ -15,6 +15,7 @@ import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { SbbEscapableOverlayController } from '../core/controllers.js';
 import { forceType, idReference } from '../core/decorators.js';
 import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
 import {
   isEventOnElement,

@@ -11,6 +11,7 @@ import type { SbbCheckboxPanelElement } from '../checkbox.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType, slotState } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
 import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.js';

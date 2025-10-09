@@ -27,6 +27,7 @@ import {
 import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nGoBack } from '../../core/i18n/i18n.js';
 import { SbbNamedSlotListMixin, type SbbNegativeMixinType } from '../../core/mixins.js';
 import {

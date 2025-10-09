@@ -10,6 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.js';
 import { isLean, setOrRemoveAttribute } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import {
   SbbDisabledMixin,
   SbbNamedSlotListMixin,

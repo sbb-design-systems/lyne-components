@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SbbCheckboxSize } from '../checkbox/common.js';
 import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
 
 import style from './visual-checkbox.scss?lit&inline';

@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbOptionBaseElement } from '../../option.js';
 
 import style from './autocomplete-grid-option.scss?lit&inline';

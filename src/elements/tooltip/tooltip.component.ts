@@ -21,6 +21,7 @@ import {
   queueDomContentLoaded,
   removeFromListAttribute,
 } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import { SbbDisabledMixin } from '../core/mixins.js';
 import { getElementPosition, sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
 

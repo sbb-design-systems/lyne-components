@@ -11,6 +11,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.js';
 import {
   type FormRestoreReason,

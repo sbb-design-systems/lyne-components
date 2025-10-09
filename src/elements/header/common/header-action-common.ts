@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators/slot-state.js';
+import { boxSizingStyles } from '../../core/host.js';
 import type { SbbHorizontalFrom } from '../../core/interfaces.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';

@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/host.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import type { SbbTitleLevel } from '../title.js';
 

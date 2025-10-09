@@ -6,6 +6,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { isArrowKeyPressed } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import type {

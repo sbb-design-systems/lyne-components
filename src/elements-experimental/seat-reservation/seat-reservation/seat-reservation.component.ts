@@ -1,4 +1,5 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';

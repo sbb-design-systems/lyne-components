@@ -2,6 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.js';
 
@@ -17,7 +18,11 @@ export
 class SbbAccentButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, buttonCommonStyle, buttonAccentStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    buttonCommonStyle,
+    buttonAccentStyle,
+  ];
 }
 
 declare global {

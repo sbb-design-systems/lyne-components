@@ -1,4 +1,5 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.component.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.component.js';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';

@@ -1,3 +1,4 @@
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/host.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import {
   type CSSResultGroup,

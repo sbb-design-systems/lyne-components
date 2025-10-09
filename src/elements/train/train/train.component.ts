@@ -10,6 +10,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import type { SbbTitleLevel } from '../../title.js';

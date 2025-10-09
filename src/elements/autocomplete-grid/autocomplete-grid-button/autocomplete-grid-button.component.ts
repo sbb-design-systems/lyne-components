@@ -5,6 +5,7 @@ import { customElement } from 'lit/decorators.js';
 import { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';

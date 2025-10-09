@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
 import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';

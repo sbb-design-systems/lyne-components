@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
+import { boxSizingStyles } from '../core/host.js';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
 import { SbbTitleBase, type SbbTitleLevel } from '../title.js';

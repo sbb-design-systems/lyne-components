@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/host.js';
+
 import { SbbOptionBaseElement } from './option-base-element.js';
 import style from './option.scss?lit&inline';
 import '../../visual-checkbox.js';

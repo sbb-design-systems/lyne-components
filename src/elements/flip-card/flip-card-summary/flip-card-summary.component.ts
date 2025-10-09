@@ -2,6 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/host.js';
+
 import style from './flip-card-summary.scss?lit&inline';
 
 export type SbbFlipCardImageAlignment = 'after' | 'below';

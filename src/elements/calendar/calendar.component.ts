@@ -28,6 +28,7 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime.js';
 import { forceType, handleDistinctChange, plainDate } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/host.js';
 import {
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,

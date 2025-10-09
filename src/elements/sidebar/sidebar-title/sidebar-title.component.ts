@@ -1,6 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/host.js';
 import { SbbTitleBase, type SbbTitleLevel } from '../../title.js';
 
 import style from './sidebar-title.scss?lit&inline';

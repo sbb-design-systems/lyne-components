@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { sbbLiveAnnouncer } from '../core/a11y.js';
 import { SbbLanguageController } from '../core/controllers.js';
+import { boxSizingStyles } from '../core/host.js';
 import {
   i18nTimeInputChange,
   i18nTimeInvalid,

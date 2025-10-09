@@ -5,6 +5,7 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbReadonlyMixin } from '../../core/mixins.js';
 import { SbbIconNameMixin } from '../../icon.js';

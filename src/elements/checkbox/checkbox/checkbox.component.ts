@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/host.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import {
@@ -30,7 +31,11 @@ export
 class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
   SbbIconNameMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, checkboxCommonStyle, checkboxStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    checkboxCommonStyle,
+    checkboxStyle,
+  ];
 
   /** Value of the form element. */
   @property()

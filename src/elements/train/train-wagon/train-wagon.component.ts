@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/host.js';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
