@@ -14,6 +14,8 @@ $theme: 'standard' !default;
 @use './mixins/shadows';
 @use './mixins/typo';
 
+@include helpers.box-sizing;
+
 // Core variables
 :root {
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
