@@ -30,9 +30,9 @@ the `sbb-mini-calendar` parent sets it as data-attribute based on its own `orien
 
 ## Properties
 
-| Name   | Attribute | Privacy | Type     | Default | Description         |
-| ------ | --------- | ------- | -------- | ------- | ------------------- |
-| `date` | `date`    | public  | `string` | `''`    | Date as ISO string. |
+| Name   | Attribute | Privacy | Type     | Default | Description                     |
+| ------ | --------- | ------- | -------- | ------- | ------------------------------- |
+| `date` | `date`    | public  | `string` | `''`    | Date as ISO string (YYYY-MM-DD) |
 
 ## Slots
 

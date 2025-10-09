@@ -19,7 +19,7 @@ export
 class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Date as ISO string. */
+  /** Date as ISO string (YYYY-MM-DD) */
   @forceType()
   @property()
   public accessor date: string = '';

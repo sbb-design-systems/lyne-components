@@ -7,7 +7,6 @@ snapshots["sbb-mini-calendar-month renders January DOM"] =
   style="--sbb-mini-calendar-month-offset: 3;"
 >
   <sbb-mini-calendar-day
-    aria-label="January 1, 2025"
     data-action=""
     data-button=""
     date="2025-01-01"
@@ -40,7 +39,6 @@ snapshots["sbb-mini-calendar-month renders June DOM"] =
   style="--sbb-mini-calendar-month-offset: 7;"
 >
   <sbb-mini-calendar-day
-    aria-label="June 1, 2025"
     data-action=""
     data-button=""
     date="2025-06-01"
@@ -67,26 +65,6 @@ snapshots["sbb-mini-calendar-month renders June Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-calendar-month renders June Shadow DOM */
 
-snapshots["sbb-mini-calendar-month renders January A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    },
-    {
-      "role": "text",
-      "name": "Jan."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-calendar-month renders January A11y tree Chrome */
-
 snapshots["sbb-mini-calendar-month renders January A11y tree Firefox"] = 
 `<p>
   {
@@ -106,4 +84,24 @@ snapshots["sbb-mini-calendar-month renders January A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-mini-calendar-month renders January A11y tree Firefox */
+
+snapshots["sbb-mini-calendar-month renders January A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "January 1, 2025"
+    },
+    {
+      "role": "text",
+      "name": "Jan."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-mini-calendar-month renders January A11y tree Chrome */
 

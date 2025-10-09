@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-mini-calendar-day renders DOM"] = 
 `<sbb-mini-calendar-day
-  aria-label="January 1, 2025"
   data-action=""
   data-button=""
   date="2025-01-01"

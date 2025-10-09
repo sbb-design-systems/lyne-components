@@ -19,7 +19,7 @@ class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  /** Date as ISO string. */
+  /** Date as ISO string (YYYY-MM-DD) */
   @forceType()
   @property()
   public accessor date: string = '';
@@ -38,7 +38,7 @@ class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('date') && this.date) {
-      this.setAttribute('aria-label', this._dateAdapter.getAccessibilityFormatDate(this.date));
+      this.internals.ariaLabel = this._dateAdapter.getAccessibilityFormatDate(this.date);
     }
   }
 

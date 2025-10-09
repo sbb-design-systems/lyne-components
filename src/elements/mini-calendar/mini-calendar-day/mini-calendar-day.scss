@@ -21,9 +21,11 @@
 }
 
 :host(:hover) {
-  scale: var(--sbb-mini-calendar-day-scale);
-  transition: scale var(--sbb-mini-calendar-day-animation-easing)
-    var(--sbb-mini-calendar-day-animation-duration);
+  @include sbb.hover-mq($hover: true) {
+    scale: var(--sbb-mini-calendar-day-scale);
+    transition: scale var(--sbb-mini-calendar-day-animation-easing)
+      var(--sbb-mini-calendar-day-animation-duration);
+  }
 }
 
 :host(:focus-visible) {

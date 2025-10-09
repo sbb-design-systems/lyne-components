@@ -32,18 +32,6 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   private _keydownAbortController: AbortController | null = null;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  private get _miniCalendarMonths(): SbbMiniCalendarMonthElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-mini-calendar-month') ?? []);
-  }
-
-  private get _miniCalendarDays(): SbbMiniCalendarDayElement[] {
-    return Array.from(
-      this._miniCalendarMonths.flatMap((month) =>
-        Array.from(month.querySelectorAll?.('sbb-mini-calendar-day') ?? []),
-      ),
-    );
-  }
-
   public constructor() {
     super();
 
@@ -55,23 +43,37 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     );
   }
 
+  private _getMiniCalendarMonths(): SbbMiniCalendarMonthElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-mini-calendar-month') ?? []);
+  }
+
+  private _getMiniCalendarDays(): SbbMiniCalendarDayElement[] {
+    return Array.from(
+      this._getMiniCalendarMonths().flatMap((month) =>
+        Array.from(month.querySelectorAll?.('sbb-mini-calendar-day') ?? []),
+      ),
+    );
+  }
+
   private _setMonthsOrientation(): void {
-    this._miniCalendarMonths.forEach((month: SbbMiniCalendarMonthElement) =>
+    this._getMiniCalendarMonths().forEach((month: SbbMiniCalendarMonthElement) =>
       month.setAttribute('data-orientation', this.orientation),
     );
   }
 
   private _setMonthsShowYear(): void {
-    this._miniCalendarMonths.forEach((monthElement: SbbMiniCalendarMonthElement, index: number) => {
-      const splittedDate = monthElement.date.split('-');
-      if (splittedDate.length > 0) {
-        if (index === 0 || +splittedDate[1] === 1) {
-          monthElement.toggleAttribute('data-show-year', true);
-        } else {
-          monthElement.removeAttribute('data-show-year');
+    this._getMiniCalendarMonths().forEach(
+      (monthElement: SbbMiniCalendarMonthElement, index: number) => {
+        const splittedDate = monthElement.date.split('-');
+        if (splittedDate.length > 0) {
+          if (index === 0 || +splittedDate[1] === 1) {
+            monthElement.toggleAttribute('data-show-year', true);
+          } else {
+            monthElement.removeAttribute('data-show-year');
+          }
         }
-      }
-    });
+      },
+    );
   }
 
   private _handleKeydownCalendarDay(event: KeyboardEvent): void {
@@ -79,7 +81,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
       event.preventDefault();
     }
 
-    const days: SbbMiniCalendarDayElement[] = this._miniCalendarDays;
+    const days: SbbMiniCalendarDayElement[] = this._getMiniCalendarDays();
     const day = days.find((e) => e === event.target)!;
     const nextEl: SbbMiniCalendarDayElement = this._navigateByKeyboardDayView(days, day, event);
     const activeEl: SbbMiniCalendarDayElement = document.activeElement as SbbMiniCalendarDayElement;
@@ -186,7 +188,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
 
     this._keydownAbortController?.abort();
     this._keydownAbortController = new AbortController();
-    this._miniCalendarDays.forEach((day, index) => {
+    this._getMiniCalendarDays().forEach((day, index) => {
       day.addEventListener('keydown', (e) => this._handleKeydownCalendarDay(e), {
         signal: this._keydownAbortController!.signal,
       });
@@ -198,7 +200,14 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
 
   /** @internal */
   public override focus(): void {
-    this._miniCalendarDays?.find((e) => e.tabIndex === 0)?.focus();
+    this._getMiniCalendarDays()
+      ?.find((e) => e.tabIndex === 0)
+      ?.focus();
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._keydownAbortController = new AbortController();
   }
 
   public override disconnectedCallback(): void {

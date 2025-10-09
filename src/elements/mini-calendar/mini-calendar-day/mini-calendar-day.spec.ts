@@ -1,12 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
 
 import { SbbMiniCalendarDayElement } from './mini-calendar-day.component.js';
 
 describe('sbb-mini-calendar-day', () => {
   let element: SbbMiniCalendarDayElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(
@@ -19,6 +20,6 @@ describe('sbb-mini-calendar-day', () => {
   });
 
   it('has aria-label', async () => {
-    expect(element.getAttribute('aria-label')).to.be.equal('January 1, 2025');
+    expect(elementInternals.get(element)!.ariaLabel).to.equal('January 1, 2025');
   });
 });

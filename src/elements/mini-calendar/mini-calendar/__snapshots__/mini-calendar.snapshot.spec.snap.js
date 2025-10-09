@@ -10,7 +10,6 @@ snapshots["sbb-mini-calendar renders DOM"] =
     style="--sbb-mini-calendar-month-offset: 3;"
   >
     <sbb-mini-calendar-day
-      aria-label="January 1, 2025"
       data-action=""
       data-button=""
       date="2025-01-01"
