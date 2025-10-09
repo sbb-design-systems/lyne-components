@@ -4,7 +4,29 @@
 @include sbb.box-sizing;
 
 :host {
-  display: block;
+  display: none;
 
   @include sbb.ignore-children-margin;
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+}
+
+:host(:state(active)) {
+  display: block;
+  opacity: 1;
+  transition: {
+    duration: var(--sbb-tab-group-animation-duration);
+    delay: var(--sbb-tab-group-animation-duration);
+    timing-function: var(--sbb-animation-easing);
+  }
+
+  // Experimental property, but supported in every major browser.
+  transition-behavior: allow-discrete;
+
+  // Experimental property, currently supported in every major browser except Firefox.
+  @starting-style {
+    opacity: 0;
+  }
 }
