@@ -8,6 +8,8 @@
   flex-direction: row;
   justify-content: center;
   gap: var(--sbb-spacing-fixed-2x);
+  overflow: hidden;
+  line-height: normal;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 }
 

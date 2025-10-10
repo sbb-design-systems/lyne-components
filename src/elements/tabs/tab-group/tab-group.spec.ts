@@ -216,14 +216,14 @@ describe(`sbb-tab-group`, () => {
     let firstTabLabel = element.querySelector('sbb-tab-label') as SbbTabLabelElement;
     expect(firstTabLabel).to.have.attribute('active');
     expect(firstTabLabel['internals'].ariaSelected).to.be.equal('true');
-    expect(element.querySelector('sbb-tab')).to.have.attribute('data-active');
+    expect(element.querySelector('sbb-tab')).to.match(':state(active)');
 
     let secondTabLabel = element.querySelector(
       'sbb-tab-label:nth-of-type(2)',
     ) as SbbTabLabelElement;
     expect(secondTabLabel).not.to.have.attribute('active');
     expect(secondTabLabel['internals'].ariaSelected).to.be.equal('false');
-    expect(element.querySelector('sbb-tab:nth-of-type(2)')).not.to.have.attribute('data-active');
+    expect(element.querySelector('sbb-tab:nth-of-type(2)')).not.to.match(':state(active)');
 
     newLabelActive.click();
     await waitForLitRender(element);
@@ -233,11 +233,11 @@ describe(`sbb-tab-group`, () => {
     firstTabLabel = element.querySelector('sbb-tab-label') as SbbTabLabelElement;
     expect(firstTabLabel).not.to.have.attribute('active');
     expect(firstTabLabel['internals'].ariaSelected).to.be.equal('false');
-    expect(element.querySelector('sbb-tab')).not.to.have.attribute('data-active');
+    expect(element.querySelector('sbb-tab')).not.to.match(':state(active)');
 
     secondTabLabel = element.querySelector('sbb-tab-label:nth-of-type(2)') as SbbTabLabelElement;
     expect(secondTabLabel).to.have.attribute('active');
     expect(secondTabLabel['internals'].ariaSelected).to.be.equal('true');
-    expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.have.attribute('data-active');
+    expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.match(':state(active)');
   });
 });

@@ -3,9 +3,14 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import './tab.component.js';
+import '../../card.js';
 
-const Template = (): TemplateResult => html` <sbb-tab> Content </sbb-tab> `;
+const Template = (): TemplateResult => html`
+  <sbb-card color="milk">
+    'sbb-tab' must be only used together with 'sbb-tab-label' in a 'sbb-tab-group'. See
+    'sbb-tab-group' examples to see it in action.
+  </sbb-card>
+`;
 
 export const Default: StoryObj = {
   render: Template,

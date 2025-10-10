@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.9.0...v3.10.0) (2025-10-06)
+
+
+### Features
+
+* **sbb-autocomplete-grid:** enable `sbb-options-nowrap` class ([#4085](https://github.com/sbb-design-systems/lyne-components/issues/4085)) ([598b8a8](https://github.com/sbb-design-systems/lyne-components/commit/598b8a89d973cfded28cac4947a5d5c8401ee24a))
+* **sbb-calendar:** improve 'multiple' implementation ([#4072](https://github.com/sbb-design-systems/lyne-components/issues/4072)) ([451b5a9](https://github.com/sbb-design-systems/lyne-components/commit/451b5a9508d4b0a669a9b8e42bd9ba776116a058))
+
+
+### Bug Fixes
+
+* **sbb-carousel:** fix scrolling when carousel is offset ([#4087](https://github.com/sbb-design-systems/lyne-components/issues/4087)) ([221b56c](https://github.com/sbb-design-systems/lyne-components/commit/221b56c2fb97053ddd05dbf348f40910b55a8670)), closes [#4080](https://github.com/sbb-design-systems/lyne-components/issues/4080)
+* **sbb-paginator,sbb-compact-paginator:** fix focus of arrows for keyboard navigation ([#4090](https://github.com/sbb-design-systems/lyne-components/issues/4090)) ([6e9a507](https://github.com/sbb-design-systems/lyne-components/commit/6e9a507ca753dd3872c067f4f6319e23d0f3fe69))
+
 ## [3.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.8.0...v3.9.0) (2025-09-29)
 
 

@@ -57,6 +57,11 @@ const baseGridSizeType: InputType = {
     'Specifies the size of a single cell to be used when calculating positions and dimensions of all elements.',
 };
 
+const preselectCoachIndexType: InputType = {
+  control: { type: 'number' },
+  description: 'Preselect a coach by using index.',
+};
+
 const defaultArgTypes: ArgTypes = {
   seatReservations: seatReservationType,
   'max-seat-reservations': maxSeatReservationsType,
@@ -184,6 +189,7 @@ export const Bus: StoryObj = {
 
 export const preSelectedCoachIndexFour: StoryObj = {
   render: Template,
+  argTypes: { ...defaultArgTypes, 'preselect-coach-index': preselectCoachIndexType },
   args: { ...defaultArgs, 'preselect-coach-index': 4 },
 };
 

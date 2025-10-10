@@ -18,10 +18,8 @@
   border-radius: var(--sbb-carousel-border-radius);
 }
 
-:host(:not([shadow])) {
-  ::slotted(sbb-carousel-list) {
-    --sbb-carousel-inherit-border-radius: var(--sbb-carousel-border-radius);
-  }
+:host(:not([shadow])) ::slotted(sbb-carousel-list) {
+  --sbb-carousel-inherit-border-radius: var(--sbb-carousel-border-radius);
 }
 
 .sbb-carousel {

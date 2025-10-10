@@ -72,7 +72,8 @@
           "sbb-stepper-previous",
           "sbb-tooltip",
           "sbb-tooltip-open-delay",
-          "sbb-tooltip-close-delay"
+          "sbb-tooltip-close-delay",
+          "sbb-tooltip-position"
         ]
       }
     ]

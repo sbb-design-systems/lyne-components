@@ -103,6 +103,15 @@ const disableOption: InputType = {
   },
 };
 
+const ellipsis: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
 const borderless: InputType = {
   control: {
     type: 'boolean',
@@ -153,6 +162,7 @@ const defaultArgTypes: ArgTypes = {
   // Option args
   iconName,
   disableOption,
+  ellipsis,
 
   // Form field args
   borderless,
@@ -180,6 +190,7 @@ const defaultArgs: Args = {
   preserveIconSpace: true,
   autoActiveFirstOption: false,
   disableOption: false,
+  ellipsis: false,
 
   // Form field args
   borderless: false,
@@ -208,13 +219,13 @@ const scrollDecorator: Decorator = (story) => html`
 
 const createOptionGroup1 = (iconName: string, disableOption: boolean): TemplateResult => {
   return html`
-    <sbb-option icon-name=${iconName} value="Option 1"> Option 1 </sbb-option>
+    <sbb-option icon-name=${iconName} value="Option 1">Option 1</sbb-option>
     <sbb-option icon-name=${iconName} ?disabled=${disableOption} value="Option 2">
       Option 2
     </sbb-option>
     <sbb-option value="Option 3">
       <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-      Option 3
+      Option 3 with a long text which can wrap
     </sbb-option>
   `;
 };
@@ -509,8 +520,18 @@ export const MixedSingleOptionWithOptionGroupSizeS: StoryObj = {
   args: { ...withGroupsDefaultArgs, size: size.options![1] },
 };
 
+export const WithEllipsis: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, ellipsis: true },
+};
+
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [
+    withActions as Decorator,
+    (story, context) =>
+      html`<div class=${context.args.ellipsis ? `sbb-options-nowrap` : ``}>${story()}</div>`,
+  ],
   parameters: {
     actions: {
       handles: [

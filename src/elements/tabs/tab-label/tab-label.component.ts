@@ -76,7 +76,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
     if (changedProperties.has('active')) {
       this.internals.ariaSelected = `${this.active}`;
-      this.tab?.toggleAttribute('data-active', this.active);
 
       if (this.active && !this.disabled) {
         this.activate();
@@ -97,6 +96,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   /** Deactivate the tab. */
   public deactivate(): void {
     this.active = false;
+    this.tab?.['deactivate']();
     this._selected = false;
     this.tabIndex = -1;
   }
@@ -115,6 +115,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     if (prevActiveTabLabel !== this) {
       prevActiveTabLabel?.deactivate();
       this.active = true;
+      this.tab?.['activate']();
       this._selected = true;
       this.tabIndex = 0;
       this.tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
