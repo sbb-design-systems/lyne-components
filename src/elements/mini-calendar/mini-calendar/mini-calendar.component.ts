@@ -185,7 +185,10 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
 
   private _handleSlotchange(): void {
     this._setMonthsOrientation();
+    this._setupKeydownListener();
+  }
 
+  private _setupKeydownListener(): void {
     this._keydownAbortController?.abort();
     this._keydownAbortController = new AbortController();
     this._getMiniCalendarDays().forEach((day, index) => {
@@ -207,7 +210,7 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._keydownAbortController = new AbortController();
+    this._setupKeydownListener();
   }
 
   public override disconnectedCallback(): void {
