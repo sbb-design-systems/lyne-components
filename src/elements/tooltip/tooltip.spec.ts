@@ -341,4 +341,52 @@ describe('sbb-tooltip', () => {
       expect(element.closeDelay).to.be.equal(0);
     });
   });
+
+  describe('attribute usages - position', () => {
+    beforeEach(async () => {
+      await fixture(html`
+        <div style="padding: 2rem">
+          <sbb-button
+            sbb-tooltip="Tooltip message"
+            sbb-tooltip-position="inline-end, inline-start, block-start"
+            >Button</sbb-button
+          >
+        </div>
+      `);
+      trigger = document.querySelector('sbb-button')!;
+      element = document.querySelector('.sbb-overlay-outlet sbb-tooltip')!;
+    });
+
+    it('should set position css vars', async () => {
+      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'inline-end',
+      );
+      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
+        'inline-start, block-start',
+      );
+
+      trigger.setAttribute('sbb-tooltip-position', 'top');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal('top');
+      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+    });
+
+    it('should update position css vars', async () => {
+      trigger.setAttribute('sbb-tooltip-position', 'top, right');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal('top');
+      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
+        'right',
+      );
+    });
+
+    it('should reset position css vars', async () => {
+      trigger.removeAttribute('sbb-tooltip-position');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.empty;
+      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+    });
+  });
 });
