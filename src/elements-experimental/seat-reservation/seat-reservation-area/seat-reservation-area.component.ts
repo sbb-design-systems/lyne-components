@@ -1,4 +1,5 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -11,7 +12,7 @@ import style from './seat-reservation-area.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-area')
 class SbbSeatReservationAreaElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Mounting Prop */
   @forceType()

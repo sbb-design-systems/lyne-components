@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 :host {
   display: block;
 }

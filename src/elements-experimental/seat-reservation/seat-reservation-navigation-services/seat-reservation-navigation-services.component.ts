@@ -1,5 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -18,7 +19,7 @@ import style from './seat-reservation-navigation-services.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-navigation-services')
 class SbbSeatReservationNavigationServicesElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })

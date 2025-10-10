@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../core/base-elements.js';
 import { forceType, omitEmptyConverter, slotState } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './teaser-hero.scss?lit&inline';
 
@@ -21,7 +22,7 @@ export
 @customElement('sbb-teaser-hero')
 @slotState()
 class SbbTeaserHeroElement extends SbbLinkBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Panel link text. */
   @forceType()

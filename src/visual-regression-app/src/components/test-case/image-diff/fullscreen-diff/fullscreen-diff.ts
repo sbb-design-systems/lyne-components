@@ -1,3 +1,4 @@
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.component.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -19,7 +20,7 @@ export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 export
 @customElement('app-fullscreen-diff')
 class FullscreenDiff extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
 

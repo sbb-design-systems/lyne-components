@@ -8,6 +8,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
 
@@ -25,7 +26,7 @@ import '../../screen-reader-only.js';
 export
 @customElement('sbb-flip-card')
 class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     flip: 'flip',
   } as const;

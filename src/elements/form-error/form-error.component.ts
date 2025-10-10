@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './form-error.scss?lit&inline';
 
@@ -17,7 +18,7 @@ let nextId = 0;
 export
 @customElement('sbb-form-error')
 class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

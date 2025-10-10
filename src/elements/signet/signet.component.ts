@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.js';
 import type { SbbProtectiveRoom } from '../core/interfaces.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './signet.scss?lit&inline';
 
@@ -17,7 +18,7 @@ export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
 export
 @customElement('sbb-signet')
 class SbbSignetElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })

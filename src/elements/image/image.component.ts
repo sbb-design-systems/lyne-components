@@ -26,6 +26,7 @@ import {
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './image.scss?lit&inline';
 
@@ -156,7 +157,7 @@ const breakpointMap: Record<string, number> = {
 export
 @customElement('sbb-image')
 class SbbImageElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     error: 'error',
     load: 'load',

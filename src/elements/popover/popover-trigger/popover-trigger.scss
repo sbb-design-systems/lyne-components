@@ -3,9 +3,6 @@
 $disabled: ':disabled, [disabled-interactive]';
 $active: ':active, [data-active]';
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
 

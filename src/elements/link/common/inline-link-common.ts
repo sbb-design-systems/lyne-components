@@ -2,6 +2,7 @@ import type { CSSResultGroup } from 'lit';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import { SbbLinkCommonElementMixin } from './link-common.js';
 // eslint-disable-next-line import-x/order
@@ -22,7 +23,7 @@ export const SbbInlineLinkCommonElementMixin = <
     extends SbbLinkCommonElementMixin(superClass)
     implements Partial<SbbInlineLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [style, inlineStyle];
+    public static styles: CSSResultGroup = [boxSizingStyles, style, inlineStyle];
   }
   return SbbInlineLinkCommonElement as unknown as AbstractConstructor<SbbInlineLinkCommonElementMixinType> &
     T;

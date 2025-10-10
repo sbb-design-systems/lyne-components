@@ -1,3 +1,4 @@
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -30,7 +31,7 @@ type DescribeEachItem = {
 export
 @customElement('app-test-title-chip-list')
 class TestTitleChipList extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property()
   public set testCaseName(name: string) {

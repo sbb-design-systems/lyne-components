@@ -14,6 +14,7 @@ import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbReadonlyMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './notification.scss?lit&inline';
@@ -43,7 +44,7 @@ export
 @customElement('sbb-notification')
 class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

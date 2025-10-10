@@ -1,8 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-seat-reservation-area-border-radius: var(--sbb-border-width-4x);
   --sbb-seat-reservation-area-rotation: 0;

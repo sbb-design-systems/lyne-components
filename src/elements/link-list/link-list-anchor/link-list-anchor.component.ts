@@ -1,6 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/styles.js';
 import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
 
 import style from './link-list-anchor.scss?lit&inline';
@@ -14,7 +15,7 @@ import style from './link-list-anchor.scss?lit&inline';
 export
 @customElement('sbb-link-list-anchor')
 class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
-  public static override styles: CSSResultGroup = [linkListBaseStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, linkListBaseStyle, style];
 }
 
 declare global {

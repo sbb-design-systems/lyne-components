@@ -1,3 +1,4 @@
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import {
   type CSSResultGroup,
@@ -37,7 +38,7 @@ interface Filter {
 export
 @customElement('app-test-case')
 class TestCase extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property({ attribute: false }) public accessor params: {
     componentName: string;

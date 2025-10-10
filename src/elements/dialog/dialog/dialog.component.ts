@@ -5,6 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { isZeroAnimationDuration } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
 
 import style from './dialog.scss?lit&inline';
@@ -26,7 +27,7 @@ let nextId = 0;
 export
 @customElement('sbb-dialog')
 class SbbDialogElement extends SbbOverlayBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Backdrop click action. */
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =

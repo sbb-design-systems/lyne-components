@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../core/styles.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbTitleElement } from '../title.js';
 
@@ -31,7 +32,7 @@ export type SbbStatusType =
 export
 @customElement('sbb-status')
 class SbbStatusElement extends SbbIconNameMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
     ['info', 'circle-information-small'],

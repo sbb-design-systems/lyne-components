@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './message.scss?lit&inline';
@@ -18,7 +19,7 @@ import style from './message.scss?lit&inline';
 export
 @customElement('sbb-message')
 class SbbMessageElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _configureTitle(event: Event): void {
     const title = (event.target as HTMLSlotElement)

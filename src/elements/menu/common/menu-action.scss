@@ -2,9 +2,6 @@
 
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.

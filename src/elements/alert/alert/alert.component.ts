@@ -7,6 +7,7 @@ import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbReadonlyMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbLinkElement } from '../../link.js';
 import type { SbbTitleElement } from '../../title.js';
@@ -26,7 +27,7 @@ import '../../divider.js';
 export
 @customElement('sbb-alert')
 class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

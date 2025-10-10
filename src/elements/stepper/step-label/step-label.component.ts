@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbStepElement } from '../step.js';
 import type { SbbStepperElement } from '../stepper.js';
@@ -21,7 +22,7 @@ export
 @customElement('sbb-step-label')
 class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override readonly role = 'tab';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {

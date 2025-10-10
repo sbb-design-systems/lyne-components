@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-toggle-option-cursor: pointer;
   --sbb-toggle-option-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));

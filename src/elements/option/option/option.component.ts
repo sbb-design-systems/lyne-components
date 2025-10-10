@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/styles.js';
+
 import { SbbOptionBaseElement } from './option-base-element.js';
 import style from './option.scss?lit&inline';
 import '../../visual-checkbox.js';
@@ -21,7 +23,7 @@ export
 @customElement('sbb-option')
 class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly events = {
     optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',

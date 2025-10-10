@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbTabElement } from '../tab/tab.component.js';
@@ -26,7 +27,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;

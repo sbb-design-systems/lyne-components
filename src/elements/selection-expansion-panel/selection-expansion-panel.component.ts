@@ -14,6 +14,7 @@ import { isZeroAnimationDuration } from '../core/dom.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
 import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button.js';
 
 import style from './selection-expansion-panel.scss?lit&inline';
@@ -33,7 +34,7 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   SbbHydrationMixin(LitElement),
 ) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

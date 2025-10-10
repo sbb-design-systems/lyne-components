@@ -8,6 +8,7 @@ import { SbbEscapableOverlayController } from '../../core/controllers.js';
 import { forceType, handleDistinctChange } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbSidebarContainerElement } from '../sidebar-container.js';
 
 import style from './sidebar.scss?lit&inline';
@@ -21,7 +22,7 @@ import style from './sidebar.scss?lit&inline';
 export
 @customElement('sbb-sidebar')
 class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })

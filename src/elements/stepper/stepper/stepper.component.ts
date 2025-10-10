@@ -13,6 +13,7 @@ import { forceType } from '../../core/decorators.js';
 import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
 
 import style from './stepper.scss?lit&inline';
@@ -28,7 +29,7 @@ const DEBOUNCE_TIME = 150;
 export
 @customElement('sbb-stepper')
 class SbbStepperElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * If the sbb-stepper is used in a sbb-dialog, the marker on the selected element will not appear,

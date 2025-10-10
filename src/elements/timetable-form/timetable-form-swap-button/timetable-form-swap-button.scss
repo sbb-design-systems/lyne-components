@@ -1,8 +1,5 @@
 @use '../../core/styles/index' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // Apply the absolute positioning only when the swap button is in a timetable form.
 :host(:state(timetable-form-context)) {
   --sbb-timetable-form-swap-button-margin-inline-end: var(--sbb-spacing-fixed-6x);

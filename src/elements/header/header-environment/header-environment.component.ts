@@ -3,6 +3,7 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './header-environment.scss?lit&inline';
 
@@ -17,7 +18,7 @@ import style from './header-environment.scss?lit&inline';
 export
 @customElement('sbb-header-environment')
 class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {
     super();

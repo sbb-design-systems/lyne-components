@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './expansion-panel-content.scss?lit&inline';
 
@@ -15,7 +16,7 @@ export
 @customElement('sbb-expansion-panel-content')
 class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'region';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

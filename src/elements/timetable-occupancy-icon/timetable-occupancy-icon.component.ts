@@ -2,10 +2,10 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  SbbMediaQueryForcedColors,
+  SbbDarkModeController,
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbDarkModeController,
+  SbbMediaQueryForcedColors,
 } from '../core/controllers.js';
 import { i18nOccupancy } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';

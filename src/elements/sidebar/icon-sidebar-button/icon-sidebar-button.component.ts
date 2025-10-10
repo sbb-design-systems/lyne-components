@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTooltipDefaultPositions } from '../../tooltip.js';
 import { iconSidebarButtonCommonStyle } from '../common.js';
@@ -17,7 +18,7 @@ class SbbIconSidebarButtonElement
   extends SbbIconNameMixin(SbbButtonBaseElement)
   implements SbbTooltipDefaultPositions
 {
-  public static override styles: CSSResultGroup = iconSidebarButtonCommonStyle;
+  public static override styles: CSSResultGroup = [boxSizingStyles, iconSidebarButtonCommonStyle];
   /** @internal */
   public readonly tooltipPositions = ['inline-end', 'inline-start'];
 

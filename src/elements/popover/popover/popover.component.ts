@@ -28,6 +28,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './popover.scss?lit&inline';
 
@@ -42,7 +43,7 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The element that will trigger the popover overlay.

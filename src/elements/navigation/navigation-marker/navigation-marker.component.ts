@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
 
@@ -20,7 +21,7 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
 >(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',

@@ -25,6 +25,7 @@ import {
 } from '../core/dom.js';
 import { SbbDisabledMixin } from '../core/mixins.js';
 import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './tooltip.scss?lit&inline';
 
@@ -60,7 +61,7 @@ export
 @customElement('sbb-tooltip')
 class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private static _tooltipOutlet: Element;
 

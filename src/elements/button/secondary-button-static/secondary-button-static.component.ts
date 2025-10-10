@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common.js';
 
 /**
@@ -17,7 +18,11 @@ export
 class SbbSecondaryButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonSecondaryStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    buttonCommonStyle,
+    buttonSecondaryStyle,
+  ];
 }
 
 declare global {

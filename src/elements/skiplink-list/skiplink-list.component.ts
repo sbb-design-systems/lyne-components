@@ -10,6 +10,7 @@ import {
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.js';
 import type { SbbTitleLevel } from '../title.js';
 
@@ -31,7 +32,7 @@ class SbbSkiplinkListElement extends SbbElementInternalsMixin(
     LitElement,
   ),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */

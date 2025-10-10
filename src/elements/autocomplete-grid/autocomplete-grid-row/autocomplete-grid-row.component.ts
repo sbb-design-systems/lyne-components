@@ -2,6 +2,7 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement } from 'lit/decorators.js';
 
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './autocomplete-grid-row.scss?lit&inline';
 
@@ -16,7 +17,7 @@ export
 @customElement('sbb-autocomplete-grid-row')
 class SbbAutocompleteGridRowElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'row';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();

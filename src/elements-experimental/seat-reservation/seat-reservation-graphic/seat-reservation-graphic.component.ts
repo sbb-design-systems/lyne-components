@@ -1,5 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -17,7 +18,7 @@ import '@sbb-esta/lyne-elements/icon.js';
 export
 @customElement('sbb-seat-reservation-graphic')
 class SbbSeatReservationGraphicElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Name of the SVG graphic to be displayed. */
   @forceType()

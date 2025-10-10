@@ -6,6 +6,7 @@ import { forceType, handleDistinctChange } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { isEventPrevented } from '../core/eventing.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbExpansionPanelElement } from '../expansion-panel.js';
 import type { SbbTitleLevel } from '../title.js';
 
@@ -19,7 +20,7 @@ import style from './accordion.scss?lit&inline';
 export
 @customElement('sbb-accordion')
 class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.

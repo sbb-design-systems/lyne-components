@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbNegativeMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './option-hint.scss?lit&inline';
 
@@ -14,7 +15,7 @@ import style from './option-hint.scss?lit&inline';
 export
 @customElement('sbb-option-hint')
 class SbbOptionHintElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`

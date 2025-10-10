@@ -6,6 +6,7 @@ import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbRadioButtonSize } from '../common.js';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
 import type { SbbRadioButtonElement } from '../radio-button.js';
@@ -28,7 +29,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
   SbbElementInternalsMixin(LitElement),
 ) {
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     didChange: 'didChange',
     change: 'change',
