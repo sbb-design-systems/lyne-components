@@ -4,13 +4,11 @@
 @include sbb.box-sizing;
 
 :host {
-  --sbb-tooltip-position: absolute;
-  --sbb-tooltip-position-x: 0;
-  --sbb-tooltip-position-y: 0;
   --sbb-tooltip-pointer-events: all;
+  --sbb-tooltip-min-width: var(--sbb-spacing-fixed-8x);
   --sbb-tooltip-max-width: min(
     #{sbb.px-to-rem-build(400)},
-    calc(100% - var(--sbb-spacing-fixed-2x))
+    calc(100vw - var(--sbb-spacing-fixed-2x))
   );
   --sbb-tooltip-border-color: var(--sbb-background-color-1-inverted);
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
@@ -23,12 +21,28 @@
   );
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
-  --sbb-tooltip-hover-inset: sbb.px-to-rem-build(9); // VERTICAL_OFFSET + 1px
+  --sbb-tooltip-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-overlay-position-area: block-start;
+  --sbb-overlay-position-try-fallbacks:
+    block-start span-inline-end, block-start span-inline-start, block-end,
+    block-end span-inline-end, block-end span-inline-start;
 
+  position-area: var(--sbb-overlay-position-area);
+  position-try-fallbacks: var(--sbb-overlay-position-try-fallbacks);
   display: none;
   position: fixed;
-  inset: 0;
+  background-color: transparent;
+  pointer-events: var(--sbb-tooltip-pointer-events);
   z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
+  animation-name: var(--sbb-tooltip-animation-name);
+  animation-duration: var(--sbb-tooltip-animation-duration);
+  animation-timing-function: var(--sbb-tooltip-animation-easing);
+
+  // Reset [popover] styles
+  border: none;
+  inset: initial;
+  padding: 0;
+  margin: 0;
 }
 
 :host([data-state]:not([data-state='closed'])) {
@@ -42,46 +56,39 @@
   --sbb-tooltip-pointer-events: none;
 }
 
-:host([data-position='below']) {
-  --sbb-tooltip-hover-patch-inset: calc(-1 * var(--sbb-tooltip-hover-inset)) 0;
+:host(:is([data-position~='block-end'], [data-position~='bottom'], [data-position^='end'])) {
+  padding-block-start: var(--sbb-tooltip-gap);
 }
 
-:host([data-position='above']) {
-  --sbb-tooltip-hover-patch-inset: 0 calc(-1 * var(--sbb-tooltip-hover-inset));
+:host(:is([data-position~='block-start'], [data-position~='top'], [data-position^='start'])) {
+  padding-block-end: var(--sbb-tooltip-gap);
+}
+
+:host(
+  :is(
+    [data-position~='inline-start'],
+    [data-position~='inline-end'],
+    [data-position~='left'],
+    [data-position~='right'],
+    [data-position$=' start'],
+    [data-position$=' end']
+  )
+) {
+  // Add a gap on both sides to distance the tooltip from the trigger and the edge of the viewport.
+  padding-inline: var(--sbb-tooltip-gap);
 }
 
 .sbb-tooltip {
   @include sbb.shadow-level-5-soft;
   @include sbb.text-xs--regular;
 
-  position: var(--sbb-tooltip-position);
-  pointer-events: var(--sbb-tooltip-pointer-events);
-  top: var(--sbb-tooltip-position-y);
-  bottom: unset;
-  left: var(--sbb-tooltip-position-x);
-  right: unset;
   border: var(--sbb-border-width-1x) solid var(--sbb-tooltip-border-color);
   border-radius: var(--sbb-tooltip-border-radius);
   padding: var(--sbb-tooltip-padding);
-  max-width: var(--sbb-tooltip-max-width);
-  width: max-content;
   color: var(--sbb-tooltip-color);
   background-color: var(--sbb-tooltip-background-color);
-  outline: none;
-  animation-name: var(--sbb-tooltip-animation-name);
-  animation-duration: var(--sbb-tooltip-animation-duration);
-  animation-timing-function: var(--sbb-tooltip-animation-easing);
-
-  // Transparent element which increases the hover area (covers the space between the tooltip and the trigger element).
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-color: transparent;
-    inset-block: var(--sbb-tooltip-hover-patch-inset);
-  }
+  min-width: var(--sbb-tooltip-min-width);
+  max-width: var(--sbb-tooltip-max-width);
 }
 
 @keyframes open {
