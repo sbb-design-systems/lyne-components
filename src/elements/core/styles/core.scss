@@ -653,3 +653,29 @@ sbb-status:has(sbb-title) {
   --sbb-option-overflow: hidden;
   --sbb-option-white-space: nowrap;
 }
+
+sbb-mini-calendar[orientation='horizontal'] {
+  sbb-mini-calendar-month {
+    --sbb-mini-calendar-grid-auto-flow: row;
+    --sbb-mini-calendar-month-height: #{functions.px-to-rem-build(48)};
+    --sbb-mini-calendar-month-grid-template-rows: none;
+    --sbb-mini-calendar-month-grid-template-columns: repeat(7, 1fr);
+
+    sbb-mini-calendar-day:first-child {
+      grid-column-start: var(--sbb-mini-calendar-month-offset);
+    }
+  }
+}
+
+sbb-mini-calendar[orientation='vertical'] {
+  sbb-mini-calendar-month {
+    --sbb-mini-calendar-grid-auto-flow: column;
+    --sbb-mini-calendar-month-height: auto;
+    --sbb-mini-calendar-month-grid-template-rows: repeat(7, 1fr);
+    --sbb-mini-calendar-month-grid-template-columns: none;
+
+    sbb-mini-calendar-day:first-child {
+      grid-row-start: var(--sbb-mini-calendar-month-offset);
+    }
+  }
+}
