@@ -14,6 +14,7 @@ import '../../link-list.js';
 import '../../logo.js';
 import '../../sidebar.js';
 import '../../title.js';
+import '../../tooltip.js';
 
 const position: InputType = {
   control: {
@@ -65,11 +66,14 @@ const header = (toggleButton = false): TemplateResult =>
 const iconSidebar = (args: Args): TemplateResult =>
   html`<sbb-icon-sidebar ${sbbSpread(args)}>
     <sbb-icon-sidebar-link
+      sbb-tooltip="Go to the party"
       accessibility-label="Go to the party"
       icon-name="glass-cocktail-small"
       href="#"
     ></sbb-icon-sidebar-link>
+
     <sbb-icon-sidebar-link
+      sbb-tooltip="Be a unicorn"
       accessibility-label="Be a unicorn"
       icon-name="unicorn-small"
       href="#"
@@ -77,6 +81,7 @@ const iconSidebar = (args: Args): TemplateResult =>
       accessibility-current="page"
     ></sbb-icon-sidebar-link>
     <sbb-icon-sidebar-button
+      sbb-tooltip="Be happy"
       aria-label="Be happy"
       icon-name="face-grinning-small"
     ></sbb-icon-sidebar-button>
