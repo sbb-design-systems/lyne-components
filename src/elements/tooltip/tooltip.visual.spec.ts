@@ -1,3 +1,4 @@
+import { aTimeout } from '@open-wc/testing';
 import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
@@ -60,6 +61,7 @@ describe('sbb-tooltip', () => {
           setup.withPostSetupAction(async () => {
             document.querySelector('sbb-tooltip')!.open();
             await waitForLitRender(setup.snapshotElement);
+            await aTimeout(50);
           });
         }),
       );
