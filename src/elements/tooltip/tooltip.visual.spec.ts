@@ -1,6 +1,7 @@
 import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { waitForLitRender } from '../core/testing.js';
 
 import './tooltip.component.js';
 import '../button/button.js';
@@ -58,6 +59,7 @@ describe('sbb-tooltip', () => {
           `);
           setup.withPostSetupAction(async () => {
             document.querySelector('sbb-tooltip')!.open();
+            await waitForLitRender(setup.snapshotElement);
           });
         }),
       );
