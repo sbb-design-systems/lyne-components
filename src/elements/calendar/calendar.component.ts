@@ -39,6 +39,7 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../core/i18n.js';
+import type { SbbOrientation } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
 
 import style from './calendar.scss?lit&inline';
@@ -193,8 +194,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
   /** The orientation of days in the calendar. */
-  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
-    'horizontal';
+  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
 
   /** Whether it has to display the week numbers in addition to week days. */
   @forceType()
