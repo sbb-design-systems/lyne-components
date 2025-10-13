@@ -1,0 +1,35 @@
+@use '../../core/styles/index' as sbb;
+
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
+
+:host {
+  --sbb-mini-calendar-month-offset: 0;
+  --sbb-mini-calendar-month-display-year: none;
+
+  display: inline-block;
+}
+
+:host(:state(show-year)) {
+  --sbb-mini-calendar-month-display-year: block;
+}
+
+.sbb-mini-calendar-month-wrapper {
+  display: grid;
+  height: var(--sbb-mini-calendar-month-height);
+  grid-auto-flow: var(--sbb-mini-calendar-grid-auto-flow);
+  grid-auto-rows: sbb.px-to-rem-build(8);
+  grid-template-columns: var(--sbb-mini-calendar-month-grid-template-columns);
+  grid-template-rows: var(--sbb-mini-calendar-month-grid-template-rows);
+}
+
+.sbb-mini-calendar-month-label-year,
+.sbb-mini-calendar-month-label-month {
+  @include sbb.text-xxs--regular;
+
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
+}
+
+.sbb-mini-calendar-month-label-year {
+  display: var(--sbb-mini-calendar-month-display-year);
+}
