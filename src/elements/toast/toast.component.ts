@@ -10,6 +10,7 @@ import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 
@@ -40,7 +41,7 @@ export
 class SbbToastElement extends SbbIconNameMixin(
   SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.

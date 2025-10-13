@@ -12,6 +12,7 @@ import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.js';
 import type { SbbTrainWagonElement } from '../train-wagon.js';
@@ -31,7 +32,7 @@ class SbbTrainElement extends SbbNamedSlotListMixin<
   SbbTrainWagonElement | SbbTrainBlockedPassageElement,
   typeof LitElement
 >(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     trainslotchange: 'trainslotchange',
   } as const;

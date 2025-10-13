@@ -8,6 +8,7 @@ import {
   SbbSlotStateController,
 } from '../../core/controllers.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbExpansionPanelElement } from '../expansion-panel.js';
 
@@ -24,7 +25,7 @@ export
 class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',
   } as const;

@@ -21,6 +21,7 @@ import {
   SbbNegativeMixin,
   SbbRequiredMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbOptionBaseElement } from '../../option/option/option-base-element.js';
 import { SbbChipElement } from '../chip.js';
 
@@ -56,7 +57,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)))),
 ) {
   public static override readonly role = 'listbox';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     input: 'input',
     change: 'change',

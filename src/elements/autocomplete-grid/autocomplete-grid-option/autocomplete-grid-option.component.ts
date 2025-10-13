@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbOptionBaseElement } from '../../option.js';
 
 import style from './autocomplete-grid-option.scss?lit&inline';
@@ -20,7 +21,7 @@ export
 @customElement('sbb-autocomplete-grid-option')
 class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected optionId = autocompleteGridOptionId;
 

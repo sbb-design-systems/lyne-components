@@ -13,6 +13,7 @@ import {
   removeAriaElements,
   SbbElementInternalsMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbStepLabelElement } from '../step-label.js';
 import type { SbbStepperElement } from '../stepper.js';
 
@@ -36,7 +37,7 @@ export
 @customElement('sbb-step')
 class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',

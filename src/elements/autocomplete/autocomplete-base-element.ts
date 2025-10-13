@@ -22,6 +22,7 @@ import {
   removeAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './autocomplete-base-element.scss?lit&inline';
@@ -35,7 +36,7 @@ const ariaRoleOnHost = isSafari;
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The element where the autocomplete will attach.

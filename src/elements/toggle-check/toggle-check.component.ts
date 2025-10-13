@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { forceType, slotState } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import { SbbIconNameMixin } from '../icon.js';
 
 import style from './toggle-check.scss?lit&inline';
@@ -24,7 +25,7 @@ export
 class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
   SbbIconNameMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Value of the form element. */
   @property()

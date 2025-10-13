@@ -36,6 +36,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.js';
 
@@ -75,7 +76,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof SbbOpenCloseBaseElement
 >(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly role = 'menu';
   protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 

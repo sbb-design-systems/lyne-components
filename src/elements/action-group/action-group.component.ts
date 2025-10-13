@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.js';
 import { isLean } from '../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
@@ -22,7 +23,7 @@ import style from './action-group.scss?lit&inline';
 export
 @customElement('sbb-action-group')
 class SbbActionGroupElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.

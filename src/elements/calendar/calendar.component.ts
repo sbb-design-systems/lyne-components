@@ -41,6 +41,7 @@ import {
 } from '../core/i18n.js';
 import type { SbbOrientation } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './calendar.scss?lit&inline';
 
@@ -117,7 +118,7 @@ export type CalendarView = 'day' | 'month' | 'year';
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
   } as const;

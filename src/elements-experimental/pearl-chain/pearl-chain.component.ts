@@ -1,5 +1,6 @@
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -24,7 +25,7 @@ type Time = {
 export
 @customElement('sbb-pearl-chain')
 class SbbPearlChainElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Define the legs of the pearl-chain.

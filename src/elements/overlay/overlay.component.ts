@@ -7,6 +7,7 @@ import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
 import { forwardEvent } from '../core/eventing.js';
 import { i18nCloseDialog } from '../core/i18n.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';
 import style from './overlay.scss?lit&inline';
@@ -29,7 +30,7 @@ let nextId = 0;
 export
 @customElement('sbb-overlay')
 class SbbOverlayElement extends SbbOverlayBaseElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {

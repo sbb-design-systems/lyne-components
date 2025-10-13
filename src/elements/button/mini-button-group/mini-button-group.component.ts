@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbDividerElement } from '../../divider/divider.component.js';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.js';
 
@@ -23,7 +24,7 @@ export
 class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof LitElement>(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-mini-button', 'sbb-divider'];
 
   /** This will be forwarded as aria-label to the list that contains the buttons. */
