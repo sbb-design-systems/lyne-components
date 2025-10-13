@@ -23,8 +23,7 @@ Consumers should check the accuracy of the slotted data, since there's no check 
 The month name is always displayed at the component's bottom;
 the year is displayed on top only for January and for the first slotted month in the `sbb-mini-calendar`.
 
-The component has two different values for the orientation (`horizontal` and `vertical`);
-the `sbb-mini-calendar` parent sets it as data-attribute based on its own `orientation` value.
+The `orientation` value of the `sbb-mini-calendar` parent controls the component's orientation via CSS rules.
 
 <!-- Auto Generated Below -->
 

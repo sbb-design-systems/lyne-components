@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-mini-calendar renders DOM"] = 
 `<sbb-mini-calendar orientation="horizontal">
   <sbb-mini-calendar-month
-    data-orientation="horizontal"
-    data-show-year=""
     date="2025-01"
     style="--sbb-mini-calendar-month-offset: 3;"
   >

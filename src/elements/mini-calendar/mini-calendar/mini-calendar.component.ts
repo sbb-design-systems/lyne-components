@@ -7,7 +7,6 @@ import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.js';
 import { readConfig } from '../../core/config/config.js';
 import type { DateAdapter } from '../../core/datetime/date-adapter.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
-import { handleDistinctChange } from '../../core/decorators.js';
 import type { SbbOrientation } from '../../core/interfaces.js';
 import type { SbbMiniCalendarDayElement } from '../mini-calendar-day.js';
 import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month.js';
@@ -25,7 +24,6 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The orientation of days in the calendar. */
-  @handleDistinctChange((e: SbbMiniCalendarElement<T>) => e._setMonthsOrientation())
   @property({ reflect: true })
   public accessor orientation: SbbOrientation = 'horizontal';
 
@@ -55,21 +53,15 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
     );
   }
 
-  private _setMonthsOrientation(): void {
-    this._getMiniCalendarMonths().forEach((month: SbbMiniCalendarMonthElement) =>
-      month.setAttribute('data-orientation', this.orientation),
-    );
-  }
-
   private _setMonthsShowYear(): void {
     this._getMiniCalendarMonths().forEach(
       (monthElement: SbbMiniCalendarMonthElement, index: number) => {
         const splittedDate = monthElement.date.split('-');
         if (splittedDate.length > 0) {
           if (index === 0 || +splittedDate[1] === 1) {
-            monthElement.toggleAttribute('data-show-year', true);
+            monthElement['toggleState']('show-year', true);
           } else {
-            monthElement.removeAttribute('data-show-year');
+            monthElement['toggleState']('show-year', false);
           }
         }
       },
@@ -184,7 +176,6 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   }
 
   private _handleSlotchange(): void {
-    this._setMonthsOrientation();
     this._setupKeydownListener();
   }
 

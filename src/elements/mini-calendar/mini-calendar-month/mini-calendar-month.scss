@@ -10,7 +10,7 @@
   display: inline-block;
 }
 
-:host([data-show-year]) {
+:host(:state(show-year)) {
   --sbb-mini-calendar-month-display-year: block;
 }
 

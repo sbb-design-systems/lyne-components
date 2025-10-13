@@ -25,8 +25,9 @@ describe('sbb-mini-calendar-month', () => {
 
   it('should have year label visible', async () => {
     element = await fixture(html`
-      <sbb-mini-calendar-month data-show-year date="2025-01"></sbb-mini-calendar-month>
+      <sbb-mini-calendar-month date="2025-01"></sbb-mini-calendar-month>
     `);
+    element['toggleState']('show-year', true);
     expect(
       element.shadowRoot!.querySelector('.sbb-mini-calendar-month-label-month')!.textContent,
     ).to.be.equal('Jan.');

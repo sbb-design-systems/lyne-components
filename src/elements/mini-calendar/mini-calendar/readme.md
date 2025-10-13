@@ -60,6 +60,14 @@ It's possible to move within the component using the keyboard.
 | <kbd>Page Up</kbd>     | Go to the first day of the week (eg. from any day to Monday of the same week).                                      |
 | <kbd>Page Down</kbd>   | Go to the last day of the week (eg. from any day to Sunday of the same week).                                       |
 
+## Accessibility
+
+Even though some WCAG rules have been followed
+(e.g., `aria-label`s on `sbb-mini-calendar-day`s, keyboard navigation, visible focus indicator, correct contrast...),
+the component may not be fully accessible due to the small dimensions of `sbb-mini-calendar-day`s and
+the usage of a grid implementation for the `sbb-mini-calendar-month`
+(differently from the `sbb-calendar`, which has a table implementation).
+
 <!-- Auto Generated Below -->
 
 ## Properties

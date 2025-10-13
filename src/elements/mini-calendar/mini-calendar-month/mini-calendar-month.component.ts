@@ -6,6 +6,7 @@ import { readConfig } from '../../core/config/config.js';
 import { type DateAdapter } from '../../core/datetime/date-adapter.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
 import { forceType } from '../../core/decorators.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 
 import style from './mini-calendar-month.scss?lit&inline';
 
@@ -16,7 +17,7 @@ import style from './mini-calendar-month.scss?lit&inline';
  */
 export
 @customElement('sbb-mini-calendar-month')
-class SbbMiniCalendarMonthElement<T = Date> extends LitElement {
+class SbbMiniCalendarMonthElement<T = Date> extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Date as ISO string (YYYY-MM-DD) */

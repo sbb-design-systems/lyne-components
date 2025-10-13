@@ -46,20 +46,6 @@ describe('sbb-mini-calendar', () => {
     assert.instanceOf(element, SbbMiniCalendarElement);
   });
 
-  it('should set orientation on slotted months', async () => {
-    element.orientation = 'vertical';
-    await waitForLitRender(element);
-    const months = element.querySelectorAll('sbb-mini-calendar-month');
-    months.forEach((month) =>
-      expect(month.getAttribute('data-orientation')).to.be.equal('vertical'),
-    );
-    element.orientation = 'horizontal';
-    await waitForLitRender(element);
-    months.forEach((month) =>
-      expect(month.getAttribute('data-orientation')).to.be.equal('horizontal'),
-    );
-  });
-
   describe('keyboard navigation', () => {
     it('it should focus on first element', () => {
       element.focus();
