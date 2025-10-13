@@ -13,6 +13,8 @@ describe(`sbb-tag`, () => {
   const cases = {
     checked: [false, true],
     disabled: [false, true],
+    forcedColors: [false, true],
+    darkMode: [false, true],
   };
 
   const visualCases = {
@@ -21,7 +23,7 @@ describe(`sbb-tag`, () => {
     amount: [undefined, 123],
   };
 
-  describeViewports({ viewports: ['zero', 'large'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     for (const visualDiffStandardState of visualDiffStandardStates) {
       it(
         `state=${visualDiffStandardState.name}`,
@@ -31,19 +33,23 @@ describe(`sbb-tag`, () => {
       );
     }
 
-    describeEach(cases, ({ checked, disabled }) => {
+    describeEach(cases, ({ checked, disabled, forcedColors, darkMode }) => {
       it(
         '',
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-tag
-              ?checked=${checked}
-              ?disabled=${disabled}
-              icon-name="face-smiling-small"
-              amount="123"
-              >Tag label</sbb-tag
-            >
-          `);
+          await setup.withFixture(
+            html`
+              <sbb-tag
+                ?checked=${checked}
+                ?disabled=${disabled}
+                icon-name="face-smiling-small"
+                amount="123"
+              >
+                Tag label
+              </sbb-tag>
+            `,
+            { forcedColors, darkMode },
+          );
         }),
       );
     });
@@ -77,8 +83,9 @@ describe(`sbb-tag`, () => {
               icon-name=${icon ? icon : nothing}
               amount=${amount ? amount : nothing}
               size=${size}
-              >Tag label</sbb-tag
             >
+              Tag label
+            </sbb-tag>
           `);
         }),
       );
