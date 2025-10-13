@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbTime } from '../core/interfaces.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -55,7 +56,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 export
 @customElement('sbb-clock')
 class SbbClockElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Define a specific time which the clock should show statically.

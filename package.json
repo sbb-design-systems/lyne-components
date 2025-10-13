@@ -93,7 +93,7 @@
     "@storybook/icons": "1.6.0",
     "@storybook/web-components-vite": "9.1.10",
     "@types/mocha": "10.0.10",
-    "@types/node": "22.18.8",
+    "@types/node": "22.18.10",
     "@types/react": "19.2.2",
     "@typescript-eslint/eslint-plugin": "8.46.0",
     "@typescript-eslint/parser": "8.46.0",
@@ -116,7 +116,7 @@
     "glob": "11.0.3",
     "globals": "16.4.0",
     "husky": "9.1.7",
-    "lint-staged": "16.2.3",
+    "lint-staged": "16.2.4",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "npm-run-all2": "8.0.4",
@@ -144,7 +144,7 @@
     "vite-plugin-dts": "4.5.4"
   },
   "resolutions": {
-    "@types/node": "22.18.8",
+    "@types/node": "22.18.10",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",

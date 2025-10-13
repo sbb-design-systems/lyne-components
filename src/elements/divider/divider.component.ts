@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbOrientation } from '../core/interfaces.js';
 import { SbbElementInternalsMixin, SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './divider.scss?lit&inline';
 
@@ -14,7 +15,7 @@ export
 @customElement('sbb-divider')
 class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
   public static override readonly role = 'separator';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
   @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';

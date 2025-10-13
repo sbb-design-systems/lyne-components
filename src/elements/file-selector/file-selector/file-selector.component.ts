@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { slotState } from '../../core/decorators.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
 
 import '../../button/secondary-button-static.js';
@@ -18,7 +19,7 @@ export
 @customElement('sbb-file-selector')
 @slotState()
 class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = fileSelectorCommonStyle;
+  public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;

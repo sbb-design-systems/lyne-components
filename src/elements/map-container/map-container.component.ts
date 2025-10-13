@@ -7,6 +7,7 @@ import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
 import { forwardEvent } from '../core/eventing.js';
 import { i18nMapContainerButtonLabel } from '../core/i18n.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './map-container.scss?lit&inline';
 
@@ -30,7 +31,7 @@ import '../button/accent-button.js';
 export
 @customElement('sbb-map-container')
 class SbbMapContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()

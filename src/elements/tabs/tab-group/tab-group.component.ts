@@ -9,6 +9,7 @@ import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { throttle } from '../../core/eventing.js';
 import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTabLabelElement } from '../tab-label.js';
 import type { SbbTabElement } from '../tab.js';
 
@@ -55,7 +56,7 @@ export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
 export
 @customElement('sbb-tab-group')
 class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;

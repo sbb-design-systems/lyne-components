@@ -10,6 +10,7 @@ import {
   type FormRestoreState,
   SbbDisabledTabIndexActionMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTagGroupElement } from '../tag-group.js';
 
@@ -31,7 +32,7 @@ export
 class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',

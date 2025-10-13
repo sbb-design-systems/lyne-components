@@ -30,6 +30,7 @@ import {
   SbbUpdateSchedulerMixin,
 } from '../core/mixins.js';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbDividerElement } from '../divider.js';
 import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
 
@@ -68,7 +69,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ),
 ) {
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {

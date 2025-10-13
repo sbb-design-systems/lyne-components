@@ -6,6 +6,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { forceType, slotState } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbToggleElement } from '../toggle.js';
 
@@ -25,7 +26,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override readonly role = 'radio';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the toggle-option is checked. */
   @forceType()
