@@ -232,4 +232,42 @@ describe(`sbb-flip-card`, () => {
       }
     });
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describe('dark mode', () => {
+      for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(html`<sbb-flip-card> ${content('Summary')} </sbb-flip-card>`, {
+              darkMode: true,
+            });
+
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
+          }),
+        );
+      }
+
+      it(
+        'flipped',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-flip-card> ${content('Summary', 'after', false)}</sbb-flip-card>`,
+            {
+              darkMode: true,
+            },
+          );
+          setup.withPostSetupAction(async () => {
+            const flipCard =
+              setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
+            flipCard.click();
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          });
+        }),
+      );
+    });
+  });
 });
