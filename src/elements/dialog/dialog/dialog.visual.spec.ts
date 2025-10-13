@@ -57,23 +57,29 @@ describe(`sbb-dialog`, () => {
   `;
 
   describeViewports({ viewports: ['zero', 'large'], viewportHeight: 600 }, () => {
-    // Negative test
-    for (const negative of negativeCases) {
-      it(
-        `negative=${negative}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-dialog ?negative=${negative}>
-              ${dialogTitle()}
-              <sbb-dialog-close-button></sbb-dialog-close-button>
-              ${dialogContent()} ${dialogFooter(negative)}
-            </sbb-dialog>
-          `);
-          const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-          setup.withSnapshotElement(dialog);
-          setup.withPostSetupAction(() => dialog.open());
-        }),
-      );
+    for (const darkMode of [false, true]) {
+      describe(`darkMode=${darkMode}`, () => {
+        for (const negative of negativeCases) {
+          it(
+            `negative=${negative}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-dialog ?negative=${negative}>
+                    ${dialogTitle()}
+                    <sbb-dialog-close-button></sbb-dialog-close-button>
+                    ${dialogContent()} ${dialogFooter(negative)}
+                  </sbb-dialog>
+                `,
+                { darkMode },
+              );
+              const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+              setup.withSnapshotElement(dialog);
+              setup.withPostSetupAction(() => dialog.open());
+            }),
+          );
+        }
+      });
     }
 
     it(
@@ -150,6 +156,20 @@ describe(`sbb-dialog`, () => {
             ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
           </sbb-dialog>
         `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-dialog>${dialogTitle()} ${dialogContent()} ${dialogFooter()} </sbb-dialog>`,
+          { forcedColors: true },
+        );
+
         const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
         setup.withPostSetupAction(() => dialog.open());

@@ -16,12 +16,13 @@ describe(`sbb-secondary-button`, () => {
   const cases = {
     disabled: [false, true],
     negative: [false, true],
-    forcedColors: [false, true],
     loading: [false, true],
+    forcedColors: [false, true],
+    darkMode: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors, loading }) => {
+    describeEach(cases, ({ disabled, negative, loading, forcedColors, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -38,6 +39,7 @@ describe(`sbb-secondary-button`, () => {
             backgroundColor: negative ? 'var(--sbb-background-color-4-negative)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
+            darkMode,
           },
         );
       });

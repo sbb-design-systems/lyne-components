@@ -19,9 +19,21 @@ describe(`sbb-clock`, () => {
       it(
         `time=${timeStamp.replaceAll(':', '-')}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`<sbb-clock now=${timeStamp}></sbb-clock>`);
+          await setup.withFixture(html`<sbb-clock now=${timeStamp}></sbb-clock>`, {
+            backgroundColor: 'var(--sbb-background-color-3)',
+          });
         }),
       );
     }
+
+    it(
+      `darkMode`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`<sbb-clock now=${'0:0:0'}></sbb-clock>`, {
+          darkMode: true,
+          backgroundColor: 'var(--sbb-background-color-3)',
+        });
+      }),
+    );
   });
 });

@@ -26,7 +26,7 @@ describe('sbb-checkbox-panel', () => {
     borderless,
     size,
   }: typeof defaultArgs): TemplateResult =>
-    html` <sbb-checkbox-panel
+    html`<sbb-checkbox-panel
       ?checked=${state === 'checked'}
       ?indeterminate=${state === 'indeterminate'}
       ?disabled=${disabled}
@@ -44,49 +44,70 @@ describe('sbb-checkbox-panel', () => {
           role="img"
           aria-hidden="true"
         ></sbb-icon>
-        <span class="${size ? `sbb-text-${size}` : 'sbb-text-m'} sbb-text--bold"> CHF 40.00 </span>
+        <span class="${size ? `sbb-text-${size}` : 'sbb-text-m'} sbb-text--bold">CHF 40.00</span>
       </span>
       <sbb-card-badge>%</sbb-card-badge>
     </sbb-checkbox-panel>`;
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of ['checked', 'unchecked', 'indeterminate']) {
-      const args = { ...defaultArgs, state };
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+      describe(`state=${state}`, () => {
+        const args = { ...defaultArgs, state };
+
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            `${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template(args));
+            }),
+          );
+        }
+
         it(
-          `state=${state} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            await setup.withFixture(template(args));
+          `disabled default`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...args, disabled: true }));
           }),
         );
-      }
-
-      it(
-        `state=${state} disabled ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...args, disabled: true }));
-        }),
-      );
+      });
     }
 
     it(
-      `color=milk ${visualDiffDefault.name}`,
+      `darkMode=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, color: 'milk' }));
       }),
     );
 
+    for (const darkMode of [false, true]) {
+      it(
+        `color=milk darkMode=${darkMode}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ ...defaultArgs, color: 'milk' }), { darkMode });
+        }),
+      );
+    }
+
     it(
-      `size=s ${visualDiffDefault.name}`,
+      `size=s`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, size: 's' }));
       }),
     );
 
     it(
-      `borderless ${visualDiffDefault.name}`,
+      `borderless`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ ...defaultArgs, borderless: true }));
+        await setup.withFixture(template({ ...defaultArgs, borderless: true }), {
+          backgroundColor: 'var(--sbb-background-color-3)',
+        });
+      }),
+    );
+
+    it(
+      `forcedColors`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs }), { forcedColors: true });
       }),
     );
   });

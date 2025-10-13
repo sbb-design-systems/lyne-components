@@ -17,6 +17,8 @@ describe(`sbb-card`, () => {
   const cases = {
     color: ['white', 'milk', 'transparent-bordered', 'transparent-bordered-dashed'],
     badge: ['none', 'charcoal', 'white'],
+    forcedColors: [false, true],
+    darkMode: [false, true],
   };
 
   const sizeCases = {
@@ -26,7 +28,7 @@ describe(`sbb-card`, () => {
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Main test cases
-    describeEach(cases, ({ color, badge }) => {
+    describeEach(cases, ({ color, badge, forcedColors, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -48,6 +50,8 @@ describe(`sbb-card`, () => {
           {
             backgroundColor:
               color === 'milk' ? 'var(--sbb-background-color-1)' : 'var(--sbb-background-color-3)',
+            forcedColors,
+            darkMode,
           },
         );
       });

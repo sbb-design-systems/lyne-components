@@ -80,5 +80,12 @@ describe(`sbb-alert`, () => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { darkMode: true });
       }),
     );
+
+    it(
+      'forcedColors',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(alertTemplate({ ...defaultArgs }), { forcedColors: true });
+      }),
+    );
   });
 });

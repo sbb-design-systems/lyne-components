@@ -23,6 +23,7 @@ describe(`sbb-mini-button`, () => {
   const cases = {
     ...basicCases,
     forcedColors: [false, true],
+    darkMode: [false, true],
   };
 
   const labelCases = {
@@ -31,7 +32,7 @@ describe(`sbb-mini-button`, () => {
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors }) => {
+    describeEach(cases, ({ disabled, negative, forcedColors, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -49,6 +50,7 @@ describe(`sbb-mini-button`, () => {
             backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
+            darkMode,
           },
         );
       });

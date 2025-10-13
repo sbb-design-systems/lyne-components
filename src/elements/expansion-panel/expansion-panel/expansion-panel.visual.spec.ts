@@ -22,6 +22,8 @@ describe(`sbb-expansion-panel`, () => {
     disabled: [false, true],
     expanded: [false, true],
     color: ['white', 'milk'],
+    forcedColors: [false, true],
+    darkMode: [false, true],
   };
 
   const sizeCases = {
@@ -39,34 +41,6 @@ describe(`sbb-expansion-panel`, () => {
   ];
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    // Main test cases
-    describeEach(cases, ({ borderless, disabled, expanded, color }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-expansion-panel
-            ?borderless=${borderless}
-            ?disabled=${disabled}
-            ?expanded=${expanded}
-            color=${color}
-          >
-            <sbb-expansion-panel-header icon-name="arrow-right-small">
-              Header
-            </sbb-expansion-panel-header>
-            <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-          </sbb-expansion-panel>
-        `);
-      });
-
-      for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
-        it(
-          state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-          }),
-        );
-      }
-    });
-
     // Size test cases
     describeEach(sizeCases, ({ expanded, size }) => {
       beforeEach(async function () {
@@ -121,5 +95,38 @@ describe(`sbb-expansion-panel`, () => {
         }),
       );
     }
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    // Main test cases
+    describeEach(cases, ({ borderless, disabled, expanded, color, forcedColors, darkMode }) => {
+      beforeEach(async function () {
+        root = await visualRegressionFixture(
+          html`
+            <sbb-expansion-panel
+              ?borderless=${borderless}
+              ?disabled=${disabled}
+              ?expanded=${expanded}
+              color=${color}
+            >
+              <sbb-expansion-panel-header icon-name="arrow-right-small">
+                Header
+              </sbb-expansion-panel-header>
+              <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+            </sbb-expansion-panel>
+          `,
+          { forcedColors, darkMode },
+        );
+      });
+
+      for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
+        it(
+          state.name,
+          state.with((setup) => {
+            setup.withSnapshotElement(root);
+          }),
+        );
+      }
+    });
   });
 });

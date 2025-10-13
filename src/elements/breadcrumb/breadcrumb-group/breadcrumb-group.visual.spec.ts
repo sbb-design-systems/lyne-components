@@ -16,27 +16,34 @@ describe('sbb-breadcrumb-group', () => {
   ];
 
   describeViewports({ viewports: ['ultra'] }, () => {
-    for (const variant of variants) {
-      describe(`${variant.name}`, () => {
-        for (const state of [visualDiffDefault, visualDiffFocus]) {
-          it(
-            state.name,
-            state.with(async (setup) => {
-              await setup.withFixture(html`
-                <sbb-breadcrumb-group aria-label="You are here:">
-                  <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
-                  ${new Array(variant.numberOfBreadcrumbs - 1)
-                    .fill(undefined)
-                    .map(
-                      (_, i) =>
-                        html` <sbb-breadcrumb href="https://www.sbb.ch" target="_blank"
-                          >Breadcrumb ${i + 1}
-                        </sbb-breadcrumb>`,
-                    )}
-                </sbb-breadcrumb-group>
-              `);
-            }),
-          );
+    for (const colors of ['default', 'forcedColors', 'darkMode']) {
+      describe(colors, () => {
+        for (const variant of variants) {
+          describe(`${variant.name}`, () => {
+            for (const state of [visualDiffDefault, visualDiffFocus]) {
+              it(
+                state.name,
+                state.with(async (setup) => {
+                  await setup.withFixture(
+                    html`
+                      <sbb-breadcrumb-group aria-label="You are here:">
+                        <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
+                        ${new Array(variant.numberOfBreadcrumbs - 1)
+                          .fill(undefined)
+                          .map(
+                            (_, i) =>
+                              html` <sbb-breadcrumb href="https://www.sbb.ch" target="_blank"
+                                >Breadcrumb ${i + 1}
+                              </sbb-breadcrumb>`,
+                          )}
+                      </sbb-breadcrumb-group>
+                    `,
+                    { forcedColors: colors === 'forcedColors', darkMode: colors === 'darkMode' },
+                  );
+                }),
+              );
+            }
+          });
         }
       });
     }
