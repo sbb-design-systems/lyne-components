@@ -4,7 +4,7 @@
   display: block;
 }
 
-$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$breakpoints: 'zero', 'small', 'large', 'ultra';
 $vertical-orientations: (
   start: flex-start,
   center: center,

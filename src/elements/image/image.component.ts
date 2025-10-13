@@ -1,16 +1,10 @@
 import {
   SbbBreakpointZeroMin,
   SbbBreakpointZeroMax,
-  SbbBreakpointMicroMin,
-  SbbBreakpointMicroMax,
   SbbBreakpointSmallMin,
   SbbBreakpointSmallMax,
-  SbbBreakpointMediumMin,
-  SbbBreakpointMediumMax,
   SbbBreakpointLargeMin,
   SbbBreakpointLargeMax,
-  SbbBreakpointWideMin,
-  SbbBreakpointWideMax,
   SbbBreakpointUltraMin,
   SbbBreakpointUltraMax,
   SbbTypoScaleDefault,
@@ -131,16 +125,10 @@ const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
 const breakpointMap: Record<string, number> = {
   'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),
   'sbb-breakpoint-zero-max': pxToRem(SbbBreakpointZeroMax),
-  'sbb-breakpoint-micro-min': pxToRem(SbbBreakpointMicroMin),
-  'sbb-breakpoint-micro-max': pxToRem(SbbBreakpointMicroMax),
   'sbb-breakpoint-small-min': pxToRem(SbbBreakpointSmallMin),
   'sbb-breakpoint-small-max': pxToRem(SbbBreakpointSmallMax),
-  'sbb-breakpoint-medium-min': pxToRem(SbbBreakpointMediumMin),
-  'sbb-breakpoint-medium-max': pxToRem(SbbBreakpointMediumMax),
   'sbb-breakpoint-large-min': pxToRem(SbbBreakpointLargeMin),
   'sbb-breakpoint-large-max': pxToRem(SbbBreakpointLargeMax),
-  'sbb-breakpoint-wide-min': pxToRem(SbbBreakpointWideMin),
-  'sbb-breakpoint-wide-max': pxToRem(SbbBreakpointWideMax),
   'sbb-breakpoint-ultra-min': pxToRem(SbbBreakpointUltraMin),
   'sbb-breakpoint-ultra-max': pxToRem(SbbBreakpointUltraMax),
 };
@@ -337,7 +325,7 @@ class SbbImageElement extends LitElement {
    *            "conditionFeature": "max-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "sbb-breakpoint-micro-max"
+   *              "value": "sbb-breakpoint-small-max"
    *            },
    *            "conditionOperator": "and"
    *          },
@@ -485,7 +473,7 @@ class SbbImageElement extends LitElement {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "sbb-breakpoint-micro-min"
+                  "value": "sbb-breakpoint-small-min"
                 },
                 "conditionOperator": false
               }

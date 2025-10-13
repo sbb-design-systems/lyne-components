@@ -224,7 +224,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'],
   table: {
     category: 'Checkbox group',
   },
@@ -350,7 +350,7 @@ export const vertical: StoryObj = {
 export const verticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
   argTypes: checkboxArgTypes,
-  args: { ...checkboxArgsVertical, 'horizontal-from': 'medium' },
+  args: { ...checkboxArgsVertical, 'horizontal-from': 'large' },
 };
 
 export const horizontalSizeM: StoryObj = {
@@ -440,7 +440,7 @@ export const verticalPanel: StoryObj = {
 export const verticalToHorizontalPanel: StoryObj = {
   render: PanelTemplate,
   argTypes: checkboxArgTypes,
-  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'medium' },
+  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'large' },
 };
 
 const meta: Meta = {

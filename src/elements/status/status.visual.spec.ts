@@ -25,7 +25,7 @@ describe(`sbb-status`, () => {
     title: [true, false],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     let root: HTMLElement;
 
     describeEach(cases, ({ type, title }) => {

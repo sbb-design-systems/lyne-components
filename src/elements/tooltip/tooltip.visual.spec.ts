@@ -40,7 +40,7 @@ const logicalSupportedPositions = [
 describe('sbb-tooltip', () => {
   const positions = [...physicalSupportedPositions, ...logicalSupportedPositions];
 
-  describeViewports({ viewports: ['medium'], viewportHeight: 250 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 250 }, () => {
     afterEach(async () => {
       document.documentElement.removeAttribute('dir');
     });

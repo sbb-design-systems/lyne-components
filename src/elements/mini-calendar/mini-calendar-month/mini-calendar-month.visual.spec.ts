@@ -8,7 +8,7 @@ import '../mini-calendar-day.js';
 import '../mini-calendar.js';
 
 describe('sbb-mini-calendar-month', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const orientation of ['horizontal', 'vertical']) {
       it(
         `orientation=${orientation} month=January`,

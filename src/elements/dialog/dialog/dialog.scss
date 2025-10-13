@@ -35,15 +35,11 @@
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 
-  @include sbb.mq($from: micro) {
-    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
-  }
-
   @include sbb.mq($from: small) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
     --sbb-dialog-max-width: min(
       calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
@@ -61,7 +57,7 @@
   --sbb-dialog-pointer-events: all;
   --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
   }
@@ -140,7 +136,7 @@
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
     height: auto;

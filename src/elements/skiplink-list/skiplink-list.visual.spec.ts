@@ -14,7 +14,7 @@ const template = (title?: string): TemplateResult => html`
 `;
 
 describe(`sbb-skiplink-list`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffFocus]) {
       it(
         state.name,

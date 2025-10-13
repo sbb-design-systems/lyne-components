@@ -32,8 +32,8 @@ describe(`sbb-header`, () => {
   ): TemplateResult => html`
     <style>
       ${' .last-element, .sbb-header-spacer-logo {display: none;} '}
-      ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
-      ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
+      ${' @media screen and (width >= 600px) { .last-element { display: block; } }'}
+      ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
     </style>
     <sbb-header ?expanded=${expanded} size=${size}>
       <sbb-header-button icon-name=${noIcon ? nothing : 'hamburger-menu-small'} expand-from="small">
@@ -46,7 +46,9 @@ describe(`sbb-header`, () => {
       <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Christina Müller
       </sbb-header-button>
-      <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
+      <sbb-header-button icon-name="globe-small" class="last-element" expand-from="small">
+        English
+      </sbb-header-button>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       ${size === 's'
         ? html`<a href="#" class="sbb-header-logo"

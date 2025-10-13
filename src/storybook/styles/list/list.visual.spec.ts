@@ -13,7 +13,7 @@ describe(`list`, () => {
     <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const textSize of ['xs', 's', 'm', 'l', 'xl']) {
       describe(`textSize=${textSize}`, () => {
         it(

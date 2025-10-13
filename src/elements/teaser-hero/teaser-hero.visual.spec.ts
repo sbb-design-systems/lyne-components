@@ -47,7 +47,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-teaser-hero`, () => {
-  describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       for (const testCase of imgTestCases) {
         it(

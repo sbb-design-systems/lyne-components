@@ -4,7 +4,7 @@
   --sbb-radio-button-group-orientation: row;
 }
 
-$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host {
   @include horizontal-orientation;

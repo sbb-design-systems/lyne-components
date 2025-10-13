@@ -10,7 +10,7 @@ import {
 import './link-static.component.js';
 
 describe(`sbb-link-static`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [true, false]) {
       for (const state of [visualDiffDefault, visualDiffActive, visualDiffHover]) {
         it(

@@ -17,7 +17,7 @@ describe(`sbb-alert-group`, () => {
     connections.
   </sbb-alert>`;
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       'basic',
       visualDiffDefault.with(async (setup) => {

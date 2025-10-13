@@ -41,7 +41,7 @@ describe(`sbb-dialog`, () => {
   `;
 
   const dialogFooter = (negative = false): TemplateResult => html`
-    <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+    <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
       <sbb-block-link
         align-self="start"
         icon-name="chevron-small-left-small"
@@ -56,7 +56,7 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-actions>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 600 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 600 }, () => {
     // Negative test
     for (const negative of negativeCases) {
       it(

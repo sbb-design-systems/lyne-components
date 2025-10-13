@@ -15,7 +15,7 @@ describe('sbb-breadcrumb-group', () => {
     { name: 'collapsed', numberOfBreadcrumbs: 25 },
   ];
 
-  describeViewports({ viewports: ['wide'] }, () => {
+  describeViewports({ viewports: ['ultra'] }, () => {
     for (const variant of variants) {
       describe(`${variant.name}`, () => {
         for (const state of [visualDiffDefault, visualDiffFocus]) {

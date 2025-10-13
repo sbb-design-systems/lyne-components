@@ -1,4 +1,4 @@
-import { SbbBreakpointMediumMin } from '@sbb-esta/lyne-design-tokens';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
@@ -55,7 +55,7 @@ describe(`sbb-sticky-bar`, () => {
     </sbb-action-group>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
+  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
     describeEach(cases, ({ color, containerExpanded, scrolled }) => {
       let root: HTMLElement;
 
@@ -140,7 +140,7 @@ describe(`sbb-sticky-bar`, () => {
   });
 
   it(
-    `viewport=medium_short content`,
+    `viewport=large_short content`,
     visualDiffDefault.with(async (setup) => {
       await setup.withFixture(
         html`<sbb-container>
@@ -149,7 +149,7 @@ describe(`sbb-sticky-bar`, () => {
         </sbb-container>`,
         { padding: '0' },
       );
-      await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
+      await setViewport({ width: SbbBreakpointLargeMin, height: 400 });
     }),
   );
 });

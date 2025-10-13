@@ -22,7 +22,7 @@ describe(`sbb-form-field-clear`, () => {
     ],
   };
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     describeEach(cases, ({ negative, state }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

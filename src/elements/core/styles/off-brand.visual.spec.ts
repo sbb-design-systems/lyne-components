@@ -21,7 +21,7 @@ import '../../toggle-check.js';
 import './off-brand-theme.scss';
 
 describe(`sbb-off-brand`, () => {
-  describeViewports({ viewports: ['micro'] }, () => {
+  describeViewports({ viewports: ['small'] }, () => {
     for (const darkMode of [false, true]) {
       describe(`dark=${darkMode}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {

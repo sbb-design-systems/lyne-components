@@ -23,7 +23,7 @@ const aspectRatios = [
 ];
 
 describe(`sbb-image`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const aspectRatio of aspectRatios) {
       it(
         `aspect-ratio=${aspectRatio}`,

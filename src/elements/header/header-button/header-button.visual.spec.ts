@@ -13,7 +13,7 @@ import '../../image.js';
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-header-button`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const forcedColors of [false, true]) {
       describe(`forcedColors=${forcedColors}`, () => {
         for (const active of [false, true]) {
@@ -71,7 +71,7 @@ describe(`sbb-header-button`, () => {
           state.name,
           state.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-header-button expand-from="medium">Menu</sbb-header-button>`,
+              html`<sbb-header-button expand-from="large">Menu</sbb-header-button>`,
             );
           }),
         );
@@ -85,7 +85,7 @@ describe(`sbb-header-button`, () => {
           state.with(async (setup) => {
             await setup.withFixture(
               html`<sbb-header-button
-                expand-from="medium"
+                expand-from="large"
                 icon-name="hamburger-menu-small"
               ></sbb-header-button>`,
             );

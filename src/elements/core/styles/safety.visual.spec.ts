@@ -24,7 +24,7 @@ import '../../toggle-check.js';
 import './safety-theme.scss';
 
 describe(`sbb-safety`, () => {
-  describeViewports({ viewports: ['micro'] }, () => {
+  describeViewports({ viewports: ['small'] }, () => {
     for (const darkMode of [false, true]) {
       describe(`dark=${darkMode}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {

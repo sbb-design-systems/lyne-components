@@ -5,7 +5,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import './compact-paginator.component.js';
 
 describe('sbb-compact-paginator', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const wrapperStyle = {

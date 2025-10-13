@@ -40,7 +40,7 @@ describe(`sbb-datepicker`, () => {
     todayStub.restore();
   });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, states }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(

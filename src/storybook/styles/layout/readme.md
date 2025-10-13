@@ -62,9 +62,6 @@ Using columns in the middle of the grid (e.g. alerts in home stories).
   @include sbb.mq($from: large) {
     grid-column: 2/-2;
   }
-  @include sbb.mq($from: wide) {
-    grid-column: 3/-3;
-  }
   @include sbb.mq($from: ultra) {
     grid-column: 4/-4;
   }

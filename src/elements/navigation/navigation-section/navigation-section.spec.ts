@@ -1,4 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
+import { SbbBreakpointSmallMin, SbbBreakpointUltraMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -131,7 +132,7 @@ describe(`sbb-navigation-section`, () => {
 
   describe('on desktop viewport', () => {
     beforeEach(async () => {
-      await setViewport({ width: 1024, height: 400 });
+      await setViewport({ width: SbbBreakpointUltraMin, height: 600 });
     });
 
     it('should wrap around tabbing forwards', async () => {
@@ -218,7 +219,7 @@ describe(`sbb-navigation-section`, () => {
 
   describe('on mobile viewport', () => {
     beforeEach(async () => {
-      await setViewport({ width: 500, height: 400 });
+      await setViewport({ width: SbbBreakpointSmallMin, height: 400 });
     });
 
     it('should wrap around tabbing', async () => {
@@ -264,7 +265,7 @@ describe(`sbb-navigation-section`, () => {
     )!;
 
     // Start on mobile
-    await setViewport({ width: 500, height: 400 });
+    await setViewport({ width: SbbBreakpointSmallMin, height: 400 });
     element.open();
     await waitForCondition(() => element.getAttribute('data-state') === 'opened');
 
@@ -273,7 +274,7 @@ describe(`sbb-navigation-section`, () => {
     expect(navigationContent).to.have.attribute('inert');
 
     // Switch to desktop
-    await setViewport({ width: 1024, height: 400 });
+    await setViewport({ width: SbbBreakpointUltraMin, height: 400 });
 
     // Navigation should not be inert
     await waitForCondition(() => !navigationContent.inert);

@@ -36,7 +36,7 @@ describe(`sbb-button`, () => {
     negative: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ disabled, negative, state }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
