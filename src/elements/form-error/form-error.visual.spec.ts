@@ -3,8 +3,8 @@ import { html, nothing } from 'lit';
 import {
   describeEach,
   describeViewports,
-  visualRegressionFixture,
   visualDiffDefault,
+  visualRegressionFixture,
 } from '../core/testing/private.js';
 
 import '../icon.js';
@@ -26,6 +26,12 @@ describe(`sbb-form-error`, () => {
     errorText: ['short', 'long'],
   };
 
+  const colorCases = {
+    negative: [false, true],
+    forcedColors: [false, true],
+    darkMode: [false, true],
+  };
+
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, iconName, errorText }) => {
       beforeEach(async function () {
@@ -37,6 +43,33 @@ describe(`sbb-form-error`, () => {
             </sbb-form-error>
           `,
           { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
+        );
+      });
+
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with((setup) => {
+          setup.withSnapshotElement(root);
+        }),
+      );
+    });
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describeEach(colorCases, ({ negative, forcedColors, darkMode }) => {
+      beforeEach(async function () {
+        root = await visualRegressionFixture(
+          html`
+            <sbb-form-error .negative=${negative}>
+              <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
+              Required field.
+            </sbb-form-error>
+          `,
+          {
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            forcedColors,
+            darkMode,
+          },
         );
       });
 
