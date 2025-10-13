@@ -9,7 +9,7 @@ import {
 import './mini-calendar-day.component.js';
 
 describe('sbb-mini-calendar-day', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const marker of ['', 'circle', 'target', 'slash', 'cross']) {
       describe(`marker=${marker === '' ? 'default' : marker}`, () => {
         for (const state of visualDiffStandardStates) {
