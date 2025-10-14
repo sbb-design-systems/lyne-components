@@ -5,13 +5,13 @@
 
 :host {
   --sbb-mini-calendar-month-offset: 0;
-  --sbb-mini-calendar-month-display-year: none;
+  --sbb-mini-calendar-month-visibilty-year: hidden;
 
   display: inline-block;
 }
 
 :host(:state(show-year)) {
-  --sbb-mini-calendar-month-display-year: block;
+  --sbb-mini-calendar-month-visibilty-year: visible;
 }
 
 .sbb-mini-calendar-month-wrapper {
@@ -31,5 +31,5 @@
 }
 
 .sbb-mini-calendar-month-label-year {
-  display: var(--sbb-mini-calendar-month-display-year);
+  visibility: var(--sbb-mini-calendar-month-visibilty-year);
 }

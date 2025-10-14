@@ -27,30 +27,6 @@ snapshots["sbb-mini-calendar renders Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-calendar renders Shadow DOM */
 
-snapshots["sbb-mini-calendar renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "2025"
-    },
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    },
-    {
-      "role": "text",
-      "name": "Jan."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-calendar renders A11y tree Chrome */
-
 snapshots["sbb-mini-calendar renders A11y tree Firefox"] = 
 `<p>
   {
@@ -74,4 +50,28 @@ snapshots["sbb-mini-calendar renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-mini-calendar renders A11y tree Firefox */
+
+snapshots["sbb-mini-calendar renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "2025"
+    },
+    {
+      "role": "button",
+      "name": "January 1, 2025"
+    },
+    {
+      "role": "text",
+      "name": "Jan."
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-mini-calendar renders A11y tree Chrome */
 
