@@ -94,6 +94,15 @@ describe(`sbb-optgroup`, () => {
           await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabledSingle: true }));
         }),
       );
+
+      it(
+        `darkMode=true`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabledSingle: true }), {
+            darkMode: true,
+          });
+        }),
+      );
     });
 
     describe('autocomplete', () => {
