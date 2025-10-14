@@ -2,6 +2,7 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { miniButtonStyle } from '../../button/common.js';
 import { SbbActionBaseElement } from '../../core/base-elements.js';
 import { hostAttributes, slotState } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
@@ -35,7 +36,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly role = 'button';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
   public get option(): SbbAutocompleteGridOptionElement | null {
