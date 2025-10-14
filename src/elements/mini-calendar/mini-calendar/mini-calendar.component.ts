@@ -210,7 +210,11 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`<slot @slotchange=${this._handleSlotchange}></slot>`;
+    return html`
+      <div class="sbb-mini-calendar">
+        <slot @slotchange=${this._handleSlotchange}></slot>
+      </div>
+    `;
   }
 }
 
