@@ -150,6 +150,20 @@ describe(`sbb-container`, () => {
         );
       }),
     );
+
+    describe(`darkMode=true`, () => {
+      for (const color of colorCases) {
+        it(
+          `color=${color}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-container color=${color}>${containerContent(color)}</sbb-container>`,
+              { ...wrapperStyles, darkMode: true },
+            );
+          }),
+        );
+      }
+    });
   });
 
   // Test very large screens
@@ -194,18 +208,4 @@ describe(`sbb-container`, () => {
       }
     });
   }
-
-  describe(`darkMode=true`, () => {
-    for (const color of colorCases) {
-      it(
-        `color=${color}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`<sbb-container color=${color}>${containerContent(color)}</sbb-container>`,
-            { ...wrapperStyles, darkMode: true },
-          );
-        }),
-      );
-    }
-  });
 });

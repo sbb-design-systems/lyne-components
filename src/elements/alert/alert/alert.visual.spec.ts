@@ -82,7 +82,7 @@ describe(`sbb-alert`, () => {
     );
 
     it(
-      'forcedColors',
+      'forcedColors=true',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { forcedColors: true });
       }),

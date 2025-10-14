@@ -152,7 +152,7 @@ describe(`sbb-form-field`, () => {
     .set('textarea', basicTextarea);
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    // As there are so many special styles for forced color, we apply forcedColors to every case.
+    // As there are so many special styles for forced colors, we apply forcedColors to every case.
     for (const forcedColors of [false, true]) {
       describe(`forcedColors=${forcedColors}`, () => {
         for (const [name, template] of component.entries()) {
