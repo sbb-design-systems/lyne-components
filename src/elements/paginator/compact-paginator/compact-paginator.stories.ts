@@ -154,7 +154,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCompactPaginatorElement.events.page],
+      handles: [SbbCompactPaginatorElement.events.page, SbbCompactPaginatorElement.events.ɵpage],
     },
     backgroundColor: (context: StoryContext) =>
       context.args.negative

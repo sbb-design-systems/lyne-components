@@ -43,7 +43,7 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public hasNextPage(): boolean;
   public numberOfPages(): number;
   protected language: SbbLanguageController;
-  protected emitPageEvent(previousPageIndex: number): void;
+  protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void;
   protected renderPrevNextButtons(): TemplateResult;
   protected abstract renderPaginator(): TemplateResult;
 }
@@ -57,9 +57,6 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
     public static override role = 'group';
-    public static readonly events: Record<string, string> = {
-      page: 'page',
-    } as const;
 
     /** Total number of items. */
     @forceType()
@@ -155,7 +152,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       }
 
       if (prevPageIndex !== null) {
-        this.emitPageEvent(prevPageIndex);
+        this._emitPrivatePageEvent(prevPageIndex);
       }
     }
 
@@ -179,29 +176,35 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       return `${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorSelected[this.language.current]}.`;
     }
 
+    private _changeAndEmitPage(pageIndex: number): void {
+      const prevPageIndex = this.pageIndex;
+      this.pageIndex = pageIndex;
+      this.emitPageEvent(prevPageIndex);
+    }
+
     /** Advances to the next page if it exists. */
     public nextPage(): void {
-      this.pageIndex = this.pageIndex + 1;
+      this._changeAndEmitPage(this.pageIndex + 1);
     }
 
     /** Move back to the previous page if it exists. */
     public previousPage(): void {
-      this.pageIndex = this.pageIndex - 1;
+      this._changeAndEmitPage(this.pageIndex - 1);
     }
 
     /** Move to the first page if not already there. */
     public firstPage(): void {
-      this.pageIndex = 0;
+      this._changeAndEmitPage(0);
     }
 
     /** Move to the last page if not already there. */
     public lastPage(): void {
-      this.pageIndex = this.numberOfPages() - 1;
+      this._changeAndEmitPage(this.numberOfPages() - 1);
     }
 
     /** Move to a specific page index. */
     public selectPage(index: number): void {
-      this.pageIndex = index;
+      this._changeAndEmitPage(index);
     }
 
     /** Whether there is a previous page. */
@@ -223,14 +226,34 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       return this.pageSize ? Math.ceil(this.length / this.pageSize) : 0;
     }
 
-    protected emitPageEvent(previousPageIndex: number): void {
+    protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void {
+      /**
+       * @type {CustomEvent<SbbPaginatorPageEventDetails>}
+       * The page event is dispatched whenever the user change page.
+       */
+      this.dispatchEvent(
+        new CustomEvent<SbbPaginatorPageEventDetails>('page', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            previousPageIndex,
+            pageIndex: pageIndex ?? this.pageIndex,
+            length: this.length,
+            pageSize: this.pageSize,
+          },
+        }),
+      );
+    }
+
+    private _emitPrivatePageEvent(previousPageIndex: number): void {
       if (this.hasUpdated) {
         /**
+         * @internal
          * @type {CustomEvent<SbbPaginatorPageEventDetails>}
          * The page event is dispatched when the page index changes.
          */
         this.dispatchEvent(
-          new CustomEvent<SbbPaginatorPageEventDetails>('page', {
+          new CustomEvent<SbbPaginatorPageEventDetails>('ɵpage', {
             bubbles: true,
             composed: true,
             detail: {

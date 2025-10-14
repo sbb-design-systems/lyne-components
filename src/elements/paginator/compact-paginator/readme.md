@@ -85,6 +85,6 @@ that describes the content controlled by the paginator.
 
 ## Events
 
-| Name   | Type                                        | Description                                               | Inherited From                 |
-| ------ | ------------------------------------------- | --------------------------------------------------------- | ------------------------------ |
-| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched when the page index changes. | SbbPaginatorCommonElementMixin |
+| Name   | Type                                        | Description                                                 | Inherited From                 |
+| ------ | ------------------------------------------- | ----------------------------------------------------------- | ------------------------------ |
+| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched whenever the user change page. | SbbPaginatorCommonElementMixin |

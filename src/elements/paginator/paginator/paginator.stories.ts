@@ -223,7 +223,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbPaginatorElement.events.page],
+      handles: [SbbPaginatorElement.events.page, SbbPaginatorElement.events.ɵpage],
     },
     backgroundColor: (context: StoryContext) =>
       context.args.negative
