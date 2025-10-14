@@ -33,7 +33,7 @@ describe('sbb-mini-calendar-month', () => {
     ).to.be.equal('Jan.');
     const yearDiv = element.shadowRoot!.querySelector('.sbb-mini-calendar-month-label-year')!;
     expect(yearDiv.textContent).to.be.equal('2025');
-    expect(getComputedStyle(yearDiv).getPropertyValue('visibility')).to.be.equal('visible');
+    expect(getComputedStyle(yearDiv).getPropertyValue('display')).to.be.equal('block');
   });
 
   it('should have year label not visible', async () => {
@@ -45,7 +45,7 @@ describe('sbb-mini-calendar-month', () => {
     ).to.be.equal('Jun.');
     const yearDiv = element.shadowRoot!.querySelector('.sbb-mini-calendar-month-label-year')!;
     expect(yearDiv.textContent).to.be.equal('2025');
-    expect(getComputedStyle(yearDiv).getPropertyValue('visibility')).to.be.equal('hidden');
+    expect(getComputedStyle(yearDiv).getPropertyValue('display')).to.be.equal('none');
   });
 
   it('should have year label visible if first child of sbb-mini-calendar or January', async () => {
@@ -65,7 +65,7 @@ describe('sbb-mini-calendar-month', () => {
     const firstMonthYear = firstMonth.shadowRoot!.querySelector(
       '.sbb-mini-calendar-month-label-year',
     )!;
-    expect(getComputedStyle(firstMonthYear).getPropertyValue('visibility')).to.be.equal('visible');
+    expect(getComputedStyle(firstMonthYear).getPropertyValue('display')).to.be.equal('block');
 
     const secondMonth = months[1];
     expect(
@@ -74,7 +74,7 @@ describe('sbb-mini-calendar-month', () => {
     const secondMonthYear = secondMonth.shadowRoot!.querySelector(
       '.sbb-mini-calendar-month-label-year',
     )!;
-    expect(getComputedStyle(secondMonthYear).getPropertyValue('visibility')).to.be.equal('hidden');
+    expect(getComputedStyle(secondMonthYear).getPropertyValue('display')).to.be.equal('none');
 
     const thirdMonth = months[2];
     expect(
@@ -83,6 +83,6 @@ describe('sbb-mini-calendar-month', () => {
     const thirdMonthYear = thirdMonth.shadowRoot!.querySelector(
       '.sbb-mini-calendar-month-label-year',
     )!;
-    expect(getComputedStyle(thirdMonthYear).getPropertyValue('visibility')).to.be.equal('visible');
+    expect(getComputedStyle(thirdMonthYear).getPropertyValue('display')).to.be.equal('block');
   });
 });
