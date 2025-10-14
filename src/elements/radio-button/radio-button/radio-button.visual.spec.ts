@@ -7,6 +7,15 @@ import '../radio-button.js';
 const cases = {
   size: ['m', 's', 'xs'],
   checked: [true, false],
+};
+
+const colorCases = {
+  colors: [
+    { forcedColors: false, darkMode: false },
+    { forcedColors: true, darkMode: false },
+    { forcedColors: false, darkMode: true },
+  ],
+  checked: [true, false],
   disabled: [false, true],
 };
 
@@ -15,15 +24,27 @@ const longLabel =
 
 describe(`sbb-radio-button`, () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    describeEach(cases, ({ size, checked, disabled }) => {
+    describeEach(cases, ({ size, checked }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-radio-button ?checked=${checked} ?disabled=${disabled} size=${size}>
-              Value
-            </sbb-radio-button>
+            <sbb-radio-button ?checked=${checked} size=${size}> Value </sbb-radio-button>
           `);
+        }),
+      );
+    });
+
+    describeEach(colorCases, ({ checked, disabled, colors }) => {
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-radio-button ?checked=${checked} ?disabled=${disabled}>
+              Value
+            </sbb-radio-button>`,
+            { darkMode: colors.darkMode, forcedColors: colors.forcedColors },
+          );
         }),
       );
     });
@@ -31,9 +52,7 @@ describe(`sbb-radio-button`, () => {
     it(
       'long label',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-radio-button checked> ${longLabel} </sbb-radio-button>
-        `);
+        await setup.withFixture(html`<sbb-radio-button checked>${longLabel}</sbb-radio-button>`);
       }),
     );
 
