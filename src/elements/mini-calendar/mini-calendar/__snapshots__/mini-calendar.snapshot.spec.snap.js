@@ -20,10 +20,8 @@ snapshots["sbb-mini-calendar renders DOM"] =
 /* end snapshot sbb-mini-calendar renders DOM */
 
 snapshots["sbb-mini-calendar renders Shadow DOM"] = 
-`<div class="sbb-mini-calendar">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-mini-calendar renders Shadow DOM */
 
