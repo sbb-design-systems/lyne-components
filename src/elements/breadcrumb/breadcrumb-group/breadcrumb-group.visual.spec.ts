@@ -19,7 +19,7 @@ describe('sbb-breadcrumb-group', () => {
     for (const colors of ['default', 'forcedColors', 'darkMode']) {
       describe(colors, () => {
         for (const variant of variants) {
-          describe(`${variant.name}`, () => {
+          describe(variant.name, () => {
             for (const state of [visualDiffDefault, visualDiffFocus]) {
               it(
                 state.name,

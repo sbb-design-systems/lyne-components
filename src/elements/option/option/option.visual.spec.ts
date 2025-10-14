@@ -71,7 +71,7 @@ describe(`sbb-option`, () => {
         { forcedColors: true, darkMode: false },
         { forcedColors: false, darkMode: true },
       ]) {
-        describe(`forcedColors=${colors.forcedColors}, darkMode=${colors.darkMode}`, () => {
+        describe(`forcedColors=${colors.forcedColors} darkMode=${colors.darkMode}`, () => {
           it(
             visualDiffDefault.name,
             visualDiffDefault.with(async (setup) => {

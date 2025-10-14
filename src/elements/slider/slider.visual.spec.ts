@@ -53,7 +53,7 @@ describe('sbb-slider', () => {
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const variant of variants) {
-      describe(`${variant.name}`, () => {
+      describe(variant.name, () => {
         for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {
           it(
             visualDiffState.name,
@@ -99,6 +99,51 @@ describe('sbb-slider', () => {
             await setup.withFixture(variant.template({ ...defaultArgs, withSlottedIcon: true }));
           }),
         );
+      });
+    }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const colors of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${colors.forcedColors} darkMode=${colors.darkMode}`, () => {
+        for (const variant of variants) {
+          describe(variant.name, () => {
+            for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {
+              it(
+                visualDiffState.name,
+                visualDiffState.with(async (setup) => {
+                  await setup.withFixture(variant.template(defaultArgs), {
+                    forcedColors: colors.forcedColors,
+                    darkMode: colors.darkMode,
+                  });
+                }),
+              );
+            }
+
+            it(
+              'disabled',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(variant.template({ ...defaultArgs, disabled: true }), {
+                  forcedColors: colors.forcedColors,
+                  darkMode: colors.darkMode,
+                });
+              }),
+            );
+
+            it(
+              'readonly',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(variant.template({ ...defaultArgs, readonly: true }), {
+                  forcedColors: colors.forcedColors,
+                  darkMode: colors.darkMode,
+                });
+              }),
+            );
+          });
+        }
       });
     }
   });
