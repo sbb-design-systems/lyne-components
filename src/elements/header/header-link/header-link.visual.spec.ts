@@ -12,35 +12,41 @@ import '../../image.js';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
+function testHeaderLink({
+  forcedColors,
+  darkMode,
+}: {
+  forcedColors: boolean;
+  darkMode: boolean;
+}): void {
+  for (const active of [false, true]) {
+    describe(`active=${active}`, () => {
+      for (const state of visualDiffStandardStates) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-header-link
+                  icon-name="hamburger-menu-small"
+                  class=${active ? 'sbb-active' : ''}
+                  href="#"
+                >
+                  Menu
+                </sbb-header-link>
+              `,
+              { forcedColors, darkMode },
+            );
+          }),
+        );
+      }
+    });
+  }
+}
+
 describe(`sbb-header-link`, () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const forcedColors of [false, true]) {
-      describe(`forcedColors=${forcedColors}`, () => {
-        for (const active of [false, true]) {
-          describe(`active=${active}`, () => {
-            for (const state of visualDiffStandardStates) {
-              it(
-                state.name,
-                state.with(async (setup) => {
-                  await setup.withFixture(
-                    html`
-                      <sbb-header-link
-                        icon-name="hamburger-menu-small"
-                        class=${active ? 'sbb-active' : ''}
-                        href="#"
-                      >
-                        Menu
-                      </sbb-header-link>
-                    `,
-                    { forcedColors },
-                  );
-                }),
-              );
-            }
-          });
-        }
-      });
-    }
+    testHeaderLink({ forcedColors: false, darkMode: false });
 
     for (const img of [
       {
@@ -94,6 +100,15 @@ describe(`sbb-header-link`, () => {
           }),
         );
       }
+    });
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describe(`forcedColors=true`, () => {
+      testHeaderLink({ forcedColors: true, darkMode: false });
+    });
+    describe(`darkMode=true`, () => {
+      testHeaderLink({ forcedColors: false, darkMode: true });
     });
   });
 });

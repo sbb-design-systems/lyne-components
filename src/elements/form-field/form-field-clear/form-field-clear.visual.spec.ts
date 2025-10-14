@@ -20,10 +20,12 @@ describe(`sbb-form-field-clear`, () => {
       { disabled: true, readonly: false },
       { disabled: false, readonly: true },
     ],
+    darkMode: [false, true],
+    forcedColors: [false, true],
   };
 
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ negative, state }) => {
+    describeEach(cases, ({ negative, state, darkMode, forcedColors }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -39,7 +41,11 @@ describe(`sbb-form-field-clear`, () => {
               <sbb-form-field-clear></sbb-form-field-clear>
             </sbb-form-field>
           `,
-          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
+          {
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            forcedColors,
+            darkMode,
+          },
         );
       });
 

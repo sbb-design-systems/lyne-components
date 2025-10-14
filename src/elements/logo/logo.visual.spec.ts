@@ -8,11 +8,15 @@ describe(`sbb-logo`, () => {
   const cases = {
     negative: [false, true],
     protectiveRoom: ['none', 'minimal', 'ideal'],
-    forcedColors: [false, true],
+    colors: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ negative, protectiveRoom, forcedColors }) => {
+    describeEach(cases, ({ negative, protectiveRoom, colors }) => {
       it(
         ``,
         visualDiffDefault.with(async (setup) => {
@@ -22,7 +26,8 @@ describe(`sbb-logo`, () => {
               backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               padding: '0',
               maxWidth: '300px',
-              forcedColors,
+              forcedColors: colors.forcedColors,
+              darkMode: colors.darkMode,
             },
           );
         }),

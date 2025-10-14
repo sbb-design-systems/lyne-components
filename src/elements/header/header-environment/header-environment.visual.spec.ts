@@ -51,4 +51,17 @@ describe(`sbb-header-environment`, () => {
       );
     }
   });
+
+  describeViewports({ viewports: ['zero'], viewportHeight: 300 }, () => {
+    describe('darkMode=true', () => {
+      for (const env of [`dev`, `edu`, `int`, `loc`, `test`, 'any']) {
+        it(
+          `env=${env}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template(env), { padding: '0', darkMode: true });
+          }),
+        );
+      }
+    });
+  });
 });

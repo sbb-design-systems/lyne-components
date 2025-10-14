@@ -15,7 +15,11 @@ describe(`sbb-block-link-static`, () => {
   const cases = {
     negative: [false, true],
     active: [false, true],
-    forcedColors: [false, true],
+    colors: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const iconState = {
@@ -24,7 +28,22 @@ describe(`sbb-block-link-static`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    describeEach(cases, ({ negative, active, forcedColors }) => {
+    for (const size of ['xs', 's', 'm']) {
+      it(
+        `size=${size} ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-block-link-static size=${size}>
+              Travelcards & tickets
+            </sbb-block-link-static>`,
+          );
+        }),
+      );
+    }
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describeEach(cases, ({ negative, active, colors }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
@@ -37,7 +56,8 @@ describe(`sbb-block-link-static`, () => {
           </sbb-block-link-static>`,
           {
             backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-            forcedColors,
+            forcedColors: colors.forcedColors,
+            darkMode: colors.darkMode,
           },
         );
       });
@@ -70,19 +90,6 @@ describe(`sbb-block-link-static`, () => {
         }),
       );
     });
-
-    for (const size of ['xs', 's', 'm']) {
-      it(
-        `size=${size} ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`<sbb-block-link-static size=${size}>
-              Travelcards & tickets
-            </sbb-block-link-static>`,
-          );
-        }),
-      );
-    }
 
     it(
       `width=fixed ${visualDiffDefault.name}`,
