@@ -46,6 +46,7 @@ $active: ':active, [data-active]';
 
   @include sbb.if-forced-colors {
     --sbb-tag-border-color: Highlight !important;
+    --sbb-tag-border-width: var(--sbb-border-width-4x);
   }
 }
 
