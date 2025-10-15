@@ -129,11 +129,13 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
         changedProperties.has('pageSize') &&
         this.pageSize !== changedProperties.get('pageSize')
       ) {
-        const previousPageSize = changedProperties.get('pageSize')!;
+        const previousPageSize = changedProperties.get('pageSize');
         this.pageSize = isNaN(this.pageSize) || this.pageSize < 0 ? 0 : this.pageSize;
         // Current page needs to be updated to reflect the new page size.
         // Navigate to the page containing the previous page's first item.
-        this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
+        if (previousPageSize) {
+          this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
+        }
         /**
          * If the pageIndex changes, it's added in the changedProperties map,
          * and this line is useless, since the correct value will be calculated in the logic below;
