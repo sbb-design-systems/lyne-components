@@ -1,6 +1,7 @@
 import { html } from 'lit';
 
 import {
+  describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
@@ -204,6 +205,28 @@ describe(`sbb-train-formation`, () => {
           </sbb-train-formation>`,
         );
       }),
+    );
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describeEach(
+      {
+        emulateMedia: [
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ emulateMedia: { forcedColors, darkMode } }) => {
+        it(
+          `single train`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`<sbb-train-formation>${train1}</sbb-train-formation>`, {
+              forcedColors,
+              darkMode,
+            });
+          }),
+        );
+      },
     );
 
     it(

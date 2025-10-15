@@ -354,7 +354,7 @@ describe('sbb-autocomplete-grid', () => {
     );
 
     it(
-      'forced colors',
+      'forcedColors=true',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(template(defaultArgs), { forcedColors: true });
 

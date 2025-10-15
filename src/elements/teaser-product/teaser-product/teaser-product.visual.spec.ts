@@ -170,19 +170,24 @@ describe('sbb-teaser-product', () => {
       }),
     );
 
-    describe('forcedColors=true', () => {
-      for (const visualState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
-        it(
-          visualState.name,
-          visualState.with(async (setup) => {
-            await setup.withFixture(template({ showFooter: true }), { forcedColors: true });
-            setup.withPostSetupAction(
-              async () =>
-                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
-            );
-          }),
-        );
-      }
-    });
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const visualState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+          it(
+            visualState.name,
+            visualState.with(async (setup) => {
+              await setup.withFixture(template({ showFooter: true }), { forcedColors, darkMode });
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+              );
+            }),
+          );
+        }
+      });
+    }
   });
 });

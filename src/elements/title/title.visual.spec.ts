@@ -1,6 +1,6 @@
 import { html, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import '../title.js';
 
@@ -43,19 +43,26 @@ describe(`sbb-title`, () => {
         });
       });
     }
+  });
 
-    it(
-      'negative',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            <sbb-title negative>
-              Data without insights are trivial, and insights without action are pointless
-            </sbb-title>
-          `,
-          { backgroundColor: 'var(--sbb-background-color-1-negative)' },
-        );
-      }),
-    );
+  describeViewports({ viewports: ['small'] }, () => {
+    describeEach({ darkMode: [false, true], negative: [false, true] }, ({ negative, darkMode }) => {
+      it(
+        '',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-title ?negative=${negative}>
+                Data without insights are trivial, and insights without action are pointless
+              </sbb-title>
+            `,
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              darkMode,
+            },
+          );
+        }),
+      );
+    });
   });
 });

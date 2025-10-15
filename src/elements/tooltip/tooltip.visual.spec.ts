@@ -52,9 +52,9 @@ describe('sbb-tooltip', () => {
           await setup.withFixture(html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
               <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
-              <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}"
-                >I am a tooltip with a message</sbb-tooltip
-              >
+              <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}">
+                I am a tooltip with a message
+              </sbb-tooltip>
             </div>
           `);
           setup.withPostSetupAction(async () => {
@@ -73,9 +73,9 @@ describe('sbb-tooltip', () => {
           await setup.withFixture(html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
               <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
-              <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}"
-                >I am a tooltip with a message</sbb-tooltip
-              >
+              <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}">
+                I am a tooltip with a message
+              </sbb-tooltip>
             </div>
           `);
           setup.withPostSetupAction(async () => {
@@ -84,5 +84,24 @@ describe('sbb-tooltip', () => {
         }),
       );
     }
+
+    it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div style="padding-block: 5rem; padding-inline: 10rem">
+              <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
+              <sbb-tooltip trigger="trigger">I am a tooltip with a message</sbb-tooltip>
+            </div>
+          `,
+          { darkMode: true },
+        );
+        setup.withPostSetupAction(async () => {
+          document.querySelector('sbb-tooltip')!.open();
+          await waitForLitRender(setup.snapshotElement);
+        });
+      }),
+    );
   });
 });

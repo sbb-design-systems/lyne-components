@@ -9,7 +9,7 @@ describe(`sbb-train-blocked-passage`, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html` <sbb-train-blocked-passage></sbb-train-blocked-passage> `);
+        await setup.withFixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`);
       }),
     );
   });
