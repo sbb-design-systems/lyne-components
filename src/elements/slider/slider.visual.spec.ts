@@ -104,11 +104,11 @@ describe('sbb-slider', () => {
   });
 
   describeViewports({ viewports: ['large'] }, () => {
-    for (const colors of [
+    for (const { darkMode, forcedColors } of [
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
     ]) {
-      describe(`forcedColors=${colors.forcedColors} darkMode=${colors.darkMode}`, () => {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
         for (const variant of variants) {
           describe(variant.name, () => {
             for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {
@@ -116,8 +116,8 @@ describe('sbb-slider', () => {
                 visualDiffState.name,
                 visualDiffState.with(async (setup) => {
                   await setup.withFixture(variant.template(defaultArgs), {
-                    forcedColors: colors.forcedColors,
-                    darkMode: colors.darkMode,
+                    forcedColors,
+                    darkMode,
                   });
                 }),
               );
@@ -127,8 +127,8 @@ describe('sbb-slider', () => {
               'disabled',
               visualDiffDefault.with(async (setup) => {
                 await setup.withFixture(variant.template({ ...defaultArgs, disabled: true }), {
-                  forcedColors: colors.forcedColors,
-                  darkMode: colors.darkMode,
+                  forcedColors,
+                  darkMode,
                 });
               }),
             );
@@ -137,8 +137,8 @@ describe('sbb-slider', () => {
               'readonly',
               visualDiffDefault.with(async (setup) => {
                 await setup.withFixture(variant.template({ ...defaultArgs, readonly: true }), {
-                  forcedColors: colors.forcedColors,
-                  darkMode: colors.darkMode,
+                  forcedColors,
+                  darkMode,
                 });
               }),
             );

@@ -189,19 +189,19 @@ describe(`sbb-selection-expansion-panel`, () => {
       color: ['white', 'milk'],
       checked: [false, true],
       disabled: [false, true],
-      colors: [
+      emulateMedia: [
         { forcedColors: true, darkMode: false },
         { forcedColors: false, darkMode: true },
       ],
     };
 
-    describeEach(colorCases, ({ colors, ...params }) => {
+    describeEach(colorCases, ({ emulateMedia: { darkMode, forcedColors }, ...params }) => {
       it(
         ``,
         visualDiffFocus.with(async (setup) => {
           await setup.withFixture(withCheckboxPanel(params), {
-            forcedColors: colors.forcedColors,
-            darkMode: colors.darkMode,
+            forcedColors,
+            darkMode,
           });
         }),
       );

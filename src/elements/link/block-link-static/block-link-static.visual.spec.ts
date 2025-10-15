@@ -15,7 +15,7 @@ describe(`sbb-block-link-static`, () => {
   const cases = {
     negative: [false, true],
     active: [false, true],
-    colors: [
+    emulateMedia: [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
@@ -43,7 +43,7 @@ describe(`sbb-block-link-static`, () => {
   });
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ negative, active, colors }) => {
+    describeEach(cases, ({ negative, active, emulateMedia: { darkMode, forcedColors } }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
@@ -56,8 +56,8 @@ describe(`sbb-block-link-static`, () => {
           </sbb-block-link-static>`,
           {
             backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-            forcedColors: colors.forcedColors,
-            darkMode: colors.darkMode,
+            forcedColors,
+            darkMode,
           },
         );
       });

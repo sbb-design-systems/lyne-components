@@ -92,12 +92,12 @@ describe('sbb-select', () => {
   describeViewports({ viewports: ['large'], viewportHeight: 400 }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
-        for (const colors of [
+        for (const { darkMode, forcedColors } of [
           { forcedColors: false, darkMode: false },
           { forcedColors: true, darkMode: false },
           { forcedColors: false, darkMode: true },
         ]) {
-          describe(`forcedColors=${colors.forcedColors} darkMode=${colors.darkMode}`, () => {
+          describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
             for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
               it(
                 `state=above ${visualDiffState.name}`,
@@ -113,8 +113,8 @@ describe('sbb-select', () => {
                       backgroundColor: negative
                         ? 'var(--sbb-background-color-2-negative)'
                         : undefined,
-                      forcedColors: colors.forcedColors,
-                      darkMode: colors.darkMode,
+                      forcedColors,
+                      darkMode,
                     },
                   );
                   setup.withPostSetupAction(() => {
@@ -134,12 +134,12 @@ describe('sbb-select', () => {
   describeViewports({ viewports: ['zero'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
-        for (const colors of [
+        for (const { darkMode, forcedColors } of [
           { forcedColors: false, darkMode: false },
           { forcedColors: true, darkMode: false },
           { forcedColors: false, darkMode: true },
         ]) {
-          describe(`forcedColors=${colors.forcedColors} darkMode=${colors.darkMode}`, () => {
+          describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
             for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
               it(
                 `state=${visualDiffState.name}`,
@@ -148,8 +148,8 @@ describe('sbb-select', () => {
                     backgroundColor: negative
                       ? 'var(--sbb-background-color-2-negative)'
                       : undefined,
-                    forcedColors: colors.forcedColors,
-                    darkMode: colors.darkMode,
+                    forcedColors,
+                    darkMode,
                   });
                 }),
               );

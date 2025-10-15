@@ -27,7 +27,7 @@ describe(`sbb-link`, () => {
 
   describeViewports({ viewports: ['zero'] }, () => {
     const cases = {
-      colors: [
+      emulateMedia: [
         { darkMode: false, forcedColors: false },
         { darkMode: true, forcedColors: false },
         { darkMode: false, forcedColors: true },
@@ -35,7 +35,7 @@ describe(`sbb-link`, () => {
       negative: [false, true],
     };
 
-    describeEach(cases, ({ colors, negative }) => {
+    describeEach(cases, ({ emulateMedia: { darkMode, forcedColors }, negative }) => {
       for (const state of visualDiffStandardStates) {
         it(
           state.name,
@@ -49,8 +49,8 @@ describe(`sbb-link`, () => {
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 color: negative ? 'var(--sbb-color-aluminium)' : undefined,
-                darkMode: colors.darkMode,
-                forcedColors: colors.forcedColors,
+                darkMode,
+                forcedColors,
               },
             );
           }),

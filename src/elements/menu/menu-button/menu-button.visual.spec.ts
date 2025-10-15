@@ -59,20 +59,20 @@ describe(`sbb-menu-button`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const colors of [
+    for (const { darkMode, forcedColors } of [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
     ]) {
-      describe(`darkMode=${colors.darkMode} forcedColors=${colors.forcedColors}`, () => {
+      describe(`darkMode=${darkMode} forcedColors=${forcedColors}`, () => {
         for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
           it(
             visualDiffState.name,
             visualDiffState.with(async (setup) => {
               await setup.withFixture(template(defaultArgs), {
                 ...wrapperStyles,
-                darkMode: colors.darkMode,
-                forcedColors: colors.forcedColors,
+                darkMode,
+                forcedColors,
               });
             }),
           );
@@ -82,8 +82,8 @@ describe(`sbb-menu-button`, () => {
             visualDiffState.with(async (setup) => {
               await setup.withFixture(template({ ...defaultArgs, disabled: true }), {
                 ...wrapperStyles,
-                darkMode: colors.darkMode,
-                forcedColors: colors.forcedColors,
+                darkMode,
+                forcedColors,
               });
             }),
           );

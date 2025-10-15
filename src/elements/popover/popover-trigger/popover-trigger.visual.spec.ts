@@ -12,7 +12,7 @@ describe(`sbb-popover-trigger`, () => {
   const cases = {
     disabled: [false, true],
     negative: [false, true],
-    colors: [
+    emulateMedia: [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
@@ -20,7 +20,7 @@ describe(`sbb-popover-trigger`, () => {
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, colors }) => {
+    describeEach(cases, ({ disabled, negative, emulateMedia: { darkMode, forcedColors } }) => {
       for (const state of visualDiffStandardStates) {
         it(
           `icon ${state.name}`,
@@ -44,8 +44,8 @@ describe(`sbb-popover-trigger`, () => {
               `,
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-                forcedColors: colors.forcedColors,
-                darkMode: colors.darkMode,
+                forcedColors,
+                darkMode,
               },
             );
           }),
@@ -64,8 +64,8 @@ describe(`sbb-popover-trigger`, () => {
               `,
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-                forcedColors: colors.forcedColors,
-                darkMode: colors.darkMode,
+                forcedColors,
+                darkMode,
               },
             );
           }),

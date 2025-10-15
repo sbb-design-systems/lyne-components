@@ -16,8 +16,12 @@ describe('sbb-breadcrumb-group', () => {
   ];
 
   describeViewports({ viewports: ['ultra'] }, () => {
-    for (const colors of ['default', 'forcedColors', 'darkMode']) {
-      describe(colors, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
         for (const variant of variants) {
           describe(variant.name, () => {
             for (const state of [visualDiffDefault, visualDiffFocus]) {
@@ -38,7 +42,10 @@ describe('sbb-breadcrumb-group', () => {
                           )}
                       </sbb-breadcrumb-group>
                     `,
-                    { forcedColors: colors === 'forcedColors', darkMode: colors === 'darkMode' },
+                    {
+                      forcedColors,
+                      darkMode,
+                    },
                   );
                 }),
               );

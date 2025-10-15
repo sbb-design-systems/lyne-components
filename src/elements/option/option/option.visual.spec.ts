@@ -66,18 +66,18 @@ describe(`sbb-option`, () => {
 
   describeViewports({ viewports: ['small', 'large'] }, () => {
     describe('standalone', () => {
-      for (const colors of [
+      for (const { darkMode, forcedColors } of [
         { forcedColors: false, darkMode: false },
         { forcedColors: true, darkMode: false },
         { forcedColors: false, darkMode: true },
       ]) {
-        describe(`forcedColors=${colors.forcedColors} darkMode=${colors.darkMode}`, () => {
+        describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
           it(
             visualDiffDefault.name,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(standaloneTemplate(defaultArgs), {
-                forcedColors: colors.forcedColors,
-                darkMode: colors.darkMode,
+                forcedColors,
+                darkMode,
               });
             }),
           );
@@ -86,8 +86,8 @@ describe(`sbb-option`, () => {
             `disabled`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabled: true }), {
-                forcedColors: colors.forcedColors,
-                darkMode: colors.darkMode,
+                forcedColors,
+                darkMode,
               });
             }),
           );
@@ -96,8 +96,8 @@ describe(`sbb-option`, () => {
             `active`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(standaloneTemplate({ ...defaultArgs, active: true }), {
-                forcedColors: colors.forcedColors,
-                darkMode: colors.darkMode,
+                forcedColors,
+                darkMode,
               });
             }),
           );

@@ -13,12 +13,12 @@ describe(`sbb-navigation-link`, () => {
   const sizeCases = ['s', 'm', 'l'];
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const colors of [
+    for (const { darkMode, forcedColors } of [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
     ]) {
-      describe(`darkMode=${colors.darkMode} forcedColors=${colors.forcedColors}`, () => {
+      describe(`darkMode=${darkMode} forcedColors=${forcedColors}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
           it(
             state.name,
@@ -28,8 +28,8 @@ describe(`sbb-navigation-link`, () => {
                 {
                   backgroundColor: 'var(--sbb-background-color-1-negative)',
                   focusOutlineDark: true,
-                  darkMode: colors.darkMode,
-                  forcedColors: colors.forcedColors,
+                  darkMode,
+                  forcedColors,
                 },
               );
             }),

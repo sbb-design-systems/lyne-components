@@ -10,7 +10,7 @@ const cases = {
 };
 
 const colorCases = {
-  colors: [
+  emulateMedia: [
     { forcedColors: false, darkMode: false },
     { forcedColors: true, darkMode: false },
     { forcedColors: false, darkMode: true },
@@ -35,7 +35,7 @@ describe(`sbb-radio-button`, () => {
       );
     });
 
-    describeEach(colorCases, ({ checked, disabled, colors }) => {
+    describeEach(colorCases, ({ checked, disabled, emulateMedia: { darkMode, forcedColors } }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -43,7 +43,7 @@ describe(`sbb-radio-button`, () => {
             html`<sbb-radio-button ?checked=${checked} ?disabled=${disabled}>
               Value
             </sbb-radio-button>`,
-            { darkMode: colors.darkMode, forcedColors: colors.forcedColors },
+            { darkMode, forcedColors },
           );
         }),
       );

@@ -7,7 +7,7 @@ import './signet.component.js';
 describe(`sbb-signet`, () => {
   const cases = {
     protectiveRoom: ['none', 'minimal', 'ideal', 'panel'],
-    colors: [
+    emulateMedia: [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
@@ -15,7 +15,7 @@ describe(`sbb-signet`, () => {
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ protectiveRoom, colors }) => {
+    describeEach(cases, ({ protectiveRoom, emulateMedia: { darkMode, forcedColors } }) => {
       it(
         ``,
         visualDiffDefault.with(async (setup) => {
@@ -24,8 +24,8 @@ describe(`sbb-signet`, () => {
             {
               padding: '0',
               maxWidth: '300px',
-              forcedColors: colors.forcedColors,
-              darkMode: colors.darkMode,
+              forcedColors,
+              darkMode,
             },
           );
         }),

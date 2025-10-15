@@ -145,12 +145,12 @@ describe('sbb-sidebar', () => {
     describeEach(
       {
         color: ['white', 'milk'] as SbbSidebarElement['color'][],
-        colors: [
+        emulateMedia: [
           { forcedColors: true, darkMode: false },
           { forcedColors: false, darkMode: true },
         ],
       },
-      ({ color, colors }) => {
+      ({ color, emulateMedia: { darkMode, forcedColors } }) => {
         it(
           ``,
           visualDiffDefault.with(async (setup) => {
@@ -162,8 +162,8 @@ describe('sbb-sidebar', () => {
               {
                 backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
                 minHeight: '400px',
-                darkMode: colors.darkMode,
-                forcedColors: colors.forcedColors,
+                darkMode,
+                forcedColors,
               },
             );
           }),
