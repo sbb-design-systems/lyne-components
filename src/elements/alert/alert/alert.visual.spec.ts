@@ -75,9 +75,16 @@ describe(`sbb-alert`, () => {
     );
 
     it(
-      'dark mode focus',
+      'darkMode=true focus',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { darkMode: true });
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(alertTemplate({ ...defaultArgs }), { forcedColors: true });
       }),
     );
   });

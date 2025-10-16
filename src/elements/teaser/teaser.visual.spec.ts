@@ -199,6 +199,26 @@ describe(`sbb-teaser`, () => {
       );
 
       it(
+        'darkMode=true',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-teaser href="#" alignment="below">
+                <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+                <sbb-title level="2">This is a title</sbb-title>
+                This is a paragraph
+              </sbb-teaser>
+            `,
+            { darkMode: true },
+          );
+
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
+        }),
+      );
+
+      it(
         `longChip`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(

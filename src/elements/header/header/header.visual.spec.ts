@@ -109,6 +109,13 @@ describe(`sbb-header`, () => {
     );
 
     it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(), { padding: '0', darkMode: true });
+      }),
+    );
+
+    it(
       `scroll`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template(), { padding: '0' });

@@ -48,5 +48,12 @@ describe(`sbb-skiplink-list`, () => {
         await setup.withFixture(template('Skip to'), { minHeight: '100px' });
       }),
     );
+
+    it(
+      `darkMode=true`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(), { minHeight: '100px', darkMode: true });
+      }),
+    );
   });
 });

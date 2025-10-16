@@ -47,4 +47,43 @@ describe('sbb-carousel', () => {
       }),
     );
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-carousel>
+              <sbb-carousel-list>
+                <sbb-carousel-item>
+                  <img src=${imageUrl} alt="SBB image" height="300" width="400" />
+                </sbb-carousel-item>
+                <sbb-carousel-item>
+                  <img src=${imageUrl} alt="SBB image" height="300" width="400" />
+                </sbb-carousel-item>
+                <sbb-carousel-item>
+                  <img src=${imageUrl} alt="SBB image" height="300" width="400" />
+                </sbb-carousel-item>
+              </sbb-carousel-list>
+              <sbb-compact-paginator></sbb-compact-paginator>
+            </sbb-carousel>
+          `,
+          { darkMode: true },
+        );
+
+        setup.withPostSetupAction(async () => {
+          await Promise.all(
+            Array.from(setup.snapshotElement.querySelectorAll<HTMLImageElement>('img')).map((el) =>
+              waitForImageReady(el),
+            ),
+          );
+          setup.snapshotElement
+            .querySelectorAll('sbb-carousel-item')[0]!
+            .scrollIntoView({ behavior: 'instant' });
+          await aTimeout(10);
+        });
+      }),
+    );
+  });
 });

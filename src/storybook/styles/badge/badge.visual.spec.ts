@@ -31,4 +31,21 @@ describe(`badge`, () => {
       );
     });
   });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: false, darkMode: true },
+      { forcedColors: true, darkMode: false },
+    ]) {
+      it(
+        `forcedColors=${forcedColors} darkMode=${darkMode}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`<sbb-icon name="user-small" sbb-badge="99"></sbb-icon>`, {
+            darkMode,
+            forcedColors,
+          });
+        }),
+      );
+    }
+  });
 });

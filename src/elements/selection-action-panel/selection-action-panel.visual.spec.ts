@@ -181,4 +181,19 @@ describe(`sbb-selection-action-panel`, () => {
       });
     }
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    const colorCases = {
+      color: ['white', 'milk'],
+    };
+
+    describeEach(colorCases, (params) => {
+      it(
+        `darkMode=true`,
+        visualDiffFocus.with(async (setup) => {
+          await setup.withFixture(withCheckboxPanel(params), { darkMode: true });
+        }),
+      );
+    });
+  });
 });

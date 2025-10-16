@@ -22,11 +22,16 @@ export function cardActionVisualSpec(component: string): void {
       active: [false, true],
       badge: [false, true],
       color: ['white', 'milk', 'transparent-bordered', 'transparent-bordered-dashed'],
+      emulateMedia: [
+        { forcedColors: false, darkMode: false },
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ],
     };
 
     describeViewports({ viewports: ['large'] }, () => {
       // Main test cases
-      describeEach(cases, ({ active, color, badge }) => {
+      describeEach(cases, ({ active, color, badge, emulateMedia: { forcedColors, darkMode } }) => {
         beforeEach(async function () {
           /* eslint-disable lit/binding-positions */
           root = await visualRegressionFixture(
@@ -56,6 +61,8 @@ export function cardActionVisualSpec(component: string): void {
                 color === 'milk'
                   ? 'var(--sbb-background-color-1)'
                   : 'var(--sbb-background-color-3)',
+              forcedColors,
+              darkMode,
             },
           );
           /* eslint-enable lit/binding-positions */

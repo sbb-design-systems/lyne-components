@@ -83,4 +83,34 @@ describe(`sbb-notification`, () => {
       );
     });
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const type of types) {
+      describe(`type=${type}`, () => {
+        it(
+          'darkMode=true',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${notificationTemplate({ ...defaultArgs, type })} ${textTemplate}`,
+              {
+                darkMode: true,
+              },
+            );
+          }),
+        );
+
+        it(
+          'forcedColors=true',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${notificationTemplate({ ...defaultArgs, type })} ${textTemplate}`,
+              {
+                forcedColors: true,
+              },
+            );
+          }),
+        );
+      });
+    }
+  });
 });

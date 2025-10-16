@@ -15,7 +15,7 @@ const suffixAndSubtext = (size: 's' | 'm' = 'm'): TemplateResult =>
   html`<span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-      <span class="sbb-text-${size} sbb-text--bold"> CHF 40.00 </span>
+      <span class="sbb-text-${size} sbb-text--bold">CHF 40.00</span>
     </span>`;
 
 describe(`sbb-radio-button-panel`, () => {
@@ -34,15 +34,30 @@ describe(`sbb-radio-button-panel`, () => {
     });
 
     it(
-      'color=milk',
+      `darkMode=true`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-radio-button-panel checked color="milk">
-            Value ${suffixAndSubtext()}
-          </sbb-radio-button-panel>
-        `);
+        await setup.withFixture(
+          html`<sbb-radio-button-panel>Value ${suffixAndSubtext()}</sbb-radio-button-panel>`,
+          { darkMode: true },
+        );
       }),
     );
+
+    for (const darkMode of [false, true]) {
+      it(
+        `color=milk darkMode=${darkMode}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-radio-button-panel checked color="milk">
+                Value ${suffixAndSubtext()}
+              </sbb-radio-button-panel>
+            `,
+            { darkMode },
+          );
+        }),
+      );
+    }
 
     for (const color of ['white', 'milk']) {
       it(
@@ -56,6 +71,17 @@ describe(`sbb-radio-button-panel`, () => {
         }),
       );
     }
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-radio-button-panel>Value ${suffixAndSubtext()}</sbb-radio-button-panel>`,
+          { forcedColors: true },
+        );
+      }),
+    );
+
     // Focus state is tested in the radio-button-group
   });
 });

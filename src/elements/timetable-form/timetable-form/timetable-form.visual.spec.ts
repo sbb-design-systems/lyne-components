@@ -165,6 +165,16 @@ describe('sbb-timetable-form', () => {
     );
 
     it(
+      `darkMode=true`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(defaultTemplate(), { darkMode: true });
+        setup.withStateElement(
+          setup.snapshotElement.querySelector('sbb-timetable-form-swap-button')!,
+        );
+      }),
+    );
+
+    it(
       `datepicker_${visualDiffFocus.name}`,
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(defaultTemplate());

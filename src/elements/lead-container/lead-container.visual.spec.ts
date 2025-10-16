@@ -136,4 +136,21 @@ describe(`sbb-lead-container`, () => {
       );
     }
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(leadContainerTemplate(testCases[0].imgTemplate), {
+          ...wrapperStyles,
+          darkMode: true,
+        });
+
+        setup.withPostSetupAction(
+          async () =>
+            await waitForImageReady(setup.snapshotElement.querySelector(testCases[0].imgSelector)!),
+        );
+      }),
+    );
+  });
 });

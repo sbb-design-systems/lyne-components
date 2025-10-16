@@ -156,5 +156,26 @@ describe(`sbb-message`, () => {
         );
       }),
     );
+
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-message>
+              <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
+              <p slot="subtitle">Please reload the page or try your search again later.</p>
+              <p slot="legend">Error code: 0001</p>
+              <sbb-secondary-button
+                slot="action"
+                icon-name="arrows-circle-small"
+                size="m"
+              ></sbb-secondary-button>
+            </sbb-message>
+          `,
+          { darkMode: true },
+        );
+      }),
+    );
   });
 });
