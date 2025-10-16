@@ -22,8 +22,11 @@ describe(`sbb-expansion-panel`, () => {
     disabled: [false, true],
     expanded: [false, true],
     color: ['white', 'milk'],
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const sizeCases = {
@@ -99,34 +102,37 @@ describe(`sbb-expansion-panel`, () => {
 
   describeViewports({ viewports: ['zero'] }, () => {
     // Main test cases
-    describeEach(cases, ({ borderless, disabled, expanded, color, forcedColors, darkMode }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
-            <sbb-expansion-panel
-              ?borderless=${borderless}
-              ?disabled=${disabled}
-              ?expanded=${expanded}
-              color=${color}
-            >
-              <sbb-expansion-panel-header icon-name="arrow-right-small">
-                Header
-              </sbb-expansion-panel-header>
-              <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-            </sbb-expansion-panel>
-          `,
-          { forcedColors, darkMode },
-        );
-      });
+    describeEach(
+      cases,
+      ({ borderless, disabled, expanded, color, emulateMedia: { forcedColors, darkMode } }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`
+              <sbb-expansion-panel
+                ?borderless=${borderless}
+                ?disabled=${disabled}
+                ?expanded=${expanded}
+                color=${color}
+              >
+                <sbb-expansion-panel-header icon-name="arrow-right-small">
+                  Header
+                </sbb-expansion-panel-header>
+                <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+              </sbb-expansion-panel>
+            `,
+            { forcedColors, darkMode },
+          );
+        });
 
-      for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
-        it(
-          state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-          }),
-        );
-      }
-    });
+        for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      },
+    );
   });
 });

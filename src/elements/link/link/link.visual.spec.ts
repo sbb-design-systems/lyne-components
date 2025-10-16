@@ -26,36 +26,37 @@ describe(`sbb-link`, () => {
   });
 
   describeViewports({ viewports: ['zero'] }, () => {
-    const cases = {
-      emulateMedia: [
-        { darkMode: false, forcedColors: false },
-        { darkMode: true, forcedColors: false },
-        { darkMode: false, forcedColors: true },
-      ],
-      negative: [false, true],
-    };
-
-    describeEach(cases, ({ emulateMedia: { darkMode, forcedColors }, negative }) => {
-      for (const state of visualDiffStandardStates) {
-        it(
-          state.name,
-          state.with(async (setup) => {
-            await setup.withFixture(
-              html`<p class="sbb-text-m">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                <sbb-link href="#" ?negative=${negative}>Show more.</sbb-link>
-              </p>`,
-              {
-                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-                color: negative ? 'var(--sbb-color-aluminium)' : undefined,
-                darkMode,
-                forcedColors,
-              },
-            );
-          }),
-        );
-      }
-    });
+    describeEach(
+      {
+        emulateMedia: [
+          { darkMode: false, forcedColors: false },
+          { darkMode: true, forcedColors: false },
+          { darkMode: false, forcedColors: true },
+        ],
+        negative: [false, true],
+      },
+      ({ emulateMedia: { darkMode, forcedColors }, negative }) => {
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`<p class="sbb-text-m">
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                  <sbb-link href="#" ?negative=${negative}>Show more.</sbb-link>
+                </p>`,
+                {
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                  color: negative ? 'var(--sbb-color-aluminium)' : undefined,
+                  darkMode,
+                  forcedColors,
+                },
+              );
+            }),
+          );
+        }
+      },
+    );
   });
 });

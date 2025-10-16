@@ -27,7 +27,7 @@ describe(`sbb-clock`, () => {
     }
 
     it(
-      `darkMode`,
+      `darkMode=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`<sbb-clock now=${'0:0:0'}></sbb-clock>`, {
           darkMode: true,

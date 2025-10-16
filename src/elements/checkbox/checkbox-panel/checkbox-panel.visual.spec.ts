@@ -105,7 +105,7 @@ describe('sbb-checkbox-panel', () => {
     );
 
     it(
-      `forcedColors`,
+      `forcedColors=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs }), { forcedColors: true });
       }),

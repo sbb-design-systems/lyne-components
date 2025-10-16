@@ -75,7 +75,7 @@ describe(`sbb-alert`, () => {
     );
 
     it(
-      'dark mode focus',
+      'darkMode=true focus',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { darkMode: true });
       }),

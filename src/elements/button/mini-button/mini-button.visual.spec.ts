@@ -22,8 +22,11 @@ describe(`sbb-mini-button`, () => {
 
   const cases = {
     ...basicCases,
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const labelCases = {
@@ -32,7 +35,7 @@ describe(`sbb-mini-button`, () => {
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors, darkMode }) => {
+    describeEach(cases, ({ disabled, negative, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`

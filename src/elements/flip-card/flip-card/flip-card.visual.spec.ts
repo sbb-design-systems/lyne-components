@@ -234,7 +234,7 @@ describe(`sbb-flip-card`, () => {
   });
 
   describeViewports({ viewports: ['large'] }, () => {
-    describe('dark mode', () => {
+    describe('darkMode=true', () => {
       for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
         it(
           state.name,

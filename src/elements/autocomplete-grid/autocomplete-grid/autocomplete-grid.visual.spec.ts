@@ -242,7 +242,7 @@ describe('sbb-autocomplete-grid', () => {
         );
 
         it(
-          'dark mode focus',
+          'darkMode=true focus',
           visualDiffFocus.with(async (setup) => {
             await setup.withFixture(template(defaultArgs), { darkMode: true });
 

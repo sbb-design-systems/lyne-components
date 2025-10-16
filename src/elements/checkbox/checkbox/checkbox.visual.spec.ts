@@ -36,29 +36,29 @@ describe('sbb-checkbox', () => {
           >
         `;
 
-        for (const forcedColors of [false, true]) {
-          describe(`forcedColors=${forcedColors}`, () => {
-            for (const darkMode of forcedColors ? [true] : [false, true]) {
-              describe(`darkMode=${darkMode}`, () => {
-                for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
-                  it(
-                    visualDiffState.name,
-                    visualDiffState.with(async (setup) => {
-                      await setup.withFixture(template(defaultArgs), { forcedColors, darkMode });
-                    }),
-                  );
+        for (const { forcedColors, darkMode } of [
+          { forcedColors: false, darkMode: false },
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ]) {
+          describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+            for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+              it(
+                visualDiffState.name,
+                visualDiffState.with(async (setup) => {
+                  await setup.withFixture(template(defaultArgs), { forcedColors, darkMode });
+                }),
+              );
 
-                  it(
-                    `disabled`,
-                    visualDiffDefault.with(async (setup) => {
-                      await setup.withFixture(template({ ...defaultArgs, disabled: true }), {
-                        forcedColors,
-                        darkMode,
-                      });
-                    }),
-                  );
-                }
-              });
+              it(
+                `disabled`,
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(template({ ...defaultArgs, disabled: true }), {
+                    forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
             }
           });
         }

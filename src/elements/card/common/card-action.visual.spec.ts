@@ -22,13 +22,16 @@ export function cardActionVisualSpec(component: string): void {
       active: [false, true],
       badge: [false, true],
       color: ['white', 'milk', 'transparent-bordered', 'transparent-bordered-dashed'],
-      forcedColors: [false, true],
-      darkMode: [false, true],
+      emulateMedia: [
+        { forcedColors: false, darkMode: false },
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ],
     };
 
     describeViewports({ viewports: ['large'] }, () => {
       // Main test cases
-      describeEach(cases, ({ active, color, badge, forcedColors, darkMode }) => {
+      describeEach(cases, ({ active, color, badge, emulateMedia: { forcedColors, darkMode } }) => {
         beforeEach(async function () {
           /* eslint-disable lit/binding-positions */
           root = await visualRegressionFixture(

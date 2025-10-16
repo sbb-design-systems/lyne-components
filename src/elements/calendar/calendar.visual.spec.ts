@@ -46,14 +46,20 @@ describe('sbb-calendar', () => {
   ];
 
   const dayButtonCases = {
-    forcedColors: [false, true],
-    darkMode: [false, true],
     selected: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const changeMonthButtonCases = {
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   for (const orientation of ['horizontal', 'vertical']) {
@@ -154,7 +160,7 @@ describe('sbb-calendar', () => {
 
   describeViewports({ viewports: ['zero'] }, () => {
     describe('day button', () => {
-      describeEach(dayButtonCases, ({ forcedColors, darkMode, selected }) => {
+      describeEach(dayButtonCases, ({ selected, emulateMedia: { forcedColors, darkMode } }) => {
         let element: SbbCalendarElement, root: HTMLElement;
 
         beforeEach(async function () {
@@ -191,7 +197,7 @@ describe('sbb-calendar', () => {
     });
 
     describe('change month button', () => {
-      describeEach(changeMonthButtonCases, ({ forcedColors, darkMode }) => {
+      describeEach(changeMonthButtonCases, ({ emulateMedia: { forcedColors, darkMode } }) => {
         let element: SbbCalendarElement, root: HTMLElement;
 
         beforeEach(async function () {

@@ -20,12 +20,15 @@ describe(`sbb-form-field-clear`, () => {
       { disabled: true, readonly: false },
       { disabled: false, readonly: true },
     ],
-    darkMode: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ negative, state, darkMode, forcedColors }) => {
+    describeEach(cases, ({ negative, state, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`

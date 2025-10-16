@@ -50,7 +50,7 @@ describe('sbb-carousel', () => {
 
   describeViewports({ viewports: ['large'] }, () => {
     it(
-      'darkMode',
+      'darkMode=true',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`

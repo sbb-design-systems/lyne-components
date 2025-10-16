@@ -17,41 +17,47 @@ describe(`sbb-transparent-button`, () => {
     disabled: [false, true],
     negative: [false, true],
     loading: [false, true],
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, loading, forcedColors, darkMode }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
-            <sbb-transparent-button
-              ?disabled=${disabled}
-              ?negative=${negative}
-              ?loading=${loading}
-              icon-name="arrow-right-small"
-            >
-              Button
-            </sbb-transparent-button>
-          `,
-          {
-            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-            focusOutlineDark: negative,
-            forcedColors,
-            darkMode,
-          },
-        );
-      });
+    describeEach(
+      cases,
+      ({ disabled, negative, loading, emulateMedia: { forcedColors, darkMode } }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`
+              <sbb-transparent-button
+                ?disabled=${disabled}
+                ?negative=${negative}
+                ?loading=${loading}
+                icon-name="arrow-right-small"
+              >
+                Button
+              </sbb-transparent-button>
+            `,
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              focusOutlineDark: negative,
+              forcedColors,
+              darkMode,
+            },
+          );
+        });
 
-      for (const state of visualDiffStandardStates) {
-        it(
-          state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-          }),
-        );
-      }
-    });
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      },
+    );
   });
 });

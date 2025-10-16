@@ -73,7 +73,7 @@ describe(`sbb-radio-button-panel`, () => {
     }
 
     it(
-      `forcedColors`,
+      `forcedColors=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`<sbb-radio-button-panel>Value ${suffixAndSubtext()}</sbb-radio-button-panel>`,

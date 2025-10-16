@@ -13,8 +13,11 @@ import '../link/block-link.js';
 describe(`sbb-footer`, () => {
   const colorCases = {
     negative: [false, true],
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const cases = {
@@ -88,7 +91,7 @@ describe(`sbb-footer`, () => {
   });
 
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(colorCases, ({ negative, darkMode, forcedColors }) => {
+    describeEach(colorCases, ({ negative, emulateMedia: { forcedColors, darkMode } }) => {
       it(
         'variant=clock-columns',
         visualDiffDefault.with(async (setup) => {

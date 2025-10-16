@@ -32,17 +32,19 @@ describe(`sbb-file-selector-dropzone`, () => {
 
   const states = {
     state: [
-      { disabled: false, error: false, forcedColors: false },
-      { disabled: false, error: false, forcedColors: true },
-      { disabled: true, error: false, forcedColors: false },
-      { disabled: true, error: false, forcedColors: true },
-      { disabled: false, error: true, forcedColors: false },
+      { disabled: false, error: false },
+      { disabled: true, error: false },
+      { disabled: false, error: true },
     ],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['small', 'large'] }, () => {
-    describeEach(states, ({ state, darkMode }) => {
+    describeEach(states, ({ state, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -56,7 +58,7 @@ describe(`sbb-file-selector-dropzone`, () => {
               ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
               : nothing}
           `,
-          { forcedColors: state.forcedColors, darkMode },
+          { forcedColors: forcedColors, darkMode },
         );
       });
 

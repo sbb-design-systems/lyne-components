@@ -28,8 +28,11 @@ describe(`sbb-form-error`, () => {
 
   const colorCases = {
     negative: [false, true],
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
@@ -56,7 +59,7 @@ describe(`sbb-form-error`, () => {
   });
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(colorCases, ({ negative, forcedColors, darkMode }) => {
+    describeEach(colorCases, ({ negative, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
