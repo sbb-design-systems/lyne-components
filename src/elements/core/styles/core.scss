@@ -35,8 +35,6 @@ $theme: 'standard' !default;
     @include visual-checkbox.base-forced-colors;
   }
 
-  // TODO: block for breakpoints
-
   // Train formation
   --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
   --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
