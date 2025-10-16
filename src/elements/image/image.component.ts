@@ -1,16 +1,10 @@
 import {
   SbbBreakpointZeroMin,
   SbbBreakpointZeroMax,
-  SbbBreakpointMicroMin,
-  SbbBreakpointMicroMax,
   SbbBreakpointSmallMin,
   SbbBreakpointSmallMax,
-  SbbBreakpointMediumMin,
-  SbbBreakpointMediumMax,
   SbbBreakpointLargeMin,
   SbbBreakpointLargeMax,
-  SbbBreakpointWideMin,
-  SbbBreakpointWideMax,
   SbbBreakpointUltraMin,
   SbbBreakpointUltraMax,
   SbbTypoScaleDefault,
@@ -26,6 +20,7 @@ import {
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './image.scss?lit&inline';
 
@@ -130,16 +125,10 @@ const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
 const breakpointMap: Record<string, number> = {
   'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),
   'sbb-breakpoint-zero-max': pxToRem(SbbBreakpointZeroMax),
-  'sbb-breakpoint-micro-min': pxToRem(SbbBreakpointMicroMin),
-  'sbb-breakpoint-micro-max': pxToRem(SbbBreakpointMicroMax),
   'sbb-breakpoint-small-min': pxToRem(SbbBreakpointSmallMin),
   'sbb-breakpoint-small-max': pxToRem(SbbBreakpointSmallMax),
-  'sbb-breakpoint-medium-min': pxToRem(SbbBreakpointMediumMin),
-  'sbb-breakpoint-medium-max': pxToRem(SbbBreakpointMediumMax),
   'sbb-breakpoint-large-min': pxToRem(SbbBreakpointLargeMin),
   'sbb-breakpoint-large-max': pxToRem(SbbBreakpointLargeMax),
-  'sbb-breakpoint-wide-min': pxToRem(SbbBreakpointWideMin),
-  'sbb-breakpoint-wide-max': pxToRem(SbbBreakpointWideMax),
   'sbb-breakpoint-ultra-min': pxToRem(SbbBreakpointUltraMin),
   'sbb-breakpoint-ultra-max': pxToRem(SbbBreakpointUltraMax),
 };
@@ -156,7 +145,7 @@ const breakpointMap: Record<string, number> = {
 export
 @customElement('sbb-image')
 class SbbImageElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     error: 'error',
     load: 'load',
@@ -336,7 +325,7 @@ class SbbImageElement extends LitElement {
    *            "conditionFeature": "max-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "sbb-breakpoint-micro-max"
+   *              "value": "sbb-breakpoint-small-max"
    *            },
    *            "conditionOperator": "and"
    *          },
@@ -484,7 +473,7 @@ class SbbImageElement extends LitElement {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "sbb-breakpoint-micro-min"
+                  "value": "sbb-breakpoint-small-min"
                 },
                 "conditionOperator": false
               }

@@ -6,9 +6,6 @@ $open-anim-rows-to: 1fr;
 $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -26,7 +23,7 @@ $open-anim-opacity-to: 1;
   );
   --sbb-alert-timing-function: ease-in;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
   }
 
@@ -55,7 +52,7 @@ $open-anim-opacity-to: 1;
 :host([size='l']) {
   --sbb-alert-icon-size: var(--sbb-size-icon-ui-small);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(34)};
   }
 }

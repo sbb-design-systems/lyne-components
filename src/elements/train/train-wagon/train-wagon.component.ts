@@ -20,6 +20,7 @@ import {
 } from '../../core/i18n.js';
 import type { SbbOccupancy } from '../../core/interfaces.js';
 import { SbbNamedSlotListMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbIconElement } from '../../icon.js';
 
 import style from './train-wagon.scss?lit&inline';
@@ -43,7 +44,7 @@ export
 class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof LitElement>(
   LitElement,
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     sectorchange: 'sectorchange',
   } as const;

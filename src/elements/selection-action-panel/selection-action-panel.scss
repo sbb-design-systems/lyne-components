@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-selection-action-panel-background: var(--sbb-background-color-1);
   --sbb-selection-action-panel-border-color: var(--sbb-border-color-4-inverted);

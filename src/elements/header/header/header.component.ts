@@ -13,6 +13,7 @@ import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './header.scss?lit&inline';
 
@@ -23,12 +24,12 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  *
  * @slot - Use the unnamed slot to add actions, content and logo to the header.
  * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
- * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
+ * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
  */
 export
 @customElement('sbb-header')
 class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Whether to allow the header content to stretch to full width.

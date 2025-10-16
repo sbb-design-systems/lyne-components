@@ -22,6 +22,7 @@ describe(`sbb-button`, () => {
       { icon: 'arrow-right-small', text: 'Button' },
       { icon: 'arrow-right-small', text: '' },
     ],
+    darkMode: [false, true],
   };
 
   // 'l' as default is covered by other cases.
@@ -34,10 +35,11 @@ describe(`sbb-button`, () => {
 
   const loadingCases = {
     negative: [false, true],
+    darkMode: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    describeEach(cases, ({ disabled, negative, state }) => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    describeEach(cases, ({ disabled, negative, state, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -48,6 +50,7 @@ describe(`sbb-button`, () => {
           {
             backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
+            darkMode,
           },
         );
       });
@@ -63,13 +66,14 @@ describe(`sbb-button`, () => {
     });
 
     describe('loading', () => {
-      describeEach(loadingCases, ({ negative }) => {
+      describeEach(loadingCases, ({ negative, darkMode }) => {
         beforeEach(async function () {
           root = await visualRegressionFixture(
-            html` <sbb-button loading ?negative=${negative}> Loading Button </sbb-button> `,
+            html` <sbb-button loading ?negative=${negative}>Loading Button</sbb-button> `,
             {
               backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
+              darkMode,
             },
           );
         });

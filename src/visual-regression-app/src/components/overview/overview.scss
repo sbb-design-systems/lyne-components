@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 .app-overview {
   display: flex;
   gap: 1rem;
@@ -9,7 +7,7 @@
 }
 
 .app-compare-link {
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     margin-inline-start: auto;
   }
 }

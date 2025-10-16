@@ -6,6 +6,7 @@ import type { SbbActionBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators/slot-state.js';
 import type { SbbHorizontalFrom } from '../../core/interfaces.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './header-action.scss?lit&inline';
@@ -27,15 +28,15 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
+    public static styles: CSSResultGroup = [boxSizingStyles, style];
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.
-     * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
+     * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
     @property({ attribute: 'expand-from', reflect: true })
-    public accessor expandFrom: SbbHorizontalFrom = 'medium';
+    public accessor expandFrom: SbbHorizontalFrom = 'large';
 
     protected override renderTemplate(): TemplateResult {
       return html`

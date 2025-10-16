@@ -37,7 +37,7 @@ describe(`sbb-alert`, () => {
     </sbb-alert>
   `;
 
-  describeViewports({ viewports: ['micro', 'small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     for (const size of ['s', 'm', 'l']) {
       it(
         `size=${size}`,
@@ -75,9 +75,16 @@ describe(`sbb-alert`, () => {
     );
 
     it(
-      'dark mode focus',
+      'darkMode=true focus',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { darkMode: true });
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(alertTemplate({ ...defaultArgs }), { forcedColors: true });
       }),
     );
   });

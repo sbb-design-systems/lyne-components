@@ -100,7 +100,7 @@ by adding classes to `sbb-header-button`/`sbb-header-link` elements and then def
 
 1. four action items (with custom icons);
 2. the first item is always left aligned and has `expand-from` set to `small`;
-3. the other three items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
+3. the other three items are left aligned in breakpoints zero to large, and right aligned from large to ultra;
 4. the last item is not visible in breakpoints zero to small;
 5. the logo is always aligned to the right.
 
@@ -121,7 +121,7 @@ The result can also be seen in the [home](/story/pages-home--home) and [home-log
   display: none;
 }
 
-@media screen and (width >= 840px) {
+@media screen and (width >= 600px) {
   .last-element {
     display: block;
   }
@@ -217,10 +217,10 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 
 ## CSS Properties
 
-| Name                   | Default                                                                             | Description                                      |
-| ---------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
-| `--sbb-header-z-index` | `10`                                                                                | Can be used to modify the z-index of the header. |
+| Name                   | Default                                                                            | Description                                      |
+| ---------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
+| `--sbb-header-z-index` | `10`                                                                               | Can be used to modify the z-index of the header. |
 
 ## Slots
 

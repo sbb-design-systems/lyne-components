@@ -20,7 +20,7 @@ describe(`sbb-pearl-chain-vertical`, () => {
     position: 0,
   };
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       'connection',
       visualDiffDefault.with(async (setup) => {

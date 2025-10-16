@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 $active: ':active, [data-active], [loading]';
@@ -67,7 +64,7 @@ $active: ':active, [data-active], [loading]';
   --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
     var(--_border-color);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
   }
 
@@ -116,7 +113,7 @@ $active: ':active, [data-active], [loading]';
   --sbb-button-min-height: var(--sbb-size-element-s);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   }
 }
@@ -126,7 +123,7 @@ $active: ':active, [data-active], [loading]';
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-button-gap: var(--sbb-spacing-fixed-1x);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
   }
 }

@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // We use this rule to make the inner container element to appear as if it were a
   // direct child of the host's parent element. This is useful because the host
@@ -35,7 +32,7 @@
 
   @include sbb.scrollbar-variables($negative: true);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
@@ -47,7 +44,7 @@
   --sbb-menu-visibility: visible;
   --sbb-menu-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 20%, transparent);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-backdrop-color: transparent;
   }
 }
@@ -68,7 +65,7 @@
   --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
 }
 
-@include sbb.mq($to: medium) {
+@include sbb.mq($to: large) {
   :host(:state(skip-animation)) {
     --sbb-menu-animation-duration: 0ms;
   }
@@ -176,7 +173,7 @@ sbb-divider,
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     top: 0;
     bottom: unset;
     left: 0;
@@ -210,7 +207,7 @@ sbb-divider,
     height: var(--sbb-spacing-fixed-8x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     max-height: fit-content;
 
     :host(:not([data-state='closed'])) & {

@@ -102,7 +102,7 @@ const triggerButton = (triggerId: string): TemplateResult => html`
 `;
 
 const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
     <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close ?sbb-focus-initial=${!includeCloseButton} ?negative=${negative}>
       Confirm

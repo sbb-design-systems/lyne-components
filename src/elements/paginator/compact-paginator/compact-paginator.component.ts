@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { i18nPage, i18nPaginatorOf } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 
 import style from './compact-paginator.scss?lit&inline';
@@ -17,7 +18,7 @@ import '../../screen-reader-only.js';
 export
 @customElement('sbb-compact-paginator')
 class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
     ɵpage: 'ɵpage',

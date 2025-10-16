@@ -92,8 +92,7 @@ const defaultTemplate = (): TemplateResult => html`
 `;
 
 describe('sbb-timetable-form', () => {
-  // TODO: Remove the viewports when the 4 breakpoint PR is merged
-  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
+  describeViewports(() => {
     it(
       `${visualDiffDefault.name}`,
       visualDiffDefault.with(async (setup) => {
@@ -159,6 +158,16 @@ describe('sbb-timetable-form', () => {
       `swap button_${visualDiffFocus.name}`,
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(defaultTemplate());
+        setup.withStateElement(
+          setup.snapshotElement.querySelector('sbb-timetable-form-swap-button')!,
+        );
+      }),
+    );
+
+    it(
+      `darkMode=true`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(defaultTemplate(), { darkMode: true });
         setup.withStateElement(
           setup.snapshotElement.querySelector('sbb-timetable-form-swap-button')!,
         );

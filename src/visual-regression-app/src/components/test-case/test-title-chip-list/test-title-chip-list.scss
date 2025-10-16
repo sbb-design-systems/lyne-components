@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 .chip-list-wrapper {
   display: flex;
   gap: var(--sbb-spacing-fixed-1x);

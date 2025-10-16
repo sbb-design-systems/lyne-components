@@ -15,6 +15,7 @@ import {
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTagElement, SbbTagSize } from '../tag.js';
 
 import style from './tag-group.scss?lit&inline';
@@ -30,7 +31,7 @@ export
 class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildLocalNames = ['sbb-tag', 'div'];
 

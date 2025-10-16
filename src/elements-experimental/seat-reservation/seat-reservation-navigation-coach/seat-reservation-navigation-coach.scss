@@ -3,9 +3,6 @@
 
 $disabled: '[disabled], :disabled';
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
   --sbb-seat-reservation-navigation-btn-outline-color: light-dark(

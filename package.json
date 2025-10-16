@@ -83,7 +83,7 @@
     "@lit/react": "1.0.8",
     "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
-    "@sbb-esta/lyne-design-tokens": "1.8.0",
+    "@sbb-esta/lyne-design-tokens": "2.0.0-next.1",
     "@storybook/addon-a11y": "9.1.10",
     "@storybook/addon-actions": "9.0.8",
     "@storybook/addon-docs": "9.1.10",
@@ -93,10 +93,10 @@
     "@storybook/icons": "1.6.0",
     "@storybook/web-components-vite": "9.1.10",
     "@types/mocha": "10.0.10",
-    "@types/node": "22.18.9",
+    "@types/node": "22.18.10",
     "@types/react": "19.2.2",
-    "@typescript-eslint/eslint-plugin": "8.46.0",
-    "@typescript-eslint/parser": "8.46.0",
+    "@typescript-eslint/eslint-plugin": "8.46.1",
+    "@typescript-eslint/parser": "8.46.1",
     "@web/test-runner": "0.20.2",
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.1",
@@ -104,7 +104,7 @@
     "cross-env": "10.1.0",
     "custom-elements-manifest": "2.1.0",
     "date-fns": "4.1.0",
-    "esbuild": "0.25.10",
+    "esbuild": "0.25.11",
     "eslint": "9.37.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
@@ -116,7 +116,7 @@
     "glob": "11.0.3",
     "globals": "16.4.0",
     "husky": "9.1.7",
-    "lint-staged": "16.2.3",
+    "lint-staged": "16.2.4",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "npm-run-all2": "8.0.4",
@@ -138,13 +138,13 @@
     "ts-lit-plugin": "2.0.2",
     "tslib": "2.8.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.0",
+    "typescript-eslint": "8.46.1",
     "urlpattern-polyfill": "10.1.0",
-    "vite": "7.1.9",
+    "vite": "7.1.10",
     "vite-plugin-dts": "4.5.4"
   },
   "resolutions": {
-    "@types/node": "22.18.9",
+    "@types/node": "22.18.10",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",
@@ -158,7 +158,7 @@
     "printWidth": 100
   },
   "lint-staged": {
-    "*.{js,ts,yaml,yml}": [
+    "!(tools/generate-component/**/*)*.{js,ts,yaml,yml}": [
       "eslint --fix --no-ignore"
     ],
     "*.scss": [

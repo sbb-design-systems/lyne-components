@@ -1,6 +1,6 @@
 import {
-  SbbBreakpointMediumMax,
-  SbbBreakpointMediumMin,
+  SbbBreakpointLargeMax,
+  SbbBreakpointLargeMin,
   SbbBreakpointSmallMax,
   SbbTypoScaleDefault,
 } from '@sbb-esta/lyne-design-tokens';
@@ -15,8 +15,8 @@ export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryDarkMode = '(prefers-color-scheme: dark)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
-export const SbbMediaQueryBreakpointMediumAndAbove = `(min-width: ${pxToRem(SbbBreakpointMediumMin)}rem)`;
-export const SbbMediaQueryBreakpointMediumAndBelow = `(max-width: ${pxToRem(SbbBreakpointMediumMax)}rem)`;
+export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${pxToRem(SbbBreakpointLargeMin)}rem)`;
+export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${pxToRem(SbbBreakpointLargeMax)}rem)`;
 export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${pxToRem(SbbBreakpointSmallMax)}rem)`;
 /* eslint-enable @typescript-eslint/naming-convention */
 

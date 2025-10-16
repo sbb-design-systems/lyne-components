@@ -7,17 +7,26 @@ import './signet.component.js';
 describe(`sbb-signet`, () => {
   const cases = {
     protectiveRoom: ['none', 'minimal', 'ideal', 'panel'],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ protectiveRoom, forcedColors }) => {
+    describeEach(cases, ({ protectiveRoom, emulateMedia: { darkMode, forcedColors } }) => {
       it(
         ``,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-signet protective-room=${protectiveRoom}></sbb-signet>`,
-            { padding: '0', maxWidth: '300px', forcedColors },
+            {
+              padding: '0',
+              maxWidth: '300px',
+              forcedColors,
+              darkMode,
+            },
           );
         }),
       );

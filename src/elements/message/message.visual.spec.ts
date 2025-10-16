@@ -43,7 +43,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-message`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const testCase of imgTestCases) {
       it(
         `default ${testCase.title}`,
@@ -153,6 +153,27 @@ describe(`sbb-message`, () => {
 
         setup.withPostSetupAction(
           async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-message>
+              <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
+              <p slot="subtitle">Please reload the page or try your search again later.</p>
+              <p slot="legend">Error code: 0001</p>
+              <sbb-secondary-button
+                slot="action"
+                icon-name="arrows-circle-small"
+                size="m"
+              ></sbb-secondary-button>
+            </sbb-message>
+          `,
+          { darkMode: true },
         );
       }),
     );

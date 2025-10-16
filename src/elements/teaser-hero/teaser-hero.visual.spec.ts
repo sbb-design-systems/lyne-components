@@ -47,7 +47,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-teaser-hero`, () => {
-  describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       for (const testCase of imgTestCases) {
         it(
@@ -134,5 +134,34 @@ describe(`sbb-teaser-hero`, () => {
         });
       }),
     );
+
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+          const testCase = imgTestCases[1];
+
+          it(
+            state.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-teaser-hero href="#" link-content="Find out more">
+                    Break out and explore castles and palaces. ${testCase.imgTemplate()}
+                  </sbb-teaser-hero>
+                `,
+                { forcedColors, darkMode },
+              );
+
+              setup.withPostSetupAction(async () => {
+                await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+              });
+            }),
+          );
+        }
+      });
+    }
   });
 });

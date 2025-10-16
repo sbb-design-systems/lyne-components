@@ -40,7 +40,7 @@ section sbb-title {
   display: grid;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-grid-base-gutter-responsive);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     grid-auto-flow: column;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(2, 1fr);
@@ -104,11 +104,11 @@ section sbb-title {
     }
   }
 
-  @include sbb.mq($from: small, $to: medium) {
+  @include sbb.mq($from: small, $to: large) {
     @include card-expanded;
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     @include card-expanded;
   }
 }
@@ -184,7 +184,7 @@ section sbb-title {
   display: grid;
   gap: var(--sbb-spacing-responsive-m) var(--sbb-spacing-fixed-3x);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -215,9 +215,6 @@ section sbb-title {
 
   @include sbb.mq($from: large) {
     grid-column: 2/-2;
-  }
-  @include sbb.mq($from: wide) {
-    grid-column: 3/-3;
   }
   @include sbb.mq($from: ultra) {
     grid-column: 4/-4;

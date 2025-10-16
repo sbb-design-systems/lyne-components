@@ -1,6 +1,8 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { boxSizingStyles } from '../core/styles.js';
+
 import style from './lead-container.scss?lit&inline';
 
 /**
@@ -14,7 +16,7 @@ import style from './lead-container.scss?lit&inline';
 export
 @customElement('sbb-lead-container')
 class SbbLeadContainerElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {
     return html`

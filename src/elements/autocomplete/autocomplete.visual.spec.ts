@@ -109,7 +109,7 @@ describe('sbb-autocomplete', () => {
     await sendKeys({ press: 'O' });
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
@@ -141,7 +141,7 @@ describe('sbb-autocomplete', () => {
     }
   });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const style = {
@@ -196,6 +196,18 @@ describe('sbb-autocomplete', () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(template({ ...defaultArgs, negative, withIcon: false }), style);
             setup.withPostSetupAction(() => openAutocomplete(setup));
+          }),
+        );
+
+        it(
+          'darkMode=true focus',
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(template(defaultArgs), { darkMode: true });
+
+            setup.withPostSetupAction(async () => {
+              await openAutocomplete(setup);
+              await sendKeys({ press: 'ArrowDown' });
+            });
           }),
         );
 
@@ -312,6 +324,15 @@ describe('sbb-autocomplete', () => {
         await setup.withFixture(
           html`<div class="sbb-options-nowrap">${template(defaultArgs)}</div>`,
         );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), { forcedColors: true });
 
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),

@@ -7,6 +7,7 @@ import { forceType, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';
 import type { SbbCheckboxElement } from '../checkbox.js';
 import type { SbbCheckboxSize } from '../common.js';
@@ -23,7 +24,7 @@ export
 @customElement('sbb-checkbox-group')
 @slotState()
 class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the checkbox group is required. */
   @forceType()

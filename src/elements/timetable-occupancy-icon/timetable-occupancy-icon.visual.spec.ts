@@ -1,11 +1,6 @@
 import { html } from 'lit';
 
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './timetable-occupancy-icon.component.js';
 
@@ -13,32 +8,30 @@ describe(`sbb-timetable-occupancy-icon`, () => {
   const cases = {
     occupancy: ['high', 'medium', 'low', 'none'],
     negative: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    let root: HTMLElement;
-
-    describeEach(cases, ({ occupancy, negative, forcedColors }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
-            <sbb-timetable-occupancy-icon occupancy=${occupancy} ?negative=${negative}>
-              Status text.
-            </sbb-timetable-occupancy-icon>
-          `,
-          {
-            backgroundColor:
-              forcedColors || negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-            forcedColors,
-          },
-        );
-      });
-
+    describeEach(cases, ({ occupancy, negative, emulateMedia: { forcedColors, darkMode } }) => {
       it(
         '',
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-timetable-occupancy-icon occupancy=${occupancy} ?negative=${negative}>
+                Status text.
+              </sbb-timetable-occupancy-icon>
+            `,
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              forcedColors,
+              darkMode,
+            },
+          );
         }),
       );
     });

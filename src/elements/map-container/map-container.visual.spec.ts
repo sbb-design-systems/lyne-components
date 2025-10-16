@@ -56,13 +56,15 @@ describe(`sbb-map-container`, () => {
     window.scrollTo(0, 0);
   });
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
-    it(
-      visualDiffDefault.name,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(), { padding: '0', minHeight: '500px' });
-      }),
-    );
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
+    for (const darkMode of [false, true]) {
+      it(
+        `darkMode=${darkMode}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template(), { padding: '0', minHeight: '500px', darkMode });
+        }),
+      );
+    }
   });
 
   describeViewports({ viewports: ['zero'], viewportHeight: 500 }, () => {

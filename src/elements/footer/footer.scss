@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -70,7 +67,7 @@
       grid-template-columns: calc(50% - (var(--sbb-footer-gap-horizontal) / 2));
     }
 
-    @include sbb.mq($from: wide) {
+    @include sbb.mq($from: ultra) {
       max-width: var(--sbb-footer-content-max-width);
       margin-inline: auto;
       grid-template-columns: repeat(4, 1fr);
@@ -90,7 +87,7 @@
       grid-row: 2;
     }
 
-    @include sbb.mq($from: wide) {
+    @include sbb.mq($from: ultra) {
       grid-row: 1;
       grid-column: 4 / 5;
       justify-self: end;
@@ -107,7 +104,7 @@
       width: 100%;
     }
 
-    @include sbb.mq($from: wide) {
+    @include sbb.mq($from: ultra) {
       grid-row: 2;
     }
   }
@@ -133,7 +130,7 @@
     }
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     ::slotted(:nth-child(-n + 4)) {
       grid-row: 1;
     }

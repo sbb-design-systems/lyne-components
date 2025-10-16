@@ -16,7 +16,7 @@ import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.js';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.js';
 import { SbbPopoverBaseElement } from '../../popover.js';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
 

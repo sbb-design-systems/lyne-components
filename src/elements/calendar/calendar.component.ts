@@ -16,7 +16,7 @@ import { readConfig } from '../core/config.js';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbMediaQueryBreakpointMediumAndAbove,
+  SbbMediaQueryBreakpointLargeAndAbove,
 } from '../core/controllers.js';
 import type { DateAdapter } from '../core/datetime.js';
 import {
@@ -39,7 +39,9 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../core/i18n.js';
+import type { SbbOrientation } from '../core/interfaces.js';
 import { SbbHydrationMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './calendar.scss?lit&inline';
 
@@ -116,7 +118,7 @@ export type CalendarView = 'day' | 'month' | 'year';
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
   } as const;
@@ -193,8 +195,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
   /** The orientation of days in the calendar. */
-  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
-    'horizontal';
+  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
 
   /** Whether it has to display the week numbers in addition to week days. */
   @forceType()
@@ -279,7 +280,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     this._createMonthRows();
   });
   private _mediaMatcher = new SbbMediaMatcherController(this, {
-    [SbbMediaQueryBreakpointMediumAndAbove]: () => this._init(),
+    [SbbMediaQueryBreakpointLargeAndAbove]: () => this._init(),
   });
 
   public constructor() {
@@ -368,7 +369,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._assignActiveDate(activeDate);
     }
     this._wide =
-      (this._mediaMatcher.matches(SbbMediaQueryBreakpointMediumAndAbove) ?? false) && this.wide;
+      (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
     this._weekNumbers = this._createWeekNumbers(this._activeDate);

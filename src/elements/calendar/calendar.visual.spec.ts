@@ -1,8 +1,19 @@
 import { html, nothing } from 'lit';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
 import { defaultDateAdapter } from '../core/datetime.js';
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffActive,
+  visualDiffDefault,
+  visualDiffFocus,
+  visualDiffHover,
+  visualDiffStandardStates,
+  visualRegressionFixture,
+} from '../core/testing/private.js';
+
+import type { SbbCalendarElement } from './calendar.component.js';
 
 import './calendar.component.js';
 
@@ -34,8 +45,25 @@ describe('sbb-calendar', () => {
     { name: 'odd_days', dateFilter: (d: Date): boolean => d.getDate() % 2 === 1 },
   ];
 
+  const dayButtonCases = {
+    selected: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
+  };
+
+  const changeMonthButtonCases = {
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
+  };
+
   for (const orientation of ['horizontal', 'vertical']) {
-    describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
+    describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
       describe(`orientation=${orientation}`, () => {
         for (const min of minArray) {
           for (const max of maxArray) {
@@ -44,10 +72,10 @@ describe('sbb-calendar', () => {
               visualDiffDefault.with(async (setup) => {
                 await setup.withFixture(html`
                   <sbb-calendar
-                    orientation="${orientation}"
-                    .selected="${new Date(2023, 0, 20)}"
-                    .min="${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}"
-                    .max="${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}"
+                    orientation=${orientation}
+                    .selected=${new Date(2023, 0, 20)}
+                    .min=${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}
+                    .max=${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}
                   ></sbb-calendar>
                 `);
               }),
@@ -129,4 +157,69 @@ describe('sbb-calendar', () => {
       }
     });
   }
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describe('day button', () => {
+      describeEach(dayButtonCases, ({ selected, emulateMedia: { forcedColors, darkMode } }) => {
+        let element: SbbCalendarElement, root: HTMLElement;
+
+        beforeEach(async function () {
+          const selectedDate = new Date(2023, 0, 20);
+          root = await visualRegressionFixture(
+            html`<sbb-calendar
+              .selected=${selectedDate}
+              .max=${defaultDateAdapter.toIso8601(new Date(2023, 0, 22))}
+            ></sbb-calendar>`,
+            {
+              darkMode,
+              forcedColors,
+            },
+          );
+          element = root.querySelector('sbb-calendar')!;
+        });
+
+        for (const state of selected
+          ? [visualDiffFocus]
+          : [visualDiffDefault, visualDiffHover, visualDiffActive]) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+              setup.withStateElement(
+                selected
+                  ? element.shadowRoot!.querySelector('button.sbb-calendar__selected')!
+                  : element.shadowRoot!.querySelector('button.sbb-calendar__day')!,
+              );
+            }),
+          );
+        }
+      });
+    });
+
+    describe('change month button', () => {
+      describeEach(changeMonthButtonCases, ({ emulateMedia: { forcedColors, darkMode } }) => {
+        let element: SbbCalendarElement, root: HTMLElement;
+
+        beforeEach(async function () {
+          root = await visualRegressionFixture(html`<sbb-calendar></sbb-calendar>`, {
+            darkMode,
+            forcedColors,
+          });
+          element = root.querySelector('sbb-calendar')!;
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+              setup.withStateElement(
+                element.shadowRoot!.querySelector('button.sbb-calendar__controls-change-date')!,
+              );
+            }),
+          );
+        }
+      });
+    });
+  });
 });

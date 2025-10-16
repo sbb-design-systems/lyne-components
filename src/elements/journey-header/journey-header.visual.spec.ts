@@ -19,7 +19,7 @@ describe(`sbb-journey-header`, () => {
 
   const sizeCases = ['s', 'm', 'l'];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, roundTrip }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -54,6 +54,24 @@ describe(`sbb-journey-header`, () => {
           );
         }),
       );
+    }
+
+    for (const negative of [false, true]) {
+      describe(`negative=${negative}`, () => {
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-journey-header
+                origin="Origin"
+                destination="Destination"
+                ?negative=${negative}
+              ></sbb-journey-header>`,
+              { darkMode: true },
+            );
+          }),
+        );
+      });
     }
   });
 });
