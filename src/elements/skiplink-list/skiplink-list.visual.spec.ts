@@ -14,7 +14,7 @@ const template = (title?: string): TemplateResult => html`
 `;
 
 describe(`sbb-skiplink-list`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffFocus]) {
       it(
         state.name,
@@ -46,6 +46,13 @@ describe(`sbb-skiplink-list`, () => {
       `title content`,
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(template('Skip to'), { minHeight: '100px' });
+      }),
+    );
+
+    it(
+      `darkMode=true`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(), { minHeight: '100px', darkMode: true });
       }),
     );
   });

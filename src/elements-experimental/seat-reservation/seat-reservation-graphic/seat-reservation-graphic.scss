@@ -1,8 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-seat-reservation-graphic-width: 16;
   --sbb-seat-reservation-graphic-height: 16;
@@ -40,6 +37,13 @@
     var(--sbb-seat-reservation-graphic-top) *
       var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
+}
+
+// auto-width settings for graphics
+:host(.auto-width) {
+  --sbb-icon-svg-width: auto;
+
+  width: auto;
 }
 
 // hover state with pointer cursor for service icons and popover

@@ -180,7 +180,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.initNavigationSelectionByScrollEvent();
     }
 
-    if (changedProperties.has('preselectCoachIndex') && this.preselectCoachIndex) {
+    if (changedProperties.has('preselectCoachIndex')) {
       // setTimeout is necessary because without, _getCoachScrollPositionX() would fail with NPE because
       // the coachScrollArea is not yet initialized
       setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
@@ -418,7 +418,10 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   protected scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
-    if (selectedNavCoachIndex !== this.currSelectedCoachIndex) {
+    if (
+      this._isValidCaochIndex(selectedNavCoachIndex) &&
+      selectedNavCoachIndex !== this.currSelectedCoachIndex
+    ) {
       this.isAutoScrolling = true;
       this.isCoachGridFocusable = true;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
@@ -1315,5 +1318,12 @@ export class SeatReservationBaseElement extends LitElement {
     return this.currSelectedPlaceElementId
       ? this.shadowRoot?.getElementById(this.currSelectedPlaceElementId) || null
       : null;
+  }
+
+  private _isValidCaochIndex(coachIndex: number): boolean {
+    return (
+      coachIndex >= 0 &&
+      coachIndex <= this.seatReservations[this.seatReservations.length - 1].coachItems.length
+    );
   }
 }

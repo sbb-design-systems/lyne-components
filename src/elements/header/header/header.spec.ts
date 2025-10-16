@@ -1,4 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -14,7 +15,7 @@ describe(`sbb-header`, () => {
   let element: SbbHeaderElement;
 
   beforeEach(async () => {
-    await setViewport({ width: 1200, height: 600 });
+    await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
   });
 
   it('renders', async () => {

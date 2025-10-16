@@ -6,6 +6,7 @@ import {
   i18nDeparture,
   i18nTransferProcedures,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -25,7 +26,7 @@ import '../pearl-chain.js';
 export
 @customElement('sbb-pearl-chain-time')
 class SbbPearlChainTimeElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * define the legs of the pearl-chain.

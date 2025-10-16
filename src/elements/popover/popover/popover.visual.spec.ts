@@ -22,7 +22,7 @@ describe(`sbb-popover`, () => {
     <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
 
     <sbb-popover trigger="popover-trigger" ?hide-close-button=${hideCloseButton}>
-      <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
+      <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Title.</sbb-title>
       <p style="margin: 0" class="sbb-text-s">
         Some content.
         <sbb-block-link
@@ -37,7 +37,7 @@ describe(`sbb-popover`, () => {
     </sbb-popover>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     for (const position of positionCases) {
       it(
         `position=${position.name}`,
@@ -68,9 +68,37 @@ describe(`sbb-popover`, () => {
     it(
       `hide-close-button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html` ${popover(true)} `, {
+        await setup.withFixture(popover(true), {
           minHeight: '400px',
           padding: '3rem',
+        });
+        setup.withPostSetupAction(() =>
+          setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
+        );
+      }),
+    );
+
+    it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(popover(), {
+          minHeight: '400px',
+          padding: '3rem',
+          darkMode: true,
+        });
+        setup.withPostSetupAction(() =>
+          setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
+        );
+      }),
+    );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(popover(), {
+          minHeight: '400px',
+          padding: '3rem',
+          forcedColors: true,
         });
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),

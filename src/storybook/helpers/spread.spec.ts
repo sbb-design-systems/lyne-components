@@ -53,8 +53,8 @@ describe(`sbbSpread`, () => {
     expect(element).to.have.attribute('true-string', 'true');
     expect(element).to.have.attribute('false-string', 'false');
     expect(element).to.have.attribute('numeric', '1');
+    expect(element).to.have.attribute('zero');
     expect(element).not.to.have.attribute('boolean-false');
-    expect(element).not.to.have.attribute('zero');
     expect(element).not.to.have.attribute('nullish');
     expect(element).not.to.have.attribute('not-defined');
   });
@@ -87,7 +87,7 @@ describe(`sbbSpread`, () => {
 
     expect(spreadElement).to.have.attribute('is-truthy');
     expect(spreadElement).to.have.attribute('words', 'This value is a string');
-    expect(spreadElement).not.to.have.attribute('numeric');
+    expect(spreadElement).to.have.attribute('numeric');
   });
 
   describe('binding order', () => {

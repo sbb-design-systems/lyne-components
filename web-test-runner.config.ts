@@ -227,4 +227,5 @@ export default {
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,
+  testsFinishTimeout: 180000,
 } satisfies TestRunnerConfig;

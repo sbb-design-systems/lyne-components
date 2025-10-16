@@ -26,7 +26,7 @@ const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> =>
 };
 
 describe('sbb-option-hint', () => {
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     const cases = {
       divider: [true, false],
       negative: [true, false],
@@ -147,6 +147,36 @@ describe('sbb-option-hint', () => {
           setup.withPostSetupAction(() => openAutocomplete(setup));
         }),
       );
+    });
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describe('autocomplete darkMode=true', () => {
+      for (const negative of [false, true]) {
+        it(
+          `negative=${negative}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-form-field ?negative=${negative}>
+                  <label>Autocomplete</label>
+                  <input />
+                  <sbb-autocomplete>
+                    <sbb-option value="1">Option 1</sbb-option>
+                    <sbb-option value="2">Option 2</sbb-option>
+                    <sbb-option value="3">Option 3</sbb-option>
+                    <sbb-option value="4">Option 4</sbb-option>
+                    <sbb-divider></sbb-divider>
+                    <sbb-option-hint>42 more hits</sbb-option-hint>
+                  </sbb-autocomplete>
+                </sbb-form-field>
+              `,
+              { minHeight: '500px', darkMode: true },
+            );
+            setup.withPostSetupAction(() => openAutocomplete(setup));
+          }),
+        );
+      }
     });
   });
 });

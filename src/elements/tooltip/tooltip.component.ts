@@ -7,11 +7,13 @@ import {
   type PropertyValues,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
 import { readConfig } from '../core/config.js';
-import { SbbEscapableOverlayController } from '../core/controllers.js';
+import {
+  SbbEscapableOverlayController,
+  SbbOverlayPositionController,
+} from '../core/controllers.js';
 import { idReference } from '../core/decorators.js';
 import {
   addToListAttribute,
@@ -22,17 +24,23 @@ import {
   removeFromListAttribute,
 } from '../core/dom.js';
 import { SbbDisabledMixin } from '../core/mixins.js';
-import { getElementPosition, sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
+import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './tooltip.scss?lit&inline';
+
+/**
+ * Defines the default position for the tooltip if this element is used as a trigger.
+ */
+export interface SbbTooltipDefaultPositions {
+  readonly tooltipPositions: string[];
+}
 
 /**
  * Time between the user putting the pointer on a tooltip
  * trigger and the long press event being fired.
  */
 const LONGPRESS_DELAY = 500;
-const VERTICAL_OFFSET = 8;
-const HORIZONTAL_OFFSET = 16;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
@@ -42,6 +50,9 @@ let nextId = 0;
  * It displays text content within a tooltip.
  *
  * @slot - Use the unnamed slot to add the text into the tooltip.
+ * @cssprop [--sbb-overlay-position-area=block-end] - The primary position for the tooltip.
+ * @cssprop [--sbb-overlay-position-try-fallbacks=block-end span-inline-end, block-end span-inline-start, block-start, block-start span-inline-end, block-start span-inline-start] -
+ * The list of fallback positions, separated by ',', for the tooltip
  * @cssprop [--sbb-tooltip-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
@@ -50,7 +61,7 @@ export
 @customElement('sbb-tooltip')
 class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private static _tooltipOutlet: Element;
 
@@ -63,7 +74,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   }
 
   /**
-   * The element that will trigger the popover overlay.
+   * The element that will trigger the tooltip overlay.
    *
    * For attribute usage, provide an id reference.
    */
@@ -116,12 +127,11 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   }
   private _longPressCloseDelay?: number;
 
-  protected overlay?: HTMLDivElement;
-
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
   private _openStateController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _overlayController = new SbbOverlayPositionController(this);
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _longPressOpenTimeout?: ReturnType<typeof setTimeout>;
@@ -145,20 +155,16 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       { passive: true },
     );
 
-    // Any user interaction outside the tooltip, closes it immediately
+    // Any user interaction outside the tooltip closes it immediately
     this.addEventListener('overlayOutsidePointer', () => this.close(), { passive: true });
+
+    this.addEventListener('animationend', (e) => this._onTooltipAnimationEnd(e), { passive: true });
   }
 
   private static _initializeTooltipOutlet(): void {
     this._tooltipOutlet = document.createElement('div');
     this._tooltipOutlet.classList.add('sbb-overlay-outlet');
     document.body.appendChild(this._tooltipOutlet);
-
-    // Key: trigger attribute, value: tooltip attribute
-    const attributeMap = new Map<string, string>([
-      ['sbb-tooltip-open-delay', 'open-delay'],
-      ['sbb-tooltip-close-delay', 'close-delay'],
-    ]);
 
     // We are using MutationObserver directly here, as it will only be called on client side,
     // and we do not need to disconnect it, as we want it to work during the full lifetime
@@ -177,7 +183,12 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
         }
       }
     }).observe(document.documentElement, {
-      attributeFilter: ['sbb-tooltip', ...attributeMap.keys()],
+      attributeFilter: [
+        'sbb-tooltip',
+        'sbb-tooltip-open-delay',
+        'sbb-tooltip-close-delay',
+        'sbb-tooltip-position',
+      ],
       childList: true,
       subtree: true,
     });
@@ -210,6 +221,25 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
       tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
+
+      // Read the positions from the trigger (either from the attribute or the property)
+      const positions = triggerElement.hasAttribute('sbb-tooltip-position')
+        ? triggerElement
+            .getAttribute('sbb-tooltip-position')!
+            .split(',')
+            .map((p) => p.trim())
+        : (triggerElement as unknown as SbbTooltipDefaultPositions).tooltipPositions;
+
+      if (positions && positions.length > 0) {
+        tooltip.style.setProperty('--sbb-overlay-position-area', positions[0]);
+        tooltip.style.setProperty(
+          '--sbb-overlay-position-try-fallbacks',
+          positions.slice(1).join(', '),
+        );
+      } else {
+        tooltip.style.removeProperty('--sbb-overlay-position-area');
+        tooltip.style.removeProperty('--sbb-overlay-position-try-fallbacks');
+      }
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
@@ -260,7 +290,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     if (
       (this.state !== 'closed' && this.state !== 'closing') ||
       this.disabled ||
-      !this.overlay ||
+      !this.trigger ||
       !this.dispatchBeforeOpenEvent()
     ) {
       return;
@@ -268,7 +298,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
     this.showPopover?.();
     this.state = 'opening';
-    this._setTooltipPosition();
+    this._overlayController.connect(this.trigger);
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -300,7 +330,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._attachWindowEvents();
     this._escapableOverlayController.connect();
     this.dispatchOpenEvent();
   }
@@ -313,6 +342,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
+    this._overlayController.disconnect();
 
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
@@ -360,23 +390,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   private _destroy(): void {
     this._detach();
     this.remove();
-  }
-
-  private _setTooltipPosition(): void {
-    if (!this.overlay || !this._triggerElement) {
-      return;
-    }
-
-    const position = getElementPosition(this.overlay, this._triggerElement, this, {
-      verticalOffset: VERTICAL_OFFSET,
-      horizontalOffset: HORIZONTAL_OFFSET,
-      centered: true,
-      responsiveHeight: true,
-    });
-    this.setAttribute('data-position', position.alignment.vertical);
-
-    this.style.setProperty('--sbb-tooltip-position-x', `${position.left}px`);
-    this.style.setProperty('--sbb-tooltip-position-y', `${position.top}px`);
   }
 
   private _addTriggerEventHandlers(): void {
@@ -437,21 +450,6 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
     );
   }
 
-  private _attachWindowEvents(): void {
-    this._openStateController = new AbortController();
-    document.addEventListener('scroll', () => this._setTooltipPosition(), {
-      passive: true,
-      signal: this._openStateController.signal,
-      // Without capture, other scroll contexts would not bubble to this event listener.
-      // Capture allows us to react to all scroll contexts in this DOM.
-      capture: true,
-    });
-    window.addEventListener('resize', () => this._setTooltipPosition(), {
-      passive: true,
-      signal: this._openStateController.signal,
-    });
-  }
-
   private _isZeroAnimationDuration(): boolean {
     return isZeroAnimationDuration(this, '--sbb-tooltip-animation-duration');
   }
@@ -463,11 +461,7 @@ class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        @animationend=${this._onTooltipAnimationEnd}
-        class="sbb-tooltip"
-        ${ref((el?: Element) => (this.overlay = el as HTMLDivElement))}
-      >
+      <div class="sbb-tooltip">
         <slot></slot>
       </div>
     `;

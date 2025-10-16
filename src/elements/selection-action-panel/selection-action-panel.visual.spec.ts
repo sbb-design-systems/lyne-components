@@ -72,7 +72,7 @@ describe(`sbb-selection-action-panel`, () => {
     </sbb-selection-action-panel>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const input of ['checkbox', 'radio']) {
       describe(`with ${input}`, () => {
         describeEach(cases, (params) => {
@@ -154,7 +154,7 @@ describe(`sbb-selection-action-panel`, () => {
             `size=${size}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(html`
-                <sbb-checkbox-group orientation="vertical" horizontal-from="medium" size=${size}>
+                <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
                   ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
                   ${withCheckboxPanel({ size })}
                 </sbb-checkbox-group>
@@ -170,11 +170,7 @@ describe(`sbb-selection-action-panel`, () => {
             `size=${size}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(html`
-                <sbb-radio-button-group
-                  orientation="vertical"
-                  horizontal-from="medium"
-                  size=${size}
-                >
+                <sbb-radio-button-group orientation="vertical" horizontal-from="large" size=${size}>
                   ${withRadioPanel({ checked: true, value: '1', size })}
                   ${withRadioPanel({ value: '2', size })} ${withRadioPanel({ value: '3', size })}
                 </sbb-radio-button-group>
@@ -184,5 +180,20 @@ describe(`sbb-selection-action-panel`, () => {
         }
       });
     }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    const colorCases = {
+      color: ['white', 'milk'],
+    };
+
+    describeEach(colorCases, (params) => {
+      it(
+        `darkMode=true`,
+        visualDiffFocus.with(async (setup) => {
+          await setup.withFixture(withCheckboxPanel(params), { darkMode: true });
+        }),
+      );
+    });
   });
 });

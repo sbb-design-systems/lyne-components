@@ -1,9 +1,9 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 
@@ -19,7 +19,7 @@ import style from './seat-reservation-navigation-services.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-navigation-services')
 class SbbSeatReservationNavigationServicesElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
@@ -43,10 +43,7 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
       ${this.propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
-            style=${styleMap({
-              '--sbb-seat-reservation-graphic-width': 20,
-              '--sbb-seat-reservation-graphic-height': 20,
-            })}
+            class="auto-width"
             name=${signIcon ?? nothing}
             title=${getI18nSeatReservation(signIcon, this._language.current)}
             aria-hidden="true"

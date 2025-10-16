@@ -22,6 +22,7 @@ import {
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbBreadcrumbElement } from '../breadcrumb.js';
 
 import style from './breadcrumb-group.scss?lit&inline';
@@ -42,7 +43,7 @@ class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   typeof LitElement
 >(SbbElementInternalsMixin(LitElement)) {
   public static readonly role = 'navigation';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /* The state of the breadcrumb group. */

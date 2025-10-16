@@ -1,6 +1,11 @@
 import { html, nothing } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../core/testing/private.js';
 
 import './toast.component.js';
 import '../button.js';
@@ -23,7 +28,7 @@ describe(`sbb-toast`, () => {
     'bottom-end',
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 300 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 300 }, () => {
     describeEach(cases, ({ icon, action, readonly, content }) => {
       it(
         '',
@@ -70,5 +75,16 @@ describe(`sbb-toast`, () => {
         }),
       );
     }
+
+    it(
+      'darkMode=true',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-toast icon-name="circle-tick-small">Lorem ipsum dolor</sbb-toast>`,
+          { minHeight: '300px', padding: '0', darkMode: true },
+        );
+        setup.withPostSetupAction(() => setup.snapshotElement.querySelector('sbb-toast')!.open());
+      }),
+    );
   });
 });

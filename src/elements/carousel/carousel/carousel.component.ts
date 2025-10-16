@@ -13,6 +13,7 @@ import {
 } from '../../core/i18n/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
 import type {
   SbbCarouselItemElement,
@@ -31,7 +32,7 @@ import style from './carousel.scss?lit&inline';
 export
 @customElement('sbb-carousel')
 class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Used to display a box-shadow around the component.

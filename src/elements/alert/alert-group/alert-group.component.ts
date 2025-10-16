@@ -6,6 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { forceType } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbAlertElement } from '../alert.js';
 
@@ -20,7 +21,7 @@ import style from './alert-group.scss?lit&inline';
 export
 @customElement('sbb-alert-group')
 class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     empty: 'empty',
   } as const;

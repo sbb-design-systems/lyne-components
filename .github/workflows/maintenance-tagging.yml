@@ -16,11 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login != 'renovate[bot]'
     steps:
-      - name: Add target label
-        if: "${{ !contains(github.event.pull_request.body, 'BREAKING CHANGE:') && !contains(github.event.pull_request.labels.*.name, 'target: major') }}"
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          labels: 'target: ${{ env.TARGET_RELEASE }}'
+      # TODO: Re-enable once we released the next major version
+      # - name: Add target label
+      #   if: "${{ !contains(github.event.pull_request.body, 'BREAKING CHANGE:') && !contains(github.event.pull_request.labels.*.name, 'target: major') }}"
+      #   uses: actions-ecosystem/action-add-labels@v1
+      #   with:
+      #     labels: 'target: ${{ env.TARGET_RELEASE }}'
       - name: Remove target label
         if: "${{ contains(github.event.pull_request.body, 'BREAKING CHANGE:') || contains(github.event.pull_request.labels.*.name, 'target: major') }}"
         uses: actions-ecosystem/action-remove-labels@v1

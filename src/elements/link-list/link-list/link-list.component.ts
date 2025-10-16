@@ -2,6 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
 
 import style from './link-list.scss?lit&inline';
@@ -15,7 +16,7 @@ import style from './link-list.scss?lit&inline';
 export
 @customElement('sbb-link-list')
 class SbbLinkListElement extends SbbLinkListBaseElement {
-  public static override styles: CSSResultGroup = [linkListBaseStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, linkListBaseStyle, style];
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })

@@ -22,6 +22,7 @@ import {
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
@@ -49,7 +50,11 @@ export
 class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    checkboxCommonStyle,
+    panelCommonStyle,
+  ];
 
   /** Value of the form element. */
   @property()

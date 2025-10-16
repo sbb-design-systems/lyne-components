@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -14,11 +11,8 @@
   --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
   --sbb-lead-container-image-border-radius: 0;
 
-  @include sbb.mq($from: wide) {
-    --sbb-lead-container-image-ratio: 21 / 9;
-  }
-
   @include sbb.mq($from: ultra) {
+    --sbb-lead-container-image-ratio: 21 / 9;
     --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
   }
 }
@@ -80,20 +74,13 @@
   background-color: var(--sbb-lead-container-background-color);
   grid-column: 1 / -1;
 
-  @include sbb.mq($from: medium) {
-    grid-column: 2 / -2;
-  }
-
   @include sbb.mq($from: large) {
+    grid-column: 2 / -2;
     margin-block-start: calc(-1 * var(--sbb-lead-container-image-overlap));
     padding-inline: var(--sbb-lead-container-padding-inline);
 
     // As the content should be aligned to the grid, we have to stretch the container by padding
     margin-inline: calc(-1 * var(--sbb-lead-container-padding-inline));
-  }
-
-  @include sbb.mq($from: wide) {
-    grid-column: 3 / -3;
   }
 
   @include sbb.mq($from: ultra) {

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.10.0...v3.11.0) (2025-10-13)
+
+
+### Features
+
+* **sbb-mini-calendar:** create new component ([#4002](https://github.com/sbb-design-systems/lyne-components/issues/4002)) ([73a2f8d](https://github.com/sbb-design-systems/lyne-components/commit/73a2f8db6e533b5afea886fc59a8a379c870f0eb))
+* **sbb-tooltip:** add position strategy customization ([#4084](https://github.com/sbb-design-systems/lyne-components/issues/4084)) ([8b00ec9](https://github.com/sbb-design-systems/lyne-components/commit/8b00ec95dfabcb0e3ff4cb98e2256c86c291b90f))
+
+
+### Bug Fixes
+
+* **sbb-seat-reservation:** fixed-height and dynamic width for service-icons ([#4077](https://github.com/sbb-design-systems/lyne-components/issues/4077)) ([1e758f8](https://github.com/sbb-design-systems/lyne-components/commit/1e758f8db79d244698c872e459933d80102f22c8))
+* **sbb-seat-reservation:** handling of preselected coach index 0 ([#4098](https://github.com/sbb-design-systems/lyne-components/issues/4098)) ([856cba5](https://github.com/sbb-design-systems/lyne-components/commit/856cba54e31ec3d7fc359817b6b031c8f762d886))
+* **sbb-tab:** fix height observer and animation ([#4078](https://github.com/sbb-design-systems/lyne-components/issues/4078)) ([78fb11d](https://github.com/sbb-design-systems/lyne-components/commit/78fb11d0a80866067cf2bb318d487da2cf4aeec4))
+
 ## [3.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.9.0...v3.10.0) (2025-10-06)
 
 

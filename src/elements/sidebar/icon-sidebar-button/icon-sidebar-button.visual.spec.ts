@@ -19,7 +19,7 @@ describe(`sbb-icon-sidebar-button`, () => {
     currentPage: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ slottedIcon, forcedColors, currentPage }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -46,6 +46,31 @@ describe(`sbb-icon-sidebar-button`, () => {
           }),
         );
       }
+    });
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describe('darkMode=true', () => {
+      describeEach({ currentPage: [false, true] }, ({ currentPage }) => {
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-icon-sidebar-button
+                    icon-name="glass-cocktail-small"
+                    class=${currentPage ? 'sbb-active' : nothing}
+                    style="width: var(--sbb-size-element-m)"
+                  >
+                  </sbb-icon-sidebar-button>
+                `,
+                { darkMode: true },
+              );
+            }),
+          );
+        }
+      });
     });
   });
 });

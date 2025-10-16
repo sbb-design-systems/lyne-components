@@ -26,7 +26,7 @@ describe(`sbb-menu`, () => {
     fontSize: 'var(--sbb-font-size-text-xxs)',
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {
@@ -148,7 +148,7 @@ describe(`sbb-menu`, () => {
     );
   });
 
-  describeViewports({ viewports: ['medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 500 }, () => {
     it(
       'nested wrap left',
       visualDiffDefault.with(async (setup) => {
@@ -188,8 +188,39 @@ describe(`sbb-menu`, () => {
         });
       }),
     );
+
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-menu trigger="menu-trigger-1">
+              <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">
+                View
+              </sbb-menu-link>
+              <sbb-menu-button icon-name="pen-small" disabled>Edit</sbb-menu-button>
+              <sbb-menu-button icon-name="swisspass-small" sbb-badge="123">
+                Details
+              </sbb-menu-button>
+              <sbb-divider></sbb-divider>
+              <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
+            </sbb-menu>
+          `,
+          { minHeight: '400px', darkMode: true },
+        );
+        setup.withPostSetupAction(async () => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
+          button.click();
+
+          // Test focus outline
+          await sendKeys({ press: tabKey });
+        });
+      }),
+    );
   });
-  describeViewports({ viewports: ['medium'], viewportHeight: 300 }, () => {
+
+  describeViewports({ viewports: ['large'], viewportHeight: 300 }, () => {
     it(
       'nested short page',
       visualDiffDefault.with(async (setup) => {

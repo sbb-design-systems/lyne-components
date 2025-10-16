@@ -1,4 +1,5 @@
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -33,7 +34,7 @@ export interface PearlChainVerticalItemAttributes {
 export
 @customElement('sbb-pearl-chain-vertical-item')
 class SbbPearlChainVerticalItemElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })

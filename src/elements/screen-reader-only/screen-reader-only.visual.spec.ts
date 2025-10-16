@@ -5,7 +5,7 @@ import { describeViewports, visualDiffDefault } from '../core/testing/private.js
 import './screen-reader-only.component.js';
 
 describe(`sbb-screen-reader-only`, () => {
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {

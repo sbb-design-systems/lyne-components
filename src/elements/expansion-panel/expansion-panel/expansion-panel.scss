@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // Open/Close animation vars
 $open-anim-rows-from: 0fr;
 $open-anim-rows-to: 1fr;
@@ -79,6 +76,7 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-border-color: transparent;
   --sbb-expansion-panel-border-block-start-width: 0;
   --sbb-expansion-panel-border-block-start-color: transparent;
+
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
     --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
@@ -87,6 +85,7 @@ $open-anim-opacity-to: 1;
 
 :host([borderless][data-accordion]:not([data-accordion-first])) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
+
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-block-start-width: 0;
   }

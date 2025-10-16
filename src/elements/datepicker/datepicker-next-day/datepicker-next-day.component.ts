@@ -2,6 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { i18nNextDay, i18nSelectNextDay } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbDatepickerButton } from '../common.js';
 
 import style from './datepicker-next-day.scss?lit&inline';
@@ -12,7 +13,7 @@ import style from './datepicker-next-day.scss?lit&inline';
 export
 @customElement('sbb-datepicker-next-day')
 class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected iconName: string = 'chevron-small-right-small';
   protected i18nOffBoundaryDay: Record<string, string> = i18nNextDay;

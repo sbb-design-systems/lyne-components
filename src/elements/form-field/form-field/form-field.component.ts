@@ -23,6 +23,7 @@ import {
   SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbSelectElement } from '../../select.js';
 
 import style from './form-field.scss?lit&inline';
@@ -83,7 +84,7 @@ export
 class SbbFormFieldElement extends SbbNegativeMixin(
   SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];

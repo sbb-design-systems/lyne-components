@@ -6,17 +6,12 @@
 @mixin link-common-variables {
   --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-graphite));
   --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-metal));
-  --sbb-link-text-decoration-color: light-dark(
-    color-mix(in srgb, currentcolor 80%, white),
-    color-mix(in srgb, currentcolor 80%, black)
-  );
+  --sbb-link-text-decoration-color: color-mix(in srgb, currentcolor 80%, transparent);
   --sbb-link-text-decoration-color-hover: currentcolor;
 }
 
 @mixin link-common-variables--negative {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-link-text-decoration-color: color-mix(in srgb, currentcolor 80%, black);
-  --sbb-link-text-decoration-color-hover: currentcolor;
 }
 
 @mixin block-link-variables {
@@ -46,7 +41,6 @@
 @mixin block-link-variables--active-negative {
   --sbb-link-color-normal: var(--sbb-color-cement);
   --sbb-link-text-decoration-line: underline;
-  --sbb-link-text-decoration-color: currentcolor;
 }
 
 @mixin link-variables {

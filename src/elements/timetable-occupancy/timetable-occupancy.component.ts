@@ -6,6 +6,7 @@ import { SbbLanguageController } from '../core/controllers.js';
 import { i18nClass } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './timetable-occupancy.scss?lit&inline';
 
@@ -18,7 +19,7 @@ import '../timetable-occupancy-icon.js';
 export
 @customElement('sbb-timetable-occupancy')
 class SbbTimetableOccupancyElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Occupancy for first class wagons. */
   @property({ attribute: 'first-class-occupancy' })

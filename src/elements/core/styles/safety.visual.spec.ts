@@ -24,18 +24,16 @@ import '../../toggle-check.js';
 import './safety-theme.scss';
 
 describe(`sbb-safety`, () => {
-  describeViewports({ viewports: ['micro'] }, () => {
+  describeViewports({ viewports: ['small'] }, () => {
     for (const darkMode of [false, true]) {
-      describe(`dark=${darkMode}`, () => {
+      describe(`darkMode=${darkMode}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {
           it(
             `button ${state.name}`,
             state.with(async (setup) => {
               await setup.withFixture(
                 html`<sbb-button sbb-badge="2">Safety relevant Button</sbb-button>`,
-                {
-                  darkMode,
-                },
+                { darkMode },
               );
             }),
           );

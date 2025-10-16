@@ -67,4 +67,18 @@ describe(`sbb-overlay`, () => {
       );
     }
   });
+
+  describeViewports({ viewports: ['large'], viewportHeight: 600 }, () => {
+    for (const negative of [false, true]) {
+      it(
+        `darkMode=true negative=${negative} long content`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ ...defaultArgs, negative, numberOfBlocks: 7 }), {
+            darkMode: true,
+          });
+          openOverlay(setup);
+        }),
+      );
+    }
+  });
 });

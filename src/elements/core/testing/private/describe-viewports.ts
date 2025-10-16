@@ -1,19 +1,13 @@
 import {
   SbbBreakpointLargeMin,
-  SbbBreakpointMediumMin,
-  SbbBreakpointMicroMin,
   SbbBreakpointSmallMin,
   SbbBreakpointUltraMin,
-  SbbBreakpointWideMin,
 } from '@sbb-esta/lyne-design-tokens';
 
 const viewportSizes = {
   zero: 320,
-  micro: SbbBreakpointMicroMin,
   small: SbbBreakpointSmallMin,
-  medium: SbbBreakpointMediumMin,
   large: SbbBreakpointLargeMin,
-  wide: SbbBreakpointWideMin,
   ultra: SbbBreakpointUltraMin,
 } as const;
 
