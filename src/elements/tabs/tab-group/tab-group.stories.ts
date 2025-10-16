@@ -45,12 +45,6 @@ const tabPanelOne = (): TemplateResult => html`
 
 const tabPanelTwo = (): TemplateResult => html`
   <sbb-tab>
-    <section>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-      urna neque viverra justo nec.
-      <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
-    </section>
     ${new Array(5).fill(null).map(
       () => html`
         <section>
