@@ -1,6 +1,5 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { isArrowKeyPressed } from '../../core/a11y.js';
@@ -26,8 +25,10 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
   private _currentIndex = 0;
   private _language = new SbbLanguageController(this);
+  private _observedCarouselItems: SbbCarouselItemElement[] = [];
 
   private _beforeShowObserver = new IntersectionController(this, {
+    target: null,
     callback: (entry) => {
       const item = entry.filter((e) => e.isIntersecting && e.target !== this);
       item.forEach((e) => {
@@ -45,6 +46,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   });
 
   private _showObserver = new IntersectionController(this, {
+    target: null,
     callback: (entryArr) => {
       for (const entry of entryArr) {
         if (entry.target === this) {
@@ -96,22 +98,21 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _handleSlotchange(): void {
-    const children = this._carouselItems();
+    // In case of removed carousel items, we need to unobserve the current observers.
+    this._observedCarouselItems.forEach((item) => {
+      this._beforeShowObserver.unobserve(item);
+      this._showObserver.unobserve(item);
+    });
+
+    const carouselItems = this._carouselItems();
 
     // Set the aria-label if not provided
-    const childrenLength = children.length;
-    children.forEach((item, index) => {
-      item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, childrenLength)[
+    carouselItems.forEach((item, index) => {
+      item.ariaLabel ||= i18nCarouselItemAriaLabel(index + 1, carouselItems.length)[
         this._language.current
       ];
       item.ariaHidden = index === this._currentIndex ? null : 'true';
     });
-
-    // In case of updating the carousel items, we need to disconnect and reconnect the observers.
-    this._beforeShowObserver.hostDisconnected();
-    this._showObserver.hostDisconnected();
-    this._beforeShowObserver.hostConnected();
-    this._showObserver.hostConnected();
 
     this._readDimensions();
   }
@@ -119,7 +120,6 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   /**
    * Reads the dimensions of the first carousel item and sets the CSS properties accordingly.
    * Should set the dimensions only once, when the first item becomes visible and if the value is non-zero.
-   * @private
    */
   private _readDimensions(): void {
     const carouselItems = this._carouselItems();
@@ -141,6 +141,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         this._beforeShowObserver.observe(item);
         this._showObserver.observe(item);
       });
+      this._observedCarouselItems = carouselItems;
     }
   }
 

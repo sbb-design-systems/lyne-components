@@ -1,15 +1,17 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForImageReady } from '../../core/testing.js';
+import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.js';
+import type { SbbCarouselElement } from '../carousel/carousel.component.js';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
 } from '../carousel-item/carousel-item.component.js';
 
 import { SbbCarouselListElement } from './carousel-list.component.js';
+
 import '../carousel-item/carousel-item.component.js';
 import '../carousel/carousel.component.js';
 
@@ -23,19 +25,24 @@ describe('sbb-carousel-list', () => {
 
   describe('basic', () => {
     beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-carousel-list>
-          <sbb-carousel-item id="first">
-            <img src=${imageUrl} alt="SBB image" height="180" width="320" />
-          </sbb-carousel-item>
-          <sbb-carousel-item id="second">
-            <img src=${imageUrl} alt="SBB image" height="180" width="320" />
-          </sbb-carousel-item>
-          <sbb-carousel-item id="third">
-            <img src=${imageUrl} alt="SBB image" height="180" width="320" />
-          </sbb-carousel-item>
-        </sbb-carousel-list>
+      await setViewport({ width: 1200, height: 800 });
+
+      const root = await fixture(html`
+        <sbb-carousel>
+          <sbb-carousel-list>
+            <sbb-carousel-item id="first">
+              <img src=${imageUrl} alt="SBB image" height="180" width="320" />
+            </sbb-carousel-item>
+            <sbb-carousel-item id="second">
+              <img src=${imageUrl} alt="SBB image" height="180" width="320" />
+            </sbb-carousel-item>
+            <sbb-carousel-item id="third">
+              <img src=${imageUrl} alt="SBB image" height="180" width="320" />
+            </sbb-carousel-item>
+          </sbb-carousel-list>
+        </sbb-carousel>
       `);
+      element = root.querySelector('sbb-carousel-list')!;
       first = element.querySelector('#first')!;
       second = element.querySelector('#second')!;
       third = element.querySelector('#third')!;
@@ -71,7 +78,6 @@ describe('sbb-carousel-list', () => {
     });
 
     it('scroll events', async () => {
-      await setViewport({ width: 1200, height: 800 });
       await beforeShowSpy.calledTimes(1);
       expect(beforeShowSpy.count).to.be.equal(1);
       await showSpy.calledTimes(1);
@@ -98,6 +104,28 @@ describe('sbb-carousel-list', () => {
       await showSpy.calledTimes(4);
       expect(showSpy.count).to.be.equal(4);
     });
+
+    it('should handle disconnection', async () => {
+      await showSpy.calledTimes(1);
+
+      const carousel = element.parentElement! as SbbCarouselElement;
+
+      element.remove();
+      await waitForLitRender(element);
+
+      carousel.appendChild(element);
+      await waitForLitRender(element);
+
+      // We need a timeout until the IntersectionObserver is living in Safari
+      await aTimeout(30);
+
+      // Scroll event should still be detected after reconnection
+      element.scrollBy({ left: 320 });
+      await beforeShowSpy.calledTimes(2);
+      expect(beforeShowSpy.count).to.be.equal(2);
+      await showSpy.calledTimes(2);
+      expect(showSpy.count).to.be.equal(2);
+    });
   });
 
   it('detect size when later becoming visible', async () => {
@@ -123,7 +151,7 @@ describe('sbb-carousel-list', () => {
     showSpy = new EventSpy('show', element);
 
     expect(getComputedStyle(element).getPropertyValue('height')).to.be.equal('auto');
-    expect(getComputedStyle(element).getPropertyValue('width')).to.be.equal('auto');
+    expect(getComputedStyle(element).getPropertyValue('--sbb-carousel-list-width')).to.be.equal('');
 
     carousel.style.display = 'block';
 
