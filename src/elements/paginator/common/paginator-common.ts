@@ -43,6 +43,7 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public hasNextPage(): boolean;
   public numberOfPages(): number;
   protected language: SbbLanguageController;
+  protected changeAndEmitPage(pageIndex: number): void;
   protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void;
   protected renderPrevNextButtons(): TemplateResult;
   protected abstract renderPaginator(): TemplateResult;
@@ -178,7 +179,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       return `${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorSelected[this.language.current]}.`;
     }
 
-    private _changeAndEmitPage(pageIndex: number): void {
+    protected changeAndEmitPage(pageIndex: number): void {
       const prevPageIndex = this.pageIndex;
       this.pageIndex = pageIndex;
       this.emitPageEvent(prevPageIndex);
@@ -186,27 +187,27 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
     /** Advances to the next page if it exists. */
     public nextPage(): void {
-      this._changeAndEmitPage(this.pageIndex + 1);
+      this.pageIndex = this.pageIndex + 1;
     }
 
     /** Move back to the previous page if it exists. */
     public previousPage(): void {
-      this._changeAndEmitPage(this.pageIndex - 1);
+      this.pageIndex = this.pageIndex - 1;
     }
 
     /** Move to the first page if not already there. */
     public firstPage(): void {
-      this._changeAndEmitPage(0);
+      this.pageIndex = 0;
     }
 
     /** Move to the last page if not already there. */
     public lastPage(): void {
-      this._changeAndEmitPage(this.numberOfPages() - 1);
+      this.pageIndex = this.numberOfPages() - 1;
     }
 
     /** Move to a specific page index. */
     public selectPage(index: number): void {
-      this._changeAndEmitPage(index);
+      this.pageIndex = index;
     }
 
     /** Whether there is a previous page. */
@@ -231,7 +232,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void {
       /**
        * @type {CustomEvent<SbbPaginatorPageEventDetails>}
-       * The page event is dispatched whenever the user change page.
+       * The page event is dispatched whenever the user changes the page.
        */
       this.dispatchEvent(
         new CustomEvent<SbbPaginatorPageEventDetails>('page', {
@@ -280,7 +281,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
             @click=${() => {
-              this.previousPage();
+              this.changeAndEmitPage(this.pageIndex - 1);
               if (
                 !this.hasPreviousPage() &&
                 sbbInputModalityDetector.mostRecentModality === 'keyboard'
@@ -298,7 +299,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
             @click=${() => {
-              this.nextPage();
+              this.changeAndEmitPage(this.pageIndex + 1);
               if (
                 !this.hasNextPage() &&
                 sbbInputModalityDetector.mostRecentModality === 'keyboard'
