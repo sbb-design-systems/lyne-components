@@ -1,5 +1,5 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -80,7 +80,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
       });
     },
     config: {
-      root: document.documentElement,
+      root: !isServer ? document?.documentElement : null,
     },
   });
 
