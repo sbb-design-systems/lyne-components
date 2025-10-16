@@ -8,4 +8,4 @@
   outline: none !important;
 }
 
-@include sbb.icon-button('.sbb-form-field-clear', 'sbb-icon');
+@include sbb.icon-button('.sbb-action-base', '::slotted(sbb-icon), sbb-icon');

@@ -1,7 +1,5 @@
 @use '../../core/styles' as sbb;
 
-@include sbb.icon-button('.sbb-datepicker-toggle', 'sbb-icon');
-
 .sbb-datepicker-toggle {
   margin: auto;
   -webkit-tap-highlight-color: transparent;
