@@ -1,4 +1,3 @@
-import type { PropertyValues } from '@lit/reactive-element';
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
@@ -70,6 +69,21 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     config: { threshold: 0.99, root: this, rootMargin: '100% 0% 100% 0%' },
   });
 
+  // Observer to read the dimensions of the first item when it becomes visible.
+  private _firstVisibleIntersectionController = new IntersectionController(this, {
+    callback: (entries) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0) {
+          this._readDimensions();
+          this._firstVisibleIntersectionController.unobserve(this);
+        }
+      });
+    },
+    config: {
+      root: document.documentElement,
+    },
+  });
+
   public constructor() {
     super();
 
@@ -82,7 +96,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _handleSlotchange(): void {
-    const children = Array.from(this.children) as SbbCarouselItemElement[];
+    const children = this._carouselItems();
 
     // Set the aria-label if not provided
     const childrenLength = children.length;
@@ -93,13 +107,40 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
       item.ariaHidden = index === this._currentIndex ? null : 'true';
     });
 
-    // Set the component dimensions
-    const firstItem = children.find(
-      (el) => el.localName === 'sbb-carousel-item',
-    ) as SbbCarouselItemElement;
-    if (firstItem) {
+    // In case of updating the carousel items, we need to disconnect and reconnect the observers.
+    this._beforeShowObserver.hostDisconnected();
+    this._showObserver.hostDisconnected();
+    this._beforeShowObserver.hostConnected();
+    this._showObserver.hostConnected();
+
+    this._readDimensions();
+  }
+
+  /**
+   * Reads the dimensions of the first carousel item and sets the CSS properties accordingly.
+   * Should set the dimensions only once, when the first item becomes visible and if the value is non-zero.
+   * @private
+   */
+  private _readDimensions(): void {
+    const carouselItems = this._carouselItems();
+    if (carouselItems.length === 0) {
+      return;
+    }
+
+    const firstItem = carouselItems[0];
+
+    if (firstItem.clientHeight > 0) {
       this.style.setProperty('--sbb-carousel-list-height', `${firstItem.clientHeight}px`);
+    }
+
+    if (firstItem.clientWidth > 0) {
       this.style.setProperty('--sbb-carousel-list-width', `${firstItem.clientWidth}px`);
+
+      // We should only observe the items if they have a non-zero width. Otherwise, an unwanted scrolling can happen.
+      carouselItems.forEach((item) => {
+        this._beforeShowObserver.observe(item);
+        this._showObserver.observe(item);
+      });
     }
   }
 
@@ -121,7 +162,9 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
     if (newIndex !== this._currentIndex) {
       this._currentIndex = newIndex;
-      this.scrollTo({ left: this._carouselItems()[this._currentIndex].offsetLeft });
+      this.scrollTo({
+        left: this._carouselItems()[this._currentIndex].offsetLeft - this.offsetLeft,
+      });
     }
   }
 
@@ -130,15 +173,6 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
 
     this.internals.ariaLive = 'polite';
     this.internals.ariaAtomic = 'true';
-  }
-
-  public override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
-
-    this.querySelectorAll('sbb-carousel-item').forEach((item) => {
-      this._beforeShowObserver.observe(item);
-      this._showObserver.observe(item);
-    });
   }
 
   protected override render(): TemplateResult {
