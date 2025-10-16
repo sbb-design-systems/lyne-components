@@ -17,11 +17,17 @@ and it's meant to be used within a [sbb-carousel](/docs/elements-sbb-carousel-sb
 
 ## Slots
 
-The content is projected in an unnamed slot.
+The content is projected in the unnamed slot.
 
-The component gets its dimensions by setting the `--sbb-carousel-list-height` and `--sbb-carousel-list-width` variables
-looking at the first slotted `sbb-carousel-item`.
-It's a consumers' responsibility to set the correct height/width of the items, and make sure that they are all the same size.
+## Style
+
+The carousel determines its dimensions by reading the dimensions from the first slotted `sbb-carousel-item` element.
+It is the consumers' responsibility to set the correct height and width of the items, and to ensure that they are all the same size.
+
+These dimensions are read only once, when the component is first connected to the DOM or first becomes visible.
+In special cases, such as when the carousel size needs to be responsive, it is recommended to manually
+set the width and height CSS properties on the `sbb-carousel-list` element.
+Manually set dimensions will take precedence over the automatically read dimensions.
 
 ## Events
 
