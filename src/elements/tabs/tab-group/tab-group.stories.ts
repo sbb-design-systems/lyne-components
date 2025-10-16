@@ -5,7 +5,6 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import images from '../../core/images.js';
 import { SbbTabElement } from '../tab.js';
 
 import readme from './readme.md?raw';
@@ -15,9 +14,6 @@ import '../../card.js';
 import '../../link.js';
 import '../../title.js';
 import '../tab-label.js';
-
-import '../../carousel.js';
-import '../../paginator.js';
 
 const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
   const evDetail = event.detail;
@@ -49,17 +45,22 @@ const tabPanelOne = (): TemplateResult => html`
 
 const tabPanelTwo = (): TemplateResult => html`
   <sbb-tab>
-    <sbb-carousel>
-      <sbb-carousel-list>
-        <sbb-carousel-item>
-          <img src=${images[0]} height="450" width="800" />
-        </sbb-carousel-item>
-        <sbb-carousel-item>
-          <img src=${images[1]} height="450" width="800" />
-        </sbb-carousel-item>
-      </sbb-carousel-list>
-      <sbb-compact-paginator></sbb-compact-paginator>
-    </sbb-carousel>
+    <section>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+      <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+    </section>
+    ${new Array(5).fill(null).map(
+      () => html`
+        <section>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna neque viverra justo nec.
+          <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+        </section>
+      `,
+    )}
   </sbb-tab>
 `;
 
@@ -139,24 +140,8 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
     </sbb-tab>
 
     <sbb-tab-label amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-label>
-    <sbb-tab
-      ><sbb-tab-group size=${size} initial-selected-index="1">
-        <sbb-tab-label level="2">Nested tab</sbb-tab-label>
-        <sbb-tab>
-          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-          rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
-          faucibus turpis in eu mi bibendum neque egestas congue.
-        </sbb-tab>
+    ${tabPanelTwo()}
 
-        <sbb-tab-label level="2">Nested tab</sbb-tab-label>
-        <sbb-tab>
-          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-          rhoncus urna.
-        </sbb-tab>
-      </sbb-tab-group>
-    </sbb-tab>
     <sbb-tab-label ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-label>
