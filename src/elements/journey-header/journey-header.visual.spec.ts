@@ -55,5 +55,23 @@ describe(`sbb-journey-header`, () => {
         }),
       );
     }
+
+    for (const negative of [false, true]) {
+      describe(`negative=${negative}`, () => {
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-journey-header
+                origin="Origin"
+                destination="Destination"
+                ?negative=${negative}
+              ></sbb-journey-header>`,
+              { darkMode: true },
+            );
+          }),
+        );
+      });
+    }
   });
 });

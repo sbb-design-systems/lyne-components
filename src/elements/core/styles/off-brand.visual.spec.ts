@@ -23,16 +23,14 @@ import './off-brand-theme.scss';
 describe(`sbb-off-brand`, () => {
   describeViewports({ viewports: ['small'] }, () => {
     for (const darkMode of [false, true]) {
-      describe(`dark=${darkMode}`, () => {
+      describe(`darkMode=${darkMode}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {
           it(
             `button ${state.name}`,
             state.with(async (setup) => {
               await setup.withFixture(
                 html`<sbb-button sbb-badge="2">Off-Brand Button</sbb-button>`,
-                {
-                  darkMode,
-                },
+                { darkMode },
               );
             }),
           );

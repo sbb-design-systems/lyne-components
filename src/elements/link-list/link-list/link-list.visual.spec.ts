@@ -62,4 +62,21 @@ describe(`sbb-link-list`, () => {
       }),
     );
   });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-link-list horizontal-from="large">
+              <span slot="title">Help &amp; Contact</span>
+              ${linksTemplate()}
+            </sbb-link-list>
+          `,
+          { darkMode: true },
+        );
+      }),
+    );
+  });
 });

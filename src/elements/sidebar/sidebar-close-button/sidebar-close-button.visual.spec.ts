@@ -21,7 +21,7 @@ describe(`sbb-sidebar-close-button`, () => {
     describeEach(cases, ({ forcedColors }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
-          html` <sbb-sidebar-close-button></sbb-sidebar-close-button> `,
+          html`<sbb-sidebar-close-button></sbb-sidebar-close-button>`,
           {
             forcedColors,
             minHeight: '100px',

@@ -141,6 +141,35 @@ describe('sbb-sidebar', () => {
         });
       }),
     );
+
+    describeEach(
+      {
+        color: ['white', 'milk'] as SbbSidebarElement['color'][],
+        emulateMedia: [
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ color, emulateMedia: { darkMode, forcedColors } }) => {
+        it(
+          ``,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${header}<sbb-sidebar-container>
+                  ${sidebar({ color, closed: false, mode: 'over' })}
+                  <sbb-sidebar-content id="content">${content}</sbb-sidebar-content>
+                </sbb-sidebar-container>`,
+              {
+                backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
+                minHeight: '400px',
+                darkMode,
+                forcedColors,
+              },
+            );
+          }),
+        );
+      },
+    );
   });
 
   describeViewports({ viewports: ['zero'], viewportHeight: 400 }, () => {

@@ -13,8 +13,11 @@ describe(`sbb-tag`, () => {
   const cases = {
     checked: [false, true],
     disabled: [false, true],
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const visualCases = {
@@ -33,7 +36,7 @@ describe(`sbb-tag`, () => {
       );
     }
 
-    describeEach(cases, ({ checked, disabled, forcedColors, darkMode }) => {
+    describeEach(cases, ({ checked, disabled, emulateMedia: { forcedColors, darkMode } }) => {
       it(
         '',
         visualDiffDefault.with(async (setup) => {

@@ -150,4 +150,77 @@ describe(`list`, () => {
       }),
     );
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        it(
+          'step list',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <ol class=${`sbb-step-list sbb-text-m`}>
+                  ${listContent()}
+                  <li>
+                    Nested list
+                    <ol class="sbb-list">
+                      ${listContent()}
+                    </ol>
+                  </li>
+                </ol>
+              `,
+              { forcedColors, darkMode },
+            );
+          }),
+        );
+
+        it(
+          'icon list',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <ol class=${`sbb-icon-list sbb-text-m`}>
+                  ${listContent()}
+                  <li>
+                    Nested list
+                    <ol class="sbb-list">
+                      ${listContent()}
+                    </ol>
+                  </li>
+                </ol>
+              `,
+              { forcedColors, darkMode },
+            );
+          }),
+        );
+
+        it(
+          'description list',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<dl class="sbb-list">
+                <dt>Label:</dt>
+                <dd>Description of the label.</dd>
+
+                <dt>Longer Label:</dt>
+                <dd>Description of the label which is longer than the other one.</dd>
+
+                <dt>A very very very long label:</dt>
+                <dd>
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                  no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </dd>
+              </dl>`,
+              { forcedColors, darkMode },
+            );
+          }),
+        );
+      });
+    }
+  });
 });

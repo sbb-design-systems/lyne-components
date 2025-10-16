@@ -12,18 +12,20 @@ import {
 import './chip.component.js';
 
 const cases = {
-  negative: [true, false],
+  negative: [false, true],
+  darkMode: [false, true],
 };
 
 describe('sbb-chip', () => {
-  describeViewports({ viewports: ['zero', 'large'] }, () => {
-    describeEach(cases, ({ negative }) => {
+  describeViewports({ viewports: ['zero'] }, () => {
+    describeEach(cases, ({ negative, darkMode }) => {
       for (const state of [visualDiffDefault, visualDiffFocus]) {
         it(
-          `${state.name}`,
+          state.name,
           state.with(async (setup) => {
             await setup.withFixture(
               html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`,
+              { darkMode },
             );
 
             setup.withPostSetupAction(() => {
@@ -39,6 +41,7 @@ describe('sbb-chip', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-chip value="Value" ?negative=${negative}>Value</sbb-chip>`,
+            { darkMode },
           );
         }),
       );
@@ -48,6 +51,7 @@ describe('sbb-chip', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-chip value="Value" ?negative=${negative} disabled></sbb-chip>`,
+            { darkMode },
           );
         }),
       );
@@ -57,15 +61,18 @@ describe('sbb-chip', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-chip value="Value" ?negative=${negative} readonly></sbb-chip>`,
+            { darkMode },
           );
         }),
       );
 
       // Hover on label
       it(
-        `${visualDiffHover.name}`,
+        visualDiffHover.name,
         visualDiffHover.with(async (setup) => {
-          await setup.withFixture(html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`);
+          await setup.withFixture(html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`, {
+            darkMode,
+          });
 
           const chipStateElement = setup.snapshotElement
             .querySelector('sbb-chip')!
@@ -81,6 +88,7 @@ describe('sbb-chip', () => {
           state.with(async (setup) => {
             await setup.withFixture(
               html`<sbb-chip value="Value" ?negative=${negative}></sbb-chip>`,
+              { darkMode },
             );
 
             const deleteStateElement = setup.snapshotElement
