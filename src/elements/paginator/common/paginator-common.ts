@@ -43,7 +43,8 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public hasNextPage(): boolean;
   public numberOfPages(): number;
   protected language: SbbLanguageController;
-  protected emitPageEvent(previousPageIndex: number): void;
+  protected changeAndEmitPage(pageIndex: number): void;
+  protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void;
   protected renderPrevNextButtons(): TemplateResult;
   protected abstract renderPaginator(): TemplateResult;
 }
@@ -57,48 +58,21 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
     public static override role = 'group';
-    public static readonly events: Record<string, string> = {
-      page: 'page',
-    } as const;
 
     /** Total number of items. */
+    @forceType()
     @property({ type: Number })
-    public set length(value: number) {
-      this._length = isNaN(value) || value < 0 ? 0 : value;
-      // Call setter of pageIndex to ensure bounds
-      // eslint-disable-next-line no-self-assign
-      this.pageIndex = this.pageIndex;
-    }
-    public get length(): number {
-      return this._length;
-    }
-    private _length: number = 0;
+    public accessor length: number = 0;
 
     /** Number of items per page. */
+    @forceType()
     @property({ attribute: 'page-size', type: Number })
-    public set pageSize(value: number) {
-      // Current page needs to be updated to reflect the new page size. Navigate to the page
-      // containing the previous page's first item.
-      this._previousPageSize = this.pageSize;
-      this._pageSize = Math.max(value, 0);
-      this.pageIndex = Math.floor((this.pageIndex * this._previousPageSize) / this.pageSize) || 0;
-    }
-    public get pageSize(): number {
-      return this._pageSize;
-    }
-    private _pageSize: number = 10;
+    public accessor pageSize: number = 10;
 
     /** Current page index. */
+    @forceType()
     @property({ attribute: 'page-index', type: Number })
-    public set pageIndex(value: number) {
-      const previousPageIndex = this._pageIndex;
-      this._pageIndex = this._coercePageIndexInRange(value);
-      this.emitPageEvent(previousPageIndex);
-    }
-    public get pageIndex(): number {
-      return this._pageIndex;
-    }
-    private _pageIndex: number = 0;
+    public accessor pageIndex: number = 0;
 
     /** Position of the prev/next buttons. */
     @property({ attribute: 'pager-position', reflect: true }) public accessor pagerPosition:
@@ -136,8 +110,54 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     public accessor accessibilityNextPageLabel: string = '';
 
     protected language = new SbbLanguageController(this);
-    private _previousPageSize: number = this._pageSize;
     protected abstract renderPaginator(): TemplateResult;
+
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
+      super.willUpdate(changedProperties);
+      let prevPageIndex: number | null = null;
+
+      if (changedProperties.has('length') && this.length !== changedProperties.get('length')) {
+        this.length = isNaN(this.length) || this.length < 0 ? 0 : this.length;
+        /**
+         * If the pageIndex changes, it's added in the changedProperties map
+         * and handled in the pageIndex logic below, emitting the page event.
+         * If the pageIndex doesn't change there's no need to emit.
+         */
+        this.pageIndex = this._coercePageIndexInRange(this.pageIndex);
+      }
+
+      if (
+        changedProperties.has('pageSize') &&
+        this.pageSize !== changedProperties.get('pageSize')
+      ) {
+        const previousPageSize = changedProperties.get('pageSize');
+        this.pageSize = isNaN(this.pageSize) || this.pageSize < 0 ? 0 : this.pageSize;
+        // Current page needs to be updated to reflect the new page size.
+        // Navigate to the page containing the previous page's first item.
+        if (previousPageSize) {
+          this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
+        }
+        /**
+         * If the pageIndex changes, it's added in the changedProperties map,
+         * and this line is useless, since the correct value will be calculated in the logic below;
+         * if the pageIndex doesn't change (e.g. change pageSize at pageIndex 0), the prevPageIndex and pageIndex are the same.
+         * In both case the page event must be triggered to allow consumers to retrieve the correct data.
+         */
+        prevPageIndex = this.pageIndex;
+      }
+
+      if (
+        changedProperties.has('pageIndex') &&
+        this.pageIndex !== changedProperties.get('pageIndex')
+      ) {
+        this.pageIndex = this._coercePageIndexInRange(this.pageIndex);
+        prevPageIndex = changedProperties.get('pageIndex')!;
+      }
+
+      if (prevPageIndex !== null) {
+        this._emitPrivatePageEvent(prevPageIndex);
+      }
+    }
 
     protected override updated(changedProperties: PropertyValues<this>): void {
       super.updated(changedProperties);
@@ -157,6 +177,12 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
     private _currentPageLabel(): string {
       return `${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorSelected[this.language.current]}.`;
+    }
+
+    protected changeAndEmitPage(pageIndex: number): void {
+      const prevPageIndex = this.pageIndex;
+      this.pageIndex = pageIndex;
+      this.emitPageEvent(prevPageIndex);
     }
 
     /** Advances to the next page if it exists. */
@@ -203,24 +229,10 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       return this.pageSize ? Math.ceil(this.length / this.pageSize) : 0;
     }
 
-    protected emitPageEvent(previousPageIndex: number): void {
-      if (
-        !this.hasUpdated ||
-        (this.pageIndex === previousPageIndex && this._previousPageSize === this.pageSize)
-      ) {
-        // When emitting the page event is skipped during initialization,
-        // we have to update the previous page size.
-        // Otherwise, it could trigger an unnecessary page event when other prop
-        // is re-assigned with the e.g. the same value.
-        this._previousPageSize = this.pageSize; // Update the previous page size for next comparison
-
-        // Do not emit the event if the page event details did not change
-        return;
-      }
-
+    protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void {
       /**
        * @type {CustomEvent<SbbPaginatorPageEventDetails>}
-       * The page event is dispatched when the page index changes.
+       * The page event is dispatched whenever the user changes the page.
        */
       this.dispatchEvent(
         new CustomEvent<SbbPaginatorPageEventDetails>('page', {
@@ -228,12 +240,34 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
           composed: true,
           detail: {
             previousPageIndex,
-            pageIndex: this.pageIndex,
+            pageIndex: pageIndex ?? this.pageIndex,
             length: this.length,
             pageSize: this.pageSize,
           },
         }),
       );
+    }
+
+    private _emitPrivatePageEvent(previousPageIndex: number): void {
+      if (this.hasUpdated) {
+        /**
+         * @internal
+         * @type {CustomEvent<SbbPaginatorPageEventDetails>}
+         * The page event is dispatched when the page index changes.
+         */
+        this.dispatchEvent(
+          new CustomEvent<SbbPaginatorPageEventDetails>('ɵpage', {
+            bubbles: true,
+            composed: true,
+            detail: {
+              previousPageIndex,
+              pageIndex: this.pageIndex,
+              length: this.length,
+              pageSize: this.pageSize,
+            },
+          }),
+        );
+      }
     }
 
     protected renderPrevNextButtons(): TemplateResult {
@@ -247,7 +281,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
             @click=${() => {
-              this.previousPage();
+              this.changeAndEmitPage(this.pageIndex - 1);
               if (
                 !this.hasPreviousPage() &&
                 sbbInputModalityDetector.mostRecentModality === 'keyboard'
@@ -265,7 +299,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
             @click=${() => {
-              this.nextPage();
+              this.changeAndEmitPage(this.pageIndex + 1);
               if (
                 !this.hasNextPage() &&
                 sbbInputModalityDetector.mostRecentModality === 'keyboard'

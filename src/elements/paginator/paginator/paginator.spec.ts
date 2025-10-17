@@ -15,12 +15,15 @@ import { SbbPaginatorElement } from './paginator.component.js';
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;
   let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
+  let ɵpageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
 
   beforeEach(async () => {
     pageEventSpy = spy();
+    ɵpageEventSpy = spy();
     element = await fixture(
       html`<sbb-paginator
         @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
+        @ɵpage=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => ɵpageEventSpy(e)}
         length="50"
         page-size="5"
       ></sbb-paginator>`,
@@ -31,7 +34,7 @@ describe('sbb-paginator', () => {
     assert.instanceOf(element, SbbPaginatorElement);
   });
 
-  it('change pages via prev/next buttons and emits `page` event', async () => {
+  it('change pages via prev/next buttons and emits `ɵpage` and `page` event', async () => {
     const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
       '#sbb-paginator-prev-page',
     )!;
@@ -42,11 +45,14 @@ describe('sbb-paginator', () => {
     expect(goToPrev).to.have.attribute('disabled');
     goToPrev.click();
     await waitForLitRender(element);
+    expect(ɵpageEventSpy).not.to.have.been.called;
     expect(pageEventSpy).not.to.have.been.called;
 
     expect(goToNext).not.to.have.attribute('disabled');
     goToNext.click();
     await waitForLitRender(element);
+    expect(ɵpageEventSpy).to.have.been.calledOnce;
+    expect(ɵpageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(pageEventSpy).to.have.been.calledOnce;
     expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(1);
@@ -55,6 +61,8 @@ describe('sbb-paginator', () => {
 
     goToPrev.click();
     await waitForLitRender(element);
+    expect(ɵpageEventSpy).to.have.been.calledTwice;
+    expect(ɵpageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(pageEventSpy).to.have.been.calledTwice;
     expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(0);
@@ -120,14 +128,33 @@ describe('sbb-paginator', () => {
     const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;
     expect(secondOption).not.to.be.null;
     expect(pageEventSpy).not.to.have.been.called;
+    expect(ɵpageEventSpy).not.to.have.been.called;
     secondOption.click();
     await waitForLitRender(element);
 
-    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    expect(pageEventSpy).not.to.have.been.called;
+    expect(ɵpageEventSpy).to.have.been.calledOnce;
+    const ɵpageEventDetail: SbbPaginatorPageEventDetails = ɵpageEventSpy.lastCall.firstArg.detail;
+    expect(ɵpageEventDetail.pageSize).to.be.equal(20);
+    expect(ɵpageEventDetail.pageIndex).to.be.equal(0);
+    expect(ɵpageEventDetail.previousPageIndex).to.be.equal(0);
+    expect(ɵpageEventDetail.length).to.be.equal(50);
+
+    element.setAttribute('page-index', '2');
+    await waitForLitRender(element);
+    expect(element.pageIndex).to.be.equal(2);
+    expect(ɵpageEventSpy).to.have.been.calledTwice;
+    const thirdOption = select.querySelector<SbbOptionElement>('[value="50"]')!;
+    expect(thirdOption).not.to.be.null;
+    thirdOption.click();
+    await waitForLitRender(element);
+
+    expect(ɵpageEventSpy).to.have.been.calledThrice;
     expect(pageEventSpy).to.have.been.calledOnce;
-    expect(pageEventDetail.pageSize).to.be.equal(20);
+    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    expect(pageEventDetail.pageSize).to.be.equal(50);
     expect(pageEventDetail.pageIndex).to.be.equal(0);
-    expect(pageEventDetail.previousPageIndex).to.be.equal(0);
+    expect(pageEventDetail.previousPageIndex).to.be.equal(2);
     expect(pageEventDetail.length).to.be.equal(50);
   });
 
@@ -135,53 +162,66 @@ describe('sbb-paginator', () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(pageEventSpy).to.have.been.calledOnce;
+    expect(ɵpageEventSpy).to.have.been.calledOnce;
+    expect(pageEventSpy).not.to.have.been.called;
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(pageEventSpy).to.have.been.calledTwice;
+    expect(ɵpageEventSpy).to.have.been.calledTwice;
+    expect(pageEventSpy).not.to.have.been.called;
   });
 
-  it('handles length change', () => {
+  it('handles length change', async () => {
     element.pageIndex = 9;
     element.length = 100;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
 
     element.length = 10;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(1);
 
     element.length = -1;
+    await waitForLitRender(element);
     expect(element.length).to.be.equal(0);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('handles pageSize change', () => {
+  it('handles pageSize change', async () => {
     element.pageIndex = 9;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
 
     element.pageSize = 1;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(45);
 
     element.pageSize = 10;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
 
     element.pageSize = -1;
+    await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(0);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('handles pageIndex change', () => {
+  it('handles pageIndex change', async () => {
     element.pageIndex = 10;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
 
     element.pageIndex = -1;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
 
     element.pageIndex = 0;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
 
     element.pageIndex = 5;
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(5);
   });
 
@@ -277,58 +317,66 @@ describe('sbb-paginator', () => {
     document.documentElement.setAttribute('lang', lang);
   });
 
-  it('should handle nextPage() call', () => {
+  it('should handle nextPage() call', async () => {
     element.nextPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(1);
   });
 
-  it('should bound nextPage() call', () => {
+  it('should bound nextPage() call', async () => {
     element.pageIndex = 9;
     element.nextPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
   });
 
-  it('should handle previousPage() call', () => {
+  it('should handle previousPage() call', async () => {
     element.pageIndex = 1;
-
     element.previousPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('should bound previousPage() call', () => {
+  it('should bound previousPage() call', async () => {
     element.previousPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('should handle firstPage() call', () => {
+  it('should handle firstPage() call', async () => {
     element.pageIndex = 9;
-
     element.firstPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
   });
 
-  it('should handle lastPage() call', () => {
+  it('should handle lastPage() call', async () => {
     element.lastPage();
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
   });
 
-  it('should handle selectPage() call', () => {
+  it('should handle selectPage() call', async () => {
     element.selectPage(2);
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(2);
   });
 
-  it('should bound selectPage() call', () => {
+  it('should bound selectPage() call', async () => {
     element.selectPage(-1);
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(0);
 
     element.selectPage(10);
+    await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
   });
 
-  it('should handle hasPreviousPage() call', () => {
+  it('should handle hasPreviousPage() call', async () => {
     expect(element.hasPreviousPage()).to.be.false;
 
     element.selectPage(1);
+    await waitForLitRender(element);
     expect(element.hasPreviousPage()).to.be.true;
   });
 
