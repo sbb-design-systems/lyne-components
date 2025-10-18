@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.11.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.11.0...v3.11.1) (2025-10-18)
+
+
+### Bug Fixes
+
+* **sbb-link:** fix underline color to respect background color ([#4107](https://github.com/sbb-design-systems/lyne-components/issues/4107)) ([3da1d2f](https://github.com/sbb-design-systems/lyne-components/commit/3da1d2f70a9267c0b3a98c6e57839bba321a4102))
+* **sbb-mini-calendar:** improve spacing ([#4105](https://github.com/sbb-design-systems/lyne-components/issues/4105)) ([c93a69e](https://github.com/sbb-design-systems/lyne-components/commit/c93a69ed639e77ca2c4fdaffd6649c754a3eafc0))
+* **sbb-tag:** improve high contrast mode of checked state ([#4103](https://github.com/sbb-design-systems/lyne-components/issues/4103)) ([8bce887](https://github.com/sbb-design-systems/lyne-components/commit/8bce887ba3223f86744c809a0072b1251ad20f97))
+
 ## [3.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.10.0...v3.11.0) (2025-10-13)
 
 
