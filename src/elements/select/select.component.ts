@@ -433,7 +433,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('value') && (this._didLoad || this.value)) {
+    if (changedProperties.has('value') && (this._didLoad || this.value !== null)) {
       this._onValueChanged(this.value!);
     }
     if (changedProperties.has('negative') || changedProperties.has('multiple')) {

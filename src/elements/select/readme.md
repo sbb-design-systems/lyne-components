@@ -147,6 +147,8 @@ const values = [
 ];
 ```
 
+For types other than string, the `value` must be set via property using the dot notation.
+
 ```html
 <sbb-select .value="${values[0]}" name="name">
   <sbb-option .value="${values[0]}">Option 1</sbb-option>

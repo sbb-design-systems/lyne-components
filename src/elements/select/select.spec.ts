@@ -1174,6 +1174,48 @@ describe(`sbb-select`, () => {
     });
   });
 
+  describe('with boolean value', () => {
+    let element: SbbSelectElement<boolean>;
+
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<form>
+          <sbb-form-field>
+            <label>Label</label>
+            <sbb-select placeholder="Placeholder" name="select1" .value=${false}>
+              <sbb-option id="option-1" .value=${true}>Yes</sbb-option>
+              <sbb-option id="option-2" .value=${false}>No</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        </form> `,
+      );
+      element = root.querySelector<SbbSelectElement<boolean>>('sbb-select')!;
+    });
+
+    it('should have the correct displayValue and the second option selected', () => {
+      const secondOption = element.querySelector<SbbOptionElement<boolean>>('#option-2')!;
+      expect(element.getDisplayValue()).to.be.equal('No');
+      expect(secondOption).to.have.attribute('selected');
+    });
+
+    it('should set value on option click', async () => {
+      const firstOption = element.querySelector<SbbOptionElement<boolean>>('#option-1')!;
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      firstOption.click();
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.getDisplayValue()).to.be.equal('Yes');
+      expect(firstOption).to.have.attribute('selected');
+      expect(element.value).to.be.equal(true);
+    });
+  });
+
   describe('with complex value', () => {
     type PropertyType = { property: string; otherProperty: string };
     let element: SbbSelectElement<PropertyType>, firstOption: SbbOptionElement<PropertyType>;
