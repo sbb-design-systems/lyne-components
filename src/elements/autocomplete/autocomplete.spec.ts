@@ -382,16 +382,17 @@ describe(`sbb-autocomplete`, () => {
   });
 
   describe('requireSelection', () => {
+    let openSpy: EventSpy<Event>, changeEventSpy: EventSpy<Event>, inputEventSpy: EventSpy<Event>;
+
     beforeEach(async () => {
+      openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      changeEventSpy = new EventSpy('change', input);
+      inputEventSpy = new EventSpy('input', input);
       element.requireSelection = true;
       await waitForLitRender(element);
     });
 
     it('should clear input if user types without selecting any option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
-
       input.focus();
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
@@ -407,10 +408,6 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should clear input if user navigates with keyboard without selecting any option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
-
       input.focus();
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
@@ -425,10 +422,6 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should clear input if user types and navigates without selecting any option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
-
       input.focus();
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
@@ -445,9 +438,6 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should not clear input with mouse selection', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
       const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
 
       input.focus();
@@ -473,10 +463,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should not clear input with keyboard selection', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
       const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
       const optOne = element.querySelector<SbbOptionElement>('#option-1');
 
       input.focus();
@@ -498,10 +485,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should not clear input if user select than opens and closes the panel', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
       const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
 
       input.focus();
       await openSpy.calledOnce();
@@ -528,10 +512,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('should clear input if user types after selection', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
       const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-      const changeEventSpy = new EventSpy('change', input);
-      const inputEventSpy = new EventSpy('input', input);
 
       input.focus();
       await openSpy.calledOnce();
