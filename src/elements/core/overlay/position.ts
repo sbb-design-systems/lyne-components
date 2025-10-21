@@ -164,16 +164,15 @@ export function getElementPosition(
   }
 
   // Check if vertical alignment needs to be changed to "above":
-  if (
-    !properties?.forceBelow &&
-    (properties?.forceAbove ||
-      (availableSpaceBelow - verticalOffset < elementRec.scrollHeight &&
-        availableSpaceAbove - verticalOffset >
-          (responsiveHeight ? elementRec.clientHeight : elementRec.scrollHeight)) ||
-      (availableSpaceAbove > availableSpaceBelow &&
-        availableSpaceBelow - verticalOffset < elementRec.clientHeight &&
-        !responsiveHeight))
-  ) {
+  const shouldOpenAbove =
+    (availableSpaceBelow - verticalOffset < elementRec.scrollHeight &&
+      availableSpaceAbove - verticalOffset >
+        (responsiveHeight ? elementRec.clientHeight : elementRec.scrollHeight)) ||
+    (availableSpaceAbove > availableSpaceBelow &&
+      availableSpaceBelow - verticalOffset < elementRec.clientHeight &&
+      !responsiveHeight);
+
+  if (!properties?.forceBelow && (properties?.forceAbove || shouldOpenAbove)) {
     elementYPosition =
       availableSpaceAbove < elementRec.scrollHeight
         ? elementYPosition - triggerRec.height - availableSpaceAbove - verticalOffset
