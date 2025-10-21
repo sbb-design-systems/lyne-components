@@ -7,6 +7,7 @@ import { getElementPosition } from './position.js';
  * @param optionContainer The reference to the option panel.
  * @param container The element which has the position:fixed applied.
  * @param element The reference to the component.
+ * @param position The allowed position of the overlay relative to the origin.
  */
 export function setOverlayPosition(
   dialog: HTMLElement,
@@ -14,6 +15,7 @@ export function setOverlayPosition(
   optionContainer: HTMLElement,
   container: HTMLElement,
   element: HTMLElement,
+  position: 'auto' | 'top' | 'bottom' = 'auto',
 ): void {
   if (!dialog || !originElement) {
     return;
@@ -26,7 +28,10 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-origin-height', `${originElement.offsetHeight}px`);
 
   // Calculate and set the position
-  const panelPosition = getElementPosition(optionContainer, originElement, container);
+  const panelPosition = getElementPosition(optionContainer, originElement, container, {
+    forceBelow: position === 'bottom',
+    forceAbove: position === 'top',
+  });
 
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
