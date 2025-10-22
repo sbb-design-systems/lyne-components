@@ -18,7 +18,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
         data-button=""
         data-sbb-button=""
         disabled-interactive=""
-        icon-name="arrow-left-small"
+        icon-name="chevron-small-left-small"
         id="first-tab-element"
         role="contentinfo"
         size="s"
@@ -80,7 +80,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
         data-button=""
         data-sbb-button=""
         disabled-interactive=""
-        icon-name="arrow-right-small"
+        icon-name="chevron-small-right-small"
         id="last-tab-element"
         role="contentinfo"
         size="s"
@@ -93,6 +93,36 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-seat-reservation renders Shadow DOM */
+
+snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "contentinfo",
+      "name": "Start Graphic Seat Reservation",
+      "disabled": true
+    },
+    {
+      "role": "list",
+      "name": "Seat reservation navigation"
+    },
+    {
+      "role": "generic",
+      "name": ""
+    },
+    {
+      "role": "contentinfo",
+      "name": "Exit Graphic Seat Reservation",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-seat-reservation renders A11y tree Chrome */
 
 snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
 `<p>
@@ -129,34 +159,4 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-seat-reservation renders A11y tree Firefox */
-
-snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "contentinfo",
-      "name": "Start Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
-      "role": "list",
-      "name": "Seat reservation navigation"
-    },
-    {
-      "role": "generic",
-      "name": ""
-    },
-    {
-      "role": "contentinfo",
-      "name": "Exit Graphic Seat Reservation",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-seat-reservation renders A11y tree Chrome */
 
