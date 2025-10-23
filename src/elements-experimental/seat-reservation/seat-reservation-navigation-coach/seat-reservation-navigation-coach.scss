@@ -168,20 +168,20 @@ $disabled: '[disabled], :disabled';
   }
 }
 
+// selected AND focus (FIGMA State:Selected + Focused)
+// background-color from selected State has more specificity, so we need to override it here (again)
+.sbb-sr-navigation__item-coach--selected
+  .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-selected
+  );
+}
+
 // hover (FIGMA State:hover)
 .sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}, .sbb-sr-navigation-driver-area) {
   --sbb-seat-reservation-navigation-btn-background-color: var(
     --sbb-seat-reservation-navigation-btn-background-color-hover
   );
-
-  // TODO clarify hover border with UX designer
-  // --sbb-seat-reservation-navigation-btn-border-width: var(
-  //  --sbb-seat-reservation-navigation-btn-border-width-hover
-  // );
-  // --sbb-seat-reservation-navigation-btn-border-color: light-dark(
-  //  var(--sbb-color-black),
-  //  var(--sbb-color-white)
-  // );
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: var(--sbb-color-smoke);
