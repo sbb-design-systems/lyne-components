@@ -6,7 +6,8 @@
   --sbb-lead-container-background-color: var(--sbb-background-color-1);
   --sbb-lead-container-image-ratio: 2 / 1;
   --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
-  --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-content-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-padding-block: 0 var(--sbb-spacing-responsive-l);
   --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
   --sbb-lead-container-image-border-radius: 0;
@@ -18,7 +19,7 @@
 }
 
 .sbb-lead-container {
-  padding-block-end: var(--sbb-lead-container-padding-block);
+  padding-block: var(--sbb-lead-container-padding-block);
 }
 
 ::slotted([slot='image']) {
@@ -70,7 +71,7 @@
 .sbb-lead-container-content {
   position: relative;
   border-radius: var(--sbb-lead-container-border-radius);
-  padding-block: var(--sbb-lead-container-padding-block);
+  padding-block: var(--sbb-lead-container-content-padding-block);
   background-color: var(--sbb-lead-container-background-color);
   grid-column: 1 / -1;
 
