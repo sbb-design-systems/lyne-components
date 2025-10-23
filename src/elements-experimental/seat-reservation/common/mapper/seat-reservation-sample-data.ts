@@ -33,7 +33,7 @@ export const MOCK_COACHES_RAW_0 = [
               },
               orientation: 0,
               placeLocations: ['BICYCLE_LOW'],
-              placeProperties: [],
+              placeProperties: ['INVALID_KEY', 'BICYCLE_HIGH', 'ANOTHER_INVALID_KEY', 'POWER'],
               state: 'FREE',
             },
             {
