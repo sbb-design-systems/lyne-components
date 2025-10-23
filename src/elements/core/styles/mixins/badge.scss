@@ -12,6 +12,9 @@
   color: var(--sbb-color-1-negative);
   min-width: var(--sbb-spacing-fixed-4x);
   max-height: var(--sbb-spacing-fixed-4x);
+
+  // Transparent outline is visible in forced colors mode to ensure readability
+  outline: var(--sbb-border-width-1x) solid transparent;
 }
 
 @mixin badge-attribute {
