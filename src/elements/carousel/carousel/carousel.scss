@@ -10,8 +10,7 @@
 }
 
 :host([shadow]) {
-  @include sbb.shadow-level-9-hard;
-
+  box-shadow: var(--sbb-box-shadow-level-9-hard);
   border-radius: var(--sbb-carousel-border-radius);
 }
 

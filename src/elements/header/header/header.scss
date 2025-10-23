@@ -69,7 +69,7 @@
   }
 
   :host(:is([data-shadow], [data-has-visible-focus-within][data-fixed])) & {
-    @include sbb.shadow-level-9-soft;
+    box-shadow: var(--sbb-box-shadow-level-9-soft);
   }
 
   @include sbb.if-forced-colors {
