@@ -172,7 +172,7 @@ $intersector-overlapping: 1px;
     );
 
     :host([data-sticking]:not([data-state='unsticky'])) & {
-      @include sbb.shadow-level-11-soft;
+      box-shadow: var(--sbb-box-shadow-level-11-soft);
     }
   }
 

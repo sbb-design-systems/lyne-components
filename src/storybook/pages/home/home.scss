@@ -15,8 +15,7 @@ section sbb-title {
 }
 
 .timetable-placeholder {
-  @include sbb.shadow-level-5-hard;
-
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
   background-color: var(--sbb-background-color-1);
   border-radius: var(--sbb-border-radius-4x);
   height: 21vh;

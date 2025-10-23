@@ -99,7 +99,7 @@
 
   @include sbb.hover-mq($hover: true) {
     :host(:hover) & {
-      @include sbb.shadow-level-9-hard;
+      box-shadow: var(--sbb-box-shadow-level-9-hard);
     }
   }
 }
