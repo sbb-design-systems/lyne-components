@@ -88,7 +88,9 @@ const WithChipTemplate = (): TemplateResult => html`
   </sbb-lead-container>
 `;
 
-// TODO: remove
+/**
+ * Hidden example to show how to achieve a sticky bar inside a lead container.
+ */
 const StickyBarTemplate = (): TemplateResult => html`
   <style>
     sbb-container {
@@ -96,11 +98,8 @@ const StickyBarTemplate = (): TemplateResult => html`
 
       --column-shift: 0;
       --full-width: 100%;
-      @media (min-width: 52.5rem) {
+      @media (min-width: 64rem) {
         --column-shift: 1;
-      }
-      @media (min-width: 80rem) {
-        --column-shift: 2;
       }
       @media (min-width: 90rem) {
         --column-shift: 3;
@@ -127,7 +126,8 @@ const StickyBarTemplate = (): TemplateResult => html`
     }
 
     sbb-lead-container {
-      --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l) 0;
+      --sbb-lead-container-content-padding-block: var(--sbb-spacing-responsive-l) 0;
+      --sbb-lead-container-padding-block: 0;
     }
   </style>
   <sbb-lead-container>
@@ -156,12 +156,12 @@ export const WithChip: StoryObj = {
   render: WithChipTemplate,
 };
 
-// TODO: remove
 export const StickyBar: StoryObj = {
   render: StickyBarTemplate,
 };
 
 const meta: Meta = {
+  excludeStories: ['StickyBar'],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
