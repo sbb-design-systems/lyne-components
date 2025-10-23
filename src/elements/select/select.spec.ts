@@ -1234,7 +1234,7 @@ describe(`sbb-select`, () => {
       element = root.querySelector<SbbSelectElement<boolean>>('sbb-select')!;
     });
 
-    it('should have the correct displayValue and the second option selected', () => {
+    it('should have the correct displayValue and the first option selected', () => {
       const firstOption = element.querySelector<SbbOptionElement<boolean>>('#option-1')!;
       expect(element.getDisplayValue()).to.be.equal('No');
       expect(firstOption).to.have.attribute('selected');
