@@ -58,7 +58,7 @@ describe('sbb-icon-sidebar', () => {
     </p>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     const cases: { color: SbbIconSidebarElement['color'][]; position: ('start' | 'end')[] } = {
       color: ['white', 'milk'],
       position: ['start', 'end'],
@@ -75,7 +75,7 @@ describe('sbb-icon-sidebar', () => {
                 ${position === 'end' ? iconSidebar(color) : nothing}
               </sbb-icon-sidebar-container>`,
             {
-              backgroundColor: color === 'white' ? 'var(--sbb-color-milk)' : undefined,
+              backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
               minHeight: '400px',
             },
           );
@@ -116,7 +116,39 @@ describe('sbb-icon-sidebar', () => {
     );
   });
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 200 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 400 }, () => {
+    describeEach(
+      {
+        color: ['white', 'milk'] as SbbIconSidebarElement['color'][],
+      },
+      ({ color }) => {
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${header}<sbb-icon-sidebar-container>
+                  ${iconSidebar(color)}
+                  <sbb-icon-sidebar-content id="content">${content}</sbb-icon-sidebar-content>
+                </sbb-icon-sidebar-container>`,
+              {
+                backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
+                minHeight: '400px',
+                darkMode: true,
+              },
+            );
+
+            // Scroll
+            setup.withPostSetupAction(() => {
+              const content = setup.snapshotElement.querySelector('sbb-icon-sidebar-content')!;
+              content.scrollTo(0, content.scrollHeight);
+            });
+          }),
+        );
+      },
+    );
+  });
+
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 200 }, () => {
     it(
       'scrolled icons',
       visualDiffDefault.with(async (setup) => {

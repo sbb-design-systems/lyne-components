@@ -29,9 +29,10 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   COMPARTMENT_PASSAGE: { svg: svgs.chassisPassageCompartmentMiddle },
   COMPARTMENT_PASSAGE_HIGH: { svg: svgs.chassisPassageCompartmentLeftTop },
   COMPARTMENT_PASSAGE_LOW: { svg: svgs.chassisPassageCompartmentRightBottom },
+  COMPARTMENT_WALL: { svg: svgs.chassisSeparator },
   DRIVER_AREA: { svg: svgs.chassisDriverTrain },
-  DRIVER_AREA_FULL_BUS: { svg: svgs.chassisDriverBus },
-  DRIVER_AREA_FULL_TRAIN: { svg: svgs.chassisDriverTrainFull },
+  DRIVER_AREA_BUS: { svg: svgs.chassisDriverBus },
+  DRIVER_AREA_TRAIN: { svg: svgs.chassisDriverTrainFull },
   EASY_ACCESS: { svgName: 'sa-em' },
   EASY_ACCESS_AREA: { svgName: 'sa-em' },
   EASY_ACCESS_ICON: { svgName: 'sa-em' },
@@ -62,9 +63,8 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   SILENCE_ICON: { svgName: 'sa-rz' },
   SKI_AREA: { svgName: 'sa-sa' },
   SKI_ICON: { svgName: 'sa-sa' },
+  STAFF_AREA: { svgName: 'avatar-train-staff-medium' },
   STAIR_AREA: { svgName: 'sa-ac' },
-  TABLE: { svg: svgs.interiorTable },
-  TABLE_RESTAURANT: { svg: svgs.interiorTable },
   TOILET_AREA: { svgName: 'sa-wc' },
   TOILET_ICON: { svgName: 'sa-wc' },
   TOILET_WHEELCHAIR_AREA: { svgName: 'sa-rw' },
@@ -94,17 +94,11 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
  *         - STAFF_AREA
  *         - TOILET_AREA
  *         - TOILET_WHEELCHAIR_AREA
- *         - COACH_PASSAGE
- *         - COMPARTMENT_PASSAGE
- *         - COMPARTMENT_PASSAGE_HIGH
- *         - COMPARTMENT_PASSAGE_LOW
- *         - DRIVER_AREA
  *         - DRIVER_AREA_LEFT
  *         - DRIVER_AREA_RIGHT
  *         - ENTRY_EXIT
  *         - STAIR_AREA
  *         - TABLE
- *         - TABLE_RESTAURANT
  *
  * AccommodationSubType:
  *       type: string

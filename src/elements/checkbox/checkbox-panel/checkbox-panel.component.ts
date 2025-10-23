@@ -3,6 +3,7 @@ import {
   html,
   LitElement,
   nothing,
+  type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -21,6 +22,7 @@ import {
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
@@ -48,7 +50,11 @@ export
 class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [checkboxCommonStyle, panelCommonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    checkboxCommonStyle,
+    panelCommonStyle,
+  ];
 
   /** Value of the form element. */
   @property()
@@ -62,24 +68,23 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
   public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
-  private _dispatchStateChange(detail: SbbCheckboxPanelStateChange): boolean {
-    /**
-     * @internal
-     * Internal event that emits whenever the state of the checkbox
-     * in relation to the parent selection panel changes.
-     */
-    return this.dispatchEvent(
-      new CustomEvent<SbbCheckboxPanelStateChange>('statechange', { detail, bubbles: true }),
-    );
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+    if (name === 'checked') {
+      this.internals.ariaChecked = `${this.checked}`;
+      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
+      this.toggleAttribute('data-checked', this.checked);
+    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
-      this.toggleAttribute('data-checked', this.checked);
-
       if (this.checked !== changedProperties.get('checked')!) {
         this._dispatchStateChange({ type: 'checked', checked: this.checked });
       }
@@ -89,6 +94,17 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
         this._dispatchStateChange({ type: 'disabled', disabled: this.disabled });
       }
     }
+  }
+
+  private _dispatchStateChange(detail: SbbCheckboxPanelStateChange): boolean {
+    /**
+     * @internal
+     * Internal event that emits whenever the state of the checkbox
+     * in relation to the parent selection panel changes.
+     */
+    return this.dispatchEvent(
+      new CustomEvent<SbbCheckboxPanelStateChange>('statechange', { detail, bubbles: true }),
+    );
   }
 
   protected override render(): TemplateResult {
@@ -127,5 +143,9 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-checkbox-panel': SbbCheckboxPanelElement;
+  }
+
+  interface GlobalEventHandlersEventMap {
+    statechange: CustomEvent<SbbStateChange>;
   }
 }

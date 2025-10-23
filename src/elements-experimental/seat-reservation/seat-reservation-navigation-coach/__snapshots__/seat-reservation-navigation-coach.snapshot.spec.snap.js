@@ -15,7 +15,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
   <button
     aria-describedby="nav-coach-service-descriptions-0"
     class="sbb-sr-navigation__ctrl-button"
-    title="Navigate to train compartment 85"
+    title="Navigate to coach 85. 0 seats available. 0 available bicycle spaces."
     type="button"
   >
     <div class="sbb-sr-navigation__additional-information">
@@ -33,7 +33,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
     </div>
   </button>
   <sbb-screen-reader-only id="nav-coach-service-descriptions-0">
-    en:Verfügbare Services: Velozone,Silence area
+    Available services: Bike area,Quiet zone
   </sbb-screen-reader-only>
   <sbb-seat-reservation-navigation-services>
   </sbb-seat-reservation-navigation-services>
@@ -49,16 +49,16 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85",
-      "description": "en:Verfügbare Services: Velozone,Silence area"
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
+      "description": "Available services: Bike area,Quiet zone"
     },
     {
       "role": "text",
-      "name": "en:Verfügbare Services: Velozone,Silence area"
+      "name": "Available services: Bike area,Quiet zone"
     },
     {
       "role": "text",
-      "name": "en:Verfügbare Services:Velozone, Silence area"
+      "name": "Available services:Bike area, Quiet zone"
     }
   ]
 }
@@ -74,16 +74,16 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
   "children": [
     {
       "role": "button",
-      "name": "Navigate to train compartment 85",
-      "description": "en:Verfügbare Services: Velozone,Silence area"
+      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
+      "description": "Available services: Bike area,Quiet zone"
     },
     {
       "role": "text leaf",
-      "name": "en:Verfügbare Services: Velozone,Silence area"
+      "name": "Available services: Bike area,Quiet zone"
     },
     {
       "role": "text leaf",
-      "name": "en:Verfügbare Services:Velozone, Silence area"
+      "name": "Available services:Bike area, Quiet zone"
     }
   ]
 }

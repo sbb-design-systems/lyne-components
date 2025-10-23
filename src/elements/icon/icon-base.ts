@@ -8,6 +8,7 @@ import { until } from 'lit/directives/until.js';
 
 import { forceType, hostAttributes } from '../core/decorators.js';
 import { SbbElementInternalsMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import { getSvgContent } from './icon-request.js';
 import style from './icon.scss?lit&inline';
@@ -24,7 +25,7 @@ export
   'data-empty': '',
 })
 abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly role = 'img';
 
   @state() private accessor _svgNamespace = defaultNamespace;

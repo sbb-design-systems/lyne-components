@@ -19,9 +19,11 @@ import {
   appendAriaElements,
   removeAriaElements,
   SbbElementInternalsMixin,
+  type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbSelectElement } from '../../select.js';
 
 import style from './form-field.scss?lit&inline';
@@ -33,6 +35,37 @@ let nextId = 0;
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
 
+/** An interface which allows a control to work inside of a `SbbFormField`. */
+export interface SbbFormFieldElementControl {
+  /** The id of the form field control. */
+  readonly id: string;
+  /** Whether the control is empty. */
+  readonly empty: boolean;
+  /** Whether the control is readonly. */
+  readonly readOnly?: boolean;
+  /** Whether the control is disabled. */
+  readonly disabled: boolean;
+
+  /**
+   * Handles a click on the control's container.
+   * If not implemented, focus() of the element is called.
+   */
+  onContainerClick?(event: MouseEvent): void;
+}
+
+export class SbbFormFieldControlEvent extends Event {
+  private _control: SbbFormFieldElementControl | null;
+
+  public get control(): SbbFormFieldElementControl | null {
+    return this._control;
+  }
+
+  public constructor(control: SbbFormFieldElementControl | null) {
+    super('formfieldcontrol');
+    this._control = control;
+  }
+}
+
 /**
  * It wraps an input element adding label, errors, icon, etc.
  *
@@ -41,6 +74,9 @@ const nativeInputElements = ['input', 'textarea', 'select'];
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
+ *
+ * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
+ * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
  */
 export
 @customElement('sbb-form-field')
@@ -48,7 +84,7 @@ export
 class SbbFormFieldElement extends SbbNegativeMixin(
   SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];
@@ -56,10 +92,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private readonly _floatingLabelSupportedInputElements = [
     'input',
     'select',
-    'sbb-date-input',
-    'sbb-time-input',
-    'sbb-select',
     'textarea',
+    'sbb-select',
   ];
 
   private readonly _floatingLabelSupportedInputTypes = [
@@ -115,13 +149,14 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   @state() private accessor _errorElements: Element[] = [];
 
   /** Reference to the slotted input element. */
-  @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
+  @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | null =
+    null;
 
   /** Reference to the slotted label elements. */
   @state() private accessor _label!: HTMLLabelElement;
 
   /** Returns the input element. */
-  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
+  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | null {
     return this._input;
   }
 
@@ -141,6 +176,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     : null;
 
   private _inputFormAbortController = new AbortController();
+  private _control: SbbFormFieldElementControl | null = null;
 
   public constructor() {
     super();
@@ -183,6 +219,14 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     // This is duplicated from the form associated mixin for the native
     // input controls (e.g. <input> or <select>).
     this.addEventListener('invalid', (e) => e.preventDefault(), { capture: true });
+    this.addEventListener('formfieldcontrol', (e: SbbFormFieldControlEvent) => {
+      this._control = e.control;
+      if (this._connectInputElement() === 'unchanged') {
+        this._assignErrorMessageElements();
+        this._readInputState();
+        this._checkAndUpdateInputEmpty();
+      }
+    });
   }
 
   public override connectedCallback(): void {
@@ -213,12 +257,14 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     }
   }
 
-  private _handleWrapperClick(event: Event): void {
+  private _handleWrapperClick(event: MouseEvent): void {
     if (this._isElementFocusExcluded(event)) {
       return;
     }
 
-    if ((event.target as Element).localName !== 'label') {
+    if (this._control?.onContainerClick) {
+      this._control?.onContainerClick(event);
+    } else if ((event.target as Element).localName !== 'label') {
       if (
         this._input?.localName === 'sbb-select' &&
         (event.target as HTMLElement).localName !== 'sbb-select'
@@ -266,15 +312,21 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     );
   }
 
-  private _connectInputElement(): void {
-    // Find the slotted input element, even if it's nested (e.g. chip group)
-    const inputCandidates = Array.from(
-      this.querySelectorAll<HTMLElement>('*:not([slot],sbb-chip-group)'),
-    );
-    const newInput = inputCandidates.find((e) => this._isInputElement(e)) || inputCandidates[0];
+  private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
+    let newInput: HTMLElement | null = null;
+    if (this._control?.id) {
+      newInput = (this.getRootNode() as Document | ShadowRoot).getElementById(this._control.id);
+    } else {
+      // Find the slotted input element, even if it's nested (e.g. chip group)
+      const inputCandidates = Array.from(
+        this.querySelectorAll<HTMLElement>('*:not([slot],sbb-chip-group)'),
+      );
+      newInput =
+        (inputCandidates.find((e) => this._isInputElement(e)) || inputCandidates[0]) ?? null;
+    }
 
     if (newInput === this._input) {
-      return;
+      return 'unchanged';
     } else if (this._input) {
       this.internals.states.delete(`input-type-${this._input.localName}`);
       if (this._input.localName === 'input') {
@@ -283,14 +335,14 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     }
 
     if (!newInput) {
-      this._input = undefined;
-      return;
+      this._input = null;
+      return 'no-input';
     }
 
     this._input = newInput;
+    this._registerInputFormListener();
     this._assignErrorMessageElements();
     this._readInputState();
-    this._registerInputFormListener();
     this._checkAndUpdateInputEmpty();
 
     if (this._input.localName === 'textarea') {
@@ -313,6 +365,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     });
     this.internals.states.add(`input-type-${this._input.localName}`);
     this._syncLabelInputReferences();
+    return 'changed';
   }
 
   private _syncLabelInputReferences(): void {
@@ -353,8 +406,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _readInputState(): void {
-    this.toggleState('readonly', this._input!.hasAttribute('readonly'));
-    this.toggleState('disabled', this._input!.hasAttribute('disabled'));
+    this.toggleState('readonly', this._control?.readOnly ?? this._input!.hasAttribute('readonly'));
+    this.toggleState('disabled', this._control?.disabled ?? this._input!.hasAttribute('disabled'));
     this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
   }
 
@@ -416,8 +469,12 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private _checkAndUpdateInputEmpty(): void {
     this.toggleState(
       'empty',
-      this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) &&
-        this._isInputEmpty(),
+      this._control?.empty ??
+        (((this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) ||
+          (this._input?.constructor as undefined | typeof SbbFormAssociatedInputMixinType)
+            ?.formFieldAssociated) ??
+          false) &&
+          this._isInputEmpty()),
     );
   }
 
@@ -549,5 +606,9 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-form-field': SbbFormFieldElement;
+  }
+
+  interface HTMLElementEventMap {
+    formfieldcontrol: SbbFormFieldControlEvent;
   }
 }

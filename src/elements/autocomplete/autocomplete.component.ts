@@ -3,7 +3,8 @@ import { customElement } from 'lit/decorators.js';
 import { getNextElementIndex } from '../core/a11y.js';
 import { isSafari } from '../core/dom.js';
 import { setAriaComboBoxAttributes } from '../core/overlay.js';
-import type { SbbOptGroupElement, SbbOptionElement } from '../option.js';
+import type { SbbDividerElement } from '../divider/divider.component.js';
+import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
 
@@ -29,7 +30,6 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
-  private _activeItemIndex = -1;
 
   protected get options(): SbbOptionElement<T>[] {
     return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
@@ -41,7 +41,9 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected syncNegative(): void {
-    this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
+    this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
+      'sbb-divider, sbb-option-hint',
+    ).forEach((el) => (el.negative = this.negative));
 
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
@@ -71,42 +73,43 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
 
   protected selectByKeyboard(event: KeyboardEvent): void {
     event.preventDefault();
-    const activeOption = this.options[this._activeItemIndex];
 
-    if (activeOption) {
-      activeOption['selectViaUserInteraction'](true);
-    }
+    this.activeOption?.['selectViaUserInteraction'](true);
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
-    const filteredOptions = this.options.filter(
+    const enabledOptions = this.options.filter(
       (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
 
-    // Get and activate the next active option
-    const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
-    const nextActiveOption = filteredOptions[next];
-    nextActiveOption.setActive(true);
-    this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
-    nextActiveOption.scrollIntoView({ block: 'nearest' });
+    // Reset potentially active option
+    this.activeOption?.setActive(false);
+    this.triggerElement?.removeAttribute('aria-activedescendant');
 
-    // Reset the previous active option
-    const lastActiveOption = filteredOptions[this._activeItemIndex];
-    if (lastActiveOption) {
-      lastActiveOption.setActive(false);
+    if (!enabledOptions.length) {
+      this.activeOption = null;
+      return;
     }
 
-    this._activeItemIndex = next;
+    const activeItemIndex = this.activeOption
+      ? enabledOptions.indexOf(this.activeOption as SbbOptionElement<T>)
+      : -1;
+
+    // Get and activate the next active option
+    const next = getNextElementIndex(event, activeItemIndex, enabledOptions.length);
+    this.activeOption = enabledOptions[next];
+    this.activeOption.setActive(true);
+    this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
+    this.activeOption.scrollIntoView({ block: 'nearest' });
+    if (this.autoSelectActiveOption) {
+      this.onOptionArrowsSelected(this.activeOption);
+    }
   }
 
   protected resetActiveElement(): void {
-    const activeElement = this.options[this._activeItemIndex];
-
-    if (activeElement) {
-      activeElement.setActive(false);
-    }
-    this._activeItemIndex = -1;
+    this.activeOption?.setActive(false);
     this.triggerElement?.removeAttribute('aria-activedescendant');
+    this.activeOption = null;
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {

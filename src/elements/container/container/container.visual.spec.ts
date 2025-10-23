@@ -133,7 +133,7 @@ describe(`sbb-container`, () => {
     });
   });
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       `nested`,
       visualDiffDefault.with(async (setup) => {
@@ -141,7 +141,7 @@ describe(`sbb-container`, () => {
           html`
             <sbb-container color="white">
               ${containerContent()}
-              <div style="background-color: var(--sbb-color-milk);">
+              <div style="background-color: var(--sbb-background-color-3);">
                 <sbb-container color="transparent">${containerContent()}</sbb-container>
               </div>
             </sbb-container>
@@ -150,6 +150,20 @@ describe(`sbb-container`, () => {
         );
       }),
     );
+
+    describe(`darkMode=true`, () => {
+      for (const color of colorCases) {
+        it(
+          `color=${color}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-container color=${color}>${containerContent(color)}</sbb-container>`,
+              { ...wrapperStyles, darkMode: true },
+            );
+          }),
+        );
+      }
+    });
   });
 
   // Test very large screens

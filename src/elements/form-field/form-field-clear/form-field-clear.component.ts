@@ -6,6 +6,7 @@ import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nClearInput } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbFormFieldElement } from '../form-field.js';
 
 import style from './form-field-clear.scss?lit&inline';
@@ -18,7 +19,7 @@ import '../../icon.js';
 export
 @customElement('sbb-form-field-clear')
 class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _formField?: SbbFormFieldElement | null;
   private _language = new SbbLanguageController(this);

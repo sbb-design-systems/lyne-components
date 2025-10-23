@@ -25,7 +25,7 @@ describe(`sbb-status`, () => {
     title: [true, false],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     let root: HTMLElement;
 
     describeEach(cases, ({ type, title }) => {
@@ -94,5 +94,37 @@ describe(`sbb-status`, () => {
         );
       });
     }
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describeEach(
+      {
+        type: [
+          'info',
+          'success',
+          'warning',
+          'error',
+          'pending',
+          'incomplete',
+          'not-started',
+          'in-progress',
+        ],
+      },
+      ({ type }) => {
+        it(
+          'darkMode=true',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-status type=${type}>
+                  <sbb-title level="3">Title</sbb-title> Status text.
+                </sbb-status>
+              `,
+              { darkMode: true },
+            );
+          }),
+        );
+      },
+    );
   });
 });

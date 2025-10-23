@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 sbb-chip-label {
   width: fit-content;
 }
@@ -44,7 +42,7 @@ sbb-title {
   inset-block-start: 0;
   inset-inline-start: 0;
   height: var(--sbb-border-radius-2x);
-  background-color: var(--sbb-color-black);
+  background-color: var(--sbb-border-color-1);
   width: calc(var(--app-progress) * 100%);
 }
 
@@ -54,7 +52,7 @@ sbb-title {
   flex-direction: column;
   gap: 0.5rem;
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     align-items: end;
     flex-direction: row;
   }

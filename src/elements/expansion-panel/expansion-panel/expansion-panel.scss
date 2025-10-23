@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // Open/Close animation vars
 $open-anim-rows-from: 0fr;
 $open-anim-rows-to: 1fr;
@@ -14,12 +11,12 @@ $open-anim-opacity-to: 1;
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-expansion-panel-background-color: var(--sbb-color-white);
+  --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
   --sbb-expansion-panel-content-visibility: hidden;
   --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-expansion-panel-border-color: var(--sbb-color-cloud);
+  --sbb-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
   --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
-  --sbb-expansion-panel-border-block-start-color: var(--sbb-color-cloud);
+  --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
   --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
@@ -71,7 +68,7 @@ $open-anim-opacity-to: 1;
 }
 
 :host([color='milk']) {
-  --sbb-expansion-panel-background-color: var(--sbb-color-milk);
+  --sbb-expansion-panel-background-color: var(--sbb-background-color-3);
 }
 
 :host([borderless]) {
@@ -79,6 +76,7 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-border-color: transparent;
   --sbb-expansion-panel-border-block-start-width: 0;
   --sbb-expansion-panel-border-block-start-color: transparent;
+
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
     --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
@@ -87,13 +85,15 @@ $open-anim-opacity-to: 1;
 
 :host([borderless][data-accordion]:not([data-accordion-first])) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
+
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-block-start-width: 0;
   }
 }
 
 :host(:not([disabled])[data-toggle-hover]) {
-  --sbb-expansion-panel-background-color: var(--sbb-color-milk);
+  --sbb-expansion-panel-background-color: var(--sbb-background-color-3);
+
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-color: Highlight;
     --sbb-expansion-panel-border-block-start-color: Highlight;
@@ -101,7 +101,7 @@ $open-anim-opacity-to: 1;
 }
 
 :host(:not([disabled])[color='milk'][data-toggle-hover]) {
-  --sbb-expansion-panel-background-color: var(--sbb-color-white);
+  --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
 }
 
 .sbb-expansion-panel {

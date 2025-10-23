@@ -6,7 +6,6 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.js';
 
@@ -55,26 +54,44 @@ describe(`sbb-menu-button`, () => {
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
-    backgroundColor: 'var(--sbb-color-black)',
+    backgroundColor: 'var(--sbb-background-color-1-inverted)',
     maxWidth: '256px',
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const visualDiffState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
-      it(
-        visualDiffState.name,
-        visualDiffState.with(async (setup) => {
-          await setup.withFixture(template(defaultArgs), wrapperStyles);
-        }),
-      );
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    for (const { darkMode, forcedColors } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`darkMode=${darkMode} forcedColors=${forcedColors}`, () => {
+        for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
+          it(
+            visualDiffState.name,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template(defaultArgs), {
+                ...wrapperStyles,
+                darkMode,
+                forcedColors,
+              });
+            }),
+          );
 
-      it(
-        `disabled ${visualDiffState.name}`,
-        visualDiffState.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, disabled: true }), wrapperStyles);
-        }),
-      );
+          it(
+            `disabled ${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template({ ...defaultArgs, disabled: true }), {
+                ...wrapperStyles,
+                darkMode,
+                forcedColors,
+              });
+            }),
+          );
+        }
+      });
+    }
 
+    for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
       it(
         `disabledInteractive ${visualDiffState.name}`,
         visualDiffState.with(async (setup) => {

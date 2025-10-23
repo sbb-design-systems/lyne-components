@@ -52,7 +52,7 @@ describe(`sbb-pearl-chain`, () => {
     },
   ];
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     for (const c of cases) {
       it(
         c.name,

@@ -16,13 +16,15 @@ import readme from './readme.md?raw';
 import '../../autocomplete.js';
 import '../../option.js';
 import '../../button.js';
+import '../../card.js';
 import '../../link.js';
 import '../../form-field.js';
 import '../../image.js';
 import '../../popover.js';
 import '../../stepper.js';
-import '../dialog-content.js';
 import '../dialog-actions.js';
+import '../dialog-close-button.js';
+import '../dialog-content.js';
 import '../dialog-title.js';
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -71,12 +73,19 @@ const backdropAction: InputType = {
   options: ['close', 'none'],
 };
 
+const includeCloseButton: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const basicArgTypes: ArgTypes = {
   level,
   negative,
   'accessibility-label': accessibilityLabel,
   backdrop,
   'backdrop-action': backdropAction,
+  includeCloseButton,
 };
 
 const basicArgs: Args = {
@@ -85,39 +94,26 @@ const basicArgs: Args = {
   'accessibility-label': undefined,
   backdrop: 'opaque',
   'backdrop-action': backdropAction.options![0],
+  includeCloseButton: false,
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
   <sbb-button id=${triggerId} size="m">Open dialog</sbb-button>
 `;
 
-const dialogActions = (negative: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
-    <sbb-block-link
-      align-self="start"
-      icon-name="chevron-small-left-small"
-      href="https://www.sbb.ch/en/"
-      ?negative=${negative}
-      sbb-dialog-close
-    >
-      Link
-    </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
+const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
+  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
+    <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close ?sbb-focus-initial=${!includeCloseButton} ?negative=${negative}>
+      Confirm
+    </sbb-button>
   </sbb-dialog-actions>
 `;
 
 const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
-};
-
-const formDetailsStyle: Args = {
-  marginTop: 'var(--sbb-spacing-fixed-4x)',
-  padding: 'var(--sbb-spacing-fixed-4x)',
-  borderRadius: 'var(--sbb-border-radius-8x)',
-  backgroundColor: 'var(--sbb-color-milk)',
+  backgroundColor: 'var(--sbb-background-color-3)',
 };
 
 const formStyle: Args = {
@@ -127,32 +123,24 @@ const formStyle: Args = {
   gap: 'var(--sbb-spacing-fixed-4x)',
 };
 
-const textBlockStyle: Args = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-};
-
 const dialogTitle = (level: SbbTitleLevel): TemplateResult => html`
   <sbb-dialog-title level=${level}>A describing title of the dialog</sbb-dialog-title>
 `;
 
 const textBlock = (): TemplateResult => html`
-  <p style=${styleMap(textBlockStyle)}>
+  <sbb-card color="milk" style="margin-block-start: 1rem">
     J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
     1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
     linguistic brilliance and mythic passion converge in a literary legacy that continues to
     transport readers to magical realms.
-  </p>
+  </sbb-card>
 `;
 
-const DefaultTemplate = ({ level, ...args }: Args): TemplateResult => html`
+const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
+    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
       <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
@@ -162,14 +150,15 @@ const DefaultTemplate = ({ level, ...args }: Args): TemplateResult => html`
         <p style="margin: 0" class="sbb-text-s">Some content.</p>
       </sbb-popover>
     </sbb-dialog-content>
-    ${dialogActions(args.negative)}
+    ${dialogActions(args.negative, includeCloseButton)}
   </sbb-dialog>
 `;
 
-const LongContentTemplate = ({ level, ...args }: Args): TemplateResult => html`
+const LongContentTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
+    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
       Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
       like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
@@ -187,17 +176,17 @@ const LongContentTemplate = ({ level, ...args }: Args): TemplateResult => html`
       other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
       the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock()}
     </sbb-dialog-content>
-    ${dialogActions(args.negative)}
+    ${dialogActions(args.negative, includeCloseButton)}
   </sbb-dialog>
 `;
 
-const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
+const FormTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <div id="returned-value">
-    <div style=${styleMap(formDetailsStyle)}>
+    <sbb-card color="milk" style="margin-block-start: 1rem">
       <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
       <div>Your favorite animal: <span id="returned-value-animal">Red Panda</span></div>
-    </div>
+    </sbb-card>
   </div>
   <sbb-dialog
     trigger="dialog-trigger"
@@ -212,6 +201,7 @@ const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
     ${sbbSpread(args)}
   >
     ${dialogTitle(level)}
+    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x);">
         Submit the form below to close the dialog box using the
@@ -232,16 +222,17 @@ const FormTemplate = ({ level, ...args }: Args): TemplateResult => html`
             <option>Elephant</option>
           </select>
         </sbb-form-field>
-        <sbb-button type="submit" size="m" sbb-dialog-close> Update details </sbb-button>
+        <sbb-button type="submit" size="m" sbb-dialog-close>Update details</sbb-button>
       </form>
     </sbb-dialog-content>
   </sbb-dialog>
 `;
 
-const NoFooterTemplate = ({ level, ...args }: Args): TemplateResult => html`
+const NoFooterTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
+    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
       <p style="margin: 0;">
         “What really knocks me out is a book that, when you're all done reading it, you wish the
@@ -253,17 +244,20 @@ const NoFooterTemplate = ({ level, ...args }: Args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const NestedTemplate = ({ level, ...args }: Args): TemplateResult => html`
+const NestedTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
-    <sbb-dialog-content>
-      Click the button to open a nested dialog.&nbsp;${triggerButton('dialog-trigger-2')}
-    </sbb-dialog-content>
+    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
+    <sbb-dialog-content> Click the button to open a nested dialog. </sbb-dialog-content>
+    <sbb-dialog-actions align-group="end">
+      ${triggerButton('dialog-trigger-2')}
+    </sbb-dialog-actions>
     <sbb-dialog trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}
+      ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
       <sbb-dialog-content>
-        <p>Nested dialog content. ${loremIpsum}</p>
+        <p style="margin-block:0">Nested dialog content. ${loremIpsum}</p>
         <sbb-form-field>
           <label>Pressing 'Escape' keydown with multiple overlay</label>
           <input />
@@ -278,10 +272,17 @@ const NestedTemplate = ({ level, ...args }: Args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const StepperTemplate = ({ level, orientation, linear, ...args }: Args): TemplateResult => html`
+const StepperTemplate = ({
+  level,
+  orientation,
+  linear,
+  includeCloseButton,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
+    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
       <sbb-stepper orientation="${orientation}" ?linear=${linear} size="m">
         ${['First', 'Second', 'Third', 'Fourth'].map(
@@ -317,6 +318,15 @@ export const Default: StoryObj = {
   args: basicArgs,
 };
 
+export const DefaultWithCloseButton: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    includeCloseButton: true,
+  },
+};
+
 export const Negative: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
@@ -344,25 +354,25 @@ export const AllowBackdropClick: StoryObj = {
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  args: { ...basicArgs, includeCloseButton: true },
 };
 
 export const Form: StoryObj = {
   render: FormTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  args: { ...basicArgs, includeCloseButton: true },
 };
 
 export const NoFooter: StoryObj = {
   render: NoFooterTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  args: { ...basicArgs, includeCloseButton: true },
 };
 
 export const Nested: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  args: { ...basicArgs, includeCloseButton: true },
 };
 
 export const Stepper: StoryObj = {
@@ -383,6 +393,7 @@ export const Stepper: StoryObj = {
     ...basicArgs,
     orientation: 'horizontal',
     linear: false,
+    includeCloseButton: true,
   },
 };
 

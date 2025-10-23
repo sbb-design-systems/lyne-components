@@ -5,6 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType } from '../core/decorators.js';
 import { SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import type { SbbTitleLevel } from '../title.js';
 
 import style from './footer.scss?lit&inline';
@@ -17,7 +18,7 @@ import style from './footer.scss?lit&inline';
 export
 @customElement('sbb-footer')
 class SbbFooterElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * Variants to display the footer. The default, displays the content in regular block element

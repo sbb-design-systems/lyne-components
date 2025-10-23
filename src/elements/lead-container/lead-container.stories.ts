@@ -65,7 +65,7 @@ const content = (): TemplateResult => html`
 
 const DefaultTemplate = (): TemplateResult => html`
   <sbb-lead-container>
-    ${content()};
+    ${content()}
     <sbb-image
       slot="image"
       image-src=${images[6]}
@@ -76,7 +76,7 @@ const DefaultTemplate = (): TemplateResult => html`
 
 const WithChipTemplate = (): TemplateResult => html`
   <sbb-lead-container>
-    ${content()};
+    ${content()}
 
     <figure class="sbb-figure" slot="image">
       <sbb-image image-src=${images[6]} alt="Station of Lucerne from outside"></sbb-image>

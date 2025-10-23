@@ -139,12 +139,13 @@ function renderTemplate(
     console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
+  // Generic <T> types are filtered out from imports
   const customEventTypes =
     declaration.events
       ?.filter(
         (e) =>
           e.type.text.startsWith('CustomEvent<') &&
-          ['void', '{', 'File'].every((m) => !e.type.text.includes(`<${m}`)),
+          ['void', '{', 'File', 'T'].every((m) => !e.type.text.includes(`<${m}`)),
       )
       .map((e) => e.type.text.substring(12).slice(0, -1))
       .sort()
@@ -155,7 +156,8 @@ function renderTemplate(
     .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
     .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
     .set('SeatReservationPlaceSelection', 'seat-reservation/common.js')
-    .set('SeatReservationCoachSelection', 'seat-reservation/common.js')
+    .set('SeatReservationSelectedCoach', 'seat-reservation/common.js')
+    .set('SeatReservationSelectedPlaces', 'seat-reservation/common.js')
     .set('PlaceSelection', 'seat-reservation/common.js');
 
   // In case of properties that are not string, but can be used as an string attribute in
@@ -238,7 +240,7 @@ export const ${declaration.name.replace(/Element$/, '')} = createComponent({
     .events!.map(
       (e) =>
         `\n    'on${e.name.charAt(0).toUpperCase() + e.name.slice(1)}': '${e.name}' as EventName<${e.type.text.replace(
-          '<T>',
+          /<T\s*(\|\s*T\[\])?\s*>/g,
           '<any>',
         )}>,`,
     )

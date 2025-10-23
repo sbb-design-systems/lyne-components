@@ -1,4 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
@@ -174,7 +175,7 @@ describe(`sbb-datepicker`, () => {
     await waitForLitRender(datepicker);
 
     expect(input.value).to.be.equal('Sa, 01.01.2022');
-    expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2022-01-01');
+    expect(defaultDateAdapter.toIso8601((calendar.selected as Date)!)).to.be.equal('2022-01-01');
     expect(changeSpy.count).to.be.equal(1);
     expect(blurSpy.count).to.be.equal(1);
 
@@ -232,7 +233,7 @@ describe(`sbb-datepicker`, () => {
     await waitForCondition(() => !calendar.hasAttribute('data-transition'));
 
     // Expect selected date and closed calendar
-    expect(defaultDateAdapter.toIso8601(calendar.selected!)).to.be.equal('2020-05-05');
+    expect(defaultDateAdapter.toIso8601((calendar.selected as Date)!)).to.be.equal('2020-05-05');
     await closeSpy.calledOnce();
 
     // Open again
@@ -267,7 +268,7 @@ describe(`sbb-datepicker`, () => {
   });
 
   it('renders correctly the calendar when wide is set', async () => {
-    await setViewport({ width: 900, height: 600 });
+    await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
     const element: SbbFormFieldElement = await fixture(
       html`<sbb-form-field>
         <sbb-datepicker-toggle></sbb-datepicker-toggle>

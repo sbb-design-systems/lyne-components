@@ -3,6 +3,7 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
+  nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
@@ -16,6 +17,7 @@ import {
   SbbElementInternalsMixin,
   SbbHydrationMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbOptionBaseElement } from '../option.js';
 
 import style from './optgroup-base-element.scss?lit&inline';
@@ -33,7 +35,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
 ) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Option group label. */
   @forceType()
@@ -143,10 +145,14 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
       <div class="sbb-optgroup__divider">
         <sbb-divider ?negative=${this.negative}></sbb-divider>
       </div>
-      <div class="sbb-optgroup__label" aria-hidden="true">
-        <div class="sbb-optgroup__icon-space"></div>
-        <span>${this.label}</span>
-      </div>
+      ${this.label
+        ? html`
+            <div class="sbb-optgroup__label" aria-hidden="true">
+              <div class="sbb-optgroup__icon-space"></div>
+              <span>${this.label}</span>
+            </div>
+          `
+        : nothing}
       <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }

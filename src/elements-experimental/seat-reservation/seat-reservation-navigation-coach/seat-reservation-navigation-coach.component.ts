@@ -1,19 +1,18 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.js';
-import type { PlaceTravelClass } from '../common.js';
+import type { CoachNumberOfFreePlaces, PlaceTravelClass } from '../common.js';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '../seat-reservation-navigation-services.js';
-
-const MAX_SERVICE_PROPERTIES = 3;
 
 export type SelectCoachEventDetails = number;
 
@@ -23,7 +22,7 @@ export type SelectCoachEventDetails = number;
 export
 @customElement('sbb-seat-reservation-navigation-coach')
 class SbbSeatReservationNavigationCoachElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectcoach: 'selectcoach',
     focuscoach: 'focuscoach',
@@ -52,6 +51,10 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Number })
   public accessor index: number = 0;
 
+  /** Representation of places available for selecting, counting seat places and bicycle places separetely */
+  @property({ attribute: 'free-places-by-type', type: Object })
+  public accessor freePlacesByType: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
+
   /** Travel class of the coach */
   @property({ attribute: 'travel-class', type: Array })
   public accessor travelClass: PlaceTravelClass[] = ['ANY_CLASS'];
@@ -78,7 +81,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   /** If the coach navigation should be displayed vertically */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
   private _language = new SbbLanguageController(this);
@@ -108,23 +111,17 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   /**
-   * Render a maximum of 3 of the service sign icons (slice(0,3)) regardless of the input from Backend,
-   * otherwise the layout could be destroyed. Furthermore, we have to filter out the value ANY_SEAT,
-   * since this is also passed as a property and does not need to be used here
+   * Render a list of service icons provided by a caller
    *
    * @protected
    */
   protected override render(): TemplateResult {
-    this.propertyIds = this.propertyIds
-      .filter((propertyId) => propertyId !== 'ANY_SEAT')
-      .slice(0, MAX_SERVICE_PROPERTIES);
     return html`
       <div
         class="${classMap({
           'sbb-sr-navigation__item-coach': true,
           'last-coach': this.last,
           'first-coach': this.first,
-          'vertical-coach': this.vertical,
           'sbb-sr-navigation__item-coach--selected': this.selected,
         })}"
       >
@@ -216,6 +213,13 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       label = label.concat(serviceClassLabel);
     }
 
+    // Expands the number of available seats and bicycle spaces as info
+    const freePlacesTxt = getI18nSeatReservation(
+      'COACH_AVAILABLE_NUMBER_OF_PLACES',
+      this._language.current,
+      [this.freePlacesByType.seats, this.freePlacesByType.bicycles],
+    );
+    label = label.concat('. ').concat(freePlacesTxt);
     return label;
   }
 

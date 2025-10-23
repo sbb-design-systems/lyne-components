@@ -1,9 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
 import type { SbbMiniButtonElement } from '../../button/mini-button.js';
-import { fixture } from '../../core/testing/private.js';
+import { fixture, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 
 import { SbbCompactPaginatorElement } from './compact-paginator.component.js';
@@ -63,28 +64,28 @@ describe('sbb-compact-paginator', () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     let selectedElement = element.shadowRoot!.querySelector('.sbb-paginator__pages')!;
-    // lenght = 50 / pageSize = 5 / numberOfPages = 10
+    // length = 50 / pageSize = 5 / numberOfPages = 10
     expect(selectedElement.textContent).to.be.equal('510');
 
     // switching to pageSize=10, item 21 should be on page 3 / pageIndex=2
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     selectedElement = element.shadowRoot!.querySelector('.sbb-paginator__pages')!;
-    // lenght = 50 / pageSize = 10 / numberOfPages = 5
+    // length = 50 / pageSize = 10 / numberOfPages = 5
     expect(selectedElement.textContent).to.be.equal('35');
 
     // go to page 4 / pageIndex=3, which now includes items 31-40
     element.setAttribute('page-index', '3');
     await waitForLitRender(element);
     selectedElement = element.shadowRoot!.querySelector('.sbb-paginator__pages')!;
-    // lenght = 50 / pageSize = 10 / numberOfPages = 5
+    // length = 50 / pageSize = 10 / numberOfPages = 5
     expect(selectedElement.textContent).to.be.equal('45');
 
     // switching to pageSize=2, item 31 should be on page 16 / pageIndex=15
     element.setAttribute('page-size', '2');
     await waitForLitRender(element);
     selectedElement = element.shadowRoot!.querySelector('.sbb-paginator__pages')!;
-    // lenght = 50 / pageSize = 2 / numberOfPages = 25
+    // length = 50 / pageSize = 2 / numberOfPages = 25
     expect(selectedElement.textContent).to.be.equal('1625');
   });
 
@@ -141,5 +142,37 @@ describe('sbb-compact-paginator', () => {
 
     element.pageIndex = 5;
     expect(element.pageIndex).to.be.equal(5);
+  });
+
+  it('keyboard navigation with arrows', async () => {
+    const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-prev-page',
+    )!;
+    const goToNext: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    goToNext.focus();
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Next
+    await sendKeys({ press: 'Enter' });
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Previous
+    await sendKeys({ press: `Shift+${tabKey}` });
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToPrev);
+
+    await sendKeys({ press: 'Enter' });
+    expect(goToPrev.disabled).to.be.true;
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Jump to second last
+    element.pageIndex = 8;
+    await waitForLitRender(element);
+
+    goToNext.focus();
+    await sendKeys({ press: 'Enter' });
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToPrev);
   });
 });

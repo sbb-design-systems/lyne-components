@@ -2,10 +2,10 @@
 
 :host {
   --sbb-selection-panel-background: var(
-    --sbb-selection-expansion-panel-inner-background,
-    var(--sbb-color-white)
+    --sbb-selection-panel-inner-background,
+    var(--sbb-background-color-1)
   );
-  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-panel-border-color: var(--sbb-border-color-4-inverted);
 
   // We use --sbb-selection-expansion-panel-border-radius in case a user would define another border radius.
   // The default is the same as here.
@@ -14,7 +14,7 @@
     var(--sbb-border-radius-4x)
   );
   --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
+    --sbb-selection-panel-inner-border-width,
     var(--sbb-border-width-1x)
   );
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
@@ -24,8 +24,8 @@
     var(--sbb-animation-duration-4x)
   );
   --sbb-selection-panel-cursor: pointer;
-  --sbb-selection-panel-suffix-color: var(--sbb-color-charcoal);
-  --sbb-selection-panel-subtext-color: var(--sbb-color-granite);
+  --sbb-selection-panel-suffix-color: var(--sbb-color-3);
+  --sbb-selection-panel-subtext-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
 
   display: block;
 
@@ -41,8 +41,8 @@
 
 :host([color='milk']) {
   --sbb-selection-panel-background: var(
-    --sbb-selection-expansion-panel-inner-background,
-    var(--sbb-color-milk)
+    --sbb-selection-panel-inner-background,
+    var(--sbb-background-color-3)
   );
 }
 
@@ -51,9 +51,9 @@
 }
 
 :host(:is([data-checked]):not(:disabled, [disabled])) {
-  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-border-color: var(--sbb-border-color-3);
   --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
+    --sbb-selection-panel-inner-border-width,
     var(--sbb-border-width-2x)
   );
 }

@@ -1,15 +1,12 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-radio-button-label-color: var(--sbb-color-charcoal);
-  --sbb-radio-button-background-color: var(--sbb-color-white);
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-white);
+  --sbb-radio-button-label-color: var(--sbb-color-3);
+  --sbb-radio-button-background-color: var(--sbb-background-color-1);
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
   --sbb-radio-button-border-width: var(--sbb-border-width-1x);
   --sbb-radio-button-border-style: solid;
-  --sbb-radio-button-border-color: var(--sbb-color-smoke);
+  --sbb-radio-button-border-color: var(--sbb-border-color-5);
   --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
   --sbb-radio-button-cursor: pointer;
@@ -31,7 +28,7 @@
 }
 
 :host([data-checked]) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-primary);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
   );
@@ -44,10 +41,10 @@
 
 // Disabled definitions have to be after checked definitions
 :host(:disabled) {
-  --sbb-radio-button-label-color: var(--sbb-color-granite);
-  --sbb-radio-button-background-color: var(--sbb-color-milk);
+  --sbb-radio-button-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
+  --sbb-radio-button-background-color: var(--sbb-background-color-3);
   --sbb-radio-button-border-style: dashed;
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
   --sbb-radio-button-cursor: default;
 
   @include sbb.if-forced-colors {
@@ -55,6 +52,11 @@
     --sbb-radio-button-border-color: GrayText;
     --sbb-radio-button-border-style: solid;
   }
+}
+
+// Disabled definitions have to be after checked definitions
+:host(:disabled[data-checked]) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-background-color-2-inverted);
 }
 
 :host([size='xs']) {

@@ -223,6 +223,38 @@ describe('sbb-paginator', () => {
     expect(pageEventSpy.count).to.be.equal(1);
   });
 
+  it('keyboard navigation with arrows', async () => {
+    const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-prev-page',
+    )!;
+    const goToNext: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    goToNext.focus();
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Next
+    await sendKeys({ press: 'Enter' });
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Previous
+    await sendKeys({ press: `Shift+${tabKey}` });
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToPrev);
+
+    await sendKeys({ press: 'Enter' });
+    expect(goToPrev.disabled).to.be.true;
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Jump to second last
+    element.pageIndex = 8;
+    await waitForLitRender(element);
+
+    goToNext.focus();
+    await sendKeys({ press: 'Enter' });
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToPrev);
+  });
+
   it('should update items per page label on language change', async () => {
     element = await fixture(
       html`<sbb-paginator length="50" page-size="5" .pageSizeOptions=${[5, 10]}></sbb-paginator>`,

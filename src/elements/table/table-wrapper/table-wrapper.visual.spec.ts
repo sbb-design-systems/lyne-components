@@ -20,7 +20,7 @@ describe(`sbb-table-wrapper`, () => {
     scrollbar: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, scrollbar }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -57,7 +57,7 @@ describe(`sbb-table-wrapper`, () => {
             <p class="sbb-table-caption">Table caption</p>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           },
         );
         if (scrollbar) {

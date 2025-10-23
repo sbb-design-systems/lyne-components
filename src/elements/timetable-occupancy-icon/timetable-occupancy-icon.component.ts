@@ -2,9 +2,10 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  SbbMediaQueryForcedColors,
+  SbbDarkModeController,
   SbbLanguageController,
   SbbMediaMatcherController,
+  SbbMediaQueryForcedColors,
 } from '../core/controllers.js';
 import { i18nOccupancy } from '../core/i18n.js';
 import type { SbbOccupancy } from '../core/interfaces.js';
@@ -31,6 +32,7 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
       this._setNameAndAriaLabel();
     },
   });
+  private _darkModeController = new SbbDarkModeController(this, () => this._setNameAndAriaLabel());
 
   private _forcedColors: boolean = this._mediaMatcher.matches(SbbMediaQueryForcedColors) ?? false;
 
@@ -42,7 +44,7 @@ class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
     let icon = `utilization-${this.occupancy}`;
     if (this._forcedColors) {
       icon += '-high-contrast';
-    } else if (this.negative) {
+    } else if (this.negative || this._darkModeController.matches()) {
       icon += '-negative';
     }
 

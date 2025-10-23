@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -12,15 +9,15 @@
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
   --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
-  --sbb-calendar-cell-disabled-color: var(--sbb-color-granite);
-  --sbb-calendar-header-color: var(--sbb-color-granite);
+  --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-background-color: transparent;
   --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
-  --sbb-calendar-cell-color: var(--sbb-color-charcoal);
-  --sbb-calendar-cell-selected-color: var(--sbb-color-white);
-  --sbb-calendar-cell-selected-background-color: var(--sbb-color-charcoal);
+  --sbb-calendar-cell-color: var(--sbb-color-2);
+  --sbb-calendar-cell-selected-color: var(--sbb-color-1-inverted);
+  --sbb-calendar-cell-selected-background-color: var(--sbb-background-color-2-inverted);
   --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
+  --sbb-calendar-cell-disabled-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
@@ -35,10 +32,10 @@
   --sbb-calendar-table-animation-duration: 0.1ms;
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
-  --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal);
-  --sbb-calendar-control-view-change-background: var(--sbb-color-white);
+  --sbb-calendar-control-view-change-color: var(--sbb-color-3);
+  --sbb-calendar-control-view-change-background: var(--sbb-background-color-1);
 
-  @include sbb.mq($from: micro) {
+  @include sbb.mq($from: small) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
     --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(77)};
     --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};
@@ -89,8 +86,14 @@
   transition-property: background-color, padding-block-end;
 
   &:disabled {
-    --sbb-calendar-control-view-change-background: var(--sbb-color-milk);
-    --sbb-calendar-control-view-change-color: var(--sbb-calendar-cell-disabled-color);
+    --sbb-calendar-control-view-change-background: light-dark(
+      var(--sbb-color-milk),
+      var(--sbb-color-anthracite)
+    );
+    --sbb-calendar-control-view-change-color: light-dark(
+      var(--sbb-color-granite),
+      var(--sbb-color-aluminium)
+    );
 
     cursor: unset;
   }
@@ -108,7 +111,7 @@
   }
 
   &:not(:disabled):active {
-    --sbb-calendar-control-view-change-background: var(--sbb-color-milk);
+    --sbb-calendar-control-view-change-background: var(--sbb-background-color-3);
   }
 }
 
@@ -144,6 +147,16 @@
       2 * 7 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
     );
     --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
+  }
+
+  :host([orientation='horizontal'][week-numbers]) & {
+    --sbb-calendar-min-width: calc(8 * var(--sbb-calendar-cell-size));
+  }
+
+  :host([orientation='horizontal'][week-numbers][data-wide]) & {
+    --sbb-calendar-min-width: calc(
+      2 * 8 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
   }
 
   // The container's min-width is set in vertical mode;
@@ -191,21 +204,24 @@
 }
 
 .sbb-calendar__table-header {
-  @include sbb.text-xs--regular;
-
-  color: var(--sbb-calendar-header-color);
-  width: var(--sbb-calendar-cell-size);
-  padding: 0;
-
   // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
   text-align: center;
+}
 
-  :host([orientation='horizontal']) & {
-    padding-block-end: var(--sbb-spacing-fixed-4x);
-  }
+.sbb-calendar__table-body {
+  // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
+  text-align: center;
+}
 
-  :host([orientation='vertical']) & {
-    padding-inline-end: var(--sbb-spacing-fixed-1x);
+.sbb-calendar__table-header-cell {
+  @include sbb.text-xs--regular;
+
+  width: var(--sbb-calendar-cell-size);
+  color: var(--sbb-calendar-header-color);
+  padding: 0;
+
+  :host(:not([multiple])) & {
+    height: var(--sbb-calendar-cell-size);
   }
 }
 
@@ -215,6 +231,7 @@
   text-align: center;
 }
 
+.sbb-calendar__header-cell,
 .sbb-calendar__cell {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
@@ -239,7 +256,7 @@
 
   @include sbb.hover-mq($hover: true) {
     &:not(.sbb-calendar__selected, :active, :disabled):hover {
-      --sbb-calendar-cell-background-color: var(--sbb-color-milk);
+      --sbb-calendar-cell-background-color: var(--sbb-background-color-3);
 
       padding-block-end: var(--sbb-calendar-hover-shift);
 
@@ -266,7 +283,7 @@
   }
 
   &:not(.sbb-calendar__selected, :disabled):active {
-    --sbb-calendar-cell-background-color: var(--sbb-color-cloud);
+    --sbb-calendar-cell-background-color: var(--sbb-background-color-4);
 
     &::before {
       @include sbb.if-forced-colors {
@@ -280,6 +297,13 @@
   }
 }
 
+.sbb-calendar__header-cell {
+  @include sbb.text-xs--regular;
+
+  color: var(--sbb-calendar-header-color);
+}
+
+.sbb-calendar__weekday,
 .sbb-calendar__day {
   border-radius: 50%;
   width: var(--sbb-calendar-cell-size);

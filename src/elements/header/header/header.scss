@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -19,7 +16,7 @@
   );
   --sbb-header-inset-inline-end: 0;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
     --sbb-signet-height: #{sbb.px-to-rem-build(20)};
   }
@@ -57,7 +54,7 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 var(--sbb-header-inset-inline-end) auto 0;
-  background: var(--sbb-color-white);
+  background: var(--sbb-background-color-1);
   z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
   transition: {
@@ -72,7 +69,7 @@
   }
 
   :host(:is([data-shadow], [data-has-visible-focus-within][data-fixed])) & {
-    @include sbb.shadow-level-9-soft;
+    box-shadow: var(--sbb-box-shadow-level-9-soft);
   }
 
   @include sbb.if-forced-colors {

@@ -14,10 +14,28 @@ export interface SbbDatetimeConfig {
   dateAdapter?: DateAdapter;
 }
 
+export interface SbbPopoverConfig {
+  /* Delay in milliseconds before the popover opens. */
+  openDelay?: number;
+  /* Delay in milliseconds before the popover closes. */
+  closeDelay?: number;
+}
+
+export interface SbbTooltipConfig {
+  /* Delay in milliseconds before the tooltip opens. */
+  openDelay?: number;
+  /* Delay in milliseconds before the tooltip closes. */
+  closeDelay?: number;
+  /* Delay in milliseconds before the tooltip is automatically closed when is opened by a long press (touch devices). */
+  longPressCloseDelay?: number;
+}
+
 export interface SbbConfig {
   language?: string;
   icon?: SbbIconConfig;
   datetime?: SbbDatetimeConfig;
+  popover?: SbbPopoverConfig;
+  tooltip?: SbbTooltipConfig;
 }
 
 export function readConfig(): SbbConfig {

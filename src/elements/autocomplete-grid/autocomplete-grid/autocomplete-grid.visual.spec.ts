@@ -1,7 +1,6 @@
 import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import type { VisualDiffSetupBuilder } from '../../core/testing/private.js';
 import {
@@ -10,6 +9,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.js';
 
+import '../../card.js';
 import '../../form-field.js';
 import '../../form-error.js';
 import '../../autocomplete-grid.js';
@@ -31,20 +31,10 @@ describe('sbb-autocomplete-grid', () => {
   };
 
   const textBlock = (): TemplateResult => html`
-    <div
-      style=${styleMap({
-        position: 'relative',
-        marginBlockStart: '1rem',
-        padding: '1rem',
-        backgroundColor: 'var(--sbb-color-milk)',
-        border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-        borderRadius: 'var(--sbb-border-radius-4x)',
-        zIndex: '100',
-      })}
-    >
+    <sbb-card color="milk" style="margin-block-start: 1rem; z-index: 100">
       This text block has a <code>z-index</code> greater than the form field, but it must always be
       covered by the autocomplete overlay.
-    </div>
+    </sbb-card>
   `;
 
   const createOptionBlockOne = (withIcon: boolean, disableOption: boolean): TemplateResult => html`
@@ -77,6 +67,7 @@ describe('sbb-autocomplete-grid', () => {
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="Option 3">
         ${withIcon ? html`<sbb-icon slot="icon" name="clock-small"></sbb-icon>` : nothing} Option 3
+        with a long text which can wrap
       </sbb-autocomplete-grid-option>
       <sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
@@ -160,7 +151,7 @@ describe('sbb-autocomplete-grid', () => {
     await sendKeys({ press: 'O' });
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
@@ -177,7 +168,9 @@ describe('sbb-autocomplete-grid', () => {
                     `,
                     {
                       minHeight: '500px',
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-1-negative)'
+                        : undefined,
                     },
                   );
                   setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -190,12 +183,12 @@ describe('sbb-autocomplete-grid', () => {
     }
   });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const style = {
           minHeight: '400px',
-          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
         for (const size of ['m', 's']) {
@@ -248,6 +241,18 @@ describe('sbb-autocomplete-grid', () => {
           }),
         );
 
+        it(
+          'darkMode=true focus',
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(template(defaultArgs), { darkMode: true });
+
+            setup.withPostSetupAction(async () => {
+              await openAutocomplete(setup);
+              await sendKeys({ press: 'ArrowDown' });
+            });
+          }),
+        );
+
         for (const withIcon of [false, true]) {
           it(
             `state=noSpace withIcon=${withIcon}`,
@@ -264,7 +269,7 @@ describe('sbb-autocomplete-grid', () => {
         for (const withGroup of [false, true]) {
           const wrapperStyle = {
             minHeight: withGroup ? '800px' : '400px',
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           };
 
           it(
@@ -303,7 +308,7 @@ describe('sbb-autocomplete-grid', () => {
                 }),
                 {
                   minHeight: '800px',
-                  backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 },
               );
               setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -324,7 +329,9 @@ describe('sbb-autocomplete-grid', () => {
                   }),
                   {
                     minHeight: '800px',
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                   },
                 );
                 setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -334,5 +341,25 @@ describe('sbb-autocomplete-grid', () => {
         });
       });
     }
+
+    it(
+      `with ellipsis`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div class="sbb-options-nowrap">${template({ ...defaultArgs })}</div>`,
+        );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), { forcedColors: true });
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
   });
 });

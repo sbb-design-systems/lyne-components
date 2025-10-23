@@ -60,6 +60,24 @@ const disabled: InputType = {
   },
 };
 
+const accessibilityPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityPreviousPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityNextPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   length,
   'page-size': pageSize,
@@ -68,6 +86,9 @@ const defaultArgTypes: ArgTypes = {
   size,
   negative,
   disabled,
+  'accessibility-page-label': accessibilityPageLabel,
+  'accessibility-previous-page-label': accessibilityPreviousPageLabel,
+  'accessibility-next-page-label': accessibilityNextPageLabel,
 };
 
 const defaultArgs: Args = {
@@ -136,7 +157,9 @@ const meta: Meta = {
       handles: [SbbCompactPaginatorElement.events.page],
     },
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

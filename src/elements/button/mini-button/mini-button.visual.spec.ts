@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -15,14 +15,27 @@ import './mini-button.component.js';
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;
 
-  const cases = {
+  const basicCases = {
     disabled: [false, true],
     negative: [false, true],
-    forcedColors: [false, true],
+  };
+
+  const cases = {
+    ...basicCases,
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
+  };
+
+  const labelCases = {
+    ...basicCases,
+    hasIcon: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative, forcedColors }) => {
+    describeEach(cases, ({ disabled, negative, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -37,8 +50,10 @@ describe(`sbb-mini-button`, () => {
             </sbb-form-field>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            focusOutlineDark: negative,
             forcedColors,
+            darkMode,
           },
         );
       });
@@ -52,6 +67,34 @@ describe(`sbb-mini-button`, () => {
           }),
         );
       }
+    });
+
+    describe('with label', () => {
+      describeEach(labelCases, ({ disabled, negative, hasIcon }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`<sbb-mini-button
+              ?negative=${negative}
+              ?disabled=${disabled}
+              icon-name=${hasIcon ? 'dog-small' : nothing}
+              >Mini Button Demo</sbb-mini-button
+            >`,
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              focusOutlineDark: negative,
+            },
+          );
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     describe(`disabledInteractive`, () => {
@@ -74,7 +117,10 @@ describe(`sbb-mini-button`, () => {
                     </sbb-form-field>
                   `,
                   {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
+                    focusOutlineDark: negative,
                   },
                 );
                 setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);

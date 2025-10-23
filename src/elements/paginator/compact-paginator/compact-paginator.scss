@@ -1,13 +1,10 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
   --sbb-compact-paginator-height: var(--sbb-size-element-m);
-  --sbb-compact-paginator-color: var(--sbb-color-metal);
+  --sbb-compact-paginator-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-paginator-compact-justify-content: start;
 }
 
@@ -16,7 +13,7 @@
 }
 
 :host([negative]) {
-  --sbb-compact-paginator-color: var(--sbb-color-storm);
+  --sbb-compact-paginator-color: var(--sbb-color-5);
 }
 
 :host([pager-position='end']) {

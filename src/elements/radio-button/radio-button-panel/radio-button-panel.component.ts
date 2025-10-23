@@ -21,6 +21,7 @@ import {
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.js';
 
 import '../../screen-reader-only.js';
@@ -48,7 +49,11 @@ export
 class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {
-  public static override styles: CSSResultGroup = [radioButtonCommonStyle, panelCommonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    radioButtonCommonStyle,
+    panelCommonStyle,
+  ];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
@@ -70,11 +75,13 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   @property()
   public accessor value: T | null = null;
 
-  private _hasSelectionExpansionPanelElement: boolean = false;
+  private _hasSelectionPanelElement: boolean = false;
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._hasSelectionExpansionPanelElement = !!this.closest?.('sbb-selection-expansion-panel');
+    this._hasSelectionPanelElement = !!this.closest?.(
+      'sbb-selection-expansion-panel, sbb-selection-action-panel',
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -96,22 +103,22 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   }
 
   /**
-   * As an exception, panels with an expansion-panel attached are always focusable
+   * As an exception, panels with a selection-panel attached are always focusable
    */
   protected override updateFocusableRadios(): void {
     super.updateFocusableRadios();
     const radios = Array.from(this.associatedRadioButtons ?? []) as SbbRadioButtonPanelElement[];
 
     radios
-      .filter((r) => !r.disabled && r._hasSelectionExpansionPanelElement)
+      .filter((r) => !r.disabled && r._hasSelectionPanelElement)
       .forEach((r) => (r.tabIndex = 0));
   }
 
   /**
-   * As an exception, radio-panels with an expansion-panel attached are not checked automatically when navigating by keyboard
+   * As an exception, radio-panels with a selection-panel attached are not checked automatically when navigating by keyboard
    */
   protected override async navigateByKeyboard(next: SbbRadioButtonPanelElement): Promise<void> {
-    if (!this._hasSelectionExpansionPanelElement) {
+    if (!this._hasSelectionPanelElement) {
       await super.navigateByKeyboard(next);
     } else {
       next.focus();
@@ -129,7 +136,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <label class="sbb-selection-panel">
+      <div class="sbb-selection-panel">
         <div class="sbb-selection-panel__badge">
           <slot name="badge"></slot>
         </div>
@@ -143,7 +150,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
             ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
             : nothing}
         </span>
-      </label>
+      </div>
     `;
   }
 }
@@ -152,5 +159,9 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-radio-button-panel': SbbRadioButtonPanelElement;
+  }
+
+  interface GlobalEventHandlersEventMap {
+    statechange: CustomEvent<SbbStateChange>;
   }
 }

@@ -4,12 +4,13 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { composedPathHasAttribute } from '../core/eventing.js';
 import { i18nCloseAlert } from '../core/i18n.js';
 import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
 
@@ -40,7 +41,7 @@ export
 class SbbToastElement extends SbbIconNameMixin(
   SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
@@ -62,6 +63,10 @@ class SbbToastElement extends SbbIconNameMixin(
 
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
+  private _darkModeController = new SbbDarkModeController(this, () => {
+    this._syncSlottedElements();
+    this.requestUpdate();
+  });
 
   public constructor() {
     super();
@@ -142,6 +147,15 @@ class SbbToastElement extends SbbIconNameMixin(
 
     // Start the countdown to close it
     if (this.timeout) {
+      // Workaround for https://github.com/sbb-design-systems/lyne-angular/issues/190
+      // If zone.js is loaded, setTimeout is wrapped and tracked which will mark
+      // anything in Angular as unstable as long as setTimeout is not finished.
+      // This only needs to be fixed in places where we actually want to wait a
+      // specific amount of time without an interaction (e.g. for this case).
+      const global = globalThis as any;
+      const setTimeout: typeof globalThis.setTimeout =
+        global[global.Zone?.__symbol__?.('setTimeout') as string] ?? global.setTimeout;
+
       this._closeTimeout = setTimeout(() => this.close(), this.timeout);
     }
   }
@@ -172,28 +186,23 @@ class SbbToastElement extends SbbIconNameMixin(
       this.prepend(span);
       span.append(...slotNodes);
     }
+    this._syncSlottedElements();
   }
 
-  private _onActionSlotChange(event: Event): void {
-    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
-
+  private _syncSlottedElements(): void {
     // Force the visual state on slotted buttons
-    const buttons: (SbbTransparentButtonElement | SbbTransparentButtonLinkElement)[] =
-      slotNodes.filter(
-        (el) =>
-          el.nodeName === 'SBB-TRANSPARENT-BUTTON' || el.nodeName === 'SBB-TRANSPARENT-BUTTON-LINK',
-      ) as (SbbTransparentButtonElement | SbbTransparentButtonLinkElement)[];
-    buttons.forEach((btn: SbbTransparentButtonElement | SbbTransparentButtonLinkElement) => {
-      btn.negative = true;
+    this.querySelectorAll<SbbTransparentButtonElement | SbbTransparentButtonLinkElement>(
+      'sbb-transparent-button, sbb-transparent-button-link',
+    ).forEach((btn) => {
+      btn.negative = this._isLightMode();
       btn.size = isLean() ? 's' : 'm';
     });
 
-    // Force negative on inline slotted links
-    const links = slotNodes.filter((el) =>
-      ['SBB-LINK', 'SBB-LINK-BUTTON', 'SBB-LINK-STATIC'].includes(el.nodeName),
-    ) as (SbbLinkElement | SbbLinkButtonElement | SbbLinkStaticElement)[];
-    links.forEach((link) => {
-      link.negative = true;
+    // Force negative on slotted links
+    this.querySelectorAll<SbbLinkElement | SbbLinkButtonElement | SbbLinkStaticElement>(
+      'sbb-link, sbb-link-button, sbb-link-static',
+    ).forEach((link) => {
+      link.negative = this._isLightMode();
     });
   }
 
@@ -219,6 +228,10 @@ class SbbToastElement extends SbbIconNameMixin(
     });
   }
 
+  private _isLightMode(): boolean {
+    return !this._darkModeController.matches();
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-toast__overlay-container">
@@ -228,19 +241,19 @@ class SbbToastElement extends SbbIconNameMixin(
             <div class="sbb-toast__content">
               <slot @slotchange=${this._onContentSlotChange}></slot>
             </div>
-            <slot name="action" @slotchange=${this._onActionSlotChange}></slot>
+            <slot name="action" @slotchange=${this._syncSlottedElements}></slot>
           </div>
           <div class="sbb-toast__close">
             <sbb-divider
               class="sbb-toast__close-divider"
               orientation="vertical"
-              negative
+              ?negative=${this._isLightMode()}
             ></sbb-divider>
             ${!this.readOnly
               ? html`<sbb-transparent-button
                   class="sbb-toast__close-button"
                   icon-name="cross-small"
-                  negative
+                  ?negative=${this._isLightMode()}
                   size="m"
                   aria-label=${i18nCloseAlert[this._language.current]}
                   sbb-toast-close

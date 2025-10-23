@@ -10,6 +10,7 @@ import {
   sbbInputModalityDetector,
 } from '../../core/a11y.js';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { readConfig } from '../../core/config.js';
 import {
   SbbEscapableOverlayController,
   SbbLanguageController,
@@ -27,6 +28,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './popover.scss?lit&inline';
 
@@ -41,7 +43,7 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The element that will trigger the popover overlay.
@@ -429,15 +431,35 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
   @property({ attribute: 'hover-trigger', type: Boolean })
   public accessor hoverTrigger: boolean = false;
 
-  /** Open the popover after a certain delay. */
-  @forceType()
+  /**
+   * Open the popover after a given delay in milliseconds.
+   * Global configuration is used as default, if not set.
+   *
+   * @default 0
+   */
   @property({ attribute: 'open-delay', type: Number })
-  public accessor openDelay: number = 0;
+  public set openDelay(value: number) {
+    this._openDelay = +value;
+  }
+  public get openDelay(): number {
+    return this._openDelay ?? readConfig().popover?.openDelay ?? 0;
+  }
+  private _openDelay?: number;
 
-  /** Close the popover after a certain delay. */
-  @forceType()
+  /**
+   * Close the popover after a given delay in milliseconds.
+   * Global configuration is used as default, if not set.
+   *
+   * @default 0
+   */
   @property({ attribute: 'close-delay', type: Number })
-  public accessor closeDelay: number = 0;
+  public set closeDelay(value: number) {
+    this._closeDelay = +value;
+  }
+  public get closeDelay(): number {
+    return this._closeDelay ?? readConfig().popover?.closeDelay ?? 0;
+  }
+  private _closeDelay?: number;
 
   /** This will be forwarded as aria-label to the close button element. */
   @forceType()

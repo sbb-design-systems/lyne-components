@@ -9,7 +9,9 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 import '../../icon.js';
 
 export const paragraphStyle = (negative: boolean): Record<string, string> => ({
-  color: negative ? 'var(--sbb-color-aluminium)' : 'var(--sbb-color-iron)',
+  color: negative
+    ? 'var(--sbb-color-aluminium)'
+    : 'light-dark(var(--sbb-color-iron), var(--sbb-color-aluminium))',
 });
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */

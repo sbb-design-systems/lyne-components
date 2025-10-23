@@ -28,6 +28,13 @@ snapshots["sbb-menu-button renders Shadow DOM"] =
       <slot>
       </slot>
     </span>
+    <span class="sbb-menu-submenu__icon">
+      <sbb-icon
+        data-namespace="default"
+        name="chevron-small-right-small"
+      >
+      </sbb-icon>
+    </span>
   </span>
 </span>
 `;
@@ -62,6 +69,13 @@ snapshots["sbb-menu-button renders component with icon Shadow DOM"] =
       <slot>
       </slot>
     </span>
+    <span class="sbb-menu-submenu__icon">
+      <sbb-icon
+        data-namespace="default"
+        name="chevron-small-right-small"
+      >
+      </sbb-icon>
+    </span>
   </span>
 </span>
 `;
@@ -74,7 +88,7 @@ snapshots["sbb-menu-button renders component with icon A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "button",
+      "role": "menuitem",
       "name": "Action"
     }
   ]
@@ -90,8 +104,14 @@ snapshots["sbb-menu-button renders component with icon A11y tree Firefox"] =
   "name": "",
   "children": [
     {
-      "role": "button",
-      "name": "Action"
+      "role": "text container",
+      "name": "",
+      "children": [
+        {
+          "role": "text leaf",
+          "name": "Action"
+        }
+      ]
     }
   ]
 }

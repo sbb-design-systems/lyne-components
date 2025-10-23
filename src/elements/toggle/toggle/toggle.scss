@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
   width: fit-content;
@@ -16,8 +13,8 @@
   );
   --sbb-toggle-selected-option-border-width: var(--sbb-border-width-1x);
   --sbb-toggle-selected-option-border-style: solid;
-  --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke);
-  --sbb-toggle-selected-option-background-color: var(--sbb-color-white);
+  --sbb-toggle-selected-option-border-color: var(--sbb-border-color-5);
+  --sbb-toggle-selected-option-background-color: var(--sbb-background-color-1);
   --sbb-toggle-background-inset: #{sbb.px-to-rem-build(2)};
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toggle-animation-duration: var(
@@ -42,7 +39,10 @@
 }
 
 :host(:disabled) {
-  --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite);
+  --sbb-toggle-selected-option-border-color: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
   --sbb-toggle-selected-option-border-style: dashed;
 
   @include sbb.if-forced-colors {
@@ -100,7 +100,7 @@
     content: '';
     grid-area: start / start / end / end;
     order: -1;
-    background: var(--sbb-color-cloud);
+    background: var(--sbb-background-color-4);
     margin-inline: var(--sbb-toggle-background-inset);
     height: calc(100% - 2 * var(--sbb-toggle-background-inset));
     border-radius: var(--sbb-toggle-border-radius);

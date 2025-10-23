@@ -13,7 +13,7 @@ import '../../date-input.js';
 import '../../form-field.js';
 
 describe(`sbb-datepicker-toggle`, () => {
-  describeViewports({ viewports: ['wide'] }, () => {
+  describeViewports({ viewports: ['ultra'] }, () => {
     describeEach({ negative: [true, false] }, ({ negative }) => {
       const withFormFieldTemplate = html`
         <sbb-form-field ?negative=${negative}>
@@ -27,7 +27,7 @@ describe(`sbb-datepicker-toggle`, () => {
         `form field ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(withFormFieldTemplate, {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
           });
         }),
@@ -37,7 +37,7 @@ describe(`sbb-datepicker-toggle`, () => {
         `form field ${visualDiffFocus.name}`,
         visualDiffFocus.with(async (setup) => {
           await setup.withFixture(withFormFieldTemplate, {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
           });
 

@@ -52,6 +52,28 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-secondary-button disabled>Button</sbb-secondary-button>
 ```
 
+### Loading state
+
+The component can be set into a loading state using the `loading` property.
+This should be done by listening to the `click` event on the button and setting
+the loading property to `true` e.g. when waiting for a response from the server.
+After receiving the response, the property should be set back to `false`.
+The loading state will be animated after a delay of 300ms, which can be configured with the
+`--sbb-button-loading-delay` CSS variable.
+
+```html
+<sbb-secondary-button
+  @click="${(e: PointerEvent) =>
+  { 
+    const button = e.currentTarget as SbbSecondaryButtonElement;
+    button.loading = true;
+    setTimeout(() => (button.loading = false), 4000); 
+  }}"
+>
+  Button
+</sbb-secondary-button>
+```
+
 ### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
@@ -90,6 +112,7 @@ guard against such cases in your component.
 | `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`            | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                       |
 | `form`                | `form`                 | public  | `HTMLFormElement \| null` |                    | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `iconName`            | `icon-name`            | public  | `string`                  | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                       |
+| `loading`             | `loading`              | public  | `boolean`                 | `false`            | Whether the button indicates a loading state. The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable.                                                                                                                                                                                                                                                                                                |
 | `name`                | `name`                 | public  | `string`                  |                    | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                            |
 | `negative`            | `negative`             | public  | `boolean`                 | `false`            | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `size`                | `size`                 | public  | `SbbButtonSize`           | `'l' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -107,9 +130,15 @@ guard against such cases in your component.
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+## CSS Properties
+
+| Name                         | Default | Description                                                                                |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `--sbb-button-loading-delay` | `300ms` | The delay before the loading animation starts, when setting the button into loading state. |
+
 ## Slots
 
 | Name   | Description                                                  |
 | ------ | ------------------------------------------------------------ |
 |        | Use the unnamed slot to add content to the secondary-button. |
-| `icon` | Slot used to display the icon, if one is set                 |
+| `icon` | Slot used to display the icon, if one is set.                |

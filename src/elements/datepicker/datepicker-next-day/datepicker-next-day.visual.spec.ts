@@ -18,7 +18,7 @@ describe(`sbb-datepicker-next-day`, () => {
     value: [null, '2023-02-15'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffFocus]) {
       it(
         `standalone ${state.name}`,
@@ -39,7 +39,7 @@ describe(`sbb-datepicker-next-day`, () => {
                   <sbb-datepicker></sbb-datepicker>
                 </sbb-form-field>
               `,
-              { backgroundColor: negative ? 'var(--sbb-color-black)' : undefined },
+              { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
             );
 
             if (value) {

@@ -5,12 +5,10 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
 import { slotState } from '../../core/decorators.js';
-import { i18nFileSelectorButtonLabel } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
 
-import '../../button/secondary-button.js';
 import '../../button/secondary-button-static.js';
-import '../../icon.js';
 
 /**
  * It allows to select one or more file from storage devices and display them.
@@ -21,28 +19,26 @@ export
 @customElement('sbb-file-selector')
 @slotState()
 class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = fileSelectorCommonStyle;
+  public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;
 
   protected override renderTemplate(input: TemplateResult): TemplateResult {
     return html`
-      <div class="sbb-file-selector__input-container">
-        <label>
-          <sbb-secondary-button-static
-            size=${this.size}
-            icon-name="folder-open-small"
-            ?disabled=${this.disabled || this.formDisabled}
-            ${ref((el?: Element): void => {
-              this.loadButton = el as SbbSecondaryButtonStaticElement;
-            })}
-          >
-            ${i18nFileSelectorButtonLabel[this.language.current]}
-          </sbb-secondary-button-static>
-          ${input}
-        </label>
-      </div>
+      <label>
+        <sbb-secondary-button-static
+          size=${this.size}
+          icon-name="folder-open-small"
+          ?disabled=${this.disabled || this.formDisabled}
+          ${ref((el?: Element): void => {
+            this.loadButton = el as SbbSecondaryButtonStaticElement;
+          })}
+        >
+          ${this.getButtonLabel()}
+        </sbb-secondary-button-static>
+        ${input}
+      </label>
     `;
   }
 }

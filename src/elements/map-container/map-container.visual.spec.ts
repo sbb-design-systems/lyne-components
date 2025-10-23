@@ -4,9 +4,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './map-container.component.js';
+import '../card.js';
 import '../header.js';
-import '../title.js';
 import '../logo.js';
+import '../title.js';
 
 describe(`sbb-map-container`, () => {
   const template = (stickyOffset = false): TemplateResult => html`
@@ -27,19 +28,9 @@ describe(`sbb-map-container`, () => {
         <sbb-title level="4">Operations & Disruptions</sbb-title>
         ${[...Array(5).keys()].map(
           (value) => html`
-            <div
-              style=${styleMap({
-                'background-color': 'var(--sbb-color-milk)',
-                height: '116px',
-                display: 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'border-radius': 'var(--sbb-border-radius-4x)',
-                'margin-block-end': 'var(--sbb-spacing-fixed-4x)',
-              })}
-            >
+            <sbb-card color="milk" style="margin-block-end: var(--sbb-spacing-fixed-4x);">
               <p>Situation ${value}</p>
-            </div>
+            </sbb-card>
           `,
         )}
       </div>
@@ -65,13 +56,15 @@ describe(`sbb-map-container`, () => {
     window.scrollTo(0, 0);
   });
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
-    it(
-      visualDiffDefault.name,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(), { padding: '0', minHeight: '500px' });
-      }),
-    );
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
+    for (const darkMode of [false, true]) {
+      it(
+        `darkMode=${darkMode}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template(), { padding: '0', minHeight: '500px', darkMode });
+        }),
+      );
+    }
   });
 
   describeViewports({ viewports: ['zero'], viewportHeight: 500 }, () => {

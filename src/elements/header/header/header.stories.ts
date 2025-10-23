@@ -56,7 +56,12 @@ const HeaderBasicTemplate = (
       Search
     </sbb-header-link>
     ${template}
-    <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+    <sbb-header-button
+      icon-name="globe-small"
+      id="language-menu-trigger"
+      class="last-element"
+      expand-from="small"
+    >
       English
     </sbb-header-button>
     <sbb-menu trigger="language-menu-trigger">

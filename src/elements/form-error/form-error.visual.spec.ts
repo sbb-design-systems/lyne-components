@@ -3,8 +3,8 @@ import { html, nothing } from 'lit';
 import {
   describeEach,
   describeViewports,
-  visualRegressionFixture,
   visualDiffDefault,
+  visualRegressionFixture,
 } from '../core/testing/private.js';
 
 import '../icon.js';
@@ -26,7 +26,16 @@ describe(`sbb-form-error`, () => {
     errorText: ['short', 'long'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  const colorCases = {
+    negative: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
+  };
+
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, iconName, errorText }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -36,7 +45,34 @@ describe(`sbb-form-error`, () => {
               ${errorText === 'short' ? 'Required field.' : longText}
             </sbb-form-error>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
+        );
+      });
+
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with((setup) => {
+          setup.withSnapshotElement(root);
+        }),
+      );
+    });
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describeEach(colorCases, ({ negative, emulateMedia: { forcedColors, darkMode } }) => {
+      beforeEach(async function () {
+        root = await visualRegressionFixture(
+          html`
+            <sbb-form-error .negative=${negative}>
+              <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
+              Required field.
+            </sbb-form-error>
+          `,
+          {
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            forcedColors,
+            darkMode,
+          },
         );
       });
 

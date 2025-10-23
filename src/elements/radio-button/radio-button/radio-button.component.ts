@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getOverride, slotState } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import {
   SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
@@ -24,7 +25,11 @@ export
 @customElement('sbb-radio-button')
 @slotState()
 class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = [radioButtonCommonStyle, radioButtonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    radioButtonCommonStyle,
+    radioButtonStyle,
+  ];
   public static readonly events = {
     statechange: 'statechange',
     change: 'change',
@@ -47,11 +52,11 @@ class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin
 
   protected override render(): TemplateResult {
     return html`
-      <label class="sbb-radio-button">
+      <div class="sbb-radio-button">
         <span class="sbb-radio-button__label-slot">
           <slot></slot>
         </span>
-      </label>
+      </div>
     `;
   }
 }

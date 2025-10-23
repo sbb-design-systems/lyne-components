@@ -1,14 +1,10 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
-}
 
-:host([color='milk']) {
   @include sbb.chip-label-variables--color-milk;
+  @include sbb.chip-label-variables--size-xxs;
 }
 
 :host([color='charcoal']) {
@@ -21,10 +17,6 @@
 
 :host([color='granite']) {
   @include sbb.chip-label-variables--color-granite;
-}
-
-:host([size='xxs']) {
-  @include sbb.chip-label-variables--size-xxs;
 }
 
 :host([size='xs']) {

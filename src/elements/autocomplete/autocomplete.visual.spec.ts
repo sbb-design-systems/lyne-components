@@ -1,12 +1,12 @@
 import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
 import { waitForLitRender } from '../core/testing/wait-for-render.js';
 
+import '../card.js';
 import '../form-field.js';
 import '../form-error.js';
 import '../option.js';
@@ -29,25 +29,15 @@ describe('sbb-autocomplete', () => {
   };
 
   const textBlock = (): TemplateResult => html`
-    <div
-      style=${styleMap({
-        position: 'relative',
-        marginBlockStart: '1rem',
-        padding: '1rem',
-        backgroundColor: 'var(--sbb-color-milk)',
-        border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-        borderRadius: 'var(--sbb-border-radius-4x)',
-        zIndex: '100',
-      })}
-    >
+    <sbb-card color="milk" style="margin-block-start: 1rem; z-index: 100">
       This text block has a <code>z-index</code> greater than the form field, but it must always be
       covered by the autocomplete overlay.
-    </div>
+    </sbb-card>
   `;
 
   const createOptionBlockOne = (withIcon: boolean, disableOption: boolean): TemplateResult => html`
     <sbb-option value="Option 1" icon-name=${withIcon ? 'clock-small' : nothing}>
-      Option 1
+      Option 1 with a longer text which can wrap.
     </sbb-option>
     <sbb-option
       value="Option 2"
@@ -119,7 +109,7 @@ describe('sbb-autocomplete', () => {
     await sendKeys({ press: 'O' });
   };
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 500 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
@@ -136,7 +126,9 @@ describe('sbb-autocomplete', () => {
                     `,
                     {
                       minHeight: '500px',
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-1-negative)'
+                        : undefined,
                     },
                   );
                   setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -149,12 +141,12 @@ describe('sbb-autocomplete', () => {
     }
   });
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const style = {
           minHeight: '400px',
-          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
         for (const size of ['m', 's']) {
@@ -207,6 +199,18 @@ describe('sbb-autocomplete', () => {
           }),
         );
 
+        it(
+          'darkMode=true focus',
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(template(defaultArgs), { darkMode: true });
+
+            setup.withPostSetupAction(async () => {
+              await openAutocomplete(setup);
+              await sendKeys({ press: 'ArrowDown' });
+            });
+          }),
+        );
+
         for (const withIcon of [false, true]) {
           it(
             `state=noSpace withIcon=${withIcon}`,
@@ -223,7 +227,7 @@ describe('sbb-autocomplete', () => {
         for (const withGroup of [false, true]) {
           const wrapperStyle = {
             minHeight: withGroup ? '800px' : '400px',
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           };
 
           it(
@@ -262,7 +266,7 @@ describe('sbb-autocomplete', () => {
                 }),
                 {
                   minHeight: '800px',
-                  backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 },
               );
               setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -283,7 +287,9 @@ describe('sbb-autocomplete', () => {
                   }),
                   {
                     minHeight: '800px',
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                   },
                 );
                 setup.withPostSetupAction(() => openAutocomplete(setup));
@@ -309,6 +315,26 @@ describe('sbb-autocomplete', () => {
 
           setup.snapshotElement.querySelector('input')!.style.height = '60px';
         });
+      }),
+    );
+
+    it(
+      `with ellipsis`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div class="sbb-options-nowrap">${template(defaultArgs)}</div>`,
+        );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), { forcedColors: true });
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );
   });

@@ -1,22 +1,19 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: flex;
 
-  --sbb-breadcrumb-color: var(--sbb-color-granite);
+  --sbb-breadcrumb-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-breadcrumb-color: var(--sbb-color-charcoal);
+    --sbb-breadcrumb-color: light-dark(var(--sbb-color-charcoal), var(--sbb-color-smoke));
   }
 }
 
 :host(:is(:active, [data-active])) {
-  --sbb-breadcrumb-color: var(--sbb-color-anthracite);
+  --sbb-breadcrumb-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
 }
 
 .sbb-breadcrumb {

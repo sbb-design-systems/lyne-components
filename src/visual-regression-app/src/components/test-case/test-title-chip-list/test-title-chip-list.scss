@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 .chip-list-wrapper {
   display: flex;
   gap: var(--sbb-spacing-fixed-1x);
@@ -12,11 +10,11 @@ sbb-chip-label {
 }
 
 sbb-chip-label[color='custom-green'] {
-  --sbb-chip-label-color: var(--sbb-color-white);
+  --sbb-chip-label-color: var(--sbb-color-1-negative);
   --sbb-chip-label-background-color: var(--sbb-color-green);
 }
 
 sbb-chip-label[color='custom-red'] {
-  --sbb-chip-label-color: var(--sbb-color-white);
-  --sbb-chip-label-background-color: var(--sbb-color-red125);
+  --sbb-chip-label-color: var(--sbb-color-1-negative);
+  --sbb-chip-label-background-color: var(--sbb-color-primary125);
 }

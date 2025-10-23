@@ -6,6 +6,7 @@ import type { SbbDialogElement } from './dialog.component.js';
 
 import './dialog.component.js';
 import '../dialog-actions.js';
+import '../dialog-close-button.js';
 import '../dialog-content.js';
 import '../dialog-title.js';
 import '../../link/block-link.js';
@@ -40,7 +41,7 @@ describe(`sbb-dialog`, () => {
   `;
 
   const dialogFooter = (negative = false): TemplateResult => html`
-    <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+    <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
       <sbb-block-link
         align-self="start"
         icon-name="chevron-small-left-small"
@@ -50,27 +51,35 @@ describe(`sbb-dialog`, () => {
       >
         Link
       </sbb-block-link>
-      <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-      <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
+      <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
+      <sbb-button sbb-dialog-close sbb-focus-initial ?negative=${negative}>Confirm</sbb-button>
     </sbb-dialog-actions>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 600 }, () => {
-    // Negative test
-    for (const negative of negativeCases) {
-      it(
-        `negative=${negative}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-dialog ?negative=${negative}>
-              ${dialogTitle()} ${dialogContent()} ${dialogFooter(negative)}
-            </sbb-dialog>
-          `);
-          const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-          setup.withSnapshotElement(dialog);
-          setup.withPostSetupAction(() => dialog.open());
-        }),
-      );
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 600 }, () => {
+    for (const darkMode of [false, true]) {
+      describe(`darkMode=${darkMode}`, () => {
+        for (const negative of negativeCases) {
+          it(
+            `negative=${negative}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-dialog ?negative=${negative}>
+                    ${dialogTitle()}
+                    <sbb-dialog-close-button></sbb-dialog-close-button>
+                    ${dialogContent()} ${dialogFooter(negative)}
+                  </sbb-dialog>
+                `,
+                { darkMode },
+              );
+              const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+              setup.withSnapshotElement(dialog);
+              setup.withPostSetupAction(() => dialog.open());
+            }),
+          );
+        }
+      });
     }
 
     it(
@@ -86,14 +95,55 @@ describe(`sbb-dialog`, () => {
     );
 
     it(
-      `long content`,
+      `no title with close button`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle()} ${dialogContent(true)} ${dialogFooter()} </sbb-dialog>
+          <sbb-dialog>
+            <sbb-dialog-close-button></sbb-dialog-close-button>
+            ${dialogContent()}
+          </sbb-dialog>
         `);
         const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
         setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `long content`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-dialog>
+            ${dialogTitle()}
+            <sbb-dialog-close-button></sbb-dialog-close-button>
+            ${dialogContent(true)} ${dialogFooter()}
+          </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `long content scrolled`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-dialog>
+            ${dialogTitle()}
+            <sbb-dialog-close-button></sbb-dialog-close-button>
+            ${dialogContent(true)} ${dialogFooter()}
+          </sbb-dialog>
+        `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => {
+          dialog.open();
+          const content = setup.snapshotElement.shadowRoot!.querySelector(
+            '.sbb-dialog-content-container',
+          )!;
+          content.scrollTo(0, content.scrollHeight);
+        });
       }),
     );
 
@@ -106,6 +156,20 @@ describe(`sbb-dialog`, () => {
             ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
           </sbb-dialog>
         `);
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-dialog>${dialogTitle()} ${dialogContent()} ${dialogFooter()} </sbb-dialog>`,
+          { forcedColors: true },
+        );
+
         const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
         setup.withSnapshotElement(dialog);
         setup.withPostSetupAction(() => dialog.open());

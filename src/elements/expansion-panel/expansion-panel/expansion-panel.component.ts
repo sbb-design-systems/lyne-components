@@ -7,6 +7,7 @@ import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { SbbHydrationMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
@@ -23,7 +24,7 @@ let nextId = 0;
 export
 @customElement('sbb-expansion-panel')
 class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

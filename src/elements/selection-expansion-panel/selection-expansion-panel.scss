@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // Open/Close animation vars
 $open-anim-rows-from: 0fr;
 $open-anim-rows-to: 1fr;
@@ -10,14 +7,14 @@ $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
 :host {
-  --sbb-selection-expansion-panel-background: var(--sbb-color-white);
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+  --sbb-selection-expansion-panel-background: var(--sbb-background-color-1);
+  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
 
   // Variable used to override background color of selection panels.
-  --sbb-selection-expansion-panel-inner-background: transparent;
+  --sbb-selection-panel-inner-background: transparent;
 
   // Variable used to override border width of selection panels.
-  --sbb-selection-expansion-panel-inner-border-width: 0px;
+  --sbb-selection-panel-inner-border-width: 0px;
   --sbb-selection-expansion-panel-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -29,7 +26,10 @@ $open-anim-opacity-to: 1;
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 
   display: contents;
 }
@@ -39,19 +39,22 @@ $open-anim-opacity-to: 1;
 }
 
 :host([color='milk']) {
-  --sbb-selection-expansion-panel-background: var(--sbb-color-milk);
+  --sbb-selection-expansion-panel-background: var(--sbb-background-color-3);
 }
 
-:host([data-checked]:not([data-disabled])) {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-charcoal);
+// :where is to align specificity
+:host(:where(:state(checked)):not(:where(:state(disabled)))) {
+  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-3);
   --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
 }
 
-:host([data-slot-names~='content'][data-disabled]) {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-color-cloud);
+// :where is to align specificity
+:host([data-slot-names~='content']:where(:state(disabled))) {
+  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
 }
 
-:host([borderless]:not([data-checked])) {
+// :where is to align specificity
+:host([borderless]:not(:where(:state(checked)))) {
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 

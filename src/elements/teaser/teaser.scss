@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
 
@@ -11,7 +8,7 @@
   outline: none !important;
 
   --sbb-teaser-scale-hover: 1.02;
-  --sbb-teaser-description-color: var(--sbb-color-granite);
+  --sbb-teaser-description-color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
   --sbb-teaser-flex-direction: row;
   --sbb-teaser-align-items: center;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
@@ -102,7 +99,7 @@
 
   @include sbb.hover-mq($hover: true) {
     :host(:hover) & {
-      @include sbb.shadow-level-9-hard;
+      box-shadow: var(--sbb-box-shadow-level-9-hard);
     }
   }
 }

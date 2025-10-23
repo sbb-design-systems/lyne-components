@@ -38,7 +38,7 @@ You can also provide custom content inside the `sbb-menu`:
 <sbb-menu trigger="menu-trigger">
   <div>Christina Müller</div>
   <span>UIS9057</span>
-  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
   <sbb-divider></sbb-divider>
   <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
   <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
@@ -47,6 +47,24 @@ You can also provide custom content inside the `sbb-menu`:
   </sbb-menu-button>
   <sbb-divider></sbb-divider>
   <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
+</sbb-menu>
+```
+
+## Nesting menus
+
+It is possible to create submenus by connecting a menu to a `sbb-menu-button`/`sbb-menu-link`
+element via trigger property / attribute of the `sbb-menu`.
+On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
+
+Please note that nesting the menus in DOM is not supported. The `sbb-menu` elements have to be siblings in order to work.
+
+```html
+<sbb-menu>
+  <sbb-menu-button icon="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
+</sbb-menu>
+<sbb-menu trigger="submenu-trigger">
+  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
 </sbb-menu>
 ```
 
@@ -64,6 +82,8 @@ to identify which actions are active and which are not.
 
 It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
+If the trigger element for a nested menu is focused, <kbd>ArrowRight</kbd> will open and focus the submenu;
+if the focus is currently on a nested menu, <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.
 
 ### Controlling initial focus
 
@@ -72,10 +92,22 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ```html
 <sbb-menu>
-  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
+  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
   <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
     Receives initial focus
   </sbb-menu-link>
+</sbb-menu>
+```
+
+### Disabled menu items
+
+Disabled elements do not receive focus, and they can be problematic for screen reader users. It's preferable if the [`disabledInteractive`](/docs/elements-sbb-menu-sbb-menu-button--docs#interactive-disabled-buttons) property is used, instead.
+
+```html
+<sbb-menu>
+  ...
+  <sbb-menu-button disabled-interactive> Edit </sbb-menu-button>
+  ...
 </sbb-menu>
 ```
 
@@ -91,10 +123,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## Methods
 
-| Name    | Privacy | Description                      | Parameters | Return | Inherited From          |
-| ------- | ------- | -------------------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the menu.                 |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the menu on trigger click. |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the menu and all its nested menus.                                   |            | `void` | SbbOpenCloseBaseElement |
+| `closeAll`       | public  | Closes the menu and all related menus nested and parent menus).             |            | `void` |                         |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the menu on trigger click.                                            |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 

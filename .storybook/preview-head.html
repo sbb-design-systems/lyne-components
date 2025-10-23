@@ -32,7 +32,7 @@
     display: none;
   }
 
-  @media screen and (width >= 840px) {
+  @media screen and (width >= 600px) {
     .last-element {
       display: block;
     }
@@ -49,7 +49,7 @@
   }
 
   .sbdocs-content {
-    max-width: var(--sbb-breakpoint-medium-max) !important;
+    max-width: var(--sbb-breakpoint-large-max) !important;
   }
 
   .sb-show-main.sb-main-padded {
@@ -68,9 +68,10 @@
         z-index: 100000;
         display: flex;
         gap: 0.5rem;
-        border: 1px solid red;
+        border: 1px solid var(--sbb-color-primary);
         border-radius: 0.25rem;
-        background-color: yellow;
+        color: var(--sbb-color-black);
+        background-color: var(--sbb-color-warning);
         padding: 0.5rem;
         inset: 0.5rem 0 auto;
         margin: 0 auto;

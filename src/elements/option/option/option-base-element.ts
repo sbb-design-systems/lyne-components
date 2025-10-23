@@ -189,6 +189,10 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     } else {
       this.removeAttribute('aria-disabled');
     }
+
+    // Listened by autocomplete
+    /** @internal */
+    this.dispatchEvent(new Event('ɵdisabledchange', { bubbles: true }));
   }
 
   private _updateAriaSelected(): void {

@@ -1,9 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { slotState } from '../../core/decorators.js';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 
 import style from './mini-button.scss?lit&inline';
@@ -12,6 +14,7 @@ import style from './mini-button.scss?lit&inline';
  * It displays an icon-only button enhanced with the SBB Design;
  * it's meant to be used mainly within the sbb-form-field in prefix/suffix slot.
  *
+ * @slot - Use the unnamed slot to add a label to the mini-button.
  * @slot icon - Slot used to display the icon, if one is set
  */
 export
@@ -20,10 +23,15 @@ export
 class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override renderTemplate(): TemplateResult {
-    return super.renderIconSlot();
+    return html`
+      ${super.renderIconSlot()}
+      <span class="sbb-mini-button__label">
+        <slot></slot>
+      </span>
+    `;
   }
 }
 

@@ -1,9 +1,16 @@
 import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.js';
 import { SbbLanguageController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { i18nNextPage, i18nPreviousPage, i18nSelectedPage } from '../../core/i18n.js';
+import {
+  i18nNextPage,
+  i18nPage,
+  i18nPaginatorSelected,
+  i18nPreviousPage,
+} from '../../core/i18n.js';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
 import {
   type AbstractConstructor,
@@ -24,6 +31,9 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public accessor pageIndex: number;
   public accessor pagerPosition: 'start' | 'end';
   public accessor size: 'm' | 's';
+  public accessor accessibilityPageLabel: string;
+  public accessor accessibilityPreviousPageLabel: string;
+  public accessor accessibilityNextPageLabel: string;
   public nextPage(): void;
   public previousPage(): void;
   public firstPage(): void;
@@ -101,6 +111,30 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
      */
     @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
 
+    /**
+     * Accessibility label for the page. Defaults to `page`.
+     * Can be set for cases like a carousel, where `slide` or `image` fits better.
+     */
+    @forceType()
+    @property({ attribute: 'accessibility-page-label' })
+    public accessor accessibilityPageLabel: string = '';
+
+    /**
+     * Accessibility label for the previous page. Defaults to `previous page`.
+     * Can be set for cases like a carousel, where `slide` or `image` fits better.
+     */
+    @forceType()
+    @property({ attribute: 'accessibility-previous-page-label' })
+    public accessor accessibilityPreviousPageLabel: string = '';
+
+    /**
+     * Accessibility label for the next page. Defaults to `next page`.
+     * Can be set for cases like a carousel, where `slide` or `image` fits better.
+     */
+    @forceType()
+    @property({ attribute: 'accessibility-next-page-label' })
+    public accessor accessibilityNextPageLabel: string = '';
+
     protected language = new SbbLanguageController(this);
     private _previousPageSize: number = this._pageSize;
     protected abstract renderPaginator(): TemplateResult;
@@ -109,7 +143,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       super.updated(changedProperties);
 
       // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
-      this.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent =
+      this.shadowRoot!.querySelector('sbb-screen-reader-only#status')!.textContent =
         this._currentPageLabel();
     }
 
@@ -122,7 +156,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     }
 
     private _currentPageLabel(): string {
-      return i18nSelectedPage(this.pageIndex + 1)[this.language.current];
+      return `${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorSelected[this.language.current]}.`;
     }
 
     /** Advances to the next page if it exists. */
@@ -207,18 +241,38 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
         <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
-            aria-label=${i18nPreviousPage[this.language.current]}
+            aria-label=${this.accessibilityPreviousPageLabel
+              ? this.accessibilityPreviousPageLabel
+              : i18nPreviousPage[this.language.current]}
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
-            @click=${() => this.previousPage()}
+            @click=${() => {
+              this.previousPage();
+              if (
+                !this.hasPreviousPage() &&
+                sbbInputModalityDetector.mostRecentModality === 'keyboard'
+              ) {
+                this.shadowRoot?.getElementById('sbb-paginator-next-page')!.focus();
+              }
+            }}
           ></sbb-mini-button>
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button
             id="sbb-paginator-next-page"
-            aria-label=${i18nNextPage[this.language.current]}
+            aria-label=${this.accessibilityNextPageLabel
+              ? this.accessibilityNextPageLabel
+              : i18nNextPage[this.language.current]}
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
-            @click=${() => this.nextPage()}
+            @click=${() => {
+              this.nextPage();
+              if (
+                !this.hasNextPage() &&
+                sbbInputModalityDetector.mostRecentModality === 'keyboard'
+              ) {
+                this.shadowRoot?.getElementById('sbb-paginator-prev-page')!.focus();
+              }
+            }}
           ></sbb-mini-button>
         </sbb-mini-button-group>
       `;
@@ -227,7 +281,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
     protected override render(): TemplateResult {
       return html`
         ${this.renderPaginator()}
-        <sbb-screen-reader-only role="status"></sbb-screen-reader-only>
+        <sbb-screen-reader-only id="status" role="status"></sbb-screen-reader-only>
       `;
     }
   }

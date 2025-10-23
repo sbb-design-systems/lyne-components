@@ -92,7 +92,7 @@ const withChipTemplate = ({
 `;
 
 describe('sbb-teaser-product', () => {
-  describeViewports({ viewports: ['zero', 'medium', 'large'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const slottedImg of [false, true]) {
       describe(`slottedImg=${slottedImg}`, () => {
         for (const negative of [false, true]) {
@@ -102,7 +102,9 @@ describe('sbb-teaser-product', () => {
                 visualState.name,
                 visualState.with(async (setup) => {
                   await setup.withFixture(template({ negative, showFooter: true, slottedImg }), {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : undefined,
                   });
                   setup.withPostSetupAction(
                     async () =>
@@ -119,7 +121,9 @@ describe('sbb-teaser-product', () => {
                   await setup.withFixture(
                     withChipTemplate({ negative, showFooter: true, slottedImg }),
                     {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-2-negative)'
+                        : undefined,
                     },
                   );
                   setup.withPostSetupAction(
@@ -166,19 +170,24 @@ describe('sbb-teaser-product', () => {
       }),
     );
 
-    describe('forcedColors=true', () => {
-      for (const visualState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
-        it(
-          visualState.name,
-          visualState.with(async (setup) => {
-            await setup.withFixture(template({ showFooter: true }), { forcedColors: true });
-            setup.withPostSetupAction(
-              async () =>
-                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
-            );
-          }),
-        );
-      }
-    });
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const visualState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+          it(
+            visualState.name,
+            visualState.with(async (setup) => {
+              await setup.withFixture(template({ showFooter: true }), { forcedColors, darkMode });
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+              );
+            }),
+          );
+        }
+      });
+    }
   });
 });

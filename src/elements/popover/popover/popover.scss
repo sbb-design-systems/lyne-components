@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-popover-position: absolute;
   --sbb-popover-position-x: 0;
@@ -13,8 +10,7 @@
   --sbb-popover-inset: 0 auto auto 0;
   --sbb-popover-border-radius: var(--sbb-border-radius-8x);
   --sbb-popover-padding: var(--sbb-spacing-fixed-4x);
-  --sbb-popover-background: var(--sbb-color-white);
-  --sbb-popover-color: var(--sbb-color-charcoal);
+  --sbb-popover-background: var(--sbb-background-color-1);
   --sbb-popover-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -24,7 +20,10 @@
 
   // As the popover has always a white background, we have to fix the focus outline color
   // to default color for cases where the popover is used in a negative context.
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -62,12 +61,10 @@
   inset: var(--sbb-popover-inset);
   pointer-events: none;
   z-index: var(--sbb-popover-z-index, var(--sbb-overlay-default-z-index));
-  color: var(--sbb-popover-color);
 }
 
 .sbb-popover {
-  @include sbb.shadow-level-5-hard;
-
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
   display: none;
   position: var(--sbb-popover-position);
   pointer-events: all;
@@ -109,8 +106,7 @@
   // Popover arrow
   &::after {
     z-index: -1;
-
-    @include sbb.shadow-level-5-hard;
+    box-shadow: var(--sbb-box-shadow-level-5-hard);
 
     @include sbb.if-forced-colors {
       outline: var(--sbb-border-width-1x) solid CanvasText;

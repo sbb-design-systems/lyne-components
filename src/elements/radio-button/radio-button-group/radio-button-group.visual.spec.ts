@@ -45,7 +45,7 @@ const variants: { name: string; template: TemplateResult }[] = [
 ];
 
 describe(`sbb-radio-button-group`, () => {
-  describeViewports({ viewports: ['small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describeEach(cases, ({ orientation, size, disabled }) => {
       for (const variant of variants) {
         describe(variant.name, () => {
@@ -86,10 +86,10 @@ describe(`sbb-radio-button-group`, () => {
 
     for (const variant of variants) {
       it(
-        `horizontal-from=medium with ${variant.name}`,
+        `horizontal-from=large with ${variant.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-radio-button-group orientation="vertical" horizontal-from="medium">
+            html`<sbb-radio-button-group orientation="vertical" horizontal-from="large">
               ${variant.template}
             </sbb-radio-button-group>`,
           );

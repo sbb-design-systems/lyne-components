@@ -54,7 +54,7 @@ const expandFrom: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['zero', 'small', 'large', 'ultra'],
 };
 
 const iconName: InputType = {
@@ -140,20 +140,32 @@ export const Default: StoryObj = {
   args: { ...basicArgs },
 };
 
+export const IconOnly: StoryObj = {
+  render: TemplateSingle,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, text: '', 'aria-label': 'hamburger-menu-small' },
+};
+
+export const TextOnly: StoryObj = {
+  render: TemplateSingle,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'icon-name': '' },
+};
+
 export const Active: StoryObj = {
   render: TemplateSingle,
   argTypes: basicArgTypes,
   args: { ...basicArgs, active: true, 'icon-name': 'magnifying-glass-small', text: 'Label' },
 };
 
-export const ExpandFromMedium: StoryObj = {
+export const ExpandFromLarge: StoryObj = {
   render: TemplateSingle,
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
     'icon-name': 'magnifying-glass-small',
     text: 'Label',
-    'expand-from': 'medium',
+    'expand-from': 'large',
   },
 };
 

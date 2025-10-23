@@ -1,0 +1,63 @@
+@use '../core/functions';
+@use '../core/mediaqueries';
+
+@mixin sbb-timetable-form {
+  --sbb-timetable-form-content-max-width: #{functions.px-to-rem-build(740)};
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  column-gap: var(--sbb-spacing-fixed-3x);
+  border-radius: var(--sbb-border-radius-4x);
+  padding-block: var(--sbb-spacing-fixed-10x) var(--sbb-spacing-responsive-l);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+  background: linear-gradient(
+    to bottom,
+    var(--sbb-color-primary) 0 #{functions.px-to-rem-build(178)},
+    var(--sbb-background-color-3) #{functions.px-to-rem-build(178)} 100%
+  );
+
+  @include mediaqueries.mq($to: large) {
+    &:has(sbb-signet) {
+      padding-block-start: var(--sbb-spacing-fixed-4x);
+    }
+  }
+
+  sbb-signet {
+    width: var(--sbb-spacing-fixed-16x);
+    align-self: end;
+    margin-block-end: var(--sbb-spacing-fixed-2x);
+    margin-inline: 0;
+
+    @include mediaqueries.mq($from: large) {
+      position: absolute;
+      inset-block-start: var(--sbb-spacing-fixed-6x);
+      inset-inline-end: var(--sbb-spacing-fixed-6x);
+    }
+  }
+
+  & > * {
+    margin-inline: auto;
+    max-width: var(--sbb-timetable-form-content-max-width);
+    width: 100%;
+  }
+}
+
+@mixin timetable-form-block {
+  --sbb-form-field-focus-underline-z-index: 1;
+
+  width: 100%;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-border-color-4-inverted);
+    inset-inline: var(--sbb-form-field-padding-inline);
+    inset-block-end: 0;
+  }
+
+  sbb-datepicker-toggle {
+    margin-inline-end: var(--sbb-spacing-fixed-6x);
+  }
+}

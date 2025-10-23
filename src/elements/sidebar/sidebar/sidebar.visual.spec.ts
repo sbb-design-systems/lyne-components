@@ -80,7 +80,7 @@ describe('sbb-sidebar', () => {
       </sbb-link-list>
     </sbb-sidebar>`;
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {
     const cases: {
       color: SbbSidebarElement['color'][];
       position: SbbSidebarElement['position'][];
@@ -103,7 +103,7 @@ describe('sbb-sidebar', () => {
                 ${args.position === 'end' ? sidebar(args) : nothing}
               </sbb-sidebar-container>`,
             {
-              backgroundColor: args.color === 'white' ? 'var(--sbb-color-milk)' : undefined,
+              backgroundColor: args.color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
               minHeight: '400px',
             },
           );
@@ -141,6 +141,35 @@ describe('sbb-sidebar', () => {
         });
       }),
     );
+
+    describeEach(
+      {
+        color: ['white', 'milk'] as SbbSidebarElement['color'][],
+        emulateMedia: [
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ color, emulateMedia: { darkMode, forcedColors } }) => {
+        it(
+          ``,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${header}<sbb-sidebar-container>
+                  ${sidebar({ color, closed: false, mode: 'over' })}
+                  <sbb-sidebar-content id="content">${content}</sbb-sidebar-content>
+                </sbb-sidebar-container>`,
+              {
+                backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
+                minHeight: '400px',
+                darkMode,
+                forcedColors,
+              },
+            );
+          }),
+        );
+      },
+    );
   });
 
   describeViewports({ viewports: ['zero'], viewportHeight: 400 }, () => {
@@ -169,7 +198,7 @@ describe('sbb-sidebar', () => {
     );
   });
 
-  describeViewports({ viewports: ['medium'], viewportHeight: 400 }, () => {
+  describeViewports({ viewports: ['large'], viewportHeight: 400 }, () => {
     it(
       'with long title',
       visualDiffDefault.with(async (setup) => {

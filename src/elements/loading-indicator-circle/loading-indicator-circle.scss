@@ -1,19 +1,16 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
   line-height: 0;
 
-  --sbb-loading-indicator-circle-color: var(--sbb-color-red);
+  --sbb-loading-indicator-circle-color: var(--sbb-color-primary);
   --sbb-loading-indicator-circle-padding: #{sbb.px-to-rem-build(2)};
   --sbb-loading-indicator-circle-duration: var(--sbb-disable-animation-duration, 1.5s);
   --sbb-loading-indicator-circle-background-color: var(--sbb-color-white);
   --sbb-loading-indicator-circle-background: conic-gradient(
     from 90deg,
-    var(--sbb-loading-indicator-circle-background-color),
+    transparent,
     var(--sbb-loading-indicator-circle-color)
   );
   --sbb-loading-indicator-circle-animated-width: 0.1875em;

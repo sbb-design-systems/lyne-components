@@ -1,23 +1,20 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
 
-  --sbb-timetable-occupancy-color: var(--sbb-color-charcoal);
+  --sbb-timetable-occupancy-color: var(--sbb-color-2);
   --sbb-icon-svg-width: #{sbb.px-to-rem-build(14.25)};
   --sbb-icon-svg-height: v#{sbb.px-to-rem-build(12)};
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-icon-svg-width: #{sbb.px-to-rem-build(19)};
     --sbb-icon-svg-height: v#{sbb.px-to-rem-build(16)};
   }
 }
 
 :host([negative]) {
-  --sbb-timetable-occupancy-color: var(--sbb-color-white);
+  --sbb-timetable-occupancy-color: var(--sbb-color-2-negative);
 }
 
 .sbb-timetable-occupancy__list {

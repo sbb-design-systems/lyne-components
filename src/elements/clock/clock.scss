@@ -1,15 +1,14 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-clock-hours-animation-start-angle: 0deg;
   --sbb-clock-seconds-animation-start-angle: 0deg;
   --sbb-clock-hours-animation-duration: 0s;
   --sbb-clock-seconds-animation-duration: 0s;
   --sbb-clock-animation-play-state: paused;
-  --sbb-clock-seconds-hand-color: var(--sbb-color-red);
+  --sbb-clock-seconds-hand-color: var(--sbb-color-brand);
+  --sbb-clock-face-color: var(--sbb-color-1);
+  --sbb-clock-background-color: var(--sbb-background-color-1);
 
   display: block;
 }
@@ -33,6 +32,12 @@
   transform: rotateZ(0deg);
   transform-style: preserve-3d;
   backface-visibility: hidden;
+}
+
+.sbb-clock__hand-hours,
+.sbb-clock__hand-minutes,
+.sbb-clock__face {
+  fill: var(--sbb-clock-face-color);
 }
 
 .sbb-clock__hand-minutes {

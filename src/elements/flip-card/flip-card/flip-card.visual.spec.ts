@@ -81,7 +81,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-flip-card`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const imageAlignment of ['after', 'below']) {
       describe(`image-alignment=${imageAlignment}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
@@ -230,6 +230,44 @@ describe(`sbb-flip-card`, () => {
           }),
         );
       }
+    });
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describe('darkMode=true', () => {
+      for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(html`<sbb-flip-card> ${content('Summary')} </sbb-flip-card>`, {
+              darkMode: true,
+            });
+
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
+          }),
+        );
+      }
+
+      it(
+        'flipped',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-flip-card> ${content('Summary', 'after', false)}</sbb-flip-card>`,
+            {
+              darkMode: true,
+            },
+          );
+          setup.withPostSetupAction(async () => {
+            const flipCard =
+              setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
+            flipCard.click();
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          });
+        }),
+      );
     });
   });
 });

@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -17,8 +14,8 @@
   --sbb-icon-sidebar-button-transition-easing-function: var(--sbb-animation-easing);
   --sbb-icon-sidebar-button-dimension: var(--sbb-size-element-m);
   --sbb-icon-sidebar-button-border-radius: var(--sbb-border-radius-4x);
-  --sbb-icon-sidebar-button-color: var(--sbb-color-granite);
-  --sbb-icon-sidebar-button-current-color: var(--sbb-color-charcoal);
+  --sbb-icon-sidebar-button-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  --sbb-icon-sidebar-button-current-color: var(--sbb-color-3);
   --sbb-icon-sidebar-button-current-border-width: var(--sbb-border-width-3x);
   --sbb-icon-sidebar-button-current-border-inset-block: var(--sbb-spacing-fixed-2x);
   --sbb-icon-sidebar-button__current-border-inset-inline-start: 0;

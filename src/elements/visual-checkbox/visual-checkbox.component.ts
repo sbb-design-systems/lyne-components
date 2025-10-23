@@ -6,6 +6,7 @@ import type { SbbCheckboxSize } from '../checkbox/common.js';
 import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
+import { boxSizingStyles } from '../core/styles.js';
 
 import style from './visual-checkbox.scss?lit&inline';
 
@@ -15,7 +16,7 @@ import style from './visual-checkbox.scss?lit&inline';
 export
 @customElement('sbb-visual-checkbox')
 class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Checked state. */
   @forceType()

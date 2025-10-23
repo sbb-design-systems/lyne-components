@@ -5,10 +5,9 @@ import { getNextElementIndex } from '../../core/a11y.js';
 import { isSafari } from '../../core/dom.js';
 import { setAriaComboBoxAttributes } from '../../core/overlay.js';
 import type { SbbDividerElement } from '../../divider.js';
-import type { SbbOptGroupElement } from '../../option.js';
+import type { SbbOptGroupElement, SbbOptionHintElement } from '../../option.js';
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
-import type { SbbAutocompleteGridRowElement } from '../autocomplete-grid-row.js';
 
 let nextId = 0;
 
@@ -32,7 +31,6 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
   public static override readonly role = ariaRoleOnHost ? 'grid' : null;
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
-  private _activeItemIndex = -1;
   private _activeColumnIndex = 0;
 
   protected get options(): SbbAutocompleteGridOptionElement<T>[] {
@@ -43,23 +41,17 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     );
   }
 
-  private get _row(): SbbAutocompleteGridRowElement[] {
-    return (
-      Array.from(this.querySelectorAll?.('sbb-autocomplete-grid-row')).filter(
-        (row) => !row.hasAttribute('data-disabled'),
-      ) ?? []
-    );
-  }
-
   public constructor() {
     super();
     this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
   }
 
   protected syncNegative(): void {
-    this.querySelectorAll?.<SbbDividerElement | SbbAutocompleteGridButtonElement>(
-      'sbb-divider, sbb-autocomplete-grid-button',
-    ).forEach((e) => (e.negative = this.negative));
+    this.querySelectorAll?.<
+      SbbDividerElement | SbbAutocompleteGridButtonElement | SbbOptionHintElement
+    >('sbb-divider, sbb-autocomplete-grid-button, sbb-option-hint').forEach(
+      (e) => (e.negative = this.negative),
+    );
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement<T> | SbbOptGroupElement>(
       'sbb-autocomplete-grid-row, sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
@@ -103,63 +95,69 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     event.preventDefault();
 
     if (this._activeColumnIndex !== 0) {
-      (
-        this._row[this._activeItemIndex].querySelectorAll(
-          'sbb-autocomplete-grid-option, sbb-autocomplete-grid-button',
-        )[this._activeColumnIndex] as SbbAutocompleteGridButtonElement
-      ).click();
+      this.activeOption
+        ?.closest('sbb-autocomplete-grid-row')
+        ?.querySelectorAll('sbb-autocomplete-grid-button')
+        [
+          // We ignore the option in the selector. Therefore, we have to shift the activeColumnIndex by one.
+          this._activeColumnIndex - 1
+        ]?.click();
     } else {
-      this.options[this._activeItemIndex]?.['selectViaUserInteraction'](true);
+      this.activeOption?.['selectViaUserInteraction'](true);
     }
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
-    const filteredOptions = this.options.filter(
+    const enabledOptions = this.options.filter(
       (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
     );
 
-    // Get and activate the next active option
-    const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
-    if (isNaN(next)) {
+    // Reset potentially active option
+    this.activeOption?.setActive(false);
+    this.triggerElement?.removeAttribute('aria-activedescendant');
+    Array.from(
+      this.querySelectorAll?.('sbb-autocomplete-grid-row [data-focus-visible]') ?? [],
+    ).forEach((row) => row.removeAttribute('data-focus-visible'));
+    this._activeColumnIndex = 0;
+
+    if (!enabledOptions.length) {
+      this.activeOption = null;
       return;
     }
-    const nextActiveOption = filteredOptions[next];
-    nextActiveOption.setActive(true);
-    this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
-    nextActiveOption.scrollIntoView({ block: 'nearest' });
 
-    // Reset the previous active option/button
-    if (this._activeColumnIndex !== 0) {
-      this._row[this._activeItemIndex]
-        .querySelectorAll('sbb-autocomplete-grid-button')
-        .forEach((e) => e.toggleAttribute('data-focus-visible', false));
-    } else {
-      const lastActiveOption = filteredOptions[this._activeItemIndex];
-      if (lastActiveOption) {
-        lastActiveOption.setActive(false);
-      }
+    const activeItemIndex = this.activeOption
+      ? enabledOptions.indexOf(this.activeOption as SbbAutocompleteGridOptionElement<T>)
+      : -1;
+
+    // Get and activate the next active option
+    const next = getNextElementIndex(event, activeItemIndex, enabledOptions.length);
+    this.activeOption = enabledOptions[next];
+    this.activeOption.setActive(true);
+    this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
+    this.activeOption.scrollIntoView({ block: 'nearest' });
+    if (this.autoSelectActiveOption) {
+      this.onOptionArrowsSelected(this.activeOption);
     }
-    this._activeItemIndex = next;
-    this._activeColumnIndex = 0;
   }
 
   private _setNextHorizontalActiveElement(event: KeyboardEvent): void {
-    if (this._activeItemIndex < 0) {
+    if (!this.activeOption) {
       return;
     }
 
-    const elementsInRow: (
-      | SbbAutocompleteGridOptionElement<T>
-      | SbbAutocompleteGridButtonElement
-    )[] = Array.from(
-      this._row[this._activeItemIndex].querySelectorAll<
-        SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
-      >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button'),
-    ).filter((el) => !el.disabled && !el.hasAttribute('data-group-disabled'));
-    const next: number = getNextElementIndex(event, this._activeColumnIndex, elementsInRow.length);
-    if (isNaN(next)) {
+    const elementsInRow = Array.from(
+      this.activeOption
+        ?.closest('sbb-autocomplete-grid-row')
+        ?.querySelectorAll<
+          SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
+        >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button') ?? [],
+    )?.filter((el) => !el.disabled && !el.hasAttribute('data-group-disabled'));
+
+    if (!elementsInRow.length) {
       return;
     }
+
+    const next: number = getNextElementIndex(event, this._activeColumnIndex, elementsInRow.length);
     const nextElement: SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement =
       elementsInRow[next];
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
@@ -168,9 +166,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
       nextElement.toggleAttribute('data-focus-visible', true);
     }
 
-    const lastActiveElement:
-      | SbbAutocompleteGridOptionElement<T>
-      | SbbAutocompleteGridButtonElement = elementsInRow[this._activeColumnIndex];
+    const lastActiveElement = elementsInRow[this._activeColumnIndex];
     if (lastActiveElement instanceof SbbAutocompleteGridOptionElement) {
       lastActiveElement.setActive(false);
     } else {
@@ -183,18 +179,13 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
 
   protected resetActiveElement(): void {
     if (this._activeColumnIndex !== 0) {
-      this._row[this._activeItemIndex]
-        .querySelectorAll('sbb-autocomplete-grid-button')
+      this.activeOption
+        ?.closest('sbb-autocomplete-grid-row')
+        ?.querySelectorAll('sbb-autocomplete-grid-button')
         .forEach((e) => e.toggleAttribute('data-focus-visible', false));
-    } else {
-      const activeElement = this.options.filter(
-        (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
-      )[this._activeItemIndex];
-      if (activeElement) {
-        activeElement.setActive(false);
-      }
     }
-    this._activeItemIndex = -1;
+    this.activeOption?.setActive(false);
+    this.activeOption = null;
     this._activeColumnIndex = 0;
     this.triggerElement?.removeAttribute('aria-activedescendant');
   }

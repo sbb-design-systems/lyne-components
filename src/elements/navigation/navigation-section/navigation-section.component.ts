@@ -18,7 +18,7 @@ import {
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbMediaQueryBreakpointMediumAndBelow,
+  SbbMediaQueryBreakpointLargeAndBelow,
 } from '../../core/controllers.js';
 import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
@@ -29,6 +29,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
 import type { SbbNavigationElement } from '../navigation.js';
@@ -50,7 +51,7 @@ export
 class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   SbbElementInternalsMixin(LitElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
    * The label to be shown before the action list.
@@ -106,7 +107,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
 
     this.addController(
       new SbbMediaMatcherController(this, {
-        [SbbMediaQueryBreakpointMediumAndBelow]: (matches) => {
+        [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
           if (this._state !== 'closed') {
             this._setNavigationInert(matches);
           }

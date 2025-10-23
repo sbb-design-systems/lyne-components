@@ -22,7 +22,7 @@ const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-ima
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
 
 describe(`sbb-lead-container`, () => {
-  const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };
+  const wrapperStyles = { backgroundColor: `var(--sbb-background-color-3)`, padding: '0' };
 
   const testCases = [
     {
@@ -135,5 +135,22 @@ describe(`sbb-lead-container`, () => {
         }),
       );
     }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(leadContainerTemplate(testCases[0].imgTemplate), {
+          ...wrapperStyles,
+          darkMode: true,
+        });
+
+        setup.withPostSetupAction(
+          async () =>
+            await waitForImageReady(setup.snapshotElement.querySelector(testCases[0].imgSelector)!),
+        );
+      }),
+    );
   });
 });

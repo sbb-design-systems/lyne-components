@@ -2,9 +2,6 @@
 
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -15,7 +12,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   --sbb-menu-action-outer-vertical-padding: var(--sbb-spacing-fixed-1x);
   --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
   --sbb-menu-action-cursor: pointer;
-  --sbb-menu-action-color: var(--sbb-color-white);
+  --sbb-menu-action-color: var(--sbb-color-2-inverted);
   --sbb-menu-action-forced-color-border-color: CanvasText;
   --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-menu-action-content-padding-block: var(--sbb-spacing-fixed-1x);
@@ -23,16 +20,16 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   display: block;
 }
 
-:host(:hover:not(#{$disabled})) {
+:host(:is(:hover:not(#{$disabled}), [aria-expanded='true'])) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-menu-background-color: var(--sbb-color-iron);
+    --sbb-menu-background-color: light-dark(var(--sbb-color-iron), var(--sbb-color-milk));
     --sbb-menu-action-forced-color-border-color: Highlight;
   }
 }
 
 :host(:is(#{$disabled})) {
   --sbb-menu-action-cursor: default;
-  --sbb-menu-action-color: var(--sbb-color-graphite);
+  --sbb-menu-action-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
   --sbb-menu-action-forced-color-border-color: GrayText;
 
   pointer-events: none;
@@ -41,6 +38,10 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: GrayText;
   }
+}
+
+:host([data-sbb-menu-trigger]) {
+  --sbb-menu-action-cursor: default;
 }
 
 :host([data-button]) {
@@ -75,6 +76,10 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     auto auto !important;
 }
 
+:host([aria-controls*='sbb-menu']) {
+  --sbb-menu-action-submenu-icon-display: flex;
+}
+
 :is(.sbb-menu-button, .sbb-menu-link) {
   text-decoration: none;
   display: block;
@@ -100,11 +105,9 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   background-color: var(--sbb-menu-background-color);
 
   // Handle focus on the host (button variant)
-  :host(:focus-visible) & ,
+  :host(:focus-visible) &,
   // Handle focus on the action (link variant)
   :focus-visible & {
-    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
     @include sbb.focus-outline;
   }
 
@@ -113,10 +116,16 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
-.sbb-menu-action__icon {
+.sbb-menu-action__icon,
+.sbb-menu-submenu__icon {
   display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-submenu__icon {
+  display: var(--sbb-menu-action-submenu-icon-display, none);
+  margin-inline-start: auto;
 }
 
 .sbb-menu-action__label {

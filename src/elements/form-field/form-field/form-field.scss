@@ -1,22 +1,20 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
+  color: var(--sbb-color-3);
 
-  --sbb-form-field-background-color: var(--sbb-color-white);
-  --sbb-form-field-border-color: var(--sbb-color-smoke);
+  --sbb-form-field-background-color: var(--sbb-background-color-1);
+  --sbb-form-field-border-color: var(--sbb-border-color-5);
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
   --sbb-form-field-min-height: var(--sbb-size-element-m);
-  --sbb-form-field-label-color: var(--sbb-color-metal);
-  --sbb-form-field-prefix-color: var(--sbb-color-metal);
+  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
-  --sbb-form-field-text-color: var(--sbb-color-charcoal);
-  --sbb-form-field-arrow-color: var(--sbb-color-charcoal);
+  --sbb-form-field-text-color: var(--sbb-color-3);
+  --sbb-form-field-arrow-color: var(--sbb-color-3);
   --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
   --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
@@ -53,9 +51,12 @@
 
   // As the form field has always a white background, we have to fix the focus outline color
   // to default color for cases where the form field is used in a negative context.
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
   }
 
@@ -70,13 +71,15 @@
 }
 
 :host([negative]) {
-  --sbb-form-field-background-color: var(--sbb-color-midnight);
-  --sbb-form-field-border-color: var(--sbb-color-smoke);
-  --sbb-form-field-label-color: var(--sbb-color-smoke);
-  --sbb-form-field-prefix-color: var(--sbb-color-smoke);
-  --sbb-form-field-text-color: var(--sbb-color-milk);
+  color: var(--sbb-color-3-negative);
+
+  --sbb-form-field-background-color: var(--sbb-background-color-1-negative);
+  --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-label-color: var(--sbb-color-5);
+  --sbb-form-field-prefix-color: var(--sbb-color-5);
+  --sbb-form-field-text-color: var(--sbb-color-3-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-form-field-arrow-color: var(--sbb-color-milk);
+  --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
 
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: ButtonBorder;
@@ -94,7 +97,7 @@
   --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
   --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     // Values found by try and error
     --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
@@ -114,25 +117,25 @@
   --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
 }
 
-:host(:where(:state(readonly), [state--readonly], :state(disabled), [state--disabled])) {
-  --sbb-form-field-background-color: var(--sbb-color-milk);
-  --sbb-form-field-border-color: var(--sbb-color-graphite);
-  --sbb-form-field-arrow-color: var(--sbb-color-granite);
+:host(:where(:state(readonly), :state(disabled))) {
+  --sbb-form-field-background-color: var(--sbb-background-color-3);
+  --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+  --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
 
-:host(:where(:state(readonly), [state--readonly], :state(disabled), [state--disabled])[negative]) {
-  --sbb-form-field-background-color: var(--sbb-color-charcoal);
-  --sbb-form-field-border-color: var(--sbb-color-smoke);
-  --sbb-form-field-arrow-color: var(--sbb-color-smoke);
+:host(:where(:state(readonly), :state(disabled))[negative]) {
+  --sbb-form-field-background-color: var(--sbb-background-color-3-negative);
+  --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-arrow-color: var(--sbb-border-color-5);
 }
 
-:host(:where(:state(disabled), [state--disabled])) {
-  --sbb-form-field-label-color: var(--sbb-color-granite);
-  --sbb-form-field-prefix-color: var(--sbb-color-granite);
+:host(:where(:state(disabled))) {
+  --sbb-form-field-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
   --sbb-form-field-border-style: dashed;
 
   @include sbb.if-forced-colors {
@@ -143,36 +146,42 @@
   }
 }
 
-:host(:where(:state(disabled), [state--disabled])[negative]) {
-  --sbb-form-field-text-color: var(--sbb-color-smoke);
-  --sbb-form-field-label-color: var(--sbb-color-smoke);
-  --sbb-form-field-prefix-color: var(--sbb-color-smoke);
+// :where is to align specificity
+:host(:where(:state(disabled))[negative]) {
+  --sbb-form-field-text-color: var(--sbb-color-5);
+  --sbb-form-field-label-color: var(--sbb-color-5);
+  --sbb-form-field-prefix-color: var(--sbb-color-5);
 }
 
-:host(:where(:state(readonly), [state--readonly]):not([negative])) {
-  --sbb-form-field-label-color: var(--sbb-color-granite);
-  --sbb-form-field-prefix-color: var(--sbb-color-granite);
+// :where is to align specificity
+:host(:where(:state(readonly)):not([negative])) {
+  --sbb-form-field-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 }
 
-:host(:where(:state(focus), [state--focus])) {
-  --sbb-form-field-border-color: var(--sbb-color-charcoal);
-  --sbb-form-field-prefix-color: var(--sbb-color-charcoal);
+// :where is to align specificity
+:host(:where(:state(focus))) {
+  --sbb-form-field-border-color: var(--sbb-border-color-3);
+  --sbb-form-field-prefix-color: var(--sbb-color-3);
   --sbb-form-field-border-width: var(--sbb-border-width-2x);
 }
 
-:host(:where(:state(focus), [state--focus])[negative]) {
-  --sbb-form-field-border-color: var(--sbb-color-milk);
-  --sbb-form-field-prefix-color: var(--sbb-color-milk);
+// :where is to align specificity
+:host(:where(:state(focus))[negative]) {
+  --sbb-form-field-border-color: var(--sbb-border-color-3-negative);
+  --sbb-form-field-prefix-color: var(--sbb-color-3-negative);
 }
 
-:host(:is(:state(focus), [state--focus])) {
+// We must not use :where here, as it needs the added specificity to properly work
+:host(:state(focus)) {
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
   }
 }
 
-:host(:not(:where(:state(has-error), [state--has-error]))) {
+// :where is to align specificity
+:host(:not(:where(:state(has-error)))) {
   --sbb-form-field-error-padding-block-start: 0;
 }
 
@@ -190,11 +199,13 @@
 }
 
 // Should be after other definitions to override overflow
-:host(:where(:state(input-type-sbb-slider), [state--input-type-sbb-slider])) {
+// :where is to align specificity
+:host(:where(:state(input-type-sbb-slider))) {
   --sbb-form-field-overflow: visible;
 }
 
-:host(:where(:state(input-type-textarea), [state--input-type-textarea])) {
+// :where is to align specificity
+:host(:where(:state(input-type-textarea))) {
   --sbb-form-field-max-height: fit-content;
 }
 
@@ -226,27 +237,22 @@
     border-radius: var(--sbb-form-field-border-radius);
   }
 
-  :host(
-      :where(:state(focus), [state--focus]):where(
-        :state(focus-origin-keyboard),
-        [state--focus-origin-keyboard]
-      )
-    )
-    & {
+  // :where is to align specificity
+  :host(:where(:state(focus):state(focus-origin-keyboard))) & {
     @include sbb.focus-outline;
+
+    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
   }
 
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
-    :host(:is([borderless], :where(:state(input-type-sbb-slider), [state--input-type-sbb-slider])))
-      & {
+    :host(:is([borderless], :state(input-type-sbb-slider))) & {
       &::before {
         border-color: transparent;
       }
     }
 
-    :host(:where(:state(focus), [state--focus], :state(disabled), [state--disabled])[borderless])
-      & {
+    :host(:where(:state(focus), :state(disabled))[borderless]) & {
       &::after {
         content: '';
         position: absolute;
@@ -254,6 +260,7 @@
           var(--sbb-form-field-border-color);
         inset-inline: var(--sbb-form-field-padding-inline);
         inset-block-end: 0;
+        z-index: var(--sbb-form-field-focus-underline-z-index, initial);
       }
     }
   }
@@ -272,17 +279,7 @@
 }
 
 ::slotted(sbb-form-field-clear) {
-  :host(
-      :where(
-        :state(empty),
-        [state--empty],
-        :state(disabled),
-        [state--disabled],
-        :state(readonly),
-        [state--readonly]
-      )
-    )
-    & {
+  :host(:where(:state(empty), :state(disabled), :state(readonly))) & {
     display: none;
   }
 }
@@ -352,15 +349,7 @@
     @include sbb.text-xxs--regular;
   }
 
-  :host(
-      :where(
-        :state(input-type-select),
-        [state--input-type-select],
-        :state(input-type-sbb-select),
-        [state--input-type-sbb-select]
-      )
-    )
-    & {
+  :host(:where(:state(input-type-select), :state(input-type-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
@@ -380,23 +369,23 @@
   // If floating-label is activated and there is no focus in it (except for select) and no popup is open
   // and input is empty then apply the label transition.
   // If it is empty and readonly, always apply transition
+  // :where is to align specificity
   :host(
       [floating-label]:is(
           :not(
-            :where(:state(focus), [state--focus]):not(
-              :where(:state(input-type-sbb-select), [state--input-type-sbb-select])
-            ),
-            :where(:state(has-popup-open), [state--has-popup-open])
+            :where(:state(focus)):not(:where(:state(input-type-sbb-select))),
+            :where(:state(has-popup-open))
           ),
-          :where(:state(readonly), [state--readonly])
-        ):where(:state(empty), [state--empty])
+          :where(:state(readonly))
+        ):where(:state(empty))
     )
     & {
     font-size: var(--sbb-form-field-input-text-size);
     transform: translateY(var(--sbb-form-field-floating-label-transform));
   }
 
-  :host(:where(:state(input-type-textarea), [state--input-type-textarea])) & {
+  // :where is to align specificity
+  :host(:where(:state(input-type-textarea))) & {
     @include sbb.if-forced-colors {
       // The background of the textarea is set to Canvas and therefore hides the label behind.
       // By setting the z-index to 1, we move the label in front of the textarea.
@@ -415,15 +404,10 @@
   :host(
       [size='s']:is(
         :state(input-type-input),
-        [state--input-type-input],
         :state(input-type-select),
-        [state--input-type-select],
         :state(input-type-sbb-select),
-        [state--input-type-sbb-select],
         :state(input-type-sbb-date-input),
-        [state--input-type-sbb-date-input],
-        :state(input-type-sbb-time-input),
-        [state--input-type-sbb-time-input]
+        :state(input-type-sbb-time-input)
       )
     )
     & {

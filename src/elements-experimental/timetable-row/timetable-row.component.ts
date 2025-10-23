@@ -20,6 +20,7 @@ import {
   i18nTripQuayChange,
 } from '@sbb-esta/lyne-elements/core/i18n.js';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
@@ -208,7 +209,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
 export
 @customElement('sbb-timetable-row')
 class SbbTimetableRowElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The trip Prop. */
   @property({ type: Object }) public accessor trip: ITripItem = null!;

@@ -38,7 +38,7 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-Consumers can listen to the `didChange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
+Consumers can listen to the `tabchange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
 From it, it's possible to retrieve the information about the current `sbb-tab-label`, `sbb-tab` and index, and,
 if available, also the information about the previous ones.
 
@@ -57,10 +57,12 @@ type SbbTabChangedEventDetails = {
 
 ## Properties
 
-| Name                   | Attribute                | Privacy | Type                              | Default            | Description                                                                                                                        |
-| ---------------------- | ------------------------ | ------- | --------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `initialSelectedIndex` | `initial-selected-index` | public  | `number`                          | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. |
-| `size`                 | `size`                   | public  | `InterfaceSbbTabGroupTab['size']` | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                   |
+| Name                   | Attribute                | Privacy | Type                   | Default            | Description                                                                                                                        |
+| ---------------------- | ------------------------ | ------- | ---------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `initialSelectedIndex` | `initial-selected-index` | public  | `number`               | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. |
+| `labels`               | -                        | public  | `SbbTabLabelElement[]` |                    | Gets the slotted `sbb-tab-label`s.                                                                                                 |
+| `size`                 | `size`                   | public  | `'s' \| 'l' \| 'xl'`   | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                   |
+| `tabs`                 | -                        | public  | `SbbTabElement[]`      |                    | Gets the slotted `sbb-tab`s.                                                                                                       |
 
 ## Methods
 

@@ -19,8 +19,10 @@ import { SbbOptionElement } from '../option.js';
 
 import readme from './readme.md?raw';
 import { SbbSelectElement } from './select.component.js';
+
 import '../form-error.js';
 import '../form-field.js';
+import '../card.js';
 
 const borderless: InputType = {
   control: {
@@ -190,20 +192,10 @@ const changeEventHandler = (event: Event): void => {
   document.getElementById('container-value')!.append(div);
 };
 
-const textBlockStyle: Readonly<StyleInfo> = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
-};
-
 const codeStyle: Readonly<StyleInfo> = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const aboveDecorator: Decorator = (story) => html`
@@ -222,7 +214,7 @@ const valueEllipsis: string = 'This label name is so long that it needs ellipsis
 
 const textBlock = (text: string | null = null): TemplateResult => {
   return html`
-    <div style=${styleMap(textBlockStyle)}>
+    <sbb-card color="milk" style="margin-block-start: 1rem">
       ${!text
         ? html`
             <span>
@@ -231,7 +223,7 @@ const textBlock = (text: string | null = null): TemplateResult => {
             </span>
           `
         : text}
-    </div>
+    </sbb-card>
   `;
 };
 
@@ -598,7 +590,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     actions: {
       handles: [
         SbbSelectElement.events.change,

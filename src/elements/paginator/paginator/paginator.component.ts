@@ -10,7 +10,9 @@ import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y.js';
+import { forceType } from '../../core/decorators.js';
 import { i18nItemsPerPage, i18nPage } from '../../core/i18n.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbSelectElement } from '../../select.js';
 import { SbbPaginatorCommonElementMixin } from '../common.js';
 
@@ -29,7 +31,7 @@ const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 export
 @customElement('sbb-paginator')
 class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;
@@ -45,6 +47,14 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   @property({ attribute: 'pager-position', reflect: true }) public override accessor pagerPosition:
     | 'start'
     | 'end' = 'start';
+
+  /**
+   * Accessibility label for the items per page. Defaults to `Items per page.`.
+   * Can be set for cases like a carousel, where `slide` or `image` fits better.
+   */
+  @forceType()
+  @property({ attribute: 'accessibility-items-per-page-label' })
+  public accessor accessibilityItemsPerPageLabel: string = '';
 
   private _markForFocus: number | null = null;
 
@@ -121,7 +131,11 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
           <div class="sbb-paginator__page-size-options">
-            <label for="select">${i18nItemsPerPage[this.language.current]}</label>
+            <label for="select"
+              >${this.accessibilityItemsPerPageLabel
+                ? this.accessibilityItemsPerPageLabel
+                : i18nItemsPerPage[this.language.current]}</label
+            >
             <sbb-form-field
               borderless
               width="collapse"
@@ -166,7 +180,9 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                       ?disabled=${this.disabled}
                       class="sbb-paginator__page--number-item"
                       data-index=${item}
-                      aria-label="${i18nPage[this.language.current]} ${item + 1}"
+                      aria-label="${this.accessibilityPageLabel
+                        ? this.accessibilityPageLabel
+                        : i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
                       @click=${() => (this.pageIndex = item)}
                       @keyup=${this._handleKeyUp}

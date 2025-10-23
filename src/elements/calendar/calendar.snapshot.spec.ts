@@ -1,4 +1,6 @@
 import { expect } from '@open-wc/testing';
+import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
+import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { stub, type SinonStub } from 'sinon';
 
@@ -44,6 +46,72 @@ describe(`sbb-calendar`, () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-calendar selected="2023-01-20T00:00:00" orientation="vertical"></sbb-calendar>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders multiple', () => {
+    let element: SbbCalendarElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-calendar selected="2023-01-20T00:00:00" multiple></sbb-calendar>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders horizontal wide with week numbers', () => {
+    let element: SbbCalendarElement;
+
+    beforeEach(async () => {
+      await setViewport({ width: SbbBreakpointLargeMin, height: 640 });
+      element = await fixture(html`
+        <sbb-calendar
+          selected="2023-01-20T00:00:00"
+          orientation="horizontal"
+          wide
+          week-numbers
+        ></sbb-calendar>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders vertical wide with week numbers', () => {
+    let element: SbbCalendarElement;
+
+    beforeEach(async () => {
+      await setViewport({ width: SbbBreakpointLargeMin, height: 640 });
+      element = await fixture(html`
+        <sbb-calendar
+          selected="2023-01-20T00:00:00"
+          orientation="vertical"
+          wide
+          week-numbers
+        ></sbb-calendar>
       `);
     });
 

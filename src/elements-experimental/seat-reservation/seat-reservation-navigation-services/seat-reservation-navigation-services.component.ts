@@ -1,9 +1,9 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common.js';
 
@@ -19,7 +19,7 @@ import style from './seat-reservation-navigation-services.scss?lit&inline';
 export
 @customElement('sbb-seat-reservation-navigation-services')
 class SbbSeatReservationNavigationServicesElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
@@ -27,7 +27,7 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
 
   /** If true, the service icons are displayed vertically */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
   private _language = new SbbLanguageController(this);
@@ -36,21 +36,15 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
     const serviceLabelDescription = this.propertyIds.length
       ? this._getServiceLabelDescription()
       : null;
-    return html` <div
-      class="${classMap({
-        'sbb-sr-navigation__signs': true,
-        'sbb-sr-navigation__signs--vertical': this.vertical,
-      })}"
-    >
+    return html` <div class="sbb-sr-navigation__signs">
       <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
         >${serviceLabelDescription}</sbb-screen-reader-only
       >
       ${this.propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
+            class="auto-width"
             name=${signIcon ?? nothing}
-            width="20"
-            height="20"
             title=${getI18nSeatReservation(signIcon, this._language.current)}
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>

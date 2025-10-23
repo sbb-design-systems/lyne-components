@@ -22,6 +22,7 @@ describe(`sbb-button`, () => {
       { icon: 'arrow-right-small', text: 'Button' },
       { icon: 'arrow-right-small', text: '' },
     ],
+    darkMode: [false, true],
   };
 
   // 'l' as default is covered by other cases.
@@ -32,8 +33,13 @@ describe(`sbb-button`, () => {
     negative: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    describeEach(cases, ({ disabled, negative, state }) => {
+  const loadingCases = {
+    negative: [false, true],
+    darkMode: [false, true],
+  };
+
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    describeEach(cases, ({ disabled, negative, state, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -42,8 +48,9 @@ describe(`sbb-button`, () => {
             </sbb-button>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
+            darkMode,
           },
         );
       });
@@ -56,6 +63,30 @@ describe(`sbb-button`, () => {
           }),
         );
       }
+    });
+
+    describe('loading', () => {
+      describeEach(loadingCases, ({ negative, darkMode }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html` <sbb-button loading ?negative=${negative}>Loading Button</sbb-button> `,
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              focusOutlineDark: negative,
+              darkMode,
+            },
+          );
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     describeEach(sizeCases, ({ size, icon }) => {
@@ -79,7 +110,9 @@ describe(`sbb-button`, () => {
                 await setup.withFixture(
                   html`<sbb-button disabled-interactive ?negative=${negative}>Button</sbb-button>`,
                   {
-                    backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                     focusOutlineDark: negative,
                   },
                 );
@@ -100,7 +133,7 @@ describe(`sbb-button`, () => {
               </sbb-button>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-anthracite)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors: true,
             },

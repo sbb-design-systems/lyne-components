@@ -1,17 +1,18 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
-
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
+@use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 :host {
   // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
   --sbb-seat-reservation-grid-size: 16px;
-  --sbb-seat-reservation-vertical-offset: 0;
+  --sbb-seat-reservation-height: 0;
+  --sbb-seat-reservation-decks: 1;
 
   display: block;
+  height: inherit;
 
   ::part(coach-floor) {
-    fill: var(--sbb-color-white);
+    fill: var(--sbb-background-color-2);
 
     // In High Contrast Mode we set floor color to transparent
     @include sbb.if-forced-colors {
@@ -20,30 +21,96 @@
   }
 }
 
-.sbb-sr__wrapper--vertical {
-  width: fit-content;
-  position: relative;
-  inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
-  rotate: 90deg;
-  transform-origin: top left;
+// rotates the DOM-part "coach-floor" by 180 degrees if the host is in RTL mode.
+@include sbb-sr-mixins.rotate-dom-part(coach-floor);
+
+[popover]:where(sbb-popover) {
+  @include sbb.popover-reset;
 }
 
-.sbb-sr__wrapper--vertical .sbb-sr__parent {
-  overflow-y: hidden;
+.sbb-sr__container {
+  display: flex;
+  height: inherit;
 }
 
-// ############# Seat Reservation main navigation START #############
-.sbb-sr__wrapper--vertical .sbb-sr__list-coaches {
-  width: 100vw;
+// MAIN SEAT RESERVATION GRID LAYOUT
+// __________________ ________________ ____________________
+// |__LEFT_NAV_BUTTON_|___NAV_COACHES__|_RIGHT_NAV_BUTTON___|
+// |________________________COACHES_________________________|
+.sbb-sr__grid {
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+  grid-template-rows: auto auto;
+
+  .sbb-sr-navigation-first-grid,
+  .sbb-sr-navigation-last-grid {
+    grid-row-start: 1;
+    position: relative;
+  }
+
+  .sbb-sr-navigation-first-grid {
+    grid-column: 1 / 2;
+  }
+
+  .sbb-sr-navigation-last-grid {
+    grid-column: 3 / 4;
+  }
+
+  .sbb-sr__component {
+    display: flex;
+    grid-column: 1 / 4;
+    grid-row: 1 / 3;
+  }
+
+  .sbb-sr-grid-inner {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+
+    .nav-grid {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      display: inherit;
+    }
+
+    .coaches-grid {
+      grid-column: 1 / 4;
+      grid-row: 2 / 3;
+      display: inherit;
+    }
+  }
 }
 
-.sbb-sr-navigation--vertical {
-  inset-inline-start: var(--sbb-seat-reservation-vertical-offset);
-  margin-inline-start: sbb.px-to-rem-build(20);
+// ------------- Seat Reservation Main Navigation - START -----------------
+.sbb-sr__navigation-control-button {
   position: absolute;
+  z-index: 10;
 
-  .sbb-sr-navigation__list-coaches {
-    flex-direction: column;
+  &#first-tab-element {
+    inset-inline-end: sbb-sr-functions.sr-px-to-rem(8);
+  }
+
+  &#last-tab-element {
+    inset-inline-start: sbb-sr-functions.sr-px-to-rem(8);
+  }
+}
+
+.sbb-sr-navigation-wrapper {
+  overflow: hidden;
+  padding-block: 0 sbb-sr-functions.sr-px-to-rem(32);
+}
+
+.sbb-sr-navigation {
+  @include sbb.scrollbar;
+
+  & {
+    // Set sbb scrollbar transparent by default
+    --sbb-scrollbar-color: transparent;
+
+    display: flex;
+    overflow: scroll hidden;
+    position: relative;
   }
 }
 
@@ -51,33 +118,219 @@
   @include sbb.list-reset;
 
   display: flex;
-  justify-content: center;
   flex-wrap: nowrap;
-  gap: var(--sbb-spacing-fixed-1x);
-  min-height: #{sbb.px-to-rem-build(60)};
+  gap: sbb-sr-functions.sr-px-to-rem(4);
+  padding: sbb-sr-functions.sr-px-to-rem(2);
 }
 
-// ############# Seat Reservation main navigation END #############
+// --------------- Seat Reservation Main Navigation - END ----------------
 
-.sbb-sr__parent {
-  overflow-x: scroll;
-  padding: sbb.px-to-rem-build(48) 0;
+// ------------- Seat Reservation Coaches - START -----------------
+.sbb-sr__wrapper-coach-decks {
+  display: flex;
+  overflow: hidden;
+  height: inherit;
+
+  .sbb-sr__wrapper-deck-labels {
+    display: flex;
+    justify-content: space-between;
+    height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
+    writing-mode: vertical-lr;
+
+    b {
+      height: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+      width: sbb-sr-functions.sr-px-to-rem(20);
+      margin-block-end: 16px;
+      rotate: 180deg;
+      text-align: center;
+      line-height: sbb-sr-functions.sr-px-to-rem(20);
+    }
+  }
+}
+
+.sbb-sr__wrapper {
+  @include sbb.scrollbar;
+
+  & {
+    overflow-x: scroll;
+    padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
+
+    .sbb-sr__parent {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+  }
+}
+
+.sbb-sr__list-decks {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sbb-sr__list-decks--gap {
+  gap: sbb-sr-functions.sr-px-to-rem(48);
+}
+
+.sbb-sr__list-item-deck {
+  position: relative;
 }
 
 .sbb-sr__list-coaches {
+  @include sbb.list-reset;
+
   display: flex;
-  gap: sbb.px-to-rem-build(4);
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  gap: sbb-sr-functions.sr-px-to-rem(4);
 }
 
 .sbb-sr__item-coach {
-  padding: 0;
-  margin: 0;
   position: relative;
+}
+
+.sbb-sr-popover {
+  margin: 0;
 }
 
 .sbb-sr-coach-wrapper__table {
   outline: 0;
+}
+
+// ------------- Seat Reservation Coaches END -----------------
+
+// MAIN SEAT RESERVATRION GRID LAYOUT - VERTCIAL MODE
+//  ____  _____
+// |     |  L  |
+// |     |     |
+// |     |  N  |
+// |     |  A  |
+// |     |  V  |
+// |  C  |_____|
+// |  O  |  C  |
+// |  A  |     |
+// |  C  |  N  |
+// |  H  |  A  |
+// |  E  |  V  |
+// |  S  |_____|
+// |     |  R  |
+// |     |     |
+// |     |  N  |
+// |     |  A  |
+// |     |  V  |
+// |_____|_____|
+:host([align-vertical]) .sbb-sr {
+  // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
+  // and the width of the scrollbar area.
+  $coach-scollbar-width: 24;
+  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
+
+  // $coach-border-width: Describes the approximate width of the wagon edge in the svg
+  // and is also set here for the optimised rotation pivot point for rotating. 6 is an optimal value here.
+  $coach-border-width: calc(6 * calc(var(--sbb-seat-reservation-decks) - 1));
+
+  // For the calculated pivot point, we only need the width of the visual coach schema without any other elements like border-width and scrollbar.
+  $rotation-pivot-point: calc(
+    calc($coach-grid-width - $coach-scollbar-width - $coach-border-width) / 2
+  );
+
+  grid-template-columns: sbb-sr-functions.sr-px-to-rem($coach-grid-width) 1fr;
+  grid-template-rows: 20% 60% 20%;
+
+  .sbb-sr-navigation-first-grid {
+    grid-column: 2 / 3;
+    grid-row-start: 1;
+
+    #first-tab-element {
+      position: absolute;
+      inset-block-end: sbb-sr-functions.sr-px-to-rem(16);
+      inset-inline-start: sbb-sr-functions.sr-px-to-rem(16);
+      inset-inline-end: initial;
+      rotate: 90deg;
+    }
+  }
+
+  .sbb-sr-navigation-last-grid {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+
+    #last-tab-element {
+      inset-block-start: sbb-sr-functions.sr-px-to-rem(16);
+      inset-inline-start: sbb-sr-functions.sr-px-to-rem(16);
+      rotate: 90deg;
+    }
+  }
+
+  .sbb-sr-navigation-wrapper {
+    padding-block-end: initial;
+    padding-inline-start: sbb-sr-functions.sr-px-to-rem(16);
+  }
+
+  .sbb-sr__component {
+    grid-column: 1 / 3;
+    grid-row: 1 / 4;
+  }
+
+  .sbb-sr-grid-inner {
+    grid-template-columns: sbb-sr-functions.sr-px-to-rem($coach-grid-width) 1fr;
+    grid-template-rows: 20% 60% 20%;
+
+    .nav-grid {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      height: 100%;
+
+      .sbb-sr-navigation {
+        display: block;
+        overflow: hidden scroll;
+        height: 100%;
+
+        .sbb-sr-navigation__list-coaches {
+          flex-direction: column;
+          padding: sbb-sr-functions.sr-px-to-rem(2);
+        }
+      }
+    }
+
+    .coaches-grid {
+      grid-column: 1 / 2;
+      grid-row: 1 / 4;
+      overflow: hidden;
+      position: relative;
+
+      .sbb-sr__wrapper-coach-decks {
+        flex-direction: column;
+
+        .sbb-sr__wrapper-deck-labels {
+          flex-direction: column-reverse;
+          width: calc(100% - sbb-sr-functions.sr-px-to-rem($coach-scollbar-width));
+          height: initial;
+
+          b {
+            width: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+            height: sbb-sr-functions.sr-px-to-rem(20);
+            margin-bottom: 16px;
+            rotate: initial;
+            writing-mode: initial;
+          }
+        }
+
+        .sbb-sr__wrapper {
+          @include sbb.scrollbar;
+
+          & {
+            overflow: hidden scroll;
+            height: 100%;
+            padding: 0;
+          }
+        }
+
+        .sbb-sr__parent {
+          rotate: 90deg;
+          transform-origin: sbb-sr-functions.sr-px-to-rem($rotation-pivot-point)
+            sbb-sr-functions.sr-px-to-rem($rotation-pivot-point);
+        }
+      }
+    }
+  }
 }

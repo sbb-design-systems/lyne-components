@@ -15,6 +15,7 @@ import {
   SbbNegativeMixin,
   SbbReadonlyMixin,
 } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 
 import '../../button/mini-button.js';
 import '../../screen-reader-only.js';
@@ -33,7 +34,7 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElementInternalsMixin(LitElement))),
 ) {
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;

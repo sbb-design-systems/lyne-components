@@ -102,7 +102,7 @@ describe('sbb-checkbox-group', () => {
     </sbb-checkbox-group>
   `;
 
-  describeViewports({ viewports: ['small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     for (const orientation of ['horizontal', 'vertical']) {
       const args = { ...defaultArgs, orientation };
       for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
@@ -168,8 +168,8 @@ describe('sbb-checkbox-group', () => {
       );
     }
 
-    describe('horizontalFrom=medium', () => {
-      const args = { ...defaultArgs, orientation: 'vertical', horizontalFrom: 'medium' };
+    describe('horizontalFrom=large', () => {
+      const args = { ...defaultArgs, orientation: 'vertical', horizontalFrom: 'large' };
       it(
         `checkbox ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {

@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
 
 import style from './teaser-product.scss?lit&inline';
@@ -21,7 +22,11 @@ import '../../screen-reader-only.js';
 export
 @customElement('sbb-teaser-product')
 class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(SbbLinkBaseElement) {
-  public static override styles: CSSResultGroup = [teaserProductCommonStyle, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    teaserProductCommonStyle,
+    style,
+  ];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it

@@ -1,14 +1,11 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   @include sbb.scrollbar-variables;
 
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-dialog-color: var(--sbb-color-black);
-  --sbb-dialog-background-color: var(--sbb-color-white);
+  --sbb-dialog-color: var(--sbb-color-2);
+  --sbb-dialog-background-color: var(--sbb-background-color-1);
   --sbb-dialog-width: 100%;
   --sbb-dialog-height: 100%;
   --sbb-dialog-max-width: 100%;
@@ -16,31 +13,33 @@
   --sbb-dialog-max-height: 100%;
   --sbb-dialog-inset: 0 auto auto 0;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
-  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-dialog-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
+  );
+  --sbb-dialog-shadow-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
   );
   --sbb-dialog-animation-easing: ease;
   --sbb-dialog-pointer-events: none;
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-dialog-close-button-margin: var(--sbb-spacing-fixed-4x);
 
   display: none;
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 
-  @include sbb.mq($from: micro) {
-    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
-  }
-
   @include sbb.mq($from: small) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
     --sbb-dialog-max-width: min(
       calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
@@ -56,25 +55,25 @@
 
 :host(:is([data-state='opening'], [data-state='opened'])) {
   --sbb-dialog-pointer-events: all;
-  --sbb-dialog-backdrop-color: var(--sbb-color-milk);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
   }
 }
 
 :host([backdrop='translucent']:is([data-state='opening'], [data-state='opened'])) {
-  --sbb-dialog-backdrop-color: var(--sbb-color-black-alpha-50);
+  --sbb-dialog-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 50%, transparent);
 }
 
 :host([negative]) {
   @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-dialog-color: var(--sbb-color-white);
-  --sbb-dialog-background-color: var(--sbb-color-midnight);
-  --sbb-dialog-backdrop-color: var(--sbb-color-charcoal);
+  --sbb-dialog-color: var(--sbb-color-2-negative);
+  --sbb-dialog-background-color: var(--sbb-background-color-1-negative);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3-negative);
 }
 
 :host(:not([data-state='closed'])) {
@@ -137,7 +136,7 @@
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
     height: auto;
@@ -153,11 +152,38 @@
   max-height: var(--sbb-dialog-max-height);
 }
 
+.sbb-dialog-title-section {
+  display: flex;
+  width: 100%;
+  gap: var(--sbb-dialog-title-gap);
+  background-color: var(--sbb-dialog-background-color);
+  padding-inline: var(--sbb-dialog-padding);
+  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
+  box-shadow: none;
+
+  :host(:not([negative]):state(scrolled)) & {
+    box-shadow: var(--sbb-box-shadow-level-5-soft);
+  }
+
+  :host([negative]:state(scrolled)) & {
+    box-shadow: var(--sbb-box-shadow-level-5-soft-negative);
+  }
+}
+
 .sbb-dialog-content-container {
   @include sbb.scrollbar-rules;
 
   & {
     overflow: auto;
+  }
+
+  // If there is no scrollable content, the scroll area gets focus.
+  // As it is impossible to place the scrollbar outside of the scroll area,
+  // we need to fix the outline offset to avoid clipping of the focus outline.
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    --sbb-focus-outline-offset: calc(var(--sbb-focus-outline-width) * -1);
   }
 }
 
@@ -186,4 +212,24 @@
     opacity: 0;
     translate: 0 var(--sbb-spacing-fixed-4x);
   }
+}
+
+::slotted(sbb-dialog-title) {
+  flex-grow: 1;
+  margin-block: var(--sbb-dialog-padding-block);
+}
+
+::slotted(sbb-dialog-close-button) {
+  order: 1;
+  margin-inline-end: var(--sbb-dialog-close-button-margin);
+
+  // We have to center the button vertically to the title text.
+  margin-block-start: calc(
+    var(--sbb-dialog-padding-block) + 0.5 *
+      (
+        var(--sbb-typo-line-height-titles) *
+          var(--_sbb-dialog-title-size, var(--sbb-font-size-title-4)) - var(--sbb-size-element-xs)
+      )
+  );
+  inset-inline-end: var(--sbb-dialog-close-button-margin);
 }

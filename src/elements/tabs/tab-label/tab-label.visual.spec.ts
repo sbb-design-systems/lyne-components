@@ -20,16 +20,39 @@ const cases = {
 };
 
 describe(`sbb-tab-label`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {
-      it(
-        state.name,
-        state.with(async (setup) => {
-          await setup.withFixture(
-            html`<sbb-tab-label amount="123" icon-name="app-icon-small">Tab title</sbb-tab-label>`,
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: false, darkMode: true },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const state of [visualDiffDefault, visualDiffHover, visualDiffActive]) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-tab-label amount="123" icon-name="app-icon-small">
+                  Tab title
+                </sbb-tab-label>`,
+                { darkMode, forcedColors },
+              );
+            }),
           );
-        }),
-      );
+        }
+
+        it(
+          'disabled',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-tab-label amount="16" icon-name="app-icon-small" disabled>
+                Tab title
+              </sbb-tab-label>`,
+              { darkMode, forcedColors },
+            );
+          }),
+        );
+      });
     }
 
     describeEach(cases, ({ amount, icon, text }) => {
@@ -55,17 +78,6 @@ describe(`sbb-tab-label`, () => {
         await setup.withFixture(
           html`<sbb-tab-label amount="16" icon-name="app-icon-small">
             A very long label which gets ellipsis when there is no more space to display it
-          </sbb-tab-label>`,
-        );
-      }),
-    );
-
-    it(
-      'disabled',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-tab-label amount="16" icon-name="app-icon-small" disabled>
-            Tab title
           </sbb-tab-label>`,
         );
       }),

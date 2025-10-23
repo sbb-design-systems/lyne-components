@@ -12,6 +12,14 @@ import './title.component.js';
 const Template = ({ text, ...args }: Args): TemplateResult =>
   html`<sbb-title ${sbbSpread(args)}>${text}</sbb-title>`;
 
+const LeanTemplate = (args: Args): TemplateResult =>
+  html`${Template(args)}
+    <p>
+      In 'lean' mode, where the 'sbb-lean' class is applied to the
+      <html> tag, the title is given smaller sizes and spacings.
+      This story simulates the lean mode.
+    </p>`;
+
 const level: InputType = {
   control: {
     type: 'inline-radio',
@@ -89,10 +97,19 @@ export const h6VisualLevel: StoryObj = {
   args: { ...defaultArgs, level: level.options![0], 'visual-level': level.options![5] },
 };
 
+export const leanSize: StoryObj = {
+  render: LeanTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  parameters: { isLean: true },
+};
+
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

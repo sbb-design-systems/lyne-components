@@ -1,12 +1,15 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbTitleLevel } from '../../title.js';
+import type { SbbTabElement } from '../tab/tab.component.js';
+import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.js';
 
 import style from './tab-label.scss?lit&inline';
 
@@ -24,7 +27,10 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+
+  /** Whether the tab is selected. */
+  private _selected: boolean = false;
 
   /**
    * The level will correspond to the heading tag generated in the title.
@@ -32,7 +38,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
    */
   @property() public accessor level: SbbTitleLevel = '1';
 
-  /** Active tab state */
+  /** Active tab state. */
   @forceType()
   @property({ reflect: true, type: Boolean })
   public accessor active: boolean = false;
@@ -41,6 +47,110 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor amount: string = '';
+
+  /** Get the `sbb-tab` related to the `sbb-tab-label`. */
+  public get tab(): SbbTabElement | null {
+    return this.nextElementSibling?.localName === 'sbb-tab'
+      ? (this.nextElementSibling as SbbTabElement)
+      : null;
+  }
+
+  /** Get the parent `sbb-tab-group`. */
+  public get group(): SbbTabGroupElement | null {
+    return this.closest('sbb-tab-group');
+  }
+
+  public constructor() {
+    super();
+
+    this.addEventListener('click', () => this.activate());
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot = 'tab-bar';
+    this.tabIndex = this.active ? 0 : -1;
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('active')) {
+      this.internals.ariaSelected = `${this.active}`;
+
+      if (this.active && !this.disabled) {
+        this.activate();
+      } else {
+        this.deactivate();
+      }
+    }
+
+    if (changedProperties.has('disabled') && this.disabled) {
+      this.tabIndex = -1;
+      if (this.active) {
+        this.deactivate();
+        this.group?.activateTab(0);
+      }
+    }
+  }
+
+  /** Deactivate the tab. */
+  public deactivate(): void {
+    this.active = false;
+    this.tab?.['deactivate']();
+    this._selected = false;
+    this.tabIndex = -1;
+  }
+
+  /** Select the tab, deactivating the current selected one, and dispatch the tabchange event. */
+  public activate(): void {
+    if (this.disabled) {
+      if (import.meta.env.DEV) {
+        console.warn('You cannot activate a disabled tab');
+      }
+      return;
+    }
+
+    const tabLabels: SbbTabLabelElement[] = this.group?.labels || [];
+    const prevActiveTabLabel = tabLabels.find((e) => e._selected);
+    if (prevActiveTabLabel !== this) {
+      prevActiveTabLabel?.deactivate();
+      this.active = true;
+      this.tab?.['activate']();
+      this._selected = true;
+      this.tabIndex = 0;
+      this.tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
+      this.group?.dispatchEvent(
+        new CustomEvent<SbbTabChangedEventDetails>('tabchange', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            activeIndex: tabLabels.findIndex((e) => e === this),
+            activeTabLabel: this,
+            activeTab: this.tab as SbbTabElement,
+            previousIndex: tabLabels.findIndex((e) => e === prevActiveTabLabel),
+            previousTabLabel: prevActiveTabLabel,
+            previousTab: prevActiveTabLabel?.tab as SbbTabElement,
+          },
+        }),
+      );
+    }
+  }
+
+  /**
+   * @internal
+   */
+  protected linkToTab(): void {
+    if (!this.tab) {
+      if (import.meta.env.DEV) {
+        console.warn(
+          `Missing content: you should provide a related content for the tab ${this.outerHTML}.`,
+        );
+      }
+      return;
+    }
+    this.internals.ariaControlsElements = [this.tab];
+  }
 
   protected override render(): TemplateResult {
     const TAGNAME = `h${Number(this.level) < 7 ? this.level : '1'}`;

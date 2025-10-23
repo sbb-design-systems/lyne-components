@@ -22,16 +22,8 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1599955200" max="1699920000" selected="1649980800"></sbb-calendar>
 ```
 
-To simulate the current date, the `now` property can be used:
-it accepts a `Date` or a timestamp in seconds (as number or string).
-This is helpful whether a specific state of the component is needed.
-
-```html
-<sbb-calendar selected="1585699200" now="1587945600"></sbb-calendar>
-```
-
 By default, the component takes, in order of priority,
-the `dateSelected` property, the `now` property or the current date to calculate which month it has to show.
+the `dateSelected` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
 It's also possible to select a specific date by clicking on the month label between the buttons:
@@ -59,6 +51,23 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 <sbb-calendar date-filter=${dateFilterFn}></sbb-calendar>
 ```
 
+### Multiple mode
+
+By default, the component allows selecting a single date:
+this behavior can be changed by setting the `multiple` attribute to true.
+In this case the `selected` property, if set, must be an array; moreover, the days of the week become clickable,
+allowing to select an entire column (e.g. all the Mondays, all the Tuesdays and so on).
+
+```html
+<sbb-calendar multiple></sbb-calendar>
+```
+
+If the `week-numbers` property is set, the ISO week dates are also clickable, allowing to select all the days in the week.
+
+```html
+<sbb-calendar multiple week-numbers></sbb-calendar>
+```
+
 ## Style
 
 The component displays by default a single month in the `day` view, or a list of twenty-four years in the `year` view,
@@ -76,6 +85,16 @@ This visual change is applied only to the day view.
 
 ```html
 <sbb-calendar orientation="vertical"></sbb-calendar>
+```
+
+In both orientations, the week days are always displayed;
+using the `week-numbers` property, it's possible to display the ISO week dates perpendicularly to week days,
+so on the left side in `horizontal` and on top in `vertical`.
+
+```html
+<sbb-calendar week-numbers></sbb-calendar>
+
+<sbb-calendar orientation="vertical" week-numbers></sbb-calendar>
 ```
 
 ## Events
@@ -124,15 +143,17 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type                                     | Default        | Description                                                                                                                |
-| ------------- | ------------- | ------- | ---------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `dateFilter`  | `date-filter` | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                       |
-| `max`         | `max`         | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
-| `min`         | `min`         | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
-| `orientation` | `orientation` | public  | `'horizontal' \| 'vertical'`             | `'horizontal'` | The orientation of days in the calendar.                                                                                   |
-| `selected`    | `selected`    | public  | `T \| null`                              |                | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).                    |
-| `view`        | `view`        | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                     |
-| `wide`        | `wide`        | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                                   |
+| Name          | Attribute      | Privacy | Type                                     | Default        | Description                                                                                                                |
+| ------------- | -------------- | ------- | ---------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `dateFilter`  | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                       |
+| `max`         | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
+| `min`         | `min`          | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
+| `multiple`    | `multiple`     | public  | `boolean`                                | `false`        | Whether the calendar allows for multiple date selection.                                                                   |
+| `orientation` | `orientation`  | public  | `SbbOrientation`                         | `'horizontal'` | The orientation of days in the calendar.                                                                                   |
+| `selected`    | `selected`     | public  | `T \| T[] \| null`                       | `null`         | The selected date: accepts a date object, or, if `multiple`, an array of dates.                                            |
+| `view`        | `view`         | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                     |
+| `weekNumbers` | `week-numbers` | public  | `boolean`                                | `false`        | Whether it has to display the week numbers in addition to week days.                                                       |
+| `wide`        | `wide`         | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                                   |
 
 ## Methods
 
@@ -142,6 +163,6 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Events
 
-| Name           | Type             | Description                      | Inherited From |
-| -------------- | ---------------- | -------------------------------- | -------------- |
-| `dateselected` | `CustomEvent<T>` | Event emitted on date selection. |                |
+| Name           | Type                    | Description                      | Inherited From |
+| -------------- | ----------------------- | -------------------------------- | -------------- |
+| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection. |                |

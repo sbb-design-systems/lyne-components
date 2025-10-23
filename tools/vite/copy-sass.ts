@@ -22,8 +22,9 @@ export function copySass(sassRoot: string): PluginOption {
           type: 'asset',
           fileName: file,
           source: readFileSync(join(viteConfig.root, file), 'utf8').replace(
-            /(@use|@import) '(node_modules\/[^']+)'/g,
+            /(@use|@import) '((?!\.|sass:)[^']+)'/g,
             (_m, useOrImport, useFile: string) => {
+              useFile = join('node_modules', useFile);
               const outFile = join(sassRoot, useFile.replaceAll('/', '_'));
               this.emitFile({
                 type: 'asset',

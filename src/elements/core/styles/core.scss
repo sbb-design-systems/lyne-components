@@ -1,73 +1,132 @@
-@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--mixin.scss' as sbb-css-tokens;
+$theme: 'standard' !default;
+
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
+  $theme: $theme
+);
 @use './core/mediaqueries';
 @use './core/functions';
 @use './mixins/a11y';
 @use './mixins/font-face';
 @use './mixins/helpers';
 @use './mixins/inputs';
+@use './mixins/popover';
 @use './mixins/scrollbar';
-@use './mixins/shadows';
 @use './mixins/typo';
 
 @include helpers.box-sizing;
 
-// Core variables, are always needed
+// Core variables
 :root {
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
-  @include sbb-css-tokens.lyne-design-tokens-css-variables;
+  @include sbb-css-tokens.base;
 
-  & {
-    // Train formation
-    --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
-    --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
-    --sbb-train-formation-wagon-border-radius: #{functions.px-to-rem-build(12)};
-    --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
+  // Train formation
+  --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
+  --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
+  --sbb-train-formation-wagon-border-radius: #{functions.px-to-rem-build(12)};
+  --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
+
+  // Header
+  --sbb-header-height: var(--sbb-spacing-fixed-14x);
+
+  // Time Input
+  --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
+
+  // Overlay
+  --sbb-overlay-default-z-index: 1000;
+
+  // Title
+  --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
+  --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
+  --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
+  --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
+  --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
+  --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
+  --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
+  --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
+  --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
+  --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
+  --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+  --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
+  --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
+  --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
+
+  &.sbb-lean {
+    --sbb-title-font-size-level-1: var(--sbb-font-size-title-2);
+    --sbb-title-font-size-level-2: var(--sbb-font-size-title-3);
+    --sbb-title-font-size-level-3: var(--sbb-font-size-title-4);
+    --sbb-title-font-size-level-4: var(--sbb-font-size-title-5);
+    --sbb-title-font-size-level-5: var(--sbb-font-size-title-6);
+    --sbb-title-font-size-level-6: var(--sbb-font-size-title-7);
+    --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
+    --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
+    --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
+    --sbb-title-margin-block-end-level-2: var(--sbb-spacing-fixed-3x);
+    --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
+    --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-2x);
+    --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-1x);
+    --sbb-title-margin-block-end-level-6: 0;
+  }
+
+  // Infinity border radius, can be used to achieve rounded border on start and end
+  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
+  --sbb-border-radius-infinity: 100000em;
+
+  &:has(sbb-header[size='s']) {
+    --sbb-header-height: #{functions.px-to-rem-build(52)};
+  }
+
+  // When the input modality is either mouse or touch,
+  // the focus outline should be hidden.
+  // We achieve this by setting the outline style to none.
+  // This is primarily to work around Safari bugs.
+  &:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
+    --sbb-focus-outline-style: none;
+  }
+
+  @include mediaqueries.mq($from: small) {
+    @include sbb-css-tokens.breakpoint-small;
+  }
+
+  @include mediaqueries.mq($from: large) {
+    @include sbb-css-tokens.breakpoint-large;
 
     // Header
-    --sbb-header-height: var(--sbb-spacing-fixed-14x);
+    --sbb-header-height: var(--sbb-spacing-fixed-24x);
 
     // Time Input
-    --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
-
-    // Overlay
-    --sbb-overlay-default-z-index: 1000;
-
-    // Infinity border radius, can be used to achieve rounded border on start and end
-    // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
-    --sbb-border-radius-infinity: 100000em;
+    --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
 
     &:has(sbb-header[size='s']) {
-      --sbb-header-height: #{functions.px-to-rem-build(52)};
+      --sbb-header-height: var(--sbb-spacing-fixed-14x);
     }
+  }
 
-    // When the input modality is either mouse or touch,
-    // the focus outline should be hidden.
-    // We achieve this by setting the outline style to none.
-    // This is primarily to work around Safari bugs.
-    &:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
-      --sbb-focus-outline-style: none;
-    }
-
-    @include mediaqueries.mq($from: medium) {
-      // Header
-      --sbb-header-height: var(--sbb-spacing-fixed-24x);
-
-      // Time Input
-      --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
-
-      &:has(sbb-header[size='s']) {
-        --sbb-header-height: var(--sbb-spacing-fixed-14x);
-      }
-    }
+  @include mediaqueries.mq($from: ultra) {
+    @include sbb-css-tokens.breakpoint-ultra;
   }
 }
 
 @include font-face.font-declarations;
 
+// TODO: discuss where to add these classes
+.sbb-dark {
+  color-scheme: dark;
+}
+
+.sbb-light {
+  color-scheme: light;
+}
+
+.sbb-light-dark {
+  color-scheme: light dark;
+}
+
 html {
   @include typo.text;
 
   color: var(--sbb-font-default-color);
+  background-color: var(--sbb-background-color-1);
 }
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
@@ -75,7 +134,7 @@ html {
   @include typo.placeholder;
 }
 
-sbb-form-field {
+:is(sbb-form-field, sbb-timetable-form-field) {
   :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
     @include typo.text-m--regular;
     @include helpers.ellipsis;
@@ -119,8 +178,8 @@ sbb-form-field {
 
   // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
   &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
-    color: var(--sbb-color-granite);
-    -webkit-text-fill-color: var(--sbb-color-granite);
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+    -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   }
 
   // Fix positioning issue for select which occurs in Safari
@@ -171,18 +230,18 @@ sbb-form-field {
   &:has(
     :is(
       :is(input, textarea, select):user-invalid,
-      :is(:state(interacted), [state--interacted]):invalid,
+      :state(interacted):invalid,
       .ng-touched.ng-invalid,
       .sbb-invalid
     )
   ),
   :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
-    --sbb-form-field-border-color: var(--sbb-color-red125);
-    --sbb-form-field-text-color: var(--sbb-color-red125);
+    --sbb-form-field-border-color: var(--sbb-color-error);
+    --sbb-form-field-text-color: var(--sbb-color-error);
 
     &[negative] {
-      --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
-      --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
+      --sbb-form-field-border-color: var(--sbb-color-red85);
+      --sbb-form-field-text-color: var(--sbb-color-red85);
     }
 
     @include a11y.if-forced-colors {
@@ -205,7 +264,8 @@ sbb-form-field {
   sbb-popover,
   sbb-select,
   sbb-skiplink-list,
-  sbb-toast
+  sbb-toast,
+  sbb-tooltip
 ):not(:defined) {
   display: none;
 }
@@ -222,14 +282,7 @@ sbb-form-field {
   sbb-popover,
   sbb-toast
 ) {
-  margin: 0;
-  padding: 0;
-  border: none;
-  width: auto;
-  height: auto;
-  background-color: transparent;
-  color: inherit;
-  pointer-events: none;
+  @include popover.popover-reset;
 }
 
 // Ensure stable breadcrumb height during hydrating
@@ -253,10 +306,11 @@ sbb-breadcrumb-group:not(:defined) {
   padding-inline: var(--sbb-spacing-fixed-4x);
   gap: var(--sbb-spacing-fixed-1x);
   align-items: baseline;
+  color: var(--sbb-color-1);
 
   strong + * {
     font-size: var(--sbb-font-size-text-xxs);
-    color: var(--sbb-color-granite);
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   }
 }
 
@@ -515,30 +569,65 @@ sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
 }
 
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s']
+:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
   :where(sbb-option, sbb-autocomplete-grid-option) {
-  --sbb-option-min-height: var(--sbb-size-element-xxs);
-  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-  --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
-}
+    --sbb-option-min-height: var(--sbb-size-element-xxs);
+    --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+    --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+  }
 
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] sbb-optgroup {
-  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+  sbb-optgroup {
+    --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+  }
+
+  sbb-option-hint {
+    --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
+  }
 }
 
 sbb-dialog-actions {
   sbb-dialog[negative] & {
-    --sbb-dialog-actions-border-color: var(--sbb-color-iron);
+    --sbb-dialog-actions-border-color: var(--sbb-background-color-4-negative);
   }
 
-  sbb-dialog:is(:state(overflows), [state--overflows]) & {
+  sbb-dialog:state(overflows) & {
     --sbb-dialog-actions-border-color: transparent;
 
-    @include shadows.shadow-level-9-soft;
+    box-shadow: var(--sbb-box-shadow-level-9-soft);
   }
 
-  sbb-dialog[negative]:is(:state(overflows), [state--overflows]) & {
-    @include shadows.shadow-level-9-soft-negative;
+  sbb-dialog[negative]:state(overflows) & {
+    box-shadow: var(--sbb-box-shadow-level-9-soft-negative);
+  }
+}
+
+// If there is a title, remove top spacing for the content
+sbb-dialog:has(> sbb-dialog-title) > sbb-dialog-content {
+  padding-block-start: 0;
+}
+
+// Hide margin on the right side. Distance to button is defined by flex gap already.
+sbb-dialog:has(> sbb-dialog-close-button) > sbb-dialog-title {
+  margin-inline-end: 0;
+}
+
+sbb-dialog-close-button {
+  // If there is no dialog title, the close button should be positioned absolute
+  sbb-dialog:not(:has(> sbb-dialog-title)) > & {
+    position: absolute;
+    z-index: 1;
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
+  }
+
+  // The close button positioning needs the current dialog title size
+  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > & {
+    // TODO: Adapt to lean size title
+    --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
   }
 }
 
@@ -554,7 +643,46 @@ sbb-notification:has(sbb-title) {
 
 sbb-status:has(sbb-title) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --_sbb-status-text-color-override: var(--sbb-color-granite);
+  --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
+}
+
+.sbb-overlay-outlet {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+// Sets ellipsis on all sbb-option child elements
+.sbb-options-nowrap {
+  --sbb-option-text-overflow: ellipsis;
+  --sbb-option-overflow: hidden;
+  --sbb-option-white-space: nowrap;
+}
+
+sbb-mini-calendar[orientation='horizontal'] {
+  sbb-mini-calendar-month {
+    --sbb-mini-calendar-grid-auto-flow: row;
+    --sbb-mini-calendar-month-height: #{functions.px-to-rem-build(48)};
+    --sbb-mini-calendar-month-grid-template-rows: none;
+    --sbb-mini-calendar-month-grid-template-columns: repeat(7, 1fr);
+
+    sbb-mini-calendar-day:first-child {
+      grid-column-start: var(--sbb-mini-calendar-month-offset);
+    }
+  }
+}
+
+sbb-mini-calendar[orientation='vertical'] {
+  sbb-mini-calendar-month {
+    --sbb-mini-calendar-grid-auto-flow: column;
+    --sbb-mini-calendar-month-height: auto;
+    --sbb-mini-calendar-month-grid-template-rows: repeat(7, 1fr);
+    --sbb-mini-calendar-month-grid-template-columns: none;
+
+    sbb-mini-calendar-day:first-child {
+      grid-row-start: var(--sbb-mini-calendar-month-offset);
+    }
+  }
 }

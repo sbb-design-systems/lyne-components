@@ -11,6 +11,7 @@ import type { ITripItem } from '../core/timetable/timetable-properties.js';
 import type { Boarding, Price } from './timetable-row.component.js';
 import './timetable-row.component.js';
 import {
+  a11yFootpathTrip,
   busTrip,
   cancelledTrip,
   type DeepPartial,
@@ -28,7 +29,6 @@ import {
   skippedLastArrivalStopTrip,
   trainTrip,
   walkTimeTrip,
-  a11yFootpathTrip,
 } from './timetable-row.sample-data.private.js';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
@@ -89,16 +89,28 @@ describe(`sbb-timetable-row`, () => {
       disable-animation
     ></sbb-timetable-row>
   `;
-  const wrapperStyle = { backgroundColor: 'var(--sbb-color-milk)' };
+  const wrapperStyle = { backgroundColor: 'var(--sbb-background-color-3)' };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const c of cases) {
-      it(
-        c.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...c }), wrapperStyle);
-        }),
-      );
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const c of cases) {
+          it(
+            c.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(template(c), {
+                ...wrapperStyle,
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+        }
+      });
     }
 
     for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {

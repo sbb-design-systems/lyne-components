@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // Fixes the gap between the origin and the overlay by creating conjunction
 // corners based on the origin element border radius
 @include sbb.overlay-gap-fix;
@@ -14,6 +11,10 @@
     --sbb-select-z-index,
     var(--sbb-overlay-default-z-index)
   );
+  --sbb-select-placeholder-fallback-color: light-dark(
+    var(--sbb-color-metal),
+    var(--sbb-color-smoke)
+  );
 
   display: block;
 }
@@ -24,6 +25,8 @@
 
 :host([negative]) {
   @include sbb.options-panel-overlay-negative-variables;
+
+  --sbb-select-placeholder-fallback-color: var(--sbb-color-5);
 }
 
 :host(:not([data-state])),
@@ -76,12 +79,15 @@
 }
 
 .sbb-select__trigger--placeholder {
-  color: var(--sbb-select-placeholder-color, var(--sbb-color-metal));
+  color: var(--sbb-select-placeholder-color, var(--sbb-select-placeholder-fallback-color));
 
   // Note: when the sbb-select is used within a sbb-form-field, some style are applied from it
   // (see selector `.sbb-form-field__input ::slotted(:where(input, select, sbb-select))` in the sbb-form-field.scss);
   // so, next line is mandatory because we need to override the rule from the parent.
-  -webkit-text-fill-color: var(--sbb-select-placeholder-color, var(--sbb-color-metal));
+  -webkit-text-fill-color: var(
+    --sbb-select-placeholder-color,
+    var(--sbb-select-placeholder-fallback-color)
+  );
 }
 
 .sbb-select__container {
@@ -112,11 +118,11 @@
   }
 
   :host(:is([data-state='opened'], [data-state='opening'])) & {
-    @include sbb.shadow-level-5-hard;
+    box-shadow: var(--sbb-box-shadow-level-5-hard);
   }
 
   :host(:is([data-state='opened'], [data-state='opening'])[negative]) & {
-    @include sbb.shadow-level-5-hard-negative;
+    box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
   }
 
   &::before {
@@ -136,7 +142,7 @@
   &::after {
     :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless])
       & {
-      @include sbb.shadow-level-5-hard;
+      box-shadow: var(--sbb-box-shadow-level-5-hard);
     }
 
     :host(
@@ -146,7 +152,7 @@
           )[data-option-panel-origin-borderless][negative]
       )
       & {
-      @include sbb.shadow-level-5-hard-negative;
+      box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
     }
   }
 }

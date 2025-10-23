@@ -1,14 +1,11 @@
 @use '../../core/styles/index' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
   width: #{sbb.px-to-rem-build(320)};
 
   --sbb-link-text-decoration-line: none;
-  --sbb-sidebar-background-color: var(--sbb-color-white);
+  --sbb-sidebar-background-color: var(--sbb-background-color-1);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-sidebar-padding: var(--sbb-spacing-responsive-xs);
   --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
@@ -34,7 +31,7 @@
 }
 
 :host([color='milk']) {
-  --sbb-sidebar-background-color: var(--sbb-color-milk);
+  --sbb-sidebar-background-color: var(--sbb-background-color-3);
 }
 
 :host(:is([mode='over'], [data-mode-over-forced]:not([data-mode-over-forced-closing]))) {
@@ -98,7 +95,7 @@
   box-shadow: none;
 
   :host([data-scrolled]) & {
-    @include sbb.shadow-level-5-soft;
+    box-shadow: var(--sbb-box-shadow-level-5-soft);
   }
 }
 

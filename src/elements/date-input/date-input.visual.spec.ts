@@ -26,7 +26,7 @@ describe('sbb-date-input', () => {
     floatingLabel: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ disabled, negative, forcedColors }) => {
       describe('with value', () => {
         beforeEach(async function () {
@@ -37,7 +37,7 @@ describe('sbb-date-input', () => {
               </sbb-form-field>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors,
             },
@@ -65,7 +65,7 @@ describe('sbb-date-input', () => {
               </sbb-form-field>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors,
             },

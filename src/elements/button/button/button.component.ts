@@ -3,20 +3,26 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
+import { boxSizingStyles } from '../../core/styles.js';
 import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant.
  *
  * @slot - Use the unnamed slot to add content to the button.
- * @slot icon - Slot used to display the icon, if one is set
+ * @slot icon - Slot used to display the icon, if one is set.
+ * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
 export
 @customElement('sbb-button')
 class SbbButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonPrimaryStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    buttonCommonStyle,
+    buttonPrimaryStyle,
+  ];
 }
 
 declare global {

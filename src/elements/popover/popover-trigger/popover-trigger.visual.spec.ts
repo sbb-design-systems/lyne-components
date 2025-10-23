@@ -12,10 +12,15 @@ describe(`sbb-popover-trigger`, () => {
   const cases = {
     disabled: [false, true],
     negative: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ disabled, negative }) => {
+    describeEach(cases, ({ disabled, negative, emulateMedia: { darkMode, forcedColors } }) => {
       for (const state of visualDiffStandardStates) {
         it(
           `icon ${state.name}`,
@@ -25,7 +30,7 @@ describe(`sbb-popover-trigger`, () => {
                 <span
                   class="sbb-text-s"
                   style="display: flex; align-items: center; ${negative
-                    ? 'color: var(--sbb-color-white)'
+                    ? 'color: var(--sbb-color-1-negative)'
                     : ''}"
                 >
                   <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);">
@@ -37,7 +42,11 @@ describe(`sbb-popover-trigger`, () => {
                   ></sbb-popover-trigger>
                 </span>
               `,
-              { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                forcedColors,
+                darkMode,
+              },
             );
           }),
         );
@@ -53,7 +62,11 @@ describe(`sbb-popover-trigger`, () => {
                   </sbb-popover-trigger>
                 </div>
               `,
-              { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                forcedColors,
+                darkMode,
+              },
             );
           }),
         );
@@ -72,7 +85,7 @@ describe(`sbb-popover-trigger`, () => {
                     <span
                       class="sbb-text-s"
                       style="display: flex; align-items: center; ${negative
-                        ? 'color: var(--sbb-color-white)'
+                        ? 'color: var(--sbb-color-1-negative)'
                         : ''}"
                     >
                       <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);">
@@ -84,7 +97,11 @@ describe(`sbb-popover-trigger`, () => {
                       ></sbb-popover-trigger>
                     </span>
                   `,
-                  { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+                  {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
+                  },
                 );
               }),
             );

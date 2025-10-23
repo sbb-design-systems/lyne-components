@@ -1,12 +1,9 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-option-color: var(--sbb-color-charcoal);
+  --sbb-option-color: var(--sbb-color-3);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-icon-color: var(--sbb-color-metal);
+  --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-min-height: var(--sbb-size-element-s);
@@ -17,8 +14,8 @@
 }
 
 :host([data-negative]) {
-  --sbb-option-color: var(--sbb-color-milk);
-  --sbb-option-icon-color: var(--sbb-color-smoke);
+  --sbb-option-color: var(--sbb-color-3-negative);
+  --sbb-option-icon-color: var(--sbb-color-5);
 }
 
 // If highlighting is enabled, hide the original slot content
@@ -75,4 +72,10 @@
     // Can be overridden by the 'preserve-icon-space' on the autocomplete
     display: var(--sbb-option-icon-container-display, none);
   }
+}
+
+.sbb-option__label {
+  text-overflow: var(--sbb-option-text-overflow);
+  overflow: var(--sbb-option-overflow);
+  white-space: var(--sbb-option-white-space, initial);
 }

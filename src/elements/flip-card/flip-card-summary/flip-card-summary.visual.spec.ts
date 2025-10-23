@@ -32,7 +32,7 @@ const images = [
 ];
 
 describe(`sbb-flip-card-summary`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const image of images) {
       describe(`image=${image.selector}`, () => {
         for (const imageAlignment of ['after', 'below']) {
@@ -47,7 +47,7 @@ describe(`sbb-flip-card-summary`, () => {
                     'flex-flow': 'column wrap',
                     gap: 'var(--sbb-spacing-responsive-xs)',
                     'min-height': '17.5rem',
-                    'background-color': 'var(--sbb-color-cloud-alpha-80)',
+                    'background-color': 'var(--sbb-background-color-4)',
                   })}
                 >
                   <sbb-flip-card-summary image-alignment=${imageAlignment}>

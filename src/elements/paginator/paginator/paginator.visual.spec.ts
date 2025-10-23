@@ -11,11 +11,11 @@ import {
 import './paginator.component.js';
 
 describe('sbb-paginator', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const wrapperStyle = {
-          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
         for (const forcedColors of [false, true]) {
@@ -58,6 +58,16 @@ describe('sbb-paginator', () => {
             );
           });
         }
+
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-paginator ?negative=${negative} length="50" page-size="5"></sbb-paginator>`,
+              { ...wrapperStyle, darkMode: true },
+            );
+          }),
+        );
 
         for (const pageIndex of [0, 5, 9]) {
           it(

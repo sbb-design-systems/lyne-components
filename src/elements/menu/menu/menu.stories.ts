@@ -59,7 +59,7 @@ const userNameStyle: Args = {
 };
 
 const userInfoStyle: Args = {
-  color: 'var(--sbb-color-graphite)',
+  color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke))',
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };
 
@@ -77,7 +77,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       icon-name="pen-small"
       sbb-badge=${!args.disabled ? '16' : nothing}
       aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
-      ?disabled=${args.disabled}
+      ?disabled-interactive=${args.disabled}
     >
       Edit
     </sbb-menu-button>
@@ -93,6 +93,45 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   </sbb-menu>
 `;
 
+const NestedTemplate = (args: Args): TemplateResult => html`
+  ${triggerButton('menu-trigger-1')}
+  <sbb-menu trigger="menu-trigger-1">
+    <sbb-menu-button icon-name=${args['icon-name']}> New Document </sbb-menu-button>
+    <sbb-menu-button icon-name="pen-small" sbb-badge=${args.badge} ?disabled=${args.disabled}>
+      Edit
+    </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="lock-closed-small" id="sub-menu-1">
+      Set Document Permissions
+    </sbb-menu-button>
+    <sbb-menu-button icon-name="download-small" id="sub-menu-2">Download Selected</sbb-menu-button>
+    <sbb-menu-button icon-name="trash-small">Delete Selected</sbb-menu-button>
+    <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="cross-small">Cancel Selection</sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-1">
+    <sbb-menu-button icon-name="employees-sbb-small"> All Users </sbb-menu-button>
+    <sbb-menu-button icon-name="two-users-small"> Group </sbb-menu-button>
+    <sbb-menu-button icon-name="user-small"> Single User </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="filter-small" id="sub-menu-3">
+      Custom User Permission
+    </sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-2">
+    <sbb-menu-button icon-name="document-pdf-small">Download as PDF</sbb-menu-button>
+    <sbb-menu-button icon-name="document-doc-small">Download as DOCX</sbb-menu-button>
+    <sbb-menu-button icon-name="document-xls-small">Download as XLS</sbb-menu-button>
+    <sbb-menu-button icon-name="document-zip-small">Download as archive</sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-3">
+    <sbb-menu-button icon-name="hand-small">Hand Select</sbb-menu-button>
+    <sbb-menu-button icon-name="tag-small">Define Permission Criteria</sbb-menu-button>
+    <sbb-menu-button icon-name="link-small">Create Invitation Link</sbb-menu-button>
+  </sbb-menu>
+`;
+
 const ListTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
   <sbb-menu trigger="menu-trigger-1">
@@ -103,7 +142,7 @@ const ListTemplate = (args: Args): TemplateResult => html`
       icon-name="pen-small"
       sbb-badge=${!args.disabled ? '16' : nothing}
       aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
-      ?disabled=${args.disabled}
+      ?disabled-interactive=${args.disabled}
     >
       Edit
     </sbb-menu-button>
@@ -123,12 +162,12 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-2">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="tickets-class-small" ?disabled=${args.disabled}>
+    <sbb-menu-button icon-name="tickets-class-small" ?disabled-interactive=${args.disabled}>
       Tickets
     </sbb-menu-button>
     <sbb-menu-button
@@ -148,7 +187,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-3">
     <sbb-menu-button
       icon-name=${args['icon-name']}
-      ?disabled=${args.disabled}
+      ?disabled-interactive=${args.disabled}
       sbb-badge=${!args.disabled ? args.badge : nothing}
       aria-label=${!args.disabled ? `English, ${args.badge} items` : nothing}
     >
@@ -186,12 +225,14 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-4">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" size="xs"> Profile </sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" ?disabled=${args.disabled}> Edit </sbb-menu-button>
+    <sbb-menu-button icon-name="pen-small" ?disabled-interactive=${args.disabled}>
+      Edit
+    </sbb-menu-button>
     <sbb-menu-button
       icon-name="swisspass-small"
       sbb-badge=${args.badge}
@@ -207,6 +248,12 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+export const Nested: StoryObj = {
+  render: NestedTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
 };

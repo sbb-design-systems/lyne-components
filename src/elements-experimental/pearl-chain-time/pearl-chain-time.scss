@@ -1,8 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -12,7 +9,7 @@
     --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(25)};
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(28)};
   }
 }
@@ -76,7 +73,7 @@
 .sbb-pearl-chain__time-time {
   @include sbb.text-s--bold;
 
-  color: var(--sbb-color-charcoal);
+  color: var(--sbb-color-2);
 }
 
 .sbb-screen-reader-only {

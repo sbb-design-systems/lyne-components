@@ -5,6 +5,43 @@ import { makeDecorator } from 'storybook/preview-api';
 
 import '../src/elements/core/styles/standard-theme.scss';
 
+import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
+import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
+
+const originaltyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
+  Array.from(stylesheet.cssRules).find((value) =>
+    // We assume that we target the standard theme file if this variable is included.
+    value.cssText.includes('--sbb-font-default-color'),
+  ),
+);
+
+const standardTheme = Array.from(originaltyleSheet?.cssRules ?? [])
+  .map((rule) => rule.cssText)
+  .join('');
+
+// We need a created stylesheet to manipulate it.
+// So we copy the content of the preloaded standard
+// theme into the constructed one then we remove the original one.
+const themeStyleSheet = new CSSStyleSheet();
+themeStyleSheet.replaceSync(standardTheme);
+document.adoptedStyleSheets.push(themeStyleSheet);
+originaltyleSheet?.ownerNode?.remove();
+
+const themeMap = { standard: standardTheme, 'off-brand': offBrandTheme, safety: safetyTheme };
+
+const themeDecorator = makeDecorator({
+  name: 'theme',
+  parameterName: 'theme',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context) => {
+    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety';
+
+    themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
+
+    return getStory(context);
+  },
+});
+
 /**
  * The Lean design is applied by adding the 'sbb-lean' class to the document.
  */
@@ -19,6 +56,27 @@ const withLeanDecorator = makeDecorator({
       document.documentElement.classList.add('sbb-lean');
     } else {
       document.documentElement.classList.remove('sbb-lean');
+    }
+
+    return getStory(context);
+  },
+});
+
+const lightDarkModeDecorator = makeDecorator({
+  name: 'lightOrDarkMode',
+  parameterName: 'darkMode',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context) => {
+    const selectedMode = context.globals.mode as 'light' | 'dark' | 'auto';
+
+    document.documentElement.classList.remove('sbb-dark', 'sbb-light', 'sbb-light-dark');
+
+    if (selectedMode === 'light') {
+      document.documentElement.classList.add('sbb-light');
+    } else if (selectedMode === 'dark') {
+      document.documentElement.classList.add('sbb-dark');
+    } else {
+      document.documentElement.classList.add('sbb-light-dark');
     }
 
     return getStory(context);
@@ -114,6 +172,8 @@ export default {
   decorators: [
     withBackgroundDecorator,
     withLeanDecorator,
+    lightDarkModeDecorator,
+    themeDecorator,
     (story) => {
       const root = document && document.getElementById('storybook-root');
 
@@ -138,6 +198,42 @@ export default {
       return story();
     },
   ],
+  globalTypes: {
+    mode: {
+      description: 'Light or dark mode',
+      toolbar: {
+        // The label to show for this toolbar item
+        title: 'Mode',
+        // Array of plain string values or MenuItem shape (see below)
+        items: [
+          { value: 'auto', title: 'light dark mode', icon: 'mirror' },
+          { value: 'light', title: 'light mode', icon: 'sun' },
+          { value: 'dark', title: 'dark mode', icon: 'moon' },
+        ],
+        // Change title based on selected value
+        dynamicTitle: true,
+      },
+    },
+    theme: {
+      description: 'Themes',
+      toolbar: {
+        // The label to show for this toolbar item
+        title: 'Theme',
+        // Array of plain string values or MenuItem shape (see below)
+        items: [
+          { value: 'standard', title: 'standard', icon: 'photo' },
+          { value: 'off-brand', title: 'off-brand', icon: 'paintbrush' },
+          { value: 'safety', title: 'safety', icon: 'alert' },
+        ],
+        // Change title based on selected value
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    mode: 'auto',
+    theme: 'standard',
+  },
   parameters,
   tags: ['autodocs'],
 } satisfies Preview;

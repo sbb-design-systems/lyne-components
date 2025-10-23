@@ -8,10 +8,11 @@ describe(`sbb-loading-indicator-circle`, () => {
   const cases = {
     color: ['default', 'smoke', 'white'],
     size: ['s', 'l'],
+    darkMode: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ color, size }) => {
+    describeEach(cases, ({ color, size, darkMode }) => {
       it(
         '',
         visualDiffDefault.with(async (setup) => {
@@ -22,7 +23,11 @@ describe(`sbb-loading-indicator-circle`, () => {
                 style=${size === 'l' ? 'font-size: var(--sbb-font-size-text-xl);' : nothing}
               ></sbb-loading-indicator-circle>
             `,
-            { backgroundColor: color === 'white' ? 'var(--sbb-color-charcoal)' : undefined },
+            {
+              backgroundColor:
+                color === 'white' ? 'var(--sbb-background-color-1-negative)' : undefined,
+              darkMode,
+            },
           );
         }),
       );

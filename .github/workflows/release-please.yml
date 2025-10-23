@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # Required for OIDC
   packages: write
   pull-requests: write
 
@@ -58,6 +59,8 @@ jobs:
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-storybook-files.cjs
 
+      - name: Update npm
+        run: npm install --global npm@latest
       - name: 'Release: Determine npm tag'
         if: ${{ steps.release.outputs.release_created }}
         id: npm_tag
@@ -65,24 +68,24 @@ jobs:
 
       - name: 'Release: Publish @sbb-esta/lyne-elements'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/elements --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/elements
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-elements-experimental'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/elements-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/elements-experimental
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-react'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/react
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-react-experimental'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/react-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/react-experimental
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
 
       - uses: ./.github/actions/setup-mint
       - name: 'Container: Build and publish release image'
@@ -96,13 +99,9 @@ jobs:
             --preserve-path /usr/share/nginx/html \
             --include-new false
           docker push ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION
-          docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
-          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
           if [[ $VERSION != *"-"* ]]; then
             docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:latest
             docker push ${{ env.IMAGE_REPO_STORYBOOK }}:latest
-            docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim
-            docker push ${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim
           fi
           docker image list
         env:

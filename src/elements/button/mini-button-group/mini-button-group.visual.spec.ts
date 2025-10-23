@@ -22,7 +22,7 @@ describe('sbb-mini-button-group', () => {
     </sbb-mini-button-group>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const size of sizeCases) {
       it(
         `size=${size}`,
@@ -33,15 +33,22 @@ describe('sbb-mini-button-group', () => {
     }
 
     for (const negative of [false, true]) {
-      it(
-        `${visualDiffFocus.name} negative=${negative}`,
-        visualDiffFocus.with(async (setup) => {
-          await setup.withFixture(template(undefined, negative), {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-            focusOutlineDark: negative,
+      describe(`negative=${negative}`, () => {
+        for (const darkMode of [false, true]) {
+          describe(`darkMode=${darkMode}`, () => {
+            it(
+              visualDiffFocus.name,
+              visualDiffFocus.with(async (setup) => {
+                await setup.withFixture(template(undefined, negative), {
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                  focusOutlineDark: negative,
+                  darkMode,
+                });
+              }),
+            );
           });
-        }),
-      );
+        }
+      });
     }
   });
 });

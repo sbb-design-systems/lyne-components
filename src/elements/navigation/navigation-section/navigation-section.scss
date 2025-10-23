@@ -1,11 +1,8 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-navigation-section-display: none;
-  --sbb-navigation-section-column: 1 / 5;
+  --sbb-navigation-section-column: 1 / -1;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
   --sbb-navigation-section-animation-duration: var(
@@ -32,7 +29,7 @@
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
   @include sbb.mq($from: large) {
-    --sbb-navigation-section-column: 5 / 9;
+    --sbb-navigation-section-column: 5 / 13;
     --sbb-navigation-section-animation-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-4x)
@@ -48,10 +45,6 @@
     );
 
     translate: calc(var(--sbb-grid-base-gutter-responsive) * -1) 0;
-  }
-
-  @include sbb.mq($from: wide) {
-    --sbb-navigation-section-column: 5 / 13;
   }
 
   @include sbb.mq($from: ultra) {
@@ -97,7 +90,7 @@
   margin: 0;
   width: 100%;
   height: 100%;
-  color: var(--sbb-color-white);
+  color: var(--sbb-navigation-color, var(--sbb-color-1-negative));
   background-color: transparent;
   padding: 0;
   overflow: hidden;
@@ -151,7 +144,7 @@
     padding-inline-start: 0;
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     grid-column: 1 / 4;
   }
 }
@@ -166,17 +159,18 @@
 }
 
 .sbb-navigation-section__title {
-  @include sbb.title-4($exclude-spacing: true);
+  @include sbb.title-rules;
+  @include sbb.title--level-4;
 
   @include sbb.mq($from: large) {
-    @include sbb.title-2($exclude-spacing: true);
+    @include sbb.title--level-2;
   }
 }
 
 .sbb-navigation-section__content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
+  gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
   padding-inline: var(--sbb-navigation-section-padding-inline);
 
   @include sbb.mq($from: large) {
@@ -195,7 +189,7 @@
     }
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     grid-template-columns: repeat(3, 1fr);
   }
 

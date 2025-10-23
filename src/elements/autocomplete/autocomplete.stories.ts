@@ -18,6 +18,7 @@ import { SbbOptionElement } from '../option.js';
 import { SbbAutocompleteElement } from './autocomplete.component.js';
 import readme from './readme.md?raw';
 
+import '../card.js';
 import '../form-field.js';
 import '../form-error.js';
 
@@ -66,6 +67,24 @@ const autoActiveFirstOption: InputType = {
   },
 };
 
+const autoSelectActiveOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
+const requireSelection: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -76,6 +95,15 @@ const iconName: InputType = {
 };
 
 const disableOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const ellipsis: InputType = {
   control: {
     type: 'boolean',
   },
@@ -128,10 +156,13 @@ const defaultArgTypes: ArgTypes = {
   readonly,
   preserveIconSpace,
   autoActiveFirstOption,
+  autoSelectActiveOption,
+  requireSelection,
 
   // Option args
   iconName,
   disableOption,
+  ellipsis,
 
   // Form field args
   borderless,
@@ -151,12 +182,15 @@ const defaultArgs: Args = {
   negative: false,
   disabled: false,
   readonly: false,
+  autoSelectActiveOption: false,
+  requireSelection: false,
 
   // Option args
   iconName: 'clock-small',
   preserveIconSpace: true,
   autoActiveFirstOption: false,
   disableOption: false,
+  ellipsis: false,
 
   // Form field args
   borderless: false,
@@ -185,13 +219,13 @@ const scrollDecorator: Decorator = (story) => html`
 
 const createOptionGroup1 = (iconName: string, disableOption: boolean): TemplateResult => {
   return html`
-    <sbb-option icon-name=${iconName} value="Option 1"> Option 1 </sbb-option>
+    <sbb-option icon-name=${iconName} value="Option 1">Option 1</sbb-option>
     <sbb-option icon-name=${iconName} ?disabled=${disableOption} value="Option 2">
       Option 2
     </sbb-option>
     <sbb-option value="Option 3">
       <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-      Option 3
+      Option 3 with a long text which can wrap
     </sbb-option>
   `;
 };
@@ -202,27 +236,17 @@ const createOptionGroup2 = (): TemplateResult => {
   `;
 };
 
-const textBlockStyle: Args = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
-};
-
 const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const textBlock = (): TemplateResult => html`
-  <div style=${styleMap(textBlockStyle)}>
+  <sbb-card color="milk" style="margin-block-start: 1rem; z-index: 100">
     This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than the form
     field, but it must always be covered by the autocomplete overlay.
-  </div>
+  </sbb-card>
 `;
 
 const Template = (args: Args): TemplateResult => html`
@@ -239,6 +263,8 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-autocomplete
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?require-selection=${args.requireSelection}
       >
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
@@ -261,6 +287,8 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       <sbb-autocomplete
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?require-selection=${args.requireSelection}
       >
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
           ${createOptionGroup1(args.iconName, args.disableOption)}
@@ -286,6 +314,8 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       <sbb-autocomplete
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?require-selection=${args.requireSelection}
       >
         <sbb-option value="Option 1">
           <sbb-icon
@@ -340,6 +370,8 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         <sbb-autocomplete
           ?preserve-icon-space=${args.preserveIconSpace}
           ?auto-active-first-option=${args.autoActiveFirstOption}
+          ?auto-select-active-option=${args.autoSelectActiveOption}
+          ?require-selection=${args.requireSelection}
         >
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
             ${createOptionGroup1(args.iconName, args.disableOption)}
@@ -432,6 +464,18 @@ export const Readonly: StoryObj = {
   args: { ...defaultArgs, readonly: true },
 };
 
+export const AutoSelectActiveOption: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, autoSelectActiveOption: true },
+};
+
+export const RequireSelection: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, requireSelection: true },
+};
+
 export const BorderlessOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -476,8 +520,18 @@ export const MixedSingleOptionWithOptionGroupSizeS: StoryObj = {
   args: { ...withGroupsDefaultArgs, size: size.options![1] },
 };
 
+export const WithEllipsis: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, ellipsis: true },
+};
+
 const meta: Meta = {
-  decorators: [withActions as Decorator],
+  decorators: [
+    withActions as Decorator,
+    (story, context) =>
+      html`<div class=${context.args.ellipsis ? `sbb-options-nowrap` : ``}>${story()}</div>`,
+  ],
   parameters: {
     actions: {
       handles: [
@@ -490,7 +544,9 @@ const meta: Meta = {
       ],
     },
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '500px' },

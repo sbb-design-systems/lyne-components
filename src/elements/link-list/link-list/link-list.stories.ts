@@ -48,7 +48,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['zero', 'small', 'large', 'ultra'],
 };
 
 const negative: InputType = {
@@ -151,7 +151,7 @@ export const LinkListHorizontalFrom: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'horizontal-from': 'medium',
+    'horizontal-from': 'large',
   },
 };
 
@@ -166,7 +166,9 @@ export const LinkListWithSlottedTitle: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     docs: {
       extractComponentDescription: () => readme,
     },

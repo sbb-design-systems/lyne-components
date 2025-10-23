@@ -37,6 +37,11 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
     this.state ||= 'closed';
   }
 
+  /** The method which is called on escape key press. Defaults to calling close() */
+  public escapeStrategy(): void {
+    this.close();
+  }
+
   protected dispatchBeforeOpenEvent(): boolean {
     /** Emits whenever the component starts the opening transition. Can be canceled. */
     return this.dispatchEvent(new Event('beforeopen', { cancelable: true }));
