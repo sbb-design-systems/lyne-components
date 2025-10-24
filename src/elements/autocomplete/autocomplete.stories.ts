@@ -85,6 +85,16 @@ const requireSelection: InputType = {
   },
 };
 
+const position: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['auto', 'below', 'above'],
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -158,6 +168,7 @@ const defaultArgTypes: ArgTypes = {
   autoActiveFirstOption,
   autoSelectActiveOption,
   requireSelection,
+  position,
 
   // Option args
   iconName,
@@ -184,6 +195,7 @@ const defaultArgs: Args = {
   readonly: false,
   autoSelectActiveOption: false,
   requireSelection: false,
+  position: position.options![0],
 
   // Option args
   iconName: 'clock-small',
@@ -261,6 +273,7 @@ const Template = (args: Args): TemplateResult => html`
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
       <sbb-autocomplete
+        position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
         ?auto-select-active-option=${args.autoSelectActiveOption}
@@ -285,6 +298,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
       <sbb-autocomplete
+        position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
         ?auto-select-active-option=${args.autoSelectActiveOption}
@@ -312,6 +326,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
       <sbb-autocomplete
+        position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
         ?auto-select-active-option=${args.autoSelectActiveOption}
@@ -368,6 +383,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         />
 
         <sbb-autocomplete
+          position=${args.position}
           ?preserve-icon-space=${args.preserveIconSpace}
           ?auto-active-first-option=${args.autoActiveFirstOption}
           ?auto-select-active-option=${args.autoSelectActiveOption}

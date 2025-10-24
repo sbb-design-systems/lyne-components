@@ -100,6 +100,8 @@ export function getElementPosition(
     horizontalOffset?: number;
     centered?: boolean;
     responsiveHeight?: boolean;
+    forceAbove?: boolean;
+    forceBelow?: boolean;
   },
 ): SbbElementPositionInfos {
   const maxWidthOffset = 16;
@@ -162,14 +164,15 @@ export function getElementPosition(
   }
 
   // Check if vertical alignment needs to be changed to "above":
-  if (
+  const shouldOpenAbove =
     (availableSpaceBelow - verticalOffset < elementRec.scrollHeight &&
       availableSpaceAbove - verticalOffset >
         (responsiveHeight ? elementRec.clientHeight : elementRec.scrollHeight)) ||
     (availableSpaceAbove > availableSpaceBelow &&
       availableSpaceBelow - verticalOffset < elementRec.clientHeight &&
-      !responsiveHeight)
-  ) {
+      !responsiveHeight);
+
+  if (!properties?.forceBelow && (properties?.forceAbove || shouldOpenAbove)) {
     elementYPosition =
       availableSpaceAbove < elementRec.scrollHeight
         ? elementYPosition - triggerRec.height - availableSpaceAbove - verticalOffset

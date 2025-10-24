@@ -95,6 +95,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   @property({ attribute: 'require-selection', type: Boolean })
   public accessor requireSelection: boolean = false;
 
+  /**
+   * The position of the autocomplete panel relative to the trigger.
+   * @default 'auto'
+   */
+  @property()
+  public accessor position: 'auto' | 'above' | 'below' = 'auto';
+
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
@@ -437,6 +444,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._optionContainer,
       this.shadowRoot!.querySelector('.sbb-autocomplete__container')!,
       this,
+      this.position,
     );
   }
 
