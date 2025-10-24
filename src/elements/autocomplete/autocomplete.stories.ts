@@ -89,7 +89,7 @@ const position: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['auto', 'bottom', 'top'],
+  options: ['auto', 'below', 'above'],
   table: {
     category: 'Autocomplete',
   },

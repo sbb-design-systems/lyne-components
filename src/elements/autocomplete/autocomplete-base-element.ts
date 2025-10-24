@@ -101,7 +101,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
    * @default 'auto'
    */
   @property()
-  public accessor position: 'auto' | 'top' | 'bottom' = 'auto';
+  public accessor position: 'auto' | 'above' | 'below' = 'auto';
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {

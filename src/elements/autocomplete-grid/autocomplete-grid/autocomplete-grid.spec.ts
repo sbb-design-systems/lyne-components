@@ -638,7 +638,7 @@ describe(`sbb-autocomplete-grid`, () => {
 
   it('should open above if forced to', async () => {
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
-    element.position = 'top';
+    element.position = 'above';
     await waitForLitRender(element);
 
     element.open();
@@ -653,7 +653,7 @@ describe(`sbb-autocomplete-grid`, () => {
 
     // Move the form field to the bottom of the page
     formField.style = 'position: static; inset-block-end: 2rem';
-    element.position = 'bottom';
+    element.position = 'below';
     await waitForLitRender(element);
 
     element.open();
