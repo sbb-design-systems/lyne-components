@@ -34,6 +34,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
+    ɵpage: 'ɵpage',
   } as const;
 
   /** The available `pageSize` choices. */
@@ -127,6 +128,21 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     }
   }
 
+  /**
+   * A `pageSize` change would trigger a `pageIndex` change via `willUpdate`;
+   * this triggers a `ɵpage` event, but it's late for the `page` event,
+   * so the checks on the `pageIndex` changes are done here, and possibly the event is emitted.
+   */
+  private _setPageSizeFromSizeOptionsSelect(value: number): void {
+    const previousPageSize = this.pageSize;
+    const currentPageIndex = this.pageIndex;
+    this.pageSize = value;
+    const newPageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
+    if (currentPageIndex !== newPageIndex) {
+      this.emitPageEvent(currentPageIndex, newPageIndex);
+    }
+  }
+
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
@@ -148,7 +164,9 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
                 @change=${(e: Event) =>
-                  (this.pageSize = +((e.target as SbbSelectElement).value as string))}
+                  this._setPageSizeFromSizeOptionsSelect(
+                    +((e.target as SbbSelectElement).value as string),
+                  )}
               >
                 ${repeat(
                   this.pageSizeOptions!,
@@ -184,7 +202,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                         ? this.accessibilityPageLabel
                         : i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      @click=${() => (this.pageIndex = item)}
+                      @click=${() => this.changeAndEmitPage(item)}
                       @keyup=${this._handleKeyUp}
                     >
                       <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
