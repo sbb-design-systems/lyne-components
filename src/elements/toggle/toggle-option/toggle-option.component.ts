@@ -3,7 +3,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, slotState } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { setOrRemoveAttribute } from '../../core/dom.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
@@ -21,7 +21,6 @@ import style from './toggle-option.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle-option')
-@slotState()
 class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {

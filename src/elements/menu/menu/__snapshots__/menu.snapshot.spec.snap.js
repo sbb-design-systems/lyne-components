@@ -12,7 +12,6 @@ snapshots["sbb-menu renders DOM"] =
     data-action=""
     data-link=""
     data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
@@ -23,7 +22,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="tick-small"
     tabindex="0"
   >
@@ -32,7 +30,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -42,7 +39,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="swisspass-small"
     sbb-badge="2"
     tabindex="0"
@@ -54,7 +50,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="cross-small"
     tabindex="0"
   >
@@ -75,7 +70,6 @@ snapshots["sbb-menu renders Shadow DOM"] =
       <sbb-menu-button
         data-action=""
         data-button=""
-        data-slot-names="unnamed"
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"
@@ -98,7 +92,6 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="tick-small"
     slot="li-0"
     tabindex="0"
@@ -108,7 +101,6 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -119,7 +111,6 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="swisspass-small"
     sbb-badge="2"
     slot="li-2"
@@ -130,7 +121,6 @@ snapshots["sbb-menu renders with list DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="cross-small"
     slot="li-3"
     tabindex="0"
@@ -172,7 +162,6 @@ snapshots["sbb-menu renders with list Shadow DOM"] =
       <sbb-menu-button
         data-action=""
         data-button=""
-        data-slot-names="unnamed"
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"
@@ -239,7 +228,6 @@ snapshots["sbb-menu renders open DOM"] =
     data-action=""
     data-link=""
     data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
@@ -250,7 +238,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="tick-small"
     tabindex="0"
   >
@@ -259,7 +246,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -269,7 +255,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="swisspass-small"
     sbb-badge="2"
     tabindex="0"
@@ -281,7 +266,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="cross-small"
     tabindex="0"
   >
@@ -302,7 +286,6 @@ snapshots["sbb-menu renders open Shadow DOM"] =
       <sbb-menu-button
         data-action=""
         data-button=""
-        data-slot-names="unnamed"
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"

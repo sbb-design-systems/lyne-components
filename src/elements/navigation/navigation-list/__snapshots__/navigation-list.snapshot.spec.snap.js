@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-navigation-list renders DOM"] = 
-`<sbb-navigation-list data-slot-names="li-0 li-1 li-2 li-3">
+`<sbb-navigation-list>
   <sbb-navigation-button
     data-action=""
     data-button=""

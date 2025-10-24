@@ -78,7 +78,7 @@
 }
 
 .sbb-file-selector__error {
-  :host(:not([data-slot-names~='error'])) & {
+  :host(:not(:state(slotted-error))) & {
     display: none;
   }
 }

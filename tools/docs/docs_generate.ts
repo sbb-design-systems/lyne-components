@@ -159,7 +159,7 @@ for (const manifestPath of manifestFilePaths) {
             (a, b) => (a.name ?? '').localeCompare(b.name ?? ''),
           ),
         );
-        declaration.members.forEach((member) => {
+        declaration.members?.forEach((member) => {
           if (member.deprecated) {
             member.description += '<br><strong>Deprecated</strong>';
             if (typeof member.deprecated === 'string') {

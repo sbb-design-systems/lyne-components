@@ -66,7 +66,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   display: inline-block;
   margin-block-start: var(--sbb-spacing-fixed-1x);
 
-  :host(:not([data-slot-names~='error'])) & {
+  :host(:not(:state(slotted-error))) & {
     display: none;
   }
 }

@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.js';
-import { forceType, getOverride, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import {
   type FormRestoreReason,
@@ -28,7 +28,6 @@ export type SbbTagSize = 's' | 'm';
  */
 export
 @customElement('sbb-tag')
-@slotState()
 class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {

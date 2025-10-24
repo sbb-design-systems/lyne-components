@@ -28,7 +28,6 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
           <sbb-secondary-button-static
             data-action=""
             data-sbb-button=""
-            data-slot-names="unnamed"
             size="m"
           >
             Choose a file
@@ -133,7 +132,6 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
           <sbb-secondary-button-static
             data-action=""
             data-sbb-button=""
-            data-slot-names="unnamed"
             size="m"
           >
             Choose files

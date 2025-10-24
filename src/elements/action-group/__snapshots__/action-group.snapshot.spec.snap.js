@@ -13,7 +13,6 @@ snapshots["sbb-action-group renders renders DOM"] =
     data-action=""
     data-button=""
     data-sbb-button=""
-    data-slot-names="unnamed"
     size="l"
     tabindex="0"
   >
@@ -23,7 +22,6 @@ snapshots["sbb-action-group renders renders DOM"] =
     data-action=""
     data-link=""
     data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"

@@ -2,11 +2,7 @@ import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import {
-  SbbMediaQueryHover,
-  SbbMediaMatcherController,
-  SbbSlotStateController,
-} from '../../core/controllers.js';
+import { SbbMediaQueryHover, SbbMediaMatcherController } from '../../core/controllers.js';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -30,7 +26,6 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     toggleexpanded: 'toggleexpanded',
   } as const;
 
-  private _namedSlots = new SbbSlotStateController(this, () => this._setDataIconAttribute());
   private _mediaMatcher = new SbbMediaMatcherController(this, {
     [SbbMediaQueryHover]: (m) => (this._isHover = m),
   });
@@ -42,6 +37,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     this.addEventListener?.('click', () => this._emitExpandedEvent());
     this.addEventListener?.('mouseenter', () => this._onMouseMovement(true));
     this.addEventListener?.('mouseleave', () => this._onMouseMovement(false));
+    this.addEventListener?.('slottedchange', () => this._setIconState());
   }
 
   public override connectedCallback(): void {
@@ -65,16 +61,16 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   }
 
   /**
-   * The 'data-icon' is used by the 'sbb-expansion-panel'.
+   * The :state(icon) is used by the 'sbb-expansion-panel'.
    * It needs to be set before the @slotchange event bubbles to the 'expansion-panel'
    * but after the 'SbbSlotStateController' has run.
    */
-  private _setDataIconAttribute(): void {
-    this.toggleAttribute('data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));
+  private _setIconState(): void {
+    this.toggleState('icon', !!(this.iconName || this.internals.states.has('icon')));
   }
 
   protected override renderTemplate(): TemplateResult {
-    this._setDataIconAttribute();
+    this._setIconState();
     return html`
       <span class="sbb-expansion-panel-header__title">
         <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>

@@ -5,7 +5,6 @@ snapshots["sbb-breadcrumb renders with text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
-  data-slot-names="unnamed"
   download=""
   href="https://example.com/test"
   rel="subsection"
@@ -73,7 +72,6 @@ snapshots["sbb-breadcrumb renders with icon and text DOM"] =
 `<sbb-breadcrumb
   data-action=""
   data-link=""
-  data-slot-names="unnamed"
   href="/"
   icon-name="house-small"
 >
@@ -127,7 +125,7 @@ snapshots["sbb-breadcrumb renders with text A11y tree Firefox"] =
   "children": [
     {
       "role": "link",
-      "name": "Breadcrumb . Link target opens in a new window.",
+      "name": ". Link target opens in a new window.",
       "value": "https://example.com/test"
     }
   ]

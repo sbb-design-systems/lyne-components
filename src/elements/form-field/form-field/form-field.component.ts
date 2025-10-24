@@ -12,7 +12,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType, slotState } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { i18nOptional } from '../../core/i18n.js';
 import {
@@ -80,7 +80,6 @@ export class SbbFormFieldControlEvent extends Event {
  */
 export
 @customElement('sbb-form-field')
-@slotState()
 class SbbFormFieldElement extends SbbNegativeMixin(
   SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
 ) {

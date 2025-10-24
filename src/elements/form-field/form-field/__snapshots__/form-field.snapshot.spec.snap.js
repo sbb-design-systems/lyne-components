@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-form-field renders input DOM"] = 
 `<sbb-form-field
-  data-slot-names="label unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -60,7 +59,6 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
 
 snapshots["sbb-form-field renders disabled input DOM"] = 
 `<sbb-form-field
-  data-slot-names="label unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -119,7 +117,6 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
 
 snapshots["sbb-form-field renders readonly input with error DOM"] = 
 `<sbb-form-field
-  data-slot-names="error label unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -186,7 +183,6 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
 
 snapshots["sbb-form-field should render select without label DOM"] = 
 `<sbb-form-field
-  data-slot-names="unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -251,7 +247,6 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
 snapshots["sbb-form-field renders select with optional flag and borderless DOM"] = 
 `<sbb-form-field
   borderless=""
-  data-slot-names="label unnamed"
   error-space="none"
   optional=""
   size="m"

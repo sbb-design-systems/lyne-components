@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators/slot-state.js';
 import type { SbbHorizontalFrom } from '../../core/interfaces.js';
 import type { AbstractConstructor } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
@@ -23,7 +22,6 @@ export const SbbHeaderActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbHeaderActionCommonElementMixinType> & T => {
-  @slotState()
   abstract class SbbHeaderActionCommonElement
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>

@@ -6,7 +6,6 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button without icon 
   data-action=""
   data-button=""
   data-sbb-button=""
-  data-slot-names="unnamed"
   disabled=""
   form="formid"
   name="name"
@@ -37,7 +36,6 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted 
   data-action=""
   data-button=""
   data-sbb-button=""
-  data-slot-names="icon unnamed"
   size="l"
   tabindex="0"
 >

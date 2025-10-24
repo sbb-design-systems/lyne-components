@@ -9,7 +9,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride, slotState } from '../../core/decorators.js';
+import { getOverride } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type {
   SbbCheckedStateChange,
@@ -46,7 +46,6 @@ export type SbbCheckboxPanelStateChange = Extract<
  */
 export
 @customElement('sbb-checkbox-panel')
-@slotState()
 class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {

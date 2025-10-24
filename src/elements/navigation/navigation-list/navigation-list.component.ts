@@ -7,7 +7,8 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { forceType, omitEmptyConverter } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
@@ -24,7 +25,6 @@ import style from './navigation-list.scss?lit&inline';
  */
 export
 @customElement('sbb-navigation-list')
-@slotState()
 class SbbNavigationListElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
@@ -41,6 +41,11 @@ class SbbNavigationListElement extends SbbNamedSlotListMixin<
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor label: string = '';
+
+  public constructor() {
+    super();
+    this.addController(new SbbSlotStateController(this, this.attachInternals()));
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

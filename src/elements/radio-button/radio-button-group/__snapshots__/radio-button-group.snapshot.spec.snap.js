@@ -3,12 +3,10 @@ export const snapshots = {};
 
 snapshots["sbb-radio-button-group renders DOM"] = 
 `<sbb-radio-button-group
-  data-slot-names="unnamed"
   orientation="horizontal"
   value="2"
 >
   <sbb-radio-button
-    data-slot-names="unnamed"
     size="m"
     value="1"
   >
@@ -16,7 +14,6 @@ snapshots["sbb-radio-button-group renders DOM"] =
   </sbb-radio-button>
   <sbb-radio-button
     data-checked=""
-    data-slot-names="unnamed"
     size="m"
     tabindex="0"
     value="2"
@@ -24,7 +21,6 @@ snapshots["sbb-radio-button-group renders DOM"] =
     2
   </sbb-radio-button>
   <sbb-radio-button
-    data-slot-names="unnamed"
     size="m"
     value="3"
   >
@@ -49,12 +45,10 @@ snapshots["sbb-radio-button-group renders Shadow DOM"] =
 snapshots["sbb-radio-button-group renders with panel DOM"] = 
 `<sbb-radio-button-group
   data-has-panel=""
-  data-slot-names="unnamed"
   orientation="horizontal"
 >
   <sbb-radio-button-panel
     color="white"
-    data-slot-names="unnamed"
     size="m"
     tabindex="0"
     value="checkbox-1"
@@ -63,7 +57,6 @@ snapshots["sbb-radio-button-group renders with panel DOM"] =
   </sbb-radio-button-panel>
   <sbb-radio-button-panel
     color="white"
-    data-slot-names="unnamed"
     size="m"
     value="checkbox-2"
   >
@@ -71,7 +64,6 @@ snapshots["sbb-radio-button-group renders with panel DOM"] =
   </sbb-radio-button-panel>
   <sbb-radio-button-panel
     color="white"
-    data-slot-names="unnamed"
     size="m"
     value="checkbox-3"
   >
@@ -96,18 +88,15 @@ snapshots["sbb-radio-button-group renders with panel Shadow DOM"] =
 snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] = 
 `<sbb-radio-button-group
   data-has-panel=""
-  data-slot-names="unnamed"
   orientation="horizontal"
 >
   <sbb-selection-expansion-panel
     color="white"
     data-size="m"
-    data-slot-names="unnamed"
     data-state="closed"
   >
     <sbb-radio-button-panel
       color="white"
-      data-slot-names="unnamed"
       size="m"
       tabindex="0"
       value="checkbox-1"
@@ -116,7 +105,6 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] =
     </sbb-radio-button-panel>
     <sbb-radio-button-panel
       color="white"
-      data-slot-names="unnamed"
       size="m"
       tabindex="0"
       value="checkbox-2"
@@ -125,7 +113,6 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] =
     </sbb-radio-button-panel>
     <sbb-radio-button-panel
       color="white"
-      data-slot-names="unnamed"
       size="m"
       tabindex="0"
       value="checkbox-3"

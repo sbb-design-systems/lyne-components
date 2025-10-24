@@ -1,5 +1,7 @@
 import { isServer, type LitElement, type ReactiveController } from 'lit';
 
+import { SbbSlotStateController } from '../controllers.js';
+
 import type { AbstractConstructor } from './constructor.js';
 
 // Most of our target browsers support the :state() pseudo class, but not all of them.
@@ -296,6 +298,7 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       if (role) {
         this.internals.role = role;
       }
+      this.addController(new SbbSlotStateController(this, this.internals));
     }
 
     protected toggleState(state: string, force?: boolean): void {

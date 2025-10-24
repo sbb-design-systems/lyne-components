@@ -3,7 +3,7 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.js';
-import { hostAttributes, slotState } from '../../core/decorators.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
@@ -30,7 +30,6 @@ export
   tabindex: null,
   'data-button': '',
 })
-@slotState()
 class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {

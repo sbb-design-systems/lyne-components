@@ -14,7 +14,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
   <sbb-breadcrumb
     data-action=""
     data-link=""
-    data-slot-names="unnamed"
     href="https://example.com/one"
     slot="li-1"
   >
@@ -24,7 +23,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
     accessibility-current="page"
     data-action=""
     data-link=""
-    data-slot-names="unnamed"
     href="https://example.com/one"
     slot="li-2"
   >
@@ -105,12 +103,12 @@ snapshots["sbb-breadcrumb-group renders A11y tree Firefox"] =
     },
     {
       "role": "link",
-      "name": "One",
+      "name": "",
       "value": "https://example.com/one"
     },
     {
       "role": "link",
-      "name": "Two",
+      "name": "",
       "value": "https://example.com/one"
     }
   ]

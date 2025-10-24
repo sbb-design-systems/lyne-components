@@ -6,7 +6,6 @@ snapshots["sbb-menu-button renders DOM"] =
   aria-label="a11y label"
   data-action=""
   data-button=""
-  data-slot-names="unnamed"
   form="formid"
   name="name"
   tabindex="0"
@@ -44,7 +43,6 @@ snapshots["sbb-menu-button renders component with icon DOM"] =
 `<sbb-menu-button
   data-action=""
   data-button=""
-  data-slot-names="unnamed"
   icon-name="menu-small"
   tabindex="0"
 >

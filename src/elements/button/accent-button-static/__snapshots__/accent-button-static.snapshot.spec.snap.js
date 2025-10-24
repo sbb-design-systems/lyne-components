@@ -5,7 +5,6 @@ snapshots["sbb-accent-button-static renders without icon DOM"] =
 `<sbb-accent-button-static
   data-action=""
   data-sbb-button=""
-  data-slot-names="unnamed"
   disabled=""
   negative=""
   size="m"
@@ -31,7 +30,6 @@ snapshots["sbb-accent-button-static renders with slotted icon DOM"] =
 `<sbb-accent-button-static
   data-action=""
   data-sbb-button=""
-  data-slot-names="icon unnamed"
   size="l"
 >
   <sbb-icon

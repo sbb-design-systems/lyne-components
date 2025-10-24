@@ -198,9 +198,9 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     if (this._headerRef && this._contentRef) {
       this._headerRef.setAttribute('aria-controls', this._contentRef.id);
       this._contentRef.setAttribute('aria-labelledby', this._headerRef.id);
-      this._contentRef.toggleAttribute(
-        'data-icon-space',
-        this._headerRef.hasAttribute('data-icon'),
+      this._contentRef['toggleState'](
+        'icon-space',
+        this._headerRef['internals'].states.has('icon'),
       );
     }
   }

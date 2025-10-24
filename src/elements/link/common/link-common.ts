@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { hostAttributes, slotState } from '../../core/decorators.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
 
@@ -20,7 +20,6 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
   @hostAttributes({ 'data-sbb-link': '' })
-  @slotState()
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>

@@ -2,12 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-checkbox-group renders DOM"] = 
-`<sbb-checkbox-group
-  data-slot-names="unnamed"
-  orientation="horizontal"
->
+`<sbb-checkbox-group orientation="horizontal">
   <sbb-checkbox
-    data-slot-names="unnamed"
     icon-placement="end"
     size="m"
     tabindex="0"
@@ -16,7 +12,6 @@ snapshots["sbb-checkbox-group renders DOM"] =
     Label 1
   </sbb-checkbox>
   <sbb-checkbox
-    data-slot-names="unnamed"
     icon-placement="end"
     size="m"
     tabindex="0"
@@ -25,7 +20,6 @@ snapshots["sbb-checkbox-group renders DOM"] =
     Label 2
   </sbb-checkbox>
   <sbb-checkbox
-    data-slot-names="unnamed"
     icon-placement="end"
     size="m"
     tabindex="0"
@@ -103,12 +97,10 @@ snapshots["sbb-checkbox-group renders A11y tree Firefox"] =
 snapshots["sbb-checkbox-group renders with panel DOM"] = 
 `<sbb-checkbox-group
   data-has-panel=""
-  data-slot-names="unnamed"
   orientation="horizontal"
 >
   <sbb-checkbox-panel
     color="white"
-    data-slot-names="unnamed"
     size="m"
     tabindex="0"
     value="checkbox-1"
@@ -117,7 +109,6 @@ snapshots["sbb-checkbox-group renders with panel DOM"] =
   </sbb-checkbox-panel>
   <sbb-checkbox-panel
     color="white"
-    data-slot-names="unnamed"
     size="m"
     tabindex="0"
     value="checkbox-2"
@@ -126,7 +117,6 @@ snapshots["sbb-checkbox-group renders with panel DOM"] =
   </sbb-checkbox-panel>
   <sbb-checkbox-panel
     color="white"
-    data-slot-names="unnamed"
     size="m"
     tabindex="0"
     value="checkbox-3"
@@ -152,18 +142,15 @@ snapshots["sbb-checkbox-group renders with panel Shadow DOM"] =
 snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] = 
 `<sbb-checkbox-group
   data-has-panel=""
-  data-slot-names="unnamed"
   orientation="horizontal"
 >
   <sbb-selection-expansion-panel
     color="white"
     data-size="m"
-    data-slot-names="unnamed"
     data-state="closed"
   >
     <sbb-checkbox-panel
       color="white"
-      data-slot-names="unnamed"
       size="m"
       tabindex="0"
       value="checkbox-1"
@@ -172,7 +159,6 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] =
     </sbb-checkbox-panel>
     <sbb-checkbox-panel
       color="white"
-      data-slot-names="unnamed"
       size="m"
       tabindex="0"
       value="checkbox-2"
@@ -181,7 +167,6 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] =
     </sbb-checkbox-panel>
     <sbb-checkbox-panel
       color="white"
-      data-slot-names="unnamed"
       size="m"
       tabindex="0"
       value="checkbox-3"

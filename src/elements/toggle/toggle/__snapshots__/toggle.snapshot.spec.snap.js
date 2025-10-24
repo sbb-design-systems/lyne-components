@@ -8,14 +8,12 @@ snapshots["sbb-toggle renders DOM"] =
 >
   <sbb-toggle-option
     checked=""
-    data-slot-names="unnamed"
     tabindex="0"
     value="Value one"
   >
     Value one
   </sbb-toggle-option>
   <sbb-toggle-option
-    data-slot-names="unnamed"
     tabindex="-1"
     value="Value two"
   >

@@ -2,7 +2,6 @@ import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators.js';
 import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -19,7 +18,6 @@ export const SbbMenuActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbMenuActionCommonElementMixinType> & T => {
-  @slotState()
   abstract class SbbMenuActionCommonElement
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements SbbMenuActionCommonElementMixinType

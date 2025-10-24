@@ -9,7 +9,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <sbb-tag
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     size="m"
     slot="li-0"
     tabindex="0"
@@ -20,7 +19,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <sbb-tag
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     size="m"
     slot="li-1"
     tabindex="0"
@@ -33,7 +31,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <sbb-tag
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     size="m"
     slot="li-3"
     tabindex="0"

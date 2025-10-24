@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-radio-button-panel renders DOM"] = 
 `<sbb-radio-button-panel
   color="white"
-  data-slot-names="subtext suffix unnamed"
   name="radio"
   size="m"
   tabindex="0"
@@ -46,7 +45,6 @@ snapshots["sbb-radio-button-panel renders checked DOM"] =
   checked=""
   color="white"
   data-checked=""
-  data-slot-names="subtext suffix unnamed"
   name="radio"
   size="m"
   tabindex="0"

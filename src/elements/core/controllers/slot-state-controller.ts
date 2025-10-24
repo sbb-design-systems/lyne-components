@@ -1,103 +1,115 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
+export class SbbSlottedChangeEvent extends Event {
+  public constructor(public readonly slot: HTMLSlotElement) {
+    super('slottedchange', { composed: true });
+  }
+}
+
 /**
- * This controller checks for slotted children. From these it generates
- * a list of used slot names (`unnamed` for children without a slot attribute)
- * and adds this to the `data-slot-names` attribute, as a space separated list.
+ * This controller checks for slotted children. From these it updates
+ * the ElementInternals states with the pattern `slotted-<name>` or `slotted`
+ * for the unnamed slot.
  *
- * This allows CSS attribute selector to display/hide/configure a section
- * of the component as required (see [attr~=value] selector specifically).
+ * This allows a :state(slotted-<name>) CSS selector to display/hide/configure
+ * a section of the component as required.
  *
  * @example
  * .example {
  *   display: none;
  *
- *   :host([data-slot-names~="icon"]) & {
+ *   :host(:state(slotted-icon)) & {
  *     display: inline;
  *   }
  * }
  *
- * https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/:state
  */
 export class SbbSlotStateController implements ReactiveController {
-  public readonly slots = new Set<string>();
-
   private _textObserver =
     !isServer &&
     new MutationObserver(() => {
-      const hasTextNodeContent = Array.from(this._host.childNodes)
-        .filter((n) => n.nodeType === n.TEXT_NODE)
-        .some((n) => n.textContent?.trim());
-
-      if (hasTextNodeContent) {
-        this.slots.add('unnamed');
-      } else if (Array.from(this._host.children).every((e) => e.slot)) {
-        this.slots.delete('unnamed');
+      const slot = this._host.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])');
+      if (slot) {
+        this._updateSlottedState(slot);
+      } else {
+        this._textObserver.disconnect();
       }
-      this._updateSlotNameAttribute();
     });
 
   public constructor(
     private _host: ReactiveControllerHost & HTMLElement,
-    private _onChangeCallback: (() => void) | null = null,
+    private _internals: ElementInternals,
   ) {
     this._host.addController(this);
   }
 
-  public hostConnected(): void {
-    this._syncSlots(...(this._host.shadowRoot?.querySelectorAll?.('slot') ?? []));
-    this._host.shadowRoot?.addEventListener('slotchange', this._slotchangeHandler);
-  }
-
-  public hostDisconnected(): void {
-    this._host.shadowRoot?.removeEventListener('slotchange', this._slotchangeHandler);
-    this._textObserver.disconnect();
-  }
-
-  // We avoid using AbortController here, as it would mean creating
-  // a new instance for every SbbSlotStateController instance.
-  private _slotchangeHandler = (event: Event): void => {
-    this._syncSlots(event.target as HTMLSlotElement);
+  public hostConnected: ReactiveController['hostConnected'] = (): void => {
+    this._host.shadowRoot?.addEventListener('slotchange', (e) =>
+      this._slotchangeHandler(e.target as HTMLSlotElement),
+    );
+    this._host.shadowRoot?.addEventListener(
+      'slottedchange',
+      (e) => this._slotchangeHandler(e.slot),
+      { capture: true },
+    );
+    this._internals.shadowRoot
+      ?.querySelectorAll('slot')
+      .forEach((slot) => this._slotchangeHandler(slot));
+    this.hostConnected = undefined;
   };
 
-  private _syncSlots(...slots: HTMLSlotElement[]): void {
-    this._textObserver.disconnect();
-
-    for (const slot of slots) {
-      const slotName = slot.name || 'unnamed';
-      // We want to check, whether an element is slotted or a text node with actual content.
-      if (slot.assignedNodes().some((n) => 'tagName' in n || n.textContent?.trim())) {
-        this.slots.add(slotName);
-      } else {
-        this.slots.delete(slotName);
-      }
-      this._updateSlotNameAttribute();
+  private _slotchangeHandler = (slot: HTMLSlotElement): void => {
+    this._updateSlottedState(slot);
+    if (!slot.name) {
+      this._observeTextNodesInSlot(slot);
     }
+  };
 
+  private _updateSlottedState(slot: HTMLSlotElement): void {
+    const stateName = slot.name ? `slotted-${slot.name}` : 'slotted';
+    const hasSlottedContent = this._hasSlottedContent(slot);
+    if (hasSlottedContent && !this._internals.states.has(stateName)) {
+      this._internals.states.add(stateName);
+      this._host.dispatchEvent(new SbbSlottedChangeEvent(slot));
+    } else if (!hasSlottedContent && this._internals.states.has(stateName)) {
+      this._internals.states.delete(stateName);
+      this._host.dispatchEvent(new SbbSlottedChangeEvent(slot));
+    }
+  }
+
+  private _observeTextNodesInSlot(slot: HTMLSlotElement): void {
+    this._textObserver.disconnect();
     // Text nodes can be empty and filled later (or vice versa).
     // Filling an existing node later would not trigger another slotchange event.
     // Therefore, we need to observe text nodes and check if they become filled or empty.
     // This is only needed for the unnamed slot as for every other there would
     // be a tag which triggers the slot change event.
     // The main reason is that Angular creates empty text nodes and fills them later.
-    slots
-      .find((s) => !s.name)
-      ?.assignedNodes()
+    slot
+      .assignedNodes()
       .filter((n) => n.nodeType === n.TEXT_NODE)
       .forEach((node) => this._textObserver.observe(node, { characterData: true }));
   }
 
-  private _updateSlotNameAttribute(): void {
-    const oldValue = this._host.getAttribute('data-slot-names');
-    const joinedSlotNames = [...this.slots].sort().join(' ');
-    if (!joinedSlotNames) {
-      this._host.removeAttribute('data-slot-names');
-    } else if (this._host.getAttribute('data-slot-names') !== joinedSlotNames) {
-      this._host.setAttribute('data-slot-names', joinedSlotNames);
-    }
+  private _hasSlottedContent(slot: HTMLSlotElement): boolean {
+    return slot.name
+      ? slot
+          .assignedElements()
+          .some((node) => !(node instanceof HTMLSlotElement) || this._hasSlottedContent(node))
+      : slot.assignedNodes().some((node) => {
+          return node instanceof HTMLSlotElement
+            ? this._hasSlottedContent(node)
+            : node.nodeType !== node.TEXT_NODE || !!node.textContent?.trim();
+        });
+  }
+}
 
-    if (joinedSlotNames !== oldValue) {
-      this._onChangeCallback?.();
-    }
+declare global {
+  interface HTMLElementEventMap {
+    slottedchange: SbbSlottedChangeEvent;
+  }
+  interface ShadowRootEventMap {
+    slottedchange: SbbSlottedChangeEvent;
   }
 }

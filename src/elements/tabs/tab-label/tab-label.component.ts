@@ -3,7 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { forceType, omitEmptyConverter } from '../../core/decorators.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -22,7 +22,6 @@ import style from './tab-label.scss?lit&inline';
  */
 export
 @customElement('sbb-tab-label')
-@slotState()
 class SbbTabLabelElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {

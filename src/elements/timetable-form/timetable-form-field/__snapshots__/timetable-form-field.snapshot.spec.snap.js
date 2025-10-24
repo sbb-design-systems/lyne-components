@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-timetable-form-field renders DOM"] = 
 `<sbb-timetable-form-field
   borderless=""
-  data-slot-names="label unnamed"
   error-space="none"
   floating-label=""
   size="l"

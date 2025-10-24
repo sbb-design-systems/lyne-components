@@ -147,7 +147,7 @@
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+  :host(:not(:state(slotted-icon), [icon-name])) & {
     display: none;
   }
 }
@@ -167,7 +167,7 @@
     @include sbb.text-xl--bold;
   }
 
-  :host(:not([data-slot-names~='unnamed'])) & {
+  :host(:not(:state(slotted-unnamed))) & {
     display: none;
   }
 }
@@ -179,7 +179,7 @@
 
   @include sbb.text-m--regular;
 
-  :host(:not([data-slot-names~='amount'], [amount])) & {
+  :host(:not(:state(slotted-amount), [amount])) & {
     display: none;
   }
 

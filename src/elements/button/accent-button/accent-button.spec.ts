@@ -11,15 +11,13 @@ import './accent-button.component.js';
 describe(`sbb-accent-button`, () => {
   it('should detect icon in sbb-accent-button', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-accent-button'));
-    const dataSlots = root.getAttribute('data-slot-names');
-    expect(dataSlots).to.contain('icon');
-    expect(dataSlots).not.to.contain('unnamed');
+    expect(root).to.match(':state(slotted-icon)');
+    expect(root).not.to.match(':state(slotted)');
   });
 
   it('should detect icon in sbb-accent-button when there is space around icon', async () => {
     const root = await fixture(buttonSpaceIconTestTemplate('sbb-accent-button'));
-    const dataSlots = root.getAttribute('data-slot-names');
-    expect(dataSlots).to.contain('icon');
-    expect(dataSlots).not.to.contain('unnamed');
+    expect(root).to.match(':state(slotted-icon)');
+    expect(root).not.to.match(':state(slotted)');
   });
 });

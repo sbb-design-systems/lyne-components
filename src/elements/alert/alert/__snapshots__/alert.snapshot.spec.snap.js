@@ -87,7 +87,6 @@ snapshots["sbb-alert should render customized properties DOM"] =
     data-action=""
     data-link=""
     data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch"
     negative=""
     size="s"

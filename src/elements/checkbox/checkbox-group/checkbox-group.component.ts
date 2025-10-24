@@ -3,7 +3,8 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType, slotState } from '../../core/decorators.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin } from '../../core/mixins.js';
@@ -22,7 +23,6 @@ import style from './checkbox-group.scss?lit&inline';
  */
 export
 @customElement('sbb-checkbox-group')
-@slotState()
 class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
@@ -56,6 +56,7 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
 
   public constructor() {
     super();
+    this.addController(new SbbSlotStateController(this, this.attachInternals()));
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 

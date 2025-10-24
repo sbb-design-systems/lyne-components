@@ -6,7 +6,6 @@ snapshots["sbb-tab-group renders DOM"] =
   <sbb-tab-label
     active=""
     data-size="l"
-    data-slot-names="unnamed"
     slot="tab-bar"
     tabindex="0"
   >
@@ -20,7 +19,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab>
   <sbb-tab-label
     data-size="l"
-    data-slot-names="unnamed"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -34,7 +32,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab>
   <sbb-tab-label
     data-size="l"
-    data-slot-names="unnamed"
     disabled=""
     slot="tab-bar"
     tabindex="-1"
@@ -49,7 +46,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab>
   <sbb-tab-label
     data-size="l"
-    data-slot-names="unnamed"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -88,20 +84,20 @@ snapshots["sbb-tab-group renders A11y tree Firefox"] =
   "children": [
     {
       "role": "tab",
-      "name": "Test tab label 1",
+      "name": "",
       "selected": true
     },
     {
       "role": "tab",
-      "name": "Test tab label 2"
+      "name": ""
     },
     {
       "role": "tab",
-      "name": "Test tab label 3"
+      "name": ""
     },
     {
       "role": "tab",
-      "name": "Test tab label 4"
+      "name": ""
     },
     {
       "role": "tabpanel",

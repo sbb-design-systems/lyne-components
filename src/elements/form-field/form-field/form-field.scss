@@ -193,7 +193,7 @@
   }
 }
 
-:host(:is(:not([data-slot-names~='label']), [hidden-label])) {
+:host(:is(:not(:state(slotted-label)), [hidden-label])) {
   --sbb-form-field-label-size: 0rem;
   --sbb-form-field-label-to-input-overlapping: 0rem;
 }
@@ -326,7 +326,7 @@
 
 // To avoid doubled payload, we group the rules.
 :is(.sbb-form-field__label, .sbb-form-field__label-spacer) {
-  :host(:not([data-slot-names~='label'])) & {
+  :host(:not(:state(slotted-label))) & {
     display: none;
   }
 

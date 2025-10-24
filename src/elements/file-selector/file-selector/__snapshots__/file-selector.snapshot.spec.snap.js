@@ -14,7 +14,6 @@ snapshots["sbb-file-selector renders Shadow DOM"] =
       <sbb-secondary-button-static
         data-action=""
         data-sbb-button=""
-        data-slot-names="unnamed"
         icon-name="folder-open-small"
         size="m"
       >
