@@ -10282,7 +10282,7 @@ export const MOCK_COACHES_RAW_1 = [
             },
             dimension: {
               width: 2,
-              height: 4,
+              height: 2,
               borderRadius: null,
             },
           },
