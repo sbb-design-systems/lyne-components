@@ -11,6 +11,9 @@ import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } fro
 import readme from './readme.md?raw';
 import { SbbSeatReservationElement } from './seat-reservation.component.js';
 
+import '../../../elements/dialog.js';
+import '../../../elements/card.js';
+
 const seatReservationType: InputType = {
   control: { type: 'object' },
   table: {
@@ -106,7 +109,7 @@ const trainDeckUpper = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReserv
 trainDeckUpper.deckCoachIndex = 1;
 trainDeckUpper.deckCoachLevel = 'UPPER_DECK';
 
-//For showcase we adjust the places from the upper deck to get a little variation
+//For showcase, we adjust the places from the upper deck to get a little variation
 mappedSeatReservationTrain.coachItems.forEach((coachItem) => {
   const filteredPlaesInCoach =
     coachItem.places?.filter((place) => Number(place.number) % 2 === 0) || [];
@@ -191,6 +194,41 @@ export const preSelectedCoachIndexFour: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes, 'preselect-coach-index': preselectCoachIndexType },
   args: { ...defaultArgs, 'preselect-coach-index': 4 },
+};
+
+const TemplateWithinDialog = ({ seatReservations, ...args }: Args): TemplateResult => html`
+  <sbb-button id="dialog-trigger">Open dialog</sbb-button>
+  <sbb-dialog trigger="dialog-trigger" backdrop="opaque">
+    <sbb-dialog-title>SeatReservation within Dialog</sbb-dialog-title>
+    <sbb-dialog-close-button></sbb-dialog-close-button>
+    <sbb-dialog-content>
+      <sbb-card size="s" color="milk">
+        <sbb-seat-reservation
+          .seatReservations=${seatReservations}
+          ${sbbSpread(args)}
+        ></sbb-seat-reservation>
+      </sbb-card>
+    </sbb-dialog-content>
+  </sbb-dialog>
+`;
+
+//// Seat Reservation within Dialog Test to identif<fy potential issues in sbb.ch
+const mappedSeatReservationTrainInDialog = mapRawDataToSeatReservation('TRAIN');
+
+const trainRAW3: Args = {
+  seatReservations: [mappedSeatReservationTrainInDialog],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+};
+
+export const useWithinDialog: StoryObj = {
+  render: TemplateWithinDialog,
+  argTypes: defaultArgTypes,
+  args: trainRAW3,
 };
 
 const meta: Meta = {
