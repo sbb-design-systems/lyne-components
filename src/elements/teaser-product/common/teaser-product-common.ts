@@ -2,7 +2,6 @@ import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators.js';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
@@ -17,7 +16,6 @@ export const SbbTeaserProductCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbTeaserProductCommonElementMixinType> & T => {
-  @slotState()
   abstract class SbbTeaserProductCommonElement
     extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType

@@ -1,14 +1,16 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html, LitElement, type TemplateResult } from 'lit';
 
-import { slotState } from '../decorators.js';
 import { fixture } from '../testing/private/fixture.js';
-import { waitForCondition } from '../testing.js';
+import { EventSpy } from '../testing.js';
 
 import { SbbSlotStateController } from './slot-state-controller.js';
 
-@slotState()
 class SlotStateControllerElement extends LitElement {
+  public constructor() {
+    super();
+    this.addController(new SbbSlotStateController(this, this.attachInternals()));
+  }
   protected override render(): TemplateResult {
     return html`<div><slot></slot><slot name="icon"></slot></div>`;
   }
@@ -26,50 +28,52 @@ describe('SbbSlotStateController', () => {
   });
 
   it('should sync slots', async () => {
-    expect(element).not.to.have.attribute('data-slot-names');
+    expect(element).not.to.match(':state(slotted)');
+    expect(element).not.to.match(':state(slotted-icon)');
 
     const icon = document.createElement('img');
     icon.slot = 'icon';
     element.appendChild(icon);
-    await waitForCondition(() => element.hasAttribute('data-slot-names'));
-    expect(element).to.have.attribute('data-slot-names', 'icon');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted-icon)');
+    expect(element).not.to.match(':state(slotted)');
 
     const paragraph = document.createElement('p');
     element.appendChild(paragraph);
-    await waitForCondition(
-      () => element.getAttribute('data-slot-names')?.includes('unnamed') ?? false,
-    );
-    expect(element).to.have.attribute('data-slot-names', 'icon unnamed');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted-icon)');
+    expect(element).to.match(':state(slotted)');
 
     icon.slot = '';
-    await waitForCondition(() => !element.getAttribute('data-slot-names')?.includes('icon'));
-    expect(element).to.have.attribute('data-slot-names', 'unnamed');
+    await aTimeout(1);
+    expect(element).not.to.match(':state(slotted-icon)');
+    expect(element).to.match(':state(slotted)');
 
     element.innerHTML = '';
-    await waitForCondition(() => !element.hasAttribute('data-slot-names'));
-    expect(element).not.to.have.attribute('data-slot-names');
+    await aTimeout(1);
+    expect(element).not.to.match(':state(slotted)');
+    expect(element).not.to.match(':state(slotted-icon)');
   });
 
   it('should detect text when textNode was empty first', async () => {
     const node = document.createTextNode('');
     element.appendChild(node);
-    await waitForCondition(() => !element.hasAttribute('data-slot-names'));
-    expect(element).not.to.have.attribute('data-slot-names');
+    expect(element).not.to.match(':state(slotted)');
 
     node.textContent = 'Text Label';
-    await waitForCondition(() => element.hasAttribute('data-slot-names'));
-    expect(element).to.have.attribute('data-slot-names', 'unnamed');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted)');
   });
 
   it('should detect empty text', async () => {
     const node = document.createTextNode('filled');
     element.appendChild(node);
-    await waitForCondition(() => element.hasAttribute('data-slot-names'));
-    expect(element).to.have.attribute('data-slot-names');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted)');
 
     node.textContent = '';
-    await waitForCondition(() => !element.hasAttribute('data-slot-names'));
-    expect(element).not.to.have.attribute('data-slot-names', 'unnamed');
+    await aTimeout(1);
+    expect(element).not.to.match(':state(slotted)');
   });
 
   it('should detect text when textNode was empty first with multiple nodes', async () => {
@@ -77,12 +81,11 @@ describe('SbbSlotStateController', () => {
     element.appendChild(node);
     const node2 = document.createTextNode('');
     element.appendChild(node2);
-    await waitForCondition(() => !element.hasAttribute('data-slot-names'));
-    expect(element).not.to.have.attribute('data-slot-names');
+    expect(element).not.to.match(':state(slotted)');
 
     node2.textContent = 'Text Label';
-    await waitForCondition(() => element.hasAttribute('data-slot-names'));
-    expect(element).to.have.attribute('data-slot-names', 'unnamed');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted)');
   });
 
   it('should detect empty text with multiple nodes', async () => {
@@ -90,44 +93,37 @@ describe('SbbSlotStateController', () => {
     element.appendChild(node);
     const node2 = document.createTextNode('filled');
     element.appendChild(node2);
-    await waitForCondition(() => element.hasAttribute('data-slot-names'));
-    expect(element).to.have.attribute('data-slot-names');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted)');
 
     node.textContent = '';
-    await aTimeout(30);
-    expect(element).to.have.attribute('data-slot-names', 'unnamed');
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted)');
 
     node2.textContent = '';
-    await waitForCondition(() => !element.hasAttribute('data-slot-names'));
-    expect(element).not.to.have.attribute('data-slot-names', 'unnamed');
+    await aTimeout(1);
+    expect(element).not.to.match(':state(slotted)');
   });
 
-  it('should disconnect observer on hostDisconnected and connect on hostConnected', async () => {
+  it('should not disconnect observer on DOM removal', async () => {
     const node = document.createTextNode('filled');
     element.appendChild(node);
-    await waitForCondition(() => element.hasAttribute('data-slot-names'));
+    await aTimeout(1);
+    expect(element).to.match(':state(slotted)');
 
     element.remove();
 
     node.textContent = '';
-    await aTimeout(30);
-    expect(element).to.have.attribute('data-slot-names', 'unnamed');
-
-    document.body.appendChild(element);
-    await waitForCondition(() => !element.hasAttribute('data-slot-names'));
-    expect(element).not.to.have.attribute('data-slot-names', 'unnamed');
-
-    // Clean up
-    element.remove();
+    await aTimeout(1);
+    expect(element).not.to.match(':state(slotted)');
   });
 
-  it('should call callback', async () => {
-    let callbackCalled = false;
-    element.addController(new SbbSlotStateController(element, () => (callbackCalled = true)));
+  it('should dispatch event', async () => {
+    const spy = new EventSpy('slottedchange', element);
 
     element.appendChild(document.createTextNode('Text'));
-    await waitForCondition(() => callbackCalled);
-    expect(callbackCalled).to.be.true;
+    await aTimeout(1);
+    expect(spy.count).to.equal(1);
   });
 });
 

@@ -7,7 +7,8 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, slotState } from '../../core/decorators.js';
+import { SbbSlotStateController } from '../../core/controllers.js';
+import { forceType } from '../../core/decorators.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './container.scss?lit&inline';
@@ -21,7 +22,6 @@ import style from './container.scss?lit&inline';
  */
 export
 @customElement('sbb-container')
-@slotState()
 class SbbContainerElement extends LitElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
@@ -42,6 +42,11 @@ class SbbContainerElement extends LitElement {
     | 'milk'
     | 'midnight'
     | 'charcoal' = 'white';
+
+  public constructor() {
+    super();
+    this.addController(new SbbSlotStateController(this, this.attachInternals()));
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

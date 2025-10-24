@@ -119,7 +119,7 @@
     (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
   );
 
-  :host(:not([data-slot-names~='unnamed'])) & {
+  :host(:not(:state(slotted-unnamed))) & {
     display: none;
   }
 }

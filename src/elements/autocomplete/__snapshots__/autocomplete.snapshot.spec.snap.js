@@ -12,7 +12,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
 >
   <sbb-option
     aria-selected="false"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
@@ -21,7 +20,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
   </sbb-option>
   <sbb-option
     aria-selected="false"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
@@ -66,7 +64,6 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
 `<sbb-form-field
-  data-slot-names="unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -88,7 +85,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
   >
     <sbb-option
       aria-selected="false"
-      data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-4"
       value="1"
@@ -97,7 +93,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
     </sbb-option>
     <sbb-option
       aria-selected="false"
-      data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-5"
       value="2"
@@ -155,7 +150,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
 >
   <sbb-option
     aria-selected="false"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
@@ -164,7 +158,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
   </sbb-option>
   <sbb-option
     aria-selected="false"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
@@ -213,7 +206,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
 `<sbb-form-field
-  data-slot-names="unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -234,7 +226,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
   >
     <sbb-option
       aria-selected="false"
-      data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-4"
       value="1"
@@ -243,7 +234,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     </sbb-option>
     <sbb-option
       aria-selected="false"
-      data-slot-names="unnamed"
       data-variant="autocomplete"
       id="sbb-option-5"
       value="2"

@@ -9,7 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbCheckboxPanelElement } from '../checkbox.js';
 import { SbbLanguageController } from '../core/controllers.js';
-import { forceType, slotState } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
 import { isZeroAnimationDuration } from '../core/dom.js';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
 import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
@@ -29,7 +29,6 @@ import '../divider.js';
  */
 export
 @customElement('sbb-selection-expansion-panel')
-@slotState()
 class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   SbbHydrationMixin(LitElement),
 ) {

@@ -1,7 +1,7 @@
 import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride, slotState } from '../../core/decorators.js';
+import { getOverride } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbIconPlacement } from '../../core/interfaces.js';
 import { boxSizingStyles } from '../../core/styles.js';
@@ -27,7 +27,6 @@ import '../../visual-checkbox.js';
  */
 export
 @customElement('sbb-checkbox')
-@slotState()
 class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
   SbbIconNameMixin(LitElement),
 ) {
