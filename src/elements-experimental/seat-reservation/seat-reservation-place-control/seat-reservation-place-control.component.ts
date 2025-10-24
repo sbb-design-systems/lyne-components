@@ -67,6 +67,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public constructor() {
     super();
     this.addEventListener('click', () => this._selectPlace());
+    this.addEventListener('focus', () => this.scrollIntoView({ behavior: 'smooth' }));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
