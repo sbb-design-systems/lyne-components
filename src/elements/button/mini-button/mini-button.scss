@@ -3,12 +3,6 @@
 $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
 
 :host {
-  display: block;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize CSS of several frameworks.
-  outline: none !important;
-
   --sbb-mini-button-gap: #{sbb.px-to-rem-build(2)};
   --sbb-mini-button-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-mini-button-label-display: block;
@@ -20,8 +14,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-mini-button-label-display: none;
   --sbb-mini-button-label-height: unset;
 }
-
-@include sbb.icon-button('.sbb-mini-button', '::slotted(sbb-icon), sbb-icon');
 
 .sbb-mini-button {
   height: var(--sbb-mini-button-label-height);
