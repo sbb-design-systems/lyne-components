@@ -495,6 +495,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
+                  '--sbb-seat-reservation-graphic-max-width': calculatedDimension.w,
                   '--sbb-seat-reservation-graphic-height': this.baseGridSize,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
                 })}
