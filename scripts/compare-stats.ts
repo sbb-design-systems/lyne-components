@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 
+const isManuallyRun = process.argv[1].includes('compare-stats.ts');
+
 interface Stats {
   jsSize: number;
   jsBrotliSize: number;
@@ -60,7 +62,9 @@ if (previousStats) {
     const brotliSizeDiff = brotliSize - (previousStats.cssFiles[file]?.brotliSize ?? 0);
     const gzipSize = stats.cssFiles[file]?.gzipSize ?? 0;
     const gzipSizeDiff = gzipSize - (previousStats.cssFiles[file]?.gzipSize ?? 0);
-    text += `| ${file} | ${size} (${sizeDiff}) | ${brotliSize} (${brotliSizeDiff}) | ${gzipSize} (${gzipSizeDiff}) |\n`;
+    if (sizeDiff !== 0) {
+      text += `| ${file} | ${size} (${sizeDiff}) | ${brotliSize} (${brotliSizeDiff}) | ${gzipSize} (${gzipSizeDiff}) |\n`;
+    }
   }
   text += `
 
@@ -80,7 +84,9 @@ if (previousStats) {
     const gzipSizeDiff = gzipSize - (previousStats.jsFiles[file]?.gzipSize ?? 0);
     const cssSize = stats.jsFiles[file]?.cssSize ?? 0;
     const cssSizeDiff = cssSize - (previousStats.jsFiles[file]?.cssSize ?? 0);
-    text += `| ${file} | ${size} (${sizeDiff}) | ${brotliSize} (${brotliSizeDiff}) | ${gzipSize} (${gzipSizeDiff}) | ${cssSize} (${cssSizeDiff}) |\n`;
+    if (sizeDiff !== 0) {
+      text += `| ${file} | ${size} (${sizeDiff}) | ${brotliSize} (${brotliSizeDiff}) | ${gzipSize} (${gzipSizeDiff}) | ${cssSize} (${cssSizeDiff}) |\n`;
+    }
   }
 } else {
   summary = `
@@ -115,6 +121,11 @@ if (previousStats) {
     const cssSize = stats.jsFiles[file]?.cssSize ?? 0;
     text += `| ${file} | ${size} | ${brotliSize} | ${gzipSize} | ${cssSize} |\n`;
   }
+}
+
+if (isManuallyRun) {
+  console.log(summary);
+  console.log(text);
 }
 
 export { summary, text, title };

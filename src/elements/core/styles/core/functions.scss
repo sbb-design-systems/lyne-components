@@ -1,4 +1,6 @@
 @use 'sass:math';
+@forward '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' show theme-select,
+  them-pattern-select;
 
 @function px-to-rem-build($size) {
   // size: value in px (no unit)
