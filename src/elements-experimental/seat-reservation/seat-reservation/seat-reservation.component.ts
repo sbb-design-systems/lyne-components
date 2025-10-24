@@ -222,11 +222,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       </nav>
     </div>`;
   }
-  /**
-   *
-   * @param coaches
-   * @returns
-   */
+
   private _renderCoaches(
     seatReservation: SeatReservation,
     deckIndex: number,
@@ -436,6 +432,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @param rotation
    * @param coachDimension
    * @param coachIndex used to generate a unique id for the popover trigger
+   * @param coachDeckIndex used to generate a unique id
    * @private
    */
   private _getRenderElementWithArea(
@@ -498,13 +495,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
-                  '--sbb-seat-reservation-graphic-width': this.baseGridSize,
                   '--sbb-seat-reservation-graphic-height': this.baseGridSize,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
                 })}
                 name=${areaProperty}
                 role="img"
                 aria-hidden="true"
+                class="auto-width"
               ></sbb-seat-reservation-graphic>
             `
           : nothing}
