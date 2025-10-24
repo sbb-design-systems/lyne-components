@@ -155,6 +155,7 @@ export class SeatReservationBaseElement extends LitElement {
 
       this._initPrepareSeatReservationData();
       this._initSeatReservationPlaceSelection();
+      this.initNavigationSelectionByScrollEvent();
     }
 
     if (changedProperties.has('baseGridSize')) {
