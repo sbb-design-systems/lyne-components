@@ -103,12 +103,12 @@ snapshots["sbb-breadcrumb-group renders A11y tree Firefox"] =
     },
     {
       "role": "link",
-      "name": "",
+      "name": "One",
       "value": "https://example.com/one"
     },
     {
       "role": "link",
-      "name": "",
+      "name": "Two",
       "value": "https://example.com/one"
     }
   ]

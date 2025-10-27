@@ -125,7 +125,7 @@ snapshots["sbb-breadcrumb renders with text A11y tree Firefox"] =
   "children": [
     {
       "role": "link",
-      "name": ". Link target opens in a new window.",
+      "name": "Breadcrumb . Link target opens in a new window.",
       "value": "https://example.com/test"
     }
   ]
