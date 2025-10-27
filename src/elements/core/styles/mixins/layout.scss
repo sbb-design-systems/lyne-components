@@ -1,7 +1,7 @@
 @use '../core/mediaqueries';
 
 @mixin page-spacing {
-  padding-inline: var(--sbb-layout-base-offset-responsive);
+  padding-inline: var(--sbb-page-spacing-padding, var(--sbb-layout-base-offset-responsive));
   margin-inline: auto;
 
   // If using page-spacing in flex context,
@@ -10,14 +10,15 @@
 
   @include mediaqueries.mq($from: ultra) {
     // Subtract padding to get real max-width
-    max-width: calc(
-      var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
+    max-width: var(
+      --sbb-spacing-max-width,
+      calc(var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive))
     );
   }
 }
 
 @mixin page-spacing-expanded {
-  padding-inline: var(--sbb-spacing-responsive-xxs);
+  padding-inline: var(--sbb-page-spacing-padding, var(--sbb-spacing-responsive-xxs));
 }
 
 @mixin grid-base {

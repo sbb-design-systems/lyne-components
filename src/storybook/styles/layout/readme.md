@@ -31,6 +31,7 @@ The `expanded`-variant has a smaller inline spacing and no max-width.
 | ------------------- | --------------- |
 | `sbb-grid`          | `grid`          |
 | `sbb-grid-expanded` | `grid-expanded` |
+| `sbb-grid-only`     | `grid-base`     |
 
 ### Usage
 
