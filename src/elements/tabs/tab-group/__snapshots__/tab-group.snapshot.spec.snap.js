@@ -84,20 +84,20 @@ snapshots["sbb-tab-group renders A11y tree Firefox"] =
   "children": [
     {
       "role": "tab",
-      "name": "",
+      "name": "Test tab label 1",
       "selected": true
     },
     {
       "role": "tab",
-      "name": ""
+      "name": "Test tab label 2"
     },
     {
       "role": "tab",
-      "name": ""
+      "name": "Test tab label 3"
     },
     {
       "role": "tab",
-      "name": ""
+      "name": "Test tab label 4"
     },
     {
       "role": "tabpanel",

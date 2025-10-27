@@ -7,10 +7,13 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import {
+  SbbElementInternalsMixin,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
@@ -28,7 +31,7 @@ export
 class SbbNavigationListElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
->(LitElement) {
+>(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
@@ -41,11 +44,6 @@ class SbbNavigationListElement extends SbbNamedSlotListMixin<
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor label: string = '';
-
-  public constructor() {
-    super();
-    this.addController(new SbbSlotStateController(this, this.attachInternals()));
-  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

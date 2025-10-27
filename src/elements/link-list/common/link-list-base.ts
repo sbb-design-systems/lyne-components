@@ -2,10 +2,10 @@ import type { PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbSlotStateController } from '../../core/controllers.js';
 import { forceType, omitEmptyConverter } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import {
+  SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
@@ -30,7 +30,7 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<
     SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement,
     typeof LitElement
-  >(LitElement),
+  >(SbbElementInternalsMixin(LitElement)),
 ) {
   protected override readonly listChildLocalNames = [
     'sbb-block-link',
@@ -52,11 +52,6 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
    * @default 's' / 'xs' (lean)
    */
   @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
-
-  public constructor() {
-    super();
-    this.addController(new SbbSlotStateController(this, this.attachInternals()));
-  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

@@ -70,6 +70,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   }
 
   protected override renderTemplate(): TemplateResult {
+    // TODO: Still necessary?
     this._setIconState();
     return html`
       <span class="sbb-expansion-panel-header__title">

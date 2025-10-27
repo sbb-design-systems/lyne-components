@@ -125,7 +125,14 @@ snapshots["sbb-tab-label A11y tree Firefox"] =
   "children": [
     {
       "role": "text container",
-      "name": ""
+      "name": "",
+      "children": [
+        {
+          "role": "heading",
+          "name": "Tab title",
+          "level": 1
+        }
+      ]
     }
   ]
 }
