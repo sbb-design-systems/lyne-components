@@ -28,7 +28,6 @@ class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.slot ||= 'title-section';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

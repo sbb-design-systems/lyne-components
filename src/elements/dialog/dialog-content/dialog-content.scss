@@ -3,5 +3,16 @@
 :host {
   display: block;
   padding-block: var(--sbb-dialog-padding-block);
-  margin-inline: var(--sbb-dialog-padding-inline);
+  padding-inline: var(--sbb-dialog-padding-inline);
+  grid-area: content;
+  overflow: auto;
+}
+
+// If there is no scrollable content, the scroll area gets focus.
+// As it is impossible to place the scrollbar outside of the scroll area,
+// we need to fix the outline offset to avoid clipping of the focus outline.
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+
+  --sbb-focus-outline-offset: calc(var(--sbb-focus-outline-width) * -1);
 }

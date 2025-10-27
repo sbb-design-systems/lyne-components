@@ -1,12 +1,13 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, eventOptions, property } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
+import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.js';
 
 import style from './dialog.scss?lit&inline';
 
@@ -17,12 +18,10 @@ let nextId = 0;
 /**
  * It displays an interactive overlay element.
  *
- * @slot actions - This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.
  * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
- * @csspart scroll-container - Can be used to change styles of the scroll container of the content.
  */
 export
 @customElement('sbb-dialog')
@@ -48,7 +47,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     callback: () => setTimeout(() => this._updateOverflowState()),
   });
 
-  private _dialogContentElement?: HTMLElement;
   private _dialogElement?: HTMLElement;
   private _isPointerDownEventOnDialog: boolean = false;
   protected closeAttribute: string = 'sbb-dialog-close';
@@ -59,6 +57,10 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     // Close dialog on backdrop click
     this.addEventListener?.('pointerdown', this._pointerDownListener);
     this.addEventListener?.('pointerup', this._closeOnBackdropClick);
+    this.addEventListener('scroll', () => this._updateOverflowState(), {
+      passive: true,
+      capture: true,
+    });
   }
 
   public override connectedCallback(): void {
@@ -78,7 +80,9 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   protected handleClosing(): void {
-    this._dialogContentElement?.scrollTo(0, 0);
+    const contentElement = this._contentElement();
+
+    contentElement?.scrollTo(0, 0);
     this.state = 'closed';
     this.hidePopover?.();
 
@@ -89,8 +93,8 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     }
     this.openOverlayController?.abort();
     this.focusTrapController.enabled = false;
-    if (this._dialogContentElement) {
-      this._dialogContentResizeObserver.unobserve(this._dialogContentElement);
+    if (contentElement) {
+      this._dialogContentResizeObserver.hostDisconnected();
     }
     this.removeInstanceFromGlobalCollection();
     // Enable scrolling for content below the dialog if no dialog is open
@@ -113,8 +117,10 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     // Use timeout to read label after focused element
     setTimeout(() => this.announceTitle());
     this.focusTrapController.enabled = true;
-    if (this._dialogContentElement) {
-      this._dialogContentResizeObserver.observe(this._dialogContentElement);
+
+    const contentElement = this._contentElement();
+    if (contentElement) {
+      this._dialogContentResizeObserver.observe(contentElement);
     }
     this.dispatchOpenEvent();
   }
@@ -169,18 +175,17 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   };
 
   private _updateOverflowState(): void {
+    const contentElement = this._contentElement();
+    this.toggleState('top-shadow', (contentElement?.scrollTop ?? 0) > 0);
     this.toggleState(
-      'overflows',
-      (this._dialogContentElement?.scrollTop ?? 0) +
-        (this._dialogContentElement?.offsetHeight ?? 0) <
-        (this._dialogContentElement?.scrollHeight ?? 0),
+      'bottom-shadow',
+      (contentElement?.scrollTop ?? 0) + (contentElement?.offsetHeight ?? 0) <
+        (contentElement?.scrollHeight ?? 0),
     );
   }
 
-  @eventOptions({ passive: true })
-  private _detectScrolledState(): void {
-    this.toggleState('scrolled', (this._dialogContentElement?.scrollTop ?? 0) > 0);
-    this._updateOverflowState();
+  private _contentElement(): SbbDialogContentElement | null {
+    return this.querySelector('sbb-dialog-content');
   }
 
   protected override render(): TemplateResult {
@@ -195,18 +200,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
-            <div class="sbb-dialog-title-section">
-              <slot name="title-section" @slotchange=${() => this._syncTitleNegative()}></slot>
-            </div>
-            <div
-              class="sbb-dialog-content-container"
-              part="scroll-container"
-              @scroll=${() => this._detectScrolledState()}
-              ${ref((el?: Element) => (this._dialogContentElement = el as HTMLDivElement))}
-            >
-              <slot></slot>
-            </div>
-            <slot name="actions"></slot>
+            <slot @slotchange=${() => this._syncTitleNegative()}></slot>
           </div>
         </div>
       </div>

@@ -14,6 +14,15 @@ export
 class SbbDialogContentElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // As we can't include the scrollbar mixin on the host and to minimize
+    // payload, we decided to add the scrollbar class here.
+    // This is an exception as we normally don't alter the classList of the host.
+    this.classList.add('sbb-scrollbar');
+  }
+
   protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
