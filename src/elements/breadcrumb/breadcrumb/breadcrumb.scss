@@ -46,7 +46,7 @@
 .sbb-breadcrumb__label {
   @include sbb.ellipsis;
 
-  :host(:not(:state(slotted-unnamed))) & {
+  :host(:not(:state(slotted))) & {
     display: none;
   }
 }

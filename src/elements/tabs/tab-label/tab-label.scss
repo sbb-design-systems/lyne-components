@@ -167,7 +167,7 @@
     @include sbb.text-xl--bold;
   }
 
-  :host(:not(:state(slotted-unnamed))) & {
+  :host(:not(:state(slotted))) & {
     display: none;
   }
 }
