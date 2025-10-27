@@ -4,7 +4,6 @@ import { html, type TemplateResult } from 'lit';
 import '../alert.js';
 import '../breadcrumb.js';
 import '../chip-label.js';
-import '../container.js';
 import '../image.js';
 import '../link/block-link.js';
 import '../link/link.js';
