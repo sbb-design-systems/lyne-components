@@ -483,6 +483,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       setValue.call(this.triggerElement, '');
       this._highlightOptions('');
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
