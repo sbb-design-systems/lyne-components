@@ -88,66 +88,6 @@ const WithChipTemplate = (): TemplateResult => html`
   </sbb-lead-container>
 `;
 
-/**
- * Hidden example to show how to achieve a sticky bar inside a lead container.
- */
-const StickyBarTemplate = (): TemplateResult => html`
-  <style>
-    sbb-container {
-      margin-block-end: calc(2 * var(--sbb-spacing-responsive-l));
-
-      --column-shift: 0;
-      --full-width: 100%;
-      @media (min-width: 64rem) {
-        --column-shift: 1;
-      }
-      @media (min-width: 90rem) {
-        --column-shift: 3;
-        --full-width: min(
-          100%,
-          var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
-        );
-      }
-      --sbb-page-spacing-padding: calc(
-        var(--sbb-layout-base-offset-responsive) + var(--column-shift) *
-          (
-            (
-                (var(--full-width) - 2 * var(--sbb-layout-base-offset-responsive)) -
-                  ((var(--sbb-grid-base-columns) - 1) * var(--sbb-grid-base-gutter-responsive))
-              ) /
-              var(--sbb-grid-base-columns)
-          ) +
-          var(--sbb-grid-base-gutter-responsive) * var(--column-shift)
-      );
-
-      p {
-        margin-block-start: 0;
-      }
-    }
-
-    sbb-lead-container {
-      --sbb-lead-container-content-padding-block: var(--sbb-spacing-responsive-l) 0;
-      --sbb-lead-container-padding-block: 0;
-    }
-  </style>
-  <sbb-lead-container>
-    <sbb-image
-      slot="image"
-      image-src=${images[6]}
-      alt="Station of Lucerne from outside"
-    ></sbb-image>
-    <sbb-title class="sbb-lead-container-spacing">Title</sbb-title>
-  </sbb-lead-container>
-  <sbb-container>
-    <p class="sbb-text-xl sbb-lead-container-lead-text">
-      Lead text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit,
-      ultricies in tincidunt quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut,
-      hendrerit risus.
-    </p>
-    <sbb-sticky-bar color="milk">Sticky</sbb-sticky-bar>
-  </sbb-container>
-`;
-
 export const Default: StoryObj = {
   render: DefaultTemplate,
 };
@@ -156,12 +96,7 @@ export const WithChip: StoryObj = {
   render: WithChipTemplate,
 };
 
-export const StickyBar: StoryObj = {
-  render: StickyBarTemplate,
-};
-
 const meta: Meta = {
-  excludeStories: ['StickyBar'],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
