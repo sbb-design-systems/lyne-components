@@ -46,11 +46,11 @@ export class SbbSlotStateController implements ReactiveController {
 
   public hostConnected: ReactiveController['hostConnected'] = (): void => {
     this._host.shadowRoot?.addEventListener('slotchange', (e) =>
-      this._slotchangeHandler(e.target as HTMLSlotElement),
+      this._slotchangeHandler(this._unwrapSlot(e, e.target as HTMLSlotElement)),
     );
     this._host.shadowRoot?.addEventListener(
       'slottedchange',
-      (e) => this._slotchangeHandler(e.slot),
+      (e) => this._slotchangeHandler(this._unwrapSlot(e, e.slot)),
       { capture: true },
     );
     this._internals.shadowRoot
@@ -59,12 +59,23 @@ export class SbbSlotStateController implements ReactiveController {
     this.hostConnected = undefined;
   };
 
-  private _slotchangeHandler = (slot: HTMLSlotElement): void => {
+  private _unwrapSlot(event: Event, slot: HTMLSlotElement): HTMLSlotElement {
+    return this._host.shadowRoot!.contains(slot)
+      ? slot
+      : event
+          .composedPath()
+          .find(
+            (el): el is HTMLSlotElement =>
+              el instanceof HTMLSlotElement && this._host.shadowRoot!.contains(el),
+          )!;
+  }
+
+  private _slotchangeHandler(slot: HTMLSlotElement): void {
     this._updateSlottedState(slot);
     if (!slot.name) {
       this._observeTextNodesInSlot(slot);
     }
-  };
+  }
 
   private _updateSlottedState(slot: HTMLSlotElement): void {
     const stateName = slot.name ? `slotted-${slot.name}` : 'slotted';
