@@ -22,6 +22,7 @@ import type {
   SeatReservationPlaceSelection,
   NavigationCoachItem,
   PlaceTravelClass,
+  BaseElement,
 } from '../common.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 
@@ -518,6 +519,22 @@ export class SeatReservationBaseElement extends LitElement {
       y: this.baseGridSize * elementPosition.y,
       z: elementPosition.z,
     };
+  }
+
+  /**
+   * detects if a (graphical) element is on the border with its position (upper or lower border).
+   * @param baseElement
+   * @param coachDimension
+   * @protected
+   */
+  protected isElementDirectlyOnBorder(
+    baseElement: BaseElement,
+    coachDimension: ElementDimension,
+  ): boolean {
+    return (
+      baseElement.position.y === 0 ||
+      baseElement.position.y + baseElement.dimension.h === coachDimension.h
+    );
   }
 
   /**
