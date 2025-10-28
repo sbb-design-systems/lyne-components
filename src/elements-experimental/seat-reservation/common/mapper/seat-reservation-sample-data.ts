@@ -10289,6 +10289,22 @@ export const MOCK_COACHES_RAW_1 = [
           orientation: 0,
           type: 'TABLE_RESTAURANT',
         },
+        {
+          rectangle: {
+            position: {
+              x: 8,
+              y: 2,
+              z: 0,
+            },
+            dimension: {
+              width: 6,
+              height: 6,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'TABLE_RESTAURANT',
+        },
       ],
       serviceIcons: [
         {

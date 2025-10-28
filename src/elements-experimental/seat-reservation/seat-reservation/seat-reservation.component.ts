@@ -225,14 +225,15 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
   /**
    *
-   * @param coaches
    * @returns
+   * @param seatReservation
+   * @param deckIndex
    */
   private _renderCoaches(
     seatReservation: SeatReservation,
     deckIndex: number,
   ): TemplateResult[] | null {
-    const coaches = JSON.parse(JSON.stringify(seatReservation?.coachItems));
+    const coaches: CoachItem[] = JSON.parse(JSON.stringify(seatReservation?.coachItems));
 
     if (!coaches) {
       return null;
@@ -437,6 +438,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @param rotation
    * @param coachDimension
    * @param coachIndex used to generate a unique id for the popover trigger
+   * @param coachDeckIndex
    * @private
    */
   private _getRenderElementWithArea(
@@ -451,16 +453,20 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // need difficult calculations for position, rotation and dimension.
     const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
     const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
-    const stretchHeight = areaProperty !== 'ENTRY_EXIT';
+    const stretchHeight =
+      this.isElementDirectlyOnBorder(graphicalElement, coachDimension) &&
+      areaProperty !== 'ENTRY_EXIT';
     const ariaLabelForArea = graphicalElement.icon
       ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
       : nothing;
+
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
       true,
       stretchHeight,
     );
+
     const calculatedPosition = this.getCalculatedPosition(
       graphicalElement.position,
       graphicalElement.dimension,
