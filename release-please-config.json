@@ -22,5 +22,6 @@
       "versioning": "prerelease",
       "prerelease-type": "next"
     }
-  }
+  },
+  "last-release-sha": "9fdac8db748de229d385fe99f7dd7ea20f81365c"
 }
