@@ -144,7 +144,10 @@ const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): Template
     <sbb-dialog-content>
       <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
-        <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+        <sbb-mini-button
+          icon-name="circle-information-small"
+          id="popover-trigger"
+        ></sbb-mini-button>
       </p>
       <sbb-popover trigger="popover-trigger">
         <p style="margin: 0" class="sbb-text-s">Some content.</p>

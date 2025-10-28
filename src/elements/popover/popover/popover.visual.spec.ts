@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import './popover.component.js';
-import '../popover-trigger.js';
+import '../../button/mini-button.js';
 import '../../link/block-link.js';
 import '../../title.js';
 
@@ -19,7 +19,7 @@ describe(`sbb-popover`, () => {
   ];
 
   const popover = (hideCloseButton?: boolean): TemplateResult => html`
-    <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+    <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
     <sbb-popover trigger="popover-trigger" ?hide-close-button=${hideCloseButton}>
       <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Title.</sbb-title>
@@ -59,7 +59,7 @@ describe(`sbb-popover`, () => {
             { padding: '0' },
           );
           setup.withPostSetupAction(() =>
-            setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
+            setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
           );
         }),
       );
@@ -73,7 +73,7 @@ describe(`sbb-popover`, () => {
           padding: '3rem',
         });
         setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
+          setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
         );
       }),
     );
@@ -87,7 +87,7 @@ describe(`sbb-popover`, () => {
           darkMode: true,
         });
         setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
+          setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
         );
       }),
     );
@@ -101,7 +101,7 @@ describe(`sbb-popover`, () => {
           forcedColors: true,
         });
         setup.withPostSetupAction(() =>
-          setup.snapshotElement.querySelector('sbb-popover-trigger')!.click(),
+          setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
         );
       }),
     );

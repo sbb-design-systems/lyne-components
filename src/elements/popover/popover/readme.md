@@ -9,10 +9,10 @@ The component could be used:
 
 The component must be connected with the trigger element using the `trigger` property,
 which accepts the id of the element, or directly its reference;
-the [sbb-popover-trigger](/docs/elements-sbb-popover-sbb-popover-trigger--docs) is meant to be used as trigger.
+the [sbb-menu-button](/docs/elements-sbb-button-sbb-mini-button--docs) is meant to be used as trigger.
 
 ```html
-<sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+<sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
 <sbb-popover id="popover" trigger="popover-trigger">
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
@@ -45,7 +45,7 @@ by marking it with the `sbb-popover-close` attribute;
 it's also possible to hide the default close button using the `hideCloseButton` property.
 
 ```html
-<sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+<sbb-mini-button id="popover-trigger"></sbb-mini-button>
 
 <sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
@@ -64,7 +64,7 @@ The `sbb-popover` will automatically disappear after the hiding delay
 if neither the trigger element nor the popover are on hover or if another action is performed on the page.
 
 ```html
-<sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+<sbb-mini-button id="popover-trigger"></sbb-mini-button>
 
 <sbb-popover
   id="popover"
