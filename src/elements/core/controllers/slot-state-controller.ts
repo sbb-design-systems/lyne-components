@@ -71,6 +71,9 @@ export class SbbSlotStateController implements ReactiveController {
   }
 
   private _slotchangeHandler(slot: HTMLSlotElement): void {
+    if (!slot) {
+      return;
+    }
     this._updateSlottedState(slot);
     if (!slot.name) {
       this._observeTextNodesInSlot(slot);
