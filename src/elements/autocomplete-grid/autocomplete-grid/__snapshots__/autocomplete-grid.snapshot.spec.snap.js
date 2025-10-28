@@ -10,7 +10,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
-      data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-0"
     >
       Option 1
@@ -28,7 +27,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
-      data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-1"
     >
       Option 2
@@ -93,7 +91,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
     <sbb-autocomplete-grid-option
       aria-selected="false"
-      data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-0"
     >
       Option 1
@@ -111,7 +108,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
     <sbb-autocomplete-grid-option
       aria-selected="false"
-      data-slot-names="unnamed"
       id="sbb-autocomplete-grid-option-1"
     >
       Option 2

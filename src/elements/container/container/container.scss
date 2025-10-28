@@ -29,7 +29,7 @@
   --sbb-container-background-color: var(--sbb-background-color-2-negative);
 }
 
-:host([data-slot-names~='image']) {
+:host(:state(slotted-image)) {
   --sbb-container-background-color: transparent;
   --sbb-container-padding: var(--sbb-spacing-responsive-xxl);
 }
@@ -38,7 +38,7 @@
   background-color: var(--sbb-container-background-color);
 }
 
-:host([data-slot-names~='image'][background-expanded]) {
+:host(:state(slotted-image)[background-expanded]) {
   position: relative;
 }
 
@@ -70,13 +70,13 @@
     @include sbb.page-spacing-expanded;
   }
 
-  :host([data-slot-names~='image']:not([background-expanded])) & {
+  :host(:state(slotted-image):not([background-expanded])) & {
     position: relative;
   }
 }
 
 .sbb-container__content {
-  :host([data-slot-names~='image']) & {
+  :host(:state(slotted-image)) & {
     // With relative positioning we ensure the content is in front of the image.
     position: relative;
   }

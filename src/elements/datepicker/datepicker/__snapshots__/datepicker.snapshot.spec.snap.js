@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-datepicker renders DOM"] = 
 `<sbb-form-field
-  data-slot-names="prefix suffix unnamed"
   error-space="none"
   size="m"
   width="default"

@@ -114,7 +114,7 @@ slot[name='subtext'] {
   color: var(--sbb-selection-panel-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
 
-  :host(:not([data-slot-names~='subtext'])) & {
+  :host(:not(:state(slotted-subtext))) & {
     display: none;
   }
 }

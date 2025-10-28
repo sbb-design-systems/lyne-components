@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride, slotState } from '../../core/decorators.js';
+import { getOverride } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type {
   SbbCheckedStateChange,
@@ -45,7 +45,6 @@ export type SbbRadioButtonStateChange = Extract<
  */
 export
 @customElement('sbb-radio-button-panel')
-@slotState()
 class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
 ) {

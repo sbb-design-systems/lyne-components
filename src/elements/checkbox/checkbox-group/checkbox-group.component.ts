@@ -3,10 +3,10 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType, slotState } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.js';
 import type { SbbCheckboxElement } from '../checkbox.js';
@@ -22,8 +22,7 @@ import style from './checkbox-group.scss?lit&inline';
  */
 export
 @customElement('sbb-checkbox-group')
-@slotState()
-class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
+class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the checkbox group is required. */

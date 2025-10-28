@@ -14,7 +14,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
   <sbb-breadcrumb
     data-action=""
     data-link=""
-    data-slot-names="unnamed"
     href="https://example.com/one"
     slot="li-1"
   >
@@ -24,7 +23,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
     accessibility-current="page"
     data-action=""
     data-link=""
-    data-slot-names="unnamed"
     href="https://example.com/one"
     slot="li-2"
   >

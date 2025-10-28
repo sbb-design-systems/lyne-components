@@ -7,9 +7,13 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter, slotState } from '../../core/decorators.js';
+import { forceType, omitEmptyConverter } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
+import {
+  SbbElementInternalsMixin,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbNavigationButtonElement } from '../navigation-button.js';
 import type { SbbNavigationLinkElement } from '../navigation-link.js';
@@ -24,11 +28,10 @@ import style from './navigation-list.scss?lit&inline';
  */
 export
 @customElement('sbb-navigation-list')
-@slotState()
 class SbbNavigationListElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
->(LitElement) {
+>(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
