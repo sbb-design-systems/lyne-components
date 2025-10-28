@@ -1,11 +1,6 @@
 import { html, nothing } from 'lit';
 
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
 
 import './timetable-occupancy.component.js';
 
@@ -14,36 +9,42 @@ describe(`sbb-timetable-occupancy`, () => {
     firstClassOccupancy: ['high', 'low', undefined],
     secondClassOccupancy: ['medium', 'none', undefined],
     negative: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    let root: HTMLElement;
-
-    describeEach(cases, ({ firstClassOccupancy, secondClassOccupancy, negative, forcedColors }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
-            <sbb-timetable-occupancy
-              ?negative=${negative}
-              first-class-occupancy=${firstClassOccupancy || nothing}
-              second-class-occupancy=${secondClassOccupancy || nothing}
-            ></sbb-timetable-occupancy>
-          `,
-          {
-            backgroundColor:
-              forcedColors || negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-            forcedColors,
-          },
+    describeEach(
+      cases,
+      ({
+        firstClassOccupancy,
+        secondClassOccupancy,
+        negative,
+        emulateMedia: { forcedColors, darkMode },
+      }) => {
+        it(
+          '',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-timetable-occupancy
+                  ?negative=${negative}
+                  first-class-occupancy=${firstClassOccupancy || nothing}
+                  second-class-occupancy=${secondClassOccupancy || nothing}
+                ></sbb-timetable-occupancy>
+              `,
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                forcedColors,
+                darkMode,
+              },
+            );
+          }),
         );
-      });
-
-      it(
-        '',
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
+      },
+    );
   });
 });

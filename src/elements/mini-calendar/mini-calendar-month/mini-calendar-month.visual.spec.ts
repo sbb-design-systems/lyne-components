@@ -50,5 +50,28 @@ describe('sbb-mini-calendar-month', () => {
         }),
       );
     }
+
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-mini-calendar>
+              <sbb-mini-calendar-month date="2025-01">
+                ${repeat(
+                  new Array(31),
+                  (_, index) => html`
+                    <sbb-mini-calendar-day
+                      date=${`2025-01-${String(index + 1).padStart(2, '0')}`}
+                    ></sbb-mini-calendar-day>
+                  `,
+                )}
+              </sbb-mini-calendar-month>
+            </sbb-mini-calendar>
+          `,
+          { darkMode: true },
+        );
+      }),
+    );
   });
 });

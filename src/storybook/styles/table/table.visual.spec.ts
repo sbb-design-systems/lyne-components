@@ -5,16 +5,18 @@ import type { ClassInfo } from 'lit-html/directives/class-map.js';
 import {
   describeEach,
   describeViewports,
-  visualRegressionFixture,
   visualDiffDefault,
 } from '../../../elements/core/testing/private.js';
 
 describe(`table`, () => {
-  let root: HTMLElement;
-
   const cases = {
     negative: [false, true],
     striped: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const sizeCases = {
@@ -80,24 +82,22 @@ describe(`table`, () => {
   `;
 
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ negative, striped }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          tableTemplate({
-            'sbb-table': true,
-            'sbb-table--negative': negative,
-            'sbb-table--unstriped': !striped,
-          }),
-          {
-            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-          },
-        );
-      });
-
+    describeEach(cases, ({ negative, striped, emulateMedia: { darkMode, forcedColors } }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          setup.withSnapshotElement(root);
+          await setup.withFixture(
+            tableTemplate({
+              'sbb-table': true,
+              'sbb-table--negative': negative,
+              'sbb-table--unstriped': !striped,
+            }),
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              forcedColors,
+              darkMode,
+            },
+          );
         }),
       );
     });

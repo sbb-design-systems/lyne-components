@@ -2,7 +2,6 @@
 @use '../core/mediaqueries';
 @use './a11y';
 @use './buttons';
-@use './shadows';
 @use './typo';
 
 // -----------------------------------------------------------------------------
@@ -162,7 +161,7 @@
     --sbb-card-hover-shift: #{functions.px-to-rem-build(-2)};
 
     #{$cardSelector} {
-      @include shadows.shadow-level-9-hard;
+      box-shadow: var(--sbb-box-shadow-level-9-hard);
     }
 
     @include a11y.if-forced-colors {

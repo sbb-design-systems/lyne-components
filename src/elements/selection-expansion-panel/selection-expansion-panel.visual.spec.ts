@@ -183,4 +183,28 @@ describe(`sbb-selection-expansion-panel`, () => {
       });
     }
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    const colorCases = {
+      color: ['white', 'milk'],
+      checked: [false, true],
+      disabled: [false, true],
+      emulateMedia: [
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ],
+    };
+
+    describeEach(colorCases, ({ emulateMedia: { darkMode, forcedColors }, ...params }) => {
+      it(
+        ``,
+        visualDiffFocus.with(async (setup) => {
+          await setup.withFixture(withCheckboxPanel(params), {
+            forcedColors,
+            darkMode,
+          });
+        }),
+      );
+    });
+  });
 });

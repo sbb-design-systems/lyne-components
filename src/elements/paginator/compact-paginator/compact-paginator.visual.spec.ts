@@ -49,6 +49,20 @@ describe('sbb-compact-paginator', () => {
           });
         }
 
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-compact-paginator
+                ?negative=${negative}
+                length="50"
+                page-size="5"
+              ></sbb-compact-paginator>`,
+              { ...wrapperStyle, darkMode: true },
+            );
+          }),
+        );
+
         for (const size of ['s', 'm']) {
           describe(`size=${size}`, () => {
             for (const pageIndex of [0, 5, 9]) {

@@ -1,5 +1,7 @@
 @use '../../core/styles/index' as sbb;
 
 :host {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-1x);
 }

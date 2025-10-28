@@ -241,6 +241,18 @@ describe('sbb-autocomplete-grid', () => {
           }),
         );
 
+        it(
+          'darkMode=true focus',
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(template(defaultArgs), { darkMode: true });
+
+            setup.withPostSetupAction(async () => {
+              await openAutocomplete(setup);
+              await sendKeys({ press: 'ArrowDown' });
+            });
+          }),
+        );
+
         for (const withIcon of [false, true]) {
           it(
             `state=noSpace withIcon=${withIcon}`,
@@ -336,6 +348,16 @@ describe('sbb-autocomplete-grid', () => {
         await setup.withFixture(
           html`<div class="sbb-options-nowrap">${template({ ...defaultArgs })}</div>`,
         );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), { forcedColors: true });
+
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );

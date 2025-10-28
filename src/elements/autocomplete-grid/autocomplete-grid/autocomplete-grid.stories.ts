@@ -102,6 +102,16 @@ const autoActiveFirstOption: InputType = {
   },
 };
 
+const position: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['auto', 'below', 'abobe'],
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const borderless: InputType = {
   control: {
     type: 'boolean',
@@ -189,6 +199,7 @@ const defaultArgTypes: ArgTypes = {
   // Autocomplete args
   preserveIconSpace,
   autoActiveFirstOption,
+  position,
 
   // Option args
   optionIconName,
@@ -220,6 +231,7 @@ const defaultArgs: Args = {
   // Autocomplete args
   preserveIconSpace: true,
   autoActiveFirstOption: false,
+  position: position.options![0],
 
   // Option args
   optionIconName: 'clock-small',
@@ -312,6 +324,7 @@ const Template = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
       <sbb-autocomplete-grid
+        position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
       >
@@ -346,6 +359,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?readonly=${args.readonly}
       />
       <sbb-autocomplete-grid
+        position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
       >

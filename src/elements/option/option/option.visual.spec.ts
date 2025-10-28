@@ -66,31 +66,48 @@ describe(`sbb-option`, () => {
 
   describeViewports({ viewports: ['small', 'large'] }, () => {
     describe('standalone', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate(defaultArgs));
-        }),
-      );
+      for (const { darkMode, forcedColors } of [
+        { forcedColors: false, darkMode: false },
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ]) {
+        describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+          it(
+            visualDiffDefault.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(standaloneTemplate(defaultArgs), {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+
+          it(
+            `disabled`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabled: true }), {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+
+          it(
+            `active`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(standaloneTemplate({ ...defaultArgs, active: true }), {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+        });
+      }
 
       it(
         `icon`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(standaloneTemplate({ ...defaultArgs, iconName: 'clock-small' }));
-        }),
-      );
-
-      it(
-        `disabled`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabled: true }));
-        }),
-      );
-
-      it(
-        `active`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate({ ...defaultArgs, active: true }));
         }),
       );
 

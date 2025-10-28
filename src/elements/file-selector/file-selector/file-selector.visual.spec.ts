@@ -36,17 +36,25 @@ describe(`sbb-file-selector`, () => {
       { disabled: true, error: false },
       { disabled: false, error: true },
     ],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['small', 'large'] }, () => {
-    describeEach(states, ({ state }) => {
+    describeEach(states, ({ state, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
-          ${state.error
-            ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
-            : nothing}
-        `);
+        root = await visualRegressionFixture(
+          html`
+            <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
+            ${state.error
+              ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
+              : nothing}
+          `,
+          { forcedColors: forcedColors, darkMode },
+        );
       });
 
       it(

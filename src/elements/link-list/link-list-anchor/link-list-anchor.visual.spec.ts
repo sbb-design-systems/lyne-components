@@ -32,15 +32,18 @@ const listAnchor = (
 `;
 
 describe(`sbb-link-list-anchor`, () => {
-  const cases = { negative: [false, true] };
+  const cases = {
+    negative: [false, true],
+  };
 
   describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
-    describeEach(cases, ({ negative }) => {
+    describeEach({ ...cases, darkMode: [false, true] }, ({ negative, darkMode }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
         root = await visualRegressionFixture(listAnchor(negative, 's', true), {
           backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+          darkMode,
         });
       });
 

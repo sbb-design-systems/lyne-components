@@ -116,6 +116,38 @@ describe('sbb-icon-sidebar', () => {
     );
   });
 
+  describeViewports({ viewports: ['large'], viewportHeight: 400 }, () => {
+    describeEach(
+      {
+        color: ['white', 'milk'] as SbbIconSidebarElement['color'][],
+      },
+      ({ color }) => {
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${header}<sbb-icon-sidebar-container>
+                  ${iconSidebar(color)}
+                  <sbb-icon-sidebar-content id="content">${content}</sbb-icon-sidebar-content>
+                </sbb-icon-sidebar-container>`,
+              {
+                backgroundColor: color === 'white' ? 'var(--sbb-background-color-3)' : undefined,
+                minHeight: '400px',
+                darkMode: true,
+              },
+            );
+
+            // Scroll
+            setup.withPostSetupAction(() => {
+              const content = setup.snapshotElement.querySelector('sbb-icon-sidebar-content')!;
+              content.scrollTo(0, content.scrollHeight);
+            });
+          }),
+        );
+      },
+    );
+  });
+
   describeViewports({ viewports: ['zero', 'large'], viewportHeight: 200 }, () => {
     it(
       'scrolled icons',
