@@ -11,7 +11,6 @@ $theme: 'standard' !default;
 @use './mixins/inputs';
 @use './mixins/popover';
 @use './mixins/scrollbar';
-@use './mixins/shadows';
 @use './mixins/typo';
 
 @include helpers.box-sizing;
@@ -594,11 +593,11 @@ sbb-dialog-actions {
   sbb-dialog:state(overflows) & {
     --sbb-dialog-actions-border-color: transparent;
 
-    @include shadows.shadow-level-9-soft;
+    box-shadow: var(--sbb-box-shadow-level-9-soft);
   }
 
   sbb-dialog[negative]:state(overflows) & {
-    @include shadows.shadow-level-9-soft-negative;
+    box-shadow: var(--sbb-box-shadow-level-9-soft-negative);
   }
 }
 

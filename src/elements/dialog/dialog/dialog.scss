@@ -162,11 +162,11 @@
   box-shadow: none;
 
   :host(:not([negative]):state(scrolled)) & {
-    @include sbb.shadow-level-5-soft;
+    box-shadow: var(--sbb-box-shadow-level-5-soft);
   }
 
   :host([negative]:state(scrolled)) & {
-    @include sbb.shadow-level-5-soft-negative;
+    box-shadow: var(--sbb-box-shadow-level-5-soft-negative);
   }
 }
 

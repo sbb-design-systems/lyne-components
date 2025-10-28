@@ -103,8 +103,8 @@
 
 .sbb-slider__knob {
   @include sbb.absolute-center-y;
-  @include sbb.shadow-level-5-hard;
 
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
   width: var(--sbb-slider-knob-size);
   height: var(--sbb-slider-knob-size);
   inset-inline-start: calc(

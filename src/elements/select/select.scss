@@ -118,11 +118,11 @@
   }
 
   :host(:is([data-state='opened'], [data-state='opening'])) & {
-    @include sbb.shadow-level-5-hard;
+    box-shadow: var(--sbb-box-shadow-level-5-hard);
   }
 
   :host(:is([data-state='opened'], [data-state='opening'])[negative]) & {
-    @include sbb.shadow-level-5-hard-negative;
+    box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
   }
 
   &::before {
@@ -142,7 +142,7 @@
   &::after {
     :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless])
       & {
-      @include sbb.shadow-level-5-hard;
+      box-shadow: var(--sbb-box-shadow-level-5-hard);
     }
 
     :host(
@@ -152,7 +152,7 @@
           )[data-option-panel-origin-borderless][negative]
       )
       & {
-      @include sbb.shadow-level-5-hard-negative;
+      box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
     }
   }
 }
