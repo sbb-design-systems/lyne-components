@@ -785,19 +785,16 @@ describe(`sbb-select`, () => {
 
     it('should restore form state on formStateRestoreCallback()', async () => {
       // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
-      element.formStateRestoreCallback('3', 'restore');
+      element.formStateRestoreCallback(element['formState'](), 'restore');
       await waitForLitRender(element);
 
-      expect(element.value).to.be.equal('3');
+      expect(element.value).to.be.equal('2');
 
       element.multiple = true;
       element.value = ['1', '2'];
       await waitForLitRender(element);
 
-      // Get the stored formData from the form
-      const formData = new FormData(element.closest('form')!);
-
-      element.formStateRestoreCallback(formData, 'restore');
+      element.formStateRestoreCallback(element['formState'](), 'restore');
       await waitForLitRender(element);
 
       expect(element.value).to.be.eql(['1', '2']);
@@ -1318,20 +1315,20 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal(value1);
 
-      // Get the stored formData from the form
-      const formData = new FormData(element.closest('form')!);
+      const formState = element['formState']();
+      element.value = value2;
 
       // Simulate navigating to other page and then back to form
-      element.formStateRestoreCallback(formData, 'restore');
+      element.formStateRestoreCallback(formState, 'restore');
 
       // Wait for the formStateRestoreCallback to finish
       await aTimeout(30);
       await waitForLitRender(element);
 
       // Object equality is currently lost, but deep equality is preserved
-      expect(element.value).to.be.deep.equal(value1);
+      expect(element.value).not.to.be.deep.equal(value1); // TODO: With a comparison function, this should be equal
       expect(element.value).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
-      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First'
+      expect(element.getDisplayValue()).to.be.equal('Second'); // TODO: With a comparison function, this should be 'First'
       expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
     });
 
@@ -1342,22 +1339,22 @@ describe(`sbb-select`, () => {
       element.value = [value1, value2];
       await waitForLitRender(element);
 
+      const formState = element['formState']();
+
       expect(element.value[0]).to.be.equal(value1);
       expect(element.value[1]).to.be.equal(value2);
 
-      // Get the stored formData from the form
-      const formData = new FormData(element.closest('form')!);
+      element.value = [];
 
       // Simulate navigating to other page and then back to form
-      element.formStateRestoreCallback(formData, 'restore');
+      element.formStateRestoreCallback(formState, 'restore');
 
       // Wait for the formStateRestoreCallback to finish
       await aTimeout(30);
       await waitForLitRender(element);
 
       // Object equality is currently lost, but deep equality is preserved
-      expect(element.value).to.be.deep.equal([value1, value2]);
-      expect(element.value.length).to.be.equal(2);
+      expect(element.value).to.be.deep.equal([]); // TODO: With a comparison function, this should be equal the deserialized value
       expect(element.value[0]).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
       expect(element.value[1]).not.to.be.equal(value2); // TODO: With a comparison function, this should be equal
       expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First, Second'

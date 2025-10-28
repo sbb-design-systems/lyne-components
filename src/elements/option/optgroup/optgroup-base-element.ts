@@ -98,6 +98,9 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     this.proxyDisabledToOptions();
     this._proxyGroupLabelToOptions();
     this._highlightOptions();
+    // Used to notify associated components to update state
+    /** @internal */
+    this.dispatchEvent(new Event('ɵoptgroupslotchange'));
   }
 
   private _proxyGroupLabelToOptions(): void {
