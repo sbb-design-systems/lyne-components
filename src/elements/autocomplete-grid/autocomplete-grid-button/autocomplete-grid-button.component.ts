@@ -11,8 +11,6 @@ import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
-import style from './autocomplete-grid-button.scss?lit&inline';
-
 let autocompleteButtonNextId = 0;
 
 /** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
@@ -36,7 +34,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly role = 'button';
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
   public get option(): SbbAutocompleteGridOptionElement | null {
