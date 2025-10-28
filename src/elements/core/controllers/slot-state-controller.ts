@@ -46,34 +46,34 @@ export class SbbSlotStateController implements ReactiveController {
 
   public hostConnected: ReactiveController['hostConnected'] = (): void => {
     this._host.shadowRoot?.addEventListener('slotchange', (e) =>
-      this._slotchangeHandler(this._unwrapSlot(e, e.target as HTMLSlotElement)),
+      this._slotchangeHandler(e, e.target as HTMLSlotElement),
     );
     this._host.shadowRoot?.addEventListener(
       'slottedchange',
-      (e) => this._slotchangeHandler(this._unwrapSlot(e, e.slot)),
+      (e) => this._slotchangeHandler(e, e.slot),
       { capture: true },
     );
     this._internals.shadowRoot
       ?.querySelectorAll('slot')
-      .forEach((slot) => this._slotchangeHandler(slot));
+      .forEach((slot) => this._handleSlotChange(slot));
     this.hostConnected = undefined;
   };
 
-  private _unwrapSlot(event: Event, slot: HTMLSlotElement): HTMLSlotElement {
-    return this._host.shadowRoot!.contains(slot)
+  private _slotchangeHandler(event: Event, slot: HTMLSlotElement): void {
+    const resolvedSlot = this._host.shadowRoot!.contains(slot)
       ? slot
       : event
           .composedPath()
           .find(
             (el): el is HTMLSlotElement =>
               el instanceof HTMLSlotElement && this._host.shadowRoot!.contains(el),
-          )!;
+          );
+    if (resolvedSlot) {
+      this._handleSlotChange(resolvedSlot);
+    }
   }
 
-  private _slotchangeHandler(slot: HTMLSlotElement): void {
-    if (!slot) {
-      return;
-    }
+  private _handleSlotChange(slot: HTMLSlotElement): void {
     this._updateSlottedState(slot);
     if (!slot.name) {
       this._observeTextNodesInSlot(slot);
