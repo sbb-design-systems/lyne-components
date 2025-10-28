@@ -158,7 +158,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Gets all the SbbOptionElement projected in the select. */
   private get _options(): SbbOptionElement<T>[] {
-    return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
+    const options = Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
+    options.forEach((o) => customElements.upgrade(o));
+    return options;
   }
 
   private get _filteredOptions(): SbbOptionElement<T>[] {
@@ -338,7 +340,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
-  private _onValueChanged(newValue: T | T[]): void {
+  private _onValueChanged(newValue: T | T[] | null): void {
     const options = this._filteredOptions;
     if (!Array.isArray(newValue)) {
       const optionElement = options.find((o) => o.value === newValue) ?? null;
@@ -881,7 +883,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     } else if (selected) {
       this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selected);
       this.value = selected.value;
-    } else if (this.value) {
+    } else if (this.value !== null && this.value !== undefined) {
       // If we arrive here without any options being selected,
       // we should try to check the current value against the available options
       // (and select it if any match is found).
