@@ -68,11 +68,6 @@ Please note that nesting the menus in DOM is not supported. The `sbb-menu` eleme
 </sbb-menu>
 ```
 
-## Style
-
-If only `sbb-menu-button`/`sbb-menu-link` components are provided, the items are automatically grouped within a list
-using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
-
 ## Accessibility
 
 As the menu opens, the focus will automatically be set to the first focusable
