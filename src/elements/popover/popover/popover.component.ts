@@ -21,7 +21,7 @@ import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { type SbbElementInternalsMixinType, SbbHydrationMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
   isEventOnElement,
@@ -535,6 +535,24 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
     super.firstUpdated(changedProperties);
 
     this._registerOverlayListeners();
+  }
+
+  public override open(): void {
+    super.open();
+
+    const trigger = this.trigger as SbbElementInternalsMixinType | null;
+    if (this.hoverTrigger && typeof trigger?.['toggleState'] === 'function') {
+      trigger['toggleState']('force-hover', true);
+    }
+  }
+
+  public override close(): void {
+    super.close();
+
+    const trigger = this.trigger as SbbElementInternalsMixinType | null;
+    if (typeof trigger?.['toggleState'] === 'function') {
+      trigger['toggleState']('force-hover', false);
+    }
   }
 
   private _onTriggerMouseEnter = (): void => {

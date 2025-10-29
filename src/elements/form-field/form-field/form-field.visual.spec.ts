@@ -104,12 +104,12 @@ describe(`sbb-form-field`, () => {
       ?disabled=${disabled || readonly}
       aria-label="Input button"
     ></sbb-mini-button>
-    <sbb-popover-trigger
+    <sbb-mini-button
       slot="suffix"
       id="popover-trigger"
       icon-name="circle-information-small"
-    ></sbb-popover-trigger>
-    <sbb-popover trigger="popover-trigger"> Some content. </sbb-popover>
+    ></sbb-mini-button>
+    <sbb-popover trigger="popover-trigger">Some content.</sbb-popover>
   `;
 
   const basicArgs = {

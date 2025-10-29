@@ -2,14 +2,13 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { miniButtonStyle } from '../../button/common.js';
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { i18nClearInput } from '../../core/i18n.js';
 import { SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbFormFieldElement } from '../form-field.js';
-
-import style from './form-field-clear.scss?lit&inline';
 
 import '../../icon.js';
 
@@ -19,7 +18,7 @@ import '../../icon.js';
 export
 @customElement('sbb-form-field-clear')
 class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   private _formField?: SbbFormFieldElement | null;
   private _language = new SbbLanguageController(this);
@@ -56,7 +55,7 @@ class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   }
 
   protected override renderTemplate(): TemplateResult {
-    return html` <sbb-icon name="cross-small"></sbb-icon> `;
+    return html`<sbb-icon name="cross-small"></sbb-icon>`;
   }
 }
 

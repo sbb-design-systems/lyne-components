@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyDeclaration } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { miniButtonStyle } from '../../button/common.js';
 import { idReference } from '../../core/decorators.js';
 import { i18nShowCalendar } from '../../core/i18n.js';
 import { boxSizingStyles } from '../../core/styles.js';
@@ -15,7 +16,7 @@ import style from './datepicker-toggle.scss?lit&inline';
 export
 @customElement('sbb-datepicker-toggle')
 class SbbDatepickerToggleElement<T = Date> extends SbbDatepickerButtonBase<T> {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
 
   protected override iconName = 'calendar-small';
 

@@ -10,6 +10,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.js';
 import type { SbbFormErrorElement } from '../form-error.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button.js';
 
+import '../button/mini-button.js';
 import '../card.js';
 import '../checkbox.js';
 import '../divider.js';
@@ -248,17 +249,17 @@ const TicketsOptionsExampleTemplate = ({
             style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); color:var(--sbb-color-2);"
           >
             1 x 0 x Supersaver ticket, Half-Fare Card${' '}
-            <sbb-popover-trigger
+            <sbb-mini-button
               id="popover-trigger-1"
               icon-name="circle-information-small"
-            ></sbb-popover-trigger>
+            ></sbb-mini-button>
           </div>
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-popover trigger="popover-trigger-1" hover-trigger>
-          <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
-            >Popover title.</sbb-title
-          >
+          <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+            Popover title.
+          </sbb-title>
           <span class="sbb-text-s">Simple popover</span>
         </sbb-popover>
       </div>
@@ -293,10 +294,10 @@ const TicketsOptionsExampleTemplate = ({
             style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); color: var(--sbb-color-2);"
           >
             1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card${' '}
-            <sbb-popover-trigger
+            <sbb-mini-button
               id="popover-trigger-2"
               icon-name="circle-information-small"
-            ></sbb-popover-trigger>
+            ></sbb-mini-button>
           </div>
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
