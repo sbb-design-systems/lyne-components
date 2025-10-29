@@ -1271,6 +1271,10 @@ describe(`sbb-select`, () => {
       element.value = 0;
       await waitForLitRender(element);
 
+      const firstOption = element.querySelector<SbbOptionElement<boolean>>('#option-1')!;
+      expect(element.getDisplayValue()).to.be.equal('other');
+      expect(firstOption).to.have.attribute('selected');
+
       const secondOption = element.querySelector<SbbOptionElement<boolean>>('#option-2')!;
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
