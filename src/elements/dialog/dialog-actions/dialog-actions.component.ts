@@ -24,10 +24,6 @@ class SbbDialogActionsElement extends SbbActionGroupElement {
     /** @default 's' / 'xs' (lean) */
     this.linkSize = isLean() ? 'xs' : 's';
   }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-  }
 }
 
 declare global {
