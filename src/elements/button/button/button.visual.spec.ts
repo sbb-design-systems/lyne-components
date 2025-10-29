@@ -43,9 +43,9 @@ describe(`sbb-button`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-button ?disabled=${disabled} ?negative=${negative} .iconName=${state.icon}>
-              ${state.text}
-            </sbb-button>
+            <sbb-button ?disabled=${disabled} ?negative=${negative} .iconName=${state.icon}
+              >${state.text}</sbb-button
+            >
           `,
           {
             backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
