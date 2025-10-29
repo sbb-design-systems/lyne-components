@@ -1,6 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
 
 import type { SbbDialogElement } from './dialog.component.js';
 
@@ -17,7 +17,7 @@ describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];
 
   const dialogTitle = (): TemplateResult => html`
-    <sbb-dialog-title> A describing title of the dialog </sbb-dialog-title>
+    <sbb-dialog-title>A describing title of the dialog</sbb-dialog-title>
   `;
 
   const dialogContent = (longContent = false): TemplateResult => html`
@@ -139,9 +139,7 @@ describe(`sbb-dialog`, () => {
         setup.withSnapshotElement(dialog);
         setup.withPostSetupAction(() => {
           dialog.open();
-          const content = setup.snapshotElement.shadowRoot!.querySelector(
-            '.sbb-dialog-content-container',
-          )!;
+          const content = setup.snapshotElement.querySelector('sbb-dialog-content')!;
           content.scrollTo(0, content.scrollHeight);
         });
       }),
@@ -174,6 +172,41 @@ describe(`sbb-dialog`, () => {
         setup.withSnapshotElement(dialog);
         setup.withPostSetupAction(() => dialog.open());
       }),
+    );
+
+    describeEach(
+      {
+        state: [
+          { closeButton: true, title: true },
+          { closeButton: false, title: true },
+          { closeButton: true, title: false },
+        ],
+      },
+      ({ state: { closeButton, title } }) => {
+        it(
+          `with intermediate element`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              <sbb-dialog negative>
+                <div>
+                  ${title ? dialogTitle() : nothing}
+                  ${closeButton
+                    ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
+                    : nothing}
+                  ${dialogContent(true)} ${dialogFooter()}
+                </div>
+              </sbb-dialog>
+            `);
+            const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+            setup.withSnapshotElement(dialog);
+            setup.withPostSetupAction(() => {
+              dialog.open();
+              const content = setup.snapshotElement.querySelector('sbb-dialog-content')!;
+              content.scrollTo(0, content.scrollHeight);
+            });
+          }),
+        );
+      },
     );
   });
 });

@@ -150,17 +150,22 @@
   }
 }
 
+:host(:state(has-intermediate-element)) ::slotted(:first-child),
 .sbb-dialog__wrapper {
+  width: var(--sbb-dialog-width);
+  height: var(--sbb-dialog-height);
+  max-width: var(--sbb-dialog-max-width);
+  max-height: var(--sbb-dialog-max-height);
+}
+
+:host(:state(has-intermediate-element)) ::slotted(:first-child),
+:host(:not(:state(has-intermediate-element))) .sbb-dialog__wrapper {
   display: grid;
   grid-template:
     'title close-button' auto
     'content content' 1fr
     'actions actions' auto / 1fr auto;
   gap: 0;
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
-  max-width: var(--sbb-dialog-max-width);
-  max-height: var(--sbb-dialog-max-height);
 }
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter

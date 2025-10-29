@@ -585,38 +585,46 @@ sbb-toggle:has(:focus-visible) {
   }
 }
 
-// Hide margin on the right side. Distance to button is defined by flex gap already.
-sbb-dialog:has(> sbb-dialog-close-button) > sbb-dialog-title {
-  padding-inline-end: 0;
+sbb-dialog-title {
+  // Hide margin on the right side. Distance to button is defined by flex gap already.
+  sbb-dialog:has(> sbb-dialog-close-button) > &,
+  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-close-button) > * > & {
+    padding-inline-end: 0;
+  }
 }
 
 sbb-dialog-content {
   // If there is a title, remove top spacing for the content
-  sbb-dialog:has(> sbb-dialog-title) > & {
+  sbb-dialog:has(> sbb-dialog-title) > &,
+  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
     padding-block-start: 0;
   }
 
   // Set the negative scrollbar colors for dialog content when dialog is negative
-  sbb-dialog[negative] > & {
+  sbb-dialog[negative] > &,
+  sbb-dialog[negative]:state(has-intermediate-element) > * > & {
     @include scrollbar.scrollbar-variables--color-negative;
   }
 }
 
 sbb-dialog-close-button {
   // If there is no dialog title, the close button should be positioned absolute
-  sbb-dialog:not(:has(> sbb-dialog-title)) > & {
+  sbb-dialog:not(:has(> sbb-dialog-title)) > &,
+  sbb-dialog:state(has-intermediate-element):not(:has(> * > sbb-dialog-title)) > * > & {
     position: absolute;
     z-index: 1;
   }
 
   // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > & {
+  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
+  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3']) > * > & {
     // TODO: Adapt to lean size title
     --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
   }
 
   // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > & {
+  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
+  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5']) > * > & {
     // TODO: Adapt to lean size title
     --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
   }

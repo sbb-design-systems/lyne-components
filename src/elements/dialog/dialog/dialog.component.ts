@@ -139,6 +139,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     }
   }
 
+  private _handleSlotChange(): void {
+    this._syncTitleNegative();
+    this._detectIntermediateElement();
+  }
+
   private _syncTitleNegative(): void {
     const dialogTitle = this.querySelector?.('sbb-dialog-title');
     const closeButton = this.querySelector?.('sbb-dialog-close-button');
@@ -150,6 +155,26 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     if (closeButton) {
       closeButton.negative = this.negative;
     }
+  }
+
+  private _detectIntermediateElement(): void {
+    const potentialChildElements = ['sbb-dialog-title', 'sbb-dialog-content', 'sbb-dialog-actions'];
+
+    const hasOnlyOneDirectChild =
+      Array.from(this.children).filter((el) => el instanceof HTMLElement).length === 1;
+    const noExpectedElementAsDirectChild = potentialChildElements.every(
+      (name) => this.firstElementChild?.localName !== name,
+    );
+    const intermediateElementHasExpectedChildren = Array.from(
+      this.firstElementChild?.children ?? [],
+    ).some((c) => potentialChildElements.includes(c.localName));
+
+    this.toggleState(
+      'has-intermediate-element',
+      hasOnlyOneDirectChild &&
+        noExpectedElementAsDirectChild &&
+        intermediateElementHasExpectedChildren,
+    );
   }
 
   /** Check if the pointerdown event target is triggered on the dialog. */
@@ -200,7 +225,7 @@ class SbbDialogElement extends SbbOverlayBaseElement {
             @click=${(event: Event) => this.closeOnSbbOverlayCloseClick(event)}
             class="sbb-dialog__wrapper"
           >
-            <slot @slotchange=${() => this._syncTitleNegative()}></slot>
+            <slot @slotchange=${() => this._handleSlotChange()}></slot>
           </div>
         </div>
       </div>
