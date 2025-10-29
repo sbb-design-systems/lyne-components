@@ -261,7 +261,7 @@ export function createManifestConfig(library = '') {
                 delete declaration[overrideTypeKey];
               }
 
-              for (const member of declaration.members) {
+              for (const member of declaration.members ?? []) {
                 if (member.name.startsWith('_') && member.default) {
                   const publicName = member.name.replace(/^_/, '');
                   const publicMember = declaration.members.find((m) => m.name === publicName);

@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-teaser-product-static renders DOM"] = 
 `<sbb-teaser-product-static
   data-action=""
-  data-slot-names="footnote image unnamed"
   image-alignment="after"
 >
   <figure

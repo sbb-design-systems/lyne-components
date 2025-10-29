@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, slotState } from '../core/decorators.js';
+import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
@@ -21,7 +21,6 @@ import style from './toggle-check.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle-check')
-@slotState()
 class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
   SbbIconNameMixin(LitElement),
 ) {

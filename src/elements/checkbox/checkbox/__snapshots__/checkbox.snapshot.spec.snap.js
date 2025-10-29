@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-checkbox should render unchecked DOM"] = 
 `<sbb-checkbox
-  data-slot-names="unnamed"
   icon-placement="end"
   size="m"
   tabindex="0"
@@ -38,7 +37,6 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
 snapshots["sbb-checkbox should render checked DOM"] = 
 `<sbb-checkbox
   checked=""
-  data-slot-names="unnamed"
   icon-placement="end"
   size="m"
   tabindex="0"
@@ -75,7 +73,6 @@ snapshots["sbb-checkbox should render checked Shadow DOM"] =
 
 snapshots["sbb-checkbox should render indeterminate DOM"] = 
 `<sbb-checkbox
-  data-slot-names="unnamed"
   icon-placement="end"
   indeterminate=""
   size="m"
@@ -113,7 +110,6 @@ snapshots["sbb-checkbox should render indeterminate Shadow DOM"] =
 
 snapshots["sbb-checkbox should render unchecked disabled DOM"] = 
 `<sbb-checkbox
-  data-slot-names="unnamed"
   disabled=""
   icon-placement="end"
   size="m"

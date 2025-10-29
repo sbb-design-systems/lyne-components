@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, slotState } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
@@ -24,7 +24,6 @@ let nextId = 0;
  */
 export
 @customElement('sbb-radio-button-group')
-@slotState()
 class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
   SbbElementInternalsMixin(LitElement),
 ) {

@@ -8,7 +8,6 @@ snapshots["sbb-timetable-form renders DOM"] =
   <sbb-timetable-form>
     <sbb-timetable-form-field
       borderless=""
-      data-slot-names="label unnamed"
       error-space="none"
       floating-label=""
       size="l"
@@ -37,7 +36,6 @@ snapshots["sbb-timetable-form renders DOM"] =
     </sbb-timetable-form-swap-button>
     <sbb-timetable-form-field
       borderless=""
-      data-slot-names="label unnamed"
       error-space="none"
       floating-label=""
       size="l"
@@ -58,7 +56,6 @@ snapshots["sbb-timetable-form renders DOM"] =
     <sbb-timetable-form-details>
       <sbb-form-field
         borderless=""
-        data-slot-names="unnamed"
         error-space="none"
         size="l"
         width="collapse"
@@ -80,14 +77,12 @@ snapshots["sbb-timetable-form renders DOM"] =
       >
         <sbb-toggle-option
           checked=""
-          data-slot-names="unnamed"
           tabindex="0"
           value="departure"
         >
           Dep
         </sbb-toggle-option>
         <sbb-toggle-option
-          data-slot-names="unnamed"
           tabindex="-1"
           value="arrival"
         >
@@ -100,7 +95,6 @@ snapshots["sbb-timetable-form renders DOM"] =
         data-action=""
         data-button=""
         data-sbb-button=""
-        data-slot-names="unnamed"
         size="m"
         tabindex="0"
         type="submit"

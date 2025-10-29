@@ -7,7 +7,6 @@ snapshots["sbb-link-button renders DOM"] =
   data-action=""
   data-button=""
   data-sbb-link=""
-  data-slot-names="unnamed"
   form="form"
   name="name"
   size="m"

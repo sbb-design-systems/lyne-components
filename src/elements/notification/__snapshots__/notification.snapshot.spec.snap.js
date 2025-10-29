@@ -115,7 +115,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
 snapshots["sbb-notification renders with a slotted title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="title unnamed"
   data-state="opened"
   size="m"
   type="info"
