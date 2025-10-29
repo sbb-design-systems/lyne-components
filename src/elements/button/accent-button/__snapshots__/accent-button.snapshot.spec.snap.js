@@ -6,7 +6,6 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] =
   data-action=""
   data-button=""
   data-sbb-button=""
-  data-slot-names="unnamed"
   disabled=""
   form="formid"
   name="name"
@@ -37,7 +36,6 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"]
   data-action=""
   data-button=""
   data-sbb-button=""
-  data-slot-names="icon unnamed"
   size="l"
   tabindex="0"
 >

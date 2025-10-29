@@ -535,7 +535,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
     </label>
     <sbb-form-field
       borderless=""
-      data-slot-names="unnamed"
       error-space="none"
       size="m"
       width="collapse"
@@ -563,7 +562,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
         <sbb-option
           aria-selected="true"
           data-disable-highlight=""
-          data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-3"
           selected=""
@@ -574,7 +572,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
         <sbb-option
           aria-selected="false"
           data-disable-highlight=""
-          data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-4"
           value="25"
@@ -584,7 +581,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
         <sbb-option
           aria-selected="false"
           data-disable-highlight=""
-          data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-5"
           value="50"
@@ -716,7 +712,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
     </label>
     <sbb-form-field
       borderless=""
-      data-slot-names="unnamed"
       error-space="none"
       size="m"
       width="collapse"
@@ -744,7 +739,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
         <sbb-option
           aria-selected="true"
           data-disable-highlight=""
-          data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-3"
           selected=""
@@ -755,7 +749,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
         <sbb-option
           aria-selected="false"
           data-disable-highlight=""
-          data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-4"
           value="25"
@@ -765,7 +758,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
         <sbb-option
           aria-selected="false"
           data-disable-highlight=""
-          data-slot-names="unnamed"
           data-variant="select"
           id="sbb-option-5"
           value="50"

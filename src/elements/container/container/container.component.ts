@@ -7,7 +7,8 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, slotState } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './container.scss?lit&inline';
@@ -21,8 +22,7 @@ import style from './container.scss?lit&inline';
  */
 export
 @customElement('sbb-container')
-@slotState()
-class SbbContainerElement extends LitElement {
+class SbbContainerElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the container is expanded. */
