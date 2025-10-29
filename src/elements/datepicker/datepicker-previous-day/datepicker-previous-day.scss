@@ -1,7 +1,5 @@
 @use '../../core/styles' as sbb;
 
-@include sbb.icon-button('.sbb-datepicker-previous-day', 'sbb-icon');
-
 .sbb-datepicker-previous-day {
   margin: auto;
   -webkit-tap-highlight-color: transparent;

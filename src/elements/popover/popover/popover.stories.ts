@@ -11,7 +11,7 @@ import { SbbPopoverElement } from './popover.component.js';
 import readme from './readme.md?raw';
 import '../../link.js';
 import '../../title.js';
-import '../popover-trigger.js';
+import '../../button/mini-button.js';
 
 const hoverTrigger: InputType = {
   control: {
@@ -50,15 +50,15 @@ const defaultArgs: Args = {
 };
 
 const popoverTrigger = (position: Record<string, string>): TemplateResult => html`
-  <sbb-popover-trigger
+  <sbb-mini-button
+    icon-name="circle-information-small"
     style=${styleMap({
       'margin-inline': '2rem',
       position: 'absolute',
-      cursor: 'pointer',
       ...position,
     })}
     id="popover-trigger"
-  ></sbb-popover-trigger>
+  ></sbb-mini-button>
 `;
 
 const popover = (args: Args): TemplateResult => html`
