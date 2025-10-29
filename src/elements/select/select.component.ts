@@ -176,7 +176,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
-    this.addEventListener?.('ɵoptgroupslotchange', () => this._onSlotChange());
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._onSlotChange(), { capture: true });
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;
       if (target.localName === 'sbb-option') {
@@ -506,7 +506,11 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override validate(): void {
     super.validate();
-    if (this.required && this.options.every((o) => o.value !== this.value)) {
+    if (
+      this.required &&
+      (this.options.every((o) => o.value !== this.value) ||
+        (!this._isValueManuallyAssigned && this.value == null))
+    ) {
       this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
     } else {
       this.removeValidityFlag('valueMissing');
