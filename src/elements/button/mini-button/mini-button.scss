@@ -24,11 +24,12 @@ $icon-only: ':where(:state(slotted-icon), [icon-name]):not(:state(slotted))';
 }
 
 .sbb-mini-button__label {
-  @include sbb.text-xxs--regular;
   @include sbb.ellipsis;
 
+  font-size: var(--sbb-font-size-text-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
   display: var(--sbb-mini-button-label-display);
-  transition: translate var(--sbb-button-transition-duration)
-    var(--sbb-button-transition-easing-function);
-  translate: 0 var(--sbb-button-translate-y-content-hover, 0);
+  transition: translate var(--sbb-mini-button-transition-duration)
+    var(--sbb-mini-button-transition-easing-function);
+  translate: 0 var(--sbb-mini-button-translate-y-content-hover, 0);
 }
