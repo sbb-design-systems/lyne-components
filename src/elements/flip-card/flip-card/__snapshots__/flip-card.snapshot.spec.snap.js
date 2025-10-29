@@ -50,7 +50,6 @@ snapshots["sbb-flip-card DOM"] =
       data-card-focusable=""
       data-link=""
       data-sbb-link=""
-      data-slot-names="unnamed"
       href="https://www.sbb.ch"
       negative=""
       size="s"
@@ -81,7 +80,6 @@ snapshots["sbb-flip-card Shadow DOM"] =
     class="sbb-flip-card--toggle-button"
     data-action=""
     data-sbb-button=""
-    data-slot-names="icon"
     size="s"
   >
     <sbb-icon

@@ -6,7 +6,6 @@ snapshots["sbb-menu-link renders DOM"] =
   accessibility-label="a11y label"
   data-action=""
   data-link=""
-  data-slot-names="unnamed"
   href="https://github.com/sbb-design-systems/lyne-components"
   target="_blank"
 >
@@ -53,7 +52,6 @@ snapshots["sbb-menu-link renders component with icon DOM"] =
   accessibility-label="a11y label"
   data-action=""
   data-link=""
-  data-slot-names="unnamed"
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="menu-small"
   target="_blank"

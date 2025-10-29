@@ -4,7 +4,7 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.js';
-import { forceType, slotState } from '../../core/decorators.js';
+import { forceType } from '../../core/decorators.js';
 import {
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
@@ -24,7 +24,6 @@ import style from './file-selector-dropzone.scss?lit&inline';
  */
 export
 @customElement('sbb-file-selector-dropzone')
-@slotState()
 class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle, style];
   public static readonly events = {

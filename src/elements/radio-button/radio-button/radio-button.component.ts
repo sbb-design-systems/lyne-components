@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride, slotState } from '../../core/decorators.js';
+import { getOverride } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import {
@@ -23,7 +23,6 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  */
 export
 @customElement('sbb-radio-button')
-@slotState()
 class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,

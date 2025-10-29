@@ -139,7 +139,7 @@
 
   @include sbb.text-xxs--regular;
 
-  :host(:not([data-slot-names~='footnote'])) & {
+  :host(:not(:state(slotted-footnote))) & {
     padding-block-start: 0;
   }
 

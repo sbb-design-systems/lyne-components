@@ -2,7 +2,6 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
 import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import {
   SbbDisabledMixin,
@@ -31,9 +30,7 @@ const optionObserverConfig: MutationObserverInit = {
   characterData: true,
 };
 
-export
-@slotState()
-abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
+export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
   public static readonly events = {

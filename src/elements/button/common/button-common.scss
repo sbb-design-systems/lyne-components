@@ -1,6 +1,6 @@
 @use '../../core/styles' as sbb;
 
-$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+$icon-only: ':where(:state(slotted-icon), [icon-name]):not(:state(slotted))';
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 $active: ':active, [data-active], [loading]';
 

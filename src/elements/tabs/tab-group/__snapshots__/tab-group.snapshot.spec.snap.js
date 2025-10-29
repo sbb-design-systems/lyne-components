@@ -6,7 +6,6 @@ snapshots["sbb-tab-group renders DOM"] =
   <sbb-tab-label
     active=""
     data-size="l"
-    data-slot-names="unnamed"
     slot="tab-bar"
     tabindex="0"
   >
@@ -20,7 +19,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab>
   <sbb-tab-label
     data-size="l"
-    data-slot-names="unnamed"
     slot="tab-bar"
     tabindex="-1"
   >
@@ -34,7 +32,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab>
   <sbb-tab-label
     data-size="l"
-    data-slot-names="unnamed"
     disabled=""
     slot="tab-bar"
     tabindex="-1"
@@ -49,7 +46,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab>
   <sbb-tab-label
     data-size="l"
-    data-slot-names="unnamed"
     slot="tab-bar"
     tabindex="-1"
   >

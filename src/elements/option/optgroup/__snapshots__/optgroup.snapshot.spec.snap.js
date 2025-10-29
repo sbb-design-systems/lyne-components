@@ -9,7 +9,6 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
   <sbb-option
     aria-selected="false"
     data-group-label="Label"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
@@ -19,7 +18,6 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
   <sbb-option
     aria-selected="false"
     data-group-label="Label"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
@@ -61,7 +59,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
     aria-selected="false"
     data-group-disabled=""
     data-group-label="Label"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-4"
     value="1"
@@ -73,7 +70,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
     aria-selected="false"
     data-group-disabled=""
     data-group-label="Label"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-5"
     value="2"
@@ -111,7 +107,6 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
 >
   <sbb-option
     aria-selected="false"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
@@ -120,7 +115,6 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
   </sbb-option>
   <sbb-option
     aria-selected="false"
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
@@ -186,7 +180,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
     aria-disabled="true"
     aria-selected="false"
     data-group-disabled=""
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-6"
     value="1"
@@ -197,7 +190,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
     aria-disabled="true"
     aria-selected="false"
     data-group-disabled=""
-    data-slot-names="unnamed"
     data-variant="autocomplete"
     id="sbb-option-7"
     value="2"

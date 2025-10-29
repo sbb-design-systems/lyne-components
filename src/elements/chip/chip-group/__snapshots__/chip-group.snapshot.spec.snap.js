@@ -22,7 +22,6 @@ snapshots["sbb-chip-group renders Shadow DOM"] =
 
 snapshots["sbb-chip-group renders with form-field DOM"] = 
 `<sbb-form-field
-  data-slot-names="label unnamed"
   error-space="none"
   size="m"
   width="default"

@@ -41,7 +41,7 @@
   }
 
   // Hide panel when no content or link-content is provided.
-  :host(:not([data-slot-names~='unnamed'], [data-slot-names~='link-content'], [link-content])) & {
+  :host(:not(:state(slotted), :state(slotted-link-content), [link-content])) & {
     display: none;
   }
 }

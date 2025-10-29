@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators.js';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
@@ -20,7 +19,6 @@ import style from './mini-button.scss?lit&inline';
  */
 export
 @customElement('sbb-mini-button')
-@slotState()
 class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {

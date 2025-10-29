@@ -34,7 +34,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
         <sbb-container
           class="sbb-overlay__content-container"
           color="transparent"
-          data-slot-names="unnamed"
         >
           <slot>
           </slot>
