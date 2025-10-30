@@ -5,6 +5,7 @@ snapshots["sbb-notification renders DOM"] =
 `<sbb-notification
   animation="all"
   data-state="opened"
+  icon-name="circle-information-small"
   size="m"
   type="info"
 >
@@ -16,12 +17,14 @@ snapshots["sbb-notification renders DOM"] =
 snapshots["sbb-notification renders Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-    >
-    </sbb-icon>
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        data-namespace="default"
+        name="circle-information-small"
+      >
+      </sbb-icon>
+    </slot>
     <span class="sbb-notification__content">
       <slot name="title">
       </slot>
@@ -57,8 +60,9 @@ snapshots["sbb-notification renders with a title DOM"] =
 `<sbb-notification
   animation="all"
   data-state="opened"
+  icon-name="circle-tick-small"
   size="m"
-  type="info"
+  type="success"
 >
   <sbb-title
     level="3"
@@ -75,12 +79,14 @@ snapshots["sbb-notification renders with a title DOM"] =
 snapshots["sbb-notification renders with a title Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-    >
-    </sbb-icon>
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        data-namespace="default"
+        name="circle-tick-small"
+      >
+      </sbb-icon>
+    </slot>
     <span class="sbb-notification__content">
       <slot name="title">
       </slot>
@@ -175,6 +181,7 @@ snapshots["sbb-notification renders without the close button DOM"] =
 `<sbb-notification
   animation="all"
   data-state="opened"
+  icon-name="circle-information-small"
   readonly=""
   size="m"
   type="info"
@@ -194,12 +201,14 @@ snapshots["sbb-notification renders without the close button DOM"] =
 snapshots["sbb-notification renders without the close button Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-    >
-    </sbb-icon>
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        data-namespace="default"
+        name="circle-information-small"
+      >
+      </sbb-icon>
+    </slot>
     <span class="sbb-notification__content">
       <slot name="title">
       </slot>
@@ -217,6 +226,7 @@ snapshots["sbb-notification renders size s DOM"] =
 `<sbb-notification
   animation="all"
   data-state="opened"
+  icon-name="circle-information-small"
   size="s"
   type="info"
 >
@@ -235,12 +245,14 @@ snapshots["sbb-notification renders size s DOM"] =
 snapshots["sbb-notification renders size s Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-    >
-    </sbb-icon>
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        data-namespace="default"
+        name="circle-information-small"
+      >
+      </sbb-icon>
+    </slot>
     <span class="sbb-notification__content">
       <slot name="title">
       </slot>

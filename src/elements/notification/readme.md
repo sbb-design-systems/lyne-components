@@ -81,12 +81,13 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Properties
 
-| Name        | Attribute   | Privacy | Type                                                 | Default            | Description                        |
-| ----------- | ----------- | ------- | ---------------------------------------------------- | ------------------ | ---------------------------------- |
-| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`               | `'all'`            | The enabled animations.            |
-| `readOnly`  | `readonly`  | public  | `boolean`                                            | `false`            | Whether the component is readonly. |
-| `size`      | `size`      | public  | `'s' \| 'm'`                                         | `'m' / 's' (lean)` | Size variant, either s or m.       |
-| `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.      |
+| Name        | Attribute   | Privacy | Type                                                 | Default                                                     | Description                                                                                                                      |
+| ----------- | ----------- | ------- | ---------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`               | `'all'`                                                     | The enabled animations.                                                                                                          |
+| `iconName`  | `icon-name` | public  | `string`                                             | `defaults to the associated icon for the notification type` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `readOnly`  | `readonly`  | public  | `boolean`                                            | `false`                                                     | Whether the component is readonly.                                                                                               |
+| `size`      | `size`      | public  | `'s' \| 'm'`                                         | `'m' / 's' (lean)`                                          | Size variant, either s or m.                                                                                                     |
+| `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'`                                                    | The type of the notification.                                                                                                    |
 
 ## Methods
 
@@ -114,4 +115,5 @@ As a base rule, opening animations should be active if a notification arrives af
 | Name    | Description                                                                                                                                |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 |         | Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content. |
+| `icon`  | Use this slot to display a custom icon by providing an `sbb-icon` component.                                                               |
 | `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.             |

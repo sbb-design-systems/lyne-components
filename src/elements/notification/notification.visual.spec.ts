@@ -13,6 +13,7 @@ describe(`sbb-notification`, () => {
     size: 'm',
     readonly: false,
     showTitle: true,
+    iconName: '',
   };
 
   const notificationTemplate = ({
@@ -20,12 +21,14 @@ describe(`sbb-notification`, () => {
     size,
     readonly,
     showTitle,
+    iconName,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
       size=${size}
       ?readonly=${readonly}
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
+      icon-name=${iconName || nothing}
     >
       ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing} The quick brown fox jumps over the
       lazy dog. The quick brown fox jumps over the lazy dog.
@@ -73,9 +76,8 @@ describe(`sbb-notification`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            ${repeat(
-              state.multiple ? types : [state.type],
-              (type: string) => html`${notificationTemplate({ ...defaultArgs, type, size })}`,
+            ${repeat(state.multiple ? types : [state.type], (type: string) =>
+              notificationTemplate({ ...defaultArgs, type, size }),
             )}
             ${textTemplate}
           `);
@@ -112,5 +114,27 @@ describe(`sbb-notification`, () => {
         );
       });
     }
+
+    it(
+      'custom icon name',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          notificationTemplate({ ...defaultArgs, iconName: 'magnifying-glass-small' }),
+        );
+      }),
+    );
+
+    it(
+      'slotted icon',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-notification type="info">
+            <sbb-icon name="magnifying-glass-small" slot="icon"></sbb-icon>
+            <sbb-title>Title</sbb-title>
+            Text
+          </sbb-notification>`,
+        );
+      }),
+    );
   });
 });

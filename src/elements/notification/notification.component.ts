@@ -15,13 +15,13 @@ import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
 import { SbbReadonlyMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
+import { SbbIconNameMixin } from '../icon.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './notification.scss?lit&inline';
 
 import '../button/secondary-button.js';
 import '../divider.js';
-import '../icon.js';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -38,12 +38,13 @@ const DEBOUNCE_TIME = 150;
  *
  * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
+ * @slot icon - Use this slot to display a custom icon by providing an `sbb-icon` component.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
 export
 @customElement('sbb-notification')
-class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
+class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(LitElement)) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
@@ -69,6 +70,19 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
+
+  /**
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://icons.app.sbb.ch.
+   * @default defaults to the associated icon for the notification type
+   */
+  public override set iconName(value: string) {
+    super.iconName = value;
+  }
+  public override get iconName(): string {
+    return super.iconName || notificationTypes.get(this.type)!;
+  }
 
   /** The state of the notification. */
   private set _state(state: SbbOpenedClosedState) {
@@ -222,10 +236,7 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
     return html`
       <div class="sbb-notification__wrapper" @animationend=${this._onNotificationAnimationEnd}>
         <div class="sbb-notification">
-          <sbb-icon
-            class="sbb-notification__icon"
-            name=${notificationTypes.get(this.type)!}
-          ></sbb-icon>
+          ${this.renderIconSlot('sbb-notification__icon')}
           <span class="sbb-notification__content">
             <slot name="title" @slotchange=${this._configureTitle}></slot>
             <p class="sbb-notification__text">
