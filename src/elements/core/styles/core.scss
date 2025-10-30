@@ -35,6 +35,10 @@ $theme: 'standard' !default;
   // Overlay
   --sbb-overlay-default-z-index: 1000;
 
+  // Cursor
+  --sbb-default-cursor-style: default;
+  --sbb-pointer-cursor-style: pointer;
+
   // Title
   --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
   --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);

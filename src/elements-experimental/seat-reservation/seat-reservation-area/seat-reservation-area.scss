@@ -56,5 +56,5 @@
 
 // hover state with pointer cursor for service icons and popover
 :host(.sbb-seat-reservation-area--cursor-pointer) {
-  cursor: pointer;
+  cursor: var(--sbb-pointer-cursor-style);
 }

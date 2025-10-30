@@ -15,7 +15,7 @@
   position: absolute;
   inset: 0;
   border-radius: var(--sbb-card-border-radius);
-  cursor: pointer;
+  cursor: var(--sbb-pointer-cursor-style);
   outline: none;
 
   // Handle focus on the host (button variant)

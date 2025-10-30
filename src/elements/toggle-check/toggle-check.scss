@@ -20,7 +20,7 @@
   --sbb-toggle-check-circle-transform: translate(0, -50%);
   --sbb-toggle-check-height: #{sbb.px-to-rem-build(24)};
   --sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
-  --sbb-toggle-check-cursor: pointer;
+  --sbb-toggle-check-cursor: var(--sbb-pointer-cursor-style);
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
   --sbb-toggle-check-animation-duration: var(
@@ -64,7 +64,7 @@
   --sbb-toggle-check-circle-border-color: var(--sbb-border-color-5);
   --sbb-toggle-check-circle-border-style: dashed;
   --sbb-toggle-check-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-  --sbb-toggle-check-cursor: default;
+  --sbb-toggle-check-cursor: var(--sbb-default-cursor-style);
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-icon-color: GrayText;

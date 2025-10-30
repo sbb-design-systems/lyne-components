@@ -68,7 +68,7 @@ $active: ':active, [data-active]';
     var(--sbb-mini-button-color-disabled-border);
   --sbb-mini-button-color: var(--sbb-mini-button-color-disabled-text);
   --sbb-mini-button-pointer-events: none;
-  --sbb-mini-button-cursor: default;
+  --sbb-mini-button-cursor: var(--sbb-default-cursor-style);
 }
 
 :host([data-focus-visible]) {
@@ -85,7 +85,7 @@ $active: ':active, [data-active]';
   border-radius: var(--sbb-mini-button-border-radius);
   user-select: none;
   pointer-events: var(--sbb-mini-button-pointer-events, auto);
-  cursor: var(--sbb-mini-button-cursor, pointer);
+  cursor: var(--sbb-mini-button-cursor, var(--sbb-pointer-cursor-style));
   transition: color var(--sbb-mini-button-transition-duration)
     var(--sbb-mini-button-transition-easing-function);
 

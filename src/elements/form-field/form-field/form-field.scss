@@ -338,7 +338,7 @@
 .sbb-form-field__label {
   display: flex;
   max-width: 100%;
-  cursor: default;
+  cursor: var(--sbb-default-cursor-style);
   position: absolute;
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);

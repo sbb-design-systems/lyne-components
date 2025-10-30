@@ -20,7 +20,7 @@ $active: ':active, [data-active]';
   --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
-  --sbb-tag-cursor: pointer;
+  --sbb-tag-cursor: var(--sbb-pointer-cursor-style);
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
     --sbb-disable-animation-duration,

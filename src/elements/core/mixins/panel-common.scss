@@ -23,7 +23,7 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-selection-panel-cursor: pointer;
+  --sbb-selection-panel-cursor: var(--sbb-pointer-cursor-style);
   --sbb-selection-panel-suffix-color: var(--sbb-color-3);
   --sbb-selection-panel-subtext-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
 
@@ -59,7 +59,7 @@
 }
 
 :host(:is(:disabled, [disabled])) {
-  --sbb-selection-panel-cursor: default;
+  --sbb-selection-panel-cursor: var(--sbb-default-cursor-style);
 }
 
 .sbb-selection-panel {

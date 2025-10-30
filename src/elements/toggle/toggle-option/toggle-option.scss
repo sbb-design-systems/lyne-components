@@ -1,7 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-toggle-option-cursor: pointer;
+  --sbb-toggle-option-cursor: var(--sbb-pointer-cursor-style);
   --sbb-toggle-option-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
 

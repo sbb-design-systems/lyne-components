@@ -41,7 +41,7 @@
 :host(:not(:active, [data-active]):hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-icon-sidebar-button__hover-shift: #{sbb.px-to-rem-build(1)};
-    --sbb-icon-sidebar-button__cursor: pointer;
+    --sbb-icon-sidebar-button__cursor: var(--sbb-pointer-cursor-style);
   }
 }
 

@@ -344,7 +344,7 @@ We provide further utilities to improve the safety relevant theme:
 
 Note that the font family should support changing the font-weight.
 
-| File name                             | Description                                                      |
+| CSS variable                          | Description                                                      |
 | ------------------------------------- | ---------------------------------------------------------------- |
 | `--sbb-typo-font-family`              | Can be used to override the font family for all texts and titles |
 | `--sbb-typo-letter-spacing-body-text` | Can be used to override letter spacing for texts                 |
@@ -353,6 +353,11 @@ Note that the font family should support changing the font-weight.
 ##### Cursor customization
 
 In certain safety relevant applications, it might be necessary to change the cursor style.
+
+| CSS variable                 | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| `--sbb-default-cursor-style` | Can be used to override the default cursor style |
+| `--sbb-pointer-cursor-style` | Can be used to override the pointer cursor style |
 
 ### CSS files
 

@@ -18,7 +18,7 @@ export class SbbOverlayOutsidePointerEventListener {
         // Safari on iOS does not generate click events for non-interactive
         // elements. However, we want to receive a click for any element outside
         // the overlay. We can force a "clickable" state by setting
-        // `cursor: pointer` on the document body. See:
+        // `cursor: var(--sbb-pointer-cursor-style)` on the document body. See:
         // https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event#Safari_Mobile
         // https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/HandlingEvents.html
         this._cursorOriginalValue = document.body.style.cursor;

@@ -19,14 +19,14 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     display: flex;
     align-items: center;
     width: 100%;
-    cursor: pointer;
+    cursor: var(--sbb-pointer-cursor-style);
     padding: var(--sbb-link-padding, 0);
     outline: none;
   }
 
   :host(:is(#{$disabled})) & {
     pointer-events: none;
-    cursor: default;
+    cursor: var(--sbb-default-cursor-style);
 
     @include sbb.if-forced-colors {
       color: GrayText;
