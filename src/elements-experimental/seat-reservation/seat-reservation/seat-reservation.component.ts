@@ -112,15 +112,16 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                           'sbb-sr__list-decks--gap': this.hasMultipleDecks,
                         })}"
                       >
-                        ${this.seatReservations?.map(
-                          (seatReservation: SeatReservation, index: number) => {
-                            return html`<li class="sbb-sr__list-item-deck">
-                              <ul class="sbb-sr__list-coaches" role="presentation">
-                                ${this._renderCoaches(seatReservation, index)}
-                              </ul>
-                            </li>`;
-                          },
-                        )}
+                        ${this.seatReservations?.map((seatReservation: SeatReservation) => {
+                          return html`<li class="sbb-sr__list-item-deck">
+                            <ul class="sbb-sr__list-coaches" role="presentation">
+                              ${this._renderCoaches(
+                                seatReservation,
+                                seatReservation.deckCoachIndex,
+                              )}
+                            </ul>
+                          </li>`;
+                        })}
                       </ul>
                     </div>
                   </div>
@@ -604,7 +605,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     this.isCoachGridFocusable = false;
     if (!this.preventPlaceClick) {
       // Set current deck index if a places was selected
-      this.currSelectedDeckIndex = selectedPlace.deckIndex;
+      this.currSelectedDeckIndex = this.hasMultipleDecks ? selectedPlace.deckIndex : 0;
       // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);
       this.updateCurrentSelectedPlaceInCoach(selectedPlace);

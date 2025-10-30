@@ -984,7 +984,6 @@ export class SeatReservationBaseElement extends LitElement {
     );
 
     this.selectedSeatReservationPlaces[placeTypeProp] = updatedSelectedPlaces;
-
     /**
      * @type {CustomEvent<SeatReservationSelectedPlaces>}
      * Emits when a place was selected and returns a Place array with all selected places.
