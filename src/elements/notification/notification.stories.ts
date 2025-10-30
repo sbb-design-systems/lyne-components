@@ -17,7 +17,7 @@ const type: InputType = {
   control: {
     type: 'select',
   },
-  options: ['info', 'success', 'warn', 'error'],
+  options: ['info', 'note', 'success', 'warn', 'error'],
 };
 
 const size: InputType = {
@@ -142,22 +142,28 @@ export const Info: StoryObj = {
   args: { ...basicArgs },
 };
 
-export const Success: StoryObj = {
+export const Note: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![1] },
 };
 
-export const Warn: StoryObj = {
+export const Success: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![2] },
 };
 
-export const Error: StoryObj = {
+export const Warn: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![3] },
+};
+
+export const Error: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, type: type.options![4] },
 };
 
 export const Readonly: StoryObj = {

@@ -25,6 +25,7 @@ import '../icon.js';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
+  ['note', 'circle-information-small'],
   ['success', 'circle-tick-small'],
   ['warn', 'circle-exclamation-point-small'],
   ['error', 'circle-cross-small'],
@@ -53,7 +54,12 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   } as const;
 
   /** The type of the notification. */
-  @property({ reflect: true }) public accessor type: 'info' | 'success' | 'warn' | 'error' = 'info';
+  @property({ reflect: true }) public accessor type:
+    | 'info'
+    | 'note'
+    | 'success'
+    | 'warn'
+    | 'error' = 'info';
 
   /**
    * Size variant, either s or m.

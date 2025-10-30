@@ -26,7 +26,7 @@ Note that the notification only supports inline links.
 
 ## Variants
 
-The `sbb-notification` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
+The `sbb-notification` supports the types `info` (default), `note`, `success`, `warn` and `error`, based on the type of the information displayed.
 
 ```html
 <sbb-notification type="success">...</sbb-notification>
@@ -81,12 +81,12 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Properties
 
-| Name        | Attribute   | Privacy | Type                                       | Default            | Description                        |
-| ----------- | ----------- | ------- | ------------------------------------------ | ------------------ | ---------------------------------- |
-| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`            | The enabled animations.            |
-| `readOnly`  | `readonly`  | public  | `boolean`                                  | `false`            | Whether the component is readonly. |
-| `size`      | `size`      | public  | `'s' \| 'm'`                               | `'m' / 's' (lean)` | Size variant, either s or m.       |
-| `type`      | `type`      | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.      |
+| Name        | Attribute   | Privacy | Type                                                 | Default            | Description                        |
+| ----------- | ----------- | ------- | ---------------------------------------------------- | ------------------ | ---------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`               | `'all'`            | The enabled animations.            |
+| `readOnly`  | `readonly`  | public  | `boolean`                                            | `false`            | Whether the component is readonly. |
+| `size`      | `size`      | public  | `'s' \| 'm'`                                         | `'m' / 's' (lean)` | Size variant, either s or m.       |
+| `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.      |
 
 ## Methods
 

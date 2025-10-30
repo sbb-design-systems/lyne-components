@@ -47,7 +47,7 @@ describe(`sbb-notification`, () => {
     showTitle: [false, true],
   };
 
-  const types = ['info', 'success', 'warn', 'error'];
+  const types = ['info', 'note', 'success', 'warn', 'error'];
   const visualStates = {
     state: [...types.map((type) => ({ type, multiple: false })), { multiple: true, type: 'all' }],
     size: ['s', 'm'],
