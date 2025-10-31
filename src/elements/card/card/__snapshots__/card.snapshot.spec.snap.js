@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-card should render with sbb-card-badge - DOM"] = 
 `<sbb-card
   color="white"
-  data-has-card-badge=""
   size="xl"
 >
   <h2>

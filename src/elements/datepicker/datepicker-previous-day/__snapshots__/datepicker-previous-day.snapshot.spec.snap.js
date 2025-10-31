@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-datepicker-previous-day renders DOM"] = 
 `<sbb-datepicker-previous-day
-  data-action=""
-  data-button=""
   disabled=""
   tabindex="0"
 >
@@ -14,10 +12,7 @@ snapshots["sbb-datepicker-previous-day renders DOM"] =
 
 snapshots["sbb-datepicker-previous-day renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-previous-day">
-  <sbb-icon
-    data-namespace="default"
-    name="chevron-small-left-small"
-  >
+  <sbb-icon name="chevron-small-left-small">
   </sbb-icon>
 </span>
 `;
@@ -25,8 +20,6 @@ snapshots["sbb-datepicker-previous-day renders Shadow DOM"] =
 
 snapshots["sbb-datepicker-previous-day renders with connected date input DOM"] = 
 `<sbb-datepicker-previous-day
-  data-action=""
-  data-button=""
   input="datepicker-input"
   slot="prefix"
   tabindex="0"
@@ -37,10 +30,7 @@ snapshots["sbb-datepicker-previous-day renders with connected date input DOM"] =
 
 snapshots["sbb-datepicker-previous-day renders with connected date input Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-previous-day">
-  <sbb-icon
-    data-namespace="default"
-    name="chevron-small-left-small"
-  >
+  <sbb-icon name="chevron-small-left-small">
   </sbb-icon>
 </span>
 `;

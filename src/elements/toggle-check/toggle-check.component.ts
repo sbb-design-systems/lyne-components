@@ -47,8 +47,12 @@ class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
     super.requestUpdate(name, oldValue, options);
     if (name === 'checked') {
       this.internals.ariaChecked = `${this.checked}`;
-      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
-      this.toggleAttribute('data-checked', this.checked);
+      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
+      if (this.checked) {
+        this.internals.states.add('checked');
+      } else {
+        this.internals.states.delete('checked');
+      }
     }
   }
 

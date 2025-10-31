@@ -1,5 +1,8 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
+import { ɵstateController } from '../mixins/element-internals-mixin.ts';
+import type { SbbElementInternalsMixinType } from '../mixins.ts';
+
 const cssAnchorPositionSupported = !isServer && CSS.supports('anchor-name', '--test');
 
 const physicalSupportedPositions = [
@@ -57,7 +60,7 @@ let nextId = 0;
  * Applies unique anchor names when using native CSS Anchor Positioning
  * or calculates and applies correct positions in polyfill mode.
  *
- * Also, the controller sets the 'data-overlay-position' attribute on the overlay element.
+ * Also, the controller sets the 'overlay-position' state on the overlay element.
  * This can be used to apply specific styles based on the current position of the overlay.
  *
  * ### Implementation
@@ -74,7 +77,7 @@ export class SbbOverlayPositionController implements ReactiveController {
   private readonly _resizeObserver = !isServer
     ? new ResizeObserver(() => this._requestCalculatePosition())
     : null!;
-  private readonly _overlay: HTMLElement;
+  private readonly _overlay: ReactiveControllerHost & HTMLElement & SbbElementInternalsMixinType;
   private _abortController?: AbortController;
   private _anchor?: HTMLElement;
   private _overlayStyles?: CSSStyleDeclaration;
@@ -94,12 +97,11 @@ export class SbbOverlayPositionController implements ReactiveController {
   }
 
   public constructor(
-    host: ReactiveControllerHost & HTMLElement,
-    overlay?: HTMLElement,
+    host: ReactiveControllerHost & HTMLElement & SbbElementInternalsMixinType,
     private _usePolyfill = !cssAnchorPositionSupported,
   ) {
     host.addController(this);
-    this._overlay = overlay ?? host;
+    this._overlay = host;
   }
 
   public hostConnected(): void {
@@ -181,7 +183,19 @@ export class SbbOverlayPositionController implements ReactiveController {
       const position = this._getOptimalPosition(this._positions);
       this._applyOverlayPosition(position.position, position.left, position.top);
     }
-    this._overlay.setAttribute('data-position', this.currentPosition);
+
+    const positions = this.currentPosition.split(' ');
+    // TODO: This might fail for single values like start, center and end.
+    const controller = ɵstateController(this._overlay);
+    for (const position of positions) {
+      controller.add(`position-${position}`);
+    }
+
+    controller.forEach((state) => {
+      if (state.startsWith('position-') && !positions.includes(state.replace('position-', ''))) {
+        controller.delete(state);
+      }
+    });
   }
 
   /**

@@ -1,4 +1,5 @@
 import { SbbAncestorWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
@@ -31,8 +32,8 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
       new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete-grid-optgroup'), {
         disabled: (p) => {
           this.disabledFromGroup = p.disabled;
-          this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-            'data-disabled',
+          ɵstateController(this.closest?.('sbb-autocomplete-grid-row'))?.toggle(
+            'disabled',
             this.disabled || this.disabledFromGroup,
           );
         },
@@ -44,8 +45,8 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
-      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-        'data-disabled',
+      ɵstateController(this.closest?.('sbb-autocomplete-grid-row'))?.toggle(
+        'disabled',
         this.disabled || this.disabledFromGroup,
       );
       this.updateAriaDisabled();
@@ -58,13 +59,17 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
       this.disabledFromGroup = parentGroup.disabled;
       this.updateAriaDisabled();
     }
-    this.closest('sbb-autocomplete-grid-row')?.toggleAttribute(
-      'data-disabled',
+    ɵstateController(this.closest?.('sbb-autocomplete-grid-row'))?.toggle(
+      'disabled',
       this.disabled || this.disabledFromGroup,
     );
 
     this.negative = !!this.closest(`:is(sbb-autocomplete-grid[negative],sbb-form-field[negative])`);
-    this.toggleAttribute('data-negative', this.negative);
+    if (this.negative) {
+      this.internals.states.add('negative');
+    } else {
+      this.internals.states.delete('negative');
+    }
   }
 
   protected selectByClick(event: MouseEvent): void {

@@ -42,33 +42,31 @@
   margin: 0;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 
   --sbb-tooltip-animation-name: open;
 }
 
-:host([data-state][data-state='closing']) {
+:host(:state(state-closing)) {
   --sbb-tooltip-animation-name: close;
   --sbb-tooltip-pointer-events: none;
 }
 
-:host(:is([data-position~='block-end'], [data-position~='bottom'], [data-position^='end'])) {
+:host(:is(:state(position-block-end), :state(position-bottom))) {
   padding-block-start: var(--sbb-tooltip-gap);
 }
 
-:host(:is([data-position~='block-start'], [data-position~='top'], [data-position^='start'])) {
+:host(:is(:state(position-block-start), :state(position-top))) {
   padding-block-end: var(--sbb-tooltip-gap);
 }
 
 :host(
   :is(
-    [data-position~='inline-start'],
-    [data-position~='inline-end'],
-    [data-position~='left'],
-    [data-position~='right'],
-    [data-position$=' start'],
-    [data-position$=' end']
+    :state(position-inline-start),
+    :state(position-inline-end),
+    :state(position-left),
+    :state(position-right)
   )
 ) {
   // Add a gap on both sides to distance the tooltip from the trigger and the edge of the viewport.

@@ -4,13 +4,9 @@ export const snapshots = {};
 snapshots["sbb-card-link renders DOM"] = 
 `<sbb-card
   color="white"
-  data-action-role="link"
-  data-has-action=""
   size="m"
 >
   <sbb-card-link
-    data-action=""
-    data-link=""
     href="https://github.com/sbb-design-systems/lyne-components"
     slot="action"
     target="_blank"

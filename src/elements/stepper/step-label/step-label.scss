@@ -45,7 +45,7 @@
   }
 }
 
-:host([data-selected]) {
+:host(:state(selected)) {
   @include sbb.text-xxs--bold;
 
   --sbb-step-label-color: var(--sbb-color-3);
@@ -55,7 +55,7 @@
   }
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-step-label-gap: var(--sbb-spacing-fixed-3x);
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
 
@@ -93,15 +93,15 @@
   border-radius: var(--sbb-border-radius-1x);
 }
 
-:host([data-orientation='vertical']) {
+:host(:state(orientation-vertical)) {
   transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
 }
 
-:host([data-orientation='vertical']:not(:first-of-type)) {
+:host(:state(orientation-vertical):not(:first-of-type)) {
   margin-block-start: var(--sbb-spacing-fixed-6x);
 }
 
-:host([data-selected][data-orientation='vertical']) {
+:host(:state(selected):state(orientation-vertical)) {
   margin-block-end: var(--sbb-spacing-fixed-8x);
 }
 
@@ -114,7 +114,7 @@
   gap: var(--sbb-step-label-gap);
   color: var(--sbb-step-label-color);
 
-  :host([data-size='s']) & {
+  :host(:state(size-s)) & {
     @include sbb.text-m--bold;
   }
 }
@@ -149,7 +149,7 @@
 }
 
 .sbb-step-label__text {
-  :host([data-orientation='horizontal']) & {
+  :host(:state(orientation-horizontal)) & {
     @include sbb.ellipsis;
   }
 }

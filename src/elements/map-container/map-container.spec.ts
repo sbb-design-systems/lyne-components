@@ -47,14 +47,14 @@ describe(`sbb-map-container`, () => {
         .hasAttribute('inert');
     }
 
-    expect(element).not.to.have.attribute('data-scroll-up-button-visible');
+    expect(element).not.to.match(':state(scroll-up-button-visible)');
     expect(getInert()).to.be.equal(true);
 
     // Scroll down
     window.scrollTo(0, 400);
     await waitForCondition(async () => !getInert());
 
-    expect(element).to.have.attribute('data-scroll-up-button-visible');
+    expect(element).to.match(':state(scroll-up-button-visible)');
     expect(getInert()).to.be.equal(false);
   });
 

@@ -5,6 +5,7 @@ import {
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
+import { ɵstateController } from '../mixins/element-internals-mixin.ts';
 import type { SbbElementInternalsMixinType } from '../mixins.ts';
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -134,7 +135,7 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
   ) {
     const onChangeWithStateUpdater: () => void = () => {
       onChange(this.matches());
-      this._host['toggleState']('dark', this.matches());
+      ɵstateController(this._host).toggle('dark', this.matches());
     };
     super(_host, {
       [SbbMediaQueryDarkMode]: onChangeWithStateUpdater,

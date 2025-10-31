@@ -24,7 +24,11 @@ import { forceType, idReference, omitEmptyConverter } from '../../core/decorator
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.ts';
 import { i18nGoBack } from '../../core/i18n.ts';
 import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
+import {
+  SbbElementInternalsMixin,
+  SbbUpdateSchedulerMixin,
+  ɵstateController,
+} from '../../core/mixins.ts';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -83,15 +87,17 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   @property({ attribute: 'accessibility-back-label' })
   public accessor accessibilityBackLabel: string = '';
 
-  /**
-   * The state of the navigation section.
-   */
+  /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    this.applyStatePattern(state);
     this.ariaHidden = this._state !== 'opened' ? 'true' : null;
   }
   private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('state-'))
+        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
+    );
   }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
@@ -104,6 +110,9 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
+    if (this._state === 'closed') {
+      this._state = 'closed';
+    }
 
     this.addController(
       new SbbMediaMatcherController(this, {
@@ -266,9 +275,9 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   private _resetLists(): void {
     Array.from(
       this.querySelectorAll<SbbNavigationButtonElement | SbbNavigationLinkElement>(
-        '[data-section-action][data-action-active]',
+        ':state(section-action):state(action-active)',
       ) ?? [],
-    ).forEach((action) => action.removeAttribute('data-action-active'));
+    ).forEach((action) => ɵstateController(action).delete('action-active'));
   }
 
   private _attachWindowEvents(): void {
@@ -316,16 +325,16 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   }
 
   private _checkActiveAction(): void {
-    this.querySelector<SbbNavigationButtonElement | SbbNavigationLinkElement>(
+    const element = this.querySelector<SbbNavigationButtonElement | SbbNavigationLinkElement>(
       ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
-    )?.toggleAttribute('data-action-active', true);
+    );
+    ɵstateController(element)?.toggle('action-active', true);
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'navigation-section';
     this.id ||= `sbb-navigation-section-${nextId++}`;
-    this._state ||= 'closed';
     if (this.hasUpdated) {
       this._configureTrigger();
     }

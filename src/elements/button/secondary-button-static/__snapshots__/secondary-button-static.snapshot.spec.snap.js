@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-secondary-button-static renders without icon DOM"] = 
 `<sbb-secondary-button-static
-  data-action=""
-  data-sbb-button=""
   disabled=""
   negative=""
   size="m"
@@ -27,13 +25,8 @@ snapshots["sbb-secondary-button-static renders without icon Shadow DOM"] =
 /* end snapshot sbb-secondary-button-static renders without icon Shadow DOM */
 
 snapshots["sbb-secondary-button-static renders with slotted icon DOM"] = 
-`<sbb-secondary-button-static
-  data-action=""
-  data-sbb-button=""
-  size="l"
->
+`<sbb-secondary-button-static size="l">
   <sbb-icon
-    data-namespace="default"
     name="chevron-small-left-small"
     slot="icon"
   >

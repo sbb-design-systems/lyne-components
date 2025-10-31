@@ -20,8 +20,7 @@ import { forceType, idReference } from '../../core/decorators.ts';
 import { isZeroAnimationDuration } from '../../core/dom.ts';
 import { composedPathHasAttribute } from '../../core/eventing.ts';
 import { i18nClosePopover } from '../../core/i18n.ts';
-import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import { type SbbElementInternalsMixinType, SbbHydrationMixin } from '../../core/mixins.ts';
+import { SbbHydrationMixin, ɵstateController } from '../../core/mixins.ts';
 import {
   getElementPosition,
   isEventOnElement,
@@ -80,8 +79,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
     // Close the other popovers
     for (const popover of popoversRef) {
-      const state = popover.getAttribute('data-state') as SbbOpenedClosedState;
-      if (state && (state === 'opened' || state === 'opening')) {
+      if (popover.state === 'opened' || popover.state === 'opening') {
         popover.close();
       }
     }
@@ -349,7 +347,14 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
         responsiveHeight: true,
       },
     );
-    this.setAttribute('data-position', popoverPosition.alignment.vertical);
+    const verticalPosition = popoverPosition.alignment.vertical;
+    for (const position of ['above', 'below']) {
+      if (position === verticalPosition) {
+        this.internals.states.add(`position-${position}`);
+      } else {
+        this.internals.states.delete(`position-${position}`);
+      }
+    }
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -
@@ -541,19 +546,15 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
   public override open(): void {
     super.open();
 
-    const trigger = this.trigger as SbbElementInternalsMixinType | null;
-    if (this.hoverTrigger && typeof trigger?.['toggleState'] === 'function') {
-      trigger['toggleState']('force-hover', true);
+    if (this.hoverTrigger && this.trigger) {
+      ɵstateController(this.trigger).add('force-hover');
     }
   }
 
   public override close(): void {
     super.close();
 
-    const trigger = this.trigger as SbbElementInternalsMixinType | null;
-    if (typeof trigger?.['toggleState'] === 'function') {
-      trigger['toggleState']('force-hover', false);
-    }
+    ɵstateController(this.trigger)?.delete('force-hover');
   }
 
   private _onTriggerMouseEnter = (): void => {

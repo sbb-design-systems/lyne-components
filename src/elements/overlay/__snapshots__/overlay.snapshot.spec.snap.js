@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-overlay renders DOM"] = 
 `<sbb-overlay
-  data-state="opened"
   id="sbb-overlay-0"
   popover="manual"
 >
@@ -19,9 +18,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
         <sbb-secondary-button
           aria-label="Close secondary window"
           class="sbb-overlay__close"
-          data-action=""
-          data-button=""
-          data-sbb-button=""
           icon-name="cross-small"
           sbb-overlay-close=""
           size="m"

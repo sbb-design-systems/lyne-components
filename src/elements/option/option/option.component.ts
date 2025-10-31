@@ -34,19 +34,25 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   protected optionId = `sbb-option`;
 
   private set _variant(state: SbbOptionVariant) {
-    if (state) {
-      this.setAttribute('data-variant', state);
-    }
+    this.applyStatePattern(state, 'variant');
   }
   private get _variant(): SbbOptionVariant {
-    return this.getAttribute('data-variant') as SbbOptionVariant;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('variant-'))
+        ?.replace('variant-', '') as SbbOptionVariant) ?? null
+    );
   }
 
   private set _isMultiple(isMultiple: boolean) {
-    this.toggleAttribute('data-multiple', isMultiple);
+    if (isMultiple) {
+      this.internals.states.add('multiple');
+    } else {
+      this.internals.states.delete('multiple');
+    }
   }
   private get _isMultiple(): boolean {
-    return !this.hydrationRequired && this.hasAttribute('data-multiple');
+    return !this.hydrationRequired && this.internals.states.has('multiple');
   }
 
   public constructor() {
@@ -64,9 +70,17 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-form-field[negative]`,
     );
-    this.toggleAttribute('data-negative', this.negative);
+    if (this.negative) {
+      this.internals.states.add('negative');
+    } else {
+      this.internals.states.delete('negative');
+    }
 
-    this.toggleAttribute('data-multiple', this._isMultiple);
+    if (this._isMultiple) {
+      this.internals.states.add('multiple');
+    } else {
+      this.internals.states.delete('multiple');
+    }
   }
 
   protected selectByClick(event: MouseEvent): void {

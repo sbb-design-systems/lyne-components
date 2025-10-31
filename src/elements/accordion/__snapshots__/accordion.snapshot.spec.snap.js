@@ -5,16 +5,11 @@ snapshots["sbb-accordion renders DOM"] =
 `<sbb-accordion size="l">
   <sbb-expansion-panel
     color="white"
-    data-accordion=""
-    data-accordion-first=""
     size="l"
   >
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-1"
       aria-expanded="false"
-      data-action=""
-      data-button=""
-      data-size="l"
       id="sbb-expansion-panel-header-1"
       slot="header"
       tabindex="0"
@@ -24,7 +19,6 @@ snapshots["sbb-accordion renders DOM"] =
     <sbb-expansion-panel-content
       aria-hidden="true"
       aria-labelledby="sbb-expansion-panel-header-1"
-      data-size="l"
       id="sbb-expansion-panel-content-1"
       slot="content"
     >
@@ -33,16 +27,11 @@ snapshots["sbb-accordion renders DOM"] =
   </sbb-expansion-panel>
   <sbb-expansion-panel
     color="white"
-    data-accordion=""
-    data-accordion-last=""
     size="l"
   >
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-2"
       aria-expanded="false"
-      data-action=""
-      data-button=""
-      data-size="l"
       id="sbb-expansion-panel-header-2"
       slot="header"
       tabindex="0"
@@ -52,7 +41,6 @@ snapshots["sbb-accordion renders DOM"] =
     <sbb-expansion-panel-content
       aria-hidden="true"
       aria-labelledby="sbb-expansion-panel-header-2"
-      data-size="l"
       id="sbb-expansion-panel-content-2"
       slot="content"
     >

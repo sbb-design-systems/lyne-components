@@ -366,10 +366,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       return;
     }
 
-    this.toggleAttribute(
-      'data-option-panel-origin-borderless',
-      !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
-    );
+    if (this.closest?.('sbb-form-field')?.hasAttribute('borderless')) {
+      this.internals.states.add('option-panel-origin-borderless');
+    } else {
+      this.internals.states.delete('option-panel-origin-borderless');
+    }
 
     this._configureTrigger();
   }

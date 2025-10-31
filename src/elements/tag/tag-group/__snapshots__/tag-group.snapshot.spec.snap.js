@@ -7,8 +7,6 @@ snapshots["sbb-tag-group renders DOM"] =
   size="m"
 >
   <sbb-tag
-    data-action=""
-    data-button=""
     size="m"
     slot="li-0"
     tabindex="0"
@@ -17,8 +15,6 @@ snapshots["sbb-tag-group renders DOM"] =
     First tag
   </sbb-tag>
   <sbb-tag
-    data-action=""
-    data-button=""
     size="m"
     slot="li-1"
     tabindex="0"
@@ -29,8 +25,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <div slot="li-2">
   </div>
   <sbb-tag
-    data-action=""
-    data-button=""
     size="m"
     slot="li-3"
     tabindex="0"

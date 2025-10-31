@@ -50,7 +50,6 @@ snapshots["sbb-checkbox-panel renders checked DOM"] =
 `<sbb-checkbox-panel
   checked=""
   color="white"
-  data-checked=""
   size="m"
   tabindex="0"
 >

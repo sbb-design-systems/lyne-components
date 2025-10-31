@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-button renders an sbb-button without icon DOM"] = 
 `<sbb-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   disabled=""
   form="formid"
   name="name"
@@ -33,14 +30,10 @@ snapshots["sbb-button renders an sbb-button without icon Shadow DOM"] =
 
 snapshots["sbb-button renders an sbb-button with slotted icon DOM"] = 
 `<sbb-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   size="l"
   tabindex="0"
 >
   <sbb-icon
-    data-namespace="default"
     name="chevron-small-left-small"
     slot="icon"
   >
@@ -64,9 +57,6 @@ snapshots["sbb-button renders an sbb-button with slotted icon Shadow DOM"] =
 
 snapshots["sbb-button renders an sbb-button in loading state DOM"] = 
 `<sbb-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   icon-name="arrow-right-small"
   loading=""
   size="l"
@@ -81,10 +71,7 @@ snapshots["sbb-button renders an sbb-button in loading state DOM"] =
 snapshots["sbb-button renders an sbb-button in loading state Shadow DOM"] = 
 `<span class="sbb-action-base sbb-button">
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="arrow-right-small"
-    >
+    <sbb-icon name="arrow-right-small">
     </sbb-icon>
   </slot>
   <span class="sbb-button__label">

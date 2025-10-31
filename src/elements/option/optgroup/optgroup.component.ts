@@ -23,21 +23,37 @@ class SbbOptGroupElement extends SbbOptgroupBaseElement {
 
   protected setAttributeFromParent(): void {
     this.negative = !!this.closest?.(`:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]`);
-    this.toggleAttribute('data-negative', this.negative);
+    if (this.negative) {
+      this.internals.states.add('negative');
+    } else {
+      this.internals.states.delete('negative');
+    }
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute('data-multiple', !!this.closest('sbb-select[multiple]'));
+    if (this.closest('sbb-select[multiple]')) {
+      this.internals.states.add('multiple');
+    } else {
+      this.internals.states.delete('multiple');
+    }
     this._setVariantByContext();
   }
 
   private _setVariantByContext(): void {
-    if (this.closest?.('sbb-autocomplete')) {
-      this.setAttribute('data-variant', 'autocomplete');
-    } else if (this.closest?.('sbb-select')) {
-      this.setAttribute('data-variant', 'select');
+    const variant = this.closest?.('sbb-autocomplete')
+      ? 'variant-autocomplete'
+      : this.closest?.('sbb-select')
+        ? 'variant-select'
+        : null;
+    if (variant) {
+      this.internals.states.add(variant);
     }
+    this.internals.states.forEach((state) => {
+      if (state.startsWith('variant-') && state !== variant) {
+        this.internals.states.delete(state);
+      }
+    });
   }
 }
 

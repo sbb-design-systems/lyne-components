@@ -28,6 +28,7 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
+  ɵstateController,
 } from '../core/mixins.ts';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -251,7 +252,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
-    this.toggleAttribute('data-expanded', true);
+    this.internals.states.add('expanded');
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -268,7 +269,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
 
     this.state = 'closing';
-    this.toggleAttribute('data-expanded', false);
+    this.internals.states.delete('expanded');
     this._openPanelEventsController.abort();
     if (this._originElement) {
       this._originResizeObserver.unobserve(this._originElement);
@@ -497,8 +498,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
     ).forEach((element) => {
-      element.toggleAttribute('data-negative', this.negative);
-      element.toggleAttribute('data-multiple', this.multiple);
+      customElements.upgrade(element);
+      const controller = ɵstateController(element);
+      controller.toggle('negative', this.negative);
+      controller.toggle('multiple', this.multiple);
     });
 
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
@@ -539,10 +542,11 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
-      this.toggleAttribute(
-        'data-option-panel-origin-borderless',
-        !!formField?.hasAttribute?.('borderless'),
-      );
+      if (formField?.hasAttribute?.('borderless')) {
+        this.internals.states.add('option-panel-origin-borderless');
+      } else {
+        this.internals.states.delete('option-panel-origin-borderless');
+      }
 
       if (this.isOpen) {
         this._originResizeObserver.observe(this._originElement);

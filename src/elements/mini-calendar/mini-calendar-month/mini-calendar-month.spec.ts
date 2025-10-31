@@ -1,9 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { ɵstateController } from '../../core/mixins.ts';
 import { fixture } from '../../core/testing/private.ts';
 
 import { SbbMiniCalendarMonthElement } from './mini-calendar-month.component.ts';
+
 import '../mini-calendar.ts';
 
 describe('sbb-mini-calendar-month', () => {
@@ -27,7 +29,7 @@ describe('sbb-mini-calendar-month', () => {
     element = await fixture(html`
       <sbb-mini-calendar-month date="2025-01"></sbb-mini-calendar-month>
     `);
-    element['toggleState']('show-year', true);
+    ɵstateController(element).add('show-year');
     expect(
       element.shadowRoot!.querySelector('.sbb-mini-calendar-month-label-month')!.textContent,
     ).to.be.equal('Jan.');

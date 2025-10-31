@@ -13,10 +13,7 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
     <label>
       <span class="sbb-file-selector__dropzone-area">
         <span class="sbb-file-selector__dropzone-area--icon">
-          <sbb-icon
-            data-namespace="default"
-            name="folder-open-medium"
-          >
+          <sbb-icon name="folder-open-medium">
           </sbb-icon>
         </span>
         <span class="sbb-file-selector__dropzone-area--title">
@@ -25,11 +22,7 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
           Drag & Drop your file here
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
-          <sbb-secondary-button-static
-            data-action=""
-            data-sbb-button=""
-            size="m"
-          >
+          <sbb-secondary-button-static size="m">
             Choose a file
           </sbb-secondary-button-static>
         </span>
@@ -117,10 +110,7 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
     <label>
       <span class="sbb-file-selector__dropzone-area">
         <span class="sbb-file-selector__dropzone-area--icon">
-          <sbb-icon
-            data-namespace="default"
-            name="folder-open-medium"
-          >
+          <sbb-icon name="folder-open-medium">
           </sbb-icon>
         </span>
         <span class="sbb-file-selector__dropzone-area--title">
@@ -129,11 +119,7 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
           Drag & Drop your files here
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
-          <sbb-secondary-button-static
-            data-action=""
-            data-sbb-button=""
-            size="m"
-          >
+          <sbb-secondary-button-static size="m">
             Choose files
           </sbb-secondary-button-static>
         </span>

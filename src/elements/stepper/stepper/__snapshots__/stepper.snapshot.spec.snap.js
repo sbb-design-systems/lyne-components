@@ -3,17 +3,11 @@ export const snapshots = {};
 
 snapshots["sbb-stepper renders DOM"] = 
 `<sbb-stepper
-  data-disable-animation=""
   orientation="horizontal"
   selected-index="0"
   size="m"
 >
   <sbb-step-label
-    data-action=""
-    data-button=""
-    data-orientation="horizontal"
-    data-selected=""
-    data-size="m"
     id="sbb-step-label-0"
     slot="step-label"
     tabindex="0"
@@ -21,18 +15,12 @@ snapshots["sbb-stepper renders DOM"] =
     Test step label 1
   </sbb-step-label>
   <sbb-step
-    data-orientation="horizontal"
-    data-selected=""
     id="sbb-step-0"
     slot="step"
   >
     Test step content 1
   </sbb-step>
   <sbb-step-label
-    data-action=""
-    data-button=""
-    data-orientation="horizontal"
-    data-size="m"
     id="sbb-step-label-1"
     slot="step-label"
     tabindex="-1"
@@ -40,18 +28,12 @@ snapshots["sbb-stepper renders DOM"] =
     Test step label 2
   </sbb-step-label>
   <sbb-step
-    data-orientation="horizontal"
     id="sbb-step-1"
     slot="step"
   >
     Test step content 2
   </sbb-step>
   <sbb-step-label
-    data-action=""
-    data-button=""
-    data-disabled=""
-    data-orientation="horizontal"
-    data-size="m"
     disabled=""
     id="sbb-step-label-2"
     slot="step-label"
@@ -60,15 +42,12 @@ snapshots["sbb-stepper renders DOM"] =
     Test step label 3
   </sbb-step-label>
   <sbb-step
-    data-orientation="horizontal"
     id="sbb-step-2"
     slot="step"
   >
     Test step content 3
   </sbb-step>
   <sbb-step-label
-    data-action=""
-    data-button=""
     id="sbb-step-label-3"
     slot="step-label"
     tabindex="-1"

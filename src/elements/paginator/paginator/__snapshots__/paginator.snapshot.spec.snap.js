@@ -18,8 +18,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
     <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous page"
-        data-action=""
-        data-button=""
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
@@ -33,8 +31,6 @@ snapshots["sbb-paginator renders Shadow DOM"] =
       </sbb-divider>
       <sbb-mini-button
         aria-label="Next page"
-        data-action=""
-        data-button=""
         disabled=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
@@ -85,8 +81,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
     <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous page"
-        data-action=""
-        data-button=""
         disabled=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
@@ -100,8 +94,6 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
       </sbb-divider>
       <sbb-mini-button
         aria-label="Next page"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         slot="li-2"
@@ -202,8 +194,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
     <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous page"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
         slot="li-0"
@@ -217,8 +207,6 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
       </sbb-divider>
       <sbb-mini-button
         aria-label="Next page"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         slot="li-2"
@@ -319,8 +307,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
     <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous page"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
         slot="li-0"
@@ -334,8 +320,6 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
       </sbb-divider>
       <sbb-mini-button
         aria-label="Next page"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         slot="li-2"
@@ -445,8 +429,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
     <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous slide"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
         slot="li-0"
@@ -460,8 +442,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
       </sbb-divider>
       <sbb-mini-button
         aria-label="Next slide"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         slot="li-2"
@@ -553,15 +533,11 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
         10
       </div>
       <sbb-select
-        data-option-panel-origin-borderless=""
-        data-state="closed"
         id="select"
         size="m"
         value="10"
       >
         <sbb-option
-          data-disable-highlight=""
-          data-variant="select"
           id="sbb-option-3"
           selected=""
           value="10"
@@ -569,16 +545,12 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
           10
         </sbb-option>
         <sbb-option
-          data-disable-highlight=""
-          data-variant="select"
           id="sbb-option-4"
           value="25"
         >
           25
         </sbb-option>
         <sbb-option
-          data-disable-highlight=""
-          data-variant="select"
           id="sbb-option-5"
           value="50"
         >
@@ -619,8 +591,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
     <sbb-mini-button-group size="l">
       <sbb-mini-button
         aria-label="Previous slide"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-paginator-prev-page"
         slot="li-0"
@@ -634,8 +604,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
       </sbb-divider>
       <sbb-mini-button
         aria-label="Next slide"
-        data-action=""
-        data-button=""
         icon-name="chevron-small-right-small"
         id="sbb-paginator-next-page"
         slot="li-2"
@@ -727,15 +695,11 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
         10
       </div>
       <sbb-select
-        data-option-panel-origin-borderless=""
-        data-state="closed"
         id="select"
         size="m"
         value="10"
       >
         <sbb-option
-          data-disable-highlight=""
-          data-variant="select"
           id="sbb-option-3"
           selected=""
           value="10"
@@ -743,16 +707,12 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
           10
         </sbb-option>
         <sbb-option
-          data-disable-highlight=""
-          data-variant="select"
           id="sbb-option-4"
           value="25"
         >
           25
         </sbb-option>
         <sbb-option
-          data-disable-highlight=""
-          data-variant="select"
           id="sbb-option-5"
           value="50"
         >

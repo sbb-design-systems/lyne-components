@@ -18,13 +18,13 @@ export type SbbButtonType = 'button' | 'reset' | 'submit';
 export
 @hostAttributes({
   tabindex: '0',
-  'data-button': '',
 })
 abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
   public static override readonly role: ElementInternals['role'] = 'button';
 
   public constructor() {
     super();
+    this.internals.states.add('button');
 
     if (!isServer) {
       this.setupBaseEventHandlers();
@@ -47,18 +47,18 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
 
   /**
    * Prevents scrolling from pressing Space, when the event target is an action element.
-   * Also sets data-active attribute.
+   * Also sets active state.
    * @param event The origin event.
    */
   private _preventScrollOnSpaceKeydown = (event: KeyboardEvent): void => {
     if (event.key === ' ') {
       event.preventDefault();
-      (event.target as HTMLElement).toggleAttribute('data-active', true);
+      this.internals.states.add('active');
     }
   };
 
-  private _removeActiveMarker = (event: Event): void => {
-    (event.target as HTMLElement).removeAttribute('data-active');
+  private _removeActiveMarker = (): void => {
+    this.internals.states.delete('active');
   };
 
   /**
@@ -69,7 +69,7 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
    */
   private _dispatchClickEventOnSpaceKeyup = (event: KeyboardEvent): void => {
     if (event.key === ' ') {
-      this._removeActiveMarker(event);
+      this._removeActiveMarker();
       this._dispatchClickEvent(event);
     }
   };

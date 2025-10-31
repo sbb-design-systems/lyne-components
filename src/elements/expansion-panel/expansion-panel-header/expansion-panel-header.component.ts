@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbMediaQueryHover, SbbMediaMatcherController } from '../../core/controllers.ts';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
+import { SbbDisabledTabIndexActionMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
@@ -56,7 +56,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
     if (!toggleDataAttribute || (parent && this._isHover)) {
-      parent.toggleAttribute('data-toggle-hover', toggleDataAttribute);
+      ɵstateController(parent).toggle('toggle-hover', toggleDataAttribute);
     }
   }
 
@@ -66,7 +66,11 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
    * but after the 'SbbSlotStateController' has run.
    */
   private _setIconState(): void {
-    this.toggleState('icon', !!(this.iconName || this.internals.states.has('icon')));
+    if (this.iconName || this.internals.states.has('icon')) {
+      this.internals.states.add('icon');
+    } else {
+      this.internals.states.delete('icon');
+    }
   }
 
   protected override renderTemplate(): TemplateResult {

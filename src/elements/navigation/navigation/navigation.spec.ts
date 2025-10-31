@@ -60,7 +60,7 @@ describe(`sbb-navigation`, () => {
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
     expect(element).to.match(':popover-open');
   });
 
@@ -108,9 +108,9 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(action2).to.have.attribute('data-action-active');
-    expect(action3).to.have.attribute('data-action-active');
+    expect(element).to.match(':state(state-opened)');
+    expect(action2).to.match(':state(action-active)');
+    expect(action3).to.match(':state(action-active)');
     expect(element.shadowRoot?.activeElement?.id).to.be.equal('sbb-navigation-close-button');
   });
 
@@ -149,10 +149,10 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(actionActive).to.have.attribute('data-action-active');
-    expect(sectionActionActive).to.have.attribute('data-action-active');
-    expect(activeSection).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
+    expect(actionActive).to.match(':state(action-active)');
+    expect(sectionActionActive).to.match(':state(action-active)');
+    expect(activeSection).to.match(':state(state-opened)');
   });
 
   it('resets the markers on navigation close', async () => {
@@ -186,36 +186,36 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(action2).to.have.attribute('data-action-active');
-    expect(action3).to.have.attribute('data-action-active');
+    expect(element).to.match(':state(state-opened)');
+    expect(action2).to.match(':state(action-active)');
+    expect(action3).to.match(':state(action-active)');
 
     action1.click();
     action4.click();
 
     await waitForLitRender(element);
 
-    expect(action1).to.have.attribute('data-action-active');
-    expect(action4).to.have.attribute('data-action-active');
+    expect(action1).to.match(':state(action-active)');
+    expect(action4).to.match(':state(action-active)');
 
-    expect(action2).not.to.have.attribute('data-action-active');
-    expect(action3).not.to.have.attribute('data-action-active');
+    expect(action2).not.to.match(':state(action-active)');
+    expect(action3).not.to.match(':state(action-active)');
 
     element.close();
     await waitForLitRender(element);
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
 
     element.open();
     await waitForLitRender(element);
 
     await openSpy.calledTimes(2);
     expect(openSpy.count).to.be.equal(2);
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(action1).not.to.have.attribute('data-action-active');
-    expect(action4).not.to.have.attribute('data-action-active');
+    expect(element).to.match(':state(state-opened)');
+    expect(action1).not.to.match(':state(action-active)');
+    expect(action4).not.to.match(':state(action-active)');
   });
 
   it('closes the navigation', async () => {
@@ -227,14 +227,14 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     element.close();
     await waitForLitRender(element);
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
     expect(element).not.to.match(':popover-open');
   });
 
@@ -249,14 +249,14 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     closeButton.click();
     await waitForLitRender(element);
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('closes the navigation on Esc key press', async () => {
@@ -270,7 +270,7 @@ describe(`sbb-navigation`, () => {
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
@@ -280,7 +280,7 @@ describe(`sbb-navigation`, () => {
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('closes navigation with sbb-navigation-close', async () => {
@@ -304,16 +304,16 @@ describe(`sbb-navigation`, () => {
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-opened)');
 
     closeEl.click();
     await waitForLitRender(element);
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
-    expect(section).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
+    expect(section).to.match(':state(state-closed)');
   });
 
   it('opens and closes navigation with non-zero animation duration', async () => {
@@ -327,14 +327,14 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     element.close();
     await waitForLitRender(element);
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('opens navigation and opens section', async () => {
@@ -349,15 +349,15 @@ describe(`sbb-navigation`, () => {
 
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-closed)');
 
     action.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => section.matches(':state(state-opened)'));
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-opened)');
   });
 
   it('opens navigation and toggles sections', async () => {
@@ -378,21 +378,21 @@ describe(`sbb-navigation`, () => {
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(firstSection).to.have.attribute('data-state', 'closed');
-    expect(secondSection).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-opened)');
+    expect(firstSection).to.match(':state(state-closed)');
+    expect(secondSection).to.match(':state(state-closed)');
 
     firstAction.click();
 
-    await waitForCondition(() => firstSection.getAttribute('data-state') === 'opened');
-    expect(firstSection).to.have.attribute('data-state', 'opened');
-    expect(secondSection).to.have.attribute('data-state', 'closed');
+    await waitForCondition(() => firstSection.matches(':state(state-opened)'));
+    expect(firstSection).to.match(':state(state-opened)');
+    expect(secondSection).to.match(':state(state-closed)');
 
     secondAction.click();
 
-    await waitForCondition(() => secondSection.getAttribute('data-state') === 'opened');
-    expect(firstSection).to.have.attribute('data-state', 'closed');
-    expect(secondSection).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => secondSection.matches(':state(state-opened)'));
+    expect(firstSection).to.match(':state(state-closed)');
+    expect(secondSection).to.match(':state(state-opened)');
   });
 
   it('closes the navigation and the section on close button click', async () => {
@@ -414,22 +414,22 @@ describe(`sbb-navigation`, () => {
     await nextFrame();
 
     await openSpy.calledOnce();
-    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
+    await waitForCondition(() => section.matches(':state(state-opened)'));
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-opened)');
 
     closeButton.click();
 
     await closeSpy.calledOnce();
-    await waitForCondition(() => section.getAttribute('data-state') === 'closed');
+    await waitForCondition(() => section.matches(':state(state-closed)'));
     expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
-    expect(section).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
+    expect(section).to.match(':state(state-closed)');
   });
 
   it('closes the navigation and the section on Esc key press', async () => {
@@ -450,8 +450,8 @@ describe(`sbb-navigation`, () => {
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-opened)');
 
     await sendKeys({ press: tabKey });
     await waitForLitRender(element);
@@ -463,8 +463,8 @@ describe(`sbb-navigation`, () => {
     expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
-    expect(section).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
+    expect(section).to.match(':state(state-closed)');
   });
 
   it('closes section with sbb-navigation-section-close', async () => {
@@ -487,15 +487,15 @@ describe(`sbb-navigation`, () => {
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-opened)');
 
     closeEl.click();
     await waitForLitRender(element);
-    await waitForCondition(() => section.getAttribute('data-state') === 'closed');
+    await waitForCondition(() => section.matches(':state(state-closed)'));
 
-    expect(element).to.have.attribute('data-state', 'opened');
-    expect(section).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-opened)');
+    expect(section).to.match(':state(state-closed)');
   });
 
   it('does not open if prevented', async () => {
@@ -508,7 +508,7 @@ describe(`sbb-navigation`, () => {
     expect(beforeOpenSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('does not close if prevented', async () => {
@@ -525,7 +525,7 @@ describe(`sbb-navigation`, () => {
     await beforeCloseSpy.calledOnce();
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
   });
 
   it('should re-enable scrolling when removed from the DOM', async () => {
@@ -590,7 +590,7 @@ describe(`sbb-navigation`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
     expect(element).to.match(':popover-open');
   });
 });

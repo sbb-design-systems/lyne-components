@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-menu-link renders DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
   target="_blank"
 >
@@ -33,10 +31,7 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-menu-submenu__icon">
-      <sbb-icon
-        data-namespace="default"
-        name="chevron-small-right-small"
-      >
+      <sbb-icon name="chevron-small-right-small">
       </sbb-icon>
     </span>
   </span>
@@ -50,8 +45,6 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
 snapshots["sbb-menu-link renders component with icon DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="menu-small"
   target="_blank"
@@ -73,10 +66,7 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
   <span class="sbb-menu-action__content">
     <span class="sbb-menu-action__icon">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="menu-small"
-        >
+        <sbb-icon name="menu-small">
         </sbb-icon>
       </slot>
     </span>
@@ -85,10 +75,7 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-menu-submenu__icon">
-      <sbb-icon
-        data-namespace="default"
-        name="chevron-small-right-small"
-      >
+      <sbb-icon name="chevron-small-right-small">
       </sbb-icon>
     </span>
   </span>

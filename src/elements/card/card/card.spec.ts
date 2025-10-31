@@ -33,7 +33,7 @@ describe(`sbb-card`, () => {
         element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
       ).getPropertyValue('display'),
     ).not.to.be.equal('none');
-    expect(element).to.have.attribute('data-has-card-badge');
+    expect(element).to.match(':state(has-card-badge)');
   });
 
   it('should render without sbb-card-badge', async () => {
@@ -49,6 +49,6 @@ describe(`sbb-card`, () => {
         element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
       ).getPropertyValue('display'),
     ).to.be.equal('none');
-    expect(element).not.to.have.attribute('data-has-card-badge');
+    expect(element).not.to.match(':state(has-card-badge)');
   });
 });

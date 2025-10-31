@@ -9,7 +9,6 @@ snapshots["sbb-alert-group renders DOM"] =
 >
   <sbb-alert
     animation="all"
-    data-state="opened"
     size="m"
   >
     <sbb-title
@@ -49,7 +48,6 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
   </span>
   <sbb-alert
     animation="all"
-    data-state="opened"
     size="m"
   >
     <sbb-title

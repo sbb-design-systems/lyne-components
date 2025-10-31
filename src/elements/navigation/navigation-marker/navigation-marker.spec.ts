@@ -33,14 +33,14 @@ describe(`sbb-navigation-marker`, () => {
     secondAction.click();
     await waitForLitRender(element);
 
-    expect(secondAction).to.have.attribute('data-action-active');
-    expect(firstAction).not.to.have.attribute('data-action-active');
+    expect(secondAction).to.match(':state(action-active)');
+    expect(firstAction).not.to.match(':state(action-active)');
 
     firstAction.click();
     await waitForLitRender(element);
 
-    expect(firstAction).to.have.attribute('data-action-active');
-    expect(secondAction).not.to.have.attribute('data-action-active');
+    expect(firstAction).to.match(':state(action-active)');
+    expect(secondAction).not.to.match(':state(action-active)');
   });
 
   it('automatic list generation', () => {

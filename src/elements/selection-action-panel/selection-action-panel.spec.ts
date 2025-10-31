@@ -190,14 +190,14 @@ describe(`sbb-selection-action-panel`, () => {
       });
 
       it('change size on group', async () => {
-        expect(firstPanel).to.have.attribute('data-size', 'm');
-        expect(secondPanel).to.have.attribute('data-size', 'm');
+        expect(firstPanel).to.match(':state(size-m)');
+        expect(secondPanel).to.match(':state(size-m)');
 
         wrapper.size = 's';
         await waitForLitRender(wrapper);
 
-        expect(firstPanel).to.have.attribute('data-size', 's');
-        expect(secondPanel).to.have.attribute('data-size', 's');
+        expect(firstPanel).to.match(':state(size-s)');
+        expect(secondPanel).to.match(':state(size-s)');
       });
 
       it('change size on input', async () => {
@@ -213,12 +213,12 @@ describe(`sbb-selection-action-panel`, () => {
         /* eslint-enable lit/binding-positions */
         firstInput = firstPanel.querySelector(`sbb-${inputType}-panel`)!;
 
-        expect(firstPanel).to.have.attribute('data-size', 'm');
+        expect(firstPanel).to.match(':state(size-m)');
 
         firstInput.size = 's';
         await waitForLitRender(wrapper);
 
-        expect(firstPanel).to.have.attribute('data-size', 's');
+        expect(firstPanel).to.match(':state(size-s)');
       });
     });
   }

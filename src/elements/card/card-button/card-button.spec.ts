@@ -19,21 +19,21 @@ describe(`sbb-card-button`, () => {
       html`<sbb-card><sbb-card-button active>Click me</sbb-card-button>Content</sbb-card>`,
     );
 
-    expect(element).to.have.attribute('data-has-action');
-    expect(element).to.have.attribute('data-has-active-action');
-    expect(element).to.have.attribute('data-action-role', 'button');
+    expect(element).to.match(':state(has-action)');
+    expect(element).to.match(':state(has-active-action)');
+    expect(element).to.match(':state(action-role-button)');
   });
 
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button>Click me</sbb-card-button>Content</sbb-card>`,
     );
-    expect(element).not.to.have.attribute('data-has-active-action');
+    expect(element).not.to.match(':state(has-active-action)');
 
     element.querySelector<SbbCardButtonElement>('sbb-card-button')!.toggleAttribute('active', true);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-has-active-action');
+    expect(element).to.match(':state(has-active-action)');
   });
 
   it('should remove data properties from host', async () => {
@@ -46,17 +46,17 @@ describe(`sbb-card-button`, () => {
       </sbb-card>`,
     );
 
-    expect(element).to.have.attribute('data-has-action');
-    expect(element).to.have.attribute('data-has-active-action');
-    expect(element).to.have.attribute('data-action-role', 'button');
+    expect(element).to.match(':state(has-action)');
+    expect(element).to.match(':state(has-active-action)');
+    expect(element).to.match(':state(action-role-button)');
 
     // Remove action from DOM
     element.querySelector<SbbCardButtonElement>('sbb-card-button')!.remove();
     await waitForLitRender(element);
 
-    expect(element).not.to.have.attribute('data-has-action');
-    expect(element).not.to.have.attribute('data-has-active-action');
-    expect(element).not.to.have.attribute('data-action-role', 'button');
+    expect(element).not.to.match(':state(has-action)');
+    expect(element).not.to.match(':state(has-active-action)');
+    expect(element).not.to.match(':state(action-role-button)');
   });
 
   it('should detect added button in slotted content to update focusable elements', async () => {
@@ -68,7 +68,7 @@ describe(`sbb-card-button`, () => {
         </span>
       </sbb-card>`,
     );
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('[data-card-focusable]');
 
     // Add a second button in content
     element
@@ -104,7 +104,7 @@ describe(`sbb-card-button`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('[data-card-focusable]');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -119,7 +119,7 @@ describe(`sbb-card-button`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('[data-card-focusable]');
   });
 
   describe('events', () => {

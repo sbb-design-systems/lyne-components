@@ -37,9 +37,7 @@ describe(`sbb-popover ssr`, () => {
 
     it('connects trigger correctly', () => {
       root.querySelector<SbbButtonElement>('#popover-trigger')!.click();
-      expect(root.querySelector('sbb-popover')!.getAttribute('data-state')).not.to.be.equal(
-        'closed',
-      );
+      expect(root.querySelector('sbb-popover')!).not.to.match(':state(state-closed)');
     });
   });
 

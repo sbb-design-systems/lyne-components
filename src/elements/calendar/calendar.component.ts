@@ -40,7 +40,7 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n.ts';
 import type { SbbOrientation } from '../core/interfaces.ts';
-import { SbbHydrationMixin } from '../core/mixins.ts';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './calendar.scss?lit&inline';
@@ -117,7 +117,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
@@ -210,10 +210,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
   private set _wide(wide: boolean) {
-    this.toggleAttribute('data-wide', wide);
+    if (wide) {
+      this.internals.states.add('wide');
+    } else {
+      this.internals.states.delete('wide');
+    }
   }
   private get _wide(): boolean {
-    return this.hasAttribute('data-wide');
+    return this.internals.states.has('wide');
   }
 
   @state() private accessor _calendarView: CalendarView = 'day';
@@ -1910,12 +1914,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      this.removeAttribute('data-transition');
+      this.internals.states.delete('transition');
     }
   }
 
   private _startTableTransition(): void {
-    this.toggleAttribute('data-transition', true);
+    this.internals.states.add('transition');
     this.shadowRoot
       ?.querySelectorAll('table')
       ?.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));

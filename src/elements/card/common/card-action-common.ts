@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
 import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
+import { ɵstateController, type AbstractConstructor } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCardElement } from '../card.ts';
 
@@ -50,7 +50,7 @@ export const SbbCardActionCommonElementMixin = <
 
     private _onActiveChange(): void {
       if (this._card) {
-        this._card.toggleAttribute('data-has-active-action', this.active);
+        ɵstateController(this._card).toggle('has-active-action', this.active);
       }
     }
 
@@ -72,9 +72,11 @@ export const SbbCardActionCommonElementMixin = <
       this._card = this.closest?.('sbb-card');
       if (this._card) {
         this.slot ||= 'action';
-        this._card.toggleAttribute('data-has-action', true);
-        this._card.toggleAttribute('data-has-active-action', this.active);
-        this._card.setAttribute('data-action-role', this.actionRole);
+        const controller = ɵstateController(this._card);
+        controller.add('has-action');
+        controller.toggle('has-active-action', this.active);
+        controller.add(`action-role-${this.actionRole}`);
+        controller.delete(`action-role-${this.actionRole === 'button' ? 'link' : 'button'}`);
 
         this._checkForSlottedActions();
         this._cardMutationObserver.observe(this._card);
@@ -84,9 +86,16 @@ export const SbbCardActionCommonElementMixin = <
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       if (this._card) {
-        ['data-has-action', 'data-has-active-action', 'data-action-role'].forEach((name) =>
-          this._card!.removeAttribute(name),
-        );
+        const controller = ɵstateController(this._card);
+        controller.forEach((state) => {
+          if (
+            state.startsWith('action-role-') ||
+            state === 'has-active-action' ||
+            state === 'has-action'
+          ) {
+            controller.delete(state);
+          }
+        });
         this._card
           .querySelectorAll(`[data-card-focusable]`)
           .forEach((el) => el.removeAttribute('data-card-focusable'));

@@ -6,7 +6,7 @@
   max-width: 100%; // Needed for the ellipsis on chips to work
 }
 
-:host([data-size='s']:not([data-empty])) {
+:host(:state(size-s):not(:state(empty))) {
   --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)};
 
   @include sbb.mq($from: large) {

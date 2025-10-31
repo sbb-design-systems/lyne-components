@@ -20,8 +20,6 @@ snapshots["sbb-header renders Shadow DOM"] =
 snapshots["sbb-header renders actions and logo DOM"] = 
 `<sbb-header size="m">
   <sbb-header-link
-    data-action=""
-    data-link=""
     expand-from="large"
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="hamburger-menu-small"

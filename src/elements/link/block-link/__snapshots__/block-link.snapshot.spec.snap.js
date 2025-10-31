@@ -4,9 +4,6 @@ export const snapshots = {};
 snapshots["sbb-block-link renders DOM"] = 
 `<sbb-block-link
   accessibility-label="Travelcards &amp; tickets"
-  data-action=""
-  data-link=""
-  data-sbb-link=""
   download=""
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"

@@ -23,7 +23,6 @@ export
 @customElement('sbb-autocomplete-grid-button')
 @hostAttributes({
   tabindex: null,
-  'data-button': '',
 })
 class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
@@ -45,6 +44,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
 
   public constructor() {
     super();
+    this.internals.states.add('button');
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);

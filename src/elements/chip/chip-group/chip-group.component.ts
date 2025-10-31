@@ -242,7 +242,11 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       });
     }
 
-    this.toggleAttribute('data-empty', this.value.length === 0);
+    if (this.value.length === 0) {
+      this.internals.states.add('empty');
+    } else {
+      this.internals.states.delete('empty');
+    }
     this._reactToInputChanges();
     this._updateInputDescription();
     this.updateFormValue();
@@ -417,7 +421,13 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   }
 
   private _inheritSize(): void {
-    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
+    const state = `size-${this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm')}`;
+    this.internals.states.add(state);
+    this.internals.states.forEach((s) => {
+      if (s.startsWith('size-') && s !== state) {
+        this.internals.states.delete(s);
+      }
+    });
   }
 
   private _updateInputDescription(): void {

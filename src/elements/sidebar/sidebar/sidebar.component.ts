@@ -153,7 +153,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     const isDuringInitialization = !this.hasUpdated;
 
     if (isDuringInitialization || isZeroAnimationDuration) {
-      this.toggleAttribute('data-skip-animation', true);
+      this.internals.states.add('skip-animation');
     } else {
       this.state = 'opening';
       return;
@@ -179,7 +179,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
-    setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+    setTimeout(() => this.internals.states.delete('skip-animation'));
 
     this._takeFocus();
     this.stopAnimation();
@@ -197,7 +197,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
 
     if (!this.hasUpdated || isZeroAnimationDuration) {
-      this.toggleAttribute('data-skip-animation', true);
+      this.internals.states.add('skip-animation');
     } else {
       this.state = 'closing';
     }
@@ -215,7 +215,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this.state = 'closed';
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
-    setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+    setTimeout(() => this.internals.states.delete('skip-animation'));
     this.cedeFocus();
 
     if (!isServer && (this.contains(document.activeElement) || this._isModeOver())) {
@@ -286,7 +286,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _isModeOver(): boolean {
     // If the minimum space attribute is set, the sidebar should behave like in mode over.
-    return this.mode === 'over' || this.hasAttribute('data-mode-over-forced');
+    return this.mode === 'over' || this.matches(':state(mode-over-forced)');
   }
 
   private _onTransitionEnd(event: TransitionEvent): void {
@@ -304,10 +304,11 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   @eventOptions({ passive: true })
   private _detectScrolledState(): void {
-    this.toggleAttribute(
-      'data-scrolled',
-      (this.shadowRoot?.querySelector('.sbb-sidebar-content-section')?.scrollTop ?? 0) > 0,
-    );
+    if ((this.shadowRoot?.querySelector('.sbb-sidebar-content-section')?.scrollTop ?? 0) > 0) {
+      this.internals.states.add('scrolled');
+    } else {
+      this.internals.states.delete('scrolled');
+    }
   }
 
   protected override render(): TemplateResult {

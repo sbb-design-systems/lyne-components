@@ -12,7 +12,7 @@
   }
 }
 
-:host(:is(:active, [data-active])) {
+:host(:is(:active, :state(active))) {
   --sbb-breadcrumb-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
 }
 

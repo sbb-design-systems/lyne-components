@@ -163,7 +163,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
         ':scope > :is(sbb-dialog-title, sbb-dialog-close-button, sbb-dialog-content, sbb-dialog-actions)',
       ) === null;
 
-    this.toggleState('has-intermediate-element', hasNoExpectedDirectChildren);
+    if (hasNoExpectedDirectChildren) {
+      this.internals.states.add('has-intermediate-element');
+    } else {
+      this.internals.states.delete('has-intermediate-element');
+    }
   }
 
   /** Check if the pointerdown event target is triggered on the dialog. */
@@ -190,12 +194,19 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   private _updateOverflowState(): void {
     const contentElement = this._contentElement();
-    this.toggleState('top-shadow', (contentElement?.scrollTop ?? 0) > 0);
-    this.toggleState(
-      'bottom-shadow',
+    if ((contentElement?.scrollTop ?? 0) > 0) {
+      this.internals.states.add('top-shadow');
+    } else {
+      this.internals.states.delete('top-shadow');
+    }
+    if (
       (contentElement?.scrollTop ?? 0) + (contentElement?.offsetHeight ?? 0) <
-        (contentElement?.scrollHeight ?? 0),
-    );
+      (contentElement?.scrollHeight ?? 0)
+    ) {
+      this.internals.states.add('bottom-shadow');
+    } else {
+      this.internals.states.delete('bottom-shadow');
+    }
   }
 
   private _contentElement(): SbbDialogContentElement | null {

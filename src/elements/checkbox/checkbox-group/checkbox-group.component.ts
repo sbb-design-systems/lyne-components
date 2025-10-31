@@ -60,7 +60,11 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-checkbox-panel'));
+    if (this.querySelector?.('sbb-checkbox-panel')) {
+      this.internals.states.add('has-panel');
+    } else {
+      this.internals.states.delete('has-panel');
+    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

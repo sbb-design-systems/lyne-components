@@ -404,9 +404,21 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _readInputState(): void {
-    this.toggleState('readonly', this._control?.readOnly ?? this._input!.hasAttribute('readonly'));
-    this.toggleState('disabled', this._control?.disabled ?? this._input!.hasAttribute('disabled'));
-    this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
+    if (this._control?.readOnly ?? this._input!.hasAttribute('readonly')) {
+      this.internals.states.add('readonly');
+    } else {
+      this.internals.states.delete('readonly');
+    }
+    if (this._control?.disabled ?? this._input!.hasAttribute('disabled')) {
+      this.internals.states.add('disabled');
+    } else {
+      this.internals.states.delete('disabled');
+    }
+    if (this._input!.hasAttribute('data-expanded')) {
+      this.internals.states.add('has-popup-open');
+    } else {
+      this.internals.states.delete('has-popup-open');
+    }
   }
 
   private _registerInputFormListener(): void {
@@ -465,15 +477,18 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _checkAndUpdateInputEmpty(): void {
-    this.toggleState(
-      'empty',
+    if (
       this._control?.empty ??
-        (((this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) ||
-          (this._input?.constructor as undefined | typeof SbbFormAssociatedInputMixinType)
-            ?.formFieldAssociated) ??
-          false) &&
-          this._isInputEmpty()),
-    );
+      (((this._floatingLabelSupportedInputElements.includes(this._input?.localName as string) ||
+        (this._input?.constructor as undefined | typeof SbbFormAssociatedInputMixinType)
+          ?.formFieldAssociated) ??
+        false) &&
+        this._isInputEmpty())
+    ) {
+      this.internals.states.add('empty');
+    } else {
+      this.internals.states.delete('empty');
+    }
   }
 
   private _isInputEmpty(): boolean {
@@ -524,7 +539,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     }
 
     this._assignErrorMessageElements();
-    this.toggleState('has-error', !!this._errorElements.length);
+    if (this._errorElements.length) {
+      this.internals.states.add('has-error');
+    } else {
+      this.internals.states.delete('has-error');
+    }
     this._syncNegative();
   }
 

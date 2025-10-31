@@ -76,7 +76,7 @@ describe('sbb-stepper', () => {
     )!;
 
     await waitForLitRender(element);
-    expect(stepLabelOne).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
   });
 
   it('selects the correct step on label click and emits validate event', async () => {
@@ -91,8 +91,8 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelThree.id);
   });
 
@@ -107,8 +107,8 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
@@ -123,8 +123,8 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
@@ -141,8 +141,8 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
   });
 
@@ -163,15 +163,15 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
 
     stepperPrevious.click();
     await waitForLitRender(element);
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
   });
 
@@ -193,22 +193,22 @@ describe('sbb-stepper', () => {
     stepLabelThree.click();
     await waitForLitRender(element);
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
 
     stepLabelTwo.click();
     await waitForLitRender(element);
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
 
     stepperNext.click();
     await waitForLitRender(element);
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
   });
 
   it('does not switch to the next step if the validate is prevented', async () => {
@@ -224,8 +224,8 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).not.to.have.attribute('data-selected');
-    expect(stepLabelThree.step).not.to.have.attribute('data-selected');
+    expect(stepLabelThree).not.to.match(':state(selected)');
+    expect(stepLabelThree.step).not.to.match(':state(selected)');
   });
 
   it('resets the single form wrapping the stepper and returns to the first step', async () => {
@@ -274,8 +274,8 @@ describe('sbb-stepper', () => {
     expect(stepInputOne.value).to.be.equal('');
     expect(stepInputTwo.value).to.be.equal('');
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
   });
 
@@ -323,8 +323,8 @@ describe('sbb-stepper', () => {
     expect(stepInputOne.value).to.be.equal('');
     expect(stepInputTwo.value).to.be.equal('');
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelOne.id);
   });
 
@@ -357,8 +357,8 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
   });
 
   it('selects step on left arrow key pressed', async () => {
@@ -372,13 +372,13 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
 
     await sendKeys({ press: 'ArrowLeft' });
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
   });
 
   it('wraps around on arrow key navigation', async () => {
@@ -395,18 +395,18 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
 
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
 
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
   });
 
   it('wraps around on arrow left arrow key navigation', async () => {
@@ -417,18 +417,18 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowLeft' });
 
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
   });
 
   it('proxy size to step children', async () => {
     const stepLabels = Array.from(element.querySelectorAll<SbbStepLabelElement>('sbb-step-label')!);
 
-    expect(stepLabels.every((l) => l.getAttribute('data-size') === element.size)).to.be.true;
+    expect(stepLabels.every((l) => l.matches(`:state(size-${element.size})`))).to.be.true;
 
     element.size = 's';
     await waitForLitRender(element);
 
-    expect(stepLabels.every((l) => l.getAttribute('data-size') === element.size)).to.be.true;
+    expect(stepLabels.every((l) => l.matches(`:state(size-${element.size})`))).to.be.true;
   });
 });

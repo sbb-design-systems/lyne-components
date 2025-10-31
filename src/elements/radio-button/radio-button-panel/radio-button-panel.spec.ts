@@ -29,7 +29,7 @@ describe(`sbb-radio-button-panel`, () => {
     await waitForLitRender(element);
 
     expect(element.checked).to.be.true;
-    expect(element).to.have.attribute('data-checked');
+    expect(element).to.match(':state(checked)');
   });
 
   it('does not deselect radio if already checked', async () => {

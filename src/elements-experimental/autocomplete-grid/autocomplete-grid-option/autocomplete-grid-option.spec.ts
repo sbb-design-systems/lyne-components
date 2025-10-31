@@ -9,6 +9,7 @@ import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-op
 import type { SbbAutocompleteGridElement } from '../autocomplete-grid.ts';
 
 import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.ts';
+
 import '@sbb-esta/lyne-elements/form-field.js';
 import '../autocomplete-grid.ts';
 import '../autocomplete-grid-optgroup.ts';

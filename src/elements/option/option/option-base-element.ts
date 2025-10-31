@@ -191,7 +191,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   protected updateDisableHighlight(disabled: boolean): void {
     this.disableLabelHighlight = disabled;
-    this.toggleAttribute('data-disable-highlight', disabled);
+    if (disabled) {
+      this.internals.states.add('disable-highlight');
+    } else {
+      this.internals.states.delete('disable-highlight');
+    }
   }
 
   /**
@@ -199,7 +203,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
    * @internal
    */
   public setActive(value: boolean): void {
-    this.toggleAttribute('data-active', value);
+    if (value) {
+      this.internals.states.add('active');
+    } else {
+      this.internals.states.delete('active');
+    }
   }
 
   protected init(): void {

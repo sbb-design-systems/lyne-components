@@ -10,13 +10,9 @@ snapshots["sbb-timetable-row renders defaultTrip DOM"] =
 snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] = 
 `<sbb-card
   color="white"
-  data-action-role="button"
-  data-has-action=""
   size="l"
 >
   <sbb-card-button
-    data-action=""
-    data-button=""
     slot="action"
     tabindex="0"
   >
@@ -34,7 +30,6 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
             class="sbb-timetable__row-transport-icon"
-            data-namespace="picto"
             name="picto:train-right"
           >
           </sbb-icon>
@@ -43,10 +38,7 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
           </span>
         </span>
         <span class="sbb-timetable__row-transport">
-          <sbb-icon
-            data-namespace="default"
-            name="ir-37"
-          >
+          <sbb-icon name="ir-37">
           </sbb-icon>
           <span class="sbb-screen-reader-only">
           </span>
@@ -85,13 +77,9 @@ snapshots["sbb-timetable-row renders platform DOM"] =
 snapshots["sbb-timetable-row renders platform Shadow DOM"] = 
 `<sbb-card
   color="white"
-  data-action-role="button"
-  data-has-action=""
   size="l"
 >
   <sbb-card-button
-    data-action=""
-    data-button=""
     slot="action"
     tabindex="0"
   >
@@ -109,7 +97,6 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
             class="sbb-timetable__row-transport-icon"
-            data-namespace="picto"
             name="picto:train-right"
           >
           </sbb-icon>
@@ -118,10 +105,7 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
           </span>
         </span>
         <span class="sbb-timetable__row-transport">
-          <sbb-icon
-            data-namespace="default"
-            name="ic-35"
-          >
+          <sbb-icon name="ic-35">
           </sbb-icon>
           <span class="sbb-screen-reader-only">
           </span>
@@ -179,13 +163,9 @@ snapshots["sbb-timetable-row renders bus strip DOM"] =
 snapshots["sbb-timetable-row renders bus strip Shadow DOM"] = 
 `<sbb-card
   color="white"
-  data-action-role="button"
-  data-has-action=""
   size="l"
 >
   <sbb-card-button
-    data-action=""
-    data-button=""
     slot="action"
     tabindex="0"
   >
@@ -203,7 +183,6 @@ snapshots["sbb-timetable-row renders bus strip Shadow DOM"] =
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
             class="sbb-timetable__row-transport-icon"
-            data-namespace="picto"
             name="picto:bus-right"
           >
           </sbb-icon>
@@ -272,7 +251,6 @@ snapshots["sbb-timetable-row renders loading state Shadow DOM"] =
 `<sbb-card
   class="sbb-loading"
   color="white"
-  data-has-card-badge=""
   size="l"
 >
   <sbb-card-badge
@@ -410,13 +388,9 @@ snapshots["sbb-timetable-row renders trip with access leg DOM"] =
 snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] = 
 `<sbb-card
   color="white"
-  data-action-role="button"
-  data-has-action=""
   size="l"
 >
   <sbb-card-button
-    data-action=""
-    data-button=""
     slot="action"
     tabindex="0"
   >
@@ -434,7 +408,6 @@ snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] =
         <span class="sbb-timetable__row-transport-wrapper">
           <sbb-icon
             class="sbb-timetable__row-transport-icon"
-            data-namespace="picto"
             name="picto:bus-right"
           >
           </sbb-icon>

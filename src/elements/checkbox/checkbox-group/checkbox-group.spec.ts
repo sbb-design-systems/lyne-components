@@ -101,6 +101,6 @@ describe(`sbb-checkbox-group`, () => {
     const panel = document.createElement('sbb-checkbox-panel');
     element.appendChild(panel);
 
-    expect(element).to.have.attribute('data-has-panel');
+    expect(element).to.match(':state(has-panel)');
   });
 });

@@ -1,6 +1,6 @@
 import { isServer, type LitElement, type ReactiveController } from 'lit';
 
-import { SbbSlotStateController } from '../controllers.ts';
+import { SbbSlotStateController } from '../controllers/slot-state-controller.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 
@@ -17,13 +17,18 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         extends Set<string>
         implements CustomStateSetInterface, ReactiveController
       {
+        private _applied = isServer;
+
         public constructor(private _host: LitElement) {
           super();
           this._host.addController(this);
+          if (!isServer) {
+            Promise.resolve().then(() => this._applyStates());
+          }
         }
 
         public override add(state: string): this {
-          if (this._host.isConnected) {
+          if (this._applied) {
             this._toggleState(state, true);
           }
           return super.add(state);
@@ -39,11 +44,19 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         }
 
         public hostConnected(): void {
-          this.forEach((state) => this._toggleState(state, true));
+          this._applyStates();
         }
 
         private _toggleState(state: string, enabled: boolean): void {
           this._host.toggleAttribute(`state--${state}`, enabled);
+        }
+
+        private _applyStates(): void {
+          if (this._applied) {
+            return;
+          }
+          this._applied = true;
+          this.forEach((state) => this._toggleState(state, true));
         }
       }
     : null;
@@ -227,13 +240,93 @@ if (!isServer) {
   }
 }
 
+const attachedElementInternals = new WeakMap<Element, ElementInternals>();
+
+export interface SbbStateController {
+  add(value: string): this;
+  delete(value: string): boolean;
+  has(value: string): boolean;
+  forEach(callbackfn: (value: string, value2: string, set: SbbStateController) => void): void;
+  toggle(value: string, force?: boolean): void;
+  applyPattern(state: string, pattern?: string): void;
+}
+
+/**
+ * Creates a state controller for the given element.
+ * NOT INTENDED TO BE USED BY CONSUMERS!
+ * @internal
+ */
+export function ɵstateController(element: Element): SbbStateController;
+export function ɵstateController(element: Element | undefined | null): SbbStateController | null;
+export function ɵstateController(element: Element | undefined | null): SbbStateController | null {
+  if (!element) {
+    return null;
+  }
+  const states = attachedElementInternals.get(element)?.states;
+  const toggle: SbbStateController['toggle'] = function (this: SbbStateController, value, force) {
+    if (force || (force !== false && !this.has(value))) {
+      this.add(value);
+    } else {
+      this.delete(value);
+    }
+  };
+  const applyPattern: SbbStateController['applyPattern'] = function (
+    this: SbbStateController,
+    state,
+    pattern = 'state',
+  ) {
+    const stateName = `${pattern}-${state}`;
+    this.add(stateName);
+    this.forEach((s) => {
+      if (s.startsWith(`${pattern}-`) && s !== stateName) {
+        this.delete(s);
+      }
+    });
+  };
+  if (states) {
+    return {
+      add(value) {
+        states.add(value);
+        return this;
+      },
+      delete: (value) => states.delete(value),
+      has: (value) => states.has(value),
+      forEach(callbackfn) {
+        states.forEach((value, key) => callbackfn(value, key, this));
+      },
+      toggle,
+      applyPattern,
+    };
+  } else {
+    return {
+      add(value) {
+        element.toggleAttribute(`state--${value}`, true);
+        return this;
+      },
+      delete: (value) => element.toggleAttribute(`state--${value}`, false),
+      has: (value) => element.hasAttribute(`state--${value}`),
+      forEach(callbackfn) {
+        element
+          .getAttributeNames()
+          .filter((attr) => attr.startsWith('state--'))
+          .map((attr) => attr.substring(7))
+          .forEach((key) => {
+            callbackfn(key, key, this);
+          });
+      },
+      toggle,
+      applyPattern,
+    };
+  }
+}
+
 export interface SbbElementInternalsConstructor {
   role?: ElementInternals['role'];
 }
 
 export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
-  protected toggleState(state: string, force?: boolean): void;
+  protected applyStatePattern(state: string | null, pattern?: string): void;
 }
 
 /**
@@ -278,6 +371,7 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
 
     public constructor(...args: any[]) {
       super(...args);
+      attachedElementInternals.set(this, this.internals);
       if (CustomStateSetPolyfill) {
         Object.defineProperty(this.internals, 'states', {
           value: new CustomStateSetPolyfill(this),
@@ -301,12 +395,18 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       this.addController(new SbbSlotStateController(this, this.internals));
     }
 
-    protected toggleState(state: string, force?: boolean): void {
-      if (force || (force !== false && !this.internals.states.has(state))) {
-        this.internals.states.add(state);
-      } else {
-        this.internals.states.delete(state);
+    protected applyStatePattern(state: string | null, pattern = 'state'): void {
+      pattern = pattern.endsWith('-') ? pattern : `${pattern}-`;
+      const combinedState = `${pattern}${state ?? ''}`;
+      if (state !== null) {
+        this.internals.states.add(combinedState);
       }
+
+      this.internals.states.forEach((s) => {
+        if (s.startsWith(pattern) && s !== combinedState) {
+          this.internals.states.delete(s);
+        }
+      });
     }
   }
   return SbbElementInternalElement as unknown as AbstractConstructor<SbbElementInternalsMixinType> &

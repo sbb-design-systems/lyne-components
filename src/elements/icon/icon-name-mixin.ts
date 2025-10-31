@@ -49,7 +49,11 @@ export const SbbIconNameMixin = <
 
     private _renderIconName(): string {
       const iconName = this.renderIconName();
-      this.toggleState('has-icon-name', !!iconName);
+      if (iconName) {
+        this.internals.states.add('has-icon-name');
+      } else {
+        this.internals.states.delete('has-icon-name');
+      }
       return iconName;
     }
   }

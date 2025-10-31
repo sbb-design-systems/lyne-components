@@ -28,10 +28,11 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.toggleState(
-      'with-expansion-panel',
-      this.parentElement?.localName === 'sbb-selection-expansion-panel',
-    );
+    if (this.parentElement?.localName === 'sbb-selection-expansion-panel') {
+      this.internals.states.add('with-expansion-panel');
+    } else {
+      this.internals.states.delete('with-expansion-panel');
+    }
   }
 
   protected override render(): TemplateResult {
