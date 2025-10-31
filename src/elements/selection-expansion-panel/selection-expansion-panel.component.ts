@@ -46,13 +46,17 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   @property({ attribute: 'force-open', type: Boolean })
   public accessor forceOpen: boolean = false;
 
-  /** The state of the selection panel. */
+  /** The state of the component. */
   @state()
   private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    this.applyStatePattern(state);
   }
   private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('state-'))
+        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
+    );
   }
 
   private _language = new SbbLanguageController(this);

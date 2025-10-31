@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-icon-sidebar-button renders DOM"] = 
 `<sbb-icon-sidebar-button
   aria-label="Go to the party"
-  data-action=""
-  data-button=""
   icon-name="glass-cocktail-small"
   tabindex="0"
 >
@@ -16,10 +14,7 @@ snapshots["sbb-icon-sidebar-button renders DOM"] =
 snapshots["sbb-icon-sidebar-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-icon-sidebar-button">
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="glass-cocktail-small"
-    >
+    <sbb-icon name="glass-cocktail-small">
     </sbb-icon>
   </slot>
 </span>

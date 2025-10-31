@@ -4,6 +4,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './flip-card-details.scss?lit&inline';
@@ -15,7 +16,7 @@ import style from './flip-card-details.scss?lit&inline';
  */
 export
 @customElement('sbb-flip-card-details')
-class SbbFlipCardDetailsElement extends LitElement {
+class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {

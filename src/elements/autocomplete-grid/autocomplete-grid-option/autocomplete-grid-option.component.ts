@@ -27,8 +27,8 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
 
   protected override onExternalMutation(mutationsList: MutationRecord[]): void {
     super.onExternalMutation(mutationsList);
-    this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-      'data-disabled',
+    this.closest?.('sbb-autocomplete-grid-row')?.['toggleState'](
+      'disabled',
       this.disabled || this.disabledFromGroup,
     );
   }
@@ -36,8 +36,8 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
-      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-        'data-disabled',
+      this.closest?.('sbb-autocomplete-grid-row')?.['toggleState'](
+        'disabled',
         this.disabled || this.disabledFromGroup,
       );
       this.updateAriaDisabled();
@@ -50,13 +50,13 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
       this.disabledFromGroup = parentGroup.disabled;
       this.updateAriaDisabled();
     }
-    this.closest('sbb-autocomplete-grid-row')?.toggleAttribute(
-      'data-disabled',
+    this.closest('sbb-autocomplete-grid-row')?.['toggleState'](
+      'disabled',
       this.disabled || this.disabledFromGroup,
     );
 
     this.negative = !!this.closest(`:is(sbb-autocomplete-grid[negative],sbb-form-field[negative])`);
-    this.toggleAttribute('data-negative', this.negative);
+    this.toggleState('negative', this.negative);
   }
 
   protected selectByClick(event: MouseEvent): void {

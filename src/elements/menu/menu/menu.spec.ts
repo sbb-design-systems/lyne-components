@@ -57,7 +57,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 
@@ -75,7 +75,7 @@ describe(`sbb-menu`, () => {
 
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -89,7 +89,7 @@ describe(`sbb-menu`, () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(element).not.to.match(':popover-open');
     });
 
@@ -99,7 +99,7 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       // First element focused by default.
       expect(document.activeElement!.id).to.be.equal('menu-link');
@@ -166,7 +166,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(menuAction).not.to.be.null;
 
       menuAction.click();
@@ -176,7 +176,7 @@ describe(`sbb-menu`, () => {
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes on interactive element click', async () => {
@@ -195,7 +195,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(menuLink).not.to.be.null;
 
       menuLink.click();
@@ -207,7 +207,7 @@ describe(`sbb-menu`, () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('opens and closes with non-zero animation duration', async () => {
@@ -226,7 +226,7 @@ describe(`sbb-menu`, () => {
 
       await closeSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('is correctly positioned on desktop', async () => {
@@ -250,7 +250,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
         `--sbb-size-element-m`,
@@ -283,7 +283,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       const menuOffsetTop = menu.offsetTop;
       const menuHeight = menu.offsetHeight;
@@ -306,7 +306,7 @@ describe(`sbb-menu`, () => {
 
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       expect(document.activeElement!.id).to.be.equal('menu-link');
     });
@@ -321,7 +321,7 @@ describe(`sbb-menu`, () => {
       expect(beforeOpenSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close if prevented', async () => {
@@ -338,7 +338,7 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(element);
       await beforeCloseSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('does forward scroll event to document', async () => {
@@ -407,7 +407,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 
@@ -625,8 +625,8 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(element);
       await closeSpy.calledTimes(2);
 
-      expect(element.getAttribute('data-state')).to.be.equal('closed');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('closed');
+      expect(element).to.match(':state(state-1)');
+      expect(nestedMenu).to.match(':state(state-1)');
 
       element.open();
       await waitForLitRender(element);
@@ -634,8 +634,8 @@ describe(`sbb-menu`, () => {
 
       // If multiple menus are closed at the same time, when opening
       // the outermost menu again the nested ones should stay closed
-      expect(element.getAttribute('data-state')).to.be.equal('opened');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('closed');
+      expect(element).to.match(':state(state-1)');
+      expect(nestedMenu).to.match(':state(state-1)');
     });
 
     it('clicks need to start and end on backdrop to close menu', async () => {
@@ -658,8 +658,8 @@ describe(`sbb-menu`, () => {
       root.dispatchEvent(new Event('pointerup', { bubbles: true }));
       await waitForLitRender(element);
 
-      expect(element.getAttribute('data-state')).to.be.equal('opened');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('opened');
+      expect(element).to.match(':state(state-1)');
+      expect(nestedMenu).to.match(':state(state-1)');
 
       root.dispatchEvent(new Event('pointerdown', { bubbles: true }));
       await waitForLitRender(element);
@@ -667,8 +667,8 @@ describe(`sbb-menu`, () => {
       firstElement.dispatchEvent(new Event('pointerup', { bubbles: true }));
       await waitForLitRender(element);
 
-      expect(element.getAttribute('data-state')).to.be.equal('opened');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('opened');
+      expect(element).to.match(':state(state-1)');
+      expect(nestedMenu).to.match(':state(state-1)');
     });
   });
 });

@@ -9,9 +9,6 @@ snapshots["sbb-expansion-panel renders DOM"] =
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-1"
     aria-expanded="false"
-    data-action=""
-    data-button=""
-    data-size="l"
     id="sbb-expansion-panel-header-1"
     slot="header"
     tabindex="0"
@@ -21,7 +18,6 @@ snapshots["sbb-expansion-panel renders DOM"] =
   <sbb-expansion-panel-content
     aria-hidden="true"
     aria-labelledby="sbb-expansion-panel-header-1"
-    data-size="l"
     id="sbb-expansion-panel-content-1"
     slot="content"
   >
@@ -55,9 +51,6 @@ snapshots["sbb-expansion-panel renders size s DOM"] =
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-3"
     aria-expanded="false"
-    data-action=""
-    data-button=""
-    data-size="s"
     id="sbb-expansion-panel-header-3"
     slot="header"
     tabindex="0"
@@ -67,7 +60,6 @@ snapshots["sbb-expansion-panel renders size s DOM"] =
   <sbb-expansion-panel-content
     aria-hidden="true"
     aria-labelledby="sbb-expansion-panel-header-3"
-    data-size="s"
     id="sbb-expansion-panel-content-3"
     slot="content"
   >
@@ -102,9 +94,6 @@ snapshots["sbb-expansion-panel renders with level set DOM"] =
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-5"
     aria-expanded="false"
-    data-action=""
-    data-button=""
-    data-size="l"
     id="sbb-expansion-panel-header-5"
     slot="header"
     tabindex="0"
@@ -114,7 +103,6 @@ snapshots["sbb-expansion-panel renders with level set DOM"] =
   <sbb-expansion-panel-content
     aria-hidden="true"
     aria-labelledby="sbb-expansion-panel-header-5"
-    data-size="l"
     id="sbb-expansion-panel-content-5"
     slot="content"
   >

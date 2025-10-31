@@ -246,7 +246,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
   private _resetMarkers(): void {
     const activeActions = Array.from(
       this.querySelectorAll(
-        ':is(sbb-navigation-button, sbb-navigation-link)[data-action-active]:not(.sbb-active)',
+        ':is(sbb-navigation-button, sbb-navigation-link):state(action-active):not(.sbb-active)',
       ),
     ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
     activeActions?.forEach((action) => action.marker?.reset());
@@ -294,7 +294,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
         this._activeNavigationSection = this.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
-        this.toggleAttribute('data-has-navigation-section', !!this._activeNavigationSection);
+        this.toggleState('has-navigation-section', !!this._activeNavigationSection);
       }
     }
   }
@@ -308,11 +308,11 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       clearTimeout(this._resizeObserverTimeout);
     }
 
-    this.toggleAttribute('data-resize-disable-animation', true);
+    this.toggleState('resize-disable-animation', true);
 
     // Disable the animation when resizing the navigation to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => this.removeAttribute('data-resize-disable-animation'),
+      () => this.toggleState('resize-disable-animation', false),
       DEBOUNCE_TIME,
     );
   }

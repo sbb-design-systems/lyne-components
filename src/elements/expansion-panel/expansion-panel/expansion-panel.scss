@@ -45,24 +45,24 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-content-visibility: visible;
 }
 
-:host([data-accordion][data-accordion-first]) {
+:host(:state(accordion):state(accordion-first)) {
   --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
 }
 
-:host([data-accordion]:not([data-accordion-first])) {
+:host(:state(accordion):not(:state(accordion-first))) {
   --sbb-expansion-panel-border-block-start-width: 0;
   --sbb-expansion-panel-border-block-start-color: transparent;
   --sbb-expansion-panel-start-end-radius: 0;
   --sbb-expansion-panel-start-start-radius: 0;
 }
 
-:host([data-accordion][data-accordion-last]) {
+:host(:state(accordion):state(accordion-last)) {
   --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
 }
 
-:host([data-accordion]:not([data-accordion-last])) {
+:host(:state(accordion):not(:state(accordion-last))) {
   --sbb-expansion-panel-end-end-radius: 0;
   --sbb-expansion-panel-end-start-radius: 0;
 }
@@ -83,7 +83,7 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host([borderless][data-accordion]:not([data-accordion-first])) {
+:host([borderless]:state(accordion):not(:state(accordion-first))) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
 
   @include sbb.if-forced-colors {
@@ -91,7 +91,7 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host(:not([disabled])[data-toggle-hover]) {
+:host(:not([disabled]):state(toggle-hover)) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-3);
 
   @include sbb.if-forced-colors {
@@ -100,7 +100,7 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host(:not([disabled])[color='milk'][data-toggle-hover]) {
+:host(:not([disabled])[color='milk']:state(toggle-hover)) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
 }
 
@@ -125,12 +125,12 @@ $open-anim-opacity-to: 1;
   grid-template-rows: #{$open-anim-rows-from};
   opacity: #{$open-anim-opacity-from};
 
-  :host([data-state='opened']) & {
+  :host(:state(state-opened)) & {
     grid-template-rows: #{$open-anim-rows-to};
     opacity: #{$open-anim-opacity-to};
   }
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation-name: open, open-opacity;
     animation-fill-mode: forwards;
     animation-duration: var(--sbb-expansion-panel-animation-duration);
@@ -138,7 +138,7 @@ $open-anim-opacity-to: 1;
     animation-delay: 0s, var(--sbb-expansion-panel-animation-duration);
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation-name: close;
     animation-duration: var(--sbb-expansion-panel-animation-duration);
     animation-timing-function: var(--sbb-animation-easing);

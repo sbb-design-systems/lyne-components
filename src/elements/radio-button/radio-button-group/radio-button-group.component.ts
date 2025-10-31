@@ -116,7 +116,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
+    this.toggleState('has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

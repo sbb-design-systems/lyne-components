@@ -47,7 +47,7 @@ class SbbContainerElement extends SbbElementInternalsMixin(LitElement) {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('expanded')) {
-      this.querySelector?.('sbb-sticky-bar')?.toggleAttribute('data-expanded', this.expanded);
+      this.querySelector?.('sbb-sticky-bar')?.['toggleState']('expanded', this.expanded);
     }
   }
 

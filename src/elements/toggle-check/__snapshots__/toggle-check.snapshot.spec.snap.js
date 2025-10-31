@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-toggle-check renders DOM"] = 
 `<sbb-toggle-check
   checked=""
-  data-checked=""
   label-position="after"
   size="s"
   tabindex="0"
@@ -24,10 +23,7 @@ snapshots["sbb-toggle-check renders Shadow DOM"] =
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              data-namespace="default"
-              name="tick-small"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>

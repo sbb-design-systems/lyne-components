@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-navigation-link renders DOM"] = 
 `<sbb-navigation-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   href="https://www.sbb.ch"
   size="l"
   target="_blank"
@@ -23,10 +21,7 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
   rel="external noopener nofollow"
   target="_blank"
 >
-  <sbb-icon
-    data-namespace="default"
-    name="dash-small"
-  >
+  <sbb-icon name="dash-small">
   </sbb-icon>
   <slot>
   </slot>

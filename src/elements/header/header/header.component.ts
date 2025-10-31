@@ -12,7 +12,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbFocusVisibleWithinController } from '../../core/a11y.js';
 import { forceType, idReference } from '../../core/decorators.js';
 import { isLean } from '../../core/dom.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './header.scss?lit&inline';
@@ -28,7 +28,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  */
 export
 @customElement('sbb-header')
-class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
+class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
@@ -153,7 +153,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
       return;
     }
 
-    this.toggleAttribute('data-shadow', currentScroll !== 0);
+    this.toggleState('shadow', currentScroll !== 0);
 
     // Close open overlays when scrolling down if the header is scrolled out of sight.
     if (
@@ -168,12 +168,10 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
-        ['data-shadow', 'data-visible'].forEach((name) => this.removeAttribute(name));
+        ['shadow', 'visible'].forEach((name) => this.toggleState(name, false));
       } else {
         // Scrolling up
-        ['data-fixed', 'data-shadow', 'data-animated', 'data-visible'].forEach((name) =>
-          this.toggleAttribute(name, true),
-        );
+        ['fixed', 'shadow', 'animated', 'visible'].forEach((name) => this.toggleState(name, true));
       }
     } else {
       // Check if header in its original position, scroll position < header height.
@@ -182,9 +180,7 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
-        ['data-shadow', 'data-animated', 'data-fixed', 'data-visible'].forEach((name) =>
-          this.removeAttribute(name),
-        );
+        ['shadow', 'animated', 'fixed', 'visible'].forEach((name) => this.toggleState(name, false));
       }
     }
     // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
@@ -193,11 +189,11 @@ class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
 
   /** Apply the shadow if the element/document has been scrolled down. */
   private _scrollShadowListener(): void {
-    this.toggleAttribute('data-shadow', this._getCurrentScrollProperty('scrollTop') !== 0);
+    this.toggleState('shadow', this._getCurrentScrollProperty('scrollTop') !== 0);
   }
 
   private _closeOpenOverlays(): void {
-    if (this.hasAttribute('data-has-visible-focus-within')) {
+    if (this.matches(':state(has-visible-focus-within)')) {
       return;
     }
     const overlayTriggers: HTMLElement[] = Array.from(

@@ -16,7 +16,6 @@ describe(`sbb-block-link-static`, () => {
         html` <sbb-block-link-static icon-placement="end" size="m">
           <sbb-icon
             aria-hidden="true"
-            data-namespace="default"
             name="chevron-small-right-small"
             role="img"
             slot="icon"

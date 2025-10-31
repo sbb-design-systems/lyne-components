@@ -123,7 +123,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   protected proxyDisabledToOptions(): void {
     for (const option of this.options) {
-      option.toggleAttribute('data-group-disabled', this.disabled);
+      option['toggleState']('group-disabled', this.disabled);
     }
   }
 

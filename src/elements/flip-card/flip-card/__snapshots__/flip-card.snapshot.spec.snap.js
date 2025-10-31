@@ -27,7 +27,7 @@ snapshots["A11y tree Chrome"] =
 /* end snapshot A11y tree Chrome */
 
 snapshots["sbb-flip-card DOM"] = 
-`<sbb-flip-card data-image-alignment="after">
+`<sbb-flip-card>
   <sbb-flip-card-summary
     image-alignment="after"
     slot="summary"
@@ -46,10 +46,7 @@ snapshots["sbb-flip-card DOM"] =
           Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus
           vitae tortor ullamcorper maximus. In convallis consectetur felis.
     <sbb-link
-      data-action=""
       data-card-focusable=""
-      data-link=""
-      data-sbb-link=""
       href="https://www.sbb.ch"
       negative=""
       size="s"
@@ -78,13 +75,10 @@ snapshots["sbb-flip-card Shadow DOM"] =
   </slot>
   <sbb-secondary-button-static
     class="sbb-flip-card--toggle-button"
-    data-action=""
-    data-sbb-button=""
     size="s"
   >
     <sbb-icon
       class="sbb-flip-card--toggle-button-icon"
-      data-namespace="default"
       name="plus-small"
       slot="icon"
     >

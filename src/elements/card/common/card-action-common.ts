@@ -50,7 +50,7 @@ export const SbbCardActionCommonElementMixin = <
 
     private _onActiveChange(): void {
       if (this._card) {
-        this._card.toggleAttribute('data-has-active-action', this.active);
+        this._card['toggleState']('has-active-action', this.active);
       }
     }
 
@@ -72,9 +72,13 @@ export const SbbCardActionCommonElementMixin = <
       this._card = this.closest?.('sbb-card');
       if (this._card) {
         this.slot ||= 'action';
-        this._card.toggleAttribute('data-has-action', true);
-        this._card.toggleAttribute('data-has-active-action', this.active);
-        this._card.setAttribute('data-action-role', this.actionRole);
+        this._card['toggleState']('has-action', true);
+        this._card['toggleState']('has-active-action', this.active);
+        this._card['toggleState'](`action-role-${this.actionRole}`, true);
+        this._card['toggleState'](
+          `action-role-${this.actionRole === 'button' ? 'link' : 'button'}`,
+          false,
+        );
 
         this._checkForSlottedActions();
         this._cardMutationObserver.observe(this._card);
@@ -84,8 +88,8 @@ export const SbbCardActionCommonElementMixin = <
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       if (this._card) {
-        ['data-has-action', 'data-has-active-action', 'data-action-role'].forEach((name) =>
-          this._card!.removeAttribute(name),
+        ['has-action', 'has-active-action', 'action-role'].forEach((name) =>
+          this._card!['toggleState'](name, false),
         );
         this._card
           .querySelectorAll(`[data-card-focusable]`)

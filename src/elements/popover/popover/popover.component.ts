@@ -20,7 +20,6 @@ import { forceType, idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
 import { type SbbElementInternalsMixinType, SbbHydrationMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
@@ -80,8 +79,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
     // Close the other popovers
     for (const popover of popoversRef) {
-      const state = popover.getAttribute('data-state') as SbbOpenedClosedState;
-      if (state && (state === 'opened' || state === 'opening')) {
+      if (popover.state === 'opened' || popover.state === 'opening') {
         popover.close();
       }
     }
@@ -349,7 +347,8 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
         responsiveHeight: true,
       },
     );
-    this.setAttribute('data-position', popoverPosition.alignment.vertical);
+    const verticalPosition = popoverPosition.alignment.vertical;
+    ['above', 'below'].forEach((p) => this.toggleState(`position-${p}`, verticalPosition === p));
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -

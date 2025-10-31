@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-icon-sidebar-link renders DOM"] = 
 `<sbb-icon-sidebar-link
   accessibility-label="Go to the party"
-  data-action=""
-  data-link=""
   href="https://www.sbb.ch"
   icon-name="glass-cocktail-small"
 >
@@ -20,10 +18,7 @@ snapshots["sbb-icon-sidebar-link renders Shadow DOM"] =
   href="https://www.sbb.ch"
 >
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="glass-cocktail-small"
-    >
+    <sbb-icon name="glass-cocktail-small">
     </sbb-icon>
   </slot>
 </a>

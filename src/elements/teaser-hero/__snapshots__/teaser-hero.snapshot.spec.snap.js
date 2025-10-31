@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-teaser-hero renders DOM"] = 
 `<sbb-teaser-hero
   accessibility-label="label"
-  data-action=""
-  data-link=""
   href="https://www.sbb.ch"
 >
   Break out and explore castles and palaces.
@@ -16,7 +14,7 @@ snapshots["sbb-teaser-hero renders DOM"] =
     class="sbb-figure"
     slot="image"
   >
-    <sbb-image data-loaded="">
+    <sbb-image>
     </sbb-image>
     <sbb-chip-label
       class="sbb-figure-overlap-start-start"
@@ -43,8 +41,6 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
     </p>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
-      data-action=""
-      data-sbb-link=""
       icon-name="chevron-small-right-small"
       icon-placement="end"
       negative=""
@@ -96,8 +92,6 @@ snapshots["sbb-teaser-hero renders A11y tree Chrome"] =
 snapshots["sbb-teaser-hero renders with img DOM"] = 
 `<sbb-teaser-hero
   accessibility-label="label"
-  data-action=""
-  data-link=""
   href="https://www.sbb.ch"
   link-content="Find out more"
   rel="external"
@@ -136,8 +130,6 @@ snapshots["sbb-teaser-hero renders with img Shadow DOM"] =
     </p>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
-      data-action=""
-      data-sbb-link=""
       icon-name="chevron-small-right-small"
       icon-placement="end"
       negative=""

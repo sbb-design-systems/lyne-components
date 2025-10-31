@@ -37,7 +37,7 @@ describe(`sbb-alert-group`, () => {
           const closeSpy = new EventSpy(SbbAlertElement.events.close, alert);
 
           // As registering an eventSpy is too late we have to use waitForCondition().
-          await waitForCondition(() => alert.getAttribute('data-state') === 'opened');
+          await waitForCondition(() => alert.matches(':state(state-opened)'));
 
           const closeButton = setup.snapshotElement
             .querySelector('sbb-alert')!

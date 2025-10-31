@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-datepicker-toggle renders DOM"] = 
 `<sbb-datepicker-toggle
-  data-action=""
-  data-button=""
   disabled=""
   tabindex="0"
 >
@@ -14,10 +12,7 @@ snapshots["sbb-datepicker-toggle renders DOM"] =
 
 snapshots["sbb-datepicker-toggle renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
-  <sbb-icon
-    data-namespace="default"
-    name="calendar-small"
-  >
+  <sbb-icon name="calendar-small">
   </sbb-icon>
 </span>
 `;
@@ -28,8 +23,6 @@ snapshots["sbb-datepicker-toggle in form-field renders DOM"] =
   aria-controls="sbb-datepicker-1"
   aria-expanded="false"
   aria-haspopup="dialog"
-  data-action=""
-  data-button=""
   slot="suffix"
   tabindex="0"
 >
@@ -39,10 +32,7 @@ snapshots["sbb-datepicker-toggle in form-field renders DOM"] =
 
 snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
-  <sbb-icon
-    data-namespace="default"
-    name="calendar-small"
-  >
+  <sbb-icon name="calendar-small">
   </sbb-icon>
 </span>
 `;
@@ -53,8 +43,6 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] =
   aria-controls="sbb-datepicker-3"
   aria-expanded="false"
   aria-haspopup="dialog"
-  data-action=""
-  data-button=""
   disabled=""
   slot="suffix"
 >
@@ -64,10 +52,7 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] =
 
 snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
-  <sbb-icon
-    data-namespace="default"
-    name="calendar-small"
-  >
+  <sbb-icon name="calendar-small">
   </sbb-icon>
 </span>
 `;
@@ -78,8 +63,6 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] =
   aria-controls="sbb-datepicker-5"
   aria-expanded="false"
   aria-haspopup="dialog"
-  data-action=""
-  data-button=""
   slot="suffix"
   tabindex="0"
 >
@@ -89,10 +72,7 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] =
 
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow DOM"] = 
 `<span class="sbb-action-base sbb-datepicker-toggle">
-  <sbb-icon
-    data-namespace="default"
-    name="calendar-small"
-  >
+  <sbb-icon name="calendar-small">
   </sbb-icon>
 </span>
 `;

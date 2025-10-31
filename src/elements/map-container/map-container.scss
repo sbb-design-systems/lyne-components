@@ -56,7 +56,7 @@
       var(--sbb-map-container-animation-duration),
     transform var(--sbb-map-container-animation-duration) var(--sbb-animation-easing);
 
-  :host([data-scroll-up-button-visible]) & {
+  :host(:state(scroll-up-button-visible)) & {
     // Show transition
     transition:
       visibility var(--sbb-map-container-animation-duration) var(--sbb-animation-easing),

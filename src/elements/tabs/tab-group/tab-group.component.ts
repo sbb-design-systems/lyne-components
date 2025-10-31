@@ -166,7 +166,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
   private _updateSize(): void {
     this.labels.forEach((tabLabel: SbbTabLabelElement) =>
-      tabLabel.setAttribute('data-size', this.size),
+      tabLabel['applyStatePattern'](this.size, 'size'),
     );
   }
 
@@ -203,8 +203,8 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       ).assignedElements() as SbbTabLabelElement[];
 
       for (const tabLabel of labelElements) {
-        tabLabel.toggleAttribute(
-          'data-has-divider',
+        tabLabel['toggleState'](
+          'has-divider',
           tabLabel === labelElements[0] || tabLabel.offsetLeft === labelElements[0].offsetLeft,
         );
         this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);

@@ -165,12 +165,12 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     private _onFocus(): void {
       if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-        this.loadButton.toggleAttribute('data-focus-visible', true);
+        this.loadButton['toggleState']('focus-visible', true);
       }
     }
 
     private _onBlur(): void {
-      this.loadButton.removeAttribute('data-focus-visible');
+      this.loadButton['toggleState']('focus-visible', false);
     }
 
     private _readFiles(event: Event): void {
@@ -337,7 +337,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     ): void {
       this._dragTarget = dragTarget;
       this.toggleState('active', isDragEnter);
-      this.loadButton.toggleAttribute('data-active', isDragEnter);
+      this.loadButton['toggleState']('active', isDragEnter);
     }
 
     protected override render(): TemplateResult {

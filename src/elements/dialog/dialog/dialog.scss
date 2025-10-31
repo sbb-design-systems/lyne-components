@@ -56,11 +56,11 @@
   --sbb-dialog-actions-border-color: transparent;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
 
-:host(:is([data-state='opening'], [data-state='opened'])) {
+:host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-dialog-pointer-events: all;
   --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 
@@ -70,7 +70,7 @@
   }
 }
 
-:host([backdrop='translucent']:is([data-state='opening'], [data-state='opened'])) {
+:host([backdrop='translucent']:is(:state(state-opening), :state(state-opened))) {
   --sbb-dialog-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 50%, transparent);
 }
 
@@ -83,7 +83,7 @@
   --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft-negative);
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(:state(state-closed))) {
   --sbb-dialog-inset: 0;
 }
 
@@ -124,7 +124,7 @@
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;
 
     animation: {
@@ -134,7 +134,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
     animation-name: close;
   }

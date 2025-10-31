@@ -366,8 +366,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       return;
     }
 
-    this.toggleAttribute(
-      'data-option-panel-origin-borderless',
+    this.toggleState(
+      'option-panel-origin-borderless',
       !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
     );
 

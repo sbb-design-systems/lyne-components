@@ -45,7 +45,7 @@
 }
 
 @include sbb.hover-mq($hover: true) {
-  :host(:hover:not(:active, [data-active])) {
+  :host(:hover:not(:active, :state(active))) {
     --sbb-header-action-background-color: var(--sbb-background-color-3);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
@@ -56,7 +56,7 @@
   }
 }
 
-:host(:is(:active, [data-active])) {
+:host(:is(:active, :state(active))) {
   --sbb-header-action-background-color: var(--sbb-background-color-4);
 
   @include sbb.if-forced-colors {
@@ -72,7 +72,7 @@
   }
 }
 
-:host([data-button]) {
+:host(:state(button)) {
   @include sbb.if-forced-colors {
     --sbb-header-action-color: ButtonText;
   }

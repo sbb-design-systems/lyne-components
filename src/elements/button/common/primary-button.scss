@@ -55,6 +55,6 @@
   );
 }
 
-:host(:not([disabled], :disabled, [disabled-interactive], :active, [data-active], [loading])) {
+:host(:not([disabled], :disabled, [disabled-interactive], :active, :state(active), [loading])) {
   --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
 }

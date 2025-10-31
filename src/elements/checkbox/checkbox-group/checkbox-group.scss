@@ -26,7 +26,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   }
 }
 
-:host([data-has-panel]) {
+:host(:state(has-panel)) {
   --sbb-checkbox-group-width: 100%;
 
   ::slotted(sbb-checkbox-panel) {
@@ -34,7 +34,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   }
 }
 
-:host([data-has-panel][orientation='vertical']) {
+:host(:state(has-panel)[orientation='vertical']) {
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
@@ -50,7 +50,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
       }
     }
 
-    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-panel])) {
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {
       --sbb-checkbox-group-width: max-content;
     }
   }

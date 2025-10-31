@@ -47,7 +47,10 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
 
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
-    ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
+    ).forEach((element) => {
+      customElements.upgrade(element);
+      element['toggleState']('negative', this.negative);
+    });
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
@@ -79,7 +82,7 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
     const enabledOptions = this.options.filter(
-      (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
+      (opt) => !opt.disabled && !opt.matches(':state(group-disabled)'),
     );
 
     // Reset potentially active option

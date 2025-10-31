@@ -1,6 +1,8 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbCheckboxGroupElement } from '../../checkbox.js';
+import type { SbbRadioButtonGroupElement } from '../../radio-button.js';
 import { forceType } from '../decorators.js';
 
 import type { AbstractConstructor } from './constructor.js';
@@ -40,10 +42,9 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement>>(
       /** @internal */
       this.dispatchEvent(new Event('panelconnected', { bubbles: true }));
 
-      this.closest?.('sbb-radio-button-group, sbb-checkbox-group')?.toggleAttribute(
-        'data-has-panel',
-        true,
-      );
+      this.closest<SbbRadioButtonGroupElement<unknown> | SbbCheckboxGroupElement>(
+        'sbb-radio-button-group, sbb-checkbox-group',
+      )?.['toggleState']('has-panel', true);
     }
   }
 

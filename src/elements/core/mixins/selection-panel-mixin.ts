@@ -108,19 +108,24 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
     }
 
     /**
-     * Set the data-size in two cases:
+     * Set the size state in two cases:
      * - if there's no group, so the size change comes directly from a change on the inner panel;
      * - if there's a wrapper group and its size changes, syncing it with the panel size.
      *
-     * On the other hand, if there's a wrapper group and the size changes on the inner panel, the data-size doesn't change.
+     * On the other hand, if there's a wrapper group and the size changes on the inner panel, the size state doesn't change.
      */
     private _onSizeAttributesChange(mutationsList: MutationRecord[]): void {
       for (const mutation of mutationsList) {
         if (mutation.attributeName === 'size') {
           const group = this.group;
           const size = (mutation.target as HTMLElement).getAttribute('size')!;
+          this.internals.states.forEach((state) => {
+            if (state.startsWith('size-')) {
+              this.internals.states.delete(state);
+            }
+          });
           if (!group || group.size === size) {
-            this.setAttribute('data-size', size);
+            this.toggleState(`size-${size}`, true);
           }
         }
       }

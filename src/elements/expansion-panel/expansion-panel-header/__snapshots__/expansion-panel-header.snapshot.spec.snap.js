@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-expansion-panel-header renders DOM"] = 
 `<sbb-expansion-panel-header
-  data-action=""
-  data-button=""
   slot="header"
   tabindex="0"
 >
@@ -26,7 +24,6 @@ snapshots["sbb-expansion-panel-header renders Shadow DOM"] =
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
       class="sbb-expansion-panel-header__toggle-icon"
-      data-namespace="default"
       name="chevron-small-down-medium"
     >
     </sbb-icon>
@@ -37,8 +34,6 @@ snapshots["sbb-expansion-panel-header renders Shadow DOM"] =
 
 snapshots["sbb-expansion-panel-header renders with icon DOM"] = 
 `<sbb-expansion-panel-header
-  data-action=""
-  data-button=""
   icon-name="pie-medium"
   slot="header"
   tabindex="0"
@@ -53,10 +48,7 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="pie-medium"
-        >
+        <sbb-icon name="pie-medium">
         </sbb-icon>
       </slot>
     </span>
@@ -66,7 +58,6 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
       class="sbb-expansion-panel-header__toggle-icon"
-      data-namespace="default"
       name="chevron-small-down-medium"
     >
     </sbb-icon>
@@ -77,13 +68,10 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
 
 snapshots["sbb-expansion-panel-header renders with slotted icon DOM"] = 
 `<sbb-expansion-panel-header
-  data-action=""
-  data-button=""
   slot="header"
   tabindex="0"
 >
   <sbb-icon
-    data-namespace="default"
     name="pie-medium"
     slot="icon"
   >
@@ -106,7 +94,6 @@ snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] =
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
       class="sbb-expansion-panel-header__toggle-icon"
-      data-namespace="default"
       name="chevron-small-down-medium"
     >
     </sbb-icon>

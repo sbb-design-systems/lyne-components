@@ -108,8 +108,8 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
       (panel: SbbExpansionPanelElement, index: number, array: SbbExpansionPanelElement[]) => {
         panel.titleLevel = this.titleLevel;
         panel.size = this.size;
-        panel.toggleAttribute('data-accordion-first', index === 0);
-        panel.toggleAttribute('data-accordion-last', index === array.length - 1);
+        panel['toggleState']('accordion-first', index === 0);
+        panel['toggleState']('accordion-last', index === array.length - 1);
       },
     );
   }

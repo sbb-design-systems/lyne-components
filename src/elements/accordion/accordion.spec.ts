@@ -39,15 +39,15 @@ describe(`sbb-accordion`, () => {
   it('should set accordion context on expansion panel', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
 
-    expect(panels[0]).to.have.attribute('data-accordion-first');
-    expect(panels[0]).to.have.attribute('data-accordion');
+    expect(panels[0]).to.match(':state(accordion-first)');
+    expect(panels[0]).to.match(':state(accordion)');
     expect(panels[0]).to.have.attribute('size');
     expect(panels[0].size).to.be.equal('l');
-    expect(panels[1]).to.have.attribute('data-accordion');
+    expect(panels[1]).to.match(':state(accordion)');
     expect(panels[1]).to.have.attribute('size');
     expect(panels[1].size).to.be.equal('l');
-    expect(panels[2]).to.have.attribute('data-accordion');
-    expect(panels[2]).to.have.attribute('data-accordion-last');
+    expect(panels[2]).to.match(':state(accordion)');
+    expect(panels[2]).to.match(':state(accordion-last)');
     expect(panels[2]).to.have.attribute('size');
     expect(panels[2].size).to.be.equal('l');
   });
@@ -59,24 +59,24 @@ describe(`sbb-accordion`, () => {
     await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
-    expect(panels[0]).to.have.attribute('data-accordion-first');
-    expect(panels[1]).to.have.attribute('data-accordion-last');
+    expect(panels[0]).to.match(':state(accordion-first)');
+    expect(panels[1]).to.match(':state(accordion-last)');
 
     element.querySelector('sbb-expansion-panel')!.remove();
     await waitForLitRender(element);
 
     const lastRemainingPanel = element.querySelector('sbb-expansion-panel');
-    expect(lastRemainingPanel).to.have.attribute('data-accordion-first');
-    expect(lastRemainingPanel).to.have.attribute('data-accordion-last');
+    expect(lastRemainingPanel).to.match(':state(accordion-first)');
+    expect(lastRemainingPanel).to.match(':state(accordion-last)');
 
     const panel = document.createElement('sbb-expansion-panel');
     element.append(panel);
     await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
-    expect(panels[0]).to.have.attribute('data-accordion-first');
-    expect(panels[0]).not.to.have.attribute('data-accordion-last');
-    expect(panels[1]).to.have.attribute('data-accordion-last');
+    expect(panels[0]).to.match(':state(accordion-first)');
+    expect(panels[0]).not.to.match(':state(accordion-last)');
+    expect(panels[1]).to.match(':state(accordion-last)');
   });
 
   it('should inherit titleLevel prop by panels', () => {

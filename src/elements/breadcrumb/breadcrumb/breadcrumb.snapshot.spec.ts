@@ -52,9 +52,7 @@ describe(`sbb-breadcrumb`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-breadcrumb data-action data-link href="/" icon-name="house-small">
-          Home
-        </sbb-breadcrumb>
+        <sbb-breadcrumb href="/" icon-name="house-small"> Home </sbb-breadcrumb>
       `);
     });
 

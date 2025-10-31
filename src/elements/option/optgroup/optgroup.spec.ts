@@ -33,14 +33,14 @@ describe(`sbb-optgroup`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('disabled');
-    expect(optionOne).to.have.attribute('data-group-disabled');
-    expect(optionTwo).to.have.attribute('data-group-disabled');
+    expect(optionOne).to.match(':state(group-disabled)');
+    expect(optionTwo).to.match(':state(group-disabled)');
     expect(optionTwo).to.have.attribute('disabled');
-    expect(optionThree).to.have.attribute('data-group-disabled');
+    expect(optionThree).to.match(':state(group-disabled)');
 
     element.removeAttribute('disabled');
     await waitForLitRender(element);
-    expect(optionTwo).not.to.have.attribute('data-group-disabled');
+    expect(optionTwo).not.to.match(':state(group-disabled)');
     expect(optionTwo).to.have.attribute('disabled');
   });
 

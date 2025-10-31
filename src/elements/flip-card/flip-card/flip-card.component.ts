@@ -7,7 +7,7 @@ import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
@@ -25,7 +25,7 @@ import '../../screen-reader-only.js';
  */
 export
 @customElement('sbb-flip-card')
-class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
+class SbbFlipCardElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     flip: 'flip',
@@ -87,8 +87,8 @@ class SbbFlipCardElement extends SbbHydrationMixin(LitElement) {
     } else {
       this._cardDetailsResizeObserver.unobserve(this._detailsContentElement!);
     }
-    this.toggleAttribute('data-flipped', this._flipped);
-    this.details!.toggleAttribute('data-flipped', this._flipped);
+    this.toggleState('flipped', this._flipped);
+    this.details!['toggleState']('flipped', this._flipped);
     this.summary!.inert = this._flipped;
     this.details!.inert = !this._flipped;
     /** Emits whenever the component is flipped. */

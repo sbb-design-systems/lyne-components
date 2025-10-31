@@ -14,11 +14,11 @@
   --sbb-optgroup-divider-display: none;
 }
 
-:host([data-variant='select']) {
+:host(:state(variant-select)) {
   --sbb-optgroup-label-font-size: inherit;
 }
 
-:host([data-negative]) {
+:host(:state(negative)) {
   --sbb-optgroup-label-color: var(--sbb-color-5);
 }
 

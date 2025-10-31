@@ -26,19 +26,19 @@
   --sbb-header-position: absolute;
 }
 
-:host([hide-on-scroll][data-fixed]) {
+:host([hide-on-scroll]:state(fixed)) {
   --sbb-header-position: fixed;
   --sbb-header-animation-name: hide;
   --sbb-header-transform: translate3d(0, -100%, 0);
   --sbb-header-inset-inline-end: var(--sbb-scrollbar-width, 0);
 }
 
-:host([hide-on-scroll][data-fixed][data-animated]) {
+:host([hide-on-scroll]:state(fixed):state(animated)) {
   // Hide transition
   --sbb-header-transition-timing: cubic-bezier(0.4, 0, 1, 1);
 }
 
-:host([hide-on-scroll][data-fixed][data-visible]) {
+:host([hide-on-scroll]:state(fixed):state(visible)) {
   --sbb-header-animation-name: show;
   --sbb-header-transform: translate3d(0, 0, 0);
 
@@ -46,7 +46,7 @@
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
 
-:host([hide-on-scroll][data-fixed][data-has-visible-focus-within]) {
+:host([hide-on-scroll]:state(fixed):state(has-visible-focus-within)) {
   --sbb-header-transition-duration: 0;
   --sbb-header-transform: translate3d(0, 0, 0);
 }
@@ -68,7 +68,7 @@
     timing-function: var(--sbb-header-transition-timing);
   }
 
-  :host(:is([data-shadow], [data-has-visible-focus-within][data-fixed])) & {
+  :host(:is(:state(shadow), :state(has-visible-focus-within):state(fixed))) & {
     box-shadow: var(--sbb-box-shadow-level-9-soft);
   }
 

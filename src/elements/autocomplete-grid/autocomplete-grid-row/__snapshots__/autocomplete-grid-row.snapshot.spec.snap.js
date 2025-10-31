@@ -12,8 +12,6 @@ snapshots["sbb-autocomplete-grid-row renders DOM"] =
   </sbb-autocomplete-grid-option>
   <sbb-autocomplete-grid-cell>
     <sbb-autocomplete-grid-button
-      data-action=""
-      data-button=""
       icon-name="pie-small"
       id="sbb-autocomplete-grid-button-1"
     >

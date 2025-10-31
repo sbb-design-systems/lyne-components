@@ -52,7 +52,7 @@ describe('sbb-tooltip', () => {
 
       await beforeOpenSpy.calledOnce();
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('should close on mouse leave', async () => {
@@ -63,7 +63,7 @@ describe('sbb-tooltip', () => {
       await sendMouse({ type: 'move', position: [position.x + 500, position.y + 500] });
       await closeSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should open on focus', async () => {
@@ -74,7 +74,7 @@ describe('sbb-tooltip', () => {
 
       await beforeOpenSpy.calledOnce();
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('should close on blur', async () => {
@@ -85,7 +85,7 @@ describe('sbb-tooltip', () => {
       await sendKeys({ press: tabKey });
 
       await closeSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should stay open when hovering the tooltip', async () => {
@@ -93,7 +93,7 @@ describe('sbb-tooltip', () => {
       await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       // Move the mouse on the tooltip (which is below-centered)
       await sendMouse({
@@ -102,7 +102,7 @@ describe('sbb-tooltip', () => {
       });
       await aTimeout(200); // Wait some time to confirm it doesn't close
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('should not open when disabled', async () => {
@@ -115,7 +115,7 @@ describe('sbb-tooltip', () => {
       await aTimeout(200); // Wait some time to confirm it doesn't trigger
 
       expect(openSpy.count).to.equal(0);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should open on simulated long press', async () => {
@@ -252,7 +252,7 @@ describe('sbb-tooltip', () => {
       await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('should delete the tooltip if attribute is removed', async () => {

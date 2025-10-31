@@ -15,7 +15,7 @@
 .sbb-image__img {
   opacity: 0.000001;
 
-  :host([data-loaded]) & {
+  :host(:state(loaded)) & {
     opacity: 0.999999;
   }
 
@@ -26,7 +26,7 @@
 }
 
 .sbb-image__blurred {
-  :host([data-loaded]) & {
+  :host(:state(loaded)) & {
     opacity: 0;
   }
 }

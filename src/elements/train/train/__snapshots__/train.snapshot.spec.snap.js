@@ -21,10 +21,7 @@ snapshots["sbb-train renders Shadow DOM"] =
     class="sbb-train__direction-heading"
   >
     <span class="sbb-train__direction-sticky-wrapper">
-      <sbb-icon
-        data-namespace="default"
-        name="chevron-small-left-small"
-      >
+      <sbb-icon name="chevron-small-left-small">
       </sbb-icon>
       <span class="sbb-train__direction-label">
         Driving direction Bern

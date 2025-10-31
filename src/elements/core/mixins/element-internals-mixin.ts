@@ -17,13 +17,18 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         extends Set<string>
         implements CustomStateSetInterface, ReactiveController
       {
+        private _applied = isServer;
+
         public constructor(private _host: LitElement) {
           super();
           this._host.addController(this);
+          if (!isServer) {
+            Promise.resolve().then(() => this._applyStates());
+          }
         }
 
         public override add(state: string): this {
-          if (this._host.isConnected) {
+          if (this._applied) {
             this._toggleState(state, true);
           }
           return super.add(state);
@@ -39,11 +44,19 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         }
 
         public hostConnected(): void {
-          this.forEach((state) => this._toggleState(state, true));
+          this._applyStates();
         }
 
         private _toggleState(state: string, enabled: boolean): void {
           this._host.toggleAttribute(`state--${state}`, enabled);
+        }
+
+        private _applyStates(): void {
+          if (this._applied) {
+            return;
+          }
+          this._applied = true;
+          this.forEach((state) => this._toggleState(state, true));
         }
       }
     : null;
@@ -234,6 +247,7 @@ export interface SbbElementInternalsConstructor {
 export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
   protected toggleState(state: string, force?: boolean): void;
+  protected applyStatePattern(state: string | null, pattern?: string): void;
 }
 
 /**
@@ -307,6 +321,20 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       } else {
         this.internals.states.delete(state);
       }
+    }
+
+    protected applyStatePattern(state: string | null, pattern = 'state'): void {
+      pattern = pattern.endsWith('-') ? pattern : `${pattern}-`;
+      const combinedState = `${pattern}${state ?? ''}`;
+      if (state !== null) {
+        this.internals.states.add(combinedState);
+      }
+
+      this.internals.states.forEach((s) => {
+        if (s.startsWith(pattern) && s !== combinedState) {
+          this.internals.states.delete(s);
+        }
+      });
     }
   }
   return SbbElementInternalElement as unknown as AbstractConstructor<SbbElementInternalsMixinType> &

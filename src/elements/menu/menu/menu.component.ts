@@ -28,7 +28,7 @@ import { idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import { i18nGoBack } from '../../core/i18n/i18n.js';
-import type { SbbNegativeMixinType } from '../../core/mixins.js';
+import type { SbbElementInternalsMixinType, SbbNegativeMixinType } from '../../core/mixins.js';
 import {
   getElementPosition,
   getElementPositionHorizontal,
@@ -280,7 +280,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
         break;
 
       case 'ArrowRight':
-        if ((evt.target as HTMLElement).hasAttribute('data-sbb-menu-trigger')) {
+        if ((evt.target as HTMLElement).matches(':state(sbb-menu-trigger)')) {
           (evt.target as HTMLElement).click();
         }
         break;
@@ -365,7 +365,10 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
       'nested',
       ['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName),
     );
-    this._triggerElement.toggleAttribute('data-sbb-menu-trigger', true);
+    (this._triggerElement as unknown as SbbElementInternalsMixinType)['toggleState']?.(
+      'sbb-menu-trigger',
+      true,
+    );
   }
 
   private _attachWindowEvents(): void {
@@ -401,7 +404,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     if (
       INTERACTIVE_ELEMENTS.includes(target.nodeName) &&
       !target.hasAttribute('disabled') &&
-      !target.hasAttribute('data-sbb-menu-trigger') &&
+      !target.matches(':state(sbb-menu-trigger)') &&
       target.id !== 'sbb-menu__back-button'
     ) {
       this.closeAll();
@@ -483,7 +486,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
       this._nestedMenu.close();
     }
 
-    if (element.hasAttribute('data-sbb-menu-trigger') && !isMobile) {
+    if (element.matches(':state(sbb-menu-trigger)') && !isMobile) {
       element.click();
     }
   }
@@ -540,7 +543,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
 
   private _syncNegative(): void {
     // Links and buttons are the most expected contents which have a negative property
-    this.querySelectorAll('[data-sbb-link], [data-sbb-button]')?.forEach((el: Element) => {
+    this.querySelectorAll(':state(sbb-link), :state(sbb-button)')?.forEach((el: Element) => {
       customElements.upgrade(el);
       (el as Element & SbbNegativeMixinType).negative = !this._darkModeController.matches();
     });

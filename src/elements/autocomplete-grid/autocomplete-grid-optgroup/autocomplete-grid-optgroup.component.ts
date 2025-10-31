@@ -25,7 +25,7 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
 
   protected setAttributeFromParent(): void {
     this.negative = !!this.closest(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
-    this.toggleAttribute('data-negative', this.negative);
+    this.toggleState('negative', this.negative);
   }
 
   protected override proxyDisabledToOptions(): void {
@@ -34,7 +34,7 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
       this.querySelectorAll?.('sbb-autocomplete-grid-button') ?? [],
     ) as SbbAutocompleteGridButtonElement[];
     for (const el of buttons) {
-      el.toggleAttribute('data-group-disabled', this.disabled);
+      el['toggleState']('group-disabled', this.disabled);
     }
   }
 }

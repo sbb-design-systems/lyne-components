@@ -206,9 +206,9 @@ describe(`sbb-toggle-check`, () => {
       expect(element.checked, `checked property`).to.be.equal(assertions.checkedProperty);
 
       if (element.localName === 'sbb-toggle-check' && assertions.checkedProperty) {
-        expect(element).to.have.attribute('data-checked');
+        expect(element).to.match(':state(checked)');
       } else if (element.localName === 'sbb-toggle-check') {
-        expect(element).not.to.have.attribute('data-checked');
+        expect(element).not.to.match(':state(checked)');
       }
 
       const snapshot = (await a11ySnapshot({

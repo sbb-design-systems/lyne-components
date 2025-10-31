@@ -95,10 +95,7 @@ snapshots["sbb-checkbox-group renders A11y tree Firefox"] =
 /* end snapshot sbb-checkbox-group renders A11y tree Firefox */
 
 snapshots["sbb-checkbox-group renders with panel DOM"] = 
-`<sbb-checkbox-group
-  data-has-panel=""
-  orientation="horizontal"
->
+`<sbb-checkbox-group orientation="horizontal">
   <sbb-checkbox-panel
     color="white"
     size="m"
@@ -140,15 +137,8 @@ snapshots["sbb-checkbox-group renders with panel Shadow DOM"] =
 /* end snapshot sbb-checkbox-group renders with panel Shadow DOM */
 
 snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] = 
-`<sbb-checkbox-group
-  data-has-panel=""
-  orientation="horizontal"
->
-  <sbb-selection-expansion-panel
-    color="white"
-    data-size="m"
-    data-state="closed"
-  >
+`<sbb-checkbox-group orientation="horizontal">
+  <sbb-selection-expansion-panel color="white">
     <sbb-checkbox-panel
       color="white"
       size="m"

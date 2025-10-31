@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-chip-group renders DOM"] = 
-`<sbb-chip-group data-size="m">
+`<sbb-chip-group>
   <sbb-chip
     tabindex="-1"
     value="Value 1"
@@ -32,10 +32,7 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
   >
     Field label
   </label>
-  <sbb-chip-group
-    data-size="m"
-    name="field-1"
-  >
+  <sbb-chip-group name="field-1">
     <sbb-chip
       tabindex="-1"
       value="Value 1"

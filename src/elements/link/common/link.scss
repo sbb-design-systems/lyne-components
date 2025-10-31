@@ -8,7 +8,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   outline: none !important;
 }
 
-:host([data-button]) {
+:host(:state(button)) {
   @include sbb.link-variables--button;
 }
 
@@ -46,7 +46,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     @include sbb.link-hover-rules;
   }
 
-  :host(:is(:active, [data-active]):not(#{$disabled})) & {
+  :host(:is(:active, :state(active)):not(#{$disabled})) & {
     // Active definitions have to be after :hover definitions
     @include sbb.link-active-rules;
   }

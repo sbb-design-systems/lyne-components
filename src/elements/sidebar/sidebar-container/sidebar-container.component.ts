@@ -114,15 +114,15 @@ class SbbSidebarContainerElement extends LitElement {
 
     const sidebars = this.sidebars;
     const hasForcedClosedParentContainer =
-      parentSidebars.some((sidebar) => sidebar.hasAttribute('data-mode-over-forced')) ?? false;
+      parentSidebars.some((sidebar) => sidebar.matches(':state(mode-over-forced)')) ?? false;
     const sumOfAllRelevantSidebarWidths = sidebars
       .filter((sidebar) => sidebar.mode === 'side')
       .reduce((accumulator, currentValue) => accumulator + (currentValue.offsetWidth ?? 0), 0);
     const isMinimumSpace = width - sumOfAllRelevantSidebarWidths < MIN_WIDTH_BEFORE_COLLAPSE;
 
     for (const sidebar of sidebars) {
-      const wasMinimum = sidebar.hasAttribute('data-mode-over-forced');
-      sidebar.toggleAttribute('data-mode-over-forced', isMinimumSpace);
+      const wasMinimum = sidebar.matches(':state(mode-over-forced)');
+      sidebar['toggleState']('mode-over-forced', isMinimumSpace);
 
       if (sidebar.mode !== 'side') {
         continue;
@@ -131,19 +131,19 @@ class SbbSidebarContainerElement extends LitElement {
       if ((isMinimumSpace || hasForcedClosedParentContainer) && sidebar.opened && !wasMinimum) {
         // We have to close the sidebar when the remaining width is below the minimum or the parent container runs out of space.
 
-        if (sidebar.isOpen && !sidebar.hasAttribute('data-skip-animation')) {
+        if (sidebar.isOpen && !sidebar.matches(':state(skip-animation)')) {
           // If the sidebar is opened visually, add a special data attribute that controls the z-index.
           // Without this solution, when the sidebar is closed, it would appear visually as if it were in 'over' mode.
-          sidebar.toggleAttribute('data-mode-over-forced-closing', true);
+          sidebar['toggleState']('mode-over-forced-closing', true);
         }
 
         sidebar.opened = false;
         this._forcedClosedSidebars.add(sidebar);
 
-        if (sidebar.hasAttribute('data-mode-over-forced-closing')) {
+        if (sidebar.matches(':state(mode-over-forced-closing)')) {
           sidebar.updateComplete
             .then(() => sidebar.animationComplete)
-            .then(() => sidebar.removeAttribute('data-mode-over-forced-closing'));
+            .then(() => sidebar['toggleState']('mode-over-forced-closing', false));
         }
       } else if (
         // We have to open the sidebar when the remaining width of the sidebar and the parent container

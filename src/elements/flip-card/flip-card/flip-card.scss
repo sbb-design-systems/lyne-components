@@ -36,7 +36,7 @@
   }
 }
 
-:host([data-flipped]) {
+:host(:state(flipped)) {
   --sbb-flip-card-toggle-icon-transform: rotate(45deg);
   --sbb-flip-card-details-transition-duration: var(
     --sbb-disable-animation-duration,
@@ -55,7 +55,7 @@
   }
 }
 
-:host([data-image-alignment='after']) {
+:host(:state(image-alignment-after)) {
   @include sbb.mq($from: small, $to: large) {
     --sbb-flip-card-min-height: #{sbb.px-to-rem-build(240)};
   }
@@ -81,7 +81,7 @@
   transition-delay: var(--sbb-flip-card-summary-transition-delay);
   cursor: var(--sbb-cursor-pointer);
 
-  :host([data-flipped]) & {
+  :host(:state(flipped)) & {
     min-height: max(var(--sbb-flip-card-min-height), var(--sbb-flip-card-details-height));
   }
 
@@ -118,7 +118,7 @@
     border-radius: #{sbb.px-to-rem-build(256)};
     transition: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-3x)) ease-out;
 
-    :host([data-flipped]) & {
+    :host(:state(flipped)) & {
       opacity: 1;
       inset-inline-start: 0;
       inset-block-end: 0;
@@ -135,7 +135,7 @@
   inset-inline-start: var(--sbb-spacing-responsive-s);
   inset-block-end: var(--sbb-spacing-responsive-s);
 
-  :host([data-flipped]) & {
+  :host(:state(flipped)) & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   }
 }

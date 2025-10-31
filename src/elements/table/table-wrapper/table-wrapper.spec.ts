@@ -33,7 +33,7 @@ describe(`sbb-table-wrapper`, () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbTableWrapperElement);
-    expect(element).not.to.have.attribute('data-has-horizontal-scrollbar');
+    expect(element).not.to.match(':state(has-horizontal-scrollbar)');
   });
 
   it('detect horizontal scrollbar', async () => {

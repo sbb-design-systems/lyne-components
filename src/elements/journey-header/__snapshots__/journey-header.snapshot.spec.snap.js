@@ -21,10 +21,7 @@ snapshots["sbb-journey-header renders Shadow DOM"] =
   <span class="sbb-journey-header__origin">
     A
   </span>
-  <sbb-icon
-    data-namespace="default"
-    name="arrow-long-right-small"
-  >
+  <sbb-icon name="arrow-long-right-small">
   </sbb-icon>
   <span class="sbb-journey-header__destination">
     B
@@ -58,10 +55,7 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"
   <span class="sbb-journey-header__origin">
     B
   </span>
-  <sbb-icon
-    data-namespace="default"
-    name="arrows-long-right-left-small"
-  >
+  <sbb-icon name="arrows-long-right-left-small">
   </sbb-icon>
   <span class="sbb-journey-header__destination">
     C

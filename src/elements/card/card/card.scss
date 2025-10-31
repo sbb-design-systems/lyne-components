@@ -23,7 +23,7 @@
   @include sbb.card-variables--transparent-bordered-dashed;
 }
 
-:host([data-has-active-action]) {
+:host(:state(has-active-action)) {
   @include sbb.card-variables--active;
 }
 
@@ -39,7 +39,7 @@
   @include sbb.card-variables--m;
 }
 
-:host([size='m'][data-has-card-badge]) {
+:host([size='m']:state(has-card-badge)) {
   @include sbb.card-variables--m-has-badge;
 }
 
@@ -47,7 +47,7 @@
   @include sbb.card-variables--l;
 }
 
-:host([size='l'][data-has-card-badge]) {
+:host([size='l']:state(has-card-badge)) {
   @include sbb.card-variables--l-has-badge;
 }
 
@@ -55,7 +55,7 @@
   @include sbb.card-variables--xl;
 }
 
-:host([size='xl'][data-has-card-badge]) {
+:host([size='xl']:state(has-card-badge)) {
   @include sbb.card-variables--xl-has-badge;
 }
 
@@ -67,21 +67,21 @@
   @include sbb.card-variables--xxxl;
 }
 
-:host([data-has-action]) {
+:host(:state(has-action)) {
   @include sbb.if-forced-colors {
     --sbb-title-text-color-normal-override: var(--sbb-card-color);
   }
 }
 
-:host([data-has-action]:not([data-has-active-action]):hover) {
+:host(:state(has-action):not(:state(has-active-action)):hover) {
   @include sbb.card--hover('.sbb-card');
 }
 
-:host([data-has-action][data-action-role='button']) {
+:host(:state(has-action):state(action-role-button)) {
   @include sbb.card-variables--button;
 }
 
-:host([data-has-action][data-action-role='link']) {
+:host(:state(has-action):state(action-role-link)) {
   @include sbb.card-variables--link;
 }
 
@@ -95,7 +95,7 @@
 .sbb-card__wrapper {
   @include sbb.card--wrapper;
 
-  :host([data-has-action]) & {
+  :host(:state(has-action)) & {
     pointer-events: none;
     transform: translateY(var(--sbb-card-hover-shift));
     transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
@@ -110,11 +110,11 @@
   border-start-start-radius: var(--sbb-card-border-radius);
   border-start-end-radius: var(--sbb-card-border-radius);
 
-  :host([data-has-action]) & {
+  :host(:state(has-action)) & {
     pointer-events: none;
   }
 
-  :host(:not([data-has-card-badge])) & {
+  :host(:not(:state(has-card-badge))) & {
     display: none;
   }
 }

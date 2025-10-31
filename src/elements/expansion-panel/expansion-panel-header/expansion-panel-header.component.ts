@@ -56,7 +56,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
     if (!toggleDataAttribute || (parent && this._isHover)) {
-      parent.toggleAttribute('data-toggle-hover', toggleDataAttribute);
+      parent['toggleState']('toggle-hover', toggleDataAttribute);
     }
   }
 

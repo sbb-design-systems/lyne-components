@@ -15,7 +15,7 @@
   display: contents;
 }
 
-:host([data-selected]) {
+:host(:state(selected)) {
   --sbb-step-opacity: 1;
   --sbb-step-display: block;
   --sbb-step-height: fit-content;
@@ -26,13 +26,13 @@
   --sbb-step-animation-delay: var(--sbb-step-animation-duration);
 }
 
-:host([data-orientation='horizontal']) {
+:host(:state(orientation-horizontal)) {
   --sbb-step-position: absolute;
   --sbb-step-inset-block-start: 0;
 }
 
 .sbb-step--wrapper {
-  :host([data-orientation='vertical']) & {
+  :host(:state(orientation-vertical)) & {
     margin-inline-start: var(--sbb-spacing-fixed-4x);
     opacity: 0;
     height: 0;
@@ -45,7 +45,7 @@
     transition-behavior: allow-discrete;
   }
 
-  :host([data-selected][data-orientation='vertical']) & {
+  :host(:state(selected):state(orientation-vertical)) & {
     opacity: 1;
     height: var(--sbb-stepper-content-height);
     transition:

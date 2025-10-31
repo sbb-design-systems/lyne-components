@@ -20,7 +20,7 @@ describe(`sbb-notification`, () => {
     const closeSpy = new EventSpy(SbbNotificationElement.events.close, element);
 
     await openSpy.calledOnce();
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     element.close();
     await waitForLitRender(element);
@@ -33,7 +33,7 @@ describe(`sbb-notification`, () => {
     expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
 
     await aTimeout(0);
     element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
@@ -71,7 +71,7 @@ describe(`sbb-notification`, () => {
       ) as SbbSecondaryButtonElement;
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       closeButton.click();
       await waitForLitRender(element);
@@ -84,7 +84,7 @@ describe(`sbb-notification`, () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
 
       await aTimeout(0);
       element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;

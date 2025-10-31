@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-header-link renders DOM"] = 
 `<sbb-header-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   expand-from="small"
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="pie-small"
@@ -27,10 +25,7 @@ snapshots["sbb-header-link renders Shadow DOM"] =
   <span class="sbb-header-action__wrapper">
     <span class="sbb-header-action__icon">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="pie-small"
-        >
+        <sbb-icon name="pie-small">
         </sbb-icon>
       </slot>
     </span>

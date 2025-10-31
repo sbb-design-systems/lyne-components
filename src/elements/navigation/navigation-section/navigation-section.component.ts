@@ -83,15 +83,17 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   @property({ attribute: 'accessibility-back-label' })
   public accessor accessibilityBackLabel: string = '';
 
-  /**
-   * The state of the navigation section.
-   */
+  /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    this.applyStatePattern(state);
     this.ariaHidden = this._state !== 'opened' ? 'true' : null;
   }
   private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('state-'))
+        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
+    );
   }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
@@ -266,9 +268,9 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   private _resetLists(): void {
     Array.from(
       this.querySelectorAll<SbbNavigationButtonElement | SbbNavigationLinkElement>(
-        '[data-section-action][data-action-active]',
+        ':state(section-action):state(action-active)',
       ) ?? [],
-    ).forEach((action) => action.removeAttribute('data-action-active'));
+    ).forEach((action) => action['toggleState']('action-active', false));
   }
 
   private _attachWindowEvents(): void {
@@ -318,7 +320,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   private _checkActiveAction(): void {
     this.querySelector<SbbNavigationButtonElement | SbbNavigationLinkElement>(
       ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
-    )?.toggleAttribute('data-action-active', true);
+    )?.['toggleState']('action-active', true);
   }
 
   public override connectedCallback(): void {

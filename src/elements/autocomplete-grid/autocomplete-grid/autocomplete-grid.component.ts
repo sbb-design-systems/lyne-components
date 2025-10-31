@@ -55,7 +55,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement<T> | SbbOptGroupElement>(
       'sbb-autocomplete-grid-row, sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
-    ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
+    ).forEach((element) => element['toggleState']('negative', this.negative));
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
@@ -109,15 +109,19 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
     const enabledOptions = this.options.filter(
-      (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
+      (opt) => !opt.disabled && !opt.matches(':state(group-disabled)'),
     );
 
     // Reset potentially active option
     this.activeOption?.setActive(false);
     this.triggerElement?.removeAttribute('aria-activedescendant');
     Array.from(
-      this.querySelectorAll?.('sbb-autocomplete-grid-row [data-focus-visible]') ?? [],
-    ).forEach((row) => row.removeAttribute('data-focus-visible'));
+      this.querySelectorAll?.('sbb-autocomplete-grid-row :state(focus-visible)') ?? [],
+    ).forEach((row) =>
+      (row as SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement)[
+        'toggleState'
+      ]('focus-visible', false),
+    );
     this._activeColumnIndex = 0;
 
     if (!enabledOptions.length) {
@@ -151,7 +155,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
         ?.querySelectorAll<
           SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
         >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button') ?? [],
-    )?.filter((el) => !el.disabled && !el.hasAttribute('data-group-disabled'));
+    )?.filter((el) => !el.disabled && !el.matches(':state(group-disabled)'));
 
     if (!elementsInRow.length) {
       return;
@@ -163,14 +167,14 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
       nextElement.setActive(true);
     } else {
-      nextElement.toggleAttribute('data-focus-visible', true);
+      nextElement['toggleState']('focus-visible', true);
     }
 
     const lastActiveElement = elementsInRow[this._activeColumnIndex];
     if (lastActiveElement instanceof SbbAutocompleteGridOptionElement) {
       lastActiveElement.setActive(false);
     } else {
-      lastActiveElement.toggleAttribute('data-focus-visible', false);
+      lastActiveElement['toggleState']('focus-visible', false);
     }
     this.triggerElement?.setAttribute('aria-activedescendant', nextElement.id);
     nextElement.scrollIntoView({ block: 'nearest' });
@@ -182,7 +186,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
       this.activeOption
         ?.closest('sbb-autocomplete-grid-row')
         ?.querySelectorAll('sbb-autocomplete-grid-button')
-        .forEach((e) => e.toggleAttribute('data-focus-visible', false));
+        .forEach((e) => e['toggleState']('focus-visible', false));
     }
     this.activeOption?.setActive(false);
     this.activeOption = null;

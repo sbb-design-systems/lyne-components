@@ -3,15 +3,11 @@ export const snapshots = {};
 
 snapshots["sbb-menu renders DOM"] = 
 `<sbb-menu
-  data-state="closed"
   id="sbb-menu-0"
   popover="manual"
   trigger="menu-trigger"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
@@ -20,16 +16,12 @@ snapshots["sbb-menu renders DOM"] =
     Profile
   </sbb-block-link>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="tick-small"
     tabindex="0"
   >
     View
   </sbb-menu-button>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -37,8 +29,6 @@ snapshots["sbb-menu renders DOM"] =
     Edit
   </sbb-menu-button>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="swisspass-small"
     sbb-badge="2"
     tabindex="0"
@@ -48,8 +38,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-divider orientation="horizontal">
   </sbb-divider>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="cross-small"
     tabindex="0"
   >
@@ -68,8 +56,6 @@ snapshots["sbb-menu renders Shadow DOM"] =
       <sbb-divider orientation="horizontal">
       </sbb-divider>
       <sbb-menu-button
-        data-action=""
-        data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"
@@ -84,15 +70,11 @@ snapshots["sbb-menu renders Shadow DOM"] =
 
 snapshots["sbb-menu renders open DOM"] = 
 `<sbb-menu
-  data-state="opened"
   id="sbb-menu-2"
   popover="manual"
   trigger="menu-trigger"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
@@ -101,16 +83,12 @@ snapshots["sbb-menu renders open DOM"] =
     Profile
   </sbb-block-link>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="tick-small"
     tabindex="0"
   >
     View
   </sbb-menu-button>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -118,8 +96,6 @@ snapshots["sbb-menu renders open DOM"] =
     Edit
   </sbb-menu-button>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="swisspass-small"
     sbb-badge="2"
     tabindex="0"
@@ -129,8 +105,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-divider orientation="horizontal">
   </sbb-divider>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="cross-small"
     tabindex="0"
   >
@@ -149,8 +123,6 @@ snapshots["sbb-menu renders open Shadow DOM"] =
       <sbb-divider orientation="horizontal">
       </sbb-divider>
       <sbb-menu-button
-        data-action=""
-        data-button=""
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"

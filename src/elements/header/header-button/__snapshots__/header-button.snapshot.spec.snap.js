@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-header-button renders DOM"] = 
 `<sbb-header-button
   aria-label="a11y label"
-  data-action=""
-  data-button=""
   expand-from="zero"
   icon-name="pie-small"
   name="test"
@@ -23,10 +21,7 @@ snapshots["sbb-header-button renders Shadow DOM"] =
   <span class="sbb-header-action__wrapper">
     <span class="sbb-header-action__icon">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="pie-small"
-        >
+        <sbb-icon name="pie-small">
         </sbb-icon>
       </slot>
     </span>

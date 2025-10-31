@@ -40,7 +40,7 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n.js';
 import type { SbbOrientation } from '../core/interfaces.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
 
 import style from './calendar.scss?lit&inline';
@@ -117,7 +117,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
@@ -210,10 +210,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
   private set _wide(wide: boolean) {
-    this.toggleAttribute('data-wide', wide);
+    this.toggleState('wide', wide);
   }
   private get _wide(): boolean {
-    return this.hasAttribute('data-wide');
+    return this.internals.states.has('wide');
   }
 
   @state() private accessor _calendarView: CalendarView = 'day';
@@ -1910,12 +1910,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      this.removeAttribute('data-transition');
+      this.toggleState('transition', false);
     }
   }
 
   private _startTableTransition(): void {
-    this.toggleAttribute('data-transition', true);
+    this.toggleState('transition', true);
     this.shadowRoot
       ?.querySelectorAll('table')
       ?.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));

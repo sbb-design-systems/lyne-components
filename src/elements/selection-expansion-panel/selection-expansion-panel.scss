@@ -34,7 +34,7 @@ $open-anim-opacity-to: 1;
   display: contents;
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-selection-expansion-panel-content-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
@@ -58,7 +58,7 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 
-:host(:state(slotted-content):where([data-state='opening'], [data-state='opened'])) {
+:host(:state(slotted-content):where(:state(state-opening), :state(state-opened))) {
   --sbb-selection-expansion-panel-content-visibility: visible;
   --sbb-selection-expansion-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);
 }
@@ -101,12 +101,12 @@ $open-anim-opacity-to: 1;
   grid-template-rows: #{$open-anim-rows-from};
   opacity: #{$open-anim-opacity-from};
 
-  :host([data-state='opened']) & {
+  :host(:state(state-opened)) & {
     grid-template-rows: #{$open-anim-rows-to};
     opacity: #{$open-anim-opacity-to};
   }
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation-name: open, open-opacity;
     animation-fill-mode: forwards;
     animation-duration: var(--sbb-selection-expansion-panel-animation-duration);
@@ -114,7 +114,7 @@ $open-anim-opacity-to: 1;
     animation-delay: 0s, var(--sbb-selection-expansion-panel-animation-duration);
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation-name: close;
     animation-duration: var(--sbb-selection-expansion-panel-animation-duration);
     animation-timing-function: var(--sbb-animation-easing);

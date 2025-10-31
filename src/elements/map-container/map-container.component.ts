@@ -7,6 +7,7 @@ import { SbbLanguageController } from '../core/controllers.js';
 import { forceType } from '../core/decorators.js';
 import { forwardEvent } from '../core/eventing.js';
 import { i18nMapContainerButtonLabel } from '../core/i18n.js';
+import { SbbElementInternalsMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
 
 import style from './map-container.scss?lit&inline';
@@ -30,7 +31,7 @@ import '../button/accent-button.js';
  */
 export
 @customElement('sbb-map-container')
-class SbbMapContainerElement extends LitElement {
+class SbbMapContainerElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
@@ -87,7 +88,7 @@ class SbbMapContainerElement extends LitElement {
   private _toggleButtonVisibilityOnIntersect(entries: IntersectionObserverEntry[]): void {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
-      this.toggleAttribute('data-scroll-up-button-visible', mapIsHidden);
+      this.toggleState('scroll-up-button-visible', mapIsHidden);
       this._scrollUpButtonVisible = mapIsHidden;
     });
   }

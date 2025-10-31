@@ -251,7 +251,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
-    this.toggleAttribute('data-expanded', true);
+    this.toggleState('expanded', true);
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -268,7 +268,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
 
     this.state = 'closing';
-    this.toggleAttribute('data-expanded', false);
+    this.toggleState('expanded', false);
     this._openPanelEventsController.abort();
     if (this._originElement) {
       this._originResizeObserver.unobserve(this._originElement);
@@ -291,7 +291,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _selectableOptions(): SbbOptionElement<T>[] {
-    return this.options.filter((opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'));
+    return this.options.filter((opt) => !opt.disabled && !opt.matches(':state(group-disabled)'));
   }
 
   /** Listens to option changes. */
@@ -497,8 +497,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
     ).forEach((element) => {
-      element.toggleAttribute('data-negative', this.negative);
-      element.toggleAttribute('data-multiple', this.multiple);
+      customElements.upgrade(element);
+      element['toggleState']('negative', this.negative);
+      element['toggleState']('multiple', this.multiple);
     });
 
     this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
@@ -539,10 +540,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
-      this.toggleAttribute(
-        'data-option-panel-origin-borderless',
-        !!formField?.hasAttribute?.('borderless'),
-      );
+      this.toggleState('option-panel-origin-borderless', !!formField?.hasAttribute?.('borderless'));
 
       if (this.isOpen) {
         this._originResizeObserver.observe(this._originElement);

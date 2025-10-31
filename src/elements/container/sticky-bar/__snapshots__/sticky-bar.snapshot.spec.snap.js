@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-sticky-bar renders DOM"] = 
 `<sbb-sticky-bar
-  data-initialized=""
-  data-state="sticky"
   size="m"
   slot="sticky-bar"
 >

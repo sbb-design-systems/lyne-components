@@ -1,7 +1,7 @@
 @use '../../core/styles' as sbb;
 
 $disabled: ':disabled, [disabled-interactive]';
-$active: ':active, [data-active]';
+$active: ':active, :state(active)';
 
 :host {
   display: inline-block;
@@ -40,7 +40,7 @@ $active: ':active, [data-active]';
 }
 
 // Active state
-:host([data-checked]) {
+:host(:state(checked)) {
   --sbb-tag-border-color: var(--sbb-border-color-3);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
@@ -66,7 +66,7 @@ $active: ':active, [data-active]';
   }
 }
 
-:host([data-checked]:is(#{$disabled})) {
+:host(:state(checked):is(#{$disabled})) {
   --sbb-tag-border-color: light-dark(var(--sbb-color-metal), var(--sbb-color-cement));
   --sbb-tag-border-style: dashed;
 }

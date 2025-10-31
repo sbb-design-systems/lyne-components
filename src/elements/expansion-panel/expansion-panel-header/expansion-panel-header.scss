@@ -15,7 +15,7 @@
   }
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-2x);
   --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-5x);

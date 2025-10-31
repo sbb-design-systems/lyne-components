@@ -9,7 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -29,7 +29,7 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  */
 export
 @customElement('sbb-sticky-bar')
-class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
+class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public static readonly events = {
@@ -55,10 +55,14 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
   /** The state of the component. */
   private set _state(state: StickyState) {
-    this.setAttribute('data-state', state);
+    this.applyStatePattern(state);
   }
   private get _state(): StickyState {
-    return this.getAttribute('data-state') as StickyState;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('state-'))
+        ?.replace('state-', '') as StickyState) ?? 'unsticky'
+    );
   }
 
   private _intersector?: HTMLSpanElement;
@@ -79,7 +83,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     const container = this.closest('sbb-container');
     if (container) {
-      this.toggleAttribute('data-expanded', container.expanded);
+      this.toggleState('expanded', container.expanded);
     }
     if (this._intersector) {
       this._observer.observe(this._intersector);
@@ -89,7 +93,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    this.toggleAttribute('data-initialized', false);
+    this.toggleState('initialized', false);
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -107,7 +111,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
   }
 
   private _detectStickyState(entry: IntersectionObserverEntry): void {
-    this.toggleAttribute('data-initialized', true);
+    this.toggleState('initialized', true);
 
     const isSticky = !entry.isIntersecting && entry.boundingClientRect.top > 0;
 
@@ -123,15 +127,15 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     )!.getBoundingClientRect();
     const HEIGHT_TOLERANCE = 30;
 
-    this.toggleAttribute(
-      'data-slide-vertically',
+    this.toggleState(
+      'slide-vertically',
       isSticky &&
         this._intersector &&
         Math.abs(intersectorRect!.bottom - stickyBarRect.bottom) > HEIGHT_TOLERANCE,
     );
 
-    // Toggling data-sticking has to be after data-slide-vertically (prevents background color transition)
-    this.toggleAttribute('data-sticking', isSticky);
+    // Toggling sticking has to be after slide-vertically (prevents background color transition)
+    this.toggleState('sticking', isSticky);
 
     // Sticky bar needs to be hidden until first observer callback
     this.completeUpdate();
@@ -144,7 +148,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
     }
 
     this._state = 'sticking';
-    if (!this.hasAttribute('data-sticking') || this._isZeroAnimationDuration()) {
+    if (!this.internals.states.has('sticking') || this._isZeroAnimationDuration()) {
       this._stickyCallback();
     }
   }
@@ -157,7 +161,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(LitElement) {
 
     this._state = 'unsticking';
 
-    if (!this.hasAttribute('data-sticking') || this._isZeroAnimationDuration()) {
+    if (!this.internals.states.has('sticking') || this._isZeroAnimationDuration()) {
       this._unstickyCallback();
     }
   }

@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import type { SbbTitleLevel } from '../../title.js';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
@@ -23,7 +23,7 @@ let nextId = 0;
  */
 export
 @customElement('sbb-expansion-panel')
-class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
+class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
@@ -71,14 +71,16 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
    */
   @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
 
-  /**
-   * The state of the notification.
-   */
+  /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    this.applyStatePattern(state);
   }
   private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('state-'))
+        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
+    );
   }
 
   private _progressiveId = `-${++nextId}`;
@@ -92,21 +94,21 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute('data-accordion', !!this.closest?.('sbb-accordion'));
+    this.toggleState('accordion', !!this.closest?.('sbb-accordion'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('size')) {
-      this._headerRef?.setAttribute('data-size', String(this.size));
-      this._contentRef?.setAttribute('data-size', String(this.size));
+      this._headerRef?.['applyStatePattern'](this.size, 'size');
+      this._contentRef?.['applyStatePattern'](this.size, 'size');
     }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.removeAttribute('data-accordion');
+    this.toggleState('accordion', false);
   }
 
   private _toggleExpanded(): void {
@@ -185,12 +187,12 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
       header.id ||= `sbb-expansion-panel-header${this._progressiveId}`;
       header.setAttribute('aria-expanded', String(this.expanded));
       header.toggleAttribute('disabled', this.disabled);
-      header.setAttribute('data-size', String(this.size));
+      header['applyStatePattern'](this.size, 'size');
     }
     if (content && this._contentRef !== content) {
       content.id ||= `sbb-expansion-panel-content${this._progressiveId}`;
       content.setAttribute('aria-hidden', String(!this.expanded));
-      content.setAttribute('data-size', String(this.size));
+      content['applyStatePattern'](this.size, 'size');
     }
 
     this._headerRef = header;

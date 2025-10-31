@@ -133,9 +133,6 @@ const leanExampleTemplate = (): TemplateResult => html`
             <sbb-icon
               name="diamond-small"
               style="margin-inline: var(--sbb-spacing-fixed-2x);"
-              data-namespace="default"
-              role="img"
-              aria-hidden="true"
             ></sbb-icon>
             <span class="sbb-text-m sbb-text--bold"> CHF 40.00 </span>
           </span>

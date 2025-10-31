@@ -56,7 +56,7 @@
       property: opacity, inset-block-start;
     }
 
-    :host([data-has-active-action]) & {
+    :host(:state(has-active-action)) & {
       opacity: 1;
     }
 

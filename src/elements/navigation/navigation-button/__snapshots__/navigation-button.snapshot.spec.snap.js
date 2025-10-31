@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-navigation-button renders DOM"] = 
 `<sbb-navigation-button
-  data-action=""
-  data-button=""
   size="l"
   tabindex="0"
 >
@@ -15,10 +13,7 @@ snapshots["sbb-navigation-button renders DOM"] =
 
 snapshots["sbb-navigation-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-navigation-button">
-  <sbb-icon
-    data-namespace="default"
-    name="dash-small"
-  >
+  <sbb-icon name="dash-small">
   </sbb-icon>
   <slot>
   </slot>

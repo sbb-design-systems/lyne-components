@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin, type SbbElementInternalsMixinType } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import style from './card-badge.scss?lit&inline';
@@ -28,17 +28,36 @@ class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
     super.connectedCallback();
     this.slot ||= 'badge';
     this._parentElement = this.parentElement;
-    if (this._parentElement) {
-      this._parentElement.toggleAttribute('data-has-card-badge', true);
+    if (!this._parentElement) {
+      return;
+    } else if (this._hasElementInternals(this._parentElement)) {
+      this._parentElement['toggleState']('has-card-badge', true);
+    } else {
+      this._parentElement.setAttribute('data-has-card-badge', 'true');
     }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    if (this._parentElement) {
+    if (!this._parentElement) {
+      return;
+    } else if (this._hasElementInternals(this._parentElement)) {
+      this._parentElement['toggleState']('has-card-badge', false);
+    } else {
       this._parentElement.removeAttribute('data-has-card-badge');
     }
     this._parentElement = undefined;
+  }
+
+  private _hasElementInternals(
+    element: HTMLElement,
+  ): element is HTMLElement & SbbElementInternalsMixinType {
+    return (
+      'internals' in element &&
+      element['internals'] instanceof ElementInternals &&
+      'toggleState' in element &&
+      typeof element['toggleState'] === 'function'
+    );
   }
 
   protected override render(): TemplateResult {
