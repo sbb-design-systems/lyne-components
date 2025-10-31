@@ -167,8 +167,11 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Returns all SbbOptionElements from this sbb-select instance. */
   public get options(): SbbOptionElement<T>[] {
-    const options = Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
-    options.forEach((o) => customElements.upgrade(o));
+    const options: SbbOptionElement<T>[] = [];
+    this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option').forEach((option) => {
+      customElements.upgrade(option);
+      options.push(option);
+    });
     return options;
   }
 
@@ -749,9 +752,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     // Reorder the _filteredOption array to have the last selected element at the bottom.
     const indexForSlice: number = this._activeItemIndex + 1;
+    const selectableOptions = this._selectableOptions();
     const filteredOptionsSorted = [
-      ...this._selectableOptions().slice(indexForSlice),
-      ...this._selectableOptions().slice(0, indexForSlice),
+      ...selectableOptions.slice(indexForSlice),
+      ...selectableOptions.slice(0, indexForSlice),
     ];
 
     const match = filteredOptionsSorted.find(
@@ -759,7 +763,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     );
     if (match) {
       // If an exact match has been found, go to that option.
-      this._setNextActiveOption(event, this._selectableOptions().indexOf(match));
+      this._setNextActiveOption(event, selectableOptions.indexOf(match));
     } else if (
       this._searchString.length > 1 &&
       new RegExp(`^${this._searchString.charAt(0)}*$`).test(this._searchString)
@@ -771,7 +775,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
           option.textContent?.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
-        this._setNextActiveOption(event, this._selectableOptions().indexOf(firstMatch));
+        this._setNextActiveOption(event, selectableOptions.indexOf(firstMatch));
       }
     } else {
       // No match found, clear the timeout and the search term.
