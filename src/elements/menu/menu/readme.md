@@ -70,6 +70,8 @@ Please note that nesting the menus in DOM is not supported. The `sbb-menu` eleme
 
 ## Accessibility
 
+The `sbb-menu` uses the roles `menu` and `menuitem` for children.
+
 As the menu opens, the focus will automatically be set to the first focusable
 item within the component (unless manually specified, see below).
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
