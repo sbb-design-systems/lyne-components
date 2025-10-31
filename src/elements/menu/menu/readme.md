@@ -68,12 +68,9 @@ Please note that nesting the menus in DOM is not supported. The `sbb-menu` eleme
 </sbb-menu>
 ```
 
-## Style
-
-If only `sbb-menu-button`/`sbb-menu-link` components are provided, the items are automatically grouped within a list
-using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
-
 ## Accessibility
+
+The `sbb-menu` uses the roles `menu` and `menuitem` for children.
 
 As the menu opens, the focus will automatically be set to the first focusable
 item within the component (unless manually specified, see below).
@@ -115,11 +112,10 @@ Disabled elements do not receive focus, and they can be problematic for screen r
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                                                       |
-| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                                                      |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
-| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                     |
+| Name      | Attribute | Privacy | Type                  | Default | Description                                                                                   |
+| --------- | --------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `isOpen`  | -         | public  | `boolean`             |         | Whether the element is open.                                                                  |
+| `trigger` | `trigger` | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference. |
 
 ## Methods
 
