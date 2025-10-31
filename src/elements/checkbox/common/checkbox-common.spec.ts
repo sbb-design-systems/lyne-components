@@ -151,7 +151,7 @@ describe(`sbb-checkbox-common`, () => {
           expect(element.validity.valueMissing, 'valueMissing').to.be.true;
         });
 
-        it('should set valididty correctly on initialization', async () => {
+        it('should set validity correctly on initialization', async () => {
           element = await fixture(
             html`<${tagSingle} name="testvalidation" required></${tagSingle}>`,
           );
