@@ -152,7 +152,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!this.hasNavigation || !this.seatReservations) return null;
 
     const btnId = btnDirection == 'DIRECTION_RIGHT' ? 'last-tab-element' : 'first-tab-element';
-    const btnIcon = btnDirection == 'DIRECTION_RIGHT' ? 'arrow-right-small' : 'arrow-left-small';
+    const btnIcon =
+      btnDirection == 'DIRECTION_RIGHT' ? 'chevron-small-right-small' : 'chevron-small-left-small';
     const btnAriaDescription =
       btnDirection == 'DIRECTION_RIGHT'
         ? getI18nSeatReservation('SEAT_RESERVATION_END', this._language.current)
@@ -224,14 +225,15 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
   /**
    *
-   * @param coaches
    * @returns
+   * @param seatReservation
+   * @param deckIndex
    */
   private _renderCoaches(
     seatReservation: SeatReservation,
     deckIndex: number,
   ): TemplateResult[] | null {
-    const coaches = JSON.parse(JSON.stringify(seatReservation?.coachItems));
+    const coaches: CoachItem[] = JSON.parse(JSON.stringify(seatReservation?.coachItems));
 
     if (!coaches) {
       return null;
@@ -436,6 +438,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @param rotation
    * @param coachDimension
    * @param coachIndex used to generate a unique id for the popover trigger
+   * @param coachDeckIndex used to generate a unique id
    * @private
    */
   private _getRenderElementWithArea(
@@ -450,16 +453,20 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // need difficult calculations for position, rotation and dimension.
     const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
     const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
-    const stretchHeight = areaProperty !== 'ENTRY_EXIT';
+    const stretchHeight =
+      this.isElementDirectlyOnBorder(graphicalElement, coachDimension) &&
+      areaProperty !== 'ENTRY_EXIT';
     const ariaLabelForArea = graphicalElement.icon
       ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
       : nothing;
+
     const calculatedDimension = this.getCalculatedDimension(
       graphicalElement.dimension,
       coachDimension,
       true,
       stretchHeight,
     );
+
     const calculatedPosition = this.getCalculatedPosition(
       graphicalElement.position,
       graphicalElement.dimension,
@@ -498,13 +505,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
-                  '--sbb-seat-reservation-graphic-width': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-max-width': calculatedDimension.w,
                   '--sbb-seat-reservation-graphic-height': this.baseGridSize,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
                 })}
                 name=${areaProperty}
                 role="img"
                 aria-hidden="true"
+                class="auto-width"
               ></sbb-seat-reservation-graphic>
             `
           : nothing}
