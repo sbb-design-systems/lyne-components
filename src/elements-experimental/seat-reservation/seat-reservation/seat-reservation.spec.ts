@@ -34,4 +34,11 @@ describe('sbb-seat-reservation', () => {
   //   await waitForLitRender(element);
   //   expect(myEventNameSpy.count).to.be.equal(1);
   // });
+
+  /*TODO : Tests which needs to be done here :
+  1. left and right navigation button click tests
+  2. maximum 3 navigation-service icons are shown
+  3. arrowLeft/arrowRight navigation
+
+  */
 });
