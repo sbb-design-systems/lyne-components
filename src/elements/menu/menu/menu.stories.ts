@@ -132,31 +132,6 @@ const NestedTemplate = (args: Args): TemplateResult => html`
   </sbb-menu>
 `;
 
-const ListTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('menu-trigger-1')}
-  <sbb-menu trigger="menu-trigger-1">
-    <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
-      View
-    </sbb-menu-link>
-    <sbb-menu-button
-      icon-name="pen-small"
-      sbb-badge=${!args.disabled ? '16' : nothing}
-      aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
-      ?disabled-interactive=${args.disabled}
-    >
-      Edit
-    </sbb-menu-button>
-    <sbb-menu-button
-      icon-name="swisspass-small"
-      sbb-badge=${args.badge}
-      aria-label="Details, ${args.badge} items"
-    >
-      Details
-    </sbb-menu-button>
-    <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
-  </sbb-menu>
-`;
-
 const CustomContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-2')}
   <sbb-menu trigger="menu-trigger-2">
@@ -254,12 +229,6 @@ export const Default: StoryObj = {
 
 export const Nested: StoryObj = {
   render: NestedTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true },
-};
-
-export const List: StoryObj = {
-  render: ListTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
 };
