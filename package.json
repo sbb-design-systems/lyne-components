@@ -121,7 +121,7 @@
     "madge": "8.0.0",
     "npm-run-all2": "8.0.4",
     "nyc": "17.1.0",
-    "octokit": "5.0.4",
+    "octokit": "5.0.5",
     "playwright": "1.56.1",
     "postcss": "8.5.6",
     "postcss-value-parser": "4.2.0",
