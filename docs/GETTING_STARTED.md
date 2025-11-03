@@ -335,6 +335,30 @@ We provide the following themes.
 - `off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
 - `safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (grey).
 
+#### Safety relevant theme
+
+To align with safety relevant themes, there is more than just changing the primary color.
+We provide further utilities to improve the safety relevant theme:
+
+##### Font Customization
+
+Note that the font family should support changing the font-weight.
+
+| CSS variable                          | Description                                                      |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| `--sbb-typo-font-family`              | Can be used to override the font family for all texts and titles |
+| `--sbb-typo-letter-spacing-body-text` | Can be used to override letter spacing for texts                 |
+| `--sbb-typo-letter-spacing-titles`    | Can be used to override letter spacing for titles                |
+
+##### Cursor customization
+
+In certain safety relevant applications, it might be necessary to change the cursor style.
+
+| CSS variable           | Description                                      |
+| ---------------------- | ------------------------------------------------ |
+| `--sbb-cursor-default` | Can be used to override the default cursor style |
+| `--sbb-cursor-pointer` | Can be used to override the pointer cursor style |
+
 ### CSS files
 
 Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.

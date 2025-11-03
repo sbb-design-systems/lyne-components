@@ -141,7 +141,7 @@ $active: ':active, [data-active], [loading]';
     );
     --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
     --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
-    --sbb-button-cursor: pointer;
+    --sbb-button-cursor: var(--sbb-cursor-pointer);
     --_border-color: var(--sbb-button-color-hover-border);
     --_color: var(--sbb-button-color-hover-text);
     --_background-color: var(--sbb-button-color-hover-background);
@@ -155,7 +155,7 @@ $active: ':active, [data-active], [loading]';
 
 // Disabled styles
 :host(:is(#{$disabled})) {
-  --sbb-button-cursor: default;
+  --sbb-button-cursor: var(--sbb-cursor-default);
   --_color: var(--sbb-button-color-disabled-text);
   --_background-color: var(--sbb-button-color-disabled-background);
   --_border-color: var(--sbb-button-color-disabled-border);

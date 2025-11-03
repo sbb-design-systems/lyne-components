@@ -114,7 +114,7 @@ $disabled: '[disabled], :disabled';
     solid var(--sbb-seat-reservation-navigation-btn-border-color);
   border-radius: var(--sbb-border-radius-2x);
   background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
 
   &.sbb-sr-navigation-driver-area {
     border-radius: var(--sbb-border-radius-8x);
