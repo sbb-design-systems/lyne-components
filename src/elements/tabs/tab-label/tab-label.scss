@@ -147,7 +147,7 @@
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
-  :host(:not(:state(slotted-icon), [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 }

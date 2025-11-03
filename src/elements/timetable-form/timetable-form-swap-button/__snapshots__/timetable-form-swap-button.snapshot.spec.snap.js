@@ -6,7 +6,6 @@ snapshots["sbb-timetable-form-swap-button renders DOM"] =
   data-action=""
   data-button=""
   data-sbb-button=""
-  icon-name="arrow-change-small"
   size="l"
   tabindex="0"
 >

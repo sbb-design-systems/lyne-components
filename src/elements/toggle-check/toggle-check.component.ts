@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../core/decorators.js';
 import { isLean } from '../core/dom.js';
 import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
@@ -21,8 +20,8 @@ import style from './toggle-check.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle-check')
-class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
-  SbbIconNameMixin(LitElement),
+class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
+  SbbFormAssociatedCheckboxMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
@@ -35,11 +34,6 @@ class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
    * @default 's' / 'xs' (lean)
    */
   @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 's';
-
-  /** The svg name for the true state - default -> 'tick-small' */
-  @forceType()
-  @property({ attribute: 'icon-name' })
-  public override accessor iconName: string = 'tick-small';
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @property({ attribute: 'label-position', reflect: true })
@@ -56,6 +50,10 @@ class SbbToggleCheckElement<T = string> extends SbbFormAssociatedCheckboxMixin(
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
       this.toggleAttribute('data-checked', this.checked);
     }
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || 'tick-small';
   }
 
   protected override render(): TemplateResult {

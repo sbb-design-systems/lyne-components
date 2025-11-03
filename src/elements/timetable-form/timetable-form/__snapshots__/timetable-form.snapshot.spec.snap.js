@@ -29,7 +29,6 @@ snapshots["sbb-timetable-form renders DOM"] =
       data-action=""
       data-button=""
       data-sbb-button=""
-      icon-name="arrow-change-small"
       size="l"
       tabindex="0"
     >

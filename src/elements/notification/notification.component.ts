@@ -13,7 +13,7 @@ import { SbbLanguageController } from '../core/controllers.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { SbbReadonlyMixin } from '../core/mixins.js';
+import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
 import { SbbIconNameMixin } from '../icon.js';
 import type { SbbTitleElement } from '../title.js';
@@ -44,7 +44,9 @@ const DEBOUNCE_TIME = 150;
  */
 export
 @customElement('sbb-notification')
-class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(LitElement)) {
+class SbbNotificationElement extends SbbIconNameMixin(
+  SbbReadonlyMixin(SbbElementInternalsMixin(LitElement)),
+) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
@@ -70,19 +72,6 @@ class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(LitElemen
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
-
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   * @default defaults to the associated icon for the notification type
-   */
-  public override set iconName(value: string) {
-    super.iconName = value;
-  }
-  public override get iconName(): string {
-    return super.iconName || notificationTypes.get(this.type)!;
-  }
 
   /** The state of the notification. */
   private set _state(state: SbbOpenedClosedState) {
@@ -230,6 +219,10 @@ class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(LitElemen
       customElements.upgrade(title);
       title.visualLevel = this.size === 'm' ? '5' : '6';
     }
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || notificationTypes.get(this.type)!;
   }
 
   protected override render(): TemplateResult {

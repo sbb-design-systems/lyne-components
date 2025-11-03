@@ -64,13 +64,13 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Properties
 
-| Name        | Attribute   | Privacy | Type                                   | Default            | Description                                                                                                                                                      |
-| ----------- | ----------- | ------- | -------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                                                          |
-| `iconName`  | `icon-name` | public  | `string`                               | `'info'`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. |
-| `isOpen`    | -           | public  | `boolean`                              |                    | Whether the element is open.                                                                                                                                     |
-| `readOnly`  | `readonly`  | public  | `boolean`                              | `false`            | Whether the component is readonly.                                                                                                                               |
-| `size`      | `size`      | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                                                     |
+| Name        | Attribute   | Privacy | Type                                   | Default            | Description                                                                                                                      |
+| ----------- | ----------- | ------- | -------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                          |
+| `iconName`  | `icon-name` | public  | `string`                               | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `isOpen`    | -           | public  | `boolean`                              |                    | Whether the element is open.                                                                                                     |
+| `readOnly`  | `readonly`  | public  | `boolean`                              | `false`            | Whether the component is readonly.                                                                                               |
+| `size`      | `size`      | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                     |
 
 ## Methods
 

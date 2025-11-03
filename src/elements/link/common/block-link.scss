@@ -43,7 +43,7 @@
   flex: 0 0 auto;
   align-self: start;
 
-  :host(:not(:state(slotted-icon), [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 
