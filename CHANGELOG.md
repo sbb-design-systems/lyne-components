@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.12.0...v3.12.1) (2025-11-03)
+
+
+### Bug Fixes
+
+* **sbb-date-input, sbb-time-input:** avoid crash on Blink engines when empty ([#4156](https://github.com/sbb-design-systems/lyne-components/issues/4156)) ([f6787f3](https://github.com/sbb-design-systems/lyne-components/commit/f6787f3a64e006e2aa9d791b88f0446e54e5c69f)), closes [#4133](https://github.com/sbb-design-systems/lyne-components/issues/4133)
+* **sbb-seat-reservation:** apply review to icons sizes, positioning and translations ([#4154](https://github.com/sbb-design-systems/lyne-components/issues/4154)) ([d718ba4](https://github.com/sbb-design-systems/lyne-components/commit/d718ba4c2d1d9f34f55866cdfba5c8a6c11b3253))
+* **sbb-select:** improve check on value change ([#4116](https://github.com/sbb-design-systems/lyne-components/issues/4116)) ([3a6225c](https://github.com/sbb-design-systems/lyne-components/commit/3a6225c5284f122092ceb3609f7a8d9b3f5505fc))
+
 ## [3.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.11.0...v3.12.0) (2025-10-28)
 
 
