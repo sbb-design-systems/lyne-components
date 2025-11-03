@@ -221,10 +221,6 @@ sbb-divider,
   }
 }
 
-.sbb-menu-list {
-  @include sbb.list-reset;
-}
-
 ::slotted(:is([data-sbb-link], [data-sbb-button])) {
   // As the background turns white, we need to ensure that buttons and links are displayed in positive.
   color-scheme: only light;

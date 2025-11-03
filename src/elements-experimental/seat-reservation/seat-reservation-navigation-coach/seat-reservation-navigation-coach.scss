@@ -5,17 +5,42 @@ $disabled: '[disabled], :disabled';
 
 :host {
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
-  --sbb-seat-reservation-navigation-btn-outline-color: light-dark(
+  --sbb-seat-reservation-navigation-btn-border-width: 1;
+  --sbb-seat-reservation-navigation-btn-border-color: light-dark(
     var(--sbb-color-granite),
     var(--sbb-color-graphite)
   );
-  --sbb-seat-reservation-navigation-btn-outline-width: 1;
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-backgorund-color-2);
-  --sbb-seat-reservation-navigation-btn-outline-color-selected: light-dark(
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-white),
+    var(--sbb-color-black)
+  );
+
+  // selected state variables
+  --sbb-seat-reservation-navigation-btn-border-width-selected: 2;
+  --sbb-seat-reservation-navigation-btn-background-color-selected: light-dark(
+    var(--sbb-color-milk),
+    var(--sbb-color-iron)
+  );
+  --sbb-seat-reservation-navigation-btn-border-color-selected: light-dark(
     var(--sbb-color-black),
     var(--sbb-color-white)
   );
-  --sbb-seat-reservation-navigation-btn-outline-width-hover: 2;
+
+  // focus state variables
+  --sbb-seat-reservation-navigation-btn-outline-width-focused: 1;
+  --sbb-seat-reservation-navigation-btn-outline-color-focused: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+  --sbb-seat-reservation-navigation-btn-outline-offset-focused: 4;
+  --sbb-seat-reservation-navigation-btn-background-color-focused: light-dark(
+    var(--sbb-color-white),
+    var(--sbb-color-black)
+  );
+  --sbb-seat-reservation-navigation-btn-border-color-focused: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
   --sbb-seat-reservation-navigation-btn-background-color-hover: light-dark(
     var(--sbb-color-cloud),
     var(--sbb-color-midnight)
@@ -76,6 +101,7 @@ $disabled: '[disabled], :disabled';
   }
 }
 
+// same for all states
 .sbb-sr-navigation__ctrl-button {
   @include sbb.button-reset;
 
@@ -84,8 +110,8 @@ $disabled: '[disabled], :disabled';
   justify-content: center;
   height: sbb-sr-functions.sr-px-to-rem(36);
   position: relative;
-  outline: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-navigation-btn-outline-width))
-    solid var(--sbb-seat-reservation-navigation-btn-outline-color);
+  border: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-navigation-btn-border-width))
+    solid var(--sbb-seat-reservation-navigation-btn-border-color);
   border-radius: var(--sbb-border-radius-2x);
   background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
   cursor: pointer;
@@ -96,25 +122,23 @@ $disabled: '[disabled], :disabled';
   }
 }
 
-// same for all states
-.sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button,
-.sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}, .sbb-sr-navigation-driver-area),
-.sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}, .sbb-sr-navigation-driver-area) {
-  --sbb-seat-reservation-navigation-btn-outline-width: var(
-    --sbb-seat-reservation-navigation-btn-outline-width-hover
-  );
-  --sbb-seat-reservation-navigation-btn-outline-color: light-dark(
-    var(--sbb-color-black),
-    var(--sbb-color-white)
-  );
-}
-
-// focus but not selected, i.e. with keyboard navigation for example (FIGMA State:Active)
+// focus but not selected, INCLUDING the driver areas too (FIGMA State:Focused)
+// i.e. with keyboard navigation for example
 // don't move this block beneath selected if you don't want to mess up specificity
 .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
-  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
-    var(--sbb-color-silver),
-    var(--sbb-color-black)
+  outline: sbb-sr-functions.sr-px-to-rem(
+      var(--sbb-seat-reservation-navigation-btn-outline-width-focused)
+    )
+    solid var(--sbb-seat-reservation-navigation-btn-outline-color-focused);
+  outline-offset: sbb-sr-functions.sr-px-to-rem(
+    var(--sbb-seat-reservation-navigation-btn-outline-offset-focused)
+  );
+
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-focused
+  );
+  --sbb-seat-reservation-navigation-btn-border-color: var(
+    --sbb-seat-reservation-navigation-btn-border-color-focused
   );
 
   .sbb-sr-navigation__item-coach-travelclass {
@@ -128,9 +152,11 @@ $disabled: '[disabled], :disabled';
 
 // selected, i.e. the coach within the train is selected (FIGMA State:Selected)
 .sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button {
-  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
-    var(--sbb-color-milk),
-    var(--sbb-color-iron)
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-selected
+  );
+  --sbb-seat-reservation-navigation-btn-border-width: var(
+    --sbb-seat-reservation-navigation-btn-border-width-selected
   );
 
   .sbb-sr-navigation__item-coach-travelclass {
@@ -142,11 +168,19 @@ $disabled: '[disabled], :disabled';
   }
 }
 
+// selected AND focus (FIGMA State:Selected + Focused)
+// background-color from selected State has more specificity, so we need to override it here (again)
+.sbb-sr-navigation__item-coach--selected
+  .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-selected
+  );
+}
+
 // hover (FIGMA State:hover)
 .sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}, .sbb-sr-navigation-driver-area) {
-  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
-    var(--sbb-color-cloud),
-    var(--sbb-color-midnight)
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-hover
   );
 
   .sbb-sr-navigation__item-coach-travelclass {
@@ -161,7 +195,7 @@ $disabled: '[disabled], :disabled';
 // disabled (FIGMA State:disabled)
 .sbb-sr-navigation__ctrl-button:is(#{$disabled}) {
   --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-background-color-2);
-  --sbb-seat-reservation-navigation-btn-outline-color: light-dark(
+  --sbb-seat-reservation-navigation-btn-border-color: light-dark(
     var(--sbb-color-platinum),
     var(--sbb-color-iron)
   );

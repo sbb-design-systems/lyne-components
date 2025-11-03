@@ -24,11 +24,11 @@ import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.js';
-import { forceType, idReference } from '../../core/decorators.js';
+import { idReference } from '../../core/decorators.js';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
 import { forwardEvent } from '../../core/eventing.js';
 import { i18nGoBack } from '../../core/i18n/i18n.js';
-import { SbbNamedSlotListMixin, type SbbNegativeMixinType } from '../../core/mixins.js';
+import type { SbbNegativeMixinType } from '../../core/mixins.js';
 import {
   getElementPosition,
   getElementPositionHorizontal,
@@ -72,13 +72,9 @@ let nextId = 0;
  */
 export
 @customElement('sbb-menu')
-class SbbMenuElement extends SbbNamedSlotListMixin<
-  SbbMenuButtonElement | SbbMenuLinkElement,
-  typeof SbbOpenCloseBaseElement
->(SbbOpenCloseBaseElement) {
+class SbbMenuElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly role = 'menu';
-  protected override readonly listChildLocalNames = ['sbb-menu-button', 'sbb-menu-link'];
 
   /**
    * The element that will trigger the menu overlay.
@@ -88,14 +84,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
   @idReference()
   @property()
   public accessor trigger: HTMLElement | null = null;
-
-  /**
-   * This will be forwarded as aria-label to the inner list.
-   * Used only if the menu automatically renders the actions inside as a list.
-   */
-  @forceType()
-  @property({ attribute: 'list-accessibility-label' })
-  public accessor listAccessibilityLabel: string = '';
 
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
@@ -319,16 +307,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
     // Due to the fact that menu can both be a list and just a container, we need to check its
     // state before the SbbNamedSlotListMixin handles the slotchange event, in order to avoid
     // it interpreting the non list case as a list.
-    this.shadowRoot?.addEventListener(
-      'slotchange',
-      (e) => {
-        this._syncNegative();
-        this._checkListCase(e);
-      },
-      {
-        capture: true,
-      },
-    );
+    this.shadowRoot?.addEventListener('slotchange', () => this._syncNegative(), { capture: true });
     return renderRoot;
   }
 
@@ -358,24 +337,6 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
 
     if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
       this._configureTrigger();
-    }
-  }
-
-  private _checkListCase(event: Event): void {
-    // If all children are sbb-menu-button/menu-link instances, we render them as a list.
-    if (
-      this.children?.length &&
-      Array.from(this.children ?? []).every(
-        (c) => c.localName === 'sbb-menu-button' || c.localName === 'sbb-menu-link',
-      )
-    ) {
-      return;
-    }
-
-    event.stopImmediatePropagation();
-    if (this.listChildren.length) {
-      this.listChildren.forEach((c) => c.removeAttribute('slot'));
-      this.listChildren = [];
     }
   }
 
@@ -604,9 +565,7 @@ class SbbMenuElement extends SbbNamedSlotListMixin<
             @scroll=${(e: Event) => forwardEvent(e, document)}
             class="sbb-menu__content"
           >
-            ${this.listChildren.length
-              ? this.renderList({ class: 'sbb-menu-list', ariaLabel: this.listAccessibilityLabel })
-              : html`<slot></slot>`}
+            <slot></slot>
             <sbb-divider></sbb-divider>
             <sbb-menu-button
               id="sbb-menu__back-button"
