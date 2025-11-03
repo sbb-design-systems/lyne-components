@@ -286,7 +286,7 @@ const StepperTemplate = ({
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
-    <sbb-dialog-content style="padding-block-start: 1rem">
+    <sbb-dialog-content>
       <sbb-stepper orientation="${orientation}" ?linear=${linear} size="m">
         ${['First', 'Second', 'Third', 'Fourth'].map(
           (element, index, arr) => html`
