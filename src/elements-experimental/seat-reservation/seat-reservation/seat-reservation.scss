@@ -49,6 +49,10 @@
   .sbb-sr-navigation-last-grid {
     grid-row-start: 1;
     position: relative;
+
+    // TIMO-42405
+    // button outline-offset would be clipped otherwise because it's not calculated in the box-model
+    margin-block-start: sbb-sr-functions.sr-px-to-rem(4);
   }
 
   .sbb-sr-navigation-first-grid {
@@ -106,6 +110,10 @@
 
 .sbb-sr-navigation {
   @include sbb.scrollbar;
+
+  // TIMO-42405
+  // button outline-offset would be clipped otherwise because it's not calculated in the box-model
+  padding-block-start: sbb-sr-functions.sr-px-to-rem(4);
 
   & {
     // Set sbb scrollbar transparent by default
@@ -240,6 +248,15 @@
   grid-template-columns: sbb-sr-functions.sr-px-to-rem($coach-grid-width) 1fr;
   grid-template-rows: 20% 60% 20%;
 
+  // TIMO-42405
+  // button outline-offset would be clipped otherwise because it's not calculated in the box-model
+  // in vertical mode it must be padding-inline-start
+  .sbb-sr-navigation-first-grid,
+  .sbb-sr-navigation-last-grid {
+    margin-inline-start: sbb-sr-functions.sr-px-to-rem(4);
+    margin-block-start: 0;
+  }
+
   .sbb-sr-navigation-first-grid {
     grid-column: 2 / 3;
     grid-row-start: 1;
@@ -287,6 +304,11 @@
         display: block;
         overflow: hidden scroll;
         height: 100%;
+
+        // TIMO-42405
+        // button outline-offset would be clipped otherwise because it's not calculated in the box-model
+        padding-block-start: 0;
+        padding-inline-start: sbb-sr-functions.sr-px-to-rem(4);
 
         .sbb-sr-navigation__list-coaches {
           flex-direction: column;

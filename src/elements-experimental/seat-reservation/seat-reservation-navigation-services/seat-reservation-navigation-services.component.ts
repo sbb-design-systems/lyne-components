@@ -32,7 +32,7 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
-    const serviceLabelDescription = this.propertyIds.length
+    const serviceLabelDescription = this.propertyIds?.length
       ? this._getServiceLabelDescription()
       : null;
     return html` <div class="sbb-sr-navigation__signs">
