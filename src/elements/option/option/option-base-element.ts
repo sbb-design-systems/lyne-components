@@ -55,7 +55,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     }
   }
   public get value(): T {
-    return (this._value ?? this.getAttribute('value') ?? '') as T;
+    return (this._value ?? this.getAttribute('value')) as T;
   }
   private _value: T | null = null;
 
