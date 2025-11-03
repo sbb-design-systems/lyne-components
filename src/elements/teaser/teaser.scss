@@ -41,7 +41,7 @@
 .sbb-teaser__wrapper {
   display: flex;
   position: relative;
-  cursor: var(--sbb-pointer-cursor-style);
+  cursor: var(--sbb-cursor-pointer);
 
   @include sbb.zero-width-space;
 }

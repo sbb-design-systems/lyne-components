@@ -46,7 +46,7 @@ sbb-icon {
 :is(.sbb-navigation-button, .sbb-navigation-link) {
   @include sbb.title-4($exclude-spacing: true);
 
-  cursor: var(--sbb-pointer-cursor-style);
+  cursor: var(--sbb-cursor-pointer);
   position: relative;
   text-decoration: none;
   display: flex;

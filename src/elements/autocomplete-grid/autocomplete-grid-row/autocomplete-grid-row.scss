@@ -13,7 +13,7 @@
   --sbb-autocomplete-grid-row-padding-inline-end: var(--sbb-spacing-responsive-xxxs);
   --sbb-autocomplete-grid-row-justify-content: space-between;
   --sbb-autocomplete-grid-row-min-height: var(--sbb-size-button-m-min-height);
-  --sbb-autocomplete-grid-row-cursor: var(--sbb-pointer-cursor-style);
+  --sbb-autocomplete-grid-row-cursor: var(--sbb-cursor-pointer);
   --sbb-autocomplete-grid-row-border-radius: var(--sbb-border-radius-4x);
   --sbb-autocomplete-grid-row-icon-color: light-dark(
     var(--sbb-color-metal),
@@ -42,7 +42,7 @@
 }
 
 :host([data-disabled]) {
-  --sbb-autocomplete-grid-row-cursor: var(--sbb-default-cursor-style);
+  --sbb-autocomplete-grid-row-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-autocomplete-grid-row-color: GrayText;

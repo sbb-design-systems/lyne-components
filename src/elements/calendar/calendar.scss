@@ -76,7 +76,7 @@
   margin: auto;
   height: var(--sbb-calendar-control-view-change-height);
   text-transform: capitalize;
-  cursor: var(--sbb-pointer-cursor-style);
+  cursor: var(--sbb-cursor-pointer);
   padding-inline: var(--sbb-spacing-fixed-5x) var(--sbb-spacing-fixed-2x);
   border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-calendar-control-view-change-background);
@@ -238,7 +238,7 @@
 
   height: var(--sbb-calendar-cell-size);
   color: var(--sbb-calendar-cell-color);
-  cursor: var(--sbb-pointer-cursor-style);
+  cursor: var(--sbb-cursor-pointer);
   position: relative;
   z-index: 0;
 

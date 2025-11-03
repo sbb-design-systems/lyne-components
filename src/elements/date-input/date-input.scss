@@ -17,7 +17,7 @@
 }
 
 :host(:disabled) {
-  cursor: var(--sbb-default-cursor-style);
+  cursor: var(--sbb-cursor-default);
 }
 
 :host(:focus) {

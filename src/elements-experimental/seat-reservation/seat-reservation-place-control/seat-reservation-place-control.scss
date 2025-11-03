@@ -102,7 +102,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
   inset-block-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-top));
   inset-inline-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-left));
   font-weight: 300;
-  cursor: var(--sbb-pointer-cursor-style);
+  cursor: var(--sbb-cursor-pointer);
 }
 
 :host(:hover) {

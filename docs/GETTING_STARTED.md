@@ -354,10 +354,10 @@ Note that the font family should support changing the font-weight.
 
 In certain safety relevant applications, it might be necessary to change the cursor style.
 
-| CSS variable                 | Description                                      |
-| ---------------------------- | ------------------------------------------------ |
-| `--sbb-default-cursor-style` | Can be used to override the default cursor style |
-| `--sbb-pointer-cursor-style` | Can be used to override the pointer cursor style |
+| CSS variable           | Description                                      |
+| ---------------------- | ------------------------------------------------ |
+| `--sbb-cursor-default` | Can be used to override the default cursor style |
+| `--sbb-cursor-pointer` | Can be used to override the pointer cursor style |
 
 ### CSS files
 

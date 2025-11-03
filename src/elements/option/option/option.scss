@@ -11,7 +11,7 @@
   --sbb-option-min-height: var(--sbb-size-element-s);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-justify-content: start;
-  --sbb-option-cursor: var(--sbb-pointer-cursor-style);
+  --sbb-option-cursor: var(--sbb-cursor-pointer);
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
   --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-option-focus-outline-color: transparent;
@@ -48,7 +48,7 @@
 }
 
 :host(:is([data-group-disabled], [disabled])) {
-  --sbb-option-cursor: var(--sbb-default-cursor-style);
+  --sbb-option-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-option-color: GrayText;

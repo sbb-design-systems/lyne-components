@@ -9,7 +9,7 @@
   --sbb-radio-button-border-color: var(--sbb-border-color-5);
   --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
-  --sbb-radio-button-cursor: var(--sbb-pointer-cursor-style);
+  --sbb-radio-button-cursor: var(--sbb-cursor-pointer);
 
   // The border in unchecked state should fill the circle.
   --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
@@ -45,7 +45,7 @@
   --sbb-radio-button-background-color: var(--sbb-background-color-3);
   --sbb-radio-button-border-style: dashed;
   --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
-  --sbb-radio-button-cursor: var(--sbb-default-cursor-style);
+  --sbb-radio-button-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-radio-button-inner-circle-color: GrayText;
