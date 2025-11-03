@@ -22,14 +22,14 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     display: flex;
     align-items: center;
     width: 100%;
-    cursor: pointer;
+    cursor: var(--sbb-cursor-pointer);
     padding: var(--sbb-link-padding, 0);
     outline: none;
   }
 
   :host(:is(#{$disabled})) & {
     pointer-events: none;
-    cursor: default;
+    cursor: var(--sbb-cursor-default);
 
     @include sbb.if-forced-colors {
       color: GrayText;

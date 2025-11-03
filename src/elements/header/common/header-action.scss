@@ -103,7 +103,7 @@
     --sbb-header-action-padding-inline-zero,
     var(--sbb-header-action-padding-inline)
   );
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   user-select: none;
   outline: none;
 

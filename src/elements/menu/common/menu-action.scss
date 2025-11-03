@@ -14,7 +14,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
   --sbb-menu-action-outer-vertical-padding: var(--sbb-spacing-fixed-1x);
   --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-menu-action-cursor: pointer;
+  --sbb-menu-action-cursor: var(--sbb-cursor-pointer);
   --sbb-menu-action-color: var(--sbb-color-2-inverted);
   --sbb-menu-action-forced-color-border-color: CanvasText;
   --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-2x);
@@ -31,12 +31,12 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 :host(:is(#{$disabled})) {
-  --sbb-menu-action-cursor: default;
+  --sbb-menu-action-cursor: var(--sbb-cursor-default);
   --sbb-menu-action-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
   --sbb-menu-action-forced-color-border-color: GrayText;
 
   pointer-events: none;
-  cursor: default;
+  cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: GrayText;
@@ -44,7 +44,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 :host([data-sbb-menu-trigger]) {
-  --sbb-menu-action-cursor: default;
+  --sbb-menu-action-cursor: var(--sbb-cursor-default);
 }
 
 :host([data-button]) {

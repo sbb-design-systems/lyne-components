@@ -83,7 +83,7 @@
 
 :host(:hover:not(:disabled)) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-step-label-cursor: pointer;
+    --sbb-step-label-cursor: var(--sbb-cursor-pointer);
     --sbb-step-label-prefix-background-color: var(--sbb-background-color-3);
     --sbb-step-label-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-step-label-prefix-size-grow-hover: calc(var(--sbb-border-width-2x) * -1);

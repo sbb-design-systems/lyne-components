@@ -7,7 +7,7 @@
   --sbb-tab-label-height: var(--sbb-size-element-m);
   --sbb-tab-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   --sbb-tab-label-line-color: var(--sbb-border-color-4-inverted);
-  --sbb-tab-label-cursor: pointer;
+  --sbb-tab-label-cursor: var(--sbb-cursor-pointer);
   --sbb-tab-label-pointer-events: unset;
   --sbb-tab-label-inset: 0;
   --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);

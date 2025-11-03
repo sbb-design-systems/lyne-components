@@ -12,7 +12,7 @@
   --sbb-paginator-page-border-width: 0;
   --sbb-paginator-page-border-style: none;
   --sbb-paginator-page-border-color: none;
-  --sbb-paginator-page-cursor: pointer;
+  --sbb-paginator-page-cursor: var(--sbb-cursor-pointer);
   --sbb-paginator-page-inset: 0;
   --sbb-paginator-animation-easing: var(--sbb-animation-easing);
   --sbb-paginator-animation-duration: var(
@@ -158,7 +158,7 @@
     --sbb-paginator-page-border-style: dashed;
     --sbb-paginator-page-border-color: var(--sbb-border-color-5);
     --sbb-paginator-page-background-color: var(--sbb-background-color-3);
-    --sbb-paginator-page-cursor: default;
+    --sbb-paginator-page-cursor: var(--sbb-cursor-default);
 
     &:not([data-selected]) {
       --sbb-paginator-page-border-width: var(--sbb-border-width-1x);

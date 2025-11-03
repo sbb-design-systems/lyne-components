@@ -23,7 +23,7 @@
 }
 
 :host(:disabled) {
-  cursor: default;
+  cursor: var(--sbb-cursor-default);
 }
 
 :host(:focus) {
