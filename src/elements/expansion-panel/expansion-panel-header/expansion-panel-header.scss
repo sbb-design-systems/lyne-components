@@ -68,7 +68,7 @@
   --sbb-icon-svg-width: var(--sbb-expansion-panel-icon-size);
   --sbb-icon-svg-height: var(--sbb-expansion-panel-icon-size);
 
-  :host(:not(:state(slotted-icon), [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 }

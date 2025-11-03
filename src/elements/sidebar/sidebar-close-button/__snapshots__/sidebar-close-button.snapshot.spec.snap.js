@@ -6,7 +6,6 @@ snapshots["sbb-sidebar-close-button renders DOM"] =
   data-action=""
   data-button=""
   data-sbb-button=""
-  icon-name="cross-small"
   size="s"
   slot="title-section"
   tabindex="0"

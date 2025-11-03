@@ -17,7 +17,7 @@ const type: InputType = {
   control: {
     type: 'select',
   },
-  options: ['info', 'success', 'warn', 'error'],
+  options: ['info', 'note', 'success', 'warn', 'error'],
 };
 
 const size: InputType = {
@@ -40,11 +40,18 @@ const animation: InputType = {
   options: ['all', 'close', 'open', 'none'],
 };
 
+const icon: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const basicArgTypes: ArgTypes = {
   type,
   size,
   readonly,
   animation,
+  'icon-name': icon,
 };
 
 const basicArgs: Args = {
@@ -52,6 +59,7 @@ const basicArgs: Args = {
   size: size.options![1],
   readonly: false,
   animation: animation.options![0],
+  'icon-name': undefined,
 };
 
 const appendNotification = (event: Event, args: Args): void => {
@@ -68,6 +76,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.size = args['size'];
   newNotification.readOnly = args['readonly'];
   newNotification.animation = args['animation'];
+  newNotification.iconName = args['icon-name'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
 
@@ -142,22 +151,28 @@ export const Info: StoryObj = {
   args: { ...basicArgs },
 };
 
-export const Success: StoryObj = {
+export const Note: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![1] },
 };
 
-export const Warn: StoryObj = {
+export const Success: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![2] },
 };
 
-export const Error: StoryObj = {
+export const Warn: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![3] },
+};
+
+export const Error: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, type: type.options![4] },
 };
 
 export const Readonly: StoryObj = {
@@ -170,18 +185,6 @@ export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, size: 's' },
-};
-
-export const NoTitle: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'title-content': undefined },
-};
-
-export const ReadonlyNoTitle: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'title-content': undefined, readonly: true },
 };
 
 export const MultipleNotifications: StoryObj = {

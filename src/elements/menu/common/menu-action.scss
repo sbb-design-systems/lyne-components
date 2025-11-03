@@ -50,7 +50,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
-:host([sbb-badge]:not([icon-name], :state(slotted-icon)))::after {
+:host([sbb-badge]:not(:state(has-icon-name), :state(slotted-icon)))::after {
   inset: 50%
     calc(
       100% - var(--sbb-menu-action-outer-horizontal-padding) - var(
@@ -62,7 +62,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   translate: 50% -50%;
 }
 
-:host([sbb-badge]:is([icon-name], :state(slotted-icon)))::after {
+:host([sbb-badge]:is(:state(has-icon-name), :state(slotted-icon)))::after {
   inset: calc(
       var(--sbb-menu-action-outer-vertical-padding) + var(--sbb-menu-action-content-padding-block) +
         var(--sbb-badge-position-offset)

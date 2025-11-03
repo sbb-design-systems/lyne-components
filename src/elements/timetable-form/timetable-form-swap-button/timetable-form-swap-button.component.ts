@@ -20,7 +20,6 @@ class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
 
   public constructor() {
     super();
-    this.iconName = 'arrow-change-small';
     this.addEventListener('click', () => this._invertFieldValues());
   }
 
@@ -53,6 +52,10 @@ class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
         input.dispatchEvent(new Event('change', { bubbles: true }));
       }
     });
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || 'arrow-change-small';
   }
 }
 
