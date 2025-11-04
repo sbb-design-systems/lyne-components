@@ -33,7 +33,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-seat-reservation-navigation-coach
-              coach-id="85"
+              coach-id="CI85"
               ?selected=${selected}
               ?disable=${disable}
               ?focused=${focused}
