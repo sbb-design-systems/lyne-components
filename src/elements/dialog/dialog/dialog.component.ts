@@ -158,13 +158,12 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   }
 
   private _detectIntermediateElement(): void {
-    const noExpectedElementAsDirectChild = [
-      'sbb-dialog-title',
-      'sbb-dialog-content',
-      'sbb-dialog-actions',
-    ].every((name) => this.firstElementChild?.localName !== name);
+    const hasNoExpectedDirectChildren =
+      this.querySelector(
+        ':scope > :is(sbb-dialog-title, sbb-dialog-close-button, sbb-dialog-content, sbb-dialog-actions)',
+      ) === null;
 
-    this.toggleState('has-intermediate-element', noExpectedElementAsDirectChild);
+    this.toggleState('has-intermediate-element', hasNoExpectedDirectChildren);
   }
 
   /** Check if the pointerdown event target is triggered on the dialog. */
