@@ -6,7 +6,6 @@ snapshots["sbb-dialog-close-button renders DOM"] =
   data-action=""
   data-button=""
   data-sbb-button=""
-  icon-name="cross-small"
   size="s"
   tabindex="0"
 >

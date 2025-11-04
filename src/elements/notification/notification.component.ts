@@ -13,18 +13,19 @@ import { SbbLanguageController } from '../core/controllers.js';
 import { isLean, isZeroAnimationDuration } from '../core/dom.js';
 import { i18nCloseNotification } from '../core/i18n.js';
 import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { SbbReadonlyMixin } from '../core/mixins.js';
+import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.js';
 import { boxSizingStyles } from '../core/styles.js';
+import { SbbIconNameMixin } from '../icon.js';
 import type { SbbTitleElement } from '../title.js';
 
 import style from './notification.scss?lit&inline';
 
 import '../button/secondary-button.js';
 import '../divider.js';
-import '../icon.js';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
+  ['note', 'circle-information-small'],
   ['success', 'circle-tick-small'],
   ['warn', 'circle-exclamation-point-small'],
   ['error', 'circle-cross-small'],
@@ -37,12 +38,15 @@ const DEBOUNCE_TIME = 150;
  *
  * @slot - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
+ * @slot icon - Use this slot to display a custom icon by providing an `sbb-icon` component.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
 export
 @customElement('sbb-notification')
-class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
+class SbbNotificationElement extends SbbIconNameMixin(
+  SbbReadonlyMixin(SbbElementInternalsMixin(LitElement)),
+) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
@@ -53,7 +57,12 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
   } as const;
 
   /** The type of the notification. */
-  @property({ reflect: true }) public accessor type: 'info' | 'success' | 'warn' | 'error' = 'info';
+  @property({ reflect: true }) public accessor type:
+    | 'info'
+    | 'note'
+    | 'success'
+    | 'warn'
+    | 'error' = 'info';
 
   /**
    * Size variant, either s or m.
@@ -212,14 +221,15 @@ class SbbNotificationElement extends SbbReadonlyMixin(LitElement) {
     }
   }
 
+  protected override renderIconName(): string {
+    return super.renderIconName() || notificationTypes.get(this.type)!;
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-notification__wrapper" @animationend=${this._onNotificationAnimationEnd}>
         <div class="sbb-notification">
-          <sbb-icon
-            class="sbb-notification__icon"
-            name=${notificationTypes.get(this.type)!}
-          ></sbb-icon>
+          ${this.renderIconSlot('sbb-notification__icon')}
           <span class="sbb-notification__content">
             <slot name="title" @slotchange=${this._configureTitle}></slot>
             <p class="sbb-notification__text">

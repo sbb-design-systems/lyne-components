@@ -9,7 +9,7 @@
   --sbb-visual-checkbox-border-style: solid;
   --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
   --sbb-visual-checkbox-selection-color: var(--sbb-color-primary);
-  --sbb-visual-checkbox-cursor: pointer;
+  --sbb-visual-checkbox-cursor: var(--sbb-cursor-pointer);
 
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: Canvas;
@@ -36,7 +36,7 @@
   --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
   --sbb-visual-checkbox-border-style: dashed;
   --sbb-visual-checkbox-selection-color: var(--sbb-color-2);
-  --sbb-visual-checkbox-cursor: default;
+  --sbb-visual-checkbox-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: Canvas;

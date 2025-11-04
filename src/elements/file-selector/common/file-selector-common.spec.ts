@@ -176,9 +176,7 @@ describe(`sbb-file-selector-common`, () => {
         `);
 
         const button: SbbSecondaryButtonElement =
-          element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-            'sbb-secondary-button[icon-name="trash-small"]',
-          )!;
+          element.shadowRoot!.querySelector<SbbSecondaryButtonElement>('sbb-secondary-button')!;
         expect(button).not.to.be.null;
         button.click();
         addFiles(input, 0);

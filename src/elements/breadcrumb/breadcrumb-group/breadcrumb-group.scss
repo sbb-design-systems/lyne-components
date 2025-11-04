@@ -59,7 +59,7 @@
 
   // In order to vertically center ..., we use padding with half the font size.
   padding-block-end: 0.5em;
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   color: var(--sbb-breadcrumb-group-ellipsis-color);
   background-color: var(--sbb-breadcrumb-group-ellipsis-background-color);
   overflow: hidden;

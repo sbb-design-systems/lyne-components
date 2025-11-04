@@ -22,7 +22,6 @@ class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
 
   public constructor() {
     super();
-    this.iconName = 'cross-small';
     this.size = 's' as this['size'];
   }
 
@@ -33,6 +32,10 @@ class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
 
   protected override renderTemplate(): TemplateResult {
     return super.renderIconSlot();
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || 'cross-small';
   }
 }
 

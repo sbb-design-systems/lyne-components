@@ -52,7 +52,6 @@ snapshots["sbb-dialog renders an open dialog with close button negative DOM"] =
     data-action=""
     data-button=""
     data-sbb-button=""
-    icon-name="cross-small"
     negative=""
     size="s"
     tabindex="0"

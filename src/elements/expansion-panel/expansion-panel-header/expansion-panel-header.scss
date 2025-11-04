@@ -3,7 +3,7 @@
 :host {
   display: block;
 
-  --sbb-expansion-panel-header-cursor: pointer;
+  --sbb-expansion-panel-header-cursor: var(--sbb-cursor-pointer);
   --sbb-expansion-panel-header-text-color: var(--sbb-color-2);
   --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-header-justify-content: space-between;
@@ -22,7 +22,7 @@
 }
 
 :host(:is(:disabled, [disabled-interactive])) {
-  --sbb-expansion-panel-header-cursor: default;
+  --sbb-expansion-panel-header-cursor: var(--sbb-cursor-default);
   --sbb-expansion-panel-header-text-color: light-dark(
     var(--sbb-color-granite),
     var(--sbb-color-storm)
@@ -68,7 +68,7 @@
   --sbb-icon-svg-width: var(--sbb-expansion-panel-icon-size);
   --sbb-icon-svg-height: var(--sbb-expansion-panel-icon-size);
 
-  :host(:not(:state(slotted-icon), [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 }

@@ -16,19 +16,19 @@
 
   :host(
     // No icon
-    :not([icon-name], :state(slotted-icon))) & {
+    :not(:state(has-icon-name), :state(slotted-icon))) & {
     display: none;
   }
 
   :host(
     // Icon present and placement start
-    :is([icon-name], :state(slotted-icon)):not([icon-placement='end'])) & {
+    :is(:state(has-icon-name), :state(slotted-icon)):not([icon-placement='end'])) & {
     padding-inline-end: var(--sbb-spacing-fixed-2x);
   }
 
   :host(
     // Icon present and placement end
-    :is([icon-name], :state(slotted-icon))[icon-placement='end']) & {
+    :is(:state(has-icon-name), :state(slotted-icon))[icon-placement='end']) & {
     padding-inline-start: var(--sbb-spacing-fixed-2x);
   }
 }

@@ -27,8 +27,8 @@ import '../../visual-checkbox.js';
  */
 export
 @customElement('sbb-checkbox')
-class SbbCheckboxElement<T = string> extends SbbCheckboxCommonElementMixin(
-  SbbIconNameMixin(LitElement),
+class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
+  SbbCheckboxCommonElementMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,

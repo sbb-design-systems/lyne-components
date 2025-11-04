@@ -11,7 +11,7 @@
   --sbb-option-min-height: var(--sbb-size-element-s);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-justify-content: start;
-  --sbb-option-cursor: pointer;
+  --sbb-option-cursor: var(--sbb-cursor-pointer);
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
   --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-option-focus-outline-color: transparent;
@@ -48,7 +48,7 @@
 }
 
 :host(:is([data-group-disabled], [disabled])) {
-  --sbb-option-cursor: default;
+  --sbb-option-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-option-color: GrayText;
@@ -135,7 +135,7 @@
   min-height: var(--sbb-size-icon-ui-small);
   color: var(--sbb-option-icon-color);
 
-  :host(:not(:state(slotted-icon), [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     // Can be overridden by the 'preserve-icon-space' on the autocomplete
     display: var(--sbb-option-icon-container-display, none);
   }
