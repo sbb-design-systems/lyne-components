@@ -165,4 +165,28 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(getComputedStyle(btn).borderStartEndRadius).to.be.equal('16px');
     await expect(getComputedStyle(btn).borderEndEndRadius).to.be.equal('16px');
   });
+
+  it('should call selectcoach on interaction', async () => {
+    const selectSpy = new EventSpy('selectcoach');
+    const btn = element.shadowRoot?.querySelector(
+      '.sbb-sr-navigation__ctrl-button',
+    ) as HTMLButtonElement;
+
+    btn.click();
+    await waitForLitRender(element);
+    await selectSpy.calledOnce();
+    await expect(selectSpy.count).to.be.equal(1);
+  });
+
+  it('should call focuscoach on interaction', async () => {
+    const focuscoach = new EventSpy('focuscoach');
+    const btn = element.shadowRoot?.querySelector(
+      '.sbb-sr-navigation__ctrl-button',
+    ) as HTMLButtonElement;
+
+    btn.focus();
+    await waitForLitRender(element);
+    await focuscoach.calledOnce();
+    await expect(focuscoach.count).to.be.equal(1);
+  });
 });
