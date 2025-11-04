@@ -178,7 +178,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       icon-name="${btnIcon}"
       type="button"
       aria-label="${btnAriaDescription}"
-      role="contentinfo"
+      role="navigation"
       .disabledInteractive="${btnDisabled || nothing}"
     ></sbb-secondary-button>`;
   }
