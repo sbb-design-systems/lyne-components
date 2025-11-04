@@ -106,4 +106,19 @@ describe(`sbb-popover`, () => {
       }),
     );
   });
+
+  describeViewports({ viewports: ['zero'], viewportHeight: 150 }, () => {
+    it(
+      `scrollable content`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(popover(), {
+          minHeight: '150px',
+          padding: '3rem',
+        });
+        setup.withPostSetupAction(() =>
+          setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
+        );
+      }),
+    );
+  });
 });

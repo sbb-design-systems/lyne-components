@@ -144,10 +144,10 @@
   display: flex;
   gap: var(--sbb-spacing-fixed-4x);
   border-radius: var(--sbb-popover-border-radius);
-  padding: var(--sbb-popover-padding);
+  padding-block: var(--sbb-popover-padding) 0;
+  padding-inline: var(--sbb-popover-padding);
   outline: none;
   background-color: var(--sbb-popover-background);
-  overflow: hidden;
   flex-direction: row-reverse;
 
   :host([data-position='above']) & {
@@ -155,6 +155,15 @@
       top: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
     }
   }
+}
+
+.sbb-popover__scrollable-content {
+  @include sbb.scrollbar;
+
+  display: block;
+  padding-block-end: var(--sbb-popover-padding);
+  max-height: calc(var(--sbb-popover-max-height));
+  overflow: auto;
 }
 
 @keyframes open {
