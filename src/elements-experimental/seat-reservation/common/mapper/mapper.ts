@@ -108,11 +108,10 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
  */
 export const mapPlaceInfosToPlaceSelection = (
   place: Place,
+  placeId: string,
   deckIndex: number,
   coachIndex: number,
 ): PlaceSelection => {
-  const placeId =
-    'seat-reservation__place-button-' + deckIndex + '-' + coachIndex + '-' + place.number;
   return {
     id: placeId,
     number: place.number,
@@ -128,17 +127,18 @@ export const mapPlaceInfosToPlaceSelection = (
  * This Object information is emitted outwards
  * @param place
  * @param coach
+ * @param placeId
+ * @param coachDeckIndex
  * @param coachIndex
  * @returns SeatReservationPlaceSelection
  */
 export const mapPlaceAndCoachToSeatReservationPlaceSelection = (
   place: Place,
   coach: CoachItem,
+  placeId: string,
   deckIndex: number,
   coachIndex: number,
 ): SeatReservationPlaceSelection => {
-  const placeId =
-    'seat-reservation__place-button-' + deckIndex + '-' + coachIndex + '-' + place.number;
   return {
     id: placeId,
     coachId: coach.id,

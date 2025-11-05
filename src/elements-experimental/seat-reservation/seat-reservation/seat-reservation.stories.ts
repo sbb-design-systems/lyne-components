@@ -135,11 +135,13 @@ export const TrainDecks: StoryObj = {
 const trainDeckUpperDiff = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
 trainDeckUpperDiff.coachItems = trainDeckUpperDiff.coachItems.slice(2, 3);
 trainDeckUpperDiff.deckCoachLevel = 'UPPER_DECK';
+trainDeckUpperDiff.deckCoachIndex = 2;
 
-//Reduce coachesfrom middle deck to get diff
+//Reduce coaches from middle deck to get diff
 const trainDeckMiddleDiff = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
 trainDeckMiddleDiff.coachItems = trainDeckMiddleDiff.coachItems.slice(1, 5);
 trainDeckMiddleDiff.deckCoachLevel = 'MIDDLE_DECK';
+trainDeckMiddleDiff.deckCoachIndex = 1;
 
 const trainDecksDiff: Args = {
   seatReservations: [trainDeckUpperDiff, trainDeckMiddleDiff, trainDeckBottom],
