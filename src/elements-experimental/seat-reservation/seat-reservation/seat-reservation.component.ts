@@ -405,7 +405,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             state=${place.state}
             coach-index=${coachIndex}
             deck-index=${placeCoachDeckIndex}
-            row-deck-index=${deckIndex}
+            data-deck-index=${deckIndex}
             .propertyIds=${place.propertyIds}
             .preventClick=${this.preventPlaceClick}
           ></sbb-seat-reservation-place-control>

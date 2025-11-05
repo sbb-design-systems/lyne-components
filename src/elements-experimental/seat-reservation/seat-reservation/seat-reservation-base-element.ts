@@ -1365,8 +1365,9 @@ export class SeatReservationBaseElement extends LitElement {
    * @returns number
    */
   private _getDeckIndexByPlaceId(placeId: string): number | null {
-    const deckIndex = this.shadowRoot?.querySelector('#' + placeId)?.getAttribute('row-deck-index');
-
+    const deckIndex = this.shadowRoot
+      ?.querySelector('#' + placeId)
+      ?.getAttribute('data-deck-index');
     if (deckIndex) {
       return Number(deckIndex);
     }

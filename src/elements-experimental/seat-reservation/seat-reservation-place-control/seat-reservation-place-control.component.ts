@@ -43,15 +43,10 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ attribute: 'text' })
   public accessor text: string = '';
 
-  /** Deck Index Prop for place selection */
+  /** Deck Index Prop to identifier the right place to deck */
   @forceType()
   @property({ attribute: 'deck-index', type: Number })
   public accessor deckIndex: number = null!;
-
-  /** Deck Index Prop to identifier the right place to deck */
-  @forceType()
-  @property({ attribute: 'row-deck-index', type: Number })
-  public accessor rowDeckIndex: number = null!;
 
   /** Coach Index Prop to identifier the right place to coach */
   @forceType()
