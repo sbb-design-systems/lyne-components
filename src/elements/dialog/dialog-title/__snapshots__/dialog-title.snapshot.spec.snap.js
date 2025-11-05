@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-dialog-title renders Light DOM"] = 
 `<sbb-dialog-title
   level="2"
-  slot="title-section"
   visual-level="4"
 >
   Title

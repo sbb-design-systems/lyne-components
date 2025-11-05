@@ -604,25 +604,25 @@ describe('sbb-dialog', () => {
       await openDialog(element);
 
       expect(element).to.have.attribute('data-state', 'opened');
-      await waitForCondition(() => element.matches(':state(overflows)'));
-      expect(element).to.match(':state(overflows)');
+      await waitForCondition(() => element.matches(':state(bottom-shadow)'));
+      expect(element).to.match(':state(bottom-shadow)');
     });
 
     it('should detect scrolled state', async () => {
       await openDialog(element);
 
-      const scrollContext = element.shadowRoot!.querySelector('.sbb-dialog-content-container')!;
+      const scrollContext = element.querySelector('sbb-dialog-content')!;
 
       const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
 
       await setViewport({ width: SbbBreakpointLargeMin, height: 200 });
       await waitForLitRender(element);
-      expect(element).not.to.match(':state(scrolled)');
+      expect(element).not.to.match(':state(top-shadow)');
 
       scrollContext.scrollTo({ top: 1, behavior: 'instant' });
       await scrollEventSpy.calledTimes(1);
 
-      expect(element).to.match(':state(scrolled)');
+      expect(element).to.match(':state(top-shadow)');
     });
   });
 

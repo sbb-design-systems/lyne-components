@@ -74,7 +74,7 @@
 .sbb-select__trigger {
   @include sbb.ellipsis;
 
-  cursor: default;
+  cursor: var(--sbb-cursor-default);
   height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 

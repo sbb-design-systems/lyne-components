@@ -139,7 +139,10 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
       description +=
         '. ' + getI18nSeatReservation('PLACE_PROPERTY', this._language.current).concat(': ');
       description += this.propertyIds
-        .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
+        .map((propertyId) =>
+          getI18nSeatReservation('PLACE_PROPERTIES.' + propertyId, this._language.current),
+        )
+        .filter((value) => value)
         .join(', ');
     }
 

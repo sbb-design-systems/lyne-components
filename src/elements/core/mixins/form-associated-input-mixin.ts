@@ -8,8 +8,8 @@ import {
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../a11y.js';
-import { SbbLanguageController } from '../controllers.js';
-import { isWebkit } from '../dom.js';
+import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../controllers.js';
+import { isBlink, isWebkit } from '../dom.js';
 import { i18nInputRequired } from '../i18n.js';
 
 import type { AbstractConstructor } from './constructor.js';
@@ -117,7 +117,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     public set value(value: string) {
       this._value = this._cleanText(value);
       if (this.hasUpdated) {
-        this.innerHTML = this._value;
+        this._assignValue(this._value);
       }
       /** @internal */
       this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
@@ -159,6 +159,9 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       this.addEventListener?.(
         'keydown',
         (event) => {
+          if (this._requiresEmptyPatch()) {
+            this._assignValue('');
+          }
           // We prevent recursive events by checking the original event for isTrusted
           // which is false for manually dispatched events (which we dispatch below).
           if ((event.key === 'Enter' || event.key === '\n') && event.isTrusted) {
@@ -216,6 +219,8 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
               this._shouldTriggerSubmit = false;
               this.form?.requestSubmit();
             }
+          } else if (this._requiresEmptyPatch()) {
+            this._setCursorAt(0);
           }
         },
         { capture: true },
@@ -227,6 +232,10 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       // or selection).
       this.addEventListener?.('paste', (e) => {
         e.preventDefault();
+        if (this._requiresEmptyPatch()) {
+          this._assignValue('');
+        }
+
         const text = this._cleanText(e.clipboardData?.getData('text/plain') ?? '');
         const selectedRange = window.getSelection()?.getRangeAt(0);
         if (!selectedRange || !text) {
@@ -245,6 +254,18 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
           window.getSelection()?.selectAllChildren(this);
         }
       });
+      this.addEventListener?.('touchend', () => {
+        if (this._requiresEmptyPatch()) {
+          this._assignValue('&nbsp;');
+          this._setCursorAt(0);
+        }
+      });
+      this.addEventListener?.('click', () => {
+        if (this._requiresEmptyPatch() && sbbInputModalityDetector.mostRecentModality === 'touch') {
+          this._setCursorAt(0);
+        }
+      });
+
       // On blur the native text input scrolls the text to the start of the text.
       // We mimick that by resetting the scroll position.
       // We also unset any selection to align with the native text input.
@@ -252,6 +273,9 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
         'blur',
         () => {
           window.getSelection()?.removeAllRanges();
+          if (this.value === '') {
+            this._assignValue('');
+          }
           this._emitChangeIfNecessary();
           this.scrollLeft = 0;
         },
@@ -269,7 +293,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       this._updateContenteditable();
 
       // We want to replace any content by just the text content.
-      this.innerHTML = this.value;
+      this._assignValue(this.value);
     }
 
     public override focus(options?: FocusOptions): void {
@@ -282,16 +306,12 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
         if (!selection) {
           return;
         }
-        let range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+        const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
         if (range && range.startOffset !== 0) {
           return;
         }
 
-        range = document.createRange();
-        range.setStart(this.firstChild!, this.textContent!.length);
-        range.collapse(true);
-        selection.removeAllRanges();
-        selection.addRange(range);
+        this._setCursorAt(this.textContent!.length);
       }
     }
 
@@ -353,7 +373,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       // If the value was assigned before firstUpdate, we have to
       // write it the document to be visually seen
       if (this.value && !this.innerHTML.length) {
-        this.innerHTML = this.value;
+        this._assignValue(this.value);
       }
     }
 
@@ -388,12 +408,39 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       return text;
     }
 
+    private _requiresEmptyPatch(): boolean {
+      // In Blink, a contenteditable element with empty content will crash
+      // upon receiving focus, when in Mobile mode.
+      // To prevent this, we patch the empty state by inserting a non-breaking space.
+      return isServer
+        ? false
+        : isBlink && this.value === '' && window.matchMedia(SbbMediaQueryPointerCoarse).matches;
+    }
+
+    private _assignValue(value: string): void {
+      this.innerHTML = value;
+    }
+
+    private _setCursorAt(position: number): void {
+      const selection = window.getSelection();
+      if (!selection) {
+        return;
+      }
+
+      const range = document.createRange();
+      range.setStart(this.firstChild!, position);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+
     private _cleanText(value: string): string {
       // The native text input removes all newline characters if passed to the value property
       return value === null ? '' : `${value}`.replace(/[\n\r]+/g, '');
     }
 
     private _dispatchInputEvent(): void {
+      /** The input event fires when the value has been changed as a direct result of a user action. */
       this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
 
@@ -432,6 +479,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     private _emitChangeIfNecessary(): void {
       if (this._shouldEmitChange) {
         this._shouldEmitChange = false;
+        /** The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. */
         this.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }

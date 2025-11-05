@@ -1469,7 +1469,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     `;
   }
 
-  /* Creates the table in orientation='vertical'. */
+  /** Creates the table in orientation='vertical'. */
   private _createDayTableVertical(
     weeks: Day<T>[][],
     weekNumbers: number[],

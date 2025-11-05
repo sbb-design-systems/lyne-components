@@ -37,7 +37,7 @@ describe(`sbb-calendar`, () => {
 
   const goToNextView = async (element: SbbCalendarElement): Promise<void> => {
     const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-      "sbb-secondary-button[icon-name='chevron-small-right-small']",
+      'sbb-secondary-button#sbb-calendar__controls-next',
     )!;
 
     nextButton.click();
@@ -530,11 +530,11 @@ describe(`sbb-calendar`, () => {
     );
 
     const buttonPrevDay = page.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-      "sbb-secondary-button[icon-name='chevron-small-left-small']",
+      'sbb-secondary-button#sbb-calendar__controls-previous',
     );
     expect(buttonPrevDay).to.have.attribute('disabled');
     const buttonNextDay = page.shadowRoot!.querySelector(
-      "sbb-secondary-button[icon-name='chevron-small-right-small']",
+      'sbb-secondary-button#sbb-calendar__controls-next',
     );
     expect(buttonNextDay).to.have.attribute('disabled');
 
@@ -626,7 +626,7 @@ describe(`sbb-calendar`, () => {
       await goToNextView(element);
 
       const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-        "sbb-secondary-button[icon-name='chevron-small-right-small']",
+        'sbb-secondary-button#sbb-calendar__controls-next',
       )!;
       expect(nextButton).to.have.attribute('disabled');
 
