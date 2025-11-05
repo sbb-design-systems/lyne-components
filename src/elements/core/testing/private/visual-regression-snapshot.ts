@@ -85,12 +85,10 @@ const runSetupWithViewport = async (
 ): Promise<VisualDiffSetupBuilder> => {
   const builder = new VisualDiffSetupBuilder();
   await setup(builder);
-
-  await builder.postSetupAction();
-
   if (viewport) {
     await setViewport(viewport);
   }
+  await builder.postSetupAction();
 
   return builder;
 };
