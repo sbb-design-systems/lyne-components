@@ -74,7 +74,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return this._range(7, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 
-  /* Defines which is the first day of the week (0: sunday; 1: monday; etc.). */
+  /** Defines which is the first day of the week (0: sunday; 1: monday; etc.). */
   public getFirstDayOfWeek(): number {
     return 1;
   }

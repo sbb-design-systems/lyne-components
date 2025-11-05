@@ -64,7 +64,7 @@ export type ElementPosition = {
   z: number;
 };
 
-/* Info about */
+/** Info about */
 export type CoachNumberOfFreePlaces = {
   seats: number;
   bicycles: number;

@@ -440,6 +440,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     }
 
     private _dispatchInputEvent(): void {
+      /** The input event fires when the value has been changed as a direct result of a user action. */
       this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
 
@@ -478,6 +479,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     private _emitChangeIfNecessary(): void {
       if (this._shouldEmitChange) {
         this._shouldEmitChange = false;
+        /** The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. */
         this.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }

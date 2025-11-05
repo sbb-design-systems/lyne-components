@@ -58,6 +58,7 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
     return super.value ?? '';
   }
 
+  /** Formats the current input's value as date. */
   @property({ attribute: false })
   public set valueAsDate(value: T | null) {
     value = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
