@@ -222,7 +222,7 @@ export class SeatReservationBaseElement extends LitElement {
     this._prepareNavigationCoachData();
   }
 
-  /* Init scroll event handling for coach navigation */
+  /** Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
     this.firstTabElement = this.shadowRoot?.querySelector('#first-tab-element') as HTMLElement;
     this.lastTabElement = this.shadowRoot?.querySelector('#last-tab-element') as HTMLElement;
