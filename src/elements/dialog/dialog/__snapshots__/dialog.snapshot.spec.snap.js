@@ -9,12 +9,11 @@ snapshots["sbb-dialog renders an open dialog DOM"] =
 >
   <sbb-dialog-title
     level="2"
-    slot="title-section"
     visual-level="4"
   >
     Title
   </sbb-dialog-title>
-  <sbb-dialog-content>
+  <sbb-dialog-content class="sbb-scrollbar">
     Content
   </sbb-dialog-content>
 </sbb-dialog>
@@ -25,18 +24,7 @@ snapshots["sbb-dialog renders an open dialog Shadow DOM"] =
 `<div class="sbb-dialog__container">
   <div class="sbb-dialog">
     <div class="sbb-dialog__wrapper">
-      <div class="sbb-dialog-title-section">
-        <slot name="title-section">
-        </slot>
-      </div>
-      <div
-        class="sbb-dialog-content-container"
-        part="scroll-container"
-      >
-        <slot>
-        </slot>
-      </div>
-      <slot name="actions">
+      <slot>
       </slot>
     </div>
   </div>
@@ -56,7 +44,6 @@ snapshots["sbb-dialog renders an open dialog with close button negative DOM"] =
   <sbb-dialog-title
     level="2"
     negative=""
-    slot="title-section"
     visual-level="4"
   >
     Title
@@ -67,11 +54,10 @@ snapshots["sbb-dialog renders an open dialog with close button negative DOM"] =
     data-sbb-button=""
     negative=""
     size="s"
-    slot="title-section"
     tabindex="0"
   >
   </sbb-dialog-close-button>
-  <sbb-dialog-content>
+  <sbb-dialog-content class="sbb-scrollbar">
     Content
   </sbb-dialog-content>
 </sbb-dialog>
@@ -82,18 +68,7 @@ snapshots["sbb-dialog renders an open dialog with close button negative Shadow D
 `<div class="sbb-dialog__container">
   <div class="sbb-dialog">
     <div class="sbb-dialog__wrapper">
-      <div class="sbb-dialog-title-section">
-        <slot name="title-section">
-        </slot>
-      </div>
-      <div
-        class="sbb-dialog-content-container"
-        part="scroll-container"
-      >
-        <slot>
-        </slot>
-      </div>
-      <slot name="actions">
+      <slot>
       </slot>
     </div>
   </div>

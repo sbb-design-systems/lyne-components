@@ -2,11 +2,25 @@
 
 :host {
   display: block;
-  margin-block: var(--sbb-dialog-padding-block);
-  margin-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-padding-block);
+  padding-inline: var(--sbb-dialog-padding-inline);
   hyphens: auto;
+  grid-area: title;
+  position: relative;
 }
 
 :host([negative]) {
   @include sbb.title--negative;
+}
+
+// Shadow below the title bar
+:host::after {
+  content: '';
+  display: block;
+  position: absolute;
+
+  // We have to be wider than the title to also cover a possible close button. 10 rem should be enough.
+  inset: 0 -10rem 0 0;
+  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
+  box-shadow: var(--sbb-dialog-block-start-box-shadow, none);
 }

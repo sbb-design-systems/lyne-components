@@ -25,11 +25,6 @@ class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
     this.size = 's' as this['size'];
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.slot ||= 'title-section';
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     this.internals.ariaLabel = i18nCloseDialog[this._languageController.current];

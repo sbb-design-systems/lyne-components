@@ -7,7 +7,6 @@ snapshots["sbb-dialog-close-button renders DOM"] =
   data-button=""
   data-sbb-button=""
   size="s"
-  slot="title-section"
   tabindex="0"
 >
 </sbb-dialog-close-button>

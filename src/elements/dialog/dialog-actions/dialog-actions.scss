@@ -1,14 +1,13 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
-
+  grid-area: actions;
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);
   margin-block-start: auto;
   background-color: var(--sbb-dialog-background-color);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
-  box-shadow: none;
+  box-shadow: var(--sbb-dialog-block-end-box-shadow, none);
 
   // Horizontal line has to be absolute positioned because otherwise
   // it interferes with scroll detection of above container.
