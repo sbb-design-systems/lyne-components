@@ -1,5 +1,6 @@
 $theme: 'standard' !default;
 
+@use 'sass:string';
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
@@ -39,37 +40,26 @@ $theme: 'standard' !default;
   --sbb-cursor-default: default;
   --sbb-cursor-pointer: pointer;
 
-  // Title
-  --sbb-title-font-size-level-1: var(--sbb-heading-font-size-1);
-  --sbb-title-font-size-level-2: var(--sbb-heading-font-size-2);
-  --sbb-title-font-size-level-3: var(--sbb-heading-font-size-3);
-  --sbb-title-font-size-level-4: var(--sbb-heading-font-size-4);
-  --sbb-title-font-size-level-5: var(--sbb-heading-font-size-5);
-  --sbb-title-font-size-level-6: var(--sbb-heading-font-size-6);
-  --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
-  --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
-  --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
-  --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
-  --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-  --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
-  --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
-  --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
+  // TODO: Remove complete block when new lean theme is complete
+  // Only render the block in standard theme as fallback for CSS class usage
+  @if not string.index($theme, 'lean') {
+    &.sbb-lean {
+      --sbb-title-font-size-level-1: var(--sbb-heading-font-size-2);
+      --sbb-title-font-size-level-2: var(--sbb-heading-font-size-3);
+      --sbb-title-font-size-level-3: var(--sbb-heading-font-size-4);
+      --sbb-title-font-size-level-4: var(--sbb-heading-font-size-5);
+      --sbb-title-font-size-level-5: var(--sbb-heading-font-size-6);
+      --sbb-title-font-size-level-6: var(--sbb-typo-scale-0-75x);
 
-  &.sbb-lean {
-    --sbb-title-font-size-level-1: var(--sbb-heading-font-size-2);
-    --sbb-title-font-size-level-2: var(--sbb-heading-font-size-3);
-    --sbb-title-font-size-level-3: var(--sbb-heading-font-size-4);
-    --sbb-title-font-size-level-4: var(--sbb-heading-font-size-5);
-    --sbb-title-font-size-level-5: var(--sbb-heading-font-size-6);
-    --sbb-title-font-size-level-6: var(--sbb-heading-font-size-7);
-    --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
-    --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
-    --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
-    --sbb-title-margin-block-end-level-2: var(--sbb-spacing-fixed-3x);
-    --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-    --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-2x);
-    --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-1x);
-    --sbb-title-margin-block-end-level-6: 0;
+      // TODO: Margin block migration
+      --sbb-heading-margin-block-1: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-3x);
+      --sbb-heading-margin-block-2: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-3x);
+      --sbb-heading-margin-block-3: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-responsive-xxxs);
+      --sbb-heading-margin-block-4: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-2x);
+      --sbb-heading-margin-block-5: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-1x);
+      --sbb-heading-margin-block-6: var(--sbb-spacing-responsive-s) 0;
+    }
   }
 
   // Infinity border radius, can be used to achieve rounded border on start and end
@@ -94,6 +84,14 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
+
+    // TODO: Remove complete block when new lean theme is complete
+    // Only render the block in standard theme as fallback for CSS class usage
+    @if not string.index($theme, 'lean') {
+      &.sbb-lean {
+        --sbb-title-font-size-level-6: var(--sbb-typo-scale-0-875x);
+      }
+    }
 
     // Header
     --sbb-header-height: var(--sbb-spacing-fixed-24x);
@@ -622,14 +620,12 @@ sbb-dialog-close-button {
   // The close button positioning needs the current dialog title size
   sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3']) > * > & {
-    // TODO: Adapt to lean size title
     --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
   }
 
   // The close button positioning needs the current dialog title size
   sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5']) > * > & {
-    // TODO: Adapt to lean size title
     --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
   }
 }

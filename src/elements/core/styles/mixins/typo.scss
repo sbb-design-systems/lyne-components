@@ -13,7 +13,7 @@
 }
 
 @mixin title--level-1 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-1);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-1, var(--sbb-heading-font-size-1));
 }
 
 @mixin title--level-1-spacing {
@@ -22,7 +22,7 @@
 }
 
 @mixin title--level-2 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-2);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-2, var(--sbb-heading-font-size-2));
 }
 
 @mixin title--level-2-spacing {
@@ -31,7 +31,7 @@
 }
 
 @mixin title--level-3 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-3);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-3, var(--sbb-heading-font-size-3));
 }
 
 @mixin title--level-3-spacing {
@@ -40,7 +40,7 @@
 }
 
 @mixin title--level-4 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-4);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-4, var(--sbb-heading-font-size-4));
 }
 
 @mixin title--level-4-spacing {
@@ -49,7 +49,7 @@
 }
 
 @mixin title--level-5 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-5);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-5, var(--sbb-heading-font-size-5));
 }
 
 @mixin title--level-5-spacing {
@@ -58,7 +58,7 @@
 }
 
 @mixin title--level-6 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-6);
+  --sbb-title-font-size: var(--sbb-title-font-size-level-6, var(--sbb-heading-font-size-6));
   --sbb-title-line-height: var(--sbb-typo-line-height-text);
 }
 
