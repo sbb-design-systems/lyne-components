@@ -112,10 +112,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                         })}"
                       >
                         ${this.seatReservations?.map(
-                          (seatReservation: SeatReservation, index: number) => {
+                          (seatReservation: SeatReservation, coachDeckIndex: number) => {
                             return html`<li class="sbb-sr__list-item-deck">
                               <ul class="sbb-sr__list-coaches" role="presentation">
-                                ${this._renderCoaches(seatReservation, index)}
+                                ${this._renderCoaches(seatReservation, coachDeckIndex)}
                               </ul>
                             </li>`;
                           },
@@ -230,7 +230,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    */
   private _renderCoaches(
     seatReservation: SeatReservation,
-    deckIndex: number,
+    coachDeckIndex: number,
   ): TemplateResult[] | null {
     const coaches: CoachItem[] = JSON.parse(JSON.stringify(seatReservation?.coachItems));
 
@@ -240,7 +240,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return coaches.map((coachItem: CoachItem, coachIndex: number) => {
       return html`
         <li class="sbb-sr__item-coach">
-          ${this._renderCoachElement(coachItem, coachIndex, deckIndex)}
+          ${this._renderCoachElement(
+            coachItem,
+            coachIndex,
+            coachDeckIndex,
+            seatReservation.deckCoachIndex,
+          )}
         </li>
       `;
     });
@@ -250,6 +255,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachItem: CoachItem,
     coachIndex: number,
     coachDeckIndex: number,
+    placeCoachDeckIndex: number,
   ): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
@@ -278,7 +284,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         <caption id="sbb-sr-coach-caption-${coachIndex}" tabindex="-1">
           <sbb-screen-reader-only>${descriptionTableCoachWithServices}</sbb-screen-reader-only>
         </caption>
-        ${this._getRenderedRowPlaces(coachItem, coachIndex, coachDeckIndex)}
+        ${this._getRenderedRowPlaces(coachItem, coachIndex, coachDeckIndex, placeCoachDeckIndex)}
       </table>
     </sbb-seat-reservation-scoped>`;
   }
@@ -320,7 +326,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _getRenderedRowPlaces(
     coach: CoachItem,
     coachIndex: number,
-    deckIndex: number,
+    coachDeckIndex: number,
+    placeCoachDeckIndex: number,
   ): TemplateResult[] | null {
     if (!coach.places) {
       return null;
@@ -340,7 +347,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       .map((rowPlaces: Place[], index) => {
         return html`
           <tr id="row-${coachIndex}-${rowPlaces[0].position.y}" data-row-index=${index}>
-            ${this._getRenderedColumnPlaces(rowPlaces, coachIndex, deckIndex)}
+            ${this._getRenderedColumnPlaces(
+              rowPlaces,
+              coachIndex,
+              coachDeckIndex,
+              placeCoachDeckIndex,
+            )}
           </tr>
         `;
       })
@@ -351,6 +363,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     places: Place[],
     coachIndex: number,
     deckIndex: number,
+    placeCoachDeckIndex: number,
   ): TemplateResult[] | null {
     //Sorts each place by its ascending x coordinate
     places.sort(
@@ -362,7 +375,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       const calculatedPosition = this.getCalculatedPosition(place.position);
       const rotation = place.rotation || 0;
       const textRotation = this.alignVertical ? -90 : 0;
-
+      const placeId = this.getPlaceElementId(deckIndex, coachIndex, place.number);
       return html`
         <td
           id="cell-${deckIndex}-${coachIndex}-${place.position.y}-${index}"
@@ -384,13 +397,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
               this._onSelectPlace(selectPlaceEvent)}
             exportparts="sbb-sr-place-part"
-            id="seat-reservation__place-button-${deckIndex}-${coachIndex}-${place.number}"
+            id=${placeId}
             class="seat-reservation-place-control"
             text=${place.number}
             type=${place.type}
             state=${place.state}
             coach-index=${coachIndex}
-            deck-index=${deckIndex}
+            deck-index=${placeCoachDeckIndex}
+            data-deck-index=${deckIndex}
             .propertyIds=${place.propertyIds}
             .preventClick=${this.preventPlaceClick}
           ></sbb-seat-reservation-place-control>
@@ -609,9 +623,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
     this.isCoachGridFocusable = false;
+
     if (!this.preventPlaceClick) {
-      // Set current deck index if a places was selected
-      this.currSelectedDeckIndex = selectedPlace.deckIndex;
       // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);
       this.updateCurrentSelectedPlaceInCoach(selectedPlace);
