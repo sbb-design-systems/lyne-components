@@ -12,9 +12,13 @@ import { html } from 'lit';
 describe('sbb-seat-reservation-navigation-coach', () => {
   let root: HTMLElement;
 
+  const propertyIds = ['BISTRO', 'WIFI', 'PRAM'];
+
   const cases = {
     selected: [false, true],
     disabled: [false, true],
+    darkMode: [false, true],
+    forcedColors: [false, true],
   };
 
   // Standard visual diff states to be tested;
@@ -24,7 +28,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ selected, disabled }) => {
+    describeEach(cases, ({ selected, disabled, darkMode, forcedColors }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -33,8 +37,13 @@ describe('sbb-seat-reservation-navigation-coach', () => {
               ?selected=${selected}
               ?disable=${disabled}
               travel-class=["FIRST"]
+              .propertyIds=${propertyIds}
             ></sbb-seat-reservation-navigation-coach>
           `,
+          {
+            darkMode,
+            forcedColors,
+          },
         );
       });
 
