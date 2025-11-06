@@ -26,7 +26,7 @@ $icon-only: ':where(:state(slotted-icon), :state(has-icon-name)):not(:state(slot
 .sbb-mini-button__label {
   @include sbb.ellipsis;
 
-  font-size: var(--sbb-font-size-text-xxs);
+  font-size: var(--sbb-text-font-size-xxs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   display: var(--sbb-mini-button-label-display);
   transition: translate var(--sbb-mini-button-transition-duration)

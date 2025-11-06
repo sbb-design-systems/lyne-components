@@ -40,12 +40,12 @@ $theme: 'standard' !default;
   --sbb-cursor-pointer: pointer;
 
   // Title
-  --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
-  --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
-  --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
-  --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
-  --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
-  --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
+  --sbb-title-font-size-level-1: var(--sbb-heading-font-size-1);
+  --sbb-title-font-size-level-2: var(--sbb-heading-font-size-2);
+  --sbb-title-font-size-level-3: var(--sbb-heading-font-size-3);
+  --sbb-title-font-size-level-4: var(--sbb-heading-font-size-4);
+  --sbb-title-font-size-level-5: var(--sbb-heading-font-size-5);
+  --sbb-title-font-size-level-6: var(--sbb-heading-font-size-6);
   --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
   --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
   --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
@@ -56,12 +56,12 @@ $theme: 'standard' !default;
   --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
 
   &.sbb-lean {
-    --sbb-title-font-size-level-1: var(--sbb-font-size-title-2);
-    --sbb-title-font-size-level-2: var(--sbb-font-size-title-3);
-    --sbb-title-font-size-level-3: var(--sbb-font-size-title-4);
-    --sbb-title-font-size-level-4: var(--sbb-font-size-title-5);
-    --sbb-title-font-size-level-5: var(--sbb-font-size-title-6);
-    --sbb-title-font-size-level-6: var(--sbb-font-size-title-7);
+    --sbb-title-font-size-level-1: var(--sbb-heading-font-size-2);
+    --sbb-title-font-size-level-2: var(--sbb-heading-font-size-3);
+    --sbb-title-font-size-level-3: var(--sbb-heading-font-size-4);
+    --sbb-title-font-size-level-4: var(--sbb-heading-font-size-5);
+    --sbb-title-font-size-level-5: var(--sbb-heading-font-size-6);
+    --sbb-title-font-size-level-6: var(--sbb-heading-font-size-7);
     --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
     --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
     --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
@@ -129,7 +129,7 @@ $theme: 'standard' !default;
 html {
   @include typo.text;
 
-  color: var(--sbb-font-default-color);
+  color: var(--sbb-font-color-default);
   background-color: var(--sbb-background-color-1);
 }
 
@@ -292,7 +292,7 @@ html {
 // Ensure stable breadcrumb height during hydrating
 sbb-breadcrumb-group:not(:defined) {
   display: block;
-  height: calc(var(--sbb-typo-line-height-text) * var(--sbb-font-size-text-xs));
+  height: calc(var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs));
   overflow: hidden;
 }
 
@@ -313,7 +313,7 @@ sbb-breadcrumb-group:not(:defined) {
   color: var(--sbb-color-1);
 
   strong + * {
-    font-size: var(--sbb-font-size-text-xxs);
+    font-size: var(--sbb-text-font-size-xxs);
     color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   }
 }
@@ -623,23 +623,23 @@ sbb-dialog-close-button {
   sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3']) > * > & {
     // TODO: Adapt to lean size title
-    --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
+    --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
   }
 
   // The close button positioning needs the current dialog title size
   sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5']) > * > & {
     // TODO: Adapt to lean size title
-    --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
+    --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
   }
 }
 
 sbb-notification:has(sbb-title) {
-  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
   --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
 
   &[size='s'] {
-    --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
+    --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
     --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
   }
 }
@@ -647,7 +647,7 @@ sbb-notification:has(sbb-title) {
 sbb-status:has(sbb-title) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
+  --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 }
 

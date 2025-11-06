@@ -16,7 +16,7 @@ import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
 const originalStyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
   Array.from(stylesheet.cssRules).find((value) =>
     // We assume that we target the standard theme file if this variable is included.
-    value.cssText.includes('--sbb-font-default-color'),
+    value.cssText.includes('--sbb-font-color-default'),
   ),
 );
 

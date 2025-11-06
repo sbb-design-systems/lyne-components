@@ -145,7 +145,7 @@
 }
 
 @mixin text-xl--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-xl);
+  --sbb-text-font-size: var(--sbb-text-font-size-xl);
   @include text;
 }
 
@@ -155,7 +155,7 @@
 }
 
 @mixin text-l--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-l);
+  --sbb-text-font-size: var(--sbb-text-font-size-l);
   @include text;
 }
 
@@ -165,7 +165,7 @@
 }
 
 @mixin text-m--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-m);
+  --sbb-text-font-size: var(--sbb-text-font-size-m);
   @include text;
 }
 
@@ -175,7 +175,7 @@
 }
 
 @mixin text-s--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-s);
+  --sbb-text-font-size: var(--sbb-text-font-size-s);
   @include text;
 }
 
@@ -185,7 +185,7 @@
 }
 
 @mixin text-xs--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-xs);
+  --sbb-text-font-size: var(--sbb-text-font-size-xs);
   @include text;
 }
 
@@ -195,7 +195,7 @@
 }
 
 @mixin text-xxs--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
+  --sbb-text-font-size: var(--sbb-text-font-size-xxs);
   @include text;
 }
 

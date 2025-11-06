@@ -54,13 +54,13 @@ const defaultArgs: Args = {
 
 const userNameStyle: Args = {
   fontWeight: 'bold',
-  fontSize: 'var(--sbb-font-size-text-xs)',
+  fontSize: 'var(--sbb-text-font-size-xs)',
   marginTop: 'var(--sbb-spacing-fixed-1x)',
 };
 
 const userInfoStyle: Args = {
   color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke))',
-  fontSize: 'var(--sbb-font-size-text-xxs)',
+  fontSize: 'var(--sbb-text-font-size-xxs)',
 };
 
 const triggerButton = (id: string): TemplateResult => html`
