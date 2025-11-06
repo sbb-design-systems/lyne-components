@@ -427,7 +427,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.isAutoScrolling = true;
       this.isCoachGridFocusable = true;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
-      this.currSelectedDeckIndex = this._getExistCoachDeckIndex();
+      this.currSelectedDeckIndex = this._getExistingCoachDeckIndex();
       this._setScrollDirectionByCoachIndex();
 
       const scrollToCoachPosX = this._getCoachScrollPositionX();
@@ -1361,15 +1361,15 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
-   * Returns the current coach deck index from the selected places
+   * Returns the extracted coach deck index from place id
    * @returns number
    */
   private _getDeckIndexByPlaceId(placeId: string): number | null {
     const deckIndex = this.shadowRoot
       ?.querySelector('#' + placeId)
       ?.getAttribute('data-deck-index');
-    if (deckIndex) {
-      return Number(deckIndex);
+    if (deckIndex && !isNaN(+deckIndex)) {
+      return +deckIndex;
     }
     return null;
   }
@@ -1383,14 +1383,15 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Returns existing coach deck index depending on the selected coach.
-   * This method is necessary to get an available coach deck index, which may be not exist for coaches with different deck offsets.
+   * This method is necessary to get an available coach deck index during keyboard navigation, which can vary between coaches with different decks.
+   * For example, when navigating from a coach with two decks to a coach with one deck.
    *
    *       [ooo]-[ooo]-[ooo]
    * [ooo]-[ooo]-[ooo]-[ooo]-[ooo]
    *
    * @returns number
    */
-  private _getExistCoachDeckIndex(): number {
+  private _getExistingCoachDeckIndex(): number {
     if (
       this.seatReservations[this.currSelectedDeckIndex].coachItems[this.currSelectedCoachIndex]
         .places !== undefined
