@@ -4,7 +4,7 @@ import {
   visualDiffDefault,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import './seat-reservation-navigation-services.component.ts';
+import './seat-reservation-navigation-services.component.js';
 import { html } from 'lit';
 
 describe('sbb-seat-reservation-navigation-services', () => {
