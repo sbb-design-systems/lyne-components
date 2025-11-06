@@ -161,7 +161,7 @@ html {
     // TODO: Find a better solution
     font-size: var(--sbb-form-field-input-text-size) !important;
     font-family: var(--sbb-typo-font-family) !important;
-    line-height: var(--sbb-typo-line-height-body-text) !important;
+    line-height: var(--sbb-typo-line-height-text) !important;
 
     &::placeholder {
       @include typo.placeholder;
@@ -205,7 +205,7 @@ html {
 
     // We add the missing block spacing to fit the line-height
     margin-block: calc(
-      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-body-text) - 1.25))
+      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-text) - 1.25))
     );
   }
 
@@ -219,7 +219,7 @@ html {
       // White-space break needed for Firefox
       white-space: break-spaces;
       overflow-y: auto;
-      min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+      min-height: calc((var(--sbb-typo-line-height-text) * 1em));
     }
   }
 
@@ -292,7 +292,7 @@ html {
 // Ensure stable breadcrumb height during hydrating
 sbb-breadcrumb-group:not(:defined) {
   display: block;
-  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+  height: calc(var(--sbb-typo-line-height-text) * var(--sbb-font-size-text-xs));
   overflow: hidden;
 }
 
@@ -636,11 +636,11 @@ sbb-dialog-close-button {
 
 sbb-notification:has(sbb-title) {
   --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-titles);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
 
   &[size='s'] {
     --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
-    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
   }
 }
 
@@ -648,7 +648,7 @@ sbb-status:has(sbb-title) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
-  --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
+  --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 }
 
 .sbb-overlay-outlet {

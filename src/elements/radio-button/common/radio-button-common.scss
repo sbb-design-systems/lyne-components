@@ -17,7 +17,7 @@
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
   --sbb-radio-button-icon-align: calc(
-    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-dimension)) / 2
+    (1em * var(--sbb-typo-line-height-text) - var(--sbb-radio-button-dimension)) / 2
   );
 
   @include sbb.if-forced-colors {

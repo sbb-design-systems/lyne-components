@@ -7,8 +7,8 @@
   margin-inline: 0;
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
-  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-titles));
-  letter-spacing: var(--sbb-typo-letter-spacing-titles);
+  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
   font-size: var(--sbb-title-font-size);
 }
 
@@ -59,7 +59,7 @@
 
 @mixin title--level-6 {
   --sbb-title-font-size: var(--sbb-title-font-size-level-6);
-  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-title-line-height: var(--sbb-typo-line-height-text);
 }
 
 @mixin title--level-6-spacing {
@@ -135,8 +135,8 @@
 @mixin text {
   font-family: var(--sbb-typo-font-family);
   font-weight: normal;
-  line-height: var(--sbb-typo-line-height-body-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-text-font-size);
 }
 

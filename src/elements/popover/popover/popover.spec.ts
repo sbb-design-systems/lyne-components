@@ -1,11 +1,10 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
 import { mergeConfig } from '../../core/config.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import type { SbbLinkElement } from '../../link.js';
 
@@ -138,7 +137,7 @@ describe(`sbb-popover`, () => {
     });
 
     it('is correctly positioned on screen', async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 800 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
 
       trigger.click();
 

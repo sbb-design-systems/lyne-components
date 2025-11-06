@@ -49,7 +49,7 @@
   align-items: center;
   justify-content: center;
   height: calc(
-    var(--sbb-typo-line-height-body-text) * var(--sbb-text-font-size) +
+    var(--sbb-typo-line-height-text) * var(--sbb-text-font-size) +
       var(--sbb-chip-label-padding-block) * 2
   );
   background-color: var(--sbb-chip-label-background-color);

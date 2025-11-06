@@ -1,9 +1,8 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.js';
 import { EventSpy, waitForLitRender } from '../../core/testing.js';
 import { SbbMenuElement } from '../../menu.js';
 import type { SbbHeaderButtonElement } from '../header-button.js';
@@ -15,7 +14,7 @@ describe(`sbb-header`, () => {
   let element: SbbHeaderElement;
 
   beforeEach(async () => {
-    await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
   });
 
   it('renders', async () => {

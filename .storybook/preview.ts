@@ -1,4 +1,9 @@
-import * as tokens from '@sbb-esta/lyne-design-tokens';
+import {
+  SbbBreakpointLargeMin,
+  SbbBreakpointSmallMin,
+  SbbBreakpointUltraMin,
+  SbbBreakpointZeroMin,
+} from '@sbb-esta/lyne-design-tokens';
 import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
@@ -8,14 +13,14 @@ import '../src/elements/core/styles/standard-theme.scss';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
 
-const originaltyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
+const originalStyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
   Array.from(stylesheet.cssRules).find((value) =>
     // We assume that we target the standard theme file if this variable is included.
     value.cssText.includes('--sbb-font-default-color'),
   ),
 );
 
-const standardTheme = Array.from(originaltyleSheet?.cssRules ?? [])
+const standardTheme = Array.from(originalStyleSheet?.cssRules ?? [])
   .map((rule) => rule.cssText)
   .join('');
 
@@ -25,7 +30,7 @@ const standardTheme = Array.from(originaltyleSheet?.cssRules ?? [])
 const themeStyleSheet = new CSSStyleSheet();
 themeStyleSheet.replaceSync(standardTheme);
 document.adoptedStyleSheets.push(themeStyleSheet);
-originaltyleSheet?.ownerNode?.remove();
+originalStyleSheet?.ownerNode?.remove();
 
 const themeMap = { standard: standardTheme, 'off-brand': offBrandTheme, safety: safetyTheme };
 
@@ -108,9 +113,13 @@ const withBackgroundDecorator = makeDecorator({
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
 
-const breakpoints = Object.entries(tokens)
-  .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))
-  .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))
+const breakpoints = [
+  SbbBreakpointZeroMin,
+  SbbBreakpointSmallMin,
+  SbbBreakpointLargeMin,
+  SbbBreakpointUltraMin,
+]
+  .map(([key, value]) => ({ key: getViewportName(key), value: parseFloat(value) * 16 }))
   .sort((a, b) => a.value - b.value);
 
 const breakpointNames: Record<string, number> = breakpoints.reduce(

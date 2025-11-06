@@ -139,7 +139,7 @@ $active: ':active, [data-active]';
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  height: calc(var(--sbb-typo-line-height-text) * 1em);
   flex-shrink: 0;
 
   :host(:not(:state(slotted-icon), :state(has-icon-name))) & {

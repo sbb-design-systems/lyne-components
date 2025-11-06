@@ -1,12 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../button.js';
 import { i18nDialog } from '../core/i18n.js';
 import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
-import { tabKey } from '../core/testing/private.js';
+import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbOverlayElement } from './overlay.component.js';
@@ -34,7 +33,7 @@ describe('sbb-overlay', () => {
     let element: SbbOverlayElement, ariaLiveRef: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
         <sbb-overlay id="my-overlay-1" accessibility-label="Label">
           <p>Overlay content</p>
@@ -313,7 +312,7 @@ describe('sbb-overlay', () => {
     let element: SbbOverlayElement, trigger: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       const root = await fixture(html`
         <div>
           <button id="trigger"></button>

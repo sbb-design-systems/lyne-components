@@ -344,11 +344,11 @@ We provide further utilities to improve the safety relevant theme:
 
 Note that the font family should support changing the font-weight.
 
-| CSS variable                          | Description                                                      |
-| ------------------------------------- | ---------------------------------------------------------------- |
-| `--sbb-typo-font-family`              | Can be used to override the font family for all texts and titles |
-| `--sbb-typo-letter-spacing-body-text` | Can be used to override letter spacing for texts                 |
-| `--sbb-typo-letter-spacing-titles`    | Can be used to override letter spacing for titles                |
+| CSS variable                        | Description                                                      |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| `--sbb-typo-font-family`            | Can be used to override the font family for all texts and titles |
+| `--sbb-typo-letter-spacing-text`    | Can be used to override letter spacing for texts                 |
+| `--sbb-typo-letter-spacing-heading` | Can be used to override letter spacing for titles                |
 
 ##### Cursor customization
 
