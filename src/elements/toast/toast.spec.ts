@@ -44,7 +44,7 @@ describe(`sbb-toast`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    expect(element).to.match(':state(state-1)');
+    expect(element).to.match(':state(state-opened)');
     expect(element).to.match(':popover-open');
 
     // Will wait for timeout and then close itself
@@ -58,7 +58,7 @@ describe(`sbb-toast`, () => {
     expect(closeSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(element).to.match(':state(state-1)');
+    expect(element).to.match(':state(state-closed)');
     expect(element).not.to.match(':popover-open');
   });
 
@@ -86,7 +86,7 @@ describe(`sbb-toast`, () => {
     expect(closeSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(element).to.match(':state(state-1)');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('closes by marked action element', async () => {
@@ -116,7 +116,7 @@ describe(`sbb-toast`, () => {
     expect(closeSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(element).to.match(':state(state-1)');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('forces state on button actions', async () => {
@@ -218,6 +218,6 @@ describe(`sbb-toast`, () => {
 
     await waitForLitRender(element);
     await closeSpy.calledOnce();
-    expect(element).to.match(':state(state-1)');
+    expect(element).to.match(':state(state-closed)');
   });
 });
