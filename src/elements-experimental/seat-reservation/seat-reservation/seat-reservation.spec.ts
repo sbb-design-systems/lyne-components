@@ -12,6 +12,7 @@ import { SbbSeatReservationElement } from './seat-reservation.component.js';
 describe('sbb-seat-reservation', () => {
   let element: SbbSeatReservationElement;
   const dataFull = [mapRawDataToSeatReservation('TRAIN')];
+  const TIMEOUT_NAVIGATION: number = 1000;
 
   beforeEach(async () => {
     element = await fixture(
@@ -93,7 +94,7 @@ describe('sbb-seat-reservation', () => {
   it('should not have a first-tab-element btn with disabled-interactive attr; selectable coaches are in front', async () => {
     element.preselectCoachIndex = 2;
     await waitForLitRender(element);
-    await aTimeout(1200); // wait until navigation is re-rendered (takes a lot of time :/)
+    await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
     const btn = element.shadowRoot!.querySelector(
       '#first-tab-element',
     ) as SbbSecondaryButtonElement;
@@ -132,7 +133,7 @@ describe('sbb-seat-reservation', () => {
   it('should have clickable first-tab-element btn; selectable coaches in front', async () => {
     element.preselectCoachIndex = 2;
     await waitForLitRender(element);
-    await aTimeout(1200); // wait until navigation is re-rendered (takes a lot of time :/)
+    await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
 
     const clickSpy = new EventSpy('click');
     const btn = element.shadowRoot!.querySelector(
@@ -145,7 +146,7 @@ describe('sbb-seat-reservation', () => {
   it('should propagating click if first-tab-element btn is clickable; selectable coaches in front', async () => {
     element.preselectCoachIndex = 2;
     await waitForLitRender(element);
-    await aTimeout(1200); // wait until navigation is re-rendered (takes a lot of time :/)
+    await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
     const clickSpy = new EventSpy('click');
     const btn = element.shadowRoot!.querySelector(
       '#first-tab-element',
