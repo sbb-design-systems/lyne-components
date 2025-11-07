@@ -114,6 +114,7 @@ describe('sbb-seat-reservation', () => {
     const btn = element.shadowRoot!.querySelector(
       '#first-tab-element',
     ) as SbbSecondaryButtonElement;
+
     btn.click();
     await expect(clickSpy.count).to.be.equal(0);
   });

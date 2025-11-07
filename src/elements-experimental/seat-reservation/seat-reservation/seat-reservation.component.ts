@@ -172,6 +172,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     return html`<sbb-secondary-button
       @click="${() => this.navigateByDirectionBtn(btnDirection)}"
+      ?disabled="${btnDisabled}"
       id="${btnId}"
       class="sbb-sr__navigation-control-button"
       size="s"
