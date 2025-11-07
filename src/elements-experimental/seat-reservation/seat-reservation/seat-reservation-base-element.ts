@@ -302,11 +302,11 @@ export class SeatReservationBaseElement extends LitElement {
   protected coachAreaScrollend(): void {
     if (this._scrollTimeout) {
       // First, we cleared the registered timeout, as the scrolling is still running
-      // and thus we prevent the execution of the _handleCoachAreaScrollEvent function
+      // and thus we prevent the execution of the _handleCoachAreaScrollendEvent function
       clearTimeout(this._scrollTimeout);
     }
-    // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollEvent without clearing
-    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollEvent(), 150);
+    // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollendEvent without clearing
+    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollendEvent(), 150);
   }
 
   /**
@@ -332,6 +332,9 @@ export class SeatReservationBaseElement extends LitElement {
    */
   protected handleKeyboardEvent(event: KeyboardEvent): void {
     const pressedKey = event.key;
+
+    // For any keyboard use, the preventCoachScrollByPlaceClick variable must be reset to false
+    this.preventCoachScrollByPlaceClick = false;
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
@@ -566,7 +569,15 @@ export class SeatReservationBaseElement extends LitElement {
    * At the end of a scroll Event from the coach scrollable area,
    * the reached coach is marked as selected
    */
-  private _handleCoachAreaScrollEvent(): void {
+  private _handleCoachAreaScrollendEvent(): void {
+    // If a place was selected by mouse click (preventCoachScrollByPlaceClick) before triggering this scrolling end methode,
+    // this scrolling was triggered by the method _scrollPlaceIntoNearestViewport and nothing have to do here,
+    // because only the place was scrolled into the visible view area.
+    if (this.preventCoachScrollByPlaceClick) {
+      this.preventCoachScrollByPlaceClick = false;
+      return;
+    }
+
     const findScrollCoachIndex = this.isAutoScrolling
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
@@ -944,7 +955,6 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
-    this.preventCoachScrollByPlaceClick = false;
     this.isKeyboardNavigation = true;
 
     if (this.focusedCoachIndex !== -1) {
@@ -1070,6 +1080,12 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     this._setCurrSelectedPlaceElementId(place);
+
+    // Time delay to wait for status update process at clicked place
+    const delayScrollInViewport = setTimeout(() => {
+      this._scrollPlaceIntoNearestViewport(placeSelection.id);
+      clearTimeout(delayScrollInViewport);
+    }, 0);
   }
 
   protected updateCurrentSelectedCoach(): void {
@@ -1407,5 +1423,17 @@ export class SeatReservationBaseElement extends LitElement {
     return this.currSelectedDeckIndex >= nextAvailableDeckCoachIndex
       ? this.currSelectedDeckIndex
       : nextAvailableDeckCoachIndex;
+  }
+
+  /**
+   * If a selected place is slightly hidden by the overflow scroll content and is still clicked,
+   * the method tries to scroll the selected place into the nearest viewport, so that it is completely visible.
+   *
+   * @param placeId
+   */
+  private _scrollPlaceIntoNearestViewport(placeId: string): void {
+    this.shadowRoot
+      ?.querySelector('#' + placeId)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   }
 }
