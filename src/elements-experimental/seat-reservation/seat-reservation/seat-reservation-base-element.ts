@@ -1433,7 +1433,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _scrollPlaceIntoNearestViewport(placeId: string): void {
     this.shadowRoot
-      ?.querySelector('#' + placeId)
+      ?.getElementById(placeId)
       ?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   }
 }
