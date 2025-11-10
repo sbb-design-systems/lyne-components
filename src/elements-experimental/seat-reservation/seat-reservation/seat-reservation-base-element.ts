@@ -427,6 +427,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.isAutoScrolling = true;
       this.isCoachGridFocusable = true;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
+      this.currSelectedDeckIndex = this._getExistingCoachDeckIndex();
       this._setScrollDirectionByCoachIndex();
 
       const scrollToCoachPosX = this._getCoachScrollPositionX();
@@ -453,7 +454,6 @@ export class SeatReservationBaseElement extends LitElement {
     this.unfocusPlaceElement();
     if (place) {
       this.currSelectedPlace = place;
-
       this._setCurrSelectedPlaceElementId(place);
 
       const selectedPlaceElement = this._getPlaceHtmlElement();
@@ -1002,7 +1002,6 @@ export class SeatReservationBaseElement extends LitElement {
     );
 
     this.selectedSeatReservationPlaces[placeTypeProp] = updatedSelectedPlaces;
-
     /**
      * @type {CustomEvent<SeatReservationSelectedPlaces>}
      * Emits when a place was selected and returns a Place array with all selected places.
@@ -1023,7 +1022,11 @@ export class SeatReservationBaseElement extends LitElement {
   ): SeatReservationPlaceSelection[] {
     // Add selected place to selectedSeatReservationPlaces
     if (placeSelection.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
+      const selectedPlaceDeckIndex = this._getDeckIndexByPlaceId(placeSelection.id);
+      const seatReservationSelection = this._getSeatReservationPlaceSelection(
+        placeSelection,
+        selectedPlaceDeckIndex,
+      );
       if (seatReservationSelection) {
         selectedSeatReservationPlaces.push(seatReservationSelection);
       }
@@ -1043,19 +1046,25 @@ export class SeatReservationBaseElement extends LitElement {
         resetWithPlaceSelection,
       );
     }
-
     return selectedSeatReservationPlaces;
   }
 
   protected updateCurrentSelectedPlaceInCoach(placeSelection: PlaceSelection): void {
+    const placeDeckIndex = this._getDeckIndexByPlaceId(placeSelection.id);
     const coachIndex = placeSelection.coachIndex;
-    const place = this.seatReservations[this.currSelectedDeckIndex].coachItems[
-      coachIndex
-    ].places?.find((place) => place.number == placeSelection.number);
+
+    if (placeDeckIndex === null) return;
+
+    const place = this.seatReservations[placeDeckIndex].coachItems[coachIndex].places?.find(
+      (place) => place.number == placeSelection.number,
+    );
 
     if (!place) return;
+
+    this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
+
     if (this.currSelectedCoachIndex !== this.selectedCoachIndex) {
       this.updateCurrentSelectedCoach();
     }
@@ -1080,6 +1089,16 @@ export class SeatReservationBaseElement extends LitElement {
         }),
       );
     }
+  }
+
+  protected getPlaceElementId(
+    coachDeckIndex: number,
+    coachIndex: number,
+    placeNumber: string,
+  ): string {
+    return (
+      'seat-reservation__place-button-' + coachDeckIndex + '-' + coachIndex + '-' + placeNumber
+    );
   }
 
   /**
@@ -1126,18 +1145,22 @@ export class SeatReservationBaseElement extends LitElement {
    * that have the state SELECTED within the seatReservation object
    */
   private _initSeatReservationPlaceSelection(): void {
-    this.seatReservations?.forEach((seatReservation) =>
+    this.seatReservations?.forEach((seatReservation: SeatReservation, coachDeckIndex: number) =>
       seatReservation.coachItems.map((coach: CoachItem, coachIndex: number) => {
         coach.places
           ?.filter((place) => place.state === 'SELECTED')
           ?.forEach((place) => {
+            const placeId = this.getPlaceElementId(coachDeckIndex, coachIndex, place.number);
             const preselectedPlaceSelection: PlaceSelection = mapPlaceInfosToPlaceSelection(
               place,
+              placeId,
               seatReservation.deckCoachIndex,
               coachIndex,
             );
+
             const seatReservationPlaceSelection: SeatReservationPlaceSelection | null =
-              this._getSeatReservationPlaceSelection(preselectedPlaceSelection);
+              this._getSeatReservationPlaceSelection(preselectedPlaceSelection, coachDeckIndex);
+
             if (seatReservationPlaceSelection) {
               if (seatReservationPlaceSelection.placeType === 'SEAT') {
                 this.selectedSeatReservationPlaces.seats.push(seatReservationPlaceSelection);
@@ -1180,15 +1203,18 @@ export class SeatReservationBaseElement extends LitElement {
 
   private _getSeatReservationPlaceSelection(
     currSelectedPlace: PlaceSelection,
+    coachDeckIndex: number | null,
   ): SeatReservationPlaceSelection | null {
-    const coach =
-      this.seatReservations[this.currSelectedDeckIndex].coachItems[currSelectedPlace.coachIndex];
+    if (coachDeckIndex === null) return null;
+
+    const coach = this.seatReservations[coachDeckIndex].coachItems[currSelectedPlace.coachIndex];
     const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
 
     return place
       ? mapPlaceAndCoachToSeatReservationPlaceSelection(
           place,
           coach,
+          currSelectedPlace.id,
           currSelectedPlace.deckIndex,
           currSelectedPlace.coachIndex,
         )
@@ -1206,17 +1232,13 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {
-    if (place) {
-      this.currSelectedPlaceElementId =
-        'seat-reservation__place-button-' +
-        this.currSelectedDeckIndex +
-        '-' +
-        this.currSelectedCoachIndex +
-        '-' +
-        place.number;
-    } else {
-      this.currSelectedPlaceElementId = null;
-    }
+    this.currSelectedPlaceElementId = place
+      ? this.getPlaceElementId(
+          this.currSelectedDeckIndex,
+          this.currSelectedCoachIndex,
+          place.number,
+        )
+      : null;
   }
 
   /**
@@ -1338,10 +1360,52 @@ export class SeatReservationBaseElement extends LitElement {
       : null;
   }
 
+  /**
+   * Returns the extracted coach deck index from place id
+   * @returns number
+   */
+  private _getDeckIndexByPlaceId(placeId: string): number | null {
+    const deckIndex = this.shadowRoot
+      ?.querySelector('#' + placeId)
+      ?.getAttribute('data-deck-index');
+    if (deckIndex && !isNaN(+deckIndex)) {
+      return +deckIndex;
+    }
+    return null;
+  }
+
   private _isValidCaochIndex(coachIndex: number): boolean {
     return (
       coachIndex >= 0 &&
       coachIndex <= this.seatReservations[this.seatReservations.length - 1].coachItems.length
     );
+  }
+
+  /**
+   * Returns existing coach deck index depending on the selected coach.
+   * This method is necessary to get an available coach deck index during keyboard navigation, which can vary between coaches with different decks.
+   * For example, when navigating from a coach with two decks to a coach with one deck.
+   *
+   *       [ooo]-[ooo]-[ooo]
+   * [ooo]-[ooo]-[ooo]-[ooo]-[ooo]
+   *
+   * @returns number
+   */
+  private _getExistingCoachDeckIndex(): number {
+    if (
+      this.seatReservations[this.currSelectedDeckIndex].coachItems[this.currSelectedCoachIndex]
+        .places !== undefined
+    ) {
+      return this.currSelectedDeckIndex;
+    }
+
+    // Find next possible coach deck index where places exist
+    const nextAvailableDeckCoachIndex = this.seatReservations.findIndex(
+      (seatReservation) =>
+        seatReservation.coachItems[this.currSelectedCoachIndex].places !== undefined,
+    );
+    return this.currSelectedDeckIndex >= nextAvailableDeckCoachIndex
+      ? this.currSelectedDeckIndex
+      : nextAvailableDeckCoachIndex;
   }
 }
