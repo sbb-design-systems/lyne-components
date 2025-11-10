@@ -41,24 +41,29 @@ $theme: 'standard' !default;
   --sbb-cursor-pointer: pointer;
 
   // TODO: Remove complete block when new lean theme is complete
+  // TODO: Also remove all occurrences of the variables in lyne-components (e.g. --sbb-title-font-size-level-1-lean)
   // Only render the block in standard theme as fallback for CSS class usage
   @if not string.index($theme, 'lean') {
     &.sbb-lean {
-      --sbb-title-font-size-level-1: var(--sbb-heading-font-size-2);
-      --sbb-title-font-size-level-2: var(--sbb-heading-font-size-3);
-      --sbb-title-font-size-level-3: var(--sbb-heading-font-size-4);
-      --sbb-title-font-size-level-4: var(--sbb-heading-font-size-5);
-      --sbb-title-font-size-level-5: var(--sbb-heading-font-size-6);
-      --sbb-title-font-size-level-6: var(--sbb-typo-scale-0-75x);
+      --sbb-title-font-size-level-1-lean: var(--sbb-heading-font-size-2);
+      --sbb-title-font-size-level-2-lean: var(--sbb-heading-font-size-3);
+      --sbb-title-font-size-level-3-lean: var(--sbb-heading-font-size-4);
+      --sbb-title-font-size-level-4-lean: var(--sbb-heading-font-size-5);
+      --sbb-title-font-size-level-5-lean: var(--sbb-heading-font-size-6);
+      --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-75x);
 
       // TODO: Margin block migration
-      --sbb-heading-margin-block-1: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-3x);
-      --sbb-heading-margin-block-2: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-3x);
-      --sbb-heading-margin-block-3: var(--sbb-spacing-responsive-s)
+      --sbb-heading-margin-block-1-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-3x);
+      --sbb-heading-margin-block-2-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-3x);
+      --sbb-heading-margin-block-3-lean: var(--sbb-spacing-responsive-s)
         var(--sbb-spacing-responsive-xxxs);
-      --sbb-heading-margin-block-4: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-2x);
-      --sbb-heading-margin-block-5: var(--sbb-spacing-responsive-s) var(--sbb-spacing-fixed-1x);
-      --sbb-heading-margin-block-6: var(--sbb-spacing-responsive-s) 0;
+      --sbb-heading-margin-block-4-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-2x);
+      --sbb-heading-margin-block-5-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-1x);
+      --sbb-heading-margin-block-6-lean: var(--sbb-spacing-responsive-s) 0;
     }
   }
 
@@ -89,7 +94,7 @@ $theme: 'standard' !default;
     // Only render the block in standard theme as fallback for CSS class usage
     @if not string.index($theme, 'lean') {
       &.sbb-lean {
-        --sbb-title-font-size-level-6: var(--sbb-typo-scale-0-875x);
+        --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-875x);
       }
     }
 

@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin title-rules {
-  margin-block: var(--sbb-title-margin-block-start, 0) var(--sbb-title-margin-block-end, 0);
+  margin-block: var(--sbb-title-margin-block, 0);
   margin-inline: 0;
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
@@ -13,58 +13,70 @@
 }
 
 @mixin title--level-1 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-1, var(--sbb-heading-font-size-1));
+  --sbb-title-font-size: var(--sbb-title-font-size-level-1-lean, var(--sbb-heading-font-size-1));
 }
 
 @mixin title--level-1-spacing {
-  --sbb-title-margin-block-start: var(--sbb-title-margin-block-start-level-1);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-1);
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-1-lean,
+    var(--sbb-heading-margin-block-1)
+  );
 }
 
 @mixin title--level-2 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-2, var(--sbb-heading-font-size-2));
+  --sbb-title-font-size: var(--sbb-title-font-size-level-2-lean, var(--sbb-heading-font-size-2));
 }
 
 @mixin title--level-2-spacing {
-  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-2);
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-2-lean,
+    var(--sbb-heading-margin-block-2)
+  );
 }
 
 @mixin title--level-3 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-3, var(--sbb-heading-font-size-3));
+  --sbb-title-font-size: var(--sbb-title-font-size-level-3-lean, var(--sbb-heading-font-size-3));
 }
 
 @mixin title--level-3-spacing {
-  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-3);
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-3-lean,
+    var(--sbb-heading-margin-block-3)
+  );
 }
 
 @mixin title--level-4 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-4, var(--sbb-heading-font-size-4));
+  --sbb-title-font-size: var(--sbb-title-font-size-level-4-lean, var(--sbb-heading-font-size-4));
 }
 
 @mixin title--level-4-spacing {
-  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-4);
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-4-lean,
+    var(--sbb-heading-margin-block-4)
+  );
 }
 
 @mixin title--level-5 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-5, var(--sbb-heading-font-size-5));
+  --sbb-title-font-size: var(--sbb-title-font-size-level-5-lean, var(--sbb-heading-font-size-5));
 }
 
 @mixin title--level-5-spacing {
-  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-5);
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-5-lean,
+    var(--sbb-heading-margin-block-5)
+  );
 }
 
 @mixin title--level-6 {
-  --sbb-title-font-size: var(--sbb-title-font-size-level-6, var(--sbb-heading-font-size-6));
+  --sbb-title-font-size: var(--sbb-title-font-size-level-6-lean, var(--sbb-heading-font-size-6));
   --sbb-title-line-height: var(--sbb-typo-line-height-text);
 }
 
 @mixin title--level-6-spacing {
-  --sbb-title-margin-block-start: var(--sbb-title-default-margin-block-start);
-  --sbb-title-margin-block-end: var(--sbb-title-margin-block-end-level-6);
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-6-lean,
+    var(--sbb-heading-margin-block-6)
+  );
 }
 
 @mixin title-1($exclude-spacing: false) {
@@ -117,16 +129,6 @@
 
 @mixin title--negative {
   --sbb-title-text-color-normal: var(--sbb-color-3-negative);
-}
-
-// @deprecated, non-standard values, title rules combined with title level mixins are the alternative
-@mixin title($exclude-spacing: false) {
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
-  }
-
-  @include title-rules;
 }
 
 // ----------------------------------------------------------------------------------------------------

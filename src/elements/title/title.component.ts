@@ -9,8 +9,7 @@ import style from './title.scss?lit&inline';
 /**
  * @slot - Use the unnamed slot for the content of the title.
  *
- * @cssprop [--sbb-title-margin-block-start=var(--sbb-spacing-responsive-m)] - Margin block start of the title.
- * @cssprop [--sbb-title-margin-block-end=var(--sbb-spacing-responsive-s)] - Margin block end of the title.
+ * @cssprop [--sbb-title-margin-block] - Margin block of the title.
  */
 export
 @customElement('sbb-title')

@@ -59,7 +59,7 @@
 }
 
 ::slotted(sbb-title.sbb-teaser-product--spacing) {
-  --sbb-title-margin-block-start: 0;
+  margin-block-start: 0;
 }
 
 ::slotted(:is(sbb-action-group, [data-action]).sbb-teaser-product--spacing) {
