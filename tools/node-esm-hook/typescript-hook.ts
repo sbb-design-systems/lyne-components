@@ -89,7 +89,7 @@ export const load: LoadHook = (url, context, nextLoad) => {
             // We want to replace import.meta.env usages with constants.
             // @ts-expect-error The typings are not fully correct, but it is the intended usage.
             (context) => (sourceFile: ts.SourceFile) => {
-              const visitor = (node: ts.Node) => {
+              const visitor = (node: ts.Node): ts.Node => {
                 if (
                   ts.isPropertyAccessExpression(node) &&
                   ts.isPropertyAccessExpression(node.expression) &&

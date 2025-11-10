@@ -14,7 +14,7 @@ import { createAliasResolver } from './tsconfig-utility.ts';
 const root = new URL('../../', import.meta.url).href;
 const aliasResolver = createAliasResolver();
 const sassCompiler = initCompiler();
-const compileSass = (fileUrl: string) =>
+const compileSass = (fileUrl: string): string =>
   sassCompiler
     .compile(fileURLToPath(fileUrl), {
       loadPaths: ['.', './node_modules/'],
