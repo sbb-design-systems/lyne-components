@@ -6,10 +6,6 @@ declare module '*?lit&inline' {
   export default src;
 }
 
-declare module '@custom-elements-manifest/analyzer/cli' {
-  export const cli: (...args) => Promise<void>;
-}
-
 declare module 'virtual:screenshots' {
   export const screenshotsRaw: import('./visual-regression-app/src/interfaces').ScreenshotMap;
 }
