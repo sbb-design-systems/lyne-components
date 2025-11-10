@@ -1,18 +1,40 @@
+import type { Config, Plugin } from '@custom-elements-manifest/analyzer';
+import type {
+  JSDoc,
+  LiteralTypeNode,
+  TypeReferenceNode,
+} from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { FEATURES } from '@custom-elements-manifest/analyzer/src/features/index.js';
+import { resolveModuleOrPackageSpecifier } from '@custom-elements-manifest/analyzer/src/utils/index.js';
 import {
   getAllDeclarationsOfKind,
+  getInheritanceTree,
   getModuleForClassLike,
   getModuleFromManifests,
-  getInheritanceTree,
 } from '@custom-elements-manifest/analyzer/src/utils/manifest-helpers.js';
-import { resolveModuleOrPackageSpecifier } from '@custom-elements-manifest/analyzer/src/utils/index.js';
+import type {
+  ClassDeclaration,
+  ClassField,
+  CustomElement,
+  Declaration,
+  MixinDeclaration,
+  Package,
+  Privacy,
+  Reference,
+  Type,
+} from 'custom-elements-manifest';
 
-const overrideTypeKey = 'overrideType';
-const classGenericsTypeKey = 'classGenerics';
+const overrideTypeKey = 'overrideType' as const;
+const classGenericsTypeKey = 'classGenerics' as const;
+
+type UnwrapArray<A> = A extends unknown[] ? UnwrapArray<A[number]> : A;
+
+type OverrideTypeInfo = { memberName: string; memberOverrideType: string };
 
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
  */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createManifestConfig(library = '') {
   return {
     litelement: true,
@@ -21,32 +43,39 @@ export function createManifestConfig(library = '') {
     outdir: `dist/${library}`,
     dependencies: false,
     packagejson: false,
-    /** @type {import('@custom-elements-manifest/analyzer').Plugin[]} */
     plugins: [
       {
+        name: 'lyne',
         initialize() {
           // Patch upstream implementation for types
           const inheritancePlugin = FEATURES.find((p) => p.name === 'CORE - APPLY-INHERITANCE');
+          if (!inheritancePlugin) {
+            throw new Error('Inheritance plugin not found');
+          }
           inheritancePlugin.packageLinkPhase = ({ customElementsManifest, context }) => {
-            const allManifests = [customElementsManifest, ...(context.thirdPartyCEMs || [])];
-            const classLikes = [];
+            const allManifests: Package[] = [
+              customElementsManifest,
+              ...((context.thirdPartyCEMs as Package[]) || []),
+            ];
+            const classLikes: (ClassDeclaration | MixinDeclaration)[] = [];
 
             allManifests.forEach((manifest) => {
-              const classes = getAllDeclarationsOfKind(manifest, 'class');
-              const mixins = getAllDeclarationsOfKind(manifest, 'mixin');
+              const classes = getAllDeclarationsOfKind<ClassDeclaration>(manifest, 'class');
+              const mixins = getAllDeclarationsOfKind<MixinDeclaration>(manifest, 'mixin');
               classLikes.push(...[...classes, ...mixins]);
             });
 
-            classLikes.forEach((customElement) => {
+            classLikes.forEach((maybeCustomElement) => {
+              const customElement = maybeCustomElement as unknown as CustomElement;
               const inheritanceChain = getInheritanceTree(allManifests, customElement.name);
 
               inheritanceChain?.forEach((klass) => {
-                // ignore the current class itself
+                // Ignore the current class itself
                 if (klass?.name === customElement.name) {
                   return;
                 }
 
-                [
+                const membersToProcess = [
                   'slots',
                   'cssParts',
                   'cssProperties',
@@ -54,52 +83,68 @@ export function createManifestConfig(library = '') {
                   'members',
                   'events',
                   'cssStates',
-                ].forEach((type) => {
-                  klass?.[type]?.forEach((currItem) => {
-                    const containingModulePath = getModuleForClassLike(allManifests, klass.name);
-                    const containingModule = getModuleFromManifests(
-                      allManifests,
-                      containingModulePath,
-                    );
+                ] as const;
 
-                    const newItem = { ...currItem };
+                membersToProcess.forEach((type) => {
+                  type Item = UnwrapArray<CustomElement[typeof type]> & {
+                    inheritedFrom?: Reference;
+                    type?: Type;
+                    privacy?: Privacy;
+                  };
 
-                    /**
-                     * If an attr or member is already present in the base class, but we encounter it here,
-                     * it means that the base has overridden that method from the super class
-                     * So we either add the data to the overridden method, or we add it to the array as a new item
-                     */
-                    const existing = customElement?.[type]?.find(
-                      (item) => newItem.name === item.name,
-                    );
-
-                    if (existing) {
-                      existing.inheritedFrom = {
-                        name: klass.name,
-                        ...resolveModuleOrPackageSpecifier(containingModule, context, klass.name),
-                      };
-
-                      customElement[type] = customElement?.[type]?.map((item) =>
-                        item.name === existing.name
-                          ? {
-                              ...newItem,
-                              ...existing,
-                              ...{
-                                ...(newItem.type && !existing.type ? { type: newItem.type } : {}),
-                                ...(newItem.privacy ? { privacy: newItem.privacy } : {}),
-                              },
-                            }
-                          : item,
+                  (klass as unknown as { [type]: Item[] | undefined })?.[type]?.forEach(
+                    (currItem) => {
+                      const containingModulePath = getModuleForClassLike(allManifests, klass.name);
+                      const containingModule = getModuleFromManifests(
+                        allManifests,
+                        containingModulePath,
                       );
-                    } else {
-                      newItem.inheritedFrom = {
-                        name: klass.name,
-                        ...resolveModuleOrPackageSpecifier(containingModule, context, klass.name),
-                      };
 
-                      customElement[type] = [...(customElement[type] || []), newItem];
-                    }
-                  });
+                      const newItem: Item = { ...currItem };
+
+                      /**
+                       * If an attr or member is already present in the base class, but we encounter it here,
+                       * it means that the base has overridden that method from the super class
+                       * So we either add the data to the overridden method, or we add it to the array as a new item
+                       */
+                      const existing: Item | undefined = customElement?.[type]?.find(
+                        (item) => newItem.name === item.name,
+                      );
+
+                      if (existing) {
+                        existing.inheritedFrom = {
+                          name: klass.name,
+                          ...resolveModuleOrPackageSpecifier(containingModule, context, klass.name),
+                        };
+
+                        (customElement as unknown as { [type]: Item[] | undefined })[type] =
+                          customElement?.[type]?.map((item) =>
+                            item.name === existing.name
+                              ? ({
+                                  ...newItem,
+                                  ...existing,
+                                  ...{
+                                    ...(newItem.type && !existing.type
+                                      ? { type: newItem.type }
+                                      : {}),
+                                    ...(newItem.privacy ? { privacy: newItem.privacy } : {}),
+                                  },
+                                } satisfies Item)
+                              : item,
+                          );
+                      } else {
+                        newItem.inheritedFrom = {
+                          name: klass.name,
+                          ...resolveModuleOrPackageSpecifier(containingModule, context, klass.name),
+                        };
+
+                        (customElement as unknown as { [type]: Item[] | undefined })[type] = [
+                          ...(customElement[type] || []),
+                          newItem,
+                        ];
+                      }
+                    },
+                  );
                 });
               });
             });
@@ -109,9 +154,16 @@ export function createManifestConfig(library = '') {
           /* Replace the typeName with the provided typeValue, matching only the word,
            * in a way that 'V | null' could be replaced with 'string | null', but 'ValidityState' is not changed.
            */
-          function replace(typeObj, typeName, typeValue) {
+          function replace(
+            typeObj: Type | undefined,
+            typeName: string,
+            typeValue: string | undefined,
+          ): void {
             if (typeObj && typeObj.text) {
-              typeObj.text = typeObj.text.replace(new RegExp(`\\b${typeName}\\b`, 'g'), typeValue);
+              typeObj.text = typeObj.text.replace(
+                new RegExp(`\\b${typeName}\\b`, 'g'),
+                typeValue ?? '',
+              );
             }
           }
 
@@ -124,11 +176,15 @@ export function createManifestConfig(library = '') {
            */
           if (ts.isVariableStatement(node)) {
             node.declarationList?.declarations?.forEach((decl) => {
-              if (decl.initializer?.typeParameters) {
-                const moduleDeclaration = moduleDoc.declarations.find(
-                  (e) => e.name === decl.name?.getText(),
+              if (
+                decl.initializer &&
+                ts.isArrowFunction(decl.initializer) &&
+                decl.initializer.typeParameters
+              ) {
+                const moduleDeclaration: MixinDeclaration = moduleDoc.declarations?.find(
+                  (e: Declaration) => e.name === decl.name?.getText(),
                 );
-                decl.initializer?.typeParameters?.forEach((typeParam) => {
+                decl.initializer.typeParameters.forEach((typeParam) => {
                   if (typeParam.default) {
                     const typeName = typeParam.name.getText();
                     let typeValue;
@@ -139,26 +195,30 @@ export function createManifestConfig(library = '') {
                         break;
                       }
                       case ts.SyntaxKind.TypeReference: {
-                        typeValue = typeParam.default.typeName.getText();
+                        typeValue = (
+                          typeParam.default as unknown as TypeReferenceNode
+                        ).typeName.getText();
                         break;
                       }
                       case ts.SyntaxKind.LiteralType: {
-                        switch (typeParam.default.literal.kind) {
+                        switch ((typeParam.default as unknown as LiteralTypeNode).literal.kind) {
                           case ts.SyntaxKind.TrueKeyword:
                           case ts.SyntaxKind.FalseKeyword:
                           case ts.SyntaxKind.NullKeyword: {
-                            typeValue = typeParam.default.literal.getText();
+                            typeValue = (
+                              typeParam.default as unknown as LiteralTypeNode
+                            ).literal.getText();
                             break;
                           }
                           default: {
-                            typeValue = `'${typeParam.default.literal.getText()}'`;
+                            typeValue = `'${(typeParam.default as unknown as LiteralTypeNode).literal.getText()}'`;
                             break;
                           }
                         }
                         break;
                       }
                       default: {
-                        // missing cases: intersection types, union types,..?
+                        // Missing cases: intersection types, union types,..?
                         typeValue = typeParam.default.getText();
                         break;
                       }
@@ -183,9 +243,16 @@ export function createManifestConfig(library = '') {
               }
             });
           } else if (ts.isClassDeclaration(node)) {
-            const classDeclaration = moduleDoc.declarations.find(
-              (declaration) => declaration.name === node.name.getText(),
+            const classDeclaration: ClassDeclaration & {
+              [classGenericsTypeKey]: string;
+              [overrideTypeKey]: OverrideTypeInfo[];
+            } = moduleDoc.declarations?.find(
+              (declaration: Declaration) => declaration.name === node.name?.getText(),
             );
+
+            if (!classDeclaration) {
+              throw new Error('Class declaration not found in moduleDoc');
+            }
 
             /**
              * If the class uses a generic type parameter, add it to the class declaration.
@@ -204,11 +271,11 @@ export function createManifestConfig(library = '') {
              * In this phase, the script looks for all the `@overrideType` annotations,
              * and it saves them in the `classDeclaration` object as a pair <property name> / <correct type>.
              */
-            node.jsDoc?.forEach((doc) => {
+            (node as unknown as { jsDoc: JSDoc[] }).jsDoc?.forEach((doc) => {
               doc.tags?.forEach((tag) => {
                 // eslint-disable-next-line lyne/local-name-rule
                 if (tag.tagName.getText() === overrideTypeKey) {
-                  const [memberName, memberOverrideType] = tag.comment.split(' - ');
+                  const [memberName, memberOverrideType] = (tag.comment as string).split(' - ');
                   if (!classDeclaration[overrideTypeKey]) {
                     classDeclaration[overrideTypeKey] = [{ memberName, memberOverrideType }];
                   } else {
@@ -220,36 +287,43 @@ export function createManifestConfig(library = '') {
           }
         },
         packageLinkPhase({ customElementsManifest }) {
-          function fixModulePaths(node, pathAction) {
+          function fixModulePaths(node: object, pathAction: (value: string) => string): void {
             for (const [key, value] of Object.entries(node)) {
               if (Array.isArray(value)) {
                 value.forEach((v) => fixModulePaths(v, pathAction));
-              } else if (typeof value === 'object') {
+              } else if (value !== null && typeof value === 'object') {
                 fixModulePaths(value, pathAction);
               } else if (key === 'module' || key === 'path') {
-                node[key] = pathAction(value);
+                (node as Record<string, string>)[key] = pathAction(value);
               }
             }
           }
           const fixTsPathsReg = new RegExp(`^\\/?src\\/${library}\\/`);
-          const fixTsPaths = (value) => value.replace(fixTsPathsReg, '').replace(/.ts$/, '.js');
+          const fixTsPaths = (value: string): string =>
+            value.replace(fixTsPathsReg, '').replace(/.ts$/, '.js');
           for (const module of customElementsManifest.modules) {
             fixModulePaths(module, fixTsPaths);
-            for (const declaration of module.declarations.filter((d) => d.kind === 'class')) {
+            for (const declaration of (module.declarations?.filter(
+              (d: Declaration) => d.kind === 'class',
+            ) ?? []) as CustomElement[]) {
               // Abstract base classes or mixins are considered components
               // even if they don't have the `customElement` annotation.
               if (declaration.name.includes('Base') || declaration.name.includes('MixinType')) {
-                delete declaration.customElement;
+                delete (declaration as Partial<CustomElement>).customElement;
               }
 
               /**
                * Search for all the `classDeclaration` which have the `overrideTypeKey` property,
                * and update the provided property with the provided type.
                */
-              if (declaration[overrideTypeKey]) {
-                declaration[overrideTypeKey].forEach((overrideObj) => {
-                  const memberToOverride = declaration.members.find(
-                    (member) => member.name === overrideObj.memberName,
+              const overrideType = (declaration as { [overrideTypeKey]?: OverrideTypeInfo[] })[
+                overrideTypeKey
+              ];
+
+              if (overrideType) {
+                overrideType.forEach((overrideObj) => {
+                  const memberToOverride = declaration.members?.find(
+                    (member): member is ClassField => member.name === overrideObj.memberName,
                   );
                   if (memberToOverride) {
                     memberToOverride.type = {
@@ -258,15 +332,15 @@ export function createManifestConfig(library = '') {
                     };
                   }
                 });
-                delete declaration[overrideTypeKey];
+                delete (declaration as { [overrideTypeKey]?: OverrideTypeInfo[] })[overrideTypeKey];
               }
 
               for (const member of declaration.members ?? []) {
-                if (member.name.startsWith('_') && member.default) {
+                if (member.name.startsWith('_') && 'default' in member) {
                   const publicName = member.name.replace(/^_/, '');
-                  const publicMember = declaration.members.find((m) => m.name === publicName);
+                  const publicMember = declaration.members!.find((m) => m.name === publicName);
                   if (publicMember) {
-                    publicMember.default = member.default;
+                    (publicMember as ClassField).default = member.default;
                   }
                 }
 
@@ -288,7 +362,7 @@ export function createManifestConfig(library = '') {
                     e.inheritedFrom?.name !== member.inheritedFrom?.name,
                 );
                 if (matchedAttribute) {
-                  delete member.readonly;
+                  delete (member as ClassField).readonly;
                   member.description = matchedAttribute.description;
                   member.inheritedFrom = matchedAttribute.inheritedFrom;
                 }
@@ -298,5 +372,5 @@ export function createManifestConfig(library = '') {
         },
       },
     ],
-  };
+  } satisfies Omit<Config, 'plugins'> & { plugins: Plugin[] };
 }

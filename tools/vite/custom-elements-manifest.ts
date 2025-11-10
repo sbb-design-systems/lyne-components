@@ -15,7 +15,7 @@ export function customElementsManifest(library: string): PluginOption {
           'analyze',
           '--config',
           fileURLToPath(
-            new URL(`./tools/manifest/${library}-custom-elements-manifest.config.js`, root),
+            new URL(`./tools/manifest/${library}-custom-elements-manifest.config.ts`, root),
           ),
         ],
         cwd: fileURLToPath(root),

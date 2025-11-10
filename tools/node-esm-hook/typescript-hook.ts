@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * The TypeScript hook checks for each import, if a corresponding .ts file exists in our repository
  * (and if the corresponding .js file is missing). If that is the case the import path is resolved
@@ -9,16 +7,17 @@
  */
 
 import { existsSync, readFileSync } from 'node:fs';
+import type { LoadHook, ResolveHook } from 'node:module';
 import { EOL } from 'node:os';
 import { basename, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import * as ts from 'typescript';
 
-import { createAliasResolver, root } from './tsconfig-utility.js';
+import { createAliasResolver, root } from './tsconfig-utility.ts';
 
 const aliasResolver = createAliasResolver();
-const assertTypeScriptFilePath = (/** @type {string?} */ url) => {
+const assertTypeScriptFilePath = (url: string | null): string | null => {
   const tsUrl = url?.replace(/.js$/, '.ts');
   return tsUrl && url && !existsSync(fileURLToPath(url)) && existsSync(fileURLToPath(tsUrl))
     ? tsUrl
@@ -26,12 +25,10 @@ const assertTypeScriptFilePath = (/** @type {string?} */ url) => {
 };
 const compilerConfigCache = new Map();
 
-/**
- * @param {Map<string, ts.CompilerOptions>} cache
- * @param {string} file
- * @returns {ts.CompilerOptions}
- */
-export function prepareCompilerOptions(cache, file) {
+export function prepareCompilerOptions(
+  cache: Map<string, ts.CompilerOptions>,
+  file: string,
+): ts.CompilerOptions {
   const key = dirname(file);
 
   let compilerOptions = cache.get(key);
@@ -56,13 +53,14 @@ export function prepareCompilerOptions(cache, file) {
     undefined,
     basename(tsconfigPath),
   ).options;
+  compilerOptions.module = ts.ModuleKind.ESNext;
+  compilerOptions.moduleResolution = ts.ModuleResolutionKind.Bundler;
   cache.set(key, compilerOptions);
 
   return compilerOptions;
 }
 
-/** @type {import('node:module').ResolveHook} */
-export const resolve = (specifier, context, nextResolve) => {
+export const resolve: ResolveHook = (specifier, context, nextResolve) => {
   let url = null;
   if (
     (specifier.startsWith('.') || specifier.startsWith(root)) &&
@@ -76,8 +74,7 @@ export const resolve = (specifier, context, nextResolve) => {
   return url ? { format: 'module', shortCircuit: true, url } : nextResolve(specifier, context);
 };
 
-/** @type {import('node:module').LoadHook} */
-export const load = (url, context, nextLoad) => {
+export const load: LoadHook = (url, context, nextLoad) => {
   if (url.startsWith(root) && !url.includes('/node_modules/') && url.endsWith('.ts')) {
     const file = fileURLToPath(url);
     const code = readFileSync(file, 'utf8');
@@ -91,8 +88,8 @@ export const load = (url, context, nextLoad) => {
           after: [
             // We want to replace import.meta.env usages with constants.
             // @ts-expect-error The typings are not fully correct, but it is the intended usage.
-            (context) => (sourceFile) => {
-              const visitor = (/** @type {ts.Node} */ node) => {
+            (context) => (sourceFile: ts.SourceFile) => {
+              const visitor = (node: ts.Node) => {
                 if (
                   ts.isPropertyAccessExpression(node) &&
                   ts.isPropertyAccessExpression(node.expression) &&

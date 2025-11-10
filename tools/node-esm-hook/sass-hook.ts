@@ -1,21 +1,20 @@
-// @ts-check
-
 /**
  * The sass hook will compile any imports containing `.scss?` to CSS wrapped in the
  * lit CSS tagged template function.
  * This allows lit elements to be consumed in SSR tests in a Node.js worker.
  */
 
+import type { LoadHook } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 import { initCompiler } from 'sass';
 
-import { createAliasResolver } from './tsconfig-utility.js';
+import { createAliasResolver } from './tsconfig-utility.ts';
 
 const root = new URL('../../', import.meta.url).href;
 const aliasResolver = createAliasResolver();
 const sassCompiler = initCompiler();
-const compileSass = (/** @type {string} */ fileUrl) =>
+const compileSass = (fileUrl: string) =>
   sassCompiler
     .compile(fileURLToPath(fileUrl), {
       loadPaths: ['.', './node_modules/'],
@@ -42,7 +41,7 @@ const compileSass = (/** @type {string} */ fileUrl) =>
  * @returns {Promise} - A Promise that resolves with an object containing the format, shortCircuit flag, and source of the resource,
  * or rejects with an error.
  */
-export function load(url, context, nextLoad) {
+export const load: LoadHook = (url, context, nextLoad) => {
   if (url.startsWith(root) && url.includes('.scss?')) {
     const source = `import { css } from 'lit';\nexport default css\`${compileSass(url)}\`;`;
     return Promise.resolve({
@@ -52,4 +51,4 @@ export function load(url, context, nextLoad) {
     });
   }
   return nextLoad(url, context);
-}
+};

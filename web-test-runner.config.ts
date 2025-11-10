@@ -203,7 +203,7 @@ export default {
     a11ySnapshotPlugin(),
     litSsrPlugin({
       workerInitModules: [
-        './tools/node-esm-hook/register-hooks.js',
+        './tools/node-esm-hook/register-hooks.ts',
         './src/elements/core/testing/private/test-setup-ssr.ts',
       ],
     }),
