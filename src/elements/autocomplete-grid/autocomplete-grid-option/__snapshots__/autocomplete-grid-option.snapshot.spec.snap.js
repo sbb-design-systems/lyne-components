@@ -19,7 +19,10 @@ snapshots["sbb-autocomplete-grid-option renders Shadow DOM"] =
       <slot name="icon">
       </slot>
     </span>
-    <span class="sbb-option__label">
+    <span
+      aria-hidden="true"
+      class="sbb-option__label"
+    >
       <slot>
       </slot>
       Option 1
@@ -49,7 +52,10 @@ snapshots["sbb-autocomplete-grid-option renders disabled Shadow DOM"] =
       <slot name="icon">
       </slot>
     </span>
-    <span class="sbb-option__label">
+    <span
+      aria-hidden="true"
+      class="sbb-option__label"
+    >
       <slot>
       </slot>
       Option 1
@@ -63,13 +69,7 @@ snapshots["sbb-autocomplete-grid-option A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Option 1"
-    }
-  ]
+  "name": ""
 }
 </p>
 `;

@@ -2,7 +2,7 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
@@ -265,7 +265,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   protected renderIcon(): TemplateResult {
-    return html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
+    return html`<span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
   }
 
   protected renderLabel(): TemplateResult | typeof nothing {
@@ -281,7 +281,17 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
       <div class="sbb-option__container">
         <div class="sbb-option">
           ${this.renderIcon()}
-          <span class="sbb-option__label">
+          <span
+            class="sbb-option__label"
+            aria-hidden=${
+              /**
+               * Screen readers with Chromium read the option twice.
+               * We therefore have to hide the option for the screen readers.
+               * TODO: Recheck periodically if this is still necessary.
+               */
+              isBlink ? 'true' : nothing
+            }
+          >
             <slot @slotchange=${this.handleHighlightState}></slot>
             ${this.renderLabel()}
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
