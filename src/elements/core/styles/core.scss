@@ -21,6 +21,9 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  // TODO: REMOVE
+  --sbb-typo-line-height-heading: 1.3;
+
   // Train formation
   --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
   --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};

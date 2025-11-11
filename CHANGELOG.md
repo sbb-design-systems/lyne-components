@@ -1831,7 +1831,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * button variant refactoring ([98ea7f5](https://github.com/sbb-design-systems/lyne-components/commit/98ea7f541e457da982f0c23a427e324aba9332cf))
 * implement initial support for SSR ([#2437](https://github.com/sbb-design-systems/lyne-components/issues/2437)) ([39d37ca](https://github.com/sbb-design-systems/lyne-components/commit/39d37ca31112617b206bdd15053cafd89886267f))
-* increase `--sbb-heading-font-size-5` for zero to small breakpoints ([#2448](https://github.com/sbb-design-systems/lyne-components/issues/2448)) ([15b786a](https://github.com/sbb-design-systems/lyne-components/commit/15b786aae95fbd92cb4b9584d3b37b959df9bc27))
+* increase `--sbb-font-size-title-5` for zero to small breakpoints ([#2448](https://github.com/sbb-design-systems/lyne-components/issues/2448)) ([15b786a](https://github.com/sbb-design-systems/lyne-components/commit/15b786aae95fbd92cb4b9584d3b37b959df9bc27))
 * **sbb-card:** introduce new color for active state ([#2462](https://github.com/sbb-design-systems/lyne-components/issues/2462)) ([6553d6b](https://github.com/sbb-design-systems/lyne-components/commit/6553d6b1f21d3f05aa8be2c514fa12a4a61da7a7))
 * **sbb-checkbox, sbb-toggle-check:** introduce native form support ([#2456](https://github.com/sbb-design-systems/lyne-components/issues/2456)) ([c9549a1](https://github.com/sbb-design-systems/lyne-components/commit/c9549a10abb527812caefb03b637817bc426e02a))
 * **sbb-navigation:** remove navigation section divider ([#2473](https://github.com/sbb-design-systems/lyne-components/issues/2473)) ([71c1412](https://github.com/sbb-design-systems/lyne-components/commit/71c141212be8aaea32e3c471830420de93f4366e))
