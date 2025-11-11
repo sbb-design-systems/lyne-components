@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v3.12.1...v3.13.0) (2025-11-11)
+
+
+### Features
+
+* improve safety relevant theme customization ([#4151](https://github.com/sbb-design-systems/lyne-components/issues/4151)) ([6ae1601](https://github.com/sbb-design-systems/lyne-components/commit/6ae1601dea68ec30c2b8d0d0b92754bac9cd9943))
+
+
+### Bug Fixes
+
+* **sbb-card-button:** dispatch click event when using NVDA screen reader ([#4178](https://github.com/sbb-design-systems/lyne-components/issues/4178)) ([416e113](https://github.com/sbb-design-systems/lyne-components/commit/416e1132a54dc470b6aa2752433353b3305c8204)), closes [#4176](https://github.com/sbb-design-systems/lyne-components/issues/4176)
+* **sbb-paginator:** send page event on all relevant changes ([#4173](https://github.com/sbb-design-systems/lyne-components/issues/4173)) ([e1d15cf](https://github.com/sbb-design-systems/lyne-components/commit/e1d15cfe7e528edc1f5630970523e5639176716a))
+* **sbb-popover:** enable scrolling ([#4162](https://github.com/sbb-design-systems/lyne-components/issues/4162)) ([1414234](https://github.com/sbb-design-systems/lyne-components/commit/1414234b47ea7c84af84e285182588ab8cf1a431)), closes [#4160](https://github.com/sbb-design-systems/lyne-components/issues/4160)
+* **sbb-seat-reservation:** prevent unnecessary autoscrolling by place selection ([#4175](https://github.com/sbb-design-systems/lyne-components/issues/4175)) ([7f3cad1](https://github.com/sbb-design-systems/lyne-components/commit/7f3cad130225ce8adb595180b1149e8ac3624c66))
+* **sbb-seat-reservation:** return the correct coach deck index at the place selection object ([#4172](https://github.com/sbb-design-systems/lyne-components/issues/4172)) ([eb8d039](https://github.com/sbb-design-systems/lyne-components/commit/eb8d0398fe54df25b67e452c746a9dd79137eaef))
+* **sbb-select:** fix initialization timing for value state ([#4174](https://github.com/sbb-design-systems/lyne-components/issues/4174)) ([ff0fc4e](https://github.com/sbb-design-systems/lyne-components/commit/ff0fc4e7430cd1914f51ae103cb29c415630de99))
+
+
+### Documentation
+
+* improve JSDoc for events and properties ([#4166](https://github.com/sbb-design-systems/lyne-components/issues/4166)) ([ceade7c](https://github.com/sbb-design-systems/lyne-components/commit/ceade7c4fa4abd2ca8fa73f76fcf0956e315c70d))
+
 ## [4.0.0-next](https://github.com/sbb-design-systems/lyne-components/compare/v3.0.0...v4.0.0-next) (2025-11-04)
 
 
