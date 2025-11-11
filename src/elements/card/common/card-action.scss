@@ -28,3 +28,7 @@
     @include sbb.focus-outline;
   }
 }
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
+}
