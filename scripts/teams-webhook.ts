@@ -42,6 +42,11 @@ const teamsResponse = await fetch(process.env.TEAMS_WEBHOOK!, {
               title: 'View Release',
               url: release.html_url,
             },
+            {
+              type: 'Action.OpenUrl',
+              title: 'View Storybook',
+              url: 'https://lyne-storybook.app.sbb.ch',
+            },
           ],
         },
       },
