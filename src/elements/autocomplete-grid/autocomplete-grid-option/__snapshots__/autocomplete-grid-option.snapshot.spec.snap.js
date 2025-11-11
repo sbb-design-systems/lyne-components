@@ -19,10 +19,7 @@ snapshots["sbb-autocomplete-grid-option renders Shadow DOM"] =
       <slot name="icon">
       </slot>
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-option__label"
-    >
+    <span class="sbb-option__label">
       <slot>
       </slot>
       Option 1
@@ -52,10 +49,7 @@ snapshots["sbb-autocomplete-grid-option renders disabled Shadow DOM"] =
       <slot name="icon">
       </slot>
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-option__label"
-    >
+    <span class="sbb-option__label">
       <slot>
       </slot>
       Option 1

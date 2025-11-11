@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom.js';
+import { isBlink, isSafari } from '../../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { describeIf } from '../../core/testing.js';
 
@@ -58,5 +58,12 @@ describe('sbb-autocomplete-grid-optgroup', () => {
     });
   });
 
-  testA11yTreeSnapshot(opt);
+  describeIf(!isBlink, 'Chrome-Safari', async () => {
+    testA11yTreeSnapshot(opt);
+  });
+
+  // TODO: Merge when Chromium work around (aria-hidden on slotted elements) is removed
+  describeIf(isBlink, 'Chrome', async () => {
+    testA11yTreeSnapshot(opt);
+  });
 });
