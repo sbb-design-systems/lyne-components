@@ -1,2 +1,2 @@
-export * from './light-dark-postcss-plugin.js';
-export * from './state-postcss-plugin.js';
+export * from './light-dark-postcss-plugin.ts';
+export * from './state-postcss-plugin.ts';

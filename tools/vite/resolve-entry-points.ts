@@ -2,7 +2,7 @@ import { globSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { globExcludeInternals } from './build-meta.js';
+import { globExcludeInternals } from './build-meta.ts';
 
 export function resolveEntryPoints(cwd: URL): Record<string, string> {
   const cwdAsString = fileURLToPath(cwd);

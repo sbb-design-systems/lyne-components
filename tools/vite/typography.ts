@@ -5,9 +5,9 @@ import postcss from 'postcss';
 import * as sass from 'sass';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
-import { lightDarkPlugin, statePlugin } from '../postcss/index.js';
+import { lightDarkPlugin, statePlugin } from '../postcss/index.ts';
 
-import { root } from './build-meta.js';
+import { root } from './build-meta.ts';
 
 export function typography(): PluginOption {
   let viteConfig: ResolvedConfig;

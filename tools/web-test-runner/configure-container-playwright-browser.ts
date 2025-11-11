@@ -2,7 +2,7 @@ import type { PlaywrightLauncher, ProductType } from '@web/test-runner-playwrigh
 import type { Browser, LaunchOptions } from 'playwright';
 import * as playwright from 'playwright';
 
-import { playwrightWebsocketAddress } from './container-playwright-browser-plugin.js';
+import { playwrightWebsocketAddress } from './container-playwright-browser-plugin.ts';
 
 interface PlaywrightLauncherPrivate {
   // eslint-disable-next-line @typescript-eslint/naming-convention

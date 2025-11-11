@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import type { PluginOption } from 'vite';
 
-import { root } from './build-meta.js';
+import { root } from './build-meta.ts';
 
 export function customElementsManifest(library: string): PluginOption {
   return {

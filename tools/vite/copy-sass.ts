@@ -4,7 +4,7 @@ import { dirname, join, relative } from 'path';
 import * as glob from 'glob';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
-import { root } from './build-meta.js';
+import { root } from './build-meta.ts';
 
 export function copySass(sassRoot: string): PluginOption {
   let viteConfig: ResolvedConfig;

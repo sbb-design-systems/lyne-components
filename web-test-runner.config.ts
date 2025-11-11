@@ -26,7 +26,7 @@ import {
   visualRegressionConfig,
   vitePlugin,
   preloadIcons,
-} from './tools/web-test-runner/index.js';
+} from './tools/web-test-runner/index.ts';
 
 const { values: cliArgs } = parseArgs({
   strict: false,
