@@ -13,7 +13,7 @@ import { SbbSelectElement } from './select.component.js';
 import '../form-field.js';
 
 describe(`sbb-select`, () => {
-  let element: SbbSelectElement;
+  let element: SbbSelectElement, root: HTMLDivElement;
 
   const displayValue = (): string => {
     const displayValueElement = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
@@ -28,7 +28,7 @@ describe(`sbb-select`, () => {
       comboBoxElement: HTMLElement;
 
     beforeEach(async () => {
-      const root = await fixture(html`
+      root = await fixture(html`
         <div id="parent">
           <sbb-select placeholder="Placeholder">
             <sbb-option id="option-1" value="1">First</sbb-option>
@@ -647,6 +647,31 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(displayValue()).to.be.equal('Placeholder');
+    });
+
+    it('detects options when shadowRoot is not yet rendered', async () => {
+      element.remove();
+
+      element = document.createElement('sbb-select');
+      element.value = '2';
+
+      const option1 = document.createElement('sbb-option');
+      option1.value = '1';
+      option1.textContent = 'First';
+
+      const option2 = document.createElement('sbb-option');
+      option2.value = '2';
+      option2.textContent = 'Second';
+
+      element.append(option1, option2);
+      root.appendChild(element);
+
+      // We need to wait one tick as rendering happens after one Promise resolution.
+      await Promise.resolve();
+
+      expect(option2.selected, 'option 2 to be selected').to.be.true;
+      expect(element.value).to.be.equal('2');
+      expect(element.getDisplayValue()).to.be.equal('Second');
     });
   });
 
