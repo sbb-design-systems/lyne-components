@@ -20,7 +20,6 @@ class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     page: 'page',
-    ɵpage: 'ɵpage',
   } as const;
 
   private _renderPageNumbers(): TemplateResult {
