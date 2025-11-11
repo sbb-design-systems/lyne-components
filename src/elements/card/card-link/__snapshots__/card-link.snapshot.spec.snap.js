@@ -23,18 +23,20 @@ snapshots["sbb-card-link renders DOM"] =
 /* end snapshot sbb-card-link renders DOM */
 
 snapshots["sbb-card-link renders Shadow DOM"] = 
-`<span class="sbb-card">
-  <slot name="action">
-  </slot>
-  <span class="sbb-card__wrapper">
+`<a
+  class="sbb-action-base sbb-card-link"
+  href="https://github.com/sbb-design-systems/lyne-components"
+  rel="external noopener nofollow"
+  target="_blank"
+>
+  <span class="sbb-screen-reader-only">
     <slot>
     </slot>
   </span>
-  <span class="sbb-card__badge-wrapper">
-    <slot name="badge">
-    </slot>
-  </span>
-</span>
+  <sbb-screen-reader-only>
+    . Link target opens in a new window.
+  </sbb-screen-reader-only>
+</a>
 `;
 /* end snapshot sbb-card-link renders Shadow DOM */
 

@@ -11,8 +11,6 @@ import type { SbbCardElement } from '../card.js';
 
 import style from './card-action.scss?lit&inline';
 
-import '../../screen-reader-only.js';
-
 export declare class SbbCardActionCommonElementMixinType {
   public accessor active: boolean;
   protected actionRole: 'link' | 'button';
@@ -97,11 +95,8 @@ export const SbbCardActionCommonElementMixin = <
     }
 
     protected override renderTemplate(): TemplateResult {
-      return html`
-        <sbb-screen-reader-only>
-          <slot></slot>
-        </sbb-screen-reader-only>
-      `;
+      // Due to problems detecting the click event in NVDA screen reader, we can't use the sbb-screen-reader-only component here
+      return html`<span class="sbb-screen-reader-only"><slot></slot></span>`;
     }
   }
   return SbbCardActionCommonElement as unknown as AbstractConstructor<SbbCardActionCommonElementMixinType> &
