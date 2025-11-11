@@ -24,15 +24,9 @@ snapshots["sbb-card-button renders DOM"] =
 /* end snapshot sbb-card-button renders DOM */
 
 snapshots["sbb-card-button renders Shadow DOM"] = 
-`<span class="sbb-card">
-  <slot name="action">
-  </slot>
-  <span class="sbb-card__wrapper">
+`<span class="sbb-action-base sbb-card-button">
+  <span class="sbb-screen-reader-only">
     <slot>
-    </slot>
-  </span>
-  <span class="sbb-card__badge-wrapper">
-    <slot name="badge">
     </slot>
   </span>
 </span>
