@@ -138,7 +138,7 @@ describe('sbb-flip-card', () => {
   it('should detect link when href set as attribute', async () => {
     const link = element.querySelector('sbb-link')!;
 
-    expect(link).to.match(':state(card-focusable)');
+    expect(link).to.match('[data-card-focusable]');
   });
 
   it('should detect link when href set as property', async () => {
@@ -148,6 +148,6 @@ describe('sbb-flip-card', () => {
     link.href = '#';
     await waitForLitRender(element);
 
-    expect(link).to.match(':state(card-focusable)');
+    expect(link).to.match('[data-card-focusable]');
   });
 });

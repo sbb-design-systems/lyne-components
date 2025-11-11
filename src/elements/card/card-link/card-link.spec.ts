@@ -71,7 +71,7 @@ describe(`sbb-card-link`, () => {
         </span>
       </sbb-card>`,
     );
-    expect(element.querySelector('button')).to.match(':state(card-focusable)');
+    expect(element.querySelector('button')).to.match('[data-card-focusable]');
 
     // Add a second button in content
     element
@@ -107,7 +107,7 @@ describe(`sbb-card-link`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.match(':state(card-focusable)');
+    expect(element.querySelector('button')).to.match('[data-card-focusable]');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -126,7 +126,7 @@ describe(`sbb-card-link`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.match(':state(card-focusable)');
+    expect(element.querySelector('button')).to.match('[data-card-focusable]');
   });
 
   describe('events', () => {

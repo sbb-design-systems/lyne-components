@@ -51,7 +51,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
   <sbb-option
     aria-disabled="true"
     aria-selected="false"
-    data-group-disabled=""
     data-group-label="Label"
     id="sbb-option-4"
     value="1"
@@ -61,7 +60,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] =
   <sbb-option
     aria-disabled="true"
     aria-selected="false"
-    data-group-disabled=""
     data-group-label="Label"
     id="sbb-option-5"
     value="2"
@@ -165,7 +163,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
   <sbb-option
     aria-disabled="true"
     aria-selected="false"
-    data-group-disabled=""
     id="sbb-option-6"
     value="1"
   >
@@ -174,7 +171,6 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
   <sbb-option
     aria-disabled="true"
     aria-selected="false"
-    data-group-disabled=""
     id="sbb-option-7"
     value="2"
   >
