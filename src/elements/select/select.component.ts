@@ -178,7 +178,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
-    this.addEventListener?.('ɵoptgroupslotchange', () => this._onSlotChange(), { capture: true });
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
+      capture: true,
+    });
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;
       if (target.localName === 'sbb-option') {
@@ -355,6 +357,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+    this._updateValueOptionState();
 
     // Wait for ssr hydration
     if (!isNextjs()) {
@@ -906,7 +909,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
   }
 
-  private _onSlotChange(): void {
+  private _updateValueOptionState(): void {
     if (this._isValueManuallyAssigned) {
       this._updateOptionsFromValue();
     } else {
@@ -1000,7 +1003,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
               ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot @slotchange=${this._onSlotChange}></slot>
+              <slot @slotchange=${this._updateValueOptionState}></slot>
             </div>
           </div>
         </div>
