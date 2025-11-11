@@ -9,8 +9,6 @@
     "declarationMap": true,
     "sourceMap": true,
     "inlineSources": true,
-    "allowJs": true,
-    "moduleResolution": "nodenext",
     "rewriteRelativeImportExtensions": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
