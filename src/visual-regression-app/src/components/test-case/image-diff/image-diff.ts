@@ -7,7 +7,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
-import type { ScreenshotFiles } from '../../../interfaces.js';
+import type { ScreenshotFiles } from '../../../interfaces.ts';
 
 import style from './image-diff.scss?lit&inline';
 
@@ -16,7 +16,7 @@ import '@sbb-esta/lyne-elements/status.js';
 import '@sbb-esta/lyne-elements/overlay.js';
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
-import './fullscreen-diff/fullscreen-diff.js';
+import './fullscreen-diff/fullscreen-diff.ts';
 
 const getImageDimension = (img: HTMLImageElement): string =>
   `${img.naturalWidth}x${img.naturalHeight}px`;

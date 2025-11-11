@@ -51,8 +51,6 @@ $theme: 'standard' !default;
       --sbb-title-font-size-level-4-lean: var(--sbb-heading-font-size-5);
       --sbb-title-font-size-level-5-lean: var(--sbb-heading-font-size-6);
       --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-75x);
-
-      // TODO: Margin block migration
       --sbb-heading-margin-block-1-lean: var(--sbb-spacing-responsive-s)
         var(--sbb-spacing-fixed-3x);
       --sbb-heading-margin-block-2-lean: var(--sbb-spacing-responsive-s)
