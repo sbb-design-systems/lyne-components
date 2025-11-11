@@ -112,6 +112,14 @@ jobs:
           DOCKER_BUILDKIT: 1
           VERSION: ${{ steps.release.outputs.version }}
 
+      - name: Send Teams webhook
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          node scripts/teams-webhook.ts
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.version }}
+          TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
+
       - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
         run: |
