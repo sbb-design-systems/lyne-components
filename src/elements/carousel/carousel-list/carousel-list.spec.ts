@@ -167,6 +167,41 @@ describe('sbb-carousel-list', () => {
     expect(getComputedStyle(element).getPropertyValue('width')).to.be.equal('320px');
   });
 
+  it('sends show and beforeshow events with customized dimension', async () => {
+    const carousel = await fixture(html`
+      <sbb-carousel style="width: 320px;height:180px">
+        <sbb-carousel-list>
+          <sbb-carousel-item id="first">
+            <img src=${imageUrl} alt="SBB image" height="180" width="320" />
+          </sbb-carousel-item>
+          <sbb-carousel-item id="second">
+            <img src=${imageUrl} alt="SBB image" height="180" width="320" />
+          </sbb-carousel-item>
+          <sbb-carousel-item id="third">
+            <img src=${imageUrl} alt="SBB image" height="180" width="320" />
+          </sbb-carousel-item>
+        </sbb-carousel-list>
+      </sbb-carousel>
+    `);
+
+    element = carousel.querySelector('sbb-carousel-list')!;
+
+    beforeShowSpy = new EventSpy('beforeshow', element);
+    showSpy = new EventSpy('show', element);
+
+    await beforeShowSpy.calledTimes(1);
+    expect(beforeShowSpy.count).to.be.equal(1);
+
+    await showSpy.calledTimes(1);
+    expect(showSpy.count).to.be.equal(1);
+
+    expect(getComputedStyle(element).getPropertyValue('--sbb-carousel-list-width')).to.be.equal(
+      '320px',
+    );
+    expect(getComputedStyle(element).getPropertyValue('height')).to.be.equal('180px');
+    expect(getComputedStyle(element).getPropertyValue('width')).to.be.equal('320px');
+  });
+
   it('detects size when later becoming visible in overlay', async () => {
     const overlay: SbbOverlayElement = await fixture(html`
       <sbb-overlay>
