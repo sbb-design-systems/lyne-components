@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.0...v3.13.1) (2025-11-13)
+
+
+### Bug Fixes
+
+* **sbb-carousel:** fix usage in overlays ([#4185](https://github.com/sbb-design-systems/lyne-components/issues/4185)) ([3504ec0](https://github.com/sbb-design-systems/lyne-components/commit/3504ec0402500330803b65388873a04d1ff41e47)), closes [#4182](https://github.com/sbb-design-systems/lyne-components/issues/4182)
+
 ## [4.0.0-next.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next...v4.0.0-next.1) (2025-11-11)
 
 
