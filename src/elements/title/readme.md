@@ -39,10 +39,9 @@ In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the t
 
 ## CSS Properties
 
-| Name                             | Default                           | Description                      |
-| -------------------------------- | --------------------------------- | -------------------------------- |
-| `--sbb-title-margin-block-end`   | `var(--sbb-spacing-responsive-s)` | Margin block end of the title.   |
-| `--sbb-title-margin-block-start` | `var(--sbb-spacing-responsive-m)` | Margin block start of the title. |
+| Name                       | Default | Description                |
+| -------------------------- | ------- | -------------------------- |
+| `--sbb-title-margin-block` |         | Margin block of the title. |
 
 ## Slots
 

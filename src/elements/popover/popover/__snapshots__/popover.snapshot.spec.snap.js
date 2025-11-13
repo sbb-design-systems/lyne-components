@@ -18,21 +18,19 @@ snapshots["sbb-popover renders Shadow DOM"] =
     role="tooltip"
   >
     <div class="sbb-popover__content">
-      <span class="sbb-popover__close">
-        <sbb-secondary-button
-          aria-label="Close note"
-          data-action=""
-          data-button=""
-          data-sbb-button=""
-          icon-name="cross-small"
-          sbb-popover-close=""
-          size="s"
-          tabindex="0"
-          type="button"
-        >
-        </sbb-secondary-button>
-      </span>
-      <span>
+      <sbb-secondary-button
+        aria-label="Close note"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
+        icon-name="cross-small"
+        sbb-popover-close=""
+        size="s"
+        tabindex="0"
+        type="button"
+      >
+      </sbb-secondary-button>
+      <span class="sbb-popover__scrollable-content">
         <slot>
           No content
         </slot>

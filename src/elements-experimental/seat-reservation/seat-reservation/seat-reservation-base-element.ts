@@ -22,6 +22,7 @@ import type {
   SeatReservationPlaceSelection,
   NavigationCoachItem,
   PlaceTravelClass,
+  BaseElement,
 } from '../common.js';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
 
@@ -155,6 +156,7 @@ export class SeatReservationBaseElement extends LitElement {
 
       this._initPrepareSeatReservationData();
       this._initSeatReservationPlaceSelection();
+      this.initNavigationSelectionByScrollEvent();
     }
 
     if (changedProperties.has('baseGridSize')) {
@@ -220,7 +222,7 @@ export class SeatReservationBaseElement extends LitElement {
     this._prepareNavigationCoachData();
   }
 
-  /* Init scroll event handling for coach navigation */
+  /** Init scroll event handling for coach navigation */
   protected initNavigationSelectionByScrollEvent(): void {
     this.firstTabElement = this.shadowRoot?.querySelector('#first-tab-element') as HTMLElement;
     this.lastTabElement = this.shadowRoot?.querySelector('#last-tab-element') as HTMLElement;
@@ -300,11 +302,11 @@ export class SeatReservationBaseElement extends LitElement {
   protected coachAreaScrollend(): void {
     if (this._scrollTimeout) {
       // First, we cleared the registered timeout, as the scrolling is still running
-      // and thus we prevent the execution of the _handleCoachAreaScrollEvent function
+      // and thus we prevent the execution of the _handleCoachAreaScrollendEvent function
       clearTimeout(this._scrollTimeout);
     }
-    // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollEvent without clearing
-    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollEvent(), 150);
+    // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollendEvent without clearing
+    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollendEvent(), 150);
   }
 
   /**
@@ -330,6 +332,9 @@ export class SeatReservationBaseElement extends LitElement {
    */
   protected handleKeyboardEvent(event: KeyboardEvent): void {
     const pressedKey = event.key;
+
+    // For any keyboard use, the preventCoachScrollByPlaceClick variable must be reset to false
+    this.preventCoachScrollByPlaceClick = false;
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
@@ -425,6 +430,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.isAutoScrolling = true;
       this.isCoachGridFocusable = true;
       this.currSelectedCoachIndex = selectedNavCoachIndex;
+      this.currSelectedDeckIndex = this._getExistingCoachDeckIndex();
       this._setScrollDirectionByCoachIndex();
 
       const scrollToCoachPosX = this._getCoachScrollPositionX();
@@ -451,7 +457,6 @@ export class SeatReservationBaseElement extends LitElement {
     this.unfocusPlaceElement();
     if (place) {
       this.currSelectedPlace = place;
-
       this._setCurrSelectedPlaceElementId(place);
 
       const selectedPlaceElement = this._getPlaceHtmlElement();
@@ -520,6 +525,22 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   /**
+   * detects if a (graphical) element is on the border with its position (upper or lower border).
+   * @param baseElement
+   * @param coachDimension
+   * @protected
+   */
+  protected isElementDirectlyOnBorder(
+    baseElement: BaseElement,
+    coachDimension: ElementDimension,
+  ): boolean {
+    return (
+      baseElement.position.y === 0 ||
+      baseElement.position.y + baseElement.dimension.h === coachDimension.h
+    );
+  }
+
+  /**
    * Counts all available seats together depending on the seat type
    *
    * @param places
@@ -548,7 +569,15 @@ export class SeatReservationBaseElement extends LitElement {
    * At the end of a scroll Event from the coach scrollable area,
    * the reached coach is marked as selected
    */
-  private _handleCoachAreaScrollEvent(): void {
+  private _handleCoachAreaScrollendEvent(): void {
+    // If a place was selected by mouse click (preventCoachScrollByPlaceClick) before triggering this scrolling end methode,
+    // this scrolling was triggered by the method _scrollPlaceIntoNearestViewport and nothing have to do here,
+    // because only the place was scrolled into the visible view area.
+    if (this.preventCoachScrollByPlaceClick) {
+      this.preventCoachScrollByPlaceClick = false;
+      return;
+    }
+
     const findScrollCoachIndex = this.isAutoScrolling
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
@@ -926,7 +955,6 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
-    this.preventCoachScrollByPlaceClick = false;
     this.isKeyboardNavigation = true;
 
     if (this.focusedCoachIndex !== -1) {
@@ -984,7 +1012,6 @@ export class SeatReservationBaseElement extends LitElement {
     );
 
     this.selectedSeatReservationPlaces[placeTypeProp] = updatedSelectedPlaces;
-
     /**
      * @type {CustomEvent<SeatReservationSelectedPlaces>}
      * Emits when a place was selected and returns a Place array with all selected places.
@@ -1005,7 +1032,11 @@ export class SeatReservationBaseElement extends LitElement {
   ): SeatReservationPlaceSelection[] {
     // Add selected place to selectedSeatReservationPlaces
     if (placeSelection.state === 'SELECTED') {
-      const seatReservationSelection = this._getSeatReservationPlaceSelection(placeSelection);
+      const selectedPlaceDeckIndex = this._getDeckIndexByPlaceId(placeSelection.id);
+      const seatReservationSelection = this._getSeatReservationPlaceSelection(
+        placeSelection,
+        selectedPlaceDeckIndex,
+      );
       if (seatReservationSelection) {
         selectedSeatReservationPlaces.push(seatReservationSelection);
       }
@@ -1025,24 +1056,36 @@ export class SeatReservationBaseElement extends LitElement {
         resetWithPlaceSelection,
       );
     }
-
     return selectedSeatReservationPlaces;
   }
 
   protected updateCurrentSelectedPlaceInCoach(placeSelection: PlaceSelection): void {
+    const placeDeckIndex = this._getDeckIndexByPlaceId(placeSelection.id);
     const coachIndex = placeSelection.coachIndex;
-    const place = this.seatReservations[this.currSelectedDeckIndex].coachItems[
-      coachIndex
-    ].places?.find((place) => place.number == placeSelection.number);
+
+    if (placeDeckIndex === null) return;
+
+    const place = this.seatReservations[placeDeckIndex].coachItems[coachIndex].places?.find(
+      (place) => place.number == placeSelection.number,
+    );
 
     if (!place) return;
+
+    this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
+
     if (this.currSelectedCoachIndex !== this.selectedCoachIndex) {
       this.updateCurrentSelectedCoach();
     }
 
     this._setCurrSelectedPlaceElementId(place);
+
+    // Time delay to wait for status update process at clicked place
+    const delayScrollInViewport = setTimeout(() => {
+      this._scrollPlaceIntoNearestViewport(placeSelection.id);
+      clearTimeout(delayScrollInViewport);
+    }, 0);
   }
 
   protected updateCurrentSelectedCoach(): void {
@@ -1062,6 +1105,16 @@ export class SeatReservationBaseElement extends LitElement {
         }),
       );
     }
+  }
+
+  protected getPlaceElementId(
+    coachDeckIndex: number,
+    coachIndex: number,
+    placeNumber: string,
+  ): string {
+    return (
+      'seat-reservation__place-button-' + coachDeckIndex + '-' + coachIndex + '-' + placeNumber
+    );
   }
 
   /**
@@ -1108,18 +1161,22 @@ export class SeatReservationBaseElement extends LitElement {
    * that have the state SELECTED within the seatReservation object
    */
   private _initSeatReservationPlaceSelection(): void {
-    this.seatReservations?.forEach((seatReservation) =>
+    this.seatReservations?.forEach((seatReservation: SeatReservation, coachDeckIndex: number) =>
       seatReservation.coachItems.map((coach: CoachItem, coachIndex: number) => {
         coach.places
           ?.filter((place) => place.state === 'SELECTED')
           ?.forEach((place) => {
+            const placeId = this.getPlaceElementId(coachDeckIndex, coachIndex, place.number);
             const preselectedPlaceSelection: PlaceSelection = mapPlaceInfosToPlaceSelection(
               place,
+              placeId,
               seatReservation.deckCoachIndex,
               coachIndex,
             );
+
             const seatReservationPlaceSelection: SeatReservationPlaceSelection | null =
-              this._getSeatReservationPlaceSelection(preselectedPlaceSelection);
+              this._getSeatReservationPlaceSelection(preselectedPlaceSelection, coachDeckIndex);
+
             if (seatReservationPlaceSelection) {
               if (seatReservationPlaceSelection.placeType === 'SEAT') {
                 this.selectedSeatReservationPlaces.seats.push(seatReservationPlaceSelection);
@@ -1162,15 +1219,18 @@ export class SeatReservationBaseElement extends LitElement {
 
   private _getSeatReservationPlaceSelection(
     currSelectedPlace: PlaceSelection,
+    coachDeckIndex: number | null,
   ): SeatReservationPlaceSelection | null {
-    const coach =
-      this.seatReservations[this.currSelectedDeckIndex].coachItems[currSelectedPlace.coachIndex];
+    if (coachDeckIndex === null) return null;
+
+    const coach = this.seatReservations[coachDeckIndex].coachItems[currSelectedPlace.coachIndex];
     const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
 
     return place
       ? mapPlaceAndCoachToSeatReservationPlaceSelection(
           place,
           coach,
+          currSelectedPlace.id,
           currSelectedPlace.deckIndex,
           currSelectedPlace.coachIndex,
         )
@@ -1188,17 +1248,13 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   private _setCurrSelectedPlaceElementId(place: Place | null): void {
-    if (place) {
-      this.currSelectedPlaceElementId =
-        'seat-reservation__place-button-' +
-        this.currSelectedDeckIndex +
-        '-' +
-        this.currSelectedCoachIndex +
-        '-' +
-        place.number;
-    } else {
-      this.currSelectedPlaceElementId = null;
-    }
+    this.currSelectedPlaceElementId = place
+      ? this.getPlaceElementId(
+          this.currSelectedDeckIndex,
+          this.currSelectedCoachIndex,
+          place.number,
+        )
+      : null;
   }
 
   /**
@@ -1320,10 +1376,64 @@ export class SeatReservationBaseElement extends LitElement {
       : null;
   }
 
+  /**
+   * Returns the extracted coach deck index from place id
+   * @returns number
+   */
+  private _getDeckIndexByPlaceId(placeId: string): number | null {
+    const deckIndex = this.shadowRoot
+      ?.querySelector('#' + placeId)
+      ?.getAttribute('data-deck-index');
+    if (deckIndex && !isNaN(+deckIndex)) {
+      return +deckIndex;
+    }
+    return null;
+  }
+
   private _isValidCaochIndex(coachIndex: number): boolean {
     return (
       coachIndex >= 0 &&
       coachIndex <= this.seatReservations[this.seatReservations.length - 1].coachItems.length
     );
+  }
+
+  /**
+   * Returns existing coach deck index depending on the selected coach.
+   * This method is necessary to get an available coach deck index during keyboard navigation, which can vary between coaches with different decks.
+   * For example, when navigating from a coach with two decks to a coach with one deck.
+   *
+   *       [ooo]-[ooo]-[ooo]
+   * [ooo]-[ooo]-[ooo]-[ooo]-[ooo]
+   *
+   * @returns number
+   */
+  private _getExistingCoachDeckIndex(): number {
+    if (
+      this.seatReservations[this.currSelectedDeckIndex].coachItems[this.currSelectedCoachIndex]
+        .places !== undefined
+    ) {
+      return this.currSelectedDeckIndex;
+    }
+
+    // Find next possible coach deck index where places exist
+    const nextAvailableDeckCoachIndex = this.seatReservations.findIndex(
+      (seatReservation) =>
+        seatReservation.coachItems[this.currSelectedCoachIndex].places !== undefined,
+    );
+    return this.currSelectedDeckIndex >= nextAvailableDeckCoachIndex
+      ? this.currSelectedDeckIndex
+      : nextAvailableDeckCoachIndex;
+  }
+
+  /**
+   * If a selected place is slightly hidden by the overflow scroll content and is still clicked,
+   * the method tries to scroll the selected place into the nearest viewport, so that it is completely visible.
+   *
+   * @param placeId
+   */
+  private _scrollPlaceIntoNearestViewport(placeId: string): void {
+    this.shadowRoot
+      ?.getElementById(placeId)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   }
 }

@@ -1,12 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
 import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
 import { defaultDateAdapter } from '../core/datetime.js';
-import { fixture } from '../core/testing/private.js';
+import { fixture, sbbBreakpointLargeMinPx } from '../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
 
 import { SbbCalendarElement } from './calendar.component.js';
@@ -37,7 +36,7 @@ describe(`sbb-calendar`, () => {
 
   const goToNextView = async (element: SbbCalendarElement): Promise<void> => {
     const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-      "sbb-secondary-button[icon-name='chevron-small-right-small']",
+      'sbb-secondary-button#sbb-calendar__controls-next',
     )!;
 
     nextButton.click();
@@ -530,11 +529,11 @@ describe(`sbb-calendar`, () => {
     );
 
     const buttonPrevDay = page.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-      "sbb-secondary-button[icon-name='chevron-small-left-small']",
+      'sbb-secondary-button#sbb-calendar__controls-previous',
     );
     expect(buttonPrevDay).to.have.attribute('disabled');
     const buttonNextDay = page.shadowRoot!.querySelector(
-      "sbb-secondary-button[icon-name='chevron-small-right-small']",
+      'sbb-secondary-button#sbb-calendar__controls-next',
     );
     expect(buttonNextDay).to.have.attribute('disabled');
 
@@ -558,7 +557,7 @@ describe(`sbb-calendar`, () => {
 
   describe('wide horizontal', () => {
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
     });
 
     it('changes to year and month selection views', async () => {
@@ -589,7 +588,7 @@ describe(`sbb-calendar`, () => {
     });
 
     it('renders with min and max', async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
       element = await fixture(
         html`<sbb-calendar
           selected="2024-11-20"
@@ -626,7 +625,7 @@ describe(`sbb-calendar`, () => {
       await goToNextView(element);
 
       const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-        "sbb-secondary-button[icon-name='chevron-small-right-small']",
+        'sbb-secondary-button#sbb-calendar__controls-next',
       )!;
       expect(nextButton).to.have.attribute('disabled');
 
@@ -709,7 +708,7 @@ describe(`sbb-calendar`, () => {
 
   describe('wide vertical', () => {
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
     });
 
     describe('keyboard navigation', () => {
@@ -1182,7 +1181,7 @@ describe(`sbb-calendar`, () => {
       });
 
       it('renders multiple wide', async () => {
-        await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+        await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
         const calendar: HTMLElement = await fixture(
           html`<sbb-calendar
             selected="2025-04-08T00:00:00"
@@ -1373,7 +1372,7 @@ describe(`sbb-calendar`, () => {
       });
 
       it('renders multiple wide', async () => {
-        await setViewport({ width: SbbBreakpointLargeMin, height: 1000 });
+        await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
         const calendar: HTMLElement = await fixture(
           html` <sbb-calendar
             selected="2025-04-08T00:00:00"

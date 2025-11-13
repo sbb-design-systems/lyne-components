@@ -636,6 +636,33 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(element.size).to.be.equal('s');
   });
 
+  it('should open above if forced to', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+    element.position = 'above';
+    await waitForLitRender(element);
+
+    element.open();
+    await waitForLitRender(element);
+    await openSpy.calledOnce();
+
+    expect(element).to.have.attribute('data-options-panel-position', 'above');
+  });
+
+  it('should open below if forced to', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+
+    // Move the form field to the bottom of the page
+    formField.style = 'position: static; inset-block-end: 2rem';
+    element.position = 'below';
+    await waitForLitRender(element);
+
+    element.open();
+    await waitForLitRender(element);
+    await openSpy.calledOnce();
+
+    expect(element).to.have.attribute('data-options-panel-position', 'below');
+  });
+
   describe('trigger connection', () => {
     beforeEach(async () => {
       const root = await fixture(

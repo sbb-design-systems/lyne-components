@@ -3,10 +3,10 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators.js';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
+import { miniButtonStyle } from '../common.js';
 
 import style from './mini-button.scss?lit&inline';
 
@@ -19,11 +19,10 @@ import style from './mini-button.scss?lit&inline';
  */
 export
 @customElement('sbb-mini-button')
-@slotState()
 class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
 
   protected override renderTemplate(): TemplateResult {
     return html`

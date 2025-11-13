@@ -9,7 +9,6 @@ snapshots["sbb-selection-action-panel renders DOM"] =
 >
   <sbb-checkbox-panel
     color="white"
-    data-slot-names="subtext unnamed"
     size="m"
     tabindex="0"
   >

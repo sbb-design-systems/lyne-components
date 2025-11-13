@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
-import type { ScreenshotFiles } from '../../../../interfaces.js';
+import type { ScreenshotFiles } from '../../../../interfaces.ts';
 
 import style from './fullscreen-diff.scss?lit&inline';
 

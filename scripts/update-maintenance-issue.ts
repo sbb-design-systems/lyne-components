@@ -25,10 +25,13 @@ const prPath = {
 };
 
 class MaintenanceIssueUpdater {
-  public constructor(
-    private _octokit: Octokit,
-    private _now: Date,
-  ) {}
+  private _octokit: Octokit;
+  private _now: Date;
+
+  public constructor(octokit: Octokit, now: Date) {
+    this._octokit = octokit;
+    this._now = now;
+  }
 
   public async run(): Promise<void> {
     if (!failedBranches && !failedReleaseVersion) {
@@ -62,7 +65,7 @@ class MaintenanceIssueUpdater {
 
     openTasks = this._addNewTask(openTasks, newTask);
 
-    return this._octokit.rest.issues.update({
+    await this._octokit.rest.issues.update({
       ...issuePath,
       body: `${hint}\n${openTasks.join('\n')}\n\n${dateInfo}`,
     });

@@ -9,8 +9,6 @@ import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 import { parseArgs } from 'node:util';
 
-import { distDir } from '../tools/vite/index.js';
-
 const { values: cliArgs } = parseArgs({
   strict: false,
   options: {
@@ -70,7 +68,7 @@ const zipResponse = await fetch(artifactDownloadUrl, {
   },
 });
 
-const screenshotDir = new URL(`./screenshots/`, distDir);
+const screenshotDir = new URL(`../dist/screenshots/`, import.meta.url);
 if (!existsSync(screenshotDir)) {
   mkdirSync(screenshotDir, { recursive: true });
 }

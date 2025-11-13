@@ -24,8 +24,7 @@
   @include sbb.list-reset;
 
   & > :is(li, span) {
-    @include sbb.shadow-level-5-hard;
-
+    box-shadow: var(--sbb-box-shadow-level-5-hard);
     display: list-item;
     height: var(--sbb-skiplink-list-height);
     overflow: var(--sbb-skiplink-list-overflow);

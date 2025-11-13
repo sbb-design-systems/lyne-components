@@ -21,7 +21,7 @@ import { isZeroAnimationDuration } from '../../core/dom.js';
 import { composedPathHasAttribute } from '../../core/eventing.js';
 import { i18nClosePopover } from '../../core/i18n.js';
 import type { SbbOpenedClosedState } from '../../core/interfaces.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
+import { type SbbElementInternalsMixinType, SbbHydrationMixin } from '../../core/mixins.js';
 import {
   getElementPosition,
   isEventOnElement,
@@ -360,6 +360,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     this.style.setProperty('--sbb-popover-position-x', `${popoverPosition.left}px`);
     this.style.setProperty('--sbb-popover-position-y', `${popoverPosition.top}px`);
     this.style.setProperty('--sbb-popover-arrow-position-x', `${arrowXPosition}px`);
+    this.style.setProperty('--sbb-popover-max-height', popoverPosition.maxHeight);
   }
 
   protected abstract renderContent(): TemplateResult;
@@ -537,6 +538,24 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
     this._registerOverlayListeners();
   }
 
+  public override open(): void {
+    super.open();
+
+    const trigger = this.trigger as SbbElementInternalsMixinType | null;
+    if (this.hoverTrigger && typeof trigger?.['toggleState'] === 'function') {
+      trigger['toggleState']('force-hover', true);
+    }
+  }
+
+  public override close(): void {
+    super.close();
+
+    const trigger = this.trigger as SbbElementInternalsMixinType | null;
+    if (typeof trigger?.['toggleState'] === 'function') {
+      trigger['toggleState']('force-hover', false);
+    }
+  }
+
   private _onTriggerMouseEnter = (): void => {
     if (this.state === 'closed' || this.state === 'closing') {
       this._openTimeout = setTimeout(() => {
@@ -572,20 +591,18 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
 
   protected override renderContent(): TemplateResult {
     const closeButton = html`
-      <span class="sbb-popover__close">
-        <sbb-secondary-button
-          aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
-          size="s"
-          type="button"
-          icon-name="cross-small"
-          sbb-popover-close
-        ></sbb-secondary-button>
-      </span>
+      <sbb-secondary-button
+        aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
+        size="s"
+        type="button"
+        icon-name="cross-small"
+        sbb-popover-close
+      ></sbb-secondary-button>
     `;
 
     return html`
       ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
-      <span>
+      <span class="sbb-popover__scrollable-content">
         <slot>No content</slot>
       </span>
     `;

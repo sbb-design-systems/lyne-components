@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import type { PluginOption } from 'vite';
 
-import { root } from './build-meta.js';
+import { root } from './build-meta.ts';
 
 export function customElementsManifest(library: string): PluginOption {
   return {
@@ -15,7 +15,7 @@ export function customElementsManifest(library: string): PluginOption {
           'analyze',
           '--config',
           fileURLToPath(
-            new URL(`./tools/manifest/${library}-custom-elements-manifest.config.js`, root),
+            new URL(`./tools/manifest/${library}-custom-elements-manifest.config.ts`, root),
           ),
         ],
         cwd: fileURLToPath(root),

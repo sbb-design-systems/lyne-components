@@ -20,7 +20,7 @@ $active: ':active, [data-active]';
   --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
-  --sbb-tag-cursor: pointer;
+  --sbb-tag-cursor: var(--sbb-cursor-pointer);
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -139,10 +139,10 @@ $active: ':active, [data-active]';
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  height: calc(var(--sbb-typo-line-height-text) * 1em);
   flex-shrink: 0;
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 }
@@ -156,7 +156,7 @@ $active: ':active, [data-active]';
 
   color: var(--sbb-tag-amount-color);
 
-  :host(:not([data-slot-names~='amount'], [amount])) & {
+  :host(:not(:state(slotted-amount), [amount])) & {
     display: none;
   }
 }

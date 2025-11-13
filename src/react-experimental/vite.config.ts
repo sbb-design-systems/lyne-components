@@ -9,8 +9,8 @@ import {
   isProdBuild,
   packageJsonTemplate,
   verifyEntryPoints,
-} from '../../tools/vite/index.js';
-import rootConfig from '../../vite.config.js';
+} from '../../tools/vite/index.ts';
+import rootConfig from '../../vite.config.ts';
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{

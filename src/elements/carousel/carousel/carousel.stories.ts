@@ -1,9 +1,17 @@
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components-vite';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { choose } from 'lit/directives/choose.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
@@ -171,6 +179,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
           <sbb-image
             image-src=${images[9]}
             alt="Helpteaser-Background-Landscape"
+            class="sbb-image-border-radius-none"
             style="position: absolute; inset: 0;"
           ></sbb-image>
         </div>
@@ -189,6 +198,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
           <sbb-image
             image-src=${images[9]}
             alt="Helpteaser-Background-Landscape"
+            class="sbb-image-border-radius-none"
             style="position: absolute; inset: 0;"
           ></sbb-image>
         </div>
@@ -247,7 +257,11 @@ export const NoShadow: StoryObj = {
 };
 
 const meta: Meta = {
+  decorators: [withActions as Decorator],
   parameters: {
+    actions: {
+      handles: ['beforeshow', 'show'],
+    },
     backgroundColor: (context: StoryContext) =>
       context.args.shadow ? 'var(--sbb-background-color-3)' : 'var(--sbb-background-color-1)',
     docs: {

@@ -22,13 +22,7 @@ class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
 
   public constructor() {
     super();
-    this.iconName = 'cross-small';
     this.size = 's' as this['size'];
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.slot ||= 'title-section';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -38,6 +32,10 @@ class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
 
   protected override renderTemplate(): TemplateResult {
     return super.renderIconSlot();
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || 'cross-small';
   }
 }
 

@@ -1,10 +1,9 @@
-// @ts-check
-
 /**
  * The raw hook will read any imports containing `?raw` to a string
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
+import type { LoadHook } from 'node:module';
 
 const root = new URL('../../', import.meta.url).href;
 
@@ -15,7 +14,7 @@ const root = new URL('../../', import.meta.url).href;
  * @returns {Promise} - A Promise that resolves with an object containing the format, shortCircuit flag, and source of the resource,
  * or rejects with an error.
  */
-export function load(url, context, nextLoad) {
+export const load: LoadHook = (url, context, nextLoad) => {
   if (url.startsWith(root) && url.includes('?raw')) {
     const content = readFileSync(new URL(url), 'utf8');
     return Promise.resolve({
@@ -25,4 +24,4 @@ export function load(url, context, nextLoad) {
     });
   }
   return nextLoad(url, context);
-}
+};

@@ -15,7 +15,7 @@
   position: absolute;
   inset: 0;
   border-radius: var(--sbb-card-border-radius);
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   outline: none;
 
   // Handle focus on the host (button variant)
@@ -24,4 +24,8 @@
   &:focus-visible {
     @include sbb.focus-outline;
   }
+}
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
 }

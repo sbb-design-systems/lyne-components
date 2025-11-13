@@ -20,7 +20,7 @@
   --sbb-toggle-check-circle-transform: translate(0, -50%);
   --sbb-toggle-check-height: #{sbb.px-to-rem-build(24)};
   --sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
-  --sbb-toggle-check-cursor: pointer;
+  --sbb-toggle-check-cursor: var(--sbb-cursor-pointer);
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
   --sbb-toggle-check-animation-duration: var(
@@ -35,7 +35,7 @@
 }
 
 :host([size='m']) {
-  --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-body-text));
+  --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 :host([data-checked]) {
@@ -64,7 +64,7 @@
   --sbb-toggle-check-circle-border-color: var(--sbb-border-color-5);
   --sbb-toggle-check-circle-border-style: dashed;
   --sbb-toggle-check-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-  --sbb-toggle-check-cursor: default;
+  --sbb-toggle-check-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-icon-color: GrayText;
@@ -116,10 +116,10 @@
 .sbb-toggle-check__label {
   flex-grow: 1;
   padding-block-start: calc(
-    (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
+    (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-text) * 1em)) / 2
   );
 
-  :host(:not([data-slot-names~='unnamed'])) & {
+  :host(:not(:state(slotted))) & {
     display: none;
   }
 }
@@ -137,7 +137,7 @@
 }
 
 .sbb-toggle-check__circle {
-  @include sbb.shadow-level-5-hard;
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
   @include sbb.absolute-center-y;
 
   width: var(--sbb-toggle-check-circle-diameter);

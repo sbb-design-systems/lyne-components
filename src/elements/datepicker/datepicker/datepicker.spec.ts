@@ -1,15 +1,19 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
 import { SbbCalendarElement } from '../../calendar.js';
 import { defaultDateAdapter } from '../../core/datetime.js';
 import { i18nDateChangedTo } from '../../core/i18n.js';
-import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  tabKey,
+  typeInElement,
+} from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbDateInputElement } from '../../date-input.js';
 import type { SbbFormFieldElement } from '../../form-field.js';
@@ -268,7 +272,7 @@ describe(`sbb-datepicker`, () => {
   });
 
   it('renders correctly the calendar when wide is set', async () => {
-    await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
     const element: SbbFormFieldElement = await fixture(
       html`<sbb-form-field>
         <sbb-datepicker-toggle></sbb-datepicker-toggle>

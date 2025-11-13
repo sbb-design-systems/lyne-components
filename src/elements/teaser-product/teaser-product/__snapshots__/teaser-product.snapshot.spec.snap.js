@@ -5,7 +5,6 @@ snapshots["sbb-teaser-product renders DOM"] =
 `<sbb-teaser-product
   data-action=""
   data-link=""
-  data-slot-names="footnote image unnamed"
   href="https://www.sbb.ch"
   image-alignment="after"
 >

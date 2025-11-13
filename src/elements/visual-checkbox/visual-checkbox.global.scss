@@ -24,7 +24,7 @@ $theme: 'standard' !default;
   --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
   --sbb-visual-checkbox-border-style: solid;
   --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
-  --sbb-visual-checkbox-cursor: pointer;
+  --sbb-visual-checkbox-cursor: var(--sbb-cursor-pointer);
   --sbb-visual-checkbox-outline-color: transparent;
   --sbb-visual-checkbox-outline-color-disabled: transparent;
 }

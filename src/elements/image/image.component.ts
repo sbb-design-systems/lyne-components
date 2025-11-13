@@ -1,13 +1,12 @@
 import {
-  SbbBreakpointZeroMin,
-  SbbBreakpointZeroMax,
-  SbbBreakpointSmallMin,
-  SbbBreakpointSmallMax,
-  SbbBreakpointLargeMin,
   SbbBreakpointLargeMax,
-  SbbBreakpointUltraMin,
+  SbbBreakpointLargeMin,
+  SbbBreakpointSmallMax,
+  SbbBreakpointSmallMin,
   SbbBreakpointUltraMax,
-  SbbTypoScaleDefault,
+  SbbBreakpointUltraMin,
+  SbbBreakpointZeroMax,
+  SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
 import {
   type CSSResultGroup,
@@ -120,17 +119,15 @@ const eventListenerOptions = {
   passive: true,
 };
 
-const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
-
-const breakpointMap: Record<string, number> = {
-  'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),
-  'sbb-breakpoint-zero-max': pxToRem(SbbBreakpointZeroMax),
-  'sbb-breakpoint-small-min': pxToRem(SbbBreakpointSmallMin),
-  'sbb-breakpoint-small-max': pxToRem(SbbBreakpointSmallMax),
-  'sbb-breakpoint-large-min': pxToRem(SbbBreakpointLargeMin),
-  'sbb-breakpoint-large-max': pxToRem(SbbBreakpointLargeMax),
-  'sbb-breakpoint-ultra-min': pxToRem(SbbBreakpointUltraMin),
-  'sbb-breakpoint-ultra-max': pxToRem(SbbBreakpointUltraMax),
+const breakpointMap: Record<string, string> = {
+  'sbb-breakpoint-zero-min': SbbBreakpointZeroMin,
+  'sbb-breakpoint-zero-max': SbbBreakpointZeroMax,
+  'sbb-breakpoint-small-min': SbbBreakpointSmallMin,
+  'sbb-breakpoint-small-max': SbbBreakpointSmallMax,
+  'sbb-breakpoint-large-min': SbbBreakpointLargeMin,
+  'sbb-breakpoint-large-max': SbbBreakpointLargeMax,
+  'sbb-breakpoint-ultra-min': SbbBreakpointUltraMin,
+  'sbb-breakpoint-ultra-max': SbbBreakpointUltraMax,
 };
 
 /**
@@ -384,12 +381,6 @@ class SbbImageElement extends LitElement {
       performance.mark(this.performanceMark);
     }
   }
-
-  private _matchMediaQueryDesignToken(breakpointSizeName: string): string {
-    const value = breakpointMap[breakpointSizeName];
-    return value ? `${value}rem` : '';
-  }
-
   private _addFocusAbilityToLinksInCaption(): void {
     this._linksInCaption?.forEach((link) => {
       link.removeAttribute('tabindex');
@@ -512,7 +503,7 @@ class SbbImageElement extends LitElement {
       let mqValue;
 
       if (mq.conditionFeatureValue.lyneDesignToken) {
-        mqValue = this._matchMediaQueryDesignToken(mq.conditionFeatureValue.value);
+        mqValue = breakpointMap[mq.conditionFeatureValue.value] ?? '';
       } else {
         mqValue = mq.conditionFeatureValue.value;
       }

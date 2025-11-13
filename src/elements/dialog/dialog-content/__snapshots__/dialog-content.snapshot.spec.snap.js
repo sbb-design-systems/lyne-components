@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-dialog-content renders DOM"] = 
-`<sbb-dialog-content>
+`<sbb-dialog-content class="sbb-scrollbar">
   Content
 </sbb-dialog-content>
 `;

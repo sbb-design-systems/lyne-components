@@ -8,3 +8,4 @@ export { default as buttonPrimaryStyle } from './common/primary-button.scss?lit&
 export { default as buttonSecondaryStyle } from './common/secondary-button.scss?lit&inline';
 export { default as buttonAccentStyle } from './common/accent-button.scss?lit&inline';
 export { default as buttonTransparentStyle } from './common/transparent-button.scss?lit&inline';
+export { default as miniButtonStyle } from './common/mini-button-common.scss?lit&inline';

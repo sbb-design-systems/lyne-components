@@ -105,7 +105,15 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Value of the form element. */
   @property()
-  public accessor value: T | T[] | null = null;
+  public set value(value: T[] | T) {
+    this._value = value;
+    this._updateOptionsFromValue();
+    this._isValueManuallyAssigned = true;
+  }
+  public get value(): T[] | T | null {
+    return this._value;
+  }
+  private _value: T | T[] | null = null;
 
   /**
    * Size variant, either m or s.
@@ -147,6 +155,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
   private _languageController = new SbbLanguageController(this);
+  private _isValueManuallyAssigned = false;
 
   /**
    * The 'combobox' input element
@@ -156,19 +165,23 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     return this._triggerElement;
   }
 
-  /** Gets all the SbbOptionElement projected in the select. */
-  private get _options(): SbbOptionElement<T>[] {
-    return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
-  }
-
-  private get _filteredOptions(): SbbOptionElement<T>[] {
-    return this._options.filter((opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'));
+  /** Returns all SbbOptionElements from this sbb-select instance. */
+  public get options(): SbbOptionElement<T>[] {
+    const options: SbbOptionElement<T>[] = [];
+    this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option').forEach((option) => {
+      customElements.upgrade(option);
+      options.push(option);
+    });
+    return options;
   }
 
   public constructor() {
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
+      capture: true,
+    });
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;
       if (target.localName === 'sbb-option') {
@@ -228,7 +241,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (
       this.state !== 'closed' ||
       !this._overlay ||
-      this._options.length === 0 ||
+      this.options.length === 0 ||
       this.disabled ||
       this.formDisabled ||
       !this.dispatchBeforeOpenEvent()
@@ -277,6 +290,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     return this._displayValue ?? '';
   }
 
+  private _selectableOptions(): SbbOptionElement<T>[] {
+    return this.options.filter((opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'));
+  }
+
   /** Listens to option changes. */
   private _onOptionChanged(event: Event): void {
     const target = event.target as SbbOptionElement<T>;
@@ -299,12 +316,13 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    this._updateDisplayValue(selected);
+    this._updateDisplayValue();
   }
 
-  private _updateDisplayValue(selected: SbbOptionElement<T> | SbbOptionElement<T>[] | null): void {
+  private _updateDisplayValue(): void {
+    const selected = this._getSelected();
     if (Array.isArray(selected)) {
-      this._displayValue = selected.map((o) => o.textContent).join(', ') || null;
+      this._displayValue = selected.map((o) => o.textContent?.trim()).join(', ') || null;
     } else if (selected) {
       this._displayValue = selected?.textContent?.trim() || null;
     } else {
@@ -322,10 +340,11 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    */
   private _onMultipleChanged(isChangingToMultiple: boolean): void {
     if (isChangingToMultiple) {
-      this.value = this.value !== null && this.value !== undefined ? [this.value as T] : [];
+      this._value = this._isValueManuallyAssigned || this.value != null ? [this.value as T] : [];
     } else if (Array.isArray(this.value)) {
-      this.value = this.value.length ? this.value[0] : null;
+      this._value = this.value.length ? this.value[0] : null;
     }
+    this._updateDisplayValue();
   }
 
   /**
@@ -337,28 +356,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
   }
 
-  /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
-  private _onValueChanged(newValue: T | T[]): void {
-    const options = this._filteredOptions;
-    if (!Array.isArray(newValue)) {
-      const optionElement = options.find((o) => o.value === newValue) ?? null;
-      if (optionElement) {
-        optionElement.selected = true;
-      }
-      options
-        .filter((o) => (o.value ?? o.getAttribute('value')) !== newValue)
-        .forEach((o) => (o.selected = false));
-      this._updateDisplayValue(optionElement);
-    } else {
-      options.filter((o) => !newValue.includes(o.value)).forEach((e) => (e.selected = false));
-      const selectedElements = options.filter((o) => newValue.includes(o.value));
-      selectedElements.forEach((o) => (o.selected = true));
-      this._updateDisplayValue(selectedElements);
-    }
-  }
-
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+    this._updateValueOptionState();
 
     // Wait for ssr hydration
     if (!isNextjs()) {
@@ -433,9 +433,6 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('value') && (this._didLoad || this.value)) {
-      this._onValueChanged(this.value!);
-    }
     if (changedProperties.has('negative') || changedProperties.has('multiple')) {
       this._syncProperties();
     }
@@ -465,23 +462,31 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     state: FormRestoreState | null,
     _reason: FormRestoreReason,
   ): void {
-    if (typeof state === 'string' || state == null) {
-      this.value = (state as T) ?? null;
-    } else if (state instanceof FormData) {
-      this._readFormData(state).then((array) => {
-        this.value = this.multiple ? array : array[0];
-      });
+    try {
+      const { value, manuallyAssigned } = JSON.parse(state as string) as {
+        value: T | T[];
+        manuallyAssigned: boolean;
+      };
+
+      const values = Array.isArray(value) ? value : [value];
+
+      if (values.some((v) => v !== null && typeof v === 'object')) {
+        console.warn(
+          `Restoring complex objects is not supported for sbb-select with state ${state}`,
+        );
+        return;
+      }
+
+      this._isValueManuallyAssigned = manuallyAssigned;
+      this._value = value;
+      this._updateOptionsFromValue();
+    } catch {
+      console.warn(`Failed to restore sbb-select with state ${state}`);
     }
   }
 
-  private async _readFormData(formData: FormData): Promise<T[]> {
-    return Promise.all(
-      formData
-        .getAll(this.name)
-        .map(async (entry) =>
-          entry instanceof Blob ? JSON.parse(await entry.text()) : (entry as T),
-        ),
-    );
+  protected override formState(): FormRestoreState {
+    return JSON.stringify({ value: this.value, manuallyAssigned: this._isValueManuallyAssigned });
   }
 
   private _syncProperties(): void {
@@ -507,7 +512,11 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override validate(): void {
     super.validate();
-    if (this.required && this._options.every((o) => o.value !== this.value)) {
+    if (
+      this.required &&
+      (this.options.every((o) => o.value !== this.value) ||
+        (!this._isValueManuallyAssigned && this.value == null))
+    ) {
       this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
     } else {
       this.removeValidityFlag('valueMissing');
@@ -592,27 +601,24 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
-  private _onOptionSelected(optionSelectionChange: SbbOptionElement<T>): void {
+  private _onOptionSelected(option: SbbOptionElement<T>): void {
     if (!this.multiple) {
-      this._filteredOptions
-        .filter((option) => option.id !== optionSelectionChange.id)
-        .forEach((option) => (option.selected = false));
-      this.value = optionSelectionChange.value;
-    } else {
-      if (!this.value) {
-        this.value = [optionSelectionChange.value!];
-      } else if (Array.isArray(this.value) && !this.value.includes(optionSelectionChange.value!)) {
-        this.value = [...this.value, optionSelectionChange.value!];
-      }
+      this._value = option.value;
+    } else if (!this.value) {
+      this._value = [option.value!];
+    } else if (Array.isArray(this.value) && !this.value.includes(option.value!)) {
+      this._value = [...this.value, option.value!];
     }
 
+    this._updateOptionsFromValue();
     this._dispatchInputEvents();
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
   private _onOptionDeselected(optionSelectionChange: SbbOptionElement<T>): void {
     if (this.multiple && Array.isArray(this.value)) {
-      this.value = this.value.filter((el) => el !== optionSelectionChange.value);
+      this._value = this.value.filter((el) => el !== optionSelectionChange.value);
+      this._updateOptionsFromValue();
       this._dispatchInputEvents();
     }
   }
@@ -722,7 +728,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       case 'End':
       case 'PageDown':
         event.preventDefault();
-        this._setNextActiveOption(event, this._filteredOptions.length - 1);
+        this._setNextActiveOption(event, this._selectableOptions().length - 1);
         break;
     }
   }
@@ -749,9 +755,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     // Reorder the _filteredOption array to have the last selected element at the bottom.
     const indexForSlice: number = this._activeItemIndex + 1;
+    const selectableOptions = this._selectableOptions();
     const filteredOptionsSorted = [
-      ...this._filteredOptions.slice(indexForSlice),
-      ...this._filteredOptions.slice(0, indexForSlice),
+      ...selectableOptions.slice(indexForSlice),
+      ...selectableOptions.slice(0, indexForSlice),
     ];
 
     const match = filteredOptionsSorted.find(
@@ -759,7 +766,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     );
     if (match) {
       // If an exact match has been found, go to that option.
-      this._setNextActiveOption(event, this._filteredOptions.indexOf(match));
+      this._setNextActiveOption(event, selectableOptions.indexOf(match));
     } else if (
       this._searchString.length > 1 &&
       new RegExp(`^${this._searchString.charAt(0)}*$`).test(this._searchString)
@@ -771,7 +778,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
           option.textContent?.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
-        this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
+        this._setNextActiveOption(event, selectableOptions.indexOf(firstMatch));
       }
     } else {
       // No match found, clear the timeout and the search term.
@@ -781,7 +788,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _selectByKeyboard(): void {
-    const activeOption = this._filteredOptions[this._activeItemIndex];
+    const activeOption = this._selectableOptions()[this._activeItemIndex];
 
     if (this.multiple) {
       activeOption?.['selectViaUserInteraction'](!activeOption.selected);
@@ -791,7 +798,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
-    const filteredOptions = this._filteredOptions;
+    const filteredOptions = this._selectableOptions();
 
     // Prevent keyboard navigation if all options are disabled
     if (filteredOptions.length === 0) {
@@ -843,7 +850,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _resetActiveElement(): void {
-    const activeElement = this._filteredOptions[this._activeItemIndex];
+    const activeElement = this._selectableOptions()[this._activeItemIndex];
 
     if (activeElement) {
       activeElement.setActive(false);
@@ -864,7 +871,27 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
   };
 
-  private _setValueFromSelected(): void {
+  private _updateOptionsFromValue(): void {
+    const value = Array.isArray(this.value) ? this.value : [this.value];
+
+    const displayValues = [];
+    for (const option of this.options) {
+      option.selected = value.includes(option.value);
+      if (option.selected) {
+        displayValues.push(option);
+      }
+    }
+
+    this._updateDisplayValue();
+
+    if (!Array.isArray(this.value)) {
+      this._activeItemIndex = this._selectableOptions().findIndex(
+        (option) => option.value === this.value,
+      );
+    }
+  }
+
+  private _updateValueFromOptions(): void {
     const selected = this._getSelected();
 
     if (Array.isArray(selected)) {
@@ -873,24 +900,29 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         for (const option of selected) {
           value.push(option.value!);
         }
-        this.value = value;
+        this._value = value;
       }
     } else if (selected) {
-      this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selected);
-      this.value = selected.value;
-    } else if (this.value) {
-      // If we arrive here without any options being selected,
-      // we should try to check the current value against the available options
-      // (and select it if any match is found).
-      this._onValueChanged(this.value);
+      this._activeItemIndex = this._selectableOptions().findIndex((option) => option === selected);
+      this._value = selected.value;
+    }
+
+    this._updateDisplayValue();
+  }
+
+  private _updateValueOptionState(): void {
+    if (this._isValueManuallyAssigned) {
+      this._updateOptionsFromValue();
+    } else {
+      this._updateValueFromOptions();
     }
   }
 
   private _getSelected(): SbbOptionElement<T> | SbbOptionElement<T>[] | null {
     if (this.multiple) {
-      return this._filteredOptions.filter((option) => option.selected);
+      return this.options.filter((option) => option.selected);
     } else {
-      return this._filteredOptions.find((option) => option.selected) ?? null;
+      return this.options.find((option) => option.selected) ?? null;
     }
   }
 
@@ -972,7 +1004,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
               ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot @slotchange=${this._setValueFromSelected}></slot>
+              <slot @slotchange=${this._updateValueOptionState}></slot>
             </div>
           </div>
         </div>

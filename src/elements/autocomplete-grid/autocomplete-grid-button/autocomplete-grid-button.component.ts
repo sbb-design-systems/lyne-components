@@ -2,15 +2,14 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { miniButtonStyle } from '../../button/common.js';
 import { SbbActionBaseElement } from '../../core/base-elements.js';
-import { hostAttributes, slotState } from '../../core/decorators.js';
+import { hostAttributes } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
-
-import style from './autocomplete-grid-button.scss?lit&inline';
 
 let autocompleteButtonNextId = 0;
 
@@ -30,12 +29,11 @@ export
   tabindex: null,
   'data-button': '',
 })
-@slotState()
 class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly role = 'button';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
   public get option(): SbbAutocompleteGridOptionElement | null {

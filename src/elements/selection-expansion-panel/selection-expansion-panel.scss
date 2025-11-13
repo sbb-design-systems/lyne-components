@@ -49,7 +49,7 @@ $open-anim-opacity-to: 1;
 }
 
 // :where is to align specificity
-:host([data-slot-names~='content']:where(:state(disabled))) {
+:host(:state(slotted-content):where(:state(disabled))) {
   --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
 }
 
@@ -58,7 +58,7 @@ $open-anim-opacity-to: 1;
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 
-:host([data-slot-names~='content']:where([data-state='opening'], [data-state='opened'])) {
+:host(:state(slotted-content):where([data-state='opening'], [data-state='opened'])) {
   --sbb-selection-expansion-panel-content-visibility: visible;
   --sbb-selection-expansion-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);
 }
@@ -120,7 +120,7 @@ $open-anim-opacity-to: 1;
     animation-timing-function: var(--sbb-animation-easing);
   }
 
-  :host(:not([data-slot-names~='content'])) & {
+  :host(:not(:state(slotted-content))) & {
     display: none;
   }
 }

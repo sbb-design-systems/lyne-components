@@ -3,8 +3,8 @@ import { resolve } from 'path';
 import postcssLit from 'rollup-plugin-postcss-lit';
 import { defineConfig } from 'vite';
 
-import { lightDarkPlugin, statePlugin } from './tools/postcss/index.js';
-import { typescriptTransform } from './tools/vite/index.js';
+import { lightDarkPlugin, statePlugin } from './tools/postcss/index.ts';
+import { typescriptTransform } from './tools/vite/index.ts';
 
 export default defineConfig({
   server: { allowedHosts: ['host.containers.internal'] },

@@ -6,8 +6,6 @@
 @mixin link-common-variables {
   --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-graphite));
   --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-metal));
-  --sbb-link-text-decoration-color: color-mix(in srgb, currentcolor 80%, transparent);
-  --sbb-link-text-decoration-color-hover: currentcolor;
 }
 
 @mixin link-common-variables--negative {
@@ -34,7 +32,6 @@
 @mixin block-link-variables--active {
   --sbb-link-color-normal: light-dark(var(--sbb-color-black), var(--sbb-color-cement));
   --sbb-link-text-decoration-line: underline;
-  --sbb-link-text-decoration-color: currentcolor;
 }
 
 // To display a current active page, e.g. if the CSS class sbb-active is set
@@ -67,7 +64,6 @@
 @mixin link-base {
   color: var(--sbb-link-color-normal);
   text-decoration-line: var(--sbb-link-text-decoration-line, underline);
-  text-decoration-color: var(--sbb-link-text-decoration-color);
   text-decoration-thickness: #{functions.px-to-rem-build(1)};
   text-underline-offset: 0.3125em; // 5px
   user-select: none;
@@ -89,7 +85,6 @@
   @include mediaqueries.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
     text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
-    text-decoration-color: var(--sbb-link-text-decoration-color-hover);
   }
 }
 

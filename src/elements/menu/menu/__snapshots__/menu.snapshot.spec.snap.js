@@ -12,7 +12,6 @@ snapshots["sbb-menu renders DOM"] =
     data-action=""
     data-link=""
     data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
@@ -23,7 +22,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="tick-small"
     tabindex="0"
   >
@@ -32,7 +30,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -42,7 +39,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="swisspass-small"
     sbb-badge="2"
     tabindex="0"
@@ -54,7 +50,6 @@ snapshots["sbb-menu renders DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="cross-small"
     tabindex="0"
   >
@@ -75,7 +70,6 @@ snapshots["sbb-menu renders Shadow DOM"] =
       <sbb-menu-button
         data-action=""
         data-button=""
-        data-slot-names="unnamed"
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"
@@ -88,146 +82,6 @@ snapshots["sbb-menu renders Shadow DOM"] =
 `;
 /* end snapshot sbb-menu renders Shadow DOM */
 
-snapshots["sbb-menu renders with list DOM"] = 
-`<sbb-menu
-  data-state="closed"
-  id="sbb-menu-1"
-  popover="manual"
-  trigger="menu-trigger"
->
-  <sbb-menu-button
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
-    icon-name="tick-small"
-    slot="li-0"
-    tabindex="0"
-  >
-    View
-  </sbb-menu-button>
-  <sbb-menu-button
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
-    disabled=""
-    icon-name="pen-small"
-    sbb-badge="1"
-    slot="li-1"
-  >
-    Edit
-  </sbb-menu-button>
-  <sbb-menu-button
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
-    icon-name="swisspass-small"
-    sbb-badge="2"
-    slot="li-2"
-    tabindex="0"
-  >
-    Details
-  </sbb-menu-button>
-  <sbb-menu-button
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
-    icon-name="cross-small"
-    slot="li-3"
-    tabindex="0"
-  >
-    Cancel
-  </sbb-menu-button>
-</sbb-menu>
-`;
-/* end snapshot sbb-menu renders with list DOM */
-
-snapshots["sbb-menu renders with list Shadow DOM"] = 
-`<div class="sbb-menu__container">
-  <div class="sbb-menu">
-    <div class="sbb-menu__content">
-      <ul class="sbb-menu-list">
-        <li>
-          <slot name="li-0">
-          </slot>
-        </li>
-        <li>
-          <slot name="li-1">
-          </slot>
-        </li>
-        <li>
-          <slot name="li-2">
-          </slot>
-        </li>
-        <li>
-          <slot name="li-3">
-          </slot>
-        </li>
-      </ul>
-      <span hidden="">
-        <slot>
-        </slot>
-      </span>
-      <sbb-divider orientation="horizontal">
-      </sbb-divider>
-      <sbb-menu-button
-        data-action=""
-        data-button=""
-        data-slot-names="unnamed"
-        icon-name="chevron-small-left-small"
-        id="sbb-menu__back-button"
-        tabindex="0"
-      >
-        Go back
-      </sbb-menu-button>
-    </div>
-  </div>
-</div>
-`;
-/* end snapshot sbb-menu renders with list Shadow DOM */
-
-snapshots["sbb-menu renders with list A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Menu trigger",
-      "haspopup": "menu"
-    },
-    {
-      "role": "menu",
-      "name": "",
-      "orientation": "vertical"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu renders with list A11y tree Chrome */
-
-snapshots["sbb-menu renders with list A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Menu trigger",
-      "haspopup": "menu"
-    },
-    {
-      "role": "menu",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu renders with list A11y tree Firefox */
-
 snapshots["sbb-menu renders open DOM"] = 
 `<sbb-menu
   data-state="opened"
@@ -239,7 +93,6 @@ snapshots["sbb-menu renders open DOM"] =
     data-action=""
     data-link=""
     data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
@@ -250,7 +103,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="tick-small"
     tabindex="0"
   >
@@ -259,7 +111,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     disabled=""
     icon-name="pen-small"
     sbb-badge="1"
@@ -269,7 +120,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="swisspass-small"
     sbb-badge="2"
     tabindex="0"
@@ -281,7 +131,6 @@ snapshots["sbb-menu renders open DOM"] =
   <sbb-menu-button
     data-action=""
     data-button=""
-    data-slot-names="unnamed"
     icon-name="cross-small"
     tabindex="0"
   >
@@ -302,7 +151,6 @@ snapshots["sbb-menu renders open Shadow DOM"] =
       <sbb-menu-button
         data-action=""
         data-button=""
-        data-slot-names="unnamed"
         icon-name="chevron-small-left-small"
         id="sbb-menu__back-button"
         tabindex="0"

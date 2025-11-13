@@ -24,7 +24,7 @@
 
   & {
     display: flex;
-    cursor: pointer;
+    cursor: var(--sbb-cursor-pointer);
     gap: var(--sbb-spacing-fixed-2x);
     color: var(--sbb-breadcrumb-color);
     align-items: center;
@@ -46,7 +46,7 @@
 .sbb-breadcrumb__label {
   @include sbb.ellipsis;
 
-  :host(:not([data-slot-names~='unnamed'])) & {
+  :host(:not(:state(slotted))) & {
     display: none;
   }
 }

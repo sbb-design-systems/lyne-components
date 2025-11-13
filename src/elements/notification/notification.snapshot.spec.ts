@@ -32,7 +32,7 @@ describe(`sbb-notification`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-notification>
+        html`<sbb-notification type="success">
           <sbb-title level="3">Title</sbb-title>
           The quick brown fox jumps over the lazy dog.
         </sbb-notification>`,

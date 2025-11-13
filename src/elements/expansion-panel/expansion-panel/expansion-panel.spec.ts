@@ -29,13 +29,13 @@ describe(`sbb-expansion-panel`, () => {
     const header = element.querySelector('sbb-expansion-panel-header');
     expect(header).to.have.attribute('id', 'sbb-expansion-panel-header-2');
     expect(header).to.have.attribute('aria-controls', 'sbb-expansion-panel-content-2');
-    expect(header).to.have.attribute('data-icon');
+    expect(header).to.match(':state(icon)');
     expect(header).to.have.attribute('data-size', 'l');
 
     const content = element.querySelector('sbb-expansion-panel-content');
     expect(content).to.have.attribute('id', 'sbb-expansion-panel-content-2');
     expect(content).to.have.attribute('aria-labelledby', `sbb-expansion-panel-header-2`);
-    expect(content).to.have.attribute('data-icon-space');
+    expect(content).to.match(':state(icon-space)');
     expect(content).to.have.attribute('data-size', 'l');
   });
 

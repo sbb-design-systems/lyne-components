@@ -20,7 +20,7 @@ export const rules = (
       'test-describe-title-rule',
       'test-tabkey-rule',
     ].map((name) =>
-      import(`./${name}.js`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
+      import(`./${name}.ts`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
     ),
   )
 ).reduce((current, next) => Object.assign(current, next));

@@ -46,7 +46,7 @@ class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
-  /* The state of the breadcrumb group. */
+  /** The state of the breadcrumb group. */
   @state()
   private set _state(state: 'collapsed' | 'manually-expanded' | null) {
     setOrRemoveAttribute(this, 'data-state', state);

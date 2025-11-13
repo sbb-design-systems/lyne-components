@@ -37,12 +37,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'property-ids', type: Array })
   public accessor propertyIds: string[] = [];
 
-  /* pre-selected Coach index property */
+  /** Pre-selected coach index property */
   @forceType()
   @property({ type: Boolean })
   public accessor selected: boolean = false;
 
-  /* focus Coach index property */
+  /** Focused coach index property */
   @forceType()
   @property({ type: Boolean })
   public accessor focused: boolean = false;

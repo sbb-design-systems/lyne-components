@@ -11,6 +11,7 @@ export type Breakpoint = (typeof breakpoints)[number];
  * @param to The breakpoint corresponding to the `max-width` value of the media query (optional).
  * @param properties Whether the max breakpoint should be included
  * @returns A boolean indicating whether the window matches the breakpoint.
+ * @deprecated use the mediaMatcherController
  */
 export function isBreakpoint(
   from?: Breakpoint,

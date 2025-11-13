@@ -126,7 +126,6 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
       this._markForFocus = this.pageIndex;
     }
   }
-
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
@@ -184,7 +183,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                         ? this.accessibilityPageLabel
                         : i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      @click=${() => (this.pageIndex = item)}
+                      @click=${() => this.selectPage(item)}
                       @keyup=${this._handleKeyUp}
                     >
                       <span class="sbb-paginator__page--number-item-label">${item + 1}</span>

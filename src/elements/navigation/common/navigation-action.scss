@@ -27,7 +27,7 @@ sbb-icon {
   display: var(--sbb-navigation-action-icon-display);
   position: absolute;
   inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
-  inset-block-start: calc(1em * (var(--sbb-typo-line-height-body-text) / 2));
+  inset-block-start: calc(1em * (var(--sbb-typo-line-height-text) / 2));
   translate: 0 -50%;
 }
 
@@ -46,7 +46,7 @@ sbb-icon {
 :is(.sbb-navigation-button, .sbb-navigation-link) {
   @include sbb.title-4($exclude-spacing: true);
 
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   position: relative;
   text-decoration: none;
   display: flex;

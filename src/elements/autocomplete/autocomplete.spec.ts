@@ -382,15 +382,17 @@ describe(`sbb-autocomplete`, () => {
   });
 
   describe('requireSelection', () => {
+    let openSpy: EventSpy<Event>, changeEventSpy: EventSpy<Event>, inputEventSpy: EventSpy<Event>;
+
     beforeEach(async () => {
+      openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      changeEventSpy = new EventSpy('change', input);
+      inputEventSpy = new EventSpy('input', input);
       element.requireSelection = true;
       await waitForLitRender(element);
     });
 
     it('should clear input if user types without selecting any option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-
       input.focus();
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
@@ -398,30 +400,28 @@ describe(`sbb-autocomplete`, () => {
       await sendKeys({ press: 'a' });
       expect(input.value).to.be.equal('a');
       expect(changeEventSpy.count).to.be.equal(0);
+      expect(inputEventSpy.count).to.be.equal(1);
       await sendKeys({ press: 'Escape' });
       expect(input.value).to.be.equal('');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(2);
     });
 
     it('should clear input if user navigates with keyboard without selecting any option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-
       input.focus();
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
       await sendKeys({ press: 'ArrowDown' });
       expect(changeEventSpy.count).to.be.equal(0);
+      expect(inputEventSpy.count).to.be.equal(0);
       await sendKeys({ press: 'Escape' });
       expect(input.value).to.be.equal('');
       expect(changeEventSpy.count).to.be.equal(0);
+      expect(inputEventSpy.count).to.be.equal(0);
     });
 
     it('should clear input if user types and navigates without selecting any option', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
-
       input.focus();
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
@@ -430,14 +430,14 @@ describe(`sbb-autocomplete`, () => {
       await sendKeys({ press: 'ArrowDown' });
       expect(input.value).to.be.equal('a');
       expect(changeEventSpy.count).to.be.equal(0);
+      expect(inputEventSpy.count).to.be.equal(1);
       await sendKeys({ press: 'Escape' });
       expect(input.value).to.be.equal('');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(2);
     });
 
     it('should not clear input with mouse selection', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-      const changeEventSpy = new EventSpy('change', input);
       const optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
 
       input.focus();
@@ -455,15 +455,15 @@ describe(`sbb-autocomplete`, () => {
       await waitForLitRender(element);
 
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(1);
       await sendKeys({ press: 'Escape' });
       expect(input.value).to.be.equal('2');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(1);
     });
 
     it('should not clear input with keyboard selection', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
       const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-      const changeEventSpy = new EventSpy('change', input);
       const optOne = element.querySelector<SbbOptionElement>('#option-1');
 
       input.focus();
@@ -481,12 +481,11 @@ describe(`sbb-autocomplete`, () => {
       expect(closeSpy.count).to.be.equal(1);
       expect(input.value).to.be.equal('1');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(1);
     });
 
     it('should not clear input if user select than opens and closes the panel', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
       const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-      const changeEventSpy = new EventSpy('change', input);
 
       input.focus();
       await openSpy.calledOnce();
@@ -499,6 +498,7 @@ describe(`sbb-autocomplete`, () => {
       expect(closeSpy.count).to.be.equal(1);
       expect(input.value).to.be.equal('1');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(1);
 
       element.open();
       await openSpy.calledTimes(2);
@@ -508,12 +508,11 @@ describe(`sbb-autocomplete`, () => {
       expect(closeSpy.count).to.be.equal(2);
       expect(input.value).to.be.equal('1');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(1);
     });
 
     it('should clear input if user types after selection', async () => {
-      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
       const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
-      const changeEventSpy = new EventSpy('change', input);
 
       input.focus();
       await openSpy.calledOnce();
@@ -526,11 +525,14 @@ describe(`sbb-autocomplete`, () => {
       expect(closeSpy.count).to.be.equal(1);
       expect(input.value).to.be.equal('1');
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count).to.be.equal(1);
       await sendKeys({ press: 'a' });
       expect(openSpy.count).to.be.equal(2);
+      expect(inputEventSpy.count).to.be.equal(2);
       await sendKeys({ press: 'Escape' });
       expect(input.value).to.be.equal('');
       expect(changeEventSpy.count).to.be.equal(2);
+      expect(inputEventSpy.count).to.be.equal(3);
     });
   });
 
@@ -734,6 +736,33 @@ describe(`sbb-autocomplete`, () => {
     await waitForLitRender(element);
 
     expect(element.size).to.be.equal('s');
+  });
+
+  it('should open above if forced to', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+    element.position = 'above';
+    await waitForLitRender(element);
+
+    element.open();
+    await waitForLitRender(element);
+    await openSpy.calledOnce();
+
+    expect(element).to.have.attribute('data-options-panel-position', 'above');
+  });
+
+  it('should open below if forced to', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+
+    // Move the form field to the bottom of the page
+    formField.style = 'position: static; inset-block-end: 2rem';
+    element.position = 'below';
+    await waitForLitRender(element);
+
+    element.open();
+    await waitForLitRender(element);
+    await openSpy.calledOnce();
+
+    expect(element).to.have.attribute('data-options-panel-position', 'below');
   });
 
   describe('trigger connection', () => {

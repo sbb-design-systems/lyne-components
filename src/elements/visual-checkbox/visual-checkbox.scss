@@ -20,7 +20,7 @@
 :host([disabled]) {
   --sbb-visual-checkbox-background-color: var(--sbb-visual-checkbox-background-color-disabled);
   --sbb-visual-checkbox-border-style: dashed;
-  --sbb-visual-checkbox-cursor: default;
+  --sbb-visual-checkbox-cursor: var(--sbb-cursor-default);
   --sbb-visual-checkbox-outline-color: var(--sbb-visual-checkbox-outline-color-disabled);
   --sbb-visual-checkbox-selection-color: var(--sbb-visual-checkbox-selection-color-disabled);
 }

@@ -1,6 +1,6 @@
 @use '../../core/styles' as sbb;
 
-$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+$icon-only: ':where(:state(slotted-icon), :state(has-icon-name)):not(:state(slotted))';
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 $active: ':active, [data-active], [loading]';
 
@@ -133,7 +133,7 @@ $active: ':active, [data-active], [loading]';
   --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
 }
 
-:host(:not(#{$disabled}, #{$active}):hover) {
+:host(:not(#{$disabled}, #{$active}):is(:hover, :state(force-hover))) {
   @include sbb.hover-mq($hover: true) {
     --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-button-shadow-1-offset-y: calc(
@@ -141,7 +141,7 @@ $active: ':active, [data-active], [loading]';
     );
     --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
     --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
-    --sbb-button-cursor: pointer;
+    --sbb-button-cursor: var(--sbb-cursor-pointer);
     --_border-color: var(--sbb-button-color-hover-border);
     --_color: var(--sbb-button-color-hover-text);
     --_background-color: var(--sbb-button-color-hover-background);
@@ -155,7 +155,7 @@ $active: ':active, [data-active], [loading]';
 
 // Disabled styles
 :host(:is(#{$disabled})) {
-  --sbb-button-cursor: default;
+  --sbb-button-cursor: var(--sbb-cursor-default);
   --_color: var(--sbb-button-color-disabled-text);
   --_background-color: var(--sbb-button-color-disabled-background);
   --_border-color: var(--sbb-button-color-disabled-border);

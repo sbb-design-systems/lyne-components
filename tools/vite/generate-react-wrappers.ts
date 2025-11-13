@@ -15,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { Package, Export, CustomElementDeclaration, Module } from 'custom-elements-manifest';
 import type { PluginOption } from 'vite';
 
-import { distDir } from './build-meta.js';
+import { distDir } from './build-meta.ts';
 
 const entrypointMarker = `/**
  * @entrypoint

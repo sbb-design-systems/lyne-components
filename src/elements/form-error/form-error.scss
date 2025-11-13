@@ -2,7 +2,7 @@
 
 :host {
   --sbb-form-error-color: var(--sbb-color-error);
-  --sbb-form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  --sbb-form-error-height: calc(var(--sbb-typo-line-height-text) * 1em);
   --sbb-form-error-icon-size: #{sbb.px-to-rem-build(17)};
 
   // Overrides sbb icon
@@ -34,7 +34,7 @@
 
 .form-error-content {
   // Fix for line-height taking more than reserved space
-  line-height: var(--sbb-typo-line-height-body-text);
+  line-height: var(--sbb-typo-line-height-text);
   vertical-align: text-top;
 }
 

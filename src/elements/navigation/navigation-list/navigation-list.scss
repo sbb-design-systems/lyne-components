@@ -21,7 +21,7 @@
   color: var(--sbb-color-5);
   padding-block-end: var(--sbb-spacing-fixed-2x);
 
-  :host(:not([data-slot-names~='label'], [label])) & {
+  :host(:not(:state(slotted-label), [label])) & {
     display: none;
   }
 }

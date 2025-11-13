@@ -44,7 +44,7 @@ jobs:
         run: yarn lint:tsc
 
       - name: Preload test artifacts
-        run: yarn ts-hooks scripts/preload-test-artifacts.ts
+        run: node scripts/preload-test-artifacts.ts
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v4
@@ -123,7 +123,7 @@ jobs:
 
       - name: Prepare failed screenshot artifacts
         if: github.event_name == 'pull_request'
-        run: yarn ts-hooks tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
+        run: node tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
       - name: Store visual regression output
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4

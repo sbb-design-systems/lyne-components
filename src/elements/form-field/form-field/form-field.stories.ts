@@ -49,11 +49,11 @@ const formField = (
   </sbb-form-field>`;
 
 const PopoverTrigger = (): TemplateResult => html`
-  <sbb-popover-trigger
+  <sbb-mini-button
     slot="suffix"
-    id="popover-trigger"
     icon-name="circle-information-small"
-  ></sbb-popover-trigger>
+    id="popover-trigger"
+  ></sbb-mini-button>
   <sbb-popover trigger="popover-trigger">
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
       >Simple info popover.</sbb-title

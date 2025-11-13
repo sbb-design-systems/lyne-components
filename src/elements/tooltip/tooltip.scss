@@ -76,7 +76,7 @@
 }
 
 .sbb-tooltip {
-  @include sbb.shadow-level-5-soft;
+  box-shadow: var(--sbb-box-shadow-level-5-soft);
   @include sbb.text-xs--regular;
 
   border: var(--sbb-border-width-1x) solid var(--sbb-tooltip-border-color);

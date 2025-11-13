@@ -36,7 +36,7 @@ $open-anim-height-to: calc(
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xs);
   --_sbb-notification-icon-authoritative-font-size: 1em;
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
@@ -62,6 +62,12 @@ $open-anim-height-to: calc(
 :host(:is(:not([type]), [type='info'])) {
   --sbb-notification-type-color: var(--sbb-color-smoke);
   --sbb-notification-icon-color: var(--sbb-notification-color);
+  --sbb-notification-divider-opacity-light: 20%;
+  --sbb-notification-divider-opacity-dark: 20%;
+}
+
+:host([type='note']) {
+  --sbb-notification-type-color: var(--sbb-color-sky);
   --sbb-notification-divider-opacity-light: 20%;
   --sbb-notification-divider-opacity-dark: 20%;
 }
@@ -171,7 +177,8 @@ $open-anim-height-to: calc(
   }
 }
 
-.sbb-notification__icon {
+.sbb-notification__icon,
+::slotted(sbb-icon) {
   color: var(--sbb-notification-icon-color);
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.

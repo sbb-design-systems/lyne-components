@@ -3,7 +3,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
 import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
 import { i18nCloseAlert } from '../../core/i18n.js';
 import { SbbReadonlyMixin } from '../../core/mixins.js';
@@ -40,15 +39,6 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
    * @default 'm' / 's' (lean)
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
-
-  /**
-   * Name of the icon which will be forward to the nested `sbb-icon`.
-   * Choose the icons from https://icons.app.sbb.ch.
-   * Styling is optimized for icons of type HIM-CUS.
-   */
-  @forceType()
-  @property({ attribute: 'icon-name' })
-  public override accessor iconName: string = 'info';
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -152,6 +142,10 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   private _isLightMode(): boolean {
     return !this._darkModeController.matches();
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || 'info';
   }
 
   protected override render(): TemplateResult {

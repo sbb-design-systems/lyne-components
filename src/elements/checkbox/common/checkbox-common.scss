@@ -13,7 +13,7 @@
 }
 
 :host(:disabled) {
-  --sbb-checkbox-cursor: default;
+  --sbb-checkbox-cursor: var(--sbb-cursor-default);
   --sbb-checkbox-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
@@ -46,11 +46,11 @@
   color: var(--sbb-checkbox-label-color);
 
   // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
+  line-height: max((1em * var(--sbb-typo-line-height-text)), var(--sbb-checkbox-dimension));
 }
 
 .sbb-checkbox__aligner {
   display: flex;
   align-items: center;
-  height: calc(1em * var(--sbb-typo-line-height-body-text));
+  height: calc(1em * var(--sbb-typo-line-height-text));
 }

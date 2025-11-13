@@ -1,15 +1,12 @@
-// @ts-check
-import './tools/node-esm-hook/register-hooks.js';
-
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginImportX from 'eslint-plugin-import-x';
+import { flatConfigs } from 'eslint-plugin-import-x';
 import * as eslintPluginLit from 'eslint-plugin-lit';
 import eslintPluginYml from 'eslint-plugin-yml';
-import eslint from '@eslint/js';
+import globals from 'globals';
+import { configs } from 'typescript-eslint';
 
-const eslintPluginLyne = await import('./tools/eslint/index.ts');
+import * as eslintPluginLyne from './tools/eslint/index.ts';
 
 const ignores = [
   'dist/**/*',
@@ -39,11 +36,11 @@ export default [
     rules: eslint.configs.recommended.rules,
     ignores,
   },
-  ...tseslint.configs.recommended,
+  ...configs.recommended,
   ...eslintPluginYml.configs['flat/standard'],
   ...eslintPluginYml.configs['flat/prettier'],
-  eslintPluginImportX.flatConfigs.recommended,
-  eslintPluginImportX.flatConfigs.typescript,
+  flatConfigs.recommended,
+  flatConfigs.typescript,
   eslintPluginLit.configs['flat/recommended'],
   eslintPluginLyne.configs.recommended,
   {

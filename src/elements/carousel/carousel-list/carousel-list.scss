@@ -5,7 +5,9 @@
 
   display: flex;
   height: var(--sbb-carousel-list-height);
-  width: var(--sbb-carousel-list-width);
+
+  // Setting 0px as fallback to avoid instant scrolling on Safari when loading the page
+  width: var(--sbb-carousel-list-width, 0);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -20,8 +22,8 @@
 
     content: '';
     position: absolute;
-    height: var(--sbb-carousel-list-height);
-    width: var(--sbb-carousel-list-width);
+    height: inherit;
+    width: inherit;
     border-start-start-radius: var(--sbb-carousel-list-border-radius);
     border-start-end-radius: var(--sbb-carousel-list-border-radius);
     border-end-start-radius: var(--sbb-carousel-inherit-border-radius);

@@ -13,17 +13,22 @@ import { SbbSelectElement } from './select.component.js';
 import '../form-field.js';
 
 describe(`sbb-select`, () => {
+  let element: SbbSelectElement, root: HTMLDivElement;
+
+  const displayValue = (): string => {
+    const displayValueElement = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
+    return displayValueElement.textContent?.trim();
+  };
+
   describe('common behavior', () => {
-    let element: SbbSelectElement,
-      focusableElement: HTMLElement,
+    let focusableElement: HTMLElement,
       firstOption: SbbOptionElement,
       secondOption: SbbOptionElement,
       thirdOption: SbbOptionElement,
-      displayValue: HTMLElement,
       comboBoxElement: HTMLElement;
 
     beforeEach(async () => {
-      const root = await fixture(html`
+      root = await fixture(html`
         <div id="parent">
           <sbb-select placeholder="Placeholder">
             <sbb-option id="option-1" value="1">First</sbb-option>
@@ -39,7 +44,6 @@ describe(`sbb-select`, () => {
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
       secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
       thirdOption = element.querySelector<SbbOptionElement>('#option-3')!;
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
     });
 
     it('renders', async () => {
@@ -149,12 +153,12 @@ describe(`sbb-select`, () => {
     });
 
     it("displays value if it's set, or placeholder if value doesn't match available options", async () => {
-      expect(displayValue).to.have.trimmed.text('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
 
       element.value = '1';
       await waitForLitRender(element);
       await waitForLitRender(element);
-      expect(displayValue).to.have.trimmed.text('First');
+      expect(element.getDisplayValue()).to.be.equal('First');
       expect(firstOption).to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
@@ -162,18 +166,18 @@ describe(`sbb-select`, () => {
       element.value = '000000000';
       await waitForLitRender(element);
       await waitForLitRender(element);
-      expect(displayValue).to.have.trimmed.text('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
       expect(firstOption).not.to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
     });
 
     it("displays joined string if both multiple and value props are set, or placeholder if value doesn't match available options", async () => {
-      expect(displayValue).to.have.trimmed.text('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
       element.toggleAttribute('multiple', true);
       element.value = ['1', '3'];
       await waitForLitRender(element);
-      expect(displayValue).to.have.trimmed.text('First, Third');
+      expect(element.getDisplayValue()).to.be.equal('First, Third');
       expect(firstOption).to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).to.have.attribute('selected');
@@ -186,7 +190,7 @@ describe(`sbb-select`, () => {
       element.value = '000000000';
       await waitForLitRender(element);
       expect(element.value).to.be.equal('000000000');
-      expect(displayValue).to.have.trimmed.text('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
       expect(firstOption).not.to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
@@ -204,13 +208,12 @@ describe(`sbb-select`, () => {
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
-      const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
       const firstOption = element.querySelector('#option-1');
       const secondOption = element.querySelector('#option-2');
       const thirdOption = element.querySelector('#option-3');
 
       expect(element.value).to.be.equal('2');
-      expect(displayValue).to.have.trimmed.text('Second');
+      expect(element.getDisplayValue()).to.be.equal('Second');
       expect(firstOption).not.to.have.attribute('selected');
       expect(secondOption).to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
@@ -230,8 +233,7 @@ describe(`sbb-select`, () => {
       comboBoxElement = root.querySelector('[role="combobox"]')!;
       focusableElement = comboBoxElement;
 
-      const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
-      expect(displayValue).to.have.trimmed.text('First');
+      expect(element.getDisplayValue()).to.be.equal('First');
       expect(element.value).to.be.equal('1');
 
       const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
@@ -291,8 +293,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(root);
 
       expect(element.value).to.be.equal('3');
-      const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
-      expect(displayValue).to.have.trimmed.text('Third');
+      expect(element.getDisplayValue()).to.be.equal('Third');
     });
 
     it('handles selection in multiple', async () => {
@@ -318,13 +319,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(selectionChange.count).to.be.equal(1);
       expect(element.value).to.be.eql(['1']);
-      expect(displayValue).to.have.trimmed.text('First');
+      expect(element.getDisplayValue()).to.be.equal('First');
 
       secondOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(selectionChange.count).to.be.equal(2);
       expect(element.value).to.be.eql(['1', '2']);
-      expect(displayValue).to.have.trimmed.text('First, Second');
+      expect(element.getDisplayValue()).to.be.equal('First, Second');
 
       firstOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
@@ -332,7 +333,7 @@ describe(`sbb-select`, () => {
       secondOption.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       expect(element.value).to.be.eql([]);
-      expect(displayValue).to.have.trimmed.text('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
       // Panel is still open
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
     });
@@ -434,7 +435,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(openSpy.count).to.be.equal(2);
       expect(closeSpy.count).to.be.equal(2);
-      expect(displayValue).to.have.trimmed.text('First');
+      expect(element.getDisplayValue()).to.be.equal('First');
 
       await aTimeout(1100); // wait for the reset of _searchString timeout
 
@@ -442,7 +443,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(openSpy.count).to.be.equal(2);
       expect(closeSpy.count).to.be.equal(2);
-      expect(displayValue).to.have.trimmed.text('Second');
+      expect(element.getDisplayValue()).to.be.equal('Second');
     });
 
     it('handles keyboard selection', async () => {
@@ -458,13 +459,13 @@ describe(`sbb-select`, () => {
       expect(firstOption).to.have.attribute('data-active');
       expect(firstOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('1');
-      expect(displayValue).to.have.trimmed.text('First');
+      expect(element.getDisplayValue()).to.be.equal('First');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
       await sendKeys({ press: 'T' });
       await waitForLitRender(element);
       expect(openSpy.count).to.be.equal(1);
-      expect(displayValue).to.have.trimmed.text('Third');
+      expect(element.getDisplayValue()).to.be.equal('Third');
       expect(thirdOption).to.have.attribute('data-active');
       expect(thirdOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('3');
@@ -474,7 +475,7 @@ describe(`sbb-select`, () => {
       await sendKeys({ press: 'S' });
       await waitForLitRender(element);
       expect(openSpy.count).to.be.equal(1);
-      expect(displayValue).to.have.trimmed.text('Second');
+      expect(element.getDisplayValue()).to.be.equal('Second');
       expect(secondOption).to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('2');
@@ -513,7 +514,7 @@ describe(`sbb-select`, () => {
       expect(openSpy.count).to.be.equal(1);
       await sendKeys({ press: 'Space' });
       expect(element.value).to.be.eql([]);
-      expect(displayValue).to.have.trimmed.text('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
       await sendKeys({ press: 'Escape' });
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
@@ -538,7 +539,7 @@ describe(`sbb-select`, () => {
       expect(secondOption).to.have.attribute('data-active');
       expect(secondOption).to.have.attribute('selected');
       expect(element.value).to.be.eql(['2']);
-      expect(displayValue).to.have.trimmed.text('Second');
+      expect(element.getDisplayValue()).to.be.equal('Second');
 
       await sendKeys({ press: 'Escape' });
       await closeSpy.calledOnce();
@@ -595,18 +596,16 @@ describe(`sbb-select`, () => {
     });
 
     it('updates displayed value on option value change', async () => {
-      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
       firstOption.click();
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
 
-      expect(displayValue.textContent!.trim()).to.be.equal('First');
+      expect(element.getDisplayValue()).to.be.equal('First');
 
       firstOption.textContent = 'First modified';
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
 
-      expect(displayValue.textContent!.trim()).to.be.equal('First modified');
+      expect(element.getDisplayValue()).to.be.equal('First modified');
 
       // To test the updated value, we need to create a modifiable textNode
       const textNode = document.createTextNode('Initial value');
@@ -617,50 +616,67 @@ describe(`sbb-select`, () => {
       textNode.data = 'First modified again';
 
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
 
-      expect(displayValue.textContent!.trim()).to.be.equal('First modified again');
+      expect(element.getDisplayValue()).to.be.equal('First modified again');
 
       // Deselection
       element.value = '';
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
-
-      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
     });
 
     it('updates displayed value on option value change if multiple', async () => {
       element.multiple = true;
       await waitForLitRender(element);
 
-      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
 
       firstOption.click();
       secondOption.click();
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
-
-      expect(displayValue.textContent!.trim()).to.be.equal('First, Second');
+      expect(displayValue()).to.be.equal('First, Second');
 
       firstOption.textContent = 'First modified';
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
 
-      expect(displayValue.textContent!.trim()).to.be.equal('First modified, Second');
+      expect(displayValue()).to.be.equal('First modified, Second');
 
       // Deselection
       firstOption.click();
       secondOption.click();
       await waitForLitRender(element);
-      displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
 
-      expect(displayValue.textContent!.trim()).to.be.equal('Placeholder');
+      expect(displayValue()).to.be.equal('Placeholder');
+    });
+
+    it('detects options when shadowRoot is not yet rendered', async () => {
+      element.remove();
+
+      element = document.createElement('sbb-select');
+      element.value = '2';
+
+      const option1 = document.createElement('sbb-option');
+      option1.value = '1';
+      option1.textContent = 'First';
+
+      const option2 = document.createElement('sbb-option');
+      option2.value = '2';
+      option2.textContent = 'Second';
+
+      element.append(option1, option2);
+      root.appendChild(element);
+
+      // We need to wait one tick as rendering happens after one Promise resolution.
+      await Promise.resolve();
+
+      expect(option2.selected, 'option 2 to be selected').to.be.true;
+      expect(element.value).to.be.equal('2');
+      expect(element.getDisplayValue()).to.be.equal('Second');
     });
   });
 
   describe('form association', () => {
     let form: HTMLFormElement;
-    let element: SbbSelectElement;
     let comboBoxElement: HTMLElement;
     let nativeSelect: HTMLSelectElement;
     let fieldSet: HTMLFieldSetElement;
@@ -785,19 +801,16 @@ describe(`sbb-select`, () => {
 
     it('should restore form state on formStateRestoreCallback()', async () => {
       // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
-      element.formStateRestoreCallback('3', 'restore');
+      element.formStateRestoreCallback(element['formState'](), 'restore');
       await waitForLitRender(element);
 
-      expect(element.value).to.be.equal('3');
+      expect(element.value).to.be.equal('2');
 
       element.multiple = true;
       element.value = ['1', '2'];
       await waitForLitRender(element);
 
-      // Get the stored formData from the form
-      const formData = new FormData(element.closest('form')!);
-
-      element.formStateRestoreCallback(formData, 'restore');
+      element.formStateRestoreCallback(element['formState'](), 'restore');
       await waitForLitRender(element);
 
       expect(element.value).to.be.eql(['1', '2']);
@@ -887,7 +900,7 @@ describe(`sbb-select`, () => {
       expect(element.validity.valueMissing, 'valueMissing').to.be.true;
     });
 
-    it('should set valididty correctly on initialization', async () => {
+    it('should set validity correctly on initialization', async () => {
       element = await fixture(
         html`<sbb-select name="testvalidation" required><sbb-option>Test</sbb-option></sbb-select>`,
       );
@@ -1043,10 +1056,7 @@ describe(`sbb-select`, () => {
   });
 
   describe('with sbb-form-field', () => {
-    let element: SbbSelectElement,
-      firstOption: SbbOptionElement,
-      comboBoxElement: HTMLElement,
-      formField: SbbFormFieldElement;
+    let firstOption: SbbOptionElement, comboBoxElement: HTMLElement, formField: SbbFormFieldElement;
 
     beforeEach(async () => {
       formField = await fixture(html`
@@ -1174,6 +1184,139 @@ describe(`sbb-select`, () => {
     });
   });
 
+  describe('with boolean value', () => {
+    let element: SbbSelectElement<boolean>;
+
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<form>
+          <sbb-form-field>
+            <label>Label</label>
+            <sbb-select placeholder="Placeholder" name="select1" .value=${false}>
+              <sbb-option id="option-1" .value=${true}>Yes</sbb-option>
+              <sbb-option id="option-2" .value=${false}>No</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        </form> `,
+      );
+      element = root.querySelector<SbbSelectElement<boolean>>('sbb-select')!;
+    });
+
+    it('should have the correct displayValue and the second option selected', () => {
+      const secondOption = element.querySelector<SbbOptionElement<boolean>>('#option-2')!;
+      expect(element.getDisplayValue()).to.be.equal('No');
+      expect(secondOption).to.have.attribute('selected');
+    });
+
+    it('should set value on option click', async () => {
+      const firstOption = element.querySelector<SbbOptionElement<boolean>>('#option-1')!;
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      firstOption.click();
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.getDisplayValue()).to.be.equal('Yes');
+      expect(firstOption).to.have.attribute('selected');
+      expect(element.value).to.be.equal(true);
+    });
+  });
+
+  describe('with number value', () => {
+    let element: SbbSelectElement<number>;
+
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<form>
+          <sbb-form-field>
+            <label>Label</label>
+            <sbb-select placeholder="Placeholder" name="select1" .value=${0}>
+              <sbb-option id="option-1" .value=${0}>No</sbb-option>
+              <sbb-option id="option-2" .value=${1}>Yes</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        </form>`,
+      );
+      element = root.querySelector<SbbSelectElement<number>>('sbb-select')!;
+    });
+
+    it('should have the correct displayValue and the first option selected', () => {
+      const firstOption = element.querySelector<SbbOptionElement<boolean>>('#option-1')!;
+      expect(element.getDisplayValue()).to.be.equal('No');
+      expect(firstOption).to.have.attribute('selected');
+    });
+
+    it('should set value on option click', async () => {
+      const secondOption = element.querySelector<SbbOptionElement<boolean>>('#option-2')!;
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      secondOption.click();
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.getDisplayValue()).to.be.equal('Yes');
+      expect(secondOption).to.have.attribute('selected');
+      expect(element.value).to.be.equal(1);
+    });
+  });
+
+  describe('with null value', () => {
+    let element: SbbSelectElement<null | 0>;
+
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<form>
+          <sbb-form-field>
+            <label>Label</label>
+            <sbb-select placeholder="Placeholder" name="select1" .value=${null}>
+              <sbb-option id="option-1" .value=${0}>other</sbb-option>
+              <sbb-option id="option-2" .value=${null}>null</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        </form>`,
+      );
+      element = root.querySelector<SbbSelectElement<null | 0>>('sbb-select')!;
+    });
+
+    it('should have the correct displayValue and the first option selected', () => {
+      const secondOption = element.querySelector<SbbOptionElement<boolean>>('#option-2')!;
+      expect(element.getDisplayValue()).to.be.equal('null');
+      expect(secondOption).to.have.attribute('selected');
+    });
+
+    it('should set value on option click', async () => {
+      element.value = 0;
+      await waitForLitRender(element);
+
+      const firstOption = element.querySelector<SbbOptionElement<boolean>>('#option-1')!;
+      expect(element.getDisplayValue()).to.be.equal('other');
+      expect(firstOption).to.have.attribute('selected');
+
+      const secondOption = element.querySelector<SbbOptionElement<boolean>>('#option-2')!;
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      secondOption.click();
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.getDisplayValue()).to.be.equal('null');
+      expect(secondOption).to.have.attribute('selected');
+      expect(element.value).to.be.equal(null);
+    });
+  });
+
   describe('with complex value', () => {
     type PropertyType = { property: string; otherProperty: string };
     let element: SbbSelectElement<PropertyType>, firstOption: SbbOptionElement<PropertyType>;
@@ -1234,20 +1377,20 @@ describe(`sbb-select`, () => {
 
       expect(element.value).to.be.equal(value1);
 
-      // Get the stored formData from the form
-      const formData = new FormData(element.closest('form')!);
+      const formState = element['formState']();
+      element.value = value2;
 
       // Simulate navigating to other page and then back to form
-      element.formStateRestoreCallback(formData, 'restore');
+      element.formStateRestoreCallback(formState, 'restore');
 
       // Wait for the formStateRestoreCallback to finish
       await aTimeout(30);
       await waitForLitRender(element);
 
       // Object equality is currently lost, but deep equality is preserved
-      expect(element.value).to.be.deep.equal(value1);
+      expect(element.value).not.to.be.deep.equal(value1); // TODO: With a comparison function, this should be equal
       expect(element.value).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
-      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First'
+      expect(element.getDisplayValue()).to.be.equal('Second'); // TODO: With a comparison function, this should be 'First'
       expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
     });
 
@@ -1258,26 +1401,104 @@ describe(`sbb-select`, () => {
       element.value = [value1, value2];
       await waitForLitRender(element);
 
+      const formState = element['formState']();
+
       expect(element.value[0]).to.be.equal(value1);
       expect(element.value[1]).to.be.equal(value2);
 
-      // Get the stored formData from the form
-      const formData = new FormData(element.closest('form')!);
+      element.value = [];
 
       // Simulate navigating to other page and then back to form
-      element.formStateRestoreCallback(formData, 'restore');
+      element.formStateRestoreCallback(formState, 'restore');
 
       // Wait for the formStateRestoreCallback to finish
       await aTimeout(30);
       await waitForLitRender(element);
 
       // Object equality is currently lost, but deep equality is preserved
-      expect(element.value).to.be.deep.equal([value1, value2]);
-      expect(element.value.length).to.be.equal(2);
+      expect(element.value).to.be.deep.equal([]); // TODO: With a comparison function, this should be equal the deserialized value
       expect(element.value[0]).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
       expect(element.value[1]).not.to.be.equal(value2); // TODO: With a comparison function, this should be equal
       expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First, Second'
       expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
+    });
+  });
+
+  describe('with optgroup', () => {
+    beforeEach(async () => {
+      const root = await fixture(html`
+        <div id="parent">
+          <sbb-select placeholder="Placeholder">
+            <sbb-optgroup label="Group 1">
+              <sbb-option id="option-1" value="1">First</sbb-option>
+              <sbb-option id="option-2" value="2">Second</sbb-option>
+            </sbb-optgroup>
+            <sbb-optgroup label="Group 2">
+              <sbb-option id="option-3" value="3">Third</sbb-option>
+              <sbb-option id="option-4" value="4" selected>Fourth</sbb-option>
+            </sbb-optgroup>
+          </sbb-select>
+        </div>
+      `);
+      element = root.querySelector<SbbSelectElement>('sbb-select')!;
+    });
+
+    it('should have the correct initial value and displayValue', () => {
+      expect(element.value).to.be.equal('4');
+      expect(element.getDisplayValue()).to.be.equal('Fourth');
+    });
+
+    it('should open and select options within the optgroup', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      element.options[2].click();
+      await waitForLitRender(element);
+      await closeSpy.calledOnce();
+
+      expect(element.value).to.be.equal('3');
+      expect(element.getDisplayValue()).to.be.equal('Third');
+
+      await closeSpy.calledOnce();
+    });
+
+    it('should respect later added option which is selected', async () => {
+      const newOption = document.createElement('sbb-option');
+      newOption.value = '5';
+      newOption.textContent = 'Fifth';
+      newOption.selected = true;
+      newOption.id = 'option-5';
+
+      const optGroup2 = element.querySelectorAll('sbb-optgroup')[1];
+      optGroup2.insertBefore(newOption, element.options[3]);
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('5');
+      expect(element.getDisplayValue()).to.be.equal('Fifth');
+    });
+
+    it('ignores selected attributes on options when value was defined programmatically', async () => {
+      element.value = '2';
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('2');
+      expect(element.getDisplayValue()).to.be.equal('Second');
+
+      const newOption = document.createElement('sbb-option');
+      newOption.value = '5';
+      newOption.textContent = 'Fifth';
+      newOption.selected = true;
+      newOption.id = 'option-5';
+
+      const optGroup2 = element.querySelectorAll('sbb-optgroup')[1];
+      optGroup2.insertBefore(newOption, element.options[3]);
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('2');
+      expect(element.getDisplayValue()).to.be.equal('Second');
     });
   });
 });

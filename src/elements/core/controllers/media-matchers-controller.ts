@@ -2,22 +2,19 @@ import {
   SbbBreakpointLargeMax,
   SbbBreakpointLargeMin,
   SbbBreakpointSmallMax,
-  SbbTypoScaleDefault,
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
 import type { SbbElementInternalsMixinType } from '../mixins.js';
-
-const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryDarkMode = '(prefers-color-scheme: dark)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
-export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${pxToRem(SbbBreakpointLargeMin)}rem)`;
-export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${pxToRem(SbbBreakpointLargeMax)}rem)`;
-export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${pxToRem(SbbBreakpointSmallMax)}rem)`;
+export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${SbbBreakpointLargeMin})`;
+export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${SbbBreakpointLargeMax})`;
+export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${SbbBreakpointSmallMax})`;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**
