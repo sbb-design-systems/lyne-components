@@ -36,24 +36,17 @@ class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElem
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-visual-checkbox">
-        ${this.checked || this.indeterminate
-          ? html`<svg
-              width=${this.size === 'xs' ? '20' : '24'}
-              height=${this.size === 'xs' ? '20' : '24'}
-              viewBox="0 0 24 24"
+      ${this.checked || this.indeterminate
+        ? html`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d=${this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>`
-          : nothing}
-      </span>
+              d=${this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>`
+        : nothing}
     `;
   }
 }
