@@ -1,5 +1,6 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { isArrowKeyPressed } from '../../core/a11y.js';
@@ -71,19 +72,9 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
     config: { threshold: 0.99, root: this, rootMargin: '100% 0% 100% 0%' },
   });
 
-  // Observer to read the dimensions of the first item when it becomes visible.
-  private _firstVisibleIntersectionController = new IntersectionController(this, {
-    callback: (entries) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-          this._readDimensions();
-          this._firstVisibleIntersectionController.unobserve(this);
-        }
-      });
-    },
-    config: {
-      root: !isServer ? document?.documentElement : null,
-    },
+  private _resizeObserverController = new ResizeController(this, {
+    skipInitial: true,
+    callback: () => this._readDimensions(),
   });
 
   public constructor() {
@@ -142,6 +133,7 @@ class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
         this._showObserver.observe(item);
       });
       this._observedCarouselItems = carouselItems;
+      this._resizeObserverController.unobserve(this);
     }
   }
 
